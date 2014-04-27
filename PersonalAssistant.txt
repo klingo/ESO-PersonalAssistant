@@ -1,0 +1,23 @@
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.0.0|r 
+## Version: 1.0.0
+## Author: Klingo
+## APIVersion: 100003
+## SavedVariables: PersonalAssistant_SavedVariables
+## OptionalDependsOn: LibAddonMenu-1.0
+
+## Libraries
+Lib/LibStub/LibStub.lua
+Lib/LibAddonMenu-1.0/LibAddonMenu-1.0.lua
+
+## Core
+PersonalAssistant.lua
+Lib/Globals.lua
+Lib/SettingsMenu/SettingsMenu.lua
+
+## PARepair
+Lib/PARepair/PARepair.lua
+
+## PADeposit
+Lib/PADeposit/PADeposit.lua
+
+## PAWithdrawal
