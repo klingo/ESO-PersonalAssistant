@@ -10,13 +10,19 @@ PA_SettingsMenu.CreateOptions = function()
     LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_AR_Enabled", "|cB0B0FFEnable Auto Repair|r", "Enable Auto Repair?",
                     function() return PA_SavedVars.Repair.enabled end,
                     function(val) PA_SavedVars.Repair.enabled = val end)
-    LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_AR_Equipped", "Only equipped items", "Repair only equipped items?",
-                    function() return PA_SavedVars.Repair.onlyEquipped end,
-                    function(val) PA_SavedVars.Repair.onlyEquipped = val end)
-    LAM:AddSlider(PAPanel, 'PersonalAssistant_Options_AR_Threshold', '- Durability threshold in %', 'Repair equipped items only if they are at or below the defined threshold.', 0, 100, 1,
-					function() return PA_SavedVars.Repair.threshold end, 
-					function(val) PA_SavedVars.Repair.threshold = val end)
-    LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_AR_HideNothingToRepair", "Hide 'Nothing to Repair' message", "Hide 'Nothing to Repair' message. You will see a message if there is something to repair, though.",
+    LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_AR_Equipped", "Repair equipped items", "Repair equipped items?",
+                    function() return PA_SavedVars.Repair.equipped end,
+                    function(val) PA_SavedVars.Repair.equipped = val end)
+    LAM:AddSlider(PAPanel, 'PersonalAssistant_Options_AR_Equipped_Threshold', '- Durability threshold in %', 'Repair equipped items only if they are at or below the defined durability threshold.', 0, 100, 1,
+					function() return PA_SavedVars.Repair.equippedThreshold end, 
+					function(val) PA_SavedVars.Repair.equippedThreshold = val end)
+    LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_AR_Inventory", "Repair inventory items", "Repair inventory items?",
+                    function() return PA_SavedVars.Repair.inventory end,
+                    function(val) PA_SavedVars.Repair.inventory = val end)
+    LAM:AddSlider(PAPanel, 'PersonalAssistant_Options_AR_Inventory_Threshold', '- Durability threshold in %', 'Repair items in the inventory only if they are at or below the defined durability threshold.', 0, 100, 1,
+					function() return PA_SavedVars.Repair.inventoryThreshold end, 
+					function(val) PA_SavedVars.Repair.inventoryThreshold = val end)
+    LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_AR_HideNothingToRepair", "Hide 'Nothing to Repair' message", "Hide 'Nothing to Repair' message. You will still see a message if there is something to repair.",
                     function() return PA_SavedVars.Repair.hideNoRepairMsg end,
                     function(val) PA_SavedVars.Repair.hideNoRepairMsg = val end)
     LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_AR_HideAllMsg", "Hide ALL messages", "Silent-Mode: no message will be displayed. You also won't see your repair cost.",

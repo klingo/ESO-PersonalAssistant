@@ -1,5 +1,5 @@
 -- Addon: PersonalAssistant
--- Version: 1.0.1
+-- Version: 1.1.0
 -- Developer: Klingo
 
 
@@ -7,10 +7,12 @@
 local Repair_Defaults = 
 {
 	enabled = true,
-    onlyEquipped = true,
+	equipped = true,
+	equippedThreshold = 75,
+	inventory = false,
+	inventoryThreshold = 75,
     hideNoRepairMsg = false,
     hideAllMsg = false,
-	threshold = 75
 }
 
 -- default values for PADeposit
