@@ -37,7 +37,7 @@ PA_SettingsMenu.CreateOptions = function()
 	LAM:AddCheckbox(PAPanel, "PersonalAssistant_Options_ABD_Gold", "Deposit Gold", "Auto deposit gold to bank?",
 				function() return PA_SavedVars.Deposit.gold end,
 				function(val) PA_SavedVars.Deposit.gold = val end)
-	LAM:AddEditBox(PAPanel, "PersonalAssistant_Options_ABD_DepositInterval", "- Min interval between auto-deposits",  "Minimum time in seconds between two automatic gold deposits.", false,
+	LAM:AddEditBox(PAPanel, "PersonalAssistant_Options_ABD_DepositInterval", "- Min interval between deposits (sec)",  "Minimum time in seconds between two automatic gold deposits.", false,
 				function () return PA_SavedVars.Deposit.depositInterval end,
 				function(val) PA_SavedVars.Deposit.depositInterval = tonumber(val) end,
 				true, "Invalid number --> No minimum interval between deposits.")
