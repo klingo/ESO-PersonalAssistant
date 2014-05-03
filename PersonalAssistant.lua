@@ -1,6 +1,10 @@
 -- Addon: PersonalAssistant
--- Version: 1.1.0
+-- Version: 1.1.1
 -- Developer: Klingo
+
+-- colors
+local colWhite = "|cFFFFFF"
+local colYellow = "|cFFFF00"
 
 
 -- default values for PARepair
@@ -12,21 +16,22 @@ local Repair_Defaults =
 	inventory = false,
 	inventoryThreshold = 75,
     hideNoRepairMsg = false,
-    hideAllMsg = false,
+    hideAllMsg = false
 }
 
 -- default values for PADeposit
 local Deposit_Defaults =
 {
 	enabled = false,
-    hideNoDepositMsg = false,
-    hideAllMsg = false,
 	gold = true,
 	depositPercentage = 50,
 	depositStep = 1,
 	depositInterval = 300,
 	minGoldToKeep = 250,
-	lastDeposit = 0
+	lastDeposit = 0,
+	items = true,
+    hideNoDepositMsg = false,
+    hideAllMsg = false
 }
 
 -- default values for PAWithdraw
@@ -51,7 +56,13 @@ local function init(eventCode, addOnName)
     EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAR.OnShopOpen)
 	
 	-- register PADeposit
-	EVENT_MANAGER:RegisterForEvent( "PersonalAssistant", EVENT_OPEN_BANK, PAD.OnBankOpen );
+	EVENT_MANAGER:RegisterForEvent( "PersonalAssistant", EVENT_OPEN_BANK, PAD.OnBankOpen )
+end
+
+local function introduction()
+	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant", EVENT_PLAYER_ACTIVATED)
+	d(colYellow .. "P" .. colWhite .. "ersonal"..colYellow.."A"..colWhite.."ssistant"..colYellow.." at your service!")
 end
 
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_ADD_ON_LOADED, init)
+EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_PLAYER_ACTIVATED, introduction)

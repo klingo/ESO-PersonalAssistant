@@ -1,5 +1,5 @@
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.1.0|r 
-## Version: 1.1.0
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.1.1|r 
+## Version: 1.1.1
 ## Author: Klingo
 ## APIVersion: 100003
 ## SavedVariables: PersonalAssistant_SavedVariables

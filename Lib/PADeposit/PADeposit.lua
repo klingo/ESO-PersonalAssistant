@@ -1,21 +1,23 @@
--- Addon: PersonalAssistant.PADeposit
--- Version: 1.0.0
+-- Module: PersonalAssistant.PADeposit
 -- Developer: Klingo
 
 PAD = {}
 
 function PAD.OnBankOpen()
 	-- check if addon is enabled
-	if PA_SavedVars.Deposit.enabled == true then
-		-- check for numeric value, if not, use default value of 0
-		local minGoldToKeep = 0
-		if tonumber(PA_SavedVars.Deposit.minGoldToKeep) ~= nil then
-			minGoldToKeep = PA_SavedVars.Deposit.minGoldToKeep
-		end
-		
-		-- check if minim amount of gold to keep is exceeded
-		if (GetCurrentMoney() > minGoldToKeep) then
-			PAD.DepositGold(minGoldToKeep)
+	if PA_SavedVars.Deposit.enabled then
+		-- check if gold deposit is activated
+		if PA_SavedVars.Deposit.gold then
+			-- check for numeric value, if not, use default value of 0
+			local minGoldToKeep = 0
+			if tonumber(PA_SavedVars.Deposit.minGoldToKeep) ~= nil then
+				minGoldToKeep = PA_SavedVars.Deposit.minGoldToKeep
+			end
+			
+			-- check if minim amount of gold to keep is exceeded
+			if (GetCurrentMoney() > minGoldToKeep) then
+				PAD.DepositGold(minGoldToKeep)
+			end
 		end
 	end
 end
