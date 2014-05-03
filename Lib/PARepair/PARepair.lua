@@ -1,5 +1,4 @@
--- Addon: PersonalAssistant.PARepair
--- Version: 1.1.0
+-- Module: PersonalAssistant.PARepair
 -- Developer: Klingo
 
 PAR = {}
@@ -19,7 +18,7 @@ function PAR.OnShopOpen()
 			end
 		else
 			if PA_SavedVars.Repair.hideNoRepairMsg == false then
-				PAR.println("Nothing to repair.")
+				d("PARepair: Nothing to repair.")
 			end
 		end
 	end
@@ -72,6 +71,10 @@ function PAR.RepairItems(bagId, threshold)
 	else
 		if notRepairedItems > 0 then
 			d("PARepair: Not enough gold to repair " .. notRepairedItems .. " " .. bagName .. " items.")
+		else
+			if PA_SavedVars.Repair.hideNoRepairMsg == false then
+				d("PARepair: Nothing to repair.")
+			end
 		end
 	end
 end
