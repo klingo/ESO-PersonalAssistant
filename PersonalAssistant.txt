@@ -1,23 +1,39 @@
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.1.1|r 
-## Version: 1.1.1
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.2.0|r 
+## Version: 1.2.0
 ## Author: Klingo
 ## APIVersion: 100003
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## OptionalDependsOn: LibAddonMenu-1.0
 
-## Libraries
-Lib/LibStub/LibStub.lua
-Lib/LibAddonMenu-1.0/LibAddonMenu-1.0.lua
+# Libraries
+libs/LibStub/LibStub.lua
+libs/LibAddonMenu-1.0/LibAddonMenu-1.0.lua
 
-## Core
+# Localization
+localization/en.lua
+# localization/de.lua
+# localization/fr.lua
+
+# UserInterface
+libs/UI/PAUI.lua
+
+# Core
+vars/Globals.lua
 PersonalAssistant.lua
-Lib/Globals.lua
-Lib/SettingsMenu/SettingsMenu.lua
+PersonalAssistant.xml
 
-## PARepair
-Lib/PARepair/PARepair.lua
+# Settings
+libs/Settings/PADMenu.lua
+libs/Settings/PARMenu.lua
+# libs/Settings/PAWMenu.lua
+libs/Settings/MainMenu.lua
 
-## PADeposit
-Lib/PADeposit/PADeposit.lua
+# PARepair
+libs/PARepair/PARepair.lua
 
-## PAWithdrawal
+# PADeposit
+libs/PADeposit/PADepositGold.lua
+libs/PADeposit/PADepositItems.lua
+libs/PADeposit/PADeposit.lua
+
+# PAWithdrawal

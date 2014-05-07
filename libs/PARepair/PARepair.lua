@@ -12,18 +12,19 @@ function PAR.OnShopOpen()
 			if PA_SavedVars.Repair.equipped then
 				PAR.RepairItems(BAG_WORN, PA_SavedVars.Repair.equippedThreshold)
 			end
-			-- check if inventory items shall be repaired
-			if PA_SavedVars.Repair.inventory then
-				PAR.RepairItems(BAG_BACKPACK, PA_SavedVars.Repair.inventoryThreshold)
+			-- check if backpack items shall be repaired
+			if PA_SavedVars.Repair.backpack then
+				PAR.RepairItems(BAG_BACKPACK, PA_SavedVars.Repair.backpackThreshold)
 			end
 		else
-			if PA_SavedVars.Repair.hideNoRepairMsg == false then
-				d("PARepair: Nothing to repair.")
+			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
+				CHAT_SYSTEM:AddMessage("PARepair: Nothing to repair.")
 			end
 		end
 	end
 end
 
+-- repair all items that are below the given threshold for the bag
 function PAR.RepairItems(bagId, threshold)
 	local _, bagSlots = GetBagInfo(bagId)
 	local repairCost = 0
@@ -32,7 +33,7 @@ function PAR.RepairItems(bagId, threshold)
 	local notRepairedItems = 0
 	
 	-- loop through all items of the corresponding bagId
-	for slotIndex=0, bagSlots - 1 do
+	for slotIndex = 0, bagSlots - 1 do
 		-- check first if the item has durability (and therefore is repairable)
 		if DoesItemHaveDurability(bagId, slotIndex) then
 			-- then compare it with the threshold
@@ -64,26 +65,27 @@ function PAR.RepairItems(bagId, threshold)
 	
 	if repairedItems > 0 then
 		if notRepairedItems > 0 then
-			d("PARepair: " .. repairedItems .. " / " .. notRepairedItems .. " " .. bagName .. " items repaired for " .. repairCost .. " gold. (not enough gold)")
+			CHAT_SYSTEM:AddMessage("PARepair: " .. repairedItems .. " / " .. notRepairedItems .. " " .. bagName .. " items repaired for " .. repairCost .. " gold. (not enough gold)")
 		else
-			d("PARepair: All " .. bagName .. " items repaired for " .. repairCost .. " gold.")
+			CHAT_SYSTEM:AddMessage("PARepair: All " .. bagName .. " items repaired for " .. repairCost .. " gold.")
 		end
 	else
 		if notRepairedItems > 0 then
-			d("PARepair: Not enough gold to repair " .. notRepairedItems .. " " .. bagName .. " items.")
+			CHAT_SYSTEM:AddMessage("PARepair: Not enough gold to repair " .. notRepairedItems .. " " .. bagName .. " items.")
 		else
-			if PA_SavedVars.Repair.hideNoRepairMsg == false then
-				d("PARepair: Nothing to repair.")
+			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
+				CHAT_SYSTEM:AddMessage("PARepair: Nothing to repair.")
 			end
 		end
 	end
 end
 
+-- returns a name for the bagId; there might be pre-defined namespaces?
 function PAR.getBagName(bagId)
 	if (bagId == BAG_WORN) then
 		return "equipped"
 	else if (bagId == BAG_BACKPACK) then 
-		return "inventory"
+		return "backpack"
 	else
 		return "unknown"
 	end
@@ -92,6 +94,6 @@ end
 -- FIXME: does not support multiple parameters (yet)
 function PAR.println(msg)
 	if PA_SavedVars.Repair.hideAllMsg then return end
-		d("PARepair: " .. msg)
+		CHAT_SYSTEM:AddMessage("PARepair: " .. msg)
 	end
 end

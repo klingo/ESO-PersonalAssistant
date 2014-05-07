@@ -1,0 +1,12 @@
+<GuiXml>
+	<Controls>
+		<TopLevelControl name="PersonalAssistantUI" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
+			<Dimensions x="760" y="650" />
+			<Anchor point="CENTER" />
+			
+            <Controls>
+                <Backdrop name="$(parent)BG" inherits="ZO_DefaultBackdrop" />
+            </Controls>
+		</TopLevelControl>
+	</Controls>
+</GuiXml>
