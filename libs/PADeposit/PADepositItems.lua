@@ -34,6 +34,7 @@ function PAD_Items.DepositItems()
 						-- compare the names
 						if transferInfo["fromItemName"] == transferInfo["toItemName"] then
 							-- item found in bank, transfer item from backpack to bank and get info how many items left
+							PAD_Items.itemDeposited = true
 							transferInfo["stackSize"] = PAD_Items.transferItem(currBackpackItem, currBankItem, transferInfo)
 						end
 						
@@ -48,6 +49,7 @@ function PAD_Items.DepositItems()
 					
 					-- all bank-items checked - are still stacks left?
 					if transferInfo["stackSize"] > 0 then
+						PAD_Items.itemDeposited = true
 						zo_callLater(function() PAD_Items.transferItem(currBackpackItem, nil, transferInfo) end, timer)
 						timer = timer + 250
 						break
@@ -123,7 +125,6 @@ function PAD_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
     ClearCursor()
 	
 	if result then
-		PAD_Items.itemDeposited = true
 		CHAT_SYSTEM:AddMessage(string.format("%s x %s was added to bank.", stackSize, transferInfo["fromItemLink"]))
 	else
 		CHAT_SYSTEM:AddMessage(string.format("%s was NOT added to bank.", transferInfo["fromItemLink"]))

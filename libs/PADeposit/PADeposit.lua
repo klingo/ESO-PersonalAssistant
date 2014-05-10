@@ -14,6 +14,7 @@ function PAD.OnBankOpen()
 		if PA_SavedVars.Deposit.gold then
 			-- check for numeric value, if not, use default value of 0
 			local minGoldToKeep = 0
+			
 			if tonumber(PA_SavedVars.Deposit.minGoldToKeep) ~= nil then
 				minGoldToKeep = PA_SavedVars.Deposit.minGoldToKeep
 			end
@@ -26,15 +27,14 @@ function PAD.OnBankOpen()
 		
 		-- check if item deposit is enabled
 		if PA_SavedVars.Deposit.items then
-			 itemDeposited = PAD_Items.DepositItems()
+			itemDeposited = PAD_Items.DepositItems()
 		end
 		
-		-- FIXME: THis check does not workas it does not wait for the others to complete
---		if (not goldDeposited) and (not itemDeposited) then
---			if (not PA_SavedVars.Deposit.hideNoDepositMsg) then
---				PAD.println("Nothing to deposit.")
---			end
---		end
+		if (not goldDeposited) and (not itemDeposited) then
+			if (not PA_SavedVars.Deposit.hideNoDepositMsg) then
+				PAD.println("Nothing to deposit.")
+			end
+		end
 	end
 end
 
