@@ -1,5 +1,5 @@
 -- Addon: PersonalAssistant
--- Version: 1.2.0
+-- Version: 1.2.1
 -- Developer: Klingo
 
 PA = {}
@@ -34,9 +34,6 @@ function PA.initAddon(eventCode, addOnName)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
-	if PA_SavedVars.General.language ~= "en" then -- or vars.lang ~= "de" or vars.lang ~= "fr" then
-		mDebug(string.format("%s is not (yet) supported. "..PA.colYellow .. "P" .. PA.colWhite .. "ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." will use the standard language (en).", PASavedVars.language))
-	end
 	
 	-- creates the (new) XML UI
 	PAUI.initUI()
@@ -107,8 +104,13 @@ end
 -- introduces the addon to the player
 function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
---	CHAT_SYSTEM:AddMessage(PA.colYellow .. "P" .. PA.colWhite .. "ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service! Type '/pa' for GUI.")
-	CHAT_SYSTEM:AddMessage(PA.colYellow .. "P" .. PA.colWhite .. "ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service!")
+
+	if PA_SavedVars.General.language ~= "en" then -- or vars.lang ~= "de" or vars.lang ~= "fr" then
+		CHAT_SYSTEM:AddMessage(string.format(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service!   -   no localization for (%s) available yet.", PA_SavedVars.General.language))
+	else
+--	CHAT_SYSTEM:AddMessage(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service! Type '/pa' for GUI.")
+	CHAT_SYSTEM:AddMessage(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service!")
+	end
 end
 
 SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
