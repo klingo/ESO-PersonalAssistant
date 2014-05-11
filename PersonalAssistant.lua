@@ -1,5 +1,5 @@
 -- Addon: PersonalAssistant
--- Version: 1.2.1
+-- Version: 1.2.1a
 -- Developer: Klingo
 
 PA = {}
@@ -93,9 +93,9 @@ end
 -- returns the localized text for a key
 function PA.getResourceMessage(key)
 	if PA_SavedVars.General.language == "de" then
-		return ResourceBundle.de[key]
+		return ResourceBundle.en[key]	-- always use "en" so far
 	elseif PA_SavedVars.General.language == "fr" then
-		return ResourceBundle.fr[key]
+		return ResourceBundle.en[key]	-- always use "en" so far
 	else
 		return ResourceBundle.en[key]
 	end
@@ -113,7 +113,7 @@ function PA.introduction()
 	end
 end
 
-SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+-- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED, PA.initAddon)
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED, PA.introduction)
