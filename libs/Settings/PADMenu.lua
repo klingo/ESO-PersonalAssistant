@@ -28,6 +28,10 @@ function PADMenu.createMenu(LAM, panel)
 				
 	local PASubPanel = LAM:AddSubMenu(panel, "PA_Panel_Items_Deposit", "- Set items to deposit", "Open the sub-menu to define for each item type whether it shall be deposited or not.")
 	PADMenu.createItemSubMenu(LAM, PASubPanel)
+	
+	LAM:AddCheckbox(panel, "PAD_Items_Junk_Enabled", "- Deposit items marked as junk?", "Shall items that are marked as junk be deposited to the bank as well?",
+				function() return PA_SavedVars.Deposit.junk end,
+				function(val) PA_SavedVars.Deposit.junk = val end)
 				
     LAM:AddCheckbox(panel, "PAD_HideNothingToDeposit", "Hide 'Nothing to Deposit' message", "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",
 				function() return PA_SavedVars.Deposit.hideNoDepositMsg end,

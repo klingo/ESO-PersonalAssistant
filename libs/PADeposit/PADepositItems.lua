@@ -18,41 +18,46 @@ function PAD_Items.DepositItems()
 		transferInfo["fromItemName"] = GetItemName(transferInfo["fromBagId"], currBackpackItem):upper()
 		transferInfo["fromItemLink"] = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(transferInfo["fromBagId"], currBackpackItem, LINK_STYLE_BRACKETS))
 		transferInfo["stackSize"] = GetSlotStackSize(transferInfo["fromBagId"], currBackpackItem)
-		
-		-- loop through all item types
-		for currItemType = 0, #PAItemTypes do
-			-- checks if this item type has been enabled for deposits
-			if PA_SavedVars.Deposit.ItemTypes[currItemType] then
-				-- then check if it does match the type of the backpack item
-				if backpackItemTypeList[currBackpackItem] == PAItemTypes[currItemType] then
-					
-					-- then loop through all items in the bank
-					for currBankItem = 0, #bankItemTypeList do
-						-- store the name of the bank item
-						transferInfo["toItemName"] = GetItemName(transferInfo["toBagId"], currBankItem):upper()
+
+		-- check if the item is marked as junk and whether junk shall be deposited too
+		if IsItemJunk(transferInfo["fromBagId"], currBackpackItem) and not PA_SavedVars.Deposit.junk then
+			-- do nothing; skip item
+		else
+			-- loop through all item types
+			for currItemType = 0, #PAItemTypes do
+				-- checks if this item type has been enabled for deposits
+				if PA_SavedVars.Deposit.ItemTypes[currItemType] then
+					-- then check if it does match the type of the backpack item
+					if backpackItemTypeList[currBackpackItem] == PAItemTypes[currItemType] then
 						
-						-- compare the names
-						if transferInfo["fromItemName"] == transferInfo["toItemName"] then
-							-- item found in bank, transfer item from backpack to bank and get info how many items left
+						-- then loop through all items in the bank
+						for currBankItem = 0, #bankItemTypeList do
+							-- store the name of the bank item
+							transferInfo["toItemName"] = GetItemName(transferInfo["toBagId"], currBankItem):upper()
+							
+							-- compare the names
+							if transferInfo["fromItemName"] == transferInfo["toItemName"] then
+								-- item found in bank, transfer item from backpack to bank and get info how many items left
+								PAD_Items.itemDeposited = true
+								transferInfo["stackSize"] = PAD_Items.transferItem(currBackpackItem, currBankItem, transferInfo)
+							end
+							
+							-- if no items left, break. otherwise continue the loop
+							if transferInfo["stackSize"] == 0 then
+								break
+							-- if "-1" returned, not enough space was available. stop the rest.
+							elseif transferInfo["stackSize"] < 0 then
+								return
+							end
+						end
+						
+						-- all bank-items checked - are still stacks left?
+						if transferInfo["stackSize"] > 0 then
 							PAD_Items.itemDeposited = true
-							transferInfo["stackSize"] = PAD_Items.transferItem(currBackpackItem, currBankItem, transferInfo)
-						end
-						
-						-- if no items left, break. otherwise continue the loop
-						if transferInfo["stackSize"] == 0 then
+							zo_callLater(function() PAD_Items.transferItem(currBackpackItem, nil, transferInfo) end, timer)
+							timer = timer + 250
 							break
-						-- if "-1" returned, not enough space was available. stop the rest.
-						elseif transferInfo["stackSize"] < 0 then
-							return
 						end
-					end
-					
-					-- all bank-items checked - are still stacks left?
-					if transferInfo["stackSize"] > 0 then
-						PAD_Items.itemDeposited = true
-						zo_callLater(function() PAD_Items.transferItem(currBackpackItem, nil, transferInfo) end, timer)
-						timer = timer + 250
-						break
 					end
 				end
 			end
@@ -102,7 +107,7 @@ function PAD_Items.isItemMoved(fromSlotIndex, transferInfo)
 		-- check if the same item name is in the "old" slotIndex
 		if (GetItemName(transferInfo["fromBagId"], fromSlotIndex):upper() == transferInfo["fromItemName"]) then
 			-- the item is still there and has NOT been moved.
-			CHAT_SYSTEM:AddMessage(string.format("FAILURE: %s could NOT be added to bank.", GetItemLink(transferInfo["fromBagId"], fromSlotIndex, LINK_STYLE_BRACKETS)))
+			CHAT_SYSTEM:AddMessage(string.format("FAILURE: %s could NOT be added to bank.", transferInfo["fromItemLink"]))
 			-- try to transfer the item again (does not work YET, it generates an endless loop)
 			-- zo_callLater(function() PAD_Items.transferItem(fromSlotIndex, nil, transferInfo) end, 500)
 			-- TODO: maybe create a list for a post-processing

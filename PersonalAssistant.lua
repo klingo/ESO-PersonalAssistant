@@ -1,5 +1,5 @@
 -- Addon: PersonalAssistant
--- Version: 1.2.1a
+-- Version: 1.2.2
 -- Developer: Klingo
 
 PA = {}
@@ -36,7 +36,7 @@ function PA.initAddon(eventCode, addOnName)
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
 	
 	-- creates the (new) XML UI
-	PAUI.initUI()
+--	PAUI.initUI()
 	
 	-- create the options with LAM
 	PA_SettingsMenu.CreateOptions()
@@ -71,6 +71,7 @@ function PA.initDefaults()
 	PA.Deposit_Defaults.minGoldToKeep = 250
 	PA.Deposit_Defaults.lastDeposit = 0
 	PA.Deposit_Defaults.items = false
+	PA.Deposit_Defaults.junk = false
     PA.Deposit_Defaults.hideNoDepositMsg = false
     PA.Deposit_Defaults.hideAllMsg = false
 	
