@@ -1,5 +1,5 @@
 -- Addon: PersonalAssistant
--- Version: 1.2.2
+-- Version: 1.3.0
 -- Developer: Klingo
 
 PA = {}
@@ -11,10 +11,7 @@ PA.colYellow = "|cFFFF00"
 -- default values
 PA.General_Defaults = {}
 PA.Repair_Defaults = {}
-PA.Deposit_Defaults = {
-	ItemTypes = {}
-}
-PA.Withdrawal_Defaults = {
+PA.Banking_Defaults = {
 	ItemTypes = {}
 }
 
@@ -29,8 +26,11 @@ function PA.initAddon(eventCode, addOnName)
 
 	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
     PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Repair", PA.Repair_Defaults)
-	PA_SavedVars.Deposit = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Deposit", PA.Deposit_Defaults)
---	PA_SavedVars.Withdrawal = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Withdrawal", PA.Withdrawal_Defaults)
+	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Banking", PA.Banking_Defaults)
+	
+	-- clears old saved variables!
+	PA_SavedVars.Deposit = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 3, "Deposit", nil)
+	PA_SavedVars.Withdrawal = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Withdrawal", nil)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
@@ -44,8 +44,8 @@ function PA.initAddon(eventCode, addOnName)
 	-- register PARepair
     EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAR.OnShopOpen)
 	
-	-- register PADeposit
-	EVENT_MANAGER:RegisterForEvent( "PersonalAssistant", EVENT_OPEN_BANK, PAD.OnBankOpen )
+	-- register PABanking
+	EVENT_MANAGER:RegisterForEvent( "PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen )
 end
 
 -- init default values
@@ -62,33 +62,28 @@ function PA.initDefaults()
     PA.Repair_Defaults.hideNoRepairMsg = false
     PA.Repair_Defaults.hideAllMsg = false
 	
-	-- default values for PADeposit
-	PA.Deposit_Defaults.enabled = true
-	PA.Deposit_Defaults.gold = true
-	PA.Deposit_Defaults.depositPercentage = 50
-	PA.Deposit_Defaults.depositStep = 1
-	PA.Deposit_Defaults.depositInterval = 300
-	PA.Deposit_Defaults.minGoldToKeep = 250
-	PA.Deposit_Defaults.lastDeposit = 0
-	PA.Deposit_Defaults.items = false
-	PA.Deposit_Defaults.junk = false
-    PA.Deposit_Defaults.hideNoDepositMsg = false
-    PA.Deposit_Defaults.hideAllMsg = false
-	
-	-- default values for PAWithdraw
-	PA.Withdrawal_Defaults.enabled = false
-	PA.Withdrawal_Defaults.devDebug = false
-	
+	-- default values for PABanking
+	PA.Banking_Defaults.enabled = true
+	PA.Banking_Defaults.gold = true
+	PA.Banking_Defaults.goldDepositInterval = 300
+	PA.Banking_Defaults.goldDepositPercentage = 50
+	PA.Banking_Defaults.goldTransactionStep = 1
+	PA.Banking_Defaults.goldMinToKeep = 250
+	PA.Banking_Defaults.goldWithdraw = false
+	PA.Banking_Defaults.goldLastDeposit = 0
+	PA.Banking_Defaults.items = false
+--	PA.Banking_Defaults.openHirelingChest = false
+	PA.Banking_Defaults.itemsIncludeJunk = false
+    PA.Banking_Defaults.hideNoDepositMsg = false
+    PA.Banking_Defaults.hideAllMsg = false
+
 	-- default values for ItemTypes (only prepare defaults for enabled itemTypes)
 	-- deposit=true, withdrawal=false
 	for i = 0, #PAItemTypes do
 		if PAItemTypes[i] ~= "" then
-			PA.Deposit_Defaults.ItemTypes[i] = false
-			PA.Withdrawal_Defaults.ItemTypes[i] = false
+			PA.Banking_Defaults.ItemTypes[i] = 0
 		end
 	end
-	
-
 end
 
 -- returns the localized text for a key
@@ -111,6 +106,19 @@ function PA.introduction()
 	else
 --	CHAT_SYSTEM:AddMessage(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service! Type '/pa' for GUI.")
 	CHAT_SYSTEM:AddMessage(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service!")
+	end
+end
+
+-- returns a name for the bagId; there might be pre-defined namespaces?
+function PA.getBagName(bagId)
+	if (bagId == BAG_WORN) then
+		return "equipped"
+	elseif (bagId == BAG_BACKPACK) then 
+		return "backpack"
+	elseif (bagId == BAG_BANK) then 
+		return "bank"
+	else
+		return "unknown"
 	end
 end
 

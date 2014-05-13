@@ -1,9 +1,12 @@
-PA_SavedVars = {}
-PA_SavedVars.Repair = {}
-PA_SavedVars.Deposit = {}
-PA_SavedVars.Deposit.ItemTypes = {}
-PA_SavedVars.Withdrawal = {}
-PA_SavedVars.Withdrawal.ItemTypes = {}
+if PA_SavedVars						== nil then PA_SavedVars					= {} end
+if PA_SavedVars.Repair				== nil then PA_SavedVars.Repair				= {} end
+if PA_SavedVars.Banking				== nil then PA_SavedVars.Banking 			= {} end
+if PA_SavedVars.Banking.ItemTypes 	== nil then PA_SavedVars.Banking.ItemTypes	= {} end
+
+-- PersonalAssistant Constants
+PAC_ITEMTYPE_IGNORE = 0
+PAC_ITEMTYPE_DEPOSIT = 1
+PAC_ITEMTYPE_WITHDRAWAL = 2
 
 PAItemTypes = {}
 -- PAItemTypes[index] = ItemType   ["" --> disabled itemType]

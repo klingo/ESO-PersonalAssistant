@@ -1,6 +1,11 @@
 if ResourceBundle == nil then ResourceBundle = {} end
 if ResourceBundle.en == nil then ResourceBundle.en = {} end
 
+-- PABanking
+ResourceBundle.en["ItemType_None"] = "-"
+ResourceBundle.en["ItemType_Deposit"] = "Deposit"
+ResourceBundle.en["ItemType_Withdrawal"] = "Withdraw"
+
 -- Item Types
 ResourceBundle.en[ITEMTYPE_ADDITIVE] = "enITEMTYPE_ADDITIVE"
 ResourceBundle.en[ITEMTYPE_ALCHEMY_BASE] = "Solvent (Alchemy)"
@@ -51,5 +56,3 @@ ResourceBundle.en[ITEMTYPE_WEAPON_TRAIT] = "Weapon Trait"
 ResourceBundle.en[ITEMTYPE_WOODWORKING_BOOSTER] = "Resin (Woodworking)"
 ResourceBundle.en[ITEMTYPE_WOODWORKING_MATERIAL] = "Material (Woodworking)"
 ResourceBundle.en[ITEMTYPE_WOODWORKING_RAW_MATERIAL] = "Raw Material (Woodworking)"
-
--- General Text

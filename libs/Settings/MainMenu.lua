@@ -15,9 +15,9 @@ function PA_SettingsMenu.CreateOptionItems(PAPanel)
     LAM:AddHeader(PAPanel, "PAR_Header", "|cFFD700PA R|repair")
 	PARMenu.createMenu(LAM, PAPanel)
 	
-	-- PADeposit
-	LAM:AddHeader(PAPanel, "PAD_Header", "|cFFD700PA D|reposit")
-	PADMenu.createMenu(LAM, PAPanel)
+	-- PABanking
+	LAM:AddHeader(PAPanel, "PAB_Header", "|cFFD700PA B|ranking")
+	PABMenu.createMenu(LAM, PAPanel)
 	
 	-- PAWithdraw
 	-- LAM:AddHeader(PAPanel, "PAW_Header", "|cFFD700PA W|rithdrawal")

@@ -58,7 +58,7 @@ function PAR.RepairItems(bagId, threshold)
 		end
 	end
 
-	local bagName = PAR.getBagName(bagId)
+	local bagName = PA.getBagName(bagId)
 
 	-- check if the msg-output shall be skipped
 	if PA_SavedVars.Repair.hideAllMsg then return end
@@ -80,20 +80,8 @@ function PAR.RepairItems(bagId, threshold)
 	end
 end
 
--- returns a name for the bagId; there might be pre-defined namespaces?
-function PAR.getBagName(bagId)
-	if (bagId == BAG_WORN) then
-		return "equipped"
-	else if (bagId == BAG_BACKPACK) then 
-		return "backpack"
-	else
-		return "unknown"
-	end
-end
-
 -- FIXME: does not support multiple parameters (yet)
 function PAR.println(msg)
 	if PA_SavedVars.Repair.hideAllMsg then return end
-		CHAT_SYSTEM:AddMessage("PARepair: " .. msg)
-	end
+	CHAT_SYSTEM:AddMessage("PARepair: " .. msg)
 end
