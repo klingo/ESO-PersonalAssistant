@@ -30,18 +30,19 @@ function PAB.OnBankOpen()
 		-- check if item deposit is enabled
 		if PA_SavedVars.Banking.items then
 			-- check if hireling chests have to be opened
-			if PA_SavedVars.Banking.openHirelingChest then
+--			if PA_SavedVars.Banking.openHirelingChest then
 				-- open all hireling chests
-				PAB.openHirelingChests()
+--				PAB.openHirelingChests()
 				-- give it some time to update
-				zo_callLater(function() itemTransaction = PAB_Items.DepositAndWithdrawItems() end, 1000)
-			else
+--				zo_callLater(function() itemTransaction = PAB_Items.DepositAndWithdrawItems() end, 1000)
+--			else
 				itemTransaction = PAB_Items.DepositAndWithdrawItems()
-			end
+--			end
 		end
 		
 		-- FIXME: This check does not work in case of openedHirelingChests because of the callLater function
-		if (not PA_SavedVars.Banking.openHirelingChest) and (not goldTransaction) and (not itemTransaction) then
+--		if (not PA_SavedVars.Banking.openHirelingChest) and (not goldTransaction) and (not itemTransaction) then
+		if (not goldTransaction) and (not itemTransaction) then
 			if (not PA_SavedVars.Banking.hideNoDepositMsg) then
 				PAB.println("Nothing to deposit.")
 			end

@@ -28,9 +28,9 @@ function PABMenu.createMenu(LAM, panel)
 	LAM:AddCheckbox(panel, "PAB_Items_Enabled", "Deposit and withdraw Items", "Auto deposit and/or withdraw items to and from the bank?",
 				function() return PA_SavedVars.Banking.items end,
 				function(val) PA_SavedVars.Banking.items = val end)
-	LAM:AddCheckbox(panel, "PAB_Items_Open_Hireling_Container", "- Open Hireling Chests before deposit", "Shall the chests sent to you by hirelings automatically be opened before the item deposit starts?",
-				function() return PA_SavedVars.Banking.openHirelingChest end,
-				function(val) PA_SavedVars.Banking.openHirelingChest = val end)
+--	LAM:AddCheckbox(panel, "PAB_Items_Open_Hireling_Container", "- Open Hireling Chests before deposit", "Shall the chests sent to you by hirelings automatically be opened before the item deposit starts?",
+--				function() return PA_SavedVars.Banking.openHirelingChest end,
+--				function(val) PA_SavedVars.Banking.openHirelingChest = val end)
 				
 	local PASubPanel = LAM:AddSubMenu(panel, "PA_Panel_Items_DepositWithdraw", "- Set items to deposit/withdraw", "Open the sub-menu to define for each item type whether it shall be deposited, withdrew or ignored.")
 	PABMenu.createItemSubMenu(LAM, PASubPanel)
