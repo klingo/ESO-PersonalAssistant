@@ -20,13 +20,6 @@ function PAB_Items.DepositAndWithdrawItems()
 	else
 		return false
 	end
-	-- first check if hireling chests have to be opened
---	if PA_SavedVars.Banking.openHirelingChest then
-		-- open all hireling chests
---		PAB_Items.openHirelingChests(backpackItemTypeList)
-		-- update the backpack list after opening the hireling chests
---		backpackItemTypeList = PAB_Items.getItemTypeList(BAG_BACKPACK)
---	end
 end
 
 function PAB_Items.DoItemTransaction(fromBagId, toBagId, fromBagItemTypeList, toBagItemTypeList, transactionType)
@@ -158,38 +151,7 @@ function PAB_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
 	end
 end
 
--- opens all Hireling chests in a bag
---function PAB_Items.openHirelingChests(bagItemList)
---	for currBagItem = 0, #bagItemList do
---		if bagItemList[currBagItem] == ITEMTYPE_CONTAINER then
---			if IsItemUsable(BAG_BACKPACK, currBagItem) then
---				if CheckInventorySpaceAndWarn(5) then
---					local itemName = GetItemName(BAG_BACKPACK, currBagItem)
---					if PAB_Items.isItemNameHirelingChest(itemName) then
---						-- clear the cursor first
---						ClearCursor()
---						-- call secure protected (use item via cursor)
---						CallSecureProtected("UseItem", BAG_BACKPACK, currBagItem)
---						-- clear the cursor again to avoid issues
---						ClearCursor()
---					end
---				else
---					CHAT_SYSTEM:AddMessage("PABanking: Not enough space in backpack to open hireling chest.")
---				end
---			end
---		end
---	end
---end
-
--- checks if one of the distinct profession names is found within the itemName
---function PAB_Items.isItemNameHirelingChest(itemName)
---	if string.find(itemName, "Blacksmith") ~= nil then return true end
---	if string.find(itemName, "Clothier") ~= nil then return true end
---	if string.find(itemName, "Enchanter") ~= nil then return true end
---	if string.find(itemName, "Woodworker") ~= nil then return true end
---	return false
---end
-
+-- ---------------------------------------------------------------------------------------------------------------
 -- returns a list of all item types in a bag
 function PAB_Items.getItemTypeList(bagId)
 	local itemTypeList = {}

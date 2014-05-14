@@ -72,7 +72,7 @@ function PA.initDefaults()
 	PA.Banking_Defaults.goldWithdraw = false
 	PA.Banking_Defaults.goldLastDeposit = 0
 	PA.Banking_Defaults.items = false
---	PA.Banking_Defaults.openHirelingChest = false
+	PA.Banking_Defaults.openHirelingChest = false
 	PA.Banking_Defaults.itemsIncludeJunk = false
     PA.Banking_Defaults.hideNoDepositMsg = false
     PA.Banking_Defaults.hideAllMsg = false

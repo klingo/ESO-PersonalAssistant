@@ -6,6 +6,11 @@ ResourceBundle.en["ItemType_None"] = "-"
 ResourceBundle.en["ItemType_Deposit"] = "Deposit"
 ResourceBundle.en["ItemType_Withdrawal"] = "Withdraw"
 
+ResourceBundle.en["Hireling_Blacksmith"] = "Blacksmith"
+ResourceBundle.en["Hireling_Clothier"] = "Clothier"
+ResourceBundle.en["Hireling_Enchanter"] = "Enchanter"
+ResourceBundle.en["Hireling_Woodworker"] = "Woodworker"
+
 -- Item Types
 ResourceBundle.en[ITEMTYPE_ADDITIVE] = "enITEMTYPE_ADDITIVE"
 ResourceBundle.en[ITEMTYPE_ALCHEMY_BASE] = "Solvent (Alchemy)"
