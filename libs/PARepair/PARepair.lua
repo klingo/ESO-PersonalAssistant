@@ -65,7 +65,7 @@ function PAR.RepairItems(bagId, threshold)
 	
 	if repairedItems > 0 then
 		if notRepairedItems > 0 then
-			CHAT_SYSTEM:AddMessage("PARepair: " .. repairedItems .. " / " .. notRepairedItems .. " " .. bagName .. " items repaired for " .. repairCost .. " gold. (not enough gold)")
+			CHAT_SYSTEM:AddMessage("PARepair: " .. repairedItems .. " / " .. (repairedItems + notRepairedItems) .. " " .. bagName .. " items repaired for " .. repairCost .. " gold. (not enough gold)")
 		else
 			CHAT_SYSTEM:AddMessage("PARepair: All " .. bagName .. " items repaired for " .. repairCost .. " gold.")
 		end
