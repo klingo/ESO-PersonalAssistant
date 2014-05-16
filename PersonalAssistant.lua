@@ -1,12 +1,8 @@
 -- Addon: PersonalAssistant
--- Version: 1.3.0
+-- Version: 1.3.1
 -- Developer: Klingo
 
 PA = {}
-
--- PA.colors
-PA.colWhite = "|cFFFFFF"
-PA.colYellow = "|cFFFF00"
 
 -- default values
 PA.General_Defaults = {}
@@ -45,7 +41,7 @@ function PA.initAddon(eventCode, addOnName)
     EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAR.OnShopOpen)
 	
 	-- register PABanking
-	EVENT_MANAGER:RegisterForEvent( "PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen )
+	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen )
 end
 
 -- init default values
@@ -72,7 +68,7 @@ function PA.initDefaults()
 	PA.Banking_Defaults.goldWithdraw = false
 	PA.Banking_Defaults.goldLastDeposit = 0
 	PA.Banking_Defaults.items = false
---	PA.Banking_Defaults.openHirelingChest = false
+	PA.Banking_Defaults.openHirelingChest = false
 	PA.Banking_Defaults.itemsIncludeJunk = false
     PA.Banking_Defaults.hideNoDepositMsg = false
     PA.Banking_Defaults.hideAllMsg = false
@@ -100,39 +96,44 @@ end
 -- introduces the addon to the player
 function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
-
+	-- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+	
 	if PA_SavedVars.General.language ~= "en" then -- or vars.lang ~= "de" or vars.lang ~= "fr" then
-		CHAT_SYSTEM:AddMessage(string.format(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service!   -   no localization for (%s) available yet.", PA_SavedVars.General.language))
+		PA.println("Welcome_NoSupport", PA_SavedVars.General.language)
 	else
---	CHAT_SYSTEM:AddMessage(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service! Type '/pa' for GUI.")
-	CHAT_SYSTEM:AddMessage(PA.colYellow .."P".. PA.colWhite.."ersonal"..PA.colYellow.."A"..PA.colWhite.."ssistant"..PA.colYellow.." at your service!")
+		PA.println("Welcome_Support", PA_SavedVars.General.language)
 	end
 end
 
 -- returns a name for the bagId; there might be pre-defined namespaces?
 function PA.getBagName(bagId)
 	if (bagId == BAG_WORN) then
-		return "equipped"
+		return PA.getResourceMessage("NS_Bag_Equipped")
 	elseif (bagId == BAG_BACKPACK) then 
-		return "backpack"
+		return PA.getResourceMessage("NS_Bag_Backpack")
 	elseif (bagId == BAG_BANK) then 
-		return "bank"
+		return PA.getResourceMessage("NS_Bag_Bank")
 	else
-		return "unknown"
+		return PA.getResourceMessage("NS_Bag_Unknown")
 	end
 end
 
--- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+-- currently supports one text-key and n arguments
+function PA.println(key, ...)
+	local text = PA.getResourceMessage(key)
+	local args = {...}
+	CHAT_SYSTEM:AddMessage(string.format(text, unpack(args)))
+end
 
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED, PA.initAddon)
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED, PA.introduction)
 
------------------------------------------------------------------------------------------------------
+-- ========================================================================================================================
 -- Dev-Debug --
 function PA.cursorPickup(type, param1, param2, param3, param4, param5, param6, itemSoundCategory) 
 	itemType = GetItemType(param2, param3) 
 	strItemType = PA.getResourceMessage(itemType)
-	CHAT_SYSTEM:AddMessage("itemType ("..itemType.."): "..strItemType)
+	PA.println("itemType (%s): %s.", itemType, strItemType)
 end
 
 -- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)

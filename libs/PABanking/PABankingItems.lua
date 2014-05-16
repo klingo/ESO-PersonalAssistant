@@ -110,7 +110,7 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo)
 	
 		return remainingStackSize
 	else
-		CHAT_SYSTEM:AddMessage(string.format("Not enough space in %s for: %s", PA.getBagName(transferInfo["toBagId"]) , transferInfo["fromItemLink"]))
+		PA.println("PAB_NoSpaceInFor", PA.getBagName(transferInfo["toBagId"]) , transferInfo["fromItemLink"])
 		return -1
 	end
 end
@@ -122,7 +122,7 @@ function PAB_Items.isItemMoved(fromSlotIndex, transferInfo)
 		-- check if the same item name is in the "old" slotIndex
 		if (GetItemName(transferInfo["fromBagId"], fromSlotIndex):upper() == transferInfo["fromItemName"]) then
 			-- the item is still there and has NOT been moved.
-			CHAT_SYSTEM:AddMessage(string.format("FAILURE: %s could NOT be moved to %s.", transferInfo["fromItemLink"], PA.getBagName(transferInfo["toBagId"])))
+			PA.println("PAB_ItemMovedToFailed", transferInfo["fromItemLink"], PA.getBagName(transferInfo["toBagId"]))
 			-- try to transfer the item again (does not work YET, it generates an endless loop)
 			-- zo_callLater(function() PAB_Items.transferItem(fromSlotIndex, nil, transferInfo) end, 500)
 			-- TODO: maybe create a list for a post-processing
@@ -145,9 +145,9 @@ function PAB_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
     ClearCursor()
 	
 	if result then
-		CHAT_SYSTEM:AddMessage(string.format("%s x %s was moved to %s.", stackSize, transferInfo["fromItemLink"], PA.getBagName(transferInfo["toBagId"])))
+		PA.println("PAB_ItemMovedTo", stackSize, transferInfo["fromItemLink"], PA.getBagName(transferInfo["toBagId"]))
 	else
-		CHAT_SYSTEM:AddMessage(string.format("%s was NOT moved to %s.", transferInfo["fromItemLink"], PA.getBagName(transferInfo["toBagId"])))
+		PA.println("PAB_ItemNotMovedTo", stackSize, transferInfo["fromItemLink"], PA.getBagName(transferInfo["toBagId"]))
 	end
 end
 

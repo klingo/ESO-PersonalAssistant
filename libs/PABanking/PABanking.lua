@@ -30,21 +30,22 @@ function PAB.OnBankOpen()
 		-- check if item deposit is enabled
 		if PA_SavedVars.Banking.items then
 			-- check if hireling chests have to be opened
---			if PA_SavedVars.Banking.openHirelingChest then
+			if PA_SavedVars.Banking.openHirelingChest then
 				-- open all hireling chests
---				PAB.openHirelingChests()
-				-- give it some time to update
---				zo_callLater(function() itemTransaction = PAB_Items.DepositAndWithdrawItems() end, 1000)
---			else
+				local timerDelay = PAB.openHirelingChests()
+				
+				-- give it some time to update after opening the hireling chests
+				timerDelay = timerDelay + 1000
+				zo_callLater(function() itemTransaction = PAB_Items.DepositAndWithdrawItems() end, timerDelay)
+			else
 				itemTransaction = PAB_Items.DepositAndWithdrawItems()
---			end
+			end
 		end
 		
 		-- FIXME: This check does not work in case of openedHirelingChests because of the callLater function
---		if (not PA_SavedVars.Banking.openHirelingChest) and (not goldTransaction) and (not itemTransaction) then
-		if (not goldTransaction) and (not itemTransaction) then
+		if (not PA_SavedVars.Banking.openHirelingChest) and (not goldTransaction) and (not itemTransaction) then
 			if (not PA_SavedVars.Banking.hideNoDepositMsg) then
-				PAB.println("Nothing to deposit.")
+				PA.println("PAB_NoDeposit")
 			end
 		end
 	end
@@ -54,6 +55,7 @@ end
 -- opens all Hireling chests in a bag
 function PAB.openHirelingChests()
 	local bagItemList = PAB_Items.getItemTypeList(BAG_BACKPACK)
+	local timer = 0
 	
 	for currBagItem = 0, #bagItemList do
 		if bagItemList[currBagItem] == ITEMTYPE_CONTAINER then
@@ -62,33 +64,34 @@ function PAB.openHirelingChests()
 				if CheckInventorySpaceAndWarn(5) then
 					local itemName = GetItemName(BAG_BACKPACK, currBagItem)
 					if PAB.isItemNameHirelingChest(itemName) then
-						-- clear the cursor first
-						ClearCursor()
-						-- call secure protected (use item via cursor)
-						CallSecureProtected("UseItem", BAG_BACKPACK, currBagItem)
-						-- clear the cursor again to avoid issues
-						ClearCursor()
+						zo_callLater(function() PAB.useItem(BAG_BACKPACK, currBagItem) end, timer)
+						timer = timer + 500
 					end
 				else
-					CHAT_SYSTEM:AddMessage(string.format("PABanking: Not enough space in backpack to open %s.", zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(BAG_BACKPACK, currBagItem, LINK_STYLE_BRACKETS))))
+					PA.println("PAB_NoSpaceToOpen", PA.getBagName(BAG_BACKPACK), zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(BAG_BACKPACK, currBagItem, LINK_STYLE_BRACKETS)))
 				end
 			end
 		end
 	end
+	
+	return timer
+end
+
+function PAB.useItem(bagId, slotIndex)
+	PA.println("PAB_Hireling_UseItem", zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)))
+	-- clear the cursor first
+	ClearCursor()
+	-- call secure protected (use item via cursor)
+	CallSecureProtected("UseItem", bagId, slotIndex)
+	-- clear the cursor again to avoid issues
+	ClearCursor()
 end
 
 -- checks if one of the distinct profession names is found within the itemName
 function PAB.isItemNameHirelingChest(itemName)
-	if string.find(itemName, PA.getResourceMessage("Hireling_Blacksmith")) ~= nil then return true end
-	if string.find(itemName, PA.getResourceMessage("Hireling_Clothier")) ~= nil then return true end
-	if string.find(itemName, PA.getResourceMessage("Hireling_Enchanter")) ~= nil then return true end
-	if string.find(itemName, PA.getResourceMessage("Hireling_Woodworker")) ~= nil then return true end
+	if string.find(itemName, PA.getResourceMessage("PAB_Hireling_Blacksmith")) ~= nil then return true end
+	if string.find(itemName, PA.getResourceMessage("PAB_Hireling_Clothier")) ~= nil then return true end
+	if string.find(itemName, PA.getResourceMessage("PAB_Hireling_Enchanter")) ~= nil then return true end
+	if string.find(itemName, PA.getResourceMessage("PAB_Hireling_Woodworker")) ~= nil then return true end
 	return false
-end
-
--- =========================================================================================================================
-
-function PAB.println(msg)
-	if PA_SavedVars.Banking.hideAllMsg then return end
-    CHAT_SYSTEM:AddMessage("PABanking: " .. msg)
 end

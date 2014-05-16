@@ -8,6 +8,10 @@ PAC_ITEMTYPE_IGNORE = 0
 PAC_ITEMTYPE_DEPOSIT = 1
 PAC_ITEMTYPE_WITHDRAWAL = 2
 
+-- PersonalAssistant Colors
+PAC_COL_WHITE = "|cFFFFFF"
+PAC_COL_YELLOW = "|cFFFF00"
+
 PAItemTypes = {}
 -- PAItemTypes[index] = ItemType   ["" --> disabled itemType]
 PAItemTypes[0] = "" -- ITEMTYPE_ADDITIVE

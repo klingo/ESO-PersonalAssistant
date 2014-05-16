@@ -30,7 +30,7 @@ function PAB_Gold.DepositGold(goldMinToKeep)
 	if (toDeposit > 0) then
 		DepositMoneyIntoBank(toDeposit)
 		PA_SavedVars.Banking.goldLastDeposit = GetTimeStamp()
-		PAB.println(string.format("%d gold deposited.", toDeposit))
+		PA.println("PAB_GoldDepositet", toDeposit)
 		
 		return true		-- something was deposited
 	else
@@ -50,15 +50,15 @@ function PAB_Gold.WithdrawGold(goldMinToKeep)
 		
 		if toWithdraw > bankedMoney then
 			WithdrawMoneyFromBank(bankedMoney) 
-			PAB.println(string.format("%d / %d gold withdrawn. (not enough gold in bank!)", bankedMoney, toWithdraw))
+			PA.println("PAB_GoldWithdrawnInsufficient", bankedMoney, toWithdraw)
 		else
 			WithdrawMoneyFromBank(toWithdraw) 
-			PAB.println(string.format("%d gold withdrawn.", toWithdraw))
+			PA.println("PAB_GoldWithdrawn", toWithdraw)
 		end
 		
 		return true		-- something was withdrawn
 	elseif (toWithdraw > 0 and bankedMoney == 0) then
-		PAB.println(string.format("%d / %d gold withdrawn. (not enough gold in bank!)", bankedMoney, toWithdraw))
+		PA.println("PAB_GoldWithdrawnInsufficient", bankedMoney, toWithdraw)
 		
 		return true		-- something was withdrawn (or at least tried to do so)
 	else

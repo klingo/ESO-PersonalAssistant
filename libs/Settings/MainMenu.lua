@@ -4,7 +4,7 @@ local LAM = LibStub("LibAddonMenu-1.0")
 
 function PA_SettingsMenu.CreateOptions()
 	-- first register the panel with LAM
-    local PAPanel = LAM:CreateControlPanel("PA_Panel", "|cFFD700P|rersonal|cFFD700A|rssistant")
+    local PAPanel = LAM:CreateControlPanel("PA_Panel", PA.getResourceMessage("MMenu_Title"))
 	
 	-- then delay the actual creation of the option items by 1 second to reduce the anchor overload at startup
 	zo_callLater(function() PA_SettingsMenu.CreateOptionItems(PAPanel) end, 1000)
@@ -12,14 +12,10 @@ end
 
 function PA_SettingsMenu.CreateOptionItems(PAPanel)
 	-- PARepair
-    LAM:AddHeader(PAPanel, "PAR_Header", "|cFFD700PA R|repair")
+    LAM:AddHeader(PAPanel, "PAR_Header", PA.getResourceMessage("PARMenu_Header"))
 	PARMenu.createMenu(LAM, PAPanel)
 	
 	-- PABanking
-	LAM:AddHeader(PAPanel, "PAB_Header", "|cFFD700PA B|ranking")
+	LAM:AddHeader(PAPanel, "PAB_Header", PA.getResourceMessage("PABMenu_Header"))
 	PABMenu.createMenu(LAM, PAPanel)
-	
-	-- PAWithdraw
-	-- LAM:AddHeader(PAPanel, "PAW_Header", "|cFFD700PA W|rithdrawal")
-	-- PAWMenu.createMenu(LAM, PAPanel)
 end

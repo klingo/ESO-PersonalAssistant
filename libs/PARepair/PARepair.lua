@@ -18,7 +18,7 @@ function PAR.OnShopOpen()
 			end
 		else
 			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
-				CHAT_SYSTEM:AddMessage("PARepair: Nothing to repair.")
+				PA.println("PAR_NoRepair")
 			end
 		end
 	end
@@ -65,23 +65,17 @@ function PAR.RepairItems(bagId, threshold)
 	
 	if repairedItems > 0 then
 		if notRepairedItems > 0 then
-			CHAT_SYSTEM:AddMessage("PARepair: " .. repairedItems .. " / " .. (repairedItems + notRepairedItems) .. " " .. bagName .. " items repaired for " .. repairCost .. " gold. (not enough gold)")
+			PA.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost)
 		else
-			CHAT_SYSTEM:AddMessage("PARepair: All " .. bagName .. " items repaired for " .. repairCost .. " gold.")
+			PA.println("PAR_FullRepair", bagName, repairCost)
 		end
 	else
 		if notRepairedItems > 0 then
-			CHAT_SYSTEM:AddMessage("PARepair: Not enough gold to repair " .. notRepairedItems .. " " .. bagName .. " items.")
+			PA.println("PAR_NoGoldToRepair", notRepairedItems, bagName)
 		else
 			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
-				CHAT_SYSTEM:AddMessage("PARepair: Nothing to repair.")
+				PA.println("PAR_NoRepair")
 			end
 		end
 	end
-end
-
--- FIXME: does not support multiple parameters (yet)
-function PAR.println(msg)
-	if PA_SavedVars.Repair.hideAllMsg then return end
-	CHAT_SYSTEM:AddMessage("PARepair: " .. msg)
 end
