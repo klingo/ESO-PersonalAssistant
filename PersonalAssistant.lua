@@ -85,7 +85,7 @@ end
 -- returns the localized text for a key
 function PA.getResourceMessage(key)
 	if PA_SavedVars.General.language == "de" then
-		return ResourceBundle.en[key]	-- always use "en" so far
+		return ResourceBundle.de[key]
 	elseif PA_SavedVars.General.language == "fr" then
 		return ResourceBundle.en[key]	-- always use "en" so far
 	else
@@ -98,7 +98,7 @@ function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
 	-- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 	
-	if PA_SavedVars.General.language ~= "en" then -- or vars.lang ~= "de" or vars.lang ~= "fr" then
+	if PA_SavedVars.General.language ~= "en" and PA_SavedVars.General.language ~= "de" then -- and PA_SavedVars.General.language ~= "fr" then
 		PA.println("Welcome_NoSupport", PA_SavedVars.General.language)
 	else
 		PA.println("Welcome_Support", PA_SavedVars.General.language)
@@ -121,6 +121,7 @@ end
 -- currently supports one text-key and n arguments
 function PA.println(key, ...)
 	local text = PA.getResourceMessage(key)
+	if text == nil then text = key end
 	local args = {...}
 	CHAT_SYSTEM:AddMessage(string.format(text, unpack(args)))
 end
