@@ -95,14 +95,13 @@ ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-
 ResourceBundle.de["PABMenu_IgnButton_W"] 			= "Erzwingt ein Neu laden."
 
 -- Name Spaces --
-ResourceBundle.en["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
-ResourceBundle.en["NS_Bag_Equipped"]				= "ausgerüstete"
-ResourceBundle.en["NS_Bag_Backpack"]				= "Inventar"
-ResourceBundle.en["NS_Bag_Backpacked"]				= "abgelegte"
-ResourceBundle.en["NS_Bag_Bank"]					= "Truhe"
-ResourceBundle.en["NS_Bag_Banked"]					= ""	-- soweit nicht benötigt
-ResourceBundle.en["NS_Bag_Unknown"]					= "unknown"
-
+ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
+ResourceBundle.de["NS_Bag_Equipped"]				= "ausgerüstete"
+ResourceBundle.de["NS_Bag_Backpack"]				= "Inventar"
+ResourceBundle.de["NS_Bag_Backpacked"]				= "abgelegte"
+ResourceBundle.de["NS_Bag_Bank"]					= "Truhe"
+ResourceBundle.de["NS_Bag_Banked"]					= ""	-- soweit nicht benötigt
+ResourceBundle.de["NS_Bag_Unknown"]					= "unknown"
 
 -- Item Types --
 ResourceBundle.de[ITEMTYPE_ADDITIVE] 				= "deITEMTYPE_ADDITIVE"
