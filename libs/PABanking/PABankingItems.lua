@@ -103,7 +103,7 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo)
 			PAB_Items.moveItem(fromSlotIndex, toSlotIndex, moveableStackSize, transferInfo)
 			
 			-- Before version 1.4.0 it could happen that when the item is not yet in the bank, the itemMove failed.
-			-- This used to happen only if there are more than ~20 new items for the bank
+			-- This used to happen only if there are more than ~20 new items for the bank.
 			-- This method will check if the item is still in its original place after 2 seconds
 			-- and prints a message in case it happened again.
 			zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, transferInfo) end, 2000)
@@ -124,6 +124,7 @@ function PAB_Items.isItemMoved(fromSlotIndex, transferInfo)
 		if (GetItemName(transferInfo["fromBagId"], fromSlotIndex):upper() == transferInfo["fromItemName"]) then
 			-- the item is still there and has NOT been moved.
 			PA.println("PAB_ItemMovedToFailed", transferInfo["fromItemLink"], PA.getBagName(transferInfo["toBagId"]))
+			
 			-- try to transfer the item again (does not work YET, it generates an endless loop)
 			-- zo_callLater(function() PAB_Items.transferItem(fromSlotIndex, nil, transferInfo) end, 500)
 			-- TODO: maybe create a list for a post-processing
