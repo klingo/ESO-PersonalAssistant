@@ -20,7 +20,7 @@ ResourceBundle.en["PAB_ItemMovedTo"] 				= "%d x %s was moved to %s."
 ResourceBundle.en["PAB_ItemNotMovedTo"] 			= "%d x %s was NOT moved to %s."
 ResourceBundle.en["PAB_ItemMovedToFailed"] 			= "FAILURE: %s could NOT be moved to %s."
 
-ResourceBundle.en["PAB_NoSpaceInFor"] 				= "PABanking: Not enough space in %s for: %s"
+ResourceBundle.en["PAB_NoSpaceInFor"] 				= "PABanking: Not enough space in %s for: %s."
 ResourceBundle.en["PAB_NoSpaceToOpen"] 				= "PABanking: Not enough space in %s to open %s."
 ResourceBundle.en["PAB_NoDeposit"] 					= "PABanking: Nothing to deposit."
 
@@ -95,9 +95,12 @@ ResourceBundle.en["PABMenu_IgnButton_T"] 			= "Change all dropdown values to '-'
 ResourceBundle.en["PABMenu_IgnButton_W"] 			= "Will force a ReloadUI." 
 
 -- Name Spaces --
+ResourceBundle.en["NS_Bag_Equipment"]				= ""	-- not required so far
 ResourceBundle.en["NS_Bag_Equipped"]				= "equipped"
 ResourceBundle.en["NS_Bag_Backpack"]				= "backpack"
+ResourceBundle.en["NS_Bag_Backpacked"]				= "backpack"
 ResourceBundle.en["NS_Bag_Bank"]					= "bank"
+ResourceBundle.en["NS_Bag_Banked"]					= ""	-- not required so far
 ResourceBundle.en["NS_Bag_Unknown"]					= "unknown"
 
 -- Item Types --

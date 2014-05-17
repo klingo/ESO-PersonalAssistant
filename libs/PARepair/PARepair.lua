@@ -58,7 +58,7 @@ function PAR.RepairItems(bagId, threshold)
 		end
 	end
 
-	local bagName = PA.getBagName(bagId)
+	local bagName = PA.getBagNameAdjective(bagId)
 
 	-- check if the msg-output shall be skipped
 	if PA_SavedVars.Repair.hideAllMsg then return end

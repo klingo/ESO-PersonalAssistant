@@ -8,7 +8,7 @@ ResourceBundle.de["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."
 -- PARepair --
 ResourceBundle.de["PAR_FullRepair"] 				= "PARepair: Alle %s Gegenstände für %d Gold repariert."
 ResourceBundle.de["PAR_PartialRepair"] 				= "PARepair: %d / %d %s Gegenstände für %d Gold repariert. (Nicht genug Gold vorhanden)"
-ResourceBundle.de["PAR_NoGoldToRepair"] 			= "PARepair: Nicht genug gold um %d %s Gegenstände zu reparieren."
+ResourceBundle.de["PAR_NoGoldToRepair"] 			= "PARepair: Nicht genug Gold um %d %s Gegenstände zu reparieren."
 ResourceBundle.de["PAR_NoRepair"] 					= "PARepair: Nichts zu reparieren"
 
 -- PABanking --
@@ -16,12 +16,12 @@ ResourceBundle.de["PAB_GoldDepositet"] 				= "PABanking: %d Gold eingelagert."
 ResourceBundle.de["PAB_GoldWithdrawn"] 				= "PABanking: %d Gold abgehoben."
 ResourceBundle.de["PAB_GoldWithdrawnInsufficient"] 	= "PABanking: %d / %d Gold abgehoben. (Nicht genug Gold in Truhe)"
 
-ResourceBundle.de["PAB_ItemMovedTo"] 				= "%d x %s wurde in %s übertragen."	-- FIXME: Grammatik falsch
-ResourceBundle.de["PAB_ItemNotMovedTo"] 			= "%d x %s wurde NICHT in %s übertragen."	-- FIXME: Grammatik falsch
-ResourceBundle.de["PAB_ItemMovedToFailed"] 			= "FEHLER: %s konnte NICHT in %s übertragen werden."	-- FIXME: Grammatik falsch
+ResourceBundle.de["PAB_ItemMovedTo"] 				= "%d x %s wurde in %s übertragen."
+ResourceBundle.de["PAB_ItemNotMovedTo"] 			= "%d x %s wurde NICHT in %s übertragen."
+ResourceBundle.de["PAB_ItemMovedToFailed"] 			= "FEHLER: %s konnte NICHT in %s übertragen werden."
 
-ResourceBundle.de["PAB_NoSpaceInFor"] 				= "PABanking: Nicht genug Platz in %s für: %s"	-- FIXME: Grammatik falsch
-ResourceBundle.de["PAB_NoSpaceToOpen"] 				= "PABanking: Nicht genug Platz in %s um %s zu öffnen."	-- FIXME: Grammatik falsch
+ResourceBundle.de["PAB_NoSpaceInFor"] 				= "PABanking: Nicht genug Platz in %s für: %s."
+ResourceBundle.de["PAB_NoSpaceToOpen"] 				= "PABanking: Nicht genug Platz in %s um %s zu öffnen."
 ResourceBundle.de["PAB_NoDeposit"] 					= "PABanking: Nichts zum Einlagern."
 
 ResourceBundle.de["PAB_ItemType_None"] 				= "-"
@@ -95,10 +95,14 @@ ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-
 ResourceBundle.de["PABMenu_IgnButton_W"] 			= "Erzwingt ein Neu laden."
 
 -- Name Spaces --
-ResourceBundle.de["NS_Bag_Equipped"]				= "ausgerüstete" -- FIXME: Grammatik falsch
-ResourceBundle.de["NS_Bag_Backpack"]				= "abgelegte" -- FIXME: Grammatik falsch
-ResourceBundle.de["NS_Bag_Bank"]					= "Truhe" -- FIXME: Grammatik falsch
-ResourceBundle.de["NS_Bag_Unknown"]					= "unbekannt" -- FIXME: Grammatik falsch
+ResourceBundle.en["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
+ResourceBundle.en["NS_Bag_Equipped"]				= "ausgerüstete"
+ResourceBundle.en["NS_Bag_Backpack"]				= "Inventar"
+ResourceBundle.en["NS_Bag_Backpacked"]				= "abgelegte"
+ResourceBundle.en["NS_Bag_Bank"]					= "Truhe"
+ResourceBundle.en["NS_Bag_Banked"]					= ""	-- soweit nicht benötigt
+ResourceBundle.en["NS_Bag_Unknown"]					= "unknown"
+
 
 -- Item Types --
 ResourceBundle.de[ITEMTYPE_ADDITIVE] 				= "deITEMTYPE_ADDITIVE"

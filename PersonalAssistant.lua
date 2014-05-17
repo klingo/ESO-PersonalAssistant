@@ -105,14 +105,27 @@ function PA.introduction()
 	end
 end
 
--- returns a name for the bagId; there might be pre-defined namespaces?
+-- returns a noun for the bagId
 function PA.getBagName(bagId)
 	if (bagId == BAG_WORN) then
-		return PA.getResourceMessage("NS_Bag_Equipped")
+		return PA.getResourceMessage("NS_Bag_Equipment")
 	elseif (bagId == BAG_BACKPACK) then 
 		return PA.getResourceMessage("NS_Bag_Backpack")
 	elseif (bagId == BAG_BANK) then 
 		return PA.getResourceMessage("NS_Bag_Bank")
+	else
+		return PA.getResourceMessage("NS_Bag_Unknown")
+	end
+end
+
+-- returns an adjective for the bagId
+function PA.getBagNameAdjective(bagId)
+	if (bagId == BAG_WORN) then
+		return PA.getResourceMessage("NS_Bag_Equipped")
+	elseif (bagId == BAG_BACKPACK) then 
+		return PA.getResourceMessage("NS_Bag_Backpacked")
+	elseif (bagId == BAG_BANK) then 
+		return PA.getResourceMessage("NS_Bag_Banked")
 	else
 		return PA.getResourceMessage("NS_Bag_Unknown")
 	end
