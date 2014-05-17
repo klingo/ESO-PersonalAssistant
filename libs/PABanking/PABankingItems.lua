@@ -84,7 +84,7 @@ end
 
 -- prepares the actual move
 function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo)
-	-- if there is not toSlot, try to find one
+	-- if there is no toSlot, try to find one
 	if toSlotIndex == nil then toSlotIndex = FindFirstEmptySlotInBag(transferInfo["toBagId"]) end
 	-- good, there is a slot
 	if toSlotIndex ~= nil then
@@ -102,9 +102,10 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo)
 		if moveableStackSize > 0 then
 			PAB_Items.moveItem(fromSlotIndex, toSlotIndex, moveableStackSize, transferInfo)
 			
-			-- Sometimes, when the item is not yet in the bank, the itemMove fails.
-			-- Apparently this happens only if there are more than ~20 new items for the bank
+			-- Before version 1.4.0 it could happen that when the item is not yet in the bank, the itemMove failed.
+			-- This used to happen only if there are more than ~20 new items for the bank
 			-- This method will check if the item is still in its original place after 2 seconds
+			-- and prints a message in case it happened again.
 			zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, transferInfo) end, 2000)
 		end
 	
