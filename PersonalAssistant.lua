@@ -23,10 +23,6 @@ function PA.initAddon(eventCode, addOnName)
 	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
     PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Repair", PA.Repair_Defaults)
 	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Banking", PA.Banking_Defaults)
-	
-	-- clears old saved variables!
-	PA_SavedVars.Deposit = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 3, "Deposit", nil)
-	PA_SavedVars.Withdrawal = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Withdrawal", nil)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
