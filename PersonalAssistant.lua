@@ -133,6 +133,8 @@ function PA.println(key, ...)
 	if text == nil then text = key end
 	local args = {...}
 	CHAT_SYSTEM:AddMessage(string.format(text, unpack(args)))
+	-- check this out: Singular & plural form using the zo_strformat() function 
+	-- http://www.esoui.com/forums/showthread.php?p=7988
 end
 
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED, PA.initAddon)
