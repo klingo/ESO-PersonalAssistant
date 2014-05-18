@@ -1,42 +1,20 @@
 PAUI = {}
 
+local wm = WINDOW_MANAGER
+
 function PAUI.initUI()
 	PAUI.UI = {}
 	
 	PAUI.cursor = false
 	PAUI.menu = false
 	
-	-- Set the title of the main window
-	PAUI.UI.WindowTitle = WINDOW_MANAGER:CreateControl("PersonalAssistant_WindowTitle", PersonalAssistantUI, CT_LABEL)
-    PAUI.UI.WindowTitle:SetAnchor(TOPLEFT, PersonalAssistantUI, TOPLEFT, 0, 0)
-    PAUI.UI.WindowTitle:SetFont("ZoFontAnnounceMedium")
-    PAUI.UI.WindowTitle:SetHorizontalAlignment(TEXT_ALIGN_LEFT)
-    PAUI.UI.WindowTitle:SetText("|cFFD700P|rERSONAL|cFFD700A|rSSISTANT")
-	
-	-- Set the "sub title"
-    PAUI.UI.WindowSubTitle = WINDOW_MANAGER:CreateControl("PersonalAssistant_WindowSubTitle", PersonalAssistantUI, CT_LABEL)
-    PAUI.UI.WindowSubTitle:SetAnchor(LEFT, PAUI.UI.WindowTitle, RIGHT, 10, 0)
-    PAUI.UI.WindowSubTitle:SetFont("ZoFontAnnounceMedium")
-    PAUI.UI.WindowSubTitle:SetHorizontalAlignment(TEXT_ALIGN_LEFT)
-    PAUI.UI.WindowSubTitle:SetColor(0, 0.4, 0.6, 1);
-    PAUI.UI.WindowSubTitle:SetText("v1.2.0")
+	PAFW:AddCloseButton("PersonalAssistant_ButtonCloseAddon", PAUI.toggleWindow)
+	-- Set the title and "subtitle" of the main window
+	PAFW:AddTitle("PersonalAssistant_WindowTitle", "|cFFD700P|rERSONAL|cFFD700A|rSSISTANT")
+	PAFW:AddTitleInfo("PersonalAssistant_WindowSubTitle", "v1.2.2")
 	
 	-- add a divider below the title
-    PAUI.UI.TopDivider = WINDOW_MANAGER:CreateControl("PersonalAssistant_TopDivider", PersonalAssistantUI, CT_TEXTURE)
-    PAUI.UI.TopDivider:SetDimensions(760, 5)
-    PAUI.UI.TopDivider:SetAnchor(TOPLEFT, PersonalAssistantUI, TOPLEFT, 0, 32)
-    PAUI.UI.TopDivider:SetTexture("/esoui/art/quest/questjournal_divider.dds")
-	
-    -- CREATE BUTTON FOR CLOSE ADDON AT TOP_RIGHT
-    PAUI.UI.btnCloseAddonFrame = WINDOW_MANAGER:CreateControl("PersonalAssistant_ButtonCloseAddon", PersonalAssistantUI, CT_BUTTON)
-    PAUI.UI.btnCloseAddonFrame:SetDimensions(28, 28)
-    PAUI.UI.btnCloseAddonFrame:SetAnchor(TOPRIGHT, PersonalAssistantUI, TOPRIGHT, 0 , 0)
-    PAUI.UI.btnCloseAddonFrame:SetState(BSTATE_NORMAL)
-    PAUI.UI.btnCloseAddonFrame:SetMouseOverBlendMode(0)
-    PAUI.UI.btnCloseAddonFrame:SetEnabled(true)
-    PAUI.UI.btnCloseAddonFrame:SetNormalTexture("/esoui/art/buttons/clearslot_down.dds")
-    PAUI.UI.btnCloseAddonFrame:SetMouseOverTexture("/esoui/art/buttons/clearslot_up.dds")
-    PAUI.UI.btnCloseAddonFrame:SetHandler("OnClicked", function(self) PAUI.toggleWindow() end)
+	PAFW:AddCategoryHeader("PersonalAssistant_TopDivider", PA.getResourceMessage("PARMenuTitle"))
 	
 --	ZO_PreHookHandler(ZO_MainMenuCategoryBar, "OnShow", function()
 --		CHAT_SYSTEM:AddMessage("onshow ZO_MainMenuCategoryBar")
@@ -50,6 +28,11 @@ end
 function PAUI.toggleWindow()
 --	EVENT_MANAGER:RegisterForEvent("EVENT_ACTION_LAYER_POPPED", EVENT_ACTION_LAYER_POPPED, PA.popped)
 --	EVENT_MANAGER:RegisterForEvent("EVENT_ACTION_LAYER_PUSHED", EVENT_ACTION_LAYER_PUSHED, PA.pushed)
+
+--		http://www.esoui.com/forums/showthread.php?t=1453
+--    local fragment = ZO_FadeSceneFragment:New( yourControl )     
+--    SCENE_MANAGER:GetScene('hud'):AddFragment( fragment )
+--    SCENE_MANAGER:GetScene('hudui'):AddFragment( fragment )
 	
 		SetGameCameraUIMode(true)
 		
