@@ -3,6 +3,7 @@
 -- Developer: Klingo
 
 PA = {}
+PA.AddonVersion = "1.4.0"
 
 -- default values
 PA.General_Defaults = {}
@@ -27,8 +28,8 @@ function PA.initAddon(eventCode, addOnName)
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
 	
-	-- creates the (new) XML UI
---	PAUI.initUI()
+	-- creates the (new) XML UI - after a delay of one second
+	zo_callLater(function() PAUI.initUI() end, 1000)
 	
 	-- create the options with LAM
 	PA_SettingsMenu.CreateOptions()
@@ -38,6 +39,9 @@ function PA.initAddon(eventCode, addOnName)
 	
 	-- register PABanking
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen )
+	
+	-- addon load complete - unregister event
+	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED)
 end
 
 -- init default values
@@ -92,7 +96,7 @@ end
 -- introduces the addon to the player
 function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
-	-- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+	SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 	
 	if PA_SavedVars.General.language ~= "en" and PA_SavedVars.General.language ~= "de" then -- and PA_SavedVars.General.language ~= "fr" then
 		PA.println("Welcome_NoSupport", PA_SavedVars.General.language)

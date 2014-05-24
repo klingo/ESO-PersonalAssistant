@@ -10,11 +10,13 @@ function PAUI.initUI()
 	
 	PAFW:AddCloseButton("PersonalAssistant_ButtonCloseAddon", PAUI.toggleWindow)
 	-- Set the title and "subtitle" of the main window
-	PAFW:AddTitle("PersonalAssistant_WindowTitle", "|cFFD700P|rERSONAL|cFFD700A|rSSISTANT")
-	PAFW:AddTitleInfo("PersonalAssistant_WindowSubTitle", "v1.2.2")
+	PAFW:AddTitle("PersonalAssistant_WindowTitle", PA.getResourceMessage("MMenu_Title"))
+	PAFW:AddTitleInfo("PersonalAssistant_WindowSubTitle", PA.AddonVersion)
 	
 	-- add a divider below the title
-	PAFW:AddCategoryHeader("PersonalAssistant_TopDivider", PA.getResourceMessage("PARMenuTitle"))
+	PAFW:AddCategoryHeader("PersonalAssistant_TopDivider", PA.getResourceMessage("PARMenu_Header"))
+	
+--	lam:AddCheckbox(PersonalAssistantUI, "test", "test 3", "guug", nil, nil)
 	
 --	ZO_PreHookHandler(ZO_MainMenuCategoryBar, "OnShow", function()
 --		CHAT_SYSTEM:AddMessage("onshow ZO_MainMenuCategoryBar")
@@ -34,10 +36,10 @@ function PAUI.toggleWindow()
 --    SCENE_MANAGER:GetScene('hud'):AddFragment( fragment )
 --    SCENE_MANAGER:GetScene('hudui'):AddFragment( fragment )
 	
-		SetGameCameraUIMode(true)
+		
 		
     if (PersonalAssistantUI:IsHidden()) then
-	
+	SetGameCameraUIMode(true)
 	-- CHECK THIS!!!
 	-- http://wiki.esoui.com/AddOn_Quick_Questions#Are_there_Keypress_events_that_we_can_tie_into.3F
 	
@@ -54,7 +56,7 @@ function PAUI.toggleWindow()
 --		CHAT_SYSTEM:AddMessage(tostring(IsActionLayerActiveByName("GameMenu")))
 		--PopActionLayer()
 
---		ZO_SceneManager_ToggleGameMenuBinding()
+		ZO_SceneManager_ToggleGameMenuBinding()
 		
 --		if not ZO_MainMenuCategoryBar:IsHidden() then
 --			ZO_SceneManager_ToggleUIModeBinding()				
@@ -70,9 +72,9 @@ function PAUI.toggleWindow()
 		
 		--CHAT_SYSTEM:AddMessage("enabled")
     else
---        SetGameCameraUIMode(false)
+        SetGameCameraUIMode(false)
 
---		ZO_SceneManager_ToggleGameMenuBinding()
+		ZO_SceneManager_ToggleGameMenuBinding()
 --		if(CHAT_SYSTEM:IsMinimized()) then
 --			CHAT_SYSTEM:Maximize()
 --		end

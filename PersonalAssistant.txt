@@ -17,12 +17,13 @@ localization/en.lua
 localization/de.lua
 # localization/fr.lua
 
-# UserInterface
-libs/UI/PAUI.lua
-
 # Core
 PersonalAssistant.lua
 PersonalAssistant.xml
+
+# UserInterface
+libs/UI/PAFW.lua
+libs/UI/PAUI.lua
 
 # Settings
 libs/Settings/PABMenu.lua
