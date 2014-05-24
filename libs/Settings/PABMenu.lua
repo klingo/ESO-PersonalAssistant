@@ -27,9 +27,6 @@ function PABMenu.createMenu(LAM, panel)
 	LAM:AddCheckbox(panel, "PAB_Items_Enabled", PA.getResourceMessage("PABMenu_DepWitItem"), PA.getResourceMessage("PABMenu_DepWitItem_T"),
 				function() return PA_SavedVars.Banking.items end,
 				function(val) PA_SavedVars.Banking.items = val end)
-	LAM:AddCheckbox(panel, "PAB_Items_Open_Hireling_Container", PA.getResourceMessage("PABMenu_OpenHireling"), PA.getResourceMessage("PABMenu_OpenHireling_T"),
-				function() return PA_SavedVars.Banking.openHirelingChest end,
-				function(val) PA_SavedVars.Banking.openHirelingChest = val end)
 				
 	local PASubPanel = LAM:AddSubMenu(panel, "PA_Panel_Items_DepositWithdraw", PA.getResourceMessage("PABMenu_DepItemType"), PA.getResourceMessage("PABMenu_DepItemType_T"))
 	PABMenu.createItemSubMenu(LAM, PASubPanel)

@@ -28,12 +28,6 @@ ResourceBundle.en["PAB_ItemType_None"] 				= "-"
 ResourceBundle.en["PAB_ItemType_Deposit"]			= "Deposit"
 ResourceBundle.en["PAB_ItemType_Withdrawal"]		= "Withdraw"
 
-ResourceBundle.en["PAB_Hireling_UseItem"] 			= "PABanking: Opening %s."
-ResourceBundle.en["PAB_Hireling_Blacksmith"] 		= "Blacksmith"
-ResourceBundle.en["PAB_Hireling_Clothier"] 			= "Clothier"
-ResourceBundle.en["PAB_Hireling_Enchanter"] 		= "Enchanter"
-ResourceBundle.en["PAB_Hireling_Woodworker"] 		= "Woodworker"
-
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
@@ -74,8 +68,6 @@ ResourceBundle.en["PABMenu_WitGoldMin"] 			= "- Withdraw gold if below minimum"
 ResourceBundle.en["PABMenu_WitGoldMin_T"] 			= "Automatically withdraw gold from the bank if there is less gold on the character than defined above?"
 ResourceBundle.en["PABMenu_DepWitItem"] 			= "Deposit and withdraw Items"
 ResourceBundle.en["PABMenu_DepWitItem_T"] 			= "Auto deposit and/or withdraw items to and from the bank?"
-ResourceBundle.en["PABMenu_OpenHireling"] 			= "- Open Hireling Chests before deposit"
-ResourceBundle.en["PABMenu_OpenHireling_T"] 		= "Shall the chests sent to you by hirelings automatically be opened before the item deposit starts?"
 ResourceBundle.en["PABMenu_DepItemType"] 			= "- Set items to deposit/withdraw"
 ResourceBundle.en["PABMenu_DepItemType_T"] 			= "Open the sub-menu to define for each item type whether it shall be deposited, withdrew or ignored."
 ResourceBundle.en["PABMenu_DepItemJunk"] 			= "- Deposit items marked as junk"

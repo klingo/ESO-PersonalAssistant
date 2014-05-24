@@ -1,7 +1,7 @@
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.4.0|r 
-## Version: 1.4.0
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.4.0a|r 
+## Version: 1.4.0a
 ## Author: Klingo
-## APIVersion: 100003
+## APIVersion: 100004
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## OptionalDependsOn: LibAddonMenu-1.0
 

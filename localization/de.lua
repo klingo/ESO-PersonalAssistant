@@ -28,12 +28,6 @@ ResourceBundle.de["PAB_ItemType_None"] 				= "-"
 ResourceBundle.de["PAB_ItemType_Deposit"]			= "Einlagern"
 ResourceBundle.de["PAB_ItemType_Withdrawal"]		= "Abheben"
 
-ResourceBundle.de["PAB_Hireling_UseItem"] 			= "PABanking: Öffne %s."
-ResourceBundle.de["PAB_Hireling_Blacksmith"] 		= "Schmiedes"
-ResourceBundle.de["PAB_Hireling_Clothier"] 			= "Tuchmachers"
-ResourceBundle.de["PAB_Hireling_Enchanter"] 		= "Verzauberers"
-ResourceBundle.de["PAB_Hireling_Woodworker"] 		= "Holzarbeiters"
-
 -- MainMenu --
 ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
@@ -74,8 +68,6 @@ ResourceBundle.de["PABMenu_WitGoldMin"] 			= "Hebe Gold ab wenn unter Minimum"
 ResourceBundle.de["PABMenu_WitGoldMin_T"] 			= "Soll automatisch Gold von der Truhe abgehoben werden, wenn weniger Gold im Inventar ist wie oben als Minimum definiert wurde."
 ResourceBundle.de["PABMenu_DepWitItem"] 			= "Gegenstände einlagern und abheben"
 ResourceBundle.de["PABMenu_DepWitItem_T"] 			= "Sollen Gegenstände automatisch in die Truhe eingelagert bzw. von der Truhe abgehoben werden?"
-ResourceBundle.de["PABMenu_OpenHireling"] 			= "- Öffne Truhen vor Einlagerungen"
-ResourceBundle.de["PABMenu_OpenHireling_T"] 		= "Sollen von Sammlern zugeschickte Truhen automatisch vor der Einlagerung geöffnet werden?"
 ResourceBundle.de["PABMenu_DepItemType"] 			= "Gegenstände zum Einlagern/Abheben"
 ResourceBundle.de["PABMenu_DepItemType_T"] 			= "Öffnet das Untermenu um für jeden Typ von Gegenstand zu definieren ob er eingelagert, abgehoben oder ignoriert werden soll."
 ResourceBundle.de["PABMenu_DepItemJunk"] 			= "Auch Trödel Gegenstände einlagern"
