@@ -31,6 +31,11 @@ ResourceBundle.en["PAB_ItemType_Withdrawal"]		= "Withdraw"
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
+-- PAGMenu --
+ResourceBundle.en["PAGMenu_Header"]					= "|cFFD700PA G|reneral"
+ResourceBundle.en["PAGMenu_Welcome"] 				= "Show welcome message"
+ResourceBundle.en["PAGMenu_Welcome_T"] 				= "Display a welcome message from the addon upon successfully starting?"
+
 -- PARMenu --
 ResourceBundle.en["PARMenu_Header"] 				= "|cFFD700PA R|repair"
 ResourceBundle.en["PARMenu_Enable"] 				= "|cB0B0FFEnable Auto Repair|r"
@@ -70,6 +75,8 @@ ResourceBundle.en["PABMenu_DepWitItem"] 			= "Deposit and withdraw Items"
 ResourceBundle.en["PABMenu_DepWitItem_T"] 			= "Auto deposit and/or withdraw items to and from the bank?"
 ResourceBundle.en["PABMenu_DepItemType"] 			= "- Set items to deposit/withdraw"
 ResourceBundle.en["PABMenu_DepItemType_T"] 			= "Open the sub-menu to define for each item type whether it shall be deposited, withdrew or ignored."
+ResourceBundle.en["PABMenu_DepItemTImerInterval"]	= "Interval between item deposits (msecs)"
+ResourceBundle.en["PABMenu_DepItemTImerInterval_T"]	= "How many msecs shall pass between two consecutive item deposits. If too many item deposits don't work, consider increasing this value."
 ResourceBundle.en["PABMenu_DepItemJunk"] 			= "- Deposit items marked as junk"
 ResourceBundle.en["PABMenu_DepItemJunk_T"] 			= "Shall items that are marked as junk be deposited to the bank as well?"
 ResourceBundle.en["PABMenu_HideNoDeposit"] 			= "Hide 'Nothing to Deposit' message"
@@ -122,6 +129,7 @@ ResourceBundle.en[ITEMTYPE_GLYPH_JEWELRY] 			= "Jewelry Glyph (Enchanting)"
 ResourceBundle.en[ITEMTYPE_GLYPH_WEAPON] 			= "Weapon Glyph (Enchanting)"
 ResourceBundle.en[ITEMTYPE_INGREDIENT] 				= "Ingredient (Provisioning)"
 ResourceBundle.en[ITEMTYPE_LOCKPICK] 				= "enITEMTYPE_LOCKPICK"
+ResourceBundle.en[ITEMTYPE_MOUNT]					= "enITEMTYPE_MOUNT"
 ResourceBundle.en[ITEMTYPE_LURE] 					= "Bait"
 ResourceBundle.en[ITEMTYPE_NONE] 					= "enITEMTYPE_NONE"
 ResourceBundle.en[ITEMTYPE_PLUG] 					= "enITEMTYPE_PLUG"

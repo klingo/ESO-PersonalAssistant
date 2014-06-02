@@ -1,5 +1,5 @@
 -- Addon: PersonalAssistant
--- Version: 1.4.0a
+-- Version: 1.4.2
 -- Developer: Klingo
 
 PA = {}
@@ -38,7 +38,8 @@ function PA.initAddon(eventCode, addOnName)
     EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAR.OnShopOpen)
 	
 	-- register PABanking
-	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen )
+	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen)
+	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_CLOSE_BANK, PAB.OnBankClose)
 	
 	-- addon load complete - unregister event
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED)
@@ -48,6 +49,7 @@ end
 function PA.initDefaults()
 	-- default values for Addon
 	PA.General_Defaults.language = 1
+	PA.General_Defaults.welcome = true
 	
 	-- default values for PARepair
 	PA.Repair_Defaults.enabled = true
@@ -68,6 +70,7 @@ function PA.initDefaults()
 	PA.Banking_Defaults.goldWithdraw = false
 	PA.Banking_Defaults.goldLastDeposit = 0
 	PA.Banking_Defaults.items = false
+	PA.Banking_Defaults.itemsTimerInterval = 300
 	PA.Banking_Defaults.itemsIncludeJunk = false
     PA.Banking_Defaults.hideNoDepositMsg = false
     PA.Banking_Defaults.hideAllMsg = false
@@ -86,7 +89,7 @@ function PA.getResourceMessage(key)
 	if PA_SavedVars.General.language == "de" then
 		return ResourceBundle.de[key]
 	elseif PA_SavedVars.General.language == "fr" then
-		return ResourceBundle.en[key]	-- always use "en" so far
+		return ResourceBundle.fr[key]
 	else
 		return ResourceBundle.en[key]
 	end
@@ -97,10 +100,12 @@ function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
 	SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 	
-	if PA_SavedVars.General.language ~= "en" and PA_SavedVars.General.language ~= "de" then -- and PA_SavedVars.General.language ~= "fr" then
-		PA.println("Welcome_NoSupport", PA_SavedVars.General.language)
-	else
-		PA.println("Welcome_Support", PA_SavedVars.General.language)
+	if PA_SavedVars.General.welcome then
+		if PA_SavedVars.General.language ~= "en" and PA_SavedVars.General.language ~= "de" and PA_SavedVars.General.language ~= "fr" then
+			PA.println("Welcome_NoSupport", PA_SavedVars.General.language)
+		else
+			PA.println("Welcome_Support", PA_SavedVars.General.language)
+		end
 	end
 end
 
@@ -135,7 +140,11 @@ function PA.println(key, ...)
 	local text = PA.getResourceMessage(key)
 	if text == nil then text = key end
 	local args = {...}
-	CHAT_SYSTEM:AddMessage(string.format(text, unpack(args)))
+	local unpackedString = string.format(text, unpack(args))
+	if (unpackedString == "") then
+		unpackedString = key
+	end
+	CHAT_SYSTEM:AddMessage(unpackedString)
 	-- check this out: Singular & plural form using the zo_strformat() function 
 	-- http://www.esoui.com/forums/showthread.php?p=7988
 end

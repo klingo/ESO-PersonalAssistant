@@ -44,7 +44,8 @@ function PABMenu.createMenu(LAM, panel)
 end
 
 -- creates the sub panel for selecting the individual item types
-function PABMenu.createItemSubMenu(LAM, panel)	
+function PABMenu.createItemSubMenu(LAM, panel)
+
 	for i = 0, #PAItemTypes do
 		-- only add if the itemType is enabled
 		if PAItemTypes[i] ~= "" then
@@ -54,13 +55,17 @@ function PABMenu.createItemSubMenu(LAM, panel)
 				function(val) PA_SavedVars.Banking.ItemTypes[i] = PABMenu.getBankingNumberFromText(val) end)
 		end
 	end
+
+    LAM:AddSlider(panel, "PAB_Items_CallLater", PA.getResourceMessage("PABMenu_DepItemTImerInterval"),  PA.getResourceMessage("PABMenu_DepItemTImerInterval_T"), 200, 1000, 50,
+				function() return PA_SavedVars.Banking.itemsTimerInterval end, 
+				function(val) PA_SavedVars.Banking.itemsTimerInterval = val end)
 	
 	LAM:AddButton(panel, "PAB_ItemTypes_Deposit_All", PA.getResourceMessage("PABMenu_DepButton"), PA.getResourceMessage("PABMenu_DepButton_T"),
 		function() PABMenu.setDepositAll() end, true, PA.getResourceMessage("PABMenu_DepButton_W"))
 	LAM:AddButton(panel, "PAB_ItemTypes_Withdrawal_All", PA.getResourceMessage("PABMenu_WitButton"), PA.getResourceMessage("PABMenu_WitButton_T"),
 		function() PABMenu.setWithdrawalAll() end, true, PA.getResourceMessage("PABMenu_WitButton_W"))
 	LAM:AddButton(panel, "PAB_ItemTypes_Ignore_All", PA.getResourceMessage("PABMenu_IgnButton"), PA.getResourceMessage("PABMenu_IgnButton_T"),
-		function() PABMenu.setIgnoreAll() end, true, PA.getResourceMessage("PABMenu_IgnButton_W"))		
+		function() PABMenu.setIgnoreAll() end, true, PA.getResourceMessage("PABMenu_IgnButton_W"))
 end
 
 function PABMenu.setDepositAll()

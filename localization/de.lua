@@ -31,6 +31,11 @@ ResourceBundle.de["PAB_ItemType_Withdrawal"]		= "Abheben"
 -- MainMenu --
 ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
+-- PAGMenu --
+ResourceBundle.de["PAGMenu_Header"]					= "|cFFD700PA G|reneral"
+ResourceBundle.de["PAGMenu_Welcome"] 				= "Zeige Wilkommensnachricht"
+ResourceBundle.de["PAGMenu_Welcome_T"] 				= "Soll eine Willkommensnachricht nach Starten des Addons angezeigt werden?"
+
 -- PARMenu --
 ResourceBundle.de["PARMenu_Header"] 				= "|cFFD700PA R|repair"
 ResourceBundle.de["PARMenu_Enable"] 				= "|cB0B0FFAktiviere automatische Reparatur|r"
@@ -70,6 +75,8 @@ ResourceBundle.de["PABMenu_DepWitItem"] 			= "Gegenstände einlagern und abheben
 ResourceBundle.de["PABMenu_DepWitItem_T"] 			= "Sollen Gegenstände automatisch in die Truhe eingelagert bzw. von der Truhe abgehoben werden?"
 ResourceBundle.de["PABMenu_DepItemType"] 			= "Gegenstände zum Einlagern/Abheben"
 ResourceBundle.de["PABMenu_DepItemType_T"] 			= "Öffnet das Untermenu um für jeden Typ von Gegenstand zu definieren ob er eingelagert, abgehoben oder ignoriert werden soll."
+ResourceBundle.de["PABMenu_DepItemTImerInterval"]	= "Einlagerungs Intervall (ms)"
+ResourceBundle.de["PABMenu_DepItemTImerInterval_T"]	= "Anzahl Millisekunden zwischen zwei Einlagerungen. Wenn zu viele Einlagerungen nicht funktionieren, sollte dieser Wert erhöht werden."
 ResourceBundle.de["PABMenu_DepItemJunk"] 			= "Auch Trödel Gegenstände einlagern"
 ResourceBundle.de["PABMenu_DepItemJunk_T"] 			= "Sollen auch als Trödel markierte Gegenstände in die Truhe eingelagert werden?"
 ResourceBundle.de["PABMenu_HideNoDeposit"] 			= "Blende 'Nichts zum Einlagern' aus"
@@ -123,6 +130,7 @@ ResourceBundle.de[ITEMTYPE_GLYPH_WEAPON] 			= "Waffenglyphe"
 ResourceBundle.de[ITEMTYPE_INGREDIENT] 				= "Material (Versorgen)"
 ResourceBundle.de[ITEMTYPE_LOCKPICK] 				= "deITEMTYPE_LOCKPICK"
 ResourceBundle.de[ITEMTYPE_LURE] 					= "Köder"
+ResourceBundle.de[ITEMTYPE_MOUNT]					= "deITEMTYPE_MOUNT"
 ResourceBundle.de[ITEMTYPE_NONE] 					= "deITEMTYPE_NONE"
 ResourceBundle.de[ITEMTYPE_PLUG] 					= "deITEMTYPE_PLUG"
 ResourceBundle.de[ITEMTYPE_POISON] 					= "deITEMTYPE_POISON"

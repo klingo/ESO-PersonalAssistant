@@ -11,6 +11,13 @@ function PA_SettingsMenu.CreateOptions()
 end
 
 function PA_SettingsMenu.CreateOptionItems(PAPanel)
+
+	-- PAGeneral
+	LAM:AddHeader(PAPanel, "PAG_Header", PA.getResourceMessage("PAGMenu_Header"))
+	LAM:AddCheckbox(PAPanel, "PA_Welcome_Enabled", PA.getResourceMessage("PAGMenu_Welcome"), PA.getResourceMessage("PAGMenu_Welcome_T"),
+				function() return PA_SavedVars.General.welcome end,
+				function(val) PA_SavedVars.General.welcome = val end)
+
 	-- PARepair
     LAM:AddHeader(PAPanel, "PAR_Header", PA.getResourceMessage("PARMenu_Header"))
 	PARMenu.createMenu(LAM, PAPanel)

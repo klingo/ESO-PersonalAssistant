@@ -2,6 +2,7 @@
 -- Developer: Klingo
 
 PAB = {}
+PAB.isBankClosed = false
 
 function PAB.OnBankOpen()
 	-- check if addon is enabled
@@ -9,6 +10,9 @@ function PAB.OnBankOpen()
 	
 		local goldTransaction = false
 		local itemTransaction = false
+		
+		-- set the global variable to 'false'
+		PAB.isBankClosed = false
 		
 		-- check if gold deposit is enabled
 		if PA_SavedVars.Banking.gold then
@@ -29,6 +33,7 @@ function PAB.OnBankOpen()
 		
 		-- check if item deposit is enabled
 		if PA_SavedVars.Banking.items then
+			PAB_Items.loopCount = 0
 			itemTransaction = PAB_Items.DepositAndWithdrawItems()
 		end
 		
@@ -38,4 +43,9 @@ function PAB.OnBankOpen()
 			end
 		end
 	end
+end
+
+function PAB.OnBankClose()
+	-- set the global variable to 'true' so the bankClosing can be detected
+	PAB.isBankClosed = true
 end
