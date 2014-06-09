@@ -18,7 +18,7 @@ function PAR.OnShopOpen()
 			end
 		else
 			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
-				PA.println("PAR_NoRepair")
+				PAR.println("PAR_NoRepair")
 			end
 		end
 	end
@@ -65,17 +65,24 @@ function PAR.RepairItems(bagId, threshold)
 	
 	if repairedItems > 0 then
 		if notRepairedItems > 0 then
-			PA.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost)
+			PAR.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost)
 		else
-			PA.println("PAR_FullRepair", bagName, repairCost)
+			PAR.println("PAR_FullRepair", bagName, repairCost)
 		end
 	else
 		if notRepairedItems > 0 then
-			PA.println("PAR_NoGoldToRepair", notRepairedItems, bagName)
+			PAR.println("PAR_NoGoldToRepair", notRepairedItems, bagName)
 		else
 			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
-				PA.println("PAR_NoRepair")
+				PAR.println("PAR_NoRepair")
 			end
 		end
+	end
+end
+
+function PAR.println(key, ...)
+	if (not PA_SavedVars.Repair.hideAllMsg) then
+		local args = {...}
+		PA.println(key, unpack(args))
 	end
 end

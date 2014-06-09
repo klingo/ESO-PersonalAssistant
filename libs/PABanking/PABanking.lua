@@ -37,9 +37,10 @@ function PAB.OnBankOpen()
 			itemTransaction = PAB_Items.DepositAndWithdrawItems()
 		end
 		
+		-- FIXME: this check does currently not work, need to be called with zo_calllater
 		if (not goldTransaction) and (not itemTransaction) then
 			if (not PA_SavedVars.Banking.hideNoDepositMsg) then
-				PA.println("PAB_NoDeposit")
+				PAB.println("PAB_NoDeposit")
 			end
 		end
 	end
@@ -48,4 +49,11 @@ end
 function PAB.OnBankClose()
 	-- set the global variable to 'true' so the bankClosing can be detected
 	PAB.isBankClosed = true
+end
+
+function PAB.println(key, ...)
+	if (not PA_SavedVars.Banking.hideAllMsg) then
+		local args = {...}
+		PA.println(key, unpack(args))
+	end
 end
