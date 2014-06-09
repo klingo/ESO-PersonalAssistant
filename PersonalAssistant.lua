@@ -1,9 +1,9 @@
 -- Addon: PersonalAssistant
--- Version: 1.4.2
+-- Version: 1.4.3
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.4.0a"
+PA.AddonVersion = "1.4.3"
 
 -- default values
 PA.General_Defaults = {}
@@ -71,7 +71,7 @@ function PA.initDefaults()
 	PA.Banking_Defaults.goldLastDeposit = 0
 	PA.Banking_Defaults.items = false
 	PA.Banking_Defaults.itemsTimerInterval = 300
-	PA.Banking_Defaults.itemsIncludeJunk = false
+	PA.Banking_Defaults.itemsJunkSetting = 0
     PA.Banking_Defaults.hideNoDepositMsg = false
     PA.Banking_Defaults.hideAllMsg = false
 
