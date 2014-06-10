@@ -154,10 +154,11 @@ EVENT_MANAGER:RegisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER
 
 -- ========================================================================================================================
 -- Dev-Debug --
-function PA.cursorPickup(type, param1, param2, param3, param4, param5, param6, itemSoundCategory) 
-	itemType = GetItemType(param2, param3) 
-	strItemType = PA.getResourceMessage(itemType)
-	PA.println("itemType (%s): %s.", itemType, strItemType)
+function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6, itemSoundCategory) 
+	local itemType = GetItemType(bagId, slotIndex) 
+	local strItemType = PA.getResourceMessage(itemType)
+	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
+	PA.println("itemType (%s): %s. ---> (%d/%d)", itemType, strItemType, stack, maxStack)
 end
 
 -- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)
