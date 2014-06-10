@@ -31,6 +31,14 @@ end
 
 function PAB_Items.DoItemTransaction(fromBagId, toBagId, fromBagItemTypeList, toBagItemTypeList, transactionType, lastLoop)
 	local timer = 100
+	local skipChecksAndProceed = false
+	
+	-- pre-determine if in case of Junk the checks shall be skipped
+	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_DEP)) then
+		skipChecksAndProceed = true
+	elseif ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_WIT)) then
+		skipChecksAndProceed = true
+	end
 	
 	for currFromBagItem = 0, #fromBagItemTypeList do
 		-- store some transfer related information per item
@@ -40,48 +48,50 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, fromBagItemTypeList, to
 		transferInfo["fromItemName"] = GetItemName(transferInfo["fromBagId"], currFromBagItem):upper()
 		transferInfo["fromItemLink"] = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(transferInfo["fromBagId"], currFromBagItem, LINK_STYLE_BRACKETS))
 		transferInfo["stackSize"] = GetSlotStackSize(transferInfo["fromBagId"], currFromBagItem)
-
+		
+		local isJunk = IsItemJunk(transferInfo["fromBagId"], currFromBagItem)
+		
 		-- check if the item is marked as junk and whether junk shall be deposited too
-		if IsItemJunk(transferInfo["fromBagId"], currFromBagItem) and not PA_SavedVars.Banking.itemsIncludeJunk then
-			-- do nothing; skip item
+		if isJunk and PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_NOJUNK then
+			-- do nothing; skip item (no junk shall be moved)
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_WIT)) then
+			-- do nothing; skip item (junk has to be withdrawn but we are in deposit mode)
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_DEP)) then
+			-- do nothing; skip item (junk has to be deposited but we are in withdraw mode)
 		else
 			-- loop through all item types
 			for currItemType = 0, #PAItemTypes do
-				-- checks if this item type has been enabled for deposits/withdraws
-				if PA_SavedVars.Banking.ItemTypes[currItemType] == transactionType then
-					-- then check if it does match the type of the source item
-					if fromBagItemTypeList[currFromBagItem] == PAItemTypes[currItemType] then
+				-- checks if this item type has been enabled for deposits/withdraws and if it does match the type of the source item.... or if it is Junk and checks shall be skipped
+				if (((PA_SavedVars.Banking.ItemTypes[currItemType] == transactionType) and (fromBagItemTypeList[currFromBagItem] == PAItemTypes[currItemType])) or (isJunk and skipChecksAndProceed)) then
+					-- then loop through all items in the target bag
+					for currToBagItem = 0, #toBagItemTypeList do
+						-- store the name of the target item
+						transferInfo["toItemName"] = GetItemName(transferInfo["toBagId"], currToBagItem):upper()
 						
-						-- then loop through all items in the target bag
-						for currToBagItem = 0, #toBagItemTypeList do
-							-- store the name of the target item
-							transferInfo["toItemName"] = GetItemName(transferInfo["toBagId"], currToBagItem):upper()
-							
-							-- compare the names
-							if transferInfo["fromItemName"] == transferInfo["toItemName"] then
-								-- item found in target bag, transfer item from source bag to target bag and get info how many items left
-								PAB_Items.itemMoved = true
-								transferInfo["stackSize"] = PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
-							end
-							
-							-- if no items left, break. otherwise continue the loop
-							if transferInfo["stackSize"] == 0 then
-								break
-							-- if "-1" returned, not enough space was available. stop the rest.
-							elseif transferInfo["stackSize"] < 0 then
-								return
-							end
-						end
-						
-						-- all target-items checked - are still stacks left?
-						if transferInfo["stackSize"] > 0 then
+						-- compare the names
+						if transferInfo["fromItemName"] == transferInfo["toItemName"] then
+							-- item found in target bag, transfer item from source bag to target bag and get info how many items left
 							PAB_Items.itemMoved = true
-							zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
-							timer = timer + PA_SavedVars.Banking.itemsTimerInterval
-							-- increase the queue of the "callLater" calls
-							PAB_Items.queueSize = PAB_Items.queueSize + 1
-							break
+							transferInfo["stackSize"] = PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
 						end
+						
+						-- if no items left, break. otherwise continue the loop
+						if transferInfo["stackSize"] == 0 then
+							break
+						-- if "-1" returned, not enough space was available. stop the rest.
+						elseif transferInfo["stackSize"] < 0 then
+							return
+						end
+					end
+					
+					-- all target-items checked - are still stacks left?
+					if transferInfo["stackSize"] > 0 then
+						PAB_Items.itemMoved = true
+						zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
+						timer = timer + PA_SavedVars.Banking.itemsTimerInterval
+						-- increase the queue of the "callLater" calls
+						PAB_Items.queueSize = PAB_Items.queueSize + 1
+						break
 					end
 				end
 			end
@@ -98,8 +108,10 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
 	-- good, there is a slot
 	if toSlotIndex ~= nil then
 		local bankStackSize = GetSlotStackSize(transferInfo["toBagId"], toSlotIndex)
-		-- new stack size modulo 100 (max size)
-		local moveableStackSize = 100 - bankStackSize
+		-- have to read GetSlotStackSize again, as the targetBag-Slot could be empty, leading to value 0
+		local _, maxStackSize = GetSlotStackSize(transferInfo["fromBagId"], fromSlotIndex)
+		-- new stack size = maxStackSize minus existing bankStack
+		local moveableStackSize = maxStackSize - bankStackSize
 		local remainingStackSize = 0
 		
 		if (transferInfo["stackSize"] <= moveableStackSize) then

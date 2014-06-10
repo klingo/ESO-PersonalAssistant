@@ -31,10 +31,6 @@ function PABMenu.createMenu(LAM, panel)
 	local PASubPanel = LAM:AddSubMenu(panel, "PA_Panel_Items_DepositWithdraw", PA.getResourceMessage("PABMenu_DepItemType"), PA.getResourceMessage("PABMenu_DepItemType_T"))
 	PABMenu.createItemSubMenu(LAM, PASubPanel)
 
-  	LAM:AddDropdown(panel, "PAB_Items_Junk_Enabled_New", PA.getResourceMessage("PABMenu_DepItemJunk"), PA.getResourceMessage("PABMenu_DepItemJunk_T"), 
-				{PA.getResourceMessage("PAB_Junk_NoJunk"), PA.getResourceMessage("PAB_Junk_ItemTypeJunk"), PA.getResourceMessage("PAB_Junk_AllJunk")},
-				function() return PABMenu.getJunkTextFromNumber(i) end,
-				function(val) PA_SavedVars.Banking.itemsJunkSetting = PABMenu.getJunkNumberFromText(val) end)	
     LAM:AddCheckbox(panel, "PAB_HideNothingToDeposit", PA.getResourceMessage("PABMenu_HideNoDeposit"), PA.getResourceMessage("PABMenu_HideNoDeposit_T"),
 				function() return PA_SavedVars.Banking.hideNoDepositMsg end,
 				function(val) PA_SavedVars.Banking.hideNoDepositMsg = val end)
@@ -45,6 +41,15 @@ end
 
 -- creates the sub panel for selecting the individual item types
 function PABMenu.createItemSubMenu(LAM, panel)
+
+	LAM:AddDescription(panel, "PAB_Items_Junk_Header", "", PA.getResourceMessage("PABMenu_ItemJunk_Header"))
+	
+  	LAM:AddDropdown(panel, "PAB_Items_Junk_Type", PA.getResourceMessage("PABMenu_DepItemJunk"), PA.getResourceMessage("PABMenu_DepItemJunk_T"), 
+				{PA.getResourceMessage("PAB_Junk_NoJunk"), PA.getResourceMessage("PAB_Junk_ItemTypeJunk"), PA.getResourceMessage("PAB_Junk_AllJunkDep"), PA.getResourceMessage("PAB_Junk_AllJunkWit")},
+				function() return PABMenu.getJunkTextFromNumber() end,
+				function(val) PA_SavedVars.Banking.itemsJunkSetting = PABMenu.getJunkNumberFromText(val) end)	
+
+	LAM:AddDescription(panel, "PAB_Items_Type_Header", "", PA.getResourceMessage("PABMenu_ItemType_Header"))
 
 	for i = 0, #PAItemTypes do
 		-- only add if the itemType is enabled
@@ -118,13 +123,15 @@ end
 
 -- --------------------------------------------------------------------------------------------------------
 
--- returns the matching dropdown-text based on the number that is behind it
-function PABMenu.getJunkTextFromNumber(number)
+-- returns the matching dropdown-text
+function PABMenu.getJunkTextFromNumber()
 	local index = PA_SavedVars.Banking.itemsJunkSetting
 	if index == PAC_JUNK_ITEMTYPEJUNK then
 		return PA.getResourceMessage("PAB_Junk_ItemTypeJunk")
-	elseif index == PAC_JUNK_ALLJUNK then
-		return PA.getResourceMessage("PAB_Junk_AllJunk")
+	elseif index == PAC_JUNK_ALLJUNK_DEP then
+		return PA.getResourceMessage("PAB_Junk_AllJunkDep")
+	elseif index == PAC_JUNK_ALLJUNK_WIT then
+		return PA.getResourceMessage("PAB_Junk_AllJunkWit")
 	else
 		return PA.getResourceMessage("PAB_Junk_NoJunk")
 	end
@@ -132,8 +139,10 @@ end
 
 -- returns the number behind the text, depending on the text
 function PABMenu.getJunkNumberFromText(text)
-	if text == PA.getResourceMessage("PAB_Junk_AllJunk") then
-		return PAC_JUNK_ALLJUNK			-- = All Junk
+	if text == PA.getResourceMessage("PAB_Junk_AllJunkDep") then
+		return PAC_JUNK_ALLJUNK_DEP		-- = All Junk (Deposit only)
+	elseif text == PA.getResourceMessage("PAB_Junk_AllJunkWit") then
+		return PAC_JUNK_ALLJUNK_WIT		-- = All Junk (Withdraw only)
 	elseif text == PA.getResourceMessage("PAB_Junk_ItemTypeJunk") then
 		return PAC_JUNK_ITEMTYPEJUNK	-- = Junk matching Item Types
 	else

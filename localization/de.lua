@@ -29,8 +29,9 @@ ResourceBundle.de["PAB_ItemType_Deposit"]			= "Einlagern"
 ResourceBundle.de["PAB_ItemType_Withdrawal"]		= "Abheben"
 
 ResourceBundle.de["PAB_Junk_NoJunk"]				= "gar keinem Trödel"
-ResourceBundle.de["PAB_Junk_ItemTypeJunk"]			= "Trödel deren Typ aktiviert ist"
-ResourceBundle.de["PAB_Junk_AllJunk"]				= "sämtlichem Trödel"
+ResourceBundle.de["PAB_Junk_ItemTypeJunk"]			= "Trödel gemäss Typeneinstellung"
+ResourceBundle.de["PAB_Junk_AllJunkDep"]			= "allem Trödel (nur Einlagern!)"
+ResourceBundle.de["PAB_Junk_AllJunkWit"]			= "allem Trödel (nur Abheben!)"
 
 -- MainMenu --
 ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
@@ -81,8 +82,10 @@ ResourceBundle.de["PABMenu_DepItemType"] 			= "- Gegenstände zum Einlagern/Abhe
 ResourceBundle.de["PABMenu_DepItemType_T"] 			= "Öffnet das Untermenu um für jeden Typ von Gegenstand zu definieren ob er eingelagert, abgehoben oder ignoriert werden soll."
 ResourceBundle.de["PABMenu_DepItemTImerInterval"]	= "Einlagerungs Intervall (ms)"
 ResourceBundle.de["PABMenu_DepItemTImerInterval_T"]	= "Anzahl Millisekunden zwischen zwei Einlagerungen. Wenn zu viele Einlagerungen nicht funktionieren, sollte dieser Wert erhöht werden."
-ResourceBundle.de["PABMenu_DepItemJunk"] 			= "- Trödel: Einlagern/Abheben von ..."
+ResourceBundle.de["PABMenu_ItemJunk_Header"]		= PAC_COL_LIGHT_BLUE.."ALS TRÖDEL MARKIERTE GEGENSTÄNDE"
+ResourceBundle.de["PABMenu_DepItemJunk"] 			= "Trödel: Einlagern/Abheben von ..."
 ResourceBundle.de["PABMenu_DepItemJunk_T"] 			= "Sollen auch als Trödel markierte Gegenstände, nur solche deren Typ aktiviert ist oder gar keine in die Truhe eingelagert werden?"
+ResourceBundle.de["PABMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPEN VON GEGENSTÄNDEN"
 ResourceBundle.de["PABMenu_HideNoDeposit"] 			= "Blende 'Nichts zum Einlagern' aus"
 ResourceBundle.de["PABMenu_HideNoDeposit_T"] 		= "Blendet die Meldung 'Nichts zum Einlagern' aus. Eingelagerte Gegenstände werden jedoch weiterhin ausgegeben."
 ResourceBundle.de["PABMenu_HideAll"] 				= "Blende alle Meldungen aus"

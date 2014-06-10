@@ -10,7 +10,8 @@ PAC_ITEMTYPE_WITHDRAWAL = 2
 
 PAC_JUNK_NOJUNK = 0
 PAC_JUNK_ITEMTYPEJUNK = 1
-PAC_JUNK_ALLJUNK = 2
+PAC_JUNK_ALLJUNK_DEP = 2
+PAC_JUNK_ALLJUNK_WIT = 3
 
 
 -- PersonalAssistant Banking
@@ -19,6 +20,7 @@ PAB_MAX_DEPOSIT_LOOPS = 3
 -- PersonalAssistant Colors
 PAC_COL_WHITE = "|cFFFFFF"
 PAC_COL_YELLOW = "|cFFFF00"
+PAC_COL_LIGHT_BLUE = "|cB0B0FF"
 
 PAItemTypes = {}
 -- PAItemTypes[index] = ItemType   ["" --> disabled itemType]
