@@ -30,6 +30,10 @@ function PABMenu.createMenu(LAM, panel)
 				
 	local PASubPanel = LAM:AddSubMenu(panel, "PA_Panel_Items_DepositWithdraw", PA.getResourceMessage("PABMenu_DepItemType"), PA.getResourceMessage("PABMenu_DepItemType_T"))
 	PABMenu.createItemSubMenu(LAM, PASubPanel)
+	
+    LAM:AddSlider(panel, "PAB_Items_CallLater", PA.getResourceMessage("PABMenu_DepItemTImerInterval"),  PA.getResourceMessage("PABMenu_DepItemTImerInterval_T"), 200, 1000, 50,
+				function() return PA_SavedVars.Banking.itemsTimerInterval end, 
+				function(val) PA_SavedVars.Banking.itemsTimerInterval = val end)
 
     LAM:AddCheckbox(panel, "PAB_HideNothingToDeposit", PA.getResourceMessage("PABMenu_HideNoDeposit"), PA.getResourceMessage("PABMenu_HideNoDeposit_T"),
 				function() return PA_SavedVars.Banking.hideNoDepositMsg end,
@@ -45,9 +49,9 @@ function PABMenu.createItemSubMenu(LAM, panel)
 	LAM:AddDescription(panel, "PAB_Items_Junk_Header", "", PA.getResourceMessage("PABMenu_ItemJunk_Header"))
 	
   	LAM:AddDropdown(panel, "PAB_Items_Junk_Type", PA.getResourceMessage("PABMenu_DepItemJunk"), PA.getResourceMessage("PABMenu_DepItemJunk_T"), 
-				{PA.getResourceMessage("PAB_Junk_NoJunk"), PA.getResourceMessage("PAB_Junk_ItemTypeJunk"), PA.getResourceMessage("PAB_Junk_AllJunkDep"), PA.getResourceMessage("PAB_Junk_AllJunkWit")},
-				function() return PABMenu.getJunkTextFromNumber() end,
-				function(val) PA_SavedVars.Banking.itemsJunkSetting = PABMenu.getJunkNumberFromText(val) end)	
+				{PA.getResourceMessage("PAB_ItemType_None"), PA.getResourceMessage("PAB_ItemType_Deposit"), PA.getResourceMessage("PAB_ItemType_Withdrawal"), PA.getResourceMessage("PAB_ItemType_Inherit")},
+				function() return PABMenu.getBankingTextFromNumber() end,
+				function(val) PA_SavedVars.Banking.itemsJunkSetting = PABMenu.getBankingNumberFromText(val) end)	
 
 	LAM:AddDescription(panel, "PAB_Items_Type_Header", "", PA.getResourceMessage("PABMenu_ItemType_Header"))
 
@@ -61,10 +65,6 @@ function PABMenu.createItemSubMenu(LAM, panel)
 		end
 	end
 
-    LAM:AddSlider(panel, "PAB_Items_CallLater", PA.getResourceMessage("PABMenu_DepItemTImerInterval"),  PA.getResourceMessage("PABMenu_DepItemTImerInterval_T"), 200, 1000, 50,
-				function() return PA_SavedVars.Banking.itemsTimerInterval end, 
-				function(val) PA_SavedVars.Banking.itemsTimerInterval = val end)
-	
 	LAM:AddButton(panel, "PAB_ItemTypes_Deposit_All", PA.getResourceMessage("PABMenu_DepButton"), PA.getResourceMessage("PABMenu_DepButton_T"),
 		function() PABMenu.setDepositAll() end, true, PA.getResourceMessage("PABMenu_DepButton_W"))
 	LAM:AddButton(panel, "PAB_ItemTypes_Withdrawal_All", PA.getResourceMessage("PABMenu_WitButton"), PA.getResourceMessage("PABMenu_WitButton_T"),
@@ -100,11 +100,17 @@ end
 
 -- returns the matching dropdown-text based on the number that is behind it
 function PABMenu.getBankingTextFromNumber(number)
-	local index = PA_SavedVars.Banking.ItemTypes[number]
+	local index = PA_SavedVars.Banking.itemsJunkSetting
+	if (number ~= nil) then
+		index = PA_SavedVars.Banking.ItemTypes[number]
+	end
+	
 	if index == PAC_ITEMTYPE_DEPOSIT then
 		return PA.getResourceMessage("PAB_ItemType_Deposit")
 	elseif index == PAC_ITEMTYPE_WITHDRAWAL then
 		return PA.getResourceMessage("PAB_ItemType_Withdrawal")
+	elseif index == PAC_ITEMTYPE_INHERIT then
+		return PA.getResourceMessage("PAB_ItemType_Inherit")
 	else
 		return PA.getResourceMessage("PAB_ItemType_None")
 	end
@@ -116,36 +122,9 @@ function PABMenu.getBankingNumberFromText(text)
 		return PAC_ITEMTYPE_DEPOSIT		-- = Deposit
 	elseif text == PA.getResourceMessage("PAB_ItemType_Withdrawal") then
 		return PAC_ITEMTYPE_WITHDRAWAL	-- = Withdrawal
+	elseif text == PA.getResourceMessage("PAB_ItemType_Inherit") then
+		return PAC_ITEMTYPE_INHERIT		-- = Inherit
 	else
 		return PAC_ITEMTYPE_IGNORE		-- = Ignore
-	end
-end
-
--- --------------------------------------------------------------------------------------------------------
-
--- returns the matching dropdown-text
-function PABMenu.getJunkTextFromNumber()
-	local index = PA_SavedVars.Banking.itemsJunkSetting
-	if index == PAC_JUNK_ITEMTYPEJUNK then
-		return PA.getResourceMessage("PAB_Junk_ItemTypeJunk")
-	elseif index == PAC_JUNK_ALLJUNK_DEP then
-		return PA.getResourceMessage("PAB_Junk_AllJunkDep")
-	elseif index == PAC_JUNK_ALLJUNK_WIT then
-		return PA.getResourceMessage("PAB_Junk_AllJunkWit")
-	else
-		return PA.getResourceMessage("PAB_Junk_NoJunk")
-	end
-end
-
--- returns the number behind the text, depending on the text
-function PABMenu.getJunkNumberFromText(text)
-	if text == PA.getResourceMessage("PAB_Junk_AllJunkDep") then
-		return PAC_JUNK_ALLJUNK_DEP		-- = All Junk (Deposit only)
-	elseif text == PA.getResourceMessage("PAB_Junk_AllJunkWit") then
-		return PAC_JUNK_ALLJUNK_WIT		-- = All Junk (Withdraw only)
-	elseif text == PA.getResourceMessage("PAB_Junk_ItemTypeJunk") then
-		return PAC_JUNK_ITEMTYPEJUNK	-- = Junk matching Item Types
-	else
-		return PAC_JUNK_NOJUNK			-- = No junk
 	end
 end

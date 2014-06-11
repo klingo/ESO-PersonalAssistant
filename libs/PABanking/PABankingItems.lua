@@ -34,9 +34,11 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, fromBagItemTypeList, to
 	local skipChecksAndProceed = false
 	
 	-- pre-determine if in case of Junk the checks shall be skipped
-	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_DEP)) then
+	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
+		-- we are in deposit mode and junk shall be deposited
 		skipChecksAndProceed = true
-	elseif ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_WIT)) then
+	elseif ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
+		-- we are in withdrawal mode and junk shall be withdrawn
 		skipChecksAndProceed = true
 	end
 	
@@ -52,11 +54,11 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, fromBagItemTypeList, to
 		local isJunk = IsItemJunk(transferInfo["fromBagId"], currFromBagItem)
 		
 		-- check if the item is marked as junk and whether junk shall be deposited too
-		if isJunk and PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_NOJUNK then
+		if isJunk and PA_SavedVars.Banking.itemsJunkSetting == PAC_ITEMTYPE_IGNORE then
 			-- do nothing; skip item (no junk shall be moved)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_WIT)) then
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
 			-- do nothing; skip item (junk has to be withdrawn but we are in deposit mode)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_JUNK_ALLJUNK_DEP)) then
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking.itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
 			-- do nothing; skip item (junk has to be deposited but we are in withdraw mode)
 		else
 			-- loop through all item types
