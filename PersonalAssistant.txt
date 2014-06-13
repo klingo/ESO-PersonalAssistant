@@ -1,13 +1,26 @@
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.4.3|r 
-## Version: 1.4.3
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.0|r 
+## Version: 1.5.0
 ## Author: Klingo
 ## APIVersion: 100004
 ## SavedVariables: PersonalAssistant_SavedVariables
-## OptionalDependsOn: LibAddonMenu-1.0
+## OptionalDependsOn: LibAddonMenu-2.0 LibAddonMenu-1.0
 
 # Libraries
 libs/LibStub/LibStub.lua
 libs/LibAddonMenu-1.0/LibAddonMenu-1.0.lua
+libs/LibAddonMenu-2.0/LibAddonMenu-2.0.lua
+libs/LibAddonMenu-2.0/controls/panel.lua
+libs/LibAddonMenu-2.0/controls/submenu.lua
+libs/LibAddonMenu-2.0/controls/button.lua
+libs/LibAddonMenu-2.0/controls/checkbox.lua
+libs/LibAddonMenu-2.0/controls/colorpicker.lua
+libs/LibAddonMenu-2.0/controls/custom.lua
+libs/LibAddonMenu-2.0/controls/description.lua
+libs/LibAddonMenu-2.0/controls/dropdown.lua
+libs/LibAddonMenu-2.0/controls/editbox.lua
+libs/LibAddonMenu-2.0/controls/header.lua
+libs/LibAddonMenu-2.0/controls/slider.lua
+libs/LibAddonMenu-2.0/controls/texture.lua
 
 # Globals
 vars/Globals.lua
@@ -21,6 +34,14 @@ localization/fr.lua
 PersonalAssistant.lua
 PersonalAssistant.xml
 
+# PARepair
+libs/PARepair/PARepair.lua
+
+# PABanking
+libs/PABanking/PABankingGold.lua
+libs/PABanking/PABankingItems.lua
+libs/PABanking/PABanking.lua
+
 # UserInterface
 libs/UI/PAFW.lua
 libs/UI/PAUI.lua
@@ -29,11 +50,3 @@ libs/UI/PAUI.lua
 libs/Settings/PABMenu.lua
 libs/Settings/PARMenu.lua
 libs/Settings/MainMenu.lua
-
-# PARepair
-libs/PARepair/PARepair.lua
-
-# PABanking
-libs/PABanking/PABankingGold.lua
-libs/PABanking/PABankingItems.lua
-libs/PABanking/PABanking.lua
