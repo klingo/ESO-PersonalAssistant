@@ -13,34 +13,52 @@ local panelData = {
 	 registerForDefaults = true,
 }
 
+local optionsTable = {}
 local itemTypeSubmenuTable = {}
 
-local optionsTable = {
-	[1] = {
+
+function PA_SettingsMenu.CreateOptions()
+	-- first register the panel with LAM-1
+    local PAPanel = LAM:CreateControlPanel("PA_Panel", PA.getResourceMessage("MMenu_Title"))
+	-- then delay the actual creation of the option items by 1 second to reduce the anchor overload at startup
+	zo_callLater(function() PA_SettingsMenu.CreateOptionItems(PAPanel) end, 1000)
+	
+	-- now create the menus with LAM-2
+	PA_SettingsMenu.createItemSubMenu()
+	PA_SettingsMenu.createMainMenu()
+	
+	-- and regster it
+	LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
+	LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
+end
+
+function PA_SettingsMenu.createMainMenu()
+
+	optionsTable[1] = {
 		type = "header",
 		name = PA.getResourceMessage("PAGMenu_Header"),
-	},
-	[2] = {
+	}
+	optionsTable[2] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PAGMenu_Welcome"),
 		tooltip = PA.getResourceMessage("PAGMenu_Welcome_T"),
 		getFunc = function() return PA_SavedVars.General.welcome end,
 		setFunc = function(value) PA_SavedVars.General.welcome = value end,
 		default = true,
-	},
-	[3] = {
+	}
+	optionsTable[3] = {
 		type = "header",
 		name = PA.getResourceMessage("PARMenu_Header"),
-	},
-	[4] = {
+	}
+	optionsTable[4] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_Enable"),
 		tooltip = PA.getResourceMessage("PARMenu_Enable_T"),
 		getFunc = function() return PA_SavedVars.Repair.enabled end,
 		setFunc = function(value) PA_SavedVars.Repair.enabled = value end,
 		default = true,
-	},
-	[5] = {
+	}
+	optionsTable[5] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_RepairEq"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairEq_T"),
@@ -49,8 +67,8 @@ local optionsTable = {
 		width = "half",
 		disabled = function() return not PA_SavedVars.Repair.enabled end,
 		default = true,
-	},
-	[6] = {
+	}
+	optionsTable[6] = {
 		type = "slider",
 		name = PA.getResourceMessage("PARMenu_RepairEqDura"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairEqDura_T"),
@@ -62,8 +80,8 @@ local optionsTable = {
 		width = "half",		
 		disabled = function() return not (PA_SavedVars.Repair.equipped and PA_SavedVars.Repair.enabled) end,
 		default = 75,
-	},
-	[7] = {
+	}
+	optionsTable[7] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_RepairBa"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairBa_T"),
@@ -72,8 +90,8 @@ local optionsTable = {
 		width = "half",
 		disabled = function() return not PA_SavedVars.Repair.enabled end,
 		default = false,
-	},
-	[8] = {
+	}
+	optionsTable[8] = {
 		type = "slider",
 		name = PA.getResourceMessage("PARMenu_RepairBaDura"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairBaDura_T"),
@@ -85,8 +103,8 @@ local optionsTable = {
 		width = "half",		
 		disabled = function() return not (PA_SavedVars.Repair.backpack and PA_SavedVars.Repair.enabled) end,
 		default = 75,
-	},
-	[9] = {
+	}
+	optionsTable[9] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_HideNoRepair"),
 		tooltip = PA.getResourceMessage("PARMenu_HideNoRepair_T"),
@@ -95,8 +113,8 @@ local optionsTable = {
 		width = "half",
 		disabled = function() return not PA_SavedVars.Repair.enabled end,
 		default = false,
-	},
-	[10] = {
+	}
+	optionsTable[10] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_HideAll"),
 		tooltip = PA.getResourceMessage("PARMenu_HideAll_T"),
@@ -105,20 +123,20 @@ local optionsTable = {
 		width = "half",
 		disabled = function() return not PA_SavedVars.Repair.enabled end,
 		default = false,
-	},
-	[11] = {
+	}
+	optionsTable[11] = {
 		type = "header",
 		name = PA.getResourceMessage("PABMenu_Header"),
-	},
-	[12] = {
+	}
+	optionsTable[12] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_Enable"),
 		tooltip = PA.getResourceMessage("PABMenu_Enable_T"),
 		getFunc = function() return PA_SavedVars.Banking.enabled end,
 		setFunc = function(value) PA_SavedVars.Banking.enabled = value end,
 		default = true,
-	},
-	[13] = {
+	}
+	optionsTable[13] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_DepGold"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGold_T"),
@@ -126,8 +144,8 @@ local optionsTable = {
 		setFunc = function(value) PA_SavedVars.Banking.gold = value end,
 		disabled = function() return not PA_SavedVars.Banking.enabled end,
 		default = true,
-	},
-	[14] = {
+	}
+	optionsTable[14] = {
 		type = "editbox",
 		name = PA.getResourceMessage("PABMenu_DepInterval"),
 		tooltip = PA.getResourceMessage("PABMenu_DepInterval_T"),
@@ -137,8 +155,8 @@ local optionsTable = {
 		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
 		warning = PA.getResourceMessage("PABMenu_DepInterval_W"),
 		default = 300,
-	},
-	[15] = {
+	}
+	optionsTable[15] = {
 		type = "slider",
 		name = PA.getResourceMessage("PABMenu_DepGoldPerc"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGoldPerc_T"),
@@ -149,8 +167,8 @@ local optionsTable = {
 		setFunc = function(value) PA_SavedVars.Banking.goldDepositPercentage = value end,
 		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
 		default = 50,
-	},
-	[16] = {
+	}
+	optionsTable[16] = {
 		type = "dropdown",
 		name = PA.getResourceMessage("PABMenu_DepGoldSteps"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGoldSteps_T"),
@@ -159,8 +177,8 @@ local optionsTable = {
 		setFunc = function(value) PA_SavedVars.Banking.goldTransactionStep = tonumber(value) end,
 		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
 		default = "1",
-	},
-	[17] = {
+	}
+	optionsTable[17] = {
 		type = "editbox",
 		name = PA.getResourceMessage("PABMenu_DepGoldKeep"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGoldKeep_T"),
@@ -170,8 +188,8 @@ local optionsTable = {
 		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
 		warning = PA.getResourceMessage("PABMenu_DepGoldKeep_W"),
 		default = "250",
-	},
-	[18] = {
+	}
+	optionsTable[18] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_WitGoldMin"),
 		tooltip = PA.getResourceMessage("PABMenu_WitGoldMin_T"),
@@ -179,8 +197,8 @@ local optionsTable = {
 		setFunc = function(value) PA_SavedVars.Banking.goldWithdraw = value end,
 		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
 		default = false,
-	},
-	[19] = {
+	}
+	optionsTable[19] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_DepWitItem"),
 		tooltip = PA.getResourceMessage("PABMenu_DepWitItem_T"),
@@ -188,14 +206,14 @@ local optionsTable = {
 		setFunc = function(value) PA_SavedVars.Banking.items = value end,
 		disabled = function() return not PA_SavedVars.Banking.enabled end,
 		default = false,
-	},
-	[20] = {
+	}
+	optionsTable[20] = {
 		type = "submenu",
 		name = PA.getResourceMessage("PABMenu_DepItemType"),
 		tooltip = PA.getResourceMessage("PABMenu_DepItemType_T"),
 		controls = itemTypeSubmenuTable,
-	},
-	[21] = {
+	}
+	optionsTable[21] = {
 		type = "slider",
 		name = PA.getResourceMessage("PABMenu_DepItemTImerInterval"),
 		tooltip = PA.getResourceMessage("PABMenu_DepItemTImerInterval_T"),
@@ -206,8 +224,8 @@ local optionsTable = {
 		setFunc = function(value) PA_SavedVars.Banking.itemsTimerInterval = value end,
 		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.items) end,
 		default = 300,
-	},
-	[22] = {
+	}
+	optionsTable[22] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_HideNoDeposit"),
 		tooltip = PA.getResourceMessage("PABMenu_HideNoDeposit_T"),
@@ -216,8 +234,8 @@ local optionsTable = {
 		width = "half",
 		disabled = function() return not PA_SavedVars.Banking.enabled end,
 		default = false,
-	},
-	[23] = {
+	}
+	optionsTable[23] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_HideAll"),
 		tooltip = PA.getResourceMessage("PABMenu_HideAll_T"),
@@ -226,21 +244,7 @@ local optionsTable = {
 		width = "half",
 		disabled = function() return not PA_SavedVars.Banking.enabled end,
 		default = false,
-	},
-}
-
-
-function PA_SettingsMenu.CreateOptions()
-	-- first register the panel with LAM
-    local PAPanel = LAM:CreateControlPanel("PA_Panel", PA.getResourceMessage("MMenu_Title"))
-
-	PA_SettingsMenu.createItemSubMenu()
-	
-	LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
-	LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
-	
-	-- then delay the actual creation of the option items by 1 second to reduce the anchor overload at startup
-	zo_callLater(function() PA_SettingsMenu.CreateOptionItems(PAPanel) end, 1000)
+	}
 end
 
 function PA_SettingsMenu.createItemSubMenu()
