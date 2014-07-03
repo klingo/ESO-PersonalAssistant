@@ -1,0 +1,90 @@
+MenuHelper = {}
+
+function MenuHelper.setDepositAll()
+	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_DEPOSIT)
+end
+
+function MenuHelper.setWithdrawalAll()
+	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_WITHDRAWAL)
+end
+
+function MenuHelper.setIgnoreAll()
+	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_IGNORE)
+end
+
+function MenuHelper.setDropdownsTo(itemTypeKey)
+	local profileNo = PA_SavedVars.General.activeProfile
+	for i = 0, #PAItemTypes do
+		-- only if the itemType is enabled
+		if PAItemTypes[i] ~= "" then
+			PA_SavedVars.Banking[profileNo].ItemTypes[i] = itemTypeKey
+		end
+	end
+end
+
+function MenuHelper.loadProfile(profileText)
+	-- first update the active profile in the savedVars
+	PA_SavedVars.General.activeProfile = MenuHelper.getProfileNumberFromText(profileText)
+end
+
+
+-- --------------------------------------------------------------------------------------------------------
+
+-- returns the matching dropdown-text based on the number that is behind it
+function MenuHelper.getBankingTextFromNumber(number)
+	local profileNo = PA_SavedVars.General.activeProfile
+	local index = PA_SavedVars.Banking[profileNo].itemsJunkSetting
+	if (number ~= nil) then
+		index = PA_SavedVars.Banking[profileNo].ItemTypes[number]
+	end
+	
+	if index == PAC_ITEMTYPE_DEPOSIT then
+		return PA.getResourceMessage("PAB_ItemType_Deposit")
+	elseif index == PAC_ITEMTYPE_WITHDRAWAL then
+		return PA.getResourceMessage("PAB_ItemType_Withdrawal")
+	elseif index == PAC_ITEMTYPE_INHERIT then
+		return PA.getResourceMessage("PAB_ItemType_Inherit")
+	else
+		return PA.getResourceMessage("PAB_ItemType_None")
+	end
+end
+
+-- returns the number behind the text, depending on the text
+function MenuHelper.getBankingNumberFromText(text)
+	if text == PA.getResourceMessage("PAB_ItemType_Deposit") then
+		return PAC_ITEMTYPE_DEPOSIT		-- = Deposit
+	elseif text == PA.getResourceMessage("PAB_ItemType_Withdrawal") then
+		return PAC_ITEMTYPE_WITHDRAWAL	-- = Withdrawal
+	elseif text == PA.getResourceMessage("PAB_ItemType_Inherit") then
+		return PAC_ITEMTYPE_INHERIT		-- = Inherit
+	else
+		return PAC_ITEMTYPE_IGNORE		-- = Ignore
+	end
+end
+
+-- --------------------------------------------------------------------------------------------------------
+
+function MenuHelper.getProfileTextFromNumber(number)
+	local profileNo = PA_SavedVars.General.activeProfile
+	if (number ~= nil) then
+		profileNo = number
+	end
+	
+	if profileNo == 2 then
+		return PA.getResourceMessage("PAG_Profile2")
+	elseif profileNo == 3 then
+		return PA.getResourceMessage("PAG_Profile3")
+	else
+		return PA.getResourceMessage("PAG_Profile1")
+	end
+end
+
+function MenuHelper.getProfileNumberFromText(profileText)
+	if profileText == PA.getResourceMessage("PAG_Profile2") then
+		return 2
+	elseif profileText == PA.getResourceMessage("PAG_Profile3") then
+		return 3
+	else
+		return 1
+	end
+end

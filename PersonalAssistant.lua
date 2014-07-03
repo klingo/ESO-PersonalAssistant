@@ -1,16 +1,14 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.0
+-- Version: 1.5.1
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.0"
+PA.AddonVersion = "1.5.1"
 
 -- default values
 PA.General_Defaults = {}
 PA.Repair_Defaults = {}
-PA.Banking_Defaults = {
-	ItemTypes = {}
-}
+PA.Banking_Defaults = {}
 
 -- init saved variables and register Addon
 function PA.initAddon(eventCode, addOnName)
@@ -21,15 +19,15 @@ function PA.initAddon(eventCode, addOnName)
 	-- initialize the default values
 	PA.initDefaults()
 
-	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
-    PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Repair", PA.Repair_Defaults)
-	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Banking", PA.Banking_Defaults)
+	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "General", PA.General_Defaults)
+    PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 3, "Repair", PA.Repair_Defaults)
+	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Banking", PA.Banking_Defaults)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
 	
 	-- creates the (new) XML UI - after a delay of one second
-	zo_callLater(function() PAUI.initUI() end, 1000)
+	-- zo_callLater(function() PAUI.initUI() end, 1000)
 	
 	-- create the options with LAM
 	PA_SettingsMenu.CreateOptions()
@@ -47,39 +45,50 @@ end
 
 -- init default values
 function PA.initDefaults()
-	-- default values for Addon
-	PA.General_Defaults.language = 1
-	PA.General_Defaults.welcome = true
-	
-	-- default values for PARepair
-	PA.Repair_Defaults.enabled = true
-	PA.Repair_Defaults.equipped = true
-	PA.Repair_Defaults.equippedThreshold = 75
-	PA.Repair_Defaults.backpack = false
-	PA.Repair_Defaults.backpackThreshold = 75
-    PA.Repair_Defaults.hideNoRepairMsg = false
-    PA.Repair_Defaults.hideAllMsg = false
-	
-	-- default values for PABanking
-	PA.Banking_Defaults.enabled = true
-	PA.Banking_Defaults.gold = true
-	PA.Banking_Defaults.goldDepositInterval = 300
-	PA.Banking_Defaults.goldDepositPercentage = 50
-	PA.Banking_Defaults.goldTransactionStep = 1
-	PA.Banking_Defaults.goldMinToKeep = 250
-	PA.Banking_Defaults.goldWithdraw = false
-	PA.Banking_Defaults.goldLastDeposit = 0
-	PA.Banking_Defaults.items = false
-	PA.Banking_Defaults.itemsTimerInterval = 300
-	PA.Banking_Defaults.itemsJunkSetting = 0
-    PA.Banking_Defaults.hideNoDepositMsg = false
-    PA.Banking_Defaults.hideAllMsg = false
+	for profileNo = 1, PAG_MAX_PROFILES do
+		-- multiply the settings
+		PA.General_Defaults[profileNo] = {}
+		PA.Repair_Defaults[profileNo] = {}
+		PA.Banking_Defaults[profileNo] = {
+			ItemTypes = {}
+		}
 
-	-- default values for ItemTypes (only prepare defaults for enabled itemTypes)
-	-- deposit=true, withdrawal=false
-	for i = 0, #PAItemTypes do
-		if PAItemTypes[i] ~= "" then
-			PA.Banking_Defaults.ItemTypes[i] = 0
+		-- default values for Addon
+		PA.General_Defaults.language = 1
+		PA.General_Defaults.activeProfile = 1
+		
+		PA.General_Defaults[profileNo].welcome = true
+		
+		-- default values for PARepair
+		PA.Repair_Defaults[profileNo].enabled = true
+		PA.Repair_Defaults[profileNo].equipped = true
+		PA.Repair_Defaults[profileNo].equippedThreshold = 75
+		PA.Repair_Defaults[profileNo].backpack = false
+		PA.Repair_Defaults[profileNo].backpackThreshold = 75
+		PA.Repair_Defaults[profileNo].hideNoRepairMsg = false
+		PA.Repair_Defaults[profileNo].hideAllMsg = false
+		
+		-- default values for PABanking
+		PA.Banking_Defaults[profileNo].enabled = true
+		PA.Banking_Defaults[profileNo].gold = true
+		PA.Banking_Defaults[profileNo].goldDepositInterval = 300
+		PA.Banking_Defaults[profileNo].goldDepositPercentage = 50
+		PA.Banking_Defaults[profileNo].goldTransactionStep = 1
+		PA.Banking_Defaults[profileNo].goldMinToKeep = 250
+		PA.Banking_Defaults[profileNo].goldWithdraw = false
+		PA.Banking_Defaults[profileNo].goldLastDeposit = 0
+		PA.Banking_Defaults[profileNo].items = false
+		PA.Banking_Defaults[profileNo].itemsTimerInterval = 300
+		PA.Banking_Defaults[profileNo].itemsJunkSetting = 0
+		PA.Banking_Defaults[profileNo].hideNoDepositMsg = false
+		PA.Banking_Defaults[profileNo].hideAllMsg = false
+
+		-- default values for ItemTypes (only prepare defaults for enabled itemTypes)
+		-- deposit=true, withdrawal=false
+		for i = 0, #PAItemTypes do
+			if PAItemTypes[i] ~= "" then
+				PA.Banking_Defaults[profileNo].ItemTypes[i] = 0
+			end
 		end
 	end
 end
@@ -100,7 +109,7 @@ function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
 	SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 	
-	if PA_SavedVars.General.welcome then
+	if PA_SavedVars.General[PA_SavedVars.General.activeProfile].welcome then
 		if PA_SavedVars.General.language ~= "en" and PA_SavedVars.General.language ~= "de" and PA_SavedVars.General.language ~= "fr" then
 			PA.println("Welcome_NoSupport", PA_SavedVars.General.language)
 		else

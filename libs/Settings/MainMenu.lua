@@ -15,261 +15,337 @@ local panelData = {
 
 local optionsTable = {}
 local itemTypeSubmenuTable = {}
+local itemTypeAdvancedSubmenuTable = {}
 
 
 function PA_SettingsMenu.CreateOptions()
-	-- first register the panel with LAM-1
-    local PAPanel = LAM:CreateControlPanel("PA_Panel", PA.getResourceMessage("MMenu_Title"))
-	-- then delay the actual creation of the option items by 1 second to reduce the anchor overload at startup
-	zo_callLater(function() PA_SettingsMenu.CreateOptionItems(PAPanel) end, 1000)
-	
-	-- now create the menus with LAM-2
+
+	-- create the menus with LAM-2
 	PA_SettingsMenu.createItemSubMenu()
+	PA_SettingsMenu.createItemAdvancedSubMenu()
 	PA_SettingsMenu.createMainMenu()
 	
-	-- and regster it
+	-- and register it
 	LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
 	LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
 end
 
 function PA_SettingsMenu.createMainMenu()
 
-	optionsTable[1] = {
+	local tableIndex = 1
+
+	optionsTable[tableIndex] = {
 		type = "header",
 		name = PA.getResourceMessage("PAGMenu_Header"),
 	}
-	optionsTable[2] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
+		type = "dropdown",
+		name = PA.getResourceMessage("PAGMenu_ActiveProfile"),
+		tooltip = PA.getResourceMessage("PAGMenu_ActiveProfile_T"),
+		choices = {PA.getResourceMessage("PAG_Profile1"), PA.getResourceMessage("PAG_Profile2"), PA.getResourceMessage("PAG_Profile3")},
+		getFunc = function() return MenuHelper.getProfileTextFromNumber() end,
+		setFunc = function(value) MenuHelper.loadProfile(value) end,
+		default = PA.getResourceMessage("PAG_Profile1"),
+	}
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PAGMenu_Welcome"),
 		tooltip = PA.getResourceMessage("PAGMenu_Welcome_T"),
-		getFunc = function() return PA_SavedVars.General.welcome end,
-		setFunc = function(value) PA_SavedVars.General.welcome = value end,
+		getFunc = function() return PA_SavedVars.General[PA_SavedVars.General.activeProfile].welcome end,
+		setFunc = function(value) PA_SavedVars.General[PA_SavedVars.General.activeProfile].welcome = value end,
 		default = true,
 	}
-	optionsTable[3] = {
+	tableIndex = tableIndex + 1
+	
+	-- ------------------------ --
+	-- PersonalAssistant Repair --
+	-- ------------------------ --
+	optionsTable[tableIndex] = {
 		type = "header",
 		name = PA.getResourceMessage("PARMenu_Header"),
 	}
-	optionsTable[4] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_Enable"),
 		tooltip = PA.getResourceMessage("PARMenu_Enable_T"),
-		getFunc = function() return PA_SavedVars.Repair.enabled end,
-		setFunc = function(value) PA_SavedVars.Repair.enabled = value end,
+		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
+		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled = value end,
 		default = true,
 	}
-	optionsTable[5] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_RepairEq"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairEq_T"),
-		getFunc = function() return PA_SavedVars.Repair.equipped end,
-		setFunc = function(value) PA_SavedVars.Repair.equipped = value end,
+		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped end,
+		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair.enabled end,
+		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
 		default = true,
 	}
-	optionsTable[6] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "slider",
 		name = PA.getResourceMessage("PARMenu_RepairEqDura"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairEqDura_T"),
 		min = 0,
 		max = 100,
 		step = 1,
-		getFunc = function() return PA_SavedVars.Repair.equippedThreshold end,
-		setFunc = function(value) PA_SavedVars.Repair.equippedThreshold = value end,
+		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equippedThreshold end,
+		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equippedThreshold = value end,
 		width = "half",		
-		disabled = function() return not (PA_SavedVars.Repair.equipped and PA_SavedVars.Repair.enabled) end,
+		disabled = function() return not (PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped and PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled) end,
 		default = 75,
 	}
-	optionsTable[7] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_RepairBa"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairBa_T"),
-		getFunc = function() return PA_SavedVars.Repair.backpack end,
-		setFunc = function(value) PA_SavedVars.Repair.backpack = value end,
+		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack end,
+		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair.enabled end,
+		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
 		default = false,
 	}
-	optionsTable[8] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "slider",
 		name = PA.getResourceMessage("PARMenu_RepairBaDura"),
 		tooltip = PA.getResourceMessage("PARMenu_RepairBaDura_T"),
 		min = 0,
 		max = 100,
 		step = 1,
-		getFunc = function() return PA_SavedVars.Repair.backpackThreshold end,
-		setFunc = function(value) PA_SavedVars.Repair.backpackThreshold = value end,
+		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpackThreshold end,
+		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpackThreshold = value end,
 		width = "half",		
-		disabled = function() return not (PA_SavedVars.Repair.backpack and PA_SavedVars.Repair.enabled) end,
+		disabled = function() return not (PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack and PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled) end,
 		default = 75,
 	}
-	optionsTable[9] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_HideNoRepair"),
 		tooltip = PA.getResourceMessage("PARMenu_HideNoRepair_T"),
-		getFunc = function() return PA_SavedVars.Repair.hideNoRepairMsg end,
-		setFunc = function(value) PA_SavedVars.Repair.hideNoRepairMsg = value end,
+		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg end,
+		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair.enabled end,
+		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
 		default = false,
 	}
-	optionsTable[10] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PARMenu_HideAll"),
 		tooltip = PA.getResourceMessage("PARMenu_HideAll_T"),
-		getFunc = function() return PA_SavedVars.Repair.hideAllMsg end,
-		setFunc = function(value) PA_SavedVars.Repair.hideAllMsg = value end,
+		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg end,
+		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair.enabled end,
+		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
 		default = false,
 	}
-	optionsTable[11] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "header",
 		name = PA.getResourceMessage("PABMenu_Header"),
 	}
-	optionsTable[12] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_Enable"),
 		tooltip = PA.getResourceMessage("PABMenu_Enable_T"),
-		getFunc = function() return PA_SavedVars.Banking.enabled end,
-		setFunc = function(value) PA_SavedVars.Banking.enabled = value end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled = value end,
 		default = true,
 	}
-	optionsTable[13] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_DepGold"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGold_T"),
-		getFunc = function() return PA_SavedVars.Banking.gold end,
-		setFunc = function(value) PA_SavedVars.Banking.gold = value end,
-		disabled = function() return not PA_SavedVars.Banking.enabled end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold = value end,
+		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
 		default = true,
 	}
-	optionsTable[14] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "editbox",
 		name = PA.getResourceMessage("PABMenu_DepInterval"),
 		tooltip = PA.getResourceMessage("PABMenu_DepInterval_T"),
-		getFunc = function() return PA_SavedVars.Banking.goldDepositInterval end,
-		setFunc = function(value) PA_SavedVars.Banking.goldDepositInterval = tonumber(value) end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositInterval end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositInterval = tonumber(value) end,
 		isMultiline = false,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
 		warning = PA.getResourceMessage("PABMenu_DepInterval_W"),
 		default = 300,
 	}
-	optionsTable[15] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "slider",
 		name = PA.getResourceMessage("PABMenu_DepGoldPerc"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGoldPerc_T"),
 		min = 1,
 		max = 100,
 		step = 1,
-		getFunc = function() return PA_SavedVars.Banking.goldDepositPercentage end,
-		setFunc = function(value) PA_SavedVars.Banking.goldDepositPercentage = value end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositPercentage end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositPercentage = value end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
 		default = 50,
 	}
-	optionsTable[16] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "dropdown",
 		name = PA.getResourceMessage("PABMenu_DepGoldSteps"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGoldSteps_T"),
 		choices = {"1", "10", "100", "1000", "10000"},
-		getFunc = function() return PA_SavedVars.Banking.goldTransactionStep end,
-		setFunc = function(value) PA_SavedVars.Banking.goldTransactionStep = tonumber(value) end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep = tonumber(value) end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
 		default = "1",
 	}
-	optionsTable[17] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "editbox",
 		name = PA.getResourceMessage("PABMenu_DepGoldKeep"),
 		tooltip = PA.getResourceMessage("PABMenu_DepGoldKeep_T"),
-		getFunc = function() return PA_SavedVars.Banking.goldMinToKeep end,
-		setFunc = function(value) PA_SavedVars.Banking.goldMinToKeep = tonumber(value) end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldMinToKeep end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldMinToKeep = tonumber(value) end,
 		isMultiline = false,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
 		warning = PA.getResourceMessage("PABMenu_DepGoldKeep_W"),
 		default = "250",
 	}
-	optionsTable[18] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_WitGoldMin"),
 		tooltip = PA.getResourceMessage("PABMenu_WitGoldMin_T"),
-		getFunc = function() return PA_SavedVars.Banking.goldWithdraw end,
-		setFunc = function(value) PA_SavedVars.Banking.goldWithdraw = value end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.gold) end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldWithdraw end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldWithdraw = value end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
 		default = false,
 	}
-	optionsTable[19] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_DepWitItem"),
 		tooltip = PA.getResourceMessage("PABMenu_DepWitItem_T"),
-		getFunc = function() return PA_SavedVars.Banking.items end,
-		setFunc = function(value) PA_SavedVars.Banking.items = value end,
-		disabled = function() return not PA_SavedVars.Banking.enabled end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items = value end,
+		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
 		default = false,
 	}
-	optionsTable[20] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
+		type = "description",
+		text = PA.getResourceMessage("PABMenu_DepItemTypeDesc"),
+	}
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "submenu",
 		name = PA.getResourceMessage("PABMenu_DepItemType"),
 		tooltip = PA.getResourceMessage("PABMenu_DepItemType_T"),
 		controls = itemTypeSubmenuTable,
 	}
-	optionsTable[21] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
+		type = "submenu",
+		name = PA.getResourceMessage("PABMenu_Advanced_DepItemType"),
+		tooltip = PA.getResourceMessage("PABMenu_Advanced_DepItemType_T"),
+		controls = itemTypeAdvancedSubmenuTable,
+	}
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "slider",
-		name = PA.getResourceMessage("PABMenu_DepItemTImerInterval"),
-		tooltip = PA.getResourceMessage("PABMenu_DepItemTImerInterval_T"),
+		name = PA.getResourceMessage("PABMenu_DepItemTimerInterval"),
+		tooltip = PA.getResourceMessage("PABMenu_DepItemTimerInterval_T"),
 		min = 200,
 		max = 1000,
 		step = 50,
-		getFunc = function() return PA_SavedVars.Banking.itemsTimerInterval end,
-		setFunc = function(value) PA_SavedVars.Banking.itemsTimerInterval = value end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.items) end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval = value end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		default = 300,
 	}
-	optionsTable[22] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_HideNoDeposit"),
 		tooltip = PA.getResourceMessage("PABMenu_HideNoDeposit_T"),
-		getFunc = function() return PA_SavedVars.Banking.hideNoDepositMsg end,
-		setFunc = function(value) PA_SavedVars.Banking.hideNoDepositMsg = value end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideNoDepositMsg end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideNoDepositMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Banking.enabled end,
+		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
 		default = false,
 	}
-	optionsTable[23] = {
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
 		type = "checkbox",
 		name = PA.getResourceMessage("PABMenu_HideAll"),
 		tooltip = PA.getResourceMessage("PABMenu_HideAll_T"),
-		getFunc = function() return PA_SavedVars.Banking.hideAllMsg end,
-		setFunc = function(value) PA_SavedVars.Banking.hideAllMsg = value end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideAllMsg end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideAllMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Banking.enabled end,
+		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
 		default = false,
 	}
 end
 
 function PA_SettingsMenu.createItemSubMenu()
-
-	itemTypeSubmenuTable[1] = {
+	local tableIndex = 1
+	
+	itemTypeSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PA.getResourceMessage("PABMenu_ItemJunk_Header"),
 	}
-	itemTypeSubmenuTable[2] = {
+	tableIndex = tableIndex + 1
+	
+	itemTypeSubmenuTable[tableIndex] = {
 		type = "dropdown",
 		name = PA.getResourceMessage("PABMenu_DepItemJunk"),
 		tooltip = PA.getResourceMessage("PABMenu_DepItemJunk_T"),
 		choices = {PA.getResourceMessage("PAB_ItemType_None"), PA.getResourceMessage("PAB_ItemType_Deposit"), PA.getResourceMessage("PAB_ItemType_Withdrawal"), PA.getResourceMessage("PAB_ItemType_Inherit")},
-		getFunc = function() return PABMenu.getBankingTextFromNumber() end,
-		setFunc = function(value) PA_SavedVars.Banking.itemsJunkSetting = PABMenu.getBankingNumberFromText(value) end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.items) end,
+		getFunc = function() return MenuHelper.getBankingTextFromNumber() end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting = MenuHelper.getBankingNumberFromText(value) end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		default = PA.getResourceMessage("PAB_ItemType_None"),
-		
 	}
-	itemTypeSubmenuTable[3] = {
+	tableIndex = tableIndex + 1
+	
+	itemTypeSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PA.getResourceMessage("PABMenu_ItemType_Header"),
 	}
 	
-	local innerIndex = 4
+	local innerIndex = tableIndex + 1
 	for i = 0, #PAItemTypes do
 		-- only add if the itemType is enabled
 		if PAItemTypes[i] ~= "" then
@@ -278,10 +354,10 @@ function PA_SettingsMenu.createItemSubMenu()
 				name = PA.getResourceMessage(PAItemTypes[i]),
 				tooltip = "",
 				choices = {PA.getResourceMessage("PAB_ItemType_None"), PA.getResourceMessage("PAB_ItemType_Deposit"), PA.getResourceMessage("PAB_ItemType_Withdrawal")},
-				getFunc = function() return PABMenu.getBankingTextFromNumber(i) end,
-				setFunc = function(value) PA_SavedVars.Banking.ItemTypes[i] = PABMenu.getBankingNumberFromText(value) end,
+				getFunc = function() return MenuHelper.getBankingTextFromNumber(i) end,
+				setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypes[i] = MenuHelper.getBankingNumberFromText(value) end,
 				width = "half",
-				disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.items) end,
+				disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 				default = PA.getResourceMessage("PAB_ItemType_None"),
 			}		
 			innerIndex = innerIndex +1
@@ -292,41 +368,27 @@ function PA_SettingsMenu.createItemSubMenu()
 		type = "button",
 		name = PA.getResourceMessage("PABMenu_DepButton"),
 		tooltip = PA.getResourceMessage("PABMenu_DepButton_T"),
-		func = function() PABMenu.setDepositAll() end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.items) end,
+		func = function() MenuHelper.setDepositAll() end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		warning = PA.getResourceMessage("PABMenu_DepButton_W")
 	}
 	itemTypeSubmenuTable[innerIndex + 1] = {
 		type = "button",
 		name = PA.getResourceMessage("PABMenu_WitButton"),
 		tooltip = PA.getResourceMessage("PABMenu_WitButton_T"),
-		func = function() PABMenu.setWithdrawalAll() end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.items) end,
+		func = function() MenuHelper.setWithdrawalAll() end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		warning = PA.getResourceMessage("PABMenu_WitButton_W")
 	}
 	itemTypeSubmenuTable[innerIndex + 2] = {
 		type = "button",
 		name = PA.getResourceMessage("PABMenu_IgnButton"),
 		tooltip = PA.getResourceMessage("PABMenu_IgnButton_T"),
-		func = function() PABMenu.setIgnoreAll() end,
-		disabled = function() return not (PA_SavedVars.Banking.enabled and PA_SavedVars.Banking.items) end,
+		func = function() MenuHelper.setIgnoreAll() end,
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		warning = PA.getResourceMessage("PABMenu_IgnButton_W")
 	}
 end
 
-function PA_SettingsMenu.CreateOptionItems(PAPanel)
-
-	-- PAGeneral
-	LAM:AddHeader(PAPanel, "PAG_Header", PA.getResourceMessage("PAGMenu_Header"))
-	LAM:AddCheckbox(PAPanel, "PA_Welcome_Enabled", PA.getResourceMessage("PAGMenu_Welcome"), PA.getResourceMessage("PAGMenu_Welcome_T"),
-				function() return PA_SavedVars.General.welcome end,
-				function(val) PA_SavedVars.General.welcome = val end)
-
-	-- PARepair
-    LAM:AddHeader(PAPanel, "PAR_Header", PA.getResourceMessage("PARMenu_Header"))
-	PARMenu.createMenu(LAM, PAPanel)
-	
-	-- PABanking
-	LAM:AddHeader(PAPanel, "PAB_Header", PA.getResourceMessage("PABMenu_Header"))
-	PABMenu.createMenu(LAM, PAPanel)
+function PA_SettingsMenu.createItemAdvancedSubMenu()
 end

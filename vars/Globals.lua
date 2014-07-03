@@ -10,6 +10,9 @@ PAC_ITEMTYPE_DEPOSIT = 1
 PAC_ITEMTYPE_WITHDRAWAL = 2
 PAC_ITEMTYPE_INHERIT = 3
 
+-- PersonalAssistant General
+PAG_MAX_PROFILES = 3
+
 -- PersonalAssistant Banking
 PAB_MAX_DEPOSIT_LOOPS = 3
 

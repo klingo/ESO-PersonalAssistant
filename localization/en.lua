@@ -5,6 +5,11 @@ if ResourceBundle.en == nil then ResourceBundle.en = {} end
 ResourceBundle.en["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!   -   no localization for (%s) available yet."
 ResourceBundle.en["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!"
 
+-- PAGeneral --
+ResourceBundle.en["PAG_Profile1"]					= "Profile 1"
+ResourceBundle.en["PAG_Profile2"]					= "Profile 2"
+ResourceBundle.en["PAG_Profile3"]					= "Profile 3"
+
 -- PARepair --
 ResourceBundle.en["PAR_FullRepair"] 				= "PARepair: All %s items repaired for %d gold."
 ResourceBundle.en["PAR_PartialRepair"] 				= "PARepair: %d / %d %s items repaired for %d gold. (not enough gold)"
@@ -29,16 +34,13 @@ ResourceBundle.en["PAB_ItemType_Deposit"]			= "Deposit"
 ResourceBundle.en["PAB_ItemType_Withdrawal"]		= "Withdraw"
 ResourceBundle.en["PAB_ItemType_Inherit"]			= "Depending on item type (below)"
 
-ResourceBundle.en["PAB_Junk_NoJunk"]				= "no junk at all"
-ResourceBundle.en["PAB_Junk_ItemTypeJunk"]			= "depending on item type setting"
-ResourceBundle.en["PAB_Junk_AllJunkDep"]			= "all junk (Deposit only!)"
-ResourceBundle.en["PAB_Junk_AllJunkWit"]			= "all junk (Withdraw only!)"
-
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
 -- PAGMenu --
 ResourceBundle.en["PAGMenu_Header"]					= "|cFFD700PA G|reneral"
+ResourceBundle.en["PAGMenu_ActiveProfile"]			= "Active profile"
+ResourceBundle.en["PAGMenu_ActiveProfile_T"]		= "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile."
 ResourceBundle.en["PAGMenu_Welcome"] 				= "Show welcome message"
 ResourceBundle.en["PAGMenu_Welcome_T"] 				= "Display a welcome message from the addon upon successfully starting?"
 
@@ -79,10 +81,13 @@ ResourceBundle.en["PABMenu_WitGoldMin"] 			= "- Withdraw gold if below minimum"
 ResourceBundle.en["PABMenu_WitGoldMin_T"] 			= "Automatically withdraw gold from the bank if there is less gold on the character than defined above?"
 ResourceBundle.en["PABMenu_DepWitItem"] 			= "Deposit and withdraw items"
 ResourceBundle.en["PABMenu_DepWitItem_T"] 			= "Auto deposit and/or withdraw items to and from the bank?"
-ResourceBundle.en["PABMenu_DepItemType"] 			= "- Set items to deposit/withdraw"
-ResourceBundle.en["PABMenu_DepItemType_T"] 			= "Open the sub-menu to define for each item type whether it shall be deposited, withdrew or ignored."
-ResourceBundle.en["PABMenu_DepItemTImerInterval"]	= "- Interval between item deposits (msecs)"
-ResourceBundle.en["PABMenu_DepItemTImerInterval_T"]	= "How many msecs shall pass between two consecutive item deposits. If too many item deposits don't work, consider increasing this value."
+ResourceBundle.en["PABMenu_DepItemTypeDesc"] 		= "Define an individual behaviour (deposit, withdraw, ignore) for common item types as well as more advanced ones."
+ResourceBundle.en["PABMenu_DepItemType"] 			= "Common item types"
+ResourceBundle.en["PABMenu_DepItemType_T"] 			= "Open the sub-menu to define for each item type whether it shall be deposited, withdrawn or ignored."
+ResourceBundle.en["PABMenu_Advanced_DepItemType"]	= "Advanced item types"
+ResourceBundle.en["PABMenu_Advanced_DepItemType_T"]	= "Open the sub-menu to define for other item types on an advanced level whether they shall be deposited, withdrawn or ignored."
+ResourceBundle.en["PABMenu_DepItemTimerInterval"]	= "- Interval between item deposits (msecs)"
+ResourceBundle.en["PABMenu_DepItemTimerInterval_T"]	= "How many msecs shall pass between two consecutive item deposits. If too many item deposits don't work, consider increasing this value."
 ResourceBundle.en["PABMenu_ItemJunk_Header"]		= PAC_COL_LIGHT_BLUE.."ITEMS MARKED AS JUNK"
 ResourceBundle.en["PABMenu_DepItemJunk"] 			= "Junk items"
 ResourceBundle.en["PABMenu_DepItemJunk_T"] 			= "Shall all items that are marked as junk, only the ones for which their item type is enabled or none at all be deposited to or withdrawn from the bank?"
@@ -92,13 +97,13 @@ ResourceBundle.en["PABMenu_HideNoDeposit_T"] 		= "Hide 'Nothing to Deposit' mess
 ResourceBundle.en["PABMenu_HideAll"] 				= "Hide ALL messages"
 ResourceBundle.en["PABMenu_HideAll_T"] 				= "Silent-Mode: no message will be displayed. You also won't see your deposited gold/items."
 ResourceBundle.en["PABMenu_DepButton"] 				= "Deposit all"
-ResourceBundle.en["PABMenu_DepButton_T"] 			= "Change all dropdown values to 'Deposit'? |cff0000(will force a ReloadUI)|r"
+ResourceBundle.en["PABMenu_DepButton_T"] 			= "Change all dropdown values to 'Deposit'?"
 ResourceBundle.en["PABMenu_DepButton_W"] 			= "Will force a ReloadUI."
 ResourceBundle.en["PABMenu_WitButton"] 				= "Withdraw all"
-ResourceBundle.en["PABMenu_WitButton_T"] 			= "Change all dropdown values to 'Withdraw'? |cff0000(will force a ReloadUI)|r"
+ResourceBundle.en["PABMenu_WitButton_T"] 			= "Change all dropdown values to 'Withdraw'?"
 ResourceBundle.en["PABMenu_WitButton_W"] 			= "Will force a ReloadUI."
 ResourceBundle.en["PABMenu_IgnButton"] 				= "Ignore all"
-ResourceBundle.en["PABMenu_IgnButton_T"] 			= "Change all dropdown values to '-'? |cff0000(will force a ReloadUI)|r"
+ResourceBundle.en["PABMenu_IgnButton_T"] 			= "Change all dropdown values to '-'?"
 ResourceBundle.en["PABMenu_IgnButton_W"] 			= "Will force a ReloadUI." 
 
 -- Name Spaces --

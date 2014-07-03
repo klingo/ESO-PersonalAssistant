@@ -5,6 +5,11 @@ if ResourceBundle.fr == nil then ResourceBundle.fr = {} end
 ResourceBundle.fr["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!   -   no localization for (%s) available yet."
 ResourceBundle.fr["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." à votre service !"
 
+-- PAGeneral --
+ResourceBundle.fr["PAG_Profile1"]					= "frPAG_Profile1"
+ResourceBundle.fr["PAG_Profile2"]					= "frPAG_Profile2"
+ResourceBundle.fr["PAG_Profile3"]					= "frPAG_Profile3"
+
 -- PARepair --
 ResourceBundle.fr["PAR_FullRepair"] 				= "PARepair : Tous les objets %s ont été réparés pour %d pièces d'or."
 ResourceBundle.fr["PAR_PartialRepair"] 				= "PARepair : %d / %d objets %s réparés pour %d pièces d'or. (Pas assez d'or)"
@@ -34,6 +39,8 @@ ResourceBundle.fr["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
 -- PAGMenu --
 ResourceBundle.fr["PAGMenu_Header"]					= "|cFFD700PA G|réneral"
+ResourceBundle.fr["PAGMenu_ActiveProfile"]			= "frPAGMenu_ActiveProfile"
+ResourceBundle.fr["PAGMenu_ActiveProfile_T"]		= "frPAGMenu_ActiveProfile_T"
 ResourceBundle.fr["PAGMenu_Welcome"] 				= "Afficher le message d'accueil"
 ResourceBundle.fr["PAGMenu_Welcome_T"] 				= "Afficher le message d'accueil de l'addon après un chargement réussi ?"
 
@@ -74,10 +81,13 @@ ResourceBundle.fr["PABMenu_WitGoldMin"] 			= "- Retirer de l'or si en-dessous du
 ResourceBundle.fr["PABMenu_WitGoldMin_T"] 			= "Retirer automatiquement de l'or de la banque quand le personnage en a moins que défini ci-dessus ?"
 ResourceBundle.fr["PABMenu_DepWitItem"] 			= "Déposer et retirer des objets"
 ResourceBundle.fr["PABMenu_DepWitItem_T"] 			= "Déposer et/ou retirer automatiquement des objets de la banque?"
-ResourceBundle.fr["PABMenu_DepItemType"] 			= "- Choisir les objets à déposer/retirer"
+ResourceBundle.fr["PABMenu_DepItemTypeDesc"] 		= "frPABMenu_DepItemTypeDesc"
+ResourceBundle.fr["PABMenu_DepItemType"] 			= "frPABMenu_DepItemType"
 ResourceBundle.fr["PABMenu_DepItemType_T"] 			= "Ouvrez le sous-menu pour définir pour chaque type d'objet s'il doit être déposer, retirer, ou ignorer."
-ResourceBundle.fr["PABMenu_DepItemTImerInterval"]	= "- Intervalle entre les déposes (msecs)"
-ResourceBundle.fr["PABMenu_DepItemTImerInterval_T"]	= "Combien de temps en msecs entre deux déposes consécutives d'objets. Si la dépose de beaucoup d'objets ne fonctionne pas, pensez à augmenter cette valeur."
+ResourceBundle.fr["PABMenu_Advanced_DepItemType"]	= "frPABMenu_Advanced_DepItemType"
+ResourceBundle.fr["PABMenu_Advanced_DepItemType_T"]	= "frPABMenu_Advanced_DepItemType_T"
+ResourceBundle.fr["PABMenu_DepItemTimerInterval"]	= "- Intervalle entre les déposes (msecs)"
+ResourceBundle.fr["PABMenu_DepItemTimerInterval_T"]	= "Combien de temps en msecs entre deux déposes consécutives d'objets. Si la dépose de beaucoup d'objets ne fonctionne pas, pensez à augmenter cette valeur."
 ResourceBundle.fr["PABMenu_ItemJunk_Header"]		= PAC_COL_LIGHT_BLUE.."OBJETS NOTÉS AU REBUT"
 ResourceBundle.fr["PABMenu_DepItemJunk"] 			= "Objets au rebut"
 ResourceBundle.fr["PABMenu_DepItemJunk_T"] 			= "Est-ce que tous les items au rebut, seulement ceux de type d'objets ci-dessous ou aucun doivent être retirés ou déposés en banque ?"
@@ -87,13 +97,13 @@ ResourceBundle.fr["PABMenu_HideNoDeposit_T"] 		= "Masquer le message 'Rien à d�
 ResourceBundle.fr["PABMenu_HideAll"] 				= "Masquer TOUS les messages"
 ResourceBundle.fr["PABMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas vos objets/or déposés."
 ResourceBundle.fr["PABMenu_DepButton"] 				= "Tout déposer"
-ResourceBundle.fr["PABMenu_DepButton_T"] 			= "Changer toutes les valeurs de menu pour 'Déposer'? |cff0000(forcera un rechargement de l'interface)|r"
+ResourceBundle.fr["PABMenu_DepButton_T"] 			= "Changer toutes les valeurs de menu pour 'Déposer'?"
 ResourceBundle.fr["PABMenu_DepButton_W"] 			= "Forcera un rechargement de l'interface."
 ResourceBundle.fr["PABMenu_WitButton"] 				= "Tout retirer"
-ResourceBundle.fr["PABMenu_WitButton_T"] 			= "Changer toutes les valeurs de menu pour 'Retirer'? |cff0000(forcera un rechargement de l'interface)|r"
+ResourceBundle.fr["PABMenu_WitButton_T"] 			= "Changer toutes les valeurs de menu pour 'Retirer'?"
 ResourceBundle.fr["PABMenu_WitButton_W"] 			= "Forcera un rechargement de l'interface."
 ResourceBundle.fr["PABMenu_IgnButton"] 				= "Tout ignorer"
-ResourceBundle.fr["PABMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'? |cff0000(forcera un rechargement de l'interface)|r"
+ResourceBundle.fr["PABMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'?"
 ResourceBundle.fr["PABMenu_IgnButton_W"] 			= "Forcera un rechargement de l'interface."
 
 -- Name Spaces --

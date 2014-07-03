@@ -5,6 +5,11 @@ if ResourceBundle.de == nil then ResourceBundle.de = {} end
 ResourceBundle.de["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." zu Deinen Diensten!   -   (noch) keine Lokalisierung für (%s) vorhanden."
 ResourceBundle.de["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." zu Deinen Diensten!"
 
+-- PAGeneral --
+ResourceBundle.de["PAG_Profile1"]					= "Profil 1"
+ResourceBundle.de["PAG_Profile2"]					= "Profil 2"
+ResourceBundle.de["PAG_Profile3"]					= "Profil 3"
+
 -- PARepair --
 ResourceBundle.de["PAR_FullRepair"] 				= "PARepair: Alle %s Gegenstände für %d Gold repariert."
 ResourceBundle.de["PAR_PartialRepair"] 				= "PARepair: %d / %d %s Gegenstände für %d Gold repariert. (Nicht genug Gold vorhanden)"
@@ -34,6 +39,8 @@ ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
 -- PAGMenu --
 ResourceBundle.de["PAGMenu_Header"]					= "|cFFD700PA G|reneral"
+ResourceBundle.de["PAGMenu_ActiveProfile"]			= "Aktives Profil"
+ResourceBundle.de["PAGMenu_ActiveProfile_T"]		= "Wähle die Profil-Einstellungen welche verwendet werden sollen. Eine Änderung der Auswahl lädt auomtatisch dessen Einstellungen. Änderungen unten werden automatisch unter dem Profil abgespeichert."
 ResourceBundle.de["PAGMenu_Welcome"] 				= "Zeige Wilkommensnachricht"
 ResourceBundle.de["PAGMenu_Welcome_T"] 				= "Soll eine Willkommensnachricht nach Starten des Addons angezeigt werden?"
 
@@ -74,10 +81,13 @@ ResourceBundle.de["PABMenu_WitGoldMin"] 			= "- Hebe Gold ab wenn unter Minimum"
 ResourceBundle.de["PABMenu_WitGoldMin_T"] 			= "Soll automatisch Gold von der Truhe abgehoben werden, wenn weniger Gold im Inventar ist wie oben als Minimum definiert wurde."
 ResourceBundle.de["PABMenu_DepWitItem"] 			= "Gegenstände einlagern und abheben"
 ResourceBundle.de["PABMenu_DepWitItem_T"] 			= "Sollen Gegenstände automatisch in die Truhe eingelagert bzw. von der Truhe abgehoben werden?"
-ResourceBundle.de["PABMenu_DepItemType"] 			= "- Gegenstände zum Einlagern/Abheben"
+ResourceBundle.de["PABMenu_DepItemTypeDesc"] 		= "Definiere ein individuelles Verhalten (Einlagern, Abheben, Ignorieren) für reguläre wie auch erweiterte Gegenstandstypen."
+ResourceBundle.de["PABMenu_DepItemType"] 			= "Reguläre Gegenstandstypen"
 ResourceBundle.de["PABMenu_DepItemType_T"] 			= "Öffnet das Untermenu um für jeden Typ von Gegenstand zu definieren ob er eingelagert, abgehoben oder ignoriert werden soll."
-ResourceBundle.de["PABMenu_DepItemTImerInterval"]	= "- Einlagerungs Intervall (ms)"
-ResourceBundle.de["PABMenu_DepItemTImerInterval_T"]	= "Anzahl Millisekunden zwischen zwei Einlagerungen. Wenn zu viele Einlagerungen nicht funktionieren, sollte dieser Wert erhöht werden."
+ResourceBundle.de["PABMenu_Advanced_DepItemType"]	= "Erweiterte Gegenstandstypen"
+ResourceBundle.de["PABMenu_Advanced_DepItemType_T"]	= "Öffnet das Untermenu um für andere Typen von Gegenständen auf einer erweiterten Stufe zu definieren ob sie eingelagert, abgehoben oder ignoriert werden sollen."
+ResourceBundle.de["PABMenu_DepItemTimerInterval"]	= "- Einlagerungs Intervall (ms)"
+ResourceBundle.de["PABMenu_DepItemTimerInterval_T"]	= "Anzahl Millisekunden zwischen zwei Einlagerungen. Wenn zu viele Einlagerungen nicht funktionieren, sollte dieser Wert erhöht werden."
 ResourceBundle.de["PABMenu_ItemJunk_Header"]		= PAC_COL_LIGHT_BLUE.."ALS TRÖDEL MARKIERTE GEGENSTÄNDE"
 ResourceBundle.de["PABMenu_DepItemJunk"] 			= "Trödel"
 ResourceBundle.de["PABMenu_DepItemJunk_T"] 			= "Sollen auch als Trödel markierte Gegenstände, nur solche deren Typ aktiviert ist oder gar keine in die Truhe eingelagert werden?"
@@ -87,13 +97,13 @@ ResourceBundle.de["PABMenu_HideNoDeposit_T"] 		= "Blendet die Meldung 'Nichts zu
 ResourceBundle.de["PABMenu_HideAll"] 				= "Blende alle Meldungen aus"
 ResourceBundle.de["PABMenu_HideAll_T"] 				= "Ruhe-Modus: Keine Meldungen werden mehr angezeigt. Die eingelagerten/abgehobenen Gegenstände werden auch nicht mehr ausgegeben."
 ResourceBundle.de["PABMenu_DepButton"] 				= "Alles einlagern"
-ResourceBundle.de["PABMenu_DepButton_T"] 			= "Ändert alle Dropdown Werte zu 'Einlagern'? |cff0000(wird ein Neu laden zerwingen)|r"
+ResourceBundle.de["PABMenu_DepButton_T"] 			= "Ändert alle Dropdown Werte zu 'Einlagern'?"
 ResourceBundle.de["PABMenu_DepButton_W"] 			= "Erzwingt ein Neu laden."
 ResourceBundle.de["PABMenu_WitButton"] 				= "Alles abheben"
-ResourceBundle.de["PABMenu_WitButton_T"] 			= "Ändert alle Dropdown Werte zu 'Abheben'? |cff0000(wird ein Neu laden zerwingen)|r"
+ResourceBundle.de["PABMenu_WitButton_T"] 			= "Ändert alle Dropdown Werte zu 'Abheben'?"
 ResourceBundle.de["PABMenu_WitButton_W"] 			= "Erzwingt ein Neu laden."
 ResourceBundle.de["PABMenu_IgnButton"] 				= "Alles ignorieren"
-ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-'? |cff0000(wird ein Neu laden zerwingen)|r"
+ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-'?"
 ResourceBundle.de["PABMenu_IgnButton_W"] 			= "Erzwingt ein Neu laden."
 
 -- Name Spaces --

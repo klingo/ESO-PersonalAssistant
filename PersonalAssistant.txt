@@ -3,16 +3,15 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.0|r 
-## Version: 1.5.0
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.1|r 
+## Version: 1.5.1
 ## Author: Klingo
 ## APIVersion: 100007
 ## SavedVariables: PersonalAssistant_SavedVariables
-## OptionalDependsOn: LibAddonMenu-2.0 LibAddonMenu-1.0
+## OptionalDependsOn: LibAddonMenu-2.0
 
 # Libraries
 libs/LibStub/LibStub.lua
-libs/LibAddonMenu-1.0/LibAddonMenu-1.0.lua
 libs/LibAddonMenu-2.0/LibAddonMenu-2.0.lua
 libs/LibAddonMenu-2.0/controls/panel.lua
 libs/LibAddonMenu-2.0/controls/submenu.lua
@@ -52,6 +51,5 @@ libs/UI/PAFW.lua
 libs/UI/PAUI.lua
 
 # Settings
-libs/Settings/PABMenu.lua
-libs/Settings/PARMenu.lua
+libs/Settings/MenuHelper.lua
 libs/Settings/MainMenu.lua

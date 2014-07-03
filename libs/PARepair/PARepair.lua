@@ -5,19 +5,19 @@ PAR = {}
 
 function PAR.OnShopOpen()
 	-- check if addon is enabled
-	if PA_SavedVars.Repair.enabled == true then
+	if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled == true then
 		-- early check if there is something to repair
 		if GetRepairAllCost() > 0 then
 			-- check if equipped items shall be repaired
-			if PA_SavedVars.Repair.equipped then
-				PAR.RepairItems(BAG_WORN, PA_SavedVars.Repair.equippedThreshold)
+			if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped then
+				PAR.RepairItems(BAG_WORN, PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equippedThreshold)
 			end
 			-- check if backpack items shall be repaired
-			if PA_SavedVars.Repair.backpack then
-				PAR.RepairItems(BAG_BACKPACK, PA_SavedVars.Repair.backpackThreshold)
+			if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack then
+				PAR.RepairItems(BAG_BACKPACK, PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpackThreshold)
 			end
 		else
-			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
+			if (not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg) then
 				PAR.println("PAR_NoRepair")
 			end
 		end
@@ -61,7 +61,7 @@ function PAR.RepairItems(bagId, threshold)
 	local bagName = PA.getBagNameAdjective(bagId)
 
 	-- check if the msg-output shall be skipped
-	if PA_SavedVars.Repair.hideAllMsg then return end
+	if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg then return end
 	
 	if repairedItems > 0 then
 		if notRepairedItems > 0 then
@@ -73,7 +73,7 @@ function PAR.RepairItems(bagId, threshold)
 		if notRepairedItems > 0 then
 			PAR.println("PAR_NoGoldToRepair", notRepairedItems, bagName)
 		else
-			if (not PA_SavedVars.Repair.hideNoRepairMsg) then
+			if (not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg) then
 				PAR.println("PAR_NoRepair")
 			end
 		end
@@ -81,7 +81,7 @@ function PAR.RepairItems(bagId, threshold)
 end
 
 function PAR.println(key, ...)
-	if (not PA_SavedVars.Repair.hideAllMsg) then
+	if (not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg) then
 		local args = {...}
 		PA.println(key, unpack(args))
 	end
