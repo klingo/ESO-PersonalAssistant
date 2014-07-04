@@ -55,12 +55,13 @@ function PA_SettingsMenu.createMainMenu()
 	
 	optionsTable[tableIndex] = {
 		type = "editbox",
-		name = "Test",
-		tooltip = "Test_T",
+		name = PA.getResourceMessage("PAGMenu_ActiveProfileRename"),
+		tooltip = PA.getResourceMessage("PAGMenu_ActiveProfileRename_T"),
 		getFunc = function() return PA_SavedVars.Profiles[PA_SavedVars.General.activeProfile].name end,
-		setFunc = function(value) PA_SavedVars.Profiles[PA_SavedVars.General.activeProfile].name = tostring(value) end,
+		setFunc = function(value) MenuHelper.renameProfile(tostring(value)) end,
 		isMultiline = false,
 		width = "half",
+		warning = PA.getResourceMessage("PAGMenu_ActiveProfileRename_W"),
 		default = PA_SavedVars.Profiles[1].name,
 	}
 	tableIndex = tableIndex + 1
@@ -384,7 +385,6 @@ function PA_SettingsMenu.createItemSubMenu()
 		tooltip = PA.getResourceMessage("PABMenu_DepButton_T"),
 		func = function() MenuHelper.setDepositAll() end,
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
-		warning = PA.getResourceMessage("PABMenu_DepButton_W")
 	}
 	itemTypeSubmenuTable[innerIndex + 1] = {
 		type = "button",
@@ -392,7 +392,6 @@ function PA_SettingsMenu.createItemSubMenu()
 		tooltip = PA.getResourceMessage("PABMenu_WitButton_T"),
 		func = function() MenuHelper.setWithdrawalAll() end,
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
-		warning = PA.getResourceMessage("PABMenu_WitButton_W")
 	}
 	itemTypeSubmenuTable[innerIndex + 2] = {
 		type = "button",
@@ -400,7 +399,6 @@ function PA_SettingsMenu.createItemSubMenu()
 		tooltip = PA.getResourceMessage("PABMenu_IgnButton_T"),
 		func = function() MenuHelper.setIgnoreAll() end,
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
-		warning = PA.getResourceMessage("PABMenu_IgnButton_W")
 	}
 end
 
