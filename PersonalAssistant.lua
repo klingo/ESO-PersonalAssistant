@@ -20,16 +20,19 @@ function PA.initAddon(eventCode, addOnName)
 	-- initialize the default values
 	PA.initDefaults()
 
-	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "General", PA.General_Defaults)
+	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
 	PA_SavedVars.Profiles = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Profiles", PA.Profiles_Defaults)
-    PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 3, "Repair", PA.Repair_Defaults)
-	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Banking", PA.Banking_Defaults)
+    PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Repair", PA.Repair_Defaults)
+	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Banking", PA.Banking_Defaults)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
 	
 	-- creates the (new) XML UI - after a delay of one second
 	-- zo_callLater(function() PAUI.initUI() end, 1000)
+	
+	-- fix/update saved vars changes since last version
+	SVC.updateSavedVars()
 	
 	-- create the options with LAM
 	PA_SettingsMenu.CreateOptions()
@@ -59,6 +62,7 @@ function PA.initDefaults()
 		-- default values for Addon
 		PA.General_Defaults.language = 1
 		PA.General_Defaults.activeProfile = 1
+		PA.General_Defaults.savedVarsVersion = ""
 		
 		-- default values for PAGeneral
 		PA.General_Defaults[profileNo].welcome = true
