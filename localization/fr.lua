@@ -41,6 +41,9 @@ ResourceBundle.fr["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 ResourceBundle.fr["PAGMenu_Header"]					= "|cFFD700PA G|réneral"
 ResourceBundle.fr["PAGMenu_ActiveProfile"]			= "Profil actif"
 ResourceBundle.fr["PAGMenu_ActiveProfile_T"]		= "Sélectionner le profil à utiliser. Changer la sélection chargera automatiquement les paramètres. Les changements ci-dessous seront automatiquement sauvegardés dans le profil."
+ResourceBundle.fr["PAGMenu_ActiveProfileRename"]	= "frPAGMenu_ActiveProfileRename"
+ResourceBundle.fr["PAGMenu_ActiveProfileRename_T"]	= "frPAGMenu_ActiveProfileRename_T"
+ResourceBundle.fr["PAGMenu_ActiveProfileRename_W"]	= "|cff0000(forcera un rechargement de l'interface)|r"
 ResourceBundle.fr["PAGMenu_Welcome"] 				= "Afficher le message d'accueil"
 ResourceBundle.fr["PAGMenu_Welcome_T"] 				= "Afficher le message d'accueil de l'addon après un chargement réussi ?"
 
@@ -98,13 +101,10 @@ ResourceBundle.fr["PABMenu_HideAll"] 				= "Masquer TOUS les messages"
 ResourceBundle.fr["PABMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas vos objets/or déposés."
 ResourceBundle.fr["PABMenu_DepButton"] 				= "Tout déposer"
 ResourceBundle.fr["PABMenu_DepButton_T"] 			= "Changer toutes les valeurs de menu pour 'Déposer'?"
-ResourceBundle.fr["PABMenu_DepButton_W"] 			= "Forcera un rechargement de l'interface."
 ResourceBundle.fr["PABMenu_WitButton"] 				= "Tout retirer"
 ResourceBundle.fr["PABMenu_WitButton_T"] 			= "Changer toutes les valeurs de menu pour 'Retirer'?"
-ResourceBundle.fr["PABMenu_WitButton_W"] 			= "Forcera un rechargement de l'interface."
 ResourceBundle.fr["PABMenu_IgnButton"] 				= "Tout ignorer"
 ResourceBundle.fr["PABMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'?"
-ResourceBundle.fr["PABMenu_IgnButton_W"] 			= "Forcera un rechargement de l'interface."
 
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far

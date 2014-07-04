@@ -41,6 +41,9 @@ ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 ResourceBundle.en["PAGMenu_Header"]					= "|cFFD700PA G|reneral"
 ResourceBundle.en["PAGMenu_ActiveProfile"]			= "Active profile"
 ResourceBundle.en["PAGMenu_ActiveProfile_T"]		= "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile."
+ResourceBundle.en["PAGMenu_ActiveProfileRename"]	= "Rename active profile"
+ResourceBundle.en["PAGMenu_ActiveProfileRename_T"]	= "Rename the active profile (will force a ReloadUI)."
+ResourceBundle.en["PAGMenu_ActiveProfileRename_W"]	= "|cff0000(Renaming will force a ReloadUI)|r"
 ResourceBundle.en["PAGMenu_Welcome"] 				= "Show welcome message"
 ResourceBundle.en["PAGMenu_Welcome_T"] 				= "Display a welcome message from the addon upon successfully starting?"
 
@@ -98,13 +101,10 @@ ResourceBundle.en["PABMenu_HideAll"] 				= "Hide ALL messages"
 ResourceBundle.en["PABMenu_HideAll_T"] 				= "Silent-Mode: no message will be displayed. You also won't see your deposited gold/items."
 ResourceBundle.en["PABMenu_DepButton"] 				= "Deposit all"
 ResourceBundle.en["PABMenu_DepButton_T"] 			= "Change all dropdown values to 'Deposit'?"
-ResourceBundle.en["PABMenu_DepButton_W"] 			= "Will force a ReloadUI."
 ResourceBundle.en["PABMenu_WitButton"] 				= "Withdraw all"
 ResourceBundle.en["PABMenu_WitButton_T"] 			= "Change all dropdown values to 'Withdraw'?"
-ResourceBundle.en["PABMenu_WitButton_W"] 			= "Will force a ReloadUI."
 ResourceBundle.en["PABMenu_IgnButton"] 				= "Ignore all"
 ResourceBundle.en["PABMenu_IgnButton_T"] 			= "Change all dropdown values to '-'?"
-ResourceBundle.en["PABMenu_IgnButton_W"] 			= "Will force a ReloadUI." 
 
 -- Name Spaces --
 ResourceBundle.en["NS_Bag_Equipment"]				= ""	-- not required so far

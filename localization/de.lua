@@ -41,6 +41,9 @@ ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 ResourceBundle.de["PAGMenu_Header"]					= "|cFFD700PA G|reneral"
 ResourceBundle.de["PAGMenu_ActiveProfile"]			= "Aktives Profil"
 ResourceBundle.de["PAGMenu_ActiveProfile_T"]		= "Wähle die Profil-Einstellungen welche verwendet werden sollen. Eine Änderung der Auswahl lädt auomtatisch dessen Einstellungen. Änderungen unten werden automatisch unter dem Profil abgespeichert."
+ResourceBundle.de["PAGMenu_ActiveProfileRename"]	= "Aktives Profil umbenennen"
+ResourceBundle.de["PAGMenu_ActiveProfileRename_T"]	= "Das aktive Profil umbennenen (erzwing ein Neu-Laden)."
+ResourceBundle.de["PAGMenu_ActiveProfileRename_W"]	= "|cff0000(Umbenennen erzwingt ein Neu-Laden)|r"
 ResourceBundle.de["PAGMenu_Welcome"] 				= "Zeige Wilkommensnachricht"
 ResourceBundle.de["PAGMenu_Welcome_T"] 				= "Soll eine Willkommensnachricht nach Starten des Addons angezeigt werden?"
 
@@ -98,13 +101,10 @@ ResourceBundle.de["PABMenu_HideAll"] 				= "Blende alle Meldungen aus"
 ResourceBundle.de["PABMenu_HideAll_T"] 				= "Ruhe-Modus: Keine Meldungen werden mehr angezeigt. Die eingelagerten/abgehobenen Gegenstände werden auch nicht mehr ausgegeben."
 ResourceBundle.de["PABMenu_DepButton"] 				= "Alles einlagern"
 ResourceBundle.de["PABMenu_DepButton_T"] 			= "Ändert alle Dropdown Werte zu 'Einlagern'?"
-ResourceBundle.de["PABMenu_DepButton_W"] 			= "Erzwingt ein Neu laden."
 ResourceBundle.de["PABMenu_WitButton"] 				= "Alles abheben"
 ResourceBundle.de["PABMenu_WitButton_T"] 			= "Ändert alle Dropdown Werte zu 'Abheben'?"
-ResourceBundle.de["PABMenu_WitButton_W"] 			= "Erzwingt ein Neu laden."
 ResourceBundle.de["PABMenu_IgnButton"] 				= "Alles ignorieren"
 ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-'?"
-ResourceBundle.de["PABMenu_IgnButton_W"] 			= "Erzwingt ein Neu laden."
 
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
@@ -113,7 +113,7 @@ ResourceBundle.de["NS_Bag_Backpack"]				= "Inventar"
 ResourceBundle.de["NS_Bag_Backpacked"]				= "abgelegte"
 ResourceBundle.de["NS_Bag_Bank"]					= "Truhe"
 ResourceBundle.de["NS_Bag_Banked"]					= ""	-- soweit nicht benötigt
-ResourceBundle.de["NS_Bag_Unknown"]					= "unknown"
+ResourceBundle.de["NS_Bag_Unknown"]					= "unbekannt"
 
 -- Item Types --
 ResourceBundle.de[ITEMTYPE_ADDITIVE] 				= "deITEMTYPE_ADDITIVE"
