@@ -64,12 +64,24 @@ end
 
 -- --------------------------------------------------------------------------------------------------------
 
+function MenuHelper.getProfileList()
+	local profiles = {}
+	for profileNo = 1, PAG_MAX_PROFILES do
+		profiles[profileNo] = PA_SavedVars.Profiles[profileNo].name
+	end
+	return profiles
+end
+
 function MenuHelper.getProfileTextFromNumber(number)
 	local profileNo = PA_SavedVars.General.activeProfile
 	if (number ~= nil) then
 		profileNo = number
 	end
 	
+	return PA_SavedVars.Profiles[profileNo].name
+end
+
+function MenuHelper.getDefaultProfileName(profileNo)
 	if profileNo == 2 then
 		return PA.getResourceMessage("PAG_Profile2")
 	elseif profileNo == 3 then
@@ -80,11 +92,11 @@ function MenuHelper.getProfileTextFromNumber(number)
 end
 
 function MenuHelper.getProfileNumberFromText(profileText)
-	if profileText == PA.getResourceMessage("PAG_Profile2") then
-		return 2
-	elseif profileText == PA.getResourceMessage("PAG_Profile3") then
-		return 3
-	else
-		return 1
+	for profileNo = 1, PAG_MAX_PROFILES do
+		if PA_SavedVars.Profiles[profileNo].name == profileText then
+			return profileNo
+		end
 	end
+	-- if nothing found, return 1
+	return 1
 end

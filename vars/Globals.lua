@@ -1,5 +1,6 @@
 if PA_SavedVars						== nil then PA_SavedVars					= {} end
 if PA_SavedVars.General				== nil then PA_SavedVars.General			= {} end
+if PA_SavedVars.Profiles			== nil then PA_SavedVars.Profiles			= {} end
 if PA_SavedVars.Repair				== nil then PA_SavedVars.Repair				= {} end
 if PA_SavedVars.Banking				== nil then PA_SavedVars.Banking 			= {} end
 if PA_SavedVars.Banking.ItemTypes 	== nil then PA_SavedVars.Banking.ItemTypes	= {} end

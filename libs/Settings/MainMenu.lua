@@ -44,10 +44,24 @@ function PA_SettingsMenu.createMainMenu()
 		type = "dropdown",
 		name = PA.getResourceMessage("PAGMenu_ActiveProfile"),
 		tooltip = PA.getResourceMessage("PAGMenu_ActiveProfile_T"),
-		choices = {PA.getResourceMessage("PAG_Profile1"), PA.getResourceMessage("PAG_Profile2"), PA.getResourceMessage("PAG_Profile3")},
+		--choices = {PA.getResourceMessage("PAG_Profile1"), PA.getResourceMessage("PAG_Profile2"), PA.getResourceMessage("PAG_Profile3")},
+		choices = MenuHelper.getProfileList(),
 		getFunc = function() return MenuHelper.getProfileTextFromNumber() end,
 		setFunc = function(value) MenuHelper.loadProfile(value) end,
+		width = "half",
 		default = PA.getResourceMessage("PAG_Profile1"),
+	}
+	tableIndex = tableIndex + 1
+	
+	optionsTable[tableIndex] = {
+		type = "editbox",
+		name = "Test",
+		tooltip = "Test_T",
+		getFunc = function() return PA_SavedVars.Profiles[PA_SavedVars.General.activeProfile].name end,
+		setFunc = function(value) PA_SavedVars.Profiles[PA_SavedVars.General.activeProfile].name = tostring(value) end,
+		isMultiline = false,
+		width = "half",
+		default = PA_SavedVars.Profiles[1].name,
 	}
 	tableIndex = tableIndex + 1
 	

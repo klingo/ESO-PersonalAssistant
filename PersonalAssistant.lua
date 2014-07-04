@@ -7,6 +7,7 @@ PA.AddonVersion = "1.5.1"
 
 -- default values
 PA.General_Defaults = {}
+PA.Profiles_Defaults = {}
 PA.Repair_Defaults = {}
 PA.Banking_Defaults = {}
 
@@ -20,6 +21,7 @@ function PA.initAddon(eventCode, addOnName)
 	PA.initDefaults()
 
 	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "General", PA.General_Defaults)
+	PA_SavedVars.Profiles = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Profiles", PA.Profiles_Defaults)
     PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 3, "Repair", PA.Repair_Defaults)
 	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Banking", PA.Banking_Defaults)
 
@@ -46,8 +48,9 @@ end
 -- init default values
 function PA.initDefaults()
 	for profileNo = 1, PAG_MAX_PROFILES do
-		-- multiply the settings
+		-- initialize the multi-profile structure
 		PA.General_Defaults[profileNo] = {}
+		PA.Profiles_Defaults[profileNo] = {}
 		PA.Repair_Defaults[profileNo] = {}
 		PA.Banking_Defaults[profileNo] = {
 			ItemTypes = {}
@@ -57,7 +60,11 @@ function PA.initDefaults()
 		PA.General_Defaults.language = 1
 		PA.General_Defaults.activeProfile = 1
 		
+		-- default values for PAGeneral
 		PA.General_Defaults[profileNo].welcome = true
+		
+		-- default values for Profiles
+		PA.Profiles_Defaults[profileNo].name = MenuHelper.getDefaultProfileName(profileNo)
 		
 		-- default values for PARepair
 		PA.Repair_Defaults[profileNo].enabled = true
