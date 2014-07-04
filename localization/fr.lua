@@ -6,9 +6,9 @@ ResourceBundle.fr["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.
 ResourceBundle.fr["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." à votre service !"
 
 -- PAGeneral --
-ResourceBundle.fr["PAG_Profile1"]					= "frPAG_Profile1"
-ResourceBundle.fr["PAG_Profile2"]					= "frPAG_Profile2"
-ResourceBundle.fr["PAG_Profile3"]					= "frPAG_Profile3"
+ResourceBundle.fr["PAG_Profile1"]					= "Profil 1"
+ResourceBundle.fr["PAG_Profile2"]					= "Profil 2"
+ResourceBundle.fr["PAG_Profile3"]					= "Profil 3"
 
 -- PARepair --
 ResourceBundle.fr["PAR_FullRepair"] 				= "PARepair : Tous les objets %s ont été réparés pour %d pièces d'or."
@@ -39,8 +39,8 @@ ResourceBundle.fr["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
 -- PAGMenu --
 ResourceBundle.fr["PAGMenu_Header"]					= "|cFFD700PA G|réneral"
-ResourceBundle.fr["PAGMenu_ActiveProfile"]			= "frPAGMenu_ActiveProfile"
-ResourceBundle.fr["PAGMenu_ActiveProfile_T"]		= "frPAGMenu_ActiveProfile_T"
+ResourceBundle.fr["PAGMenu_ActiveProfile"]			= "Profil actif"
+ResourceBundle.fr["PAGMenu_ActiveProfile_T"]		= "Sélectionner le profil à utiliser. Changer la sélection chargera automatiquement les paramètres. Les changements ci-dessous seront automatiquement sauvegardés dans le profil."
 ResourceBundle.fr["PAGMenu_Welcome"] 				= "Afficher le message d'accueil"
 ResourceBundle.fr["PAGMenu_Welcome_T"] 				= "Afficher le message d'accueil de l'addon après un chargement réussi ?"
 
@@ -81,11 +81,11 @@ ResourceBundle.fr["PABMenu_WitGoldMin"] 			= "- Retirer de l'or si en-dessous du
 ResourceBundle.fr["PABMenu_WitGoldMin_T"] 			= "Retirer automatiquement de l'or de la banque quand le personnage en a moins que défini ci-dessus ?"
 ResourceBundle.fr["PABMenu_DepWitItem"] 			= "Déposer et retirer des objets"
 ResourceBundle.fr["PABMenu_DepWitItem_T"] 			= "Déposer et/ou retirer automatiquement des objets de la banque?"
-ResourceBundle.fr["PABMenu_DepItemTypeDesc"] 		= "frPABMenu_DepItemTypeDesc"
-ResourceBundle.fr["PABMenu_DepItemType"] 			= "frPABMenu_DepItemType"
+ResourceBundle.fr["PABMenu_DepItemTypeDesc"] 		= "Définir les actions spécifiques (déposer, retirer, ignorer) pour les types d'objets communs et avancés."
+ResourceBundle.fr["PABMenu_DepItemType"] 			= "Types d'objets communs"
 ResourceBundle.fr["PABMenu_DepItemType_T"] 			= "Ouvrez le sous-menu pour définir pour chaque type d'objet s'il doit être déposer, retirer, ou ignorer."
-ResourceBundle.fr["PABMenu_Advanced_DepItemType"]	= "frPABMenu_Advanced_DepItemType"
-ResourceBundle.fr["PABMenu_Advanced_DepItemType_T"]	= "frPABMenu_Advanced_DepItemType_T"
+ResourceBundle.fr["PABMenu_Advanced_DepItemType"]	= "Types d'objets avancés"
+ResourceBundle.fr["PABMenu_Advanced_DepItemType_T"]	= "Ouvrez le sous-menu pour définir de façon avancée quels types d'objets doivent être déposés, retirés ou ignorés."
 ResourceBundle.fr["PABMenu_DepItemTimerInterval"]	= "- Intervalle entre les déposes (msecs)"
 ResourceBundle.fr["PABMenu_DepItemTimerInterval_T"]	= "Combien de temps en msecs entre deux déposes consécutives d'objets. Si la dépose de beaucoup d'objets ne fonctionne pas, pensez à augmenter cette valeur."
 ResourceBundle.fr["PABMenu_ItemJunk_Header"]		= PAC_COL_LIGHT_BLUE.."OBJETS NOTÉS AU REBUT"
