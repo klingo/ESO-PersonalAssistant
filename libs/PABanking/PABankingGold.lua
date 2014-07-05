@@ -48,6 +48,11 @@ function PAB_Gold.WithdrawGold(goldMinToKeep)
 		end
 		toWithdraw = toWithdraw * PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep
 		
+		-- small fix in case no gold was on the char at all
+		if ((toWithdraw - PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep) >= goldMinToKeep) then
+			toWithdraw = toWithdraw - PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep
+		end
+		
 		if toWithdraw > bankedMoney then
 			WithdrawMoneyFromBank(bankedMoney) 
 			PAB.println("PAB_GoldWithdrawnInsufficient", bankedMoney, toWithdraw)
