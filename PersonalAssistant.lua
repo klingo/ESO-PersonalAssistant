@@ -1,9 +1,9 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.1a
+-- Version: 1.5.1b
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.1a"
+PA.AddonVersion = "1.5.1b"
 
 -- default values
 PA.General_Defaults = {}
