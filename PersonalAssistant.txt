@@ -3,8 +3,8 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.1|r 
-## Version: 1.5.1
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.1a|r 
+## Version: 1.5.1a
 ## Author: Klingo
 ## APIVersion: 100007
 ## SavedVariables: PersonalAssistant_SavedVariables
@@ -34,10 +34,7 @@ vars/SavedVarsCleaner.lua
 localization/en.lua
 localization/de.lua
 localization/fr.lua
-
-# Core
-PersonalAssistant.lua
-PersonalAssistant.xml
+localization/Locale.lua
 
 # PARepair
 libs/PARepair/PARepair.lua
@@ -50,6 +47,10 @@ libs/PABanking/PABanking.lua
 # UserInterface
 libs/UI/PAFW.lua
 libs/UI/PAUI.lua
+
+# Core
+PersonalAssistant.lua
+PersonalAssistant.xml
 
 # Settings
 libs/Settings/MenuHelper.lua

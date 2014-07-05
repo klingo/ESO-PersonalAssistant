@@ -1,9 +1,9 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.1
+-- Version: 1.5.1a
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.1"
+PA.AddonVersion = "1.5.1a"
 
 -- default values
 PA.General_Defaults = {}
@@ -34,7 +34,7 @@ function PA.initAddon(eventCode, addOnName)
 	-- fix/update saved vars changes since last version
 	SVC.updateSavedVars()
 	
-	-- create the options with LAM
+	-- create the options with LAM-2
 	PA_SettingsMenu.CreateOptions()
 
 	-- register PARepair
@@ -104,17 +104,6 @@ function PA.initDefaults()
 	end
 end
 
--- returns the localized text for a key
-function PA.getResourceMessage(key)
-	if PA_SavedVars.General.language == "de" then
-		return ResourceBundle.de[key]
-	elseif PA_SavedVars.General.language == "fr" then
-		return ResourceBundle.fr[key]
-	else
-		return ResourceBundle.en[key]
-	end
-end
-
 -- introduces the addon to the player
 function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
@@ -132,32 +121,32 @@ end
 -- returns a noun for the bagId
 function PA.getBagName(bagId)
 	if (bagId == BAG_WORN) then
-		return PA.getResourceMessage("NS_Bag_Equipment")
+		return PAL.getResourceMessage("NS_Bag_Equipment")
 	elseif (bagId == BAG_BACKPACK) then 
-		return PA.getResourceMessage("NS_Bag_Backpack")
+		return PAL.getResourceMessage("NS_Bag_Backpack")
 	elseif (bagId == BAG_BANK) then 
-		return PA.getResourceMessage("NS_Bag_Bank")
+		return PAL.getResourceMessage("NS_Bag_Bank")
 	else
-		return PA.getResourceMessage("NS_Bag_Unknown")
+		return PAL.getResourceMessage("NS_Bag_Unknown")
 	end
 end
 
 -- returns an adjective for the bagId
 function PA.getBagNameAdjective(bagId)
 	if (bagId == BAG_WORN) then
-		return PA.getResourceMessage("NS_Bag_Equipped")
+		return PAL.getResourceMessage("NS_Bag_Equipped")
 	elseif (bagId == BAG_BACKPACK) then 
-		return PA.getResourceMessage("NS_Bag_Backpacked")
+		return PAL.getResourceMessage("NS_Bag_Backpacked")
 	elseif (bagId == BAG_BANK) then 
-		return PA.getResourceMessage("NS_Bag_Banked")
+		return PAL.getResourceMessage("NS_Bag_Banked")
 	else
-		return PA.getResourceMessage("NS_Bag_Unknown")
+		return PAL.getResourceMessage("NS_Bag_Unknown")
 	end
 end
 
 -- currently supports one text-key and n arguments
 function PA.println(key, ...)
-	local text = PA.getResourceMessage(key)
+	local text = PAL.getResourceMessage(key)
 	if text == nil then text = key end
 	local args = {...}
 	local unpackedString = string.format(text, unpack(args))
@@ -176,7 +165,7 @@ EVENT_MANAGER:RegisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER
 -- Dev-Debug --
 function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6, itemSoundCategory) 
 	local itemType = GetItemType(bagId, slotIndex) 
-	local strItemType = PA.getResourceMessage(itemType)
+	local strItemType = PAL.getResourceMessage(itemType)
 	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
 	PA.println("itemType (%s): %s. ---> (%d/%d)", itemType, strItemType, stack, maxStack)
 end

@@ -10,11 +10,11 @@ function PAUI.initUI()
 	
 	PAFW:AddCloseButton("PersonalAssistant_ButtonCloseAddon", PAUI.toggleWindow)
 	-- Set the title and "subtitle" of the main window
-	PAFW:AddTitle("PersonalAssistant_WindowTitle", PA.getResourceMessage("MMenu_Title"))
+	PAFW:AddTitle("PersonalAssistant_WindowTitle", PAL.getResourceMessage("MMenu_Title"))
 	PAFW:AddTitleInfo("PersonalAssistant_WindowSubTitle", PA.AddonVersion)
 	
 	-- add a divider below the title
-	PAFW:AddCategoryHeader("PersonalAssistant_TopDivider", PA.getResourceMessage("PARMenu_Header"))
+	PAFW:AddCategoryHeader("PersonalAssistant_TopDivider", PAL.getResourceMessage("PARMenu_Header"))
 	
 --	lam:AddCheckbox(PersonalAssistantUI, "test", "test 3", "guug", nil, nil)
 	

@@ -44,23 +44,23 @@ function MenuHelper.getBankingTextFromNumber(number)
 	end
 	
 	if index == PAC_ITEMTYPE_DEPOSIT then
-		return PA.getResourceMessage("PAB_ItemType_Deposit")
+		return PAL.getResourceMessage("PAB_ItemType_Deposit")
 	elseif index == PAC_ITEMTYPE_WITHDRAWAL then
-		return PA.getResourceMessage("PAB_ItemType_Withdrawal")
+		return PAL.getResourceMessage("PAB_ItemType_Withdrawal")
 	elseif index == PAC_ITEMTYPE_INHERIT then
-		return PA.getResourceMessage("PAB_ItemType_Inherit")
+		return PAL.getResourceMessage("PAB_ItemType_Inherit")
 	else
-		return PA.getResourceMessage("PAB_ItemType_None")
+		return PAL.getResourceMessage("PAB_ItemType_None")
 	end
 end
 
 -- returns the number behind the text, depending on the text
 function MenuHelper.getBankingNumberFromText(text)
-	if text == PA.getResourceMessage("PAB_ItemType_Deposit") then
+	if text == PAL.getResourceMessage("PAB_ItemType_Deposit") then
 		return PAC_ITEMTYPE_DEPOSIT		-- = Deposit
-	elseif text == PA.getResourceMessage("PAB_ItemType_Withdrawal") then
+	elseif text == PAL.getResourceMessage("PAB_ItemType_Withdrawal") then
 		return PAC_ITEMTYPE_WITHDRAWAL	-- = Withdrawal
-	elseif text == PA.getResourceMessage("PAB_ItemType_Inherit") then
+	elseif text == PAL.getResourceMessage("PAB_ItemType_Inherit") then
 		return PAC_ITEMTYPE_INHERIT		-- = Inherit
 	else
 		return PAC_ITEMTYPE_IGNORE		-- = Ignore
@@ -88,11 +88,11 @@ end
 
 function MenuHelper.getDefaultProfileName(profileNo)
 	if profileNo == 2 then
-		return PA.getResourceMessage("PAG_Profile2")
+		return PAL.getResourceMessage("PAG_Profile2")
 	elseif profileNo == 3 then
-		return PA.getResourceMessage("PAG_Profile3")
+		return PAL.getResourceMessage("PAG_Profile3")
 	else
-		return PA.getResourceMessage("PAG_Profile1")
+		return PAL.getResourceMessage("PAG_Profile1")
 	end
 end
 
