@@ -288,13 +288,13 @@ function PA_SettingsMenu.createMainMenu()
 	}
 	tableIndex = tableIndex + 1
 	
-	optionsTable[tableIndex] = {
-		type = "submenu",
-		name = PA.getResourceMessage("PABMenu_Advanced_DepItemType"),
-		tooltip = PA.getResourceMessage("PABMenu_Advanced_DepItemType_T"),
-		controls = itemTypeAdvancedSubmenuTable,
-	}
-	tableIndex = tableIndex + 1
+--	optionsTable[tableIndex] = {
+--		type = "submenu",
+--		name = PA.getResourceMessage("PABMenu_Advanced_DepItemType"),
+--		tooltip = PA.getResourceMessage("PABMenu_Advanced_DepItemType_T"),
+--		controls = itemTypeAdvancedSubmenuTable,
+--	}
+--	tableIndex = tableIndex + 1
 	
 	optionsTable[tableIndex] = {
 		type = "slider",
