@@ -214,7 +214,7 @@ end
 -- returns a list of all item types in a bag
 function PAB_Items.getItemTypeList(bagId)
 	local itemTypeList = {}
-	local bagSlots = GetBagSize(bagId )
+	local bagSlots = GetBagSize(bagId)
 	
 	for slotIndex = 0, bagSlots - 1 do
 		itemTypeList[slotIndex] = GetItemType(bagId, slotIndex)
