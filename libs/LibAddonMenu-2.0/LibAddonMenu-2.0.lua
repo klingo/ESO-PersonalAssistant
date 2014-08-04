@@ -7,7 +7,7 @@
 
 
 --Register LAM with LibStub
-local MAJOR, MINOR = "LibAddonMenu-2.0", 10
+local MAJOR, MINOR = "LibAddonMenu-2.0", 14
 local lam, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 if not lam then return end	--the same or newer version of this lib is already loaded into memory 
 
@@ -22,7 +22,8 @@ local _
 local addonsForList = {}
 local addonToOptionsMap = {}
 local optionsCreated = {}
-local widgets = {}
+lam.widgets = lam.widgets or {}
+local widgets = lam.widgets
 
 
 --METHOD: REGISTER WIDGET--
@@ -57,6 +58,10 @@ function lam:OpenToPanel(panel)
 			ZO_GameMenu_InGame.gameMenu.headerControls[locSettings]:SetOpen(true)
 			SCENE_MANAGER:AddFragment(OPTIONS_WINDOW_FRAGMENT)
 			ZO_OptionsWindow_ChangePanels(lam.panelID)
+			if not lam.panelSubCategoryControl then
+				lam.panelSubCategoryControl = _G["ZO_GameMenu_InGameNavigationContainerScrollChildZO_GameMenu_SubCategory"..(lam.panelID + 1)]
+			end
+			ZO_TreeEntry_OnMouseUp(lam.panelSubCategoryControl, true)
 			panel:SetHidden(false)
 		end, 200)
 end
