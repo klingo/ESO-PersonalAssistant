@@ -26,7 +26,7 @@ end
 
 -- repair all items that are below the given threshold for the bag
 function PAR.RepairItems(bagId, threshold)
-	local _, bagSlots = GetBagInfo(bagId)
+	local bagSlots = GetBagSize(bagId)
 	local repairCost = 0
 	local missingGold = 0	-- TODO: implement a missing gold to repair feature
 	local repairedItems = 0
