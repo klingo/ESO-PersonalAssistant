@@ -5,6 +5,11 @@ if ResourceBundle.fr == nil then ResourceBundle.fr = {} end
 ResourceBundle.fr["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!   -   no localization for (%s) available yet."
 ResourceBundle.fr["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." à votre service !"
 
+-- Key Bindings
+ResourceBundle.fr["KB_Load_Profile1"]				= "frKB_Load_Profile1"
+ResourceBundle.fr["KB_Load_Profile2"]				= "frKB_Load_Profile2"
+ResourceBundle.fr["KB_Load_Profile3"]				= "frKB_Load_Profile3"
+
 -- PAGeneral --
 ResourceBundle.fr["PAG_Profile1"]					= "Profil 1"
 ResourceBundle.fr["PAG_Profile2"]					= "Profil 2"

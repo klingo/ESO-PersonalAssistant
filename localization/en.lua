@@ -5,6 +5,11 @@ if ResourceBundle.en == nil then ResourceBundle.en = {} end
 ResourceBundle.en["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!   -   no localization for (%s) available yet."
 ResourceBundle.en["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!"
 
+-- Key Bindings
+ResourceBundle.en["KB_Load_Profile1"]				= "Activate profile 1"
+ResourceBundle.en["KB_Load_Profile2"]				= "Activate profile 2"
+ResourceBundle.en["KB_Load_Profile3"]				= "Activate profile 3"
+
 -- PAGeneral --
 ResourceBundle.en["PAG_Profile1"]					= "Profile 1"
 ResourceBundle.en["PAG_Profile2"]					= "Profile 2"
