@@ -1,9 +1,9 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.2
+-- Version: 1.5.3
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.2"
+PA.AddonVersion = "1.5.3"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
@@ -31,9 +31,6 @@ function PA.initAddon(eventCode, addOnName)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
-	
-	-- creates the (new) XML UI - after a delay of one second
-	-- zo_callLater(function() PAUI.initUI() end, 1000)
 	
 	-- fix/update saved vars changes since last version
 	SVC.updateSavedVars()

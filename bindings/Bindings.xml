@@ -1,0 +1,15 @@
+<Bindings>
+	<Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
+		<Category name="|cFFD700P|rersonal|cFFD700A|rssistant">
+			<Action name="ACTIVATE_PROFILE_1">
+				<Down>MenuHelper.loadProfileNumber(1)</Down>
+			</Action>
+			<Action name="ACTIVATE_PROFILE_2">
+				<Down>MenuHelper.loadProfileNumber(2)</Down>
+			</Action>
+			<Action name="ACTIVATE_PROFILE_3">
+				<Down>MenuHelper.loadProfileNumber(3)</Down>
+			</Action>
+		</Category>
+	</Layer>
+</Bindings>

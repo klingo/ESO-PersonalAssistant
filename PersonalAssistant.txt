@@ -3,8 +3,8 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.2|r 
-## Version: 1.5.2
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.3|r 
+## Version: 1.5.3
 ## Author: Klingo
 ## APIVersion: 100008
 ## SavedVariables: PersonalAssistant_SavedVariables
@@ -55,3 +55,7 @@ PersonalAssistant.xml
 # Settings
 libs/Settings/MenuHelper.lua
 libs/Settings/MainMenu.lua
+
+# Bindings
+bindings/Bindings.lua
+bindings/Bindings.xml

@@ -32,6 +32,10 @@ function MenuHelper.renameProfile(profileText)
 	ReloadUI()
 end
 
+function MenuHelper.loadProfileNumber(profileNumber)
+	PA_SavedVars.General.activeProfile = profileNumber
+end
+
 
 -- --------------------------------------------------------------------------------------------------------
 
