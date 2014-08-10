@@ -11,27 +11,28 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 	PAB_Items.failedDeposits = 0
 	PAB_Items.loopCount = PAB_Items.loopCount + 1
 	
-	local backpackItemTypeList = PAB_Items.getItemTypeList(BAG_BACKPACK)
-	local bankItemTypeList = PAB_Items.getItemTypeList(BAG_BANK)
-	
 	-- first deposit items to the bank
-	PAB_Items.itemsDeposited = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_BANK, backpackItemTypeList, bankItemTypeList, PAC_ITEMTYPE_DEPOSIT, lastLoop)
+	PAB_Items.itemsDeposited = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
 	
-	-- then update lists and withdraw items from the bank
-	backpackItemTypeList = PAB_Items.getItemTypeList(BAG_BACKPACK)
-	bankItemTypeList = PAB_Items.getItemTypeList(BAG_BANK)
-	PAB_Items.itemsWithdrawn = PAB_Items.DoItemTransaction(BAG_BANK, BAG_BACKPACK, bankItemTypeList, backpackItemTypeList, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
+	-- then withdraw items from the bank
+	PAB_Items.itemsWithdrawn = PAB_Items.DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
 	
-	if (PAB_Items.itemsDeposited or PAB_Items.itemsWithdrawn) then
+	-- then we can deposit the advanced items to the bank
+	PAB_Items.itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
+	
+	if (PAB_Items.itemsDeposited or PAB_Items.itemsWithdrawn or PAB_Items.itemsAdvancedDepositedWithdrawn) then
 		return true
 	else
 		return false
 	end
 end
 
-function PAB_Items.DoItemTransaction(fromBagId, toBagId, fromBagItemTypeList, toBagItemTypeList, transactionType, lastLoop)
+function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLoop)
 	local timer = 100
 	local skipChecksAndProceed = false
+	
+	local fromBagItemTypeList = PAB_Items.getItemTypeList(fromBagId)
+	local toBagItemTypeList = PAB_Items.getItemTypeList(toBagId)
 	
 	-- pre-determine if in case of Junk the checks shall be skipped
 	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
@@ -95,6 +96,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, fromBagItemTypeList, to
 						PAB_Items.queueSize = PAB_Items.queueSize + 1
 						break
 					end
+
 				end
 			end
 		end
@@ -127,7 +129,7 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
 			
 			-- Before version 1.4.0 it could happen that when the item is not yet in the bank, the itemMove failed.
 			-- This used to happen only if there are more than ~20 new items for the bank.
-			-- This method will check if the item is still in its original place after 2 seconds
+			-- This method will check if the item is still in its original place after 1-2 seconds
 			-- and prints a message in case it happened again.
 			zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop) end, (1000 + PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval))
 		end
@@ -221,4 +223,16 @@ function PAB_Items.getItemTypeList(bagId)
 	end
 	
 	return itemTypeList
+end
+
+-- returns a list of all item names in a bag
+function PAB_Items.getItemNameList(bagId)
+	local itemNameList = {}
+	local bagSlots = GetBagSize(bagId)
+	
+	for slotIndex = 0, bagSlots - 1 do
+		itemNameList[slotIndex] = GetItemName(bagId, slotIndex):upper()
+	end
+	
+	return itemNameList
 end

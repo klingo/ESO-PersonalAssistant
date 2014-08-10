@@ -287,13 +287,13 @@ function PA_SettingsMenu.createMainMenu()
 	}
 	tableIndex = tableIndex + 1
 	
---	optionsTable[tableIndex] = {
---		type = "submenu",
---		name = PAL.getResourceMessage("PABMenu_Advanced_DepItemType"),
---		tooltip = PAL.getResourceMessage("PABMenu_Advanced_DepItemType_T"),
---		controls = itemTypeAdvancedSubmenuTable,
---	}
---	tableIndex = tableIndex + 1
+	optionsTable[tableIndex] = {
+		type = "submenu",
+		name = PAL.getResourceMessage("PABMenu_Advanced_DepItemType"),
+		tooltip = PAL.getResourceMessage("PABMenu_Advanced_DepItemType_T"),
+		controls = itemTypeAdvancedSubmenuTable,
+	}
+	tableIndex = tableIndex + 1
 	
 	optionsTable[tableIndex] = {
 		type = "slider",
@@ -402,4 +402,39 @@ function PA_SettingsMenu.createItemSubMenu()
 end
 
 function PA_SettingsMenu.createItemAdvancedSubMenu()
+	local tableIndex = 1
+	
+	itemTypeAdvancedSubmenuTable[tableIndex] = {
+		type = "header",
+		name = PAL.getResourceMessage("PABMenu_Lockipck_Header"),
+	}
+	tableIndex = tableIndex + 1
+	
+	itemTypeAdvancedSubmenuTable[tableIndex] = {
+		type = "dropdown",
+		name = PAL.getResourceMessage("REL_Operator"),
+		tooltip = "",
+		choices = {PAL.getResourceMessage("REL_None"), PAL.getResourceMessage("REL_Equal"), PAL.getResourceMessage("REL_LessThanEqual"), PAL.getResourceMessage("REL_GreaterThanEqual")},
+		-- choices = {PAL.getResourceMessage("REL_None"), PAL.getResourceMessage("REL_Equal"), PAL.getResourceMessage("REL_LessThan"), PAL.getResourceMessage("REL_LessThanEqual"), PAL.getResourceMessage("REL_GreaterThan"), PAL.getResourceMessage("REL_GreaterThanEqual")},
+		getFunc = function() return MenuHelper.getOperatorTextFromNumber(PA_ITEMTYPE_LOCKIPCK) end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Key = MenuHelper.getOperatorNumberFromText(value) end,
+		width = "half",
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		default = PAL.getResourceMessage("REL_None"),
+	}
+	tableIndex = tableIndex +1
+	
+	itemTypeAdvancedSubmenuTable[tableIndex] = {
+		type = "editbox",
+		name = PAL.getResourceMessage("PABMenu_Keep_in_Backpack"),
+		tooltip = PAL.getResourceMessage("PABMenu_Keep_in_Backpack_T"),
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Value end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Value = tonumber(value) end,
+		isMultiline = false,
+		width = "half",
+		disabled = function() return (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Key == PAC_OPERATOR_NONE) end,
+		default = 100,
+	}
+	tableIndex = tableIndex +1
+	
 end

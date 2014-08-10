@@ -57,8 +57,15 @@ function PA.initDefaults()
 		PA.Profiles_Defaults[profileNo] = {}
 		PA.Repair_Defaults[profileNo] = {}
 		PA.Banking_Defaults[profileNo] = {
-			ItemTypes = {}
+			ItemTypes = {},
+			ItemTypesAdvanced = {}
 		}
+		for itemTypeAdvancedNo = 0, 0 do	-- amount of advanced item types = 1 so far
+			PA.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
+				Key = {},
+				Value = {}
+			}
+		end
 
 		-- default values for Addon
 		PA.General_Defaults.language = 1
@@ -102,6 +109,10 @@ function PA.initDefaults()
 				PA.Banking_Defaults[profileNo].ItemTypes[i] = 0
 			end
 		end
+		
+		-- default values for advanced ItemTypes
+		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Key = PAC_OPERATOR_NONE
+		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Value = 100
 	end
 end
 

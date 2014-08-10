@@ -73,6 +73,47 @@ end
 
 -- --------------------------------------------------------------------------------------------------------
 
+-- returns the matching dropdown-text based on the number that is behind it
+function MenuHelper.getOperatorTextFromNumber(number)
+	local profileNo = PA_SavedVars.General.activeProfile
+	local index = PA_SavedVars.Banking[profileNo].itemsJunkSetting
+	if (number ~= nil) then
+		index = PA_SavedVars.Banking[profileNo].ItemTypesAdvanced[number].Key
+	end
+	
+	if index == PAC_OPERATOR_EQUAL then
+		return PAL.getResourceMessage("REL_Equal")
+	elseif index == PAC_OPERATOR_LESSTHAN then
+		return PAL.getResourceMessage("REL_LessThan")
+	elseif index == PAC_OPERATOR_LESSTAHNEQAL then
+		return PAL.getResourceMessage("REL_LessThanEqual")
+	elseif index == PAC_OPERATOR_GREATERTHAN then
+		return PAL.getResourceMessage("REL_GreaterThan")
+	elseif index == PAC_OPERATOR_GREATERTHANEQUAL then
+		return PAL.getResourceMessage("REL_GreaterThanEqual")
+	else
+		return PAL.getResourceMessage("REL_None")
+	end
+end
+
+-- returns the number behind the text, depending on the text
+function MenuHelper.getOperatorNumberFromText(text)
+	if text == PAL.getResourceMessage("REL_Equal") then
+		return PAC_OPERATOR_EQUAL
+	elseif text == PAL.getResourceMessage("REL_LessThan") then
+		return PAC_OPERATOR_LESSTHAN
+	elseif text == PAL.getResourceMessage("REL_LessThanEqual") then
+		return PAC_OPERATOR_LESSTAHNEQAL
+	elseif text == PAL.getResourceMessage("REL_GreaterThan") then
+		return PAC_OPERATOR_GREATERTHAN
+	elseif text == PAL.getResourceMessage("REL_GreaterThanEqual") then
+		return PAC_OPERATOR_GREATERTHANEQUAL
+	else
+		return PAC_OPERATOR_NONE
+	end
+end
+
+-- --------------------------------------------------------------------------------------------------------
 function MenuHelper.getProfileList()
 	local profiles = {}
 	for profileNo = 1, PAG_MAX_PROFILES do

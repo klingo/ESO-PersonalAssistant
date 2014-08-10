@@ -110,6 +110,7 @@ ResourceBundle.fr["PABMenu_WitButton"] 				= "Tout retirer"
 ResourceBundle.fr["PABMenu_WitButton_T"] 			= "Changer toutes les valeurs de menu pour 'Retirer'?"
 ResourceBundle.fr["PABMenu_IgnButton"] 				= "Tout ignorer"
 ResourceBundle.fr["PABMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'?"
+ResourceBundle.fr["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."frPAItem_Lockpick"
 
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
@@ -120,7 +121,18 @@ ResourceBundle.fr["NS_Bag_Bank"]					= "la banque"
 ResourceBundle.fr["NS_Bag_Banked"]					= ""	-- not required so far
 ResourceBundle.fr["NS_Bag_Unknown"]					= "inconnu"
 
--- Item Types --
+-- Operators --
+ResourceBundle.fr["REL_Operator"]					= "Opérateur"
+ResourceBundle.fr["REL_Equal"]						= "frREL_Equal"
+ResourceBundle.fr["REL_LessThan"]					= "frREL_LessThan"
+ResourceBundle.fr["REL_LessThanEqual"]				= "frREL_LessThanEqual"
+ResourceBundle.fr["REL_GreaterThan"]				= "frREL_GreaterThan"
+ResourceBundle.fr["REL_GreaterThanEqual"]			= "frREL_GreaterThanEqual"
+
+-- Unofficial Item Types --
+ResourceBundle.fr["PAItemType_Lockpick"]			= "Crochet"
+
+-- Official Item Types --
 ResourceBundle.fr[ITEMTYPE_ADDITIVE] 				= "frITEMTYPE_ADDITIVE"
 ResourceBundle.fr[ITEMTYPE_ALCHEMY_BASE] 			= "Solvant (Alchimie)"
 ResourceBundle.fr[ITEMTYPE_ARMOR] 					= "Armure"

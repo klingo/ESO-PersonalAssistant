@@ -110,6 +110,7 @@ ResourceBundle.de["PABMenu_WitButton"] 				= "Alles abheben"
 ResourceBundle.de["PABMenu_WitButton_T"] 			= "Ändert alle Dropdown Werte zu 'Abheben'?"
 ResourceBundle.de["PABMenu_IgnButton"] 				= "Alles ignorieren"
 ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-'?"
+ResourceBundle.de["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."dePAItem_Lockpick"
 
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
@@ -120,7 +121,18 @@ ResourceBundle.de["NS_Bag_Bank"]					= "Truhe"
 ResourceBundle.de["NS_Bag_Banked"]					= ""	-- soweit nicht benötigt
 ResourceBundle.de["NS_Bag_Unknown"]					= "unbekannt"
 
--- Item Types --
+-- Operators --
+ResourceBundle.de["REL_Operator"]					= "Operator"
+ResourceBundle.de["REL_Equal"]						= "gleich (=)"
+ResourceBundle.de["REL_LessThan"]					= "kleiner als (<)"
+ResourceBundle.de["REL_LessThanEqual"]				= "kleiner als oder gleich (<=)"
+ResourceBundle.de["REL_GreaterThan"]				= "grösser als (>)"
+ResourceBundle.de["REL_GreaterThanEqual"]			= "grösser als oder gleich (>=)"
+
+-- Unofficial Item Types --
+ResourceBundle.de["PAItemType_Lockpick"]			= "Dietrich"
+
+-- Official Item Types --
 ResourceBundle.de[ITEMTYPE_ADDITIVE] 				= "deITEMTYPE_ADDITIVE"
 ResourceBundle.de[ITEMTYPE_ALCHEMY_BASE] 			= "Lösungsmittel (Alchemie)"
 ResourceBundle.de[ITEMTYPE_ARMOR] 					= "Rüstung (unbekannt)"

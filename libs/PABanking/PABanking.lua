@@ -38,6 +38,7 @@ function PAB.OnBankOpen()
 		end
 		
 		-- FIXME: this check does currently not work, need to be called with zo_calllater
+		-- FIXME2: it especially does not work with the advanced item types
 		if (not goldTransaction) and (not itemTransaction) then
 			if (not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideNoDepositMsg) then
 				PAB.println("PAB_NoDeposit")

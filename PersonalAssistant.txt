@@ -42,6 +42,7 @@ libs/PARepair/PARepair.lua
 # PABanking
 libs/PABanking/PABankingGold.lua
 libs/PABanking/PABankingItems.lua
+libs/PABanking/PABankingAdvancedItems.lua
 libs/PABanking/PABanking.lua
 
 # UserInterface

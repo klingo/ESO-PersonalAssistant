@@ -110,6 +110,9 @@ ResourceBundle.en["PABMenu_WitButton"] 				= "Withdraw all"
 ResourceBundle.en["PABMenu_WitButton_T"] 			= "Change all dropdown values to 'Withdraw'?"
 ResourceBundle.en["PABMenu_IgnButton"] 				= "Ignore all"
 ResourceBundle.en["PABMenu_IgnButton_T"] 			= "Change all dropdown values to '-'?"
+ResourceBundle.en["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."Lockpicks"
+ResourceBundle.en["PABMenu_Keep_in_Backpack"] 		= "Amount to keep in backpack"
+ResourceBundle.en["PABMenu_Keep_in_Backpack_T"] 	= "Define the amount which shall together with the mathematical operator be kept in the backpack."
 
 -- Name Spaces --
 ResourceBundle.en["NS_Bag_Equipment"]				= ""	-- not required so far
@@ -120,7 +123,19 @@ ResourceBundle.en["NS_Bag_Bank"]					= "bank"
 ResourceBundle.en["NS_Bag_Banked"]					= ""	-- not required so far
 ResourceBundle.en["NS_Bag_Unknown"]					= "unknown"
 
--- Item Types --
+-- Operators --
+ResourceBundle.en["REL_Operator"]					= "Mathematical Operator"
+ResourceBundle.en["REL_None"]						= "-"
+ResourceBundle.en["REL_Equal"]						= "equals (=)"
+ResourceBundle.en["REL_LessThan"]					= "less than (<)"
+ResourceBundle.en["REL_LessThanEqual"]				= "less than or equal to (<=)"
+ResourceBundle.en["REL_GreaterThan"]				= "greater than (>)"
+ResourceBundle.en["REL_GreaterThanEqual"]			= "greater than or equal to (>=)"
+
+-- Unofficial Item Types --
+ResourceBundle.en["PAItemType_Lockpick"]			= "Lockpick"
+
+-- Official Item Types --
 ResourceBundle.en[ITEMTYPE_ADDITIVE] 				= "enITEMTYPE_ADDITIVE"
 ResourceBundle.en[ITEMTYPE_ALCHEMY_BASE] 			= "Solvent (Alchemy)"
 ResourceBundle.en[ITEMTYPE_ARMOR] 					= "Armor (any)"
