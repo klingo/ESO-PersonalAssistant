@@ -111,6 +111,8 @@ ResourceBundle.de["PABMenu_WitButton_T"] 			= "Ändert alle Dropdown Werte zu 'A
 ResourceBundle.de["PABMenu_IgnButton"] 				= "Alles ignorieren"
 ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-'?"
 ResourceBundle.de["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."dePAItem_Lockpick"
+ResourceBundle.de["PABMenu_Keep_in_Backpack"] 		= "dePABMenu_Keep_in_Backpack"
+ResourceBundle.de["PABMenu_Keep_in_Backpack_T"] 	= "dePABMenu_Keep_in_Backpack_T"
 
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt

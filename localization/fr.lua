@@ -111,6 +111,8 @@ ResourceBundle.fr["PABMenu_WitButton_T"] 			= "Changer toutes les valeurs de men
 ResourceBundle.fr["PABMenu_IgnButton"] 				= "Tout ignorer"
 ResourceBundle.fr["PABMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'?"
 ResourceBundle.fr["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."frPAItem_Lockpick"
+ResourceBundle.fr["PABMenu_Keep_in_Backpack"] 		= "frPABMenu_Keep_in_Backpack"
+ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"] 	= "frPABMenu_Keep_in_Backpack_T"
 
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
