@@ -36,6 +36,8 @@ function PAUI.toggleWindow()
 --    SCENE_MANAGER:GetScene('hud'):AddFragment( fragment )
 --    SCENE_MANAGER:GetScene('hudui'):AddFragment( fragment )
 	
+--	 How to show/hide window using the SCENE_MANAGER 
+--	http://www.esoui.com/portal.php?&id=27&pageid=12
 		
 		
     if (PersonalAssistantUI:IsHidden()) then
