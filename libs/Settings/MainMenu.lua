@@ -404,6 +404,7 @@ end
 function PA_SettingsMenu.createItemAdvancedSubMenu()
 	local tableIndex = 1
 	
+	local advancedItemIndex = 0		-- 0 = Lockpick
 	itemTypeAdvancedSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_Lockipck_Header"),
@@ -416,8 +417,8 @@ function PA_SettingsMenu.createItemAdvancedSubMenu()
 		tooltip = "",
 		choices = {PAL.getResourceMessage("REL_None"), PAL.getResourceMessage("REL_Equal"), PAL.getResourceMessage("REL_LessThanEqual"), PAL.getResourceMessage("REL_GreaterThanEqual")},
 		-- choices = {PAL.getResourceMessage("REL_None"), PAL.getResourceMessage("REL_Equal"), PAL.getResourceMessage("REL_LessThan"), PAL.getResourceMessage("REL_LessThanEqual"), PAL.getResourceMessage("REL_GreaterThan"), PAL.getResourceMessage("REL_GreaterThanEqual")},
-		getFunc = function() return MenuHelper.getOperatorTextFromNumber(PA_ITEMTYPE_LOCKIPCK) end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Key = MenuHelper.getOperatorNumberFromText(value) end,
+		getFunc = function() return MenuHelper.getOperatorTextFromNumber(advancedItemIndex) end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Key = MenuHelper.getOperatorNumberFromText(value) end,
 		width = "half",
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		default = PAL.getResourceMessage("REL_None"),
@@ -428,11 +429,11 @@ function PA_SettingsMenu.createItemAdvancedSubMenu()
 		type = "editbox",
 		name = PAL.getResourceMessage("PABMenu_Keep_in_Backpack"),
 		tooltip = PAL.getResourceMessage("PABMenu_Keep_in_Backpack_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Value end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Value = tonumber(value) end,
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Value end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Value = tonumber(value) end,
 		isMultiline = false,
 		width = "half",
-		disabled = function() return (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Key == PAC_OPERATOR_NONE) end,
+		disabled = function() return (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Key == PAC_OPERATOR_NONE) end,
 		default = 100,
 	}
 	tableIndex = tableIndex +1

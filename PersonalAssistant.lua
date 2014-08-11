@@ -60,7 +60,7 @@ function PA.initDefaults()
 			ItemTypes = {},
 			ItemTypesAdvanced = {}
 		}
-		for itemTypeAdvancedNo = 0, 0 do	-- amount of advanced item types = 1 so far
+		for itemTypeAdvancedNo = 0, 1 do	-- amount of advanced item types = 1 so far
 			PA.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
 				Key = {},
 				Value = {}
@@ -111,8 +111,8 @@ function PA.initDefaults()
 		end
 		
 		-- default values for advanced ItemTypes
-		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Key = PAC_OPERATOR_NONE
-		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Value = 100
+		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 0 = Lockpick
+		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 0 = Lockpick
 	end
 end
 
@@ -179,7 +179,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 	local itemType = GetItemType(bagId, slotIndex) 
 	local strItemType = PAL.getResourceMessage(itemType)
 	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
-	PA.println("itemType (%s): %s. ---> (%d/%d)", itemType, strItemType, stack, maxStack)
+	PA.println("itemType (%s): %s. ---> (%d/%d) --> %s", itemType, strItemType, stack, maxStack, zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)))
 end
 
 -- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)

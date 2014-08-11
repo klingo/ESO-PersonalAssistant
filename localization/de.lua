@@ -111,8 +111,8 @@ ResourceBundle.de["PABMenu_WitButton_T"] 			= "Ändert alle Dropdown Werte zu 'A
 ResourceBundle.de["PABMenu_IgnButton"] 				= "Alles ignorieren"
 ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-'?"
 ResourceBundle.de["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."Dietriche"
-ResourceBundle.de["PABMenu_Keep_in_Backpack"] 		= "Im Inventar zu behaltende Menge"
-ResourceBundle.de["PABMenu_Keep_in_Backpack_T"] 	= "Definiere die Anzahl welche zusammen mit dem mathematischen Operator im Inventar behalten werden sollen."
+ResourceBundle.de["PABMenu_Keep_in_Backpack"] 		= "Zielmenge im Inventar"
+ResourceBundle.de["PABMenu_Keep_in_Backpack_T"] 	= "Definiere die Menge welche unter Berücksichtigung des mathematischen Operators im Inventar behalten werden soll."
 
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
@@ -125,14 +125,12 @@ ResourceBundle.de["NS_Bag_Unknown"]					= "unbekannt"
 
 -- Operators --
 ResourceBundle.de["REL_Operator"]					= "Mathematischer Operator"
+ResourceBundle.de["REL_None"]						= "-"
 ResourceBundle.de["REL_Equal"]						= "gleich (=)"
 ResourceBundle.de["REL_LessThan"]					= "kleiner als (<)"		-- soweit nicht benötigt
 ResourceBundle.de["REL_LessThanEqual"]				= "kleiner als oder gleich (<=)"
 ResourceBundle.de["REL_GreaterThan"]				= "grösser als (>)"		-- soweit nicht benötigt
 ResourceBundle.de["REL_GreaterThanEqual"]			= "grösser als oder gleich (>=)"
-
--- Unofficial Item Types --
-ResourceBundle.de["PAItemType_Lockpick"]			= "Dietrich"
 
 -- Official Item Types --
 ResourceBundle.de[ITEMTYPE_ADDITIVE] 				= "deITEMTYPE_ADDITIVE"

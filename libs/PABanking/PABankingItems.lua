@@ -12,15 +12,19 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 	PAB_Items.loopCount = PAB_Items.loopCount + 1
 	
 	-- first deposit items to the bank
-	PAB_Items.itemsDeposited = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
+	local itemsDeposited = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
 	
 	-- then withdraw items from the bank
-	PAB_Items.itemsWithdrawn = PAB_Items.DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
+	local itemsWithdrawn = PAB_Items.DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
 	
 	-- then we can deposit the advanced items to the bank
-	PAB_Items.itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
+	local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
 	
-	if (PAB_Items.itemsDeposited or PAB_Items.itemsWithdrawn or PAB_Items.itemsAdvancedDepositedWithdrawn) then
+	while (itemsAdvancedDepositedWithdrawn == nil) do
+		-- do nothing; wait
+    end
+	
+	if (itemsDeposited or itemsWithdrawn or itemsAdvancedDepositedWithdrawn) then
 		return true
 	else
 		return false
@@ -30,6 +34,7 @@ end
 function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLoop)
 	local timer = 100
 	local skipChecksAndProceed = false
+	local itemMoved = false
 	
 	local fromBagItemTypeList = PAB_Items.getItemTypeList(fromBagId)
 	local toBagItemTypeList = PAB_Items.getItemTypeList(toBagId)
@@ -74,7 +79,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 						-- compare the names
 						if transferInfo["fromItemName"] == transferInfo["toItemName"] then
 							-- item found in target bag, transfer item from source bag to target bag and get info how many items left
-							PAB_Items.itemMoved = true
+							itemMoved = true
 							transferInfo["stackSize"] = PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
 						end
 						
@@ -89,7 +94,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 					
 					-- all target-items checked - are still stacks left?
 					if transferInfo["stackSize"] > 0 then
-						PAB_Items.itemMoved = true
+						itemMoved = true
 						zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
 						timer = timer + PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval
 						-- increase the queue of the "callLater" calls
@@ -102,7 +107,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 		end
 	end
 	
-	return PAB_Items.itemMoved
+	return itemMoved
 end
 
 -- prepares the actual move
@@ -211,8 +216,8 @@ function PAB_Items.reDeposit()
 	end
 end
 
-
 -- ---------------------------------------------------------------------------------------------------------------
+
 -- returns a list of all item types in a bag
 function PAB_Items.getItemTypeList(bagId)
 	local itemTypeList = {}

@@ -132,9 +132,6 @@ ResourceBundle.en["REL_LessThanEqual"]				= "less than or equal to (<=)"
 ResourceBundle.en["REL_GreaterThan"]				= "greater than (>)"	-- not required so far
 ResourceBundle.en["REL_GreaterThanEqual"]			= "greater than or equal to (>=)"
 
--- Unofficial Item Types --
-ResourceBundle.en["PAItemType_Lockpick"]			= "Lockpick"
-
 -- Official Item Types --
 ResourceBundle.en[ITEMTYPE_ADDITIVE] 				= "enITEMTYPE_ADDITIVE"
 ResourceBundle.en[ITEMTYPE_ALCHEMY_BASE] 			= "Solvent (Alchemy)"

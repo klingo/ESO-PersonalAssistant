@@ -4,9 +4,10 @@
 PAB_AdvancedItems = {}
 
 function PAB_AdvancedItems.DoAdvancedItemTransaction()
-	local timer = 100
-	
-	-- let us start with the lockpicks!
+
+	local movedAnything = false
+
+	-- TODO: replace BACKPACK and BANK with FROM and TO
 	local backpackItemNameList = PAB_Items.getItemNameList(BAG_BACKPACK)
 	local bankItemNameList = PAB_Items.getItemNameList(BAG_BANK)
 	
@@ -14,153 +15,193 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 	local transferList = {}
 	local transferInfo = {}
 	local currRowIndex = 0
-	
-	-- TODO: loop this part?
-	local checkItemName = PAL.getResourceMessage("PAItemType_Lockpick"):upper()
-	
+		
 	
 -- populate the transfer List here
 -- -------------------------------------------------------------------------------------------------
-	transferList[0] = checkItemName
-	transferInfo[checkItemName] = {}
-	transferInfo[checkItemName]["operator"] = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Key
-	transferInfo[checkItemName]["targetStackSize"] = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[PA_ITEMTYPE_LOCKIPCK].Value
+	-- let us start with the lockpicks!
+	transferList[0] = PAItemTypesAdvanced[0]
+-- 	transferList[1] = XYZ
+-- 	transferList[2] = XYZ
 	
-	if (transferInfo[checkItemName]["operator"] ~= PAC_OPERATOR_NONE) then
-		for currBackpackItem = 0, #backpackItemNameList do
-			if (backpackItemNameList[currBackpackItem] == PAL.getResourceMessage("PAItemType_Lockpick"):upper()) then
-				-- create a new row in the table
-				transferInfo[currRowIndex] = {}
-				transferInfo[currRowIndex]["itemName"] = backpackItemNameList[currBackpackItem]
-				transferInfo[currRowIndex]["bagId"] = BAG_BACKPACK
-				transferInfo[currRowIndex]["slotIndex"] = currBackpackItem
-				PA.println("slotindex : "..tostring(currBackpackItem).." in row "..tostring(currRowIndex).." (size: "..tostring(GetSlotStackSize(BAG_BACKPACK, currBackpackItem))..")")
-				transferInfo[currRowIndex]["slotStackSize"] = GetSlotStackSize(BAG_BACKPACK, currBackpackItem)
-				if (transferInfo[checkItemName]["backpackStackSize"] == nil) then
-					if (transferInfo[currRowIndex]["slotStackSize"] == nil) then
-						transferInfo[checkItemName]["backpackStackSize"] = 0
+	for transferIndex = 0, #transferList do
+	
+		local checkItemId = transferList[transferIndex]
+		
+		transferInfo[checkItemId] = {}
+		transferInfo[checkItemId]["operator"] = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[transferIndex].Key
+		transferInfo[checkItemId]["targetStackSize"] = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[transferIndex].Value
+		
+		if (transferInfo[checkItemId]["operator"] ~= PAC_OPERATOR_NONE) then
+			for currBackpackItem = 0, #backpackItemNameList do
+				if (tostring(PAB_AdvancedItems.getItemId(BAG_BACKPACK, currBackpackItem)) == tostring(checkItemId)) then
+					-- create a new row in the table
+					transferInfo[currRowIndex] = {}
+					transferInfo[currRowIndex]["fromItemName"] = backpackItemNameList[currBackpackItem]
+					transferInfo[currRowIndex]["itemId"] = checkItemId
+					transferInfo[currRowIndex]["bagId"] = BAG_BACKPACK
+					transferInfo[currRowIndex]["slotIndex"] = currBackpackItem
+					transferInfo[currRowIndex]["slotStackSize"] = GetSlotStackSize(BAG_BACKPACK, currBackpackItem)
+					if (transferInfo[checkItemId]["backpackStackSize"] == nil) then
+						if (transferInfo[currRowIndex]["slotStackSize"] == nil) then
+							transferInfo[checkItemId]["backpackStackSize"] = 0
+						else
+							transferInfo[checkItemId]["backpackStackSize"] = transferInfo[currRowIndex]["slotStackSize"]
+						end
 					else
-						transferInfo[checkItemName]["backpackStackSize"] = transferInfo[currRowIndex]["slotStackSize"]
+						transferInfo[checkItemId]["backpackStackSize"] = transferInfo[checkItemId]["backpackStackSize"] + transferInfo[currRowIndex]["slotStackSize"]
 					end
-				else
-					transferInfo[checkItemName]["backpackStackSize"] = transferInfo[checkItemName]["backpackStackSize"] + transferInfo[currRowIndex]["slotStackSize"]
+					currRowIndex = currRowIndex + 1
 				end
-				currRowIndex = currRowIndex + 1
+			end
+			
+			for currBankItem = 0, #bankItemNameList do
+				if (tostring(PAB_AdvancedItems.getItemId(BAG_BANK, currBankItem)) == tostring(checkItemId)) then
+					-- create a new row in the table
+					transferInfo[currRowIndex] = {}
+					transferInfo[currRowIndex]["fromItemName"] = bankItemNameList[currBankItem]
+					transferInfo[currRowIndex]["itemId"] = checkItemId
+					transferInfo[currRowIndex]["bagId"] = BAG_BANK
+					transferInfo[currRowIndex]["slotIndex"] = currBankItem
+					transferInfo[currRowIndex]["slotStackSize"] = GetSlotStackSize(BAG_BANK, currBankItem)
+					if (transferInfo[checkItemId]["bankStackSize"] == nil) then
+						if (transferInfo[currRowIndex]["slotStackSize"] == nil) then
+							transferInfo[checkItemId]["bankStackSize"] = 0
+						else
+							transferInfo[checkItemId]["bankStackSize"] = transferInfo[currRowIndex]["slotStackSize"]
+						end
+					else
+						transferInfo[checkItemId]["bankStackSize"] = transferInfo[checkItemId]["bankStackSize"] + transferInfo[currRowIndex]["slotStackSize"]
+					end
+					currRowIndex = currRowIndex + 1
+				end
 			end
 		end
 		
-		for currBankItem = 0, #bankItemNameList do
-			if (bankItemNameList[currBankItem] == PAL.getResourceMessage("PAItemType_Lockpick"):upper()) then
-				-- create a new row in the table
-				transferInfo[currRowIndex] = {}
-				transferInfo[currRowIndex]["itemName"] = bankItemNameList[currBankItem]
-				transferInfo[currRowIndex]["bagId"] = BAG_BANK
-				transferInfo[currRowIndex]["slotIndex"] = currBankItem
-				transferInfo[currRowIndex]["slotStackSize"] = GetSlotStackSize(BAG_BANK, currBankItem)
-				if (transferInfo[checkItemName]["bankStackSize"] == nil) then
-					if (transferInfo[currRowIndex]["slotStackSize"] == nil) then
-						transferInfo[checkItemName]["bankStackSize"] = 0
-					else
-						transferInfo[checkItemName]["bankStackSize"] = transferInfo[currRowIndex]["slotStackSize"]
-					end
-				else
-					transferInfo[checkItemName]["bankStackSize"] = transferInfo[checkItemName]["bankStackSize"] + transferInfo[currRowIndex]["slotStackSize"]
-				end
-				currRowIndex = currRowIndex + 1
-			end
+		if (transferInfo[checkItemId]["backpackStackSize"] == nil) then
+			transferInfo[checkItemId]["backpackStackSize"] = 0
 		end
-	end
-	
-	if (transferInfo[checkItemName]["backpackStackSize"] == nil) then
-		transferInfo[checkItemName]["backpackStackSize"] = 0
-	end
-	if (transferInfo[checkItemName]["bankStackSize"] == nil) then
-		transferInfo[checkItemName]["bankStackSize"] = 0
-	end
-	
-	
-	
--- go through the transfer list and prepare the transfers
--- -------------------------------------------------------------------------------------------------
-	for currItemTransferIndex = 0, #transferList do
-
-		checkItemName = transferList[currItemTransferIndex]
-		if (transferInfo[checkItemName]["backpackStackSize"] >= transferInfo[checkItemName]["targetStackSize"]) then
-			-- we already have enough items in the bank - no withdrawal, but maybe depositing required
-			if ((transferInfo[checkItemName]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemName]["operator"] == PAC_OPERATOR_LESSTAHNEQAL)) then
-				transferInfo[checkItemName]["toDeposit"] = transferInfo[checkItemName]["backpackStackSize"] - transferInfo[checkItemName]["targetStackSize"]
-				transferInfo[checkItemName]["toWithdraw"] = 0
-			elseif (transferInfo[checkItemName]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL) then
-				transferInfo[checkItemName]["toDeposit"] = 0
-				transferInfo[checkItemName]["toWithdraw"] = 0
-			end
-			
-		elseif ((transferInfo[checkItemName]["backpackStackSize"] + transferInfo[checkItemName]["bankStackSize"]) >= transferInfo[checkItemName]["targetStackSize"]) then
-			-- with the bank, there are enough items - withdrawal might be required!
-			if ((transferInfo[checkItemName]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemName]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
-				transferInfo[checkItemName]["toDeposit"] = 0
-				transferInfo[checkItemName]["toWithdraw"] = transferInfo[checkItemName]["targetStackSize"] - transferInfo[checkItemName]["backpackStackSize"]
-			elseif (transferInfo[checkItemName]["operator"] == PAC_OPERATOR_LESSTAHNEQAL) then
-				transferInfo[checkItemName]["toDeposit"] = 0
-				transferInfo[checkItemName]["toWithdraw"] = 0
-			end
-			
-		elseif (transferInfo[checkItemName]["bankStackSize"] > 0) then
-			-- not enough items in total, but there are some left in the bank
-			transferInfo[checkItemName]["toDeposit"] = 0
-			transferInfo[checkItemName]["toWithdraw"] = transferInfo[checkItemName]["bankStackSize"]
-			if ((transferInfo[checkItemName]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemName]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
-				-- SHOW WARNING: NOT ENOUGH ITEMS !!!
-			end
-			
-		else
-			-- not enough items in total and nothing left in the bank
-			transferInfo[checkItemName]["toDeposit"] = 0
-			transferInfo[checkItemName]["toWithdraw"] = 0
-			if ((transferInfo[checkItemName]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemName]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
-				-- SHOW WARNING: NOT ENOUGH ITEMS !!!
-			end
+		if (transferInfo[checkItemId]["bankStackSize"] == nil) then
+			transferInfo[checkItemId]["bankStackSize"] = 0
 		end
 		
+		
+		
+	-- go through the transfer list and prepare the transfers
 	-- -------------------------------------------------------------------------------------------------
-		if (transferInfo[checkItemName]["toDeposit"] > 0) then
-			transferInfo["fromBagId"] = BAG_BACKPACK
-			transferInfo["toBagId"] = BAG_BANK
-		elseif (transferInfo[checkItemName]["toWithdraw"] > 0) then
-			transferInfo["fromBagId"] = BAG_BANK
-			transferInfo["toBagId"] = BAG_BACKPACK
-		else
-			return
-		end
+		for currItemTransferIndex = 0, #transferList do
+
+			checkItemId = transferList[currItemTransferIndex]
+			if (transferInfo[checkItemId]["backpackStackSize"] >= transferInfo[checkItemId]["targetStackSize"]) then
+				-- we already have enough items in the bank - no withdrawal, but maybe depositing required
+				if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_LESSTAHNEQAL)) then
+					transferInfo[checkItemId]["toDeposit"] = transferInfo[checkItemId]["backpackStackSize"] - transferInfo[checkItemId]["targetStackSize"]
+					transferInfo[checkItemId]["toWithdraw"] = 0
+				elseif (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL) then
+					transferInfo[checkItemId]["toDeposit"] = 0
+					transferInfo[checkItemId]["toWithdraw"] = 0
+				end
+				
+			elseif ((transferInfo[checkItemId]["backpackStackSize"] + transferInfo[checkItemId]["bankStackSize"]) >= transferInfo[checkItemId]["targetStackSize"]) then
+				-- with the bank, there are enough items - withdrawal might be required!
+				if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
+					transferInfo[checkItemId]["toDeposit"] = 0
+					transferInfo[checkItemId]["toWithdraw"] = transferInfo[checkItemId]["targetStackSize"] - transferInfo[checkItemId]["backpackStackSize"]
+				elseif (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_LESSTAHNEQAL) then
+					transferInfo[checkItemId]["toDeposit"] = 0
+					transferInfo[checkItemId]["toWithdraw"] = 0
+				end
+				
+			elseif (transferInfo[checkItemId]["bankStackSize"] > 0) then
+				-- not enough items in total, but there are some left in the bank
+				transferInfo[checkItemId]["toDeposit"] = 0
+				transferInfo[checkItemId]["toWithdraw"] = transferInfo[checkItemId]["bankStackSize"]
+				if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
+					-- SHOW WARNING: NOT ENOUGH ITEMS !!!
+				end
+				
+			else
+				-- not enough items in total and nothing left in the bank
+				transferInfo[checkItemId]["toDeposit"] = 0
+				transferInfo[checkItemId]["toWithdraw"] = 0
+				if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
+					-- SHOW WARNING: NOT ENOUGH ITEMS !!!
+				end
+			end
+			
+		-- -------------------------------------------------------------------------------------------------
+			if (transferInfo[checkItemId]["toDeposit"] > 0) then
+				transferInfo["fromBagId"] = BAG_BACKPACK
+				transferInfo["toBagId"] = BAG_BANK
+			elseif (transferInfo[checkItemId]["toWithdraw"] > 0) then
+				transferInfo["fromBagId"] = BAG_BANK
+				transferInfo["toBagId"] = BAG_BACKPACK
+			else
+				return false
+			end
+			
+			-- total amount that shall be transferred
+			local transferableAmount = transferInfo[checkItemId]["toDeposit"] + transferInfo[checkItemId]["toWithdraw"]
 		
-		-- total amount that shall be transferred
-		local transferableAmount = transferInfo[checkItemName]["toDeposit"] + transferInfo[checkItemName]["toWithdraw"]
-	
-		for currCheckItemIndex = 0, #transferInfo do
-			PA.println("finish: "..tostring(currCheckItemIndex))
-			if (transferInfo[currCheckItemIndex]["itemName"] == checkItemName) then
-				if (transferInfo[currCheckItemIndex]["bagId"] == transferInfo["fromBagId"]) then
-					currFromBagItem = transferInfo[currCheckItemIndex]["slotIndex"]
-					PA.println("aaa")
-					if (transferInfo[currCheckItemIndex]["slotStackSize"] >= transferableAmount) then
-						transferInfo["stackSize"] = transferableAmount
-					else
-						transferInfo["stackSize"] = transferInfo[currCheckItemIndex]["slotStackSize"]
-						transferableAmount = transferableAmount - transferInfo[currCheckItemIndex]["slotStackSize"]
+			for currCheckItemIndex = 0, #transferInfo do
+				if (transferableAmount > 0) then
+					if (transferInfo[currCheckItemIndex]["itemId"] == checkItemId) then
+						if (transferInfo[currCheckItemIndex]["bagId"] == transferInfo["fromBagId"]) then
+							local currFromBagItem = transferInfo[currCheckItemIndex]["slotIndex"]
+							if (transferInfo[currCheckItemIndex]["slotStackSize"] >= transferableAmount) then
+								transferInfo["stackSize"] = transferableAmount
+								transferableAmount = 0
+							else
+								transferInfo["stackSize"] = transferInfo[currCheckItemIndex]["slotStackSize"]
+								transferableAmount = transferableAmount - transferInfo[currCheckItemIndex]["slotStackSize"]
+							end
+							
+							-- get the best possible target bag slot index
+							currToBagItem = PAB_AdvancedItems.getBestToBagSlotIndex(transferInfo, checkItemId)
+							
+							PA.println(tostring(transferInfo["fromBagId"]).." - "..tostring(currFromBagItem))
+							transferInfo["fromItemLink"] = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(transferInfo["fromBagId"], currFromBagItem, LINK_STYLE_BRACKETS))
+							PAB.println("PAB_NoSpaceInFor", transferInfo[currCheckItemIndex]["bagId"] , transferInfo["fromItemLink"])
+							
+							movedAnything = true
+							PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, true)
+							-- PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
+						end
 					end
-					
-					currToBagItem = nil
-					
-					transferInfo["fromItemName"] = checkItemName
-					transferInfo["fromItemLink"] = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(transferInfo["fromBagId"], currFromBagItem, LINK_STYLE_BRACKETS))
-					
-					PA.println("currFromBagItem: "..tostring(currFromBagItem))
-					PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, true)
-					-- PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
 				end
 			end
 		end
 	end
 	
-	-- TODO: Stack items
+	return movedAnything
+end
+
+
+
+function PAB_AdvancedItems.getBestToBagSlotIndex(transferInfo, checkItemId)
+
+	for currCheckItemIndex = 0, #transferInfo do
+		if (transferInfo[currCheckItemIndex]["itemId"] == checkItemId) then
+			if (transferInfo[currCheckItemIndex]["bagId"] == transferInfo["toBagId"]) then
+				local currToBagItem = transferInfo[currCheckItemIndex]["slotIndex"]
+				local _, maxStackSize = GetSlotStackSize(transferInfo["toBagId"], currToBagItem)
+				local freeStackSize = maxStackSize - transferInfo[currCheckItemIndex]["slotStackSize"]
+				if (freeStackSize > 0) then
+					return transferInfo[currCheckItemIndex]["slotIndex"]
+				else
+					-- stack already full; skip it!
+				end
+			end
+		end
+	end
+	
+	-- if there was nothing returned so far, start a new stack
+	return nil
+end
+
+
+function PAB_AdvancedItems.getItemId(bagId, slotIndex)
+	local itemLink = GetItemLink(bagId, slotIndex)	
+	local _, _, _, itemId, _, _, _, _, _, _, _ , _, _, _, _, _, _, _, _, _, _, _, _ = ZO_LinkHandler_ParseLink(itemLink)
+	return itemId
 end

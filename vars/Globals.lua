@@ -86,4 +86,5 @@ PAItemTypes[47] = ITEMTYPE_WOODWORKING_MATERIAL
 PAItemTypes[48] = ITEMTYPE_WOODWORKING_RAW_MATERIAL 
 
 -- PersonalAssistant advanced ItemTypes
-PA_ITEMTYPE_LOCKIPCK = 0
+PAItemTypesAdvanced = {}
+PAItemTypesAdvanced[0] = 30357	-- Lockpick
