@@ -126,9 +126,9 @@ ResourceBundle.fr["NS_Bag_Unknown"]					= "inconnu"
 -- Operators --
 ResourceBundle.fr["REL_Operator"]					= "Opérateur"
 ResourceBundle.fr["REL_Equal"]						= "frREL_Equal"
-ResourceBundle.fr["REL_LessThan"]					= "frREL_LessThan"
+ResourceBundle.fr["REL_LessThan"]					= "frREL_LessThan"		-- not required so far
 ResourceBundle.fr["REL_LessThanEqual"]				= "frREL_LessThanEqual"
-ResourceBundle.fr["REL_GreaterThan"]				= "frREL_GreaterThan"
+ResourceBundle.fr["REL_GreaterThan"]				= "frREL_GreaterThan"	-- not required so far
 ResourceBundle.fr["REL_GreaterThanEqual"]			= "frREL_GreaterThanEqual"
 
 -- Unofficial Item Types --

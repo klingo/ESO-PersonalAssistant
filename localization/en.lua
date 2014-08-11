@@ -127,9 +127,9 @@ ResourceBundle.en["NS_Bag_Unknown"]					= "unknown"
 ResourceBundle.en["REL_Operator"]					= "Mathematical Operator"
 ResourceBundle.en["REL_None"]						= "-"
 ResourceBundle.en["REL_Equal"]						= "equals (=)"
-ResourceBundle.en["REL_LessThan"]					= "less than (<)"
+ResourceBundle.en["REL_LessThan"]					= "less than (<)"		-- not required so far
 ResourceBundle.en["REL_LessThanEqual"]				= "less than or equal to (<=)"
-ResourceBundle.en["REL_GreaterThan"]				= "greater than (>)"
+ResourceBundle.en["REL_GreaterThan"]				= "greater than (>)"	-- not required so far
 ResourceBundle.en["REL_GreaterThanEqual"]			= "greater than or equal to (>=)"
 
 -- Unofficial Item Types --
