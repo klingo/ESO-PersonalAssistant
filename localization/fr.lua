@@ -110,9 +110,9 @@ ResourceBundle.fr["PABMenu_WitButton"] 				= "Tout retirer"
 ResourceBundle.fr["PABMenu_WitButton_T"] 			= "Changer toutes les valeurs de menu pour 'Retirer'?"
 ResourceBundle.fr["PABMenu_IgnButton"] 				= "Tout ignorer"
 ResourceBundle.fr["PABMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'?"
-ResourceBundle.fr["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."frPAItem_Lockpick"
-ResourceBundle.fr["PABMenu_Keep_in_Backpack"] 		= "frPABMenu_Keep_in_Backpack"
-ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"] 	= "frPABMenu_Keep_in_Backpack_T"
+ResourceBundle.fr["PABMenu_Lockipck_Header"]        = PAC_COL_LIGHT_BLUE.."Crochetages"
+ResourceBundle.fr["PABMenu_Keep_in_Backpack"]       = "Quantité à garder dans le sac à dos"
+ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]     = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
 
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
@@ -124,13 +124,13 @@ ResourceBundle.fr["NS_Bag_Banked"]					= ""	-- not required so far
 ResourceBundle.fr["NS_Bag_Unknown"]					= "inconnu"
 
 -- Operators --
-ResourceBundle.fr["REL_Operator"]					= "Opérateur"
-ResourceBundle.fr["REL_None"]						= "-"
-ResourceBundle.fr["REL_Equal"]						= "frREL_Equal"
-ResourceBundle.fr["REL_LessThan"]					= "frREL_LessThan"		-- not required so far
-ResourceBundle.fr["REL_LessThanEqual"]				= "frREL_LessThanEqual"
-ResourceBundle.fr["REL_GreaterThan"]				= "frREL_GreaterThan"	-- not required so far
-ResourceBundle.fr["REL_GreaterThanEqual"]			= "frREL_GreaterThanEqual"
+ResourceBundle.fr["REL_Operator"]                   = "Comparateur mathématique"
+ResourceBundle.fr["REL_None"]                       = "-"
+ResourceBundle.fr["REL_Equal"]                      = "égal (=)"
+ResourceBundle.fr["REL_LessThan"]                   = "inférieur (<)"		-- not required so far
+ResourceBundle.fr["REL_LessThanEqual"]              = "inférieur ou égal (<=)"
+ResourceBundle.fr["REL_GreaterThan"]                = "supérieur (>)"		-- not required so far
+ResourceBundle.fr["REL_GreaterThanEqual"]           = "supérieur ou égal (>=)"
 
 -- Official Item Types --
 ResourceBundle.fr[ITEMTYPE_ADDITIVE] 				= "frITEMTYPE_ADDITIVE"
