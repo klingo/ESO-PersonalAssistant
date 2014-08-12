@@ -156,6 +156,17 @@ function PA.getBagNameAdjective(bagId)
 	end
 end
 
+-- returns a fixed/formatted ItemLink
+function PA.getFormattedItemLink(bagId, slotIndex)
+	local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+	if itemLink == "" then return end
+ 
+	local itemName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemName(bagId, slotIndex))
+	local itemData = itemLink:match("|H.-:(.-)|h")
+ 
+	return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
+end
+
 -- currently supports one text-key and n arguments
 function PA.println(key, ...)
 	local text = PAL.getResourceMessage(key)
@@ -179,7 +190,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 	local itemType = GetItemType(bagId, slotIndex) 
 	local strItemType = PAL.getResourceMessage(itemType)
 	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
-	PA.println("itemType (%s): %s. ---> (%d/%d) --> %s", itemType, strItemType, stack, maxStack, zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)))
+	PA.println("itemType (%s): %s. ---> (%d/%d) --> %s", itemType, strItemType, stack, maxStack, PA.getFormattedItemLink(bagId, slotIndex))
 end
 
 -- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)

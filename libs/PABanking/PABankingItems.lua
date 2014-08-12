@@ -54,7 +54,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 		transferInfo["fromBagId"] = fromBagId
 		transferInfo["toBagId"] = toBagId
 		transferInfo["fromItemName"] = GetItemName(transferInfo["fromBagId"], currFromBagItem):upper()
-		transferInfo["fromItemLink"] = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(transferInfo["fromBagId"], currFromBagItem, LINK_STYLE_BRACKETS))
+		transferInfo["fromItemLink"] = PA.getFormattedItemLink(transferInfo["fromBagId"], currFromBagItem)
 		transferInfo["stackSize"] = GetSlotStackSize(transferInfo["fromBagId"], currFromBagItem)
 		
 		local isJunk = IsItemJunk(transferInfo["fromBagId"], currFromBagItem)

@@ -159,9 +159,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 							-- get the best possible target bag slot index
 							currToBagItem = PAB_AdvancedItems.getBestToBagSlotIndex(transferInfo, checkItemId)
 							
-							PA.println(tostring(transferInfo["fromBagId"]).." - "..tostring(currFromBagItem))
-							transferInfo["fromItemLink"] = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLink(transferInfo["fromBagId"], currFromBagItem, LINK_STYLE_BRACKETS))
-							PAB.println("PAB_NoSpaceInFor", transferInfo[currCheckItemIndex]["bagId"] , transferInfo["fromItemLink"])
+							transferInfo["fromItemLink"] = PA.getFormattedItemLink(transferInfo["fromBagId"], currFromBagItem)
 							
 							movedAnything = true
 							PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, true)
@@ -199,9 +197,8 @@ function PAB_AdvancedItems.getBestToBagSlotIndex(transferInfo, checkItemId)
 	return nil
 end
 
-
 function PAB_AdvancedItems.getItemId(bagId, slotIndex)
-	local itemLink = GetItemLink(bagId, slotIndex)	
+	local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_DEFAULT)
 	local _, _, _, itemId, _, _, _, _, _, _, _ , _, _, _, _, _, _, _, _, _, _, _, _ = ZO_LinkHandler_ParseLink(itemLink)
 	return itemId
 end
