@@ -337,6 +337,30 @@ function PA_SettingsMenu.createItemSubMenu()
 	local tableIndex = 1
 	
 	itemTypeSubmenuTable[tableIndex] = {
+		type = "checkbox",
+		name = PAL.getResourceMessage("PABMenu_DepStackOnly"),
+		tooltip = PAL.getResourceMessage("PABMenu_DepStackOnly_T"),
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackOnly end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackOnly = value end,
+		width = "half",
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		default = false,
+	}
+	tableIndex = tableIndex + 1
+	
+	itemTypeSubmenuTable[tableIndex] = {
+		type = "checkbox",
+		name = PAL.getResourceMessage("PABMenu_WitStackOnly"),
+		tooltip = PAL.getResourceMessage("PABMenu_WitStackOnly_T"),
+		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackOnly end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackOnly = value end,
+		width = "half",
+		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		default = false,
+	}
+	tableIndex = tableIndex + 1
+	
+	itemTypeSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_ItemJunk_Header"),
 	}

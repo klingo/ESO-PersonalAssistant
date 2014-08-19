@@ -36,6 +36,9 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 	local skipChecksAndProceed = false
 	local itemMoved = false
 	
+	local depStackOnly = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackOnly
+	local witStackOnly = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackOnly
+	
 	local fromBagItemTypeList = PAB_Items.getItemTypeList(fromBagId)
 	local toBagItemTypeList = PAB_Items.getItemTypeList(toBagId)
 	
@@ -58,6 +61,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 		transferInfo["stackSize"] = GetSlotStackSize(transferInfo["fromBagId"], currFromBagItem)
 		
 		local isJunk = IsItemJunk(transferInfo["fromBagId"], currFromBagItem)
+		local itemFound = false
 		
 		-- check if the item is marked as junk and whether junk shall be deposited too
 		if isJunk and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting == PAC_ITEMTYPE_IGNORE then
@@ -79,6 +83,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 						-- compare the names
 						if transferInfo["fromItemName"] == transferInfo["toItemName"] then
 							-- item found in target bag, transfer item from source bag to target bag and get info how many items left
+							itemFound = true
 							itemMoved = true
 							transferInfo["stackSize"] = PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
 						end
@@ -94,12 +99,15 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 					
 					-- all target-items checked - are still stacks left?
 					if transferInfo["stackSize"] > 0 then
-						itemMoved = true
-						zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
-						timer = timer + PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval
-						-- increase the queue of the "callLater" calls
-						PAB_Items.queueSize = PAB_Items.queueSize + 1
-						break
+						-- only deposit them, if stacking-only is disabled or the item was already found (but had a full stack already)
+						if ((transactionType == PAC_ITEMTYPE_DEPOSIT and not depStackOnly) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and not witStackOnly) or itemFound == true) then
+							itemMoved = true
+							zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
+							timer = timer + PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval
+							-- increase the queue of the "callLater" calls
+							PAB_Items.queueSize = PAB_Items.queueSize + 1
+							break
+						end
 					end
 
 				end

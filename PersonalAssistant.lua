@@ -1,9 +1,9 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.3
+-- Version: 1.5.4
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.3"
+PA.AddonVersion = "1.5.4"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
@@ -97,6 +97,8 @@ function PA.initDefaults()
 		PA.Banking_Defaults[profileNo].goldWithdraw = false
 		PA.Banking_Defaults[profileNo].goldLastDeposit = 0
 		PA.Banking_Defaults[profileNo].items = false
+		PA.Banking_Defaults[profileNo].itemsDepStackOnly = false
+		PA.Banking_Defaults[profileNo].itemsWitStackOnly = false
 		PA.Banking_Defaults[profileNo].itemsTimerInterval = 300
 		PA.Banking_Defaults[profileNo].itemsJunkSetting = 0
 		PA.Banking_Defaults[profileNo].hideNoDepositMsg = false
