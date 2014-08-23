@@ -335,13 +335,14 @@ end
 
 function PA_SettingsMenu.createItemSubMenu()
 	local tableIndex = 1
-	
+		
 	itemTypeSubmenuTable[tableIndex] = {
-		type = "checkbox",
+		type = "dropdown",
 		name = PAL.getResourceMessage("PABMenu_DepStackOnly"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepStackOnly_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackOnly end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackOnly = value end,
+		choices = {PAL.getResourceMessage("ST_MoveAllFull"), PAL.getResourceMessage("ST_MoveExistingFull"), PAL.getResourceMessage("ST_FillIncompleteOnly")},
+		getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackType) end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackType = MenuHelper.getStackTypeNumberFromText(value) end,
 		width = "half",
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		default = false,
@@ -349,11 +350,12 @@ function PA_SettingsMenu.createItemSubMenu()
 	tableIndex = tableIndex + 1
 	
 	itemTypeSubmenuTable[tableIndex] = {
-		type = "checkbox",
+		type = "dropdown",
 		name = PAL.getResourceMessage("PABMenu_WitStackOnly"),
 		tooltip = PAL.getResourceMessage("PABMenu_WitStackOnly_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackOnly end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackOnly = value end,
+		choices = {PAL.getResourceMessage("ST_MoveAllFull"), PAL.getResourceMessage("ST_MoveExistingFull"), PAL.getResourceMessage("ST_FillIncompleteOnly")},
+		getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackType) end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackType = MenuHelper.getStackTypeNumberFromText(value) end,
 		width = "half",
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 		default = false,
@@ -429,6 +431,7 @@ function PA_SettingsMenu.createItemAdvancedSubMenu()
 	local tableIndex = 1
 	
 	local advancedItemIndex = 0		-- 0 = Lockpick
+	
 	itemTypeAdvancedSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_Lockipck_Header"),

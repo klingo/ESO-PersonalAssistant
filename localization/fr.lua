@@ -136,6 +136,11 @@ ResourceBundle.fr["REL_LessThanEqual"]              = "inférieur ou égal (<=)"
 ResourceBundle.fr["REL_GreaterThan"]                = "supérieur (>)"		-- not required so far
 ResourceBundle.fr["REL_GreaterThanEqual"]           = "supérieur ou égal (>=)"
 
+-- Stacking types --
+ResourceBundle.fr["ST_MoveAllFull"]					= "frST_MoveAllFull"			-- 0: Full deposit
+ResourceBundle.fr["ST_MoveExistingFull"]			= "frST_MoveExistingFull"		-- 1: Deposit if existing
+ResourceBundle.fr["ST_FillIncompleteOnly"]			= "frST_FillIncompleteOnly"		-- 2: Fill existing stacks
+
 -- Official Item Types --
 ResourceBundle.fr[ITEMTYPE_ADDITIVE] 				= "frITEMTYPE_ADDITIVE"
 ResourceBundle.fr[ITEMTYPE_ALCHEMY_BASE] 			= "Solvant (Alchimie)"

@@ -92,10 +92,10 @@ ResourceBundle.de["PABMenu_DepWitItem_T"] 			= "Sollen Gegenstände automatisch 
 ResourceBundle.de["PABMenu_DepItemTypeDesc"] 		= "Definiere ein individuelles Verhalten (Einlagern, Abheben, Ignorieren) für reguläre wie auch erweiterte Gegenstandstypen."
 ResourceBundle.de["PABMenu_DepItemType"] 			= "Reguläre Gegenstandstypen"
 ResourceBundle.de["PABMenu_DepItemType_T"] 			= "Öffnet das Untermenu um für jeden Typ von Gegenstand zu definieren ob er eingelagert, abgehoben oder ignoriert werden soll."
-ResourceBundle.de["PABMenu_DepStackOnly"]			= "Nur stapeln (Einlagern)"
-ResourceBundle.de["PABMenu_DepStackOnly_T"]			= "Gegenstände werden nur eingelagert, wenn mindestens ein Stück dieses Typs bereits im Ziel-Behälter vorhanden ist (= Gegenstände stapeln)."
-ResourceBundle.de["PABMenu_WitStackOnly"]			= "Nur stapeln (Abheben)"
-ResourceBundle.de["PABMenu_WitStackOnly_T"]			= "Gegenstände werden nur abgehoben, wenn mindestens ein Stück dieses Typs bereits im Ziel-Behälter vorhanden ist (= Gegenstände stapeln)"
+ResourceBundle.de["PABMenu_DepStackOnly"]			= "Stapelungsart (Einlagern)"
+ResourceBundle.de["PABMenu_DepStackOnly_T"]			= "Definiere ob alle Gegenstände komplett eingelagert werden sollen, nur solche die bereits im Zielbehälter vorhanden sind, oder sollen sogar nur bestehende Stapel aufgefüllt werden."
+ResourceBundle.de["PABMenu_WitStackOnly"]			= "Stapelungsart (Abheben)"
+ResourceBundle.de["PABMenu_WitStackOnly_T"]			= "Definiere ob alle Gegenstände komplett abgehoben werden sollen, nur solche die bereits im Zielbehälter vorhanden sind, oder sollen sogar nur bestehende Stapel aufgefüllt werden."
 ResourceBundle.de["PABMenu_Advanced_DepItemType"]	= "Erweiterte Gegenstandstypen"
 ResourceBundle.de["PABMenu_Advanced_DepItemType_T"]	= "Öffnet das Untermenu um für andere Typen von Gegenständen auf einer erweiterten Stufe zu definieren ob sie eingelagert, abgehoben oder ignoriert werden sollen."
 ResourceBundle.de["PABMenu_DepItemTimerInterval"]	= "- Einlagerungs Intervall (ms)"
@@ -135,6 +135,12 @@ ResourceBundle.de["REL_LessThan"]					= "kleiner als (<)"		-- soweit nicht benö
 ResourceBundle.de["REL_LessThanEqual"]				= "kleiner als oder gleich (<=)"
 ResourceBundle.de["REL_GreaterThan"]				= "grösser als (>)"		-- soweit nicht benötigt
 ResourceBundle.de["REL_GreaterThanEqual"]			= "grösser als oder gleich (>=)"
+
+-- Stacking types --
+ResourceBundle.de["ST_MoveAllFull"]					= "Verschiebe alles"			-- 0: Full deposit
+ResourceBundle.de["ST_MoveExistingFull"]			= "Verschiebe alles wenn bereits vorhanden"		-- 1: Deposit if existing
+ResourceBundle.de["ST_FillIncompleteOnly"]			= "Nur vorhandene Stapel auffüllen"		-- 2: Fill existing stacks
+
 
 -- Official Item Types --
 ResourceBundle.de[ITEMTYPE_ADDITIVE] 				= "deITEMTYPE_ADDITIVE"

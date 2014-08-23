@@ -36,8 +36,8 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 	local skipChecksAndProceed = false
 	local itemMoved = false
 	
-	local depStackOnly = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackOnly
-	local witStackOnly = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackOnly
+	local depStackType = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackType
+	local witStackType = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackType
 	
 	local fromBagItemTypeList = PAB_Items.getItemTypeList(fromBagId)
 	local toBagItemTypeList = PAB_Items.getItemTypeList(toBagId)
@@ -59,6 +59,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 		transferInfo["fromItemName"] = GetItemName(transferInfo["fromBagId"], currFromBagItem):upper()
 		transferInfo["fromItemLink"] = PA.getFormattedItemLink(transferInfo["fromBagId"], currFromBagItem)
 		transferInfo["stackSize"] = GetSlotStackSize(transferInfo["fromBagId"], currFromBagItem)
+		transferInfo["origStackSize"] = transferInfo["stackSize"]
 		
 		local isJunk = IsItemJunk(transferInfo["fromBagId"], currFromBagItem)
 		local itemFound = false
@@ -99,14 +100,17 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 					
 					-- all target-items checked - are still stacks left?
 					if transferInfo["stackSize"] > 0 then
-						-- only deposit them, if stacking-only is disabled or the item was already found (but had a full stack already)
-						if ((transactionType == PAC_ITEMTYPE_DEPOSIT and not depStackOnly) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and not witStackOnly) or itemFound == true) then
-							itemMoved = true
-							zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
-							timer = timer + PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval
-							-- increase the queue of the "callLater" calls
-							PAB_Items.queueSize = PAB_Items.queueSize + 1
-							break
+						-- only continue if it is allowed to start new stacks
+						if ((transactionType == PAC_ITEMTYPE_DEPOSIT and not (depStackType == PAB_STACKING_INCOMPLETE)) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and not (witStackType == PAB_STACKING_INCOMPLETE))) then
+							-- only deposit them, if full transaction is set or the item was already found (but had a full stack already)
+							if ((transactionType == PAC_ITEMTYPE_DEPOSIT and depStackType == PAB_STACKING_FULL) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and witStackType == PAB_STACKING_FULL) or itemFound) then
+								itemMoved = true
+								zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
+								timer = timer + PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval
+								-- increase the queue of the "callLater" calls
+								PAB_Items.queueSize = PAB_Items.queueSize + 1
+								break
+							end
 						end
 					end
 
@@ -137,9 +141,10 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
 			remainingStackSize = transferInfo["stackSize"] - moveableStackSize
 		end
 
+		
 		if moveableStackSize > 0 then
 			PAB_Items.moveItem(fromSlotIndex, toSlotIndex, moveableStackSize, transferInfo)
-			
+
 			-- Before version 1.4.0 it could happen that when the item is not yet in the bank, the itemMove failed.
 			-- This used to happen only if there are more than ~20 new items for the bank.
 			-- This method will check if the item is still in its original place after 1-2 seconds
@@ -158,7 +163,7 @@ end
 function PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop)
 	local depositFailed = false
 	-- check if the same stack size is in the "old" slotIndex
-	if (GetSlotStackSize(transferInfo["fromBagId"], fromSlotIndex) == transferInfo["stackSize"]) then
+	if (GetSlotStackSize(transferInfo["fromBagId"], fromSlotIndex) == transferInfo["origStackSize"]) then
 		-- check if the same item name is in the "old" slotIndex
 		if (GetItemName(transferInfo["fromBagId"], fromSlotIndex):upper() == transferInfo["fromItemName"]) then
 			-- the item is still there and has NOT been moved.
@@ -185,6 +190,9 @@ end
 
 -- actually moves the item
 function PAB_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
+
+-- API 100009 -_> replace with RequestMoveItem ???
+
     local result = true
     -- clear the cursor first
     ClearCursor()
@@ -211,10 +219,10 @@ function PAB_Items.reDeposit()
 	-- the bank is still open and there were failed Deposits
 	if not PAB.isBankClosed and PAB_Items.failedDeposits > 0 then
 		-- only run the deposit again if it didn't loop for three times yet
-		if PAB_Items.loopCount < PAB_MAX_DEPOSIT_LOOPS then
+		if PAB_Items.loopCount < PAB_DEPOSIT_MAX_LOOPS then
 			-- do it again! :)
 			PAB_Items.DepositAndWithdrawItems()
-		elseif PAB_Items.loopCount == PAB_MAX_DEPOSIT_LOOPS then
+		elseif PAB_Items.loopCount == PAB_DEPOSIT_MAX_LOOPS then
 			-- and a last time (lastLoop = true)
 			PAB_Items.DepositAndWithdrawItems(true)
 		end

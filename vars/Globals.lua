@@ -22,7 +22,11 @@ PAC_OPERATOR_GREATERTHANEQUAL = 5
 PAG_MAX_PROFILES = 3
 
 -- PersonalAssistant Banking
-PAB_MAX_DEPOSIT_LOOPS = 3
+PAB_DEPOSIT_MAX_LOOPS = 3
+
+PAB_STACKING_FULL = 0		-- 0: Full depositing/withdrawl
+PAB_STACKING_CONTINUE = 1	-- 1: Continue existing stacks
+PAB_STACKING_INCOMPLETE = 2	-- 2: Complete existing stacks
 
 -- PersonalAssistant Colors
 PAC_COL_WHITE = "|cFFFFFF"

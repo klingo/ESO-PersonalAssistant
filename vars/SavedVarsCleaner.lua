@@ -2,6 +2,10 @@ SVC = {}
 
 -- in case it is required since the last version, automatically update/fix changes in the saved variables
 function SVC.updateSavedVars()
+
+	-- replaced all dots with empty
+	-- local intSavedVarsVersion = string.gsub(PA_SavedVars.General.savedVarsVersion, ".", "")
+
 	if (PA_SavedVars.General.savedVarsVersion == "") then
 		-- savedVarsVersion was not yet introduced, therefore we are pre 1.5.1
 		
@@ -77,6 +81,28 @@ function SVC.updateSavedVars()
 			PA_SavedVars.Banking.itemsIncludeJunk = nil
 			PA_SavedVars.Banking.goldDepositStep = nil
 			PA_SavedVars.Banking.lastDeposit = nil
+		end
+		
+		
+	elseif (PA_SavedVars.General.savedVarsVersion == "1.5.4") then
+		-- we have savedVars from 1.5.4 (which introduced the first stacking options)
+		
+		for currProfile = 1, PAG_MAX_PROFILES do
+			if (PA_SavedVars.Banking[currProfile].itemsDepStackOnly == false) then
+				PA_SavedVars.Banking[currProfile].itemsDepStackType = PAB_STACKING_FULL
+			else
+				PA_SavedVars.Banking[currProfile].itemsDepStackType = PAB_STACKING_CONTINUE
+			end
+			
+			if (PA_SavedVars.Banking[currProfile].itemsWitStackOnly == false) then
+				PA_SavedVars.Banking[currProfile].itemsWitStackType = PAB_STACKING_FULL
+			else
+				PA_SavedVars.Banking[currProfile].itemsWitStackType = PAB_STACKING_CONTINUE
+			end
+			
+			-- delete obsolete entries
+			PA_SavedVars.Banking[currProfile].itemsDepStackOnly = nil
+			PA_SavedVars.Banking[currProfile].itemsWitStackOnly = nil
 		end
 	end
 	

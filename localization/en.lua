@@ -92,10 +92,10 @@ ResourceBundle.en["PABMenu_DepWitItem_T"] 			= "Auto deposit and/or withdraw ite
 ResourceBundle.en["PABMenu_DepItemTypeDesc"] 		= "Define an individual behaviour (deposit, withdraw, ignore) for common item types as well as more advanced ones."
 ResourceBundle.en["PABMenu_DepItemType"] 			= "Common item types"
 ResourceBundle.en["PABMenu_DepItemType_T"] 			= "Open the sub-menu to define for each item type whether it shall be deposited, withdrawn or ignored."
-ResourceBundle.en["PABMenu_DepStackOnly"]			= "Stacking only (Deposit)"
-ResourceBundle.en["PABMenu_DepStackOnly_T"]			= "Items will only be deposited, if there is at least one item of this type already in the target bag (= stacking items)."
-ResourceBundle.en["PABMenu_WitStackOnly"]			= "Stacking only (Withdraw)"
-ResourceBundle.en["PABMenu_WitStackOnly_T"]			= "Items will only be withdrawn, if there is at least one item of this type already in the target bag (= stacking items)."
+ResourceBundle.en["PABMenu_DepStackOnly"]			= "Stacking type (Deposit)"
+ResourceBundle.en["PABMenu_DepStackOnly_T"]			= "Define whether all matching items shall be deposited completely, if only items that exist in the target container shall be deposited or if only existing stacks shall be filled up to their max size."
+ResourceBundle.en["PABMenu_WitStackOnly"]			= "Stacking type (Withdraw)"
+ResourceBundle.en["PABMenu_WitStackOnly_T"]			= "Define whether all matching items shall be withdrawn completely, if only items that exist in the target container shall be withdrawn or if only existing stacks shall be filled up to their max size."
 ResourceBundle.en["PABMenu_Advanced_DepItemType"]	= "Advanced item types"
 ResourceBundle.en["PABMenu_Advanced_DepItemType_T"]	= "Open the sub-menu to define for other item types on an advanced level whether they shall be deposited, withdrawn or ignored."
 ResourceBundle.en["PABMenu_DepItemTimerInterval"]	= "- Interval between item deposits (msecs)"
@@ -135,6 +135,11 @@ ResourceBundle.en["REL_LessThan"]					= "less than (<)"		-- not required so far
 ResourceBundle.en["REL_LessThanEqual"]				= "less than or equal to (<=)"
 ResourceBundle.en["REL_GreaterThan"]				= "greater than (>)"	-- not required so far
 ResourceBundle.en["REL_GreaterThanEqual"]			= "greater than or equal to (>=)"
+
+-- Stacking types --
+ResourceBundle.en["ST_MoveAllFull"]					= "Move everything"				-- 0: Full deposit
+ResourceBundle.en["ST_MoveExistingFull"]			= "Move all if a stack exists"	-- 1: Deposit if existing
+ResourceBundle.en["ST_FillIncompleteOnly"]			= "Only fill up existing stacks"-- 2: Fill existing stacks
 
 -- Official Item Types --
 ResourceBundle.en[ITEMTYPE_ADDITIVE] 				= "enITEMTYPE_ADDITIVE"

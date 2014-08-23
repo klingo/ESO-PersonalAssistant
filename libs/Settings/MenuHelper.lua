@@ -43,6 +43,7 @@ end
 function MenuHelper.getBankingTextFromNumber(number)
 	local profileNo = PA_SavedVars.General.activeProfile
 	local index = PA_SavedVars.Banking[profileNo].itemsJunkSetting
+	-- if "number" is empty, it has to be the junkSetting
 	if (number ~= nil) then
 		index = PA_SavedVars.Banking[profileNo].ItemTypes[number]
 	end
@@ -76,10 +77,7 @@ end
 -- returns the matching dropdown-text based on the number that is behind it
 function MenuHelper.getOperatorTextFromNumber(number)
 	local profileNo = PA_SavedVars.General.activeProfile
-	local index = PA_SavedVars.Banking[profileNo].itemsJunkSetting
-	if (number ~= nil) then
-		index = PA_SavedVars.Banking[profileNo].ItemTypesAdvanced[number].Key
-	end
+	local index = PA_SavedVars.Banking[profileNo].ItemTypesAdvanced[number].Key
 	
 	if index == PAC_OPERATOR_EQUAL then
 		return PAL.getResourceMessage("REL_Equal")
@@ -114,6 +112,31 @@ function MenuHelper.getOperatorNumberFromText(text)
 end
 
 -- --------------------------------------------------------------------------------------------------------
+
+-- returns the matching dropdown-text based on the number that is behind it
+function MenuHelper.getStackTypeTextFromNumber(index)
+	if index == PAB_STACKING_CONTINUE then
+		return PAL.getResourceMessage("ST_MoveExistingFull")
+	elseif index == PAB_STACKING_INCOMPLETE then
+		return PAL.getResourceMessage("ST_FillIncompleteOnly")
+	else
+		return PAL.getResourceMessage("ST_MoveAllFull")
+	end
+end
+
+-- returns the number behind the text, depending on the text
+function MenuHelper.getStackTypeNumberFromText(text)
+	if text == PAL.getResourceMessage("ST_MoveExistingFull") then
+		return PAB_STACKING_CONTINUE
+	elseif text == PAL.getResourceMessage("ST_FillIncompleteOnly") then
+		return PAB_STACKING_INCOMPLETE
+	else
+		return PAB_STACKING_FULL
+	end
+end
+
+-- --------------------------------------------------------------------------------------------------------
+
 function MenuHelper.getProfileList()
 	local profiles = {}
 	for profileNo = 1, PAG_MAX_PROFILES do

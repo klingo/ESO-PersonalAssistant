@@ -1,9 +1,9 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.4
+-- Version: 1.5.5
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.4"
+PA.AddonVersion = "1.5.5"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
@@ -97,10 +97,10 @@ function PA.initDefaults()
 		PA.Banking_Defaults[profileNo].goldWithdraw = false
 		PA.Banking_Defaults[profileNo].goldLastDeposit = 0
 		PA.Banking_Defaults[profileNo].items = false
-		PA.Banking_Defaults[profileNo].itemsDepStackOnly = false
-		PA.Banking_Defaults[profileNo].itemsWitStackOnly = false
+		PA.Banking_Defaults[profileNo].itemsDepStackType = PAB_STACKING_FULL
+		PA.Banking_Defaults[profileNo].itemsWitStackType = PAB_STACKING_FULL
 		PA.Banking_Defaults[profileNo].itemsTimerInterval = 300
-		PA.Banking_Defaults[profileNo].itemsJunkSetting = 0
+		PA.Banking_Defaults[profileNo].itemsJunkSetting = PAC_ITEMTYPE_IGNORE
 		PA.Banking_Defaults[profileNo].hideNoDepositMsg = false
 		PA.Banking_Defaults[profileNo].hideAllMsg = false
 
@@ -121,7 +121,7 @@ end
 -- introduces the addon to the player
 function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
-	SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+--	SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 	
 	if PA_SavedVars.General[PA_SavedVars.General.activeProfile].welcome then
 		if PA_SavedVars.General.language ~= "en" and PA_SavedVars.General.language ~= "de" and PA_SavedVars.General.language ~= "fr" then
