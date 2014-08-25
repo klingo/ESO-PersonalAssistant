@@ -28,9 +28,11 @@ end
 function PAR.RepairItems(bagId, threshold)
 	local bagSlots = GetBagSize(bagId)
 	local repairCost = 0
-	local missingGold = 0	-- TODO: implement a missing gold to repair feature
+	local missingGold = 0
 	local repairedItems = 0
 	local notRepairedItems = 0
+	local notRepairedItemsCost = 0
+	local currentMoney = GetCurrentMoney()
 	
 	-- loop through all items of the corresponding bagId
 	for slotIndex = 0, bagSlots - 1 do
@@ -38,19 +40,23 @@ function PAR.RepairItems(bagId, threshold)
 		if DoesItemHaveDurability(bagId, slotIndex) then
 			-- then compare it with the threshold
 			if GetItemCondition(bagId, slotIndex) <= threshold then
-				local _, stackCount, _, _, _, _, _, _ = GetItemInfo(bagId, slotIndex)
-				if stackCount > 0 then
+				local stackSize = GetSlotStackSize(bagId, slotIndex)
+				if stackSize > 0 then
 					-- get the repair cost for that item and repair if possible
 					local itemRepairCost = GetItemRepairCost(bagId, slotIndex)
 					if itemRepairCost > 0 then
 						if (itemRepairCost > GetCurrentMoney()) then
 							-- even though not enough money available, continue as maybe a cheaper item still can be repaired
-							notRepairedItems = notRepairedItems + stackCount
+							notRepairedItems = notRepairedItems + stackSize
+							notRepairedItemsCost = notRepairedItemsCost + itemRepairCost
 						else
 							-- sum up the total repair costs
 							repairCost = repairCost + itemRepairCost;
-							repairedItems = repairedItems + stackCount
+							repairedItems = repairedItems + stackSize
 							RepairItem(bagId, slotIndex)
+							-- it has to be manually calculated, as in the end the "GetCurrentMoney()" 
+							-- does not yet reflect the repairs that were just done
+							currentMoney = currentMoney - itemRepairCost
 						end
 					end
 				end
@@ -63,15 +69,19 @@ function PAR.RepairItems(bagId, threshold)
 	-- check if the msg-output shall be skipped
 	if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg then return end
 	
+	if (notRepairedItemsCost > 0) then
+		missingGold = notRepairedItemsCost - currentMoney
+	end
+	
 	if repairedItems > 0 then
 		if notRepairedItems > 0 then
-			PAR.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost)
+			PAR.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost, missingGold)
 		else
 			PAR.println("PAR_FullRepair", bagName, repairCost)
 		end
 	else
 		if notRepairedItems > 0 then
-			PAR.println("PAR_NoGoldToRepair", notRepairedItems, bagName)
+			PAR.println("PAR_NoGoldToRepair", notRepairedItems, bagName, missingGold)
 		else
 			if (not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg) then
 				PAR.println("PAR_NoRepair")
