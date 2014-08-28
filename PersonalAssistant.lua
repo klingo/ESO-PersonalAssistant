@@ -192,7 +192,8 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 	local itemType = GetItemType(bagId, slotIndex) 
 	local strItemType = PAL.getResourceMessage(itemType)
 	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
-	PA.println("itemType (%s): %s. ---> (%d/%d) --> %s", itemType, strItemType, stack, maxStack, PA.getFormattedItemLink(bagId, slotIndex))
+	local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
+	PA.println("itemType (%s): %s. ---> (%d/%d) --> %s   (saved = %s)", itemType, strItemType, stack, maxStack, PA.getFormattedItemLink(bagId, slotIndex), tostring(isSaved))
 end
 
 -- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)

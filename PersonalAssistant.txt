@@ -57,6 +57,9 @@ PersonalAssistant.xml
 libs/Settings/MenuHelper.lua
 libs/Settings/MainMenu.lua
 
+# Integrations
+libs/Integrations/ItemSaver.lua
+
 # Bindings
 bindings/Bindings.lua
 bindings/Bindings.xml
