@@ -130,7 +130,9 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 			end
 			
 		-- -------------------------------------------------------------------------------------------------
-			if (transferInfo[checkItemId]["toDeposit"] > 0) then
+			if (transferInfo[checkItemId]["toDeposit"] == nil) then
+				return false
+			elseif (transferInfo[checkItemId]["toDeposit"] > 0) then
 				transferInfo["fromBagId"] = BAG_BACKPACK
 				transferInfo["toBagId"] = BAG_BANK
 			elseif (transferInfo[checkItemId]["toWithdraw"] > 0) then
