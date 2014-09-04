@@ -9,6 +9,8 @@ ResourceBundle.de["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."
 ResourceBundle.de["KB_Load_Profile1"]				= "Aktiviere Profil 1"
 ResourceBundle.de["KB_Load_Profile2"]				= "Aktiviere Profil 2"
 ResourceBundle.de["KB_Load_Profile3"]				= "Aktiviere Profil 3"
+ResourceBundle.de["KB_Load_Profile4"]				= "Aktiviere Profil 4"
+ResourceBundle.de["KB_Load_Profile5"]				= "Aktiviere Profil 5"
 
 -- PAGeneral --
 ResourceBundle.de["PAG_Profile1"]					= "Profil 1"

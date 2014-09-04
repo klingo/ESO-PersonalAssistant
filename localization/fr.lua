@@ -9,6 +9,8 @@ ResourceBundle.fr["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."
 ResourceBundle.fr["KB_Load_Profile1"]				= "frKB_Load_Profile1"
 ResourceBundle.fr["KB_Load_Profile2"]				= "frKB_Load_Profile2"
 ResourceBundle.fr["KB_Load_Profile3"]				= "frKB_Load_Profile3"
+ResourceBundle.fr["KB_Load_Profile4"]				= "frKB_Load_Profile4"
+ResourceBundle.fr["KB_Load_Profile5"]				= "frKB_Load_Profile5"
 
 -- PAGeneral --
 ResourceBundle.fr["PAG_Profile1"]					= "Profil 1"
