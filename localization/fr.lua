@@ -14,6 +14,8 @@ ResourceBundle.fr["KB_Load_Profile3"]				= "frKB_Load_Profile3"
 ResourceBundle.fr["PAG_Profile1"]					= "Profil 1"
 ResourceBundle.fr["PAG_Profile2"]					= "Profil 2"
 ResourceBundle.fr["PAG_Profile3"]					= "Profil 3"
+ResourceBundle.fr["PAG_Profile4"]					= "Profil 4"
+ResourceBundle.fr["PAG_Profile5"]					= "Profil 5"
 
 -- PARepair --
 ResourceBundle.fr["PAR_FullRepair"] 				= "PARepair : Tous les objets %s ont été réparés pour %d pièces d'or."

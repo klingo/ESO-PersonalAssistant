@@ -14,6 +14,8 @@ ResourceBundle.de["KB_Load_Profile3"]				= "Aktiviere Profil 3"
 ResourceBundle.de["PAG_Profile1"]					= "Profil 1"
 ResourceBundle.de["PAG_Profile2"]					= "Profil 2"
 ResourceBundle.de["PAG_Profile3"]					= "Profil 3"
+ResourceBundle.de["PAG_Profile4"]					= "Profil 4"
+ResourceBundle.de["PAG_Profile5"]					= "Profil 5"
 
 -- PARepair --
 ResourceBundle.de["PAR_FullRepair"] 				= "PARepair: Alle %s Gegenstände für %d Gold repariert."

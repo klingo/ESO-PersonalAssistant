@@ -14,6 +14,8 @@ ResourceBundle.en["KB_Load_Profile3"]				= "Activate profile 3"
 ResourceBundle.en["PAG_Profile1"]					= "Profile 1"
 ResourceBundle.en["PAG_Profile2"]					= "Profile 2"
 ResourceBundle.en["PAG_Profile3"]					= "Profile 3"
+ResourceBundle.en["PAG_Profile4"]					= "Profile 4"
+ResourceBundle.en["PAG_Profile5"]					= "Profile 5"
 
 -- PARepair --
 ResourceBundle.en["PAR_FullRepair"] 				= "PARepair: All %s items repaired for %d gold."

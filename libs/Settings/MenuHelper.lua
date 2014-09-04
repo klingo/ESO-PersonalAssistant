@@ -159,6 +159,10 @@ function MenuHelper.getDefaultProfileName(profileNo)
 		return PAL.getResourceMessage("PAG_Profile2")
 	elseif profileNo == 3 then
 		return PAL.getResourceMessage("PAG_Profile3")
+	elseif profileNo == 4 then
+		return PAL.getResourceMessage("PAG_Profile4")
+	elseif profileNo == 5 then
+		return PAL.getResourceMessage("PAG_Profile5")
 	else
 		return PAL.getResourceMessage("PAG_Profile1")
 	end
