@@ -11,6 +11,13 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 	PAB_Items.failedDeposits = 0
 	PAB_Items.loopCount = PAB_Items.loopCount + 1
 	
+
+--	local itemMoved = PAB_Items.DoItemStacking(BAG_BANK)
+--	while (itemMoved == nil) do
+		-- do nothing; wait
+--    end
+--	http://wiki.esoui.com/AddOn_Quick_Questions#How_do_I_generate_my_own_.22events.22_in_Lua.3F
+	
 	-- first deposit items to the bank
 	local itemsDeposited = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
 	
@@ -20,9 +27,9 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 	-- then we can deposit the advanced items to the bank
 	local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
 	
-	while (itemsAdvancedDepositedWithdrawn == nil) do
+--	while (itemsAdvancedDepositedWithdrawn == nil) do
 		-- do nothing; wait
-    end
+--    end
 	
 	if (itemsDeposited or itemsWithdrawn or itemsAdvancedDepositedWithdrawn) then
 		return true
@@ -122,6 +129,67 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 	return itemMoved
 end
 
+function PAB_Items.DoItemStacking(bagId)
+
+	-- TODO: check the configuration if this shall be done or skipped
+	
+	local itemMoved = false
+	
+	local fromBagItemNameList = PAB_Items.getItemNameList(bagId)
+	local toBagItemNameList = PAB_Items.getItemNameList(bagId)
+
+	for currFromBagItem = #fromBagItemNameList, 1, -1 do
+		-- only the upcoming items shall be checked, not the full list again
+		for currToBagItem = (currFromBagItem - 1), 0, -1 do
+			if not(currFromBagItem == currToBagItem) then
+				local fromItemName = GetItemName(bagId, currFromBagItem):upper()
+				local toItemName = GetItemName(bagId, currToBagItem):upper()
+				
+				if (fromItemName == toItemName) and not (fromItemName == "") then
+				
+				
+					local toStackSize, maxStack = GetSlotStackSize(bagId, currToBagItem)
+					if (maxStack > toStackSize) then
+						local fromStackSize, _ = GetSlotStackSize(bagId, currFromBagItem)
+						local size = 0
+						if (maxStack - toStackSize) > fromStackSize then
+							size = fromStackSize
+						else
+							size = maxStack - toStackSize
+						end
+						
+						
+						PA.println("stacking %s from %d (%d/%d) to %d (%d/%d)", fromItemName, currFromBagItem, toStackSize, maxStack, currToBagItem, fromStackSize, maxStack)
+						
+						
+						
+						
+						ClearCursor()
+						-- call secure protected (pickup the item via cursor)
+						result = CallSecureProtected("PickupInventoryItem", bagId, currFromBagItem, size)
+						if (result) then
+							-- call secure protected (drop the item on the cursor)
+							result = CallSecureProtected("PlaceInInventory", bagId, currToBagItem)
+						end
+						-- clear the cursor again to avoid issues
+						ClearCursor()
+						itemMoved = true
+						break
+					end
+				end
+			end
+		end
+	end
+	
+	-- as long as there was at least one stacking done, try to stack more
+	if (itemMoved) then
+		zo_callLater(function() PAB_Items.DoItemStacking(bagId) end, 250)
+	else
+		-- return 'true' to indicate that stacking is complete
+		return true
+	end
+end
+
 -- prepares the actual move
 function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLoop)
 	-- if there is no toSlot, try to find one
@@ -191,7 +259,7 @@ end
 -- actually moves the item
 function PAB_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
 
--- API 100009 -_> replace with RequestMoveItem ???
+	-- TODO: API 100009 --> replace with RequestMoveItem ???
 
     local result = true
     -- clear the cursor first
