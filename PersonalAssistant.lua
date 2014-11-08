@@ -3,7 +3,7 @@
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.5"
+PA.AddonVersion = "1.5.6"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
@@ -44,6 +44,9 @@ function PA.initAddon(eventCode, addOnName)
 	-- register PABanking
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen)
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_CLOSE_BANK, PAB.OnBankClose)
+	
+	-- add hook for contextMenu modification
+	-- ZO_PreHook("ZO_InventorySlot_ShowContextMenu", PAJ.AddContextMenuOption)
 	
 	-- addon load complete - unregister event
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED)
