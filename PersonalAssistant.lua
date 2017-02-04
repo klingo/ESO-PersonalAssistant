@@ -9,6 +9,11 @@ PA.AddonVersion = "1.6.0"
 -- http://www.esoui.com/forums/showthread.php?t=2054
 -- http://www.esoui.com/forums/showthread.php?t=1944
 
+-- TODO:
+-- Update Currency System: https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
+-- Support Virtual Bags: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
+-- Support Specialized Item Types: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
+
 -- default values
 PA.General_Defaults = {}
 PA.Profiles_Defaults = {}
