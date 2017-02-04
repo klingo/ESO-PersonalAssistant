@@ -1,9 +1,9 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.5
+-- Version: 1.6.0
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.6"
+PA.AddonVersion = "1.6.0"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054

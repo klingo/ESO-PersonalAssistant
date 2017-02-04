@@ -3,10 +3,10 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.6|r 
-## Version: 1.5.6
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.6.0|r 
+## Version: 1.6.0
 ## Author: Klingo
-## APIVersion: 100010
+## APIVersion: 100017
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## OptionalDependsOn: LibAddonMenu-2.0
 
