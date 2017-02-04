@@ -37,7 +37,7 @@ PAItemTypes = {}
 -- PAItemTypes[index] = ItemType   ["" --> disabled itemType]
 -- currently contains 52 entries (0 - 51)
 PAItemTypes[0] = "" -- ITEMTYPE_ADDITIVE
-PAItemTypes[1] = ITEMTYPE_ALCHEMY_BASE
+PAItemTypes[1] = "" -- ITEMTYPE_ALCHEMY_BASE      (removed with APIVersion 100015)
 PAItemTypes[2] = "" -- ITEMTYPE_ARMOR
 PAItemTypes[3] = "" -- ITEMTYPE_ARMOR_BOOSTER
 PAItemTypes[4] = ITEMTYPE_ARMOR_TRAIT
@@ -87,7 +87,20 @@ PAItemTypes[44] = "" -- ITEMTYPE_WEAPON_BOOSTER
 PAItemTypes[45] = ITEMTYPE_WEAPON_TRAIT
 PAItemTypes[46] = ITEMTYPE_WOODWORKING_BOOSTER
 PAItemTypes[47] = ITEMTYPE_WOODWORKING_MATERIAL
-PAItemTypes[48] = ITEMTYPE_WOODWORKING_RAW_MATERIAL 
+PAItemTypes[48] = ITEMTYPE_WOODWORKING_RAW_MATERIAL
+PAItemTypes[49] = "" -- ITEMTYPE_CROWN_ITEM
+PAItemTypes[50] = "" -- ITEMTYPE_CROWN_REPAIR
+PAItemTypes[51] = "" -- ITEMTYPE_DEPRECATED
+PAItemTypes[52] = "" -- ITEMTYPE_FISH
+PAItemTypes[53] = "" -- ITEMTYPE_MASTER_WRIT
+PAItemTypes[54] = "" -- ITEMTYPE_MAX_VALUE
+PAItemTypes[55] = "" -- ITEMTYPE_MIN_VALUE
+PAItemTypes[56] = "" -- ITEMTYPE_MOUNT
+PAItemTypes[57] = ITEMTYPE_POISON_BASE                  -- (replaced ITEMTYPE_ALCHEMY_BASE with APIVersion 100015)
+PAItemTypes[58] = ITEMTYPE_POTION_BASE                  -- (replaced ITEMTYPE_ALCHEMY_BASE with APIVersion 100015)
+PAItemTypes[59] = "" -- ITEMTYPE_SPELLCRAFTING_TABLET
+PAItemTypes[60] = "" -- ITEMTYPE_TREASURE
+
 
 -- PersonalAssistant advanced ItemTypes
 PAItemTypesAdvanced = {}
