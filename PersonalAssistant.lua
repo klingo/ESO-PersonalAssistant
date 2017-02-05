@@ -1,13 +1,18 @@
 -- Addon: PersonalAssistant
--- Version: 1.5.5
+-- Version: 1.6.0
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.5.6"
+PA.AddonVersion = "1.6.0"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
 -- http://www.esoui.com/forums/showthread.php?t=1944
+
+-- TODO:
+-- Update Currency System: https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
+-- Support Virtual Bags: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
+-- Support Specialized Item Types: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 
 -- default values
 PA.General_Defaults = {}
@@ -24,10 +29,11 @@ function PA.initAddon(eventCode, addOnName)
 	-- initialize the default values
 	PA.initDefaults()
 
+	-- gets values from SavedVars, or initialises with default values
 	PA_SavedVars.General = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
 	PA_SavedVars.Profiles = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Profiles", PA.Profiles_Defaults)
     PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Repair", PA.Repair_Defaults)
-	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Banking", PA.Banking_Defaults)
+	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Banking", PA.Banking_Defaults)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
@@ -63,7 +69,7 @@ function PA.initDefaults()
 			ItemTypes = {},
 			ItemTypesAdvanced = {}
 		}
-		for itemTypeAdvancedNo = 0, 1 do	-- amount of advanced item types = 1 so far
+		for itemTypeAdvancedNo = 0, #PAItemTypesAdvanced do	-- amount of advanced item types
 			PA.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
 				Key = {},
 				Value = {}
@@ -95,7 +101,7 @@ function PA.initDefaults()
 		PA.Banking_Defaults[profileNo].gold = true
 		PA.Banking_Defaults[profileNo].goldDepositInterval = 300
 		PA.Banking_Defaults[profileNo].goldDepositPercentage = 50
-		PA.Banking_Defaults[profileNo].goldTransactionStep = 1
+		PA.Banking_Defaults[profileNo].goldTransactionStep = "1"
 		PA.Banking_Defaults[profileNo].goldMinToKeep = 250
 		PA.Banking_Defaults[profileNo].goldWithdraw = false
 		PA.Banking_Defaults[profileNo].goldLastDeposit = 0

@@ -1,12 +1,12 @@
 ; This Add-on is not created by, affiliated with or sponsored by ZeniMax
-; Media Inc. or its affiliates. The Elder Scrolls® and related logos are
+; Media Inc. or its affiliates. The Elder ScrollsÂ® and related logos are
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.5.6|r 
-## Version: 1.5.6
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.6.0|r 
+## Version: 1.6.0
 ## Author: Klingo
-## APIVersion: 100010
+## APIVersion: 100017
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## OptionalDependsOn: LibAddonMenu-2.0
 
@@ -25,6 +25,8 @@ libs/LibAddonMenu-2.0/controls/editbox.lua
 libs/LibAddonMenu-2.0/controls/header.lua
 libs/LibAddonMenu-2.0/controls/slider.lua
 libs/LibAddonMenu-2.0/controls/texture.lua
+libs/LibAddonMenu-2.0/controls/iconpicker.lua
+libs/LibAddonMenu-2.0/controls/divider.lua
 
 # Globals
 vars/Globals.lua

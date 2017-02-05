@@ -232,12 +232,12 @@ function PA_SettingsMenu.createMainMenu()
 		tooltip = PAL.getResourceMessage("PABMenu_DepGoldSteps_T"),
 		choices = {"1", "10", "100", "1000", "10000"},
 		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep = tonumber(value) end,
+		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep = value end,
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
 		default = "1",
 	}
 	tableIndex = tableIndex + 1
-	
+
 	optionsTable[tableIndex] = {
 		type = "editbox",
 		name = PAL.getResourceMessage("PABMenu_DepGoldKeep"),
