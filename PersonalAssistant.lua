@@ -1,5 +1,4 @@
 -- Addon: PersonalAssistant
--- Version: 1.6.0
 -- Developer: Klingo
 
 PA = {}
@@ -19,6 +18,7 @@ PA.General_Defaults = {}
 PA.Profiles_Defaults = {}
 PA.Repair_Defaults = {}
 PA.Banking_Defaults = {}
+PA.Loot_Defaults = {}
 
 -- init saved variables and register Addon
 function PA.initAddon(eventCode, addOnName)
@@ -34,6 +34,7 @@ function PA.initAddon(eventCode, addOnName)
 	PA_SavedVars.Profiles = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Profiles", PA.Profiles_Defaults)
     PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Repair", PA.Repair_Defaults)
 	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Banking", PA.Banking_Defaults)
+    PA_SavedVars.Loot = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Loot", PA.Loot_Defaults)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
@@ -50,6 +51,9 @@ function PA.initAddon(eventCode, addOnName)
 	-- register PABanking
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen)
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_CLOSE_BANK, PAB.OnBankClose)
+
+    -- register PALoot
+    EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_CONFIRM_INTERACT, PAL.OnConfirmInteract)
 	
 	-- add hook for contextMenu modification
 	-- ZO_PreHook("ZO_InventorySlot_ShowContextMenu", PAJ.AddContextMenuOption)
