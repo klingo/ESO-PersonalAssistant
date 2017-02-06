@@ -6,7 +6,7 @@
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v1.6.0|r 
 ## Version: 1.6.0
 ## Author: Klingo
-## APIVersion: 100017
+## APIVersion: 100018
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## OptionalDependsOn: LibAddonMenu-2.0
 
