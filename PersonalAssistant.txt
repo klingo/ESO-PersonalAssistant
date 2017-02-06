@@ -47,6 +47,9 @@ libs/PABanking/PABankingItems.lua
 libs/PABanking/PABankingAdvancedItems.lua
 libs/PABanking/PABanking.lua
 
+# PALoot
+libs/PALoot/PALoot.lua
+
 # UserInterface
 libs/UI/PAFW.lua
 libs/UI/PAUI.lua
