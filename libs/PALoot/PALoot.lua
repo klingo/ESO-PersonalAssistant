@@ -6,20 +6,88 @@
 -- To change this template use File | Settings | File Templates.
 --
 
-PAL = {}
+PALo = {}
 
-function PAL.OnConfirmInteract(eventCode, dialogTitle, dialogBody, acceptText, cancelText)
-    PAL.println("eventCode=", eventCode)
-    PAL.println("dialogTitle=", dialogTitle)
-    PAL.println("dialogBody=", dialogBody)
-    PAL.println("acceptText=", acceptText)
-    PAL.println("cancelText=", cancelText)
+PALo.alreadyHarvesting = false
+
+function PALo.OnReticleTargetChanged()
+
+    local type = GetInteractionType()
+    local active = IsPlayerInteractingWithObject()
+    local isHarvesting = (active and (type == INTERACTION_HARVEST))
+
+
+    if (PALo.alreadyHarvesting) then
+        if (not isHarvesting) then
+            -- stopped harvesting
+            PALo.alreadyHarvesting = false
+            PALo.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+        end
+    else
+        if (isHarvesting) then
+            -- started harvesting
+            PALo.alreadyHarvesting = true
+            PALo.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+        end
+    end
 end
 
-function PAL.println(key, ...)
-    if (not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg) then
+function PALo.OnLootUpdated()
+
+
+    local lootCount =  GetNumLootItems()
+    for i = 0, lootCount - 1 do
+        local _, name, _, _, _, _, _, _, lootItemType = GetLootItemInfo(i)
+
+        CHAT_SYSTEM:AddMessage("lootItemType = " .. lootItemType)
+
+        local link = GetLootItemLink(i)
+        local itemType = GetItemLinkItemType(link)
+
+        CHAT_SYSTEM:AddMessage("itemType = " .. itemType)
+    end
+
+--    local lootCount =  GetNumLootItems()
+--    for i = 1, lootCount do
+--        local _, name, _, count, _, _, _, _, lootItemType = GetLootItemInfo(i)
+--        local strItemType = PAL.getResourceMessage(lootItemType)
+--
+--        local link = GetLootItemLink(i)
+--        local nItemType = GetItemLinkItemType(link)
+--        local nStrItemType = PAL.getResourceMessage(itemType)
+--
+--
+--        PALo.println("itemType (%s): %s. ---> %d x %s <--- or itemType (%s): %s", itemType, strItemType, count, name, nItemType, nStrItemType)
+--    end
+
+
+    -- GetItemLinkItemType(string itemLink)
+    -- LootAll(boolean ignoreStolenItems)
+
+    -- GetLootItemLink(number lootId, number LinkStyle linkStyle)
+    -- Returns: string link
+
+    -- GetLootItemType(number lootId)
+    -- Returns: number LootItemType itemType
+
+    -- LootItemById(number lootId)
+
+    -- LootCurrency(number CurrencyType type)
+
+    -- LootMoney()
+
+    -- GetLootTargetInfo()
+    -- Returns: string name, number InteractTargetType targetType, string actionName, boolean isOwned
+
+    -- GetLootItemInfo(number lootIndex)
+    -- Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
+
+    end
+
+function PALo.println(key, ...)
+--    if (not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideAllMsg) then
         local args = {...}
         PA.println(key, unpack(args))
-    end
+--    end
 end
 

@@ -53,7 +53,8 @@ function PA.initAddon(eventCode, addOnName)
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_CLOSE_BANK, PAB.OnBankClose)
 
     -- register PALoot
-    EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_CONFIRM_INTERACT, PAL.OnConfirmInteract)
+    ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PALo.OnReticleTargetChanged)
+    EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_LOOT_UPDATED, PALo.OnLootUpdated)
 	
 	-- add hook for contextMenu modification
 	-- ZO_PreHook("ZO_InventorySlot_ShowContextMenu", PAJ.AddContextMenuOption)
