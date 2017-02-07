@@ -36,12 +36,12 @@ function PALo.OnLootUpdated()
 
 
     local lootCount =  GetNumLootItems()
-    for i = 0, lootCount - 1 do
-        local _, name, _, _, _, _, _, _, lootItemType = GetLootItemInfo(i)
+    for i = 1, lootCount do
+        local lootId, name, _, _, _, _, _, _, lootItemType = GetLootItemInfo(i)
 
         CHAT_SYSTEM:AddMessage("lootItemType = " .. lootItemType)
 
-        local link = GetLootItemLink(i)
+        local link = GetLootItemLink(lootId)
         local itemType = GetItemLinkItemType(link)
 
         CHAT_SYSTEM:AddMessage("itemType = " .. itemType)
@@ -49,15 +49,17 @@ function PALo.OnLootUpdated()
 
 --    local lootCount =  GetNumLootItems()
 --    for i = 1, lootCount do
---        local _, name, _, count, _, _, _, _, lootItemType = GetLootItemInfo(i)
+--        local lootId, name, _, count, _, _, _, _, lootItemType = GetLootItemInfo(i)
 --        local strItemType = PAL.getResourceMessage(lootItemType)
 --
---        local link = GetLootItemLink(i)
+--        CHAT_SYSTEM:AddMessage("lootId = " .. tostring(lootId))
+--
+--        local link = GetLootItemLink(lootId)
 --        local nItemType = GetItemLinkItemType(link)
---        local nStrItemType = PAL.getResourceMessage(itemType)
+--        local nStrItemType = PAL.getResourceMessage(nItemType)
 --
 --
---        PALo.println("itemType (%s): %s. ---> %d x %s <--- or itemType (%s): %s", itemType, strItemType, count, name, nItemType, nStrItemType)
+--        PALo.println("lootItemType (%s): %s. ---> %d x %s <--- or itemType (%s): %s", lootItemType, strItemType, count, name, nItemType, nStrItemType)
 --    end
 
 
