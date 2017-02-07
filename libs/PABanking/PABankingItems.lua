@@ -157,12 +157,8 @@ function PAB_Items.DoItemStacking(bagId)
 						else
 							size = maxStack - toStackSize
 						end
-						
-						
-						PA.println("stacking %s from %d (%d/%d) to %d (%d/%d)", fromItemName, currFromBagItem, toStackSize, maxStack, currToBagItem, fromStackSize, maxStack)
-						
-						
-						
+
+						-- PA.println("stacking %s from %d (%d/%d) to %d (%d/%d)", fromItemName, currFromBagItem, toStackSize, maxStack, currToBagItem, fromStackSize, maxStack)
 						
 						ClearCursor()
 						-- call secure protected (pickup the item via cursor)
