@@ -6,10 +6,13 @@ if PA_SavedVars.Banking				== nil then PA_SavedVars.Banking 			= {} end
 if PA_SavedVars.Banking.ItemTypes 	== nil then PA_SavedVars.Banking.ItemTypes	= {} end
 
 -- PersonalAssistant Constants
+-- PA Banking
 PAC_ITEMTYPE_IGNORE = 0
 PAC_ITEMTYPE_DEPOSIT = 1
 PAC_ITEMTYPE_WITHDRAWAL = 2
 PAC_ITEMTYPE_INHERIT = 3
+-- PA Loot
+PAC_ITEMTYPE_LOOT = 1
 
 PAC_OPERATOR_NONE = 0
 PAC_OPERATOR_EQUAL = 1
@@ -70,6 +73,32 @@ PAItemTypes[24] = ITEMTYPE_WEAPON_TRAIT
 PAItemTypes[25] = ITEMTYPE_STYLE_MATERIAL
 PAItemTypes[26] = ITEMTYPE_RAW_MATERIAL
 
+-- PersonalAssistant advanced ItemTypes
+PAItemTypesAdvanced = {}
+PAItemTypesAdvanced[0] = 30357	-- Lockpick
+
+
+-- PersonalAssistant Loot ItemTypes
+PALoItemTypes = {}
+-- Alchemy
+table.insert(PALoItemTypes, ITEMTYPE_REAGENT)
+table.insert(PALoItemTypes, ITEMTYPE_POTION_BASE)
+-- Blacksmithing
+table.insert(PALoItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
+-- Clothing
+table.insert(PALoItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+-- Woodworking
+table.insert(PALoItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL)
+-- Enchanting
+table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT)
+table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
+table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY)
+-- Provisioning
+table.insert(PALoItemTypes, ITEMTYPE_INGREDIENT)
+-- Fishing
+table.insert(PALoItemTypes, ITEMTYPE_FISH)
+
+
 -- PAItemTypes[0] = "" -- ITEMTYPE_ADDITIVE
 -- PAItemTypes[2] = "" -- ITEMTYPE_ARMOR
 -- PAItemTypes[3] = "" -- ITEMTYPE_ARMOR_BOOSTER
@@ -78,7 +107,6 @@ PAItemTypes[26] = ITEMTYPE_RAW_MATERIAL
 -- PAItemTypes[13] = "" -- ITEMTYPE_CONTAINER
 -- PAItemTypes[14] = "" -- ITEMTYPE_COSTUME
 -- PAItemTypes[15] = "" -- ITEMTYPE_DISGUISE
--- PAItemTypes[17] = "" -- ITEMTYPE_ENCHANTING_RUNE	        (removed with patch 1.2.3)
 -- PAItemTypes[18] = "" -- ITEMTYPE_ENCHANTMENT_BOOSTER
 -- PAItemTypes[19] = "" -- ITEMTYPE_FLAVORING
 -- PAItemTypes[25] = "" -- ITEMTYPE_LOCKPICK
@@ -107,8 +135,3 @@ PAItemTypes[26] = ITEMTYPE_RAW_MATERIAL
 -- PAItemTypes[59] = "" -- ITEMTYPE_MOUNT
 -- PAItemTypes[62] = "" -- ITEMTYPE_SPELLCRAFTING_TABLET
 -- PAItemTypes[63] = "" -- ITEMTYPE_TREASURE
-
-
--- PersonalAssistant advanced ItemTypes
-PAItemTypesAdvanced = {}
-PAItemTypesAdvanced[0] = 30357	-- Lockpick

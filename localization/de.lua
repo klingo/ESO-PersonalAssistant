@@ -43,6 +43,13 @@ ResourceBundle.de["PAB_ItemType_Deposit"]			= "Einlagern"
 ResourceBundle.de["PAB_ItemType_Withdrawal"]		= "Abheben"
 ResourceBundle.de["PAB_ItemType_Inherit"]			= "Abhängig vom Gegenstandstyp (unten)"
 
+-- PALoot --
+ResourceBundle.de["PALo_ItemLooted"] 				= "PALoot: %d x %s"
+ResourceBundle.de["PALo_GoldLooted"] 				= "PALoot: %d Gold"
+
+ResourceBundle.de["PALo_ItemType_None"] 		    = "-"
+ResourceBundle.de["PALo_ItemType_Loot"]             = "Automatisches Plündern"
+
 -- MainMenu --
 ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
@@ -70,8 +77,8 @@ ResourceBundle.de["PARMenu_RepairBaDura"] 			= "- Haltbarkeitsschwelle in %"
 ResourceBundle.de["PARMenu_RepairBaDura_T"] 		= "Repariere Gegenstände im Inventar nur, wenn sie genau auf oder unter der definierten Haltbarkeitsschwelle sind."
 ResourceBundle.de["PARMenu_HideNoRepair"] 			= "Blende 'Nichts zu reparieren' aus"
 ResourceBundle.de["PARMenu_HideNoRepair_T"] 		= "Blendet die Meldung 'Nichts zu reparieren' aus. Angefallene Reparaturkosten werden jedoch weiterhin ausgegeben."
-ResourceBundle.de["PARMenu_HideAll"] 				= "Blende alle Meldungen aus"
-ResourceBundle.de["PARMenu_HideAll_T"] 				= "Ruhe-Modus: Keine Meldungen werden mehr angezeigt. Die Reparaturkosten werden auch nicht mehr ausgegeben."
+ResourceBundle.de["PARMenu_HideAll"] 				= "Blende alle Repair Meldungen aus"
+ResourceBundle.de["PARMenu_HideAll_T"] 				= "Ruhe-Modus: Keine Repair Meldungen werden mehr angezeigt. Die Reparaturkosten werden auch nicht mehr ausgegeben."
 
 -- PABMenu --
 ResourceBundle.de["PABMenu_Header"] 				= "|cFFD700PA B|ranking"
@@ -110,8 +117,8 @@ ResourceBundle.de["PABMenu_DepItemJunk_T"] 			= "Sollen auch als Trödel markier
 ResourceBundle.de["PABMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPEN VON GEGENSTÄNDEN"
 ResourceBundle.de["PABMenu_HideNoDeposit"] 			= "Blende 'Nichts zum Einlagern' aus"
 ResourceBundle.de["PABMenu_HideNoDeposit_T"] 		= "Blendet die Meldung 'Nichts zum Einlagern' aus. Eingelagerte Gegenstände werden jedoch weiterhin ausgegeben."
-ResourceBundle.de["PABMenu_HideAll"] 				= "Blende alle Meldungen aus"
-ResourceBundle.de["PABMenu_HideAll_T"] 				= "Ruhe-Modus: Keine Meldungen werden mehr angezeigt. Die eingelagerten/abgehobenen Gegenstände werden auch nicht mehr ausgegeben."
+ResourceBundle.de["PABMenu_HideAll"] 				= "Blende ALLE Banking Meldungen aus"
+ResourceBundle.de["PABMenu_HideAll_T"] 				= "Ruhe-Modus: Keine Banking Meldungen werden mehr angezeigt. Die eingelagerten/abgehobenen Gegenstände werden nicht mehr ausgegeben."
 ResourceBundle.de["PABMenu_DepButton"] 				= "Alles einlagern"
 ResourceBundle.de["PABMenu_DepButton_T"] 			= "Ändert alle Dropdown Werte zu 'Einlagern'"
 ResourceBundle.de["PABMenu_WitButton"] 				= "Alles abheben"
@@ -121,6 +128,29 @@ ResourceBundle.de["PABMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu '-
 ResourceBundle.de["PABMenu_Lockipck_Header"] 		= PAC_COL_LIGHT_BLUE.."Dietriche"
 ResourceBundle.de["PABMenu_Keep_in_Backpack"] 		= "Zielmenge im Inventar"
 ResourceBundle.de["PABMenu_Keep_in_Backpack_T"] 	= "Definiere die Menge welche unter Berücksichtigung des mathematischen Operators im Inventar behalten werden soll."
+
+-- PALoMenu --
+ResourceBundle.de["PALoMenu_Header"] 				= "|cFFD700PA L|root"
+ResourceBundle.de["PALoMenu_Enable"] 				= "|cB0B0FFAktiviere automatisches Plündern|r"
+ResourceBundle.de["PALoMenu_Enable_T"] 				= "Aktiviere automatisches Plündern?"
+ResourceBundle.de["PALoMenu_LootGold"]              = "Automatisch Gold plündern?"
+ResourceBundle.de["PALoMenu_LootGold_T"]            = "Automatisches Plündern von Gold?"
+ResourceBundle.de["PALoMenu_LootItems"]             = "Automatisch erntbare Gegenstände plündern"
+ResourceBundle.de["PALoMenu_LootItems_T"]           = "Automatisches Plündern von erntbaren Gegenständen?"
+ResourceBundle.de["PALoMenu_ItemTypeDesc"] 	        = "Aktiviere und deaktiviere das automatische Plündern von erntbaren Gegenstäänden wie Erze, Kräuter, Hölzer, Runensteine oder Fischen."
+ResourceBundle.de["PALoMenu_ItemType"]              = "Erntbare Gegenstandstypen"
+ResourceBundle.de["PALoMenu_ItemType_T"]            = "Öffnet das Untermenu um für erntbare Typen von Gegenständen das automatische Plündern zu de-/aktivieren."
+ResourceBundle.de["PALoMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPEN VON GEGENSTÄNDEN"
+ResourceBundle.de["PALoMenu_LootButton"] 			= "Alles automatisch Plündern"
+ResourceBundle.de["PALoMenu_LootButton_T"] 			= "Ändert alle Dropdown Werte zu 'Automatisches Plündern'"
+ResourceBundle.de["PALoMenu_IgnButton"] 			= "Alles deaktivieren"
+ResourceBundle.de["PALoMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu  '-'"
+ResourceBundle.de["PALoMenu_HideItemLoot"] 			= "Blende 'Gegenstand geplündert' Meldungen aus"
+ResourceBundle.de["PALoMenu_HideItemLoot_T"] 		= "Blendet die Meldung 'Gegenstand geplündert' aus. Die geplünderten Gegenstände werden nicht mehr ausgegeben."
+ResourceBundle.de["PALoMenu_HideGoldLoot"] 			= "Blende 'Gold geplündert' Meldungen aus"
+ResourceBundle.de["PALoMenu_HideGoldLoot_T"] 		= "Blendet die Meldung 'Gold geplündert' aus. Die Menge an geplündertem Gold wird nicht mehr ausgegeben."
+ResourceBundle.de["PALoMenu_HideAll"] 				= "Blende ALLE Plünder-Meldungen aus"
+ResourceBundle.de["PALoMenu_HideAll_T"] 			= "Ruhe-Modus: Keine Plünder-Medungen (Gold und Gegenstände) werden mehr angezeigt."
 
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt

@@ -79,7 +79,10 @@ function PA.initDefaults()
 				Key = {},
 				Value = {}
 			}
-		end
+        end
+        PA.Loot_Defaults[profileNo] = {
+            ItemTypes = {}
+        }
 
 		-- default values for Addon
 		PA.General_Defaults.language = 1
@@ -129,6 +132,22 @@ function PA.initDefaults()
 		-- default values for advanced ItemTypes
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 0 = Lockpick
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 0 = Lockpick
+
+		-- default values for PALoot
+        PA.Loot_Defaults[profileNo].enabled = false
+        PA.Loot_Defaults[profileNo].lootGold = true
+        PA.Loot_Defaults[profileNo].lootItems = true
+        PA.Loot_Defaults[profileNo].hideItemLootMsg = false
+        PA.Loot_Defaults[profileNo].hideGoldLootMsg = false
+        PA.Loot_Defaults[profileNo].hideAllMsg = false
+
+        -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
+        -- auto-loot=true, ignore=false
+        for i = 1, #PALoItemTypes do
+            if PALoItemTypes[i] ~= "" then
+                PA.Loot_Defaults[profileNo].ItemTypes[PALoItemTypes[i]] = 0
+            end
+        end
 	end
 end
 
