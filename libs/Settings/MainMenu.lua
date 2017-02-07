@@ -15,6 +15,7 @@ local panelData = {
 local optionsTable = {}
 local itemTypeSubmenuTable = {}
 local itemTypeAdvancedSubmenuTable = {}
+local PALoItemTypeSubmenuTable = {}
 
 
 function PA_SettingsMenu.CreateOptions()
@@ -22,6 +23,7 @@ function PA_SettingsMenu.CreateOptions()
 	-- create the menus with LAM-2
 	PA_SettingsMenu.createItemSubMenu()
 	PA_SettingsMenu.createItemAdvancedSubMenu()
+    PA_SettingsMenu.createPALoItemSubMenu()
 	PA_SettingsMenu.createMainMenu()
 	
 	-- and register it
@@ -74,6 +76,8 @@ function PA_SettingsMenu.createMainMenu()
 		default = true,
 	}
 	tableIndex = tableIndex + 1
+
+    -- =================================================================================================================
 	
 	-- ------------------------ --
 	-- PersonalAssistant Repair --
@@ -171,7 +175,12 @@ function PA_SettingsMenu.createMainMenu()
 		default = false,
 	}
 	tableIndex = tableIndex + 1
-	
+
+    -- =================================================================================================================
+
+    -- ------------------------- --
+    -- PersonalAssistant Banking --
+    -- ------------------------- --
 	optionsTable[tableIndex] = {
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_Header"),
@@ -331,6 +340,103 @@ function PA_SettingsMenu.createMainMenu()
 		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
 		default = false,
 	}
+	tableIndex = tableIndex + 1
+
+    -- =================================================================================================================
+
+    -- ---------------------- --
+    -- PersonalAssistant Loot --
+    -- ---------------------- --
+	optionsTable[tableIndex] = {
+		type = "header",
+		name = PAL.getResourceMessage("PALoMenu_Header"),
+	}
+	tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PALoMenu_Enable"),
+        tooltip = PAL.getResourceMessage("PALoMenu_Enable_T"),
+        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
+        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled = value end,
+        default = false,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PALoMenu_LootGold"),
+        tooltip = PAL.getResourceMessage("PALoMenu_LootGold_T"),
+        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootGold end,
+        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootGold = value end,
+        width = "half",
+        disabled = function() return not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
+        default = true,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PALoMenu_LootItems"),
+        tooltip = PAL.getResourceMessage("PALoMenu_LootItems_T"),
+        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems end,
+        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems = value end,
+        width = "half",
+        disabled = function() return not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
+        default = true,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "description",
+        text = PAL.getResourceMessage("PALoMenu_ItemTypeDesc"),
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "submenu",
+        name = PAL.getResourceMessage("PALoMenu_ItemType"),
+        tooltip = PAL.getResourceMessage("PALoMenu_ItemType_T"),
+        controls = PALoItemTypeSubmenuTable,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PALoMenu_HideGoldLoot"),
+        tooltip = PAL.getResourceMessage("PALoMenu_HideGoldLoot_T"),
+        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideGoldLootMsg end,
+        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideGoldLootMsg = value end,
+        width = "half",
+        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootGold) end,
+        default = false,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PALoMenu_HideItemLoot"),
+        tooltip = PAL.getResourceMessage("PALoMenu_HideItemLoot_T"),
+        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideItemLootMsg end,
+        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideItemLootMsg = value end,
+        width = "half",
+        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+        default = false,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PALoMenu_HideAll"),
+        tooltip = PAL.getResourceMessage("PALoMenu_HideAll_T"),
+        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideAllMsg end,
+        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideAllMsg = value end,
+        width = "half",
+        disabled = function() return not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
+        default = false,
+    }
+    tableIndex = tableIndex + 1
+
 end
 
 function PA_SettingsMenu.createItemSubMenu()
@@ -384,12 +490,12 @@ function PA_SettingsMenu.createItemSubMenu()
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_ItemType_Header"),
 	}
-	
-	local innerIndex = tableIndex + 1
+    tableIndex = tableIndex + 1
+
 	for i = 0, #PAItemTypes do
 		-- only add if the itemType is enabled
 		if PAItemTypes[i] ~= "" then
-			itemTypeSubmenuTable[innerIndex] = {
+			itemTypeSubmenuTable[tableIndex] = {
 				type = "dropdown",
 				name = PAL.getResourceMessage(PAItemTypes[i]),
 				tooltip = "",
@@ -399,26 +505,30 @@ function PA_SettingsMenu.createItemSubMenu()
 				width = "half",
 				disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 				default = PAL.getResourceMessage("PAB_ItemType_None"),
-			}		
-			innerIndex = innerIndex +1
+			}
+            tableIndex = tableIndex + 1
 		end
 	end
 	
-	itemTypeSubmenuTable[innerIndex] = {
+	itemTypeSubmenuTable[tableIndex] = {
 		type = "button",
 		name = PAL.getResourceMessage("PABMenu_DepButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepButton_T"),
 		func = function() MenuHelper.setDepositAll() end,
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
-	}
-	itemTypeSubmenuTable[innerIndex + 1] = {
+    }
+    tableIndex = tableIndex + 1
+
+	itemTypeSubmenuTable[tableIndex] = {
 		type = "button",
 		name = PAL.getResourceMessage("PABMenu_WitButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_WitButton_T"),
 		func = function() MenuHelper.setWithdrawalAll() end,
 		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
-	}
-	itemTypeSubmenuTable[innerIndex + 2] = {
+    }
+    tableIndex = tableIndex + 1
+
+	itemTypeSubmenuTable[tableIndex] = {
 		type = "button",
 		name = PAL.getResourceMessage("PABMenu_IgnButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_IgnButton_T"),
@@ -464,5 +574,54 @@ function PA_SettingsMenu.createItemAdvancedSubMenu()
 		default = 100,
 	}
 	tableIndex = tableIndex +1
-	
+
+end
+
+function PA_SettingsMenu.createPALoItemSubMenu()
+    local tableIndex = 1
+
+    PALoItemTypeSubmenuTable[tableIndex] = {
+        type = "header",
+        name = PAL.getResourceMessage("PALoMenu_ItemType_Header"),
+    }
+    tableIndex = tableIndex + 1
+
+    for i = 1, #PALoItemTypes do
+        -- only add if the itemType is enabled
+        if PALoItemTypes[i] ~= "" then
+            PALoItemTypeSubmenuTable[tableIndex] = {
+                type = "dropdown",
+                name = PAL.getResourceMessage(PALoItemTypes[i]),
+                tooltip = "",
+                choices = {PAL.getResourceMessage("PALo_ItemType_None"), PAL.getResourceMessage("PALo_ItemType_Loot")},
+                getFunc = function() return MenuHelper.getLootTextFromNumber(PALoItemTypes[i]) end,
+                setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].ItemTypes[PALoItemTypes[i]] = MenuHelper.getLootNumberFromText(value) end,
+                width = "half",
+                disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+                default = PAL.getResourceMessage("PALo_ItemType_None"),
+            }
+            tableIndex = tableIndex + 1
+
+            -- i = index in table
+            -- PALoItemTypes[i] = unique constant number of itemType
+        end
+    end
+
+    PALoItemTypeSubmenuTable[tableIndex] = {
+        type = "button",
+        name = PAL.getResourceMessage("PALoMenu_LootButton"),
+        tooltip = PAL.getResourceMessage("PALoMenu_LootButton_T"),
+        func = function() MenuHelper.setAutoLootAll() end,
+        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+    }
+    tableIndex = tableIndex + 1
+
+    PALoItemTypeSubmenuTable[tableIndex] = {
+        type = "button",
+        name = PAL.getResourceMessage("PALoMenu_IgnButton"),
+        tooltip = PAL.getResourceMessage("PALoMenu_IgnButton_T"),
+        func = function() MenuHelper.setIgnoreLootAll() end,
+        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+    }
+
 end
