@@ -256,6 +256,7 @@ end
 function PAB_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
 
 	-- TODO: API 100009 --> replace with RequestMoveItem ???
+	-- RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
 
     local result = true
     -- clear the cursor first

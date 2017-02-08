@@ -34,7 +34,6 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 		
 		if (transferInfo[checkItemId]["operator"] ~= PAC_OPERATOR_NONE) then
 			for currBackpackItem = 0, #backpackItemNameList do
-				PA.println()
 				if (GetItemId(BAG_BACKPACK, currBackpackItem) == checkItemId) then
 					-- create a new row in the table
 					transferInfo[currRowIndex] = {}
