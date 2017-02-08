@@ -13,16 +13,16 @@ local panelData = {
 }
 
 local optionsTable = {}
-local itemTypeSubmenuTable = {}
-local itemTypeAdvancedSubmenuTable = {}
+local PABItemTypeSubmenuTable = {}
+local PABItemTypeAdvancedSubmenuTable = {}
 local PALoItemTypeSubmenuTable = {}
 
 
 function PA_SettingsMenu.CreateOptions()
 
 	-- create the menus with LAM-2
-	PA_SettingsMenu.createItemSubMenu()
-	PA_SettingsMenu.createItemAdvancedSubMenu()
+	PA_SettingsMenu.createPABItemSubMenu()
+	PA_SettingsMenu.createPABItemAdvancedSubMenu()
     PA_SettingsMenu.createPALoItemSubMenu()
 	PA_SettingsMenu.createMainMenu()
 	
@@ -292,7 +292,7 @@ function PA_SettingsMenu.createMainMenu()
 		type = "submenu",
 		name = PAL.getResourceMessage("PABMenu_DepItemType"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepItemType_T"),
-		controls = itemTypeSubmenuTable,
+		controls = PABItemTypeSubmenuTable,
 	}
 	tableIndex = tableIndex + 1
 	
@@ -300,7 +300,7 @@ function PA_SettingsMenu.createMainMenu()
 		type = "submenu",
 		name = PAL.getResourceMessage("PABMenu_Advanced_DepItemType"),
 		tooltip = PAL.getResourceMessage("PABMenu_Advanced_DepItemType_T"),
-		controls = itemTypeAdvancedSubmenuTable,
+		controls = PABItemTypeAdvancedSubmenuTable,
 	}
 	tableIndex = tableIndex + 1
 	
@@ -439,10 +439,10 @@ function PA_SettingsMenu.createMainMenu()
 
 end
 
-function PA_SettingsMenu.createItemSubMenu()
+function PA_SettingsMenu.createPABItemSubMenu()
 	local tableIndex = 1
 		
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "dropdown",
 		name = PAL.getResourceMessage("PABMenu_DepStackOnly"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepStackOnly_T"),
@@ -455,7 +455,7 @@ function PA_SettingsMenu.createItemSubMenu()
 	}
 	tableIndex = tableIndex + 1
 	
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "dropdown",
 		name = PAL.getResourceMessage("PABMenu_WitStackOnly"),
 		tooltip = PAL.getResourceMessage("PABMenu_WitStackOnly_T"),
@@ -468,13 +468,13 @@ function PA_SettingsMenu.createItemSubMenu()
 	}
 	tableIndex = tableIndex + 1
 	
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_ItemJunk_Header"),
 	}
 	tableIndex = tableIndex + 1
 	
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "dropdown",
 		name = PAL.getResourceMessage("PABMenu_DepItemJunk"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepItemJunk_T"),
@@ -486,31 +486,34 @@ function PA_SettingsMenu.createItemSubMenu()
 	}
 	tableIndex = tableIndex + 1
 	
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_ItemType_Header"),
 	}
     tableIndex = tableIndex + 1
 
-	for i = 0, #PAItemTypes do
+	for i = 1, #PAItemTypes do
 		-- only add if the itemType is enabled
 		if PAItemTypes[i] ~= "" then
-			itemTypeSubmenuTable[tableIndex] = {
+			PABItemTypeSubmenuTable[tableIndex] = {
 				type = "dropdown",
 				name = PAL.getResourceMessage(PAItemTypes[i]),
 				tooltip = "",
 				choices = {PAL.getResourceMessage("PAB_ItemType_None"), PAL.getResourceMessage("PAB_ItemType_Deposit"), PAL.getResourceMessage("PAB_ItemType_Withdrawal")},
-				getFunc = function() return MenuHelper.getBankingTextFromNumber(i) end,
-				setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypes[i] = MenuHelper.getBankingNumberFromText(value) end,
+				getFunc = function() return MenuHelper.getBankingTextFromNumber(PAItemTypes[i]) end,
+				setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypes[PAItemTypes[i]] = MenuHelper.getBankingNumberFromText(value) end,
 				width = "half",
 				disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
 				default = PAL.getResourceMessage("PAB_ItemType_None"),
 			}
             tableIndex = tableIndex + 1
+
+			-- i = index in table
+			-- PAItemTypes[i] = unique constant number of itemType
 		end
 	end
 	
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "button",
 		name = PAL.getResourceMessage("PABMenu_DepButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepButton_T"),
@@ -519,7 +522,7 @@ function PA_SettingsMenu.createItemSubMenu()
     }
     tableIndex = tableIndex + 1
 
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "button",
 		name = PAL.getResourceMessage("PABMenu_WitButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_WitButton_T"),
@@ -528,7 +531,7 @@ function PA_SettingsMenu.createItemSubMenu()
     }
     tableIndex = tableIndex + 1
 
-	itemTypeSubmenuTable[tableIndex] = {
+	PABItemTypeSubmenuTable[tableIndex] = {
 		type = "button",
 		name = PAL.getResourceMessage("PABMenu_IgnButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_IgnButton_T"),
@@ -537,18 +540,18 @@ function PA_SettingsMenu.createItemSubMenu()
 	}
 end
 
-function PA_SettingsMenu.createItemAdvancedSubMenu()
+function PA_SettingsMenu.createPABItemAdvancedSubMenu()
 	local tableIndex = 1
 	
 	local advancedItemIndex = 0		-- 0 = Lockpick
 	
-	itemTypeAdvancedSubmenuTable[tableIndex] = {
+	PABItemTypeAdvancedSubmenuTable[tableIndex] = {
 		type = "header",
 		name = PAL.getResourceMessage("PABMenu_Lockipck_Header"),
 	}
 	tableIndex = tableIndex + 1
 	
-	itemTypeAdvancedSubmenuTable[tableIndex] = {
+	PABItemTypeAdvancedSubmenuTable[tableIndex] = {
 		type = "dropdown",
 		name = PAL.getResourceMessage("REL_Operator"),
 		tooltip = "",
@@ -562,7 +565,7 @@ function PA_SettingsMenu.createItemAdvancedSubMenu()
 	}
 	tableIndex = tableIndex +1
 	
-	itemTypeAdvancedSubmenuTable[tableIndex] = {
+	PABItemTypeAdvancedSubmenuTable[tableIndex] = {
 		type = "editbox",
 		name = PAL.getResourceMessage("PABMenu_Keep_in_Backpack"),
 		tooltip = PAL.getResourceMessage("PABMenu_Keep_in_Backpack_T"),

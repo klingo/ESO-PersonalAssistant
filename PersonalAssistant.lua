@@ -20,6 +20,7 @@ PA.Repair_Defaults = {}
 PA.Banking_Defaults = {}
 PA.Loot_Defaults = {}
 
+
 -- init saved variables and register Addon
 function PA.initAddon(eventCode, addOnName)
     if addOnName ~= "PersonalAssistant" then
@@ -38,12 +39,6 @@ function PA.initAddon(eventCode, addOnName)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
-	
-	-- fix/update saved vars changes since last version
-	SVC.updateSavedVars()
-	
-	-- create the options with LAM-2
-	PA_SettingsMenu.CreateOptions()
 
 	-- register PARepair
     EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAR.OnShopOpen)
@@ -62,6 +57,7 @@ function PA.initAddon(eventCode, addOnName)
 	-- addon load complete - unregister event
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED)
 end
+
 
 -- init default values
 function PA.initDefaults()
@@ -123,15 +119,16 @@ function PA.initDefaults()
 
 		-- default values for ItemTypes (only prepare defaults for enabled itemTypes)
 		-- deposit=true, withdrawal=false
-		for i = 0, #PAItemTypes do
+		for i = 1, #PAItemTypes do
 			if PAItemTypes[i] ~= "" then
-				PA.Banking_Defaults[profileNo].ItemTypes[i] = 0
+				PA.Banking_Defaults[profileNo].ItemTypes[PAItemTypes[i]] = 0
 			end
 		end
 		
 		-- default values for advanced ItemTypes
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 0 = Lockpick
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 0 = Lockpick
+		-- TODO: change the key/value for lockpicks as well
 
 		-- default values for PALoot
         PA.Loot_Defaults[profileNo].enabled = false
@@ -151,10 +148,18 @@ function PA.initDefaults()
 	end
 end
 
+
 -- introduces the addon to the player
 function PA.introduction()
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
---	SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+    -- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+
+    -- fix/update saved vars changes since last version
+    SVC.updateSavedVars()
+
+    -- create the options with LAM-2
+    PA_SettingsMenu.CreateOptions()
+
 	
 	if PA_SavedVars.General[PA_SavedVars.General.activeProfile].welcome then
 		if PA_SavedVars.General.language ~= "en" and PA_SavedVars.General.language ~= "de" and PA_SavedVars.General.language ~= "fr" then
@@ -164,6 +169,7 @@ function PA.introduction()
 		end
 	end
 end
+
 
 -- returns a noun for the bagId
 function PA.getBagName(bagId)
@@ -178,6 +184,7 @@ function PA.getBagName(bagId)
 	end
 end
 
+
 -- returns an adjective for the bagId
 function PA.getBagNameAdjective(bagId)
 	if (bagId == BAG_WORN) then
@@ -191,6 +198,7 @@ function PA.getBagNameAdjective(bagId)
 	end
 end
 
+
 -- returns a fixed/formatted ItemLink
 function PA.getFormattedItemLink(bagId, slotIndex)
 	local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
@@ -201,6 +209,7 @@ function PA.getFormattedItemLink(bagId, slotIndex)
  
 	return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
+
 
 -- currently supports one text-key and n arguments
 function PA.println(key, ...)
@@ -218,6 +227,7 @@ end
 
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED, PA.initAddon)
 EVENT_MANAGER:RegisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED, PA.introduction)
+
 
 -- ========================================================================================================================
 -- Dev-Debug --

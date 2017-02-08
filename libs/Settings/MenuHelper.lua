@@ -29,7 +29,7 @@ function MenuHelper.setDropdownsTo(itemTypeKey)
 	for i = 1, #PAItemTypes do
 		-- only if the itemType is enabled
 		if PAItemTypes[i] ~= "" then
-			PA_SavedVars.Banking[profileNo].ItemTypes[i] = itemTypeKey
+			PA_SavedVars.Banking[profileNo].ItemTypes[PAItemTypes[i]] = itemTypeKey
 		end
 	end
 end
