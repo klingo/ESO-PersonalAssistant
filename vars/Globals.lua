@@ -78,8 +78,7 @@ table.insert(PAItemTypes, ITEMTYPE_RAW_MATERIAL) -- 26
 -- PersonalAssistant advanced ItemTypes
 PAItemTypesAdvanced = {}
 PAItemTypesAdvanced[0] = 30357	-- Lockpick
--- TODO: test ITEMTYPE_LOCKPICK
--- TODO: test SPECIALIZED_ITEMTYPE_LOCKPICK
+-- Can't use ITEMTYPE_LOCKPICK or SPECIALIZED_ITEMTYPE_LOCKPICK since the actual lockpicks are categorized as ITEMTYPE_TOOL (as of APIVersion 100018)
 
 -- PersonalAssistant Loot ItemTypes
 PALoItemTypes = {}
@@ -100,41 +99,3 @@ table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY)
 table.insert(PALoItemTypes, ITEMTYPE_INGREDIENT)
 -- Fishing
 table.insert(PALoItemTypes, ITEMTYPE_FISH)
-
-
--- PAItemTypes[0] = "" -- ITEMTYPE_ADDITIVE
--- PAItemTypes[2] = "" -- ITEMTYPE_ARMOR
--- PAItemTypes[3] = "" -- ITEMTYPE_ARMOR_BOOSTER
--- PAItemTypes[5] = "" -- ITEMTYPE_AVA_REPAIR
--- PAItemTypes[12] = "" -- ITEMTYPE_COLLECTIBLE
--- PAItemTypes[13] = "" -- ITEMTYPE_CONTAINER
--- PAItemTypes[14] = "" -- ITEMTYPE_COSTUME
--- PAItemTypes[15] = "" -- ITEMTYPE_DISGUISE
--- PAItemTypes[18] = "" -- ITEMTYPE_ENCHANTMENT_BOOSTER
--- PAItemTypes[19] = "" -- ITEMTYPE_FLAVORING
--- PAItemTypes[25] = "" -- ITEMTYPE_LOCKPICK
--- PAItemTypes[26] = "" -- ITEMTYPE_LURE
--- PAItemTypes[27] = "" -- ITEMTYPE_NONE
--- PAItemTypes[28] = "" -- ITEMTYPE_PLUG
--- PAItemTypes[29] = "" -- ITEMTYPE_POISON
--- PAItemTypes[31] = "" -- ITEMTYPE_RAW_MATERIAL
--- PAItemTypes[34] = "" -- ITEMTYPE_RACIAL_STYLE_MOTIF		(replaced ITEMTYPE_SCROLL with patch 1.2.3)
--- PAItemTypes[35] = "" -- ITEMTYPE_SIEGE
--- PAItemTypes[36] = "" -- ITEMTYPE_SOUL_GEM
--- PAItemTypes[37] = "" -- ITEMTYPE_SPICE
--- PAItemTypes[39] = "" -- ITEMTYPE_TABARD
--- PAItemTypes[40] = "" -- ITEMTYPE_TOOL
--- PAItemTypes[41] = "" -- ITEMTYPE_TRASH
--- PAItemTypes[42] = "" -- ITEMTYPE_TROPHY
--- PAItemTypes[43] = "" -- ITEMTYPE_WEAPON
--- PAItemTypes[44] = "" -- ITEMTYPE_WEAPON_BOOSTER
--- PAItemTypes[52] = "" -- ITEMTYPE_CROWN_ITEM
--- PAItemTypes[53] = "" -- ITEMTYPE_CROWN_REPAIR
--- PAItemTypes[54] = "" -- ITEMTYPE_DEPRECATED
--- PAItemTypes[55] = "" -- ITEMTYPE_FISH
--- PAItemTypes[56] = "" -- ITEMTYPE_MASTER_WRIT
--- PAItemTypes[57] = "" -- ITEMTYPE_MAX_VALUE
--- PAItemTypes[58] = "" -- ITEMTYPE_MIN_VALUE
--- PAItemTypes[59] = "" -- ITEMTYPE_MOUNT
--- PAItemTypes[62] = "" -- ITEMTYPE_SPELLCRAFTING_TABLET
--- PAItemTypes[63] = "" -- ITEMTYPE_TREASURE

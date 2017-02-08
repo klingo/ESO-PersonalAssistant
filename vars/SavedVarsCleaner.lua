@@ -139,8 +139,6 @@ function SVC.updateSavedVars()
                 local itemTypeId = PAItemTypes[i]   -- i.e. 41
                 PA_SavedVars.Banking[currProfile].ItemTypes[itemTypeId] = originalSavedItemTypes[i - 2]
             end
-
-            -- TODO: clenaup lockpick as well (0-->1)
         end
 
 	end

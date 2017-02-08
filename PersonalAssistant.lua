@@ -128,7 +128,6 @@ function PA.initDefaults()
 		-- default values for advanced ItemTypes
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 0 = Lockpick
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 0 = Lockpick
-		-- TODO: change the key/value for lockpicks as well
 
 		-- default values for PALoot
         PA.Loot_Defaults[profileNo].enabled = false
@@ -232,11 +231,11 @@ EVENT_MANAGER:RegisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER
 -- ========================================================================================================================
 -- Dev-Debug --
 function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6, itemSoundCategory) 
-	local itemType = GetItemType(bagId, slotIndex) 
+	local itemType, specializedItemType = GetItemType(bagId, slotIndex)
 	local strItemType = PAL.getResourceMessage(itemType)
 	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
 	local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
-	PA.println("itemType (%s): %s. ---> (%d/%d) --> %s   (saved = %s)", itemType, strItemType, stack, maxStack, PA.getFormattedItemLink(bagId, slotIndex), tostring(isSaved))
+	PA.println("itemType (%s): %s. (special = %s) ---> (%d/%d) --> %s   (saved = %s)", itemType, strItemType, specializedItemType, stack, maxStack, PA.getFormattedItemLink(bagId, slotIndex), tostring(isSaved))
 end
 
 -- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)
