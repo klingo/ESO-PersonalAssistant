@@ -39,21 +39,24 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 end
 
 function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLoop)
+
+    local activeProfile = PA_SavedVars.General.activeProfile
+
 	local timer = 100
 	local skipChecksAndProceed = false
 	local itemMoved = false
 	
-	local depStackType = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackType
-	local witStackType = PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackType
+	local depStackType = PA_SavedVars.Banking[activeProfile].itemsDepStackType
+	local witStackType = PA_SavedVars.Banking[activeProfile].itemsWitStackType
 	
 	local fromBagItemTypeList = PAB_Items.getItemTypeList(fromBagId)
 	local toBagItemTypeList = PAB_Items.getItemTypeList(toBagId)
 	
 	-- pre-determine if in case of Junk the checks shall be skipped
-	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
+	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
 		-- we are in deposit mode and junk shall be deposited
 		skipChecksAndProceed = true
-	elseif ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
+	elseif ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
 		-- we are in withdrawal mode and junk shall be withdrawn
 		skipChecksAndProceed = true
 	end
@@ -72,17 +75,17 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 		local itemFound = false
 		
 		-- check if the item is marked as junk and whether junk shall be deposited too
-		if isJunk and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting == PAC_ITEMTYPE_IGNORE then
+		if isJunk and PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_IGNORE then
 			-- do nothing; skip item (no junk shall be moved)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
 			-- do nothing; skip item (junk has to be withdrawn but we are in deposit mode)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
 			-- do nothing; skip item (junk has to be deposited but we are in withdraw mode)
 		else
 			-- loop through all item types
-			for currItemType = 0, #PAItemTypes do
+			for currItemType = 1, #PAItemTypes do
 				-- checks if this item type has been enabled for deposits/withdraws and if it does match the type of the source item.... or if it is Junk and checks shall be skipped
-				if (((PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypes[currItemType] == transactionType) and (fromBagItemTypeList[currFromBagItem] == PAItemTypes[currItemType])) or (isJunk and skipChecksAndProceed)) then
+				if (((PA_SavedVars.Banking[activeProfile].ItemTypes[PAItemTypes[currItemType]] == transactionType) and (fromBagItemTypeList[currFromBagItem] == PAItemTypes[currItemType])) or (isJunk and skipChecksAndProceed)) then
 					-- then loop through all items in the target bag
 					for currToBagItem = 0, #toBagItemTypeList do
 						-- store the name of the target item
@@ -113,7 +116,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 							if ((transactionType == PAC_ITEMTYPE_DEPOSIT and depStackType == PAB_STACKING_FULL) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and witStackType == PAB_STACKING_FULL) or itemFound) then
 								itemMoved = true
 								zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
-								timer = timer + PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval
+								timer = timer + PA_SavedVars.Banking[activeProfile].itemsTimerInterval
 								-- increase the queue of the "callLater" calls
 								PAB_Items.queueSize = PAB_Items.queueSize + 1
 								break
