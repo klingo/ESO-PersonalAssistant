@@ -4,7 +4,8 @@ SVC = {}
 function SVC.updateSavedVars()
 
 	-- replaced all dots with empty
-	-- local intSavedVarsVersion = string.gsub(PA_SavedVars.General.savedVarsVersion, ".", "")
+    local savedVarsVersion = string.gsub(PA_SavedVars.General.savedVarsVersion, "%.", "")
+	local intSavedVarsVersion = tonumber(savedVarsVersion)
 
 	if (PA_SavedVars.General.savedVarsVersion == "") then
 		-- savedVarsVersion was not yet introduced, therefore we are pre 1.5.1
@@ -103,7 +104,43 @@ function SVC.updateSavedVars()
 			-- delete obsolete entries
 			PA_SavedVars.Banking[currProfile].itemsDepStackOnly = nil
 			PA_SavedVars.Banking[currProfile].itemsWitStackOnly = nil
-		end
+        end
+
+
+	elseif intSavedVarsVersion <= 161 then
+		-- savedVars from 1.6.1 or earlier which is before the PABanking Refactoring
+
+        for currProfile = 1, PAG_MAX_PROFILES do
+
+            -- Before: PAItemTypes[0] = ITEMTYPE_REAGENT
+            -- After: PAItemTypes[1]  = ITEMTYPE_REAGENT
+
+            -- Before: PAItemTypes[26] = ITEMTYPE_RAW_MATERIAL
+            -- After: PAItemTypes[28]  = ITEMTYPE_RAW_MATERIAL
+
+            local originalSavedItemTypes = {}
+            for i = 0, #PA_SavedVars.Banking[currProfile].ItemTypes do
+                originalSavedItemTypes[i] = PA_SavedVars.Banking[currProfile].ItemTypes[i]
+            end
+
+            PA_SavedVars.Banking[currProfile].ItemTypes = {}
+
+            -- move all ONE down (index starts at 1 now)
+            for i = 1, 23  do
+                local itemTypeId = PAItemTypes[i]   -- i.e. 53
+                PA_SavedVars.Banking[currProfile].ItemTypes[itemTypeId] = originalSavedItemTypes[i - 1]
+            end
+
+            -- create the new entry with default '0'
+            PA_SavedVars.Banking[currProfile].ItemTypes[ITEMTYPE_POISON] = 0
+
+            -- move all TWO downs (index starts at 1 now, and new entry for index 24)
+            for i = 25, 28  do
+                local itemTypeId = PAItemTypes[i]   -- i.e. 41
+                PA_SavedVars.Banking[currProfile].ItemTypes[itemTypeId] = originalSavedItemTypes[i - 2]
+            end
+        end
+
 	end
 	
 	-- finally, update it with the latest addon version

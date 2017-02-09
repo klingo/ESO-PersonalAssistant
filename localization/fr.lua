@@ -43,6 +43,13 @@ ResourceBundle.fr["PAB_ItemType_Deposit"]			= "Déposer"
 ResourceBundle.fr["PAB_ItemType_Withdrawal"]		= "Retirer"
 ResourceBundle.fr["PAB_ItemType_Inherit"]			= "Selon le type d'objet (ci-dessous)"
 
+-- PALoot --
+ResourceBundle.fr["PALo_ItemLooted"] 				= "FR: PALoot: %d x %s" -- TODO: translate
+ResourceBundle.fr["PALo_GoldLooted"] 				= "FR: PALoot: %d gold" -- TODO: translate
+
+ResourceBundle.fr["PALo_ItemType_None"] 		    = "-"
+ResourceBundle.fr["PALo_ItemType_Loot"]             = "FR: Auto-Loot"  -- TODO: translate
+
 -- MainMenu --
 ResourceBundle.fr["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
@@ -70,8 +77,8 @@ ResourceBundle.fr["PARMenu_RepairBaDura"] 			= "- Seuil de durabilité en %"
 ResourceBundle.fr["PARMenu_RepairBaDura_T"] 		= "Réparer les objets dans le sac s'ils sont en-dessous du seuil de durabilité défini."
 ResourceBundle.fr["PARMenu_HideNoRepair"] 			= "Masquer le message 'Rien à réparer'"
 ResourceBundle.fr["PARMenu_HideNoRepair_T"] 		= "Masquer le message 'Rien à réparer'. Vous verrez toujours un message s'il y a quelque chose à réparer."
-ResourceBundle.fr["PARMenu_HideAll"] 				= "Masquer TOUS les messages"
-ResourceBundle.fr["PARMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas le coût de vos réparations."
+ResourceBundle.fr["PARMenu_HideAll"] 				= "Masquer TOUS les messages"   -- TODO: Update translation
+ResourceBundle.fr["PARMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas le coût de vos réparations." -- TODO: Update translation
 
 -- PABMenu --
 ResourceBundle.fr["PABMenu_Header"] 				= "|cFFD700PA B|ranking"
@@ -110,8 +117,8 @@ ResourceBundle.fr["PABMenu_DepItemJunk_T"] 			= "Est-ce que tous les items au re
 ResourceBundle.fr["PABMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
 ResourceBundle.fr["PABMenu_HideNoDeposit"] 			= "Masquer le message 'Rien à déposer'"
 ResourceBundle.fr["PABMenu_HideNoDeposit_T"] 		= "Masquer le message 'Rien à déposer'. Vous verrez un message s'il a quelque chose à déposer."
-ResourceBundle.fr["PABMenu_HideAll"] 				= "Masquer TOUS les messages"
-ResourceBundle.fr["PABMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas vos objets/or déposés."
+ResourceBundle.fr["PABMenu_HideAll"] 				= "Masquer TOUS les messages"   -- TODO: Update translation
+ResourceBundle.fr["PABMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas vos objets/or déposés."  -- TODO: Update translation
 ResourceBundle.fr["PABMenu_DepButton"] 				= "Tout déposer"
 ResourceBundle.fr["PABMenu_DepButton_T"] 			= "Changer toutes les valeurs de menu pour 'Déposer'"
 ResourceBundle.fr["PABMenu_WitButton"] 				= "Tout retirer"
@@ -121,6 +128,29 @@ ResourceBundle.fr["PABMenu_IgnButton_T"] 			= "Changer toutes les valeurs de men
 ResourceBundle.fr["PABMenu_Lockipck_Header"]        = PAC_COL_LIGHT_BLUE.."Crochetages"
 ResourceBundle.fr["PABMenu_Keep_in_Backpack"]       = "Quantité à garder dans le sac à dos"
 ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]     = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
+
+-- PALoMenu --
+ResourceBundle.fr["PALoMenu_Header"] 				= "|cFFD700PA L|root"
+ResourceBundle.fr["PALoMenu_Enable"] 				= "frPALoMenu_Enable"
+ResourceBundle.fr["PALoMenu_Enable_T"] 				= "frPALoMenu_Enable_T"
+ResourceBundle.fr["PALoMenu_LootGold"]              = "frPALoMenu_LootGold"
+ResourceBundle.fr["PALoMenu_LootGold_T"]            = "frPALoMenu_LootGold_T"
+ResourceBundle.fr["PALoMenu_LootItems"]             = "frPALoMenu_LootItems"
+ResourceBundle.fr["PALoMenu_LootItems_T"]           = "frPALoMenu_LootItems_T"
+ResourceBundle.fr["PALoMenu_ItemTypeDesc"] 	        = "frPALoMenu_ItemTypeDesc"
+ResourceBundle.fr["PALoMenu_ItemType"]              = "frPALoMenu_ItemType"
+ResourceBundle.fr["PALoMenu_ItemType_T"]            = "frPALoMenu_ItemType_T"
+ResourceBundle.fr["PALoMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
+ResourceBundle.fr["PALoMenu_LootButton"] 			= "frPALoMenu_LootButton"
+ResourceBundle.fr["PALoMenu_LootButton_T"] 			= "frPALoMenu_LootButton_T"
+ResourceBundle.fr["PALoMenu_IgnButton"] 			= "frPALoMenu_IgnButton"
+ResourceBundle.fr["PALoMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'"
+ResourceBundle.fr["PALoMenu_HideItemLoot"] 			= "frPALoMenu_HideItemLoot"
+ResourceBundle.fr["PALoMenu_HideItemLoot_T"] 		= "frPALoMenu_HideItemLoot_T"
+ResourceBundle.fr["PALoMenu_HideGoldLoot"] 			= "frPALoMenu_HideGoldLoot"
+ResourceBundle.fr["PALoMenu_HideGoldLoot_T"] 		= "frPALoMenu_HideGoldLoot_T"
+ResourceBundle.fr["PALoMenu_HideAll"] 				= "frPALoMenu_HideAll"
+ResourceBundle.fr["PALoMenu_HideAll_T"] 			= "frPALoMenu_HideAll_T"
 
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
@@ -165,11 +195,11 @@ ResourceBundle.fr[ITEMTYPE_CROWN_REPAIR]            = "frITEMTYPE_CROWN_REPAIR"
 ResourceBundle.fr[ITEMTYPE_DEPRECATED]              = "frITEMTYPE_DEPRECATED"
 ResourceBundle.fr[ITEMTYPE_DISGUISE] 				= "frITEMTYPE_DISGUISE"
 ResourceBundle.fr[ITEMTYPE_DRINK] 					= "Boisson"
-ResourceBundle.fr[ITEMTYPE_ENCHANTING_RUNE_ASPECT]	= "Aspect Pierre runique d'Aspect (Enchantement)"
-ResourceBundle.fr[ITEMTYPE_ENCHANTING_RUNE_ESSENCE]	= "Essence Pierre runique d'Essence (Enchantement)"
-ResourceBundle.fr[ITEMTYPE_ENCHANTING_RUNE_POTENCY]	= "Puissance Pierre runique de Puissance (Enchantement)"
+ResourceBundle.fr[ITEMTYPE_ENCHANTING_RUNE_ASPECT]	= "Runes d'aspect (Enchantement)"
+ResourceBundle.fr[ITEMTYPE_ENCHANTING_RUNE_ESSENCE]	= "Runes d'essence (Enchantement)"
+ResourceBundle.fr[ITEMTYPE_ENCHANTING_RUNE_POTENCY]	= "Runes de puissance (Enchantement)"
 ResourceBundle.fr[ITEMTYPE_ENCHANTMENT_BOOSTER] 	= "frITEMTYPE_ENCHANTMENT_BOOSTER"
-ResourceBundle.fr[ITEMTYPE_FISH]                    = "frITEMTYPE_FISH"
+ResourceBundle.fr[ITEMTYPE_FISH]                    = "Poisson"
 ResourceBundle.fr[ITEMTYPE_FLAVORING] 				= "frITEMTYPE_FLAVORING"
 ResourceBundle.fr[ITEMTYPE_FOOD] 					= "Nourriture"
 ResourceBundle.fr[ITEMTYPE_GLYPH_ARMOR] 			= "Glyphe d'armure (Enchantement)"
@@ -184,10 +214,10 @@ ResourceBundle.fr[ITEMTYPE_MIN_VALUE]               = "frITEMTYPE_MIN_VALUE"
 ResourceBundle.fr[ITEMTYPE_MOUNT]					= "frITEMTYPE_MOUNT"
 ResourceBundle.fr[ITEMTYPE_NONE] 					= "frITEMTYPE_NONE"
 ResourceBundle.fr[ITEMTYPE_PLUG] 					= "frITEMTYPE_PLUG"
-ResourceBundle.fr[ITEMTYPE_POISON] 					= "frITEMTYPE_POISON"
-ResourceBundle.fr[ITEMTYPE_POISON_BASE]             = "frITEMTYPE_POISON_BASE"
+ResourceBundle.fr[ITEMTYPE_POISON] 					= "Poison"
+ResourceBundle.fr[ITEMTYPE_POISON_BASE]             = "Solvant à poison (Alchimie)"
 ResourceBundle.fr[ITEMTYPE_POTION] 					= "Potion"
-ResourceBundle.fr[ITEMTYPE_POTION_BASE]             = "frITEMTYPE_POTION_BASE"
+ResourceBundle.fr[ITEMTYPE_POTION_BASE]             = "Solvant pour poison (Alchimie)"
 ResourceBundle.fr[ITEMTYPE_RACIAL_STYLE_MOTIF] 		= "frITEMTYPE_RACIAL_STYLE_MOTIF"
 ResourceBundle.fr[ITEMTYPE_RAW_MATERIAL] 			= "Matériau brut"
 ResourceBundle.fr[ITEMTYPE_REAGENT] 				= "Réactif (Alchimie)"
@@ -199,12 +229,12 @@ ResourceBundle.fr[ITEMTYPE_SPICE] 					= "frITEMTYPE_SPICE"
 ResourceBundle.fr[ITEMTYPE_STYLE_MATERIAL] 			= "Matériau de style"
 ResourceBundle.fr[ITEMTYPE_TABARD] 					= "frITEMTYPE_TABARD"
 ResourceBundle.fr[ITEMTYPE_TOOL] 					= "Outil"
-ResourceBundle.fr[ITEMTYPE_TRASH]					= "Camelote"
+ResourceBundle.fr[ITEMTYPE_TRASH]					= "Déchet"
 ResourceBundle.fr[ITEMTYPE_TREASURE]                = "frITEMTYPE_TREASURE"
 ResourceBundle.fr[ITEMTYPE_TROPHY] 					= "Trophée"
 ResourceBundle.fr[ITEMTYPE_WEAPON] 					= "frITEMTYPE_WEAPON"
 ResourceBundle.fr[ITEMTYPE_WEAPON_BOOSTER] 			= "frITEMTYPE_WEAPON_BOOSTER"
-ResourceBundle.fr[ITEMTYPE_WEAPON_TRAIT] 			= "Caractéristique d'arme"
+ResourceBundle.fr[ITEMTYPE_WEAPON_TRAIT] 			= "Trait d'arme"
 ResourceBundle.fr[ITEMTYPE_WOODWORKING_BOOSTER] 	= "Résine (Travail du bois)"
 ResourceBundle.fr[ITEMTYPE_WOODWORKING_MATERIAL] 	= "Matériau (Travail du bois)"
 ResourceBundle.fr[ITEMTYPE_WOODWORKING_RAW_MATERIAL] = "Matériau brut (Travail du bois)"

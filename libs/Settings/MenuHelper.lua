@@ -1,5 +1,6 @@
 MenuHelper = {}
 
+-- PA Banking
 function MenuHelper.setDepositAll()
 	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_DEPOSIT)
 end
@@ -12,15 +13,38 @@ function MenuHelper.setIgnoreAll()
 	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_IGNORE)
 end
 
+-- PA Loot
+function MenuHelper.setAutoLootAll()
+    MenuHelper.setLootDropdownsTo(PAC_ITEMTYPE_LOOT)
+end
+
+function MenuHelper.setIgnoreLootAll()
+    MenuHelper.setLootDropdownsTo(PAC_ITEMTYPE_IGNORE)
+end
+
+-- --------------------------------------------------------------------------------------------------------
+
 function MenuHelper.setDropdownsTo(itemTypeKey)
 	local profileNo = PA_SavedVars.General.activeProfile
-	for i = 0, #PAItemTypes do
+	for i = 1, #PAItemTypes do
 		-- only if the itemType is enabled
 		if PAItemTypes[i] ~= "" then
-			PA_SavedVars.Banking[profileNo].ItemTypes[i] = itemTypeKey
+			PA_SavedVars.Banking[profileNo].ItemTypes[PAItemTypes[i]] = itemTypeKey
 		end
 	end
 end
+
+function MenuHelper.setLootDropdownsTo(itemTypeKey)
+    local profileNo = PA_SavedVars.General.activeProfile
+    for i = 1, #PALoItemTypes do
+        -- only if the itemType is enabled
+        if PALoItemTypes[i] ~= "" then
+            PA_SavedVars.Loot[profileNo].ItemTypes[PALoItemTypes[i]] = itemTypeKey
+        end
+    end
+end
+
+-- --------------------------------------------------------------------------------------------------------
 
 function MenuHelper.loadProfile(profileText)
 	-- first update the active profile in the savedVars
@@ -35,7 +59,6 @@ end
 function MenuHelper.loadProfileNumber(profileNumber)
 	PA_SavedVars.General.activeProfile = profileNumber
 end
-
 
 -- --------------------------------------------------------------------------------------------------------
 
@@ -133,6 +156,28 @@ function MenuHelper.getStackTypeNumberFromText(text)
 	else
 		return PAB_STACKING_FULL
 	end
+end
+
+-- --------------------------------------------------------------------------------------------------------
+
+-- returns the matching dropdown-text based on the number that is behind it
+function MenuHelper.getLootTextFromNumber(number)
+    local profileNo = PA_SavedVars.General.activeProfile
+    local index = PA_SavedVars.Loot[profileNo].ItemTypes[number]
+    if index == PAC_ITEMTYPE_LOOT then
+        return PAL.getResourceMessage("PALo_ItemType_Loot")
+    else
+        return PAL.getResourceMessage("PALo_ItemType_None")
+    end
+end
+
+-- returns the number behind the text, depending on the text
+function MenuHelper.getLootNumberFromText(text)
+    if text == PAL.getResourceMessage("PALo_ItemType_Loot") then
+        return PAC_ITEMTYPE_LOOT		-- = Auto-Loot
+    else
+        return PAC_ITEMTYPE_IGNORE		-- = Ignore
+    end
 end
 
 -- --------------------------------------------------------------------------------------------------------

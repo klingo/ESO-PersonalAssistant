@@ -34,7 +34,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 		
 		if (transferInfo[checkItemId]["operator"] ~= PAC_OPERATOR_NONE) then
 			for currBackpackItem = 0, #backpackItemNameList do
-				if (tostring(PAB_AdvancedItems.getItemId(BAG_BACKPACK, currBackpackItem)) == tostring(checkItemId)) then
+				if (GetItemId(BAG_BACKPACK, currBackpackItem) == checkItemId) then
 					-- create a new row in the table
 					transferInfo[currRowIndex] = {}
 					transferInfo[currRowIndex]["fromItemName"] = backpackItemNameList[currBackpackItem]
@@ -56,7 +56,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 			end
 			
 			for currBankItem = 0, #bankItemNameList do
-				if (tostring(PAB_AdvancedItems.getItemId(BAG_BANK, currBankItem)) == tostring(checkItemId)) then
+				if (GetItemId(BAG_BANK, currBankItem) == checkItemId) then
 					-- create a new row in the table
 					transferInfo[currRowIndex] = {}
 					transferInfo[currRowIndex]["fromItemName"] = bankItemNameList[currBankItem]
@@ -197,10 +197,4 @@ function PAB_AdvancedItems.getBestToBagSlotIndex(transferInfo, checkItemId)
 	
 	-- if there was nothing returned so far, start a new stack
 	return nil
-end
-
-function PAB_AdvancedItems.getItemId(bagId, slotIndex)
-	local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_DEFAULT)
-	local _, _, _, itemId, _, _, _, _, _, _, _ , _, _, _, _, _, _, _, _, _, _, _, _ = ZO_LinkHandler_ParseLink(itemLink)
-	return itemId
 end
