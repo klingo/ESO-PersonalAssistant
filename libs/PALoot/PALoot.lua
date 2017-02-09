@@ -3,7 +3,6 @@
 -- User: Klingo
 -- Date: 06.02.2017
 -- Time: 20:00
--- To change this template use File | Settings | File Templates.
 --
 
 PALo = {}
