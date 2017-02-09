@@ -191,16 +191,16 @@ function MenuHelper.getProfileList()
 end
 
 function MenuHelper.getProfileTextFromNumber(number)
-	local activeProfile = PA_SavedVars.General.activeProfile
+	local profileNo = PA_SavedVars.General.activeProfile
 	if (number ~= nil) then
-		activeProfile = number
+		profileNo = number
 	end
 	
 	return PA_SavedVars.Profiles[profileNo].name
 end
 
 function MenuHelper.getDefaultProfileName(profileNo)
-	if activeProfile == 2 then
+	if profileNo == 2 then
 		return PAL.getResourceMessage("PAG_Profile2")
 	elseif profileNo == 3 then
 		return PAL.getResourceMessage("PAG_Profile3")
