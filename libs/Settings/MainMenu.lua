@@ -33,6 +33,7 @@ end
 
 function PA_SettingsMenu.createMainMenu()
 
+    local activeProfile = PA_SavedVars.General.activeProfile
 	local tableIndex = 1
 
 	optionsTable[tableIndex] = {
@@ -58,7 +59,7 @@ function PA_SettingsMenu.createMainMenu()
 		type = "editbox",
 		name = PAL.getResourceMessage("PAGMenu_ActiveProfileRename"),
 		tooltip = PAL.getResourceMessage("PAGMenu_ActiveProfileRename_T"),
-		getFunc = function() return PA_SavedVars.Profiles[PA_SavedVars.General.activeProfile].name end,
+		getFunc = function() return PA_SavedVars.Profiles[activeProfile].name end,
 		setFunc = function(value) MenuHelper.renameProfile(tostring(value)) end,
 		isMultiline = false,
 		width = "half",
@@ -71,8 +72,8 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PAGMenu_Welcome"),
 		tooltip = PAL.getResourceMessage("PAGMenu_Welcome_T"),
-		getFunc = function() return PA_SavedVars.General[PA_SavedVars.General.activeProfile].welcome end,
-		setFunc = function(value) PA_SavedVars.General[PA_SavedVars.General.activeProfile].welcome = value end,
+		getFunc = function() return PA_SavedVars.General[activeProfile].welcome end,
+		setFunc = function(value) PA_SavedVars.General[activeProfile].welcome = value end,
 		default = true,
 	}
 	tableIndex = tableIndex + 1
@@ -92,8 +93,8 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PARMenu_Enable"),
 		tooltip = PAL.getResourceMessage("PARMenu_Enable_T"),
-		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
-		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled = value end,
+		getFunc = function() return PA_SavedVars.Repair[activeProfile].enabled end,
+		setFunc = function(value) PA_SavedVars.Repair[activeProfile].enabled = value end,
 		default = true,
 	}
 	tableIndex = tableIndex + 1
@@ -102,10 +103,10 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PARMenu_RepairEq"),
 		tooltip = PAL.getResourceMessage("PARMenu_RepairEq_T"),
-		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped end,
-		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped = value end,
+		getFunc = function() return PA_SavedVars.Repair[activeProfile].equipped end,
+		setFunc = function(value) PA_SavedVars.Repair[activeProfile].equipped = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
+		disabled = function() return not PA_SavedVars.Repair[activeProfile].enabled end,
 		default = true,
 	}
 	tableIndex = tableIndex + 1
@@ -117,10 +118,10 @@ function PA_SettingsMenu.createMainMenu()
 		min = 0,
 		max = 100,
 		step = 1,
-		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equippedThreshold end,
-		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equippedThreshold = value end,
+		getFunc = function() return PA_SavedVars.Repair[activeProfile].equippedThreshold end,
+		setFunc = function(value) PA_SavedVars.Repair[activeProfile].equippedThreshold = value end,
 		width = "half",		
-		disabled = function() return not (PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped and PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled) end,
+		disabled = function() return not (PA_SavedVars.Repair[activeProfile].equipped and PA_SavedVars.Repair[activeProfile].enabled) end,
 		default = 75,
 	}
 	tableIndex = tableIndex + 1
@@ -129,10 +130,10 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PARMenu_RepairBa"),
 		tooltip = PAL.getResourceMessage("PARMenu_RepairBa_T"),
-		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack end,
-		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack = value end,
+		getFunc = function() return PA_SavedVars.Repair[activeProfile].backpack end,
+		setFunc = function(value) PA_SavedVars.Repair[activeProfile].backpack = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
+		disabled = function() return not PA_SavedVars.Repair[activeProfile].enabled end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -144,10 +145,10 @@ function PA_SettingsMenu.createMainMenu()
 		min = 0,
 		max = 100,
 		step = 1,
-		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpackThreshold end,
-		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpackThreshold = value end,
+		getFunc = function() return PA_SavedVars.Repair[activeProfile].backpackThreshold end,
+		setFunc = function(value) PA_SavedVars.Repair[activeProfile].backpackThreshold = value end,
 		width = "half",		
-		disabled = function() return not (PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack and PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled) end,
+		disabled = function() return not (PA_SavedVars.Repair[activeProfile].backpack and PA_SavedVars.Repair[activeProfile].enabled) end,
 		default = 75,
 	}
 	tableIndex = tableIndex + 1
@@ -156,10 +157,10 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PARMenu_HideNoRepair"),
 		tooltip = PAL.getResourceMessage("PARMenu_HideNoRepair_T"),
-		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg end,
-		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg = value end,
+		getFunc = function() return PA_SavedVars.Repair[activeProfile].hideNoRepairMsg end,
+		setFunc = function(value) PA_SavedVars.Repair[activeProfile].hideNoRepairMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
+		disabled = function() return not PA_SavedVars.Repair[activeProfile].enabled end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -168,10 +169,10 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PARMenu_HideAll"),
 		tooltip = PAL.getResourceMessage("PARMenu_HideAll_T"),
-		getFunc = function() return PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg end,
-		setFunc = function(value) PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg = value end,
+		getFunc = function() return PA_SavedVars.Repair[activeProfile].hideAllMsg end,
+		setFunc = function(value) PA_SavedVars.Repair[activeProfile].hideAllMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled end,
+		disabled = function() return not PA_SavedVars.Repair[activeProfile].enabled end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -191,8 +192,8 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PABMenu_Enable"),
 		tooltip = PAL.getResourceMessage("PABMenu_Enable_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled = value end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].enabled end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].enabled = value end,
 		default = true,
 	}
 	tableIndex = tableIndex + 1
@@ -201,9 +202,9 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PABMenu_DepGold"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepGold_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold = value end,
-		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].gold end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].gold = value end,
+		disabled = function() return not PA_SavedVars.Banking[activeProfile].enabled end,
 		default = true,
 	}
 	tableIndex = tableIndex + 1
@@ -212,10 +213,10 @@ function PA_SettingsMenu.createMainMenu()
 		type = "editbox",
 		name = PAL.getResourceMessage("PABMenu_DepInterval"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepInterval_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositInterval end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositInterval = tonumber(value) end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].goldDepositInterval end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].goldDepositInterval = tonumber(value) end,
 		isMultiline = false,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].gold) end,
 		warning = PAL.getResourceMessage("PABMenu_DepInterval_W"),
 		default = 300,
 	}
@@ -228,9 +229,9 @@ function PA_SettingsMenu.createMainMenu()
 		min = 1,
 		max = 100,
 		step = 1,
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositPercentage end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldDepositPercentage = value end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].goldDepositPercentage end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].goldDepositPercentage = value end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].gold) end,
 		default = 50,
 	}
 	tableIndex = tableIndex + 1
@@ -240,9 +241,9 @@ function PA_SettingsMenu.createMainMenu()
 		name = PAL.getResourceMessage("PABMenu_DepGoldSteps"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepGoldSteps_T"),
 		choices = {"1", "10", "100", "1000", "10000"},
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldTransactionStep = value end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].goldTransactionStep end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].goldTransactionStep = value end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].gold) end,
 		default = "1",
 	}
 	tableIndex = tableIndex + 1
@@ -251,10 +252,10 @@ function PA_SettingsMenu.createMainMenu()
 		type = "editbox",
 		name = PAL.getResourceMessage("PABMenu_DepGoldKeep"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepGoldKeep_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldMinToKeep end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldMinToKeep = tonumber(value) end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].goldMinToKeep end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].goldMinToKeep = tonumber(value) end,
 		isMultiline = false,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].gold) end,
 		warning = PAL.getResourceMessage("PABMenu_DepGoldKeep_W"),
 		default = "250",
 	}
@@ -264,9 +265,9 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PABMenu_WitGoldMin"),
 		tooltip = PAL.getResourceMessage("PABMenu_WitGoldMin_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldWithdraw end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].goldWithdraw = value end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].gold) end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].goldWithdraw end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].goldWithdraw = value end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].gold) end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -275,9 +276,9 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PABMenu_DepWitItem"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepWitItem_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items = value end,
-		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].items end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].items = value end,
+		disabled = function() return not PA_SavedVars.Banking[activeProfile].enabled end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -311,9 +312,9 @@ function PA_SettingsMenu.createMainMenu()
 		min = 200,
 		max = 1000,
 		step = 50,
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsTimerInterval = value end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].itemsTimerInterval end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].itemsTimerInterval = value end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
 		default = 300,
 	}
 	tableIndex = tableIndex + 1
@@ -322,10 +323,10 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PABMenu_HideNoDeposit"),
 		tooltip = PAL.getResourceMessage("PABMenu_HideNoDeposit_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideNoDepositMsg end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideNoDepositMsg = value end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].hideNoDepositMsg end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].hideNoDepositMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
+		disabled = function() return not PA_SavedVars.Banking[activeProfile].enabled end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -334,13 +335,14 @@ function PA_SettingsMenu.createMainMenu()
 		type = "checkbox",
 		name = PAL.getResourceMessage("PABMenu_HideAll"),
 		tooltip = PAL.getResourceMessage("PABMenu_HideAll_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideAllMsg end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].hideAllMsg = value end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].hideAllMsg end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].hideAllMsg = value end,
 		width = "half",
-		disabled = function() return not PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled end,
+		disabled = function() return not PA_SavedVars.Banking[activeProfile].enabled end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
+
 
     -- =================================================================================================================
 
@@ -357,8 +359,8 @@ function PA_SettingsMenu.createMainMenu()
         type = "checkbox",
         name = PAL.getResourceMessage("PALoMenu_Enable"),
         tooltip = PAL.getResourceMessage("PALoMenu_Enable_T"),
-        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
-        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled = value end,
+        getFunc = function() return PA_SavedVars.Loot[activeProfile].enabled end,
+        setFunc = function(value) PA_SavedVars.Loot[activeProfile].enabled = value end,
         default = false,
     }
     tableIndex = tableIndex + 1
@@ -367,10 +369,10 @@ function PA_SettingsMenu.createMainMenu()
         type = "checkbox",
         name = PAL.getResourceMessage("PALoMenu_LootGold"),
         tooltip = PAL.getResourceMessage("PALoMenu_LootGold_T"),
-        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootGold end,
-        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootGold = value end,
+        getFunc = function() return PA_SavedVars.Loot[activeProfile].lootGold end,
+        setFunc = function(value) PA_SavedVars.Loot[activeProfile].lootGold = value end,
         width = "half",
-        disabled = function() return not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
+        disabled = function() return not PA_SavedVars.Loot[activeProfile].enabled end,
         default = true,
     }
     tableIndex = tableIndex + 1
@@ -379,10 +381,10 @@ function PA_SettingsMenu.createMainMenu()
         type = "checkbox",
         name = PAL.getResourceMessage("PALoMenu_LootItems"),
         tooltip = PAL.getResourceMessage("PALoMenu_LootItems_T"),
-        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems end,
-        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems = value end,
+        getFunc = function() return PA_SavedVars.Loot[activeProfile].lootItems end,
+        setFunc = function(value) PA_SavedVars.Loot[activeProfile].lootItems = value end,
         width = "half",
-        disabled = function() return not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
+        disabled = function() return not PA_SavedVars.Loot[activeProfile].enabled end,
         default = true,
     }
     tableIndex = tableIndex + 1
@@ -405,10 +407,10 @@ function PA_SettingsMenu.createMainMenu()
         type = "checkbox",
         name = PAL.getResourceMessage("PALoMenu_HideGoldLoot"),
         tooltip = PAL.getResourceMessage("PALoMenu_HideGoldLoot_T"),
-        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideGoldLootMsg end,
-        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideGoldLootMsg = value end,
+        getFunc = function() return PA_SavedVars.Loot[activeProfile].hideGoldLootMsg end,
+        setFunc = function(value) PA_SavedVars.Loot[activeProfile].hideGoldLootMsg = value end,
         width = "half",
-        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootGold) end,
+        disabled = function() return not (PA_SavedVars.Loot[activeProfile].enabled and PA_SavedVars.Loot[activeProfile].lootGold) end,
         default = false,
     }
     tableIndex = tableIndex + 1
@@ -417,10 +419,10 @@ function PA_SettingsMenu.createMainMenu()
         type = "checkbox",
         name = PAL.getResourceMessage("PALoMenu_HideItemLoot"),
         tooltip = PAL.getResourceMessage("PALoMenu_HideItemLoot_T"),
-        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideItemLootMsg end,
-        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideItemLootMsg = value end,
+        getFunc = function() return PA_SavedVars.Loot[activeProfile].hideItemLootMsg end,
+        setFunc = function(value) PA_SavedVars.Loot[activeProfile].hideItemLootMsg = value end,
         width = "half",
-        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+        disabled = function() return not (PA_SavedVars.Loot[activeProfile].enabled and PA_SavedVars.Loot[activeProfile].lootItems) end,
         default = false,
     }
     tableIndex = tableIndex + 1
@@ -429,17 +431,85 @@ function PA_SettingsMenu.createMainMenu()
         type = "checkbox",
         name = PAL.getResourceMessage("PALoMenu_HideAll"),
         tooltip = PAL.getResourceMessage("PALoMenu_HideAll_T"),
-        getFunc = function() return PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideAllMsg end,
-        setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideAllMsg = value end,
+        getFunc = function() return PA_SavedVars.Loot[activeProfile].hideAllMsg end,
+        setFunc = function(value) PA_SavedVars.Loot[activeProfile].hideAllMsg = value end,
         width = "half",
-        disabled = function() return not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled end,
+        disabled = function() return not PA_SavedVars.Loot[activeProfile].enabled end,
+        default = false,
+    }
+    tableIndex = tableIndex + 1
+
+    -- =================================================================================================================
+
+    -- ------------------------- --
+    -- PersonalAssistant Junk --
+    -- ------------------------- --
+    optionsTable[tableIndex] = {
+        type = "header",
+        name = PAL.getResourceMessage("PAJMenu_Header"),
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PAJMenu_Enable"),
+        tooltip = PAL.getResourceMessage("PAJMenu_Enable_T"),
+        getFunc = function() return PA_SavedVars.Junk[activeProfile].enabled end,
+        setFunc = function(value) PA_SavedVars.Junk[activeProfile].enabled = value end,
+        default = false,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PAJMenu_AutoSellJunk"),
+        tooltip = PAL.getResourceMessage("PAJMenu_AutoSellJunk_T"),
+        getFunc = function() return PA_SavedVars.Junk[activeProfile].autoSellJunk end,
+        setFunc = function(value) PA_SavedVars.Junk[activeProfile].autoSellJunk = value end,
+        disabled = function() return not PA_SavedVars.Junk[activeProfile].enabled end,
+        default = true,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "description",
+        text = PAL.getResourceMessage("PAJMenu_ItemTypeDesc"),
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PAJMenu_AutoMarkTrash"),
+        tooltip = PAL.getResourceMessage("PAJMenu_AutoMarkTrash_T"),
+        getFunc = function() return PA_SavedVars.Junk[activeProfile].autoMarkTrash end,
+        setFunc = function(value) PA_SavedVars.Junk[activeProfile].autoMarkTrash = value end,
+        disabled = function() return not PA_SavedVars.Junk[activeProfile].enabled end,
+        default = true,
+    }
+    tableIndex = tableIndex + 1
+
+    optionsTable[tableIndex] = {
+        type = "checkbox",
+        name = PAL.getResourceMessage("PAJMenu_HideAll"),
+        tooltip = PAL.getResourceMessage("PAJMenu_HideAll_T"),
+        getFunc = function() return PA_SavedVars.Junk[activeProfile].hideAllMsg end,
+        setFunc = function(value) PA_SavedVars.Junk[activeProfile].hideAllMsg = value end,
+        width = "half",
+        disabled = function() return not PA_SavedVars.Junk[activeProfile].enabled end,
         default = false,
     }
     tableIndex = tableIndex + 1
 
 end
 
+
+-- =================================================================================================================
+-- =================================================================================================================
+
+
 function PA_SettingsMenu.createPABItemSubMenu()
+
+    local activeProfile = PA_SavedVars.General.activeProfile
 	local tableIndex = 1
 		
 	PABItemTypeSubmenuTable[tableIndex] = {
@@ -447,10 +517,10 @@ function PA_SettingsMenu.createPABItemSubMenu()
 		name = PAL.getResourceMessage("PABMenu_DepStackOnly"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepStackOnly_T"),
 		choices = {PAL.getResourceMessage("ST_MoveAllFull"), PAL.getResourceMessage("ST_MoveExistingFull"), PAL.getResourceMessage("ST_FillIncompleteOnly")},
-		getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackType) end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsDepStackType = MenuHelper.getStackTypeNumberFromText(value) end,
+		getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA_SavedVars.Banking[activeProfile].itemsDepStackType) end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].itemsDepStackType = MenuHelper.getStackTypeNumberFromText(value) end,
 		width = "half",
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -460,10 +530,10 @@ function PA_SettingsMenu.createPABItemSubMenu()
 		name = PAL.getResourceMessage("PABMenu_WitStackOnly"),
 		tooltip = PAL.getResourceMessage("PABMenu_WitStackOnly_T"),
 		choices = {PAL.getResourceMessage("ST_MoveAllFull"), PAL.getResourceMessage("ST_MoveExistingFull"), PAL.getResourceMessage("ST_FillIncompleteOnly")},
-		getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackType) end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsWitStackType = MenuHelper.getStackTypeNumberFromText(value) end,
+		getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA_SavedVars.Banking[activeProfile].itemsWitStackType) end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].itemsWitStackType = MenuHelper.getStackTypeNumberFromText(value) end,
 		width = "half",
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
 		default = false,
 	}
 	tableIndex = tableIndex + 1
@@ -480,8 +550,8 @@ function PA_SettingsMenu.createPABItemSubMenu()
 		tooltip = PAL.getResourceMessage("PABMenu_DepItemJunk_T"),
 		choices = {PAL.getResourceMessage("PAB_ItemType_None"), PAL.getResourceMessage("PAB_ItemType_Deposit"), PAL.getResourceMessage("PAB_ItemType_Withdrawal"), PAL.getResourceMessage("PAB_ItemType_Inherit")},
 		getFunc = function() return MenuHelper.getBankingTextFromNumber() end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].itemsJunkSetting = MenuHelper.getBankingNumberFromText(value) end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].itemsJunkSetting = MenuHelper.getBankingNumberFromText(value) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
 		default = PAL.getResourceMessage("PAB_ItemType_None"),
 	}
 	tableIndex = tableIndex + 1
@@ -501,9 +571,9 @@ function PA_SettingsMenu.createPABItemSubMenu()
 				tooltip = "",
 				choices = {PAL.getResourceMessage("PAB_ItemType_None"), PAL.getResourceMessage("PAB_ItemType_Deposit"), PAL.getResourceMessage("PAB_ItemType_Withdrawal")},
 				getFunc = function() return MenuHelper.getBankingTextFromNumber(PAItemTypes[i]) end,
-				setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypes[PAItemTypes[i]] = MenuHelper.getBankingNumberFromText(value) end,
+				setFunc = function(value) PA_SavedVars.Banking[activeProfile].ItemTypes[PAItemTypes[i]] = MenuHelper.getBankingNumberFromText(value) end,
 				width = "half",
-				disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+				disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
 				default = PAL.getResourceMessage("PAB_ItemType_None"),
 			}
             tableIndex = tableIndex + 1
@@ -518,7 +588,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
 		name = PAL.getResourceMessage("PABMenu_DepButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_DepButton_T"),
 		func = function() MenuHelper.setDepositAll() end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
     }
     tableIndex = tableIndex + 1
 
@@ -527,7 +597,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
 		name = PAL.getResourceMessage("PABMenu_WitButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_WitButton_T"),
 		func = function() MenuHelper.setWithdrawalAll() end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
     }
     tableIndex = tableIndex + 1
 
@@ -536,11 +606,17 @@ function PA_SettingsMenu.createPABItemSubMenu()
 		name = PAL.getResourceMessage("PABMenu_IgnButton"),
 		tooltip = PAL.getResourceMessage("PABMenu_IgnButton_T"),
 		func = function() MenuHelper.setIgnoreAll() end,
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
 	}
 end
 
+
+-- =================================================================================================================
+
+
 function PA_SettingsMenu.createPABItemAdvancedSubMenu()
+
+    local activeProfile = PA_SavedVars.General.activeProfile
 	local tableIndex = 1
 	
 	local advancedItemIndex = 0		-- 0 = Lockpick
@@ -558,9 +634,9 @@ function PA_SettingsMenu.createPABItemAdvancedSubMenu()
 		choices = {PAL.getResourceMessage("REL_None"), PAL.getResourceMessage("REL_Equal"), PAL.getResourceMessage("REL_LessThanEqual"), PAL.getResourceMessage("REL_GreaterThanEqual")},
 		-- choices = {PAL.getResourceMessage("REL_None"), PAL.getResourceMessage("REL_Equal"), PAL.getResourceMessage("REL_LessThan"), PAL.getResourceMessage("REL_LessThanEqual"), PAL.getResourceMessage("REL_GreaterThan"), PAL.getResourceMessage("REL_GreaterThanEqual")},
 		getFunc = function() return MenuHelper.getOperatorTextFromNumber(advancedItemIndex) end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Key = MenuHelper.getOperatorNumberFromText(value) end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].ItemTypesAdvanced[advancedItemIndex].Key = MenuHelper.getOperatorNumberFromText(value) end,
 		width = "half",
-		disabled = function() return not (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].items) end,
+		disabled = function() return not (PA_SavedVars.Banking[activeProfile].enabled and PA_SavedVars.Banking[activeProfile].items) end,
 		default = PAL.getResourceMessage("REL_None"),
 	}
 	tableIndex = tableIndex +1
@@ -569,18 +645,24 @@ function PA_SettingsMenu.createPABItemAdvancedSubMenu()
 		type = "editbox",
 		name = PAL.getResourceMessage("PABMenu_Keep_in_Backpack"),
 		tooltip = PAL.getResourceMessage("PABMenu_Keep_in_Backpack_T"),
-		getFunc = function() return PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Value end,
-		setFunc = function(value) PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Value = tonumber(value) end,
+		getFunc = function() return PA_SavedVars.Banking[activeProfile].ItemTypesAdvanced[advancedItemIndex].Value end,
+		setFunc = function(value) PA_SavedVars.Banking[activeProfile].ItemTypesAdvanced[advancedItemIndex].Value = tonumber(value) end,
 		isMultiline = false,
 		width = "half",
-		disabled = function() return (PA_SavedVars.Banking[PA_SavedVars.General.activeProfile].ItemTypesAdvanced[advancedItemIndex].Key == PAC_OPERATOR_NONE) end,
+		disabled = function() return (PA_SavedVars.Banking[activeProfile].ItemTypesAdvanced[advancedItemIndex].Key == PAC_OPERATOR_NONE) end,
 		default = 100,
 	}
 	tableIndex = tableIndex +1
 
 end
 
+
+-- =================================================================================================================
+
+
 function PA_SettingsMenu.createPALoItemSubMenu()
+
+    local activeProfile = PA_SavedVars.General.activeProfile
     local tableIndex = 1
 
     PALoItemTypeSubmenuTable[tableIndex] = {
@@ -598,9 +680,9 @@ function PA_SettingsMenu.createPALoItemSubMenu()
                 tooltip = "",
                 choices = {PAL.getResourceMessage("PALo_ItemType_None"), PAL.getResourceMessage("PALo_ItemType_Loot")},
                 getFunc = function() return MenuHelper.getLootTextFromNumber(PALoItemTypes[i]) end,
-                setFunc = function(value) PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].ItemTypes[PALoItemTypes[i]] = MenuHelper.getLootNumberFromText(value) end,
+                setFunc = function(value) PA_SavedVars.Loot[activeProfile].ItemTypes[PALoItemTypes[i]] = MenuHelper.getLootNumberFromText(value) end,
                 width = "half",
-                disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+                disabled = function() return not (PA_SavedVars.Loot[activeProfile].enabled and PA_SavedVars.Loot[activeProfile].lootItems) end,
                 default = PAL.getResourceMessage("PALo_ItemType_None"),
             }
             tableIndex = tableIndex + 1
@@ -615,7 +697,7 @@ function PA_SettingsMenu.createPALoItemSubMenu()
         name = PAL.getResourceMessage("PALoMenu_LootButton"),
         tooltip = PAL.getResourceMessage("PALoMenu_LootButton_T"),
         func = function() MenuHelper.setAutoLootAll() end,
-        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+        disabled = function() return not (PA_SavedVars.Loot[activeProfile].enabled and PA_SavedVars.Loot[activeProfile].lootItems) end,
     }
     tableIndex = tableIndex + 1
 
@@ -624,7 +706,7 @@ function PA_SettingsMenu.createPALoItemSubMenu()
         name = PAL.getResourceMessage("PALoMenu_IgnButton"),
         tooltip = PAL.getResourceMessage("PALoMenu_IgnButton_T"),
         func = function() MenuHelper.setIgnoreLootAll() end,
-        disabled = function() return not (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled and PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems) end,
+        disabled = function() return not (PA_SavedVars.Loot[activeProfile].enabled and PA_SavedVars.Loot[activeProfile].lootItems) end,
     }
 
 end

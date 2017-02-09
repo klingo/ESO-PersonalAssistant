@@ -156,6 +156,18 @@ ResourceBundle.en["PALoMenu_HideGoldLoot_T"] 		= "Hide 'Gold looted' message. Yo
 ResourceBundle.en["PALoMenu_HideAll"] 				= "Hide ALL loot messages"
 ResourceBundle.en["PALoMenu_HideAll_T"] 			= "Silent-Mode: No loot message (items and currencies) will be displayed."
 
+-- PAJMenu --
+ResourceBundle.en["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
+ResourceBundle.en["PAJMenu_Enable"] 				= "|cB0B0FFEnable Auto Junk|r"
+ResourceBundle.en["PAJMenu_Enable_T"] 				= "Enable Auto Junk?"
+ResourceBundle.en["PAJMenu_ItemTypeDesc"]           = "Enable and disable the automatic marking as junk for different item types."
+ResourceBundle.en["PAJMenu_AutoSellJunk"]           = "Auto-Sell Junk?"
+ResourceBundle.en["PAJMenu_AutoSellJunk_T"]         = "Automatically sell all items marked as junk?"
+ResourceBundle.en["PAJMenu_AutoMarkTrash"]          = "Auto-Mark ["..ResourceBundle.en[ITEMTYPE_TRASH].."]"
+ResourceBundle.en["PAJMenu_AutoMarkTrash_T"]        = "Automatically mark items of type ["..ResourceBundle.en[ITEMTYPE_TRASH].."] as junk?"
+ResourceBundle.en["PAJMenu_HideAll"] 				= "Hide ALL junk messages"
+ResourceBundle.en["PAJMenu_HideAll_T"] 			    = "Silent-Mode: No junk message will be displayed."
+
 -- Name Spaces --
 ResourceBundle.en["NS_Bag_Equipment"]				= ""	-- not required so far
 ResourceBundle.en["NS_Bag_Equipped"]				= "equipped"

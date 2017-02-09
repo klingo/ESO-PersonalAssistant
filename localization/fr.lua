@@ -156,6 +156,18 @@ ResourceBundle.fr["PALoMenu_HideGoldLoot_T"] 		= "frPALoMenu_HideGoldLoot_T" -- 
 ResourceBundle.fr["PALoMenu_HideAll"] 				= "frPALoMenu_HideAll" -- TODO: translate
 ResourceBundle.fr["PALoMenu_HideAll_T"] 			= "frPALoMenu_HideAll_T" -- TODO: translate
 
+-- PAJMenu --
+ResourceBundle.fr["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
+ResourceBundle.fr["PAJMenu_Enable"] 				= "|cB0B0FFAktiviere Auto Junk|r" -- TODO: translate
+ResourceBundle.fr["PAJMenu_Enable_T"] 				= "frPAJMenu_Enable_T" -- TODO: translate
+ResourceBundle.fr["PAJMenu_ItemTypeDesc"]           = "frPAJMenu_ItemTypeDesc" -- TODO: translate
+ResourceBundle.fr["PAJMenu_AutoSellJunk"]           = "frPAJMenu_AutoSellJunk" -- TODO: translate
+ResourceBundle.fr["PAJMenu_AutoSellJunk_T"]         = "frPAJMenu_AutoSellJunk_T" -- TODO: translate
+ResourceBundle.fr["PAJMenu_AutoMarkTrash"]          = "frPAJMenu_AutoMarkTrash" -- TODO: translate
+ResourceBundle.fr["PAJMenu_AutoMarkTrash_T"]        = "frPAJMenu_AutoMarkTrash_T" -- TODO: translate
+ResourceBundle.fr["PAJMenu_HideAll"] 				= "frPAJMenu_HideAll" -- TODO: translate
+ResourceBundle.fr["PAJMenu_HideAll_T"] 			    = "frPAJMenu_HideAll_T" -- TODO: translate
+
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
 ResourceBundle.fr["NS_Bag_Equipped"]				= "équipés"

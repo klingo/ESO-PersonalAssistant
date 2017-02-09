@@ -156,6 +156,18 @@ ResourceBundle.de["PALoMenu_HideGoldLoot_T"] 		= "Blendet die Meldung 'Gold gepl
 ResourceBundle.de["PALoMenu_HideAll"] 				= "Blende ALLE Plünder-Meldungen aus"
 ResourceBundle.de["PALoMenu_HideAll_T"] 			= "Ruhe-Modus: Keine Plünder-Medungen (Gold und Gegenstände) werden mehr angezeigt."
 
+-- PAJMenu --
+ResourceBundle.de["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
+ResourceBundle.de["PAJMenu_Enable"] 				= "|cB0B0FFAktiviere Auto Junk|r" -- TODO: translate
+ResourceBundle.de["PAJMenu_Enable_T"] 				= "dePAJMenu_Enable_T" -- TODO: translate
+ResourceBundle.de["PAJMenu_ItemTypeDesc"]           = "dePAJMenu_ItemTypeDesc" -- TODO: translate
+ResourceBundle.de["PAJMenu_AutoSellJunk"]           = "dePAJMenu_AutoSellJunk" -- TODO: translate
+ResourceBundle.de["PAJMenu_AutoSellJunk_T"]         = "dePAJMenu_AutoSellJunk_T" -- TODO: translate
+ResourceBundle.de["PAJMenu_AutoMarkTrash"]          = "dePAJMenu_AutoMarkTrash" -- TODO: translate
+ResourceBundle.de["PAJMenu_AutoMarkTrash_T"]        = "dePAJMenu_AutoMarkTrash_T" -- TODO: translate
+ResourceBundle.de["PAJMenu_HideAll"] 				= "dePAJMenu_HideAll" -- TODO: translate
+ResourceBundle.de["PAJMenu_HideAll_T"] 			    = "dePAJMenu_HideAll_T" -- TODO: translate
+
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
 ResourceBundle.de["NS_Bag_Equipped"]				= "ausgerüstete"
