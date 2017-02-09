@@ -25,7 +25,7 @@ function PAJ.OnShopOpen()
 
                 -- Have to call it wiht some delay, as the "currentMoney" and item count is not updated fast enough
                 -- after calling SellAllJunk()
-                zo_callLater(function()PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 100)
+                zo_callLater(function() PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 100)
             end
         end
     end
