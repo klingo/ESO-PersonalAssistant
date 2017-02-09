@@ -50,6 +50,10 @@ ResourceBundle.en["PALo_GoldLooted"] 				= "PALoot: %d gold"
 ResourceBundle.en["PALo_ItemType_None"] 		    = "-"
 ResourceBundle.en["PALo_ItemType_Loot"]             = "Auto-Loot"
 
+-- PAJunk --
+ResourceBundle.en["PAJ_MarkedAsJunk"]               = "%s marked as junk."
+ResourceBundle.en["PAJ_SoldJunkInfo"]               = "Sold %d junk items for %d gold."
+
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 

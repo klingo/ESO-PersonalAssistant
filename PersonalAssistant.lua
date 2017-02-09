@@ -19,6 +19,7 @@ PA.Profiles_Defaults = {}
 PA.Repair_Defaults = {}
 PA.Banking_Defaults = {}
 PA.Loot_Defaults = {}
+PA.Junk_Defaults = {}
 
 
 -- init saved variables and register Addon
@@ -36,12 +37,13 @@ function PA.initAddon(eventCode, addOnName)
     PA_SavedVars.Repair = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Repair", PA.Repair_Defaults)
 	PA_SavedVars.Banking = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 2, "Banking", PA.Banking_Defaults)
     PA_SavedVars.Loot = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Loot", PA.Loot_Defaults)
+	PA_SavedVars.Junk = ZO_SavedVars:New("PersonalAssistant_SavedVariables", 1, "Junk", PA.Junk_Defaults)
 
 	-- set the language
 	PA_SavedVars.General.language = GetCVar("language.2") or "en" --returns "en", "de" or "fr"
 
-	-- register PARepair
-    EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAR.OnShopOpen)
+	-- register Event Dispatcher for: PARepair and PAJunk
+    EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAED.EventOpenStore)
 	
 	-- register PABanking
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen)
@@ -50,8 +52,11 @@ function PA.initAddon(eventCode, addOnName)
     -- register PALoot
     ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PALo.OnReticleTargetChanged)
     EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_LOOT_UPDATED, PALo.OnLootUpdated)
-	
-	-- add hook for contextMenu modification
+
+    -- register PAJunk
+    EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
+
+    -- add hook for contextMenu modification
 	-- ZO_PreHook("ZO_InventorySlot_ShowContextMenu", PAJ.AddContextMenuOption)
 	
 	-- addon load complete - unregister event
@@ -144,6 +149,20 @@ function PA.initDefaults()
                 PA.Loot_Defaults[profileNo].ItemTypes[PALoItemTypes[i]] = 0
             end
         end
+
+        -- defualt values for PAJunk
+        PA.Junk_Defaults[profileNo].enabled = false
+        PA.Junk_Defaults[profileNo].autoSellJunk = true
+        PA.Junk_Defaults[profileNo].autoMarkTrash = true
+        PA.Junk_Defaults[profileNo].hideAllMsg = false
+
+        -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
+        -- auto-flag-as-junk=true, ignore=false
+--        for i = 2, #PAJItemTypes do
+--            if PAJItemTypes[i] ~= "" then
+--                PA.Junk_Defaults[profileNo].ItemTypes[PAJItemTypes[i]] = 0
+--            end
+--        end
 	end
 end
 

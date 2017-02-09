@@ -6,11 +6,11 @@ ResourceBundle.fr["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.
 ResourceBundle.fr["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." à votre service !"
 
 -- Key Bindings
-ResourceBundle.fr["KB_Load_Profile1"]				= "frKB_Load_Profile1"
-ResourceBundle.fr["KB_Load_Profile2"]				= "frKB_Load_Profile2"
-ResourceBundle.fr["KB_Load_Profile3"]				= "frKB_Load_Profile3"
-ResourceBundle.fr["KB_Load_Profile4"]				= "frKB_Load_Profile4"
-ResourceBundle.fr["KB_Load_Profile5"]				= "frKB_Load_Profile5"
+ResourceBundle.fr["KB_Load_Profile1"]				= "frKB_Load_Profile1" -- TODO: translate
+ResourceBundle.fr["KB_Load_Profile2"]				= "frKB_Load_Profile2" -- TODO: translate
+ResourceBundle.fr["KB_Load_Profile3"]				= "frKB_Load_Profile3" -- TODO: translate
+ResourceBundle.fr["KB_Load_Profile4"]				= "frKB_Load_Profile4" -- TODO: translate
+ResourceBundle.fr["KB_Load_Profile5"]				= "frKB_Load_Profile5" -- TODO: translate
 
 -- PAGeneral --
 ResourceBundle.fr["PAG_Profile1"]					= "Profil 1"
@@ -48,7 +48,11 @@ ResourceBundle.fr["PALo_ItemLooted"] 				= "FR: PALoot: %d x %s" -- TODO: transl
 ResourceBundle.fr["PALo_GoldLooted"] 				= "FR: PALoot: %d gold" -- TODO: translate
 
 ResourceBundle.fr["PALo_ItemType_None"] 		    = "-"
-ResourceBundle.fr["PALo_ItemType_Loot"]             = "FR: Auto-Loot"  -- TODO: translate
+ResourceBundle.fr["PALo_ItemType_Loot"]             = "FR: Auto-Loot" -- TODO: translate
+
+-- PAJunk --
+ResourceBundle.fr["PAJ_MarkedAsJunk"]               = "frPAJ_MarkedAsJunk" -- TODO: translate
+ResourceBundle.fr["PAJ_SoldJunkInfo"]               = "frPAJ_SoldJunkInfo" -- TODO: translate
 
 -- MainMenu --
 ResourceBundle.fr["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
@@ -130,27 +134,27 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack"]       = "Quantité à garder dans 
 ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]     = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
 
 -- PALoMenu --
-ResourceBundle.fr["PALoMenu_Header"] 				= "|cFFD700PA L|root"
-ResourceBundle.fr["PALoMenu_Enable"] 				= "frPALoMenu_Enable"
-ResourceBundle.fr["PALoMenu_Enable_T"] 				= "frPALoMenu_Enable_T"
-ResourceBundle.fr["PALoMenu_LootGold"]              = "frPALoMenu_LootGold"
-ResourceBundle.fr["PALoMenu_LootGold_T"]            = "frPALoMenu_LootGold_T"
-ResourceBundle.fr["PALoMenu_LootItems"]             = "frPALoMenu_LootItems"
-ResourceBundle.fr["PALoMenu_LootItems_T"]           = "frPALoMenu_LootItems_T"
-ResourceBundle.fr["PALoMenu_ItemTypeDesc"] 	        = "frPALoMenu_ItemTypeDesc"
-ResourceBundle.fr["PALoMenu_ItemType"]              = "frPALoMenu_ItemType"
-ResourceBundle.fr["PALoMenu_ItemType_T"]            = "frPALoMenu_ItemType_T"
+ResourceBundle.fr["PALoMenu_Header"] 				= "|cFFD700PA L|root" -- TODO: translate
+ResourceBundle.fr["PALoMenu_Enable"] 				= "frPALoMenu_Enable" -- TODO: translate
+ResourceBundle.fr["PALoMenu_Enable_T"] 				= "frPALoMenu_Enable_T" -- TODO: translate
+ResourceBundle.fr["PALoMenu_LootGold"]              = "frPALoMenu_LootGold" -- TODO: translate
+ResourceBundle.fr["PALoMenu_LootGold_T"]            = "frPALoMenu_LootGold_T" -- TODO: translate
+ResourceBundle.fr["PALoMenu_LootItems"]             = "frPALoMenu_LootItems" -- TODO: translate
+ResourceBundle.fr["PALoMenu_LootItems_T"]           = "frPALoMenu_LootItems_T" -- TODO: translate
+ResourceBundle.fr["PALoMenu_ItemTypeDesc"] 	        = "frPALoMenu_ItemTypeDesc" -- TODO: translate
+ResourceBundle.fr["PALoMenu_ItemType"]              = "frPALoMenu_ItemType" -- TODO: translate
+ResourceBundle.fr["PALoMenu_ItemType_T"]            = "frPALoMenu_ItemType_T" -- TODO: translate
 ResourceBundle.fr["PALoMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
-ResourceBundle.fr["PALoMenu_LootButton"] 			= "frPALoMenu_LootButton"
-ResourceBundle.fr["PALoMenu_LootButton_T"] 			= "frPALoMenu_LootButton_T"
-ResourceBundle.fr["PALoMenu_IgnButton"] 			= "frPALoMenu_IgnButton"
+ResourceBundle.fr["PALoMenu_LootButton"] 			= "frPALoMenu_LootButton" -- TODO: translate
+ResourceBundle.fr["PALoMenu_LootButton_T"] 			= "frPALoMenu_LootButton_T" -- TODO: translate
+ResourceBundle.fr["PALoMenu_IgnButton"] 			= "frPALoMenu_IgnButton" -- TODO: translate
 ResourceBundle.fr["PALoMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'"
-ResourceBundle.fr["PALoMenu_HideItemLoot"] 			= "frPALoMenu_HideItemLoot"
-ResourceBundle.fr["PALoMenu_HideItemLoot_T"] 		= "frPALoMenu_HideItemLoot_T"
-ResourceBundle.fr["PALoMenu_HideGoldLoot"] 			= "frPALoMenu_HideGoldLoot"
-ResourceBundle.fr["PALoMenu_HideGoldLoot_T"] 		= "frPALoMenu_HideGoldLoot_T"
-ResourceBundle.fr["PALoMenu_HideAll"] 				= "frPALoMenu_HideAll"
-ResourceBundle.fr["PALoMenu_HideAll_T"] 			= "frPALoMenu_HideAll_T"
+ResourceBundle.fr["PALoMenu_HideItemLoot"] 			= "frPALoMenu_HideItemLoot" -- TODO: translate
+ResourceBundle.fr["PALoMenu_HideItemLoot_T"] 		= "frPALoMenu_HideItemLoot_T" -- TODO: translate
+ResourceBundle.fr["PALoMenu_HideGoldLoot"] 			= "frPALoMenu_HideGoldLoot" -- TODO: translate
+ResourceBundle.fr["PALoMenu_HideGoldLoot_T"] 		= "frPALoMenu_HideGoldLoot_T" -- TODO: translate
+ResourceBundle.fr["PALoMenu_HideAll"] 				= "frPALoMenu_HideAll" -- TODO: translate
+ResourceBundle.fr["PALoMenu_HideAll_T"] 			= "frPALoMenu_HideAll_T" -- TODO: translate
 
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
@@ -171,9 +175,9 @@ ResourceBundle.fr["REL_GreaterThan"]                = "supérieur (>)"		-- not r
 ResourceBundle.fr["REL_GreaterThanEqual"]           = "supérieur ou égal (>=)"
 
 -- Stacking types --
-ResourceBundle.fr["ST_MoveAllFull"]					= "frST_MoveAllFull"			-- 0: Full deposit
-ResourceBundle.fr["ST_MoveExistingFull"]			= "frST_MoveExistingFull"		-- 1: Deposit if existing
-ResourceBundle.fr["ST_FillIncompleteOnly"]			= "frST_FillIncompleteOnly"		-- 2: Fill existing stacks
+ResourceBundle.fr["ST_MoveAllFull"]					= "frST_MoveAllFull"			-- 0: Full deposit   -- TODO: translate
+ResourceBundle.fr["ST_MoveExistingFull"]			= "frST_MoveExistingFull"		-- 1: Deposit if existing    -- TODO: translate
+ResourceBundle.fr["ST_FillIncompleteOnly"]			= "frST_FillIncompleteOnly"		-- 2: Fill existing stacks   -- TODO: translate
 
 -- Official Item Types --
 ResourceBundle.fr[ITEMTYPE_ADDITIVE] 				= "frITEMTYPE_ADDITIVE"

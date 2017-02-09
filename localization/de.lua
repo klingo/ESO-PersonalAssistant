@@ -50,6 +50,10 @@ ResourceBundle.de["PALo_GoldLooted"] 				= "PALoot: %d Gold"
 ResourceBundle.de["PALo_ItemType_None"] 		    = "-"
 ResourceBundle.de["PALo_ItemType_Loot"]             = "Autom. Plündern"
 
+-- PAJunk --
+ResourceBundle.de["PAJ_MarkedAsJunk"]               = "dePAJ_MarkedAsJunk"
+ResourceBundle.de["PAJ_SoldJunkInfo"]               = "dePAJ_SoldJunkInfo"
+
 -- MainMenu --
 ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 

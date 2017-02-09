@@ -37,6 +37,9 @@ PAC_COL_WHITE = "|cFFFFFF"
 PAC_COL_YELLOW = "|cFFFF00"
 PAC_COL_LIGHT_BLUE = "|cB0B0FF"
 
+-- =====================================================================================================================
+-- = PA Banking
+-- =================================
 PAItemTypes = {}
 -- PAItemTypes[index] = ItemType   ["" --> disabled itemType]
 -- Alchemy
@@ -80,6 +83,9 @@ PAItemTypesAdvanced = {}
 PAItemTypesAdvanced[0] = 30357	-- Lockpick
 -- Can't use ITEMTYPE_LOCKPICK or SPECIALIZED_ITEMTYPE_LOCKPICK since the actual lockpicks are categorized as ITEMTYPE_TOOL (as of APIVersion 100018)
 
+-- =====================================================================================================================
+-- = PA Loot
+-- =================================
 -- PersonalAssistant Loot ItemTypes
 PALoItemTypes = {}
 -- Alchemy
@@ -99,3 +105,9 @@ table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY)
 table.insert(PALoItemTypes, ITEMTYPE_INGREDIENT)
 -- Fishing
 table.insert(PALoItemTypes, ITEMTYPE_FISH)
+
+-- =====================================================================================================================
+-- = PA Junk
+-- =================================
+-- PersonalAssistant Junk ItemTypes
+PAJItemTypes = {}
