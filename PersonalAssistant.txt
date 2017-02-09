@@ -54,7 +54,7 @@ libs/PALoot/PALoot.lua
 libs/PAJunk/PAJunk.lua
 
 # Utilities
-Utilities/EventDispatcher.lua
+libs/Utilities/EventDispatcher.lua
 
 # UserInterface
 libs/UI/PAFW.lua
