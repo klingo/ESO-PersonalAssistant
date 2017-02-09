@@ -44,7 +44,7 @@ function PA.initAddon(eventCode, addOnName)
 
 	-- register Event Dispatcher for: PARepair and PAJunk
     EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_STORE, PAED.EventOpenStore)
-	
+
 	-- register PABanking
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_OPEN_BANK, PAB.OnBankOpen)
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistant", EVENT_CLOSE_BANK, PAB.OnBankClose)
@@ -68,35 +68,24 @@ end
 function PA.initDefaults()
 	for profileNo = 1, PAG_MAX_PROFILES do
 		-- initialize the multi-profile structure
-		PA.General_Defaults[profileNo] = {}
-		PA.Profiles_Defaults[profileNo] = {}
-		PA.Repair_Defaults[profileNo] = {}
-		PA.Banking_Defaults[profileNo] = {
-			ItemTypes = {},
-			ItemTypesAdvanced = {}
-		}
-		for itemTypeAdvancedNo = 0, #PAItemTypesAdvanced do	-- amount of advanced item types
-			PA.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
-				Key = {},
-				Value = {}
-			}
-        end
-        PA.Loot_Defaults[profileNo] = {
-            ItemTypes = {}
-        }
-
 		-- default values for Addon
 		PA.General_Defaults.language = 1
 		PA.General_Defaults.activeProfile = 1
 		PA.General_Defaults.savedVarsVersion = ""
-		
+
+        -- -----------------------------------------------------
 		-- default values for PAGeneral
+        PA.General_Defaults[profileNo] = {}
 		PA.General_Defaults[profileNo].welcome = true
-		
+
+        -- -----------------------------------------------------
 		-- default values for Profiles
+        PA.Profiles_Defaults[profileNo] = {}
 		PA.Profiles_Defaults[profileNo].name = MenuHelper.getDefaultProfileName(profileNo)
-		
+
+        -- -----------------------------------------------------
 		-- default values for PARepair
+        PA.Repair_Defaults[profileNo] = {}
 		PA.Repair_Defaults[profileNo].enabled = true
 		PA.Repair_Defaults[profileNo].equipped = true
 		PA.Repair_Defaults[profileNo].equippedThreshold = 75
@@ -104,8 +93,13 @@ function PA.initDefaults()
 		PA.Repair_Defaults[profileNo].backpackThreshold = 75
 		PA.Repair_Defaults[profileNo].hideNoRepairMsg = false
 		PA.Repair_Defaults[profileNo].hideAllMsg = false
-		
+
+        -- -----------------------------------------------------
 		-- default values for PABanking
+        PA.Banking_Defaults[profileNo] = {
+            ItemTypes = {},
+            ItemTypesAdvanced = {}
+        }
 		PA.Banking_Defaults[profileNo].enabled = true
 		PA.Banking_Defaults[profileNo].gold = true
 		PA.Banking_Defaults[profileNo].goldDepositInterval = 300
@@ -131,10 +125,20 @@ function PA.initDefaults()
 		end
 		
 		-- default values for advanced ItemTypes
+        for itemTypeAdvancedNo = 0, #PAItemTypesAdvanced do	-- amount of advanced item types
+            PA.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
+                Key = {},
+                Value = {}
+            }
+        end
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 0 = Lockpick
 		PA.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 0 = Lockpick
 
+        -- -----------------------------------------------------
 		-- default values for PALoot
+        PA.Loot_Defaults[profileNo] = {
+            ItemTypes = {}
+        }
         PA.Loot_Defaults[profileNo].enabled = false
         PA.Loot_Defaults[profileNo].lootGold = true
         PA.Loot_Defaults[profileNo].lootItems = true
@@ -150,7 +154,9 @@ function PA.initDefaults()
             end
         end
 
-        -- defualt values for PAJunk
+        -- -----------------------------------------------------
+        -- default values for PAJunk
+        PA.Junk_Defaults[profileNo] = {}
         PA.Junk_Defaults[profileNo].enabled = false
         PA.Junk_Defaults[profileNo].autoSellJunk = true
         PA.Junk_Defaults[profileNo].autoMarkTrash = true

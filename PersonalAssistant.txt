@@ -38,9 +38,6 @@ localization/de.lua
 localization/fr.lua
 localization/Locale.lua
 
-# Utilities
-libs/EventDispatcher.lua
-
 # PARepair
 libs/PARepair/PARepair.lua
 
@@ -55,6 +52,9 @@ libs/PALoot/PALoot.lua
 
 # PAJunk
 libs/PAJunk/PAJunk.lua
+
+# Utilities
+Utilities/EventDispatcher.lua
 
 # UserInterface
 libs/UI/PAFW.lua

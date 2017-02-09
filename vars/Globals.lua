@@ -5,6 +5,7 @@ if PA_SavedVars.Repair				== nil then PA_SavedVars.Repair				= {} end
 if PA_SavedVars.Banking				== nil then PA_SavedVars.Banking 			= {} end
 if PA_SavedVars.Banking.ItemTypes 	== nil then PA_SavedVars.Banking.ItemTypes	= {} end
 if PA_SavedVars.Loot				== nil then PA_SavedVars.Loot 			    = {} end
+if PA_SavedVars.Junk				== nil then PA_SavedVars.Junk 			    = {} end
 
 -- PersonalAssistant Constants
 -- PA Banking
