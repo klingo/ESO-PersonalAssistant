@@ -78,7 +78,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
                         SetItemIsJunk(bagId, slotId, true)
 
                         local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-                        PAR.println("PAJ_MarkedAsJunk", itemLink)
+                        PAR.println("PAJ_MovedToJunk", itemLink)
                     end
                 end
             end

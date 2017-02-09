@@ -51,7 +51,7 @@ ResourceBundle.fr["PALo_ItemType_None"] 		    = "-"
 ResourceBundle.fr["PALo_ItemType_Loot"]             = "FR: Auto-Loot" -- TODO: translate
 
 -- PAJunk --
-ResourceBundle.fr["PAJ_MarkedAsJunk"]               = "frPAJ_MarkedAsJunk" -- TODO: translate
+ResourceBundle.fr["PAJ_MovedToJunk"]                = "frPAJ_MovedToJunk" -- TODO: translate
 ResourceBundle.fr["PAJ_SoldJunkInfo"]               = "frPAJ_SoldJunkInfo" -- TODO: translate
 
 -- MainMenu --

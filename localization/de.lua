@@ -51,7 +51,7 @@ ResourceBundle.de["PALo_ItemType_None"] 		    = "-"
 ResourceBundle.de["PALo_ItemType_Loot"]             = "Autom. Plündern"
 
 -- PAJunk --
-ResourceBundle.de["PAJ_MarkedAsJunk"]               = "dePAJ_MarkedAsJunk"
+ResourceBundle.de["PAJ_MovedToJunk"]                = "dePAJ_MovedToJunk"
 ResourceBundle.de["PAJ_SoldJunkInfo"]               = "dePAJ_SoldJunkInfo"
 
 -- MainMenu --
