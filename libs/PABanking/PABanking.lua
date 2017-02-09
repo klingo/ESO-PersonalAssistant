@@ -2,7 +2,7 @@
 -- Developer: Klingo
 
 PAB = {}
-PAB.isBankClosed = false
+PAB.isBankClosed = true
 
 function PAB.OnBankOpen()
 	-- check if addon is enabled
