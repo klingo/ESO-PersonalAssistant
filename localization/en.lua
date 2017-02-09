@@ -52,7 +52,7 @@ ResourceBundle.en["PALo_ItemType_Loot"]             = "Auto-Loot"
 
 -- PAJunk --
 ResourceBundle.en["PAJ_MovedToJunk"]                = "%s moved to junk."
-ResourceBundle.en["PAJ_SoldJunkInfo"]               = "Sold %d junk items for %d gold."
+ResourceBundle.en["PAJ_SoldJunkInfo"]               = "Sold junk items for %d gold."
 
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
