@@ -50,6 +50,10 @@ ResourceBundle.de["PALo_GoldLooted"] 				= "PALoot: %d Gold"
 ResourceBundle.de["PALo_ItemType_None"] 		    = "-"
 ResourceBundle.de["PALo_ItemType_Loot"]             = "Autom. Plündern"
 
+-- PAJunk --
+ResourceBundle.de["PAJ_MovedToJunk"]                = "dePAJ_MovedToJunk"
+ResourceBundle.de["PAJ_SoldJunkInfo"]               = "dePAJ_SoldJunkInfo"
+
 -- MainMenu --
 ResourceBundle.de["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
@@ -152,6 +156,18 @@ ResourceBundle.de["PALoMenu_HideGoldLoot_T"] 		= "Blendet die Meldung 'Gold gepl
 ResourceBundle.de["PALoMenu_HideAll"] 				= "Blende ALLE Plünder-Meldungen aus"
 ResourceBundle.de["PALoMenu_HideAll_T"] 			= "Ruhe-Modus: Keine Plünder-Medungen (Gold und Gegenstände) werden mehr angezeigt."
 
+-- PAJMenu --
+ResourceBundle.de["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
+ResourceBundle.de["PAJMenu_Enable"] 				= "|cB0B0FFAktiviere Auto Trödel|r"
+ResourceBundle.de["PAJMenu_Enable_T"] 				= "Aktiviere automatischer Trödel?"
+ResourceBundle.de["PAJMenu_ItemTypeDesc"]           = "Aktiviere und deaktiviere das automatische als trödel Markieren von verschiedenen Gegenstandstypen."
+ResourceBundle.de["PAJMenu_AutoSellJunk"]           = "Automatisch Trödel verkaufen?"
+ResourceBundle.de["PAJMenu_AutoSellJunk_T"]         = "Automatisch alle als Trödel markierte Gegenstände verkaufen."
+ResourceBundle.de["PAJMenu_AutoMarkTrash"]          = "Automatisches markieren von [Plunder]"
+ResourceBundle.de["PAJMenu_AutoMarkTrash_T"]        = "Automatisch Gegenstände vom Typ [Plunder] als Trödel markieren?"
+ResourceBundle.de["PAJMenu_HideAll"] 				= "Blende ALLE Trödel-Meldungen aus"
+ResourceBundle.de["PAJMenu_HideAll_T"] 			    = "Ruhe-Modus: Keine Trödel-Meldungen werden mehr angezeigt."
+
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]				= ""	-- soweit nicht benötigt
 ResourceBundle.de["NS_Bag_Equipped"]				= "ausgerüstete"
@@ -187,9 +203,9 @@ ResourceBundle.de[ITEMTYPE_BLACKSMITHING_RAW_MATERIAL] = "Rohmaterial (Schmiedek
 ResourceBundle.de[ITEMTYPE_CLOTHIER_BOOSTER] 		= "Gerbstoff (Schneiderei)"
 ResourceBundle.de[ITEMTYPE_CLOTHIER_MATERIAL] 		= "Material (Schneiderei)"
 ResourceBundle.de[ITEMTYPE_CLOTHIER_RAW_MATERIAL] 	= "Rohmaterial (Schneiderei)"
-ResourceBundle.de[ITEMTYPE_COLLECTIBLE] 			= "deITEMTYPE_COLLECTIBLE"
+ResourceBundle.de[ITEMTYPE_COLLECTIBLE] 			= "deITEMTYPE_COLLECTIBLE" -- TODO: translate
 ResourceBundle.de[ITEMTYPE_CONTAINER] 				= "Behälter"
-ResourceBundle.de[ITEMTYPE_COSTUME] 				= "deITEMTYPE_COSTUME"
+ResourceBundle.de[ITEMTYPE_COSTUME] 				= "deITEMTYPE_COSTUME" -- TODO: translate
 ResourceBundle.de[ITEMTYPE_CROWN_ITEM]              = "deITEMTYPE_CROWN_ITEM"
 ResourceBundle.de[ITEMTYPE_CROWN_REPAIR]            = "deITEMTYPE_CROWN_REPAIR"
 ResourceBundle.de[ITEMTYPE_DEPRECATED]              = "deITEMTYPE_DEPRECATED"
@@ -218,8 +234,8 @@ ResourceBundle.de[ITEMTYPE_POISON] 					= "Gift"
 ResourceBundle.de[ITEMTYPE_POISON_BASE]             = "Giftlösungsmittel (Alchemie)"
 ResourceBundle.de[ITEMTYPE_POTION] 					= "Trank"
 ResourceBundle.de[ITEMTYPE_POTION_BASE]             = "Tranklösungsmittel (Alchemie)"
-ResourceBundle.de[ITEMTYPE_RACIAL_STYLE_MOTIF] 		= "deITEMTYPE_RACIAL_STYLE_MOTIF"
-ResourceBundle.de[ITEMTYPE_RAW_MATERIAL] 			= "deITEMTYPE_RAW_MATERIAL"
+ResourceBundle.de[ITEMTYPE_RACIAL_STYLE_MOTIF] 		= "deITEMTYPE_RACIAL_STYLE_MOTIF" -- TODO: translate
+ResourceBundle.de[ITEMTYPE_RAW_MATERIAL] 			= "deITEMTYPE_RAW_MATERIAL" -- TODO: translate
 ResourceBundle.de[ITEMTYPE_REAGENT] 				= "Reagenz (Alchemie)"
 ResourceBundle.de[ITEMTYPE_RECIPE] 					= "Rezept (Versorgen)"
 ResourceBundle.de[ITEMTYPE_SIEGE] 					= "deITEMTYPE_SIEGE"
@@ -232,8 +248,8 @@ ResourceBundle.de[ITEMTYPE_TOOL] 					= "Werkzeug"
 ResourceBundle.de[ITEMTYPE_TRASH]					= "Plunder"
 ResourceBundle.de[ITEMTYPE_TREASURE]                = "deITEMTYPE_TREASURE"
 ResourceBundle.de[ITEMTYPE_TROPHY] 					= "Trophäe"
-ResourceBundle.de[ITEMTYPE_WEAPON] 					= "deITEMTYPE_WEAPON"
-ResourceBundle.de[ITEMTYPE_WEAPON_BOOSTER] 			= "deITEMTYPE_WEAPON_BOOSTER"
+ResourceBundle.de[ITEMTYPE_WEAPON] 					= "deITEMTYPE_WEAPON" -- TODO: translate
+ResourceBundle.de[ITEMTYPE_WEAPON_BOOSTER] 			= "deITEMTYPE_WEAPON_BOOSTER" -- TODO: translate
 ResourceBundle.de[ITEMTYPE_WEAPON_TRAIT] 			= "Waffeneigenschaft"
 ResourceBundle.de[ITEMTYPE_WOODWORKING_BOOSTER] 	= "Harz (Schreinerei)"
 ResourceBundle.de[ITEMTYPE_WOODWORKING_MATERIAL] 	= "Material (Schreinerei)"

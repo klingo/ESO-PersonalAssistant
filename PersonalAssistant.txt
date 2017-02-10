@@ -50,6 +50,12 @@ libs/PABanking/PABanking.lua
 # PALoot
 libs/PALoot/PALoot.lua
 
+# PAJunk
+libs/PAJunk/PAJunk.lua
+
+# Utilities
+libs/Utilities/EventDispatcher.lua
+
 # UserInterface
 libs/UI/PAFW.lua
 libs/UI/PAUI.lua

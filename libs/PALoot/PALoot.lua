@@ -3,7 +3,6 @@
 -- User: Klingo
 -- Date: 06.02.2017
 -- Time: 20:00
--- To change this template use File | Settings | File Templates.
 --
 
 PALo = {}
@@ -56,10 +55,12 @@ function PALo.OnReticleTargetChanged()
 end
 
 function PALo.OnLootUpdated()
+    local activeProfile = PA_SavedVars.General.activeProfile
+
     -- check if addon is enabled
-    if PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].enabled then
+    if PA_SavedVars.Loot[activeProfile].enabled then
         -- check if ItemLoot is enabled
-        if PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootItems then
+        if PA_SavedVars.Loot[activeProfile].lootItems then
             -- check if we are harvesting, auto-loot is only used for this case!
             if (PALo.alreadyHarvesting or PALo.alreadyFishing) then
                 -- get number of lootable items
@@ -81,10 +82,10 @@ function PALo.OnLootUpdated()
                         -- check if the itemType is configured for auto-loot
                         if (PALoItemTypes[currItemType] == itemType) then
                             -- then check if it is set to Auto-Loot
-                            if (PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].ItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
+                            if (PA_SavedVars.Loot[activeProfile].ItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                 -- Loot the item
                                 LootItemById(lootId)
-                                if (not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideItemLootMsg) then
+                                if (not PA_SavedVars.Loot[activeProfile].hideItemLootMsg) then
                                     PALo.println(PAL.getResourceMessage("PALo_ItemLooted"), itemCount, itemLink)
                                 end
                             end
@@ -96,13 +97,13 @@ function PALo.OnLootUpdated()
         end
 
         -- check if GoldLoot is enabled
-        if PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].lootGold then
+        if PA_SavedVars.Loot[activeProfile].lootGold then
             -- is there even gold to loot?
             local unownedMoney = GetLootMoney()
             if (unownedMoney > 0) then
                 -- Loot the gold
                 LootMoney()
-                if (not PA_SavedVars.Loot[PA_SavedVars.General.activeProfile].hideGoldLootMsg) then
+                if (not PA_SavedVars.Loot[activeProfile].hideGoldLootMsg) then
                     PALo.println(PAL.getResourceMessage("PALo_GoldLooted"), unownedMoney)
                 end
             end

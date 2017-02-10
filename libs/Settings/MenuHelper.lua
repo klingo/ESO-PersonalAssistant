@@ -25,21 +25,21 @@ end
 -- --------------------------------------------------------------------------------------------------------
 
 function MenuHelper.setDropdownsTo(itemTypeKey)
-	local profileNo = PA_SavedVars.General.activeProfile
+	local activeProfile = PA_SavedVars.General.activeProfile
 	for i = 1, #PAItemTypes do
 		-- only if the itemType is enabled
 		if PAItemTypes[i] ~= "" then
-			PA_SavedVars.Banking[profileNo].ItemTypes[PAItemTypes[i]] = itemTypeKey
+			PA_SavedVars.Banking[activeProfile].ItemTypes[PAItemTypes[i]] = itemTypeKey
 		end
 	end
 end
 
 function MenuHelper.setLootDropdownsTo(itemTypeKey)
-    local profileNo = PA_SavedVars.General.activeProfile
+    local activeProfile = PA_SavedVars.General.activeProfile
     for i = 1, #PALoItemTypes do
         -- only if the itemType is enabled
         if PALoItemTypes[i] ~= "" then
-            PA_SavedVars.Loot[profileNo].ItemTypes[PALoItemTypes[i]] = itemTypeKey
+            PA_SavedVars.Loot[activeProfile].ItemTypes[PALoItemTypes[i]] = itemTypeKey
         end
     end
 end
@@ -64,11 +64,11 @@ end
 
 -- returns the matching dropdown-text based on the number that is behind it
 function MenuHelper.getBankingTextFromNumber(number)
-	local profileNo = PA_SavedVars.General.activeProfile
-	local index = PA_SavedVars.Banking[profileNo].itemsJunkSetting
+	local activeProfile = PA_SavedVars.General.activeProfile
+	local index = PA_SavedVars.Banking[activeProfile].itemsJunkSetting
 	-- if "number" is empty, it has to be the junkSetting
 	if (number ~= nil) then
-		index = PA_SavedVars.Banking[profileNo].ItemTypes[number]
+		index = PA_SavedVars.Banking[activeProfile].ItemTypes[number]
 	end
 	
 	if index == PAC_ITEMTYPE_DEPOSIT then
@@ -99,8 +99,8 @@ end
 
 -- returns the matching dropdown-text based on the number that is behind it
 function MenuHelper.getOperatorTextFromNumber(number)
-	local profileNo = PA_SavedVars.General.activeProfile
-	local index = PA_SavedVars.Banking[profileNo].ItemTypesAdvanced[number].Key
+	local activeProfile = PA_SavedVars.General.activeProfile
+	local index = PA_SavedVars.Banking[activeProfile].ItemTypesAdvanced[number].Key
 	
 	if index == PAC_OPERATOR_EQUAL then
 		return PAL.getResourceMessage("REL_Equal")
@@ -162,8 +162,8 @@ end
 
 -- returns the matching dropdown-text based on the number that is behind it
 function MenuHelper.getLootTextFromNumber(number)
-    local profileNo = PA_SavedVars.General.activeProfile
-    local index = PA_SavedVars.Loot[profileNo].ItemTypes[number]
+    local activeProfile = PA_SavedVars.General.activeProfile
+    local index = PA_SavedVars.Loot[activeProfile].ItemTypes[number]
     if index == PAC_ITEMTYPE_LOOT then
         return PAL.getResourceMessage("PALo_ItemType_Loot")
     else

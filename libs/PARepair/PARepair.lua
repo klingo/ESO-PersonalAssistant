@@ -4,20 +4,22 @@
 PAR = {}
 
 function PAR.OnShopOpen()
-	-- check if addon is enabled
-	if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].enabled == true then
+    local activeProfile = PA_SavedVars.General.activeProfile
+
+    -- check if addon is enabled
+	if PA_SavedVars.Repair[activeProfile].enabled == true then
 		-- early check if there is something to repair
 		if GetRepairAllCost() > 0 then
 			-- check if equipped items shall be repaired
-			if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equipped then
-				PAR.RepairItems(BAG_WORN, PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].equippedThreshold)
+			if PA_SavedVars.Repair[activeProfile].equipped then
+				PAR.RepairItems(BAG_WORN, PA_SavedVars.Repair[activeProfile].equippedThreshold)
 			end
 			-- check if backpack items shall be repaired
-			if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpack then
-				PAR.RepairItems(BAG_BACKPACK, PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].backpackThreshold)
+			if PA_SavedVars.Repair[activeProfile].backpack then
+				PAR.RepairItems(BAG_BACKPACK, PA_SavedVars.Repair[activeProfile].backpackThreshold)
 			end
 		else
-			if (not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg) then
+			if (not PA_SavedVars.Repair[activeProfile].hideNoRepairMsg) then
 				PAR.println("PAR_NoRepair")
 			end
 		end
@@ -26,6 +28,8 @@ end
 
 -- repair all items that are below the given threshold for the bag
 function PAR.RepairItems(bagId, threshold)
+    local activeProfile = PA_SavedVars.General.activeProfile
+
 	local bagSlots = GetBagSize(bagId)
 	local repairCost = 0
 	local missingGold = 0
@@ -67,7 +71,7 @@ function PAR.RepairItems(bagId, threshold)
 	local bagName = PA.getBagNameAdjective(bagId)
 
 	-- check if the msg-output shall be skipped
-	if PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideAllMsg then return end
+	if PA_SavedVars.Repair[activeProfile].hideAllMsg then return end
 	
 	if (notRepairedItemsCost > 0) then
 		missingGold = notRepairedItemsCost - currentMoney
@@ -83,7 +87,7 @@ function PAR.RepairItems(bagId, threshold)
 		if notRepairedItems > 0 then
 			PAR.println("PAR_NoGoldToRepair", notRepairedItems, bagName, missingGold)
 		else
-			if (not PA_SavedVars.Repair[PA_SavedVars.General.activeProfile].hideNoRepairMsg) then
+			if (not PA_SavedVars.Repair[activeProfile].hideNoRepairMsg) then
 				PAR.println("PAR_NoRepair")
 			end
 		end

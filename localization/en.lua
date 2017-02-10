@@ -50,6 +50,10 @@ ResourceBundle.en["PALo_GoldLooted"] 				= "PALoot: %d gold"
 ResourceBundle.en["PALo_ItemType_None"] 		    = "-"
 ResourceBundle.en["PALo_ItemType_Loot"]             = "Auto-Loot"
 
+-- PAJunk --
+ResourceBundle.en["PAJ_MovedToJunk"]                = "%s moved to junk."
+ResourceBundle.en["PAJ_SoldJunkInfo"]               = "Sold junk items for %d gold."
+
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
 
@@ -151,6 +155,18 @@ ResourceBundle.en["PALoMenu_HideGoldLoot"] 			= "Hide 'Gold looted' message"
 ResourceBundle.en["PALoMenu_HideGoldLoot_T"] 		= "Hide 'Gold looted' message. You will no longer see how much gold was automatically looted."
 ResourceBundle.en["PALoMenu_HideAll"] 				= "Hide ALL loot messages"
 ResourceBundle.en["PALoMenu_HideAll_T"] 			= "Silent-Mode: No loot message (items and currencies) will be displayed."
+
+-- PAJMenu --
+ResourceBundle.en["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
+ResourceBundle.en["PAJMenu_Enable"] 				= "|cB0B0FFEnable Auto Junk|r"
+ResourceBundle.en["PAJMenu_Enable_T"] 				= "Enable Auto Junk?"
+ResourceBundle.en["PAJMenu_ItemTypeDesc"]           = "Enable and disable the automatic marking as junk for different item types."
+ResourceBundle.en["PAJMenu_AutoSellJunk"]           = "Auto-Sell Junk?"
+ResourceBundle.en["PAJMenu_AutoSellJunk_T"]         = "Automatically sell all items marked as junk?"
+ResourceBundle.en["PAJMenu_AutoMarkTrash"]          = "Auto-Mark [Trash]"
+ResourceBundle.en["PAJMenu_AutoMarkTrash_T"]        = "Automatically mark items of type [Trash] as junk?"
+ResourceBundle.en["PAJMenu_HideAll"] 				= "Hide ALL junk messages"
+ResourceBundle.en["PAJMenu_HideAll_T"] 			    = "Silent-Mode: No junk message will be displayed."
 
 -- Name Spaces --
 ResourceBundle.en["NS_Bag_Equipment"]				= ""	-- not required so far
