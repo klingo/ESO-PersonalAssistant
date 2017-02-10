@@ -494,7 +494,6 @@ function PA_SettingsMenu.createMainMenu()
         tooltip = PAL.getResourceMessage("PAJMenu_HideAll_T"),
         getFunc = function() return PA_SavedVars.Junk[activeProfile].hideAllMsg end,
         setFunc = function(value) PA_SavedVars.Junk[activeProfile].hideAllMsg = value end,
-        width = "half",
         disabled = function() return not PA_SavedVars.Junk[activeProfile].enabled end,
         default = false,
     }
