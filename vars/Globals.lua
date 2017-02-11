@@ -35,8 +35,22 @@ PAB_STACKING_INCOMPLETE = 2	-- 2: Complete existing stacks
 
 -- PersonalAssistant Colors
 PAC_COL_WHITE = "|cFFFFFF"
-PAC_COL_YELLOW = "|cFFFF00"
+PAC_COL_DEFAULT = "|cFFFF00"
+PAC_COL_YELLOW = "|cFFD700"
 PAC_COL_LIGHT_BLUE = "|cB0B0FF"
+PAC_COL_ORANGE = "|cFF7400"
+
+-- PersonalAssistant Colored Names
+PAC_COLTEXT_PAB = PAC_COL_YELLOW.."PA B"..PAC_COL_WHITE.."anking: "..PAC_COL_DEFAULT
+PAC_COLTEXT_PAR = PAC_COL_YELLOW.."PA R"..PAC_COL_WHITE.."epair: "..PAC_COL_DEFAULT
+PAC_COLTEXT_PALo = PAC_COL_YELLOW.."PA L"..PAC_COL_WHITE.."oot: "..PAC_COL_DEFAULT
+PAC_COLTEXT_PAJ = PAC_COL_YELLOW.."PA J"..PAC_COL_WHITE.."unk: "..PAC_COL_DEFAULT
+
+-- Icons
+PAC_ICON_GOLD = "|t16:16:/esoui/art/currency/currency_gold.dds|t"
+PAC_ICON_TALVAR = "|t16:16:/esoui/art/currency/currency_telvar.dds|t"
+-- PAC_ICON_TALVAR = "|r|c66a8ff|t16:16:/esoui/art/currency/currency_telvar.dds|t"
+
 
 -- =====================================================================================================================
 -- = PA Banking

@@ -68,7 +68,7 @@ function PALo.OnLootUpdated()
 
                 -- loop through all of them
                 for i = 1, lootCount do
-                    local lootId, _, _, itemCount = GetLootItemInfo(i)
+                    local lootId, _, icon, itemCount = GetLootItemInfo(i)
                     local itemLink = GetLootItemLink(lootId, LINK_STYLE_BRACKETS)
                     local itemType = GetItemLinkItemType(itemLink)
                     local strItemType = PAL.getResourceMessage(itemType)
@@ -86,7 +86,8 @@ function PALo.OnLootUpdated()
                                 -- Loot the item
                                 LootItemById(lootId)
                                 if (not PA_SavedVars.Loot[activeProfile].hideItemLootMsg) then
-                                    PALo.println(PAL.getResourceMessage("PALo_ItemLooted"), itemCount, itemLink)
+                                    local iconString = "|t16:16:"..icon.."|t "
+                                    PALo.println(PAL.getResourceMessage("PALo_ItemLooted"), itemCount, itemLink, iconString)
                                 end
                             end
                             break
@@ -104,7 +105,7 @@ function PALo.OnLootUpdated()
                 -- Loot the gold
                 LootMoney()
                 if (not PA_SavedVars.Loot[activeProfile].hideGoldLootMsg) then
-                    PALo.println(PAL.getResourceMessage("PALo_GoldLooted"), unownedMoney)
+                    PALo.println(PAL.getResourceMessage("PALo_GoldLooted"), unownedMoney, PAC_ICON_GOLD)
                 end
             end
         end

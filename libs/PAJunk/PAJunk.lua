@@ -41,17 +41,17 @@ function PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         -- at lesat one item was sold (although it might have been worthless)
         if (moneyDiff > 0) then
             -- some valuable junk was sold
-            PAR.println("PAJ_SoldJunkInfo", moneyDiff)
+            PAJ.println("PAJ_SoldJunkInfo", moneyDiff, PAC_ICON_GOLD)
         else
             -- only worthless junk was sold
-            PAR.println("PAJ_SoldJunkInfo", moneyDiff)
+            PAJ.println("PAJ_SoldJunkInfo", moneyDiff, PAC_ICON_GOLD)
         end
     else
         -- no item was sold
         if (moneyDiff > 0) then
             -- no item was sold, but money appeared out of nowhere
             -- should not happen :D
-            PAR.println("Error #1337: This should not happen!")
+            PAJ.println("Error #1337: This should not happen!")
         end
     end
 end
@@ -88,7 +88,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
                         SetItemIsJunk(bagId, slotId, true)
 
                         local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-                        PAR.println("PAJ_MovedToJunk", itemLink)
+                        PAJ.println("PAJ_MovedToJunk", itemLink)
                     end
                 end
             end
@@ -97,7 +97,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
 end
 
 
-function PAR.println(key, ...)
+function PAJ.println(key, ...)
     if (not PA_SavedVars.Junk[PA_SavedVars.General.activeProfile].hideAllMsg) then
         local args = {...}
         PA.println(key, unpack(args))

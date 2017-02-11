@@ -79,9 +79,9 @@ function PAR.RepairItems(bagId, threshold)
 	
 	if repairedItems > 0 then
 		if notRepairedItems > 0 then
-			PAR.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost, missingGold)
+			PAR.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost, PAC_ICON_GOLD, missingGold)
 		else
-			PAR.println("PAR_FullRepair", bagName, repairCost)
+			PAR.println("PAR_FullRepair", bagName, repairCost, PAC_ICON_GOLD)
 		end
 	else
 		if notRepairedItems > 0 then

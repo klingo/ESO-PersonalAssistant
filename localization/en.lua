@@ -2,8 +2,8 @@ if ResourceBundle == nil then ResourceBundle = {} end
 if ResourceBundle.en == nil then ResourceBundle.en = {} end
 
 -- Welcome Messages --								-- Type '/pa' for GUI."
-ResourceBundle.en["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!   -   no localization for (%s) available yet."
-ResourceBundle.en["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_YELLOW.." at your service!"
+ResourceBundle.en["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." at your service!   -   no localization for (%s) available yet."
+ResourceBundle.en["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." at your service!"
 
 -- Key Bindings
 ResourceBundle.en["KB_Load_Profile1"]				= "Activate profile 1"
@@ -20,23 +20,23 @@ ResourceBundle.en["PAG_Profile4"]					= "Profile 4"
 ResourceBundle.en["PAG_Profile5"]					= "Profile 5"
 
 -- PARepair --
-ResourceBundle.en["PAR_FullRepair"] 				= "PARepair: All %s items repaired for %d gold."
-ResourceBundle.en["PAR_PartialRepair"] 				= "PARepair: %d / %d %s items repaired for %d gold. (not enough gold)"
-ResourceBundle.en["PAR_NoGoldToRepair"] 			= "PARepair: Not enough gold to repair %d %s items."
-ResourceBundle.en["PAR_NoRepair"] 					= "PARepair: Nothing to repair."
+ResourceBundle.en["PAR_FullRepair"] 				= PAC_COLTEXT_PAR.."All %s items repaired for %d %s"
+ResourceBundle.en["PAR_PartialRepair"] 				= PAC_COLTEXT_PAR.."%d / %d %s items repaired for %d %s. (not enough gold)"
+ResourceBundle.en["PAR_NoGoldToRepair"] 			= PAC_COLTEXT_PAR.."Not enough gold to repair %d %s items."
+ResourceBundle.en["PAR_NoRepair"] 					= PAC_COLTEXT_PAR.."Nothing to repair."
 
 -- PABanking --
-ResourceBundle.en["PAB_GoldDepositet"] 				= "PABanking: %d gold deposited."
-ResourceBundle.en["PAB_GoldWithdrawn"] 				= "PABanking: %d gold withdrawn."
-ResourceBundle.en["PAB_GoldWithdrawnInsufficient"] 	= "PABanking: %d / %d gold withdrawn. (not enough gold in bank!)"
+ResourceBundle.en["PAB_GoldDepositet"] 				= PAC_COLTEXT_PAB.."%d %s deposited."
+ResourceBundle.en["PAB_GoldWithdrawn"] 				= PAC_COLTEXT_PAB.."%d %s withdrawn."
+ResourceBundle.en["PAB_GoldWithdrawnInsufficient"] 	= PAC_COLTEXT_PAB.."%d / %d %s withdrawn. (not enough gold in bank!)"
 
-ResourceBundle.en["PAB_ItemMovedTo"] 				= "%d x %s was moved to %s."
-ResourceBundle.en["PAB_ItemNotMovedTo"] 			= "%d x %s was NOT moved to %s."
-ResourceBundle.en["PAB_ItemMovedToFailed"] 			= "FAILURE: %s could NOT be moved to %s."
+ResourceBundle.en["PAB_ItemMovedTo"] 				= PAC_COLTEXT_PAB.."%d x %s was moved to %s."
+ResourceBundle.en["PAB_ItemNotMovedTo"] 			= PAC_COLTEXT_PAB.."%d x %s was NOT moved to %s."
+ResourceBundle.en["PAB_ItemMovedToFailed"] 			= PAC_COLTEXT_PAB..PAC_COL_ORANGE.."FAILURE: %s could NOT be moved to %s."
 
-ResourceBundle.en["PAB_NoSpaceInFor"] 				= "PABanking: Not enough space in %s for: %s."
-ResourceBundle.en["PAB_NoSpaceToOpen"] 				= "PABanking: Not enough space in %s to open %s."
-ResourceBundle.en["PAB_NoDeposit"] 					= "PABanking: Nothing to deposit."
+ResourceBundle.en["PAB_NoSpaceInFor"] 				= PAC_COLTEXT_PAB..PAC_COL_ORANGE.."Not enough space in %s for: %s."
+ResourceBundle.en["PAB_NoSpaceToOpen"] 				= PAC_COLTEXT_PAB.."Not enough space in %s to open %s."
+ResourceBundle.en["PAB_NoDeposit"] 					= PAC_COLTEXT_PAB.."Nothing to deposit."
 
 ResourceBundle.en["PAB_ItemType_None"] 				= "-"
 ResourceBundle.en["PAB_ItemType_Deposit"]			= "Deposit"
@@ -44,15 +44,15 @@ ResourceBundle.en["PAB_ItemType_Withdrawal"]		= "Withdraw"
 ResourceBundle.en["PAB_ItemType_Inherit"]			= "Depending on item type (below)"
 
 -- PALoot --
-ResourceBundle.en["PALo_ItemLooted"] 				= "PALoot: %d x %s"
-ResourceBundle.en["PALo_GoldLooted"] 				= "PALoot: %d gold"
+ResourceBundle.en["PALo_ItemLooted"] 				= PAC_COLTEXT_PALo.."%d x %s %s"
+ResourceBundle.en["PALo_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"
 
 ResourceBundle.en["PALo_ItemType_None"] 		    = "-"
 ResourceBundle.en["PALo_ItemType_Loot"]             = "Auto-Loot"
 
 -- PAJunk --
-ResourceBundle.en["PAJ_MovedToJunk"]                = "%s moved to junk."
-ResourceBundle.en["PAJ_SoldJunkInfo"]               = "Sold junk items for %d gold."
+ResourceBundle.en["PAJ_MovedToJunk"]                = PAC_COLTEXT_PAJ.."Moved %s to junk"
+ResourceBundle.en["PAJ_SoldJunkInfo"]               = PAC_COLTEXT_PAJ.."Sold junk items for %d %s"
 
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
