@@ -53,6 +53,8 @@ end
 
 function MenuHelper.renameProfile(profileText)
 	PA_SavedVars.Profiles[PA_SavedVars.General.activeProfile].name = profileText
+    -- TODO: replace this with LAM-2's [requiresReload]
+    -- https://github.com/sirinsidiator/ESO-LibAddonMenu/wiki/CommonProperties#requiresreload
 	ReloadUI()
 end
 
