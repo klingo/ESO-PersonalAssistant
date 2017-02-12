@@ -33,7 +33,7 @@ end
 
 
 -- init saved variables and register Addon
-function PA.initAddon(eventCode, addOnName)
+function PAJ.initAddon(eventCode, addOnName)
     if addOnName ~= PAJ.AddonName then
         return
     end
