@@ -15,7 +15,7 @@ PAEM.isJunkProcessing = false
 ------------------------------------------------------------------------------------------------------------------------
 
 function PAEM.RegisterForEvent(addonName, ESOevent, executableFunction, paIdentifier)
-    -- create esoIdentifier based on addonName and ESO event
+    -- create esoIdentifier based on module/addonName and ESO event
     local esoIdentifier = addonName.."_"..ESOevent
 
     -- if a specific PA identifier was set, use this one as the ESO identifer
@@ -24,7 +24,7 @@ function PAEM.RegisterForEvent(addonName, ESOevent, executableFunction, paIdenti
     -- an event will only be registered with ESO, when the same identiifer is not yet registered
     if not PAEM.containsEventInSet(esoIdentifier) then
         -- register the event with ESO
-        EVENT_MANAGER:RegisterForEvent(esoIdentifier, ESOevent, function() executableFunction() end)
+        EVENT_MANAGER:RegisterForEvent(esoIdentifier, ESOevent, executableFunction)
         -- and add it to PA's internal list of registered events
         PAEM.addEventToSet(esoIdentifier)
     end

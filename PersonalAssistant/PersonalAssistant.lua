@@ -11,10 +11,7 @@ if PA.savedVars.Loot				== nil then PA.savedVars.Loot 			    = {} end
 if PA.savedVars.Junk                == nil then PA.savedVars.Junk               = {} end
 
 PA.AddonName = "PersonalAssistant"
-PA.AddonVersion = "2.0.0"
-
--- default values
-PA.General_Defaults = {}
+PA.AddonVersion = "2.0"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
@@ -29,6 +26,7 @@ PA.General_Defaults = {}
 -- init default values
 function PA.initDefaults()
     -- initialize the multi-profile structure
+    PA.General_Defaults = {}
     -- -----------------------------------------------------
     -- default values for Addon
     PA.General_Defaults.activeProfile = 1
@@ -66,9 +64,9 @@ end
 -- introduces the addon to the player
 function PA.introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
-    SLASH_COMMANDS["/pa debug on"] = PA.registerPickup
-    SLASH_COMMANDS["/pa debug off"] = PA.unregisterPickup
-    -- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
+    SLASH_COMMANDS["/padebugon"] = function() PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup) end
+    SLASH_COMMANDS["/padebugoff"] = function() PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP) end
+    --SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 
     -- create the options with LAM-2
     PA_SettingsMenu.CreateOptions()
@@ -92,15 +90,8 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 	local itemType, specializedItemType = GetItemType(bagId, slotIndex)
 	local strItemType = PALocale.getResourceMessage(itemType)
 	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
-	local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
+	-- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
 	local itemId = GetItemId(bagId, slotIndex)
-	PAHF.println("itemType (%s): %s. (special = %s) ---> (%d/%d) --> %s   (saved = %s | itemId = %d)", itemType, strItemType, specializedItemType, stack, maxStack, PAHF.getFormattedItemLink(bagId, slotIndex), tostring(isSaved), itemId)
-end
 
-function PA.registerPickup()
-    PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
-end
-
-function PA.unregisterPickup()
-    PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+    PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType = %s", itemType, strItemType, PAHF.getFormattedItemLink(bagId, slotIndex), stack, maxStack, itemId, specializedItemType)
 end
