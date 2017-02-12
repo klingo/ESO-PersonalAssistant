@@ -1,45 +1,57 @@
 MenuHelper = {}
 
--- PA Banking
-function MenuHelper.setDepositAll()
-	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_DEPOSIT)
+-- PersonalAssistant Banking
+function MenuHelper.setPABDepositAll()
+	MenuHelper.setPABDropdownsTo(PAC_ITEMTYPE_DEPOSIT)
 end
 
-function MenuHelper.setWithdrawalAll()
-	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_WITHDRAWAL)
+function MenuHelper.setPABWithdrawalAll()
+	MenuHelper.setPABDropdownsTo(PAC_ITEMTYPE_WITHDRAWAL)
 end
 
-function MenuHelper.setIgnoreAll()
-	MenuHelper.setDropdownsTo(PAC_ITEMTYPE_IGNORE)
+function MenuHelper.setPABIgnoreAll()
+	MenuHelper.setPABDropdownsTo(PAC_ITEMTYPE_IGNORE)
 end
 
--- PA Loot
-function MenuHelper.setAutoLootAll()
-    MenuHelper.setLootDropdownsTo(PAC_ITEMTYPE_LOOT)
+-- PersonalAssistant Loot
+function MenuHelper.setPALAutoLootAll(palType)
+    if (palType == PAL_TYPE_HARVEST) then MenuHelper.setPALHarvestDropdownsTo(PAC_ITEMTYPE_LOOT) end
+    if (palType == PAL_TYPE_LOOT) then MenuHelper.setPALLootDropdownsTo(PAC_ITEMTYPE_LOOT) end
 end
 
-function MenuHelper.setIgnoreLootAll()
-    MenuHelper.setLootDropdownsTo(PAC_ITEMTYPE_IGNORE)
+function MenuHelper.setPALIgnoreAll(palType)
+    if (palType == PAL_TYPE_HARVEST) then MenuHelper.setPALHarvestDropdownsTo(PAC_ITEMTYPE_IGNORE) end
+    if (palType == PAL_TYPE_LOOT) then MenuHelper.setPALLootDropdownsTo(PAC_ITEMTYPE_IGNORE) end
 end
 
 -- --------------------------------------------------------------------------------------------------------
 
-function MenuHelper.setDropdownsTo(itemTypeKey)
+function MenuHelper.setPABDropdownsTo(itemTypeKey)
+    local activeProfile = PA.savedVars.General.activeProfile
+    for i = 1, #PABItemTypes do
+        -- only if the itemType is enabled
+        if PABItemTypes[i] ~= "" then
+            PA.savedVars.Banking[activeProfile].ItemTypes[PABItemTypes[i]] = itemTypeKey
+        end
+    end
+end
+
+function MenuHelper.setPALHarvestDropdownsTo(itemTypeKey)
 	local activeProfile = PA.savedVars.General.activeProfile
-	for i = 1, #PAItemTypes do
+	for i = 1, #PALHarvestableItemTypes do
 		-- only if the itemType is enabled
-		if PAItemTypes[i] ~= "" then
-			PA.savedVars.Banking[activeProfile].ItemTypes[PAItemTypes[i]] = itemTypeKey
+		if PALHarvestableItemTypes[i] ~= "" then
+			PA.savedVars.Loot[activeProfile].HarvestableItemTypes[PALHarvestableItemTypes[i]] = itemTypeKey
 		end
 	end
 end
 
-function MenuHelper.setLootDropdownsTo(itemTypeKey)
+function MenuHelper.setPALLootDropdownsTo(itemTypeKey)
     local activeProfile = PA.savedVars.General.activeProfile
-    for i = 1, #PALoItemTypes do
+    for i = 1, #PALLootableItemTypes do
         -- only if the itemType is enabled
-        if PALoItemTypes[i] ~= "" then
-            PA.savedVars.Loot[activeProfile].ItemTypes[PALoItemTypes[i]] = itemTypeKey
+        if PALLootableItemTypes[i] ~= "" then
+            PA.savedVars.Loot[activeProfile].LootableItemTypes[PALLootableItemTypes[i]] = itemTypeKey
         end
     end
 end
@@ -73,7 +85,7 @@ function MenuHelper.getBankingTextFromNumber(number)
 	if (number ~= nil) then
 		index = PA.savedVars.Banking[activeProfile].ItemTypes[number]
 	end
-	
+
 	if index == PAC_ITEMTYPE_DEPOSIT then
 		return PALocale.getResourceMessage("PAB_ItemType_Deposit")
 	elseif index == PAC_ITEMTYPE_WITHDRAWAL then
@@ -104,7 +116,7 @@ end
 function MenuHelper.getOperatorTextFromNumber(number)
 	local activeProfile = PA.savedVars.General.activeProfile
 	local index = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[number].Key
-	
+
 	if index == PAC_OPERATOR_EQUAL then
 		return PALocale.getResourceMessage("REL_Equal")
 	elseif index == PAC_OPERATOR_LESSTHAN then
@@ -164,9 +176,15 @@ end
 -- --------------------------------------------------------------------------------------------------------
 
 -- returns the matching dropdown-text based on the number that is behind it
-function MenuHelper.getLootTextFromNumber(number)
+function MenuHelper.getLootTextFromNumber(number, lootType)
     local activeProfile = PA.savedVars.General.activeProfile
-    local index = PA.savedVars.Loot[activeProfile].ItemTypes[number]
+    local index
+    if (lootType == PAL_TYPE_LOOT) then
+        index = PA.savedVars.Loot[activeProfile].LootableItemTypes[number]
+    elseif (lootType == PAL_TYPE_HARVEST) then
+        index = PA.savedVars.Loot[activeProfile].HarvestableItemTypes[number]
+    end
+
     if index == PAC_ITEMTYPE_LOOT then
         return PALocale.getResourceMessage("PAL_ItemType_Loot")
     else
@@ -198,7 +216,7 @@ function MenuHelper.getProfileTextFromNumber(number)
 	if (number ~= nil) then
 		profileNo = number
 	end
-	
+
 	return PA.savedVars.General[profileNo].name
 end
 

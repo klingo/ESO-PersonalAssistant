@@ -13,7 +13,8 @@ function PAL.initDefaults()
     -- default values for PALoot
     for profileNo = 1, PAG_MAX_PROFILES do
         PAL.Loot_Defaults[profileNo] = {
-            ItemTypes = {}
+            HarvestableItemTypes = {},
+            LootableItemTypes = {}
         }
         PAL.Loot_Defaults[profileNo].enabled = false
         PAL.Loot_Defaults[profileNo].lootGold = true
@@ -24,9 +25,15 @@ function PAL.initDefaults()
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
         -- auto-loot=true, ignore=false
-        for i = 1, #PALoItemTypes do
-            if PALoItemTypes[i] ~= "" then
-                PAL.Loot_Defaults[profileNo].ItemTypes[PALoItemTypes[i]] = 0
+        for i = 1, #PALHarvestableItemTypes do
+            if PALHarvestableItemTypes[i] ~= "" then
+                PAL.Loot_Defaults[profileNo].HarvestableItemTypes[PALHarvestableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
+            end
+        end
+
+        for i = 1, #PALLootableItemTypes do
+            if PALLootableItemTypes[i] ~= "" then
+                PAL.Loot_Defaults[profileNo].LootableItemTypes[PALLootableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
             end
         end
     end

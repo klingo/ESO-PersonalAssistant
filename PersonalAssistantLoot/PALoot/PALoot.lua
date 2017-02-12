@@ -6,7 +6,8 @@
 --
 
 PAL.alreadyHarvesting = false
-PAL.alreadyFishing = false;
+PAL.alreadyLooting = false
+PAL.alreadyFishing = false
 
 function PAL.OnReticleTargetChanged()
     -- check if addon is enabled
@@ -14,6 +15,7 @@ function PAL.OnReticleTargetChanged()
         local type = GetInteractionType()
         local active = IsPlayerInteractingWithObject()
         local isHarvesting = (active and (type == INTERACTION_HARVEST))
+        local isLooting = (active and (type == INTERACTION_LOOT))
         local isFishing = (active and (type == INTERACTION_FISH))
 
 
@@ -22,14 +24,38 @@ function PAL.OnReticleTargetChanged()
                 -- stopped harvesting
                 PAL.alreadyHarvesting = false
                 -- DEBUG
-                -- PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+                if (PA.debug) then
+                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+                end
             end
         else
             if (isHarvesting) then
                 -- started harvesting
                 PAL.alreadyHarvesting = true
                 -- DEBUG
-                -- PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+                if (PA.debug) then
+                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+                end
+            end
+        end
+
+        if (PAL.alreadyLooting) then
+            if (not isLooting) then
+                -- stopped harvesting
+                PAL.alreadyLooting = false
+                -- DEBUG
+                if (PA.debug) then
+                    PAL.println("isLooting=%s   type=%s", tostring(isLooting), tostring(type))
+                end
+            end
+        else
+            if (isLooting) then
+                -- started harvesting
+                PAL.alreadyLooting = true
+                -- DEBUG
+                if (PA.debug) then
+                    PAL.println("isLooting=%s   type=%s", tostring(isLooting), tostring(type))
+                end
             end
         end
 
@@ -38,14 +64,18 @@ function PAL.OnReticleTargetChanged()
                 -- stopped fishing
                 PAL.alreadyFishing = false
                 -- DEBUG
-                -- PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+                if (PA.debug) then
+                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+                end
             end
         else
             if (isFishing) then
                 -- started fishing
                 PAL.alreadyFishing = true
                 -- DEBUG
-                -- PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+                if (PA.debug) then
+                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+                end
             end
         end
 
@@ -76,11 +106,11 @@ function PAL.OnLootUpdated()
 
                     -- TODO: also check for stolen???
 
-                    for currItemType = 1, #PALoItemTypes do
+                    for currItemType = 1, #PALHarvestableItemTypes do
                         -- check if the itemType is configured for auto-loot
-                        if (PALoItemTypes[currItemType] == itemType) then
+                        if (PALHarvestableItemTypes[currItemType] == itemType) then
                             -- then check if it is set to Auto-Loot
-                            if (PA.savedVars.Loot[activeProfile].ItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
+                            if (PA.savedVars.Loot[activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                 -- Loot the item
                                 LootItemById(lootId)
                                 if (not PA.savedVars.Loot[activeProfile].hideItemLootMsg) then

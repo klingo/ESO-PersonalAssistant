@@ -24,6 +24,10 @@ PAB_STACKING_FULL = 0		-- 0: Full depositing/withdrawl
 PAB_STACKING_CONTINUE = 1	-- 1: Continue existing stacks
 PAB_STACKING_INCOMPLETE = 2	-- 2: Complete existing stacks
 
+-- PerstonalAssistant Loot
+PAL_TYPE_LOOT = 0
+PAL_TYPE_HARVEST = 1
+
 -- PersonalAssistant Colors
 PAC_COL_WHITE = "|cFFFFFF"
 PAC_COL_DEFAULT = "|cFFFF00"
@@ -46,71 +50,76 @@ PAC_ICON_TALVAR = "|t16:16:/esoui/art/currency/currency_telvar.dds|t"
 -- =====================================================================================================================
 -- = PA Banking
 -- =================================
-PAItemTypes = {}
--- PAItemTypes[index] = ItemType   ["" --> disabled itemType]
+PABItemTypes = {}
+-- PABItemTypes[index] = ItemType   ["" --> disabled itemType]
 -- Alchemy
-table.insert(PAItemTypes, ITEMTYPE_REAGENT) -- 00
-table.insert(PAItemTypes, ITEMTYPE_POISON_BASE) -- 01
-table.insert(PAItemTypes, ITEMTYPE_POTION_BASE) -- 02
+table.insert(PABItemTypes, ITEMTYPE_REAGENT) -- 00
+table.insert(PABItemTypes, ITEMTYPE_POISON_BASE) -- 01
+table.insert(PABItemTypes, ITEMTYPE_POTION_BASE) -- 02
 -- Blacksmithing
-table.insert(PAItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL) -- 03
-table.insert(PAItemTypes, ITEMTYPE_BLACKSMITHING_MATERIAL) -- 04
-table.insert(PAItemTypes, ITEMTYPE_BLACKSMITHING_BOOSTER) -- 05
+table.insert(PABItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL) -- 03
+table.insert(PABItemTypes, ITEMTYPE_BLACKSMITHING_MATERIAL) -- 04
+table.insert(PABItemTypes, ITEMTYPE_BLACKSMITHING_BOOSTER) -- 05
 -- Clothing
-table.insert(PAItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL) -- 06
-table.insert(PAItemTypes, ITEMTYPE_CLOTHIER_MATERIAL) -- 07
-table.insert(PAItemTypes, ITEMTYPE_CLOTHIER_BOOSTER) -- 08
+table.insert(PABItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL) -- 06
+table.insert(PABItemTypes, ITEMTYPE_CLOTHIER_MATERIAL) -- 07
+table.insert(PABItemTypes, ITEMTYPE_CLOTHIER_BOOSTER) -- 08
 -- Woodworking
-table.insert(PAItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL) -- 09
-table.insert(PAItemTypes, ITEMTYPE_WOODWORKING_MATERIAL) -- 10
-table.insert(PAItemTypes, ITEMTYPE_WOODWORKING_BOOSTER) -- 11
+table.insert(PABItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL) -- 09
+table.insert(PABItemTypes, ITEMTYPE_WOODWORKING_MATERIAL) -- 10
+table.insert(PABItemTypes, ITEMTYPE_WOODWORKING_BOOSTER) -- 11
 -- Enchanting
-table.insert(PAItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT) -- 12
-table.insert(PAItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE) -- 13
-table.insert(PAItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY) -- 14
-table.insert(PAItemTypes, ITEMTYPE_GLYPH_ARMOR) -- 15
-table.insert(PAItemTypes, ITEMTYPE_GLYPH_JEWELRY) -- 16
-table.insert(PAItemTypes, ITEMTYPE_GLYPH_WEAPON) -- 17
+table.insert(PABItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT) -- 12
+table.insert(PABItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE) -- 13
+table.insert(PABItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY) -- 14
+table.insert(PABItemTypes, ITEMTYPE_GLYPH_ARMOR) -- 15
+table.insert(PABItemTypes, ITEMTYPE_GLYPH_JEWELRY) -- 16
+table.insert(PABItemTypes, ITEMTYPE_GLYPH_WEAPON) -- 17
 -- Provisioning
-table.insert(PAItemTypes, ITEMTYPE_INGREDIENT) -- 18
-table.insert(PAItemTypes, ITEMTYPE_RECIPE) -- 19
+table.insert(PABItemTypes, ITEMTYPE_INGREDIENT) -- 18
+table.insert(PABItemTypes, ITEMTYPE_RECIPE) -- 19
 -- Others
-table.insert(PAItemTypes, ITEMTYPE_DRINK) -- 20
-table.insert(PAItemTypes, ITEMTYPE_FOOD) -- 21
-table.insert(PAItemTypes, ITEMTYPE_POTION) -- 22
-table.insert(PAItemTypes, ITEMTYPE_POISON) -- NEW!!!
-table.insert(PAItemTypes, ITEMTYPE_ARMOR_TRAIT) -- 23
-table.insert(PAItemTypes, ITEMTYPE_WEAPON_TRAIT) -- 24
-table.insert(PAItemTypes, ITEMTYPE_STYLE_MATERIAL) -- 25
-table.insert(PAItemTypes, ITEMTYPE_RAW_MATERIAL) -- 26
+table.insert(PABItemTypes, ITEMTYPE_DRINK) -- 20
+table.insert(PABItemTypes, ITEMTYPE_FOOD) -- 21
+table.insert(PABItemTypes, ITEMTYPE_POTION) -- 22
+table.insert(PABItemTypes, ITEMTYPE_POISON) -- NEW!!!
+table.insert(PABItemTypes, ITEMTYPE_ARMOR_TRAIT) -- 23
+table.insert(PABItemTypes, ITEMTYPE_WEAPON_TRAIT) -- 24
+table.insert(PABItemTypes, ITEMTYPE_STYLE_MATERIAL) -- 25
+table.insert(PABItemTypes, ITEMTYPE_RAW_MATERIAL) -- 26
 
 -- PersonalAssistant advanced ItemTypes
-PAItemTypesAdvanced = {}
-PAItemTypesAdvanced[0] = 30357	-- Lockpick
+PABItemTypesAdvanced = {}
+PABItemTypesAdvanced[0] = 30357	-- Lockpick
 -- Can't use ITEMTYPE_LOCKPICK or SPECIALIZED_ITEMTYPE_LOCKPICK since the actual lockpicks are categorized as ITEMTYPE_TOOL (as of APIVersion 100018)
 
 -- =====================================================================================================================
 -- = PA Loot
 -- =================================
--- PersonalAssistant Loot ItemTypes
-PALoItemTypes = {}
+-- PersonalAssistant Loot Harvestable ItemTypes
+PALHarvestableItemTypes = {}
 -- Alchemy
-table.insert(PALoItemTypes, ITEMTYPE_REAGENT)
-table.insert(PALoItemTypes, ITEMTYPE_POTION_BASE)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_REAGENT)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_POTION_BASE)
 -- Blacksmithing
-table.insert(PALoItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
 -- Clothing
-table.insert(PALoItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 -- Woodworking
-table.insert(PALoItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL)
 -- Enchanting
-table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT)
-table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
-table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY)
 -- Provisioning
-table.insert(PALoItemTypes, ITEMTYPE_INGREDIENT)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_INGREDIENT)
 -- Fishing
-table.insert(PALoItemTypes, ITEMTYPE_FISH)
+table.insert(PALHarvestableItemTypes, ITEMTYPE_FISH)
+
+-- PersonalAssistant Loot Harvestable ItemTypes
+PALLootableItemTypes = {}
+-- Clothing
+table.insert(PALLootableItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 
 -- =====================================================================================================================
 -- = PA Junk

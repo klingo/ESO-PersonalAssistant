@@ -22,7 +22,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 -- populate the transfer List here
 -- -------------------------------------------------------------------------------------------------
 	-- let us start with the lockpicks!
-	transferList[0] = PAItemTypesAdvanced[0]
+	transferList[0] = PABItemTypesAdvanced[0]
 -- 	transferList[1] = XYZ
 -- 	transferList[2] = XYZ
 	

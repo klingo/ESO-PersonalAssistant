@@ -34,14 +34,14 @@ function PAB.initDefaults()
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
         -- deposit=true, withdrawal=false
-        for i = 1, #PAItemTypes do
-            if PAItemTypes[i] ~= "" then
-                PAB.Banking_Defaults[profileNo].ItemTypes[PAItemTypes[i]] = 0
+        for i = 1, #PABItemTypes do
+            if PABItemTypes[i] ~= "" then
+                PAB.Banking_Defaults[profileNo].ItemTypes[PABItemTypes[i]] = PAC_ITEMTYPE_IGNORE
             end
         end
 
         -- default values for advanced ItemTypes
-        for itemTypeAdvancedNo = 0, #PAItemTypesAdvanced do	-- amount of advanced item types
+        for itemTypeAdvancedNo = 0, #PABItemTypesAdvanced do	-- amount of advanced item types
             PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
                 Key = {},
                 Value = {}

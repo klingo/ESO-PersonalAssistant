@@ -94,9 +94,9 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 			-- do nothing; skip item (junk has to be deposited but we are in withdraw mode)
 		else
 			-- loop through all item types
-			for currItemType = 1, #PAItemTypes do
+			for currItemType = 1, #PABItemTypes do
 				-- checks if this item type has been enabled for deposits/withdraws and if it does match the type of the source item.... or if it is Junk and checks shall be skipped
-				if (((PA.savedVars.Banking[activeProfile].ItemTypes[PAItemTypes[currItemType]] == transactionType) and (fromBagItemTypeList[currFromBagItem] == PAItemTypes[currItemType])) or (isJunk and skipChecksAndProceed)) then
+				if (((PA.savedVars.Banking[activeProfile].ItemTypes[PABItemTypes[currItemType]] == transactionType) and (fromBagItemTypeList[currFromBagItem] == PABItemTypes[currItemType])) or (isJunk and skipChecksAndProceed)) then
 					-- then loop through all items in the target bag
 					for currToBagItem = 0, #toBagItemTypeList do
 						-- store the name of the target item

@@ -379,7 +379,6 @@ function PA_SettingsMenu.createMainMenu()
             tooltip = PALocale.getResourceMessage("PALMenu_LootGold_T"),
             getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGold end,
             setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGold = value end,
-            width = "half",
             disabled = function() return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled end,
             default = true,
         }
@@ -389,6 +388,18 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PALMenu_LootItems"),
             tooltip = PALocale.getResourceMessage("PALMenu_LootItems_T"),
+            getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems end,
+            setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems = value end,
+            width = "half",
+            disabled = function() return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled end,
+            default = true,
+        }
+        tableIndex = tableIndex + 1
+
+        optionsTable[tableIndex] = {
+            type = "checkbox",
+            name = PALocale.getResourceMessage("PALMenu_LootableLootItems"),
+            tooltip = PALocale.getResourceMessage("PALMenu_LootableLootItems_T"),
             getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems end,
             setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems = value end,
             width = "half",
@@ -520,7 +531,6 @@ end
 
 function PA_SettingsMenu.createPABItemSubMenu()
     if (PAB) then
-        local activeProfile = PA.savedVars.General.activeProfile
         local tableIndex = 1
 
         PABItemTypeSubmenuTable[tableIndex] = {
@@ -573,16 +583,16 @@ function PA_SettingsMenu.createPABItemSubMenu()
         }
         tableIndex = tableIndex + 1
 
-        for i = 1, #PAItemTypes do
+        for i = 1, #PABItemTypes do
             -- only add if the itemType is enabled
-            if PAItemTypes[i] ~= "" then
+            if PABItemTypes[i] ~= "" then
                 PABItemTypeSubmenuTable[tableIndex] = {
                     type = "dropdown",
-                    name = PALocale.getResourceMessage(PAItemTypes[i]),
+                    name = PALocale.getResourceMessage(PABItemTypes[i]),
                     tooltip = "",
                     choices = {PALocale.getResourceMessage("PAB_ItemType_None"), PALocale.getResourceMessage("PAB_ItemType_Deposit"), PALocale.getResourceMessage("PAB_ItemType_Withdrawal")},
-                    getFunc = function() return MenuHelper.getBankingTextFromNumber(PAItemTypes[i]) end,
-                    setFunc = function(value) PA.savedVars.Banking[PA.savedVars.General.activeProfile].ItemTypes[PAItemTypes[i]] = MenuHelper.getBankingNumberFromText(value) end,
+                    getFunc = function() return MenuHelper.getBankingTextFromNumber(PABItemTypes[i]) end,
+                    setFunc = function(value) PA.savedVars.Banking[PA.savedVars.General.activeProfile].ItemTypes[PABItemTypes[i]] = MenuHelper.getBankingNumberFromText(value) end,
                     width = "half",
                     disabled = function() return not (PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.General.activeProfile].items) end,
                     default = PALocale.getResourceMessage("PAB_ItemType_None"),
@@ -590,7 +600,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
                 tableIndex = tableIndex + 1
 
                 -- i = index in table
-                -- PAItemTypes[i] = unique constant number of itemType
+                -- PABItemTypes[i] = unique constant number of itemType
             end
         end
 
@@ -598,7 +608,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
             type = "button",
             name = PALocale.getResourceMessage("PABMenu_DepButton"),
             tooltip = PALocale.getResourceMessage("PABMenu_DepButton_T"),
-            func = function() MenuHelper.setDepositAll() end,
+            func = function() MenuHelper.setPABDepositAll() end,
             disabled = function() return not (PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.General.activeProfile].items) end,
         }
         tableIndex = tableIndex + 1
@@ -607,7 +617,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
             type = "button",
             name = PALocale.getResourceMessage("PABMenu_WitButton"),
             tooltip = PALocale.getResourceMessage("PABMenu_WitButton_T"),
-            func = function() MenuHelper.setWithdrawalAll() end,
+            func = function() MenuHelper.setPABWithdrawalAll() end,
             disabled = function() return not (PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.General.activeProfile].items) end,
         }
         tableIndex = tableIndex + 1
@@ -616,7 +626,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
             type = "button",
             name = PALocale.getResourceMessage("PABMenu_IgnButton"),
             tooltip = PALocale.getResourceMessage("PABMenu_IgnButton_T"),
-            func = function() MenuHelper.setIgnoreAll() end,
+            func = function() MenuHelper.setPABIgnoreAll() end,
             disabled = function() return not (PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.General.activeProfile].items) end,
         }
     end
@@ -628,7 +638,6 @@ end
 
 function PA_SettingsMenu.createPABItemAdvancedSubMenu()
     if (PAB) then
-        local activeProfile = PA.savedVars.General.activeProfile
         local tableIndex = 1
 
         local advancedItemIndex = 0		-- 0 = Lockpick
@@ -674,7 +683,6 @@ end
 
 function PA_SettingsMenu.createPALHarvestableItemSubMenu()
     if (PAL) then
-        local activeProfile = PA.savedVars.General.activeProfile
         local tableIndex = 1
 
         PALHarvestableItemSubmenuTable[tableIndex] = {
@@ -689,16 +697,16 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
         }
         tableIndex = tableIndex + 1
 
-        for i = 1, #PALoItemTypes do
+        for i = 1, #PALHarvestableItemTypes do
             -- only add if the itemType is enabled
-            if PALoItemTypes[i] ~= "" then
+            if PALHarvestableItemTypes[i] ~= "" then
                 PALHarvestableItemSubmenuTable[tableIndex] = {
                     type = "dropdown",
-                    name = PALocale.getResourceMessage(PALoItemTypes[i]),
+                    name = PALocale.getResourceMessage(PALHarvestableItemTypes[i]),
                     tooltip = "",
                     choices = {PALocale.getResourceMessage("PAL_ItemType_None"), PALocale.getResourceMessage("PAL_ItemType_Loot")},
-                    getFunc = function() return MenuHelper.getLootTextFromNumber(PALoItemTypes[i]) end,
-                    setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].ItemTypes[PALoItemTypes[i]] = MenuHelper.getLootNumberFromText(value) end,
+                    getFunc = function() return MenuHelper.getLootTextFromNumber(PALHarvestableItemTypes[i], PAL_TYPE_HARVEST) end,
+                    setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].HarvestableItemTypes[PALHarvestableItemTypes[i]] = MenuHelper.getLootNumberFromText(value) end,
                     width = "half",
                     disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
                     default = PALocale.getResourceMessage("PAL_ItemType_None"),
@@ -706,7 +714,7 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
                 tableIndex = tableIndex + 1
 
                 -- i = index in table
-                -- PALoItemTypes[i] = unique constant number of itemType
+                -- PALHarvestableItemTypes[i] = unique constant number of itemType
             end
         end
 
@@ -714,7 +722,7 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
             type = "button",
             name = PALocale.getResourceMessage("PALMenu_LootButton"),
             tooltip = PALocale.getResourceMessage("PALMenu_LootButton_T"),
-            func = function() MenuHelper.setAutoLootAll() end,
+            func = function() MenuHelper.setPALAutoLootAll(PAL_TYPE_HARVEST) end,
             disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
         }
         tableIndex = tableIndex + 1
@@ -723,15 +731,67 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
             type = "button",
             name = PALocale.getResourceMessage("PALMenu_IgnButton"),
             tooltip = PALocale.getResourceMessage("PALMenu_IgnButton_T"),
-            func = function() MenuHelper.setIgnoreLootAll() end,
+            func = function() MenuHelper.setPALIgnoreAll(PAL_TYPE_HARVEST) end,
             disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
         }
     end
 end
 
-
 -- =================================================================================================================
 
 function PA_SettingsMenu.createPALLootableItemSubMenu()
+    if (PAL) then
+        local tableIndex = 1
 
+        PALLootableItemSubmenuTable[tableIndex] = {
+            type = "description",
+            text = PALocale.getResourceMessage("PALMenu_LootableItemsDesc"),
+        }
+        tableIndex = tableIndex + 1
+
+        PALLootableItemSubmenuTable[tableIndex] = {
+            type = "header",
+            name = PALocale.getResourceMessage("PALMenu_LootableItems_Header"),
+        }
+        tableIndex = tableIndex + 1
+
+        for i = 1, #PALLootableItemTypes do
+            -- only add if the itemType is enabled
+            if PALLootableItemTypes[i] ~= "" then
+                PALLootableItemSubmenuTable[tableIndex] = {
+                    type = "dropdown",
+                    name = PALocale.getResourceMessage(PALLootableItemTypes[i]),
+                    tooltip = "",
+                    choices = {PALocale.getResourceMessage("PAL_ItemType_None"), PALocale.getResourceMessage("PAL_ItemType_Loot")},
+                    getFunc = function() return MenuHelper.getLootTextFromNumber(PALLootableItemTypes[i], PAL_TYPE_LOOT) end,
+                    setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].LootableItemTypes[PALLootableItemTypes[i]] = MenuHelper.getLootNumberFromText(value) end,
+                    width = "half",
+                    disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
+                    default = PALocale.getResourceMessage("PAL_ItemType_None"),
+                }
+                tableIndex = tableIndex + 1
+
+                -- i = index in table
+                -- PALLootableItemTypes[i] = unique constant number of itemType
+            end
+        end
+
+        PALLootableItemSubmenuTable[tableIndex] = {
+            type = "button",
+            name = PALocale.getResourceMessage("PALMenu_LootButton"),
+            tooltip = PALocale.getResourceMessage("PALMenu_LootButton_T"),
+            func = function() MenuHelper.setPALAutoLootAll(PAL_TYPE_LOOT) end,
+            disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
+        }
+        tableIndex = tableIndex + 1
+
+        PALLootableItemSubmenuTable[tableIndex] = {
+            type = "button",
+            name = PALocale.getResourceMessage("PALMenu_IgnButton"),
+            tooltip = PALocale.getResourceMessage("PALMenu_IgnButton_T"),
+            func = function() MenuHelper.setPALIgnoreAll(PAL_TYPE_LOOT) end,
+            disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
+        }
+
+    end
 end
