@@ -1,0 +1,62 @@
+; This Add-on is not created by, affiliated with or sponsored by ZeniMax
+; Media Inc. or its affiliates. The Elder Scrolls® and related logos are
+; registered trademarks or trademarks of ZeniMax Media Inc. in the United
+; States and/or other countries. All rights reserved.
+
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v2.0.0|r
+## Version: 2.0.0
+## Author: Klingo
+## APIVersion: 100018
+## SavedVariables: PersonalAssistant_SavedVariables
+## OptionalDependsOn: LibAddonMenu-2.0
+
+# Libraries
+libs/LibStub/LibStub.lua
+libs/LibAddonMenu-2.0/LibAddonMenu-2.0.lua
+libs/LibAddonMenu-2.0/controls/panel.lua
+libs/LibAddonMenu-2.0/controls/submenu.lua
+libs/LibAddonMenu-2.0/controls/button.lua
+libs/LibAddonMenu-2.0/controls/checkbox.lua
+libs/LibAddonMenu-2.0/controls/colorpicker.lua
+libs/LibAddonMenu-2.0/controls/custom.lua
+libs/LibAddonMenu-2.0/controls/description.lua
+libs/LibAddonMenu-2.0/controls/dropdown.lua
+libs/LibAddonMenu-2.0/controls/editbox.lua
+libs/LibAddonMenu-2.0/controls/header.lua
+libs/LibAddonMenu-2.0/controls/slider.lua
+libs/LibAddonMenu-2.0/controls/texture.lua
+libs/LibAddonMenu-2.0/controls/iconpicker.lua
+libs/LibAddonMenu-2.0/controls/divider.lua
+
+# Globals
+vars/Globals.lua
+vars/SavedVarsCleaner.lua
+
+# Localization
+localization/en.lua
+localization/de.lua
+localization/fr.lua
+localization/Locale.lua
+
+# Utilities
+libs/Utilities/HelperFunctions.lua
+libs/Utilities/EventDispatcher.lua
+
+# UserInterface
+libs/UI/PAFW.lua
+libs/UI/PAUI.lua
+
+# Core
+PersonalAssistant.lua
+PersonalAssistant.xml
+
+# Settings
+libs/Settings/MenuHelper.lua
+libs/Settings/MainMenu.lua
+
+# Integrations
+libs/Integrations/ItemSaver.lua
+
+# Bindings
+bindings/Bindings.lua
+bindings/Bindings.xml
