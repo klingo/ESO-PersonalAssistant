@@ -7,11 +7,21 @@ function PALocale.getResourceMessage(key)
 		PA.savedVars.General.language = GetCVar("language.2") or "en"
 	end
 
-	if PA.savedVars.General.language == "de" then
-		return ResourceBundle.de[key]
-	elseif PA.savedVars.General.language == "fr" then
-		return ResourceBundle.fr[key]
-	else
-		return ResourceBundle.en[key]
-	end
+    -- init variable
+    local labelMsg
+
+    if PA.savedVars.General.language == "de" then
+        -- check if german and get text
+        labelMsg = ResourceBundle.de[key]
+    elseif PA.savedVars.General.language == "fr" then
+        -- check if French and get text
+        labelMsg = ResourceBundle.fr[key]
+    end
+
+    -- if German/French text is not existing, or if other language was set, get English text
+    if (labelMsg == nil or labelMsg == "") then
+        labelMsg = ResourceBundle.en[key]
+    end
+
+    return labelMsg
 end

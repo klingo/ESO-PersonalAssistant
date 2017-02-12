@@ -25,7 +25,8 @@ function PA_SettingsMenu.CreateOptions()
 	-- create the menus with LAM-2
 	PA_SettingsMenu.createPABItemSubMenu()
 	PA_SettingsMenu.createPABItemAdvancedSubMenu()
-    PA_SettingsMenu.createPALoItemSubMenu()
+    PA_SettingsMenu.createPALHarvestableItemSubMenu()
+    PA_SettingsMenu.createPALLootableItemSubMenu()
 	PA_SettingsMenu.createMainMenu()
 	
 	-- and register it
@@ -397,16 +398,18 @@ function PA_SettingsMenu.createMainMenu()
         tableIndex = tableIndex + 1
 
         optionsTable[tableIndex] = {
-            type = "description",
-            text = PALocale.getResourceMessage("PALMenu_HarvestableItemsDesc"),
+            type = "submenu",
+            name = PALocale.getResourceMessage("PALMenu_HarvestableItems"),
+            tooltip = PALocale.getResourceMessage("PALMenu_HarvestableItems_T"),
+            controls = PALHarvestableItemSubmenuTable,
         }
         tableIndex = tableIndex + 1
 
         optionsTable[tableIndex] = {
             type = "submenu",
-            name = PALocale.getResourceMessage("PALMenu_HarvestableItems"),
-            tooltip = PALocale.getResourceMessage("PALMenu_HarvestableItems_T"),
-            controls = PALHarvestableItemSubmenuTable,
+            name = PALocale.getResourceMessage("PALMenu_LootableItems"),
+            tooltip = PALocale.getResourceMessage("PALMenu_LootableItems_T"),
+            controls = PALLootableItemSubmenuTable,
         }
         tableIndex = tableIndex + 1
 
@@ -669,10 +672,16 @@ end
 -- =================================================================================================================
 
 
-function PA_SettingsMenu.createPALoItemSubMenu()
+function PA_SettingsMenu.createPALHarvestableItemSubMenu()
     if (PAL) then
         local activeProfile = PA.savedVars.General.activeProfile
         local tableIndex = 1
+
+        PALHarvestableItemSubmenuTable[tableIndex] = {
+            type = "description",
+            text = PALocale.getResourceMessage("PALMenu_HarvestableItemsDesc"),
+        }
+        tableIndex = tableIndex + 1
 
         PALHarvestableItemSubmenuTable[tableIndex] = {
             type = "header",
@@ -718,4 +727,11 @@ function PA_SettingsMenu.createPALoItemSubMenu()
             disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
         }
     end
+end
+
+
+-- =================================================================================================================
+
+function PA_SettingsMenu.createPALLootableItemSubMenu()
+
 end

@@ -45,14 +45,14 @@ ResourceBundle.fr["PAB_ItemType_Inherit"]			= "Selon le type d'objet (ci-dessous
 
 -- PALoot --
 ResourceBundle.fr["PAL_ItemLooted"] 				= PAC_COLTEXT_PALo.."%d x %s %s"
-ResourceBundle.fr["PAL_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"  -- TODO: translate
+ResourceBundle.fr["PAL_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"
 
 ResourceBundle.fr["PAL_ItemType_None"] 		        = "-"
-ResourceBundle.fr["PAL_ItemType_Loot"]              = "* Auto-Piller" -- TODO: translate
+
 
 -- PAJunk --
-ResourceBundle.fr["PAJ_MovedToJunk"]                = PAC_COLTEXT_PAJ.."* Déplacé %s à la jonque" -- TODO: translate
-ResourceBundle.fr["PAJ_SoldJunkInfo"]               = PAC_COLTEXT_PAJ.."* Vendu des objets indésirables pour %d %s" -- TODO: translate
+
+
 
 -- MainMenu --
 ResourceBundle.fr["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
@@ -107,10 +107,10 @@ ResourceBundle.fr["PABMenu_DepWitItem_T"] 			= "Déposer et/ou retirer automatiq
 ResourceBundle.fr["PABMenu_DepItemTypeDesc"] 		= "Définir les actions spécifiques (déposer, retirer, ignorer) pour les types d'objets communs et avancés."
 ResourceBundle.fr["PABMenu_DepItemType"] 			= "Types d'objets communs"
 ResourceBundle.fr["PABMenu_DepItemType_T"] 			= "Ouvrez le sous-menu pour définir pour chaque type d'objet s'il doit être déposer, retirer, ou ignorer."
-ResourceBundle.fr["PABMenu_DepStackOnly"]			= "* Ouvrez le sous-menu pour définir pour chaque type d'élément s'il doit être déposé, retiré ou ignoré." -- TODO: translate
-ResourceBundle.fr["PABMenu_DepStackOnly_T"]			= "* Type d'empilement (Dépôt)"
-ResourceBundle.fr["PABMenu_WitStackOnly"]			= "* Type d'empilement (Retirer)"
-ResourceBundle.fr["PABMenu_WitStackOnly_T"]			= "* Définir si tous les éléments correspondants doivent être retirés complètement, si seuls les éléments qui existent dans le conteneur cible doivent être retirés ou si seules les piles existantes doivent être remplies jusqu'à leur taille maximale."
+
+
+
+
 ResourceBundle.fr["PABMenu_Advanced_DepItemType"]	= "Types d'objets avancés"
 ResourceBundle.fr["PABMenu_Advanced_DepItemType_T"]	= "Ouvrez le sous-menu pour définir de façon avancée quels types d'objets doivent être déposés, retirés ou ignorés."
 ResourceBundle.fr["PABMenu_DepItemTimerInterval"]	= "- Intervalle entre les déposes (msecs)"
@@ -134,39 +134,39 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack"]       = "Quantité à garder dans 
 ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]     = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
 
 -- PALMenu --
-ResourceBundle.fr["PALMenu_Header"] 				= "|cFFD700PA L|root" -- TODO: translate
-ResourceBundle.fr["PALMenu_Enable"] 				= "|cB0B0FF* Activer le pillage automatique|r" -- TODO: translate
-ResourceBundle.fr["PALMenu_Enable_T"] 				= "* Activer le pillage automatique?" -- TODO: translate
-ResourceBundle.fr["PALMenu_LootGold"]               = "* Piller automatique pièces d'or" -- TODO: translate
-ResourceBundle.fr["PALMenu_LootGold_T"]             = "* Piller automatique pièces d'or?" -- TODO: translate
-ResourceBundle.fr["PALMenu_LootItems"]              = "* Pillage automatique d'articles récoltables" -- TODO: translate
-ResourceBundle.fr["PALMenu_LootItems_T"]            = "* Pillage automatique d'articles récoltables?" -- TODO: translate
-ResourceBundle.fr["PALMenu_HarvestableItemsDesc"] 	= "* Activer et désactiver auto-loot pour les articles récoltables à partir de minerais, herbes, bois, runesones, ou des trous de pêche." -- TODO: translate
-ResourceBundle.fr["PALMenu_HarvestableItems"]       = "* Article récoltable" -- TODO: translate
-ResourceBundle.fr["PALMenu_HarvestableItems_T"]     = "* Ouvrez le sous-menu pour définir pour chaque type d'élément récoltable s'il doit être auto-pillé ou non." -- TODO: translate
-ResourceBundle.fr["PALMenu_HarvestableItems_Header"]= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
-ResourceBundle.fr["PALMenu_LootButton"] 			= "* Piller automatique tous" -- TODO: translate
-ResourceBundle.fr["PALMenu_LootButton_T"] 			= "* Changer toutes les valeurs de liste déroulante à 'Piller automatique'" -- TODO: translate
-ResourceBundle.fr["PALMenu_IgnButton"] 			    = "* Désactiver tous les" -- TODO: translate
-ResourceBundle.fr["PALMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'"
-ResourceBundle.fr["PALMenu_HideItemLoot"] 			= "* Masquer le message 'Objet pillé'" -- TODO: translate
-ResourceBundle.fr["PALMenu_HideItemLoot_T"] 		= "* Masquer le message 'Objet volé'. Vous ne verrez plus quels articles ont été automatiquement pillés." -- TODO: translate
-ResourceBundle.fr["PALMenu_HideGoldLoot"] 			= "* Masquer le message 'Or pillé'" -- TODO: translate
-ResourceBundle.fr["PALMenu_HideGoldLoot_T"] 		= "* Masquer le message 'Où j'ai été pillé'. Vous ne verrez plus combien d'or a été automatiquement pillé." -- TODO: translate
-ResourceBundle.fr["PALMenu_HideAll"] 				= "* Masquer TOUS les messages de butin" -- TODO: translate
-ResourceBundle.fr["PALMenu_HideAll_T"] 			    = "* Mode silencieux: aucun message de pillage (articles et devises) s'affiche." -- TODO: translate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- PAJMenu --
 ResourceBundle.fr["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
-ResourceBundle.fr["PAJMenu_Enable"] 				= "|cB0B0FF* Activer l'annulation automatique|r" -- TODO: translate
-ResourceBundle.fr["PAJMenu_Enable_T"] 				= "* Akctiver l'annulation automatique?" -- TODO: translate
-ResourceBundle.fr["PAJMenu_ItemTypeDesc"]           = "* Activer et désactiver le marquage automatique comme indésirable pour différents types d'éléments." -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoSellJunk"]           = "* Vente automatique d'ordures?" -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoSellJunk_T"]         = "* Vendez automatiquement tous les articles marqués comme junk?" -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoMarkTrash"]          = "* Marquage automatique [Corbeille]" -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoMarkTrash_T"]        = "* Marquer automatiquement les éléments du type [Trash] comme junk?" -- TODO: translate
-ResourceBundle.fr["PAJMenu_HideAll"] 				= "* Masquer tous les messages indésirables" -- TODO: translate
-ResourceBundle.fr["PAJMenu_HideAll_T"] 			    = "* Mode silencieux: Aucun message indésirable ne sera affiché." -- TODO: translate
+
+
+
+
+
+
+
+
+
 
 -- Name Spaces --
 ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
@@ -187,9 +187,9 @@ ResourceBundle.fr["REL_GreaterThan"]                = "supérieur (>)"		-- not r
 ResourceBundle.fr["REL_GreaterThanEqual"]           = "supérieur ou égal (>=)"
 
 -- Stacking types --
-ResourceBundle.fr["ST_MoveAllFull"]					= "* Déplacer tout"			-- 0: Full deposit   -- TODO: translate
-ResourceBundle.fr["ST_MoveExistingFull"]			= "* Tout déplacer si une pile existe"		-- 1: Deposit if existing    -- TODO: translate
-ResourceBundle.fr["ST_FillIncompleteOnly"]			= "* Remplir uniquement les piles existantes"		-- 2: Fill existing stacks   -- TODO: translate
+
+
+
 
 -- Official Item Types --
 ResourceBundle.fr[ITEMTYPE_ADDITIVE] 				= "frITEMTYPE_ADDITIVE"
