@@ -44,11 +44,11 @@ ResourceBundle.fr["PAB_ItemType_Withdrawal"]		= "Retirer"
 ResourceBundle.fr["PAB_ItemType_Inherit"]			= "Selon le type d'objet (ci-dessous)"
 
 -- PALoot --
-ResourceBundle.fr["PALo_ItemLooted"] 				= PAC_COLTEXT_PALo.."%d x %s %s"
-ResourceBundle.fr["PALo_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"  -- TODO: translate
+ResourceBundle.fr["PAL_ItemLooted"] 				= PAC_COLTEXT_PALo.."%d x %s %s"
+ResourceBundle.fr["PAL_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"  -- TODO: translate
 
-ResourceBundle.fr["PALo_ItemType_None"] 		    = "-"
-ResourceBundle.fr["PALo_ItemType_Loot"]             = "* Auto-Piller" -- TODO: translate
+ResourceBundle.fr["PAL_ItemType_None"] 		        = "-"
+ResourceBundle.fr["PAL_ItemType_Loot"]              = "* Auto-Piller" -- TODO: translate
 
 -- PAJunk --
 ResourceBundle.fr["PAJ_MovedToJunk"]                = PAC_COLTEXT_PAJ.."* Déplacé %s à la jonque" -- TODO: translate
@@ -133,28 +133,28 @@ ResourceBundle.fr["PABMenu_Lockipck_Header"]        = PAC_COL_LIGHT_BLUE.."Croch
 ResourceBundle.fr["PABMenu_Keep_in_Backpack"]       = "Quantité à garder dans le sac à dos"
 ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]     = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
 
--- PALoMenu --
-ResourceBundle.fr["PALoMenu_Header"] 				= "|cFFD700PA L|root" -- TODO: translate
-ResourceBundle.fr["PALoMenu_Enable"] 				= "|cB0B0FF* Activer le pillage automatique|r" -- TODO: translate
-ResourceBundle.fr["PALoMenu_Enable_T"] 				= "* Activer le pillage automatique?" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootGold"]              = "* Piller automatique pièces d'or" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootGold_T"]            = "* Piller automatique pièces d'or?" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootItems"]             = "* Pillage automatique d'articles récoltables" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootItems_T"]           = "* Pillage automatique d'articles récoltables?" -- TODO: translate
-ResourceBundle.fr["PALoMenu_ItemTypeDesc"] 	        = "* Activer et désactiver auto-loot pour les articles récoltables à partir de minerais, herbes, bois, runesones, ou des trous de pêche." -- TODO: translate
-ResourceBundle.fr["PALoMenu_ItemType"]              = "* Type d'article récoltable" -- TODO: translate
-ResourceBundle.fr["PALoMenu_ItemType_T"]            = "* Ouvrez le sous-menu pour définir pour chaque type d'élément récoltable s'il doit être auto-pillé ou non." -- TODO: translate
-ResourceBundle.fr["PALoMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
-ResourceBundle.fr["PALoMenu_LootButton"] 			= "* Piller automatique tous" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootButton_T"] 			= "* Changer toutes les valeurs de liste déroulante à 'Piller automatique'" -- TODO: translate
-ResourceBundle.fr["PALoMenu_IgnButton"] 			= "* Désactiver tous les" -- TODO: translate
-ResourceBundle.fr["PALoMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'"
-ResourceBundle.fr["PALoMenu_HideItemLoot"] 			= "* Masquer le message 'Objet pillé'" -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideItemLoot_T"] 		= "* Masquer le message 'Objet volé'. Vous ne verrez plus quels articles ont été automatiquement pillés." -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideGoldLoot"] 			= "* Masquer le message 'Or pillé'" -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideGoldLoot_T"] 		= "* Masquer le message 'Où j'ai été pillé'. Vous ne verrez plus combien d'or a été automatiquement pillé." -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideAll"] 				= "* Masquer TOUS les messages de butin" -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideAll_T"] 			= "* Mode silencieux: aucun message de pillage (articles et devises) s'affiche." -- TODO: translate
+-- PALMenu --
+ResourceBundle.fr["PALMenu_Header"] 				= "|cFFD700PA L|root" -- TODO: translate
+ResourceBundle.fr["PALMenu_Enable"] 				= "|cB0B0FF* Activer le pillage automatique|r" -- TODO: translate
+ResourceBundle.fr["PALMenu_Enable_T"] 				= "* Activer le pillage automatique?" -- TODO: translate
+ResourceBundle.fr["PALMenu_LootGold"]               = "* Piller automatique pièces d'or" -- TODO: translate
+ResourceBundle.fr["PALMenu_LootGold_T"]             = "* Piller automatique pièces d'or?" -- TODO: translate
+ResourceBundle.fr["PALMenu_LootItems"]              = "* Pillage automatique d'articles récoltables" -- TODO: translate
+ResourceBundle.fr["PALMenu_LootItems_T"]            = "* Pillage automatique d'articles récoltables?" -- TODO: translate
+ResourceBundle.fr["PALMenu_HarvestableItemsDesc"] 	= "* Activer et désactiver auto-loot pour les articles récoltables à partir de minerais, herbes, bois, runesones, ou des trous de pêche." -- TODO: translate
+ResourceBundle.fr["PALMenu_HarvestableItems"]       = "* Article récoltable" -- TODO: translate
+ResourceBundle.fr["PALMenu_HarvestableItems_T"]     = "* Ouvrez le sous-menu pour définir pour chaque type d'élément récoltable s'il doit être auto-pillé ou non." -- TODO: translate
+ResourceBundle.fr["PALMenu_HarvestableItems_Header"]= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
+ResourceBundle.fr["PALMenu_LootButton"] 			= "* Piller automatique tous" -- TODO: translate
+ResourceBundle.fr["PALMenu_LootButton_T"] 			= "* Changer toutes les valeurs de liste déroulante à 'Piller automatique'" -- TODO: translate
+ResourceBundle.fr["PALMenu_IgnButton"] 			    = "* Désactiver tous les" -- TODO: translate
+ResourceBundle.fr["PALMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'"
+ResourceBundle.fr["PALMenu_HideItemLoot"] 			= "* Masquer le message 'Objet pillé'" -- TODO: translate
+ResourceBundle.fr["PALMenu_HideItemLoot_T"] 		= "* Masquer le message 'Objet volé'. Vous ne verrez plus quels articles ont été automatiquement pillés." -- TODO: translate
+ResourceBundle.fr["PALMenu_HideGoldLoot"] 			= "* Masquer le message 'Or pillé'" -- TODO: translate
+ResourceBundle.fr["PALMenu_HideGoldLoot_T"] 		= "* Masquer le message 'Où j'ai été pillé'. Vous ne verrez plus combien d'or a été automatiquement pillé." -- TODO: translate
+ResourceBundle.fr["PALMenu_HideAll"] 				= "* Masquer TOUS les messages de butin" -- TODO: translate
+ResourceBundle.fr["PALMenu_HideAll_T"] 			    = "* Mode silencieux: aucun message de pillage (articles et devises) s'affiche." -- TODO: translate
 
 -- PAJMenu --
 ResourceBundle.fr["PAJMenu_Header"]                 = "|cFFD700PA J|runk"

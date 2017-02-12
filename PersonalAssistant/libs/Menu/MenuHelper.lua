@@ -168,15 +168,15 @@ function MenuHelper.getLootTextFromNumber(number)
     local activeProfile = PA.savedVars.General.activeProfile
     local index = PA.savedVars.Loot[activeProfile].ItemTypes[number]
     if index == PAC_ITEMTYPE_LOOT then
-        return PALocale.getResourceMessage("PALo_ItemType_Loot")
+        return PALocale.getResourceMessage("PAL_ItemType_Loot")
     else
-        return PALocale.getResourceMessage("PALo_ItemType_None")
+        return PALocale.getResourceMessage("PAL_ItemType_None")
     end
 end
 
 -- returns the number behind the text, depending on the text
 function MenuHelper.getLootNumberFromText(text)
-    if text == PALocale.getResourceMessage("PALo_ItemType_Loot") then
+    if text == PALocale.getResourceMessage("PAL_ItemType_Loot") then
         return PAC_ITEMTYPE_LOOT		-- = Auto-Loot
     else
         return PAC_ITEMTYPE_IGNORE		-- = Ignore

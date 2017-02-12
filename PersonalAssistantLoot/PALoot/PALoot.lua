@@ -85,7 +85,7 @@ function PAL.OnLootUpdated()
                                 LootItemById(lootId)
                                 if (not PA.savedVars.Loot[activeProfile].hideItemLootMsg) then
                                     local iconString = "|t16:16:"..icon.."|t "
-                                    PAL.println(PALocale.getResourceMessage("PALo_ItemLooted"), itemCount, itemLink, iconString)
+                                    PAL.println(PALocale.getResourceMessage("PAL_ItemLooted"), itemCount, itemLink, iconString)
                                 end
                             end
                             break
@@ -103,7 +103,7 @@ function PAL.OnLootUpdated()
                 -- Loot the gold
                 LootMoney()
                 if (not PA.savedVars.Loot[activeProfile].hideGoldLootMsg) then
-                    PAL.println(PALocale.getResourceMessage("PALo_GoldLooted"), unownedMoney, PAC_ICON_GOLD)
+                    PAL.println(PALocale.getResourceMessage("PAL_GoldLooted"), unownedMoney, PAC_ICON_GOLD)
                 end
             end
         end
