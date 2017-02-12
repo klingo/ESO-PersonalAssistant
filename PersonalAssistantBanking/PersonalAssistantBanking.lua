@@ -17,9 +17,9 @@ function PAB.initAddon(eventCode, addOnName)
 	PAB.initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PAB.savedVars = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVars", 1, "Banking", PAB.Banking_Defaults)
+    PA.savedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", 1, "Banking", PAB.Banking_Defaults)
 
-	-- register PABanking
+    -- register PABanking
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistantBanking", EVENT_OPEN_BANK, PAB.OnBankOpen)
 	EVENT_MANAGER:RegisterForEvent("PersonalAssistantBanking", EVENT_CLOSE_BANK, PAB.OnBankClose)
 

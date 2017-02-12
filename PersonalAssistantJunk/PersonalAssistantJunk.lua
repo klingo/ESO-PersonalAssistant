@@ -20,7 +20,7 @@ function PA.initAddon(eventCode, addOnName)
     PAJ.initDefaults()
 
 	-- gets values from SavedVars, or initialises with default values
-    PAJ.savedVars = ZI_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVars", 1, "Junk", PAJ.Junk_Defaults)
+    PA.savedVars.Junk = ZI_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, "Junk", PAJ.Junk_Defaults)
 
     -- register PAJunk
     EVENT_MANAGER:RegisterForEvent("PersonalAssistantJunk", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)

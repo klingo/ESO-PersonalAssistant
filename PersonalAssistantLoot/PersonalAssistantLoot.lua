@@ -17,7 +17,7 @@ function PAL.initAddon(eventCode, addOnName)
 	PAL.initDefaults()
 
 	-- gets values from SavedVars, or initialises with default values
-    PAL.savedVars = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, "Loot", PAL.Loot_Defaults)
+    PA.savedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, "Loot", PAL.Loot_Defaults)
 
     -- register PALoot
     ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PAL.OnReticleTargetChanged)

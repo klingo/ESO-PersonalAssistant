@@ -17,7 +17,7 @@ function PAR.initAddon(eventCode, addOnName)
 	PAR.initDefaults()
 
 	-- gets values from SavedVars, or initialises with default values
-	PAR.savedVars = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", PAR.Repair_Defaults)
+	PA.savedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", PAR.Repair_Defaults)
 
 	-- register Event Dispatcher for: PARepair and PAJunk
 	-- TODO: check how to handle this

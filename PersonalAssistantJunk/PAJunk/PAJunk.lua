@@ -9,9 +9,9 @@ function PAJ.OnShopOpen()
     local activeProfile = PA.savedVars.General.activeProfile
 
     -- check if addon is enabled
-    if PAJ.savedVars[activeProfile].enabled then
+    if PA.savedVars.Junk[activeProfile].enabled then
         -- check if auto-sell is enabled
-        if PAJ.savedVars[activeProfile].autoSellJunk then
+        if PA.savedVars.Junk[activeProfile].autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = true)
             if HasAnyJunk(BAG_BACKPACK, true) then
                 -- set processing flag to TRUE
@@ -64,7 +64,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
     local activeProfile = PA.savedVars.General.activeProfile
 
     -- check if addon is enabled
-    if PAJ.savedVars[activeProfile].enabled then
+    if PA.savedVars.Junk[activeProfile].enabled then
 
         -- check if the updated happened in the backpack and if the item is new
         if ((bagId == BAG_BACKPACK) and (isNewItem)) then
@@ -76,7 +76,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
                 local markAsJunk = false
 
                 -- check if it is trash and if auto-flag-trash is enabled
-                if ((itemType == ITEMTYPE_TRASH) and (PAJ.savedVars[activeProfile].autoMarkTrash)) then
+                if ((itemType == ITEMTYPE_TRASH) and (PA.savedVars.Junk[activeProfile].autoMarkTrash)) then
                     markAsJunk = true
                 end
 
@@ -101,7 +101,7 @@ end
 
 
 function PAJ.println(key, ...)
-    if (not PAJ.savedVars[PA.savedVars.General.activeProfile].hideAllMsg) then
+    if (not PA.savedVars.Junk[PA.savedVars.General.activeProfile].hideAllMsg) then
         local args = {...}
         PAHF.println(key, unpack(args))
     end

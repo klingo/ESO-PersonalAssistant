@@ -31,8 +31,8 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 		local checkItemId = transferList[transferIndex]
 		
 		transferInfo[checkItemId] = {}
-		transferInfo[checkItemId]["operator"] = PAB.savedVars[activeProfile].ItemTypesAdvanced[transferIndex].Key
-		transferInfo[checkItemId]["targetStackSize"] = PAB.savedVars[activeProfile].ItemTypesAdvanced[transferIndex].Value
+		transferInfo[checkItemId]["operator"] = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[transferIndex].Key
+		transferInfo[checkItemId]["targetStackSize"] = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[transferIndex].Value
 		
 		if (transferInfo[checkItemId]["operator"] ~= PAC_OPERATOR_NONE) then
 			for currBackpackItem = 0, #backpackItemNameList do

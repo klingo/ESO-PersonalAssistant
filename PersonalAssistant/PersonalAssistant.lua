@@ -32,10 +32,6 @@ function PA.initAddon(eventCode, addOnName)
 
 	PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
 	PA.savedVars.Profiles = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "Profiles", PA.Profiles_Defaults)
-	if PAR then PA.savedVars.Repair = PAR.savedVars end
-	if PAB then PA.savedVars.Banking = PAB.savedVars end
-	if PAL then PA.savedVars.Loot = PAL.savedVars end
-	if PAJ then PA.savedVars.Junk = PAJ.savedVars end
 
     -- initialize language
     PA.savedVars.General.language = GetCVar("language.2") or "en"

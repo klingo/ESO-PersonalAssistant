@@ -10,7 +10,7 @@ PAL.alreadyFishing = false;
 
 function PAL.OnReticleTargetChanged()
     -- check if addon is enabled
-    if PAL.savedVars[PA.savedVars.General.activeProfile].enabled then
+    if PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled then
         local type = GetInteractionType()
         local active = IsPlayerInteractingWithObject()
         local isHarvesting = (active and (type == INTERACTION_HARVEST))
@@ -56,9 +56,9 @@ function PAL.OnLootUpdated()
     local activeProfile = PA.savedVars.General.activeProfile
 
     -- check if addon is enabled
-    if PAL.savedVars[activeProfile].enabled then
+    if PA.savedVars.Loot[activeProfile].enabled then
         -- check if ItemLoot is enabled
-        if PAL.savedVars[activeProfile].lootItems then
+        if PA.savedVars.Loot[activeProfile].lootItems then
             -- check if we are harvesting, auto-loot is only used for this case!
             if (PAL.alreadyHarvesting or PAL.alreadyFishing) then
                 -- get number of lootable items
@@ -80,10 +80,10 @@ function PAL.OnLootUpdated()
                         -- check if the itemType is configured for auto-loot
                         if (PALoItemTypes[currItemType] == itemType) then
                             -- then check if it is set to Auto-Loot
-                            if (PAL.savedVars[activeProfile].ItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
+                            if (PA.savedVars.Loot[activeProfile].ItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                 -- Loot the item
                                 LootItemById(lootId)
-                                if (not PAL.savedVars[activeProfile].hideItemLootMsg) then
+                                if (not PA.savedVars.Loot[activeProfile].hideItemLootMsg) then
                                     local iconString = "|t16:16:"..icon.."|t "
                                     PAL.println(PALocale.getResourceMessage("PALo_ItemLooted"), itemCount, itemLink, iconString)
                                 end
@@ -96,13 +96,13 @@ function PAL.OnLootUpdated()
         end
 
         -- check if GoldLoot is enabled
-        if PAL.savedVars[activeProfile].lootGold then
+        if PA.savedVars.Loot[activeProfile].lootGold then
             -- is there even gold to loot?
             local unownedMoney = GetLootMoney()
             if (unownedMoney > 0) then
                 -- Loot the gold
                 LootMoney()
-                if (not PAL.savedVars[activeProfile].hideGoldLootMsg) then
+                if (not PA.savedVars.Loot[activeProfile].hideGoldLootMsg) then
                     PAL.println(PALocale.getResourceMessage("PALo_GoldLooted"), unownedMoney, PAC_ICON_GOLD)
                 end
             end
@@ -125,7 +125,7 @@ function PAL.OnLootUpdated()
 end
 
 function PAL.println(key, ...)
-    if (not PAL.savedVars[PA.savedVars.General.activeProfile].hideAllMsg) then
+    if (not PA.savedVars.Loot[PA.savedVars.General.activeProfile].hideAllMsg) then
         local args = {...}
         PAHF.println(key, unpack(args))
     end
