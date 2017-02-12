@@ -52,7 +52,7 @@ function MenuHelper.loadProfile(profileText)
 end
 
 function MenuHelper.renameProfile(profileText)
-	PA.savedVars.Profiles[PA.savedVars.General.activeProfile].name = profileText
+	PA.savedVars.General[PA.savedVars.General.activeProfile].name = profileText
     -- TODO: replace this with LAM-2's [requiresReload]
     -- https://github.com/sirinsidiator/ESO-LibAddonMenu/wiki/CommonProperties#requiresreload
 	ReloadUI()
@@ -187,7 +187,7 @@ end
 function MenuHelper.getProfileList()
 	local profiles = {}
 	for profileNo = 1, PAG_MAX_PROFILES do
-		profiles[profileNo] = PA.savedVars.Profiles[profileNo].name
+		profiles[profileNo] = PA.savedVars.General[profileNo].name
 	end
 	return profiles
 end
@@ -198,7 +198,7 @@ function MenuHelper.getProfileTextFromNumber(number)
 		profileNo = number
 	end
 	
-	return PA.savedVars.Profiles[profileNo].name
+	return PA.savedVars.General[profileNo].name
 end
 
 function MenuHelper.getDefaultProfileName(profileNo)
@@ -217,7 +217,7 @@ end
 
 function MenuHelper.getProfileNumberFromText(profileText)
 	for profileNo = 1, PAG_MAX_PROFILES do
-		if PA.savedVars.Profiles[profileNo].name == profileText then
+		if PA.savedVars.General[profileNo].name == profileText then
 			return profileNo
 		end
 	end

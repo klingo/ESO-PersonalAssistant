@@ -58,12 +58,12 @@ function PA_SettingsMenu.createMainMenu()
 		type = "editbox",
 		name = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename"),
 		tooltip = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename_T"),
-		getFunc = function() return PA.savedVars.Profiles[PA.savedVars.General.activeProfile].name end,
+		getFunc = function() return PA.savedVars.General[PA.savedVars.General.activeProfile].name end,
 		setFunc = function(value) MenuHelper.renameProfile(tostring(value)) end,
 		isMultiline = false,
 		width = "half",
 		warning = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename_W"),
-		default = PA.savedVars.Profiles[1].name,
+		default = PA.savedVars.General[1].name,
 	}
 	tableIndex = tableIndex + 1
 	

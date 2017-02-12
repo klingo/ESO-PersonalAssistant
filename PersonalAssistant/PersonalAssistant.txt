@@ -31,15 +31,15 @@ libs/LibAddonMenu-2.0/controls/divider.lua
 # Globals
 vars/Globals.lua
 
+# Utilities
+libs/Utilities/HelperFunctions.lua
+libs/Utilities/EventManager.lua
+
 # Localization
 localization/en.lua
 localization/de.lua
 localization/fr.lua
 localization/Locale.lua
-
-# Utilities
-libs/Utilities/HelperFunctions.lua
-libs/Utilities/EventDispatcher.lua
 
 # UserInterface
 # libs/UI/PAFW.lua
@@ -50,8 +50,8 @@ PersonalAssistant.lua
 PersonalAssistant.xml
 
 # Settings
-libs/Settings/MenuHelper.lua
-libs/Settings/MainMenu.lua
+libs/Menu/MenuHelper.lua
+libs/Menu/MainMenu.lua
 
 # Integrations
 # libs/Integrations/ItemSaver.lua

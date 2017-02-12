@@ -2,6 +2,7 @@
 -- Developer: Klingo
 
 PAR = {}
+PAR.AddonName = "PersonalAssistantRepair"
 PAR.AddonVersion = "1.0.0"
 
 -- default values
@@ -9,9 +10,12 @@ PAR.Repair_Defaults = {}
 
 -- init saved variables and register Addon
 function PAR.initAddon(eventCode, addOnName)
-    if addOnName ~= "PersonalAssistantRepair" then
+    if addOnName ~= PAR.AddonName then
         return
     end
+
+    -- addon load started - unregister event
+    PAEM.UnregisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED)
 	
 	-- initialize the default values
 	PAR.initDefaults()
@@ -19,20 +23,15 @@ function PAR.initAddon(eventCode, addOnName)
 	-- gets values from SavedVars, or initialises with default values
 	PA.savedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", PAR.Repair_Defaults)
 
-	-- register Event Dispatcher for: PARepair and PAJunk
-	-- TODO: check how to handle this
-    EVENT_MANAGER:RegisterForEvent("PersonalAssistantRepair", EVENT_OPEN_STORE, PAED.EventOpenStore)
-
-	-- addon load complete - unregister event
-	EVENT_MANAGER:UnregisterForEvent("PersonalAssistantRepair_AddonLoaded", EVENT_ADD_ON_LOADED)
+	-- register PARepair (in correspondance with PAJunk)
+    PAEM.RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAEM.EventOpenStore, "RepairJunkSharedEvent")
 end
 
 
 -- init default values
 function PAR.initDefaults()
+    -- initialize the multi-profile structure
 	for profileNo = 1, PAG_MAX_PROFILES do
-		-- initialize the multi-profile structure
-
         -- -----------------------------------------------------
 		-- default values for PARepair
         PAR.Repair_Defaults[profileNo] = {}
@@ -46,4 +45,4 @@ function PAR.initDefaults()
 	end
 end
 
-EVENT_MANAGER:RegisterForEvent("PersonalAssistantRepair_AddonLoaded", EVENT_ADD_ON_LOADED, PAR.initAddon)
+PAEM.RegisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED, PAR.initAddon)

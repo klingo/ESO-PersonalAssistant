@@ -2,6 +2,7 @@
 -- Developer: Klingo
 
 PAB = {}
+PAB.AddonName = "PersonalAssistantBanking"
 PAB.AddonVersion = "1.0.0"
 
 -- default values
@@ -9,9 +10,12 @@ PAB.Banking_Defaults = {}
 
 -- init saved variables and register Addon
 function PAB.initAddon(eventCode, addOnName)
-    if addOnName ~= "PersonalAssistantBanking" then
+    if addOnName ~= PAB.AddonName then
         return
     end
+
+    -- addon load started - unregister event
+    PAEM.UnregisterForEvent(PAB.AddonName, EVENT_ADD_ON_LOADED)
 	
 	-- initialize the default values
 	PAB.initDefaults()
@@ -20,19 +24,15 @@ function PAB.initAddon(eventCode, addOnName)
     PA.savedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", 1, "Banking", PAB.Banking_Defaults)
 
     -- register PABanking
-	EVENT_MANAGER:RegisterForEvent("PersonalAssistantBanking", EVENT_OPEN_BANK, PAB.OnBankOpen)
-	EVENT_MANAGER:RegisterForEvent("PersonalAssistantBanking", EVENT_CLOSE_BANK, PAB.OnBankClose)
-
-	-- addon load complete - unregister event
-	EVENT_MANAGER:UnregisterForEvent("PersonalAssistantBanking_AddonLoaded", EVENT_ADD_ON_LOADED)
+    PAEM.RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
+    PAEM.RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
 end
 
 
 -- init default values
 function PAB.initDefaults()
+    -- initialize the multi-profile structure
 	for profileNo = 1, PAG_MAX_PROFILES do
-		-- initialize the multi-profile structure
-
         -- -----------------------------------------------------
 		-- default values for PABanking
         PAB.Banking_Defaults[profileNo] = {
@@ -75,4 +75,4 @@ function PAB.initDefaults()
     end
 end
 
-EVENT_MANAGER:RegisterForEvent("PersonalAssistantBanking_AddonLoaded", EVENT_ADD_ON_LOADED, PAB.initAddon)
+PAEM.RegisterForEvent(PAB.AddonName, EVENT_ADD_ON_LOADED, PAB.initAddon)

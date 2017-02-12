@@ -2,6 +2,7 @@
 -- Developer: Klingo
 
 PAJ = {}
+PAJ.AddonName = "PersonalAssistantJunk"
 PAJ.AddonVersion = "1.0.0"
 
 -- default values
@@ -12,29 +13,29 @@ PAJ.isJunkProcessing = false
 
 -- init saved variables and register Addon
 function PA.initAddon(eventCode, addOnName)
-    if addOnName ~= "PersonalAssistantJunk" then
+    if addOnName ~= PAJ.AddonName then
         return
     end
+
+    -- addon load started - unregister event
+    PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_ADD_ON_LOADED)
 	
 	-- initialize the default values
     PAJ.initDefaults()
 
 	-- gets values from SavedVars, or initialises with default values
-    PA.savedVars.Junk = ZI_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, "Junk", PAJ.Junk_Defaults)
+    PA.savedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, "Junk", PAJ.Junk_Defaults)
 
-    -- register PAJunk
-    EVENT_MANAGER:RegisterForEvent("PersonalAssistantJunk", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
-
-	-- addon load complete - unregister event
-	EVENT_MANAGER:UnregisterForEvent("PersonalAssistantJunk_AddonLoaded", EVENT_ADD_ON_LOADED)
+    -- register PARepair (in correspondance with PAJunk)
+    PAEM.RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAEM.EventOpenStore, "RepairJunkSharedEvent")
+    PAEM.RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
 end
 
 
 -- init default values
 function PAJ.initDefaults()
+    -- initialize the multi-profile structure
 	for profileNo = 1, PAG_MAX_PROFILES do
-		-- initialize the multi-profile structure
-
         -- -----------------------------------------------------
         -- default values for PAJunk
         PAJ.Junk_Defaults[profileNo] = {}
@@ -53,4 +54,4 @@ function PAJ.initDefaults()
 	end
 end
 
-EVENT_MANAGER:RegisterForEvent("PersonalAssistantJunk_AddonLoaded", EVENT_ADD_ON_LOADED, PAJ.initAddon)
+PAEM.RegisterForEvent(PAJ.AddonName, EVENT_ADD_ON_LOADED, PAJ.initAddon)

@@ -1,11 +1,20 @@
 -- Addon: PersonalAssistant
 -- Developer: Klingo
+-- ---------------------------------------------------------------------------------------------------------------------
+if PA						        == nil then PA					            = {} end
+if PA.savedVars						== nil then PA.savedVars					= {} end
+if PA.savedVars.General				== nil then PA.savedVars.General			= {} end
+if PA.savedVars.Repair				== nil then PA.savedVars.Repair				= {} end
+if PA.savedVars.Banking				== nil then PA.savedVars.Banking 			= {} end
+if PA.savedVars.Banking.ItemTypes 	== nil then PA.savedVars.Banking.ItemTypes	= {} end
+if PA.savedVars.Loot				== nil then PA.savedVars.Loot 			    = {} end
+if PA.savedVars.Junk                == nil then PA.savedVars.Junk               = {} end
 
-if PA == nil then PA = {} end
+PA.AddonName = "PersonalAssistant"
 PA.AddonVersion = "2.0.0"
 
--- globla indicators of whether some processing is ongoing
-PA.isJunkProcessing = false
+-- default values
+PA.General_Defaults = {}
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
@@ -16,57 +25,49 @@ PA.isJunkProcessing = false
 -- Support Virtual Bags: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 -- Support Specialized Item Types: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 
--- default values
-PA.General_Defaults = {}
-PA.Profiles_Defaults = {}
+
+-- init default values
+function PA.initDefaults()
+    -- initialize the multi-profile structure
+    -- -----------------------------------------------------
+    -- default values for Addon
+    PA.General_Defaults.activeProfile = 1
+    PA.General_Defaults.savedVarsVersion = ""
+    for profileNo = 1, PAG_MAX_PROFILES do
+        -- -----------------------------------------------------
+        -- default values for PAGeneral
+        PA.General_Defaults[profileNo] = {}
+        PA.General_Defaults[profileNo].name = MenuHelper.getDefaultProfileName(profileNo)
+        PA.General_Defaults[profileNo].welcome = true
+    end
+end
 
 
 -- init saved variables and register Addon
 function PA.initAddon(eventCode, addOnName)
-    if addOnName ~= "PersonalAssistant" then
+    if addOnName ~= PA.AddonName then
         return
     end
-	
-	-- initialize the default values
-	PA.initDefaults()
 
-	PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
-	PA.savedVars.Profiles = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "Profiles", PA.Profiles_Defaults)
+    -- addon load started - unregister event
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED)
+
+    -- initialize the default values
+    PA.initDefaults()
+
+    -- gets values from SavedVars, or initialises with default values
+    PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
 
     -- initialize language
     PA.savedVars.General.language = GetCVar("language.2") or "en"
-
-	-- addon load complete - unregister event
-	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED)
-end
-
-
--- init default values
-function PA.initDefaults()
-	for profileNo = 1, PAG_MAX_PROFILES do
-		-- initialize the multi-profile structure
-
-        -- -----------------------------------------------------
-		-- default values for Addon
-		PA.General_Defaults.activeProfile = 1
-		PA.General_Defaults.savedVarsVersion = ""
-
-        -- -----------------------------------------------------
-		-- default values for PAGeneral
-        PA.General_Defaults[profileNo] = {}
-		PA.General_Defaults[profileNo].welcome = true
-
-        -- -----------------------------------------------------
-		-- default values for Profiles
-        PA.Profiles_Defaults[profileNo] = {}
-		PA.Profiles_Defaults[profileNo].name = MenuHelper.getDefaultProfileName(profileNo)
-	end
 end
 
 
 -- introduces the addon to the player
 function PA.introduction()
-	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED)
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
+    SLASH_COMMANDS["/pa debug on"] = PA.registerPickup
+    SLASH_COMMANDS["/pa debug off"] = PA.unregisterPickup
     -- SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 
     -- create the options with LAM-2
@@ -81,11 +82,8 @@ function PA.introduction()
 	end
 end
 
-
-
-
-EVENT_MANAGER:RegisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED, PA.initAddon)
-EVENT_MANAGER:RegisterForEvent("PersonalAssistant_PlayerActivated", EVENT_PLAYER_ACTIVATED, PA.introduction)
+PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, PA.initAddon)
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PA.introduction)
 
 
 -- ========================================================================================================================
@@ -99,4 +97,10 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 	PAHF.println("itemType (%s): %s. (special = %s) ---> (%d/%d) --> %s   (saved = %s | itemId = %d)", itemType, strItemType, specializedItemType, stack, maxStack, PAHF.getFormattedItemLink(bagId, slotIndex), tostring(isSaved), itemId)
 end
 
--- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)
+function PA.registerPickup()
+    PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
+end
+
+function PA.unregisterPickup()
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+end
