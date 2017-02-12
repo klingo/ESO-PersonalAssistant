@@ -3,7 +3,7 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v2.0.0|r
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant Core |c006699v2.0.0|r
 ## Version: 2.0.0
 ## Author: Klingo
 ## APIVersion: 100018
@@ -30,7 +30,6 @@ libs/LibAddonMenu-2.0/controls/divider.lua
 
 # Globals
 vars/Globals.lua
-vars/SavedVarsCleaner.lua
 
 # Localization
 localization/en.lua
@@ -43,8 +42,8 @@ libs/Utilities/HelperFunctions.lua
 libs/Utilities/EventDispatcher.lua
 
 # UserInterface
-libs/UI/PAFW.lua
-libs/UI/PAUI.lua
+# libs/UI/PAFW.lua
+# libs/UI/PAUI.lua
 
 # Core
 PersonalAssistant.lua
@@ -55,7 +54,7 @@ libs/Settings/MenuHelper.lua
 libs/Settings/MainMenu.lua
 
 # Integrations
-libs/Integrations/ItemSaver.lua
+# libs/Integrations/ItemSaver.lua
 
 # Bindings
 bindings/Bindings.lua

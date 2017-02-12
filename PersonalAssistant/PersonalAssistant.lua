@@ -1,7 +1,7 @@
 -- Addon: PersonalAssistant
 -- Developer: Klingo
 
-PA = {}
+if PA == nil then PA = {} end
 PA.AddonVersion = "2.0.0"
 
 -- globla indicators of whether some processing is ongoing
@@ -30,15 +30,15 @@ function PA.initAddon(eventCode, addOnName)
 	-- initialize the default values
 	PA.initDefaults()
 
-	-- gets values from SavedVars, or initialises with default values
-	PA.savedVars = {}
-
 	PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
 	PA.savedVars.Profiles = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "Profiles", PA.Profiles_Defaults)
 	if PAR then PA.savedVars.Repair = PAR.savedVars end
 	if PAB then PA.savedVars.Banking = PAB.savedVars end
 	if PAL then PA.savedVars.Loot = PAL.savedVars end
 	if PAJ then PA.savedVars.Junk = PAJ.savedVars end
+
+    -- initialize language
+    PA.savedVars.General.language = GetCVar("language.2") or "en"
 
 	-- addon load complete - unregister event
 	EVENT_MANAGER:UnregisterForEvent("PersonalAssistant_AddonLoaded", EVENT_ADD_ON_LOADED)
@@ -78,9 +78,9 @@ function PA.introduction()
 
 	if PA.savedVars.General[PA.savedVars.General.activeProfile].welcome then
 		if PA.savedVars.General.language ~= "en" and PA.savedVars.General.language ~= "de" and PA.savedVars.General.language ~= "fr" then
-			PAHF.println("Welcome_NoSupport", PA.savedVars.General.language)
+			PAHF.println("Welcome_NoSupport", GetCVar("language.2"))
 		else
-			PAHF.println("Welcome_Support", PA.savedVars.General.language)
+			PAHF.println("Welcome_Support")
 		end
 	end
 end

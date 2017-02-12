@@ -3,7 +3,7 @@ PALocale = {}
 -- returns the localized text for a key
 function PALocale.getResourceMessage(key)
 
-	if (PA.savedVars.General.language == "" or PA.savedVars.General.language == nil) then
+	if (PA.savedVars.General.language == nil or PA.savedVars.General.language == "") then
 		PA.savedVars.General.language = GetCVar("language.2") or "en"
 	end
 

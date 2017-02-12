@@ -3,7 +3,7 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant Loot
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700L|root
 ## Version: 1.0.0
 ## Author: Klingo
 ## APIVersion: 100018
