@@ -3,13 +3,14 @@ PA_SettingsMenu = {}
 local LAM2 = LibStub("LibAddonMenu-2.0")
 
 local panelData = {
-	 type = "panel",
-	 name = "PersonalAssistant",
-	 displayName = PALocale.getResourceMessage("MMenu_Title"),
-	 author = "Klingo",
-	 version = PA.AddonVersion,
-	 registerForRefresh  = true,
-	 registerForDefaults = true,
+    type = "panel",
+    name = "PersonalAssistant",
+    displayName = PALocale.getResourceMessage("MMenu_Title"),
+    author = "Klingo",
+    version = PA.AddonVersion,
+    slashCommand = "/pa",
+    registerForRefresh  = true,
+    registerForDefaults = true,
 }
 
 local optionsTable = {}
@@ -45,7 +46,6 @@ function PA_SettingsMenu.createMainMenu()
 		type = "dropdown",
 		name = PALocale.getResourceMessage("PAGMenu_ActiveProfile"),
 		tooltip = PALocale.getResourceMessage("PAGMenu_ActiveProfile_T"),
-		--choices = {PALocale.getResourceMessage("PAG_Profile1"), PALocale.getResourceMessage("PAG_Profile2"), PALocale.getResourceMessage("PAG_Profile3")},
 		choices = MenuHelper.getProfileList(),
 		getFunc = function() return MenuHelper.getProfileTextFromNumber() end,
 		setFunc = function(value) MenuHelper.loadProfile(value) end,
@@ -63,6 +63,9 @@ function PA_SettingsMenu.createMainMenu()
 		isMultiline = false,
 		width = "half",
 		warning = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename_W"),
+        -- requiresReload = true,
+        -- does not work here, since not directly reloading after a name change causes many problems
+        -- when changing other values that cannot be related to a specific profile anymore
 		default = PA.savedVars.General[1].name,
 	}
 	tableIndex = tableIndex + 1

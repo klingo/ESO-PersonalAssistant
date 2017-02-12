@@ -53,8 +53,9 @@ end
 
 function MenuHelper.renameProfile(profileText)
 	PA.savedVars.General[PA.savedVars.General.activeProfile].name = profileText
-    -- TODO: replace this with LAM-2's [requiresReload]
-    -- https://github.com/sirinsidiator/ESO-LibAddonMenu/wiki/CommonProperties#requiresreload
+	-- [requiresReload = true] in the LAM-2 menu configuration does not work here,
+	-- since not directly reloading after a name change causes many problems
+	-- when changing other values that cannot be related to a specific profile anymore
 	ReloadUI()
 end
 
