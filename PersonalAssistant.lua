@@ -4,6 +4,9 @@
 PA = {}
 PA.AddonVersion = "1.7.0"
 
+-- globla indicators of whether some processing is ongoing
+PA.isJunkProcessing = false
+
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054
 -- http://www.esoui.com/forums/showthread.php?t=1944

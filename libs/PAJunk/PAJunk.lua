@@ -16,6 +16,8 @@ function PAJ.OnShopOpen()
         if PA_SavedVars.Junk[activeProfile].autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = true)
             if HasAnyJunk(BAG_BACKPACK, true) then
+                -- set processing flag to TRUE
+                PA.isJunkProcessing = true
                 -- store current amount of money
                 local moneyBefore = GetCurrentMoney();
                 local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
@@ -54,6 +56,9 @@ function PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
             PAJ.println("Error #1337: This should not happen!")
         end
     end
+
+    -- set processing flag to FALSE again
+    PA.isJunkProcessing = false
 end
 
 
