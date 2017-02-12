@@ -103,7 +103,7 @@ function PA.initDefaults()
 		PA.Banking_Defaults[profileNo].enabled = true
 		PA.Banking_Defaults[profileNo].gold = true
 		PA.Banking_Defaults[profileNo].goldDepositInterval = 300
-		PA.Banking_Defaults[profileNo].goldDepositPercentage = 50
+		PA.Banking_Defaults[profileNo].goldDepositPercentage = 100
 		PA.Banking_Defaults[profileNo].goldTransactionStep = "1"
 		PA.Banking_Defaults[profileNo].goldMinToKeep = 250
 		PA.Banking_Defaults[profileNo].goldWithdraw = false
@@ -260,7 +260,8 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 	local strItemType = PAL.getResourceMessage(itemType)
 	local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
 	local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
-	PA.println("itemType (%s): %s. (special = %s) ---> (%d/%d) --> %s   (saved = %s)", itemType, strItemType, specializedItemType, stack, maxStack, PA.getFormattedItemLink(bagId, slotIndex), tostring(isSaved))
+	local itemId = GetItemId(bagId, slotIndex)
+	PA.println("itemType (%s): %s. (special = %s) ---> (%d/%d) --> %s   (saved = %s | itemId = %d)", itemType, strItemType, specializedItemType, stack, maxStack, PA.getFormattedItemLink(bagId, slotIndex), tostring(isSaved), itemId)
 end
 
 -- EVENT_MANAGER:RegisterForEvent("PersonalAssistant_CursorPickup", EVENT_CURSOR_PICKUP, PA.cursorPickup)
