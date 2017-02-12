@@ -10,9 +10,8 @@
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
 
-# PARepair
-PARepair/PARepair.lua
-
 # Core
 PersonalAssistantRepair.lua
-PersonalAssistantRepair.xml
+
+# PARepair
+PARepair/PARepair.lua

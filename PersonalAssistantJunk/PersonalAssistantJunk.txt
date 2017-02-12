@@ -10,9 +10,8 @@
 ## SavedVariables: PersonalAssistantJunk_SavedVariables
 ## DependsOn: PersonalAssistant
 
-# PAJunk
-PAJunk/PAJunk.lua
-
 # Core
 PersonalAssistantJunk.lua
-PersonalAssistantJunk.xml
+
+# PAJunk
+PAJunk/PAJunk.lua

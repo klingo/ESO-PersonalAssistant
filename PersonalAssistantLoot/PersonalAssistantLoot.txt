@@ -10,9 +10,8 @@
 ## SavedVariables: PersonalAssistantLoot_SavedVariables
 ## DependsOn: PersonalAssistant
 
-# PALoot
-PALoot/PALoot.lua
-
 # Core
 PersonalAssistantLoot.lua
-PersonalAssistantLoot.xml
+
+# PALoot
+PALoot/PALoot.lua
