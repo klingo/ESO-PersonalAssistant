@@ -30,8 +30,8 @@ ResourceBundle.en["PAB_GoldDepositet"] 				= PAC_COLTEXT_PAB.."%d %s deposited."
 ResourceBundle.en["PAB_GoldWithdrawn"] 				= PAC_COLTEXT_PAB.."%d %s withdrawn."
 ResourceBundle.en["PAB_GoldWithdrawnInsufficient"] 	= PAC_COLTEXT_PAB.."%d / %d %s withdrawn. (not enough gold in bank!)"
 
-ResourceBundle.en["PAB_ItemMovedTo"] 				= PAC_COLTEXT_PAB.."%d x %s was moved to %s."
-ResourceBundle.en["PAB_ItemNotMovedTo"] 			= PAC_COLTEXT_PAB.."%d x %s was NOT moved to %s."
+ResourceBundle.en["PAB_ItemMovedTo"] 				= PAC_COLTEXT_PAB.."%d x %s moved to %s."
+ResourceBundle.en["PAB_ItemNotMovedTo"] 			= PAC_COLTEXT_PAB.."%d x %s NOT moved to %s."
 ResourceBundle.en["PAB_ItemMovedToFailed"] 			= PAC_COLTEXT_PAB..PAC_COL_ORANGE.."FAILURE: %s could NOT be moved to %s."
 
 ResourceBundle.en["PAB_NoSpaceInFor"] 				= PAC_COLTEXT_PAB..PAC_COL_ORANGE.."Not enough space in %s for: %s."
