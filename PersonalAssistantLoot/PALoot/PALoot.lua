@@ -131,7 +131,7 @@ function PAL.OnLootUpdated()
                 LootMoney()
 
                 -- show output to chat (depending on setting)
-                local lootGoldChatMode = PA.savedVars.Banking[PA.savedVars.General.activeProfile].lootGoldChatMode
+                local lootGoldChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGoldChatMode
                 if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAL.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Full"), unownedMoney)
                 elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAL.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Normal"), unownedMoney)
                 elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAL.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Min"), unownedMoney)
