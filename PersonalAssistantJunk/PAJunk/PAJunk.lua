@@ -5,6 +5,9 @@
 -- Time: 20:20
 --
 
+-- TODO
+-- - auto-mark "gold-coin" items as junk
+
 function PAJ.OnShopOpen()
     local activeProfile = PA.savedVars.General.activeProfile
 

@@ -1,6 +1,10 @@
 -- Module: PersonalAssistant.PARepair
 -- Developer: Klingo
 
+-- TODO
+-- - use repair kits (with option)
+-- - add repair cooldown (with option?)
+
 function PAR.OnShopOpen()
     local activeProfile = PA.savedVars.General.activeProfile
 

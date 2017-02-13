@@ -5,6 +5,10 @@
 -- Time: 20:00
 --
 
+-- TODO
+-- - handle Bait when looting (loot, loot'n'destroy, ignore)
+-- - loot raw material from mobs
+
 PAL.alreadyHarvesting = false
 PAL.alreadyFishing = false
 
