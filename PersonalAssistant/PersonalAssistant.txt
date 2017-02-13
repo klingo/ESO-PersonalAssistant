@@ -50,6 +50,9 @@ PersonalAssistant.lua
 PersonalAssistant.xml
 
 # Settings
+libs/Menu/MenuChoices.lua
+libs/Menu/MenuDefaults.lua
+libs/Menu/MenuGetterSetter.lua
 libs/Menu/MenuHelper.lua
 libs/Menu/MainMenu.lua
 

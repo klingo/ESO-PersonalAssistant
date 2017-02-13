@@ -367,9 +367,9 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PALMenu_Enable"),
             tooltip = PALocale.getResourceMessage("PALMenu_Enable_T"),
-            getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled end,
-            setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled = value end,
-            default = false,
+            getFunc = PAMenu_Functions.getFunc.PALoot.enable,
+            setFunc = PAMenu_Functions.setFunc.PALoot.enable,
+            default = PAMenu_Defaults.defaultSettings.PALoot.enabled,
         }
         tableIndex = tableIndex + 1
 
@@ -377,11 +377,11 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PALMenu_LootGold"),
             tooltip = PALocale.getResourceMessage("PALMenu_LootGold_T"),
-            getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGold end,
-            setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGold = value end,
+            getFunc = PAMenu_Functions.getFunc.PALoot.lootGold,
+            setFunc = PAMenu_Functions.setFunc.PALoot.lootGold,
             width = "half",
-            disabled = function() return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled end,
-            default = true,
+            disabled = PAMenu_Functions.disabled.PALoot.lootGold,
+            default = PAMenu_Defaults.defaultSettings.PALoot.lootGoldEnabled,
         }
         tableIndex = tableIndex + 1
 
@@ -389,13 +389,13 @@ function PA_SettingsMenu.createMainMenu()
             type = "dropdown",
             name = PALocale.getResourceMessage("PALMenu_LootGoldChatMode"),
             tooltip = PALocale.getResourceMessage("PALMenu_LootGoldChatMode_T"),
-            choices = {PAHF.getFormattedKey("PAL_Gold_ChatMode_None"), PAHF.getFormattedKey("PAL_Gold_ChatMode_Min", 123), PAHF.getFormattedKey("PAL_Gold_ChatMode_Normal", 123), PAHF.getFormattedKey("PAL_Gold_ChatMode_Full", 123)},
-            choicesValues = {PA_OUTPUT_TYPE_NONE, PA_OUTPUT_TYPE_MIN, PA_OUTPUT_TYPE_NORMAL, PA_OUTPUT_TYPE_FULL},
-            getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGoldChatMode end,
-            setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGoldChatMode = value end,
+            choices = PAMenu_Choices.choices.PALoot.lootGoldChatMode,
+            choicesValues = PAMenu_Choices.choicesValues.PALoot.lootGoldChatMode,
+            getFunc = PAMenu_Functions.getFunc.PALoot.lootGoldChatMode,
+            setFunc = PAMenu_Functions.setFunc.PALoot.lootGoldChatMode,
             width = "half",
-            disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGold) end,
-            default = PA_OUTPUT_TYPE_NORMAL,
+            disabled = PAMenu_Functions.disabled.PALoot.lootGoldChatMode,
+            default = PAMenu_Defaults.defaultSettings.PALoot.lootGoldChatMode,
         }
         tableIndex = tableIndex + 1
 
@@ -403,11 +403,11 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PALMenu_LootItems"),
             tooltip = PALocale.getResourceMessage("PALMenu_LootItems_T"),
-            getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems end,
-            setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems = value end,
+            getFunc = PAMenu_Functions.getFunc.PALoot.lootItems,
+            setFunc = PAMenu_Functions.setFunc.PALoot.lootItems,
             width = "half",
-            disabled = function() return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled end,
-            default = true,
+            disabled = PAMenu_Functions.disabled.PALoot.lootItems,
+            default = PAMenu_Defaults.defaultSettings.PALoot.lootItemsEnabled,
         }
         tableIndex = tableIndex + 1
 
@@ -415,13 +415,13 @@ function PA_SettingsMenu.createMainMenu()
             type = "dropdown",
             name = PALocale.getResourceMessage("PALMenu_LootItemsChatMode"),
             tooltip = PALocale.getResourceMessage("PALMenu_LootItemsChatMode_T"),
-            choices = {PAHF.getFormattedKey("PAL_Items_ChatMode_None"), PAHF.getFormattedKey("PAL_Items_ChatMode_Min", 2, PAC_ICON_BANANAS), PAHF.getFormattedKey("PAL_Items_ChatMode_Normal", 2, PAC_ITEMCODE_BANANAS, PAC_ICON_BANANAS), PAHF.getFormattedKey("PAL_Items_ChatMode_Full", 2, PAC_ITEMCODE_BANANAS, PAC_ICON_BANANAS)},
-            choicesValues = {PA_OUTPUT_TYPE_NONE, PA_OUTPUT_TYPE_MIN, PA_OUTPUT_TYPE_NORMAL, PA_OUTPUT_TYPE_FULL},
-            getFunc = function() return PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode end,
-            setFunc = function(value) PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode = value end,
+            choices = PAMenu_Choices.choices.PALoot.lootItemsChatMode,
+            choicesValues = PAMenu_Choices.choicesValues.PALoot.lootItemsChatMode,
+            getFunc = PAMenu_Functions.getFunc.PALoot.lootItemsChatMode,
+            setFunc = PAMenu_Functions.setFunc.PALoot.lootItemsChatMode,
             width = "half",
-            disabled = function() return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItems) end,
-            default = PA_OUTPUT_TYPE_FULL,
+            disabled = PAMenu_Functions.disabled.PALoot.lootItemsChatMode,
+            default = PAMenu_Defaults.defaultSettings.PALoot.lootItemsChatMode,
         }
         tableIndex = tableIndex + 1
 
