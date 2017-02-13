@@ -120,6 +120,11 @@ table.insert(PALHarvestableItemTypes, ITEMTYPE_FISH)
 PALLootableItemTypes = {}
 -- Clothing
 table.insert(PALLootableItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+-- Provisioning
+table.insert(PALLootableItemTypes, ITEMTYPE_INGREDIENT)
+-- Fishing
+table.insert(PALLootableItemTypes, ITEMTYPE_LURE)
+
 
 -- =====================================================================================================================
 -- = PA Junk

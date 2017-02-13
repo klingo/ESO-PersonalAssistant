@@ -6,7 +6,6 @@
 --
 
 PAL.alreadyHarvesting = false
-PAL.alreadyLooting = false
 PAL.alreadyFishing = false
 
 function PAL.OnReticleTargetChanged()
@@ -15,8 +14,15 @@ function PAL.OnReticleTargetChanged()
         local type = GetInteractionType()
         local active = IsPlayerInteractingWithObject()
         local isHarvesting = (active and (type == INTERACTION_HARVEST))
-        local isLooting = (active and (type == INTERACTION_LOOT))
         local isFishing = (active and (type == INTERACTION_FISH))
+
+        if (PA.debug) then
+            if (not isHarvesting and not isFishing) then
+                if (type ~= INTERACTION_NONE) then
+                    PAL.println("new interactionType=%s with %s", tostring(type), GetUnitNameHighlightedByReticle())
+                end
+            end
+        end
 
 
         if (PAL.alreadyHarvesting) then
@@ -35,26 +41,6 @@ function PAL.OnReticleTargetChanged()
                 -- DEBUG
                 if (PA.debug) then
                     PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
-                end
-            end
-        end
-
-        if (PAL.alreadyLooting) then
-            if (not isLooting) then
-                -- stopped harvesting
-                PAL.alreadyLooting = false
-                -- DEBUG
-                if (PA.debug) then
-                    PAL.println("isLooting=%s   type=%s", tostring(isLooting), tostring(type))
-                end
-            end
-        else
-            if (isLooting) then
-                -- started harvesting
-                PAL.alreadyLooting = true
-                -- DEBUG
-                if (PA.debug) then
-                    PAL.println("isLooting=%s   type=%s", tostring(isLooting), tostring(type))
                 end
             end
         end
@@ -121,6 +107,11 @@ function PAL.OnLootUpdated()
                             break
                         end
                     end
+                end
+            else
+                -- DEBUG
+                if (PA.debug) then
+                    PAL.println("looting enemy? --> %s", GetUnitNameHighlightedByReticle())
                 end
             end
         end
