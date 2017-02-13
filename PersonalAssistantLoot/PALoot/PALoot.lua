@@ -88,7 +88,9 @@ function PAL.OnLootUpdated()
                     local strItemType = PALocale.getResourceMessage(itemType)
 
                     -- DEBUG
-                    -- PAL.println("itemType (%s): %s.", itemType, strItemType)
+                    if (PA.debug) then
+                        PAL.println("itemType (%s): %s.", itemType, strItemType)
+                    end
 
                     -- TODO: also check for stolen???
 
@@ -99,10 +101,14 @@ function PAL.OnLootUpdated()
                             if (PA.savedVars.Loot[activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                 -- Loot the item
                                 LootItemById(lootId)
-                                if (not PA.savedVars.Loot[activeProfile].hideItemLootMsg) then
-                                    local iconString = "|t16:16:"..icon.."|t "
-                                    PAL.println(PALocale.getResourceMessage("PAL_ItemLooted"), itemCount, itemLink, iconString)
-                                end
+                                local iconString = "|t20:20:"..icon.."|t "
+
+                                -- show output to chat (depending on setting)
+                                local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode
+                                if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString)
+                                elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString)
+                                elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString)
+                                end -- PA_OUTPUT_TYPE_NONE => no chat output
                             end
                             break
                         end
@@ -123,9 +129,13 @@ function PAL.OnLootUpdated()
             if (unownedMoney > 0) then
                 -- Loot the gold
                 LootMoney()
-                if (not PA.savedVars.Loot[activeProfile].hideGoldLootMsg) then
-                    PAL.println(PALocale.getResourceMessage("PAL_GoldLooted"), unownedMoney, PAC_ICON_GOLD)
-                end
+
+                -- show output to chat (depending on setting)
+                local lootGoldChatMode = PA.savedVars.Banking[PA.savedVars.General.activeProfile].lootGoldChatMode
+                if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAL.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Full"), unownedMoney)
+                elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAL.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Normal"), unownedMoney)
+                elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAL.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Min"), unownedMoney)
+                end -- PA_OUTPUT_TYPE_NONE => no chat output
             end
         end
 
@@ -146,9 +156,7 @@ function PAL.OnLootUpdated()
 end
 
 function PAL.println(key, ...)
-    if (not PA.savedVars.Loot[PA.savedVars.General.activeProfile].hideAllMsg) then
-        local args = {...}
-        PAHF.println(key, unpack(args))
-    end
+    local args = {...}
+    PAHF.println(key, unpack(args))
 end
 

@@ -16,10 +16,10 @@ PAEM.isJunkProcessing = false
 
 function PAEM.RegisterForEvent(addonName, ESOevent, executableFunction, paIdentifier)
     -- create esoIdentifier based on module/addonName and ESO event
-    local esoIdentifier = addonName.."_"..ESOevent
+    local esoIdentifier = ESOevent.."_"..addonName
 
     -- if a specific PA identifier was set, use this one as the ESO identifer
-    if (not paIdentifier == nil and not paIdentifier == "") then esoIdentifier = paIdentifier end
+    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent.."_"..paIdentifier end
 
     -- an event will only be registered with ESO, when the same identiifer is not yet registered
     if not PAEM.containsEventInSet(esoIdentifier) then
@@ -31,9 +31,13 @@ function PAEM.RegisterForEvent(addonName, ESOevent, executableFunction, paIdenti
 end
 
 
-function PAEM.UnregisterForEvent(addonName, ESOevent)
+function PAEM.UnregisterForEvent(addonName, ESOevent, paIdentifier)
     -- create esoIdentifier based on addonName and ESO event
-    local esoIdentifier = addonName.."_"..tostring(ESOevent)
+    local esoIdentifier = ESOevent.."_"..addonName
+
+    -- if a specific PA identifier was set, use this one as the ESO identifer
+    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent.."_"..paIdentifier end
+
     -- unregister the event from ESO
     EVENT_MANAGER:UnregisterForEvent(esoIdentifier, ESOevent)
     -- and remove it from PA's internal list of registered events
@@ -51,6 +55,15 @@ end
 
 function PAEM.containsEventInSet(key)
     return PAEM.registeredIdentifierSet[key] ~= nil
+end
+
+function PAEM.listAllEventsInSet()
+    d("----------------------------------------------------")
+    d("PA: listing all registered events")
+    for key, value in pairs(PAEM.registeredIdentifierSet) do
+        d(key.."="..tostring(value))
+    end
+    d("----------------------------------------------------")
 end
 
 ------------------------------------------------------------------------------------------------------------------------

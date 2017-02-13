@@ -44,9 +44,6 @@ ResourceBundle.fr["PAB_ItemType_Withdrawal"]		= "Retirer"
 ResourceBundle.fr["PAB_ItemType_Inherit"]			= "Selon le type d'objet (ci-dessous)"
 
 -- PALoot --
-ResourceBundle.fr["PAL_ItemLooted"] 				= PAC_COLTEXT_PALo.."%d x %s %s"
-ResourceBundle.fr["PAL_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"
-
 ResourceBundle.fr["PAL_ItemType_None"] 		        = "-"
 
 

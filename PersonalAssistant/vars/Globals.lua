@@ -20,13 +20,20 @@ PAG_MAX_PROFILES = 5
 -- PersonalAssistant Banking
 PAB_DEPOSIT_MAX_LOOPS = 3
 
+-- PerstonalAssistant Banking - Stacking Types
 PAB_STACKING_FULL = 0		-- 0: Full depositing/withdrawl
 PAB_STACKING_CONTINUE = 1	-- 1: Continue existing stacks
 PAB_STACKING_INCOMPLETE = 2	-- 2: Complete existing stacks
 
--- PerstonalAssistant Loot
+-- PersonalAssistant Loot
 PAL_TYPE_LOOT = 0
 PAL_TYPE_HARVEST = 1
+
+-- PersonalAssistant Chat Output Types
+PA_OUTPUT_TYPE_NONE = 0
+PA_OUTPUT_TYPE_MIN = 1
+PA_OUTPUT_TYPE_NORMAL = 2
+PA_OUTPUT_TYPE_FULL = 3
 
 -- PersonalAssistant Colors
 PAC_COL_WHITE = "|cFFFFFF"
@@ -45,6 +52,9 @@ PAC_COLTEXT_PAJ = PAC_COL_YELLOW.."PA J"..PAC_COL_WHITE.."unk: "..PAC_COL_DEFAUL
 PAC_ICON_GOLD = "|t16:16:/esoui/art/currency/currency_gold.dds|t"
 PAC_ICON_TALVAR = "|t16:16:/esoui/art/currency/currency_telvar.dds|t"
 -- PAC_ICON_TALVAR = "|r|c66a8ff|t16:16:/esoui/art/currency/currency_telvar.dds|t"
+
+PAC_ICON_BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t"
+PAC_ITEMCODE_BANANAS = "|H1:item:33755:317:50:0:0:0:0:0:0:0:0:0:0:0:0:0:10:0:0:0:0:0|h[Bananas]|h"
 
 
 -- =====================================================================================================================

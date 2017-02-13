@@ -44,9 +44,6 @@ ResourceBundle.de["PAB_ItemType_Withdrawal"]		= "Abheben"
 ResourceBundle.de["PAB_ItemType_Inherit"]			= "Abhängig vom Gegenstandstyp (unten)"
 
 -- PALoot --
-ResourceBundle.de["PAL_ItemLooted"] 				= PAC_COLTEXT_PALo.."%d x %s %s"
-ResourceBundle.de["PAL_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"
-
 ResourceBundle.de["PAL_ItemType_None"] 		        = "-"
 ResourceBundle.de["PAL_ItemType_Loot"]             = "Autom. Plündern"
 
@@ -153,8 +150,6 @@ ResourceBundle.de["PALMenu_HideItemLoot"] 			= "Blende 'Gegenstand geplündert' 
 ResourceBundle.de["PALMenu_HideItemLoot_T"] 		= "Blendet die Meldung 'Gegenstand geplündert' aus. Die geplünderten Gegenstände werden nicht mehr ausgegeben."
 ResourceBundle.de["PALMenu_HideGoldLoot"] 			= "Blende 'Gold geplündert' Meldungen aus"
 ResourceBundle.de["PALMenu_HideGoldLoot_T"] 		= "Blendet die Meldung 'Gold geplündert' aus. Die Menge an geplündertem Gold wird nicht mehr ausgegeben."
-ResourceBundle.de["PALMenu_HideAll"] 				= "Blende ALLE Plünder-Meldungen aus"
-ResourceBundle.de["PALMenu_HideAll_T"] 			    = "Ruhe-Modus: Keine Plünder-Medungen (Gold und Gegenstände) werden mehr angezeigt."
 
 -- PAJMenu --
 ResourceBundle.de["PAJMenu_Header"]                 = "|cFFD700PA J|runk"

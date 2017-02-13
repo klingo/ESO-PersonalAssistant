@@ -44,11 +44,20 @@ ResourceBundle.en["PAB_ItemType_Withdrawal"]		= "Withdraw"
 ResourceBundle.en["PAB_ItemType_Inherit"]			= "Depending on item type (below)"
 
 -- PALoot --
-ResourceBundle.en["PAL_ItemLooted"] 				= PAC_COLTEXT_PALo.."%d x %s %s"
-ResourceBundle.en["PAL_GoldLooted"] 				= PAC_COLTEXT_PALo.."%d %s"
-
 ResourceBundle.en["PAL_ItemType_None"] 		        = "-"
 ResourceBundle.en["PAL_ItemType_Loot"]             = "Auto-Loot"
+
+-- PALoot Chat Output - Loot Gold --
+ResourceBundle.en["PAL_Gold_ChatMode_None"]         = "<no output>"
+ResourceBundle.en["PAL_Gold_ChatMode_Min"]          = PAC_COL_DEFAULT.."%d "..PAC_ICON_GOLD
+ResourceBundle.en["PAL_Gold_ChatMode_Normal"]       = PAC_COLTEXT_PALo.."%d "..PAC_ICON_GOLD
+ResourceBundle.en["PAL_Gold_ChatMode_Full"]         = PAC_COLTEXT_PALo.."Looted %d "..PAC_ICON_GOLD.." Gold"
+
+-- PALoot Chat Output - Loot Items --
+ResourceBundle.en["PAL_Items_ChatMode_None"]         = "<no output>"
+ResourceBundle.en["PAL_Items_ChatMode_Min"]          = PAC_COL_DEFAULT.."%d x %s"
+ResourceBundle.en["PAL_Items_ChatMode_Normal"]       = PAC_COL_DEFAULT.."%d x %s %s"
+ResourceBundle.en["PAL_Items_ChatMode_Full"]         = PAC_COLTEXT_PALo.."%d x %s %s"
 
 -- PAJunk --
 ResourceBundle.en["PAJ_MovedToJunk"]                = PAC_COLTEXT_PAJ.."Moved %s to junk"
@@ -139,8 +148,12 @@ ResourceBundle.en["PALMenu_Enable"] 				= "|cB0B0FFEnable Auto Loot|r"
 ResourceBundle.en["PALMenu_Enable_T"] 				= "Enable Auto Loot?"
 ResourceBundle.en["PALMenu_LootGold"]               = "Auto-Loot Gold"
 ResourceBundle.en["PALMenu_LootGold_T"]             = "Automatically loot gold?"
+ResourceBundle.en["PALMenu_LootGoldChatMode"]       = "Chat Display of Auto-Looted Gold"
+ResourceBundle.en["PALMenu_LootGoldChatMode_T"]     = "How to display the information of looted gold in the chat window"
 ResourceBundle.en["PALMenu_LootItems"]              = "Auto-Loot items"
 ResourceBundle.en["PALMenu_LootItems_T"]            = "Automatically loot items?"
+ResourceBundle.en["PALMenu_LootItemsChatMode"]      = "Chat Display of Auto-Looted Items"
+ResourceBundle.en["PALMenu_LootItemsChatMode_T"]    = "How to display the information of looted items in the chat window"
 ResourceBundle.en["PALMenu_HarvestableItemsDesc"] 	= "Enable and disable auto-loot for harvestable items such as ores, herbs, woods, runestones, or fishing holes."
 ResourceBundle.en["PALMenu_HarvestableItems"]       = "Harvestable items"
 ResourceBundle.en["PALMenu_HarvestableItems_T"]     = "Open the sub-menu to define for each harvestable item type whether it shall be auto-looted or not."
@@ -157,8 +170,6 @@ ResourceBundle.en["PALMenu_HideItemLoot"] 			= "Hide 'Item looted' message"
 ResourceBundle.en["PALMenu_HideItemLoot_T"] 		= "Hide 'Item looted' message. You will no longer see which items were automatically looted."
 ResourceBundle.en["PALMenu_HideGoldLoot"] 			= "Hide 'Gold looted' message"
 ResourceBundle.en["PALMenu_HideGoldLoot_T"] 		= "Hide 'Gold looted' message. You will no longer see how much gold was automatically looted."
-ResourceBundle.en["PALMenu_HideAll"] 				= "Hide ALL loot messages"
-ResourceBundle.en["PALMenu_HideAll_T"] 			    = "Silent-Mode: No loot message (items and currencies) will be displayed."
 
 -- PAJMenu --
 ResourceBundle.en["PAJMenu_Header"]                 = "|cFFD700PA J|runk"

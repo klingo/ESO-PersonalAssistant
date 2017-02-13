@@ -46,17 +46,32 @@ function PAHF.getFormattedItemLink(bagId, slotIndex)
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
 
+function PAHF.getFormattedText(baseText, ...)
+--    ResourceBundle.en["PAL_Gold_ChatMode_None"]
+end
+
 
 -- currently supports one text-key and n arguments
 function PAHF.println(key, ...)
     local text = PALocale.getResourceMessage(key)
     if text == nil then text = key end
+    local unpackedString = PAHF.getFormattedText(text, ...)
+    CHAT_SYSTEM:AddMessage(unpackedString)
+end
+
+
+function PAHF.getFormattedKey(key, ...)
+    return PAHF.getFormattedText(PALocale.getResourceMessage(key), ...)
+end
+
+-- currently supports one text and n arguments
+function PAHF.getFormattedText(text, ...)
     local args = {...}
     local unpackedString = string.format(text, unpack(args))
     if (unpackedString == "") then
-        unpackedString = key
+        unpackedString = text
     end
-    CHAT_SYSTEM:AddMessage(unpackedString)
+    return unpackedString
     -- check this out: Singular & plural form using the zo_strformat() function
     -- http://www.esoui.com/forums/showthread.php?p=7988
 end

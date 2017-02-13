@@ -18,10 +18,9 @@ function PAL.initDefaults()
         }
         PAL.Loot_Defaults[profileNo].enabled = false
         PAL.Loot_Defaults[profileNo].lootGold = true
+        PAL.Loot_Defaults[profileNo].lootGoldChatMode = PA_OUTPUT_TYPE_NORMAL
         PAL.Loot_Defaults[profileNo].lootItems = true
-        PAL.Loot_Defaults[profileNo].hideItemLootMsg = false
-        PAL.Loot_Defaults[profileNo].hideGoldLootMsg = false
-        PAL.Loot_Defaults[profileNo].hideAllMsg = false
+        PAL.Loot_Defaults[profileNo].lootItemsChatMode = PA_OUTPUT_TYPE_FULL
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
         -- auto-loot=true, ignore=false
