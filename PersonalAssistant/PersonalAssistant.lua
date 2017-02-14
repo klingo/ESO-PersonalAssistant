@@ -69,6 +69,8 @@ function PA.introduction()
     SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
     SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
     SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+    SLASH_COMMANDS["/paflushlog"] = function() PALogger.flush() end
+
     --SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
 
     -- create the options with LAM-2

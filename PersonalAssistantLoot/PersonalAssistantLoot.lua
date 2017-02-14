@@ -12,15 +12,8 @@ function PAL.initDefaults()
     -- -----------------------------------------------------
     -- default values for PALoot
     for profileNo = 1, PAG_MAX_PROFILES do
-        PAL.Loot_Defaults[profileNo] = {
-            HarvestableItemTypes = {},
-            LootableItemTypes = {}
-        }
-        PAL.Loot_Defaults[profileNo].enabled = false
-        PAL.Loot_Defaults[profileNo].lootGold = true
-        PAL.Loot_Defaults[profileNo].lootGoldChatMode = PA_OUTPUT_TYPE_NORMAL
-        PAL.Loot_Defaults[profileNo].lootItems = true
-        PAL.Loot_Defaults[profileNo].lootItemsChatMode = PA_OUTPUT_TYPE_FULL
+        -- get default vlaues from PAMenu_Defaults
+        PAL.Loot_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PALoot
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
         -- auto-loot=true, ignore=false

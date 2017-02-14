@@ -12,25 +12,8 @@ function PAB.initDefaults()
     -- -----------------------------------------------------
     -- default values for PABanking
     for profileNo = 1, PAG_MAX_PROFILES do
-        PAB.Banking_Defaults[profileNo] = {
-            ItemTypes = {},
-            ItemTypesAdvanced = {}
-        }
-        PAB.Banking_Defaults[profileNo].enabled = true
-        PAB.Banking_Defaults[profileNo].gold = true
-        PAB.Banking_Defaults[profileNo].goldDepositInterval = 300
-        PAB.Banking_Defaults[profileNo].goldDepositPercentage = 100
-        PAB.Banking_Defaults[profileNo].goldTransactionStep = "1"
-        PAB.Banking_Defaults[profileNo].goldMinToKeep = 250
-        PAB.Banking_Defaults[profileNo].goldWithdraw = false
-        PAB.Banking_Defaults[profileNo].goldLastDeposit = 0
-        PAB.Banking_Defaults[profileNo].items = false
-        PAB.Banking_Defaults[profileNo].itemsDepStackType = PAB_STACKING_FULL
-        PAB.Banking_Defaults[profileNo].itemsWitStackType = PAB_STACKING_FULL
-        PAB.Banking_Defaults[profileNo].itemsTimerInterval = 300
-        PAB.Banking_Defaults[profileNo].itemsJunkSetting = PAC_ITEMTYPE_IGNORE
-        PAB.Banking_Defaults[profileNo].hideNoDepositMsg = false
-        PAB.Banking_Defaults[profileNo].hideAllMsg = false
+        -- get default vlaues from PAMenu_Defaults
+        PAB.Banking_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PABanking
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
         -- deposit=true, withdrawal=false
@@ -47,8 +30,9 @@ function PAB.initDefaults()
                 Value = {}
             }
         end
-        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 0 = Lockpick
-        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 0 = Lockpick
+        -- TODO: LUA index starts at 1
+        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 1 = Lockpick
+        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 1 = Lockpick
     end
 end
 

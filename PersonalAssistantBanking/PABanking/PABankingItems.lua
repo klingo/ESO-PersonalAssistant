@@ -127,7 +127,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 							if ((transactionType == PAC_ITEMTYPE_DEPOSIT and depStackType == PAB_STACKING_FULL) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and witStackType == PAB_STACKING_FULL) or itemFound) then
 								itemMoved = true
 								zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
-								timer = timer + PA.savedVars.Banking[activeProfile].itemsTimerInterval
+								timer = timer + PA.savedVars.Banking[activeProfile].depositTimerInterval
 								-- increase the queue of the "callLater" calls
 								PAB_Items.queueSize = PAB_Items.queueSize + 1
 								break
@@ -227,7 +227,7 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
 			-- This used to happen only if there are more than ~20 new items for the bank.
 			-- This method will check if the item is still in its original place after 1-2 seconds
 			-- and prints a message in case it happened again.
-			zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop) end, (1000 + PA.savedVars.Banking[PA.savedVars.General.activeProfile].itemsTimerInterval))
+			zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop) end, (1000 + PA.savedVars.Banking[PA.savedVars.General.activeProfile].depositTimerInterval))
 		end
 	
 		return remainingStackSize

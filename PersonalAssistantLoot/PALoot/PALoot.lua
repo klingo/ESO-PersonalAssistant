@@ -20,54 +20,66 @@ function PAL.OnReticleTargetChanged()
         local isHarvesting = (active and (type == INTERACTION_HARVEST))
         local isFishing = (active and (type == INTERACTION_FISH))
 
+        PAL.alreadyHarvesting = isHarvesting
+        PAL.alreadyFishing = isFishing
+
+        -- DEBUG
         if (PA.debug) then
-            if (not isHarvesting and not isFishing) then
-                if (type ~= INTERACTION_NONE) then
+            PAL.println("isHarvesting=%s   isFishing=%s   type=%s", tostring(isHarvesting), tostring(isFishing), tostring(type))
+        end
+
+
+        if (not isHarvesting and not isFishing) then
+            if (type ~= INTERACTION_NONE) then
+                if (PA.debug) then
                     PAL.println("new interactionType=%s with %s", tostring(type), GetUnitNameHighlightedByReticle())
                 end
             end
         end
 
 
-        if (PAL.alreadyHarvesting) then
-            if (not isHarvesting) then
-                -- stopped harvesting
-                PAL.alreadyHarvesting = false
-                -- DEBUG
-                if (PA.debug) then
-                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
-                end
-            end
-        else
-            if (isHarvesting) then
-                -- started harvesting
-                PAL.alreadyHarvesting = true
-                -- DEBUG
-                if (PA.debug) then
-                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
-                end
-            end
-        end
 
-        if (PAL.alreadyFishing) then
-            if (not isFishing) then
-                -- stopped fishing
-                PAL.alreadyFishing = false
-                -- DEBUG
-                if (PA.debug) then
-                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
-                end
-            end
-        else
-            if (isFishing) then
-                -- started fishing
-                PAL.alreadyFishing = true
-                -- DEBUG
-                if (PA.debug) then
-                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
-                end
-            end
-        end
+
+
+--        if (PAL.alreadyHarvesting) then
+--            if (not isHarvesting) then
+--                -- stopped harvesting
+--                PAL.alreadyHarvesting = false
+--                -- DEBUG
+--                if (PA.debug) then
+--                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+--                end
+--            end
+--        else
+--            if (isHarvesting) then
+--                -- started harvesting
+--                PAL.alreadyHarvesting = true
+--                -- DEBUG
+--                if (PA.debug) then
+--                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+--                end
+--            end
+--        end
+--
+--        if (PAL.alreadyFishing) then
+--            if (not isFishing) then
+--                -- stopped fishing
+--                PAL.alreadyFishing = false
+--                -- DEBUG
+--                if (PA.debug) then
+--                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+--                end
+--            end
+--        else
+--            if (isFishing) then
+--                -- started fishing
+--                PAL.alreadyFishing = true
+--                -- DEBUG
+--                if (PA.debug) then
+--                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+--                end
+--            end
+--        end
 
     end
 end
@@ -78,7 +90,7 @@ function PAL.OnLootUpdated()
     -- check if addon is enabled
     if PA.savedVars.Loot[activeProfile].enabled then
         -- check if ItemLoot is enabled
-        if PA.savedVars.Loot[activeProfile].lootItems then
+        if PA.savedVars.Loot[activeProfile].lootItemsEnabled then
             -- check if we are harvesting, auto-loot is only used for this case!
             if (PAL.alreadyHarvesting or PAL.alreadyFishing) then
                 -- get number of lootable items
@@ -127,7 +139,7 @@ function PAL.OnLootUpdated()
         end
 
         -- check if GoldLoot is enabled
-        if PA.savedVars.Loot[activeProfile].lootGold then
+        if PA.savedVars.Loot[activeProfile].lootGoldEnabled then
             -- is there even gold to loot?
             local unownedMoney = GetLootMoney()
             if (unownedMoney > 0) then

@@ -60,80 +60,80 @@ PAC_ITEMCODE_BANANAS = "|H1:item:33755:317:50:0:0:0:0:0:0:0:0:0:0:0:0:0:10:0:0:0
 -- =====================================================================================================================
 -- = PA Banking
 -- =================================
-PABItemTypes = {}
--- PABItemTypes[index] = ItemType   ["" --> disabled itemType]
+-- PersonalAssistant Banking ItemTypes
+PABItemTypes = setmetatable({}, { __index = table })
 -- Alchemy
-table.insert(PABItemTypes, ITEMTYPE_REAGENT) -- 00
-table.insert(PABItemTypes, ITEMTYPE_POISON_BASE) -- 01
-table.insert(PABItemTypes, ITEMTYPE_POTION_BASE) -- 02
+PABItemTypes:insert(ITEMTYPE_REAGENT)
+PABItemTypes:insert(ITEMTYPE_POISON_BASE)
+PABItemTypes:insert(ITEMTYPE_POTION_BASE)
 -- Blacksmithing
-table.insert(PABItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL) -- 03
-table.insert(PABItemTypes, ITEMTYPE_BLACKSMITHING_MATERIAL) -- 04
-table.insert(PABItemTypes, ITEMTYPE_BLACKSMITHING_BOOSTER) -- 05
+PABItemTypes:insert(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
+PABItemTypes:insert(ITEMTYPE_BLACKSMITHING_MATERIAL)
+PABItemTypes:insert(ITEMTYPE_BLACKSMITHING_BOOSTER)
 -- Clothing
-table.insert(PABItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL) -- 06
-table.insert(PABItemTypes, ITEMTYPE_CLOTHIER_MATERIAL) -- 07
-table.insert(PABItemTypes, ITEMTYPE_CLOTHIER_BOOSTER) -- 08
+PABItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+PABItemTypes:insert(ITEMTYPE_CLOTHIER_MATERIAL)
+PABItemTypes:insert(ITEMTYPE_CLOTHIER_BOOSTER)
 -- Woodworking
-table.insert(PABItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL) -- 09
-table.insert(PABItemTypes, ITEMTYPE_WOODWORKING_MATERIAL) -- 10
-table.insert(PABItemTypes, ITEMTYPE_WOODWORKING_BOOSTER) -- 11
+PABItemTypes:insert(ITEMTYPE_WOODWORKING_RAW_MATERIAL)
+PABItemTypes:insert(ITEMTYPE_WOODWORKING_MATERIAL)
+PABItemTypes:insert(ITEMTYPE_WOODWORKING_BOOSTER)
 -- Enchanting
-table.insert(PABItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT) -- 12
-table.insert(PABItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE) -- 13
-table.insert(PABItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY) -- 14
-table.insert(PABItemTypes, ITEMTYPE_GLYPH_ARMOR) -- 15
-table.insert(PABItemTypes, ITEMTYPE_GLYPH_JEWELRY) -- 16
-table.insert(PABItemTypes, ITEMTYPE_GLYPH_WEAPON) -- 17
+PABItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ASPECT)
+PABItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
+PABItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_POTENCY)
+PABItemTypes:insert(ITEMTYPE_GLYPH_ARMOR)
+PABItemTypes:insert(ITEMTYPE_GLYPH_JEWELRY)
+PABItemTypes:insert(ITEMTYPE_GLYPH_WEAPON)
 -- Provisioning
-table.insert(PABItemTypes, ITEMTYPE_INGREDIENT) -- 18
-table.insert(PABItemTypes, ITEMTYPE_RECIPE) -- 19
+PABItemTypes:insert(ITEMTYPE_INGREDIENT)
+PABItemTypes:insert(ITEMTYPE_RECIPE)
 -- Others
-table.insert(PABItemTypes, ITEMTYPE_DRINK) -- 20
-table.insert(PABItemTypes, ITEMTYPE_FOOD) -- 21
-table.insert(PABItemTypes, ITEMTYPE_POTION) -- 22
-table.insert(PABItemTypes, ITEMTYPE_POISON) -- NEW!!!
-table.insert(PABItemTypes, ITEMTYPE_ARMOR_TRAIT) -- 23
-table.insert(PABItemTypes, ITEMTYPE_WEAPON_TRAIT) -- 24
-table.insert(PABItemTypes, ITEMTYPE_STYLE_MATERIAL) -- 25
-table.insert(PABItemTypes, ITEMTYPE_RAW_MATERIAL) -- 26
+PABItemTypes:insert(ITEMTYPE_POTION)
+PABItemTypes:insert(ITEMTYPE_POISON)
+PABItemTypes:insert(ITEMTYPE_ARMOR_TRAIT)
+PABItemTypes:insert(ITEMTYPE_WEAPON_TRAIT)
+PABItemTypes:insert(ITEMTYPE_STYLE_MATERIAL)
+PABItemTypes:insert(ITEMTYPE_RAW_MATERIAL)
 
--- PersonalAssistant advanced ItemTypes
-PABItemTypesAdvanced = {}
-PABItemTypesAdvanced[0] = 30357	-- Lockpick
--- Can't use ITEMTYPE_LOCKPICK or SPECIALIZED_ITEMTYPE_LOCKPICK since the actual lockpicks are categorized as ITEMTYPE_TOOL (as of APIVersion 100018)
+-- PersonalAssistant Banking Advanced ItemTypes
+PABItemTypesAdvanced = setmetatable({}, { __index = table })
+-- Lockpick
+PABItemTypesAdvanced:insert(30357)
+-- Can't use ITEMTYPE_LOCKPICK or SPECIALIZED_ITEMTYPE_LOCKPICK
+-- since the actual lockpicks are categorized as ITEMTYPE_TOOL (as of APIVersion 100018)
 
 -- =====================================================================================================================
 -- = PA Loot
 -- =================================
 -- PersonalAssistant Loot Harvestable ItemTypes
-PALHarvestableItemTypes = {}
+PALHarvestableItemTypes = setmetatable({}, { __index = table })
 -- Alchemy
-table.insert(PALHarvestableItemTypes, ITEMTYPE_REAGENT)
-table.insert(PALHarvestableItemTypes, ITEMTYPE_POTION_BASE)
+PALHarvestableItemTypes:insert(ITEMTYPE_REAGENT)
+PALHarvestableItemTypes:insert(ITEMTYPE_POTION_BASE)
 -- Blacksmithing
-table.insert(PALHarvestableItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
+PALHarvestableItemTypes:insert(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
 -- Clothing
-table.insert(PALHarvestableItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+PALHarvestableItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 -- Woodworking
-table.insert(PALHarvestableItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL)
+PALHarvestableItemTypes:insert(ITEMTYPE_WOODWORKING_RAW_MATERIAL)
 -- Enchanting
-table.insert(PALHarvestableItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT)
-table.insert(PALHarvestableItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
-table.insert(PALHarvestableItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY)
+PALHarvestableItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ASPECT)
+PALHarvestableItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
+PALHarvestableItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_POTENCY)
 -- Provisioning
-table.insert(PALHarvestableItemTypes, ITEMTYPE_INGREDIENT)
+PALHarvestableItemTypes:insert(ITEMTYPE_INGREDIENT)
 -- Fishing
-table.insert(PALHarvestableItemTypes, ITEMTYPE_FISH)
+PALHarvestableItemTypes:insert(ITEMTYPE_FISH)
 
 -- PersonalAssistant Loot Harvestable ItemTypes
-PALLootableItemTypes = {}
+PALLootableItemTypes = setmetatable({}, { __index = table })
 -- Clothing
-table.insert(PALLootableItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+PALLootableItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 -- Provisioning
-table.insert(PALLootableItemTypes, ITEMTYPE_INGREDIENT)
+PALLootableItemTypes:insert(ITEMTYPE_INGREDIENT)
 -- Fishing
-table.insert(PALLootableItemTypes, ITEMTYPE_LURE)
+PALLootableItemTypes:insert(ITEMTYPE_LURE)
 
 
 -- =====================================================================================================================

@@ -32,6 +32,7 @@ libs/LibAddonMenu-2.0/controls/divider.lua
 vars/Globals.lua
 
 # Utilities
+libs/Utilities/Logger.lua
 libs/Utilities/HelperFunctions.lua
 libs/Utilities/EventManager.lua
 
@@ -50,8 +51,8 @@ PersonalAssistant.lua
 PersonalAssistant.xml
 
 # Settings
-libs/Menu/MenuChoices.lua
 libs/Menu/MenuDefaults.lua
+libs/Menu/MenuChoices.lua
 libs/Menu/MenuGetterSetter.lua
 libs/Menu/MenuHelper.lua
 libs/Menu/MainMenu.lua

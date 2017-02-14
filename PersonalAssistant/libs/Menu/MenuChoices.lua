@@ -10,6 +10,15 @@ if not PAMenu_Choices then
 end
 
 PAMenu_Choices.choices = {
+    PABanking = {
+        goldTransactionStep = {
+            "1",
+            "10",
+            "100",
+            "1000",
+            "10000",
+        },
+    },
     PALoot = {
         lootGoldChatMode = {
             PAHF.getFormattedKey("PAL_Gold_ChatMode_None"),
@@ -27,6 +36,15 @@ PAMenu_Choices.choices = {
 }
 
 PAMenu_Choices.choicesValues = {
+    PABanking = {
+        goldTransactionStep = {
+            1,
+            10,
+            100,
+            1000,
+            10000,
+        },
+    },
     PALoot = {
         lootGoldChatMode = {
             PA_OUTPUT_TYPE_NONE,

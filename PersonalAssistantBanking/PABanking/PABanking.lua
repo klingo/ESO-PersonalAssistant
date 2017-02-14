@@ -27,13 +27,13 @@ function PAB.OnBankOpen()
 			-- check if minim amount of gold to keep is exceeded
 			if (GetCurrentMoney() > goldMinToKeep) then
 				goldTransaction = PAB_Gold.DepositGold(goldMinToKeep)
-			elseif (PA.savedVars.Banking[activeProfile].goldWithdraw) then
+			elseif (PA.savedVars.Banking[activeProfile].withdrawToMinGold) then
 				goldTransaction = PAB_Gold.WithdrawGold(goldMinToKeep)
 			end
 		end
 		
 		-- check if item deposit is enabled
-		if PA.savedVars.Banking[activeProfile].items then
+		if PA.savedVars.Banking[activeProfile].enabledItems then
 			PAB_Items.loopCount = 0
 			itemTransaction = PAB_Items.DepositAndWithdrawItems()
 		end
