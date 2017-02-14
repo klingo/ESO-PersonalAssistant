@@ -202,7 +202,7 @@ function PAMenu_Functions.setFunc.PALoot.lootGoldEnabled(value)
 end
 
 function PAMenu_Functions.disabled.PALoot.lootGoldEnabled()
-    return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGoldEnabled
+    return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled
 end
 
 --------------------------------------------------------------------------
@@ -232,7 +232,7 @@ function PAMenu_Functions.setFunc.PALoot.lootItemsEnabled(value)
 end
 
 function PAMenu_Functions.disabled.PALoot.lootItemsEnabled()
-    return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled
+    return not PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled
 end
 
 --------------------------------------------------------------------------
