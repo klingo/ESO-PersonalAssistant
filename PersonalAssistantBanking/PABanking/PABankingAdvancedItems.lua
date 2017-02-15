@@ -22,11 +22,12 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 -- populate the transfer List here
 -- -------------------------------------------------------------------------------------------------
 	-- let us start with the lockpicks!
-	transferList[0] = PABItemTypesAdvanced[0]
+	transferList[1] = PABItemTypesAdvanced[1]
 -- 	transferList[1] = XYZ
 -- 	transferList[2] = XYZ
-	
-	for transferIndex = 0, #transferList do
+	-- TODO: CHECK THIS; CURRENTLY BROKEN !!!
+
+	for transferIndex = 1, #transferList do
 	
 		local checkItemId = transferList[transferIndex]
 		
@@ -91,7 +92,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 		
 	-- go through the transfer list and prepare the transfers
 	-- -------------------------------------------------------------------------------------------------
-		for currItemTransferIndex = 0, #transferList do
+		for currItemTransferIndex = 1, #transferList do
 
 			checkItemId = transferList[currItemTransferIndex]
 			if (transferInfo[checkItemId]["backpackStackSize"] >= transferInfo[checkItemId]["targetStackSize"]) then

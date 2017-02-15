@@ -79,7 +79,7 @@ end
 
 function PAMenu_Functions.setFunc.PABanking.goldDepositInterval(value)
 --    PALogger.log("PAMenu_Functions.setFunc.PABanking.goldDepositInterval("..tostring(value)..")")
-    PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval = value
+    PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval = tonumber(value)
 end
 
 function PAMenu_Functions.disabled.PABanking.goldDepositInterval()
@@ -125,7 +125,7 @@ function PAMenu_Functions.getFunc.PABanking.goldMinToKeep()
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldMinToKeep(value)
-    PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldMinToKeep = value
+    PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldMinToKeep = tonumber(value)
 end
 
 function PAMenu_Functions.disabled.PABanking.goldMinToKeep()

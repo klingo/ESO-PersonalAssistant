@@ -24,15 +24,15 @@ function PAB.initDefaults()
         end
 
         -- default values for advanced ItemTypes
-        for itemTypeAdvancedNo = 0, #PABItemTypesAdvanced do	-- amount of advanced item types
+        for itemTypeAdvancedNo = 1, #PABItemTypesAdvanced do	-- amount of advanced item types
             PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
                 Key = {},
                 Value = {}
             }
         end
         -- TODO: LUA index starts at 1
-        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Key = PAC_OPERATOR_NONE		-- 1 = Lockpick
-        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[0].Value = 100					-- 1 = Lockpick
+        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[1].Key = PAC_OPERATOR_NONE		-- 1 = Lockpick
+        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[1].Value = 100					-- 1 = Lockpick
     end
 end
 

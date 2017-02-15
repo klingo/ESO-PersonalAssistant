@@ -21,56 +21,46 @@ function PAL.OnReticleTargetChanged()
 
         local isHarvesting = (active and (type == INTERACTION_HARVEST))
         local isFishing = (active and (type == INTERACTION_FISH))
-        local isLooting = (active and (type ~= INTERACTION_NONE))
 
---        if (PAL.alreadyHarvesting) then
---            if (not isHarvesting) then
---                -- stopped harvesting
---                PAL.alreadyHarvesting = false
---                -- DEBUG
---                if (PA.debug) then
---                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
---                end
---            end
---        else
---            if (isHarvesting) then
---                -- started harvesting
---                PAL.alreadyHarvesting = true
---                -- DEBUG
---                if (PA.debug) then
---                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
---                end
---            end
---        end
---
---        if (PAL.alreadyFishing) then
---            if (not isFishing) then
---                -- stopped fishing
---                PAL.alreadyFishing = false
---                -- DEBUG
---                if (PA.debug) then
---                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
---                end
---            end
---        else
---            if (isFishing) then
---                -- started fishing
---                PAL.alreadyFishing = true
---                -- DEBUG
---                if (PA.debug) then
---                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
---                end
---            end
---        end
-
-        PAL.alreadyHarvesting = isHarvesting
-        PAL.alreadyFishing = isFishing
-
-        -- DEBUG
-        if (PA.debug) then
-            PAL.println("isHarvesting=%s   isFishing=%s   type=%s", tostring(isHarvesting), tostring(isFishing), tostring(type))
+        if (PAL.alreadyHarvesting) then
+            if (not isHarvesting) then
+                -- stopped harvesting
+                PAL.alreadyHarvesting = false
+                -- DEBUG
+                if (PA.debug) then
+                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+                end
+            end
+        else
+            if (isHarvesting) then
+                -- started harvesting
+                PAL.alreadyHarvesting = true
+                -- DEBUG
+                if (PA.debug) then
+                    PAL.println("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
+                end
+            end
         end
 
+        if (PAL.alreadyFishing) then
+            if (not isFishing) then
+                -- stopped fishing
+                PAL.alreadyFishing = false
+                -- DEBUG
+                if (PA.debug) then
+                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+                end
+            end
+        else
+            if (isFishing) then
+                -- started fishing
+                PAL.alreadyFishing = true
+                -- DEBUG
+                if (PA.debug) then
+                    PAL.println("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
+                end
+            end
+        end
 
         if (not isHarvesting and not isFishing) then
             if (type ~= INTERACTION_NONE) then
@@ -78,7 +68,7 @@ function PAL.OnReticleTargetChanged()
                 PAL.alreadyLooting = isLooting
 
                 if (PA.debug) then
-                    PAL.println("isLooting=%s   new interactionType=%s with %s", tostring(isLooting), tostring(type), GetUnitNameHighlightedByReticle())
+                    PAL.println("new interactionType=%s with %s", tostring(type), GetUnitNameHighlightedByReticle())
                 end
             end
         end
@@ -102,9 +92,12 @@ function PAL.OnLootUpdated()
                 -- loop through all of them
                 for i = 1, lootCount do
                     local lootId, _, icon, itemCount = GetLootItemInfo(i)
+                    local iconString = "|t20:20:"..icon.."|t "
                     local itemLink = GetLootItemLink(lootId, LINK_STYLE_BRACKETS)
                     local itemType = GetItemLinkItemType(itemLink)
                     local strItemType = PALocale.getResourceMessage(itemType)
+
+                    local itemLooted = false
 
                     -- DEBUG
                     if (PA.debug) then
@@ -116,6 +109,7 @@ function PAL.OnLootUpdated()
 
                     -- TODO: also check for stolen???
 
+                    -- check for ores, herbs, wood etc
                     for currItemType = 1, #PALHarvestableItemTypes do
                         -- check if the itemType is configured for auto-loot
                         if (PALHarvestableItemTypes[currItemType] == itemType) then
@@ -123,23 +117,48 @@ function PAL.OnLootUpdated()
                             if (PA.savedVars.Loot[activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                 -- Loot the item
                                 LootItemById(lootId)
-                                local iconString = "|t20:20:"..icon.."|t "
-
-                                -- show output to chat (depending on setting)
-                                local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode
-                                if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString)
-                                elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString)
-                                elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString)
-                                end -- PA_OUTPUT_TYPE_NONE => no chat output
+                                itemLooted = true
                             end
                             break
                         end
+                    end
+
+                    -- check for bait
+                    if (itemType == ITEMTYPE_LURE) then
+                        local harvestableBaitLootMode = PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode()
+
+                        if (PA.debug) then
+                            PAL.println("itemType (%s): harvestableBaitLootMode=%s.", itemType, harvestableBaitLootMode)
+                        end
+
+                        if (harvestableBaitLootMode ~= PAC_ITEMTYPE_IGNORE) then
+                            -- Loot the item
+                            LootItemById(lootId)
+                            itemLooted = true
+                            if (harvestableBaitLootMode == PAC_ITEMTYPE_DESTROY) then
+                                -- Also destroy it (set itemLooted to false in this case)
+                                itemLooted = false
+                            end
+                        end
+                    end
+
+                    -- check if an item was looted
+                    if (itemLooted) then
+                        -- show output to chat (depending on setting)
+                        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode
+                        if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString)
+                        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString)
+                        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAL.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString)
+                        end -- PA_OUTPUT_TYPE_NONE => no chat output
                     end
                 end
             else
                 -- DEBUG
                 if (PA.debug) then
-                    PAL.println("looting enemy? --> %s", GetUnitNameHighlightedByReticle())
+                    PAL.println("looting enemy? --> %s --> IsLooting()=%s", GetUnitNameHighlightedByReticle(), tostring(IsLooting()))
+                    -- examples:
+                    -- torchbug / wasps
+                    -- chests
                 end
             end
         end
@@ -171,6 +190,81 @@ function PAL.OnLootUpdated()
         -- CURT_ALLIANCE_POINTS
         -- CURT_TELVAR_STONES
 
+    end
+end
+
+
+function PAL.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
+    local activeProfile = PA.savedVars.General.activeProfile
+
+    -- check if addon is enabled
+    if PA.savedVars.Loot[activeProfile].enabled then
+        -- check if ItemLoot is enabled
+        if PA.savedVars.Loot[activeProfile].lootItemsEnabled then
+            -- check if the updated happened in the backpack
+            if (bagId == BAG_BACKPACK) then
+                -- only proceed if the update was triggered while harvesting (i.e. not from looting chests, wasps, mobs, etc)
+                if (PAL.alreadyHarvesting) then
+                    -- get the itemType
+                    local itemType = GetItemType(BAG_BACKPACK, slotId)
+
+                    -- check if it is bait, and if bait is set to be destroyed
+                    if ((itemType == ITEMTYPE_LURE) and (PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode() == PAC_ITEMTYPE_DESTROY)) then
+
+                        local itemLink =  GetItemLink(BAG_BACKPACK, slotId, LINK_STYLE_BRACKETS)
+
+                        local stackSize, maxStacksize = GetSlotStackSize(BAG_BACKPACK, slotId)
+                        if (stackSize > stackCountChange) then
+                            -- there already was a stack existing in the inventory, we can only delete the new items
+                            local firstEmptySlot = FindFirstEmptySlotInBag(BAG_BACKPACK)
+                            if (firstEmptySlot ~= nil) then
+                                -- there is a free slot to split the stack, go ahead!
+                                -- TODO: copy to new stack and only destroy that?
+
+                                local result = CallSecureProtected("RequestMoveItem", BAG_BACKPACK, slotId, BAG_BACKPACK, firstEmptySlot, stackCountChange)
+
+                                -- give it some time to actually move the item
+                                zo_callLater(function()
+                                    if (result) then
+                                        DestroyItem(BAG_BACKPACK, firstEmptySlot)
+
+                                        -- DEBUG
+                                        if (PA.debug) then
+                                            PAL.println("Item destroyed --> %d x %s      %d should remain in inventory", stackCountChange, itemLink, stackSize - stackCountChange)
+                                        end
+
+                                    else
+                                        -- could not move items
+                                        -- TODO: log error
+
+                                        -- DEBUG
+                                        if (PA.debug) then
+                                            PAL.println("cannot move Item! --> %s      %d/%d were looted", itemLink, stackCountChange, stackSize)
+                                        end
+                                    end
+                                end, 500)
+                            else
+                                -- no free slot available, cannot safely destry item!
+                                -- TODO: log error
+
+                                -- DEBUG
+                                if (PA.debug) then
+                                    PAL.println("cannot destroy Item! --> %s      %d/%d were looted", itemLink, stackCountChange, stackSize)
+                                end
+                            end
+                        else
+                            -- destroy all items (since there were no existing before)
+                            DestroyItem(BAG_BACKPACK, firstEmptySlot)
+
+                            -- DEBUG
+                            if (PA.debug) then
+                                PAL.println("Item destroyed --> %s      %d were looted. nothing left in inventory", itemLink, stackCountChange)
+                            end
+                        end
+                    end
+                end
+            end
+        end
     end
 end
 

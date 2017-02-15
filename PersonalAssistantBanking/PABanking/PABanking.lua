@@ -16,7 +16,7 @@ function PAB.OnBankOpen()
 		PAB.isBankClosed = false
 		
 		-- check if gold deposit is enabled
-		if PA.savedVars.Banking[activeProfile].gold then
+		if PA.savedVars.Banking[activeProfile].enabledGold then
 			-- check for numeric value, if not, use default value of 0
 			local goldMinToKeep = 0
 			

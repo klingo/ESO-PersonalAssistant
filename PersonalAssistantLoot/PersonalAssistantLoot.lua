@@ -49,6 +49,7 @@ function PAL.initAddon(eventCode, addOnName)
     -- register PALoot
     ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PAL.OnReticleTargetChanged)
     PAEM.RegisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED, PAL.OnLootUpdated)
+    PAEM.RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
 end
 
 PAEM.RegisterForEvent(PAL.AddonName, EVENT_ADD_ON_LOADED, PAL.initAddon)
