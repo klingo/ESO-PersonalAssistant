@@ -11,7 +11,10 @@ PALogger.logList = setmetatable({}, { __index = table })
 
 
 function PALogger.log(logText)
-    PALogger.logList:insert(logText)
+    -- by default, Logger is disabled!
+    if (false) then
+        PALogger.logList:insert(logText)
+    end
 end
 
 function PALogger.flush()
