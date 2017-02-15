@@ -25,6 +25,8 @@ PA.debug = false
 -- Support Virtual Bags: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 -- Support Specialized Item Types: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 
+-- find solution for account-wide profiles
+
 -- init default values
 function PA.initDefaults()
     -- initialize the multi-profile structure

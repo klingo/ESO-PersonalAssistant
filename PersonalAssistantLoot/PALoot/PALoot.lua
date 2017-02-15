@@ -11,35 +11,17 @@
 
 PAL.alreadyHarvesting = false
 PAL.alreadyFishing = false
+PAL.alreadyLooting = false
 
 function PAL.OnReticleTargetChanged()
     -- check if addon is enabled
     if PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled then
         local type = GetInteractionType()
         local active = IsPlayerInteractingWithObject()
+
         local isHarvesting = (active and (type == INTERACTION_HARVEST))
         local isFishing = (active and (type == INTERACTION_FISH))
-
-        PAL.alreadyHarvesting = isHarvesting
-        PAL.alreadyFishing = isFishing
-
-        -- DEBUG
-        if (PA.debug) then
-            PAL.println("isHarvesting=%s   isFishing=%s   type=%s", tostring(isHarvesting), tostring(isFishing), tostring(type))
-        end
-
-
-        if (not isHarvesting and not isFishing) then
-            if (type ~= INTERACTION_NONE) then
-                if (PA.debug) then
-                    PAL.println("new interactionType=%s with %s", tostring(type), GetUnitNameHighlightedByReticle())
-                end
-            end
-        end
-
-
-
-
+        local isLooting = (active and (type ~= INTERACTION_NONE))
 
 --        if (PAL.alreadyHarvesting) then
 --            if (not isHarvesting) then
@@ -81,8 +63,29 @@ function PAL.OnReticleTargetChanged()
 --            end
 --        end
 
+        PAL.alreadyHarvesting = isHarvesting
+        PAL.alreadyFishing = isFishing
+
+        -- DEBUG
+        if (PA.debug) then
+            PAL.println("isHarvesting=%s   isFishing=%s   type=%s", tostring(isHarvesting), tostring(isFishing), tostring(type))
+        end
+
+
+        if (not isHarvesting and not isFishing) then
+            if (type ~= INTERACTION_NONE) then
+
+                PAL.alreadyLooting = isLooting
+
+                if (PA.debug) then
+                    PAL.println("isLooting=%s   new interactionType=%s with %s", tostring(isLooting), tostring(type), GetUnitNameHighlightedByReticle())
+                end
+            end
+        end
+
     end
 end
+
 
 function PAL.OnLootUpdated()
     local activeProfile = PA.savedVars.General.activeProfile
@@ -107,6 +110,9 @@ function PAL.OnLootUpdated()
                     if (PA.debug) then
                         PAL.println("itemType (%s): %s.", itemType, strItemType)
                     end
+
+                    -- TODO: Handle BAIT
+                    -- return PA.savedVars.Loot[PA.savedVars.General.activeProfile].harvestableBaitLootMode
 
                     -- TODO: also check for stolen???
 
@@ -163,10 +169,7 @@ function PAL.OnLootUpdated()
         -- LootCurrency(number CurrencyType type)
 
         -- CURT_ALLIANCE_POINTS
-        -- CURT_MONEY
-        -- CURT_NONE
         -- CURT_TELVAR_STONES
-        -- CURT_WRIT_VOUCHERS
 
     end
 end

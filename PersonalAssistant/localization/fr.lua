@@ -44,7 +44,7 @@ ResourceBundle.fr["PAB_ItemType_Withdrawal"]		= "Retirer"
 ResourceBundle.fr["PAB_ItemType_Inherit"]			= "Selon le type d'objet (ci-dessous)"
 
 -- PALoot --
-ResourceBundle.fr["PAL_ItemType_None"] 		        = "-"
+
 
 
 -- PAJunk --

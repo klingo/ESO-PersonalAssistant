@@ -186,15 +186,15 @@ function MenuHelper.getLootTextFromNumber(number, lootType)
     end
 
     if index == PAC_ITEMTYPE_LOOT then
-        return PALocale.getResourceMessage("PAL_ItemType_Loot")
+        return PALocale.getResourceMessage("PAL_ItemType_AutoLoot")
     else
-        return PALocale.getResourceMessage("PAL_ItemType_None")
+        return PALocale.getResourceMessage("PAL_ItemType_Ignore")
     end
 end
 
 -- returns the number behind the text, depending on the text
 function MenuHelper.getLootNumberFromText(text)
-    if text == PALocale.getResourceMessage("PAL_ItemType_Loot") then
+    if text == PALocale.getResourceMessage("PAL_ItemType_AutoLoot") then
         return PAC_ITEMTYPE_LOOT		-- = Auto-Loot
     else
         return PAC_ITEMTYPE_IGNORE		-- = Ignore

@@ -32,6 +32,15 @@ PAMenu_Choices.choices = {
             PAHF.getFormattedKey("PAL_Items_ChatMode_Normal", 2, PAC_ITEMCODE_BANANAS, PAC_ICON_BANANAS),
             PAHF.getFormattedKey("PAL_Items_ChatMode_Full", 2, PAC_ITEMCODE_BANANAS, PAC_ICON_BANANAS),
         },
+        itemTypesLootMode = {
+            PALocale.getResourceMessage("PAL_ItemType_Ignore"),
+            PALocale.getResourceMessage("PAL_ItemType_AutoLoot"),
+        },
+        harvestableBaitLootMode = {
+            PALocale.getResourceMessage("PAL_ItemType_Ignore"),
+            PALocale.getResourceMessage("PAL_ItemType_AutoLoot"),
+            PALocale.getResourceMessage("PAL_ItemType_LootDestroy"),
+        },
     },
 }
 
@@ -58,5 +67,28 @@ PAMenu_Choices.choicesValues = {
             PA_OUTPUT_TYPE_NORMAL,
             PA_OUTPUT_TYPE_FULL,
         },
+        itemTypesLootMode = {
+            PAC_ITEMTYPE_IGNORE,
+            PAC_ITEMTYPE_LOOT,
+        },
+        harvestableBaitLootMode = {
+            PAC_ITEMTYPE_IGNORE,
+            PAC_ITEMTYPE_LOOT,
+            PAC_ITEMTYPE_DESTROY,
+        },
     },
+}
+
+PAMenu_Choices.choicesTooltips = {
+    PALoot = {
+        itemTypesLootMode = {
+            PALocale.getResourceMessage("PAL_ItemType_Ignore_T"),
+            PALocale.getResourceMessage("PAL_ItemType_AutoLoot_T"),
+        },
+        harvestableBaitLootMode = {
+            PALocale.getResourceMessage("PAL_ItemType_Ignore_T"),
+            PALocale.getResourceMessage("PAL_ItemType_AutoLoot_T"),
+            PALocale.getResourceMessage("PAL_ItemType_LootDestroy_T"),
+        },
+    }
 }

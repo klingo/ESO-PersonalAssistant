@@ -7,6 +7,9 @@
 
 if not PAMenu_Functions then
     PAMenu_Functions = {
+        func = {
+            PALoot = {},
+        },
         getFunc = {
             PABanking = {},
             PALoot = {},
@@ -40,13 +43,13 @@ end
 -- PABanking   enable
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.enabled()
-    PALogger.log("PAMenu_Functions.getFunc.PABanking.enabled() returns ["..tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled).."]")
+--    PALogger.log("PAMenu_Functions.getFunc.PABanking.enabled() returns ["..tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled).."]")
     return PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled
 end
 
 function PAMenu_Functions.setFunc.PABanking.enabled(value)
-    PALogger.log("PAMenu_Functions.setFunc.PABanking.enabled("..tostring(value)..")")
-    PALogger.log(tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled))
+--    PALogger.log("PAMenu_Functions.setFunc.PABanking.enabled("..tostring(value)..")")
+--    PALogger.log(tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled))
     PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled = value
 end
 
@@ -69,13 +72,13 @@ end
 -- PABanking   goldDepositInterval
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.goldDepositInterval()
-    PALogger.log("PAMenu_Functions.getFunc.PABanking.goldDepositInterval() returns ["..tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval).."]")
-    PALogger.log(tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval))
+--    PALogger.log("PAMenu_Functions.getFunc.PABanking.goldDepositInterval() returns ["..tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval).."]")
+--    PALogger.log(tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval))
     return PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldDepositInterval(value)
-    PALogger.log("PAMenu_Functions.setFunc.PABanking.goldDepositInterval("..tostring(value)..")")
+--    PALogger.log("PAMenu_Functions.setFunc.PABanking.goldDepositInterval("..tostring(value)..")")
     PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval = value
 end
 
@@ -249,6 +252,110 @@ end
 function PAMenu_Functions.disabled.PALoot.lootItemsChatMode()
     return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
 end
+
+------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- PALoot   HarvestableItemSubMenu harvestableBaitLootMode
+---------------------------------
+function PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode()
+    return PA.savedVars.Loot[PA.savedVars.General.activeProfile].harvestableBaitLootMode
+end
+
+function PAMenu_Functions.setFunc.PALoot.harvestableBaitLootMode(value)
+    PA.savedVars.Loot[PA.savedVars.General.activeProfile].harvestableBaitLootMode = value
+end
+
+function PAMenu_Functions.disabled.PALoot.harvestableBaitLootMode()
+    return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
+-- PALoot   HarvestableItemSubMenu harvestableItemTypesLootMode
+---------------------------------
+function PAMenu_Functions.getFunc.PALoot.harvestableItemTypesLootMode(itemType)
+    return PA.savedVars.Loot[PA.savedVars.General.activeProfile].HarvestableItemTypes[itemType]
+end
+
+function PAMenu_Functions.setFunc.PALoot.harvestableItemTypesLootMode(itemType, value)
+    PA.savedVars.Loot[PA.savedVars.General.activeProfile].HarvestableItemTypes[itemType] = value
+end
+
+function PAMenu_Functions.disabled.PALoot.harvestableItemTypesLootMode()
+    return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
+-- PALoot   HarvestableItemSubMenu autoLootAllHarvestableButton
+---------------------------------
+function PAMenu_Functions.func.PALoot.autoLootAllHarvestableButton()
+    local activeProfile = PA.savedVars.General.activeProfile
+    for _, itemType in pairs(PALHarvestableItemTypes) do
+        PA.savedVars.Loot[activeProfile].HarvestableItemTypes[itemType] = PAC_ITEMTYPE_LOOT
+    end
+end
+
+function PAMenu_Functions.disabled.PALoot.autoLootAllHarvestableButton()
+    return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
+-- PALoot   HarvestableItemSubMenu ignoreAllHarvestableButton
+---------------------------------
+function PAMenu_Functions.func.PALoot.ignoreAllHarvestableButton()
+    local activeProfile = PA.savedVars.General.activeProfile
+    for _, itemType in pairs(PALHarvestableItemTypes) do
+        PA.savedVars.Loot[activeProfile].HarvestableItemTypes[itemType] = PAC_ITEMTYPE_IGNORE
+    end
+end
+
+function PAMenu_Functions.disabled.PALoot.ignoreAllHarvestableButton()
+    return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
+-- PALoot   LootableItemSubMenu lootableItemTypesLootMode
+---------------------------------
+function PAMenu_Functions.getFunc.PALoot.lootableItemTypesLootMode(itemType)
+    return PA.savedVars.Loot[PA.savedVars.General.activeProfile].LootableItemTypes[itemType]
+end
+
+function PAMenu_Functions.setFunc.PALoot.lootableItemTypesLootMode(itemType, value)
+    PA.savedVars.Loot[PA.savedVars.General.activeProfile].LootableItemTypes[itemType] = value
+end
+
+function PAMenu_Functions.disabled.PALoot.lootableItemTypesLootMode()
+    return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
+-- PALoot   LootableItemSubMenu autoLootAllLootableButton
+---------------------------------
+function PAMenu_Functions.func.PALoot.autoLootAllLootableButton()
+    local activeProfile = PA.savedVars.General.activeProfile
+    for _, itemType in pairs(PALLootableItemTypes) do
+        PA.savedVars.Loot[activeProfile].LootableItemTypes[itemType] = PAC_ITEMTYPE_LOOT
+    end
+end
+
+function PAMenu_Functions.disabled.PALoot.autoLootAllLootableButton()
+    return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
+-- PALoot   LootableItemSubMenu ignoreAllLootableButton
+---------------------------------
+function PAMenu_Functions.func.PALoot.ignoreAllLootableButton()
+    local activeProfile = PA.savedVars.General.activeProfile
+    for _, itemType in pairs(PALLootableItemTypes) do
+        PA.savedVars.Loot[activeProfile].LootableItemTypes[itemType] = PAC_ITEMTYPE_IGNORE
+    end
+end
+
+function PAMenu_Functions.disabled.PALoot.ignoreAllLootableButton()
+    return not (PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsEnabled)
+end
+
 
 -- =====================================================================================================================
 -- =====================================================================================================================

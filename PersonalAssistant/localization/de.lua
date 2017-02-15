@@ -44,8 +44,7 @@ ResourceBundle.de["PAB_ItemType_Withdrawal"]		= "Abheben"
 ResourceBundle.de["PAB_ItemType_Inherit"]			= "Abhängig vom Gegenstandstyp (unten)"
 
 -- PALoot --
-ResourceBundle.de["PAL_ItemType_None"] 		        = "-"
-ResourceBundle.de["PAL_ItemType_Loot"]             = "Autom. Plündern"
+ResourceBundle.de["PAL_ItemType_AutoLoot"]          = "Autom. Plündern"
 
 -- PAJunk --
 ResourceBundle.de["PAJ_MovedToJunk"]                = PAC_COLTEXT_PAJ.."dePAJ_MovedToJunk %s" -- TODO: translate
@@ -142,10 +141,10 @@ ResourceBundle.de["PALMenu_HarvestableItemsDesc"] 	= "Aktiviere und deaktiviere 
 ResourceBundle.de["PALMenu_HarvestableItems"]       = "Erntbare Gegenstände"
 ResourceBundle.de["PALMenu_HarvestableItems_T"]     = "Öffnet das Untermenu um für erntbare Typen von Gegenständen das automatische Plündern zu de-/aktivieren."
 ResourceBundle.de["PALMenu_HarvestableItems_Header"]= PAC_COL_LIGHT_BLUE.."TYPEN VON GEGENSTÄNDEN"
-ResourceBundle.de["PALMenu_LootButton"] 			= "Alles autom. Plündern"
-ResourceBundle.de["PALMenu_LootButton_T"] 			= "Ändert alle Dropdown Werte zu 'Autom. Plündern'"
-ResourceBundle.de["PALMenu_IgnButton"] 			    = "Alles deaktivieren"
-ResourceBundle.de["PALMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu  '-'"
+ResourceBundle.de["PALMenu_AutoLootAllButton"] 		= "Alles autom. Plündern"
+ResourceBundle.de["PALMenu_AutoLootAllButton_T"] 	= "Ändert alle Dropdown Werte zu 'Autom. Plündern'"
+ResourceBundle.de["PALMenu_IgnButton"] 			    = "Alles ignorieren"
+ResourceBundle.de["PALMenu_IgnButton_T"] 			= "Ändert alle Dropdown Werte zu  'Ignorieren'"
 ResourceBundle.de["PALMenu_HideItemLoot"] 			= "Blende 'Gegenstand geplündert' Meldungen aus"
 ResourceBundle.de["PALMenu_HideItemLoot_T"] 		= "Blendet die Meldung 'Gegenstand geplündert' aus. Die geplünderten Gegenstände werden nicht mehr ausgegeben."
 ResourceBundle.de["PALMenu_HideGoldLoot"] 			= "Blende 'Gold geplündert' Meldungen aus"

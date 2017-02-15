@@ -39,5 +39,8 @@ PAMenu_Defaults.defaultSettings = {
         lootItemsChatMode = PA_OUTPUT_TYPE_FULL,
         HarvestableItemTypes = {},
         LootableItemTypes = {},
+        harvestableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
+        lootableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
+        harvestableBaitLootMode = PAC_ITEMTYPE_LOOT,
     },
 }

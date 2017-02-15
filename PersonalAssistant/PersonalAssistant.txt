@@ -10,6 +10,9 @@
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## OptionalDependsOn: LibAddonMenu-2.0
 
+# Logger
+libs/Utilities/Logger.lua
+
 # Libraries
 libs/LibStub/LibStub.lua
 libs/LibAddonMenu-2.0/LibAddonMenu-2.0.lua
@@ -32,7 +35,6 @@ libs/LibAddonMenu-2.0/controls/divider.lua
 vars/Globals.lua
 
 # Utilities
-libs/Utilities/Logger.lua
 libs/Utilities/HelperFunctions.lua
 libs/Utilities/EventManager.lua
 
