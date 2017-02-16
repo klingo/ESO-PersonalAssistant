@@ -54,8 +54,6 @@ function PAHF_DEBUG.debugln(key, ...)
     end
 end
 
-
-
 -- currently supports one text-key and n arguments
 function PAHF.println(key, ...)
     local text = PALocale.getResourceMessage(key)
@@ -64,7 +62,7 @@ function PAHF.println(key, ...)
     CHAT_SYSTEM:AddMessage(unpackedString)
 end
 
-
+-- same lik PAHF.getFormattedText, but first resolves the key via PALocale
 function PAHF.getFormattedKey(key, ...)
     return PAHF.getFormattedText(PALocale.getResourceMessage(key), ...)
 end

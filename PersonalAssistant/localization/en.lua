@@ -63,10 +63,17 @@ ResourceBundle.en["PAL_Gold_ChatMode_Normal"]       = PAC_COLTEXT_PALo.."%d "..P
 ResourceBundle.en["PAL_Gold_ChatMode_Full"]         = PAC_COLTEXT_PALo.."Looted %d "..PAC_ICON_GOLD.." Gold"
 
 -- PALoot Chat Output - Loot Items --
-ResourceBundle.en["PAL_Items_ChatMode_None"]         = "<no output>"
-ResourceBundle.en["PAL_Items_ChatMode_Min"]          = PAC_COL_DEFAULT.."%d x %s"
-ResourceBundle.en["PAL_Items_ChatMode_Normal"]       = PAC_COL_DEFAULT.."%d x %s %s"
-ResourceBundle.en["PAL_Items_ChatMode_Full"]         = PAC_COLTEXT_PALo.."%d x %s %s"
+ResourceBundle.en["PAL_Items_ChatMode_None"]        = "<no output>"
+ResourceBundle.en["PAL_Items_ChatMode_Min"]         = PAC_COL_DEFAULT.."%d x %s"
+ResourceBundle.en["PAL_Items_ChatMode_Normal"]      = PAC_COL_DEFAULT.."%d x %s %s"
+ResourceBundle.en["PAL_Items_ChatMode_Full"]        = PAC_COLTEXT_PALo.."%d x %s %s"
+
+-- PALoot Chat Output - Loot Items Destroyed--
+ResourceBundle.en["PAL_ItemsDestroy_Min"]           = PAC_COL_DEFAULT.."%d x %s destroyed"
+ResourceBundle.en["PAL_ItemsDestroy_Normal"]        = PAC_COL_DEFAULT.."%d x %s %s destroyed"
+ResourceBundle.en["PAL_ItemsDestroy_Full"]          = PAC_COLTEXT_PALo.."%d x %s %s have been destroyed"
+ResourceBundle.en["PAL_ItemsDestroy_MoveFailed"]    = PAC_COLTEXT_PALo..PAC_COL_ORANGE.."FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"
+ResourceBundle.en["PAL_ItemsDestroy_DestroyFailed"] = PAC_COLTEXT_PALo..PAC_COL_ORANGE.."FAILURE: No free inventory slot to safely destroy %d/%d %s %s"
 
 -- PAJunk --
 ResourceBundle.en["PAJ_MovedToJunk"]                = PAC_COLTEXT_PAJ.."Moved %s to junk"

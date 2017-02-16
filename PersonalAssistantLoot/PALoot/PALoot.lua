@@ -188,8 +188,11 @@ end
 
 
 function PAL.DestroyNumOfItems(bagId, slotId, amountToDestroy)
+    local itemDestroyed = false
     -- create the itemlink of the to be destroyed item
     local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
+    local icon =  GetItemLinkInfo(itemLink)
+    local iconString = "|t20:20:"..icon.."|t "
     -- get the current size of item stack
     local stackSize = GetSlotStackSize(bagId, slotId)
     -- check if there were items before
@@ -205,21 +208,28 @@ function PAL.DestroyNumOfItems(bagId, slotId, amountToDestroy)
                 if (result) then
                     -- item successfully moved to new empty stlot, destroy that now
                     DestroyItem(bagId, firstEmptySlot)
-                    PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
+                    itemDestroyed = true
                 else
-                    -- could not move items
-                    -- TODO: log error
-                    PAHF_DEBUG.debugln("cannot move Item! --> %s      %d/%d were looted", itemLink, amountToDestroy, stackSize)
+                    -- could not move items, therefore cannot safely destroy item
+                    PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_MoveFailed"), amountToDestroy, stackSize, itemLink, iconString)
                 end
             end, 500)
         else
-            -- no free slot available, cannot safely destry item!
-            -- TODO: log error
-            PAHF_DEBUG.debugln("cannot destroy Item! --> %s      %d/%d were looted", itemLink, amountToDestroy, stackSize)
+            -- no free slot available, cannot safely destroy item!
+            PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_DestroyFailed"), amountToDestroy, stackSize, itemLink, iconString)
         end
     else
         -- destroy all items (since there were no existing before)
         DestroyItem(bagId, slotId)
-        PAHF_DEBUG.debugln("Item destroyed --> %s      %d were looted. nothing left in inventory", itemLink, amountToDestroy)
+        itemDestroyed = true
+    end
+
+    if (itemDestroyed) then
+        PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
+        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode
+        if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Full"), amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Normal"), amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Min"), amountToDestroy, iconString)
+        end -- PA_OUTPUT_TYPE_NONE => no chat output
     end
 end
