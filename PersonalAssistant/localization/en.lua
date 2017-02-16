@@ -54,7 +54,7 @@ ResourceBundle.en["PAL_ItemType_LootDestroy"] 		= "Auto-Loot and Destroy"
 
 ResourceBundle.en["PAL_ItemType_Ignore_T"] 		    = "Nothing happens, the item is ignored"
 ResourceBundle.en["PAL_ItemType_AutoLoot_T"]        = "Automatically loots the item"
-ResourceBundle.en["PAL_ItemType_LootDestroy_T"] 	= "Automatically loots the item, but then immediately destroys the looted amount again"
+ResourceBundle.en["PAL_ItemType_LootDestroy_T"] 	= "CAUTION: USE AT OWN RISK! Automatically loots the item, but then immediately destroys the looted amount again."
 
 -- PALoot Chat Output - Loot Gold --
 ResourceBundle.en["PAL_Gold_ChatMode_None"]         = "<no output>"

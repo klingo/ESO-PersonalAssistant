@@ -6,6 +6,7 @@
 --
 
 PAHF = {}
+PAHF_DEBUG = {}
 
 -- returns a noun for the bagId
 function PAHF.getBagName(bagId)
@@ -46,9 +47,13 @@ function PAHF.getFormattedItemLink(bagId, slotIndex)
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
 
-function PAHF.getFormattedText(baseText, ...)
---    ResourceBundle.en["PAL_Gold_ChatMode_None"]
+-- the same like PAHF.println, except that it only prints it if debug is on
+function PAHF_DEBUG.debugln(key, ...)
+    if (PA.debug) then
+        PAHF.println(key, ...)
+    end
 end
+
 
 
 -- currently supports one text-key and n arguments
