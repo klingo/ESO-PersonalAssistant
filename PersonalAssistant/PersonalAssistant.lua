@@ -59,6 +59,7 @@ function PA.initAddon(eventCode, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
+    -- TODO: Init char-specific savedvars to store selected profile!
 
     -- initialize language
     PA.savedVars.General.language = GetCVar("language.2") or "en"
