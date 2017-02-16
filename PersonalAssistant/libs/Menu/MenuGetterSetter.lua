@@ -43,13 +43,10 @@ end
 -- PABanking   enable
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.enabled()
---    PALogger.log("PAMenu_Functions.getFunc.PABanking.enabled() returns ["..tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled).."]")
     return PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled
 end
 
 function PAMenu_Functions.setFunc.PABanking.enabled(value)
---    PALogger.log("PAMenu_Functions.setFunc.PABanking.enabled("..tostring(value)..")")
---    PALogger.log(tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled))
     PA.savedVars.Banking[PA.savedVars.General.activeProfile].enabled = value
 end
 
@@ -72,13 +69,10 @@ end
 -- PABanking   goldDepositInterval
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.goldDepositInterval()
---    PALogger.log("PAMenu_Functions.getFunc.PABanking.goldDepositInterval() returns ["..tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval).."]")
---    PALogger.log(tostring(PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval))
     return PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldDepositInterval(value)
---    PALogger.log("PAMenu_Functions.setFunc.PABanking.goldDepositInterval("..tostring(value)..")")
     PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldDepositInterval = tonumber(value)
 end
 
