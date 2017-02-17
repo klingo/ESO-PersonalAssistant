@@ -3,6 +3,8 @@
 -- Author: ingeniousclown, Randactyl
 -- Link: http://www.esoui.com/downloads/info300-ItemSaver.html#info
 
+-- TODO: Replace with http://www.esoui.com/downloads/info630-FCOItemSaver.html#info
+
 ItemSaver = {}
 
 function ItemSaver.isItemSaved(bagId, slotIndex)
