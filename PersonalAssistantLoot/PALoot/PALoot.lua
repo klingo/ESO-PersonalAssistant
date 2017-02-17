@@ -14,7 +14,7 @@ PAL.alreadyLooting = false
 
 function PAL.OnReticleTargetChanged()
     -- check if addon is enabled
-    if PA.savedVars.Loot[PA.savedVars.General.activeProfile].enabled then
+    if PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled then
         local type = GetInteractionType()
         local active = IsPlayerInteractingWithObject()
 
@@ -62,7 +62,7 @@ end
 
 
 function PAL.OnLootUpdated()
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
     -- check if addon is enabled
     if PA.savedVars.Loot[activeProfile].enabled then
@@ -117,7 +117,7 @@ function PAL.OnLootUpdated()
                     -- check if an item was looted
                     if (itemLooted) then
                         -- show output to chat (depending on setting)
-                        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode
+                        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsChatMode
                         if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString)
                         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString)
                         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString)
@@ -141,7 +141,7 @@ function PAL.OnLootUpdated()
                 -- Loot the gold
                 LootMoney()
                 -- show output to chat (depending on setting)
-                local lootGoldChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootGoldChatMode
+                local lootGoldChatMode = PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootGoldChatMode
                 if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Full"), unownedMoney)
                 elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Normal"), unownedMoney)
                 elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Min"), unownedMoney)
@@ -164,7 +164,7 @@ end
 
 
 function PAL.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
     -- check if addon is enabled
     if PA.savedVars.Loot[activeProfile].enabled then
@@ -226,7 +226,7 @@ function PAL.DestroyNumOfItems(bagId, slotId, amountToDestroy)
 
     if (itemDestroyed) then
         PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
-        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.General.activeProfile].lootItemsChatMode
+        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsChatMode
         if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Full"), amountToDestroy, itemLink, iconString)
         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Normal"), amountToDestroy, itemLink, iconString)
         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Min"), amountToDestroy, iconString)

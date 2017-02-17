@@ -27,7 +27,7 @@ end
 -- --------------------------------------------------------------------------------------------------------
 
 function MenuHelper.setPABDropdownsTo(itemTypeKey)
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
     for i = 1, #PABItemTypes do
         -- only if the itemType is enabled
         if PABItemTypes[i] ~= "" then
@@ -37,7 +37,7 @@ function MenuHelper.setPABDropdownsTo(itemTypeKey)
 end
 
 function MenuHelper.setPALHarvestDropdownsTo(itemTypeKey)
-	local activeProfile = PA.savedVars.General.activeProfile
+	local activeProfile = PA.savedVars.Profile.activeProfile
 	for i = 1, #PALHarvestableItemTypes do
 		-- only if the itemType is enabled
 		if PALHarvestableItemTypes[i] ~= "" then
@@ -47,7 +47,7 @@ function MenuHelper.setPALHarvestDropdownsTo(itemTypeKey)
 end
 
 function MenuHelper.setPALLootDropdownsTo(itemTypeKey)
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
     for i = 1, #PALLootableItemTypes do
         -- only if the itemType is enabled
         if PALLootableItemTypes[i] ~= "" then
@@ -58,28 +58,42 @@ end
 
 -- --------------------------------------------------------------------------------------------------------
 
-function MenuHelper.loadProfile(profileText)
-	-- first update the active profile in the savedVars
-	PA.savedVars.General.activeProfile = MenuHelper.getProfileNumberFromText(profileText)
+function MenuHelper.loadProfile(profileNo)
+	-- update the active profile in the savedVars
+    local prevProfile = PA.savedVars.Profile.activeProfile
+
+	PA.savedVars.Profile.activeProfile = profileNo -- MenuHelper.getProfileNumberFromText(profileText)
+
+    -- refresh dropdown!
+--    optionsTable[2]:UpdateValue()
+--    PERSONALASSISTANT_PROFILEDROPDOWN:UpdateChoices()
+    if (prevProfile == (PAG_MAX_PROFILES + 1)) then
+        local profiles = MenuHelper.getProfileList()
+        local profileValues = MenuHelper.getProfileListValues()
+        PERSONALASSISTANT_PROFILEDROPDOWN:UpdateChoices(profiles, profileValues)
+        PERSONALASSISTANT_PROFILEDROPDOWN:UpdateValue()
+        -- TODO: clean this up
+        PA_SettingsMenu.createMainMenu()
+    end
+
+--    PERSONALASSISTANT_PROFILEDROPDOWN:UpdateChoices(PERSONALASSISTANT_PROFILEDROPDOWN, profiles, profileValues)
+--    PERSONALASSISTANT_PROFILEDROPDOWN:UpdateChoices()
+--    PERSONALASSISTANT_PROFILEDROPDOWN:UpdateChoices({"prof 1", "prof 2"}, {1, 2}, {"toolt 1", "toolt 2"})
 end
 
 function MenuHelper.renameProfile(profileText)
-	PA.savedVars.General[PA.savedVars.General.activeProfile].name = profileText
+	PA.savedVars.General[PA.savedVars.Profile.activeProfile].name = profileText
 	-- [requiresReload = true] in the LAM-2 menu configuration does not work here,
 	-- since not directly reloading after a name change causes many problems
 	-- when changing other values that cannot be related to a specific profile anymore
 	ReloadUI()
 end
 
-function MenuHelper.loadProfileNumber(profileNumber)
-	PA.savedVars.General.activeProfile = profileNumber
-end
-
 -- --------------------------------------------------------------------------------------------------------
 
 -- returns the matching dropdown-text based on the number that is behind it
 function MenuHelper.getBankingTextFromNumber(number)
-	local activeProfile = PA.savedVars.General.activeProfile
+	local activeProfile = PA.savedVars.Profile.activeProfile
 	local index = PA.savedVars.Banking[activeProfile].itemsJunkSetting
 	-- if "number" is empty, it has to be the junkSetting
 	if (number ~= nil) then
@@ -114,7 +128,7 @@ end
 
 -- returns the matching dropdown-text based on the number that is behind it
 function MenuHelper.getOperatorTextFromNumber(number)
-	local activeProfile = PA.savedVars.General.activeProfile
+	local activeProfile = PA.savedVars.Profile.activeProfile
 	local index = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[number].Key
 
 	if index == PAC_OPERATOR_EQUAL then
@@ -177,7 +191,7 @@ end
 
 -- returns the matching dropdown-text based on the number that is behind it
 function MenuHelper.getLootTextFromNumber(number, lootType)
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
     local index
     if (lootType == PAL_TYPE_LOOT) then
         index = PA.savedVars.Loot[activeProfile].LootableItemTypes[number]
@@ -204,24 +218,56 @@ end
 -- --------------------------------------------------------------------------------------------------------
 
 function MenuHelper.getProfileList()
-	local profiles = {}
+    local profiles = {}
 	for profileNo = 1, PAG_MAX_PROFILES do
+        PALogger.log("add profile no "..tostring(profileNo).." with name = "..tostring(PA.savedVars.General[profileNo].name))
 		profiles[profileNo] = PA.savedVars.General[profileNo].name
-	end
+    end
+
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    if (activeProfile == nil or activeProfile == (PAG_MAX_PROFILES + 1)) then
+        PALogger.log("add profile no "..tostring((PAG_MAX_PROFILES + 1)).." with name = <Please select Profile>")
+        profiles[PAG_MAX_PROFILES + 1] = "<Please select Profile>" -- TODO: replace with Locale
+    end
+
 	return profiles
 end
 
+function MenuHelper.getProfileListValues()
+    local profileValues = {}
+    for profileNo = 1, PAG_MAX_PROFILES do
+        profileValues[profileNo] = profileNo
+    end
+
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    if (activeProfile == nil or activeProfile == (PAG_MAX_PROFILES + 1)) then
+        profileValues[PAG_MAX_PROFILES + 1] = (PAG_MAX_PROFILES + 1)
+    end
+
+    return profileValues
+end
+
+
 function MenuHelper.getProfileTextFromNumber(number)
-	local profileNo = PA.savedVars.General.activeProfile
+	local profileNo = PA.savedVars.Profile.activeProfile
 	if (number ~= nil) then
 		profileNo = number
-	end
+    end
+
+    if (profileNo == nil or profileNo == (PAG_MAX_PROFILES + 1)) then
+        PALogger.log("MenuHelper.getProfileTextFromNumber = <Please select Profile>")
+        return "<Please select Profile>" -- TODO: replace with Locale
+    end
+
+    PALogger.log("MenuHelper.getProfileTextFromNumber = "..tostring(PA.savedVars.General[profileNo].name))
 
 	return PA.savedVars.General[profileNo].name
 end
 
 function MenuHelper.getDefaultProfileName(profileNo)
-	if profileNo == 2 then
+    if profileNo == 1 then
+        return PALocale.getResourceMessage("PAG_Profile1")
+	elseif profileNo == 2 then
 		return PALocale.getResourceMessage("PAG_Profile2")
 	elseif profileNo == 3 then
 		return PALocale.getResourceMessage("PAG_Profile3")
@@ -230,7 +276,7 @@ function MenuHelper.getDefaultProfileName(profileNo)
 	elseif profileNo == 5 then
 		return PALocale.getResourceMessage("PAG_Profile5")
 	else
-		return PALocale.getResourceMessage("PAG_Profile1")
+		return "<Please select Profile>" -- TODO: replace with Locale
 	end
 end
 
@@ -240,6 +286,6 @@ function MenuHelper.getProfileNumberFromText(profileText)
 			return profileNo
 		end
 	end
-	-- if nothing found, return 1
-	return 1
+	-- if nothing found, return 0
+	return 0 -- TODO: change to profcount + 1?
 end

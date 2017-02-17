@@ -3,6 +3,7 @@
 -- ---------------------------------------------------------------------------------------------------------------------
 if PA						        == nil then PA					            = {} end
 if PA.savedVars						== nil then PA.savedVars					= {} end
+if PA.savedVars.Profile				== nil then PA.savedVars.Profile			= {} end
 if PA.savedVars.General				== nil then PA.savedVars.General			= {} end
 if PA.savedVars.Repair				== nil then PA.savedVars.Repair				= {} end
 if PA.savedVars.Banking				== nil then PA.savedVars.Banking 			= {} end
@@ -13,7 +14,7 @@ if PA.savedVars.Junk                == nil then PA.savedVars.Junk               
 PA.AddonName = "PersonalAssistant"
 PA.AddonVersion = "2.0"
 
--- to enable certain debug statements
+-- to enable certain debug statements (ingame: /padebugon & /padebugoff)
 PA.debug = false
 
 -- 1.3.3 fix
@@ -25,15 +26,12 @@ PA.debug = false
 -- Support Virtual Bags: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 -- Support Specialized Item Types: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 
--- find solution for account-wide profiles
-
 -- init default values
 function PA.initDefaults()
     -- initialize the multi-profile structure
     PA.General_Defaults = {}
     -- -----------------------------------------------------
     -- default values for Addon
-    PA.General_Defaults.activeProfile = 1
     PA.General_Defaults.savedVarsVersion = ""
     for profileNo = 1, PAG_MAX_PROFILES do
         -- -----------------------------------------------------
@@ -59,10 +57,10 @@ function PA.initAddon(eventCode, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
-    -- TODO: Init char-specific savedvars to store selected profile!
+    PA.savedVars.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = (PAG_MAX_PROFILES + 1) })
 
     -- initialize language
-    PA.savedVars.General.language = GetCVar("language.2") or "en"
+    PA.savedVars.Profile.language = GetCVar("language.2") or "en"
 end
 
 
@@ -79,13 +77,18 @@ function PA.introduction()
     -- create the options with LAM-2
     PA_SettingsMenu.CreateOptions()
 
-	if PA.savedVars.General[PA.savedVars.General.activeProfile].welcome then
-		if PA.savedVars.General.language ~= "en" and PA.savedVars.General.language ~= "de" and PA.savedVars.General.language ~= "fr" then
-			PAHF.println("Welcome_NoSupport", GetCVar("language.2"))
-		else
-			PAHF.println("Welcome_Support")
-		end
-	end
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    if (activeProfile == nil or activeProfile == (PAG_MAX_PROFILES + 1)) then
+        PAHF.println("NO ACIVE PROFILE FOUND, CREATE ONE IN ADDONS SETTINGS /pa") -- TODO: replace with correct msg
+    else
+        if PA.savedVars.General[activeProfile].welcome then
+            if PA.savedVars.Profile.language ~= "en" and PA.savedVars.Profile.language ~= "de" and PA.savedVars.Profile.language ~= "fr" then
+                PAHF.println("Welcome_NoSupport", GetCVar("language.2"))
+            else
+                PAHF.println("Welcome_Support")
+            end
+        end
+    end
 end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, PA.initAddon)

@@ -5,7 +5,7 @@ PAB_AdvancedItems = {}
 
 function PAB_AdvancedItems.DoAdvancedItemTransaction()
 
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
 	local movedAnything = false
 

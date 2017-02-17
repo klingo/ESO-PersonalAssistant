@@ -6,7 +6,7 @@
 -- - add repair cooldown (with option?)
 
 function PAR.OnShopOpen()
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
     -- check if addon is enabled
 	if PA.savedVars.Repair[activeProfile].enabled == true then
@@ -30,7 +30,7 @@ end
 
 -- repair all items that are below the given threshold for the bag
 function PAR.RepairItems(bagId, threshold)
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
 	local bagSlots = GetBagSize(bagId)
 	local repairCost = 0
@@ -97,7 +97,7 @@ function PAR.RepairItems(bagId, threshold)
 end
 
 function PAR.println(key, ...)
-	if (not PA.savedVars.Repair[PA.savedVars.General.activeProfile].hideAllMsg) then
+	if (not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].hideAllMsg) then
 		local args = {...}
 		PAHF.println(key, unpack(args))
 	end

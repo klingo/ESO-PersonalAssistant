@@ -4,7 +4,7 @@
 PAB_Gold = {}
 
 function PAB_Gold.DepositGold(goldMinToKeep)
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
 	-- check for numeric value, if not, use default value of 0
 	local goldDepositInterval = 0
@@ -44,7 +44,7 @@ end
 function PAB_Gold.WithdrawGold(goldMinToKeep)
 	local toWithdraw = goldMinToKeep - GetCurrentMoney()
 	local bankedMoney = GetBankedMoney()
-	local goldTransactionStep = tonumber(PA.savedVars.Banking[PA.savedVars.General.activeProfile].goldTransactionStep)
+	local goldTransactionStep = tonumber(PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldTransactionStep)
 
 	if (toWithdraw > 0 and bankedMoney > 0) then
 		toWithdraw = math.floor(toWithdraw / goldTransactionStep)

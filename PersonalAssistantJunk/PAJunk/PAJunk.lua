@@ -9,7 +9,7 @@
 -- - auto-mark "gold-coin" items as junk
 
 function PAJ.OnShopOpen()
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
     -- check if addon is enabled
     if PA.savedVars.Junk[activeProfile].enabled then
@@ -64,7 +64,7 @@ end
 
 
 function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
     -- check if addon is enabled
     if PA.savedVars.Junk[activeProfile].enabled then
@@ -104,7 +104,7 @@ end
 
 
 function PAJ.println(key, ...)
-    if (not PA.savedVars.Junk[PA.savedVars.General.activeProfile].hideAllMsg) then
+    if (not PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].hideAllMsg) then
         local args = {...}
         PAHF.println(key, unpack(args))
     end

@@ -4,7 +4,7 @@
 PAB.isBankClosed = true
 
 function PAB.OnBankOpen()
-	local activeProfile = PA.savedVars.General.activeProfile
+	local activeProfile = PA.savedVars.Profile.activeProfile
 
 	-- check if addon is enabled
 	if PA.savedVars.Banking[activeProfile].enabled then
@@ -54,7 +54,7 @@ function PAB.OnBankClose()
 end
 
 function PAB.println(key, ...)
-	if (not PA.savedVars.Banking[PA.savedVars.General.activeProfile].hideAllMsg) then
+	if (not PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].hideAllMsg) then
 		local args = {...}
 		PAHF.println(key, unpack(args))
 	end

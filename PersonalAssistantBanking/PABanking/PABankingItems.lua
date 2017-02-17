@@ -51,7 +51,7 @@ end
 
 function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLoop)
 
-    local activeProfile = PA.savedVars.General.activeProfile
+    local activeProfile = PA.savedVars.Profile.activeProfile
 
 	local timer = 100
 	local skipChecksAndProceed = false
@@ -227,7 +227,7 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
 			-- This used to happen only if there are more than ~20 new items for the bank.
 			-- This method will check if the item is still in its original place after 1-2 seconds
 			-- and prints a message in case it happened again.
-			zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop) end, (1000 + PA.savedVars.Banking[PA.savedVars.General.activeProfile].depositTimerInterval))
+			zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop) end, (1000 + PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].depositTimerInterval))
 		end
 	
 		return remainingStackSize
