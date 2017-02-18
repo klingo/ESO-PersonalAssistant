@@ -23,13 +23,11 @@ local PALLootableItemSubmenuTable = setmetatable({}, { __index = table })
 
 function PA_SettingsMenu.CreateOptions()
 
--- TODO: fix menu creation
-
 	-- create main- and submenus with LAM-2
---	PA_SettingsMenu.createPABItemSubMenu()
---	PA_SettingsMenu.createPABItemAdvancedSubMenu()
---    PA_SettingsMenu.createPALHarvestableItemSubMenu()
---    PA_SettingsMenu.createPALLootableItemSubMenu()
+    PA_SettingsMenu.createPABItemSubMenu()
+    PA_SettingsMenu.createPABItemAdvancedSubMenu()
+    PA_SettingsMenu.createPALHarvestableItemSubMenu()
+    PA_SettingsMenu.createPALLootableItemSubMenu()
 	PA_SettingsMenu.createMainMenu()
 
 	-- and register it
@@ -94,6 +92,7 @@ function PA_SettingsMenu.createMainMenu()
             tooltip = PALocale.getResourceMessage("PARMenu_Enable_T"),
             getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled end,
             setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled = value end,
+            disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
             default = true,
         })
 
@@ -343,6 +342,7 @@ function PA_SettingsMenu.createMainMenu()
             tooltip = PALocale.getResourceMessage("PALMenu_Enable_T"),
             getFunc = PAMenu_Functions.getFunc.PALoot.enabled,
             setFunc = PAMenu_Functions.setFunc.PALoot.enabled,
+            disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
             default = PAMenu_Defaults.defaultSettings.PALoot.enabled,
         })
 

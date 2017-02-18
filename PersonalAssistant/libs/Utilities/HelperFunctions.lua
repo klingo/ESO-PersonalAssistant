@@ -47,6 +47,10 @@ function PAHF.getFormattedItemLink(bagId, slotIndex)
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
 
+function PAHF.hasActiveProfile()
+    return not PAMenu_Functions.disabled.PAGeneral.noProfileSelected()
+end
+
 -- the same like PAHF.println, except that it only prints it if debug is on
 function PAHF_DEBUG.debugln(key, ...)
     if (PA.debug) then

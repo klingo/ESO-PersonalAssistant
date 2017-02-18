@@ -60,8 +60,6 @@ end
 
 function PAMenu_Functions.disabled.PAGeneral.noProfileSelected()
     local activeProfile = PA.savedVars.Profile.activeProfile
-    d("activeProfile = "..tostring(activeProfile))
-    d("return = "..tostring((activeProfile == nil)))
     return (activeProfile == nil)
 end
 
@@ -243,10 +241,12 @@ end
 -- PALoot   enable
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.enabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled
 end
 
 function PAMenu_Functions.setFunc.PALoot.enabled(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled = value
 end
 
@@ -254,14 +254,17 @@ end
 -- PALoot   lootGoldEnabled
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.lootGoldEnabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootGoldEnabled
 end
 
 function PAMenu_Functions.setFunc.PALoot.lootGoldEnabled(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootGoldEnabled = value
 end
 
 function PAMenu_Functions.disabled.PALoot.lootGoldEnabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled
 end
 
@@ -269,14 +272,17 @@ end
 -- PALoot   lootGoldChatMode
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.lootGoldChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootGoldChatMode
 end
 
 function PAMenu_Functions.setFunc.PALoot.lootGoldChatMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootGoldChatMode = value
 end
 
 function PAMenu_Functions.disabled.PALoot.lootGoldChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootGoldEnabled)
 end
 
@@ -284,14 +290,17 @@ end
 -- PALoot   lootItemsEnabled
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.lootItemsEnabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled
 end
 
 function PAMenu_Functions.setFunc.PALoot.lootItemsEnabled(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled = value
 end
 
 function PAMenu_Functions.disabled.PALoot.lootItemsEnabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled
 end
 
@@ -299,14 +308,17 @@ end
 -- PALoot   lootItemsChatMode
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.lootItemsChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsChatMode
 end
 
 function PAMenu_Functions.setFunc.PALoot.lootItemsChatMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsChatMode = value
 end
 
 function PAMenu_Functions.disabled.PALoot.lootItemsChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
@@ -316,14 +328,17 @@ end
 -- PALoot   HarvestableItemSubMenu harvestableBaitLootMode
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].harvestableBaitLootMode
 end
 
 function PAMenu_Functions.setFunc.PALoot.harvestableBaitLootMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].harvestableBaitLootMode = value
 end
 
 function PAMenu_Functions.disabled.PALoot.harvestableBaitLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
@@ -331,14 +346,17 @@ end
 -- PALoot   HarvestableItemSubMenu harvestableItemTypesLootMode
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.harvestableItemTypesLootMode(itemType)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].HarvestableItemTypes[itemType]
 end
 
 function PAMenu_Functions.setFunc.PALoot.harvestableItemTypesLootMode(itemType, value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].HarvestableItemTypes[itemType] = value
 end
 
 function PAMenu_Functions.disabled.PALoot.harvestableItemTypesLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
@@ -353,6 +371,7 @@ function PAMenu_Functions.func.PALoot.autoLootAllHarvestableButton()
 end
 
 function PAMenu_Functions.disabled.PALoot.autoLootAllHarvestableButton()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
@@ -367,6 +386,7 @@ function PAMenu_Functions.func.PALoot.ignoreAllHarvestableButton()
 end
 
 function PAMenu_Functions.disabled.PALoot.ignoreAllHarvestableButton()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
@@ -374,14 +394,17 @@ end
 -- PALoot   LootableItemSubMenu lootableItemTypesLootMode
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.lootableItemTypesLootMode(itemType)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].LootableItemTypes[itemType]
 end
 
 function PAMenu_Functions.setFunc.PALoot.lootableItemTypesLootMode(itemType, value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].LootableItemTypes[itemType] = value
 end
 
 function PAMenu_Functions.disabled.PALoot.lootableItemTypesLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
@@ -396,6 +419,7 @@ function PAMenu_Functions.func.PALoot.autoLootAllLootableButton()
 end
 
 function PAMenu_Functions.disabled.PALoot.autoLootAllLootableButton()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
@@ -410,6 +434,7 @@ function PAMenu_Functions.func.PALoot.ignoreAllLootableButton()
 end
 
 function PAMenu_Functions.disabled.PALoot.ignoreAllLootableButton()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsEnabled)
 end
 
