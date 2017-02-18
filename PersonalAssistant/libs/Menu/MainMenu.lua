@@ -188,6 +188,7 @@ function PA_SettingsMenu.createMainMenu()
             tooltip = PALocale.getResourceMessage("PABMenu_Enable_T"),
             getFunc = PAMenu_Functions.getFunc.PABanking.enabled,
             setFunc = PAMenu_Functions.setFunc.PABanking.enabled,
+            disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
             default = PAMenu_Defaults.defaultSettings.PABanking.enabled,
         })
 
