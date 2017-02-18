@@ -9,26 +9,28 @@
 -- - auto-mark "gold-coin" items as junk
 
 function PAJ.OnShopOpen()
-    local activeProfile = PA.savedVars.Profile.activeProfile
+    if (PAHF.hasActiveProfile()) then
+        local activeProfile = PA.savedVars.Profile.activeProfile
 
-    -- check if addon is enabled
-    if PA.savedVars.Junk[activeProfile].enabled then
-        -- check if auto-sell is enabled
-        if PA.savedVars.Junk[activeProfile].autoSellJunk then
-            -- check if there is junk to sell (exclude stolen items = true)
-            if HasAnyJunk(BAG_BACKPACK, true) then
-                -- set processing flag to TRUE
-                PAEM.isJunkProcessing = true
-                -- store current amount of money
-                local moneyBefore = GetCurrentMoney();
-                local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
+        -- check if addon is enabled
+        if PA.savedVars.Junk[activeProfile].enabled then
+            -- check if auto-sell is enabled
+            if PA.savedVars.Junk[activeProfile].autoSellJunk then
+                -- check if there is junk to sell (exclude stolen items = true)
+                if HasAnyJunk(BAG_BACKPACK, true) then
+                    -- set processing flag to TRUE
+                    PAEM.isJunkProcessing = true
+                    -- store current amount of money
+                    local moneyBefore = GetCurrentMoney();
+                    local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
 
-                -- Sell all items marked as junk
-                SellAllJunk()
+                    -- Sell all items marked as junk
+                    SellAllJunk()
 
-                -- Have to call it wiht some delay, as the "currentMoney" and item count is not updated fast enough
-                -- after calling SellAllJunk()
-                zo_callLater(function() PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 100)
+                    -- Have to call it wiht some delay, as the "currentMoney" and item count is not updated fast enough
+                    -- after calling SellAllJunk()
+                    zo_callLater(function() PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 100)
+                end
             end
         end
     end
@@ -64,37 +66,39 @@ end
 
 
 function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    local activeProfile = PA.savedVars.Profile.activeProfile
+    if (PAHF.hasActiveProfile()) then
+        local activeProfile = PA.savedVars.Profile.activeProfile
 
-    -- check if addon is enabled
-    if PA.savedVars.Junk[activeProfile].enabled then
+        -- check if addon is enabled
+        if PA.savedVars.Junk[activeProfile].enabled then
 
-        -- check if the updated happened in the backpack and if the item is new
-        if ((bagId == BAG_BACKPACK) and (isNewItem)) then
+            -- check if the updated happened in the backpack and if the item is new
+            if ((bagId == BAG_BACKPACK) and (isNewItem)) then
 
-            -- check if the item isnt already junk
-            if not IsItemJunk(bagId, slotId) then
-                -- get the itemType
-                local itemType = GetItemType(bagId, slotId)
-                local markAsJunk = false
+                -- check if the item isnt already junk
+                if not IsItemJunk(bagId, slotId) then
+                    -- get the itemType
+                    local itemType = GetItemType(bagId, slotId)
+                    local markAsJunk = false
 
-                -- check if it is trash and if auto-flag-trash is enabled
-                if ((itemType == ITEMTYPE_TRASH) and (PA.savedVars.Junk[activeProfile].autoMarkTrash)) then
-                    markAsJunk = true
-                end
+                    -- check if it is trash and if auto-flag-trash is enabled
+                    if ((itemType == ITEMTYPE_TRASH) and (PA.savedVars.Junk[activeProfile].autoMarkTrash)) then
+                        markAsJunk = true
+                    end
 
-                -- TODO: check other item types etc.
+                    -- TODO: check other item types etc.
 
-                -----------------------------------------------------------------------
+                    -----------------------------------------------------------------------
 
-                if (markAsJunk) then
-                    -- Now we know for sure the item _should_ be marked as Junk. Check if this indeed is possible.
-                    if CanItemBeMarkedAsJunk(bagId, slotId) then
-                        -- it is safe to mark the item as junk now
-                        SetItemIsJunk(bagId, slotId, true)
+                    if (markAsJunk) then
+                        -- Now we know for sure the item _should_ be marked as Junk. Check if this indeed is possible.
+                        if CanItemBeMarkedAsJunk(bagId, slotId) then
+                            -- it is safe to mark the item as junk now
+                            SetItemIsJunk(bagId, slotId, true)
 
-                        local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-                        PAJ.println("PAJ_MovedToJunk", itemLink)
+                            local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
+                            PAJ.println("PAJ_MovedToJunk", itemLink)
+                        end
                     end
                 end
             end

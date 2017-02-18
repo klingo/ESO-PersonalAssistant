@@ -6,26 +6,28 @@
 -- - add repair cooldown (with option?)
 
 function PAR.OnShopOpen()
-    local activeProfile = PA.savedVars.Profile.activeProfile
+    if (PAHF.hasActiveProfile()) then
+        local activeProfile = PA.savedVars.Profile.activeProfile
 
-    -- check if addon is enabled
-	if PA.savedVars.Repair[activeProfile].enabled == true then
-		-- early check if there is something to repair
-		if GetRepairAllCost() > 0 then
-			-- check if equipped items shall be repaired
-			if PA.savedVars.Repair[activeProfile].repairEquipped then
-				PAR.RepairItems(BAG_WORN, PA.savedVars.Repair[activeProfile].repairEquippedThreshold)
-			end
-			-- check if backpack items shall be repaired
-			if PA.savedVars.Repair[activeProfile].repairBackpack then
-				PAR.RepairItems(BAG_BACKPACK, PA.savedVars.Repair[activeProfile].repairBackpackThreshrold)
-			end
-		else
-			if (not PA.savedVars.Repair[activeProfile].hideNoRepairMsg) then
-				PAR.println("PAR_NoRepair")
-			end
-		end
-	end
+        -- check if addon is enabled
+        if PA.savedVars.Repair[activeProfile].enabled == true then
+            -- early check if there is something to repair
+            if GetRepairAllCost() > 0 then
+                -- check if equipped items shall be repaired
+                if PA.savedVars.Repair[activeProfile].repairEquipped then
+                    PAR.RepairItems(BAG_WORN, PA.savedVars.Repair[activeProfile].repairEquippedThreshold)
+                end
+                -- check if backpack items shall be repaired
+                if PA.savedVars.Repair[activeProfile].repairBackpack then
+                    PAR.RepairItems(BAG_BACKPACK, PA.savedVars.Repair[activeProfile].repairBackpackThreshrold)
+                end
+            else
+                if (not PA.savedVars.Repair[activeProfile].hideNoRepairMsg) then
+                    PAR.println("PAR_NoRepair")
+                end
+            end
+        end
+    end
 end
 
 -- repair all items that are below the given threshold for the bag
