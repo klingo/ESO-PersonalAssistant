@@ -2,8 +2,8 @@ if ResourceBundle == nil then ResourceBundle = {} end
 if ResourceBundle.en == nil then ResourceBundle.en = {} end
 
 -- Welcome Messages --								-- Type '/pa' for GUI."
-ResourceBundle.en["Welcome_NoSupport"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." at your service!   -   no localization for (%s) available yet."
-ResourceBundle.en["Welcome_Support"] 				= PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." at your service!"
+ResourceBundle.en["Welcome_NoSupport"] 				= PAC_COLTEXT_PA..PAC_COL_DEFAULT.." at your service!   -   no localization for language [%s] available (yet)."
+ResourceBundle.en["Welcome_Support"] 				= PAC_COLTEXT_PA..PAC_COL_DEFAULT.." at your service!"
 
 -- Key Bindings
 ResourceBundle.en["KB_Load_Profile1"]				= "Activate profile 1"
@@ -54,47 +54,47 @@ ResourceBundle.en["PAL_ItemType_LootDestroy"] 		= "Auto-Loot and Destroy"
 
 ResourceBundle.en["PAL_ItemType_Ignore_T"] 		    = "Nothing happens, the item is ignored"
 ResourceBundle.en["PAL_ItemType_AutoLoot_T"]        = "Automatically loots the item"
-ResourceBundle.en["PAL_ItemType_LootDestroy_T"] 	= "CAUTION: USE AT OWN RISK! Automatically loots the item, but then immediately destroys the looted amount again."
+ResourceBundle.en["PAL_ItemType_LootDestroy_T"] 	= PAC_COL_RED.."CAUTION: USE AT OWN RISK!"..PAC_COL_DEFAULT.."Automatically loots the item, but then immediately destroys the looted amount again."
 
 -- PALoot Chat Output - Loot Gold --
 ResourceBundle.en["PAL_Gold_ChatMode_None"]         = "<no output>"
 ResourceBundle.en["PAL_Gold_ChatMode_Min"]          = PAC_COL_DEFAULT.."%d "..PAC_ICON_GOLD
-ResourceBundle.en["PAL_Gold_ChatMode_Normal"]       = PAC_COLTEXT_PALo.."%d "..PAC_ICON_GOLD
-ResourceBundle.en["PAL_Gold_ChatMode_Full"]         = PAC_COLTEXT_PALo.."Looted %d "..PAC_ICON_GOLD.." Gold"
+ResourceBundle.en["PAL_Gold_ChatMode_Normal"]       = PAC_COLTEXT_PAL.."%d "..PAC_ICON_GOLD
+ResourceBundle.en["PAL_Gold_ChatMode_Full"]         = PAC_COLTEXT_PAL.."Looted %d "..PAC_ICON_GOLD.." Gold"
 
 -- PALoot Chat Output - Loot Items --
 ResourceBundle.en["PAL_Items_ChatMode_None"]        = "<no output>"
 ResourceBundle.en["PAL_Items_ChatMode_Min"]         = PAC_COL_DEFAULT.."%d x %s"
 ResourceBundle.en["PAL_Items_ChatMode_Normal"]      = PAC_COL_DEFAULT.."%d x %s %s"
-ResourceBundle.en["PAL_Items_ChatMode_Full"]        = PAC_COLTEXT_PALo.."%d x %s %s"
+ResourceBundle.en["PAL_Items_ChatMode_Full"]        = PAC_COLTEXT_PAL.."%d x %s %s"
 
 -- PALoot Chat Output - Loot Items Destroyed--
 ResourceBundle.en["PAL_ItemsDestroy_Min"]           = PAC_COL_DEFAULT.."%d x %s destroyed"
 ResourceBundle.en["PAL_ItemsDestroy_Normal"]        = PAC_COL_DEFAULT.."%d x %s %s destroyed"
-ResourceBundle.en["PAL_ItemsDestroy_Full"]          = PAC_COLTEXT_PALo.."%d x %s %s have been destroyed"
-ResourceBundle.en["PAL_ItemsDestroy_MoveFailed"]    = PAC_COLTEXT_PALo..PAC_COL_ORANGE.."FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"
-ResourceBundle.en["PAL_ItemsDestroy_DestroyFailed"] = PAC_COLTEXT_PALo..PAC_COL_ORANGE.."FAILURE: No free inventory slot to safely destroy %d/%d %s %s"
+ResourceBundle.en["PAL_ItemsDestroy_Full"]          = PAC_COLTEXT_PAL.."%d x %s %s have been destroyed"
+ResourceBundle.en["PAL_ItemsDestroy_MoveFailed"]    = PAC_COLTEXT_PAL..PAC_COL_ORANGE.."FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"
+ResourceBundle.en["PAL_ItemsDestroy_DestroyFailed"] = PAC_COLTEXT_PAL..PAC_COL_ORANGE.."FAILURE: No free inventory slot to safely destroy %d/%d %s %s"
 
 -- PAJunk --
 ResourceBundle.en["PAJ_MovedToJunk"]                = PAC_COLTEXT_PAJ.."Moved %s to junk"
 ResourceBundle.en["PAJ_SoldJunkInfo"]               = PAC_COLTEXT_PAJ.."Sold junk items for %d %s"
 
 -- MainMenu --
-ResourceBundle.en["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
+ResourceBundle.en["MMenu_Title"] 					= PAC_COLTEXT_PA
 
 -- PAGMenu --
-ResourceBundle.en["PAGMenu_Header"]					= "|cFFD700PA G|reneral"
+ResourceBundle.en["PAGMenu_Header"]					= PAC_COLTEXT_PAG
 ResourceBundle.en["PAGMenu_ActiveProfile"]			= "Active profile"
 ResourceBundle.en["PAGMenu_ActiveProfile_T"]		= "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile."
 ResourceBundle.en["PAGMenu_ActiveProfileRename"]	= "Rename active profile"
 ResourceBundle.en["PAGMenu_ActiveProfileRename_T"]	= "Rename the active profile (will force a ReloadUI)."
-ResourceBundle.en["PAGMenu_ActiveProfileRename_W"]	= "|cff0000(Renaming will force a ReloadUI)|r"
+ResourceBundle.en["PAGMenu_ActiveProfileRename_W"]	= PAC_COL_RED.."Renaming will force a ReloadUI"
 ResourceBundle.en["PAGMenu_Welcome"] 				= "Show welcome message"
 ResourceBundle.en["PAGMenu_Welcome_T"] 				= "Display a welcome message from the addon upon successfully starting?"
 
 -- PARMenu --
-ResourceBundle.en["PARMenu_Header"] 				= "|cFFD700PA R|repair"
-ResourceBundle.en["PARMenu_Enable"] 				= "|cB0B0FFEnable Auto Repair|r"
+ResourceBundle.en["PARMenu_Header"] 				= PAC_COLTEXT_PAR
+ResourceBundle.en["PARMenu_Enable"] 				= PAC_COL_LIGHT_BLUE.."Enable Auto Repair"
 ResourceBundle.en["PARMenu_Enable_T"] 				= "Enable Auto Repair?"
 ResourceBundle.en["PARMenu_RepairEq"] 				= "Repair equipped items"
 ResourceBundle.en["PARMenu_RepairEq_T"] 			= "Repair equipped items?"
@@ -110,8 +110,8 @@ ResourceBundle.en["PARMenu_HideAll"] 				= "Hide ALL repair messages"
 ResourceBundle.en["PARMenu_HideAll_T"] 				= "Silent-Mode: No repair message will be displayed. You also won't see your repair cost."
 
 -- PABMenu --
-ResourceBundle.en["PABMenu_Header"] 				= "|cFFD700PA B|ranking"
-ResourceBundle.en["PABMenu_Enable"] 				= "|cB0B0FFEnable Auto Banking|r"
+ResourceBundle.en["PABMenu_Header"] 				= PAC_COLTEXT_PAB
+ResourceBundle.en["PABMenu_Enable"] 				= PAC_COL_LIGHT_BLUE.."Enable Auto Banking"
 ResourceBundle.en["PABMenu_Enable_T"] 				= "Enable Auto Bank Deposit and Withdrawal?"
 ResourceBundle.en["PABMenu_EnabledGold"] 		    = "Deposit Gold"
 ResourceBundle.en["PABMenu_EnabledGold_T"] 			= "Auto deposit gold to bank?"
@@ -159,8 +159,8 @@ ResourceBundle.en["PABMenu_Keep_in_Backpack"] 		= "Amount to keep in backpack"
 ResourceBundle.en["PABMenu_Keep_in_Backpack_T"] 	= "Define the amount which shall together with the mathematical operator be kept in the backpack."
 
 -- PALMenu --
-ResourceBundle.en["PALMenu_Header"] 				= "|cFFD700PA L|root"
-ResourceBundle.en["PALMenu_Enable"] 				= "|cB0B0FFEnable Auto Loot|r"
+ResourceBundle.en["PALMenu_Header"] 				= PAC_COLTEXT_PAL
+ResourceBundle.en["PALMenu_Enable"] 				= PAC_COL_LIGHT_BLUE.."Enable Auto Loot"
 ResourceBundle.en["PALMenu_Enable_T"] 				= "Enable Auto Loot?"
 ResourceBundle.en["PALMenu_LootGold"]               = "Auto-Loot Gold"
 ResourceBundle.en["PALMenu_LootGold_T"]             = "Automatically loot gold?"
@@ -191,7 +191,7 @@ ResourceBundle.en["PALMenu_HideGoldLoot"] 			= "Hide 'Gold looted' message"
 ResourceBundle.en["PALMenu_HideGoldLoot_T"] 		= "Hide 'Gold looted' message. You will no longer see how much gold was automatically looted."
 
 -- PAJMenu --
-ResourceBundle.en["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
+ResourceBundle.en["PAJMenu_Header"]                 = PAC_COLTEXT_PAJ
 ResourceBundle.en["PAJMenu_Enable"] 				= "|cB0B0FFEnable Auto Junk|r"
 ResourceBundle.en["PAJMenu_Enable_T"] 				= "Enable Auto Junk?"
 ResourceBundle.en["PAJMenu_ItemTypeDesc"]           = "Enable and disable the automatic marking as junk for different item types."
