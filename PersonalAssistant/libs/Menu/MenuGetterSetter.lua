@@ -37,41 +37,59 @@ end
 -- PABanking   activeProfile
 ---------------------------------
 function PAMenu_Functions.getFunc.PAGeneral.activeProfile()
-    return MenuHelper.getActiveProfile()    -- TODO: remove from MenuHelper?
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    if (activeProfile == nil) then
+        return PAG_NO_PROFILE_SELECTED_ID
+    else
+        return activeProfile
+    end
 end
 
 function PAMenu_Functions.setFunc.PAGeneral.activeProfile(profileNo)
-    MenuHelper.loadProfile(profileNo)   -- TODO: remove from MenuHelper?
+    if (profileNo ~= nil and profileNo ~= PAG_NO_PROFILE_SELECTED_ID) then
+        -- get the previously active prefoile first
+        local prevProfile = PA.savedVars.Profile.activeProfile
+        -- then save the new one
+        PA.savedVars.Profile.activeProfile = profileNo
+        -- if the previous profile was the "no profile selected" one, refresh the dropdown values
+        if (prevProfile == nil) then
+            MenuHelper.reloadProfileList()
+        end
+    end
 end
 
 function PAMenu_Functions.disabled.PAGeneral.noProfileSelected()
     local activeProfile = PA.savedVars.Profile.activeProfile
-    return (activeProfile == nil or activeProfile == PAG_NO_PROFILE_SELECTED_ID)
+    d("activeProfile = "..tostring(activeProfile))
+    d("return = "..tostring((activeProfile == nil)))
+    return (activeProfile == nil)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   activeProfileRename
 ---------------------------------
 function PAMenu_Functions.getFunc.PAGeneral.activeProfileRename()
-    if (not PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then
-        return PA.savedVars.General[PA.savedVars.Profile.activeProfile].name
-    end
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.General[PA.savedVars.Profile.activeProfile].name
 end
 
 function PAMenu_Functions.setFunc.PAGeneral.activeProfileRename(profileName)
-    MenuHelper.renameProfile(tostring(profileName)) -- TODO: remove from MenuHelper?
+    if (profileName ~= nil and profileName ~= "") then
+        PA.savedVars.General[PA.savedVars.Profile.activeProfile].name = profileName
+        MenuHelper.reloadProfileList()
+    end
 end
 
 --------------------------------------------------------------------------
 -- PABanking   welcomeMessage
 ---------------------------------
 function PAMenu_Functions.getFunc.PAGeneral.welcomeMessage()
-    if (not PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then
-        return PA.savedVars.General[PA.savedVars.Profile.activeProfile].welcome
-    end
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.General[PA.savedVars.Profile.activeProfile].welcome
 end
 
 function PAMenu_Functions.setFunc.PAGeneral.welcomeMessage(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.General[PA.savedVars.Profile.activeProfile].welcome = value
 end
 

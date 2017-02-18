@@ -193,7 +193,7 @@ function MenuHelper.getProfileList()
     end
 
     local activeProfile = PA.savedVars.Profile.activeProfile
-    if (activeProfile == nil or activeProfile == PAG_NO_PROFILE_SELECTED_ID) then
+    if (activeProfile == nil) then
         PALogger.log("add profile no "..tostring(PAG_NO_PROFILE_SELECTED_ID).." with name = <Please select Profile>")
         profiles[PAG_NO_PROFILE_SELECTED_ID] = "<Please select Profile>" -- TODO: replace with Locale
     end
@@ -208,7 +208,7 @@ function MenuHelper.getProfileListValues()
     end
 
     local activeProfile = PA.savedVars.Profile.activeProfile
-    if (activeProfile == nil or activeProfile == PAG_NO_PROFILE_SELECTED_ID) then
+    if (activeProfile == nil) then
         profileValues[PAG_NO_PROFILE_SELECTED_ID] = PAG_NO_PROFILE_SELECTED_ID
     end
 
@@ -230,7 +230,7 @@ function MenuHelper.getProfileTextFromNumber(number)
 		profileNo = number
     end
 
-    if (profileNo == nil or profileNo == PAG_NO_PROFILE_SELECTED_ID) then
+    if (profileNo == nil) then
         PALogger.log("MenuHelper.getProfileTextFromNumber = <Please select Profile>")
         return "<Please select Profile>" -- TODO: replace with Locale
     end
@@ -247,8 +247,8 @@ function MenuHelper.getProfileNumberFromText(profileText)
             return profileNo
         end
     end
-    -- if nothing found, return 0
-    return PAG_NO_PROFILE_SELECTED_ID -- TODO: change to profcount + 1?
+    -- if nothing found
+    return PAG_NO_PROFILE_SELECTED_ID
 end
 
 function MenuHelper.getDefaultProfileName(profileNo)
@@ -267,35 +267,4 @@ function MenuHelper.getDefaultProfileName(profileNo)
 	end
 end
 
-
 -- --------------------------------------------------------------------------------------------------------
-
-function MenuHelper.getActiveProfile()
-    local activeProfile = PA.savedVars.Profile.activeProfile
-    if (activeProfile == nil or activeProfile == "") then
-        return PAG_NO_PROFILE_SELECTED_ID
-    else
-        return activeProfile
-    end
-end
-
-function MenuHelper.loadProfile(profileNo)
-    -- get the previously active prefoile first
-    local prevProfile = PA.savedVars.Profile.activeProfile
-    -- then save the new one
-    PA.savedVars.Profile.activeProfile = profileNo
-    PALogger.log("change activeProfile from -> "..tostring(prevProfile).." <- to -> "..tostring(profileNo).." <-")
-    -- if the previous profile was the "no profile selected" one, refresh the dropdown values
-    if (prevProfile == nil or prevProfile == PAG_NO_PROFILE_SELECTED_ID) then
-        MenuHelper.reloadProfileList()
-    end
-end
-
-function MenuHelper.renameProfile(profileText)
-    if (profileText ~= nil and profileText ~= "") then
-        PA.savedVars.General[PA.savedVars.Profile.activeProfile].name = profileText
-        MenuHelper.reloadProfileList()
-    end
-end
-
-
