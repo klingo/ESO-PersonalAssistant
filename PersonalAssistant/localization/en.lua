@@ -4,6 +4,7 @@ if ResourceBundle.en == nil then ResourceBundle.en = {} end
 -- Welcome Messages --								-- Type '/pa' for GUI."
 ResourceBundle.en["Welcome_NoSupport"] 				= PAC_COLTEXT_PA..PAC_COL_DEFAULT.." at your service!   -   no localization for language [%s] available (yet)."
 ResourceBundle.en["Welcome_Support"] 				= PAC_COLTEXT_PA..PAC_COL_DEFAULT.." at your service!"
+ResourceBundle.en["Welcome_PleaseSelectProfile"]    = PAC_COLTEXT_PA..PAC_COL_DEFAULT.." welcomes you! In order to get started, please go to the Addon Settings (or type /pa) and select a profile. Thank you for using "..PAC_COLTEXT_PA..PAC_COL_DEFAULT.." :-)"
 
 -- Key Bindings
 ResourceBundle.en["KB_Load_Profile1"]				= "Activate profile 1"

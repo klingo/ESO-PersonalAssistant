@@ -79,7 +79,7 @@ function PA.introduction()
 
     local activeProfile = PA.savedVars.Profile.activeProfile
     if (activeProfile == nil) then
-        PAHF.println("NO ACIVE PROFILE FOUND, CREATE ONE IN ADDONS SETTINGS /pa") -- TODO: replace with correct msg
+        PAHF.println("Welcome_PleaseSelectProfile")
     else
         if PA.savedVars.General[activeProfile].welcome then
             if PA.savedVars.Profile.language ~= "en" and PA.savedVars.Profile.language ~= "de" and PA.savedVars.Profile.language ~= "fr" then
