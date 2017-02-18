@@ -532,7 +532,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
         for _, itemType in pairs(PABItemTypes) do
             PABItemTypeSubmenuTable:insert({
                 type = "dropdown",
-                name = PALocale.getResourceMessage(PABItemTypes[i]),
+                name = PALocale.getResourceMessage(itemType),
                 choices = PAMenu_Choices.choices.PABanking.itemMoveMode,
                 choicesValues = PAMenu_Choices.choicesValues.PABanking.itemMoveMode,
                 -- choicesTooltips
