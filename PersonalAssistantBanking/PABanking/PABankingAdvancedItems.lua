@@ -32,7 +32,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 		local checkItemId = transferList[transferIndex]
 		
 		transferInfo[checkItemId] = {}
-		transferInfo[checkItemId]["operator"] = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[transferIndex].Key
+		transferInfo[checkItemId]["operator"] = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[transferIndex].Operator
 		transferInfo[checkItemId]["targetStackSize"] = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[transferIndex].Value
 		
 		if (transferInfo[checkItemId]["operator"] ~= PAC_OPERATOR_NONE) then
