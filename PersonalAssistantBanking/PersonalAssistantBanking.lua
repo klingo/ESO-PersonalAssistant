@@ -17,22 +17,17 @@ function PAB.initDefaults()
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
         -- deposit=true, withdrawal=false
-        for i = 1, #PABItemTypes do
-            if PABItemTypes[i] ~= "" then
-                PAB.Banking_Defaults[profileNo].ItemTypes[PABItemTypes[i]] = PAC_ITEMTYPE_IGNORE
-            end
+        for _, itemType in pairs(PABItemTypes) do
+            PAB.Banking_Defaults[profileNo].ItemTypes[itemType] = PAC_ITEMTYPE_IGNORE
         end
 
         -- default values for advanced ItemTypes
-        for itemTypeAdvancedNo = 1, #PABItemTypesAdvanced do	-- amount of advanced item types
-            PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[itemTypeAdvancedNo] = {
-                Key = {},
-                Value = {}
+        for _, itemType in pairs(PABItemTypesAdvanced) do
+            PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[itemType] = {
+                Operator = PAC_OPERATOR_NONE,
+                Value = 50, -- Currently sets the value to 50 for ALL itemtypes!
             }
         end
-        -- TODO: LUA index starts at 1
-        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[1].Key = PAC_OPERATOR_NONE		-- 1 = Lockpick
-        PAB.Banking_Defaults[profileNo].ItemTypesAdvanced[1].Value = 100					-- 1 = Lockpick
     end
 end
 

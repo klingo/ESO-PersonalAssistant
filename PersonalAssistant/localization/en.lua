@@ -18,6 +18,7 @@ ResourceBundle.en["PAG_Profile2"]					= "Profile 2"
 ResourceBundle.en["PAG_Profile3"]					= "Profile 3"
 ResourceBundle.en["PAG_Profile4"]					= "Profile 4"
 ResourceBundle.en["PAG_Profile5"]					= "Profile 5"
+ResourceBundle.en["PAG_PleaseSelectProfile"]		= "<Please select Profile>"
 
 -- PARepair --
 ResourceBundle.en["PAR_FullRepair"] 				= PAC_COLTEXT_PAR.."All %s items repaired for %d %s"

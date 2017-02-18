@@ -7,11 +7,19 @@
 
 if not PAMenu_Defaults then
     PAMenu_Defaults = {}
-    PAMenu_Defaults.PABanking = {}
-    PAMenu_Defaults.PALoot = {}
 end
 
 PAMenu_Defaults.defaultSettings = {
+    PAGeneral = {
+        welcomeMessage = true,
+    },
+    PARepair = {
+        enabled = true,
+        repairEquipped = true,
+        repairEquippedThreshold = 75,
+        repairBackpack = false,
+        repairBackpackThreshrold = 75,
+    },
     PABanking = {
         enabled = true,
         enabledGold = true,
@@ -25,7 +33,7 @@ PAMenu_Defaults.defaultSettings = {
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
         depositTimerInterval = 300,
-        itemsJunkSetting = PAC_ITEMTYPE_IGNORE,
+        junkItemsMoveMode = PAC_ITEMTYPE_IGNORE,
         hideNoDepositMsg = false,
         hideAllMsg = false,
         ItemTypes = {},
@@ -42,5 +50,10 @@ PAMenu_Defaults.defaultSettings = {
         harvestableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
         lootableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
         harvestableBaitLootMode = PAC_ITEMTYPE_LOOT,
+    },
+    PAJunk = {
+        enabled = false,
+        autoSellJunk = true,
+        autoMarkTrash = true,
     },
 }

@@ -18,6 +18,30 @@ PAMenu_Choices.choices = {
             "1000",
             "10000",
         },
+        stackingType = {
+            PALocale.getResourceMessage("ST_MoveAllFull"),
+            PALocale.getResourceMessage("ST_MoveExistingFull"),
+            PALocale.getResourceMessage("ST_FillIncompleteOnly"),
+        },
+        itemMoveMode = {
+            PALocale.getResourceMessage("PAB_ItemType_None"),
+            PALocale.getResourceMessage("PAB_ItemType_Deposit"),
+            PALocale.getResourceMessage("PAB_ItemType_Withdrawal"),
+        },
+        itemMoveModeExt = {
+            PALocale.getResourceMessage("PAB_ItemType_None"),
+            PALocale.getResourceMessage("PAB_ItemType_Deposit"),
+            PALocale.getResourceMessage("PAB_ItemType_Withdrawal"),
+            PALocale.getResourceMessage("PAB_ItemType_Inherit"),
+        },
+        mathOperator = {
+            PALocale.getResourceMessage("REL_None"),
+            PALocale.getResourceMessage("REL_Equal"),
+--            PALocale.getResourceMessage("REL_LessThan"),
+            PALocale.getResourceMessage("REL_LessThanEqual"),
+--            PALocale.getResourceMessage("REL_GreaterThan"),
+            PALocale.getResourceMessage("REL_GreaterThanEqual")
+        },
     },
     PALoot = {
         lootGoldChatMode = {
@@ -52,6 +76,30 @@ PAMenu_Choices.choicesValues = {
             100,
             1000,
             10000,
+        },
+        stackingType = {
+            PAB_STACKING_FULL,
+            PAB_STACKING_CONTINUE,
+            PAB_STACKING_INCOMPLETE,
+        },
+        itemMoveMode = {
+            PAC_ITEMTYPE_IGNORE,
+            PAC_ITEMTYPE_DEPOSIT,
+            PAC_ITEMTYPE_WITHDRAWAL,
+        },
+        itemMoveModeExt= {
+            PAC_ITEMTYPE_IGNORE,
+            PAC_ITEMTYPE_DEPOSIT,
+            PAC_ITEMTYPE_WITHDRAWAL,
+            PAC_ITEMTYPE_INHERIT,
+        },
+        mathOperator = {
+            PAC_OPERATOR_NONE,
+            PAC_OPERATOR_EQUAL,
+--            PAC_OPERATOR_LESSTHAN,
+            PAC_OPERATOR_LESSTAHNEQAL,
+--            PAC_OPERATOR_GREATERTHAN,
+            PAC_OPERATOR_GREATERTHANEQUAL,
         },
     },
     PALoot = {

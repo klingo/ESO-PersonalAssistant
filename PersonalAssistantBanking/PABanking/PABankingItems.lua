@@ -64,10 +64,10 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 	local toBagItemTypeList = PAB_Items.getItemTypeList(toBagId)
 	
 	-- pre-determine if in case of Junk the checks shall be skipped
-	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA.savedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
+	if ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA.savedVars.Banking[activeProfile].junkItemsMoveMode == PAC_ITEMTYPE_DEPOSIT)) then
 		-- we are in deposit mode and junk shall be deposited
 		skipChecksAndProceed = true
-	elseif ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA.savedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
+	elseif ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA.savedVars.Banking[activeProfile].junkItemsMoveMode == PAC_ITEMTYPE_WITHDRAWAL)) then
 		-- we are in withdrawal mode and junk shall be withdrawn
 		skipChecksAndProceed = true
 	end
@@ -86,11 +86,11 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 		local itemFound = false
 		
 		-- check if the item is marked as junk and whether junk shall be deposited too
-		if isJunk and PA.savedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_IGNORE then
+		if isJunk and PA.savedVars.Banking[activeProfile].junkItemsMoveMode == PAC_ITEMTYPE_IGNORE then
 			-- do nothing; skip item (no junk shall be moved)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA.savedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA.savedVars.Banking[activeProfile].junkItemsMoveMode == PAC_ITEMTYPE_WITHDRAWAL)) then
 			-- do nothing; skip item (junk has to be withdrawn but we are in deposit mode)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA.savedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
+		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA.savedVars.Banking[activeProfile].junkItemsMoveMode == PAC_ITEMTYPE_DEPOSIT)) then
 			-- do nothing; skip item (junk has to be deposited but we are in withdraw mode)
 		else
 			-- loop through all item types

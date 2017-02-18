@@ -15,19 +15,8 @@ function PAJ.initDefaults()
     -- -----------------------------------------------------
     -- default values for PAJunk
     for profileNo = 1, PAG_MAX_PROFILES do
-        PAJ.Junk_Defaults[profileNo] = {}
-        PAJ.Junk_Defaults[profileNo].enabled = false
-        PAJ.Junk_Defaults[profileNo].autoSellJunk = true
-        PAJ.Junk_Defaults[profileNo].autoMarkTrash = true
-        PAJ.Junk_Defaults[profileNo].hideAllMsg = false
-
-        -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
-        -- auto-flag-as-junk=true, ignore=false
-        --        for i = 2, #PAJItemTypes do
-        --            if PAJItemTypes[i] ~= "" then
-        --                PA.Junk_Defaults[profileNo].ItemTypes[PAJItemTypes[i]] = 0
-        --            end
-        --        end
+        PAL.Junk_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PAJunk
+        PAJ.Junk_Defaults[profileNo].hideAllMsg = false  -- TODO: cleanup
     end
 end
 

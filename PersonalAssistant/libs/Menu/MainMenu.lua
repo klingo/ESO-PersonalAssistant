@@ -72,7 +72,7 @@ function PA_SettingsMenu.createMainMenu()
 		getFunc = PAMenu_Functions.getFunc.PAGeneral.welcomeMessage,
 		setFunc = PAMenu_Functions.setFunc.PAGeneral.welcomeMessage,
         disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
-		default = true,
+		default = PAMenu_Defaults.defaultSettings.PAGeneral.welcomeMessage,
     })
 
     -- =================================================================================================================
@@ -90,21 +90,21 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PARMenu_Enable"),
             tooltip = PALocale.getResourceMessage("PARMenu_Enable_T"),
-            getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled end,
-            setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled = value end,
+            getFunc = PAMenu_Functions.getFunc.PARepair.enabled,
+            setFunc = PAMenu_Functions.setFunc.PARepair.enabled,
             disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
-            default = true,
+            default = PAMenu_Defaults.defaultSettings.PARepair.enabled,
         })
 
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PARMenu_RepairEq"),
             tooltip = PALocale.getResourceMessage("PARMenu_RepairEq_T"),
-            getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].equipped end,
-            setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].equipped = value end,
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairEquipped,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairEquipped,
             width = "half",
-            disabled = function() return not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled end,
-            default = true,
+            disabled = PAMenu_Functions.disabled.PARepair.repairEquipped,
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairEquipped,
         })
 
         optionsTable:insert({
@@ -114,22 +114,22 @@ function PA_SettingsMenu.createMainMenu()
             min = 0,
             max = 100,
             step = 1,
-            getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].equippedThreshold end,
-            setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].equippedThreshold = value end,
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairEquippedThreshold,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairEquippedThreshold,
             width = "half",
-            disabled = function() return not (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].equipped and PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled) end,
-            default = 75,
+            disabled = PAMenu_Functions.disabled.PARepair.repairEquippedThreshold,
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairEquppedThreshold,
         })
 
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PARMenu_RepairBa"),
             tooltip = PALocale.getResourceMessage("PARMenu_RepairBa_T"),
-            getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].backpack end,
-            setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].backpack = value end,
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairBackpack,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairBackpack,
             width = "half",
-            disabled = function() return not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled end,
-            default = false,
+            disabled = PAMenu_Functions.disabled.PARepair.repairBackpack,
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairBackpack,
         })
 
         optionsTable:insert({
@@ -139,13 +139,14 @@ function PA_SettingsMenu.createMainMenu()
             min = 0,
             max = 100,
             step = 1,
-            getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].backpackThreshold end,
-            setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].backpackThreshold = value end,
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairBackpackThreshrold,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairBackpackThreshrold,
             width = "half",
-            disabled = function() return not (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].backpack and PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled) end,
-            default = 75,
+            disabled = PAMenu_Functions.disabled.PARepair.repairBackpackThreshrold,
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairBackpackThreshrold,
         })
 
+        -- TODO: Refactor the following menu entry
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PARMenu_HideNoRepair"),
@@ -157,6 +158,7 @@ function PA_SettingsMenu.createMainMenu()
             default = false,
         })
 
+        -- TODO: Refactor the following menu entry
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PARMenu_HideAll"),
@@ -302,6 +304,7 @@ function PA_SettingsMenu.createMainMenu()
             default = PAMenu_Defaults.defaultSettings.PABanking.depositTimerInterval,
         })
 
+        -- TODO: Refactor the following menu entry
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PABMenu_HideNoDeposit"),
@@ -313,6 +316,7 @@ function PA_SettingsMenu.createMainMenu()
             default = false,
         })
 
+        -- TODO: Refactor the following menu entry
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PABMenu_HideAll"),
@@ -424,19 +428,19 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PAJMenu_Enable"),
             tooltip = PALocale.getResourceMessage("PAJMenu_Enable_T"),
-            getFunc = function() return PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled end,
-            setFunc = function(value) PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled = value end,
-            default = false,
+            getFunc = PAMenu_Functions.getFunc.PAJunk.enabled,
+            setFunc = PAMenu_Functions.setFunc.PAJunk.enabled,
+            default = PAMenu_Defaults.defaultSetting.PAJunk.enabled,
         })
 
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PAJMenu_AutoSellJunk"),
             tooltip = PALocale.getResourceMessage("PAJMenu_AutoSellJunk_T"),
-            getFunc = function() return PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoSellJunk end,
-            setFunc = function(value) PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoSellJunk = value end,
-            disabled = function() return not PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled end,
-            default = true,
+            getFunc = PAMenu_Functions.getFunc.PAJunk.autoSellJunk,
+            setFunc = PAMenu_Functions.setFunc.PAJunk.autoSellJunk,
+            disabled = PAMenu_Functions.disabled.PAJunk.autoSellJunk,
+            default = PAMenu_Defaults.defaultSetting.PAJunk.autoSellJunk,
         })
 
         optionsTable:insert({
@@ -448,12 +452,13 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PAJMenu_AutoMarkTrash"),
             tooltip = PALocale.getResourceMessage("PAJMenu_AutoMarkTrash_T"),
-            getFunc = function() return PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoMarkTrash end,
-            setFunc = function(value) PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoMarkTrash = value end,
-            disabled = function() return not PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled end,
-            default = true,
+            getFunc = PAMenu_Functions.getFunc.PAJunk.autoMarkTrash,
+            setFunc = PAMenu_Functions.setFunc.PAJunk.autoMarkTrash,
+            disabled = PAMenu_Functions.disabled.PAJunk.autoMarkTrash,
+            default = PAMenu_Defaults.defaultSetting.PAJunk.autoMarkTrash,
         })
 
+        -- TODO: Refactor the following menu entry
         optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PAJMenu_HideAll"),
@@ -478,24 +483,26 @@ function PA_SettingsMenu.createPABItemSubMenu()
             type = "dropdown",
             name = PALocale.getResourceMessage("PABMenu_DepStackOnly"),
             tooltip = PALocale.getResourceMessage("PABMenu_DepStackOnly_T"),
-            choices = {PALocale.getResourceMessage("ST_MoveAllFull"), PALocale.getResourceMessage("ST_MoveExistingFull"), PALocale.getResourceMessage("ST_FillIncompleteOnly")},
-            getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsDepStackType) end,
-            setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsDepStackType = MenuHelper.getStackTypeNumberFromText(value) end,
+            choices = PAMenu_Choices.choices.PABanking.stackingType,
+            choicesValues = PAMenu_Choices.choicesValues.PABanking.stackingType,
+            getFunc = PAMenu_Functions.getFunc.PABanking.itemsDepStackType,
+            setFunc = PAMenu_Functions.setFunc.PABanking.itemsDepStackType,
             width = "half",
-            disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
-            default = false,
+            disabled = PAMenu_Functions.disabled.PABanking.itemsDepStackType,
+            default = PAMenu_Defaults.defaultSettings.PABanking.itemsDepStackType,
         })
 
         PABItemTypeSubmenuTable:insert({
             type = "dropdown",
             name = PALocale.getResourceMessage("PABMenu_WitStackOnly"),
             tooltip = PALocale.getResourceMessage("PABMenu_WitStackOnly_T"),
-            choices = {PALocale.getResourceMessage("ST_MoveAllFull"), PALocale.getResourceMessage("ST_MoveExistingFull"), PALocale.getResourceMessage("ST_FillIncompleteOnly")},
-            getFunc = function() return MenuHelper.getStackTypeTextFromNumber(PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsWitStackType) end,
-            setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsWitStackType = MenuHelper.getStackTypeNumberFromText(value) end,
+            choices = PAMenu_Choices.choices.PABanking.stackingType,
+            choicesValues = PAMenu_Choices.choicesValues.PABanking.stackingType,
+            getFunc = PAMenu_Functions.getFunc.PABanking.itemsWitStackType,
+            setFunc = PAMenu_Functions.setFunc.PABanking.itemsWitStackType,
             width = "half",
-            disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
-            default = false,
+            disabled = PAMenu_Functions.disabled.PABanking.itemsWitStackType,
+            default = PAMenu_Defaults.defaultSettings.PABanking.itemsWitStackType,
         })
 
         PABItemTypeSubmenuTable:insert({
@@ -507,11 +514,12 @@ function PA_SettingsMenu.createPABItemSubMenu()
             type = "dropdown",
             name = PALocale.getResourceMessage("PABMenu_DepItemJunk"),
             tooltip = PALocale.getResourceMessage("PABMenu_DepItemJunk_T"),
-            choices = {PALocale.getResourceMessage("PAB_ItemType_None"), PALocale.getResourceMessage("PAB_ItemType_Deposit"), PALocale.getResourceMessage("PAB_ItemType_Withdrawal"), PALocale.getResourceMessage("PAB_ItemType_Inherit")},
-            getFunc = function() return MenuHelper.getBankingTextFromNumber() end,
-            setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsJunkSetting = MenuHelper.getBankingNumberFromText(value) end,
-            disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
-            default = PALocale.getResourceMessage("PAB_ItemType_None"),
+            choices = PAMenu_Choices.choices.PABanking.itemMoveModeExt,
+            choicesValues = PAMenu_Choices.choicesValues.PABanking.itemMoveModeExt,
+            getFunc = PAMenu_Functions.getFunc.PABanking.junkItemsMoveMode,
+            setFunc = PAMenu_Functions.setFunc.PABanking.junkItemsMoveMode,
+            disabled = PAMenu_Functions.disabled.PABanking.junkItemsMoveMode,
+            default = PAMenu_Defaults.defaultSettings.PABanking.junkItemsMoveMode,
         })
 
         PABItemTypeSubmenuTable:insert({
@@ -519,49 +527,43 @@ function PA_SettingsMenu.createPABItemSubMenu()
             name = PALocale.getResourceMessage("PABMenu_ItemType_Header"),
         })
 
-        for i = 1, #PABItemTypes do
-            -- only add if the itemType is enabled
-            if PABItemTypes[i] ~= "" then
-                PABItemTypeSubmenuTable:insert({
-                    type = "dropdown",
-                    name = PALocale.getResourceMessage(PABItemTypes[i]),
-                    choices = {PALocale.getResourceMessage("PAB_ItemType_None"), PALocale.getResourceMessage("PAB_ItemType_Deposit"), PALocale.getResourceMessage("PAB_ItemType_Withdrawal")},
-                    -- choicesValues
-                    -- choicesTooltips
-                    getFunc = function() return MenuHelper.getBankingTextFromNumber(PABItemTypes[i]) end,
-                    setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypes[PABItemTypes[i]] = MenuHelper.getBankingNumberFromText(value) end,
-                    width = "half",
-                    disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
-                    default = PALocale.getResourceMessage("PAB_ItemType_None"),
-                })
-
-                -- i = index in table
-                -- PABItemTypes[i] = unique constant number of itemType
-            end
+        for _, itemType in pairs(PABItemTypes) do
+            PABItemTypeSubmenuTable:insert({
+                type = "dropdown",
+                name = PALocale.getResourceMessage(PABItemTypes[i]),
+                choices = PAMenu_Choices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenu_Choices.choicesValues.PABanking.itemMoveMode,
+                -- choicesTooltips
+                getFunc = function() return PAMenu_Functions.getFunc.PABanking.itemTypesMoveMode(itemType) end,
+                setFunc = function(value) PAMenu_Functions.setFunc.PABanking.itemTypesMoveMode(itemType, value) end,
+                width = "half",
+                disabled = PAMenu_Functions.disabled.PABanking.itemTypesMoveMode,
+                default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
+            })
         end
 
         PABItemTypeSubmenuTable:insert({
             type = "button",
             name = PALocale.getResourceMessage("PABMenu_DepButton"),
             tooltip = PALocale.getResourceMessage("PABMenu_DepButton_T"),
-            func = function() MenuHelper.setPABDepositAll() end,
-            disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
+            func = PAMenu_Functions.func.PABanking.depositAllItemTypesButton,
+            disabled = PAMenu_Functions.disabled.PABanking.depositAllItemTypesButton,
         })
 
         PABItemTypeSubmenuTable:insert({
             type = "button",
             name = PALocale.getResourceMessage("PABMenu_WitButton"),
             tooltip = PALocale.getResourceMessage("PABMenu_WitButton_T"),
-            func = function() MenuHelper.setPABWithdrawalAll() end,
-            disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
+            func = PAMenu_Functions.func.PABanking.withdrawAllItemTypesButton,
+            disabled = PAMenu_Functions.disabled.PABanking.withdrawAllItemTypesButton,
         })
 
         PABItemTypeSubmenuTable:insert({
             type = "button",
             name = PALocale.getResourceMessage("PABMenu_IgnButton"),
             tooltip = PALocale.getResourceMessage("PABMenu_IgnButton_T"),
-            func = function() MenuHelper.setPABIgnoreAll() end,
-            disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
+            func = PAMenu_Functions.func.PABanking.ignoreAllItemTypesButton,
+            disabled = PAMenu_Functions.disabled.PABanking.ignoreAllItemTypesButton,
         })
     end
 end
@@ -573,36 +575,36 @@ end
 function PA_SettingsMenu.createPABItemAdvancedSubMenu()
     if (PAB) then
 
-        local advancedItemIndex = 0		-- 0 = Lockpick
-
         PABItemTypeAdvancedSubmenuTable:insert({
             type = "header",
             name = PALocale.getResourceMessage("PABMenu_Lockipck_Header"),
         })
 
-        PABItemTypeAdvancedSubmenuTable:insert({
-            type = "dropdown",
-            name = PALocale.getResourceMessage("REL_Operator"),
-            choices = {PALocale.getResourceMessage("REL_None"), PALocale.getResourceMessage("REL_Equal"), PALocale.getResourceMessage("REL_LessThanEqual"), PALocale.getResourceMessage("REL_GreaterThanEqual")},
-            -- choicesValues
-            -- choicesTooltips
-            getFunc = function() return MenuHelper.getOperatorTextFromNumber(advancedItemIndex) end,
-            setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[advancedItemIndex].Key = MenuHelper.getOperatorNumberFromText(value) end,
-            width = "half",
-            disabled = function() return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems) end,
-            default = PALocale.getResourceMessage("REL_None"),
-        })
+        for _, advancedItemType in pairs(PABItemTypesAdvanced) do
+            PABItemTypeAdvancedSubmenuTable:insert({
+                type = "dropdown",
+                name = PALocale.getResourceMessage("REL_Operator"),
+                choices = PAMenu_Choices.choices.PABanking.mathOperator,
+                choicesValues = PAMenu_Choices.choicesValues.PABanking.mathOperator,
+                -- choicesTooltips
+                getFunc = function() return PAMenu_Functions.getFunc.PABanking.advItemTypesOperator(advancedItemType) end,
+                setFunc = function(value) PAMenu_Functions.setFunc.PABanking.advItemTypesOperator(advancedItemType, value) end,
+                width = "half",
+                disabled = PAMenu_Functions.disabled.PABanking.advItemTypesOperator,
+                default = PALocale.getResourceMessage("REL_None"),  -- TODO: extract?
+            })
 
-        PABItemTypeAdvancedSubmenuTable:insert({
-            type = "editbox",
-            name = PALocale.getResourceMessage("PABMenu_Keep_in_Backpack"),
-            tooltip = PALocale.getResourceMessage("PABMenu_Keep_in_Backpack_T"),
-            getFunc = function() return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[advancedItemIndex].Value end,
-            setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[advancedItemIndex].Value = tonumber(value) end,
-            width = "half",
-            disabled = function() return (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[advancedItemIndex].Key == PAC_OPERATOR_NONE) end,
-            default = 100,
-        })
+            PABItemTypeAdvancedSubmenuTable:insert({
+                type = "editbox",
+                name = PALocale.getResourceMessage("PABMenu_Keep_in_Backpack"),
+                tooltip = PALocale.getResourceMessage("PABMenu_Keep_in_Backpack_T"),
+                getFunc = function() return PAMenu_Functions.getFunc.PABanking.advItemTypesValue(advancedItemType) end,
+                setFunc = function(value) PAMenu_Functions.setFunc.PABanking.advItemTypesValue(advancedItemType, value) end,
+                width = "half",
+                disabled = PAMenu_Functions.disabled.PABanking.advItemTypesValue,
+                default = 100,  -- TODO: extract?
+            })
+        end
     end
 end
 

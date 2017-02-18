@@ -13,12 +13,12 @@ function PAR.OnShopOpen()
 		-- early check if there is something to repair
 		if GetRepairAllCost() > 0 then
 			-- check if equipped items shall be repaired
-			if PA.savedVars.Repair[activeProfile].equipped then
-				PAR.RepairItems(BAG_WORN, PA.savedVars.Repair[activeProfile].equippedThreshold)
+			if PA.savedVars.Repair[activeProfile].repairEquipped then
+				PAR.RepairItems(BAG_WORN, PA.savedVars.Repair[activeProfile].repairEquippedThreshold)
 			end
 			-- check if backpack items shall be repaired
-			if PA.savedVars.Repair[activeProfile].backpack then
-				PAR.RepairItems(BAG_BACKPACK, PA.savedVars.Repair[activeProfile].backpackThreshold)
+			if PA.savedVars.Repair[activeProfile].repairBackpack then
+				PAR.RepairItems(BAG_BACKPACK, PA.savedVars.Repair[activeProfile].repairBackpackThreshrold)
 			end
 		else
 			if (not PA.savedVars.Repair[activeProfile].hideNoRepairMsg) then

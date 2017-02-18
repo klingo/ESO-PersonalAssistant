@@ -13,14 +13,9 @@ function PAR.initDefaults()
     -- -----------------------------------------------------
     -- default values for PARepair
     for profileNo = 1, PAG_MAX_PROFILES do
-        PAR.Repair_Defaults[profileNo] = {}
-        PAR.Repair_Defaults[profileNo].enabled = true
-        PAR.Repair_Defaults[profileNo].equipped = true
-        PAR.Repair_Defaults[profileNo].equippedThreshold = 75
-        PAR.Repair_Defaults[profileNo].backpack = false
-        PAR.Repair_Defaults[profileNo].backpackThreshold = 75
-        PAR.Repair_Defaults[profileNo].hideNoRepairMsg = false
-        PAR.Repair_Defaults[profileNo].hideAllMsg = false
+        PAL.Repair_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PARepair
+        PAR.Repair_Defaults[profileNo].hideNoRepairMsg = false  -- TODO: cleanup
+        PAR.Repair_Defaults[profileNo].hideAllMsg = false  -- TODO: cleanup
     end
 end
 

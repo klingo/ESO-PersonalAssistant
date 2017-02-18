@@ -12,16 +12,19 @@ if not PAMenu_Functions then
         },
         getFunc = {
             PAGeneral = {},
+            PARepair = {},
             PABanking = {},
             PALoot = {},
         },
         setFunc = {
             PAGeneral = {},
+            PARepair = {},
             PABanking = {},
             PALoot = {},
         },
         disabled = {
             PAGeneral = {},
+            PARepair = {},
             PABanking = {},
             PALoot = {},
         },
@@ -96,18 +99,107 @@ end
 
  -- PARepair
 
+--------------------------------------------------------------------------
+-- PARepair   enable
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.enabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled
+end
+
+function PAMenu_Functions.setFunc.PARepair.enabled(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled = value
+end
+
+--------------------------------------------------------------------------
+-- PARepair   repairEquipped
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.repairEquipped()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairEquipped
+end
+
+function PAMenu_Functions.setFunc.PARepair.repairEquipped(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairEquipped = value
+end
+
+function PAMenu_Functions.disabled.PARepair.repairEquipped()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled
+end
+
+--------------------------------------------------------------------------
+-- PARepair   repairEquippedThreshold
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.repairEquippedThreshold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairEquippedThreshold
+end
+
+function PAMenu_Functions.setFunc.PARepair.repairEquippedThreshold(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairEquippedThreshold = value
+end
+
+function PAMenu_Functions.disabled.PARepair.repairEquippedThreshold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairEquipped)
+end
+
+--------------------------------------------------------------------------
+-- PARepair   repairBackpack
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.repairBackpack()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpack
+end
+
+function PAMenu_Functions.setFunc.PARepair.repairBackpack(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpack = value
+end
+
+function PAMenu_Functions.disabled.PARepair.repairBackpack()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled
+end
+
+--------------------------------------------------------------------------
+-- PARepair   repairBackpackThreshrold
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.repairBackpackThreshrold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpackThreshrold
+end
+
+function PAMenu_Functions.setFunc.PARepair.repairBackpackThreshrold(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpackThreshrold = value
+end
+
+function PAMenu_Functions.disabled.PARepair.repairBackpackThreshrold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpack)
+end
+
+
 -- =====================================================================================================================
 -- =====================================================================================================================
 
+-- PABanking
 
 --------------------------------------------------------------------------
 -- PABanking   enable
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.enabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled
 end
 
 function PAMenu_Functions.setFunc.PABanking.enabled(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled = value
 end
 
@@ -115,14 +207,17 @@ end
 -- PABanking   enabledGold
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.enabledGold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledGold
 end
 
 function PAMenu_Functions.setFunc.PABanking.enabledGold(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledGold = value
 end
 
 function PAMenu_Functions.disabled.PABanking.enabledGold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled
 end
 
@@ -130,14 +225,17 @@ end
 -- PABanking   goldDepositInterval
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.goldDepositInterval()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldDepositInterval
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldDepositInterval(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldDepositInterval = tonumber(value)
 end
 
 function PAMenu_Functions.disabled.PABanking.goldDepositInterval()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledGold)
 end
 
@@ -145,14 +243,17 @@ end
 -- PABanking   goldDepositPercentage
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.goldDepositPercentage()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldDepositPercentage
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldDepositPercentage(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldDepositPercentage = value
 end
 
 function PAMenu_Functions.disabled.PABanking.goldDepositPercentage()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledGold)
 end
 
@@ -160,14 +261,17 @@ end
 -- PABanking   goldTransactionStep
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.goldTransactionStep()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
    return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldTransactionStep
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldTransactionStep(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldTransactionStep = value
 end
 
 function PAMenu_Functions.disabled.PABanking.goldTransactionStep()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledGold)
 end
 
@@ -175,15 +279,17 @@ end
 -- PABanking   goldMinToKeep
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.goldMinToKeep()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldMinToKeep
-    -- return tostring(PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldMinToKeep)
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldMinToKeep(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].goldMinToKeep = tonumber(value)
 end
 
 function PAMenu_Functions.disabled.PABanking.goldMinToKeep()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledGold)
 end
 
@@ -191,14 +297,17 @@ end
 -- PABanking   withdrawToMinGold
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.withdrawToMinGold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].withdrawToMinGold
 end
 
 function PAMenu_Functions.setFunc.PABanking.withdrawToMinGold(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].withdrawToMinGold = value
 end
 
 function PAMenu_Functions.disabled.PABanking.withdrawToMinGold()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledGold)
 end
 
@@ -206,14 +315,17 @@ end
 -- PABanking   enabledItems
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.enabledItems()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems
 end
 
 function PAMenu_Functions.setFunc.PABanking.enabledItems(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems = value
 end
 
 function PAMenu_Functions.disabled.PABanking.enabledItems()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled
 end
 
@@ -221,14 +333,17 @@ end
 -- PABanking   depositTimerInterval
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.depositTimerInterval()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].depositTimerInterval
 end
 
 function PAMenu_Functions.setFunc.PABanking.depositTimerInterval(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].depositTimerInterval = value
 end
 
 function PAMenu_Functions.disabled.PABanking.depositTimerInterval()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
 end
 
@@ -236,9 +351,174 @@ end
 -- =====================================================================================================================
 -- =====================================================================================================================
 
+-- PABAnking - ItemTypeSubmenu
 
 --------------------------------------------------------------------------
--- PALoot   enable
+-- PABAnking - ItemTypeSubmenu   itemsDepStackType
+---------------------------------
+function PAMenu_Functions.getFunc.PABanking.itemsDepStackType()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsDepStackType
+end
+
+function PAMenu_Functions.setFunc.PABanking.itemsDepStackType(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsDepStackType = value
+end
+
+function PAMenu_Functions.disabled.PABanking.itemsDepStackType()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+--------------------------------------------------------------------------
+-- PABAnking - ItemTypeSubmenu   itemsWitStackType
+---------------------------------
+function PAMenu_Functions.getFunc.PABanking.itemsWitStackType()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsWitStackType
+end
+
+function PAMenu_Functions.setFunc.PABanking.itemsWitStackType(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].itemsWitStackType = value
+end
+
+function PAMenu_Functions.disabled.PABanking.itemsWitStackType()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+--------------------------------------------------------------------------
+-- PABAnking - ItemTypeSubmenu   junkItemsMoveMode
+---------------------------------
+function PAMenu_Functions.getFunc.PABanking.junkItemsMoveMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].junkItemsMoveMode
+end
+
+function PAMenu_Functions.setFunc.PABanking.junkItemsMoveMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].junkItemsMoveMode = value
+end
+
+function PAMenu_Functions.disabled.PABanking.junkItemsMoveMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+--------------------------------------------------------------------------
+-- PABAnking - ItemTypeSubmenu   itemTypesMoveMode
+---------------------------------
+function PAMenu_Functions.getFunc.PABanking.itemTypesMoveMode(itemType)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypes[itemType]
+end
+
+function PAMenu_Functions.setFunc.PABanking.itemTypesMoveMode(itemType, value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypes[itemType] = value
+end
+
+function PAMenu_Functions.disabled.PABanking.itemTypesMoveMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+--------------------------------------------------------------------------
+-- PABAnking - ItemTypeSubmenu  autoLootAllHarvestableButton
+---------------------------------
+function PAMenu_Functions.func.PABanking.depositAllItemTypesButton()
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    for _, itemType in pairs(PABItemTypes) do
+        PA.savedVars.Banking[activeProfile].ItemTypes[itemType] = PAC_ITEMTYPE_DEPOSIT
+    end
+end
+
+function PAMenu_Functions.disabled.PABanking.depositAllItemTypesButton()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+--------------------------------------------------------------------------
+-- PABAnking - ItemTypeSubmenu  withdrawAllItemTypesButton
+---------------------------------
+function PAMenu_Functions.func.PABanking.withdrawAllItemTypesButton()
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    for _, itemType in pairs(PABItemTypes) do
+        PA.savedVars.Banking[activeProfile].ItemTypes[itemType] = PAC_ITEMTYPE_WITHDRAWAL
+    end
+end
+
+function PAMenu_Functions.disabled.PABanking.withdrawAllItemTypesButton()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+--------------------------------------------------------------------------
+-- PABAnking - ItemTypeSubmenu  ignoreAllItemTypesButton
+---------------------------------
+function PAMenu_Functions.func.PABanking.ignoreAllItemTypesButton()
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    for _, itemType in pairs(PABItemTypes) do
+        PA.savedVars.Banking[activeProfile].ItemTypes[itemType] = PAC_ITEMTYPE_IGNORE
+    end
+end
+
+function PAMenu_Functions.disabled.PABanking.ignoreAllItemTypesButton()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+-- PABAnking - AdvancedItemTypeSubmenu
+
+--------------------------------------------------------------------------
+-- PABAnking - AdvancedItemTypeSubmenu   advItemTypesOperator
+---------------------------------
+function PAMenu_Functions.getFunc.PABanking.advItemTypesOperator(advancedItemType)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[advancedItemType].Operator
+end
+
+function PAMenu_Functions.setFunc.PABanking.advItemTypesOperator(advancedItemType, value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[advancedItemType].Operator = value
+end
+
+function PAMenu_Functions.disabled.PABanking.advItemTypesOperator()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+--------------------------------------------------------------------------
+-- PABAnking - AdvancedItemTypeSubmenu   advItemTypesValue
+---------------------------------
+function PAMenu_Functions.getFunc.PABanking.advItemTypesValue(itemType)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[itemType].Value
+end
+
+function PAMenu_Functions.setFunc.PABanking.advItemTypesValue(advancedItemType, value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].ItemTypesAdvanced[advancedItemType].Value = value
+end
+
+function PAMenu_Functions.disabled.PABanking.advItemTypesValue()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabledItems)
+end
+
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+-- PALoot
+
+--------------------------------------------------------------------------
+-- PALoot   enabled
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.enabled()
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
@@ -444,6 +724,54 @@ end
 
 -- PAJunk
 
+--------------------------------------------------------------------------
+-- PAJunk   enabled
+---------------------------------
+function PAMenu_Functions.getFunc.PAJunk.enabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled
+end
+
+function PAMenu_Functions.setFunc.PAJunk.enabled(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled = value
+end
+
+--------------------------------------------------------------------------
+-- PAJunk   autoSellJunk
+---------------------------------
+function PAMenu_Functions.getFunc.PAJunk.autoSellJunk()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoSellJunk
+end
+
+function PAMenu_Functions.setFunc.PAJunk.autoSellJunk(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoSellJunk = value
+end
+
+function PAMenu_Functions.disabled.PAJunk.autoSellJunk()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled
+end
+
+--------------------------------------------------------------------------
+-- PAJunk   autoMarkTrash
+---------------------------------
+function PAMenu_Functions.getFunc.PAJunk.autoMarkTrash()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoMarkTrash
+end
+
+function PAMenu_Functions.setFunc.PAJunk.autoMarkTrash(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].autoMarkTrash = value
+end
+
+function PAMenu_Functions.disabled.PAJunk.autoMarkTrash()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled
+end
 
 
 -- =====================================================================================================================

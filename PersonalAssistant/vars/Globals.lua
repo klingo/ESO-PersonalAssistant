@@ -61,6 +61,9 @@ PAC_ICON_TALVAR = "|t16:16:/esoui/art/currency/currency_telvar.dds|t"
 PAC_ICON_BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t"
 PAC_ITEMCODE_BANANAS = "|H1:item:33755:317:50:0:0:0:0:0:0:0:0:0:0:0:0:0:10:0:0:0:0:0|h[Bananas]|h"
 
+-- Custom Item ID
+PAC_ITEMID_LOCKPICK = 30357
+
 
 -- =====================================================================================================================
 -- = PA Banking
@@ -104,7 +107,7 @@ PABItemTypes:insert(ITEMTYPE_RAW_MATERIAL)
 -- PersonalAssistant Banking Advanced ItemTypes
 PABItemTypesAdvanced = setmetatable({}, { __index = table })
 -- Lockpick
-PABItemTypesAdvanced:insert(30357)
+PABItemTypesAdvanced:insert(PAC_ITEMID_LOCKPICK)
 -- Can't use ITEMTYPE_LOCKPICK or SPECIALIZED_ITEMTYPE_LOCKPICK
 -- since the actual lockpicks are categorized as ITEMTYPE_TOOL (as of APIVersion 100018)
 
