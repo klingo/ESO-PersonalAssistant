@@ -30,22 +30,15 @@ function PA_SettingsMenu.CreateOptions()
 --	PA_SettingsMenu.createPABItemAdvancedSubMenu()
 --    PA_SettingsMenu.createPALHarvestableItemSubMenu()
 --    PA_SettingsMenu.createPALLootableItemSubMenu()
-PALogger.log("creating menu now")
-    PA_SettingsMenu.createProfileSelectionMenu()
-PALogger.log("menu done!")
---	PA_SettingsMenu.createMainMenu()
+	PA_SettingsMenu.createMainMenu()
 
-    if (PA.savedVars.Profile.activeProfile ~= nil and PA.savedVars.Profile.activeProfile <= PAG_MAX_PROFILES) then
-        PA_SettingsMenu.createMainMenu()
-    end
-
-	
 	-- and register it
 	LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
 	LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
 end
 
-function PA_SettingsMenu.createProfileSelectionMenu()
+
+function PA_SettingsMenu.createMainMenu()
 
     optionsTable:insert({
         type = "header",
@@ -58,38 +51,29 @@ function PA_SettingsMenu.createProfileSelectionMenu()
         tooltip = PALocale.getResourceMessage("PAGMenu_ActiveProfile_T"),
         choices = MenuHelper.getProfileList(),
         choicesValues = MenuHelper.getProfileListValues(),
-        getFunc = function() return PA.savedVars.Profile.activeProfile end,
-        setFunc = function(value) MenuHelper.loadProfile(value) end,
+        getFunc = PAMenu_Functions.getFunc.PAGeneral.activeProfile,
+        setFunc = PAMenu_Functions.setFunc.PAGeneral.activeProfile,
         width = "half",
-        default = 6,    -- TODO:  correct default value
---        default = PALocale.getResourceMessage("PAG_Profile1"),
-        reference = "PERSONALASSISTANT_PROFILEDROPDOWN",   -- TODO: constant
+        reference = "PERSONALASSISTANT_PROFILEDROPDOWN",
     })
-
-end
-
-function PA_SettingsMenu.createMainMenu()
 
     optionsTable:insert({
 		type = "editbox",
 		name = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename"),
 		tooltip = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename_T"),
-		getFunc = function() return PA.savedVars.General[PA.savedVars.Profile.activeProfile].name end,
-		setFunc = function(value) MenuHelper.renameProfile(tostring(value)) end,
+		getFunc = PAMenu_Functions.getFunc.PAGeneral.activeProfileRename,
+		setFunc = PAMenu_Functions.setFunc.PAGeneral.activeProfileRename,
 		width = "half",
-		warning = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename_W"),
-        -- requiresReload = true,
-        -- does not work here, since not directly reloading after a name change causes many problems
-        -- when changing other values that cannot be related to a specific profile anymore
-		default =  "<Please select Profile>", -- TODO: replace with Locale
+        disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
     })
 
     optionsTable:insert({
 		type = "checkbox",
 		name = PALocale.getResourceMessage("PAGMenu_Welcome"),
 		tooltip = PALocale.getResourceMessage("PAGMenu_Welcome_T"),
-		getFunc = function() return PA.savedVars.General[PA.savedVars.Profile.activeProfile].welcome end,
-		setFunc = function(value) PA.savedVars.General[PA.savedVars.Profile.activeProfile].welcome = value end,
+		getFunc = PAMenu_Functions.getFunc.PAGeneral.welcomeMessage,
+		setFunc = PAMenu_Functions.setFunc.PAGeneral.welcomeMessage,
+        disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
 		default = true,
     })
 

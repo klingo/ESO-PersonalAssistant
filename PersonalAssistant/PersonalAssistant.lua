@@ -32,7 +32,7 @@ function PA.initDefaults()
     PA.General_Defaults = {}
     -- -----------------------------------------------------
     -- default values for Addon
-    PA.General_Defaults.savedVarsVersion = ""
+    PA.General_Defaults.savedVarsVersion = "200"
     for profileNo = 1, PAG_MAX_PROFILES do
         -- -----------------------------------------------------
         -- default values for PAGeneral
@@ -57,7 +57,7 @@ function PA.initAddon(eventCode, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
-    PA.savedVars.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = (PAG_MAX_PROFILES + 1) })
+    PA.savedVars.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = nil })  -- PAG_NO_PROFILE_SELECTED_ID
 
     -- initialize language
     PA.savedVars.Profile.language = GetCVar("language.2") or "en"
@@ -78,7 +78,7 @@ function PA.introduction()
     PA_SettingsMenu.CreateOptions()
 
     local activeProfile = PA.savedVars.Profile.activeProfile
-    if (activeProfile == nil or activeProfile == (PAG_MAX_PROFILES + 1)) then
+    if (activeProfile == nil or activeProfile == PAG_NO_PROFILE_SELECTED_ID) then
         PAHF.println("NO ACIVE PROFILE FOUND, CREATE ONE IN ADDONS SETTINGS /pa") -- TODO: replace with correct msg
     else
         if PA.savedVars.General[activeProfile].welcome then

@@ -11,14 +11,17 @@ if not PAMenu_Functions then
             PALoot = {},
         },
         getFunc = {
+            PAGeneral = {},
             PABanking = {},
             PALoot = {},
         },
         setFunc = {
+            PAGeneral = {},
             PABanking = {},
             PALoot = {},
         },
         disabled = {
+            PAGeneral = {},
             PABanking = {},
             PALoot = {},
         },
@@ -29,6 +32,48 @@ end
 -- =====================================================================================================================
 
 -- PAGeneral
+
+--------------------------------------------------------------------------
+-- PABanking   activeProfile
+---------------------------------
+function PAMenu_Functions.getFunc.PAGeneral.activeProfile()
+    return MenuHelper.getActiveProfile()    -- TODO: remove from MenuHelper?
+end
+
+function PAMenu_Functions.setFunc.PAGeneral.activeProfile(profileNo)
+    MenuHelper.loadProfile(profileNo)   -- TODO: remove from MenuHelper?
+end
+
+function PAMenu_Functions.disabled.PAGeneral.noProfileSelected()
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    return (activeProfile == nil or activeProfile == PAG_NO_PROFILE_SELECTED_ID)
+end
+
+--------------------------------------------------------------------------
+-- PABanking   activeProfileRename
+---------------------------------
+function PAMenu_Functions.getFunc.PAGeneral.activeProfileRename()
+    if (not PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then
+        return PA.savedVars.General[PA.savedVars.Profile.activeProfile].name
+    end
+end
+
+function PAMenu_Functions.setFunc.PAGeneral.activeProfileRename(profileName)
+    MenuHelper.renameProfile(tostring(profileName)) -- TODO: remove from MenuHelper?
+end
+
+--------------------------------------------------------------------------
+-- PABanking   welcomeMessage
+---------------------------------
+function PAMenu_Functions.getFunc.PAGeneral.welcomeMessage()
+    if (not PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then
+        return PA.savedVars.General[PA.savedVars.Profile.activeProfile].welcome
+    end
+end
+
+function PAMenu_Functions.setFunc.PAGeneral.welcomeMessage(value)
+    PA.savedVars.General[PA.savedVars.Profile.activeProfile].welcome = value
+end
 
 -- =====================================================================================================================
 -- =====================================================================================================================

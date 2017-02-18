@@ -87,8 +87,7 @@ ResourceBundle.en["PAGMenu_Header"]					= PAC_COLTEXT_PAG
 ResourceBundle.en["PAGMenu_ActiveProfile"]			= "Active profile"
 ResourceBundle.en["PAGMenu_ActiveProfile_T"]		= "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile."
 ResourceBundle.en["PAGMenu_ActiveProfileRename"]	= "Rename active profile"
-ResourceBundle.en["PAGMenu_ActiveProfileRename_T"]	= "Rename the active profile (will force a ReloadUI)."
-ResourceBundle.en["PAGMenu_ActiveProfileRename_W"]	= PAC_COL_RED.."Renaming will force a ReloadUI"
+ResourceBundle.en["PAGMenu_ActiveProfileRename_T"]	= "Rename the active profile"
 ResourceBundle.en["PAGMenu_Welcome"] 				= "Show welcome message"
 ResourceBundle.en["PAGMenu_Welcome_T"] 				= "Display a welcome message from the addon upon successfully starting?"
 
