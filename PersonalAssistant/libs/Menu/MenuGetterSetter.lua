@@ -16,18 +16,21 @@ if not PAMenu_Functions then
             PARepair = {},
             PABanking = {},
             PALoot = {},
+            PAJunk = {},
         },
         setFunc = {
             PAGeneral = {},
             PARepair = {},
             PABanking = {},
             PALoot = {},
+            PAJunk = {},
         },
         disabled = {
             PAGeneral = {},
             PARepair = {},
             PABanking = {},
             PALoot = {},
+            PAJunk = {},
         },
     }
 end
