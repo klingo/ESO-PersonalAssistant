@@ -52,11 +52,11 @@ ResourceBundle.en["PAB_ItemType_Inherit"]			= "Depending on item type (below)"
 -- PALoot --
 ResourceBundle.en["PAL_ItemType_Ignore"] 		    = "Ignore"
 ResourceBundle.en["PAL_ItemType_AutoLoot"]          = "Auto-Loot"
-ResourceBundle.en["PAL_ItemType_LootDestroy"] 		= "Auto-Loot and Destroy"
+ResourceBundle.en["PAL_ItemType_LootDestroy"] 		= "Auto-Loot and "..PAC_COL_RED.."Destroy"
 
 ResourceBundle.en["PAL_ItemType_Ignore_T"] 		    = "Nothing happens, the item is ignored"
 ResourceBundle.en["PAL_ItemType_AutoLoot_T"]        = "Automatically loots the item"
-ResourceBundle.en["PAL_ItemType_LootDestroy_T"] 	= PAC_COL_RED.."CAUTION: USE AT OWN RISK!"..PAC_COL_DEFAULT.."Automatically loots the item, but then immediately destroys the looted amount again."
+ResourceBundle.en["PAL_ItemType_LootDestroy_T"] 	= PAC_COL_RED.."CAUTION: USE AT OWN RISK!|r Automatically loots the item, but then immediately destroys the looted amount again."
 
 -- PALoot Chat Output - Loot Gold --
 ResourceBundle.en["PAL_Gold_ChatMode_None"]         = "<no output>"
