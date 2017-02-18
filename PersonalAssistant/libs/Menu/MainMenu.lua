@@ -430,7 +430,7 @@ function PA_SettingsMenu.createMainMenu()
             tooltip = PALocale.getResourceMessage("PAJMenu_Enable_T"),
             getFunc = PAMenu_Functions.getFunc.PAJunk.enabled,
             setFunc = PAMenu_Functions.setFunc.PAJunk.enabled,
-            default = PAMenu_Defaults.defaultSetting.PAJunk.enabled,
+            default = PAMenu_Defaults.defaultSettings.PAJunk.enabled,
         })
 
         optionsTable:insert({
@@ -440,7 +440,7 @@ function PA_SettingsMenu.createMainMenu()
             getFunc = PAMenu_Functions.getFunc.PAJunk.autoSellJunk,
             setFunc = PAMenu_Functions.setFunc.PAJunk.autoSellJunk,
             disabled = PAMenu_Functions.disabled.PAJunk.autoSellJunk,
-            default = PAMenu_Defaults.defaultSetting.PAJunk.autoSellJunk,
+            default = PAMenu_Defaults.defaultSettings.PAJunk.autoSellJunk,
         })
 
         optionsTable:insert({
@@ -455,7 +455,7 @@ function PA_SettingsMenu.createMainMenu()
             getFunc = PAMenu_Functions.getFunc.PAJunk.autoMarkTrash,
             setFunc = PAMenu_Functions.setFunc.PAJunk.autoMarkTrash,
             disabled = PAMenu_Functions.disabled.PAJunk.autoMarkTrash,
-            default = PAMenu_Defaults.defaultSetting.PAJunk.autoMarkTrash,
+            default = PAMenu_Defaults.defaultSettings.PAJunk.autoMarkTrash,
         })
 
         -- TODO: Refactor the following menu entry
