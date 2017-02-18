@@ -8,6 +8,7 @@
 if not PAMenu_Functions then
     PAMenu_Functions = {
         func = {
+            PABanking = {},
             PALoot = {},
         },
         getFunc = {
