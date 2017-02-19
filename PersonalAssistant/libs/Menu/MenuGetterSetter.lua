@@ -188,6 +188,42 @@ function PAMenu_Functions.disabled.PARepair.repairBackpackThreshrold()
     return not (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled and PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpack)
 end
 
+--------------------------------------------------------------------------
+-- PARepair   repairFullChatMode
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.repairFullChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairFullChatMode
+end
+
+function PAMenu_Functions.setFunc.PARepair.repairFullChatMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairFullChatMode = value
+end
+
+function PAMenu_Functions.disabled.PARepair.repairFullChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled and (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairEquipped or PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpack))
+end
+
+--------------------------------------------------------------------------
+-- PARepair   repairPartialChatMode
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.repairPartialChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairPartialChatMode
+end
+
+function PAMenu_Functions.setFunc.PARepair.repairPartialChatMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairPartialChatMode = value
+end
+
+function PAMenu_Functions.disabled.PARepair.repairPartialChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled and (PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairEquipped or PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].repairBackpack))
+end
+
 
 -- =====================================================================================================================
 -- =====================================================================================================================

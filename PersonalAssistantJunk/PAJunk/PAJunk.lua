@@ -43,10 +43,10 @@ function PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         -- at lesat one item was sold (although it might have been worthless)
         if (moneyDiff > 0) then
             -- some valuable junk was sold
-            PAJ.println("PAJ_SoldJunkInfo", moneyDiff, PAC_ICON_GOLD)
+            PAJ.println("PAJ_SoldJunkInfo", moneyDiff)
         else
             -- only worthless junk was sold
-            PAJ.println("PAJ_SoldJunkInfo", moneyDiff, PAC_ICON_GOLD)
+            PAJ.println("PAJ_SoldJunkInfo", moneyDiff)
         end
     else
         -- no item was sold

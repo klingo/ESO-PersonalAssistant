@@ -21,11 +21,17 @@ ResourceBundle.de["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.de["PAG_Profile5"]                       = "Profil 5"
 
 
--- PARepair --
-ResourceBundle.de["PAR_FullRepair"]                     = PAC_COLTEXT_PAR.."Alle %s Gegenstände für %d %s repariert."
-ResourceBundle.de["PAR_PartialRepair"]                  = PAC_COLTEXT_PAR.."%d / %d %s Gegenstände für %d %s repariert. (Nicht genug Gold vorhanden)"
-ResourceBundle.de["PAR_NoGoldToRepair"]                 = PAC_COLTEXT_PAR.."Nicht genug Gold um %d %s Gegenstände zu reparieren."
-ResourceBundle.de["PAR_NoRepair"]                       = PAC_COLTEXT_PAR.."Nichts zu reparieren"
+-- PARepair Chat Output - Full Repair --
+
+
+
+
+
+-- PARepair Chat Output - Partial Repair --
+
+
+
+
 
 -- PABanking --
 ResourceBundle.de["PAB_GoldDepositet"]                  = PAC_COLTEXT_PAB.."%d %s eingelagert."
@@ -100,10 +106,10 @@ ResourceBundle.de["PARMenu_RepairBa"]                   = "Repariere Gegenständ
 ResourceBundle.de["PARMenu_RepairBa_T"]                 = "Sollen Gegenstäde die im Inventar sind repariert werden?"
 ResourceBundle.de["PARMenu_RepairBaDura"]               = "- Haltbarkeitsschwelle in %"
 ResourceBundle.de["PARMenu_RepairBaDura_T"]             = "Repariere Gegenstände im Inventar nur, wenn sie genau auf oder unter der definierten Haltbarkeitsschwelle sind."
-ResourceBundle.de["PARMenu_HideNoRepair"]               = "Blende 'Nichts zu reparieren' aus"
-ResourceBundle.de["PARMenu_HideNoRepair_T"]             = "Blendet die Meldung 'Nichts zu reparieren' aus. Angefallene Reparaturkosten werden jedoch weiterhin ausgegeben."
-ResourceBundle.de["PARMenu_HideAll"]                    = "Blende alle Repair Meldungen aus"
-ResourceBundle.de["PARMenu_HideAll_T"]                  = "Ruhe-Modus: Keine Repair Meldungen werden mehr angezeigt. Die Reparaturkosten werden auch nicht mehr ausgegeben."
+
+
+
+
 
 -- PABMenu --
 ResourceBundle.de["PABMenu_Header"]                     = PAC_COLTEXT_PAB

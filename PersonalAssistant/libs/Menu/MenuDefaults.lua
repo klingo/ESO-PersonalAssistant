@@ -19,6 +19,8 @@ PAMenu_Defaults.defaultSettings = {
         repairEquippedThreshold = 75,
         repairBackpack = false,
         repairBackpackThreshrold = 75,
+        repairFullChatMode = PA_OUTPUT_TYPE_NORMAL,
+        repairPartialChatMode = PA_OUTPUT_TYPE_NORMAL,
     },
     PABanking = {
         enabled = true,

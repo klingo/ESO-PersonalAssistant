@@ -1,7 +1,7 @@
 if ResourceBundle == nil then ResourceBundle = {} end
 if ResourceBundle.fr == nil then ResourceBundle.fr = {} end
 
--- Welcome Messages --                                -- Type '/pa' for GUI."
+-- Welcome Messages --                                  -- Type '/pa' for GUI."
 ResourceBundle.fr["Welcome_NoSupport"]                  = PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." at your service!   -   no localization for (%s) available yet."
 ResourceBundle.fr["Welcome_Support"]                    = PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." à votre service !"
 
@@ -21,11 +21,17 @@ ResourceBundle.fr["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.fr["PAG_Profile5"]                       = "Profil 5"
 
 
--- PARepair --
-ResourceBundle.fr["PAR_FullRepair"]                     = PAC_COLTEXT_PAR.."Tous les objets %s ont été réparés pour %d %s"
-ResourceBundle.fr["PAR_PartialRepair"]                  = PAC_COLTEXT_PAR.."%d / %d objets %s réparés pour %d %s. (Pas assez d'or)"
-ResourceBundle.fr["PAR_NoGoldToRepair"]                 = PAC_COLTEXT_PAR.."Pas assez d'or pour réparer les %d objets %s."
-ResourceBundle.fr["PAR_NoRepair"]                       = PAC_COLTEXT_PAR.."Rien à réparer."
+-- PARepair Chat Output - Full Repair --
+
+
+
+
+
+-- PARepair Chat Output - Partial Repair --
+
+
+
+
 
 -- PABanking --
 ResourceBundle.fr["PAB_GoldDepositet"]                  = PAC_COLTEXT_PAB.."%d %s déposées."
@@ -72,7 +78,7 @@ ResourceBundle.fr["PAB_ItemType_Inherit"]               = "Selon le type d'objet
 
 
 
-
+-- PAJunk --
 
 
 
@@ -100,10 +106,10 @@ ResourceBundle.fr["PARMenu_RepairBa"]                   = "Réparer les objets d
 ResourceBundle.fr["PARMenu_RepairBa_T"]                 = "Réparer les objets dans le sac à dos ?"
 ResourceBundle.fr["PARMenu_RepairBaDura"]               = "- Seuil de durabilité en %"
 ResourceBundle.fr["PARMenu_RepairBaDura_T"]             = "Réparer les objets dans le sac s'ils sont en-dessous du seuil de durabilité défini."
-ResourceBundle.fr["PARMenu_HideNoRepair"]               = "Masquer le message 'Rien à réparer'"
-ResourceBundle.fr["PARMenu_HideNoRepair_T"]             = "Masquer le message 'Rien à réparer'. Vous verrez toujours un message s'il y a quelque chose à réparer."
-ResourceBundle.fr["PARMenu_HideAll"]                    = "Masquer TOUS les messagesde réparation"
-ResourceBundle.fr["PARMenu_HideAll_T"]                  = "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas le coût de vos réparations." -- TODO: Update translation
+
+
+
+
 
 -- PABMenu --
 ResourceBundle.fr["PABMenu_Header"]                     = PAC_COLTEXT_PAB

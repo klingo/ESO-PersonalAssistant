@@ -21,11 +21,17 @@ ResourceBundle.en["PAG_Profile4"]                       = "Profile 4"
 ResourceBundle.en["PAG_Profile5"]                       = "Profile 5"
 ResourceBundle.en["PAG_PleaseSelectProfile"]            = "<Please select Profile>"
 
--- PARepair --
-ResourceBundle.en["PAR_FullRepair"]                     = PAC_COLTEXT_PAR.."All %s items repaired for %d %s"
-ResourceBundle.en["PAR_PartialRepair"]                  = PAC_COLTEXT_PAR.."%d / %d %s items repaired for %d %s. (not enough gold)"
-ResourceBundle.en["PAR_NoGoldToRepair"]                 = PAC_COLTEXT_PAR.."Not enough gold to repair %d %s items."
-ResourceBundle.en["PAR_NoRepair"]                       = PAC_COLTEXT_PAR.."Nothing to repair."
+-- PARepair Chat Output - Full Repair --
+ResourceBundle.en["PAR_FullRepair_ChatMode_None"]       = "<no output>"
+ResourceBundle.en["PAR_FullRepair_ChatMode_Min"]        = PAC_COL_RED.."- %d "..PAC_ICON_GOLD
+ResourceBundle.en["PAR_FullRepair_ChatMode_Normal"]     = PAC_COLTEXT_PAR..PAC_COL_RED.."- %d "..PAC_ICON_GOLD
+ResourceBundle.en["PAR_FullRepair_ChatMode_Full"]       = PAC_COLTEXT_PAR.."All %s items repaired for "..PAC_COL_RED.."- %d "..PAC_ICON_GOLD
+
+-- PARepair Chat Output - Partial Repair --
+ResourceBundle.en["PAR_PartialRepair_ChatMode_None"]    = "<no output>"
+ResourceBundle.en["PAR_PartialRepair_ChatMode_Min"]     = PAC_COL_RED.."- %d "..PAC_ICON_GOLD..PAC_COL_DEFAULT.." (%d "..PAC_ICON_GOLD..")"
+ResourceBundle.en["PAR_PartialRepair_ChatMode_Normal"]  = PAC_COLTEXT_PAR..PAC_COL_RED.."- %d "..PAC_ICON_GOLD..PAC_COL_DEFAULT.." (%d "..PAC_ICON_GOLD.." missing)"
+ResourceBundle.en["PAR_PartialRepair_ChatMode_Full"]    = PAC_COLTEXT_PAR.."%d / %d %s items repaired for "..PAC_COL_RED.."- %d "..PAC_ICON_GOLD..PAC_COL_DEFAULT.." (%d "..PAC_ICON_GOLD.." missing for full repair)"
 
 -- PABanking --
 ResourceBundle.en["PAB_GoldDepositet"]                  = PAC_COLTEXT_PAB.."%d %s deposited."
@@ -55,9 +61,9 @@ ResourceBundle.en["PAL_ItemType_LootDestroy_T"]         = PAC_COL_RED.."CAUTION:
 
 -- PALoot Chat Output - Loot Gold --
 ResourceBundle.en["PAL_Gold_ChatMode_None"]             = "<no output>"
-ResourceBundle.en["PAL_Gold_ChatMode_Min"]              = PAC_COL_DEFAULT.."%d "..PAC_ICON_GOLD
-ResourceBundle.en["PAL_Gold_ChatMode_Normal"]           = PAC_COLTEXT_PAL.."%d "..PAC_ICON_GOLD
-ResourceBundle.en["PAL_Gold_ChatMode_Full"]             = PAC_COLTEXT_PAL.."Looted %d "..PAC_ICON_GOLD.." Gold"
+ResourceBundle.en["PAL_Gold_ChatMode_Min"]              = PAC_COL_GREEN.."+ %d "..PAC_ICON_GOLD
+ResourceBundle.en["PAL_Gold_ChatMode_Normal"]           = PAC_COLTEXT_PAL..PAC_COL_GREEN.."+ %d "..PAC_ICON_GOLD
+ResourceBundle.en["PAL_Gold_ChatMode_Full"]             = PAC_COLTEXT_PAL.."Looted "..PAC_COL_GREEN.."+ %d "..PAC_ICON_GOLD..PAC_COL_DEFAULT.." Gold"
 
 -- PALoot Chat Output - Loot Items --
 ResourceBundle.en["PAL_Items_ChatMode_None"]            = "<no output>"
@@ -74,7 +80,7 @@ ResourceBundle.en["PAL_ItemsDestroy_DestroyFailed"]     = PAC_COLTEXT_PAL..PAC_C
 
 -- PAJunk --
 ResourceBundle.en["PAJ_MovedToJunk"]                    = PAC_COLTEXT_PAJ.."Moved %s to junk"
-ResourceBundle.en["PAJ_SoldJunkInfo"]                   = PAC_COLTEXT_PAJ.."Sold junk items for %d %s"
+ResourceBundle.en["PAJ_SoldJunkInfo"]                   = PAC_COLTEXT_PAJ.."Sold junk items for "..PAC_COL_GREEN.."%d "..PAC_ICON_GOLD
 
 -- MainMenu --
 ResourceBundle.en["MMenu_Title"]                        = PAC_COLTEXT_PA
@@ -100,10 +106,10 @@ ResourceBundle.en["PARMenu_RepairBa"]                   = "Repair backpack items
 ResourceBundle.en["PARMenu_RepairBa_T"]                 = "Repair items in you backpack?"
 ResourceBundle.en["PARMenu_RepairBaDura"]               = "- Durability threshold in %"
 ResourceBundle.en["PARMenu_RepairBaDura_T"]             = "Repair items in the backpack only if they are at or below the defined durability threshold."
-ResourceBundle.en["PARMenu_HideNoRepair"]               = "Hide 'Nothing to Repair' message"
-ResourceBundle.en["PARMenu_HideNoRepair_T"]             = "Hide 'Nothing to Repair' message. You will still see a message if there is something to repair."
-ResourceBundle.en["PARMenu_HideAll"]                    = "Hide ALL repair messages"
-ResourceBundle.en["PARMenu_HideAll_T"]                  = "Silent-Mode: No repair message will be displayed. You also won't see your repair cost."
+ResourceBundle.en["PARMenu_RepairFullChatMode"]         = "Chat Display of full repairs"
+ResourceBundle.en["PARMenu_RepairFullChatMode_T"]       = "How to display the information of a full repair in the chat window"
+ResourceBundle.en["PARMenu_RepairPartialChatMode"]      = "Chat Display of partial/incomplete repairs"
+ResourceBundle.en["PARMenu_RepairPartialChatMode_T"]    = "How to display the information of an incomplet or parcial repair 8i.e. due to insufficient gold) in the chat window"
 
 -- PABMenu --
 ResourceBundle.en["PABMenu_Header"]                     = PAC_COLTEXT_PAB

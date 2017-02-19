@@ -14,8 +14,6 @@ function PAR.initDefaults()
     -- default values for PARepair
     for profileNo = 1, PAG_MAX_PROFILES do
         PAR.Repair_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PARepair
-        PAR.Repair_Defaults[profileNo].hideNoRepairMsg = false  -- TODO: cleanup
-        PAR.Repair_Defaults[profileNo].hideAllMsg = false  -- TODO: cleanup
     end
 end
 

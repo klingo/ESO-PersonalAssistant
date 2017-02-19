@@ -146,28 +146,31 @@ function PA_SettingsMenu.createMainMenu()
             default = PAMenu_Defaults.defaultSettings.PARepair.repairBackpackThreshrold,
         })
 
-        -- TODO: Refactor the following menu entry
         optionsTable:insert({
-            type = "checkbox",
-            name = PALocale.getResourceMessage("PARMenu_HideNoRepair"),
-            tooltip = PALocale.getResourceMessage("PARMenu_HideNoRepair_T"),
-            getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].hideNoRepairMsg end,
-            setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].hideNoRepairMsg = value end,
+            type = "dropdown",
+            name = PALocale.getResourceMessage("PARMenu_RepairFullChatMode"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairFullChatMode_T"),
+            choices = PAMenu_Choices.choices.PARepair.repairFullChatMode,
+            choicesValues = PAMenu_Choices.choicesValues.PARepair.repairFullChatMode,
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairFullChatMode,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairFullChatMode,
             width = "half",
-            disabled = function() return not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled end,
-            default = false,
+            disabled = PAMenu_Functions.disabled.PARepair.repairFullChatMode,
+
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairFullChatMode,
         })
 
-        -- TODO: Refactor the following menu entry
         optionsTable:insert({
-            type = "checkbox",
-            name = PALocale.getResourceMessage("PARMenu_HideAll"),
-            tooltip = PALocale.getResourceMessage("PARMenu_HideAll_T"),
-            getFunc = function() return PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].hideAllMsg end,
-            setFunc = function(value) PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].hideAllMsg = value end,
+            type = "dropdown",
+            name = PALocale.getResourceMessage("PARMenu_RepairPartialChatMode"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairPartialChatMode_T"),
+            choices = PAMenu_Choices.choices.PARepair.repairPartialChatMode,
+            choicesValues = PAMenu_Choices.choicesValues.PARepair.repairPartialChatMode,
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairPartialChatMode,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairPartialChatMode,
             width = "half",
-            disabled = function() return not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].enabled end,
-            default = false,
+            disabled = PAMenu_Functions.disabled.PARepair.repairPartialChatMode,
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairPartialChatMode,
         })
     end
 
