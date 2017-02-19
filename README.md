@@ -25,7 +25,7 @@ tbd
   * http://www.esoui.com/forums/showthread.php?t=1944
 * Auto-Mark "more valuable" items as junk
 * Use Repair Kits for PARepair
-* Loot other currencies than gold
+* Loot other currencies than gold  
     ```lua
     GetLootCurrency(number CurrencyType type)  
     Returns: number unownedCurrency, number ownedCurrency
@@ -35,7 +35,7 @@ tbd
     CURT_ALLIANCE_POINTS
     CURT_TELVAR_STONES
     ```
-* Refactor PABanking regarding and inventory-loop
+* Refactor PABanking regarding and inventory-loop  
     ```lua
     local bagSlots = SHARED_INVENTORY:GetBagCache(BAG_BACKPACK)
     if bagSlots then
@@ -46,7 +46,7 @@ tbd
         end
     end
     ```
-* Refactor PABanking regarding Item Movement
+* Refactor PABanking regarding Item Movement  
     ```lua
     RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
     ```
