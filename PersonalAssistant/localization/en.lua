@@ -37,7 +37,6 @@ ResourceBundle.en["PAB_ItemNotMovedTo"]                 = PAC_COLTEXT_PAB.."%d x
 ResourceBundle.en["PAB_ItemMovedToFailed"]              = PAC_COLTEXT_PAB..PAC_COL_ORANGE.."FAILURE: %s could NOT be moved to %s."
 
 ResourceBundle.en["PAB_NoSpaceInFor"]                   = PAC_COLTEXT_PAB..PAC_COL_ORANGE.."Not enough space in %s for: %s."
-ResourceBundle.en["PAB_NoSpaceToOpen"]                  = PAC_COLTEXT_PAB.."Not enough space in %s to open %s."
 ResourceBundle.en["PAB_NoDeposit"]                      = PAC_COLTEXT_PAB.."Nothing to deposit."
 
 ResourceBundle.en["PAB_ItemType_None"]                  = "-"
@@ -168,24 +167,20 @@ ResourceBundle.en["PALMenu_LootItems_T"]                = "Automatically loot it
 ResourceBundle.en["PALMenu_LootItemsChatMode"]          = "Chat Display of Auto-Looted Items"
 ResourceBundle.en["PALMenu_LootItemsChatMode_T"]        = "How to display the information of looted items in the chat window"
 ResourceBundle.en["PALMenu_HarvestableItems"]           = "Harvestable items"
+ResourceBundle.en["PALMenu_HarvestableItems_T"]         = "Open the sub-menu to define for each harvestable item type whether it shall be auto-looted or not."
 ResourceBundle.en["PALMenu_HarvestableItemsDesc"]       = "Enable and disable auto-loot for harvestable items such as ores, herbs, woods, runestones, or fishing holes."
 ResourceBundle.en["PALMenu_HarvestableItems_Bait_Header"] = PAC_COL_LIGHT_BLUE.."BAIT HANDLING"
 ResourceBundle.en["PALMenu_HarvestableItems_Bait"]      = "Handling of [Bait] items"
 ResourceBundle.en["PALMenu_HarvestableItems_Bait_T"]    = "When looting harvestable items, sometimes there also is bait which prevents the node from re-spawning when not looted. Define here what should happen in such cases."
-ResourceBundle.en["PALMenu_HarvestableItems_T"]         = "Open the sub-menu to define for each harvestable item type whether it shall be auto-looted or not."
 ResourceBundle.en["PALMenu_HarvestableItems_Header"]    = PAC_COL_LIGHT_BLUE.."ITEM TYPES"
-ResourceBundle.en["PALMenu_LootableItemsDesc"]          = "Enable and disable auto-loot for lootable items such as clothing raw materials from animals."
 ResourceBundle.en["PALMenu_LootableItems"]              = "Lootable items"
 ResourceBundle.en["PALMenu_LootableItems_T"]            = "Open the sub-menu to define for each lootable item type whether it shall be auto-looted or not."
+ResourceBundle.en["PALMenu_LootableItemsDesc"]          = "Enable and disable auto-loot for lootable items such as clothing raw materials from animals."
 ResourceBundle.en["PALMenu_LootableItems_Header"]       = PAC_COL_LIGHT_BLUE.."ITEM TYPES"
 ResourceBundle.en["PALMenu_AutoLootAllButton"]          = "Auto-Loot all"
 ResourceBundle.en["PALMenu_AutoLootAllButton_T"]        = "Change all dropdown values to 'Auto-Loot'"
 ResourceBundle.en["PALMenu_IgnButton"]                  = "Ignore all"
 ResourceBundle.en["PALMenu_IgnButton_T"]                = "Change all dropdown values to 'Ignore'"
-ResourceBundle.en["PALMenu_HideItemLoot"]               = "Hide 'Item looted' message"
-ResourceBundle.en["PALMenu_HideItemLoot_T"]             = "Hide 'Item looted' message. You will no longer see which items were automatically looted."
-ResourceBundle.en["PALMenu_HideGoldLoot"]               = "Hide 'Gold looted' message"
-ResourceBundle.en["PALMenu_HideGoldLoot_T"]             = "Hide 'Gold looted' message. You will no longer see how much gold was automatically looted."
 
 -- PAJMenu --
 ResourceBundle.en["PAJMenu_Header"]                     = PAC_COLTEXT_PAJ

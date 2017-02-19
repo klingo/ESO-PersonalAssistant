@@ -37,7 +37,6 @@ ResourceBundle.de["PAB_ItemNotMovedTo"]                 = PAC_COLTEXT_PAB.."%d x
 ResourceBundle.de["PAB_ItemMovedToFailed"]              = PAC_COLTEXT_PAB..PAC_COL_ORANGE.."FEHLER: %s konnte NICHT in %s übertragen werden."
 
 ResourceBundle.de["PAB_NoSpaceInFor"]                   = PAC_COLTEXT_PAB..PAC_COL_ORANGE.."Nicht genug Platz in %s für: %s."
-ResourceBundle.de["PAB_NoSpaceToOpen"]                  = PAC_COLTEXT_PAB.."Nicht genug Platz in %s um %s zu öffnen."
 ResourceBundle.de["PAB_NoDeposit"]                      = PAC_COLTEXT_PAB.."Nichts zum Einlagern."
 
 ResourceBundle.de["PAB_ItemType_None"]                  = "-"
@@ -168,11 +167,11 @@ ResourceBundle.de["PALMenu_LootItems_T"]                = "Automatisches Plünde
 
 
 ResourceBundle.de["PALMenu_HarvestableItems"]           = "Erntbare Gegenstände"
+ResourceBundle.de["PALMenu_HarvestableItems_T"]         = "Öffnet das Untermenu um für erntbare Typen von Gegenständen das automatische Plündern zu de-/aktivieren."
 ResourceBundle.de["PALMenu_HarvestableItemsDesc"]       = "Aktiviere und deaktiviere das automatische Plündern von erntbaren Gegenständen wie Erzen, Kräutern, Hölzer, Runensteinen oder Fischgründen."
 
 
 
-ResourceBundle.de["PALMenu_HarvestableItems_T"]         = "Öffnet das Untermenu um für erntbare Typen von Gegenständen das automatische Plündern zu de-/aktivieren."
 ResourceBundle.de["PALMenu_HarvestableItems_Header"]    = PAC_COL_LIGHT_BLUE.."TYPEN VON GEGENSTÄNDEN"
 
 
@@ -182,10 +181,6 @@ ResourceBundle.de["PALMenu_AutoLootAllButton"]          = "Alles autom. Plünder
 ResourceBundle.de["PALMenu_AutoLootAllButton_T"]        = "Ändert alle Dropdown Werte zu 'Autom. Plündern'"
 ResourceBundle.de["PALMenu_IgnButton"]                  = "Alles ignorieren"
 ResourceBundle.de["PALMenu_IgnButton_T"]                = "Ändert alle Dropdown Werte zu  'Ignorieren'"
-ResourceBundle.de["PALMenu_HideItemLoot"]               = "Blende 'Gegenstand geplündert' Meldungen aus"
-ResourceBundle.de["PALMenu_HideItemLoot_T"]             = "Blendet die Meldung 'Gegenstand geplündert' aus. Die geplünderten Gegenstände werden nicht mehr ausgegeben."
-ResourceBundle.de["PALMenu_HideGoldLoot"]               = "Blende 'Gold geplündert' Meldungen aus"
-ResourceBundle.de["PALMenu_HideGoldLoot_T"]             = "Blendet die Meldung 'Gold geplündert' aus. Die Menge an geplündertem Gold wird nicht mehr ausgegeben."
 
 -- PAJMenu --
 ResourceBundle.de["PAJMenu_Header"]                     = PAC_COLTEXT_PAJ

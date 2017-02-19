@@ -37,7 +37,6 @@ ResourceBundle.fr["PAB_ItemNotMovedTo"]                 = PAC_COLTEXT_PAB.."%d x
 ResourceBundle.fr["PAB_ItemMovedToFailed"]              = PAC_COLTEXT_PAB..PAC_COL_ORANGE.."ÉCHEC : %s n'ont PAS pu être déplacés vers %s."
 
 ResourceBundle.fr["PAB_NoSpaceInFor"]                   = PAC_COLTEXT_PAB..PAC_COL_ORANGE.."Pas assez d'espace dans %s pour : %s."
-ResourceBundle.fr["PAB_NoSpaceToOpen"]                  = PAC_COLTEXT_PAB.."Pas assez d'espace dans %s pour ouvrir %s."
 ResourceBundle.fr["PAB_NoDeposit"]                      = PAC_COLTEXT_PAB.."Rien à déposer."
 
 ResourceBundle.fr["PAB_ItemType_None"]                  = "-"
@@ -157,10 +156,6 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]         = "Definir la quantité 
 
 -- PALMenu --
 ResourceBundle.en["PALMenu_Header"]                     = PAC_COLTEXT_PAL
-
-
-
-
 
 
 
