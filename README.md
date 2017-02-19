@@ -26,7 +26,7 @@ tbd
 * Auto-Mark "more valuable" items as junk
 * Use Repair Kits for PARepair
 * Loot other currencies than gold
-  * ```lua
+    ```lua
     GetLootCurrency(number CurrencyType type)  
     Returns: number unownedCurrency, number ownedCurrency
     ```
@@ -36,7 +36,7 @@ tbd
     CURT_TELVAR_STONES
     ```
 * Refactor PABanking regarding and inventory-loop
-  * ```lua
+    ```lua
     local bagSlots = SHARED_INVENTORY:GetBagCache(BAG_BACKPACK)
     if bagSlots then
         for index, data in pairs(bagSlots) do
@@ -47,7 +47,7 @@ tbd
     end
     ```
 * Refactor PABanking regarding Item Movement
-  * ```lua
+    ```lua
     RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
     ```
 * Add support for FCOItemSaver
