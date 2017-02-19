@@ -143,10 +143,12 @@ PALLootableItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 PALLootableItemTypes:insert(ITEMTYPE_INGREDIENT)
 -- Fishing
 PALLootableItemTypes:insert(ITEMTYPE_LURE)
+-- Others
+PALLootableItemTypes:insert(ITEMTYPE_TRASH)
 
 
 -- =====================================================================================================================
 -- = PA Junk
 -- =================================
 -- PersonalAssistant Junk ItemTypes
-PAJItemTypes = {}
+-- PAJItemTypes = {}
