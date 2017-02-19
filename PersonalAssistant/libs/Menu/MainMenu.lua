@@ -112,7 +112,7 @@ function PA_SettingsMenu.createMainMenu()
             name = PALocale.getResourceMessage("PARMenu_RepairEqDura"),
             tooltip = PALocale.getResourceMessage("PARMenu_RepairEqDura_T"),
             min = 0,
-            max = 100,
+            max = 99,
             step = 1,
             getFunc = PAMenu_Functions.getFunc.PARepair.repairEquippedThreshold,
             setFunc = PAMenu_Functions.setFunc.PARepair.repairEquippedThreshold,
@@ -137,7 +137,7 @@ function PA_SettingsMenu.createMainMenu()
             name = PALocale.getResourceMessage("PARMenu_RepairBaDura"),
             tooltip = PALocale.getResourceMessage("PARMenu_RepairBaDura_T"),
             min = 0,
-            max = 100,
+            max = 99,
             step = 1,
             getFunc = PAMenu_Functions.getFunc.PARepair.repairBackpackThreshrold,
             setFunc = PAMenu_Functions.setFunc.PARepair.repairBackpackThreshrold,
@@ -146,9 +146,30 @@ function PA_SettingsMenu.createMainMenu()
             default = PAMenu_Defaults.defaultSettings.PARepair.repairBackpackThreshrold,
         })
 
-        -- TODO: NON-VENDOR
-        -- use repairkits (after leaving combat)
-        -- yes/no, plus define threshold
+        optionsTable:insert({
+            type = "checkbox",
+            name = PALocale.getResourceMessage("PARMenu_RepairEqWithKit"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairEqWithKit_T"),
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairEquippedWithKit,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairEquippedWithKit,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PARepair.repairEquippedWithKit,
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairEquippedWithKit,
+        })
+
+        optionsTable:insert({
+            type = "slider",
+            name = PALocale.getResourceMessage("PARMenu_RepairEqWithKitDura"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairEqWithKitDura_T"),
+            min = 0,
+            max = 99,
+            step = 1,
+            getFunc = PAMenu_Functions.getFunc.PARepair.repairEquippedWithKitThreshold,
+            setFunc = PAMenu_Functions.setFunc.PARepair.repairEquippedWithKitThreshold,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PARepair.repairEquippedWithKitThreshold,
+            default = PAMenu_Defaults.defaultSettings.PARepair.repairEquippedWithKitThreshold,
+        })
 
         optionsTable:insert({
             type = "dropdown",
@@ -176,9 +197,36 @@ function PA_SettingsMenu.createMainMenu()
             default = PAMenu_Defaults.defaultSettings.PARepair.repairPartialChatMode,
         })
 
-        -- TODO: NON-VENDOR
-        -- use soul gems to recharge weapon (after leaving combat)
-        -- yes/no, plus define threshold
+        optionsTable:insert({
+            type = "header",
+            name = PALocale.getResourceMessage("PARMenu_ChargeWeapons_Header"),
+        })
+
+        optionsTable:insert({
+            type = "checkbox",
+            name = PALocale.getResourceMessage("PARMenu_ChargeWeapons"),
+            tooltip = PALocale.getResourceMessage("PARMenu_ChargeWeapons_T"),
+            getFunc = PAMenu_Functions.getFunc.PARepair.chargeWeapons,
+            setFunc = PAMenu_Functions.setFunc.PARepair.chargeWeapons,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PARepair.chargeWeapons,
+            default = PAMenu_Defaults.defaultSettings.PARepair.chargeWeapons,
+        })
+
+        optionsTable:insert({
+            type = "slider",
+            name = PALocale.getResourceMessage("PARMenu_ChargeWeaponsDura"),
+            tooltip = PALocale.getResourceMessage("PARMenu_ChargeWeaponsDura_T"),
+            min = 0,
+            max = 99,
+            step = 1,
+            getFunc = PAMenu_Functions.getFunc.PARepair.chargeWeaponsThreshold,
+            setFunc = PAMenu_Functions.setFunc.PARepair.chargeWeaponsThreshold,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PARepair.chargeWeaponsThreshold,
+            default = PAMenu_Defaults.defaultSettings.PARepair.chargeWeaponsThreshold,
+        })
+
     end
 
     -- =================================================================================================================
@@ -320,10 +368,10 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PABMenu_HideNoDeposit"),
             tooltip = PALocale.getResourceMessage("PABMenu_HideNoDeposit_T"),
-            getFunc = function() return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].hideNoDepositMsg end,
-            setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].hideNoDepositMsg = value end,
+            getFunc = function() return PA.savedVars.Banking[PA.activeProfile].hideNoDepositMsg end,
+            setFunc = function(value) PA.savedVars.Banking[PA.activeProfile].hideNoDepositMsg = value end,
             width = "half",
-            disabled = function() return not PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled end,
+            disabled = function() return not PA.savedVars.Banking[PA.activeProfile].enabled end,
             default = false,
         })
 
@@ -332,10 +380,10 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PABMenu_HideAll"),
             tooltip = PALocale.getResourceMessage("PABMenu_HideAll_T"),
-            getFunc = function() return PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].hideAllMsg end,
-            setFunc = function(value) PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].hideAllMsg = value end,
+            getFunc = function() return PA.savedVars.Banking[PA.activeProfile].hideAllMsg end,
+            setFunc = function(value) PA.savedVars.Banking[PA.activeProfile].hideAllMsg = value end,
             width = "half",
-            disabled = function() return not PA.savedVars.Banking[PA.savedVars.Profile.activeProfile].enabled end,
+            disabled = function() return not PA.savedVars.Banking[PA.activeProfile].enabled end,
             default = false,
         })
     end
@@ -475,9 +523,9 @@ function PA_SettingsMenu.createMainMenu()
             type = "checkbox",
             name = PALocale.getResourceMessage("PAJMenu_HideAll"),
             tooltip = PALocale.getResourceMessage("PAJMenu_HideAll_T"),
-            getFunc = function() return PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].hideAllMsg end,
-            setFunc = function(value) PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].hideAllMsg = value end,
-            disabled = function() return not PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].enabled end,
+            getFunc = function() return PA.savedVars.Junk[PA.activeProfile].hideAllMsg end,
+            setFunc = function(value) PA.savedVars.Junk[PA.activeProfile].hideAllMsg = value end,
+            disabled = function() return not PA.savedVars.Junk[PA.activeProfile].enabled end,
             default = false,
         })
     end

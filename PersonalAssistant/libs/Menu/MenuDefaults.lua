@@ -19,8 +19,12 @@ PAMenu_Defaults.defaultSettings = {
         repairEquippedThreshold = 75,
         repairBackpack = false,
         repairBackpackThreshrold = 75,
+        repairEquippedWithKit = false,
+        repairEquippedWithKitThreshold = 50,
         repairFullChatMode = PA_OUTPUT_TYPE_NORMAL,
         repairPartialChatMode = PA_OUTPUT_TYPE_NORMAL,
+        chargeWeapons = false,
+        chargeWeaponsThreshold = 10,
     },
     PABanking = {
         enabled = true,

@@ -13,6 +13,7 @@ if PA.savedVars.Junk                == nil then PA.savedVars.Junk               
 
 PA.AddonName = "PersonalAssistant"
 PA.AddonVersion = "2.0"
+PA.activeProfile = nil -- init with nil, is populated during [initAddon]
 
 -- to enable certain debug statements (ingame: /padebugon & /padebugoff)
 PA.debug = false
@@ -52,6 +53,9 @@ function PA.initAddon(_, addOnName)
 
     -- initialize language
     PA.savedVars.Profile.language = GetCVar("language.2") or "en"
+
+    -- get the active Profile
+    PA.activeProfile = PA.savedVars.Profile.activeProfile
 end
 
 
@@ -68,11 +72,10 @@ function PA.introduction()
     -- create the options with LAM-2
     PA_SettingsMenu.CreateOptions()
 
-    local activeProfile = PA.savedVars.Profile.activeProfile
-    if (activeProfile == nil) then
+    if (PA.activeProfile == nil) then
         PAHF.println("Welcome_PleaseSelectProfile")
     else
-        if PA.savedVars.General[activeProfile].welcome then
+        if PA.savedVars.General[PA.activeProfile].welcome then
             if PA.savedVars.Profile.language ~= "en" and PA.savedVars.Profile.language ~= "de" and PA.savedVars.Profile.language ~= "fr" then
                 PAHF.println("Welcome_NoSupport", GetCVar("language.2"))
             else

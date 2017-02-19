@@ -1,21 +1,19 @@
 MenuHelper = {}
 
 function MenuHelper.setPALHarvestDropdownsTo(itemTypeKey)
-    local activeProfile = PA.savedVars.Profile.activeProfile
     for i = 1, #PALHarvestableItemTypes do
         -- only if the itemType is enabled
         if PALHarvestableItemTypes[i] ~= "" then
-            PA.savedVars.Loot[activeProfile].HarvestableItemTypes[PALHarvestableItemTypes[i]] = itemTypeKey
+            PA.savedVars.Loot[PA.activeProfile].HarvestableItemTypes[PALHarvestableItemTypes[i]] = itemTypeKey
         end
     end
 end
 
 function MenuHelper.setPALLootDropdownsTo(itemTypeKey)
-    local activeProfile = PA.savedVars.Profile.activeProfile
     for i = 1, #PALLootableItemTypes do
         -- only if the itemType is enabled
         if PALLootableItemTypes[i] ~= "" then
-            PA.savedVars.Loot[activeProfile].LootableItemTypes[PALLootableItemTypes[i]] = itemTypeKey
+            PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[PALLootableItemTypes[i]] = itemTypeKey
         end
     end
 end
@@ -29,8 +27,7 @@ function MenuHelper.getProfileList()
         profiles[profileNo] = PA.savedVars.General[profileNo].name
     end
 
-    local activeProfile = PA.savedVars.Profile.activeProfile
-    if (activeProfile == nil) then
+    if (PA.savedVars.Profile.activeProfile == nil) then
         profiles[PAG_NO_PROFILE_SELECTED_ID] = PALocale.getResourceMessage("PAG_PleaseSelectProfile")
     end
 
@@ -43,8 +40,7 @@ function MenuHelper.getProfileListValues()
         profileValues[profileNo] = profileNo
     end
 
-    local activeProfile = PA.savedVars.Profile.activeProfile
-    if (activeProfile == nil) then
+    if (PA.savedVars.Profile.activeProfile == nil) then
         profileValues[PAG_NO_PROFILE_SELECTED_ID] = PAG_NO_PROFILE_SELECTED_ID
     end
 

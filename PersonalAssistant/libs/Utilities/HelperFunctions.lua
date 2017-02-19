@@ -8,6 +8,10 @@
 PAHF = {}
 PAHF_DEBUG = {}
 
+function PAHF.isPlayerDead()
+    return IsUnitDead("player")
+end
+
 -- returns a noun for the bagId
 function PAHF.getBagName(bagId)
     if (bagId == BAG_WORN) then

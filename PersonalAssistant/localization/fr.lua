@@ -111,6 +111,14 @@ ResourceBundle.fr["PARMenu_RepairBaDura_T"]             = "Réparer les objets d
 
 
 
+
+
+
+
+
+
+
+
 -- PABMenu --
 ResourceBundle.fr["PABMenu_Header"]                     = PAC_COLTEXT_PAB
 ResourceBundle.fr["PABMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Activer l'Auto Banking"

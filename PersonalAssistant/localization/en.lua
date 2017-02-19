@@ -106,10 +106,19 @@ ResourceBundle.en["PARMenu_RepairBa"]                   = "Repair backpack items
 ResourceBundle.en["PARMenu_RepairBa_T"]                 = "Repair items in you backpack?"
 ResourceBundle.en["PARMenu_RepairBaDura"]               = "- Durability threshold in %"
 ResourceBundle.en["PARMenu_RepairBaDura_T"]             = "Repair items in the backpack only if they are at or below the defined durability threshold."
+ResourceBundle.en["PARMenu_RepairEqWithKit"]            = "Use Repair Kits"
+ResourceBundle.en["PARMenu_RepairEqWithKit_T"]          = "Repair equipped items with repair kits when out in the field? (Common repair kits will be used before greater ones)"
+ResourceBundle.en["PARMenu_RepairEqWithKitDura"]        = "- Durability threshold in %"
+ResourceBundle.en["PARMenu_RepairEqWithKitDura_T"]      = "Equipped items will only be repaired with a repair kit when their durability is at or below the defined threshold"
 ResourceBundle.en["PARMenu_RepairFullChatMode"]         = "Chat Display of full repairs"
 ResourceBundle.en["PARMenu_RepairFullChatMode_T"]       = "How to display the information of a full repair in the chat window"
 ResourceBundle.en["PARMenu_RepairPartialChatMode"]      = "Chat Display of partial/incomplete repairs"
 ResourceBundle.en["PARMenu_RepairPartialChatMode_T"]    = "How to display the information of an incomplet or parcial repair 8i.e. due to insufficient gold) in the chat window"
+ResourceBundle.en["PARMenu_ChargeWeapons_Header"]       = "Re-Charge Weapons"
+ResourceBundle.en["PARMenu_ChargeWeapons"]              = "Re-Charge Weapons"
+ResourceBundle.en["PARMenu_ChargeWeapons_T"]            = "Re-Charge equipped weapons?"
+ResourceBundle.en["PARMenu_ChargeWeaponsDura"]          = "- Re-Charge threshold in %"
+ResourceBundle.en["PARMenu_ChargeWeaponsDura_T"]        = "Re-Charge equipped weapons when their charge level is at or below the defined threshold. (Lesser soul gems will be used before common ones)"
 
 -- PABMenu --
 ResourceBundle.en["PABMenu_Header"]                     = PAC_COLTEXT_PAB

@@ -12,7 +12,7 @@ PAL.alreadyLooting = false
 function PAL.OnReticleTargetChanged()
     if (PAHF.hasActiveProfile()) then
         -- check if addon is enabled
-        if PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].enabled then
+        if PA.savedVars.Loot[PA.activeProfile].enabled then
             local type = GetInteractionType()
             local active = IsPlayerInteractingWithObject()
 
@@ -62,12 +62,11 @@ end
 
 function PAL.OnLootUpdated()
     if (PAHF.hasActiveProfile()) then
-        local activeProfile = PA.savedVars.Profile.activeProfile
 
         -- check if addon is enabled
-        if PA.savedVars.Loot[activeProfile].enabled then
+        if PA.savedVars.Loot[PA.activeProfile].enabled then
             -- check if ItemLoot is enabled
-            if PA.savedVars.Loot[activeProfile].lootItemsEnabled then
+            if PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled then
                 -- get number of lootable items
                 local lootCount =  GetNumLootItems()
 
@@ -90,7 +89,7 @@ function PAL.OnLootUpdated()
                             -- check if the itemType is configured for auto-loot
                             if (PALHarvestableItemTypes[currItemType] == itemType) then
                                 -- then check if it is set to Auto-Loot
-                                if (PA.savedVars.Loot[activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
+                                if (PA.savedVars.Loot[PA.activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                     -- Loot the item
                                     LootItemById(lootId)
                                     itemLooted = true
@@ -123,7 +122,7 @@ function PAL.OnLootUpdated()
                             -- check if the itemType is configured for auto-loot
                             if (PALLootableItemTypes[currItemType] == itemType) then
                                 -- then check if it is set to Auto-Loot
-                                if (PA.savedVars.Loot[activeProfile].LootableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
+                                if (PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                     -- Loot the item
                                     LootItemById(lootId)
                                     itemLooted = true
@@ -138,7 +137,7 @@ function PAL.OnLootUpdated()
                     -- check if an item was looted
                     if (itemLooted) then
                         -- show output to chat (depending on setting)
-                        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsChatMode
+                        local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
                         if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString)
                         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString)
                         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString)
@@ -148,14 +147,14 @@ function PAL.OnLootUpdated()
             end
 
             -- check if GoldLoot is enabled
-            if PA.savedVars.Loot[activeProfile].lootGoldEnabled then
+            if PA.savedVars.Loot[PA.activeProfile].lootGoldEnabled then
                 -- is there even gold to loot?
                 local unownedMoney = GetLootMoney()
                 if (unownedMoney > 0) then
                     -- Loot the gold
                     LootMoney()
                     -- show output to chat (depending on setting)
-                    local lootGoldChatMode = PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootGoldChatMode
+                    local lootGoldChatMode = PA.savedVars.Loot[PA.activeProfile].lootGoldChatMode
                     if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Full"), unownedMoney)
                     elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Normal"), unownedMoney)
                     elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Min"), unownedMoney)
@@ -169,12 +168,11 @@ end
 
 function PAL.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
-        local activeProfile = PA.savedVars.Profile.activeProfile
 
         -- check if addon is enabled
-        if PA.savedVars.Loot[activeProfile].enabled then
+        if PA.savedVars.Loot[PA.activeProfile].enabled then
             -- check if ItemLoot is enabled
-            if PA.savedVars.Loot[activeProfile].lootItemsEnabled then
+            if PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled then
                 -- check if the updated happened in the backpack
                 if (bagId == BAG_BACKPACK) then
                     -- only proceed if the update was triggered while harvesting (i.e. not from looting chests, wasps, mobs, etc)
@@ -232,7 +230,7 @@ function PAL.DestroyNumOfItems(bagId, slotId, amountToDestroy)
 
     if (itemDestroyed) then
         PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
-        local lootItemsChatMode = PA.savedVars.Loot[PA.savedVars.Profile.activeProfile].lootItemsChatMode
+        local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
         if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Full"), amountToDestroy, itemLink, iconString)
         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Normal"), amountToDestroy, itemLink, iconString)
         elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Min"), amountToDestroy, iconString)

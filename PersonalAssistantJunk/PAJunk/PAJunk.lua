@@ -7,12 +7,11 @@
 
 function PAJ.OnShopOpen()
     if (PAHF.hasActiveProfile()) then
-        local activeProfile = PA.savedVars.Profile.activeProfile
 
         -- check if addon is enabled
-        if PA.savedVars.Junk[activeProfile].enabled then
+        if PA.savedVars.Junk[PA.activeProfile].enabled then
             -- check if auto-sell is enabled
-            if PA.savedVars.Junk[activeProfile].autoSellJunk then
+            if PA.savedVars.Junk[PA.activeProfile].autoSellJunk then
                 -- check if there is junk to sell (exclude stolen items = true)
                 if HasAnyJunk(BAG_BACKPACK, true) then
                     -- set processing flag to TRUE
@@ -64,10 +63,9 @@ end
 
 function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
-        local activeProfile = PA.savedVars.Profile.activeProfile
 
         -- check if addon is enabled
-        if PA.savedVars.Junk[activeProfile].enabled then
+        if PA.savedVars.Junk[PA.activeProfile].enabled then
 
             -- check if the updated happened in the backpack and if the item is new
             if ((bagId == BAG_BACKPACK) and (isNewItem)) then
@@ -79,7 +77,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
                     local markAsJunk = false
 
                     -- check if it is trash and if auto-flag-trash is enabled
-                    if ((itemType == ITEMTYPE_TRASH) and (PA.savedVars.Junk[activeProfile].autoMarkTrash)) then
+                    if ((itemType == ITEMTYPE_TRASH) and (PA.savedVars.Junk[PA.activeProfile].autoMarkTrash)) then
                         markAsJunk = true
                     end
 
@@ -105,7 +103,7 @@ end
 
 
 function PAJ.println(key, ...)
-    if (not PA.savedVars.Junk[PA.savedVars.Profile.activeProfile].hideAllMsg) then
+    if (not PA.savedVars.Junk[PA.activeProfile].hideAllMsg) then
         local args = {...}
         PAHF.println(key, unpack(args))
     end

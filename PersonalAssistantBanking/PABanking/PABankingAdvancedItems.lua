@@ -5,8 +5,6 @@ PAB_AdvancedItems = {}
 
 function PAB_AdvancedItems.DoAdvancedItemTransaction()
 
-    local activeProfile = PA.savedVars.Profile.activeProfile
-
     local movedAnything = false
 
     -- TODO: replace BACKPACK and BANK with FROM and TO
@@ -32,8 +30,8 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
         local checkItemId = transferList[transferIndex]
 
         transferInfo[checkItemId] = {}
-        transferInfo[checkItemId]["operator"] = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[transferIndex].Operator
-        transferInfo[checkItemId]["targetStackSize"] = PA.savedVars.Banking[activeProfile].ItemTypesAdvanced[transferIndex].Value
+        transferInfo[checkItemId]["operator"] = PA.savedVars.Banking[PA.activeProfile].ItemTypesAdvanced[transferIndex].Operator
+        transferInfo[checkItemId]["targetStackSize"] = PA.savedVars.Banking[PA.activeProfile].ItemTypesAdvanced[transferIndex].Value
 
         if (transferInfo[checkItemId]["operator"] ~= PAC_OPERATOR_NONE) then
             for currBackpackItem = 0, #backpackItemNameList do

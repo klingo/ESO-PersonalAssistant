@@ -34,6 +34,9 @@ function PAR.initAddon(_, addOnName)
 
     -- register PARepair (in correspondance with PAJunk)
     PAEM.RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAEM.EventOpenStore, "RepairJunkSharedEvent")
+
+    -- register PARepair for RepairKits and WeaponCharges
+    PAEM.RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.EventPlayerCombateState)
 end
 
 PAEM.RegisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED, PAR.initAddon)

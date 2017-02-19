@@ -12,7 +12,8 @@ PAEM.registeredIdentifierSet = {}
 -- global indicators of whether some processing is ongoing
 PAEM.isJunkProcessing = false
 
-------------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
+-- =====================================================================================================================
 
 function PAEM.RegisterForEvent(addonName, ESOevent, executableFunction, paIdentifier)
     -- create esoIdentifier based on module/addonName and ESO event
@@ -44,6 +45,8 @@ function PAEM.UnregisterForEvent(addonName, ESOevent, paIdentifier)
     PAEM.removeEventFromSet(esoIdentifier)
 end
 
+-- =====================================================================================================================
+-- =====================================================================================================================
 
 function PAEM.addEventToSet(key)
     PAEM.registeredIdentifierSet[key] = true
@@ -66,7 +69,8 @@ function PAEM.listAllEventsInSet()
     d("----------------------------------------------------")
 end
 
-------------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
+-- =====================================================================================================================
 
 --  Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
 function PAEM.EventOpenStore()
@@ -92,3 +96,4 @@ function PAEM.WaitForJunkProcessingToExecute(functionToExecute, firstCall)
         functionToExecute()
     end
 end
+
