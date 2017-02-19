@@ -5,9 +5,6 @@
 -- Time: 20:20
 --
 
--- TODO
--- - auto-mark "gold-coin" items as junk
-
 function PAJ.OnShopOpen()
     if (PAHF.hasActiveProfile()) then
         local activeProfile = PA.savedVars.Profile.activeProfile

@@ -1,14 +1,14 @@
 -- Addon: PersonalAssistant
 -- Developer: Klingo
 -- ---------------------------------------------------------------------------------------------------------------------
-if PA                                == nil then PA                                = {} end
-if PA.savedVars                        == nil then PA.savedVars                    = {} end
-if PA.savedVars.Profile                == nil then PA.savedVars.Profile            = {} end
-if PA.savedVars.General                == nil then PA.savedVars.General            = {} end
-if PA.savedVars.Repair                == nil then PA.savedVars.Repair                = {} end
-if PA.savedVars.Banking                == nil then PA.savedVars.Banking             = {} end
-if PA.savedVars.Banking.ItemTypes     == nil then PA.savedVars.Banking.ItemTypes    = {} end
-if PA.savedVars.Loot                == nil then PA.savedVars.Loot                 = {} end
+if PA                               == nil then PA                              = {} end
+if PA.savedVars                     == nil then PA.savedVars                    = {} end
+if PA.savedVars.Profile             == nil then PA.savedVars.Profile            = {} end
+if PA.savedVars.General             == nil then PA.savedVars.General            = {} end
+if PA.savedVars.Repair              == nil then PA.savedVars.Repair             = {} end
+if PA.savedVars.Banking             == nil then PA.savedVars.Banking            = {} end
+if PA.savedVars.Banking.ItemTypes   == nil then PA.savedVars.Banking.ItemTypes  = {} end
+if PA.savedVars.Loot                == nil then PA.savedVars.Loot               = {} end
 if PA.savedVars.Junk                == nil then PA.savedVars.Junk               = {} end
 
 PA.AddonName = "PersonalAssistant"
@@ -16,15 +16,6 @@ PA.AddonVersion = "2.0"
 
 -- to enable certain debug statements (ingame: /padebugon & /padebugoff)
 PA.debug = false
-
--- 1.3.3 fix
--- http://www.esoui.com/forums/showthread.php?t=2054
--- http://www.esoui.com/forums/showthread.php?t=1944
-
--- TODO:
--- Update Currency System: https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
--- Support Virtual Bags: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
--- Support Specialized Item Types: https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 
 -- init default values
 function PA.initDefaults()

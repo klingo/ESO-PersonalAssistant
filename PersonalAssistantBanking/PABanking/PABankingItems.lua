@@ -6,16 +6,6 @@ PAB_Items.queueSize = 0
 PAB_Items.loopCount = 0
 
 
--- TODO: REFACTORING TARGET
---local bagSlots = SHARED_INVENTORY:GetBagCache(BAG_BACKPACK)
---if bagSlots then
---    for index, data in pairs(bagSlots) do
---        -- data.stolen
---        -- data.isGemmable
---        -- itemLink = GetItemLink(BAG_BACKPACK, index)
---    end
---end
-
 function PAB_Items.DepositAndWithdrawItems(lastLoop)
     lastLoop = lastLoop or false
 
@@ -268,9 +258,6 @@ end
 
 -- actually moves the item
 function PAB_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
-
-    -- TODO: API 100009 --> replace with RequestMoveItem ???
-    -- RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
 
     local result = true
     -- clear the cursor first

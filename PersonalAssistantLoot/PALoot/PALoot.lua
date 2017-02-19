@@ -5,9 +5,6 @@
 -- Time: 20:00
 --
 
--- TODO
--- - loot raw material from mobs
-
 PAL.alreadyHarvesting = false
 PAL.alreadyFishing = false
 PAL.alreadyLooting = false
@@ -165,17 +162,6 @@ function PAL.OnLootUpdated()
                     end -- PA_OUTPUT_TYPE_NONE => no chat output
                 end
             end
-
-
-            -- TODO: Loot other currencies:
-            -- GetLootCurrency(number CurrencyType type)
-            -- Returns: number unownedCurrency, number ownedCurrency
-
-            -- LootCurrency(number CurrencyType type)
-
-            -- CURT_ALLIANCE_POINTS
-            -- CURT_TELVAR_STONES
-
         end
     end
 end
