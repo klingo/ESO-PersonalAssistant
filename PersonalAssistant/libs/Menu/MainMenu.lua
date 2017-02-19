@@ -146,6 +146,10 @@ function PA_SettingsMenu.createMainMenu()
             default = PAMenu_Defaults.defaultSettings.PARepair.repairBackpackThreshrold,
         })
 
+        -- TODO: NON-VENDOR
+        -- use repairkits (after leaving combat)
+        -- yes/no, plus define threshold
+
         optionsTable:insert({
             type = "dropdown",
             name = PALocale.getResourceMessage("PARMenu_RepairFullChatMode"),
@@ -156,7 +160,6 @@ function PA_SettingsMenu.createMainMenu()
             setFunc = PAMenu_Functions.setFunc.PARepair.repairFullChatMode,
             width = "half",
             disabled = PAMenu_Functions.disabled.PARepair.repairFullChatMode,
-
             default = PAMenu_Defaults.defaultSettings.PARepair.repairFullChatMode,
         })
 
@@ -172,6 +175,10 @@ function PA_SettingsMenu.createMainMenu()
             disabled = PAMenu_Functions.disabled.PARepair.repairPartialChatMode,
             default = PAMenu_Defaults.defaultSettings.PARepair.repairPartialChatMode,
         })
+
+        -- TODO: NON-VENDOR
+        -- use soul gems to recharge weapon (after leaving combat)
+        -- yes/no, plus define threshold
     end
 
     -- =================================================================================================================
