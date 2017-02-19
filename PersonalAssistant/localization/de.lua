@@ -73,8 +73,8 @@ ResourceBundle.de["PAL_ItemType_AutoLoot"]              = "Autom. Plündern"
 
 
 -- PAJunk --
-ResourceBundle.de["PAJ_MovedToJunk"]                    = PAC_COLTEXT_PAJ.."dePAJ_MovedToJunk %s" -- TODO: translate
-ResourceBundle.de["PAJ_SoldJunkInfo"]                   = PAC_COLTEXT_PAJ.."dePAJ_SoldJunkInfo %d %s" -- TODO: translate
+
+
 
 -- MainMenu --
 ResourceBundle.de["MMenu_Title"]                        = PAC_COLTEXT_PA
