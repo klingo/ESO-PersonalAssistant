@@ -78,10 +78,10 @@ ResourceBundle.fr["PAB_ItemType_Inherit"]               = "Selon le type d'objet
 
 
 -- MainMenu --
-ResourceBundle.fr["MMenu_Title"]                        = "|cFFD700P|rersonal|cFFD700A|rssistant"
+ResourceBundle.fr["MMenu_Title"]                        = PAC_COLTEXT_PA
 
 -- PAGMenu --
-ResourceBundle.fr["PAGMenu_Header"]                     = "|cFFD700PA G|réneral"
+ResourceBundle.fr["PAGMenu_Header"]                     = PAC_COLTEXT_PAG
 ResourceBundle.fr["PAGMenu_ActiveProfile"]              = "Profil actif"
 ResourceBundle.fr["PAGMenu_ActiveProfile_T"]            = "Sélectionner le profil à utiliser. Changer la sélection chargera automatiquement les paramètres. Les changements ci-dessous seront automatiquement sauvegardés dans le profil."
 ResourceBundle.fr["PAGMenu_ActiveProfileRename"]        = "Renommer profil actif"
@@ -90,8 +90,8 @@ ResourceBundle.fr["PAGMenu_Welcome"]                    = "Afficher le message d
 ResourceBundle.fr["PAGMenu_Welcome_T"]                  = "Afficher le message d'accueil de l'addon après un chargement réussi ?"
 
 -- PARMenu --
-ResourceBundle.fr["PARMenu_Header"]                     = "|cFFD700PA R|repair"
-ResourceBundle.fr["PARMenu_Enable"]                     = "|cB0B0FFActiver l'Auto Repair|r"
+ResourceBundle.fr["PARMenu_Header"]                     = PAC_COLTEXT_PAR
+ResourceBundle.fr["PARMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Activer l'Auto Repair"
 ResourceBundle.fr["PARMenu_Enable_T"]                   = "Activer la Réparation Automatique ?"
 ResourceBundle.fr["PARMenu_RepairEq"]                   = "Réparer les objets équipés"
 ResourceBundle.fr["PARMenu_RepairEq_T"]                 = "Réparer les objets équipés ?"
@@ -107,8 +107,8 @@ ResourceBundle.fr["PARMenu_HideAll"]                    = "Masquer TOUS les mess
 ResourceBundle.fr["PARMenu_HideAll_T"]                  = "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas le coût de vos réparations." -- TODO: Update translation
 
 -- PABMenu --
-ResourceBundle.fr["PABMenu_Header"]                     = "|cFFD700PA B|ranking"
-ResourceBundle.fr["PABMenu_Enable"]                     = "|cB0B0FFActiver l'Auto Banking|r"
+ResourceBundle.fr["PABMenu_Header"]                     = PAC_COLTEXT_PAB
+ResourceBundle.fr["PABMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Activer l'Auto Banking"
 ResourceBundle.fr["PABMenu_Enable_T"]                   = "Activer la dépose et le retrait automatique en banque ?"
 ResourceBundle.fr["PABMenu_EnabledGold"]                = "Déposer de l'or"
 ResourceBundle.fr["PABMenu_EnabledGold_T"]              = "Déposer automatiquement de l'or en banque ?"
@@ -156,7 +156,7 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack"]           = "Quantité à garder d
 ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]         = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
 
 -- PALMenu --
-
+ResourceBundle.en["PALMenu_Header"]                     = PAC_COLTEXT_PAL
 
 
 
@@ -188,7 +188,7 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]         = "Definir la quantité 
 
 
 -- PAJMenu --
-ResourceBundle.fr["PAJMenu_Header"]                     = "|cFFD700PA J|runk"
+ResourceBundle.fr["PAJMenu_Header"]                     = PAC_COLTEXT_PAJ
 
 
 

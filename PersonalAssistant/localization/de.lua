@@ -78,10 +78,10 @@ ResourceBundle.de["PAJ_MovedToJunk"]                    = PAC_COLTEXT_PAJ.."dePA
 ResourceBundle.de["PAJ_SoldJunkInfo"]                   = PAC_COLTEXT_PAJ.."dePAJ_SoldJunkInfo %d %s" -- TODO: translate
 
 -- MainMenu --
-ResourceBundle.de["MMenu_Title"]                        = "|cFFD700P|rersonal|cFFD700A|rssistant"
+ResourceBundle.de["MMenu_Title"]                        = PAC_COLTEXT_PA
 
 -- PAGMenu --
-ResourceBundle.de["PAGMenu_Header"]                     = "|cFFD700PA G|reneral"
+ResourceBundle.de["PAGMenu_Header"]                     = PAC_COLTEXT_PAG
 ResourceBundle.de["PAGMenu_ActiveProfile"]              = "Aktives Profil"
 ResourceBundle.de["PAGMenu_ActiveProfile_T"]            = "Wähle die Profil-Einstellungen welche verwendet werden sollen. Eine Änderung der Auswahl lädt auomtatisch dessen Einstellungen. Änderungen unten werden automatisch unter dem Profil abgespeichert."
 ResourceBundle.de["PAGMenu_ActiveProfileRename"]        = "Aktives Profil umbenennen"
@@ -90,8 +90,8 @@ ResourceBundle.de["PAGMenu_Welcome"]                    = "Zeige Wilkommensnachr
 ResourceBundle.de["PAGMenu_Welcome_T"]                  = "Soll eine Willkommensnachricht nach Starten des Addons angezeigt werden?"
 
 -- PARMenu --
-ResourceBundle.de["PARMenu_Header"]                     = "|cFFD700PA R|repair"
-ResourceBundle.de["PARMenu_Enable"]                     = "|cB0B0FFAktiviere automatische Reparatur|r"
+ResourceBundle.de["PARMenu_Header"]                     = PAC_COLTEXT_PAR
+ResourceBundle.de["PARMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Aktiviere automatische Reparatur"
 ResourceBundle.de["PARMenu_Enable_T"]                   = "Soll die automatische Reparatur aktiviert werden?"
 ResourceBundle.de["PARMenu_RepairEq"]                   = "Repariere ausgerüstete Gegenstände"
 ResourceBundle.de["PARMenu_RepairEq_T"]                 = "Sollen ausgerüstete Gegenstände repariert werden?"
@@ -107,8 +107,8 @@ ResourceBundle.de["PARMenu_HideAll"]                    = "Blende alle Repair Me
 ResourceBundle.de["PARMenu_HideAll_T"]                  = "Ruhe-Modus: Keine Repair Meldungen werden mehr angezeigt. Die Reparaturkosten werden auch nicht mehr ausgegeben."
 
 -- PABMenu --
-ResourceBundle.de["PABMenu_Header"]                     = "|cFFD700PA B|ranking"
-ResourceBundle.de["PABMenu_Enable"]                     = "|cB0B0FFAktiviere automatisches Banking|r"
+ResourceBundle.de["PABMenu_Header"]                     = PAC_COLTEXT_PAB
+ResourceBundle.de["PABMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Aktiviere automatisches Banking"
 ResourceBundle.de["PABMenu_Enable_T"]                   = "Aktiviere automatisches Einlagern in und Abheben von der Bank?"
 ResourceBundle.de["PABMenu_EnabledGold"]                = "Gold einlagen"
 ResourceBundle.de["PABMenu_EnabledGold_T"]              = "Soll automatisch Gold in die Truhe eingelagert werden?"
@@ -156,8 +156,8 @@ ResourceBundle.de["PABMenu_Keep_in_Backpack"]           = "Zielmenge im Inventar
 ResourceBundle.de["PABMenu_Keep_in_Backpack_T"]         = "Definiere die Menge welche unter Berücksichtigung des mathematischen Operators im Inventar behalten werden soll."
 
 -- PALMenu --
-ResourceBundle.de["PALMenu_Header"]                     = "|cFFD700PA L|root"
-ResourceBundle.de["PALMenu_Enable"]                     = "|cB0B0FFAktiviere automatisches Plündern|r"
+ResourceBundle.de["PALMenu_Header"]                     = PAC_COLTEXT_PAL
+ResourceBundle.de["PALMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Aktiviere automatisches Plündern"
 ResourceBundle.de["PALMenu_Enable_T"]                   = "Aktiviere automatisches Plündern?"
 ResourceBundle.de["PALMenu_LootGold"]                   = "Automatisch Gold plündern?"
 ResourceBundle.de["PALMenu_LootGold_T"]                 = "Automatisches Plündern von Gold?"
@@ -188,8 +188,8 @@ ResourceBundle.de["PALMenu_HideGoldLoot"]               = "Blende 'Gold geplünd
 ResourceBundle.de["PALMenu_HideGoldLoot_T"]             = "Blendet die Meldung 'Gold geplündert' aus. Die Menge an geplündertem Gold wird nicht mehr ausgegeben."
 
 -- PAJMenu --
-ResourceBundle.de["PAJMenu_Header"]                     = "|cFFD700PA J|runk"
-ResourceBundle.de["PAJMenu_Enable"]                     = "|cB0B0FFAktiviere Auto Trödel|r"
+ResourceBundle.de["PAJMenu_Header"]                     = PAC_COLTEXT_PAJ
+ResourceBundle.de["PAJMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Aktiviere Auto Trödel"
 ResourceBundle.de["PAJMenu_Enable_T"]                   = "Aktiviere automatischer Trödel?"
 ResourceBundle.de["PAJMenu_ItemTypeDesc"]               = "Aktiviere und deaktiviere das automatische als trödel Markieren von verschiedenen Gegenstandstypen."
 ResourceBundle.de["PAJMenu_AutoSellJunk"]               = "Automatisch Trödel verkaufen?"

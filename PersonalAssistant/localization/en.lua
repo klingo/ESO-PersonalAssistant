@@ -189,7 +189,7 @@ ResourceBundle.en["PALMenu_HideGoldLoot_T"]             = "Hide 'Gold looted' me
 
 -- PAJMenu --
 ResourceBundle.en["PAJMenu_Header"]                     = PAC_COLTEXT_PAJ
-ResourceBundle.en["PAJMenu_Enable"]                     = "|cB0B0FFEnable Auto Junk|r"
+ResourceBundle.en["PAJMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Enable Auto Junk"
 ResourceBundle.en["PAJMenu_Enable_T"]                   = "Enable Auto Junk?"
 ResourceBundle.en["PAJMenu_ItemTypeDesc"]               = "Enable and disable the automatic marking as junk for different item types."
 ResourceBundle.en["PAJMenu_AutoSellJunk"]               = "Auto-Sell Junk?"
