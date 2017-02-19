@@ -40,9 +40,9 @@ function PAB.initAddon(eventCode, addOnName)
 
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(PAB.AddonName, EVENT_ADD_ON_LOADED)
-	
-	-- initialize the default values
-	PAB.initDefaults()
+
+    -- initialize the default values
+    PAB.initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
     PA.savedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", 1, "Banking", PAB.Banking_Defaults)

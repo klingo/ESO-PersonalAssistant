@@ -23,16 +23,16 @@ local PALLootableItemSubmenuTable = setmetatable({}, { __index = table })
 
 function PA_SettingsMenu.CreateOptions()
 
-	-- create main- and submenus with LAM-2
+    -- create main- and submenus with LAM-2
     PA_SettingsMenu.createPABItemSubMenu()
     PA_SettingsMenu.createPABItemAdvancedSubMenu()
     PA_SettingsMenu.createPALHarvestableItemSubMenu()
     PA_SettingsMenu.createPALLootableItemSubMenu()
-	PA_SettingsMenu.createMainMenu()
+    PA_SettingsMenu.createMainMenu()
 
-	-- and register it
-	LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
-	LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
+    -- and register it
+    LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
+    LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
 end
 
 
@@ -56,23 +56,23 @@ function PA_SettingsMenu.createMainMenu()
     })
 
     optionsTable:insert({
-		type = "editbox",
-		name = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename"),
-		tooltip = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename_T"),
-		getFunc = PAMenu_Functions.getFunc.PAGeneral.activeProfileRename,
-		setFunc = PAMenu_Functions.setFunc.PAGeneral.activeProfileRename,
-		width = "half",
+        type = "editbox",
+        name = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename"),
+        tooltip = PALocale.getResourceMessage("PAGMenu_ActiveProfileRename_T"),
+        getFunc = PAMenu_Functions.getFunc.PAGeneral.activeProfileRename,
+        setFunc = PAMenu_Functions.setFunc.PAGeneral.activeProfileRename,
+        width = "half",
         disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
     })
 
     optionsTable:insert({
-		type = "checkbox",
-		name = PALocale.getResourceMessage("PAGMenu_Welcome"),
-		tooltip = PALocale.getResourceMessage("PAGMenu_Welcome_T"),
-		getFunc = PAMenu_Functions.getFunc.PAGeneral.welcomeMessage,
-		setFunc = PAMenu_Functions.setFunc.PAGeneral.welcomeMessage,
+        type = "checkbox",
+        name = PALocale.getResourceMessage("PAGMenu_Welcome"),
+        tooltip = PALocale.getResourceMessage("PAGMenu_Welcome_T"),
+        getFunc = PAMenu_Functions.getFunc.PAGeneral.welcomeMessage,
+        setFunc = PAMenu_Functions.setFunc.PAGeneral.welcomeMessage,
         disabled = PAMenu_Functions.disabled.PAGeneral.noProfileSelected,
-		default = PAMenu_Defaults.defaultSettings.PAGeneral.welcomeMessage,
+        default = PAMenu_Defaults.defaultSettings.PAGeneral.welcomeMessage,
     })
 
     -- =================================================================================================================

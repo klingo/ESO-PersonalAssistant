@@ -39,11 +39,11 @@ function PAL.initAddon(eventCode, addOnName)
 
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(PAL.AddonName, EVENT_ADD_ON_LOADED)
-	
-	-- initialize the default values
-	PAL.initDefaults()
 
-	-- gets values from SavedVars, or initialises with default values
+    -- initialize the default values
+    PAL.initDefaults()
+
+    -- gets values from SavedVars, or initialises with default values
     PA.savedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, "Loot", PAL.Loot_Defaults)
 
     -- register PALoot

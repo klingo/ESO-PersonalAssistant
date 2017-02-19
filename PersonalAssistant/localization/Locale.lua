@@ -3,9 +3,9 @@ PALocale = {}
 -- returns the localized text for a key
 function PALocale.getResourceMessage(key)
 
-	if (PA.savedVars.Profile.language == nil or PA.savedVars.Profile.language == "") then
-		PA.savedVars.Profile.language = GetCVar("language.2") or "en"
-	end
+    if (PA.savedVars.Profile.language == nil or PA.savedVars.Profile.language == "") then
+        PA.savedVars.Profile.language = GetCVar("language.2") or "en"
+    end
 
     -- init variable
     local labelMsg

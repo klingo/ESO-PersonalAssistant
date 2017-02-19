@@ -1,13 +1,13 @@
 MenuHelper = {}
 
 function MenuHelper.setPALHarvestDropdownsTo(itemTypeKey)
-	local activeProfile = PA.savedVars.Profile.activeProfile
-	for i = 1, #PALHarvestableItemTypes do
-		-- only if the itemType is enabled
-		if PALHarvestableItemTypes[i] ~= "" then
-			PA.savedVars.Loot[activeProfile].HarvestableItemTypes[PALHarvestableItemTypes[i]] = itemTypeKey
-		end
-	end
+    local activeProfile = PA.savedVars.Profile.activeProfile
+    for i = 1, #PALHarvestableItemTypes do
+        -- only if the itemType is enabled
+        if PALHarvestableItemTypes[i] ~= "" then
+            PA.savedVars.Loot[activeProfile].HarvestableItemTypes[PALHarvestableItemTypes[i]] = itemTypeKey
+        end
+    end
 end
 
 function MenuHelper.setPALLootDropdownsTo(itemTypeKey)
@@ -25,8 +25,8 @@ end
 
 function MenuHelper.getProfileList()
     local profiles = {}
-	for profileNo = 1, PAG_MAX_PROFILES do
-		profiles[profileNo] = PA.savedVars.General[profileNo].name
+    for profileNo = 1, PAG_MAX_PROFILES do
+        profiles[profileNo] = PA.savedVars.General[profileNo].name
     end
 
     local activeProfile = PA.savedVars.Profile.activeProfile
@@ -34,7 +34,7 @@ function MenuHelper.getProfileList()
         profiles[PAG_NO_PROFILE_SELECTED_ID] = PALocale.getResourceMessage("PAG_PleaseSelectProfile")
     end
 
-	return profiles
+    return profiles
 end
 
 function MenuHelper.getProfileListValues()
@@ -61,16 +61,16 @@ end
 -- --------------------------------------------------------------------------------------------------------
 
 function MenuHelper.getProfileTextFromNumber(number)
-	local profileNo = PA.savedVars.Profile.activeProfile
-	if (number ~= nil) then
-		profileNo = number
+    local profileNo = PA.savedVars.Profile.activeProfile
+    if (number ~= nil) then
+        profileNo = number
     end
 
     if (profileNo == nil) then
         return PALocale.getResourceMessage("PAG_PleaseSelectProfile")
     end
 
-	return PA.savedVars.General[profileNo].name
+    return PA.savedVars.General[profileNo].name
 end
 
 
@@ -87,17 +87,17 @@ end
 function MenuHelper.getDefaultProfileName(profileNo)
     if profileNo == 1 then
         return PALocale.getResourceMessage("PAG_Profile1")
-	elseif profileNo == 2 then
-		return PALocale.getResourceMessage("PAG_Profile2")
-	elseif profileNo == 3 then
-		return PALocale.getResourceMessage("PAG_Profile3")
-	elseif profileNo == 4 then
-		return PALocale.getResourceMessage("PAG_Profile4")
-	elseif profileNo == 5 then
-		return PALocale.getResourceMessage("PAG_Profile5")
-	else
-		return PALocale.getResourceMessage("PAG_PleaseSelectProfile")
-	end
+    elseif profileNo == 2 then
+        return PALocale.getResourceMessage("PAG_Profile2")
+    elseif profileNo == 3 then
+        return PALocale.getResourceMessage("PAG_Profile3")
+    elseif profileNo == 4 then
+        return PALocale.getResourceMessage("PAG_Profile4")
+    elseif profileNo == 5 then
+        return PALocale.getResourceMessage("PAG_Profile5")
+    else
+        return PALocale.getResourceMessage("PAG_PleaseSelectProfile")
+    end
 end
 
 -- --------------------------------------------------------------------------------------------------------

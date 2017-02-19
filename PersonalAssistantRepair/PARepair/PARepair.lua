@@ -34,73 +34,73 @@ end
 function PAR.RepairItems(bagId, threshold)
     local activeProfile = PA.savedVars.Profile.activeProfile
 
-	local bagSlots = GetBagSize(bagId)
-	local repairCost = 0
-	local missingGold = 0
-	local repairedItems = 0
-	local notRepairedItems = 0
-	local notRepairedItemsCost = 0
-	local currentMoney = GetCurrentMoney()
-	
-	-- loop through all items of the corresponding bagId
-	for slotIndex = 0, bagSlots - 1 do
-		-- check first if the item has durability (and therefore is repairable)
-		if DoesItemHaveDurability(bagId, slotIndex) then
-			-- then compare it with the threshold
-			if GetItemCondition(bagId, slotIndex) <= threshold then
-				local stackSize = GetSlotStackSize(bagId, slotIndex)
-				if stackSize > 0 then
-					-- get the repair cost for that item and repair if possible
-					local itemRepairCost = GetItemRepairCost(bagId, slotIndex)
-					if itemRepairCost > 0 then
-						if (itemRepairCost > GetCurrentMoney()) then
-							-- even though not enough money available, continue as maybe a cheaper item still can be repaired
-							notRepairedItems = notRepairedItems + stackSize
-							notRepairedItemsCost = notRepairedItemsCost + itemRepairCost
-						else
-							-- sum up the total repair costs
-							repairCost = repairCost + itemRepairCost;
-							repairedItems = repairedItems + stackSize
-							RepairItem(bagId, slotIndex)
-							-- it has to be manually calculated, as in the end the "GetCurrentMoney()" 
-							-- does not yet reflect the repairs that were just done
-							currentMoney = currentMoney - itemRepairCost
-						end
-					end
-				end
-			end
-		end
-	end
+    local bagSlots = GetBagSize(bagId)
+    local repairCost = 0
+    local missingGold = 0
+    local repairedItems = 0
+    local notRepairedItems = 0
+    local notRepairedItemsCost = 0
+    local currentMoney = GetCurrentMoney()
 
-	local bagName = PAHF.getBagNameAdjective(bagId)
+    -- loop through all items of the corresponding bagId
+    for slotIndex = 0, bagSlots - 1 do
+        -- check first if the item has durability (and therefore is repairable)
+        if DoesItemHaveDurability(bagId, slotIndex) then
+            -- then compare it with the threshold
+            if GetItemCondition(bagId, slotIndex) <= threshold then
+                local stackSize = GetSlotStackSize(bagId, slotIndex)
+                if stackSize > 0 then
+                    -- get the repair cost for that item and repair if possible
+                    local itemRepairCost = GetItemRepairCost(bagId, slotIndex)
+                    if itemRepairCost > 0 then
+                        if (itemRepairCost > GetCurrentMoney()) then
+                            -- even though not enough money available, continue as maybe a cheaper item still can be repaired
+                            notRepairedItems = notRepairedItems + stackSize
+                            notRepairedItemsCost = notRepairedItemsCost + itemRepairCost
+                        else
+                            -- sum up the total repair costs
+                            repairCost = repairCost + itemRepairCost;
+                            repairedItems = repairedItems + stackSize
+                            RepairItem(bagId, slotIndex)
+                            -- it has to be manually calculated, as in the end the "GetCurrentMoney()"
+                            -- does not yet reflect the repairs that were just done
+                            currentMoney = currentMoney - itemRepairCost
+                        end
+                    end
+                end
+            end
+        end
+    end
 
-	-- check if the msg-output shall be skipped
-	if PA.savedVars.Repair[activeProfile].hideAllMsg then return end
-	
-	if (notRepairedItemsCost > 0) then
-		missingGold = notRepairedItemsCost - currentMoney
-	end
-	
-	if repairedItems > 0 then
-		if notRepairedItems > 0 then
-			PAR.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost, PAC_ICON_GOLD, missingGold)
-		else
-			PAR.println("PAR_FullRepair", bagName, repairCost, PAC_ICON_GOLD)
-		end
-	else
-		if notRepairedItems > 0 then
-			PAR.println("PAR_NoGoldToRepair", notRepairedItems, bagName, missingGold)
-		else
-			if (not PA.savedVars.Repair[activeProfile].hideNoRepairMsg) then
-				PAR.println("PAR_NoRepair")
-			end
-		end
-	end
+    local bagName = PAHF.getBagNameAdjective(bagId)
+
+    -- check if the msg-output shall be skipped
+    if PA.savedVars.Repair[activeProfile].hideAllMsg then return end
+
+    if (notRepairedItemsCost > 0) then
+        missingGold = notRepairedItemsCost - currentMoney
+    end
+
+    if repairedItems > 0 then
+        if notRepairedItems > 0 then
+            PAR.println("PAR_PartialRepair", repairedItems, (repairedItems + notRepairedItems), bagName, repairCost, PAC_ICON_GOLD, missingGold)
+        else
+            PAR.println("PAR_FullRepair", bagName, repairCost, PAC_ICON_GOLD)
+        end
+    else
+        if notRepairedItems > 0 then
+            PAR.println("PAR_NoGoldToRepair", notRepairedItems, bagName, missingGold)
+        else
+            if (not PA.savedVars.Repair[activeProfile].hideNoRepairMsg) then
+                PAR.println("PAR_NoRepair")
+            end
+        end
+    end
 end
 
 function PAR.println(key, ...)
-	if (not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].hideAllMsg) then
-		local args = {...}
-		PAHF.println(key, unpack(args))
-	end
+    if (not PA.savedVars.Repair[PA.savedVars.Profile.activeProfile].hideAllMsg) then
+        local args = {...}
+        PAHF.println(key, unpack(args))
+    end
 end

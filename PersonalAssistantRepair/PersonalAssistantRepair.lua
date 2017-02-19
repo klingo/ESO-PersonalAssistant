@@ -27,14 +27,14 @@ function PAR.initAddon(eventCode, addOnName)
 
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED)
-	
-	-- initialize the default values
-	PAR.initDefaults()
 
-	-- gets values from SavedVars, or initialises with default values
-	PA.savedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", PAR.Repair_Defaults)
+    -- initialize the default values
+    PAR.initDefaults()
 
-	-- register PARepair (in correspondance with PAJunk)
+    -- gets values from SavedVars, or initialises with default values
+    PA.savedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", PAR.Repair_Defaults)
+
+    -- register PARepair (in correspondance with PAJunk)
     PAEM.RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAEM.EventOpenStore, "RepairJunkSharedEvent")
 end
 

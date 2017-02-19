@@ -23,9 +23,9 @@ PAG_NO_PROFILE_SELECTED_ID = PAG_MAX_PROFILES + 1
 PAB_DEPOSIT_MAX_LOOPS = 3
 
 -- PerstonalAssistant Banking - Stacking Types
-PAB_STACKING_FULL = 0		-- 0: Full depositing/withdrawl
-PAB_STACKING_CONTINUE = 1	-- 1: Continue existing stacks
-PAB_STACKING_INCOMPLETE = 2	-- 2: Complete existing stacks
+PAB_STACKING_FULL = 0           -- 0: Full depositing/withdrawl
+PAB_STACKING_CONTINUE = 1       -- 1: Continue existing stacks
+PAB_STACKING_INCOMPLETE = 2     -- 2: Complete existing stacks
 
 -- PersonalAssistant Loot
 PAL_TYPE_LOOT = 0

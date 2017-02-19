@@ -29,11 +29,11 @@ function PAJ.initAddon(eventCode, addOnName)
 
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_ADD_ON_LOADED)
-	
-	-- initialize the default values
+
+    -- initialize the default values
     PAJ.initDefaults()
 
-	-- gets values from SavedVars, or initialises with default values
+    -- gets values from SavedVars, or initialises with default values
     PA.savedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, "Junk", PAJ.Junk_Defaults)
 
     -- register PARepair (in correspondance with PAJunk)

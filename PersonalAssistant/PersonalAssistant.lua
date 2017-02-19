@@ -1,14 +1,14 @@
 -- Addon: PersonalAssistant
 -- Developer: Klingo
 -- ---------------------------------------------------------------------------------------------------------------------
-if PA						        == nil then PA					            = {} end
-if PA.savedVars						== nil then PA.savedVars					= {} end
-if PA.savedVars.Profile				== nil then PA.savedVars.Profile			= {} end
-if PA.savedVars.General				== nil then PA.savedVars.General			= {} end
-if PA.savedVars.Repair				== nil then PA.savedVars.Repair				= {} end
-if PA.savedVars.Banking				== nil then PA.savedVars.Banking 			= {} end
-if PA.savedVars.Banking.ItemTypes 	== nil then PA.savedVars.Banking.ItemTypes	= {} end
-if PA.savedVars.Loot				== nil then PA.savedVars.Loot 			    = {} end
+if PA                                == nil then PA                                = {} end
+if PA.savedVars                        == nil then PA.savedVars                    = {} end
+if PA.savedVars.Profile                == nil then PA.savedVars.Profile            = {} end
+if PA.savedVars.General                == nil then PA.savedVars.General            = {} end
+if PA.savedVars.Repair                == nil then PA.savedVars.Repair                = {} end
+if PA.savedVars.Banking                == nil then PA.savedVars.Banking             = {} end
+if PA.savedVars.Banking.ItemTypes     == nil then PA.savedVars.Banking.ItemTypes    = {} end
+if PA.savedVars.Loot                == nil then PA.savedVars.Loot                 = {} end
 if PA.savedVars.Junk                == nil then PA.savedVars.Junk               = {} end
 
 PA.AddonName = "PersonalAssistant"

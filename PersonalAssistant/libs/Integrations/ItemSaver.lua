@@ -9,9 +9,9 @@
 ItemSaver = {}
 
 function ItemSaver.isItemSaved(bagId, slotIndex)
-	local isItemSaverEnabled, isItemSaved = pcall(ItemSaver_IsItemSaved, bagId, slotIndex)
-	if (not isItemSaverEnabled or isItemSaved == nil) then
-		return false
-	end
-	return isItemSaved
+    local isItemSaverEnabled, isItemSaved = pcall(ItemSaver_IsItemSaved, bagId, slotIndex)
+    if (not isItemSaverEnabled or isItemSaved == nil) then
+        return false
+    end
+    return isItemSaved
 end
