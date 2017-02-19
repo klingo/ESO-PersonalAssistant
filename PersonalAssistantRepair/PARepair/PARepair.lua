@@ -14,54 +14,9 @@
 -- =====================================================================================================================
 -- =====================================================================================================================
 
-function PAR.OnShopOpen()
-    if (PAHF.hasActiveProfile()) then
-
-        -- check if addon is enabled
-        if PA.savedVars.Repair[PA.activeProfile].enabled then
-            -- early check if there is something to repair
-            if GetRepairAllCost() > 0 then
-                -- check if equipped items shall be repaired
-                if PA.savedVars.Repair[PA.activeProfile].repairEquipped then
-                    PAR.RepairItems(BAG_WORN, PA.savedVars.Repair[PA.activeProfile].repairEquippedThreshold, PA.activeProfile)
-                end
-                -- check if backpack items shall be repaired
-                if PA.savedVars.Repair[PA.activeProfile].repairBackpack then
-                    PAR.RepairItems(BAG_BACKPACK, PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold, PA.activeProfile)
-                end
-            end
-        end
-    end
-end
-
-
-function PAR.EventPlayerCombateState(_, inCombat)
-    if (PAHF.hasActiveProfile()) then
-        -- check if addon is enabled
-        if PA.savedVars.Repair[PA.activeProfile].enabled then
-            -- check if player is not dead
-            if not PAHF.isPlayerDead() then
-
-                -- Check and repair equipped items with repair kits
-                if PA.savedVars.Repair[PA.activeProfile].repairEquippedWithKit then
-                    PAR_Kit.RepairEquippedItemsWithKit()
-                end
-
-                -- Check and re-charged equipped weapons
-                if PA.savedVars.Repair[PA.activeProfile].chargeWeapons then
-                    PAR_Charge.ReChargeWeapons()
-                end
-            end
-        end
-    end
-end
-
--- =====================================================================================================================
--- =====================================================================================================================
-
 -- repair all items that are below the given threshold for the bag
-function PAR.RepairItems(bagId, threshold, activeProfile)
-    local bagCache = SHARED_INVENTORY:GetBagCache(bagId)
+local function RepairItems(bagId, threshold, activeProfile)
+    local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
     if (bagCache) then
         local repairCost = 0
         local repairedItems = 0
@@ -124,3 +79,49 @@ function PAR.RepairItems(bagId, threshold, activeProfile)
         end
     end
 end
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+function PAR.OnShopOpen()
+    if (PAHF.hasActiveProfile()) then
+
+        -- check if addon is enabled
+        if PA.savedVars.Repair[PA.activeProfile].enabled then
+            -- early check if there is something to repair
+            if GetRepairAllCost() > 0 then
+                -- check if equipped items shall be repaired
+                if PA.savedVars.Repair[PA.activeProfile].repairEquipped then
+                    RepairItems(BAG_WORN, PA.savedVars.Repair[PA.activeProfile].repairEquippedThreshold, PA.activeProfile)
+                end
+                -- check if backpack items shall be repaired
+                if PA.savedVars.Repair[PA.activeProfile].repairBackpack then
+                    RepairItems(BAG_BACKPACK, PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold, PA.activeProfile)
+                end
+            end
+        end
+    end
+end
+
+
+function PAR.EventPlayerCombateState(_, inCombat)
+    if (PAHF.hasActiveProfile()) then
+        -- check if addon is enabled
+        if PA.savedVars.Repair[PA.activeProfile].enabled then
+            -- check if player is not dead
+            if not PAHF.isPlayerDead() then
+
+                -- Check and repair equipped items with repair kits
+                if PA.savedVars.Repair[PA.activeProfile].repairEquippedWithKit then
+                    PAR_Kit.RepairEquippedItemsWithKit()
+                end
+
+                -- Check and re-charged equipped weapons
+                if PA.savedVars.Repair[PA.activeProfile].chargeWeapons then
+                    PAR_Charge.ReChargeWeapons()
+                end
+            end
+        end
+    end
+end
+

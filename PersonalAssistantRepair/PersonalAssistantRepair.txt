@@ -14,4 +14,6 @@
 PersonalAssistantRepair.lua
 
 # PARepair
+PARepair/PARepairCharge.lua
+PARepair/PARepairKit.lua
 PARepair/PARepair.lua

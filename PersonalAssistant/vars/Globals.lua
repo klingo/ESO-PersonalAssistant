@@ -67,6 +67,16 @@ PAC_ITEMID_LOCKPICK = 30357
 
 
 -- =====================================================================================================================
+-- = PA Repair
+-- =================================
+-- PersonalAssistant Repair WeaponSlots
+PARWeaponSlots = setmetatable({}, { __index = table })
+PARWeaponSlots:insert(EQUIP_SLOT_MAIN_HAND)
+PARWeaponSlots:insert(EQUIP_SLOT_OFF_HAND)
+PARWeaponSlots:insert(EQUIP_SLOT_BACKUP_MAIN)
+PARWeaponSlots:insert(EQUIP_SLOT_BACKUP_OFF)
+
+-- =====================================================================================================================
 -- = PA Banking
 -- =================================
 -- PersonalAssistant Banking ItemTypes
