@@ -35,7 +35,7 @@ end
 
 
 -- init saved variables and register Addon
-function PA.initAddon(eventCode, addOnName)
+function PA.initAddon(_, addOnName)
     if addOnName ~= PA.AddonName then
         return
     end

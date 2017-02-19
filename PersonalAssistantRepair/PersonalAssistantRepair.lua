@@ -20,7 +20,7 @@ function PAR.initDefaults()
 end
 
 -- init saved variables and register Addon
-function PAR.initAddon(eventCode, addOnName)
+function PAR.initAddon(_, addOnName)
     if addOnName ~= PAR.AddonName then
         return
     end

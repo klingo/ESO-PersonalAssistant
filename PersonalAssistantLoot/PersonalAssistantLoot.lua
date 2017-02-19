@@ -32,7 +32,7 @@ function PAL.initDefaults()
 end
 
 -- init saved variables and register Addon
-function PAL.initAddon(eventCode, addOnName)
+function PAL.initAddon(_, addOnName)
     if addOnName ~= PAL.AddonName then
         return
     end

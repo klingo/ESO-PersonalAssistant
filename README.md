@@ -53,6 +53,8 @@ tbd
 * Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
 * Add summary after PABanking completed
+* Check Singular/Plural formatting for HelperFunctions.lua
+  * http://www.esoui.com/forums/showthread.php?p=7988
 
 ***
 

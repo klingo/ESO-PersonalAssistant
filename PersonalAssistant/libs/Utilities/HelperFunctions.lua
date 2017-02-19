@@ -79,6 +79,4 @@ function PAHF.getFormattedText(text, ...)
         unpackedString = text
     end
     return unpackedString
-    -- check this out: Singular & plural form using the zo_strformat() function
-    -- http://www.esoui.com/forums/showthread.php?p=7988
 end

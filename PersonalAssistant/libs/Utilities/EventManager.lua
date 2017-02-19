@@ -68,7 +68,6 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------
 
-
 --  Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
 function PAEM.EventOpenStore()
 
@@ -83,8 +82,6 @@ function PAEM.EventOpenStore()
         PAEM.WaitForJunkProcessingToExecute(function() PAR.OnShopOpen() end, true)
     end
 end
-
-
 
 function PAEM.WaitForJunkProcessingToExecute(functionToExecute, firstCall)
     if (PAEM.isJunkProcessing or firstCall) then
