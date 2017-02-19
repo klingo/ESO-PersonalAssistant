@@ -5,6 +5,7 @@ if ResourceBundle.fr == nil then ResourceBundle.fr = {} end
 ResourceBundle.fr["Welcome_NoSupport"]                  = PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." at your service!   -   no localization for (%s) available yet."
 ResourceBundle.fr["Welcome_Support"]                    = PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." à votre service !"
 
+
 -- Key Bindings
 ResourceBundle.fr["KB_Load_Profile1"]                   = "Active profil 1"
 ResourceBundle.fr["KB_Load_Profile2"]                   = "Active profil 2"
@@ -18,6 +19,7 @@ ResourceBundle.fr["PAG_Profile2"]                       = "Profil 2"
 ResourceBundle.fr["PAG_Profile3"]                       = "Profil 3"
 ResourceBundle.fr["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.fr["PAG_Profile5"]                       = "Profil 5"
+
 
 -- PARepair --
 ResourceBundle.fr["PAR_FullRepair"]                     = PAC_COLTEXT_PAR.."Tous les objets %s ont été réparés pour %d %s"
@@ -48,6 +50,30 @@ ResourceBundle.fr["PAB_ItemType_Inherit"]               = "Selon le type d'objet
 
 
 -- PAJunk --
+
+
+
+
+-- PALoot Chat Output - Loot Gold --
+
+
+
+
+
+-- PALoot Chat Output - Loot Items --
+
+
+
+
+
+-- PALoot Chat Output - Loot Items Destroyed--
+
+
+
+
+
+
+
 
 
 
@@ -152,6 +178,15 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]         = "Definir la quantité 
 
 
 
+
+
+
+
+
+
+
+
+
 -- PAJMenu --
 ResourceBundle.fr["PAJMenu_Header"]                     = "|cFFD700PA J|runk"
 
@@ -220,7 +255,7 @@ ResourceBundle.fr[ITEMTYPE_GLYPH_WEAPON]                = "Glyphe d'arme (Enchan
 ResourceBundle.fr[ITEMTYPE_INGREDIENT]                  = "Ingrédient (Cuisine)"
 ResourceBundle.fr[ITEMTYPE_LOCKPICK]                    = "Crochetage"
 ResourceBundle.fr[ITEMTYPE_LURE]                        = "Appât"
---ResourceBundle.fr[ITEMTYPE_MASTER_WRIT]               = "frITEMTYPE_MASTER_WRIT"
+ResourceBundle.fr[ITEMTYPE_MASTER_WRIT]                 = "frITEMTYPE_MASTER_WRIT"
 ResourceBundle.fr[ITEMTYPE_MAX_VALUE]                   = "frITEMTYPE_MAX_VALUE"
 ResourceBundle.fr[ITEMTYPE_MIN_VALUE]                   = "frITEMTYPE_MIN_VALUE"
 ResourceBundle.fr[ITEMTYPE_MOUNT]                       = "frITEMTYPE_MOUNT"

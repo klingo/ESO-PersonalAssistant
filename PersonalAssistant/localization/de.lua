@@ -5,6 +5,7 @@ if ResourceBundle.de == nil then ResourceBundle.de = {} end
 ResourceBundle.de["Welcome_NoSupport"]                  = PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." zu Deinen Diensten!   -   (noch) keine Lokalisierung für (%s) vorhanden."
 ResourceBundle.de["Welcome_Support"]                    = PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."ersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"..PAC_COL_DEFAULT.." zu Deinen Diensten!"
 
+
 -- Key Bindings
 ResourceBundle.de["KB_Load_Profile1"]                   = "Aktiviere Profil 1"
 ResourceBundle.de["KB_Load_Profile2"]                   = "Aktiviere Profil 2"
@@ -18,6 +19,7 @@ ResourceBundle.de["PAG_Profile2"]                       = "Profil 2"
 ResourceBundle.de["PAG_Profile3"]                       = "Profil 3"
 ResourceBundle.de["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.de["PAG_Profile5"]                       = "Profil 5"
+
 
 -- PARepair --
 ResourceBundle.de["PAR_FullRepair"]                     = PAC_COLTEXT_PAR.."Alle %s Gegenstände für %d %s repariert."
@@ -44,7 +46,32 @@ ResourceBundle.de["PAB_ItemType_Withdrawal"]            = "Abheben"
 ResourceBundle.de["PAB_ItemType_Inherit"]               = "Abhängig vom Gegenstandstyp (unten)"
 
 -- PALoot --
+
 ResourceBundle.de["PAL_ItemType_AutoLoot"]              = "Autom. Plündern"
+
+
+
+
+
+
+-- PALoot Chat Output - Loot Gold --
+
+
+
+
+
+-- PALoot Chat Output - Loot Items --
+
+
+
+
+
+-- PALoot Chat Output - Loot Items Destroyed--
+
+
+
+
+
 
 -- PAJunk --
 ResourceBundle.de["PAJ_MovedToJunk"]                    = PAC_COLTEXT_PAJ.."dePAJ_MovedToJunk %s" -- TODO: translate
@@ -134,12 +161,23 @@ ResourceBundle.de["PALMenu_Enable"]                     = "|cB0B0FFAktiviere aut
 ResourceBundle.de["PALMenu_Enable_T"]                   = "Aktiviere automatisches Plündern?"
 ResourceBundle.de["PALMenu_LootGold"]                   = "Automatisch Gold plündern?"
 ResourceBundle.de["PALMenu_LootGold_T"]                 = "Automatisches Plündern von Gold?"
+
+
 ResourceBundle.de["PALMenu_LootItems"]                  = "Automatisch Gegenstände plündern"
 ResourceBundle.de["PALMenu_LootItems_T"]                = "Automatisches Plündern von Gegenständen?"
-ResourceBundle.de["PALMenu_HarvestableItemsDesc"]       = "Aktiviere und deaktiviere das automatische Plündern von erntbaren Gegenständen wie Erzen, Kräutern, Hölzer, Runensteinen oder Fischgründen."
+
+
 ResourceBundle.de["PALMenu_HarvestableItems"]           = "Erntbare Gegenstände"
+ResourceBundle.de["PALMenu_HarvestableItemsDesc"]       = "Aktiviere und deaktiviere das automatische Plündern von erntbaren Gegenständen wie Erzen, Kräutern, Hölzer, Runensteinen oder Fischgründen."
+
+
+
 ResourceBundle.de["PALMenu_HarvestableItems_T"]         = "Öffnet das Untermenu um für erntbare Typen von Gegenständen das automatische Plündern zu de-/aktivieren."
 ResourceBundle.de["PALMenu_HarvestableItems_Header"]    = PAC_COL_LIGHT_BLUE.."TYPEN VON GEGENSTÄNDEN"
+
+
+
+
 ResourceBundle.de["PALMenu_AutoLootAllButton"]          = "Alles autom. Plündern"
 ResourceBundle.de["PALMenu_AutoLootAllButton_T"]        = "Ändert alle Dropdown Werte zu 'Autom. Plündern'"
 ResourceBundle.de["PALMenu_IgnButton"]                  = "Alles ignorieren"
@@ -217,7 +255,7 @@ ResourceBundle.de[ITEMTYPE_GLYPH_WEAPON]                = "Waffenglyphe (Verzaub
 ResourceBundle.de[ITEMTYPE_INGREDIENT]                  = "Material (Versorgen)"
 ResourceBundle.de[ITEMTYPE_LOCKPICK]                    = "deITEMTYPE_LOCKPICK"
 ResourceBundle.de[ITEMTYPE_LURE]                        = "Köder"
---ResourceBundle.de[ITEMTYPE_MASTER_WRIT]               = "deITEMTYPE_MASTER_WRIT"
+ResourceBundle.de[ITEMTYPE_MASTER_WRIT]                 = "deITEMTYPE_MASTER_WRIT"
 ResourceBundle.de[ITEMTYPE_MAX_VALUE]                   = "deITEMTYPE_MAX_VALUE"
 ResourceBundle.de[ITEMTYPE_MIN_VALUE]                   = "deITEMTYPE_MIN_VALUE"
 ResourceBundle.de[ITEMTYPE_MOUNT]                       = "deITEMTYPE_MOUNT"

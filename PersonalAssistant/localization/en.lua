@@ -45,10 +45,6 @@ ResourceBundle.en["PAB_ItemType_Deposit"]               = "Deposit"
 ResourceBundle.en["PAB_ItemType_Withdrawal"]            = "Withdraw"
 ResourceBundle.en["PAB_ItemType_Inherit"]               = "Depending on item type (below)"
 
--- PABanking Chat Output - Gold Transaction --
-
--- PABanking Chat Output - Item Transaction --
-
 -- PALoot --
 ResourceBundle.en["PAL_ItemType_Ignore"]                = "Ignore"
 ResourceBundle.en["PAL_ItemType_AutoLoot"]              = "Auto-Loot"
@@ -259,7 +255,7 @@ ResourceBundle.en[ITEMTYPE_GLYPH_WEAPON]                = "Weapon Glyph (Enchant
 ResourceBundle.en[ITEMTYPE_INGREDIENT]                  = "Ingredient (Provisioning)"
 ResourceBundle.en[ITEMTYPE_LOCKPICK]                    = "enITEMTYPE_LOCKPICK"
 ResourceBundle.en[ITEMTYPE_LURE]                        = "Bait"
---ResourceBundle.en[ITEMTYPE_MASTER_WRIT]               = "enITEMTYPE_MASTER_WRIT"
+ResourceBundle.en[ITEMTYPE_MASTER_WRIT]                 = "enITEMTYPE_MASTER_WRIT"
 ResourceBundle.en[ITEMTYPE_MAX_VALUE]                   = "enITEMTYPE_MAX_VALUE"
 ResourceBundle.en[ITEMTYPE_MIN_VALUE]                   = "enITEMTYPE_MIN_VALUE"
 ResourceBundle.en[ITEMTYPE_MOUNT]                       = "enITEMTYPE_MOUNT"
