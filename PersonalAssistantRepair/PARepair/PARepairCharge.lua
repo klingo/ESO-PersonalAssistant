@@ -7,11 +7,6 @@
 
 PAR_Charge = {}
 
-local function round(num, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
-end
-
 local function GetSoulGemsIn(bagId)
     local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
     local gemTable = setmetatable({}, { __index = table })
@@ -47,7 +42,7 @@ function PAR_Charge.ReChargeWeapons()
         -- based on the list of chargeable slots, check which ones really need to be charged
         for _, weaponSlot in pairs(PARWeaponSlots) do
             local charges, maxCharges = GetChargeInfoForItem(BAG_WORN, weaponSlot)
-            local chargePerc = round(1 / maxCharges * charges, 2)
+            local chargePerc = PAHF.round(1 / maxCharges * charges, 2)
 
 --            d(GetItemName(BAG_WORN, weaponSlot).. " is on "..tostring(chargePerc * 100).." and trehshold is set at "..tostring(chargeThreshold))
 

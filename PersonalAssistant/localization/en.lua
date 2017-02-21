@@ -34,9 +34,9 @@ ResourceBundle.en["PAR_PartialRepair_ChatMode_Normal"]  = PAC_COLTEXT_PAR..PAC_C
 ResourceBundle.en["PAR_PartialRepair_ChatMode_Full"]    = PAC_COLTEXT_PAR.."%d / %d %s items repaired for "..PAC_COL_RED.."- %d "..PAC_ICON_GOLD..PAC_COL_DEFAULT.." (%d "..PAC_ICON_GOLD.." missing for full repair)"
 
 -- PABanking --
-ResourceBundle.en["PAB_GoldDepositet"]                  = PAC_COLTEXT_PAB.."%d %s deposited."
-ResourceBundle.en["PAB_GoldWithdrawn"]                  = PAC_COLTEXT_PAB.."%d %s withdrawn."
-ResourceBundle.en["PAB_GoldWithdrawnInsufficient"]      = PAC_COLTEXT_PAB.."%d / %d %s withdrawn. (not enough gold in bank!)"
+ResourceBundle.en["PAB_GoldDeposited"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." deposited."
+ResourceBundle.en["PAB_GoldWithdrawn"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." withdrawn."
+ResourceBundle.en["PAB_GoldWithdrawnInsufficient"]      = PAC_COLTEXT_PAB.."%d / %d "..PAC_ICON_GOLD.." withdrawn. (not enough gold in bank!)"
 
 ResourceBundle.en["PAB_ItemMovedTo"]                    = PAC_COLTEXT_PAB.."%d x %s moved to %s."
 ResourceBundle.en["PAB_ItemNotMovedTo"]                 = PAC_COLTEXT_PAB.."%d x %s NOT moved to %s."

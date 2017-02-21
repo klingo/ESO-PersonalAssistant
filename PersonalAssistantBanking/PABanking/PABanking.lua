@@ -4,6 +4,7 @@
 PAB.isBankClosed = true
 
 function PAB.OnBankOpen()
+
     if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
@@ -17,19 +18,22 @@ function PAB.OnBankOpen()
 
             -- check if gold deposit is enabled
             if PA.savedVars.Banking[PA.activeProfile].enabledGold then
-                -- check for numeric value, if not, use default value of 0
-                local goldMinToKeep = 0
+                -- trigger the deposit and withdrawal of gold
+                PAB_Gold.DepositWithdrawGold()
 
-                if tonumber(PA.savedVars.Banking[PA.activeProfile].goldMinToKeep) ~= nil then
-                    goldMinToKeep = PA.savedVars.Banking[PA.activeProfile].goldMinToKeep
-                end
-
-                -- check if minim amount of gold to keep is exceeded
-                if (GetCurrentMoney() > goldMinToKeep) then
-                    goldTransaction = PAB_Gold.DepositGold(goldMinToKeep)
-                elseif (PA.savedVars.Banking[PA.activeProfile].withdrawToMinGold) then
-                    goldTransaction = PAB_Gold.WithdrawGold(goldMinToKeep)
-                end
+--                -- check for numeric value, if not, use default value of 0
+--                local goldMinToKeep = 0
+--
+--                if tonumber(PA.savedVars.Banking[PA.activeProfile].goldMinToKeep) ~= nil then
+--                    goldMinToKeep = PA.savedVars.Banking[PA.activeProfile].goldMinToKeep
+--                end
+--
+--                -- check if minim amount of gold to keep is exceeded
+--                if (GetCurrentMoney() > goldMinToKeep) then
+--                    goldTransaction = PAB_Gold.DepositGold(goldMinToKeep)
+--                elseif (PA.savedVars.Banking[PA.activeProfile].withdrawToMinGold) then
+--                    goldTransaction = PAB_Gold.WithdrawGold(goldMinToKeep)
+--                end
             end
 
             -- check if item deposit is enabled
@@ -42,7 +46,7 @@ function PAB.OnBankOpen()
             -- FIXME2: it especially does not work with the advanced item types
             if (not goldTransaction) and (not itemTransaction) then
                 if (not PA.savedVars.Banking[PA.activeProfile].hideNoDepositMsg) then
-                    PAB.println("PAB_NoDeposit")
+                    PAHF.println("PAB_NoDeposit")
                 end
             end
         end
@@ -52,11 +56,4 @@ end
 function PAB.OnBankClose()
     -- set the global variable to 'true' so the bankClosing can be detected
     PAB.isBankClosed = true
-end
-
-function PAB.println(key, ...)
-    if (not PA.savedVars.Banking[PA.activeProfile].hideAllMsg) then
-        local args = {...}
-        PAHF.println(key, unpack(args))
-    end
 end

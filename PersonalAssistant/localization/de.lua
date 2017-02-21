@@ -34,9 +34,9 @@ ResourceBundle.de["PAG_Profile5"]                       = "Profil 5"
 
 
 -- PABanking --
-ResourceBundle.de["PAB_GoldDepositet"]                  = PAC_COLTEXT_PAB.."%d %s eingelagert."
-ResourceBundle.de["PAB_GoldWithdrawn"]                  = PAC_COLTEXT_PAB.."%d %s abgehoben."
-ResourceBundle.de["PAB_GoldWithdrawnInsufficient"]      = PAC_COLTEXT_PAB.."%d / %d %s abgehoben. (Nicht genug Gold in Truhe)"
+ResourceBundle.de["PAB_GoldDeposited"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." eingelagert."
+ResourceBundle.de["PAB_GoldWithdrawn"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." abgehoben."
+ResourceBundle.de["PAB_GoldWithdrawnInsufficient"]      = PAC_COLTEXT_PAB.."%d / %d "..PAC_ICON_GOLD.." abgehoben. (Nicht genug Gold in Truhe)"
 
 ResourceBundle.de["PAB_ItemMovedTo"]                    = PAC_COLTEXT_PAB.."%d x %s wurde in %s übertragen."
 ResourceBundle.de["PAB_ItemNotMovedTo"]                 = PAC_COLTEXT_PAB.."%d x %s wurde NICHT in %s übertragen."

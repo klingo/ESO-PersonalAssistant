@@ -34,9 +34,9 @@ ResourceBundle.fr["PAG_Profile5"]                       = "Profil 5"
 
 
 -- PABanking --
-ResourceBundle.fr["PAB_GoldDepositet"]                  = PAC_COLTEXT_PAB.."%d %s déposées."
-ResourceBundle.fr["PAB_GoldWithdrawn"]                  = PAC_COLTEXT_PAB.."%d %s retirées."
-ResourceBundle.fr["PAB_GoldWithdrawnInsufficient"]      = PAC_COLTEXT_PAB.."%d / %d %s retirées. (Pas assez en banque !)"
+ResourceBundle.fr["PAB_GoldDeposited"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." déposées."
+ResourceBundle.fr["PAB_GoldWithdrawn"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." retirées."
+ResourceBundle.fr["PAB_GoldWithdrawnInsufficient"]      = PAC_COLTEXT_PAB.."%d / %d "..PAC_ICON_GOLD.." retirées. (Pas assez en banque !)"
 
 ResourceBundle.fr["PAB_ItemMovedTo"]                    = PAC_COLTEXT_PAB.."%d x %s déplacés vers %s."
 ResourceBundle.fr["PAB_ItemNotMovedTo"]                 = PAC_COLTEXT_PAB.."%d x %s n'ont PAS été déplacés vers %s."
