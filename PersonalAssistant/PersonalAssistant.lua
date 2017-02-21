@@ -19,7 +19,7 @@ PA.activeProfile = nil -- init with nil, is populated during [initAddon]
 PA.debug = false
 
 -- init default values
-function PA.initDefaults()
+local function initDefaults()
     -- initialize the multi-profile structure
     PA.General_Defaults = {}
     -- -----------------------------------------------------
@@ -36,7 +36,7 @@ end
 
 
 -- init saved variables and register Addon
-function PA.initAddon(_, addOnName)
+local function initAddon(_, addOnName)
     if addOnName ~= PA.AddonName then
         return
     end
@@ -45,7 +45,7 @@ function PA.initAddon(_, addOnName)
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED)
 
     -- initialize the default values
-    PA.initDefaults()
+    initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
     PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
@@ -60,7 +60,7 @@ end
 
 
 -- introduces the addon to the player
-function PA.introduction()
+local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
     SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
     SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
@@ -85,11 +85,11 @@ function PA.introduction()
     end
 end
 
-PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, PA.initAddon)
-PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PA.introduction)
+PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon)
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction)
 
 
--- ========================================================================================================================
+-- =====================================================================================================================
 -- Dev-Debug --
 function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6, itemSoundCategory)
     if (PA.debug) then
