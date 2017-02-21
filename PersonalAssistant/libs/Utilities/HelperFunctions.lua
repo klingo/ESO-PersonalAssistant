@@ -13,6 +13,16 @@ function PAHF.round(num, numDecimalPlaces)
     return math.floor(num * mult + 0.5) / mult
 end
 
+function PAHF.roundDown(num)
+    if (num > 0) then
+        return math.floor(num)
+    elseif (num < 0) then
+        return math.ceil(num)
+    else
+        return num
+    end
+end
+
 function PAHF.isPlayerDead()
     return IsUnitDead("player")
 end

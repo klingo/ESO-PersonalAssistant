@@ -263,30 +263,6 @@ function PA_SettingsMenu.createMainMenu()
         -- enabledGoldChatMode
 
         optionsTable:insert({
-            type = "editbox",
-            name = PALocale.getResourceMessage("PABMenu_DepositInterval"),
-            tooltip = PALocale.getResourceMessage("PABMenu_DepositInterval_T"),
-            getFunc = PAMenu_Functions.getFunc.PABanking.goldDepositInterval,
-            setFunc = PAMenu_Functions.setFunc.PABanking.goldDepositInterval,
-            disabled = PAMenu_Functions.disabled.PABanking.goldDepositInterval,
-            warning = PALocale.getResourceMessage("PABMenu_DepositInterval_W"),
-            default = PAMenu_Defaults.defaultSettings.PABanking.goldDepositInterval,
-        })
-
-        optionsTable:insert({
-            type = "slider",
-            name = PALocale.getResourceMessage("PABMenu_DepositGoldPerc"),
-            tooltip = PALocale.getResourceMessage("PABMenu_DepositGoldPerc_T"),
-            min = 1,
-            max = 100,
-            step = 1,
-            getFunc = PAMenu_Functions.getFunc.PABanking.goldDepositPercentage,
-            setFunc = PAMenu_Functions.setFunc.PABanking.goldDepositPercentage,
-            disabled = PAMenu_Functions.disabled.PABanking.goldDepositPercentage,
-            default = PAMenu_Defaults.defaultSettings.PABanking.goldDepositPercentage,
-        })
-
-        optionsTable:insert({
             type = "dropdown",
             name = PALocale.getResourceMessage("PABMenu_GoldTransactionStep"),
             tooltip = PALocale.getResourceMessage("PABMenu_GoldTransactionStep_T"),

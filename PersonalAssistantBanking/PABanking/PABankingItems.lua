@@ -26,7 +26,8 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
     local itemsWithdrawn = PAB_Items.DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
 
     -- then we can deposit the advanced items to the bank
-    local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
+-- TODO: TEMPORARILY DISABLED !!!!!
+--    local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
 
 --    while (itemsAdvancedDepositedWithdrawn == nil) do
         -- do nothing; wait

@@ -125,11 +125,7 @@ ResourceBundle.de["PABMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."A
 ResourceBundle.de["PABMenu_Enable_T"]                   = "Aktiviere automatisches Einlagern in und Abheben von der Bank?"
 ResourceBundle.de["PABMenu_EnabledGold"]                = "Gold einlagen"
 ResourceBundle.de["PABMenu_EnabledGold_T"]              = "Soll automatisch Gold in die Truhe eingelagert werden?"
-ResourceBundle.de["PABMenu_DepositInterval"]            = "- Min. Abstand zw. Einlagerungen (Sek)"
-ResourceBundle.de["PABMenu_DepositInterval_T"]          = "Mindestabstand in Sekunden zwischen zwei automatischen Einlagerungen."
-ResourceBundle.de["PABMenu_DepositInterval_W"]          = "Ungültige Eingabe --> Kein Mindestabstand ziwschen EInlagerungen."
-ResourceBundle.de["PABMenu_DepositGoldPerc"]            = "- Einzulagerndes Gold in %"
-ResourceBundle.de["PABMenu_DepositGoldPerc_T"]          = "Maximalmenge in Prozent vom aktuellen Gold das eingelagert werden soll."
+
 ResourceBundle.de["PABMenu_GoldTransactionStep"]        = "- Gold Transaktionen in Schritten von"
 ResourceBundle.de["PABMenu_GoldTransactionStep_T"]      = "In welchen Schritten soll Gold eingelagert und abgehoben werden?"
 ResourceBundle.de["PABMenu_GoldMinToKeep"]              = "- Min. Gold im Inventar behalten"
