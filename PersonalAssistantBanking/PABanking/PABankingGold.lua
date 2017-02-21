@@ -24,8 +24,6 @@ local function getGoldChangeAmount(currAmount, targetMinimum, transactionStep)
         currMoneyKeepDiff = currMoneyKeepDiff * transactionStep
     end
 
-    d("currAmount="..tostring(currAmount).."   targetMinimum="..tostring(targetMinimum).."   transactionStep="..tostring(transactionStep).."      --> "..tostring(currMoneyKeepDiff))
-
     return currMoneyKeepDiff
 end
 
