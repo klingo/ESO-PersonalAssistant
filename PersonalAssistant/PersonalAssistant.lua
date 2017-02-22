@@ -75,6 +75,9 @@ local function introduction()
     if (PA.activeProfile == nil) then
         PAHF.println("Welcome_PleaseSelectProfile")
     else
+        -- a valid profile is selected and thus the events can be initialised
+        PAEM.RefreshAllEventRegistrations()
+        -- then check for the welcome message
         if PA.savedVars.General[PA.activeProfile].welcome then
             if PA.savedVars.Profile.language ~= "en" and PA.savedVars.Profile.language ~= "de" and PA.savedVars.Profile.language ~= "fr" then
                 PAHF.println("Welcome_NoSupport", GetCVar("language.2"))
