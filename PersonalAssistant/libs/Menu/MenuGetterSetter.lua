@@ -41,7 +41,7 @@ end
 -- PAGeneral
 
 --------------------------------------------------------------------------
--- PABanking   activeProfile
+-- PAGeneral   activeProfile
 ---------------------------------
 function PAMenu_Functions.getFunc.PAGeneral.activeProfile()
     local activeProfile = PA.savedVars.Profile.activeProfile
@@ -63,6 +63,8 @@ function PAMenu_Functions.setFunc.PAGeneral.activeProfile(profileNo)
         if (prevProfile == nil) then
             MenuHelper.reloadProfileList()
         end
+        -- also refresh all event registrations
+        PAEM.RefreshAllEventRegistrations()
     end
 end
 
@@ -71,7 +73,7 @@ function PAMenu_Functions.disabled.PAGeneral.noProfileSelected()
 end
 
 --------------------------------------------------------------------------
--- PABanking   activeProfileRename
+-- PAGeneral   activeProfileRename
 ---------------------------------
 function PAMenu_Functions.getFunc.PAGeneral.activeProfileRename()
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
@@ -81,12 +83,13 @@ end
 function PAMenu_Functions.setFunc.PAGeneral.activeProfileRename(profileName)
     if (profileName ~= nil and profileName ~= "") then
         PA.savedVars.General[PA.activeProfile].name = profileName
+        -- when profile was changed, reload the profile list
         MenuHelper.reloadProfileList()
     end
 end
 
 --------------------------------------------------------------------------
--- PABanking   welcomeMessage
+-- PAGeneral   welcomeMessage
 ---------------------------------
 function PAMenu_Functions.getFunc.PAGeneral.welcomeMessage()
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
@@ -114,6 +117,8 @@ end
 function PAMenu_Functions.setFunc.PARepair.enabled(value)
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Repair[PA.activeProfile].enabled = value
+    -- when enabling/disabling a modules, refresh all event registrations
+    PAEM.RefreshAllEventRegistrations()
 end
 
 --------------------------------------------------------------------------
@@ -313,6 +318,8 @@ end
 function PAMenu_Functions.setFunc.PABanking.enabled(value)
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Banking[PA.activeProfile].enabled = value
+    -- when enabling/disabling a modules, refresh all event registrations
+    PAEM.RefreshAllEventRegistrations()
 end
 
 --------------------------------------------------------------------------
@@ -601,6 +608,8 @@ end
 function PAMenu_Functions.setFunc.PALoot.enabled(value)
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Loot[PA.activeProfile].enabled = value
+    -- when enabling/disabling a modules, refresh all event registrations
+    PAEM.RefreshAllEventRegistrations()
 end
 
 --------------------------------------------------------------------------
@@ -804,6 +813,8 @@ end
 function PAMenu_Functions.setFunc.PAJunk.enabled(value)
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
     PA.savedVars.Junk[PA.activeProfile].enabled = value
+    -- when enabling/disabling a modules, refresh all event registrations
+    PAEM.RefreshAllEventRegistrations()
 end
 
 --------------------------------------------------------------------------

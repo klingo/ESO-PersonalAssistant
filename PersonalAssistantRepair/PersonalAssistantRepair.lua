@@ -31,12 +31,6 @@ function PAR.initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.savedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", PAR.Repair_Defaults)
-
-    -- register PARepair (in correspondance with PAJunk)
-    PAEM.RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAEM.EventOpenStore, "RepairJunkSharedEvent")
-
-    -- register PARepair for RepairKits and WeaponCharges
-    PAEM.RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.EventPlayerCombateState)
 end
 
 PAEM.RegisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED, PAR.initAddon)

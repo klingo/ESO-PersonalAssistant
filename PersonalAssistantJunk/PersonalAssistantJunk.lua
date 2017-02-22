@@ -35,10 +35,6 @@ function PAJ.initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.savedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, "Junk", PAJ.Junk_Defaults)
-
-    -- register PARepair (in correspondance with PAJunk)
-    PAEM.RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAEM.EventOpenStore, "RepairJunkSharedEvent")
-    PAEM.RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
 end
 
 PAEM.RegisterForEvent(PAJ.AddonName, EVENT_ADD_ON_LOADED, PAJ.initAddon)

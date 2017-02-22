@@ -198,8 +198,8 @@ function PA_SettingsMenu.createMainMenu()
         })
 
         optionsTable:insert({
-            type = "header",
-            name = PALocale.getResourceMessage("PARMenu_ChargeWeapons_Header"),
+            type = "divider",
+            alpha = 0.5,
         })
 
         optionsTable:insert({

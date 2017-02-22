@@ -5,42 +5,10 @@ PAB_Items = {}
 PAB_Items.queueSize = 0
 PAB_Items.loopCount = 0
 
+-- =====================================================================================================================
+-- =====================================================================================================================
 
-function PAB_Items.DepositAndWithdrawItems(lastLoop)
-    lastLoop = lastLoop or false
-
-    PAB_Items.failedDeposits = 0
-    PAB_Items.loopCount = PAB_Items.loopCount + 1
-
-
---    local itemMoved = PAB_Items.DoItemStacking(BAG_BANK)
---    while (itemMoved == nil) do
-        -- do nothing; wait
---    end
---    http://wiki.esoui.com/AddOn_Quick_Questions#How_do_I_generate_my_own_.22events.22_in_Lua.3F
-
-    -- first deposit items to the bank
-    local itemsDeposited = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
-
-    -- then withdraw items from the bank
-    local itemsWithdrawn = PAB_Items.DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
-
-    -- then we can deposit the advanced items to the bank
--- TODO: TEMPORARILY DISABLED !!!!!
---    local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
-
---    while (itemsAdvancedDepositedWithdrawn == nil) do
-        -- do nothing; wait
---    end
-
-    if (itemsDeposited or itemsWithdrawn or itemsAdvancedDepositedWithdrawn) then
-        return true
-    else
-        return false
-    end
-end
-
-function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLoop)
+local function DoItemTransaction(fromBagId, toBagId, transactionType, lastLoop)
 
     local timer = 100
     local skipChecksAndProceed = false
@@ -102,7 +70,7 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
                         -- if no items left, break. otherwise continue the loop
                         if transferInfo["stackSize"] == 0 then
                             break
-                        -- if "-1" returned, not enough space was available. stop the rest.
+                            -- if "-1" returned, not enough space was available. stop the rest.
                         elseif transferInfo["stackSize"] < 0 then
                             return
                         end
@@ -132,7 +100,8 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
     return itemMoved
 end
 
-function PAB_Items.DoItemStacking(bagId)
+
+local function DoItemStacking(bagId)
 
     -- TODO: check the configuration if this shall be done or skipped
 
@@ -182,10 +151,122 @@ function PAB_Items.DoItemStacking(bagId)
 
     -- as long as there was at least one stacking done, try to stack more
     if (itemMoved) then
-        zo_callLater(function() PAB_Items.DoItemStacking(bagId) end, 250)
+        zo_callLater(function() DoItemStacking(bagId) end, 250)
     else
         -- return 'true' to indicate that stacking is complete
         return true
+    end
+end
+
+
+-- checks if there are failedDeposits and re-runs the whole deposit-process in case the bank has not yet been closed
+local function reDeposit()
+    -- the bank is still open and there were failed Deposits
+    if not PAB.isBankClosed and PAB_Items.failedDeposits > 0 then
+        -- only run the deposit again if it didn't loop for three times yet
+        if PAB_Items.loopCount < PAB_DEPOSIT_MAX_LOOPS then
+            -- do it again! :)
+            PAB_Items.DepositAndWithdrawItems()
+        elseif PAB_Items.loopCount == PAB_DEPOSIT_MAX_LOOPS then
+            -- and a last time (lastLoop = true)
+            PAB_Items.DepositAndWithdrawItems(true)
+        end
+    else
+        -- either the bank was closed or there are no more items to be deposited; or the maxLoop was reached
+        -- TODO: implement summary stats
+    end
+end
+
+
+-- checks if an item really has been moved or of it is still there
+local function isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop)
+    local depositFailed = false
+    -- check if the same stack size is in the "old" slotIndex
+    if (GetSlotStackSize(transferInfo["fromBagId"], fromSlotIndex) == transferInfo["origStackSize"]) then
+        -- check if the same item name is in the "old" slotIndex
+        if (GetItemName(transferInfo["fromBagId"], fromSlotIndex):upper() == transferInfo["fromItemName"]) then
+            -- the item is still there and has NOT been moved.
+            depositFailed = true
+            PAB_Items.failedDeposits = PAB_Items.failedDeposits + 1
+            if lastLoop then
+                PAHF.println("PAB_ItemMovedToFailed", transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
+            end
+        end
+    end
+
+    if not depositFailed then
+        -- now we know for sure that the deposit did work
+        PAHF.println("PAB_ItemMovedTo", moveableStackSize, transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
+    end
+
+    -- decrease the queue size as the check has been done
+    PAB_Items.queueSize = PAB_Items.queueSize - 1
+
+    if PAB_Items.queueSize == 0 then
+        reDeposit()
+    end
+end
+
+
+-- actually moves the item
+local function moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
+
+    local result = true
+    -- clear the cursor first
+    ClearCursor()
+    -- call secure protected (pickup the item via cursor)
+    result = CallSecureProtected("PickupInventoryItem", transferInfo["fromBagId"], fromSlotIndex, stackSize)
+    if (result) then
+        -- call secure protected (drop the item on the cursor)
+        result = CallSecureProtected("PlaceInInventory", transferInfo["toBagId"], toSlotIndex)
+    end
+    -- clear the cursor again to avoid issues
+    ClearCursor()
+
+    if result then
+        -- we only know for sure that it did work after the check that is done later. Don't post the success message yet!
+        -- PAHF.println("PAB_ItemMovedTo", stackSize, transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
+    else
+        PAHF.println("PAB_ItemNotMovedTo", stackSize, transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
+    end
+end
+
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+
+function PAB_Items.DepositAndWithdrawItems(lastLoop)
+    lastLoop = lastLoop or false
+
+    PAB_Items.failedDeposits = 0
+    PAB_Items.loopCount = PAB_Items.loopCount + 1
+
+
+--    local itemMoved = DoItemStacking(BAG_BANK)
+--    while (itemMoved == nil) do
+        -- do nothing; wait
+--    end
+--    http://wiki.esoui.com/AddOn_Quick_Questions#How_do_I_generate_my_own_.22events.22_in_Lua.3F
+
+    -- first deposit items to the bank
+    local itemsDeposited = DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
+
+    -- then withdraw items from the bank
+    local itemsWithdrawn = DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
+
+    -- then we can deposit the advanced items to the bank
+-- TODO: TEMPORARILY DISABLED !!!!!
+--    local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
+
+--    while (itemsAdvancedDepositedWithdrawn == nil) do
+        -- do nothing; wait
+--    end
+
+    if (itemsDeposited or itemsWithdrawn or itemsAdvancedDepositedWithdrawn) then
+        return true
+    else
+        return false
     end
 end
 
@@ -210,13 +291,13 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
 
 
         if moveableStackSize > 0 then
-            PAB_Items.moveItem(fromSlotIndex, toSlotIndex, moveableStackSize, transferInfo)
+            moveItem(fromSlotIndex, toSlotIndex, moveableStackSize, transferInfo)
 
             -- Before version 1.4.0 it could happen that when the item is not yet in the bank, the itemMove failed.
             -- This used to happen only if there are more than ~20 new items for the bank.
             -- This method will check if the item is still in its original place after 1-2 seconds
             -- and prints a message in case it happened again.
-            zo_callLater(function() PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop) end, (1000 + PA.savedVars.Banking[PA.activeProfile].depositTimerInterval))
+            zo_callLater(function() isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop) end, (1000 + PA.savedVars.Banking[PA.activeProfile].depositTimerInterval))
         end
 
         return remainingStackSize
@@ -226,78 +307,11 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
     end
 end
 
--- checks if an item really has been moved or of it is still there
-function PAB_Items.isItemMoved(fromSlotIndex, moveableStackSize, transferInfo, lastLoop)
-    local depositFailed = false
-    -- check if the same stack size is in the "old" slotIndex
-    if (GetSlotStackSize(transferInfo["fromBagId"], fromSlotIndex) == transferInfo["origStackSize"]) then
-        -- check if the same item name is in the "old" slotIndex
-        if (GetItemName(transferInfo["fromBagId"], fromSlotIndex):upper() == transferInfo["fromItemName"]) then
-            -- the item is still there and has NOT been moved.
-            depositFailed = true
-            PAB_Items.failedDeposits = PAB_Items.failedDeposits + 1
-            if lastLoop then
-                PAHF.println("PAB_ItemMovedToFailed", transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
-            end
-        end
-    end
-
-    if not depositFailed then
-        -- now we know for sure that the deposit did work
-        PAHF.println("PAB_ItemMovedTo", moveableStackSize, transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
-    end
-
-    -- decrease the queue size as the check has been done
-    PAB_Items.queueSize = PAB_Items.queueSize - 1
-
-    if PAB_Items.queueSize == 0 then
-        PAB_Items.reDeposit()
-    end
-end
-
--- actually moves the item
-function PAB_Items.moveItem(fromSlotIndex, toSlotIndex, stackSize, transferInfo)
-
-    local result = true
-    -- clear the cursor first
-    ClearCursor()
-    -- call secure protected (pickup the item via cursor)
-    result = CallSecureProtected("PickupInventoryItem", transferInfo["fromBagId"], fromSlotIndex, stackSize)
-    if (result) then
-        -- call secure protected (drop the item on the cursor)
-        result = CallSecureProtected("PlaceInInventory", transferInfo["toBagId"], toSlotIndex)
-    end
-    -- clear the cursor again to avoid issues
-    ClearCursor()
-
-    if result then
-        -- we only know for sure that it did work after the check that is done later. Don't post the success message yet!
-        -- PAHF.println("PAB_ItemMovedTo", stackSize, transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
-    else
-        PAHF.println("PAB_ItemNotMovedTo", stackSize, transferInfo["fromItemLink"], PAHF.getBagName(transferInfo["toBagId"]))
-    end
-end
 
 
--- checks if there are failedDeposits and re-runs the whole deposit-process in case the bank has not yet been closed
-function PAB_Items.reDeposit()
-    -- the bank is still open and there were failed Deposits
-    if not PAB.isBankClosed and PAB_Items.failedDeposits > 0 then
-        -- only run the deposit again if it didn't loop for three times yet
-        if PAB_Items.loopCount < PAB_DEPOSIT_MAX_LOOPS then
-            -- do it again! :)
-            PAB_Items.DepositAndWithdrawItems()
-        elseif PAB_Items.loopCount == PAB_DEPOSIT_MAX_LOOPS then
-            -- and a last time (lastLoop = true)
-            PAB_Items.DepositAndWithdrawItems(true)
-        end
-    else
-        -- either the bank was closed or there are no more items to be deposited; or the maxLoop was reached
-        -- TODO: implement summary stats
-    end
-end
+-- =====================================================================================================================
+-- =====================================================================================================================
 
--- ---------------------------------------------------------------------------------------------------------------
 
 -- returns a list of all item types in a bag
 function PAB_Items.getItemTypeList(bagId)

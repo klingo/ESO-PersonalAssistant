@@ -114,7 +114,7 @@ ResourceBundle.en["PARMenu_RepairFullChatMode"]         = "Chat Display of full 
 ResourceBundle.en["PARMenu_RepairFullChatMode_T"]       = "How to display the information of a full repair in the chat window"
 ResourceBundle.en["PARMenu_RepairPartialChatMode"]      = "Chat Display of partial/incomplete repairs"
 ResourceBundle.en["PARMenu_RepairPartialChatMode_T"]    = "How to display the information of an incomplet or parcial repair 8i.e. due to insufficient gold) in the chat window"
-ResourceBundle.en["PARMenu_ChargeWeapons_Header"]       = "Re-Charge Weapons"
+
 ResourceBundle.en["PARMenu_ChargeWeapons"]              = "Re-Charge Weapons"
 ResourceBundle.en["PARMenu_ChargeWeapons_T"]            = "Re-Charge equipped weapons?"
 ResourceBundle.en["PARMenu_ChargeWeaponsDura"]          = "- Re-Charge threshold in %"

@@ -9,6 +9,61 @@ PAL.alreadyHarvesting = false
 PAL.alreadyFishing = false
 PAL.alreadyLooting = false
 
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
+    local itemDestroyed = false
+    -- create the itemlink of the to be destroyed item
+    local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
+    local icon =  GetItemLinkInfo(itemLink)
+    local iconString = "|t20:20:"..icon.."|t "
+    -- get the current size of item stack
+    local stackSize = GetSlotStackSize(bagId, slotId)
+    -- check if there were items before
+    if (stackSize > amountToDestroy) then
+        -- there already was a stack existing in the inventory, we shall only delete the new items
+        local firstEmptySlot = FindFirstEmptySlotInBag(bagId)
+        if (firstEmptySlot ~= nil) then
+            -- there is a free slot to split the stack, go ahead!
+            local result = CallSecureProtected("RequestMoveItem", bagId, slotId, bagId, firstEmptySlot, amountToDestroy)
+
+            -- give it some time to actually move the item
+            zo_callLater(function()
+                if (result) then
+                    -- item successfully moved to new empty stlot, destroy that now
+                    DestroyItem(bagId, firstEmptySlot)
+                    itemDestroyed = true
+                else
+                    -- could not move items, therefore cannot safely destroy item
+                    PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_MoveFailed"), amountToDestroy, stackSize, itemLink, iconString)
+                end
+            end, 500)
+        else
+            -- no free slot available, cannot safely destroy item!
+            PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_DestroyFailed"), amountToDestroy, stackSize, itemLink, iconString)
+        end
+    else
+        -- destroy all items (since there were no existing before)
+        DestroyItem(bagId, slotId)
+        itemDestroyed = true
+    end
+
+    if (itemDestroyed) then
+        PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
+        local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
+        if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Full"), amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Normal"), amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Min"), amountToDestroy, iconString)
+        end -- PA_OUTPUT_TYPE_NONE => no chat output
+    end
+end
+
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+
 function PAL.OnReticleTargetChanged()
     if (PAHF.hasActiveProfile()) then
         -- check if addon is enabled
@@ -91,6 +146,7 @@ function PAL.OnLootUpdated()
                                 -- then check if it is set to Auto-Loot
                                 if (PA.savedVars.Loot[PA.activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                     -- Loot the item
+                                    -- TODO: CHECK FOR FREE SLOT!
                                     LootItemById(lootId)
                                     itemLooted = true
                                 end
@@ -105,6 +161,7 @@ function PAL.OnLootUpdated()
 
                             if (harvestableBaitLootMode ~= PAC_ITEMTYPE_IGNORE) then
                                 -- Loot the item
+                                -- TODO: CHECK FOR FREE SLOT!
                                 LootItemById(lootId)
                                 itemLooted = true
                                 if (harvestableBaitLootMode == PAC_ITEMTYPE_DESTROY) then
@@ -124,6 +181,7 @@ function PAL.OnLootUpdated()
                                 -- then check if it is set to Auto-Loot
                                 if (PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                     -- Loot the item
+                                -- TODO: CHECK FOR FREE SLOT!
                                     LootItemById(lootId)
                                     itemLooted = true
                                 end
@@ -181,59 +239,11 @@ function PAL.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
                         local itemType = GetItemType(BAG_BACKPACK, slotId)
                         -- check if it is bait, and if bait is set to be destroyed
                         if ((itemType == ITEMTYPE_LURE) and (PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode() == PAC_ITEMTYPE_DESTROY)) then
-                            PAL.DestroyNumOfItems(BAG_BACKPACK, slotId, stackCountChange)
+                            DestroyNumOfItems(BAG_BACKPACK, slotId, stackCountChange)
                         end
                     end
                 end
             end
         end
-    end
-end
-
-
-function PAL.DestroyNumOfItems(bagId, slotId, amountToDestroy)
-    local itemDestroyed = false
-    -- create the itemlink of the to be destroyed item
-    local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-    local icon =  GetItemLinkInfo(itemLink)
-    local iconString = "|t20:20:"..icon.."|t "
-    -- get the current size of item stack
-    local stackSize = GetSlotStackSize(bagId, slotId)
-    -- check if there were items before
-    if (stackSize > amountToDestroy) then
-        -- there already was a stack existing in the inventory, we shall only delete the new items
-        local firstEmptySlot = FindFirstEmptySlotInBag(bagId)
-        if (firstEmptySlot ~= nil) then
-            -- there is a free slot to split the stack, go ahead!
-            local result = CallSecureProtected("RequestMoveItem", bagId, slotId, bagId, firstEmptySlot, amountToDestroy)
-
-            -- give it some time to actually move the item
-            zo_callLater(function()
-                if (result) then
-                    -- item successfully moved to new empty stlot, destroy that now
-                    DestroyItem(bagId, firstEmptySlot)
-                    itemDestroyed = true
-                else
-                    -- could not move items, therefore cannot safely destroy item
-                    PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_MoveFailed"), amountToDestroy, stackSize, itemLink, iconString)
-                end
-            end, 500)
-        else
-            -- no free slot available, cannot safely destroy item!
-            PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_DestroyFailed"), amountToDestroy, stackSize, itemLink, iconString)
-        end
-    else
-        -- destroy all items (since there were no existing before)
-        DestroyItem(bagId, slotId)
-        itemDestroyed = true
-    end
-
-    if (itemDestroyed) then
-        PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
-        local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-        if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Full"), amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Normal"), amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Min"), amountToDestroy, iconString)
-        end -- PA_OUTPUT_TYPE_NONE => no chat output
     end
 end

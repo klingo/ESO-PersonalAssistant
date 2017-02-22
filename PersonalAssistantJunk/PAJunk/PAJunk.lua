@@ -5,6 +5,39 @@
 -- Time: 20:20
 --
 
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+    -- check what the difference in money is
+    local moneyDiff = GetCurrentMoney() - moneyBefore;
+    local itemCountInBagDiff = itemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
+
+    if (itemCountInBagDiff > 0) then
+        -- at lesat one item was sold (although it might have been worthless)
+        if (moneyDiff > 0) then
+            -- some valuable junk was sold
+            PAHF.println("PAJ_SoldJunkInfo", moneyDiff)
+        else
+            -- only worthless junk was sold
+            PAHF.println("PAJ_SoldJunkInfo", moneyDiff)
+        end
+    else
+        -- no item was sold
+        if (moneyDiff > 0) then
+            -- no item was sold, but money appeared out of nowhere
+            -- should not happen :D
+            PAHF.println("Error #1337: This should not happen!")
+        end
+    end
+
+    -- set processing flag to FALSE again
+    PAEM.isJunkProcessing = false
+end
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
 function PAJ.OnShopOpen()
     if (PAHF.hasActiveProfile()) then
 
@@ -25,39 +58,11 @@ function PAJ.OnShopOpen()
 
                     -- Have to call it wiht some delay, as the "currentMoney" and item count is not updated fast enough
                     -- after calling SellAllJunk()
-                    zo_callLater(function() PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 100)
+                    zo_callLater(function() GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 100)
                 end
             end
         end
     end
-end
-
-
-function PAJ.GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
-    -- check what the difference in money is
-    local moneyDiff = GetCurrentMoney() - moneyBefore;
-    local itemCountInBagDiff = itemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
-
-    if (itemCountInBagDiff > 0) then
-        -- at lesat one item was sold (although it might have been worthless)
-        if (moneyDiff > 0) then
-            -- some valuable junk was sold
-            PAJ.println("PAJ_SoldJunkInfo", moneyDiff)
-        else
-            -- only worthless junk was sold
-            PAJ.println("PAJ_SoldJunkInfo", moneyDiff)
-        end
-    else
-        -- no item was sold
-        if (moneyDiff > 0) then
-            -- no item was sold, but money appeared out of nowhere
-            -- should not happen :D
-            PAJ.println("Error #1337: This should not happen!")
-        end
-    end
-
-    -- set processing flag to FALSE again
-    PAEM.isJunkProcessing = false
 end
 
 
@@ -92,7 +97,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
                             SetItemIsJunk(bagId, slotId, true)
 
                             local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-                            PAJ.println("PAJ_MovedToJunk", itemLink)
+                            PAHF.println("PAJ_MovedToJunk", itemLink)
                         end
                     end
                 end
@@ -100,23 +105,3 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
         end
     end
 end
-
-
-function PAJ.println(key, ...)
-    if (not PA.savedVars.Junk[PA.activeProfile].hideAllMsg) then
-        local args = {...}
-        PAHF.println(key, unpack(args))
-    end
-end
-
-
--- HasAnyJunk(number bagId, boolean excludeStolenItems)
--- Returns: boolean hasJunk
-
--- CanItemBeMarkedAsJunk(number bagId, number slotIndex)
--- Returns: boolean canBeMarkedAsJunk
-
--- IsItemJunk(number bagId, number slotIndex)
--- Returns: boolean junk
-
--- SetItemIsJunk(number bagId, number slotIndex, boolean junk)
