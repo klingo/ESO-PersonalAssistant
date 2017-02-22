@@ -15,7 +15,7 @@
 -- =====================================================================================================================
 
 -- repair all items that are below the given threshold for the bag
-local function RepairItems(bagId, threshold, activeProfile)
+local function RepairItems(bagId, threshold)
     local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
     if (bagCache) then
         local repairCost = 0
@@ -92,11 +92,11 @@ function PAR.OnShopOpen()
             if GetRepairAllCost() > 0 then
                 -- check if equipped items shall be repaired
                 if PA.savedVars.Repair[PA.activeProfile].repairEquipped then
-                    RepairItems(BAG_WORN, PA.savedVars.Repair[PA.activeProfile].repairEquippedThreshold, PA.activeProfile)
+                    RepairItems(BAG_WORN, PA.savedVars.Repair[PA.activeProfile].repairEquippedThreshold)
                 end
                 -- check if backpack items shall be repaired
                 if PA.savedVars.Repair[PA.activeProfile].repairBackpack then
-                    RepairItems(BAG_BACKPACK, PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold, PA.activeProfile)
+                    RepairItems(BAG_BACKPACK, PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold)
                 end
             end
         end
