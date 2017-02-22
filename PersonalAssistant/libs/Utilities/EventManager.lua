@@ -111,18 +111,15 @@ function PAEM.RefreshAllEventRegistrations()
     if (PAR) then
         -- Check if the functionality is turned on within the addon
         if (PAMenu_Functions.getFunc.PARepair.enabled()) then
-            PAHF_DEBUG.debugln("Register PARepair")
             -- Register PARepair for RepairKits and WeaponCharges
             PAEM.RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.EventPlayerCombateState)
             -- Register PARepair (in correspondance with PAJunk)
             PAEM.RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, SharedEventOpenStore, "RepairJunkSharedEvent")
         else
-            PAHF_DEBUG.debugln("Un-Register PARepair")
             -- Unregister PARepair
             PAEM.UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE)
             -- Unregister the SharedEvent, but only if PAJunk is not enabled!
             if not (PAJ and PAMenu_Functions.getFunc.PAJunk.enabled()) then
-                PAHF_DEBUG.debugln("Un-Register SharedEvent")
                 PAEM.UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
             end
         end
@@ -132,12 +129,10 @@ function PAEM.RefreshAllEventRegistrations()
     if (PAB) then
         -- Check if the functionality is turned on within the addon
        if (PAMenu_Functions.getFunc.PABanking.enabled()) then
-           PAHF_DEBUG.debugln("Register PABanking")
            -- Register PABanking
            PAEM.RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
            PAEM.RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
        else
-           PAHF_DEBUG.debugln("Un-Register PABanking")
            -- Unregister PABanking
            PAEM.UnregisterForEvent(PAB.AddonName, EVENT_OPEN_BANK)
            PAEM.UnregisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK)
@@ -149,13 +144,11 @@ function PAEM.RefreshAllEventRegistrations()
     if (PAL) then
         -- Check if the functionality is turned on within the addon
         if (PAMenu_Functions.getFunc.PALoot.enabled()) then
-            PAHF_DEBUG.debugln("Register PAloot")
             -- Register PALoot
             PAEM.RegisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED, PAL.OnLootUpdated)
             PAEM.RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
             ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PAL.OnReticleTargetChanged)
         else
-            PAHF_DEBUG.debugln("Un-Register PAloot")
             -- Unregister PALoot
             PAEM.UnregisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED)
             PAEM.UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
@@ -168,29 +161,20 @@ function PAEM.RefreshAllEventRegistrations()
     if (PAJ) then
         -- Check if the functionality is turned on within the addon
         if (PAMenu_Functions.getFunc.PAJunk.enabled()) then
-            PAHF_DEBUG.debugln("Register PAJunk")
             -- Register PAJunk for looting junk items
             PAEM.RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
             -- Register PAJunk (in correspondance with PARepair)
             PAEM.RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, SharedEventOpenStore, "RepairJunkSharedEvent")
         else
-            PAHF_DEBUG.debugln("Un-Register PAJunk")
             -- Unegister PAJunk
             PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
             -- Unregister the SharedEvent, but only if PARepair is not enabled!
             if not (PAR and PAMenu_Functions.getFunc.PARepair.enabled()) then
-                PAHF_DEBUG.debugln("Un-Register SharedEvent")
                 PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
             end
         end
     end
 end
-
--- =====================================================================================================================
--- =====================================================================================================================
-
-
-
 
 -- =====================================================================================================================
 -- =====================================================================================================================
