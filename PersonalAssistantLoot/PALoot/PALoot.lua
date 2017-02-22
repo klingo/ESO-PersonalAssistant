@@ -5,9 +5,8 @@
 -- Time: 20:00
 --
 
-PAL.alreadyHarvesting = false
-PAL.alreadyFishing = false
-PAL.alreadyLooting = false
+local alreadyHarvesting = false
+local alreadyFishing = false
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -65,53 +64,11 @@ end
 
 
 function PAL.OnReticleTargetChanged()
-    if (PAHF.hasActiveProfile()) then
-        -- check if addon is enabled
-        if PA.savedVars.Loot[PA.activeProfile].enabled then
-            local type = GetInteractionType()
-            local active = IsPlayerInteractingWithObject()
+    local type = GetInteractionType()
+    local active = IsPlayerInteractingWithObject()
 
-            local isHarvesting = (active and (type == INTERACTION_HARVEST))
-            local isFishing = (active and (type == INTERACTION_FISH))
-
-            if (PAL.alreadyHarvesting) then
-                if (not isHarvesting) then
-                    -- stopped harvesting
-                    PAL.alreadyHarvesting = false
-                    PAHF_DEBUG.debugln("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
-                end
-            else
-                if (isHarvesting) then
-                    -- started harvesting
-                    PAL.alreadyHarvesting = true
-                    PAHF_DEBUG.debugln("isHarvesting=%s   type=%s", tostring(isHarvesting), tostring(type))
-                end
-            end
-
-            if (PAL.alreadyFishing) then
-                if (not isFishing) then
-                    -- stopped fishing
-                    PAL.alreadyFishing = false
-                    PAHF_DEBUG.debugln("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
-                end
-            else
-                if (isFishing) then
-                    -- started fishing
-                    PAL.alreadyFishing = true
-                    PAHF_DEBUG.debugln("isFishing=%s   type=%s", tostring(isFishing), tostring(type))
-                end
-            end
-
-            if (not isHarvesting and not isFishing) then
-                if (type ~= INTERACTION_NONE) then
-                    -- neither harvesting nor fishing => looting
-                    -- TODO: check if really required?
-                    PAL.alreadyLooting = isLooting
-                    PAHF_DEBUG.debugln("new interactionType=%s with %s", tostring(type), GetUnitNameHighlightedByReticle())
-                end
-            end
-        end
-    end
+    alreadyHarvesting = (active and (type == INTERACTION_HARVEST))
+    alreadyFishing = (active and (type == INTERACTION_FISH))
 end
 
 
@@ -138,7 +95,7 @@ function PAL.OnLootUpdated()
                     -- TODO: also check for stolen???
 
                     -- check if we are harvesting, auto-loot is only used for this case!
-                    if (PAL.alreadyHarvesting or PAL.alreadyFishing) then
+                    if (alreadyHarvesting or alreadyFishing) then
                         -- check for ores, herbs, wood etc
                         for currItemType = 1, #PALHarvestableItemTypes do
                             -- check if the itemType is configured for auto-loot
@@ -234,7 +191,7 @@ function PAL.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
                 -- check if the updated happened in the backpack
                 if (bagId == BAG_BACKPACK) then
                     -- only proceed if the update was triggered while harvesting (i.e. not from looting chests, wasps, mobs, etc)
-                    if (PAL.alreadyHarvesting) then
+                    if (alreadyHarvesting) then
                         -- get the itemType
                         local itemType = GetItemType(BAG_BACKPACK, slotId)
                         -- check if it is bait, and if bait is set to be destroyed
