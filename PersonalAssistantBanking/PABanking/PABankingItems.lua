@@ -2,13 +2,115 @@
 -- Developer: Klingo
 
 PAB_Items = {}
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+local function getItemsIn(bagId)
+    local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
+    local itemTable = setmetatable({}, { __index = table })
+
+    -- create a table with all items
+    for _, data in pairs(bagCache) do
+        itemTable:insert({
+            slotIndex = data.slotIndex,
+            itemName = data.name,
+            stackCount = data.stackCount,
+            icon = data.iconFile,
+        })
+    end
+
+    return itemTable
+end
+
+
+local function moveItemTo(itemData, toBagId)
+
+    -- 1. get bagCache for correpsonding itemId
+    -- 2. check if they have empty slots in the stack
+    -- 3. fill these up
+    -- 4. more items? YES: --> 5   NO --> 7
+    -- 5. has free slots left? YES: --> 6   NO --> 7
+    -- 6. move item --> 4
+    -- 7. end
+
+
+--        local firstEmptySlot = FindFirstEmptySlotInBag(bagId)
+
+--    if IsProtectedFunction("RequestMoveItem") then
+--        CallSecureProtected("RequestMoveItem", number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
+--    else
+--        RequestMoveItem(number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
+--    end
+
+
+end
+
+
+local function doItemTransaction(fromBagId)
+
+    local fromBagCache = SHARED_INVENTORY:GetOrCreateBagCache(fromBagId)
+
+    for _, itemData in pairs(fromBagCache) do
+        local _, maxStackSize = GetSlotStackSize(fromBagId, itemData.slotIndex)
+        -- enrich the itemData
+        itemData.itemId = GetItemId(fromBagId, itemData.slotIndex)
+        itemData.itemType = GetItemType(fromBagId, itemData.slotIndex)
+        itemData.maxStackSize = maxStackSize
+        itemData.itemLink = GetItemLink(fromBagId, itemData.slotIndex, LINK_STYLE_BRACKETS)
+
+        local itemMoveMode = PA.savedVars.Banking[PA.activeProfile].ItemTypes[itemData.itemType]
+
+        if (itemMoveMode == PAB_MOVETO_BANK and fromBagId ~= BAG_BANK) then
+            -- Deposit to Bank
+            moveItemTo(itemData, BAG_BANK)
+
+        elseif (itemMoveMode == PAB_MOVETO_VIRTUAL and fromBagId ~= BAG_VIRTUAL and IsESOPlusSubscriber()) then
+            -- Deposit to Virtual (ESO Plus)
+            moveItemTo(itemData, BAG_VIRTUAL)
+
+        elseif (itemMoveMode == PAB_MOVETO_BACKPACK and fromBagId ~= BAG_BACKPACK) then
+            -- Withdraw to Backpack
+            moveItemTo(itemData, BAG_BACKPACK)
+
+        else
+            -- Ignore
+        end
+    end
+
+    -- TODO: Return whether at least one item was moved
+end
+
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
+function PAB_Items.DepositWithdrawItems()
+
+    -- TODO: loop back and forth as long as both together had at least one item move
+
+    -- first move items from the backpack
+    doItemTransaction(BAG_BACKPACK)
+
+    -- then move items from the bank
+    doItemTransaction(BAG_BANK)
+
+    -- then check the backpack again, since maybe new slots opened up
+    doItemTransaction(BAG_BACKPACK)
+
+end
+
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
 PAB_Items.queueSize = 0
 PAB_Items.loopCount = 0
 
 -- =====================================================================================================================
 -- =====================================================================================================================
 
-local function DoItemTransaction(fromBagId, toBagId, transactionType, lastLoop)
+local function DoItemTransactionOld(fromBagId, toBagId, transactionType, lastLoop)
 
     local timer = 100
     local skipChecksAndProceed = false

@@ -473,24 +473,6 @@ function PAMenu_Functions.disabled.PABanking.itemsWitStackType()
 end
 
 --------------------------------------------------------------------------
--- PABAnking - ItemTypeSubmenu   junkItemsMoveMode
----------------------------------
-function PAMenu_Functions.getFunc.PABanking.junkItemsMoveMode()
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
-    return PA.savedVars.Banking[PA.activeProfile].junkItemsMoveMode
-end
-
-function PAMenu_Functions.setFunc.PABanking.junkItemsMoveMode(value)
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
-    PA.savedVars.Banking[PA.activeProfile].junkItemsMoveMode = value
-end
-
-function PAMenu_Functions.disabled.PABanking.junkItemsMoveMode()
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
-    return not (PA.savedVars.Banking[PA.activeProfile].enabled and PA.savedVars.Banking[PA.activeProfile].enabledItems)
-end
-
---------------------------------------------------------------------------
 -- PABAnking - ItemTypeSubmenu   itemTypesMoveMode
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.itemTypesMoveMode(itemType)

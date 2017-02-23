@@ -23,26 +23,14 @@ function PAB.OnBankOpen()
             if PA.savedVars.Banking[PA.activeProfile].enabledGold then
                 -- trigger the deposit and withdrawal of gold
                 PAB_Gold.DepositWithdrawGold()
-
---                -- check for numeric value, if not, use default value of 0
---                local goldMinToKeep = 0
---
---                if tonumber(PA.savedVars.Banking[PA.activeProfile].goldMinToKeep) ~= nil then
---                    goldMinToKeep = PA.savedVars.Banking[PA.activeProfile].goldMinToKeep
---                end
---
---                -- check if minim amount of gold to keep is exceeded
---                if (GetCurrentMoney() > goldMinToKeep) then
---                    goldTransaction = PAB_Gold.DepositGold(goldMinToKeep)
---                elseif (PA.savedVars.Banking[PA.activeProfile].withdrawToMinGold) then
---                    goldTransaction = PAB_Gold.WithdrawGold(goldMinToKeep)
---                end
             end
 
             -- check if item deposit is enabled
             if PA.savedVars.Banking[PA.activeProfile].enabledItems then
-                PAB_Items.loopCount = 0
-                itemTransaction = PAB_Items.DepositAndWithdrawItems()
+                -- TODO: TEMPORARILY DISABLED !!!!
+--                PAB_Items.DepositWithdrawItems()
+--                PAB_Items.loopCount = 0
+--                itemTransaction = PAB_Items.DepositAndWithdrawItems()
             end
         end
     end

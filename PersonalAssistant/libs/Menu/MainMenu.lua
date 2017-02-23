@@ -296,6 +296,11 @@ function PA_SettingsMenu.createMainMenu()
         })
 
         optionsTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        optionsTable:insert({
             type = "checkbox",
             name = PALocale.getResourceMessage("PABMenu_EnabledItems"),
             tooltip = PALocale.getResourceMessage("PABMenu_EnabledItems_T"),
@@ -486,6 +491,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
             tooltip = PALocale.getResourceMessage("PABMenu_DepStackOnly_T"),
             choices = PAMenu_Choices.choices.PABanking.stackingType,
             choicesValues = PAMenu_Choices.choicesValues.PABanking.stackingType,
+            -- TODO: choicesTooltips
             getFunc = PAMenu_Functions.getFunc.PABanking.itemsDepStackType,
             setFunc = PAMenu_Functions.setFunc.PABanking.itemsDepStackType,
             width = "half",
@@ -508,23 +514,6 @@ function PA_SettingsMenu.createPABItemSubMenu()
 
         PABItemTypeSubmenuTable:insert({
             type = "header",
-            name = PALocale.getResourceMessage("PABMenu_ItemJunk_Header"),
-        })
-
-        PABItemTypeSubmenuTable:insert({
-            type = "dropdown",
-            name = PALocale.getResourceMessage("PABMenu_DepItemJunk"),
-            tooltip = PALocale.getResourceMessage("PABMenu_DepItemJunk_T"),
-            choices = PAMenu_Choices.choices.PABanking.itemMoveModeExt,
-            choicesValues = PAMenu_Choices.choicesValues.PABanking.itemMoveModeExt,
-            getFunc = PAMenu_Functions.getFunc.PABanking.junkItemsMoveMode,
-            setFunc = PAMenu_Functions.setFunc.PABanking.junkItemsMoveMode,
-            disabled = PAMenu_Functions.disabled.PABanking.junkItemsMoveMode,
-            default = PAMenu_Defaults.defaultSettings.PABanking.junkItemsMoveMode,
-        })
-
-        PABItemTypeSubmenuTable:insert({
-            type = "header",
             name = PALocale.getResourceMessage("PABMenu_ItemType_Header"),
         })
 
@@ -534,12 +523,12 @@ function PA_SettingsMenu.createPABItemSubMenu()
                 name = PALocale.getResourceMessage(itemType),
                 choices = PAMenu_Choices.choices.PABanking.itemMoveMode,
                 choicesValues = PAMenu_Choices.choicesValues.PABanking.itemMoveMode,
-                -- choicesTooltips
+                -- TODO: choicesTooltips
                 getFunc = function() return PAMenu_Functions.getFunc.PABanking.itemTypesMoveMode(itemType) end,
                 setFunc = function(value) PAMenu_Functions.setFunc.PABanking.itemTypesMoveMode(itemType, value) end,
                 width = "half",
                 disabled = PAMenu_Functions.disabled.PABanking.itemTypesMoveMode,
-                default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
+--                default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
             })
         end
 
@@ -587,7 +576,7 @@ function PA_SettingsMenu.createPABItemAdvancedSubMenu()
                 name = PALocale.getResourceMessage("REL_Operator"),
                 choices = PAMenu_Choices.choices.PABanking.mathOperator,
                 choicesValues = PAMenu_Choices.choicesValues.PABanking.mathOperator,
-                -- choicesTooltips
+                -- TODO: choicesTooltips
                 getFunc = function() return PAMenu_Functions.getFunc.PABanking.advItemTypesOperator(advancedItemType) end,
                 setFunc = function(value) PAMenu_Functions.setFunc.PABanking.advItemTypesOperator(advancedItemType, value) end,
                 width = "half",

@@ -37,7 +37,6 @@ PAMenu_Defaults.defaultSettings = {
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
         depositTimerInterval = 300,
-        junkItemsMoveMode = PAC_ITEMTYPE_IGNORE,
         ItemTypes = {},
         ItemTypesAdvanced = {},
     },

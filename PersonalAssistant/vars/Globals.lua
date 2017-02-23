@@ -1,9 +1,11 @@
 -- PersonalAssistant Constants
+
 -- PA Banking
 PAC_ITEMTYPE_IGNORE = 0
 PAC_ITEMTYPE_DEPOSIT = 1
 PAC_ITEMTYPE_WITHDRAWAL = 2
 PAC_ITEMTYPE_INHERIT = 3
+
 -- PA Loot
 PAC_ITEMTYPE_LOOT = 1
 PAC_ITEMTYPE_DESTROY = 2
@@ -26,6 +28,12 @@ PAB_DEPOSIT_MAX_LOOPS = 3
 PAB_STACKING_FULL = 0           -- 0: Full depositing/withdrawl
 PAB_STACKING_CONTINUE = 1       -- 1: Continue existing stacks
 PAB_STACKING_INCOMPLETE = 2     -- 2: Complete existing stacks
+
+-- PerstonalAssistant Banking - Move Mode
+PAB_MOVETO_IGNORE = 0
+PAB_MOVETO_BANK = 1
+PAB_MOVETO_VIRTUAL = 2
+PAB_MOVETO_BACKPACK = 3
 
 -- PersonalAssistant Loot
 PAL_TYPE_LOOT = 0

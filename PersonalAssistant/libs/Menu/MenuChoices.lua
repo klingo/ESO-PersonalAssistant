@@ -38,15 +38,15 @@ PAMenu_Choices.choices = {
             PALocale.getResourceMessage("ST_FillIncompleteOnly"),
         },
         itemMoveMode = {
-            PALocale.getResourceMessage("PAB_ItemType_None"),
-            PALocale.getResourceMessage("PAB_ItemType_Deposit"),
-            PALocale.getResourceMessage("PAB_ItemType_Withdrawal"),
+            ResourceBundle.en["PAB_MoveTo_Ignore"],
+            ResourceBundle.en["PAB_MoveTo_Bank"],
+            ResourceBundle.en["PAB_MoveTo_Backpack"],
         },
-        itemMoveModeExt = {
-            PALocale.getResourceMessage("PAB_ItemType_None"),
-            PALocale.getResourceMessage("PAB_ItemType_Deposit"),
-            PALocale.getResourceMessage("PAB_ItemType_Withdrawal"),
-            PALocale.getResourceMessage("PAB_ItemType_Inherit"),
+        itemMoveModePlus = {
+            ResourceBundle.en["PAB_MoveTo_Ignore"],
+            ResourceBundle.en["PAB_MoveTo_Bank"],
+            ResourceBundle.en["PAB_MoveTo_Virtual"],
+            ResourceBundle.en["PAB_MoveTo_Backpack"],
         },
         mathOperator = {
             PALocale.getResourceMessage("REL_None"),
@@ -111,15 +111,15 @@ PAMenu_Choices.choicesValues = {
             PAB_STACKING_INCOMPLETE,
         },
         itemMoveMode = {
-            PAC_ITEMTYPE_IGNORE,
-            PAC_ITEMTYPE_DEPOSIT,
-            PAC_ITEMTYPE_WITHDRAWAL,
+            PAB_MOVETO_IGNORE,
+            PAB_MOVETO_BANK,
+            PAB_MOVETO_BACKPACK,
         },
-        itemMoveModeExt= {
-            PAC_ITEMTYPE_IGNORE,
-            PAC_ITEMTYPE_DEPOSIT,
-            PAC_ITEMTYPE_WITHDRAWAL,
-            PAC_ITEMTYPE_INHERIT,
+        itemMoveModePlus = {
+            PAB_MOVETO_IGNORE,
+            PAB_MOVETO_BANK,
+            PAB_MOVETO_VIRTUAL,
+            PAB_MOVETO_BACKPACK,
         },
         mathOperator = {
             PAC_OPERATOR_NONE,
