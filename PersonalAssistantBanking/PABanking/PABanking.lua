@@ -44,14 +44,6 @@ function PAB.OnBankOpen()
                 PAB_Items.loopCount = 0
                 itemTransaction = PAB_Items.DepositAndWithdrawItems()
             end
-
-            -- FIXME: this check does currently not work, need to be called with zo_calllater
-            -- FIXME2: it especially does not work with the advanced item types
---            if (not goldTransaction) and (not itemTransaction) then
---                if (not PA.savedVars.Banking[PA.activeProfile].hideNoDepositMsg) then
---                    PAHF.println("PAB_NoDeposit")
---                end
---            end
         end
     end
 end

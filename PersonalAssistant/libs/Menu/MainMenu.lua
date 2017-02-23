@@ -338,30 +338,6 @@ function PA_SettingsMenu.createMainMenu()
             disabled = PAMenu_Functions.disabled.PABanking.depositTimerInterval,
             default = PAMenu_Defaults.defaultSettings.PABanking.depositTimerInterval,
         })
-
-        -- TODO: Refactor the following menu entry
-        optionsTable:insert({
-            type = "checkbox",
-            name = PALocale.getResourceMessage("PABMenu_HideNoDeposit"),
-            tooltip = PALocale.getResourceMessage("PABMenu_HideNoDeposit_T"),
-            getFunc = function() return PA.savedVars.Banking[PA.activeProfile].hideNoDepositMsg end,
-            setFunc = function(value) PA.savedVars.Banking[PA.activeProfile].hideNoDepositMsg = value end,
-            width = "half",
-            disabled = function() return not PA.savedVars.Banking[PA.activeProfile].enabled end,
-            default = false,
-        })
-
-        -- TODO: Refactor the following menu entry
-        optionsTable:insert({
-            type = "checkbox",
-            name = PALocale.getResourceMessage("PABMenu_HideAll"),
-            tooltip = PALocale.getResourceMessage("PABMenu_HideAll_T"),
-            getFunc = function() return PA.savedVars.Banking[PA.activeProfile].hideAllMsg end,
-            setFunc = function(value) PA.savedVars.Banking[PA.activeProfile].hideAllMsg = value end,
-            width = "half",
-            disabled = function() return not PA.savedVars.Banking[PA.activeProfile].enabled end,
-            default = false,
-        })
     end
 
     -- =================================================================================================================
@@ -492,17 +468,6 @@ function PA_SettingsMenu.createMainMenu()
             setFunc = PAMenu_Functions.setFunc.PAJunk.autoMarkTrash,
             disabled = PAMenu_Functions.disabled.PAJunk.autoMarkTrash,
             default = PAMenu_Defaults.defaultSettings.PAJunk.autoMarkTrash,
-        })
-
-        -- TODO: Refactor the following menu entry
-        optionsTable:insert({
-            type = "checkbox",
-            name = PALocale.getResourceMessage("PAJMenu_HideAll"),
-            tooltip = PALocale.getResourceMessage("PAJMenu_HideAll_T"),
-            getFunc = function() return PA.savedVars.Junk[PA.activeProfile].hideAllMsg end,
-            setFunc = function(value) PA.savedVars.Junk[PA.activeProfile].hideAllMsg = value end,
-            disabled = function() return not PA.savedVars.Junk[PA.activeProfile].enabled end,
-            default = false,
         })
     end
 end

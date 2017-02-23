@@ -16,7 +16,6 @@ function PAJ.initDefaults()
     -- default values for PAJunk
     for profileNo = 1, PAG_MAX_PROFILES do
         PAJ.Junk_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PAJunk
-        PAJ.Junk_Defaults[profileNo].hideAllMsg = false  -- TODO: cleanup
     end
 end
 
