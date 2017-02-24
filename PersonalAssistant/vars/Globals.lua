@@ -32,8 +32,7 @@ PAB_STACKING_INCOMPLETE = 2     -- 2: Complete existing stacks
 -- PerstonalAssistant Banking - Move Mode
 PAB_MOVETO_IGNORE = 0
 PAB_MOVETO_BANK = 1
-PAB_MOVETO_VIRTUAL = 2
-PAB_MOVETO_BACKPACK = 3
+PAB_MOVETO_BACKPACK = 2
 
 -- PersonalAssistant Loot
 PAL_TYPE_LOOT = 0
@@ -87,42 +86,50 @@ PARWeaponSlots:insert(EQUIP_SLOT_BACKUP_OFF)
 -- =====================================================================================================================
 -- = PA Banking
 -- =================================
+-- PersonalAssistant Banking MateriaItemTypes
+PABItemTypesMaterial = setmetatable({}, { __index = table })
+-- Alchemy
+PABItemTypesMaterial:insert(ITEMTYPE_REAGENT)
+PABItemTypesMaterial:insert(ITEMTYPE_POISON_BASE)
+PABItemTypesMaterial:insert(ITEMTYPE_POTION_BASE)
+-- Blacksmithing
+PABItemTypesMaterial:insert(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
+PABItemTypesMaterial:insert(ITEMTYPE_BLACKSMITHING_MATERIAL)
+PABItemTypesMaterial:insert(ITEMTYPE_BLACKSMITHING_BOOSTER)
+-- Clothing
+PABItemTypesMaterial:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+PABItemTypesMaterial:insert(ITEMTYPE_CLOTHIER_MATERIAL)
+PABItemTypesMaterial:insert(ITEMTYPE_CLOTHIER_BOOSTER)
+-- Woodworking
+PABItemTypesMaterial:insert(ITEMTYPE_WOODWORKING_RAW_MATERIAL)
+PABItemTypesMaterial:insert(ITEMTYPE_WOODWORKING_MATERIAL)
+PABItemTypesMaterial:insert(ITEMTYPE_WOODWORKING_BOOSTER)
+-- Enchanting
+PABItemTypesMaterial:insert(ITEMTYPE_ENCHANTING_RUNE_ASPECT)
+PABItemTypesMaterial:insert(ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
+PABItemTypesMaterial:insert(ITEMTYPE_ENCHANTING_RUNE_POTENCY)
+-- Provisioning
+PABItemTypesMaterial:insert(ITEMTYPE_INGREDIENT)
+-- Others
+PABItemTypesMaterial:insert(ITEMTYPE_ARMOR_TRAIT)
+PABItemTypesMaterial:insert(ITEMTYPE_WEAPON_TRAIT)
+PABItemTypesMaterial:insert(ITEMTYPE_STYLE_MATERIAL)
+PABItemTypesMaterial:insert(ITEMTYPE_RAW_MATERIAL)
+
+-- ---------------------------------------------------------------------------------------------------------------------
 -- PersonalAssistant Banking ItemTypes
 PABItemTypes = setmetatable({}, { __index = table })
--- Alchemy
-PABItemTypes:insert(ITEMTYPE_REAGENT)
-PABItemTypes:insert(ITEMTYPE_POISON_BASE)
-PABItemTypes:insert(ITEMTYPE_POTION_BASE)
--- Blacksmithing
-PABItemTypes:insert(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
-PABItemTypes:insert(ITEMTYPE_BLACKSMITHING_MATERIAL)
-PABItemTypes:insert(ITEMTYPE_BLACKSMITHING_BOOSTER)
--- Clothing
-PABItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
-PABItemTypes:insert(ITEMTYPE_CLOTHIER_MATERIAL)
-PABItemTypes:insert(ITEMTYPE_CLOTHIER_BOOSTER)
--- Woodworking
-PABItemTypes:insert(ITEMTYPE_WOODWORKING_RAW_MATERIAL)
-PABItemTypes:insert(ITEMTYPE_WOODWORKING_MATERIAL)
-PABItemTypes:insert(ITEMTYPE_WOODWORKING_BOOSTER)
 -- Enchanting
-PABItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ASPECT)
-PABItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
-PABItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_POTENCY)
 PABItemTypes:insert(ITEMTYPE_GLYPH_ARMOR)
 PABItemTypes:insert(ITEMTYPE_GLYPH_JEWELRY)
 PABItemTypes:insert(ITEMTYPE_GLYPH_WEAPON)
 -- Provisioning
-PABItemTypes:insert(ITEMTYPE_INGREDIENT)
 PABItemTypes:insert(ITEMTYPE_RECIPE)
 -- Others
 PABItemTypes:insert(ITEMTYPE_POTION)
 PABItemTypes:insert(ITEMTYPE_POISON)
-PABItemTypes:insert(ITEMTYPE_ARMOR_TRAIT)
-PABItemTypes:insert(ITEMTYPE_WEAPON_TRAIT)
-PABItemTypes:insert(ITEMTYPE_STYLE_MATERIAL)
-PABItemTypes:insert(ITEMTYPE_RAW_MATERIAL)
 
+-- ---------------------------------------------------------------------------------------------------------------------
 -- PersonalAssistant Banking Advanced ItemTypes
 PABItemTypesAdvanced = setmetatable({}, { __index = table })
 -- Lockpick
@@ -153,6 +160,7 @@ PALHarvestableItemTypes:insert(ITEMTYPE_INGREDIENT)
 -- Fishing
 PALHarvestableItemTypes:insert(ITEMTYPE_FISH)
 
+-- ---------------------------------------------------------------------------------------------------------------------
 -- PersonalAssistant Loot Harvestable ItemTypes
 PALLootableItemTypes = setmetatable({}, { __index = table })
 -- Clothing

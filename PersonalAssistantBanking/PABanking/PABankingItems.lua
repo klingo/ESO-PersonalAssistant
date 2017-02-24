@@ -65,10 +65,6 @@ local function doItemTransaction(fromBagId)
             -- Deposit to Bank
             moveItemTo(itemData, BAG_BANK)
 
-        elseif (itemMoveMode == PAB_MOVETO_VIRTUAL and fromBagId ~= BAG_VIRTUAL and IsESOPlusSubscriber()) then
-            -- Deposit to Virtual (ESO Plus)
-            moveItemTo(itemData, BAG_VIRTUAL)
-
         elseif (itemMoveMode == PAB_MOVETO_BACKPACK and fromBagId ~= BAG_BACKPACK) then
             -- Withdraw to Backpack
             moveItemTo(itemData, BAG_BACKPACK)

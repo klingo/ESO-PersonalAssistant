@@ -42,12 +42,6 @@ PAMenu_Choices.choices = {
             ResourceBundle.en["PAB_MoveTo_Bank"],
             ResourceBundle.en["PAB_MoveTo_Backpack"],
         },
-        itemMoveModePlus = {
-            ResourceBundle.en["PAB_MoveTo_Ignore"],
-            ResourceBundle.en["PAB_MoveTo_Bank"],
-            ResourceBundle.en["PAB_MoveTo_Virtual"],
-            ResourceBundle.en["PAB_MoveTo_Backpack"],
-        },
         mathOperator = {
             PALocale.getResourceMessage("REL_None"),
             PALocale.getResourceMessage("REL_Equal"),
@@ -113,12 +107,6 @@ PAMenu_Choices.choicesValues = {
         itemMoveMode = {
             PAB_MOVETO_IGNORE,
             PAB_MOVETO_BANK,
-            PAB_MOVETO_BACKPACK,
-        },
-        itemMoveModePlus = {
-            PAB_MOVETO_IGNORE,
-            PAB_MOVETO_BANK,
-            PAB_MOVETO_VIRTUAL,
             PAB_MOVETO_BACKPACK,
         },
         mathOperator = {

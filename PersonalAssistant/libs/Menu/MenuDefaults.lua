@@ -37,6 +37,7 @@ PAMenu_Defaults.defaultSettings = {
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
         depositTimerInterval = 300,
+        ItemTypesMaterial = {},
         ItemTypes = {},
         ItemTypesAdvanced = {},
     },

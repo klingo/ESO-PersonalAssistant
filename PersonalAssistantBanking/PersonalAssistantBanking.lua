@@ -15,8 +15,12 @@ function PAB.initDefaults()
         -- get default vlaues from PAMenu_Defaults
         PAB.Banking_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PABanking
 
+        -- default values for ItemTypesMaterial (only prepare defaults for enabled itemTypes)
+        for _, itemType in pairs(PABItemTypesMaterial) do
+            PAB.Banking_Defaults[profileNo].ItemTypesMaterial[itemType] = PAC_ITEMTYPE_IGNORE
+        end
+
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
-        -- deposit=true, withdrawal=false
         for _, itemType in pairs(PABItemTypes) do
             PAB.Banking_Defaults[profileNo].ItemTypes[itemType] = PAC_ITEMTYPE_IGNORE
         end

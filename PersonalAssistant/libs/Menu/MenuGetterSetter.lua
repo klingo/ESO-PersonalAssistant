@@ -434,6 +434,29 @@ end
 -- =====================================================================================================================
 -- =====================================================================================================================
 
+-- PABAnking - ItemTypeMaterialSubmenu
+
+--------------------------------------------------------------------------
+-- PABAnking - ItemTypeMaterialSubmenu   itemTypesMaterialMoveMode
+---------------------------------
+function PAMenu_Functions.getFunc.PABanking.itemTypesMaterialMoveMode(itemType)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Banking[PA.activeProfile].ItemTypesMaterial[itemType]
+end
+
+function PAMenu_Functions.setFunc.PABanking.itemTypesMaterialMoveMode(itemType, value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Banking[PA.activeProfile].ItemTypesMaterial[itemType] = value
+end
+
+function PAMenu_Functions.disabled.PABanking.itemTypesMaterialMoveMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Banking[PA.activeProfile].enabled and PA.savedVars.Banking[PA.activeProfile].enabledItems)
+end
+
+-- =====================================================================================================================
+-- =====================================================================================================================
+
 -- PABAnking - ItemTypeSubmenu
 
 --------------------------------------------------------------------------

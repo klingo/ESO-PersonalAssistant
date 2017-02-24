@@ -52,7 +52,6 @@ ResourceBundle.en["PAB_ItemType_Inherit"]               = "Depending on item typ
 
 ResourceBundle.en["PAB_MoveTo_Ignore"]                  = "Ignore"
 ResourceBundle.en["PAB_MoveTo_Bank"]                    = "Deposit to Bank"
-ResourceBundle.en["PAB_MoveTo_Virtual"]                 = "Deposit to Virtual (ESO Plus)"
 ResourceBundle.en["PAB_MoveTo_Backpack"]                = "Withdraw to Backpack"
 
 -- PALoot --
@@ -141,6 +140,8 @@ ResourceBundle.en["PABMenu_WithdrawToMinGold_T"]        = "Automatically withdra
 ResourceBundle.en["PABMenu_EnabledItems"]               = "Deposit and withdraw items"
 ResourceBundle.en["PABMenu_EnabledItems_T"]             = "Auto deposit and/or withdraw items to and from the bank?"
 ResourceBundle.en["PABMenu_DepItemTypeDesc"]            = "Define an individual behaviour (deposit, withdraw, ignore) for common item types as well as more advanced ones."
+ResourceBundle.en["PABMenu_ItemTypeMaterialSubmenu"]    = "Crafting Material"
+ResourceBundle.en["PABMenu_ItemTypeMaterialESOPlusDesc"]= PAC_COL_LIGHT_BLUE.."As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag."
 ResourceBundle.en["PABMenu_DepItemType"]                = "Common item types"
 ResourceBundle.en["PABMenu_DepItemType_T"]              = "Open the sub-menu to define for each item type whether it shall be deposited, withdrawn or ignored."
 ResourceBundle.en["PABMenu_DepStackOnly"]               = "Stacking type (Deposit)"

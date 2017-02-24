@@ -15,6 +15,7 @@ local panelData = {
 }
 
 local optionsTable = setmetatable({}, { __index = table })
+local PABItemTypeMaterialSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeAdvancedSubmenuTable = setmetatable({}, { __index = table })
 local PALHarvestableItemSubmenuTable = setmetatable({}, { __index = table })
@@ -24,6 +25,7 @@ local PALLootableItemSubmenuTable = setmetatable({}, { __index = table })
 function PA_SettingsMenu.CreateOptions()
 
     -- create main- and submenus with LAM-2
+    PA_SettingsMenu.createPABItemTypeMaterialSubmenuTable()
     PA_SettingsMenu.createPABItemSubMenu()
     PA_SettingsMenu.createPABItemAdvancedSubMenu()
     PA_SettingsMenu.createPALHarvestableItemSubMenu()
@@ -319,6 +321,13 @@ function PA_SettingsMenu.createMainMenu()
 
         optionsTable:insert({
             type = "submenu",
+            name = PALocale.getResourceMessage("PABMenu_ItemTypeMaterialSubmenu"),
+--            tooltip = PALocale.getResourceMessage("PABMenu_ItemTypeMaterialSubmenu_T"),
+            controls = PABItemTypeMaterialSubmenuTable,
+        })
+
+        optionsTable:insert({
+            type = "submenu",
             name = PALocale.getResourceMessage("PABMenu_DepItemType"),
             tooltip = PALocale.getResourceMessage("PABMenu_DepItemType_T"),
             controls = PABItemTypeSubmenuTable,
@@ -474,6 +483,42 @@ function PA_SettingsMenu.createMainMenu()
             disabled = PAMenu_Functions.disabled.PAJunk.autoMarkTrash,
             default = PAMenu_Defaults.defaultSettings.PAJunk.autoMarkTrash,
         })
+    end
+end
+
+
+-- =================================================================================================================
+-- =================================================================================================================
+
+
+function PA_SettingsMenu.createPABItemTypeMaterialSubmenuTable()
+    if (PAB) then
+
+        if (IsESOPlusSubscriber()) then
+
+            PABItemTypeMaterialSubmenuTable:insert({
+                type = "description",
+                text = PALocale.getResourceMessage("PABMenu_ItemTypeMaterialESOPlusDesc"),
+            })
+
+        else
+
+            for _, itemType in pairs(PABItemTypesMaterial) do
+                PABItemTypeMaterialSubmenuTable:insert({
+                    type = "dropdown",
+                    name = PALocale.getResourceMessage(itemType),
+                    choices = PAMenu_Choices.choices.PABanking.itemMoveMode,
+                    choicesValues = PAMenu_Choices.choicesValues.PABanking.itemMoveMode,
+                    -- TODO: choicesTooltips
+                    getFunc = function() return PAMenu_Functions.getFunc.PABanking.itemTypesMaterialMoveMode(itemType) end,
+                    setFunc = function(value) PAMenu_Functions.setFunc.PABanking.itemTypesMaterialMoveMode(itemType, value) end,
+                    width = "half",
+                    disabled = PAMenu_Functions.disabled.PABanking.itemTypesMaterialMoveMode,
+                    -- default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
+                })
+            end
+
+        end
     end
 end
 
