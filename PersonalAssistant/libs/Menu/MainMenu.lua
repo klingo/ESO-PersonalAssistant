@@ -481,6 +481,9 @@ function PA_SettingsMenu.createPABItemTypeMaterialSubmenuTable()
 
         if (IsESOPlusSubscriber()) then
 
+            -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
+            -- options are not available (--> virtual bag)
+
             PABItemTypeMaterialSubmenuTable:insert({
                 type = "description",
                 text = PALocale.getResourceMessage("PABMenu_ItemTypeMaterialESOPlusDesc"),
@@ -645,13 +648,24 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
             name = PALocale.getResourceMessage("PALMenu_HarvestableItems_Bait_Header"),
         })
 
+        local baitChoices = PAMenu_Choices.choices.PALoot.harvestableBaitLootMode
+        local baitChoicesValues = PAMenu_Choices.choicesTooltips.PALoot.harvestableBaitLootMode
+        local baitChoicesTooltips = PAMenu_Choices.choicesTooltips.PALoot.harvestableBaitLootMode
+        if (IsESOPlusSubscriber()) then
+            -- override the values in ace of ESO Plus (no option to "drestroy" bait, as it directly goes to virtual bag)
+            -- remove the last entry (loot & destroy)
+            table.remove(baitChoices)
+            table.remove(baitChoicesValues)
+            table.remove(baitChoicesTooltips)
+        end
+
         PALHarvestableItemSubmenuTable:insert({
             type = "dropdown",
             name = PALocale.getResourceMessage("PALMenu_HarvestableItems_Bait"),
             tooltip = PALocale.getResourceMessage("PALMenu_HarvestableItems_Bait_T"),
-            choices = PAMenu_Choices.choices.PALoot.harvestableBaitLootMode,
-            choicesValues = PAMenu_Choices.choicesValues.PALoot.harvestableBaitLootMode,
-            choicesTooltips = PAMenu_Choices.choicesTooltips.PALoot.harvestableBaitLootMode,
+            choices = baitLootChoices,
+            choicesValues = baitLootChoicesValues,
+            choicesTooltips = baitLootChoicesTooltips,
             getFunc = PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode,
             setFunc = PAMenu_Functions.setFunc.PALoot.harvestableBaitLootMode,
             disabled = PAMenu_Functions.disabled.PALoot.harvestableBaitLootMode,
