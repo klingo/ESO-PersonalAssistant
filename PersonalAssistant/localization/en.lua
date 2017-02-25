@@ -34,7 +34,7 @@ ResourceBundle.en["PAR_PartialRepair_ChatMode_Normal"]  = PAC_COLTEXT_PAR..PAC_C
 ResourceBundle.en["PAR_PartialRepair_ChatMode_Full"]    = PAC_COLTEXT_PAR.."%d / %d %s items repaired for "..PAC_COL_RED.."- %d "..PAC_ICON_GOLD..PAC_COL_DEFAULT.." (%d "..PAC_ICON_GOLD.." missing for full repair)"
 
 -- PARepair Chat Output - Weapon Charge --
-ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Full"]   = "Charged %s %s with %s %s from %d\% to %d\%"
+ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Full"]   = PAC_COLTEXT_PAR.."Charged %s %s with %s %s from %d%% to %d%%"
 
 -- PABanking --
 ResourceBundle.en["PAB_GoldDeposited"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." deposited."
