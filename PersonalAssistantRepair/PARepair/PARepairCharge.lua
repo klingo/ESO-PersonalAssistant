@@ -79,7 +79,7 @@ function PAR_Charge.ReChargeWeapons()
                 PAHF.println("PAR_ReChargeWeapon_ChatMode_Full", weapon.itemLink, weapon.iconString, gemTable[#gemTable].itemLink, gemTable[#gemTable].iconString, weapon.chargePerc, finalChargesPerc)
 
                 -- actually charge the item
---                ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
+                ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
             end
         end
 
