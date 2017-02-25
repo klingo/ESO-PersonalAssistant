@@ -822,6 +822,25 @@ function PAMenu_Functions.disabled.PAJunk.autoMarkTrash()
     return not PA.savedVars.Junk[PA.activeProfile].enabled
 end
 
+--------------------------------------------------------------------------
+-- PAJunk   autoMarkOrnate
+---------------------------------
+function PAMenu_Functions.getFunc.PAJunk.autoMarkOrnate()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Junk[PA.activeProfile].autoMarkOrnate
+end
+
+function PAMenu_Functions.setFunc.PAJunk.autoMarkOrnate(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Junk[PA.activeProfile].autoMarkOrnate = value
+end
+
+function PAMenu_Functions.disabled.PAJunk.autoMarkOrnate()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not PA.savedVars.Junk[PA.activeProfile].enabled
+end
+
+
 
 -- =====================================================================================================================
 -- =====================================================================================================================

@@ -83,7 +83,7 @@ ResourceBundle.en["PAL_ItemsDestroy_MoveFailed"]        = PAC_COLTEXT_PAL..PAC_C
 ResourceBundle.en["PAL_ItemsDestroy_DestroyFailed"]     = PAC_COLTEXT_PAL..PAC_COL_ORANGE.."FAILURE: No free inventory slot to safely destroy %d/%d %s %s"
 
 -- PAJunk --
-ResourceBundle.en["PAJ_MovedToJunk"]                    = PAC_COLTEXT_PAJ.."Moved %s to junk"
+ResourceBundle.en["PAJ_MarkedAsJunk"]                   = PAC_COLTEXT_PAJ.."Marked %s as junk"
 ResourceBundle.en["PAJ_SoldJunkInfo"]                   = PAC_COLTEXT_PAJ.."Sold junk items for "..PAC_COL_GREEN.."%d "..PAC_ICON_GOLD
 
 -- MainMenu --
@@ -200,8 +200,8 @@ ResourceBundle.en["PAJMenu_AutoSellJunk"]               = "Auto-Sell Junk?"
 ResourceBundle.en["PAJMenu_AutoSellJunk_T"]             = "Automatically sell all items marked as junk?"
 ResourceBundle.en["PAJMenu_AutoMarkTrash"]              = "Auto-Mark [Trash]"
 ResourceBundle.en["PAJMenu_AutoMarkTrash_T"]            = "Automatically mark items of type [Trash] as junk?"
-ResourceBundle.en["PAJMenu_HideAll"]                    = "Hide ALL junk messages"
-ResourceBundle.en["PAJMenu_HideAll_T"]                  = "Silent-Mode: No junk message will be displayed."
+ResourceBundle.en["PAJMenu_AutoMarkOrnate"]             = "Auto-Mark [Ornate] trait"
+ResourceBundle.en["PAJMenu_AutoMarkOrnate_T"]           = "Automatically mark items with [Ornate] trait as junk?"
 
 -- Name Spaces --
 ResourceBundle.en["NS_Bag_Equipment"]                   = ""    -- not required so far

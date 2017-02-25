@@ -55,5 +55,6 @@ PAMenu_Defaults.defaultSettings = {
         enabled = false,
         autoSellJunk = true,
         autoMarkTrash = true,
+        autoMarkOrnate = false,
     },
 }

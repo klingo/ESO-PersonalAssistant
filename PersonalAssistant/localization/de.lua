@@ -194,8 +194,6 @@ ResourceBundle.de["PAJMenu_AutoSellJunk"]               = "Automatisch Trödel v
 ResourceBundle.de["PAJMenu_AutoSellJunk_T"]             = "Automatisch alle als Trödel markierte Gegenstände verkaufen."
 ResourceBundle.de["PAJMenu_AutoMarkTrash"]              = "Automatisches markieren von [Plunder]"
 ResourceBundle.de["PAJMenu_AutoMarkTrash_T"]            = "Automatisch Gegenstände vom Typ [Plunder] als Trödel markieren?"
-ResourceBundle.de["PAJMenu_HideAll"]                    = "Blende ALLE Trödel-Meldungen aus"
-ResourceBundle.de["PAJMenu_HideAll_T"]                  = "Ruhe-Modus: Keine Trödel-Meldungen werden mehr angezeigt."
 
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]                   = ""    -- soweit nicht benötigt

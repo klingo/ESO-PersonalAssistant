@@ -458,6 +458,16 @@ function PA_SettingsMenu.createMainMenu()
             disabled = PAMenu_Functions.disabled.PAJunk.autoMarkTrash,
             default = PAMenu_Defaults.defaultSettings.PAJunk.autoMarkTrash,
         })
+
+        optionsTable:insert({
+            type = "checkbox",
+            name = PALocale.getResourceMessage("PAJMenu_AutoMarkOrnate"),
+            tooltip = PALocale.getResourceMessage("PAJMenu_AutoMarkOrnate_T"),
+            getFunc = PAMenu_Functions.getFunc.PAJunk.autoMarkOrnate,
+            setFunc = PAMenu_Functions.setFunc.PAJunk.autoMarkOrnate,
+            disabled = PAMenu_Functions.disabled.PAJunk.autoMarkOrnate,
+            default = PAMenu_Defaults.defaultSettings.PAJunk.autoMarkOrnate,
+        })
     end
 end
 

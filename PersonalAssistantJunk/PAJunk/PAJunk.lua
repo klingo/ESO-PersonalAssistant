@@ -66,7 +66,7 @@ function PAJ.OnShopOpen()
 end
 
 
-function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
+function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
@@ -76,14 +76,22 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
             if ((bagId == BAG_BACKPACK) and (isNewItem)) then
 
                 -- check if the item isnt already junk
-                if not IsItemJunk(bagId, slotId) then
+                if not IsItemJunk(bagId, slotIndex) then
                     -- get the itemType
-                    local itemType = GetItemType(bagId, slotId)
+                    local itemType = GetItemType(bagId, slotIndex)
+                    local itemTrait = GetItemTrait(bagId, slotIndex)
                     local markAsJunk = false
 
                     -- check if it is trash and if auto-flag-trash is enabled
-                    if ((itemType == ITEMTYPE_TRASH) and (PA.savedVars.Junk[PA.activeProfile].autoMarkTrash)) then
-                        markAsJunk = true
+                    if (PA.savedVars.Junk[PA.activeProfile].autoMarkTrash) then
+                        if (itemType == ITEMTYPE_TRASH) then markAsJunk = true end
+                    end
+
+                    -- check if item has the [Ornate] trait and if it is enabled
+                    if (PA.savedVars.Junk[PA.activeProfile].autoMarkOrnate) then
+                        if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE) then
+                            markAsJunk = true
+                        end
                     end
 
                     -- TODO: check other item types etc.
@@ -92,12 +100,12 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
 
                     if (markAsJunk) then
                         -- Now we know for sure the item _should_ be marked as Junk. Check if this indeed is possible.
-                        if CanItemBeMarkedAsJunk(bagId, slotId) then
+                        if CanItemBeMarkedAsJunk(bagId, slotIndex) then
                             -- it is safe to mark the item as junk now
-                            SetItemIsJunk(bagId, slotId, true)
+                            SetItemIsJunk(bagId, slotIndex, true)
 
-                            local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-                            PAHF.println("PAJ_MovedToJunk", itemLink)
+                            local itemLink =  GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                            PAHF.println("PAJ_MarkedAsJunk", itemLink)
                         end
                     end
                 end
