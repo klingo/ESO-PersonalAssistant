@@ -21,9 +21,10 @@ local function GetSoulGemsIn(bagId)
 --                bagId = data.bagId,
                 slotIndex = data.slotIndex,
                 itemName = data.name,
+                itemLink = GetItemLink(data.bagId, data.slotIndex, LINK_STYLE_BRACKETS),
 --                stackCount = data.stackCount,
                 gemTier = GetSoulGemItemInfo(data.bagId, data.slotIndex),
---                icon = data.iconFile,
+                icon = data.iconFile,
             })
         end
     end
@@ -50,29 +51,35 @@ function PAR_Charge.ReChargeWeapons()
             local charges, maxCharges = GetChargeInfoForItem(BAG_WORN, weaponSlot)
             local chargePerc = PAHF.round(1 / maxCharges * charges, 2)
 
---            d(GetItemName(BAG_WORN, weaponSlot).. " is on "..tostring(chargePerc * 100).." and trehshold is set at "..tostring(chargeThreshold))
-
             -- check if charge level of item is below threshold
             if ((chargePerc * 100) <= chargeThreshold) then
---                d("add it to the list!")
-                weaponsToCharge:insert({weaponSlot = weaponSlot, charges = charges, maxCharges = maxCharges, chargePerc = chargePerc})
+                local itemLink = GetItemLink(BAG_WORN, weaponSlot, LINK_STYLE_BRACKETS)
+                local icon =  GetItemLinkInfo(itemLink)
+                weaponsToCharge:insert({weaponSlot = weaponSlot, charges = charges, maxCharges = maxCharges, chargePerc = chargePerc, itemLink = itemLink , icon = icon})
             end
         end
 
---        d("list size: "..tostring(table.getn(weaponsToCharge)))
         -- are there weapons to charge?
         if (#weaponsToCharge > 0) then
             local gemTable = GetSoulGemsIn(BAG_BACKPACK)
 
             -- from the list of actually to be charged weapons, charge them
             for _, weapon in pairs(weaponsToCharge) do
-
+                -- collect some additional information
                 local chargeableAmount = GetAmountSoulGemWouldChargeItem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
+                local finalChargesPerc = 1
+                if ((weapon.charges + chargeableAmount) < weapon.maxCharges) then
+                    finalChargesPerc = PAHF.round(1 / weapon.maxCharges * (weapon.charges + chargeableAmount))
+                end
 
+                -- some debug information
+                PAHF.debugln("Want to charge: "..GetItemName(BAG_WORN, weapon.weaponSlot).." with: "..gemTable[#gemTable].itemName.." for "..tostring(chargeableAmount).." from currently: "..tostring(weapon.charges).."/"..tostring(weapon.maxCharges))
+
+                -- actually charge the item
                 ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
 
-                d("Want to charge: "..GetItemName(BAG_WORN, weapon.weaponSlot).." with: "..gemTable[#gemTable].itemName.." for "..tostring(chargeableAmount).." from currently: "..tostring(weapon.charges).."/"..tostring(weapon.maxCharges))
-
+                -- inform the player
+                PAHF.println("PAR_ReChargeWeapon_ChatMode_Full", weapon.itemLink, weapon.itemLink.icon, gemTable[#gemTable].itemLink, gemTable[#gemTable].icon, weapon.chargePerc, finalChargesPerc)
             end
         end
 
