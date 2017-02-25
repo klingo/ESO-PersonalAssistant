@@ -649,7 +649,7 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
         })
 
         local baitChoices = PAMenu_Choices.choices.PALoot.harvestableBaitLootMode
-        local baitChoicesValues = PAMenu_Choices.choicesTooltips.PALoot.harvestableBaitLootMode
+        local baitChoicesValues = PAMenu_Choices.choicesValues.PALoot.harvestableBaitLootMode
         local baitChoicesTooltips = PAMenu_Choices.choicesTooltips.PALoot.harvestableBaitLootMode
         if (IsESOPlusSubscriber()) then
             -- override the values in ace of ESO Plus (no option to "drestroy" bait, as it directly goes to virtual bag)
@@ -663,9 +663,9 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
             type = "dropdown",
             name = PALocale.getResourceMessage("PALMenu_HarvestableItems_Bait"),
             tooltip = PALocale.getResourceMessage("PALMenu_HarvestableItems_Bait_T"),
-            choices = baitLootChoices,
-            choicesValues = baitLootChoicesValues,
-            choicesTooltips = baitLootChoicesTooltips,
+            choices = baitChoices,
+            choicesValues = baitChoicesValues,
+            choicesTooltips = baitChoicesTooltips,
             getFunc = PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode,
             setFunc = PAMenu_Functions.setFunc.PALoot.harvestableBaitLootMode,
             disabled = PAMenu_Functions.disabled.PALoot.harvestableBaitLootMode,

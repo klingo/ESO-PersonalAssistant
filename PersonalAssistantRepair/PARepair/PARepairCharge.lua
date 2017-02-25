@@ -73,7 +73,7 @@ function PAR_Charge.ReChargeWeapons()
                 end
 
                 -- some debug information
-                PAHF.debugln("Want to charge: "..GetItemName(BAG_WORN, weapon.weaponSlot).." with: "..gemTable[#gemTable].itemName.." for "..tostring(chargeableAmount).." from currently: "..tostring(weapon.charges).."/"..tostring(weapon.maxCharges))
+                PAHF_DEBUG.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(BAG_WORN, weapon.weaponSlot), gemTable[#gemTable].itemName, chargeableAmount, weapon.charges, weapon.maxCharges)
 
                 -- actually charge the item
                 ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
