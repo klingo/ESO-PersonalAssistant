@@ -57,4 +57,6 @@ PAMenu_Defaults.defaultSettings = {
         autoMarkTrash = true,
         autoMarkOrnate = false,
     },
+    PAWorker = {
+    },
 }
