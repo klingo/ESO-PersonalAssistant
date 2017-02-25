@@ -100,8 +100,8 @@ function PA_SettingsMenu.createMainMenu()
 
         optionsTable:insert({
             type = "checkbox",
-            name = PALocale.getResourceMessage("PARMenu_RepairEq"),
-            tooltip = PALocale.getResourceMessage("PARMenu_RepairEq_T"),
+            name = PALocale.getResourceMessage("PARMenu_RepairWornGold"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairWornGold_T"),
             getFunc = PAMenu_Functions.getFunc.PARepair.repairEquipped,
             setFunc = PAMenu_Functions.setFunc.PARepair.repairEquipped,
             width = "half",
@@ -111,8 +111,8 @@ function PA_SettingsMenu.createMainMenu()
 
         optionsTable:insert({
             type = "slider",
-            name = PALocale.getResourceMessage("PARMenu_RepairEqDura"),
-            tooltip = PALocale.getResourceMessage("PARMenu_RepairEqDura_T"),
+            name = PALocale.getResourceMessage("PARMenu_RepairWornGoldDura"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairWornGoldDura_T"),
             min = 0,
             max = 99,
             step = 1,
@@ -125,33 +125,8 @@ function PA_SettingsMenu.createMainMenu()
 
         optionsTable:insert({
             type = "checkbox",
-            name = PALocale.getResourceMessage("PARMenu_RepairBa"),
-            tooltip = PALocale.getResourceMessage("PARMenu_RepairBa_T"),
-            getFunc = PAMenu_Functions.getFunc.PARepair.repairBackpack,
-            setFunc = PAMenu_Functions.setFunc.PARepair.repairBackpack,
-            width = "half",
-            disabled = PAMenu_Functions.disabled.PARepair.repairBackpack,
-            default = PAMenu_Defaults.defaultSettings.PARepair.repairBackpack,
-        })
-
-        optionsTable:insert({
-            type = "slider",
-            name = PALocale.getResourceMessage("PARMenu_RepairBaDura"),
-            tooltip = PALocale.getResourceMessage("PARMenu_RepairBaDura_T"),
-            min = 0,
-            max = 99,
-            step = 1,
-            getFunc = PAMenu_Functions.getFunc.PARepair.repairBackpackThreshrold,
-            setFunc = PAMenu_Functions.setFunc.PARepair.repairBackpackThreshrold,
-            width = "half",
-            disabled = PAMenu_Functions.disabled.PARepair.repairBackpackThreshrold,
-            default = PAMenu_Defaults.defaultSettings.PARepair.repairBackpackThreshrold,
-        })
-
-        optionsTable:insert({
-            type = "checkbox",
-            name = PALocale.getResourceMessage("PARMenu_RepairEqWithKit"),
-            tooltip = PALocale.getResourceMessage("PARMenu_RepairEqWithKit_T"),
+            name = PALocale.getResourceMessage("PARMenu_RepairWornKit"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairWornKit_T"),
             getFunc = PAMenu_Functions.getFunc.PARepair.repairEquippedWithKit,
             setFunc = PAMenu_Functions.setFunc.PARepair.repairEquippedWithKit,
             width = "half",
@@ -161,8 +136,8 @@ function PA_SettingsMenu.createMainMenu()
 
         optionsTable:insert({
             type = "slider",
-            name = PALocale.getResourceMessage("PARMenu_RepairEqWithKitDura"),
-            tooltip = PALocale.getResourceMessage("PARMenu_RepairEqWithKitDura_T"),
+            name = PALocale.getResourceMessage("PARMenu_RepairWornKitDura"),
+            tooltip = PALocale.getResourceMessage("PARMenu_RepairWornKitDura_T"),
             min = 0,
             max = 99,
             step = 1,

@@ -158,42 +158,6 @@ function PAMenu_Functions.disabled.PARepair.repairEquippedThreshold()
 end
 
 --------------------------------------------------------------------------
--- PARepair   repairBackpack
----------------------------------
-function PAMenu_Functions.getFunc.PARepair.repairBackpack()
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
-    return PA.savedVars.Repair[PA.activeProfile].repairBackpack
-end
-
-function PAMenu_Functions.setFunc.PARepair.repairBackpack(value)
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
-    PA.savedVars.Repair[PA.activeProfile].repairBackpack = value
-end
-
-function PAMenu_Functions.disabled.PARepair.repairBackpack()
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
-    return not PA.savedVars.Repair[PA.activeProfile].enabled
-end
-
---------------------------------------------------------------------------
--- PARepair   repairBackpackThreshrold
----------------------------------
-function PAMenu_Functions.getFunc.PARepair.repairBackpackThreshrold()
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
-    return PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold
-end
-
-function PAMenu_Functions.setFunc.PARepair.repairBackpackThreshrold(value)
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
-    PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold = value
-end
-
-function PAMenu_Functions.disabled.PARepair.repairBackpackThreshrold()
-    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
-    return not (PA.savedVars.Repair[PA.activeProfile].enabled and PA.savedVars.Repair[PA.activeProfile].repairBackpack)
-end
-
---------------------------------------------------------------------------
 -- PARepair   repairEquippedWithKit
 ---------------------------------
 function PAMenu_Functions.getFunc.PARepair.repairEquippedWithKit()
@@ -244,7 +208,7 @@ end
 
 function PAMenu_Functions.disabled.PARepair.repairFullChatMode()
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
-    return not (PA.savedVars.Repair[PA.activeProfile].enabled and (PA.savedVars.Repair[PA.activeProfile].repairEquipped or PA.savedVars.Repair[PA.activeProfile].repairBackpack))
+    return not (PA.savedVars.Repair[PA.activeProfile].enabled and PA.savedVars.Repair[PA.activeProfile].repairEquipped)
 end
 
 --------------------------------------------------------------------------
@@ -262,7 +226,7 @@ end
 
 function PAMenu_Functions.disabled.PARepair.repairPartialChatMode()
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
-    return not (PA.savedVars.Repair[PA.activeProfile].enabled and (PA.savedVars.Repair[PA.activeProfile].repairEquipped or PA.savedVars.Repair[PA.activeProfile].repairBackpack))
+    return not (PA.savedVars.Repair[PA.activeProfile].enabled and PA.savedVars.Repair[PA.activeProfile].repairEquipped)
 end
 
 --------------------------------------------------------------------------

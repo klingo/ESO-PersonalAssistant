@@ -95,9 +95,9 @@ function PAR.OnShopOpen()
                     RepairItems(BAG_WORN, PA.savedVars.Repair[PA.activeProfile].repairEquippedThreshold)
                 end
                 -- check if backpack items shall be repaired
-                if PA.savedVars.Repair[PA.activeProfile].repairBackpack then
-                    RepairItems(BAG_BACKPACK, PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold)
-                end
+--                if PA.savedVars.Repair[PA.activeProfile].repairBackpack then
+--                    RepairItems(BAG_BACKPACK, PA.savedVars.Repair[PA.activeProfile].repairBackpackThreshrold)
+--                end
             end
         end
     end

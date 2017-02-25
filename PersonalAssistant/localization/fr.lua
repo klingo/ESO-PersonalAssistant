@@ -98,14 +98,10 @@ ResourceBundle.fr["PAGMenu_Welcome_T"]                  = "Afficher le message d
 ResourceBundle.fr["PARMenu_Header"]                     = PAC_COLTEXT_PAR
 ResourceBundle.fr["PARMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Activer l'Auto Repair"
 ResourceBundle.fr["PARMenu_Enable_T"]                   = "Activer la Réparation Automatique ?"
-ResourceBundle.fr["PARMenu_RepairEq"]                   = "Réparer les objets équipés"
-ResourceBundle.fr["PARMenu_RepairEq_T"]                 = "Réparer les objets équipés ?"
-ResourceBundle.fr["PARMenu_RepairEqDura"]               = "- Seuil de durabilité en %"
-ResourceBundle.fr["PARMenu_RepairEqDura_T"]             = "Réparer les objets équipés s'ils sont en-dessous du seuil de durabilité défini."
-ResourceBundle.fr["PARMenu_RepairBa"]                   = "Réparer les objets dans le sac"
-ResourceBundle.fr["PARMenu_RepairBa_T"]                 = "Réparer les objets dans le sac à dos ?"
-ResourceBundle.fr["PARMenu_RepairBaDura"]               = "- Seuil de durabilité en %"
-ResourceBundle.fr["PARMenu_RepairBaDura_T"]             = "Réparer les objets dans le sac s'ils sont en-dessous du seuil de durabilité défini."
+ResourceBundle.fr["PARMenu_RepairWornGold"]                   = "Réparer les objets équipés"
+ResourceBundle.fr["PARMenu_RepairWornGold_T"]                 = "Réparer les objets équipés ?"
+ResourceBundle.fr["PARMenu_RepairWornGoldDura"]               = "- Seuil de durabilité en %"
+ResourceBundle.fr["PARMenu_RepairWornGoldDura_T"]             = "Réparer les objets équipés s'ils sont en-dessous du seuil de durabilité défini."
 
 
 

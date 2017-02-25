@@ -98,14 +98,10 @@ ResourceBundle.de["PAGMenu_Welcome_T"]                  = "Soll eine Willkommens
 ResourceBundle.de["PARMenu_Header"]                     = PAC_COLTEXT_PAR
 ResourceBundle.de["PARMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Aktiviere automatische Reparatur"
 ResourceBundle.de["PARMenu_Enable_T"]                   = "Soll die automatische Reparatur aktiviert werden?"
-ResourceBundle.de["PARMenu_RepairEq"]                   = "Repariere ausgerüstete Gegenstände"
-ResourceBundle.de["PARMenu_RepairEq_T"]                 = "Sollen ausgerüstete Gegenstände repariert werden?"
-ResourceBundle.de["PARMenu_RepairEqDura"]               = "- Haltbarkeitsschwelle in %"
-ResourceBundle.de["PARMenu_RepairEqDura_T"]             = "Repariere ausgerüstete Gegenstände nur, wenn sie genau auf oder unter der definierten Haltbarkeitsschwelle sind."
-ResourceBundle.de["PARMenu_RepairBa"]                   = "Repariere Gegenstände im Inventar"
-ResourceBundle.de["PARMenu_RepairBa_T"]                 = "Sollen Gegenstäde die im Inventar sind repariert werden?"
-ResourceBundle.de["PARMenu_RepairBaDura"]               = "- Haltbarkeitsschwelle in %"
-ResourceBundle.de["PARMenu_RepairBaDura_T"]             = "Repariere Gegenstände im Inventar nur, wenn sie genau auf oder unter der definierten Haltbarkeitsschwelle sind."
+ResourceBundle.de["PARMenu_RepairWornGold"]                   = "Repariere ausgerüstete Gegenstände"
+ResourceBundle.de["PARMenu_RepairWornGold_T"]                 = "Sollen ausgerüstete Gegenstände repariert werden?"
+ResourceBundle.de["PARMenu_RepairWornGoldDura"]               = "- Haltbarkeitsschwelle in %"
+ResourceBundle.de["PARMenu_RepairWornGoldDura_T"]             = "Repariere ausgerüstete Gegenstände nur, wenn sie genau auf oder unter der definierten Haltbarkeitsschwelle sind."
 
 
 

@@ -69,7 +69,7 @@ function PAR_Charge.ReChargeWeapons()
 
                 local chargeableAmount = GetAmountSoulGemWouldChargeItem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
 
---                ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
+                ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
 
                 d("Want to charge: "..GetItemName(BAG_WORN, weapon.weaponSlot).." with: "..gemTable[#gemTable].itemName.." for "..tostring(chargeableAmount).." from currently: "..tostring(weapon.charges).."/"..tostring(weapon.maxCharges))
 
