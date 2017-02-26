@@ -265,6 +265,24 @@ function PAMenu_Functions.disabled.PARepair.chargeWeaponsThreshold()
     return not (PA.savedVars.Repair[PA.activeProfile].enabled and PA.savedVars.Repair[PA.activeProfile].chargeWeapons)
 end
 
+--------------------------------------------------------------------------
+-- PARepair   chargeWeaponsChatMode
+---------------------------------
+function PAMenu_Functions.getFunc.PARepair.chargeWeaponsChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Repair[PA.activeProfile].chargeWeaponsChatMode
+end
+
+function PAMenu_Functions.setFunc.PARepair.chargeWeaponsChatMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Repair[PA.activeProfile].chargeWeaponsChatMode = value
+end
+
+function PAMenu_Functions.disabled.PARepair.chargeWeaponsChatMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Repair[PA.activeProfile].enabled and PA.savedVars.Repair[PA.activeProfile].chargeWeapons)
+end
+
 
 -- =====================================================================================================================
 -- =====================================================================================================================

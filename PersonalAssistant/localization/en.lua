@@ -34,7 +34,10 @@ ResourceBundle.en["PAR_PartialRepair_ChatMode_Normal"]  = PAC_COLTEXT_PAR..PAC_C
 ResourceBundle.en["PAR_PartialRepair_ChatMode_Full"]    = PAC_COLTEXT_PAR.."%d / %d %s items repaired for "..PAC_COL_RED.."- %d "..PAC_ICON_GOLD..PAC_COL_DEFAULT.." (%d "..PAC_ICON_GOLD.." missing for full repair)"
 
 -- PARepair Chat Output - Weapon Charge --
-ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Full"]   = PAC_COLTEXT_PAR.."Charged %s %s with %s %s from %d%% to %d%%"
+ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_None"]   = "<no output>"
+ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Min"]    = "%s (%d%% --> %d%%)"..PAC_COL_RED.." - %s"
+ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Normal"] = PAC_COLTEXT_PAR.."%s (%d%% --> %d%%)"..PAC_COL_RED.." - %s"
+ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Full"]   = PAC_COLTEXT_PAR.."Charged %s %s from %d%% to %d%%  with %s %s"
 
 -- PABanking --
 ResourceBundle.en["PAB_GoldDeposited"]                  = PAC_COLTEXT_PAB.."%d "..PAC_ICON_GOLD.." deposited."
@@ -113,15 +116,17 @@ ResourceBundle.en["PARMenu_RepairWornKit"]              = "Use Repair Kits"
 ResourceBundle.en["PARMenu_RepairWornKit_T"]            = "Repair equipped items with repair kits when out in the field? (Common repair kits will be used before greater ones)"
 ResourceBundle.en["PARMenu_RepairWornKitDura"]          = "- Durability threshold in %"
 ResourceBundle.en["PARMenu_RepairWornKitDura_T"]        = "Equipped items will only be repaired with a repair kit when their durability is at or below the defined threshold"
-ResourceBundle.en["PARMenu_RepairFullChatMode"]         = "Chat display: full repairs"
+ResourceBundle.en["PARMenu_RepairFullChatMode"]         = "Chat display: Full repairs"
 ResourceBundle.en["PARMenu_RepairFullChatMode_T"]       = "How to display the information of a full repair in the chat window"
-ResourceBundle.en["PARMenu_RepairPartialChatMode"]      = "Chat display: partial/incomplete repairs"
-ResourceBundle.en["PARMenu_RepairPartialChatMode_T"]    = "How to display the information of an incomplet or parcial repair 8i.e. due to insufficient gold) in the chat window"
+ResourceBundle.en["PARMenu_RepairPartialChatMode"]      = "Chat display: Partial/incomplete repairs"
+ResourceBundle.en["PARMenu_RepairPartialChatMode_T"]    = "How to display the information of an incomplet or parcial repair i.e. due to insufficient gold) in the chat window"
 
 ResourceBundle.en["PARMenu_ChargeWeapons"]              = "Re-Charge Weapons"
 ResourceBundle.en["PARMenu_ChargeWeapons_T"]            = "Re-Charge equipped weapons?"
 ResourceBundle.en["PARMenu_ChargeWeaponsDura"]          = "- Re-Charge threshold in %"
 ResourceBundle.en["PARMenu_ChargeWeaponsDura_T"]        = "Re-Charge equipped weapons when their charge level is at or below the defined threshold. (Lesser soul gems will be used before common ones)"
+ResourceBundle.en["PARMenu_ChargeWeaponsChatMode"]      = "Chat display: Charging weapons"
+ResourceBundle.en["PARMenu_ChargeWeaponsChatMode_T"]    = "How to display the information of a re-charged weapon in the chat window"
 
 -- PABMenu --
 ResourceBundle.en["PABMenu_Header"]                     = PAC_COLTEXT_PAB

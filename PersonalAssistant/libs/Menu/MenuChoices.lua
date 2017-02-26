@@ -23,6 +23,12 @@ PAMenu_Choices.choices = {
             PAHF.getFormattedKey("PAR_PartialRepair_ChatMode_Normal", 115, 65),
             PAHF.getFormattedKey("PAR_PartialRepair_ChatMode_Full", 3, 7, "equipped", 115, 65),
         },
+        chargeWeaponsChatMode = {
+            PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_None"),
+            PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_Min", PAC_ICON_WEAPON, 15, 100, PAC_ICON_SOULGEM),
+            PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_Normal", PAC_ITEMCODE_WEAPON, 15, 100, PAC_ITEMCODE_SOULGEM),
+            PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_Full", PAC_ICON_WEAPON, PAC_ITEMCODE_WEAPON, 15, 100, PAC_ICON_SOULGEM, PAC_ITEMCODE_SOULGEM),
+        }
     },
     PABanking = {
         goldTransactionStep = {
@@ -90,6 +96,12 @@ PAMenu_Choices.choicesValues = {
             PA_OUTPUT_TYPE_NORMAL,
             PA_OUTPUT_TYPE_FULL,
         },
+        chargeWeaponsChatMode = {
+            PA_OUTPUT_TYPE_NONE,
+            PA_OUTPUT_TYPE_MIN,
+            PA_OUTPUT_TYPE_NORMAL,
+            PA_OUTPUT_TYPE_FULL,
+        }
     },
     PABanking = {
         goldTransactionStep = {

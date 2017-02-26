@@ -204,6 +204,24 @@ function PA_SettingsMenu.createMainMenu()
             default = PAMenu_Defaults.defaultSettings.PARepair.chargeWeaponsThreshold,
         })
 
+        -- chargin output-mode
+        optionsTable:insert({
+            type = "dropdown",
+            name = PALocale.getResourceMessage("PARMenu_ChargeWeaponsChatMode"),
+            tooltip = PALocale.getResourceMessage("PARMenu_ChargeWeaponsChatMode_T"),
+            choices = PAMenu_Choices.choices.PARepair.chargeWeaponsChatMode,
+            choicesValues = PAMenu_Choices.choicesValues.PARepair.chargeWeaponsChatMode,
+            getFunc = PAMenu_Functions.getFunc.PARepair.chargeWeaponsChatMode,
+            setFunc = PAMenu_Functions.setFunc.PARepair.chargeWeaponsChatMode,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PARepair.chargeWeaponsChatMode,
+            default = PAMenu_Defaults.defaultSettings.PARepair.chargeWeaponsChatMode,
+        })
+
+        -- soul gem alert
+
+        -- soul gem amount for alert
+
     end
 
     -- =================================================================================================================

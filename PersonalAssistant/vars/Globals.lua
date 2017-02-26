@@ -64,10 +64,14 @@ PAC_COLTEXT_PAJ = PAC_COL_YELLOW.."PA J"..PAC_COL_WHITE.."unk: "..PAC_COL_DEFAUL
 -- Icons
 PAC_ICON_GOLD = "|t16:16:/esoui/art/currency/currency_gold.dds|t"
 PAC_ICON_TALVAR = "|t16:16:/esoui/art/currency/currency_telvar.dds|t"
--- PAC_ICON_TALVAR = "|r|c66a8ff|t16:16:/esoui/art/currency/currency_telvar.dds|t"
-
 PAC_ICON_BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t"
-PAC_ITEMCODE_BANANAS = "|H1:item:33755:317:50:0:0:0:0:0:0:0:0:0:0:0:0:0:10:0:0:0:0:0|h[Bananas]|h"
+PAC_ICON_SOULGEM = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t"
+PAC_ICON_WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t"
+
+-- ItemLinks
+PAC_ITEMCODE_BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"     -- Bananas, Normal Level 1
+PAC_ITEMCODE_SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"    -- Grand Soul Gem, Fine Level 50
+PAC_ITEMCODE_WEAPON = "|H0:item:84607:364:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h|h"   -- Sword of the Dragon, Legendary Level 50 CP160
 
 -- Custom Item ID
 PAC_ITEMID_LOCKPICK = 30357

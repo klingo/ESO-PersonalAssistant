@@ -23,6 +23,7 @@ PAMenu_Defaults.defaultSettings = {
         repairPartialChatMode = PA_OUTPUT_TYPE_NORMAL,
         chargeWeapons = false,
         chargeWeaponsThreshold = 10,
+        chargeWeaponsChatMode = PA_OUTPUT_TYPE_NORMAL,
     },
     PABanking = {
         enabled = true,

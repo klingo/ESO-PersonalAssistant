@@ -13,6 +13,7 @@ PAR_Charge = {}
 local function GetSoulGemsIn(bagId)
     local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
     local gemTable = setmetatable({}, { __index = table })
+    local totalGemCount = 0
 
     -- create a table with all soulgems
     for _, data in pairs(bagCache) do
@@ -26,13 +27,15 @@ local function GetSoulGemsIn(bagId)
                 gemTier = GetSoulGemItemInfo(data.bagId, data.slotIndex),
                 iconString = "|t20:20:"..data.iconFile.."|t ",
             })
+            -- update the total gem count
+            totalGemCount = totalGemCount + data.stackCount
         end
     end
 
     -- sort table based on the gemTiers
     table.sort(gemTable, function(a, b) return a.gemTier > b.gemTier end)
 
-    return gemTable
+    return gemTable, totalGemCount
 end
 
 -- =====================================================================================================================
@@ -61,42 +64,43 @@ function PAR_Charge.ReChargeWeapons()
 
         -- are there weapons to charge?
         if (#weaponsToCharge > 0) then
-            local gemTable = GetSoulGemsIn(BAG_BACKPACK)
+            local gemTable, totalGemCount = GetSoulGemsIn(BAG_BACKPACK)
 
             -- from the list of actually to be charged weapons, charge them
             for _, weapon in pairs(weaponsToCharge) do
-                -- collect some additional information
-                local chargeableAmount = GetAmountSoulGemWouldChargeItem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
-                local finalChargesPerc = 100
-                if ((weapon.charges + chargeableAmount) < weapon.maxCharges) then
-                    finalChargesPerc = PAHF.round(100 / weapon.maxCharges * (weapon.charges + chargeableAmount))
+
+                -- are there gems to be used for charging?
+                if (totalGemCount > 0) then
+                    -- collect some additional information
+                    local chargeableAmount = GetAmountSoulGemWouldChargeItem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
+                    local finalChargesPerc = 100
+                    if ((weapon.charges + chargeableAmount) < weapon.maxCharges) then
+                        finalChargesPerc = PAHF.round(100 / weapon.maxCharges * (weapon.charges + chargeableAmount))
+                    end
+
+                    -- some debug information
+                    PAHF_DEBUG.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(BAG_WORN, weapon.weaponSlot), gemTable[#gemTable].itemName, chargeableAmount, weapon.charges, weapon.maxCharges)
+
+                    -- actually charge the item
+                    ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
+                    totalGemCount = totalGemCount - 1
+
+                    -- show output to chat (depending on setting)
+                    local chargeWeaponsChatMode = PA.savedVars.Repair[PA.activeProfile].chargeWeaponsChatMode
+                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Full"), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Normal"), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Min"), weapon.iconString, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString)
+                    end -- PA_OUTPUT_TYPE_NONE => no chat output
+
+                    if (totalGemCount < 10) then
+                        -- TODO: low gem count warning
+                        -- TODO: replace '10' with savedVars setting
+                    end
+                else
+                    -- TODO: message about no more gems available
+                    -- TODO: warn only every X minutes
                 end
-
-                -- some debug information
-                PAHF_DEBUG.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(BAG_WORN, weapon.weaponSlot), gemTable[#gemTable].itemName, chargeableAmount, weapon.charges, weapon.maxCharges)
-
-                -- inform the player
-                PAHF.println("PAR_ReChargeWeapon_ChatMode_Full", weapon.itemLink, weapon.iconString, gemTable[#gemTable].itemLink, gemTable[#gemTable].iconString, weapon.chargePerc, finalChargesPerc)
-
-                -- actually charge the item
-                ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
             end
         end
-
---        GetAmountSoulGemWouldChargeItem(number itemToChargeBagId, number itemToChargeSlotIndex, number soulGemToConsumeBagId, number soulGemToConsumeSlotIndex)
---        Returns: number chargeAmount
---
---        ChargeItemWithSoulGem(number itemToChargeBagId, number itemToChargeSlotIndex, number soulGemToConsumeBagId, number soulGemToConsumeSlotIndex)
---
---        IsItemSoulGem(number SoulGemType soulGemType, number bagId, number slotIndex)
---        Returns: boolean isSoulGem
---
---        GetSoulGemItemInfo(number bagId, number slotIndex)
---        Returns: number tier, number SoulGemType soulGemType
---
---        GetSoulGemInfo(number SoulGemType soulGemType, number targetLevel, boolean onlyInInventory)
---        Returns: string name, textureName icon, number stackCount, number ItemQuality quality
-
     end
-
 end
