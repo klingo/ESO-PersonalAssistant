@@ -35,8 +35,8 @@ ResourceBundle.en["PAR_PartialRepair_ChatMode_Full"]    = PAC_COLTEXT_PAR.."%d /
 
 -- PARepair Chat Output - Weapon Charge --
 ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_None"]   = "<no output>"
-ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Min"]    = "%s (%d%% --> %d%%)"..PAC_COL_RED.." - %s"
-ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Normal"] = PAC_COLTEXT_PAR.."%s (%d%% --> %d%%)"..PAC_COL_RED.." - %s"
+ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Min"]    = PAC_COL_DEFAULT.."%s %s (%d%% --> %d%%)"
+ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Normal"] = PAC_COLTEXT_PAR.."%s (%d%% --> %d%%) - %s"
 ResourceBundle.en["PAR_ReChargeWeapon_ChatMode_Full"]   = PAC_COLTEXT_PAR.."Charged %s %s from %d%% to %d%%  with %s %s"
 
 -- PABanking --

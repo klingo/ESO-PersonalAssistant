@@ -89,7 +89,7 @@ function PAR_Charge.ReChargeWeapons()
                     local chargeWeaponsChatMode = PA.savedVars.Repair[PA.activeProfile].chargeWeaponsChatMode
                     if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Full"), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
                     elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Normal"), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Min"), weapon.iconString, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Min"), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
                     end -- PA_OUTPUT_TYPE_NONE => no chat output
 
                     if (totalGemCount < 10) then

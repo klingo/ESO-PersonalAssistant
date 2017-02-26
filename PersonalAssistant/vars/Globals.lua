@@ -69,9 +69,9 @@ PAC_ICON_SOULGEM = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t"
 PAC_ICON_WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t"
 
 -- ItemLinks
-PAC_ITEMCODE_BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"     -- Bananas, Normal Level 1
-PAC_ITEMCODE_SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"    -- Grand Soul Gem, Fine Level 50
-PAC_ITEMCODE_WEAPON = "|H0:item:84607:364:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h|h"   -- Sword of the Dragon, Legendary Level 50 CP160
+PAC_ITEMCODE_BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Bananas]|h"     -- Bananas, Normal Level 1
+PAC_ITEMCODE_SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h[Grand Soul Gem]|h"    -- Grand Soul Gem, Fine Level 50
+PAC_ITEMCODE_WEAPON = "|H0:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h[Sword of the Dragon]|h"   -- Sword of the Dragon, Epic Level 50 CP160
 
 -- Custom Item ID
 PAC_ITEMID_LOCKPICK = 30357

@@ -25,7 +25,7 @@ PAMenu_Choices.choices = {
         },
         chargeWeaponsChatMode = {
             PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_None"),
-            PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_Min", PAC_ICON_WEAPON, 15, 100, PAC_ICON_SOULGEM),
+            PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_Min", PAC_ICON_SOULGEM, PAC_ICON_WEAPON, 15, 100),
             PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_Normal", PAC_ITEMCODE_WEAPON, 15, 100, PAC_ITEMCODE_SOULGEM),
             PAHF.getFormattedKey("PAR_ReChargeWeapon_ChatMode_Full", PAC_ICON_WEAPON, PAC_ITEMCODE_WEAPON, 15, 100, PAC_ICON_SOULGEM, PAC_ITEMCODE_SOULGEM),
         }
