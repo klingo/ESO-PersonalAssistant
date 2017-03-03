@@ -27,7 +27,7 @@ local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         if (moneyDiff > 0) then
             -- no item was sold, but money appeared out of nowhere
             -- should not happen :D
-            PAHF.println("Error #1337: This should not happen!")
+            PAHF.println(PAC_COLTEXT_PAJ.."Error #1337: This should not happen!")
         end
     end
 
@@ -58,7 +58,7 @@ function PAJ.OnShopOpen()
 
                     -- Have to call it wiht some delay, as the "currentMoney" and item count is not updated fast enough
                     -- after calling SellAllJunk()
-                    zo_callLater(function() GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 100)
+                    zo_callLater(function() GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
                 end
             end
         end
