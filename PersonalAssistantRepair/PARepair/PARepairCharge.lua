@@ -52,10 +52,10 @@ function PAR_Charge.ReChargeWeapons()
         -- based on the list of chargeable slots, check which ones really need to be charged
         for _, weaponSlot in pairs(PARWeaponSlots) do
             local charges, maxCharges = GetChargeInfoForItem(BAG_WORN, weaponSlot)
-            local chargePerc = PAHF.round(1 / maxCharges * charges, 2)
+            local chargePerc = PAHF.round(100 / maxCharges * charges, 2)
 
             -- check if charge level of item is below threshold
-            if ((chargePerc * 100) <= chargeThreshold) then
+            if ((chargePerc) <= chargeThreshold) then
                 local itemLink = GetItemLink(BAG_WORN, weaponSlot, LINK_STYLE_BRACKETS)
                 local iconString = "|t20:20:"..GetItemLinkInfo(itemLink).."|t "
                 weaponsToCharge:insert({weaponSlot = weaponSlot, charges = charges, maxCharges = maxCharges, chargePerc = chargePerc, itemLink = itemLink , iconString = iconString})
