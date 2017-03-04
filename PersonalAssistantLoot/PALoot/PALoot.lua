@@ -127,8 +127,10 @@ function PAL.OnLootUpdated()
                                 end
                             end
                         end
+                    end
 
-                    else
+                    -- even though harvesting/fishing, there also might be loot (e.g. bait with herbs)
+                    if (IsLooting()) then
                         -- not harvesting and not fishing, so most probably looting
                         PAHF_DEBUG.debugln("looting enemy? --> %s --> IsLooting()=%s", GetUnitNameHighlightedByReticle(), tostring(IsLooting()))
                         -- check for lootable item types (bait, provisioniug ingredients, and raw material)
