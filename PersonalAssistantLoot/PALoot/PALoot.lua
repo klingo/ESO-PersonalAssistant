@@ -91,11 +91,11 @@ function PAL.OnLootUpdated()
                     local strItemType = PALocale.getResourceMessage(itemType)
                     local itemLooted = false
 
-                    PAHF_DEBUG.debugln("itemType (%s): %s.", itemType, strItemType)
+                    PAHF_DEBUG.debugln("itemType (%s): %s.   harv=%s   fish=%s", itemType, strItemType, tostring(alreadyHarvesting), tostring(alreadyFishing))
                     -- TODO: also check for stolen???
 
                     -- check if we are harvesting, auto-loot is only used for this case!
-                    if (alreadyHarvesting or alreadyFishing) then
+--                    if (alreadyHarvesting or alreadyFishing) then
                         -- check for ores, herbs, wood etc
                         for currItemType = 1, #PALHarvestableItemTypes do
                             -- check if the itemType is configured for auto-loot
@@ -127,10 +127,10 @@ function PAL.OnLootUpdated()
                                 end
                             end
                         end
-                    end
+--                    end
 
                     -- even though harvesting/fishing, there also might be loot (e.g. bait with herbs)
-                    if (IsLooting()) then
+--                    if (IsLooting()) then
                         -- not harvesting and not fishing, so most probably looting
                         PAHF_DEBUG.debugln("looting enemy? --> %s --> IsLooting()=%s", GetUnitNameHighlightedByReticle(), tostring(IsLooting()))
                         -- check for lootable item types (bait, provisioniug ingredients, and raw material)
@@ -148,7 +148,7 @@ function PAL.OnLootUpdated()
                             end
                         end
 
-                    end
+--                    end
 
 
                     -- check if an item was looted
