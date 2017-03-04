@@ -174,6 +174,8 @@ PALLootableItemTypes:insert(ITEMTYPE_INGREDIENT)
 -- Fishing
 PALLootableItemTypes:insert(ITEMTYPE_LURE)
 -- Others
+PALLootableItemTypes:insert(ITEMTYPE_STYLE_MATERIAL)
+PALLootableItemTypes:insert(ITEMTYPE_RAW_MATERIAL)
 PALLootableItemTypes:insert(ITEMTYPE_TRASH)
 
 
