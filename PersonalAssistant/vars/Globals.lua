@@ -165,12 +165,14 @@ PALHarvestableItemTypes:insert(ITEMTYPE_INGREDIENT)
 PALHarvestableItemTypes:insert(ITEMTYPE_FISH)
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- PersonalAssistant Loot Harvestable ItemTypes
+-- PersonalAssistant Loot Lootable ItemTypes
 PALLootableItemTypes = setmetatable({}, { __index = table })
+-- Alchemy
+PALLootableItemTypes:insert(ITEMTYPE_POISON_BASE)
 -- Clothing
-PALLootableItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
+-- PALLootableItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 -- Provisioning
-PALLootableItemTypes:insert(ITEMTYPE_INGREDIENT)
+-- PALLootableItemTypes:insert(ITEMTYPE_INGREDIENT)
 -- Fishing
 PALLootableItemTypes:insert(ITEMTYPE_LURE)
 -- Others
