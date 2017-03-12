@@ -58,11 +58,36 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
     end
 end
 
+local function isLockpick(itemName)
+
+
+end
+
+
+
+local function LootGold()
+    -- check if GoldLoot is enabled
+    if PA.savedVars.Loot[PA.activeProfile].lootGoldEnabled then
+        -- is there even gold to loot?
+        local unownedMoney = GetLootMoney()
+        if (unownedMoney > 0) then
+            -- Loot the gold
+            LootMoney()
+            -- show output to chat (depending on setting)
+            local lootGoldChatMode = PA.savedVars.Loot[PA.activeProfile].lootGoldChatMode
+            if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Full"), unownedMoney)
+            elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Normal"), unownedMoney)
+            elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Min"), unownedMoney)
+            end -- PA_OUTPUT_TYPE_NONE => no chat output
+        end
+    end
+end
+
 
 -- =====================================================================================================================
 -- =====================================================================================================================
 
-
+-- TODO: might not be needed anymore
 function PAL.OnReticleTargetChanged()
     local type = GetInteractionType()
     local active = IsPlayerInteractingWithObject()
@@ -84,71 +109,72 @@ function PAL.OnLootUpdated()
 
                 -- loop through all of them
                 for i = 1, lootCount do
-                    local lootId, _, icon, itemCount = GetLootItemInfo(i)
+                    local lootId, itemName, icon, itemCount, _, _, isQuest, isStolen = GetLootItemInfo(i)   -- LOOT_TYPE_QUEST_ITEM
                     local iconString = "|t20:20:"..icon.."|t "
                     local itemLink = GetLootItemLink(lootId, LINK_STYLE_BRACKETS)
                     local itemType = GetItemLinkItemType(itemLink)
                     local strItemType = PALocale.getResourceMessage(itemType)
                     local itemLooted = false
 
-                    PAHF_DEBUG.debugln("itemType (%s): %s.   harv=%s   fish=%s", itemType, strItemType, tostring(alreadyHarvesting), tostring(alreadyFishing))
+--                    PAHF_DEBUG.debugln("itemType (%s): %s.   harv=%s   fish=%s", itemType, strItemType, tostring(alreadyHarvesting), tostring(alreadyFishing))
+--                    PAHF_DEBUG.debugln("looting enemy? --> %s --> IsLooting()=%s", GetUnitNameHighlightedByReticle(), tostring(IsLooting()))
+                    PAHF_DEBUG.debugln("% s--> itemType (%s): %s.   isQuest=%s   isStolen=%s", itemLink, itemType, strItemType, tostring(isQuest), tostring(isStolen))
+
+
                     -- TODO: also check for stolen???
 
-                    -- check if we are harvesting, auto-loot is only used for this case!
---                    if (alreadyHarvesting or alreadyFishing) then
-                        -- check for ores, herbs, wood etc
-                        for currItemType = 1, #PALHarvestableItemTypes do
-                            -- check if the itemType is configured for auto-loot
-                            if (PALHarvestableItemTypes[currItemType] == itemType) then
-                                -- then check if it is set to Auto-Loot
-                                if (PA.savedVars.Loot[PA.activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
-                                    -- Loot the item
-                                    -- TODO: CHECK FOR FREE SLOT!
-                                    LootItemById(lootId)
-                                    itemLooted = true
-                                end
-                                break
-                            end
-                        end
-
-                        -- check for bait
-                        if (itemType == ITEMTYPE_LURE) then
-                            local harvestableBaitLootMode = PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode()
-                            PAHF_DEBUG.debugln("itemType (%s): harvestableBaitLootMode=%s.", itemType, harvestableBaitLootMode)
-
-                            if (harvestableBaitLootMode ~= PAC_ITEMTYPE_IGNORE) then
+                    -- check for ores, herbs, wood etc
+                    for currItemType = 1, #PALHarvestableItemTypes do
+                        -- check if the itemType is configured for auto-loot
+                        if (PALHarvestableItemTypes[currItemType] == itemType) then
+                            -- then check if it is set to Auto-Loot
+                            if (PA.savedVars.Loot[PA.activeProfile].HarvestableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                 -- Loot the item
                                 -- TODO: CHECK FOR FREE SLOT!
                                 LootItemById(lootId)
                                 itemLooted = true
-                                if (harvestableBaitLootMode == PAC_ITEMTYPE_DESTROY) then
-                                    -- Also destroy it (set itemLooted to false in this case)
-                                    itemLooted = false
-                                end
+                            end
+                            break
+                        end
+                    end
+
+                    -- check for bait
+                    -- TODO: double check this setting as it is integrated into lootable item types as well
+                    if (itemType == ITEMTYPE_LURE) then
+                        local harvestableBaitLootMode = PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode()
+                        PAHF_DEBUG.debugln("itemType (%s): harvestableBaitLootMode=%s.", itemType, harvestableBaitLootMode)
+
+                        if (harvestableBaitLootMode ~= PAC_ITEMTYPE_IGNORE) then
+                            -- Loot the item
+                            -- TODO: CHECK FOR FREE SLOT!
+                            LootItemById(lootId)
+                            itemLooted = true
+                            if (harvestableBaitLootMode == PAC_ITEMTYPE_DESTROY) then
+                                -- Also destroy it (set itemLooted to false in this case)
+                                itemLooted = false
                             end
                         end
---                    end
+                    end
 
-                    -- even though harvesting/fishing, there also might be loot (e.g. bait with herbs)
---                    if (IsLooting()) then
-                        -- not harvesting and not fishing, so most probably looting
-                        PAHF_DEBUG.debugln("looting enemy? --> %s --> IsLooting()=%s", GetUnitNameHighlightedByReticle(), tostring(IsLooting()))
-                        -- check for lootable item types (bait, provisioniug ingredients, and raw material)
-                        for currItemType = 1, #PALLootableItemTypes do
-                            -- check if the itemType is configured for auto-loot
-                            if (PALLootableItemTypes[currItemType] == itemType) then
-                                -- then check if it is set to Auto-Loot
-                                if (PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
-                                    -- Loot the item
-                                -- TODO: CHECK FOR FREE SLOT!
-                                    LootItemById(lootId)
-                                    itemLooted = true
-                                end
-                                break
+                    -- check for lootable item types (bait, provisioniug ingredients, and raw material)
+                    for currItemType = 1, #PALLootableItemTypes do
+                        -- check if the itemType is configured for auto-loot
+                        if (PALLootableItemTypes[currItemType] == itemType) then
+                            -- then check if it is set to Auto-Loot
+                            if (PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
+                                -- Loot the item
+                            -- TODO: CHECK FOR FREE SLOT!
+                                LootItemById(lootId)
+                                itemLooted = true
                             end
+                            break
                         end
+                    end
 
---                    end
+
+
+                    -- Loot gold (if enabled)
+                    LootGold()
 
 
                     -- check if an item was looted
@@ -163,21 +189,7 @@ function PAL.OnLootUpdated()
                 end
             end
 
-            -- check if GoldLoot is enabled
-            if PA.savedVars.Loot[PA.activeProfile].lootGoldEnabled then
-                -- is there even gold to loot?
-                local unownedMoney = GetLootMoney()
-                if (unownedMoney > 0) then
-                    -- Loot the gold
-                    LootMoney()
-                    -- show output to chat (depending on setting)
-                    local lootGoldChatMode = PA.savedVars.Loot[PA.activeProfile].lootGoldChatMode
-                    if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Full"), unownedMoney)
-                    elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Normal"), unownedMoney)
-                    elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Min"), unownedMoney)
-                    end -- PA_OUTPUT_TYPE_NONE => no chat output
-                end
-            end
+
         end
     end
 end

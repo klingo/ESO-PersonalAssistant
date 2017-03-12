@@ -170,9 +170,7 @@ PALLootableItemTypes = setmetatable({}, { __index = table })
 -- Alchemy
 PALLootableItemTypes:insert(ITEMTYPE_POISON_BASE)
 -- Clothing
--- PALLootableItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 -- Provisioning
--- PALLootableItemTypes:insert(ITEMTYPE_INGREDIENT)
 -- Fishing
 PALLootableItemTypes:insert(ITEMTYPE_LURE)
 -- Others
