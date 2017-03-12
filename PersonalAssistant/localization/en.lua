@@ -21,6 +21,8 @@ ResourceBundle.en["PAG_Profile4"]                       = "Profile 4"
 ResourceBundle.en["PAG_Profile5"]                       = "Profile 5"
 ResourceBundle.en["PAG_PleaseSelectProfile"]            = "<Please select Profile>"
 
+ResourceBundle.en["PAG_ItemName_Lockpick"]              = "Lockpick"
+
 -- PARepair Chat Output - Full Repair --
 ResourceBundle.en["PAR_FullRepair_ChatMode_None"]       = "<no output>"
 ResourceBundle.en["PAR_FullRepair_ChatMode_Min"]        = PAC_COL_RED.."- %d "..PAC_ICON_GOLD

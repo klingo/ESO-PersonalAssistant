@@ -21,6 +21,8 @@ ResourceBundle.fr["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.fr["PAG_Profile5"]                       = "Profil 5"
 
 
+
+
 -- PARepair Chat Output - Full Repair --
 
 
@@ -28,6 +30,12 @@ ResourceBundle.fr["PAG_Profile5"]                       = "Profil 5"
 
 
 -- PARepair Chat Output - Partial Repair --
+
+
+
+
+
+-- PARepair Chat Output - Weapon Charge --
 
 
 
@@ -49,6 +57,10 @@ ResourceBundle.fr["PAB_ItemType_None"]                  = "-"
 ResourceBundle.fr["PAB_ItemType_Deposit"]               = "Déposer"
 ResourceBundle.fr["PAB_ItemType_Withdrawal"]            = "Retirer"
 ResourceBundle.fr["PAB_ItemType_Inherit"]               = "Selon le type d'objet (ci-dessous)"
+
+
+
+
 
 -- PALoot --
 
@@ -115,6 +127,9 @@ ResourceBundle.fr["PARMenu_RepairWornGoldDura_T"]             = "Réparer les ob
 
 
 
+
+
+
 -- PABMenu --
 ResourceBundle.fr["PABMenu_Header"]                     = PAC_COLTEXT_PAB
 ResourceBundle.fr["PABMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Activer l'Auto Banking"
@@ -131,6 +146,8 @@ ResourceBundle.fr["PABMenu_WithdrawToMinGold_T"]        = "Retirer automatiqueme
 ResourceBundle.fr["PABMenu_EnabledItems"]               = "Déposer et retirer des objets"
 ResourceBundle.fr["PABMenu_EnabledItems_T"]             = "Déposer et/ou retirer automatiquement des objets de la banque?"
 ResourceBundle.fr["PABMenu_DepItemTypeDesc"]            = "Définir les actions spécifiques (déposer, retirer, ignorer) pour les types d'objets communs et avancés."
+
+
 ResourceBundle.fr["PABMenu_DepItemType"]                = "Types d'objets communs"
 ResourceBundle.fr["PABMenu_DepItemType_T"]              = "Ouvrez le sous-menu pour définir pour chaque type d'objet s'il doit être déposer, retirer, ou ignorer."
 

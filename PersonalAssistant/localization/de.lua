@@ -21,6 +21,8 @@ ResourceBundle.de["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.de["PAG_Profile5"]                       = "Profil 5"
 
 
+ResourceBundle.de["PAG_ItemName_Lockpick"]              = "Dietrich"
+
 -- PARepair Chat Output - Full Repair --
 
 
@@ -28,6 +30,12 @@ ResourceBundle.de["PAG_Profile5"]                       = "Profil 5"
 
 
 -- PARepair Chat Output - Partial Repair --
+
+
+
+
+
+-- PARepair Chat Output - Weapon Charge --
 
 
 
@@ -49,6 +57,10 @@ ResourceBundle.de["PAB_ItemType_None"]                  = "-"
 ResourceBundle.de["PAB_ItemType_Deposit"]               = "Einlagern"
 ResourceBundle.de["PAB_ItemType_Withdrawal"]            = "Abheben"
 ResourceBundle.de["PAB_ItemType_Inherit"]               = "Abhängig vom Gegenstandstyp (unten)"
+
+
+
+
 
 -- PALoot --
 
@@ -115,13 +127,15 @@ ResourceBundle.de["PARMenu_RepairWornGoldDura_T"]             = "Repariere ausge
 
 
 
+
+
+
 -- PABMenu --
 ResourceBundle.de["PABMenu_Header"]                     = PAC_COLTEXT_PAB
 ResourceBundle.de["PABMenu_Enable"]                     = PAC_COL_LIGHT_BLUE.."Aktiviere automatisches Banking"
 ResourceBundle.de["PABMenu_Enable_T"]                   = "Aktiviere automatisches Einlagern in und Abheben von der Bank?"
 ResourceBundle.de["PABMenu_EnabledGold"]                = "Gold einlagen"
 ResourceBundle.de["PABMenu_EnabledGold_T"]              = "Soll automatisch Gold in die Truhe eingelagert werden?"
-
 ResourceBundle.de["PABMenu_GoldTransactionStep"]        = "- Gold Transaktionen in Schritten von"
 ResourceBundle.de["PABMenu_GoldTransactionStep_T"]      = "In welchen Schritten soll Gold eingelagert und abgehoben werden?"
 ResourceBundle.de["PABMenu_GoldMinToKeep"]              = "- Min. Gold im Inventar behalten"
@@ -132,6 +146,8 @@ ResourceBundle.de["PABMenu_WithdrawToMinGold_T"]        = "Soll automatisch Gold
 ResourceBundle.de["PABMenu_EnabledItems"]               = "Gegenstände einlagern und abheben"
 ResourceBundle.de["PABMenu_EnabledItems_T"]             = "Sollen Gegenstände automatisch in die Truhe eingelagert bzw. von der Truhe abgehoben werden?"
 ResourceBundle.de["PABMenu_DepItemTypeDesc"]            = "Definiere ein individuelles Verhalten (Einlagern, Abheben, Ignorieren) für reguläre wie auch erweiterte Gegenstandstypen."
+
+
 ResourceBundle.de["PABMenu_DepItemType"]                = "Reguläre Gegenstandstypen"
 ResourceBundle.de["PABMenu_DepItemType_T"]              = "Öffnet das Untermenu um für jeden Typ von Gegenstand zu definieren ob er eingelagert, abgehoben oder ignoriert werden soll."
 ResourceBundle.de["PABMenu_DepStackOnly"]               = "Stapelungsart (Einlagern)"
@@ -194,6 +210,8 @@ ResourceBundle.de["PAJMenu_AutoSellJunk"]               = "Automatisch Trödel v
 ResourceBundle.de["PAJMenu_AutoSellJunk_T"]             = "Automatisch alle als Trödel markierte Gegenstände verkaufen."
 ResourceBundle.de["PAJMenu_AutoMarkTrash"]              = "Automatisches markieren von [Plunder]"
 ResourceBundle.de["PAJMenu_AutoMarkTrash_T"]            = "Automatisch Gegenstände vom Typ [Plunder] als Trödel markieren?"
+
+
 
 -- Name Spaces --
 ResourceBundle.de["NS_Bag_Equipment"]                   = ""    -- soweit nicht benötigt
