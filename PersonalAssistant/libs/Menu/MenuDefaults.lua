@@ -46,10 +46,12 @@ PAMenu_Defaults.defaultSettings = {
         lootGoldChatMode = PA_OUTPUT_TYPE_NORMAL,
         lootItemsEnabled = true,
         lootItemsChatMode = PA_OUTPUT_TYPE_FULL,
+        lootStolenItemsEnabled = false,
         HarvestableItemTypes = {},
         LootableItemTypes = {},
         harvestableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
         lootableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
+        questItemsLootMode = PAC_ITEMTYPE_IGNORE,
         harvestableBaitLootMode = PAC_ITEMTYPE_LOOT,
     },
     PAJunk = {

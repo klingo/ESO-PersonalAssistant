@@ -185,6 +185,8 @@ ResourceBundle.de["PALMenu_LootItems"]                  = "Automatisch Gegenstä
 ResourceBundle.de["PALMenu_LootItems_T"]                = "Automatisches Plündern von Gegenständen?"
 
 
+
+
 ResourceBundle.de["PALMenu_HarvestableItems"]           = "Erntbare Gegenstände"
 ResourceBundle.de["PALMenu_HarvestableItems_T"]         = "Öffnet das Untermenu um für erntbare Typen von Gegenständen das automatische Plündern zu de-/aktivieren."
 ResourceBundle.de["PALMenu_HarvestableItemsDesc"]       = "Aktiviere und deaktiviere das automatische Plündern von erntbaren Gegenständen wie Erzen, Kräutern, Hölzer, Runensteinen oder Fischgründen."
@@ -192,6 +194,7 @@ ResourceBundle.de["PALMenu_HarvestableItemsDesc"]       = "Aktiviere und deaktiv
 
 
 ResourceBundle.de["PALMenu_HarvestableItems_Header"]    = PAC_COL_LIGHT_BLUE.."TYPEN VON GEGENSTÄNDEN"
+
 
 
 

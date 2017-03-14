@@ -201,6 +201,9 @@ ResourceBundle.en["PALMenu_Header"]                     = PAC_COLTEXT_PAL
 
 
 
+
+
+
 -- PAJMenu --
 ResourceBundle.fr["PAJMenu_Header"]                     = PAC_COLTEXT_PAJ
 

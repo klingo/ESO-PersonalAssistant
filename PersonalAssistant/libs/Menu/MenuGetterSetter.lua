@@ -671,6 +671,24 @@ function PAMenu_Functions.disabled.PALoot.lootItemsChatMode()
     return not (PA.savedVars.Loot[PA.activeProfile].enabled and PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled)
 end
 
+--------------------------------------------------------------------------
+-- PALoot   lootStolenItemsEnabled
+---------------------------------
+function PAMenu_Functions.getFunc.PALoot.lootStolenItemsEnabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Loot[PA.activeProfile].lootStolenItemsEnabled
+end
+
+function PAMenu_Functions.setFunc.PALoot.lootStolenItemsEnabled(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Loot[PA.activeProfile].lootStolenItemsEnabled = value
+end
+
+function PAMenu_Functions.disabled.PALoot.lootStolenItemsEnabled()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Loot[PA.activeProfile].enabled and PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled)
+end
+
 ------------------------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
@@ -751,6 +769,24 @@ function PAMenu_Functions.setFunc.PALoot.lootableItemTypesLootMode(itemType, val
 end
 
 function PAMenu_Functions.disabled.PALoot.lootableItemTypesLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Loot[PA.activeProfile].enabled and PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
+-- PALoot   LootableItemSubMenu questItemsLootMode
+---------------------------------
+function PAMenu_Functions.getFunc.PALoot.questItemsLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Loot[PA.activeProfile].questItemsLootMode
+end
+
+function PAMenu_Functions.setFunc.PALoot.questItemsLootMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Loot[PA.activeProfile].questItemsLootMode = value
+end
+
+function PAMenu_Functions.disabled.PALoot.questItemsLootMode()
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
     return not (PA.savedVars.Loot[PA.activeProfile].enabled and PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled)
 end

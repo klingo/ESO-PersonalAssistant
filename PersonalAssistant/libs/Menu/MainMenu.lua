@@ -417,6 +417,17 @@ function PA_SettingsMenu.createMainMenu()
         })
 
         optionsTable:insert({
+            type = "checkbox",
+            name = PALocale.getResourceMessage("PALMenu_LootStolenItems"),
+            tooltip = PALocale.getResourceMessage("PALMenu_LootStolenItems_T"),
+            getFunc = PAMenu_Functions.getFunc.PALoot.lootStolenItemsEnabled,
+            setFunc = PAMenu_Functions.setFunc.PALoot.lootStolenItemsEnabled,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PALoot.lootStolenItemsEnabled,
+            default = PAMenu_Defaults.defaultSettings.PALoot.lootStolenItemsEnabled,
+        })
+
+        optionsTable:insert({
             type = "submenu",
             name = PALocale.getResourceMessage("PALMenu_HarvestableItems"),
             tooltip = PALocale.getResourceMessage("PALMenu_HarvestableItems_T"),
@@ -757,6 +768,24 @@ function PA_SettingsMenu.createPALLootableItemSubMenu()
                 default = PAMenu_Defaults.defaultSettings.PALoot.lootableItemTypesLootMode,
             })
         end
+
+        PALLootableItemSubmenuTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PALLootableItemSubmenuTable:insert({
+            type = "dropdown",
+            name = PALocale.getResourceMessage("PALMenu_AutoLootQuestItems"),
+            choices = PAMenu_Choices.choices.PALoot.itemTypesLootMode,
+            choicesValues = PAMenu_Choices.choicesValues.PALoot.itemTypesLootMode,
+            choicesTooltips = PAMenu_Choices.choicesTooltips.PALoot.itemTypesLootMode,
+            getFunc = PAMenu_Functions.getFunc.PALoot.questItemsLootMode,
+            setFunc = PAMenu_Functions.setFunc.PALoot.questItemsLootMode,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PALoot.questItemsLootMode,
+            default = PAMenu_Defaults.defaultSettings.PALoot.questItemsLootMode,
+        })
 
         PALLootableItemSubmenuTable:insert({
             type = "button",
