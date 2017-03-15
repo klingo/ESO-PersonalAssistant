@@ -68,6 +68,9 @@ PAC_ICON_BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t"
 PAC_ICON_SOULGEM = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t"
 PAC_ICON_WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t"
 
+-- Icon Paths
+PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds"
+
 -- ItemLinks
 PAC_ITEMCODE_BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Bananas]|h"     -- Bananas, Normal Level 1
 PAC_ITEMCODE_SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h[Grand Soul Gem]|h"    -- Grand Soul Gem, Fine Level 50
@@ -171,6 +174,7 @@ PALLootableItemTypes = setmetatable({}, { __index = table })
 PALLootableItemTypes:insert(ITEMTYPE_POISON_BASE)
 -- Clothing
 -- Provisioning
+PALLootableItemTypes:insert(ITEMTYPE_RECIPE)
 -- Fishing
 PALLootableItemTypes:insert(ITEMTYPE_LURE)
 -- Others

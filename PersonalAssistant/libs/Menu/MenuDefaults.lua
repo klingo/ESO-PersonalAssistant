@@ -51,6 +51,7 @@ PAMenu_Defaults.defaultSettings = {
         LootableItemTypes = {},
         harvestableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
         lootableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
+        lockpickLootMode = PAC_ITEMTYPE_IGNORE,
         questItemsLootMode = PAC_ITEMTYPE_IGNORE,
         harvestableBaitLootMode = PAC_ITEMTYPE_LOOT,
     },

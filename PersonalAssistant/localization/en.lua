@@ -21,8 +21,6 @@ ResourceBundle.en["PAG_Profile4"]                       = "Profile 4"
 ResourceBundle.en["PAG_Profile5"]                       = "Profile 5"
 ResourceBundle.en["PAG_PleaseSelectProfile"]            = "<Please select Profile>"
 
-ResourceBundle.en["PAG_ItemName_Lockpick"]              = "Lockpick"
-
 -- PARepair Chat Output - Full Repair --
 ResourceBundle.en["PAR_FullRepair_ChatMode_None"]       = "<no output>"
 ResourceBundle.en["PAR_FullRepair_ChatMode_Min"]        = PAC_COL_RED.."- %d "..PAC_ICON_GOLD
@@ -199,6 +197,7 @@ ResourceBundle.en["PALMenu_LootableItems_T"]            = "Open the sub-menu to 
 ResourceBundle.en["PALMenu_LootableItemsDesc"]          = "Enable and disable auto-loot for lootable items such as clothing raw materials from animals."
 ResourceBundle.en["PALMenu_LootableItems_Header"]       = PAC_COL_LIGHT_BLUE.."ITEM TYPES"
 ResourceBundle.en["PALMenu_AutoLootQuestItems"]         = "Quest Items"
+ResourceBundle.en["PALMenu_AutoLootLockpicks"]          = "Lockpick"
 ResourceBundle.en["PALMenu_AutoLootAllButton"]          = "Auto-Loot all"
 ResourceBundle.en["PALMenu_AutoLootAllButton_T"]        = "Change all dropdown values to 'Auto-Loot'"
 ResourceBundle.en["PALMenu_IgnButton"]                  = "Ignore all"

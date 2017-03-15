@@ -102,8 +102,9 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         -- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
         local itemId = GetItemId(bagId, slotIndex)
         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+        local icon =  GetItemInfo(bagId, slotIndex)
 
-        PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType = %s", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType)
+        PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType = %s || icon = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, icon)
     end
 end
 

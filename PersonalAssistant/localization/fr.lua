@@ -21,8 +21,6 @@ ResourceBundle.fr["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.fr["PAG_Profile5"]                       = "Profil 5"
 
 
-
-
 -- PARepair Chat Output - Full Repair --
 
 
@@ -175,6 +173,7 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]         = "Definir la quantité 
 
 -- PALMenu --
 ResourceBundle.en["PALMenu_Header"]                     = PAC_COLTEXT_PAL
+
 
 
 

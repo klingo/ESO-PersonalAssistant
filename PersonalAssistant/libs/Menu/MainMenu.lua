@@ -776,6 +776,19 @@ function PA_SettingsMenu.createPALLootableItemSubMenu()
 
         PALLootableItemSubmenuTable:insert({
             type = "dropdown",
+            name = PALocale.getResourceMessage("PALMenu_AutoLootLockpicks"),
+            choices = PAMenu_Choices.choices.PALoot.itemTypesLootMode,
+            choicesValues = PAMenu_Choices.choicesValues.PALoot.itemTypesLootMode,
+            choicesTooltips = PAMenu_Choices.choicesTooltips.PALoot.itemTypesLootMode,
+            getFunc = PAMenu_Functions.getFunc.PALoot.lockpickLootMode,
+            setFunc = PAMenu_Functions.setFunc.PALoot.lockpickLootMode,
+            width = "half",
+            disabled = PAMenu_Functions.disabled.PALoot.lockpickLootMode,
+            default = PAMenu_Defaults.defaultSettings.PALoot.lockpickLootMode,
+        })
+
+        PALLootableItemSubmenuTable:insert({
+            type = "dropdown",
             name = PALocale.getResourceMessage("PALMenu_AutoLootQuestItems"),
             choices = PAMenu_Choices.choices.PALoot.itemTypesLootMode,
             choicesValues = PAMenu_Choices.choicesValues.PALoot.itemTypesLootMode,

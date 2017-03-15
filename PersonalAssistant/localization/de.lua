@@ -21,8 +21,6 @@ ResourceBundle.de["PAG_Profile4"]                       = "Profil 4"
 ResourceBundle.de["PAG_Profile5"]                       = "Profil 5"
 
 
-ResourceBundle.de["PAG_ItemName_Lockpick"]              = "Dietrich"
-
 -- PARepair Chat Output - Full Repair --
 
 
@@ -199,6 +197,7 @@ ResourceBundle.de["PALMenu_HarvestableItems_Header"]    = PAC_COL_LIGHT_BLUE.."T
 
 
 
+ResourceBundle.de["PALMenu_AutoLootLockpicks"]          = "Dietrich"
 ResourceBundle.de["PALMenu_AutoLootAllButton"]          = "Alles autom. Plündern"
 ResourceBundle.de["PALMenu_AutoLootAllButton_T"]        = "Ändert alle Dropdown Werte zu 'Autom. Plündern'"
 ResourceBundle.de["PALMenu_IgnButton"]                  = "Alles ignorieren"

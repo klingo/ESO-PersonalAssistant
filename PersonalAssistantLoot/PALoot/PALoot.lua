@@ -132,19 +132,14 @@ function PAL.OnLootUpdated()
 
                     -- loop through all of them
                     for i = lootCount, 1, -1 do
-                        local lootId, itemName, icon, itemCount, _, _, isQuest, isStolen = GetLootItemInfo(i)   -- LOOT_TYPE_QUEST_ITEM
+                        local lootId, itemName, icon, itemCount, _, _, isQuest, isStolen = GetLootItemInfo(i)
                         local iconString = "|t20:20:"..icon.."|t "
                         local itemLink = GetLootItemLink(lootId, LINK_STYLE_BRACKETS)
                         local itemType = GetItemLinkItemType(itemLink)
                         local strItemType = PALocale.getResourceMessage(itemType)
                         local itemLooted = false
 
-    --                    PAHF_DEBUG.debugln("itemType (%s): %s.   harv=%s   fish=%s", itemType, strItemType, tostring(alreadyHarvesting), tostring(alreadyFishing))
-    --                    PAHF_DEBUG.debugln("looting enemy? --> %s --> IsLooting()=%s", GetUnitNameHighlightedByReticle(), tostring(IsLooting()))
                         PAHF_DEBUG.debugln("% s--> itemType (%s): %s. isQuest=%s isStolen=%s", itemLink, itemType, strItemType, tostring(isQuest), tostring(isStolen))
-
-
-                        -- TODO: also check for stolen???
 
                         -- check for ores, herbs, wood etc
                         for currItemType = 1, #PALHarvestableItemTypes do
@@ -198,6 +193,18 @@ function PAL.OnLootUpdated()
                                 PAHF_DEBUG.debugln("itemName (%s)   itemLink (%s)   itemType (%s)   strItemType (%s)", itemName, itemLink, itemType, strItemType)
                             end
                         end
+
+                        -- check for Lockpicks
+                        if (icon == PAC_ICON_LOCKPICK_PATH) then
+                            -- check if Lockpicks are set to Auto-Loot
+                            if PA.savedVars.Loot[PA.activeProfile].lockpickLootMode == PAC_ITEMTYPE_LOOT then
+                                -- Loot the item
+                                itemLooted = LootItemIfAllowed(lootId, isStolen)
+
+                                PAHF_DEBUG.debugln("itemName (%s)   itemLink (%s)   itemType (%s)   strItemType (%s)", itemName, itemLink, itemType, strItemType)
+                            end
+                        end
+
 
                         -- check if an item was looted
                         if (itemLooted) then

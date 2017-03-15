@@ -774,6 +774,24 @@ function PAMenu_Functions.disabled.PALoot.lootableItemTypesLootMode()
 end
 
 --------------------------------------------------------------------------
+-- PALoot   LootableItemSubMenu lockpickLootMode
+---------------------------------
+function PAMenu_Functions.getFunc.PALoot.lockpickLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    return PA.savedVars.Loot[PA.activeProfile].lockpickLootMode
+end
+
+function PAMenu_Functions.setFunc.PALoot.lockpickLootMode(value)
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
+    PA.savedVars.Loot[PA.activeProfile].lockpickLootMode = value
+end
+
+function PAMenu_Functions.disabled.PALoot.lockpickLootMode()
+    if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return true end
+    return not (PA.savedVars.Loot[PA.activeProfile].enabled and PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled)
+end
+
+--------------------------------------------------------------------------
 -- PALoot   LootableItemSubMenu questItemsLootMode
 ---------------------------------
 function PAMenu_Functions.getFunc.PALoot.questItemsLootMode()
@@ -797,6 +815,8 @@ end
 function PAMenu_Functions.func.PALoot.autoLootAllLootableButton()
     for _, itemType in pairs(PALLootableItemTypes) do
         PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[itemType] = PAC_ITEMTYPE_LOOT
+        PA.savedVars.Loot[PA.activeProfile].lockpickLootMode = PAC_ITEMTYPE_LOOT
+        PA.savedVars.Loot[PA.activeProfile].questItemsLootMode = PAC_ITEMTYPE_LOOT
     end
 end
 
@@ -811,6 +831,8 @@ end
 function PAMenu_Functions.func.PALoot.ignoreAllLootableButton()
     for _, itemType in pairs(PALLootableItemTypes) do
         PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[itemType] = PAC_ITEMTYPE_IGNORE
+        PA.savedVars.Loot[PA.activeProfile].lockpickLootMode = PAC_ITEMTYPE_IGNORE
+        PA.savedVars.Loot[PA.activeProfile].questItemsLootMode = PAC_ITEMTYPE_IGNORE
     end
 end
 
