@@ -138,6 +138,7 @@ function PAL.OnLootUpdated()
                         local itemType = GetItemLinkItemType(itemLink)
                         local strItemType = PALocale.getResourceMessage(itemType)
                         local itemLooted = false
+                        local suffixDesc = ""
 
                         PAHF_DEBUG.debugln("% s--> itemType (%s): %s. isQuest=%s isStolen=%s", itemLink, itemType, strItemType, tostring(isQuest), tostring(isStolen))
 
@@ -178,6 +179,11 @@ function PAL.OnLootUpdated()
                                 if (PA.savedVars.Loot[PA.activeProfile].LootableItemTypes[itemType] == PAC_ITEMTYPE_LOOT) then
                                     -- Loot the item
                                     itemLooted = LootItemIfAllowed(lootId, isStolen)
+
+                                    -- if item was a recipe that is unknown, add a suffix description
+                                    if (itemType == ITEMTYPE_RECIPE and not IsItemLinkRecipeKnown(itemLink)) then
+                                        suffixDesc = PALocale.getResourceMessage("PAL_RecipeUnknown_Suffix")
+                                    end
                                 end
                                 break
                             end
@@ -215,9 +221,9 @@ function PAL.OnLootUpdated()
 
                             -- show output to chat (depending on setting)
                             local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-                            if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString)
-                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString)
-                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString)
+                            if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString, suffixDesc)
+                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString, suffixDesc)
+                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString, suffixDesc)
                             end -- PA_OUTPUT_TYPE_NONE => no chat output
                         end
                     end

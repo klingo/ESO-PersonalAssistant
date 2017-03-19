@@ -65,6 +65,8 @@ ResourceBundle.en["PAL_ItemType_Ignore"]                = "Ignore"
 ResourceBundle.en["PAL_ItemType_AutoLoot"]              = "Auto-Loot"
 ResourceBundle.en["PAL_ItemType_LootDestroy"]           = "Auto-Loot and "..PAC_COL_RED.."Destroy"
 
+ResourceBundle.en["PAL_RecipeUnknown_Suffix"]           = "(unknown)"
+
 ResourceBundle.en["PAL_ItemType_Ignore_T"]              = "Nothing happens, the item is ignored"
 ResourceBundle.en["PAL_ItemType_AutoLoot_T"]            = "Automatically loots the item"
 ResourceBundle.en["PAL_ItemType_LootDestroy_T"]         = PAC_COL_RED.."CAUTION: USE AT OWN RISK!|r Automatically loots the item, but then immediately destroys the looted amount again."
@@ -77,9 +79,9 @@ ResourceBundle.en["PAL_Gold_ChatMode_Full"]             = PAC_COLTEXT_PAL.."Loot
 
 -- PALoot Chat Output - Loot Items --
 ResourceBundle.en["PAL_Items_ChatMode_None"]            = "<no output>"
-ResourceBundle.en["PAL_Items_ChatMode_Min"]             = PAC_COL_DEFAULT.."%d x %s"
-ResourceBundle.en["PAL_Items_ChatMode_Normal"]          = PAC_COL_DEFAULT.."%d x %s %s"
-ResourceBundle.en["PAL_Items_ChatMode_Full"]            = PAC_COLTEXT_PAL.."%d x %s %s"
+ResourceBundle.en["PAL_Items_ChatMode_Min"]             = PAC_COL_DEFAULT.."%d x %s %s"
+ResourceBundle.en["PAL_Items_ChatMode_Normal"]          = PAC_COL_DEFAULT.."%d x %s %s %s"
+ResourceBundle.en["PAL_Items_ChatMode_Full"]            = PAC_COLTEXT_PAL.."%d x %s %s %s"
 
 -- PALoot Chat Output - Loot Items Destroyed--
 ResourceBundle.en["PAL_ItemsDestroy_Min"]               = PAC_COL_DEFAULT.."%d x %s destroyed"
