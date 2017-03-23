@@ -17,7 +17,8 @@ local function GetSoulGemsIn(bagId)
 
     -- create a table with all soulgems
     for _, data in pairs(bagCache) do
-        if (GetItemType(data.bagId, data.slotIndex) == ITEMTYPE_SOUL_GEM) then
+        -- check if it is a filled soulGem
+        if (IsItemSoulGem(SOUL_GEM_TYPE_FILLED, data.bagId, data.slotIndex)) then
             gemTable:insert({
 --                bagId = data.bagId,
                 slotIndex = data.slotIndex,
