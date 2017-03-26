@@ -9,7 +9,7 @@ PAHF = {}
 PAHF_DEBUG = {}
 
 function PAHF.round(num, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
+    local mult = 10 ^ (numDecimalPlaces or 0)
     return math.floor(num * mult + 0.5) / mult
 end
 
@@ -92,7 +92,7 @@ end
 
 -- currently supports one text and n arguments
 function PAHF.getFormattedText(text, ...)
-    local args = {...}
+    local args = { ... }
     local unpackedString = string.format(text, unpack(args))
     if (unpackedString == "") then
         unpackedString = text

@@ -31,7 +31,7 @@ PAMenu_Defaults.defaultSettings = {
         goldTransactionStep = 1,
         goldMinToKeep = 250,
         withdrawToMinGold = false,
-        goldLastDeposit = 0,    -- timestamp to keep track of last gold depost
+        goldLastDeposit = 0, -- timestamp to keep track of last gold depost
         enabledItems = false,
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
@@ -61,6 +61,5 @@ PAMenu_Defaults.defaultSettings = {
         autoMarkTrash = true,
         autoMarkOrnate = false,
     },
-    PAWorker = {
-    },
+    PAWorker = {},
 }

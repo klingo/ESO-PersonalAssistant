@@ -27,7 +27,7 @@ local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         if (moneyDiff > 0) then
             -- no item was sold, but money appeared out of nowhere
             -- should not happen :D
-            PAHF.println(PAC_COLTEXT_PAJ.."Error #1337: This should not happen!")
+            PAHF.println(PAC_COLTEXT_PAJ .. "Error #1337: This should not happen!")
         end
     end
 
@@ -104,7 +104,7 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem,
                             -- it is safe to mark the item as junk now
                             SetItemIsJunk(bagId, slotIndex, true)
 
-                            local itemLink =  GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                            local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                             PAHF.println("PAJ_MarkedAsJunk", itemLink)
                         end
                     end

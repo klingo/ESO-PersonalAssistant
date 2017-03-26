@@ -19,7 +19,7 @@ end
 
 function PALogger.flush()
     for i = 1, #PALogger.logList do
-       d(PALogger.logList[i])
+        d(PALogger.logList[i])
     end
 
     PALogger.logList = setmetatable({}, { __index = table })

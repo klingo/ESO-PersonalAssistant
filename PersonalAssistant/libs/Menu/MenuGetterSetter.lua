@@ -104,7 +104,7 @@ end
 -- =====================================================================================================================
 -- =====================================================================================================================
 
- -- PARepair
+-- PARepair
 
 --------------------------------------------------------------------------
 -- PARepair   enable
@@ -327,7 +327,7 @@ end
 ---------------------------------
 function PAMenu_Functions.getFunc.PABanking.goldTransactionStep()
     if (PAMenu_Functions.disabled.PAGeneral.noProfileSelected()) then return end
-   return PA.savedVars.Banking[PA.activeProfile].goldTransactionStep
+    return PA.savedVars.Banking[PA.activeProfile].goldTransactionStep
 end
 
 function PAMenu_Functions.setFunc.PABanking.goldTransactionStep(value)
@@ -731,7 +731,7 @@ end
 -- PALoot   HarvestableItemSubMenu autoLootAllHarvestableButton
 ---------------------------------
 function PAMenu_Functions.func.PALoot.autoLootAllHarvestableButton()
-        for _, itemType in pairs(PALHarvestableItemTypes) do
+    for _, itemType in pairs(PALHarvestableItemTypes) do
         PA.savedVars.Loot[PA.activeProfile].HarvestableItemTypes[itemType] = PAC_ITEMTYPE_LOOT
     end
 end

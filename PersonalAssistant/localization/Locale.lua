@@ -1,5 +1,5 @@
 PALocale = {}
- 
+
 -- returns the localized text for a key
 function PALocale.getResourceMessage(key)
 

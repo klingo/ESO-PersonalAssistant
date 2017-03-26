@@ -10,7 +10,7 @@ local panelData = {
     version = PA.AddonVersion,
     website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
     slashCommand = "/pa",
-    registerForRefresh  = true,
+    registerForRefresh = true,
     registerForDefaults = true,
 }
 
@@ -221,7 +221,6 @@ function PA_SettingsMenu.createMainMenu()
         -- soul gem alert
 
         -- soul gem amount for alert
-
     end
 
     -- =================================================================================================================
@@ -315,7 +314,7 @@ function PA_SettingsMenu.createMainMenu()
         optionsTable:insert({
             type = "submenu",
             name = PALocale.getResourceMessage("PABMenu_ItemTypeMaterialSubmenu"),
---            tooltip = PALocale.getResourceMessage("PABMenu_ItemTypeMaterialSubmenu_T"),
+            -- tooltip = PALocale.getResourceMessage("PABMenu_ItemTypeMaterialSubmenu_T"),
             controls = PABItemTypeMaterialSubmenuTable,
         })
 
@@ -534,7 +533,6 @@ function PA_SettingsMenu.createPABItemTypeMaterialSubmenuTable()
                     -- default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
                 })
             end
-
         end
     end
 end
@@ -590,7 +588,7 @@ function PA_SettingsMenu.createPABItemSubMenu()
                 setFunc = function(value) PAMenu_Functions.setFunc.PABanking.itemTypesMoveMode(itemType, value) end,
                 width = "half",
                 disabled = PAMenu_Functions.disabled.PABanking.itemTypesMoveMode,
---                default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
+                -- default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
             })
         end
 
@@ -643,7 +641,7 @@ function PA_SettingsMenu.createPABItemAdvancedSubMenu()
                 setFunc = function(value) PAMenu_Functions.setFunc.PABanking.advItemTypesOperator(advancedItemType, value) end,
                 width = "half",
                 disabled = PAMenu_Functions.disabled.PABanking.advItemTypesOperator,
-                default = PALocale.getResourceMessage("REL_None"),  -- TODO: extract?
+                default = PALocale.getResourceMessage("REL_None"), -- TODO: extract?
             })
 
             PABItemTypeAdvancedSubmenuTable:insert({
@@ -654,7 +652,7 @@ function PA_SettingsMenu.createPABItemAdvancedSubMenu()
                 setFunc = function(value) PAMenu_Functions.setFunc.PABanking.advItemTypesValue(advancedItemType, value) end,
                 width = "half",
                 disabled = PAMenu_Functions.disabled.PABanking.advItemTypesValue,
-                default = 100,  -- TODO: extract?
+                default = 100, -- TODO: extract?
             })
         end
     end
@@ -815,6 +813,5 @@ function PA_SettingsMenu.createPALLootableItemSubMenu()
             func = PAMenu_Functions.func.PALoot.ignoreAllLootableButton,
             disabled = PAMenu_Functions.disabled.PALoot.ignoreAllLootableButton,
         })
-
     end
 end

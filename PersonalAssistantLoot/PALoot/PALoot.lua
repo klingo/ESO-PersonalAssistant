@@ -15,9 +15,9 @@ local alreadyOnLootUpdated = false
 local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
     local itemDestroyed = false
     -- create the itemlink of the to be destroyed item
-    local itemLink =  GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-    local icon =  GetItemLinkInfo(itemLink)
-    local iconString = "|t20:20:"..icon.."|t "
+    local itemLink = GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
+    local icon = GetItemLinkInfo(itemLink)
+    local iconString = "|t20:20:" .. icon .. "|t "
     -- get the current size of item stack
     local stackSize = GetSlotStackSize(bagId, slotId)
     -- check if there were items before
@@ -60,8 +60,6 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
 end
 
 local function isLockpick(itemName)
-
-
 end
 
 
@@ -116,7 +114,7 @@ end
 
 
 function PAL.OnLootUpdated()
-        if (PAHF.hasActiveProfile()) then
+    if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
         if PA.savedVars.Loot[PA.activeProfile].enabled then
@@ -128,12 +126,12 @@ function PAL.OnLootUpdated()
                 -- check if ItemLoot is enabled
                 if PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled then
                     -- get number of lootable items
-                    local lootCount =  GetNumLootItems()
+                    local lootCount = GetNumLootItems()
 
                     -- loop through all of them
                     for i = lootCount, 1, -1 do
                         local lootId, itemName, icon, itemCount, _, _, isQuest, isStolen = GetLootItemInfo(i)
-                        local iconString = "|t20:20:"..icon.."|t "
+                        local iconString = "|t20:20:" .. icon .. "|t "
                         local itemLink = GetLootItemLink(lootId, LINK_STYLE_BRACKETS)
                         local itemType = GetItemLinkItemType(itemLink)
                         local strItemType = PALocale.getResourceMessage(itemType)
@@ -216,7 +214,7 @@ function PAL.OnLootUpdated()
                         if (itemLooted) then
                             -- check if ItemLink is empty (i.e. its a quest item), then replace it with a regular String
                             if (itemLink == nil or itemLink == "") then
-                                itemLink = PAC_COL_WHITE.."["..itemName.."]"
+                                itemLink = PAC_COL_WHITE .. "[" .. itemName .. "]"
                             end
 
                             -- show output to chat (depending on setting)

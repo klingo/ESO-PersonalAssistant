@@ -51,9 +51,9 @@ PAMenu_Choices.choices = {
         mathOperator = {
             PALocale.getResourceMessage("REL_None"),
             PALocale.getResourceMessage("REL_Equal"),
---            PALocale.getResourceMessage("REL_LessThan"),
+            -- PALocale.getResourceMessage("REL_LessThan"),
             PALocale.getResourceMessage("REL_LessThanEqual"),
---            PALocale.getResourceMessage("REL_GreaterThan"),
+            -- PALocale.getResourceMessage("REL_GreaterThan"),
             PALocale.getResourceMessage("REL_GreaterThanEqual")
         },
     },
@@ -124,9 +124,9 @@ PAMenu_Choices.choicesValues = {
         mathOperator = {
             PAC_OPERATOR_NONE,
             PAC_OPERATOR_EQUAL,
---            PAC_OPERATOR_LESSTHAN,
+            -- PAC_OPERATOR_LESSTHAN,
             PAC_OPERATOR_LESSTAHNEQAL,
---            PAC_OPERATOR_GREATERTHAN,
+            -- PAC_OPERATOR_GREATERTHAN,
             PAC_OPERATOR_GREATERTHANEQUAL,
         },
     },

@@ -33,7 +33,7 @@ function PAEM.listAllEventsInSet()
     d("----------------------------------------------------")
     d("PA: listing all registered events")
     for key, value in pairs(registeredIdentifierSet) do
---        d(key.."="..tostring(value))
+        -- d(key.."="..tostring(value))
         d(key)
     end
     d("----------------------------------------------------")
@@ -75,10 +75,10 @@ end
 
 function PAEM.RegisterForEvent(addonName, ESOevent, executableFunction, paIdentifier)
     -- create esoIdentifier based on module/addonName and ESO event
-    local esoIdentifier = ESOevent.."_"..addonName
+    local esoIdentifier = ESOevent .. "_" .. addonName
 
     -- if a specific PA identifier was set, use this one as the ESO identifer
-    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent.."_"..paIdentifier end
+    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent .. "_" .. paIdentifier end
 
     -- an event will only be registered with ESO, when the same identiifer is not yet registered
     if not containsEventInSet(esoIdentifier) then
@@ -92,10 +92,10 @@ end
 
 function PAEM.UnregisterForEvent(addonName, ESOevent, paIdentifier)
     -- create esoIdentifier based on addonName and ESO event
-    local esoIdentifier = ESOevent.."_"..addonName
+    local esoIdentifier = ESOevent .. "_" .. addonName
 
     -- if a specific PA identifier was set, use this one as the ESO identifer
-    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent.."_"..paIdentifier end
+    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent .. "_" .. paIdentifier end
 
     -- unregister the event from ESO
     EVENT_MANAGER:UnregisterForEvent(esoIdentifier, ESOevent)
@@ -128,15 +128,15 @@ function PAEM.RefreshAllEventRegistrations()
     -- Check if the Addon 'PABanking' is even enabled
     if (PAB) then
         -- Check if the functionality is turned on within the addon
-       if (PAMenu_Functions.getFunc.PABanking.enabled()) then
-           -- Register PABanking
-           PAEM.RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
-           PAEM.RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
-       else
-           -- Unregister PABanking
-           PAEM.UnregisterForEvent(PAB.AddonName, EVENT_OPEN_BANK)
-           PAEM.UnregisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK)
-       end
+        if (PAMenu_Functions.getFunc.PABanking.enabled()) then
+            -- Register PABanking
+            PAEM.RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
+            PAEM.RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
+        else
+            -- Unregister PABanking
+            PAEM.UnregisterForEvent(PAB.AddonName, EVENT_OPEN_BANK)
+            PAEM.UnregisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK)
+        end
     end
 
 

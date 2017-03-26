@@ -25,9 +25,9 @@ PAG_NO_PROFILE_SELECTED_ID = PAG_MAX_PROFILES + 1
 PAB_DEPOSIT_MAX_LOOPS = 3
 
 -- PerstonalAssistant Banking - Stacking Types
-PAB_STACKING_FULL = 0           -- 0: Full depositing/withdrawl
-PAB_STACKING_CONTINUE = 1       -- 1: Continue existing stacks
-PAB_STACKING_INCOMPLETE = 2     -- 2: Complete existing stacks
+PAB_STACKING_FULL = 0 -- 0: Full depositing/withdrawl
+PAB_STACKING_CONTINUE = 1 -- 1: Continue existing stacks
+PAB_STACKING_INCOMPLETE = 2 -- 2: Complete existing stacks
 
 -- PerstonalAssistant Banking - Move Mode
 PAB_MOVETO_IGNORE = 0
@@ -54,12 +54,12 @@ PAC_COL_ORANGE = "|cFF7400"
 PAC_COL_RED = "|cFF0000"
 
 -- PersonalAssistant Colored Names
-PAC_COLTEXT_PA = PAC_COL_YELLOW.."P"..PAC_COL_WHITE.."rersonal"..PAC_COL_YELLOW.."A"..PAC_COL_WHITE.."ssistant"
-PAC_COLTEXT_PAG = PAC_COL_YELLOW.."PA G"..PAC_COL_WHITE.."eneral: "..PAC_COL_DEFAULT
-PAC_COLTEXT_PAB = PAC_COL_YELLOW.."PA B"..PAC_COL_WHITE.."anking: "..PAC_COL_DEFAULT
-PAC_COLTEXT_PAR = PAC_COL_YELLOW.."PA R"..PAC_COL_WHITE.."epair: "..PAC_COL_DEFAULT
-PAC_COLTEXT_PAL = PAC_COL_YELLOW.."PA L"..PAC_COL_WHITE.."oot: "..PAC_COL_DEFAULT
-PAC_COLTEXT_PAJ = PAC_COL_YELLOW.."PA J"..PAC_COL_WHITE.."unk: "..PAC_COL_DEFAULT
+PAC_COLTEXT_PA = PAC_COL_YELLOW .. "P" .. PAC_COL_WHITE .. "rersonal" .. PAC_COL_YELLOW .. "A" .. PAC_COL_WHITE .. "ssistant"
+PAC_COLTEXT_PAG = PAC_COL_YELLOW .. "PA G" .. PAC_COL_WHITE .. "eneral: " .. PAC_COL_DEFAULT
+PAC_COLTEXT_PAB = PAC_COL_YELLOW .. "PA B" .. PAC_COL_WHITE .. "anking: " .. PAC_COL_DEFAULT
+PAC_COLTEXT_PAR = PAC_COL_YELLOW .. "PA R" .. PAC_COL_WHITE .. "epair: " .. PAC_COL_DEFAULT
+PAC_COLTEXT_PAL = PAC_COL_YELLOW .. "PA L" .. PAC_COL_WHITE .. "oot: " .. PAC_COL_DEFAULT
+PAC_COLTEXT_PAJ = PAC_COL_YELLOW .. "PA J" .. PAC_COL_WHITE .. "unk: " .. PAC_COL_DEFAULT
 
 -- Icons
 PAC_ICON_GOLD = "|t16:16:/esoui/art/currency/currency_gold.dds|t"
@@ -72,9 +72,9 @@ PAC_ICON_WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t"
 PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds"
 
 -- ItemLinks
-PAC_ITEMCODE_BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Bananas]|h"     -- Bananas, Normal Level 1
-PAC_ITEMCODE_SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h[Grand Soul Gem]|h"    -- Grand Soul Gem, Fine Level 50
-PAC_ITEMCODE_WEAPON = "|H0:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h[Sword of the Dragon]|h"   -- Sword of the Dragon, Epic Level 50 CP160
+PAC_ITEMCODE_BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Bananas]|h" -- Bananas, Normal Level 1
+PAC_ITEMCODE_SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h[Grand Soul Gem]|h" -- Grand Soul Gem, Fine Level 50
+PAC_ITEMCODE_WEAPON = "|H0:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h[Sword of the Dragon]|h" -- Sword of the Dragon, Epic Level 50 CP160
 
 -- Custom Item ID
 PAC_ITEMID_LOCKPICK = 30357

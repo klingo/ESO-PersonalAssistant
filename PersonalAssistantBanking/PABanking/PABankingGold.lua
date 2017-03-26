@@ -43,7 +43,6 @@ local function withdrawGold(goldChange)
         WithdrawMoneyFromBank(toWithdraw)
         PAHF.println("PAB_GoldWithdrawnInsufficient", toWithdraw, bankedMoney)
     end
-
 end
 
 
