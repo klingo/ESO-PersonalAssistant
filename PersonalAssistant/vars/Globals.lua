@@ -173,6 +173,10 @@ PALLootableItemTypes = setmetatable({}, { __index = table })
 -- Alchemy
 PALLootableItemTypes:insert(ITEMTYPE_POISON_BASE)
 -- Clothing
+-- Enchanting
+PALLootableItemTypes:insert(ITEMTYPE_GLYPH_ARMOR)
+PALLootableItemTypes:insert(ITEMTYPE_GLYPH_JEWELRY)
+PALLootableItemTypes:insert(ITEMTYPE_GLYPH_WEAPON)
 -- Provisioning
 PALLootableItemTypes:insert(ITEMTYPE_RECIPE)
 -- Fishing
