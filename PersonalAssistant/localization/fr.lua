@@ -64,7 +64,9 @@ ResourceBundle.fr["PAB_ItemType_Inherit"]               = "Selon le type d'objet
 
 
 
--- PAJunk --
+
+
+
 
 
 

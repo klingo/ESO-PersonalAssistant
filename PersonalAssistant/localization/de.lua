@@ -69,6 +69,8 @@ ResourceBundle.de["PAL_ItemType_AutoLoot"]              = "Autom. Plündern"
 
 
 
+
+
 -- PALoot Chat Output - Loot Gold --
 
 
