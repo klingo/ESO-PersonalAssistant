@@ -67,8 +67,6 @@ local function introduction()
     SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
     SLASH_COMMANDS["/paflushlog"] = function() PALogger.flush() end
 
-    --SLASH_COMMANDS["/pa"] = PAUI.toggleWindow
-
     -- create the options with LAM-2
     PA_SettingsMenu.CreateOptions()
 

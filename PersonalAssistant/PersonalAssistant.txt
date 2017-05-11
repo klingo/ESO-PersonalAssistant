@@ -44,10 +44,6 @@ localization/de.lua
 localization/fr.lua
 localization/Locale.lua
 
-# UserInterface
-# libs/UI/PAFW.lua
-# libs/UI/PAUI.lua
-
 # Core
 PersonalAssistant.lua
 PersonalAssistant.xml
