@@ -79,6 +79,7 @@ function PA_SettingsMenu.createMainMenu()
 
     -- =================================================================================================================
 
+    -- Check if PA Repair module is loaded
     if (PAR) then
         -- ------------------------ --
         -- PersonalAssistant Repair --
@@ -225,6 +226,7 @@ function PA_SettingsMenu.createMainMenu()
 
     -- =================================================================================================================
 
+    -- Check if PA Banking module is loaded
     if (PAB) then
         -- ------------------------- --
         -- PersonalAssistant Banking --
@@ -348,6 +350,7 @@ function PA_SettingsMenu.createMainMenu()
 
     -- =================================================================================================================
 
+    -- Check if PA Loot module is loaded
     if (PAL) then
         -- ---------------------- --
         -- PersonalAssistant Loot --
@@ -443,6 +446,7 @@ function PA_SettingsMenu.createMainMenu()
 
     -- =================================================================================================================
 
+    -- Check if PA Junk module is loaded
     if (PAJ) then
         -- ------------------------- --
         -- PersonalAssistant Junk --
@@ -505,12 +509,14 @@ end
 
 
 function PA_SettingsMenu.createPABItemTypeMaterialSubmenuTable()
+    -- Check if PA Banking module is loaded
     if (PAB) then
-
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
         if (IsESOPlusSubscriber()) then
-
             -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
-            -- options are not available (--> virtual bag)
+            -- options are not available (--> Virtual Bag)
 
             PABItemTypeMaterialSubmenuTable:insert({
                 type = "description",
@@ -518,7 +524,7 @@ function PA_SettingsMenu.createPABItemTypeMaterialSubmenuTable()
             })
 
         else
-
+            -- Regular player without ESO Plus Subscription
             for _, itemType in pairs(PABItemTypesMaterial) do
                 PABItemTypeMaterialSubmenuTable:insert({
                     type = "dropdown",
@@ -543,8 +549,11 @@ end
 
 
 function PA_SettingsMenu.createPABItemSubMenu()
+    -- Check if PA Banking module is loaded
     if (PAB) then
-
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
         PABItemTypeSubmenuTable:insert({
             type = "dropdown",
             name = PALocale.getResourceMessage("PABMenu_DepStackOnly"),
@@ -623,8 +632,11 @@ end
 
 
 function PA_SettingsMenu.createPABItemAdvancedSubMenu()
+    -- Check if PA Banking module is loaded
     if (PAB) then
-
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
         PABItemTypeAdvancedSubmenuTable:insert({
             type = "header",
             name = PALocale.getResourceMessage("PABMenu_Lockipck_Header"),
@@ -663,8 +675,11 @@ end
 
 
 function PA_SettingsMenu.createPALHarvestableItemSubMenu()
+    -- Check if PA Loot module is loaded
     if (PAL) then
-
+        -- ---------------------- --
+        -- PersonalAssistant Loot --
+        -- ---------------------- --
         PALHarvestableItemSubmenuTable:insert({
             type = "description",
             text = PALocale.getResourceMessage("PALMenu_HarvestableItemsDesc"),
@@ -679,8 +694,8 @@ function PA_SettingsMenu.createPALHarvestableItemSubMenu()
         local baitChoicesValues = PAMenu_Choices.choicesValues.PALoot.harvestableBaitLootMode
         local baitChoicesTooltips = PAMenu_Choices.choicesTooltips.PALoot.harvestableBaitLootMode
         if (IsESOPlusSubscriber()) then
-            -- override the values in ace of ESO Plus (no option to "drestroy" bait, as it directly goes to virtual bag)
-            -- remove the last entry (loot & destroy)
+            -- Override the values in case of ESO Plus (no option to "destroy" bait, as it directly goes to virtual bag)
+            -- Removes the last entry from the dropdowns (option: loot & destroy)
             table.remove(baitChoices)
             table.remove(baitChoicesValues)
             table.remove(baitChoicesTooltips)
@@ -740,8 +755,11 @@ end
 -- =================================================================================================================
 
 function PA_SettingsMenu.createPALLootableItemSubMenu()
+    -- Check if PA Loot module is loaded
     if (PAL) then
-
+        -- ---------------------- --
+        -- PersonalAssistant Loot --
+        -- ---------------------- --
         PALLootableItemSubmenuTable:insert({
             type = "description",
             text = PALocale.getResourceMessage("PALMenu_LootableItemsDesc"),
