@@ -174,7 +174,7 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack"]           = "Quantité à garder d
 ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]         = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
 
 -- PALMenu --
-ResourceBundle.en["PALMenu_Header"]                     = PAC_COLTEXT_PAL
+ResourceBundle.fr["PALMenu_Header"]                     = PAC_COLTEXT_PAL
 
 
 
@@ -267,7 +267,7 @@ ResourceBundle.fr[ITEMTYPE_ENCHANTMENT_BOOSTER]         = "frITEMTYPE_ENCHANTMEN
 ResourceBundle.fr[ITEMTYPE_FISH]                        = "Poisson"
 ResourceBundle.fr[ITEMTYPE_FLAVORING]                   = "frITEMTYPE_FLAVORING"
 ResourceBundle.fr[ITEMTYPE_FOOD]                        = "Nourriture"
-ResourceBundle.en[ITEMTYPE_FURNISHING_MATERIAL]         = "Matériau d'ameublement"
+ResourceBundle.fr[ITEMTYPE_FURNISHING_MATERIAL]         = "Matériau d'ameublement"
 ResourceBundle.fr[ITEMTYPE_GLYPH_ARMOR]                 = "Glyphe d'armure (Enchantement)"
 ResourceBundle.fr[ITEMTYPE_GLYPH_JEWELRY]               = "Glyphe de bijou (Enchantement)"
 ResourceBundle.fr[ITEMTYPE_GLYPH_WEAPON]                = "Glyphe d'arme (Enchantement)"
