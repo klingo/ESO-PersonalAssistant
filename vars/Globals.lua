@@ -92,6 +92,7 @@ PALoItemTypes = {}
 -- Alchemy
 table.insert(PALoItemTypes, ITEMTYPE_REAGENT)
 table.insert(PALoItemTypes, ITEMTYPE_POTION_BASE)
+table.insert(PALoItemTypes, ITEMTYPE_FURNISHING_MATERIAL)
 -- Blacksmithing
 table.insert(PALoItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
 -- Clothing
