@@ -6,7 +6,7 @@
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700L|root
 ## Version: 1.0.0
 ## Author: Klingo
-## APIVersion: 100018
+## APIVersion: 100019
 ## SavedVariables: PersonalAssistantLoot_SavedVariables
 ## DependsOn: PersonalAssistant
 

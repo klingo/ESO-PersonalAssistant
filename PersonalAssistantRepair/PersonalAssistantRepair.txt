@@ -6,7 +6,7 @@
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700R|repair
 ## Version: 1.0.0
 ## Author: Klingo
-## APIVersion: 100018
+## APIVersion: 100019
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
 
