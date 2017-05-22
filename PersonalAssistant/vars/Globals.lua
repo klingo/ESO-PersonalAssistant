@@ -152,6 +152,7 @@ PALHarvestableItemTypes = setmetatable({}, { __index = table })
 -- Alchemy
 PALHarvestableItemTypes:insert(ITEMTYPE_REAGENT)
 PALHarvestableItemTypes:insert(ITEMTYPE_POTION_BASE)
+PALHarvestableItemTypes:insert(ITEMTYPE_FURNISHING_MATERIAL)
 -- Blacksmithing
 PALHarvestableItemTypes:insert(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
 -- Clothing

@@ -267,6 +267,7 @@ ResourceBundle.de[ITEMTYPE_ENCHANTMENT_BOOSTER]         = "deITEMTYPE_ENCHANTMEN
 ResourceBundle.de[ITEMTYPE_FISH]                        = "Fisch"
 ResourceBundle.de[ITEMTYPE_FLAVORING]                   = "deITEMTYPE_FLAVORING"
 ResourceBundle.de[ITEMTYPE_FOOD]                        = "Nahrung"
+ResourceBundle.de[ITEMTYPE_FURNISHING_MATERIAL]         = "Einrichtungsmaterial"
 ResourceBundle.de[ITEMTYPE_GLYPH_ARMOR]                 = "Rüstungsglyphe (Verzaubern)"
 ResourceBundle.de[ITEMTYPE_GLYPH_JEWELRY]               = "Schmuckglyphe (Verzaubern)"
 ResourceBundle.de[ITEMTYPE_GLYPH_WEAPON]                = "Waffenglyphe (Verzaubern)"

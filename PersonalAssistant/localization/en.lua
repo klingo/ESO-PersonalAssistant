@@ -267,6 +267,7 @@ ResourceBundle.en[ITEMTYPE_ENCHANTMENT_BOOSTER]         = "enITEMTYPE_ENCHANTMEN
 ResourceBundle.en[ITEMTYPE_FISH]                        = "Fish"
 ResourceBundle.en[ITEMTYPE_FLAVORING]                   = "enITEMTYPE_FLAVORING"
 ResourceBundle.en[ITEMTYPE_FOOD]                        = "Food"
+ResourceBundle.en[ITEMTYPE_FURNISHING_MATERIAL]         = "Furnishing Material"
 ResourceBundle.en[ITEMTYPE_GLYPH_ARMOR]                 = "Armor Glyph (Enchanting)"
 ResourceBundle.en[ITEMTYPE_GLYPH_JEWELRY]               = "Jewelry Glyph (Enchanting)"
 ResourceBundle.en[ITEMTYPE_GLYPH_WEAPON]                = "Weapon Glyph (Enchanting)"
