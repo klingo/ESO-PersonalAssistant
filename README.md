@@ -23,8 +23,6 @@ tbd
 * Check ItemLink Handling in HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?t=2054
   * http://www.esoui.com/forums/showthread.php?t=1944
-* Auto-Mark "more valuable" items as junk
-* Use Repair Kits for PARepair
 * Loot other currencies than gold  
     ```lua
     GetLootCurrency(number CurrencyType type)  
@@ -55,6 +53,10 @@ tbd
 * Add summary after PABanking completed
 * Check Singular/Plural formatting for HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?p=7988
+* Check Morrowind patch notes
+    * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
+    * ITEMTYPE_FURNISHING_MATERIAL
+    * BAG_SUBSCRIBER_BANK
 
 ***
 
