@@ -16,10 +16,11 @@ tbd
 ##Development ToDo
 * Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
-* Support Virtual Bags
-  * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
-* Support Specialized Item Types
-  * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
+* Support ESO Plus Bags
+  * BAG_VIRTUAL (Dark Brotherhood)
+    * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
+  * BAG_SUBSCRIBER_BANK (Morrowind)
+    * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
 * Check ItemLink Handling in HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?t=2054
   * http://www.esoui.com/forums/showthread.php?t=1944
@@ -53,10 +54,7 @@ tbd
 * Add summary after PABanking completed
 * Check Singular/Plural formatting for HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?p=7988
-* Check Morrowind patch notes
-    * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
-    * ITEMTYPE_FURNISHING_MATERIAL
-    * BAG_SUBSCRIBER_BANK
+    
 
 ***
 
