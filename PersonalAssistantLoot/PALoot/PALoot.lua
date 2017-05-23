@@ -82,6 +82,29 @@ end
 
 local function LootItemIfAllowed(lootId, isItemStolen)
     -- TODO: CHECK FOR FREE SLOT!
+--    local hasSpaceToLoot = false
+--
+--    -- check if user is ESO Plus and has craft bag
+--    if (IsESOPlusSubscriber() and HasCraftBagAccess()) then
+--        -- get lootItemLink and check if it can be virtual (i.e. if it can be put in the craft bag)
+--        local lootItemLink = GetLootItemLink(lootId, LINK_STYLE_BRACKETS)
+--        if (CanItemLinkBeVirtual(lootItemLink)) then
+--            -- Yes = no problem with free space
+--            hasSpaceToLoot = true
+--        end
+--    end
+--
+--    -- if not already flagged as lootable, check for inventory space
+--    if (not hasSpaceToLoot) then
+--        GetNumBagFreeSlots(number Bag _bagId_)
+--        Returns: number _freeSlots_
+--
+--        FindFirstEmptySlotInBag(number Bag _bagId_)
+--        Returns: number:nilable _slotIndex_
+--
+--        -- TODO: check also if existing stack can be filled up
+--    end
+
 
     -- if item is NOT stolen, looting is allowed
     if (not isItemStolen) then
