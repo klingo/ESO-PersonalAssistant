@@ -59,11 +59,19 @@ tbd
     CURT_ALLIANCE_POINTS
     CURT_TELVAR_STONES
     ```
+* PALoot: Check global ESO settings for AutoLoot
+    * http://cdn.esoui.com/forums/showthread.php?p=20437
+        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AOE_LOOT)
+        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_ADD_TO_CRAFT_BAG)
+        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)
+        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT_STOLEN)
+        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_LOOT_HISTORY)
 
 
 #### PAJunk
 * PAJunk: Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
+  * www.esoui.com/forums/showthread.php?t=6987
 
    
 ***
