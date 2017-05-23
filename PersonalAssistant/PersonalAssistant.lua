@@ -100,9 +100,18 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         -- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
         local itemId = GetItemId(bagId, slotIndex)
         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-        local icon =  GetItemInfo(bagId, slotIndex)
+        local icon = GetItemInfo(bagId, slotIndex)
 
-        PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType = %s || icon = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, icon)
+        local bagName = ""
+        if (bagId == BAG_BACKPACK) then bagName = "BAG_BACKPACK"
+        elseif (bagId == BAG_BANK) then bagName = "BAG_BANK"
+        elseif (bagId == BAG_BUYBACK) then bagName = "BAG_BUYBACK"
+        elseif (bagId == BAG_GUILDBANK) then bagName = "BAG_GUILDBANK"
+        elseif (bagId == BAG_VIRTUAL) then bagName = "BAG_VIRTUAL"
+        elseif (bagId == BAG_WORN) then bagName = "BAG_WORN"
+        elseif (bagId == BAG_SUBSCRIBER_BANK) then bagName = "BAG_SUBSCRIBER_BANK" end
+
+        PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType = %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, icon, bagName)
     end
 end
 

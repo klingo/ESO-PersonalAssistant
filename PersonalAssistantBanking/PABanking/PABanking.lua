@@ -33,6 +33,17 @@ function PAB.OnBankOpen()
 --                itemTransaction = PAB_Items.DepositAndWithdrawItems()
             end
         end
+
+        -- some debug statements
+        if (PA.debug) then
+            PAHF_DEBUG.debugln("IsESOPlusSubscriber() = %s", tostring(IsESOPlusSubscriber()));
+            PAHF_DEBUG.debugln("HasCraftBagAccess() = %s", tostring(HasCraftBagAccess()));
+            PAHF_DEBUG.debugln("GetBagUseableSize(BAG_BACKPACK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BACKPACK), GetNumBagUsedSlots(BAG_BACKPACK), GetNumBagFreeSlots(BAG_BACKPACK));
+            PAHF_DEBUG.debugln("GetBagUseableSize(BAG_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BANK), GetNumBagUsedSlots(BAG_BANK), GetNumBagFreeSlots(BAG_BANK));
+            PAHF_DEBUG.debugln("GetBagUseableSize(BAG_SUBSCRIBER_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_SUBSCRIBER_BANK), GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK), GetNumBagFreeSlots(BAG_SUBSCRIBER_BANK));
+            PAHF_DEBUG.debugln("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId());
+        end
+
     end
 end
 
