@@ -201,7 +201,7 @@ function PA.getBagName(bagId)
 		return PAL.getResourceMessage("NS_Bag_Equipment")
 	elseif (bagId == BAG_BACKPACK) then 
 		return PAL.getResourceMessage("NS_Bag_Backpack")
-	elseif (bagId == BAG_BANK) then 
+	elseif (bagId == BAG_BANK or bagId == BAG_SUBSCRIBER_BANK) then
 		return PAL.getResourceMessage("NS_Bag_Bank")
 	else
 		return PAL.getResourceMessage("NS_Bag_Unknown")
@@ -215,7 +215,7 @@ function PA.getBagNameAdjective(bagId)
 		return PAL.getResourceMessage("NS_Bag_Equipped")
 	elseif (bagId == BAG_BACKPACK) then 
 		return PAL.getResourceMessage("NS_Bag_Backpacked")
-	elseif (bagId == BAG_BANK) then 
+	elseif (bagId == BAG_BANK or bagId == BAG_SUBSCRIBER_BANK) then
 		return PAL.getResourceMessage("NS_Bag_Banked")
 	else
 		return PAL.getResourceMessage("NS_Bag_Unknown")
