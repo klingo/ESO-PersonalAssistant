@@ -88,61 +88,65 @@ function PAB_Items.DoItemTransaction(fromBagId, toBagId, transactionType, lastLo
 		transferInfo["origStackSize"] = transferInfo["stackSize"]
 		
 		local isJunk = IsItemJunk(transferInfo["fromBagId"], currFromBagItem)
+        local isStolen = IsItemStolen(transferInfo["fromBagId"], currFromBagItem)
 		local itemFound = false
-		
-		-- check if the item is marked as junk and whether junk shall be deposited too
-		if isJunk and PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_IGNORE then
-			-- do nothing; skip item (no junk shall be moved)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
-			-- do nothing; skip item (junk has to be withdrawn but we are in deposit mode)
-		elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
-			-- do nothing; skip item (junk has to be deposited but we are in withdraw mode)
-		else
-			-- loop through all item types
-			for currItemType = 1, #PAItemTypes do
-				-- checks if this item type has been enabled for deposits/withdraws and if it does match the type of the source item.... or if it is Junk and checks shall be skipped
-				if (((PA_SavedVars.Banking[activeProfile].ItemTypes[PAItemTypes[currItemType]] == transactionType) and (fromBagItemTypeList[currFromBagItem] == PAItemTypes[currItemType])) or (isJunk and skipChecksAndProceed)) then
-					-- then loop through all items in the target bag
-					for currToBagItem = 0, #toBagItemTypeList do
-						-- store the name of the target item
-						transferInfo["toItemName"] = GetItemName(transferInfo["toBagId"], currToBagItem):upper()
-						
-						-- compare the names
-						if transferInfo["fromItemName"] == transferInfo["toItemName"] then
-							-- item found in target bag, transfer item from source bag to target bag and get info how many items left
-							itemFound = true
-							itemMoved = true
-							transferInfo["stackSize"] = PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
-						end
-						
-						-- if no items left, break. otherwise continue the loop
-						if transferInfo["stackSize"] == 0 then
-							break
-						-- if "-1" returned, not enough space was available. stop the rest.
-						elseif transferInfo["stackSize"] < 0 then
-							return
-						end
-					end
-					
-					-- all target-items checked - are still stacks left?
-					if transferInfo["stackSize"] > 0 then
-						-- only continue if it is allowed to start new stacks
-						if ((transactionType == PAC_ITEMTYPE_DEPOSIT and not (depStackType == PAB_STACKING_INCOMPLETE)) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and not (witStackType == PAB_STACKING_INCOMPLETE))) then
-							-- only deposit them, if full transaction is set or the item was already found (but had a full stack already)
-							if ((transactionType == PAC_ITEMTYPE_DEPOSIT and depStackType == PAB_STACKING_FULL) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and witStackType == PAB_STACKING_FULL) or itemFound) then
-								itemMoved = true
-								zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
-								timer = timer + PA_SavedVars.Banking[activeProfile].itemsTimerInterval
-								-- increase the queue of the "callLater" calls
-								PAB_Items.queueSize = PAB_Items.queueSize + 1
-								break
-							end
-						end
-					end
 
-				end
-			end
-		end
+        -- only proceed if the item is not stolen
+        if (not isStolen) then
+            -- check if the item is marked as junk and whether junk shall be deposited too
+            if isJunk and PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_IGNORE then
+                -- do nothing; skip item (no junk shall be moved)
+            elseif isJunk and ((transactionType == PAC_ITEMTYPE_DEPOSIT) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_WITHDRAWAL)) then
+                -- do nothing; skip item (junk has to be withdrawn but we are in deposit mode)
+            elseif isJunk and ((transactionType == PAC_ITEMTYPE_WITHDRAWAL) and (PA_SavedVars.Banking[activeProfile].itemsJunkSetting == PAC_ITEMTYPE_DEPOSIT)) then
+                -- do nothing; skip item (junk has to be deposited but we are in withdraw mode)
+            else
+                -- loop through all item types
+                for currItemType = 1, #PAItemTypes do
+                    -- checks if this item type has been enabled for deposits/withdraws and if it does match the type of the source item.... or if it is Junk and checks shall be skipped
+                    if (((PA_SavedVars.Banking[activeProfile].ItemTypes[PAItemTypes[currItemType]] == transactionType) and (fromBagItemTypeList[currFromBagItem] == PAItemTypes[currItemType])) or (isJunk and skipChecksAndProceed)) then
+                        -- then loop through all items in the target bag
+                        for currToBagItem = 0, #toBagItemTypeList do
+                            -- store the name of the target item
+                            transferInfo["toItemName"] = GetItemName(transferInfo["toBagId"], currToBagItem):upper()
+
+                            -- compare the names
+                            if transferInfo["fromItemName"] == transferInfo["toItemName"] then
+                                -- item found in target bag, transfer item from source bag to target bag and get info how many items left
+                                itemFound = true
+                                itemMoved = true
+                                transferInfo["stackSize"] = PAB_Items.transferItem(currFromBagItem, currToBagItem, transferInfo, lastLoop)
+                            end
+
+                            -- if no items left, break. otherwise continue the loop
+                            if transferInfo["stackSize"] == 0 then
+                                break
+                            -- if "-1" returned, not enough space was available. stop the rest.
+                            elseif transferInfo["stackSize"] < 0 then
+                                return
+                            end
+                        end
+
+                        -- all target-items checked - are still stacks left?
+                        if transferInfo["stackSize"] > 0 then
+                            -- only continue if it is allowed to start new stacks
+                            if ((transactionType == PAC_ITEMTYPE_DEPOSIT and not (depStackType == PAB_STACKING_INCOMPLETE)) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and not (witStackType == PAB_STACKING_INCOMPLETE))) then
+                                -- only deposit them, if full transaction is set or the item was already found (but had a full stack already)
+                                if ((transactionType == PAC_ITEMTYPE_DEPOSIT and depStackType == PAB_STACKING_FULL) or (transactionType == PAC_ITEMTYPE_WITHDRAWAL and witStackType == PAB_STACKING_FULL) or itemFound) then
+                                    itemMoved = true
+                                    zo_callLater(function() PAB_Items.transferItem(currFromBagItem, nil, transferInfo, lastLoop) end, timer)
+                                    timer = timer + PA_SavedVars.Banking[activeProfile].itemsTimerInterval
+                                    -- increase the queue of the "callLater" calls
+                                    PAB_Items.queueSize = PAB_Items.queueSize + 1
+                                    break
+                                end
+                            end
+                        end
+
+                    end
+                end
+            end
+        end
 	end
 	
 	return itemMoved
