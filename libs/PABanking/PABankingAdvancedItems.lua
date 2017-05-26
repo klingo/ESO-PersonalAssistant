@@ -38,23 +38,26 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction(bankBag)
 		if (transferInfo[checkItemId]["operator"] ~= PAC_OPERATOR_NONE) then
 			for currBackpackItem = 0, #backpackItemNameList do
 				if (GetItemId(BAG_BACKPACK, currBackpackItem) == checkItemId) then
-					-- create a new row in the table
-					transferInfo[currRowIndex] = {}
-					transferInfo[currRowIndex]["fromItemName"] = backpackItemNameList[currBackpackItem]
-					transferInfo[currRowIndex]["itemId"] = checkItemId
-					transferInfo[currRowIndex]["bagId"] = BAG_BACKPACK
-					transferInfo[currRowIndex]["slotIndex"] = currBackpackItem
-					transferInfo[currRowIndex]["slotStackSize"] = GetSlotStackSize(BAG_BACKPACK, currBackpackItem)
-					if (transferInfo[checkItemId]["backpackStackSize"] == nil) then
-						if (transferInfo[currRowIndex]["slotStackSize"] == nil) then
-							transferInfo[checkItemId]["backpackStackSize"] = 0
-						else
-							transferInfo[checkItemId]["backpackStackSize"] = transferInfo[currRowIndex]["slotStackSize"]
-						end
-					else
-						transferInfo[checkItemId]["backpackStackSize"] = transferInfo[checkItemId]["backpackStackSize"] + transferInfo[currRowIndex]["slotStackSize"]
-					end
-					currRowIndex = currRowIndex + 1
+                    -- only proceed if item is not flagged as stolen
+                    if (not IsItemStolen(BAG_BACKPACK, currBackpackItem)) then
+                        -- create a new row in the table
+                        transferInfo[currRowIndex] = {}
+                        transferInfo[currRowIndex]["fromItemName"] = backpackItemNameList[currBackpackItem]
+                        transferInfo[currRowIndex]["itemId"] = checkItemId
+                        transferInfo[currRowIndex]["bagId"] = BAG_BACKPACK
+                        transferInfo[currRowIndex]["slotIndex"] = currBackpackItem
+                        transferInfo[currRowIndex]["slotStackSize"] = GetSlotStackSize(BAG_BACKPACK, currBackpackItem)
+                        if (transferInfo[checkItemId]["backpackStackSize"] == nil) then
+                            if (transferInfo[currRowIndex]["slotStackSize"] == nil) then
+                                transferInfo[checkItemId]["backpackStackSize"] = 0
+                            else
+                                transferInfo[checkItemId]["backpackStackSize"] = transferInfo[currRowIndex]["slotStackSize"]
+                            end
+                        else
+                            transferInfo[checkItemId]["backpackStackSize"] = transferInfo[checkItemId]["backpackStackSize"] + transferInfo[currRowIndex]["slotStackSize"]
+                        end
+                        currRowIndex = currRowIndex + 1
+                    end
 				end
 			end
 			
@@ -143,7 +146,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction(bankBag)
 					transferInfo[checkItemId]["toWithdraw"] = 0
 				end
 				
-			elseif (transferInfo[checkItemId]["bankStackSize"] > 0) then
+			elseif ((transferInfo[checkItemId]["bankStackSize"] + transferInfo[checkItemId]["bankPlusStackSize"]) > 0) then
 				-- not enough items in total, but there are some left in the bank
 				transferInfo[checkItemId]["toDeposit"] = 0
 				transferInfo[checkItemId]["toWithdraw"] = transferInfo[checkItemId]["bankStackSize"] + transferInfo[checkItemId]["bankPlusStackSize"]
