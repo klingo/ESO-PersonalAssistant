@@ -47,7 +47,7 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 		-- do nothing; wait
 --    end
 	
-	if (itemsDeposited or itemsDepositedPlus or itemsWithdrawn or itemsWithdrawnPlus or itemsAdvancedDepositedWithdrawn or itemsAdvancedDepositedWithdrawn) then
+	if (itemsDeposited or itemsDepositedPlus or itemsWithdrawn or itemsWithdrawnPlus or itemsAdvancedDepositedWithdrawn or itemsAdvancedDepositedWithdrawnPlus) then
 		return true
 	else
 		return false
