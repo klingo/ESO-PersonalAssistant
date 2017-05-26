@@ -3,7 +3,7 @@
 
 PAB_AdvancedItems = {}
 
-function PAB_AdvancedItems.DoAdvancedItemTransaction()
+function PAB_AdvancedItems.DoAdvancedItemTransaction(bankBag)
 
     local activeProfile = PA_SavedVars.General.activeProfile
 
@@ -12,6 +12,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 	-- TODO: replace BACKPACK and BANK with FROM and TO
 	local backpackItemNameList = PAB_Items.getItemNameList(BAG_BACKPACK)
 	local bankItemNameList = PAB_Items.getItemNameList(BAG_BANK)
+	local bankPlusItemNameList = PAB_Items.getItemNameList(BAG_SUBSCRIBER_BANK)
 	
 	-- store some transfer related information
 	local transferList = {}
@@ -77,7 +78,33 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 					end
 					currRowIndex = currRowIndex + 1
 				end
-			end
+            end
+
+            if (IsESOPlusSubscriber()) then
+                for currBankPlusItem = 0, #bankPlusItemNameList do
+                    if (GetItemId(BAG_SUBSCRIBER_BANK, currBankPlusItem) == checkItemId) then
+                        -- create a new row in the table
+                        transferInfo[currRowIndex] = {}
+                        transferInfo[currRowIndex]["fromItemName"] = bankPlusItemNameList[currBankPlusItem]
+                        transferInfo[currRowIndex]["itemId"] = checkItemId
+                        transferInfo[currRowIndex]["bagId"] = BAG_SUBSCRIBER_BANK
+                        transferInfo[currRowIndex]["slotIndex"] = currBankPlusItem
+                        transferInfo[currRowIndex]["slotStackSize"] = GetSlotStackSize(BAG_SUBSCRIBER_BANK, currBankPlusItem)
+                        if (transferInfo[checkItemId]["bankPlusStackSize"] == nil) then
+                            if (transferInfo[currRowIndex]["slotStackSize"] == nil) then
+                                transferInfo[checkItemId]["bankPlusStackSize"] = 0
+                            else
+                                transferInfo[checkItemId]["bankPlusStackSize"] = transferInfo[currRowIndex]["slotStackSize"]
+                            end
+                        else
+                            transferInfo[checkItemId]["bankPlusStackSize"] = transferInfo[checkItemId]["bankPlusStackSize"] + transferInfo[currRowIndex]["slotStackSize"]
+                        end
+                        currRowIndex = currRowIndex + 1
+                    end
+                end
+            end
+
+
 		end
 		
 		if (transferInfo[checkItemId]["backpackStackSize"] == nil) then
@@ -85,8 +112,10 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 		end
 		if (transferInfo[checkItemId]["bankStackSize"] == nil) then
 			transferInfo[checkItemId]["bankStackSize"] = 0
-		end
-		
+        end
+        if (transferInfo[checkItemId]["bankPlusStackSize"] == nil) then
+            transferInfo[checkItemId]["bankPlusStackSize"] = 0
+        end
 		
 		
 	-- go through the transfer list and prepare the transfers
@@ -95,7 +124,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 
 			checkItemId = transferList[currItemTransferIndex]
 			if (transferInfo[checkItemId]["backpackStackSize"] >= transferInfo[checkItemId]["targetStackSize"]) then
-				-- we already have enough items in the bank - no withdrawal, but maybe depositing required
+				-- we already have enough items in the backpack - no withdrawal, but maybe depositing required
 				if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_LESSTAHNEQAL)) then
 					transferInfo[checkItemId]["toDeposit"] = transferInfo[checkItemId]["backpackStackSize"] - transferInfo[checkItemId]["targetStackSize"]
 					transferInfo[checkItemId]["toWithdraw"] = 0
@@ -104,7 +133,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 					transferInfo[checkItemId]["toWithdraw"] = 0
 				end
 				
-			elseif ((transferInfo[checkItemId]["backpackStackSize"] + transferInfo[checkItemId]["bankStackSize"]) >= transferInfo[checkItemId]["targetStackSize"]) then
+			elseif ((transferInfo[checkItemId]["backpackStackSize"] + transferInfo[checkItemId]["bankStackSize"] + transferInfo[checkItemId]["bankPlusStackSize"]) >= transferInfo[checkItemId]["targetStackSize"]) then
 				-- with the bank, there are enough items - withdrawal might be required!
 				if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
 					transferInfo[checkItemId]["toDeposit"] = 0
@@ -117,7 +146,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 			elseif (transferInfo[checkItemId]["bankStackSize"] > 0) then
 				-- not enough items in total, but there are some left in the bank
 				transferInfo[checkItemId]["toDeposit"] = 0
-				transferInfo[checkItemId]["toWithdraw"] = transferInfo[checkItemId]["bankStackSize"]
+				transferInfo[checkItemId]["toWithdraw"] = transferInfo[checkItemId]["bankStackSize"] + transferInfo[checkItemId]["bankPlusStackSize"]
 				if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
 					-- SHOW WARNING: NOT ENOUGH ITEMS !!!
 				end
@@ -136,9 +165,9 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
 				return false
 			elseif (transferInfo[checkItemId]["toDeposit"] > 0) then
 				transferInfo["fromBagId"] = BAG_BACKPACK
-				transferInfo["toBagId"] = BAG_BANK
+				transferInfo["toBagId"] = bankBag
 			elseif (transferInfo[checkItemId]["toWithdraw"] > 0) then
-				transferInfo["fromBagId"] = BAG_BANK
+				transferInfo["fromBagId"] = bankBag
 				transferInfo["toBagId"] = BAG_BACKPACK
 			else
 				return false

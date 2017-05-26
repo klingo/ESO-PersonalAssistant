@@ -4,6 +4,7 @@
 PAB_Items = {}
 PAB_Items.queueSize = 0
 PAB_Items.loopCount = 0
+PAB_Items.esoPlusReloopRequired = false
 
 function PAB_Items.DepositAndWithdrawItems(lastLoop)
 	lastLoop = lastLoop or false
@@ -20,18 +21,33 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 	
 	-- first deposit items to the bank
 	local itemsDeposited = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
+    local itemsDepositedPlus = false
+
+    -- if a re-loop with subscriber bank is required, or if there are existin
+    if (IsESOPlusSubscriber() and PAB_Items.esoPlusReloopRequired) then
+        itemsDepositedPlus = PAB_Items.DoItemTransaction(BAG_BACKPACK, BAG_SUBSCRIBER_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
+    end
 	
 	-- then withdraw items from the bank
 	local itemsWithdrawn = PAB_Items.DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
+    local itemsWithdrawnPlus = false
+
+    if (IsESOPlusSubscriber()) then
+        itemsWithdrawnPlus = PAB_Items.DoItemTransaction(BAG_SUBSCRIBER_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
+    end
 	
 	-- then we can deposit the advanced items to the bank
-	local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction()
-	
+	local itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction(BAG_BANK)
+    local itemsAdvancedDepositedWithdrawnPlus = false
+
+    if (IsESOPlusSubscriber()) then
+        itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction(BAG_SUBSCRIBER_BANK)
+    end
 --	while (itemsAdvancedDepositedWithdrawn == nil) do
 		-- do nothing; wait
 --    end
 	
-	if (itemsDeposited or itemsWithdrawn or itemsAdvancedDepositedWithdrawn) then
+	if (itemsDeposited or itemsDepositedPlus or itemsWithdrawn or itemsWithdrawnPlus or itemsAdvancedDepositedWithdrawn or itemsAdvancedDepositedWithdrawn) then
 		return true
 	else
 		return false
@@ -220,9 +236,16 @@ function PAB_Items.transferItem(fromSlotIndex, toSlotIndex, transferInfo, lastLo
 		end
 	
 		return remainingStackSize
-	else
-		PAB.println("PAB_NoSpaceInFor", PA.getBagName(transferInfo["toBagId"]) , transferInfo["fromItemLink"])
-		return -1
+    else
+        -- no free slot found in regular bag
+        -- check if ESO Plus Subscriber, and if we are currently moving to regular bank
+        if (IsESOPlusSubscriber() and transferInfo["toBagId"] == BAG_BANK) then
+            -- in this case, also check subscriber bag before stating that there is no free space
+            PAB_Items.esoPlusReloopRequired = true
+        else
+            PAB.println("PAB_NoSpaceInFor", PA.getBagName(transferInfo["toBagId"]) , transferInfo["fromItemLink"])
+            return -1
+        end
 	end
 end
 
