@@ -41,7 +41,7 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
     local itemsAdvancedDepositedWithdrawnPlus = false
 
     if (IsESOPlusSubscriber()) then
-        itemsAdvancedDepositedWithdrawn = PAB_AdvancedItems.DoAdvancedItemTransaction(BAG_SUBSCRIBER_BANK)
+        itemsAdvancedDepositedWithdrawnPlus = PAB_AdvancedItems.DoAdvancedItemTransaction(BAG_SUBSCRIBER_BANK)
     end
 --	while (itemsAdvancedDepositedWithdrawn == nil) do
 		-- do nothing; wait
