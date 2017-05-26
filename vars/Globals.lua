@@ -78,6 +78,7 @@ table.insert(PAItemTypes, ITEMTYPE_ARMOR_TRAIT) -- 23
 table.insert(PAItemTypes, ITEMTYPE_WEAPON_TRAIT) -- 24
 table.insert(PAItemTypes, ITEMTYPE_STYLE_MATERIAL) -- 25
 table.insert(PAItemTypes, ITEMTYPE_RAW_MATERIAL) -- 26
+table.insert(PAItemTypes, ITEMTYPE_FISH) -- 27
 
 -- PersonalAssistant advanced ItemTypes
 PAItemTypesAdvanced = {}
