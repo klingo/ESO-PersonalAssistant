@@ -2,7 +2,7 @@
 -- Developer: Klingo
 
 PA = {}
-PA.AddonVersion = "1.8.1"
+PA.AddonVersion = "1.8.2"
 
 -- 1.3.3 fix
 -- http://www.esoui.com/forums/showthread.php?t=2054

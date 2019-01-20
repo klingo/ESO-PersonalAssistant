@@ -59,6 +59,10 @@ table.insert(PAItemTypes, ITEMTYPE_CLOTHIER_BOOSTER) -- 08
 table.insert(PAItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL) -- 09
 table.insert(PAItemTypes, ITEMTYPE_WOODWORKING_MATERIAL) -- 10
 table.insert(PAItemTypes, ITEMTYPE_WOODWORKING_BOOSTER) -- 11
+-- Jewelcrafting
+table.insert(PAItemTypes, ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL) -- 63
+table.insert(PAItemTypes, ITEMTYPE_JEWELRYCRAFTING_MATERIAL) -- 64
+table.insert(PAItemTypes, ITEMTYPE_JEWELRYCRAFTING_BOOSTER) -- 65
 -- Enchanting
 table.insert(PAItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT) -- 12
 table.insert(PAItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE) -- 13
@@ -69,6 +73,8 @@ table.insert(PAItemTypes, ITEMTYPE_GLYPH_WEAPON) -- 17
 -- Provisioning
 table.insert(PAItemTypes, ITEMTYPE_INGREDIENT) -- 18
 table.insert(PAItemTypes, ITEMTYPE_RECIPE) -- 19
+-- Furnishing
+table.insert(PAItemTypes, ITEMTYPE_FURNISHING_MATERIAL) -- 62
 -- Others
 table.insert(PAItemTypes, ITEMTYPE_DRINK) -- 20
 table.insert(PAItemTypes, ITEMTYPE_FOOD) -- 21
@@ -100,6 +106,8 @@ table.insert(PALoItemTypes, ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
 table.insert(PALoItemTypes, ITEMTYPE_CLOTHIER_RAW_MATERIAL)
 -- Woodworking
 table.insert(PALoItemTypes, ITEMTYPE_WOODWORKING_RAW_MATERIAL)
+-- Jewelcrafting
+table.insert(PALoItemTypes, ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL)
 -- Enchanting
 table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_ASPECT)
 table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
@@ -108,6 +116,8 @@ table.insert(PALoItemTypes, ITEMTYPE_ENCHANTING_RUNE_POTENCY)
 table.insert(PALoItemTypes, ITEMTYPE_INGREDIENT)
 -- Fishing
 table.insert(PALoItemTypes, ITEMTYPE_FISH)
+table.insert(PALoItemTypes, ITEMTYPE_LURE)
+
 
 -- =====================================================================================================================
 -- = PA Junk
