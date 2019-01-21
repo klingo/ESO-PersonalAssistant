@@ -6,7 +6,7 @@
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700B|ranking
 ## Version: 1.0.0
 ## Author: Klingo
-## APIVersion: 100019
+## APIVersion: 100025
 ## SavedVariables: PersonalAssistantBanking_SavedVariables
 ## DependsOn: PersonalAssistant
 
