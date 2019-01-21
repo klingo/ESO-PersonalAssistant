@@ -4,7 +4,7 @@
 
 
 --Register LAM with LibStub
-local MAJOR, MINOR = "LibAddonMenu-2.0", 23
+local MAJOR, MINOR = "LibAddonMenu-2.0", 26
 local lam, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 if not lam then return end --the same or newer version of this lib is already loaded into memory
 
@@ -340,6 +340,16 @@ local localization = {
         RELOAD_DIALOG_RELOAD_BUTTON = "Reload",
         RELOAD_DIALOG_DISCARD_BUTTON = "Discard",
     },
+    it = { -- provided by JohnnyKing
+        PANEL_NAME = "Addon",
+        VERSION = "Versione: <<X:1>>",
+        WEBSITE = "Visita il Sitoweb",
+        RELOAD_UI_WARNING = "Cambiare questa impostazione richiede un Ricarica UI al fine che faccia effetto.",
+        RELOAD_DIALOG_TITLE = "Ricarica UI richiesto",
+        RELOAD_DIALOG_TEXT = "Alcune modifiche richiedono un Ricarica UI al fine che facciano effetto. Sei sicuro di voler ricaricare ora o di voler annullare le modifiche?",
+        RELOAD_DIALOG_RELOAD_BUTTON = "Ricarica",
+        RELOAD_DIALOG_DISCARD_BUTTON = "Annulla",
+    },
     fr = { -- provided by Ayantir
         PANEL_NAME = "Extensions",
         WEBSITE = "Visiter le site Web",
@@ -363,9 +373,21 @@ local localization = {
         VERSION = "Версия: <<X:1>>",
         WEBSITE = "Посетить сайт",
         PANEL_INFO_FONT = "RuESO/fonts/Univers57.otf|14|soft-shadow-thin",
+        RELOAD_UI_WARNING = "Для применения этой настройки необходима перезагрузка интерфейса.",
+        RELOAD_DIALOG_TITLE = "Необходима перезагрузка интерфейса",
+        RELOAD_DIALOG_TEXT = "Для применения некоторых изменений необходима перезагрузка интерфейса. Перезагрузить интерфейс сейчас или отменить изменения?",
+        RELOAD_DIALOG_RELOAD_BUTTON = "Перезагрузить",
+        RELOAD_DIALOG_DISCARD_BUTTON = "Отменить изменения",
     },
-    es = { -- provided by silvereyes333
-        WEBSITE = "Vaya al sitio web",
+    es = { -- provided by Morganlefai, checked by Kwisatz
+        PANEL_NAME = "Configuración",
+        VERSION = "Versión: <<X:1>>",
+        WEBSITE = "Visita la página web",
+        RELOAD_UI_WARNING = "Cambiar este ajuste recargará la interfaz del usuario.",
+        RELOAD_DIALOG_TITLE = "Requiere recargar la interfaz",
+        RELOAD_DIALOG_TEXT = "Algunos cambios requieren recargar la interfaz para poder aplicarse. Quieres aplicar los cambios y recargar la interfaz?",
+        RELOAD_DIALOG_RELOAD_BUTTON = "Recargar",
+        RELOAD_DIALOG_DISCARD_BUTTON = "Cancelar",
     },
     jp = { -- provided by k0ta0uchi
         PANEL_NAME = "アドオン設定",
@@ -377,9 +399,41 @@ local localization = {
         WEBSITE = "访问网站",
         PANEL_INFO_FONT = "EsoZh/fonts/univers57.otf|14|soft-shadow-thin",
     },
+    pl = { -- provided by EmiruTegryfon
+        PANEL_NAME = "Dodatki",
+        VERSION = "Wersja: <<X:1>>",
+        WEBSITE = "Odwiedź stronę",
+        RELOAD_UI_WARNING = "Zmiany będą widoczne po ponownym załadowaniu UI.",
+        RELOAD_DIALOG_TITLE = "Wymagane przeładowanie UI",
+        RELOAD_DIALOG_TEXT = "Niektóre zmiany wymagają ponownego załadowania UI. Czy chcesz teraz ponownie załadować, czy porzucić zmiany?",
+        RELOAD_DIALOG_RELOAD_BUTTON = "Przeładuj",
+        RELOAD_DIALOG_DISCARD_BUTTON = "Porzuć",
+    },
+    kr = { -- provided by p.walker
+        PANEL_NAME = "蝠盜蠨",
+        VERSION = "纄訄: <<X:1>>",
+        WEBSITE = "裹芬襴钸 縩紸",
+        PANEL_INFO_FONT = "EsoKR/fonts/Univers57.otf|14|soft-shadow-thin",
+        RELOAD_UI_WARNING = "襴 茤訕襄 绀溽靘籴 風滼筼 訁袩靘瀰褄靴 UI 苈穜滠遨襴 靄袔革瓈瓤.",
+        RELOAD_DIALOG_TITLE = "UI 苈穜滠遨 靄袔",
+        RELOAD_DIALOG_TEXT = "绀溽瘜 茤訕 謑 UI 苈穜滠遨襄 靄袔穜靘璔 芬靭襴 覈蒵瓈瓤. 诀瀈 苈穜滠遨靘蓜溠蒵瓈灌? 蝄瓈籴 绀溽襄 迨莌靘蓜溠蒵瓈灌?",
+        RELOAD_DIALOG_RELOAD_BUTTON = "苈穜滠遨",
+        RELOAD_DIALOG_DISCARD_BUTTON = "绀溽迨莌",
+    },
+    br = { -- provided by mlsevero
+        PANEL_NAME = "Addons",
+        AUTHOR = string.format("%s: <<X:1>>", GetString(SI_ADDON_MANAGER_AUTHOR)), -- "Autor: <<X:1>>"
+        VERSION = "Versão: <<X:1>>",
+        WEBSITE = "Visite o Website",
+        RELOAD_UI_WARNING = "Mudanças nessa configuração requer a releitura da UI para ter efeito.",
+        RELOAD_DIALOG_TITLE = "Releitura da UI requerida",
+        RELOAD_DIALOG_TEXT = "Algumas mudanças requerem a releitura da UI para ter efeito. Você deseja reler agora ou descartar as mudanças?",
+        RELOAD_DIALOG_RELOAD_BUTTON = "Relê",
+        RELOAD_DIALOG_DISCARD_BUTTON = "Descarta",
+    },
 }
 
-util.L = ZO_ShallowTableCopy(localization[GetCVar("Language.2")], localization["en"])
+util.L = ZO_ShallowTableCopy(localization[GetCVar("Language.2")] or {}, localization["en"])
 util.GetTooltipText = GetStringFromValue -- deprecated, use util.GetStringFromValue instead
 util.GetStringFromValue = GetStringFromValue
 util.GetDefaultValue = GetDefaultValue
@@ -409,7 +463,7 @@ local function ScrollDataIntoView(list, data)
 
     local scrollMin, scrollMax = list.scrollbar:GetMinMax()
     local scrollTop = list.scrollbar:GetValue()
-    local controlHeight = list.controlHeight
+    local controlHeight = list.uniformControlHeight or list.controlHeight
     local targetMin = controlHeight * (targetIndex - 1) - 64
     -- subtracting 64 ain't arbitrary, it's the maximum fading height
     -- (libraries/zo_templates/scrolltemplates.lua/UpdateScrollFade)
@@ -462,6 +516,7 @@ local function PopulateAddonList(addonList, filter)
     local entryList = ZO_ScrollList_GetDataList(addonList)
     local numEntries = 0
     local selectedData = nil
+    local selectionIsFinal = false
 
     ZO_ScrollList_Clear(addonList)
 
@@ -473,8 +528,14 @@ local function PopulateAddonList(addonList, filter)
             entryList[numEntries] = dataEntry
             -- select the first panel passing the filter, or the currently
             -- shown panel, but only if it passes the filter as well
-            if selectedData == nil or data.panel == lam.currentAddonPanel then
-                selectedData = data
+            if selectedData == nil or data.panel == lam.pendingAddonPanel or data.panel == lam.currentAddonPanel then
+                if not selectionIsFinal then
+                    selectedData = data
+                end
+                if data.panel == lam.pendingAddonPanel then
+                    lam.pendingAddonPanel = nil
+                    selectionIsFinal = true
+                end
             end
         else
             data.sortIndex = nil
@@ -568,6 +629,7 @@ function lam:OpenToPanel(panel)
         if addonData.panel == panel then
             selectedData = addonData
             ScrollDataIntoView(addonList, selectedData)
+            lam.pendingAddonPanel = addonData.panel
             break
         end
     end
@@ -713,12 +775,12 @@ local function CreateOptionsControls(panel)
 
                     err, anchorOffset, lastAddedControl, wasHalf = CreateAndAnchorWidget(parent, widgetData, offsetX, anchorOffset, lastAddedControl, wasHalf)
                     if err then
-                        PrintLater(("Could not create %s '%s' of %s."):format(widgetData.type, widgetData.name or "unnamed", addonID))
+                        PrintLater(("Could not create %s '%s' of %s."):format(widgetData.type, GetStringFromValue(widgetData.name or "unnamed"), addonID))
                     end
 
                     if isSubmenu then
                         if SetupCreationCalls(lastAddedControl, widgetData.controls) then
-                            PrintLater(("The sub menu '%s' of %s is missing some entries."):format(widgetData.name or "unnamed", addonID))
+                            PrintLater(("The sub menu '%s' of %s is missing some entries."):format(GetStringFromValue(widgetData.name or "unnamed"), addonID))
                         end
                     end
                 end
