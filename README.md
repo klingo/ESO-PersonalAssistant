@@ -31,6 +31,10 @@ tbd
   
   
 #### PABanking
+* PARepair: Add chat message when repairing with Repair Kits
+
+
+#### PABanking
 * PABanking: Refactor regarding inventory-loop  
     ```lua
     local bagSlots = SHARED_INVENTORY:GetBagCache(BAG_BACKPACK)
@@ -46,12 +50,18 @@ tbd
     ```lua
     RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
     ```
-* PABanking: Add Soul gems (empty / filled)
+* PABanking: Crafting Material - Add buttons for Deposit/Withdraw/Ignore all
+* PABanking: Crafting Material - Add Jewelcrafting items
+* PABanking: Crafting Material - Add Furnishing items
+* PABanking: Common Item Types - Add Maps
+* PABanking: Advanced Item Types - Add Soul gems (empty / filled)
+* PABanking: Advanced Item Types - Add Repair Kits (only Grand?)
+* PABanking: Add option to select type of notifications
 * PABanking: Add summary after transaction completed
 
 
 #### PALoot
-* PALoot: Loot other currencies than gold  
+* PALoot: Loot other currencies than gold  - Still needed?!
     ```lua
     GetLootCurrency(number CurrencyType type)  
     Returns: number unownedCurrency, number ownedCurrency
@@ -66,13 +76,16 @@ tbd
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT_STOLEN)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_LOOT_HISTORY)
+* PALoot: Check if special message for Stealing is added?
+* PALoot: Harvestable Items - Add Jewelcrafting items
 
 
 #### PAJunk
 * PAJunk: Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
-
+* PAJunk: Check if special message for marking as Trash/Ornate exists
+* PAJunk: Add option to select type of notifications
    
 ***
 
