@@ -29,10 +29,10 @@ tbd
   * http://www.esoui.com/forums/showthread.php?t=1944
 * [ ] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
     * http://www.esoui.com/forums/showthread.php?p=7988
-* [ ] **(1)** Update to latest LAM version
-* [ ] **(1)** Make "PersonalAssistant" the top-level-Addon and move others as nested-Addons
+* [X] **(1)** Update to latest LAM version
+* [X] **(1)** Make "PersonalAssistant" the top-level-Addon and move others as nested-Addons
   * https://wiki.esoui.com/Addon_Structure
-* [ ] **(9)** Update Addon Manifest
+* [ ] **(5)** Update Addon Manifest
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion
   * Variable Expansion - $(language)
