@@ -48,11 +48,11 @@ ResourceBundle.fr["PALo_ItemLooted"] 				= "PALoot: %d x %s"
 ResourceBundle.fr["PALo_GoldLooted"] 				= "PALoot: %d pièces d'or"
 
 ResourceBundle.fr["PALo_ItemType_None"] 		    = "-"
-ResourceBundle.fr["PALo_ItemType_Loot"]             = "* Auto-Piller" -- TODO: translate
+ResourceBundle.fr["PALo_ItemType_Loot"]             = "* Piller automatiquement"
 
 -- PAJunk --
-ResourceBundle.fr["PAJ_MovedToJunk"]                = "* %s déplacé à la jonque" -- TODO: translate
-ResourceBundle.fr["PAJ_SoldJunkInfo"]               = "* Vendu des objets indésirables pour %d pièces d'or" -- TODO: translate
+ResourceBundle.fr["PAJ_MovedToJunk"]                = "* %s a été mis aux rebuts"
+ResourceBundle.fr["PAJ_SoldJunkInfo"]               = "* Rebuts vendus pour %d pièces d'or"
 
 -- MainMenu --
 ResourceBundle.fr["MMenu_Title"] 					= "|cFFD700P|rersonal|cFFD700A|rssistant"
@@ -81,8 +81,8 @@ ResourceBundle.fr["PARMenu_RepairBaDura"] 			= "- Seuil de durabilité en %"
 ResourceBundle.fr["PARMenu_RepairBaDura_T"] 		= "Réparer les objets dans le sac s'ils sont en-dessous du seuil de durabilité défini."
 ResourceBundle.fr["PARMenu_HideNoRepair"] 			= "Masquer le message 'Rien à réparer'"
 ResourceBundle.fr["PARMenu_HideNoRepair_T"] 		= "Masquer le message 'Rien à réparer'. Vous verrez toujours un message s'il y a quelque chose à réparer."
-ResourceBundle.fr["PARMenu_HideAll"] 				= "Masquer TOUS les messagesde réparation"
-ResourceBundle.fr["PARMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas le coût de vos réparations." -- TODO: Update translation
+ResourceBundle.fr["PARMenu_HideAll"] 				= "Masquer TOUS les messages de réparation"
+ResourceBundle.fr["PARMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas le coût de vos réparations."
 
 -- PABMenu --
 ResourceBundle.fr["PABMenu_Header"] 				= "|cFFD700PA B|ranking"
@@ -106,23 +106,23 @@ ResourceBundle.fr["PABMenu_DepWitItem"] 			= "Déposer et retirer des objets"
 ResourceBundle.fr["PABMenu_DepWitItem_T"] 			= "Déposer et/ou retirer automatiquement des objets de la banque?"
 ResourceBundle.fr["PABMenu_DepItemTypeDesc"] 		= "Définir les actions spécifiques (déposer, retirer, ignorer) pour les types d'objets communs et avancés."
 ResourceBundle.fr["PABMenu_DepItemType"] 			= "Types d'objets communs"
-ResourceBundle.fr["PABMenu_DepItemType_T"] 			= "Ouvrez le sous-menu pour définir pour chaque type d'objet s'il doit être déposer, retirer, ou ignorer."
-ResourceBundle.fr["PABMenu_DepStackOnly"]			= "* Ouvrez le sous-menu pour définir pour chaque type d'élément s'il doit être déposé, retiré ou ignoré." -- TODO: translate
-ResourceBundle.fr["PABMenu_DepStackOnly_T"]			= "* Type d'empilement (Dépôt)"
+ResourceBundle.fr["PABMenu_DepItemType_T"] 			= "Ouvrez le sous-menu pour définir pour chaque type d'objet s'il doit être déposé, retiré, ou ignoré."
+ResourceBundle.fr["PABMenu_DepStackOnly"]			= "* Type d'empilement (Dépôt)"
+ResourceBundle.fr["PABMenu_DepStackOnly_T"]			= "Ouvrez le sous-menu pour définir pour chaque type d'objet s'il doit être déposé, retiré, ou ignoré."
 ResourceBundle.fr["PABMenu_WitStackOnly"]			= "* Type d'empilement (Retirer)"
-ResourceBundle.fr["PABMenu_WitStackOnly_T"]			= "* Définir si tous les éléments correspondants doivent être retirés complètement, si seuls les éléments qui existent dans le conteneur cible doivent être retirés ou si seules les piles existantes doivent être remplies jusqu'à leur taille maximale."
+ResourceBundle.fr["PABMenu_WitStackOnly_T"]			= "Définir si tous les éléments correspondants doivent être retirés complètement, si seuls les éléments qui existent dans le conteneur cible doivent être retirés ou si seules les piles existantes doivent être remplies jusqu'à leur taille maximale."
 ResourceBundle.fr["PABMenu_Advanced_DepItemType"]	= "Types d'objets avancés"
 ResourceBundle.fr["PABMenu_Advanced_DepItemType_T"]	= "Ouvrez le sous-menu pour définir de façon avancée quels types d'objets doivent être déposés, retirés ou ignorés."
 ResourceBundle.fr["PABMenu_DepItemTimerInterval"]	= "- Intervalle entre les déposes (msecs)"
 ResourceBundle.fr["PABMenu_DepItemTimerInterval_T"]	= "Combien de temps en msecs entre deux déposes consécutives d'objets. Si la dépose de beaucoup d'objets ne fonctionne pas, pensez à augmenter cette valeur."
-ResourceBundle.fr["PABMenu_ItemJunk_Header"]		= PAC_COL_LIGHT_BLUE.."OBJETS NOTÉS AU REBUT"
-ResourceBundle.fr["PABMenu_DepItemJunk"] 			= "Objets au rebut"
-ResourceBundle.fr["PABMenu_DepItemJunk_T"] 			= "Est-ce que tous les items au rebut, seulement ceux de type d'objets ci-dessous ou aucun doivent être retirés ou déposés en banque ?"
+ResourceBundle.fr["PABMenu_ItemJunk_Header"]		= PAC_COL_LIGHT_BLUE.."OBJETS AUX REBUTS"
+ResourceBundle.fr["PABMenu_DepItemJunk"] 			= "Objets aux rebuts"
+ResourceBundle.fr["PABMenu_DepItemJunk_T"] 			= "Est-ce que tous les items aux rebuts, seulement ceux de type d'objets ci-dessous ou aucun doivent être retirés ou déposés en banque ?"
 ResourceBundle.fr["PABMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
 ResourceBundle.fr["PABMenu_HideNoDeposit"] 			= "Masquer le message 'Rien à déposer'"
 ResourceBundle.fr["PABMenu_HideNoDeposit_T"] 		= "Masquer le message 'Rien à déposer'. Vous verrez un message s'il a quelque chose à déposer."
 ResourceBundle.fr["PABMenu_HideAll"] 				= "Masquer TOUS les messages bancaires"
-ResourceBundle.fr["PABMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas vos objets/or déposés."  -- TODO: Update translation
+ResourceBundle.fr["PABMenu_HideAll_T"] 				= "Mode silencieux : Aucun message ne sera affiché. Vous ne verrez pas vos objets/or déposés."
 ResourceBundle.fr["PABMenu_DepButton"] 				= "Tout déposer"
 ResourceBundle.fr["PABMenu_DepButton_T"] 			= "Changer toutes les valeurs de menu pour 'Déposer'"
 ResourceBundle.fr["PABMenu_WitButton"] 				= "Tout retirer"
@@ -134,47 +134,47 @@ ResourceBundle.fr["PABMenu_Keep_in_Backpack"]       = "Quantité à garder dans 
 ResourceBundle.fr["PABMenu_Keep_in_Backpack_T"]     = "Definir la quantité qui doit, en fonction du comparateur mathématique, être gardée dans le sac à dos."
 
 -- PALoMenu --
-ResourceBundle.fr["PALoMenu_Header"] 				= "|cFFD700PA L|root" -- TODO: translate
-ResourceBundle.fr["PALoMenu_Enable"] 				= "|cB0B0FF* Activer le pillage automatique|r" -- TODO: translate
-ResourceBundle.fr["PALoMenu_Enable_T"] 				= "* Activer le pillage automatique?" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootGold"]              = "* Piller automatique pièces d'or" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootGold_T"]            = "* Piller automatique pièces d'or?" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootItems"]             = "* Pillage automatique d'articles récoltables" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootItems_T"]           = "* Pillage automatique d'articles récoltables?" -- TODO: translate
-ResourceBundle.fr["PALoMenu_ItemTypeDesc"] 	        = "* Activer et désactiver auto-loot pour les articles récoltables à partir de minerais, herbes, bois, runesones, ou des trous de pêche." -- TODO: translate
-ResourceBundle.fr["PALoMenu_ItemType"]              = "* Type d'article récoltable" -- TODO: translate
-ResourceBundle.fr["PALoMenu_ItemType_T"]            = "* Ouvrez le sous-menu pour définir pour chaque type d'élément récoltable s'il doit être auto-pillé ou non." -- TODO: translate
+ResourceBundle.fr["PALoMenu_Header"] 				= "|cFFD700PA P|rillage"
+ResourceBundle.fr["PALoMenu_Enable"] 				= "|cB0B0FF* Activer le pillage automatique|r"
+ResourceBundle.fr["PALoMenu_Enable_T"] 				= "* Activer le pillage automatique ?"
+ResourceBundle.fr["PALoMenu_LootGold"]              = "* Piller automatiquement les pièces d'or"
+ResourceBundle.fr["PALoMenu_LootGold_T"]            = "* Piller automatiquement les pièces d'or?"
+ResourceBundle.fr["PALoMenu_LootItems"]             = "* Piller automatiquement les objets récoltables"
+ResourceBundle.fr["PALoMenu_LootItems_T"]           = "* Piller automatiquement les objets récoltables?"
+ResourceBundle.fr["PALoMenu_ItemTypeDesc"] 	        = "* Activer et désactiver le pillage automatique pour les objets récoltables à partir de minerais, herbes, bois, runesones, ou trous de pêche."
+ResourceBundle.fr["PALoMenu_ItemType"]              = "* Type d'objet récoltable"
+ResourceBundle.fr["PALoMenu_ItemType_T"]            = "* Ouvrez le sous-menu pour définir pour chaque type d'objets récoltables s'il doit être piller automatiquement ou non."
 ResourceBundle.fr["PALoMenu_ItemType_Header"]		= PAC_COL_LIGHT_BLUE.."TYPES D'OBJET"
-ResourceBundle.fr["PALoMenu_LootButton"] 			= "* Piller automatique tous" -- TODO: translate
-ResourceBundle.fr["PALoMenu_LootButton_T"] 			= "* Changer toutes les valeurs de liste déroulante à 'Piller automatique'" -- TODO: translate
-ResourceBundle.fr["PALoMenu_IgnButton"] 			= "* Désactiver tous les" -- TODO: translate
-ResourceBundle.fr["PALoMenu_IgnButton_T"] 			= "Changer toutes les valeurs de menu pour '-'"
-ResourceBundle.fr["PALoMenu_HideItemLoot"] 			= "* Masquer le message 'Objet pillé'" -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideItemLoot_T"] 		= "* Masquer le message 'Objet volé'. Vous ne verrez plus quels articles ont été automatiquement pillés." -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideGoldLoot"] 			= "* Masquer le message 'Or pillé'" -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideGoldLoot_T"] 		= "* Masquer le message 'Où j'ai été pillé'. Vous ne verrez plus combien d'or a été automatiquement pillé." -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideAll"] 				= "* Masquer TOUS les messages de butin" -- TODO: translate
-ResourceBundle.fr["PALoMenu_HideAll_T"] 			= "* Mode silencieux: aucun message de pillage (articles et devises) s'affiche." -- TODO: translate
+ResourceBundle.fr["PALoMenu_LootButton"] 			= "* Tout piller automatiquement"
+ResourceBundle.fr["PALoMenu_LootButton_T"] 			= "* Changer toutes les valeurs de liste déroulante en 'Piller automatiquement'"
+ResourceBundle.fr["PALoMenu_IgnButton"] 			= "* Ne rien piller automatiquement"
+ResourceBundle.fr["PALoMenu_IgnButton_T"] 			= "* Changer toutes les valeurs de liste déroulante en '-'"
+ResourceBundle.fr["PALoMenu_HideItemLoot"] 			= "* Masquer le message 'Objet pillé'"
+ResourceBundle.fr["PALoMenu_HideItemLoot_T"] 		= "* Masquer le message 'Objet pillé'. Vous ne verrez plus quels articles ont été automatiquement pillés."
+ResourceBundle.fr["PALoMenu_HideGoldLoot"] 			= "* Masquer le message 'Or pillé'"
+ResourceBundle.fr["PALoMenu_HideGoldLoot_T"] 		= "* Masquer le message 'Or pillé'. Vous ne verrez plus combien d'or a été automatiquement pillés."
+ResourceBundle.fr["PALoMenu_HideAll"] 				= "* Masquer TOUS les messages de butin"
+ResourceBundle.fr["PALoMenu_HideAll_T"] 			= "* Mode silencieux: aucun message de butin (articles et devises) ne sera affiché."
 
 -- PAJMenu --
-ResourceBundle.fr["PAJMenu_Header"]                 = "|cFFD700PA J|runk"
-ResourceBundle.fr["PAJMenu_Enable"] 				= "|cB0B0FF* Activer l'annulation automatique|r" -- TODO: translate
-ResourceBundle.fr["PAJMenu_Enable_T"] 				= "* Akctiver l'annulation automatique?" -- TODO: translate
+ResourceBundle.fr["PAJMenu_Header"]                 = "|cFFD700PA R|rebuts"
+ResourceBundle.fr["PAJMenu_Enable"] 				= "|cB0B0FF* Activer la mise aux rebuts automatique|r"
+ResourceBundle.fr["PAJMenu_Enable_T"] 				= "* Activer la mise aux rebuts automatique?"
 ResourceBundle.fr["PAJMenu_ItemTypeDesc"]           = "* Activer et désactiver le marquage automatique comme indésirable pour différents types d'éléments." -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoSellJunk"]           = "* Vente automatique d'ordures?" -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoSellJunk_T"]         = "* Vendez automatiquement tous les articles marqués comme junk?" -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoMarkTrash"]          = "* Marquage automatique [Corbeille]" -- TODO: translate
-ResourceBundle.fr["PAJMenu_AutoMarkTrash_T"]        = "* Marquer automatiquement les éléments du type [Trash] comme junk?" -- TODO: translate
-ResourceBundle.fr["PAJMenu_HideAll"] 				= "* Masquer tous les messages indésirables" -- TODO: translate
-ResourceBundle.fr["PAJMenu_HideAll_T"] 			    = "* Mode silencieux: Aucun message indésirable ne sera affiché." -- TODO: translate
+ResourceBundle.fr["PAJMenu_AutoSellJunk"]           = "* Vente automatique des rebuts"
+ResourceBundle.fr["PAJMenu_AutoSellJunk_T"]         = "* Vendez automatiquement tous les articles mis aux rebuts"
+ResourceBundle.fr["PAJMenu_AutoMarkTrash"]          = "* Mettre automatiquement les objets [Trash] aux rebuts"
+ResourceBundle.fr["PAJMenu_AutoMarkTrash_T"]        = "* Mettre automatiquement les objets de type [Trash] aux rebuts."
+ResourceBundle.fr["PAJMenu_HideAll"] 				= "* Masquer tous les messages de mise aux rebuts"
+ResourceBundle.fr["PAJMenu_HideAll_T"] 			    = "* Mode silencieux: Aucun message de mise aux rebuts ne sera affiché."
 
 -- Name Spaces --
-ResourceBundle.fr["NS_Bag_Equipment"]				= ""	-- not required so far
+ResourceBundle.fr["NS_Bag_Equipment"]				= "équipement"	-- not required so far
 ResourceBundle.fr["NS_Bag_Equipped"]				= "équipés"
 ResourceBundle.fr["NS_Bag_Backpack"]				= "le sac à dos"
 ResourceBundle.fr["NS_Bag_Backpacked"]				= "dans le sac à dos"
 ResourceBundle.fr["NS_Bag_Bank"]					= "la banque"
-ResourceBundle.fr["NS_Bag_Banked"]					= ""	-- not required so far
+ResourceBundle.fr["NS_Bag_Banked"]					= "en banque"	-- not required so far
 ResourceBundle.fr["NS_Bag_Unknown"]					= "inconnu"
 
 -- Operators --
@@ -187,9 +187,9 @@ ResourceBundle.fr["REL_GreaterThan"]                = "supérieur (>)"		-- not r
 ResourceBundle.fr["REL_GreaterThanEqual"]           = "supérieur ou égal (>=)"
 
 -- Stacking types --
-ResourceBundle.fr["ST_MoveAllFull"]					= "* Déplacer tout"			-- 0: Full deposit   -- TODO: translate
-ResourceBundle.fr["ST_MoveExistingFull"]			= "* Tout déplacer si une pile existe"		-- 1: Deposit if existing    -- TODO: translate
-ResourceBundle.fr["ST_FillIncompleteOnly"]			= "* Remplir uniquement les piles existantes"		-- 2: Fill existing stacks   -- TODO: translate
+ResourceBundle.fr["ST_MoveAllFull"]					= "* Tout déplacer"			-- 0: Full deposit
+ResourceBundle.fr["ST_MoveExistingFull"]			= "* Tout déplacer si une pile existe"		-- 1: Deposit if existing
+ResourceBundle.fr["ST_FillIncompleteOnly"]			= "* Remplir uniquement les piles existantes"		-- 2: Fill existing stacks
 
 -- Official Item Types --
 ResourceBundle.fr[ITEMTYPE_ADDITIVE] 				= "frITEMTYPE_ADDITIVE"
