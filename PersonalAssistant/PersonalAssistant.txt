@@ -45,7 +45,7 @@ Utilities/EventManager.lua
 
 # Settings
 Menu/MenuDefaults.lua
-Menu/MenuGetterSetter.lua
+Menu/MenuFunctions.lua
 Menu/MenuHelper.lua
 Menu/MenuChoices.lua
 Menu/MainMenu.lua
