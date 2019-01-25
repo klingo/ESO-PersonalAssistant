@@ -7,6 +7,8 @@ local PASV = PA.SavedVars
 local AddonName = "PersonalAssistantRepair"
 local Repair_Defaults = {}
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
 -- init default values
 local function initDefaults()
     local PAMenuDefaults = PA.MenuDefaults
@@ -32,13 +34,11 @@ local function initAddon(_, addOnName)
     PASV.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", Repair_Defaults)
 end
 
+PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-PA.Repair = {
-    AddonName = AddonName,
-    initAddon = initAddon,
+-- Export
+PersonalAssistant.Repair = {
+    AddonName = AddonName
 }
-
-local PAR = PA.Repair
-PAEM.RegisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED, PAR.initAddon)

@@ -5,6 +5,7 @@ local PAHF = PA.HelperFunctions
 local PASVRepair = PA.SavedVars.Repair
 local L = PA.Localization
 
+-- ---------------------------------------------------------------------------------------------------------------------
 
 -- TODO: NON-VENDOR
 -- use repairkits (after leaving combat)
@@ -14,9 +15,6 @@ local L = PA.Localization
 -- TODO: NON-VENDOR
 -- use soul gems to recharge weapon (after leaving combat)
 -- yes/no, plus define threshold
-
--- =====================================================================================================================
--- =====================================================================================================================
 
 -- repair all items that are below the given threshold for the bag
 local function RepairItems(bagId, threshold)
@@ -131,6 +129,6 @@ local function EventPlayerCombateState(_, inCombat)
 end
 
 -- Export
-PersonalAssistant.Repair = PersonalAssistant.Repair or {}
-PersonalAssistant.Repair.OnShopOpen = OnShopOpen
-PersonalAssistant.Repair.EventPlayerCombateState = EventPlayerCombateState
+PA.Repair = PA.Repair or {}
+PA.Repair.OnShopOpen = OnShopOpen
+PA.Repair.EventPlayerCombateState = EventPlayerCombateState
