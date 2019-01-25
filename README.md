@@ -37,6 +37,8 @@ PersonalAssistant.Repair
 * [ ] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
     * http://www.esoui.com/forums/showthread.php?p=7988
 * [X] **(1)** Update to latest LAM version
+* [ ] **(1)** Get rid of LibStub (no longer needed due to AddOnVersion)
+    * https://www.esoui.com/downloads/info44-LibStub.html
 * [X] **(1)** Make "PersonalAssistant" the top-level-Addon and move others as nested-Addons
   * https://wiki.esoui.com/Addon_Structure
 * [ ] **(5)** Update Addon Manifest
