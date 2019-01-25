@@ -1,11 +1,8 @@
---
--- Created by IntelliJ IDEA.
--- User: Klingo
--- Date: 19.02.2017
--- Time: 20:01
---
-
-PAR_Charge = {}
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAHF = PA.HelperFunctions
+local PASVRepair = PA.SavedVars.Repair
+local L = PA.Localization
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -39,15 +36,12 @@ local function GetSoulGemsIn(bagId)
     return gemTable, totalGemCount
 end
 
--- =====================================================================================================================
--- =====================================================================================================================
-
-function PAR_Charge.ReChargeWeapons()
+local function ReChargeWeapons()
 
     -- Check and re-charged equipped weapons
-    if PA.savedVars.Repair[PA.activeProfile].chargeWeapons then
+    if PASVRepair[PA.activeProfile].chargeWeapons then
 
-        local chargeThreshold = PA.savedVars.Repair[PA.activeProfile].chargeWeaponsThreshold
+        local chargeThreshold = PASVRepair[PA.activeProfile].chargeWeaponsThreshold
         local weaponsToCharge = setmetatable({}, { __index = table })
 
         -- based on the list of chargeable slots, check which ones really need to be charged
@@ -80,17 +74,17 @@ function PAR_Charge.ReChargeWeapons()
                     end
 
                     -- some debug information
-                    PAHF_DEBUG.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(BAG_WORN, weapon.weaponSlot), gemTable[#gemTable].itemName, chargeableAmount, weapon.charges, weapon.maxCharges)
+                    PAHF.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(BAG_WORN, weapon.weaponSlot), gemTable[#gemTable].itemName, chargeableAmount, weapon.charges, weapon.maxCharges)
 
                     -- actually charge the item
                     ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
                     totalGemCount = totalGemCount - 1
 
                     -- show output to chat (depending on setting)
-                    local chargeWeaponsChatMode = PA.savedVars.Repair[PA.activeProfile].chargeWeaponsChatMode
-                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Full"), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Normal"), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAR_ReChargeWeapon_ChatMode_Min"), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
+                    local chargeWeaponsChatMode = PASVRepair[PA.activeProfile].chargeWeaponsChatMode
+                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(L.ReChargeWeapon_ChatMode_Full, weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(L.ReChargeWeapon_ChatMode_Normal, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(L.ReChargeWeapon_ChatMode_Min, gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
                     end -- PA_OUTPUT_TYPE_NONE => no chat output
 
                     if (totalGemCount < 10) then
@@ -105,3 +99,7 @@ function PAR_Charge.ReChargeWeapons()
         end
     end
 end
+
+-- Export
+PA.Repair = PA.Repair or {}
+PA.Repair.ReChargeWeapons = ReChargeWeapons

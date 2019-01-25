@@ -1,3 +1,6 @@
+PersonalAssistant.Localization = {
+}
+
 if ResourceBundle == nil then ResourceBundle = {} end
 if ResourceBundle.fr == nil then ResourceBundle.fr = {} end
 

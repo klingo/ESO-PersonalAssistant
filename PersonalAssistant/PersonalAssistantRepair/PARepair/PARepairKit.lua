@@ -1,12 +1,13 @@
---
--- Created by IntelliJ IDEA.
--- User: Klingo
--- Date: 19.02.2017
--- Time: 20:01
---
+-- Local instances of Global tables --
+local PA = PersonalAssistant
 
-PAR_Kit = {}
+-- =====================================================================================================================
+-- =====================================================================================================================
 
-function PAR_Kit.RepairEquippedItemsWithKit()
+local function RepairEquippedItemsWithKit()
 
 end
+
+-- Export
+PA.Repair = PA.Repair or {}
+PA.Repair.RepairEquippedItemsWithKit = RepairEquippedItemsWithKit

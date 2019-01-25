@@ -1,36 +1,44 @@
--- Addon: PersonalAssistant.Repair
--- Developer: Klingo
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAEM = PA.EventManager
+local PASV = PA.SavedVars
 
-PAR = {}
-PAR.AddonName = "PersonalAssistantRepair"
-PAR.AddonVersion = "1.0"
-
+-- Local constants --
+local AddonName = "PersonalAssistantRepair"
+local Repair_Defaults = {}
 
 -- init default values
-function PAR.initDefaults()
-    -- initialize the multi-profile structure
-    PAR.Repair_Defaults = {}
-    -- -----------------------------------------------------
+local function initDefaults()
+    local PAMenuDefaults = PA.MenuDefaults
     -- default values for PARepair
     for profileNo = 1, PAG_MAX_PROFILES do
-        PAR.Repair_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PARepair
+        Repair_Defaults[profileNo] = PAMenuDefaults.PARepair
     end
 end
 
 -- init saved variables and register Addon
-function PAR.initAddon(_, addOnName)
-    if addOnName ~= PAR.AddonName then
+local function initAddon(_, addOnName)
+    if addOnName ~= AddonName then
         return
     end
 
     -- addon load started - unregister event
-    PAEM.UnregisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED)
+    PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
     -- initialize the default values
-    PAR.initDefaults()
+    initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PA.savedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", PAR.Repair_Defaults)
+    PASV.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, "Repair", Repair_Defaults)
 end
 
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+PA.Repair = {
+    AddonName = AddonName,
+    initAddon = initAddon,
+}
+
+local PAR = PA.Repair
 PAEM.RegisterForEvent(PAR.AddonName, EVENT_ADD_ON_LOADED, PAR.initAddon)

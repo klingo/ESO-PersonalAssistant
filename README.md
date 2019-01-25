@@ -11,6 +11,13 @@ http://www.esoui.com/downloads/info381-PersonalAssistant.html
 ## How to use
 tbd
 
+
+PersonalAssistant
+PersonalAssistant.Banking
+PersonalAssistant.Junk
+PersonalAssistant.Loot
+PersonalAssistant.Repair
+
 ***
 
 ## Development ToDo

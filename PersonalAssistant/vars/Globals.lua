@@ -1,4 +1,8 @@
--- PersonalAssistant Constants
+-- PersonalAssistant - Prepare all Global Tables
+PersonalAssistant = {}
+PersonalAssistant.SavedVars = {}
+PersonalAssistant.MenuFunctions = {}
+PersonalAssistant.MenuHelper = {}
 
 -- PA Banking
 PAC_ITEMTYPE_IGNORE = 0

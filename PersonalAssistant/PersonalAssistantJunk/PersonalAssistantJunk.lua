@@ -5,9 +5,6 @@ PAJ = {}
 PAJ.AddonName = "PersonalAssistantJunk"
 PAJ.AddonVersion = "1.0"
 
--- globla indicators of whether some processing is ongoing
-PAJ.isJunkProcessing = false
-
 -- init default values
 function PAJ.initDefaults()
     -- initialize the multi-profile structure
@@ -27,6 +24,7 @@ function PAJ.initAddon(_, addOnName)
     end
 
     -- addon load started - unregister event
+    local PAEM = PersonalAssistant.EventManager
     PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_ADD_ON_LOADED)
 
     -- initialize the default values

@@ -3,15 +3,16 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v2.0|r
-## Version: 2.0
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v2.0.0|r
+## Version: 2.0.0
+## AddOnVersion: 200
 ## Author: Klingo
 ## APIVersion: 100025
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## OptionalDependsOn: LibAddonMenu-2.0
 
 # Logger
-libs/Utilities/Logger.lua
+Utilities/Logger.lua
 
 # Libraries
 libs/LibStub/LibStub.lua
@@ -34,26 +35,23 @@ libs/LibAddonMenu-2.0/controls/divider.lua
 # Globals
 vars/Globals.lua
 
-# Utilities
-libs/Utilities/HelperFunctions.lua
-libs/Utilities/EventManager.lua
-
 # Localization
 localization/en.lua
-localization/de.lua
-localization/fr.lua
-localization/Locale.lua
+localization/$(language).lua
 
-# Core
-PersonalAssistant.lua
-PersonalAssistant.xml
+# Core-Utilities
+Utilities/HelperFunctions.lua
+Utilities/EventManager.lua
 
 # Settings
-libs/Menu/MenuDefaults.lua
-libs/Menu/MenuChoices.lua
-libs/Menu/MenuGetterSetter.lua
-libs/Menu/MenuHelper.lua
-libs/Menu/MainMenu.lua
+Menu/MenuDefaults.lua
+Menu/MenuGetterSetter.lua
+Menu/MenuHelper.lua
+Menu/MenuChoices.lua
+Menu/MainMenu.lua
+
+# Main
+PersonalAssistant.lua
 
 # Integrations
 # libs/Integrations/ItemSaver.lua

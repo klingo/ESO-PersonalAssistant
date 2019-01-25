@@ -1,15 +1,11 @@
---
--- Created by IntelliJ IDEA.
--- User: Klingo
--- Date: 13.02.2017
--- Time: 22:40
---
+-- Local instances of Global tables --
+local PA = PersonalAssistant
 
-if not PAMenu_Defaults then
-    PAMenu_Defaults = {}
-end
+-- =====================================================================================================================
+-- =====================================================================================================================
 
-PAMenu_Defaults.defaultSettings = {
+-- Export
+PA.MenuDefaults = {
     PAGeneral = {
         welcomeMessage = true,
     },

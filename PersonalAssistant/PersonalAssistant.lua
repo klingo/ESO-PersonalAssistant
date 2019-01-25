@@ -1,22 +1,20 @@
--- Addon: PersonalAssistant
--- Developer: Klingo
--- ---------------------------------------------------------------------------------------------------------------------
-if PA                               == nil then PA                              = {} end
-if PA.savedVars                     == nil then PA.savedVars                    = {} end
-if PA.savedVars.Profile             == nil then PA.savedVars.Profile            = {} end
-if PA.savedVars.General             == nil then PA.savedVars.General            = {} end
-if PA.savedVars.Repair              == nil then PA.savedVars.Repair             = {} end
-if PA.savedVars.Banking             == nil then PA.savedVars.Banking            = {} end
-if PA.savedVars.Banking.ItemTypes   == nil then PA.savedVars.Banking.ItemTypes  = {} end
-if PA.savedVars.Loot                == nil then PA.savedVars.Loot               = {} end
-if PA.savedVars.Junk                == nil then PA.savedVars.Junk               = {} end
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAHF = PA.HelperFunctions
+local PAEM = PA.EventManager
+local PASV = PA.SavedVars
+local PAHelperFunctions = PA.HelperFunctions
+local L = PA.Localization
 
-PA.AddonName = "PersonalAssistant"
-PA.AddonVersion = "2.0"
-PA.activeProfile = nil -- init with nil, is populated during [initAddon]
+-- =====================================================================================================================
+-- =====================================================================================================================
 
 -- to enable certain debug statements (ingame: /padebugon & /padebugoff)
-PA.debug = false
+PA.debug = true
+
+-- other settings
+PA.AddonName = "PersonalAssistant"
+PA.activeProfile = nil -- init with nil, is populated during [initAddon]
 
 -- init default values
 local function initDefaults()
@@ -29,7 +27,7 @@ local function initDefaults()
         -- -----------------------------------------------------
         -- default values for PAGeneral
         PA.General_Defaults[profileNo] = {}
-        PA.General_Defaults[profileNo].name = MenuHelper.getDefaultProfileName(profileNo)
+        PA.General_Defaults[profileNo].name = PAHelperFunctions.getDefaultProfileName(profileNo)
         PA.General_Defaults[profileNo].welcome = true
     end
 end
@@ -48,39 +46,42 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PA.savedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
-    PA.savedVars.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = nil })
+    PASV.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, "General", PA.General_Defaults)
+    PASV.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = nil })
 
     -- initialize language
-    PA.savedVars.Profile.language = GetCVar("language.2") or "en"
+    PASV.Profile.language = GetCVar("language.2") or "en"
+
+    -- create the options with LAM-2
+    local PAMainMenu = PA.MainMenu
+    PAMainMenu.createOptions()
 
     -- get the active Profile
-    PA.activeProfile = PA.savedVars.Profile.activeProfile
+    PA.activeProfile = PASV.Profile.activeProfile
+
+    -- register slash-commands
+    SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
+    SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
+    SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+    SLASH_COMMANDS["/paflushlog"] = function() PALogger.flush() end
 end
 
 
 -- introduces the addon to the player
 local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
-    SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
-    SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
-    SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
-    SLASH_COMMANDS["/paflushlog"] = function() PALogger.flush() end
-
-    -- create the options with LAM-2
-    PA_SettingsMenu.CreateOptions()
 
     if (PA.activeProfile == nil) then
-        PAHF.println("Welcome_PleaseSelectProfile")
+        PAHF.println(L.Welcome_PleaseSelectProfile)
     else
         -- a valid profile is selected and thus the events can be initialised
         PAEM.RefreshAllEventRegistrations()
         -- then check for the welcome message
-        if PA.savedVars.General[PA.activeProfile].welcome then
-            if PA.savedVars.Profile.language ~= "en" and PA.savedVars.Profile.language ~= "de" and PA.savedVars.Profile.language ~= "fr" then
-                PAHF.println("Welcome_NoSupport", GetCVar("language.2"))
+        if PASV.General[PA.activeProfile].welcome then
+            if PASV.Profile.language ~= "en" and PASV.Profile.language ~= "de" and PASV.Profile.language ~= "fr" then
+                PAHF.println(L.Welcome_NoSupport, GetCVar("language.2"))
             else
-                PAHF.println("Welcome_Support")
+                PAHF.println(L.Welcome_Support)
             end
         end
     end
@@ -95,7 +96,9 @@ PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction)
 function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6, itemSoundCategory)
     if (PA.debug) then
         local itemType, specializedItemType = GetItemType(bagId, slotIndex)
-        local strItemType = PALocale.getResourceMessage(itemType)
+        CHAT_SYSTEM:AddMessage("itemType = " .. itemType);
+        local strItemType = L["" .. itemType .. ""]
+        CHAT_SYSTEM:AddMessage("strItemType = " .. strItemType);
         local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
         -- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
         local itemId = GetItemId(bagId, slotIndex)

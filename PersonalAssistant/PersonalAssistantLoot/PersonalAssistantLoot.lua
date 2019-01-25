@@ -38,6 +38,7 @@ function PAL.initAddon(_, addOnName)
     end
 
     -- addon load started - unregister event
+    local PAEM = PersonalAssistant.EventManager
     PAEM.UnregisterForEvent(PAL.AddonName, EVENT_ADD_ON_LOADED)
 
     -- initialize the default values

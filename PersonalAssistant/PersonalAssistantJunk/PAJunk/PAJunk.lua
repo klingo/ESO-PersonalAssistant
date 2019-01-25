@@ -32,7 +32,7 @@ local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     end
 
     -- set processing flag to FALSE again
-    PAEM.isJunkProcessing = false
+    PersonalAssistant.EventManager.isJunkProcessing = false
 end
 
 -- =====================================================================================================================
@@ -48,7 +48,7 @@ function PAJ.OnShopOpen()
                 -- check if there is junk to sell (exclude stolen items = true)
                 if HasAnyJunk(BAG_BACKPACK, true) then
                     -- set processing flag to TRUE
-                    PAEM.isJunkProcessing = true
+                    PersonalAssistant.EventManager.isJunkProcessing = true
                     -- store current amount of money
                     local moneyBefore = GetCurrentMoney();
                     local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
