@@ -167,5 +167,5 @@ local PAMenuChoicesTooltips = {
 PA.MenuChoices = {
     choices = PAMenuChoices,
     choicesValues = PAMenuChoicesValues,
-    choicesTooltip = PAMenuChoicesTooltips
+    choicesTooltips = PAMenuChoicesTooltips
 }

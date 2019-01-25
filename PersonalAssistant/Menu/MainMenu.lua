@@ -54,7 +54,7 @@ local function createMainMenu()
         getFunc = PAMenuFunctions.PAGeneral.getActiveProfileRename,
         setFunc = PAMenuFunctions.PAGeneral.setActiveProfileRename,
         width = "half",
-        disabled = PAMenuFunctions.PAGeneral.getIsNoProfileSelected,
+        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
     })
 
     optionsTable:insert({
@@ -63,7 +63,7 @@ local function createMainMenu()
         tooltip = L.PAGMenu_Welcome_T,
         getFunc = PAMenuFunctions.PAGeneral.getWelcomeMessageSetting,
         setFunc = PAMenuFunctions.PAGeneral.setWelcomeMessageSetting,
-        disabled = PAMenuFunctions.PAGeneral.getIsNoProfileSelected,
+        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
         default = PAMenuDefaults.PAGeneral.welcomeMessage,
     })
 
@@ -85,7 +85,7 @@ local function createMainMenu()
             tooltip = L.PARMenu_Enable_T,
             getFunc = PAMenuFunctions.PARepair.isEnabled,
             setFunc = PAMenuFunctions.PARepair.setIsEnabled,
-            disabled = PAMenuFunctions.PAGeneral.getIsNoProfileSelected,
+            disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
             default = PAMenuDefaults.PARepair.enabled,
         })
 
@@ -96,7 +96,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getRepairEquippedSetting,
             setFunc = PAMenuFunctions.PARepair.setRepairEquippedSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsRepairEquippedEnabled,
+            disabled = PAMenuFunctions.PARepair.isRepairEquippedDisabled,
             default = PAMenuDefaults.PARepair.repairEquipped,
         })
 
@@ -110,7 +110,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getRepairEquippedThresholdSetting,
             setFunc = PAMenuFunctions.PARepair.setRepairEquippedThresholdSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsRepairEquippedThresholdEnabled,
+            disabled = PAMenuFunctions.PARepair.isRepairEquippedThresholdDisabled,
             default = PAMenuDefaults.PARepair.repairEquippedThreshold,
         })
 
@@ -121,7 +121,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getRepairEquippedWithKitSetting,
             setFunc = PAMenuFunctions.PARepair.setRepairEquippedWithKitSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsRepairEquippedWithKitEnabled,
+            disabled = PAMenuFunctions.PARepair.isRepairEquippedWithKitDisabled,
             default = PAMenuDefaults.PARepair.repairEquippedWithKit,
         })
 
@@ -135,7 +135,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getRepairEquippedWithKitThresholdSetting,
             setFunc = PAMenuFunctions.PARepair.setRepairEquippedWithKitThresholdSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsRepairEquippedWithKitThresholdEnabled,
+            disabled = PAMenuFunctions.PARepair.isRepairEquippedWithKitThresholdDisabled,
             default = PAMenuDefaults.PARepair.repairEquippedWithKitThreshold,
         })
 
@@ -148,7 +148,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getRepairFullChatModeSetting,
             setFunc = PAMenuFunctions.PARepair.setRepairFullChatModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsRepairFullChatModeEnabled,
+            disabled = PAMenuFunctions.PARepair.isRepairFullChatModeDisabled,
             default = PAMenuDefaults.PARepair.repairFullChatMode,
         })
 
@@ -161,7 +161,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getRepairPartialChatModeSetting,
             setFunc = PAMenuFunctions.PARepair.setRepairPartialChatModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsRepairPartialChatModeEnabled,
+            disabled = PAMenuFunctions.PARepair.isRepairPartialChatModeDisabled,
             default = PAMenuDefaults.PARepair.repairPartialChatMode,
         })
 
@@ -177,7 +177,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getChargeWeaponsSetting,
             setFunc = PAMenuFunctions.PARepair.setChargeWeaponsSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsChargeWeaponsEnabled,
+            disabled = PAMenuFunctions.PARepair.isChargeWeaponsDisabled,
             default = PAMenuDefaults.PARepair.chargeWeapons,
         })
 
@@ -191,7 +191,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getChargeWeaponsThresholdSetting,
             setFunc = PAMenuFunctions.PARepair.setChargeWeaponsThresholdSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsChargeWeaponsThresholdEnabled,
+            disabled = PAMenuFunctions.PARepair.isChargeWeaponsThresholdDisabled,
             default = PAMenuDefaults.PARepair.chargeWeaponsThreshold,
         })
 
@@ -232,7 +232,7 @@ local function createMainMenu()
             tooltip = L.PABMenu_Enable_T,
             getFunc = PAMenuFunctions.PABanking.enabled,
             setFunc = PAMenuFunctions.PABanking.enabled,
-            disabled = PAMenuFunctions.PAGeneral.getIsNoProfileSelected,
+            disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
             default = PAMenuDefaults.PABanking.enabled,
         })
 
@@ -354,9 +354,9 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PALMenu_Enable,
             tooltip = L.PALMenu_Enable_T,
-            getFunc = PAMenuFunctions.PALoot.enabled,
-            setFunc = PAMenuFunctions.PALoot.enabled,
-            disabled = PAMenuFunctions.PAGeneral.getIsNoProfileSelected,
+            getFunc = PAMenuFunctions.PALoot.isEnabled,
+            setFunc = PAMenuFunctions.PALoot.setIsEnabled,
+            disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
             default = PAMenuDefaults.PALoot.enabled,
         })
 
@@ -364,10 +364,10 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PALMenu_LootGold,
             tooltip = L.PALMenu_LootGold_T,
-            getFunc = PAMenuFunctions.PALoot.lootGoldEnabled,
-            setFunc = PAMenuFunctions.PALoot.lootGoldEnabled,
+            getFunc = PAMenuFunctions.PALoot.isLootGoldEnabled,
+            setFunc = PAMenuFunctions.PALoot.setIsLootGoldEnabled,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PALoot.lootGoldEnabled,
+            disabled = PAMenuFunctions.PALoot.isLootGoldDisabled,
             default = PAMenuDefaults.PALoot.lootGoldEnabled,
         })
 
@@ -377,10 +377,10 @@ local function createMainMenu()
             tooltip = L.PALMenu_LootGoldChatMode_T,
             choices = PAMenuChoices.choices.PALoot.lootGoldChatMode,
             choicesValues = PAMenuChoices.choicesValues.PALoot.lootGoldChatMode,
-            getFunc = PAMenuFunctions.PALoot.lootGoldChatMode,
-            setFunc = PAMenuFunctions.PALoot.lootGoldChatMode,
+            getFunc = PAMenuFunctions.PALoot.getLootGoldChatModeSetting,
+            setFunc = PAMenuFunctions.PALoot.setLootGoldChatModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PALoot.lootGoldChatMode,
+            disabled = PAMenuFunctions.PALoot.isLootGoldChatModeDisabled,
             default = PAMenuDefaults.PALoot.lootGoldChatMode,
         })
 
@@ -388,10 +388,10 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PALMenu_LootItems,
             tooltip = L.PALMenu_LootItems_T,
-            getFunc = PAMenuFunctions.PALoot.lootItemsEnabled,
-            setFunc = PAMenuFunctions.PALoot.lootItemsEnabled,
+            getFunc = PAMenuFunctions.PALoot.getLootItemsSetting,
+            setFunc = PAMenuFunctions.PALoot.setLootItemsSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PALoot.lootItemsEnabled,
+            disabled = PAMenuFunctions.PALoot.isLootItemsDisabled,
             default = PAMenuDefaults.PALoot.lootItemsEnabled,
         })
 
@@ -401,10 +401,10 @@ local function createMainMenu()
             tooltip = L.PALMenu_LootItemsChatMode_T,
             choices = PAMenuChoices.choices.PALoot.lootItemsChatMode,
             choicesValues = PAMenuChoices.choicesValues.PALoot.lootItemsChatMode,
-            getFunc = PAMenuFunctions.PALoot.lootItemsChatMode,
-            setFunc = PAMenuFunctions.PALoot.lootItemsChatMode,
+            getFunc = PAMenuFunctions.PALoot.getLootItemsChatModeSetting,
+            setFunc = PAMenuFunctions.PALoot.setLootItemsChatModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PALoot.lootItemsChatMode,
+            disabled = PAMenuFunctions.PALoot.isLootItemsChatModeDisabled,
             default = PAMenuDefaults.PALoot.lootItemsChatMode,
         })
 
@@ -412,10 +412,10 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PALMenu_LootStolenItems,
             tooltip = L.PALMenu_LootStolenItems_T,
-            getFunc = PAMenuFunctions.PALoot.lootStolenItemsEnabled,
-            setFunc = PAMenuFunctions.PALoot.lootStolenItemsEnabled,
+            getFunc = PAMenuFunctions.PALoot.getLootStolenItemsSetting,
+            setFunc = PAMenuFunctions.PALoot.setLootStolenItemsSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PALoot.lootStolenItemsEnabled,
+            disabled = PAMenuFunctions.PALoot.isLootStolenItemsSettingDisabled,
             default = PAMenuDefaults.PALoot.lootStolenItemsEnabled,
         })
 
@@ -452,7 +452,7 @@ local function createMainMenu()
             tooltip = L.PAJMenu_Enable_T,
             getFunc = PAMenuFunctions.PAJunk.enabled,
             setFunc = PAMenuFunctions.PAJunk.enabled,
-            disabled = PAMenuFunctions.PAGeneral.getIsNoProfileSelected,
+            disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
             default = PAMenuDefaults.PAJunk.enabled,
         })
 
@@ -688,9 +688,9 @@ local function createPALHarvestableItemSubMenu()
             choices = baitChoices,
             choicesValues = baitChoicesValues,
             choicesTooltips = baitChoicesTooltips,
-            getFunc = PAMenuFunctions.PALoot.harvestableBaitLootMode,
-            setFunc = PAMenuFunctions.PALoot.harvestableBaitLootMode,
-            disabled = PAMenuFunctions.disabled.PALoot.harvestableBaitLootMode,
+            getFunc = PAMenuFunctions.PALoot.getHarvestableBaitLootModeSetting,
+            setFunc = PAMenuFunctions.PALoot.setHarvestableBaitLootModeSetting,
+            disabled = PAMenuFunctions.PALootgetIsHarvestableBaitLootModeEnabled,
             default = PAMenuDefaults.PALoot.harvestableBaitLootMode,
         })
 
@@ -702,14 +702,14 @@ local function createPALHarvestableItemSubMenu()
         for index, itemType in pairs(PALHarvestableItemTypes) do
             PALHarvestableItemSubmenuTable:insert({
                 type = "dropdown",
-                name = PALocale.getResourceMessage(itemType),
+                name = L[itemType],
                 choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
                 choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
                 choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-                getFunc = function() return PAMenuFunctions.PALoot.harvestableItemTypesLootMode(itemType) end,
-                setFunc = function(value) PAMenuFunctions.PALoot.harvestableItemTypesLootMode(itemType, value) end,
+                getFunc = function() return PAMenuFunctions.PALoot.getHarvestableItemTypesLootModeSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PALoot.setHarvestableItemTypesLootModeSetting(itemType, value) end,
                 width = "half",
-                disabled = PAMenuFunctions.disabled.PALoot.harvestableItemTypesLootMode,
+                disabled = PAMenuFunctions.PALoot.getIsHarvestableItemTypesLootModeEnabled,
                 default = PAMenuDefaults.PALoot.harvestableItemTypesLootMode,
             })
         end
@@ -718,16 +718,16 @@ local function createPALHarvestableItemSubMenu()
             type = "button",
             name = L.PALMenu_AutoLootAllButton,
             tooltip = L.PALMenu_AutoLootAllButton_T,
-            func = PAMenuFunctions.func.PALoot.autoLootAllHarvestableButton,
-            disabled = PAMenuFunctions.disabled.PALoot.autoLootAllHarvestableButton,
+            func = PAMenuFunctions.PALoot.clickAutoLootAllHarvestableButton,
+            disabled = PAMenuFunctions.PALoot.getIsAutoLootAllHarvestableButtonEnabled,
         })
 
         PALHarvestableItemSubmenuTable:insert({
             type = "button",
             name = L.PALMenu_IgnButton,
             tooltip = L.PALMenu_IgnButton_T,
-            func = PAMenuFunctions.func.PALoot.ignoreAllHarvestableButton,
-            disabled = PAMenuFunctions.disabled.PALoot.ignoreAllHarvestableButton,
+            func = PAMenuFunctions.PALoot.getIsIgnoreAllHarvestableButtonEnabled,
+            disabled = PAMenuFunctions.PALoot.clickIgnoreAllHarvestableButton,
         })
     end
 end
@@ -753,14 +753,14 @@ local function createPALLootableItemSubMenu()
         for index, itemType in pairs(PALLootableItemTypes) do
             PALLootableItemSubmenuTable:insert({
                 type = "dropdown",
-                name = PALocale.getResourceMessage(itemType),
+                name = L[itemType],
                 choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
                 choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
                 choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-                getFunc = function() return PAMenuFunctions.PALoot.lootableItemTypesLootMode(itemType) end,
-                setFunc = function(value) PAMenuFunctions.PALoot.lootableItemTypesLootMode(itemType, value) end,
+                getFunc = function() return PAMenuFunctions.PALoot.getLootableItemTypesLootModeSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PALoot.setLootableItemTypesLootModeSetting(itemType, value) end,
                 width = "half",
-                disabled = PAMenuFunctions.disabled.PALoot.lootableItemTypesLootMode,
+                disabled = PAMenuFunctions.PALoot.getIsLootableItemTypesLootModeEnabled,
                 default = PAMenuDefaults.PALoot.lootableItemTypesLootMode,
             })
         end
@@ -776,10 +776,10 @@ local function createPALLootableItemSubMenu()
             choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
             choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
             choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-            getFunc = PAMenuFunctions.PALoot.lockpickLootMode,
-            setFunc = PAMenuFunctions.PALoot.lockpickLootMode,
+            getFunc = PAMenuFunctions.PALoot.getLockpickLootModeSetting,
+            setFunc = PAMenuFunctions.PALoot.setLockpickLootModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PALoot.lockpickLootMode,
+            disabled = PAMenuFunctions.PALoot.getIsLockpickLootModeEnabled,
             default = PAMenuDefaults.PALoot.lockpickLootMode,
         })
 
@@ -789,10 +789,10 @@ local function createPALLootableItemSubMenu()
             choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
             choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
             choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-            getFunc = PAMenuFunctions.PALoot.questItemsLootMode,
-            setFunc = PAMenuFunctions.PALoot.questItemsLootMode,
+            getFunc = PAMenuFunctions.PALoot.getQuestItemsLootModeSetting,
+            setFunc = PAMenuFunctions.PALoot.setQuestItemsLootModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PALoot.questItemsLootMode,
+            disabled = PAMenuFunctions.PALoot.getIsQuestItemsLootModeEnabled,
             default = PAMenuDefaults.PALoot.questItemsLootMode,
         })
 
@@ -800,16 +800,16 @@ local function createPALLootableItemSubMenu()
             type = "button",
             name = L.PALMenu_AutoLootAllButton,
             tooltip = L.PALMenu_AutoLootAllButton_T,
-            func = PAMenuFunctions.func.PALoot.autoLootAllLootableButton,
-            disabled = PAMenuFunctions.disabled.PALoot.autoLootAllLootableButton,
+            func = PAMenuFunctions.PALoot.clickAutoLootAllLootableButton,
+            disabled = PAMenuFunctions.PALoot.getIsAutoLootAllLootableButtonEnabled,
         })
 
         PALLootableItemSubmenuTable:insert({
             type = "button",
             name = L.PALMenu_IgnButton,
             tooltip = L.PALMenu_IgnButton_T,
-            func = PAMenuFunctions.func.PALoot.ignoreAllLootableButton,
-            disabled = PAMenuFunctions.disabled.PALoot.ignoreAllLootableButton,
+            func = PAMenuFunctions.PALoot.clickIgnoreAllLootableButton,
+            disabled = PAMenuFunctions.PALoot.getIsIgnoreAllLootableButtonEnabled,
         })
     end
 end

@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PASV = PA.SavedVars
 local PAEM = PA.EventManager
-local PAMenuHelper = PA.MenuHelper
 local L = PA.Localization
 
 -- =====================================================================================================================
@@ -31,6 +30,7 @@ local function setPAGeneralActiveProfile(profileNo)
         PA.activeProfile = profileNo
         -- if the previous profile was the "no profile selected" one, refresh the dropdown values
         if (prevProfile == nil) then
+            local PAMenuHelper = PA.MenuHelper
             PAMenuHelper.reloadProfileList()
         end
         -- also refresh all event registrations
@@ -51,8 +51,8 @@ local function getPAGeneralActiveProfileRename()
 end
 
 local function setPAGeneralActiveProfileRename(profileName)
-    local PAMenuHelper = PA.MenuHelper
     if (profileName ~= nil and profileName ~= "") then
+        local PAMenuHelper = PA.MenuHelper
         PASV.General[PA.activeProfile].name = profileName
         -- when profile was changed, reload the profile list
         PAMenuHelper.reloadProfileList()
@@ -896,7 +896,7 @@ end
 -- Export
 PA.MenuFunctions = {
     PAGeneral = {
-        getIsNoProfileSelected = isDisabledPAGeneralNoProfileSelected,
+        isNoProfileSelected = isDisabledPAGeneralNoProfileSelected,
 
         getActiveProfile = getPAGeneralActiveProfile,
         setActiveProfile = setPAGeneralActiveProfile,
@@ -911,39 +911,39 @@ PA.MenuFunctions = {
         isEnabled = getPARepairEnabled,
         setIsEnabled = setPARepairEnabled,
 
-        getIsRepairEquippedEnabled = isDisabledPARepairRepairEquipped,
+        isRepairEquippedDisabled = isDisabledPARepairRepairEquipped,
         getRepairEquippedSetting = getPARepairRepairEquipped,
         setRepairEquippedSetting = setPARepairRepairEquipped,
 
-        getIsRepairEquippedThresholdEnabled = isDisabledPARepairRepairEquippedThreshold,
+        isRepairEquippedThresholdDisabled = isDisabledPARepairRepairEquippedThreshold,
         getRepairEquippedThresholdSetting = getPARepairRepairEquippedThreshold,
         setRepairEquippedThresholdSetting = setPARepairRepairEquippedThreshold,
 
-        getIsRepairEquippedWithKitEnabled = isDisabledPARepairRepairEquippedWithKit,
+        isRepairEquippedWithKitDisabled = isDisabledPARepairRepairEquippedWithKit,
         getRepairEquippedWithKitSetting = getPARepairRepairEquippedWithKit,
         setRepairEquippedWithKitSetting = setPARepairRepairEquippedWithKit,
 
-        getIsRepairEquippedWithKitThresholdEnabled = isDisabledPARepairRepairEquippedWithKitThreshold,
+        isRepairEquippedWithKitThresholdDisabled = isDisabledPARepairRepairEquippedWithKitThreshold,
         getRepairEquippedWithKitThresholdSetting = getPARepairRepairEquippedWithKitThreshold,
         setRepairEquippedWithKitThresholdSetting = setPARepairRepairEquippedWithKitThreshold,
 
-        getIsRepairFullChatModeEnabled = isDisabledPARepairRepairFullChatMode,
+        isRepairFullChatModeDisabled = isDisabledPARepairRepairFullChatMode,
         getRepairFullChatModeSetting = getPARepairRepairFullChatMode,
         setRepairFullChatModeSetting = setPARepairRepairFullChatMode,
 
-        getIsRepairPartialChatModeEnabled = isDisabledPARepairRepairPartialChatMode,
+        isRepairPartialChatModeDisabled = isDisabledPARepairRepairPartialChatMode,
         getRepairPartialChatModeSetting = getPARepairRepairPartialChatMode,
         setRepairPartialChatModeSetting = setPARepairRepairPartialChatMode,
 
-        getIsChargeWeaponsEnabled = isDisabledPARepairChargeWeapons,
+        isChargeWeaponsDisabled = isDisabledPARepairChargeWeapons,
         getChargeWeaponsSetting = getPARepairChargeWeapons,
         setChargeWeaponsSetting = setPARepairChargeWeapons,
 
-        getIsChargeWeaponsThresholdEnabled = isDisabledPARepairChargeWeaponsThreshold,
+        isChargeWeaponsThresholdDisabled = isDisabledPARepairChargeWeaponsThreshold,
         getChargeWeaponsThresholdSetting = getPARepairChargeWeaponsThreshold,
         setChargeWeaponsThresholdSetting = setPARepairChargeWeaponsThreshold,
 
-        getIsChargeWeaponsChatModEnabled = isDisabledPARepairChargeWeaponsChatMode,
+        isChargeWeaponsChatModDisabled = isDisabledPARepairChargeWeaponsChatMode,
         getChargeWeaponsChatModSetting = getPARepairChargeWeaponsChatMode,
         setChargeWeaponsChatModSetting = setPARepairChargeWeaponsChatMode,
     },
@@ -951,60 +951,60 @@ PA.MenuFunctions = {
         isEnabled = getPABankingEenabled,
         setIsEnabled = setPABankingEnabled,
 
-        getIsGoldTransactionEnabled = isDisabledPABankingGoldTransaction,
+        isGoldTransactionDisabled = isDisabledPABankingGoldTransaction,
         getGoldTransactionSetting = getPABankingGoldTransaction,
         setGoldTransactionSetting = setPABankingGoldTransaction,
 
-        getIsGoldTransactionStepEnabled = isDisabledPABankingGoldTransactionStep,
+        isGoldTransactionStepDisabled = isDisabledPABankingGoldTransactionStep,
         getGoldTransactionStepSetting = getPABankingGoldTransactionStep,
         setGoldTransactionStepSetting = setPABankingGoldTransactionStep,
 
-        getIsGoldMinToKeepEnabled = isDisabledPABankingGoldMinToKeep,
+        isGoldMinToKeepDisabled = isDisabledPABankingGoldMinToKeep,
         getGoldMinToKeepSetting = getPABankingGoldMinToKeep,
         setGoldMinToKeepSetting =  setPABankingGoldMinToKeep,
 
-        getIsWithdrawToMinGoldEnabled = isDisabledPABankingWithdrawToMinGold,
+        isWithdrawToMinGoldDisabled = isDisabledPABankingWithdrawToMinGold,
         getWithdrawToMinGoldSetting = getPABankingWithdrawToMinGold,
         setWithdrawToMinGoldSetting = setPABankingWithdrawToMinGold,
 
-        getIsItemTransactionEnabled = isDisabledPABankingItemTransaction,
+        isItemTransactionDisabled = isDisabledPABankingItemTransaction,
         getItemTransactionSetting = getPABankingItemTransaction,
         setItemTransactionSetting = setPABankingItemTransaction,
 
-        getIsDepositTimerIntervalEnabled = isDisabledPABankingDepositTimerInterval,
+        isDepositTimerIntervalDisabled = isDisabledPABankingDepositTimerInterval,
         getDepositTimerIntervalSetting = getPABankingDepositTimerInterval,
         setDepositTimerIntervalSetting = setPABankingDepositTimerInterval,
 
-        getIsItemTypesMaterialMoveModeEnabled = isDisabledPABankingItemTypesMaterialMoveMode,
+        isItemTypesMaterialMoveModeDisabled = isDisabledPABankingItemTypesMaterialMoveMode,
         getItemTypesMaterialMoveModeSetting = getPABankingItemTypesMaterialMoveMode,
         setItemTypesMaterialMoveModeSetting = setPABankingItemTypesMaterialMoveMode,
 
-        getIsItemsDepStackTypeEnabled = isDisabledPABankingItemsDepStackType,
+        isItemsDepStackTypeDisabled = isDisabledPABankingItemsDepStackType,
         getItemsDepStackTypeSetting = getPABankingItemsDepStackType,
         setItemsDepStackTypeSetting = setPABankingItemsDepStackType,
 
-        getIsItemsWitStackTypeEnabled = isDisabledPABankingItemsWitStackType,
+        isItemsWitStackTypeDisabled = isDisabledPABankingItemsWitStackType,
         getItemsWitStackTypeSetting = getPABankingItemsWitStackType,
         setItemsWitStackTypeSetting = setPABankingItemsWitStackType,
 
-        getIsItemTypesMoveModeEnabled = isDisabledPABankingItemTypesMoveMode,
+        isItemTypesMoveModeDisabled = isDisabledPABankingItemTypesMoveMode,
         getItemTypesMoveModeSetting = getPABankingItemTypesMoveMode,
         setItemTypesMoveModeSetting = setPABankingItemTypesMoveMode,
 
-        getIsDepositAllItemTypesButtonEnabled = isDisabledPABankingDepositAllItemTypesButton,
+        isDepositAllItemTypesButtonDisabled = isDisabledPABankingDepositAllItemTypesButton,
         clickDepositAllItemTypesButton = PABankingDepositAllItemTypesButton,
 
-        getIsWithdrawAllItemTypesButtonEnabled = isDisabledPABankingWithdrawAllItemTypesButton,
+        isWithdrawAllItemTypesButtonDisabled = isDisabledPABankingWithdrawAllItemTypesButton,
         clickWithdrawAllItemTypesButton = PABankingWithdrawAllItemTypesButton,
 
-        getIsIgnoreAllItemTypesButtonEnabled = isDisabledPABankingIgnoreAllItemTypesButton,
+        isIgnoreAllItemTypesButtonDisabled = isDisabledPABankingIgnoreAllItemTypesButton,
         clickIgnoreAllItemTypesButton = PABankingIgnoreAllItemTypesButton,
 
-        getIsAdvItemTypesOperatorEnabled = isDisabledPABankingAdvItemTypesOperator,
+        isAdvItemTypesOperatorDisabled = isDisabledPABankingAdvItemTypesOperator,
         getAdvItemTypesOperatorSetting = getPABankingAdvItemTypesOperator,
         setAdvItemTypesOperatorSetting = setPABankingAdvItemTypesOperator,
 
-        getIsAdvItemTypesValueEnabled = isDisabledPABankingAdvItemTypesValue,
+        isAdvItemTypesValueDisabled = isDisabledPABankingAdvItemTypesValue,
         getAdvItemTypesValueSetting = getPABankingAdvItemTypesValue,
         setAdvItemTypesValueSetting = setPABankingAdvItemTypesValue,
     },
@@ -1012,56 +1012,56 @@ PA.MenuFunctions = {
         isEnabled = getPALootEnabled,
         setIsEnabled = setPALootEnabled,
 
-        getIsLootGoldEnabled = isDisabledPALootLootGold,
+        isLootGoldDisabled = isDisabledPALootLootGold,
         getLootGoldSetting = getPALootLootGold,
         setLootGoldSetting = setPALootLootGold,
 
-        getIsLootGoldChatModeEnabled = isDisabledPALootLootGoldChatMode,
+        isLootGoldChatModeDisabled = isDisabledPALootLootGoldChatMode,
         getLootGoldChatModeSetting = getPALootLootGoldChatMode,
         setLootGoldChatModeSetting = setPALootLootGoldChatMode,
 
-        getIsLootItemsEnabled = isDisabledPALootLootItems,
+        isLootItemsDisabled = isDisabledPALootLootItems,
         getLootItemsSetting = getPALootLootItems,
         setLootItemsSetting = setPALootLootItems,
 
-        getIsLootItemsChatModeEnabled = isDisabledPALootLootItemsChatMode,
+        isLootItemsChatModeDisabled = isDisabledPALootLootItemsChatMode,
         getLootItemsChatModeSetting = getPALootLootItemsChatMode,
         setLootItemsChatModeSetting = setPALootLootItemsChatMode,
 
-        getIsLootStolenItemsSettingEnabled = isDisabledPALootLootStolenItems,
+        isLootStolenItemsSettingDisabled = isDisabledPALootLootStolenItems,
         getLootStolenItemsSetting = getPALootLootStolenItems,
         setLootStolenItemsSetting = setPALootLootStolenItems,
 
-        getIsHarvestableBaitLootModeEnabled = isDisabledPALootHarvestableBaitLootMode,
+        isHarvestableBaitLootModeDisabled = isDisabledPALootHarvestableBaitLootMode,
         getHarvestableBaitLootModeSetting = getPALootHarvestableBaitLootMode,
         setHarvestableBaitLootModeSetting = setPALootHarvestableBaitLootMode,
 
-        getIsHarvestableItemTypesLootModeEnabled = isDisabledPALootHarvestableItemTypesLootMode,
+        isHarvestableItemTypesLootModeDisabled = isDisabledPALootHarvestableItemTypesLootMode,
         getHarvestableItemTypesLootModeSetting = getPALootHarvestableItemTypesLootMode,
         setHarvestableItemTypesLootModeSetting = setPALootHarvestableItemTypesLootMode,
 
-        getIsAutoLootAllHarvestableButtonEnabled = isDisabledPALootAutoLootAllHarvestableButton,
+        isAutoLootAllHarvestableButtonDisabled = isDisabledPALootAutoLootAllHarvestableButton,
         clickAutoLootAllHarvestableButton = PALootAutoLootAllHarvestableButton,
 
-        getIsIgnoreAllHarvestableButtonEnabled = isDisabledPALootIgnoreAllHarvestableButton,
+        isIgnoreAllHarvestableButtonDisabled = isDisabledPALootIgnoreAllHarvestableButton,
         clickIgnoreAllHarvestableButton = PALootIgnoreAllHarvestableButton,
 
-        getIsLootableItemTypesLootModeEnabled = isDisabledPALootLootableItemTypesLootMode,
+        isLootableItemTypesLootModeDisabled = isDisabledPALootLootableItemTypesLootMode,
         getLootableItemTypesLootModeSetting = getPALootLootableItemTypesLootMode,
         setLootableItemTypesLootModeSetting = setPALootLootableItemTypesLootMode,
 
-        getIsLockpickLootModeEnabled = isDisabledPALootLockpickLootMode,
+        isLockpickLootModeDisabled = isDisabledPALootLockpickLootMode,
         getLockpickLootModeSetting = getPALootLockpickLootMode,
         setLockpickLootModeSetting = setPALootLockpickLootMode,
 
-        getIsQuestItemsLootModeEnabled = isDisabledPALootQuestItemsLootMode,
+        isQuestItemsLootModeDisabled = isDisabledPALootQuestItemsLootMode,
         getQuestItemsLootModeSetting = getPALootQuestItemsLootMode,
         setQuestItemsLootModeSetting = setPALootQuestItemsLootMode,
 
-        getIsAutoLootAllLootableButtonEnabled = isDisabledPALootAutoLootAllLootableButton,
+        isAutoLootAllLootableButtonDisabled = isDisabledPALootAutoLootAllLootableButton,
         clickAutoLootAllLootableButton = PALootAutoLootAllLootableButton,
 
-        getIsIgnoreAllLootableButtonEnabled = isDisabledPALootIgnoreAllLootableButton,
+        isIgnoreAllLootableButtonDisabled = isDisabledPALootIgnoreAllLootableButton,
         clickIgnoreAllLootableButton = PALootIgnoreAllLootableButton,
         
     },
@@ -1069,15 +1069,15 @@ PA.MenuFunctions = {
         isEnabled = getPAJunkEnabled,
         setIsEnabled = setPAJunkEnabled,
 
-        getIsAutoSellJunkEnabled = isDisabledPAJunkAutoSellJunk,
+        isAutoSellJunkDisabled = isDisabledPAJunkAutoSellJunk,
         getAutoSellJunkSetting = getPAJunkAutoSellJunk,
         setAutoSellJunkSetting = setPAJunkAutoSellJunk,
 
-        getIsAutoMarkTrashEnabled = isDisabledPAJunkAutoMarkTrash,
+        isAutoMarkTrashDisabled = isDisabledPAJunkAutoMarkTrash,
         getAutoMarkTrashSetting = getPAJunkAutoMarkTrash,
         setAutoMarkTrashSetting = setPAJunkAutoMarkTrash,
 
-        getIsAutoMarkOrnateEnabled = isDisabledPAJunkAutoMarkOrnate,
+        isAutoMarkOrnateDisabled = isDisabledPAJunkAutoMarkOrnate,
         getAutoMarkOrnateSetting = getPAJunkAutoMarkOrnate,
         setAutoMarkOrnateSetting = setPAJunkAutoMarkOrnate,
     }
