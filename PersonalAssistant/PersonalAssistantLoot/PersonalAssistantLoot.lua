@@ -1,51 +1,59 @@
--- Addon: PersonalAssistant.Loot
--- Developer: Klingo
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAEM = PA.EventManager
+local PASV = PA.SavedVars
 
-PAL = {}
-PAL.AddonName = "PersonalAssistantLoot"
-PAL.AddonVersion = "1.0"
+-- Local constants --
+local AddonName = "PersonalAssistantLoot"
+local Loot_Defaults = {}
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 -- init default values
-function PAL.initDefaults()
-    -- initialize the multi-profile structure
-    PAL.Loot_Defaults = {}
-    -- -----------------------------------------------------
+local function initDefaults()
+    local PAMenuDefaults = PA.MenuDefaults
     -- default values for PALoot
     for profileNo = 1, PAG_MAX_PROFILES do
-        -- get default vlaues from PAMenu_Defaults
-        PAL.Loot_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PALoot
+        -- get default vlaues from PAMenuDefaults
+        Loot_Defaults[profileNo] = PAMenuDefaults.PALoot
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
         -- auto-loot=true, ignore=false
         for i = 1, #PALHarvestableItemTypes do
             if PALHarvestableItemTypes[i] ~= "" then
-                PAL.Loot_Defaults[profileNo].HarvestableItemTypes[PALHarvestableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
+                Loot_Defaults[profileNo].HarvestableItemTypes[PALHarvestableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
             end
         end
 
         for i = 1, #PALLootableItemTypes do
             if PALLootableItemTypes[i] ~= "" then
-                PAL.Loot_Defaults[profileNo].LootableItemTypes[PALLootableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
+                Loot_Defaults[profileNo].LootableItemTypes[PALLootableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
             end
         end
     end
 end
 
 -- init saved variables and register Addon
-function PAL.initAddon(_, addOnName)
-    if addOnName ~= PAL.AddonName then
+local function initAddon(_, addOnName)
+    if addOnName ~= AddonName then
         return
     end
 
     -- addon load started - unregister event
-    local PAEM = PersonalAssistant.EventManager
-    PAEM.UnregisterForEvent(PAL.AddonName, EVENT_ADD_ON_LOADED)
+    PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
     -- initialize the default values
-    PAL.initDefaults()
+    initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PA.savedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, "Loot", PAL.Loot_Defaults)
+    PASV.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, "Loot", Loot_Defaults)
 end
 
-PAEM.RegisterForEvent(PAL.AddonName, EVENT_ADD_ON_LOADED, PAL.initAddon)
+PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+-- Export
+PA.Loot = {
+    AddonName = AddonName
+}

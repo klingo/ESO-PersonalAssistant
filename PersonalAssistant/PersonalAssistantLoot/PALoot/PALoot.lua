@@ -1,16 +1,12 @@
---
--- Created by IntelliJ IDEA.
--- User: Klingo
--- Date: 06.02.2017
--- Time: 20:00
---
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAL = PA.Loot
 
 local alreadyHarvesting = false
 local alreadyFishing = false
 local alreadyOnLootUpdated = false
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
     local itemDestroyed = false
@@ -127,7 +123,7 @@ end
 -- =====================================================================================================================
 
 -- TODO: might not be needed anymore
-function PAL.OnReticleTargetChanged()
+local function OnReticleTargetChanged()
     local type = GetInteractionType()
     local active = IsPlayerInteractingWithObject()
 
@@ -136,7 +132,7 @@ function PAL.OnReticleTargetChanged()
 end
 
 
-function PAL.OnLootUpdated()
+local function OnLootUpdated()
     if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
@@ -266,7 +262,7 @@ function PAL.OnLootUpdated()
 end
 
 
-function PAL.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
+local function OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
@@ -289,3 +285,10 @@ function PAL.OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, it
         end
     end
 end
+
+
+-- Export
+PA.Loot = PA.Loot or {}
+PA.Loot.OnReticleTargetChanged = OnReticleTargetChanged
+PA.Loot.OnLootUpdated = OnLootUpdated
+PA.Loot.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
