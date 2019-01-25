@@ -943,9 +943,9 @@ PA.MenuFunctions = {
         getChargeWeaponsThresholdSetting = getPARepairChargeWeaponsThreshold,
         setChargeWeaponsThresholdSetting = setPARepairChargeWeaponsThreshold,
 
-        isChargeWeaponsChatModDisabled = isDisabledPARepairChargeWeaponsChatMode,
-        getChargeWeaponsChatModSetting = getPARepairChargeWeaponsChatMode,
-        setChargeWeaponsChatModSetting = setPARepairChargeWeaponsChatMode,
+        isChargeWeaponsChatModeDisabled = isDisabledPARepairChargeWeaponsChatMode,
+        getChargeWeaponsChatModeSetting = getPARepairChargeWeaponsChatMode,
+        setChargeWeaponsChatModeSetting = setPARepairChargeWeaponsChatMode,
     },
     PABanking = {
         isEnabled = getPABankingEenabled,

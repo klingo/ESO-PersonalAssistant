@@ -205,7 +205,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PARepair.getChargeWeaponsChatModeSetting,
             setFunc = PAMenuFunctions.PARepair.setChargeWeaponsChatModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.PARepair.getIsChargeWeaponsChatModeEnabled,
+            disabled = PAMenuFunctions.PARepair.isChargeWeaponsChatModeDisabled,
             default = PAMenuDefaults.PARepair.chargeWeaponsChatMode,
         })
 
@@ -368,7 +368,7 @@ local function createMainMenu()
             setFunc = PAMenuFunctions.PALoot.setLootGoldSetting,
             width = "half",
             disabled = PAMenuFunctions.PALoot.isLootGoldDisabled,
-            default = PAMenuDefaults.PALoot.lootGoldEnabled,
+            default = PAMenuDefaults.PALoot.lootGold,
         })
 
         optionsTable:insert({
@@ -392,7 +392,7 @@ local function createMainMenu()
             setFunc = PAMenuFunctions.PALoot.setLootItemsSetting,
             width = "half",
             disabled = PAMenuFunctions.PALoot.isLootItemsDisabled,
-            default = PAMenuDefaults.PALoot.lootItemsEnabled,
+            default = PAMenuDefaults.PALoot.lootItems,
         })
 
         optionsTable:insert({
@@ -416,7 +416,7 @@ local function createMainMenu()
             setFunc = PAMenuFunctions.PALoot.setLootStolenItemsSetting,
             width = "half",
             disabled = PAMenuFunctions.PALoot.isLootStolenItemsSettingDisabled,
-            default = PAMenuDefaults.PALoot.lootStolenItemsEnabled,
+            default = PAMenuDefaults.PALoot.lootStolenItems,
         })
 
         optionsTable:insert({
@@ -690,7 +690,7 @@ local function createPALHarvestableItemSubMenu()
             choicesTooltips = baitChoicesTooltips,
             getFunc = PAMenuFunctions.PALoot.getHarvestableBaitLootModeSetting,
             setFunc = PAMenuFunctions.PALoot.setHarvestableBaitLootModeSetting,
-            disabled = PAMenuFunctions.PALootgetIsHarvestableBaitLootModeEnabled,
+            disabled = PAMenuFunctions.PALoot.isHarvestableBaitLootModeDisabled,
             default = PAMenuDefaults.PALoot.harvestableBaitLootMode,
         })
 
@@ -709,7 +709,7 @@ local function createPALHarvestableItemSubMenu()
                 getFunc = function() return PAMenuFunctions.PALoot.getHarvestableItemTypesLootModeSetting(itemType) end,
                 setFunc = function(value) PAMenuFunctions.PALoot.setHarvestableItemTypesLootModeSetting(itemType, value) end,
                 width = "half",
-                disabled = PAMenuFunctions.PALoot.getIsHarvestableItemTypesLootModeEnabled,
+                disabled = PAMenuFunctions.PALoot.isHarvestableItemTypesLootModeDisabled,
                 default = PAMenuDefaults.PALoot.harvestableItemTypesLootMode,
             })
         end
@@ -719,15 +719,15 @@ local function createPALHarvestableItemSubMenu()
             name = L.PALMenu_AutoLootAllButton,
             tooltip = L.PALMenu_AutoLootAllButton_T,
             func = PAMenuFunctions.PALoot.clickAutoLootAllHarvestableButton,
-            disabled = PAMenuFunctions.PALoot.getIsAutoLootAllHarvestableButtonEnabled,
+            disabled = PAMenuFunctions.PALoot.isAutoLootAllHarvestableButtonDisabled,
         })
 
         PALHarvestableItemSubmenuTable:insert({
             type = "button",
             name = L.PALMenu_IgnButton,
             tooltip = L.PALMenu_IgnButton_T,
-            func = PAMenuFunctions.PALoot.getIsIgnoreAllHarvestableButtonEnabled,
-            disabled = PAMenuFunctions.PALoot.clickIgnoreAllHarvestableButton,
+            func = PAMenuFunctions.PALoot.clickIgnoreAllHarvestableButton,
+            disabled = PAMenuFunctions.PALoot.isIgnoreAllHarvestableButtonDisabled,
         })
     end
 end
@@ -760,7 +760,7 @@ local function createPALLootableItemSubMenu()
                 getFunc = function() return PAMenuFunctions.PALoot.getLootableItemTypesLootModeSetting(itemType) end,
                 setFunc = function(value) PAMenuFunctions.PALoot.setLootableItemTypesLootModeSetting(itemType, value) end,
                 width = "half",
-                disabled = PAMenuFunctions.PALoot.getIsLootableItemTypesLootModeEnabled,
+                disabled = PAMenuFunctions.PALoot.isLootableItemTypesLootModeDisabled,
                 default = PAMenuDefaults.PALoot.lootableItemTypesLootMode,
             })
         end
@@ -779,7 +779,7 @@ local function createPALLootableItemSubMenu()
             getFunc = PAMenuFunctions.PALoot.getLockpickLootModeSetting,
             setFunc = PAMenuFunctions.PALoot.setLockpickLootModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.PALoot.getIsLockpickLootModeEnabled,
+            disabled = PAMenuFunctions.PALoot.isLockpickLootModeDisabled,
             default = PAMenuDefaults.PALoot.lockpickLootMode,
         })
 
@@ -792,7 +792,7 @@ local function createPALLootableItemSubMenu()
             getFunc = PAMenuFunctions.PALoot.getQuestItemsLootModeSetting,
             setFunc = PAMenuFunctions.PALoot.setQuestItemsLootModeSetting,
             width = "half",
-            disabled = PAMenuFunctions.PALoot.getIsQuestItemsLootModeEnabled,
+            disabled = PAMenuFunctions.PALoot.isQuestItemsLootModeDisabled,
             default = PAMenuDefaults.PALoot.questItemsLootMode,
         })
 
@@ -801,7 +801,7 @@ local function createPALLootableItemSubMenu()
             name = L.PALMenu_AutoLootAllButton,
             tooltip = L.PALMenu_AutoLootAllButton_T,
             func = PAMenuFunctions.PALoot.clickAutoLootAllLootableButton,
-            disabled = PAMenuFunctions.PALoot.getIsAutoLootAllLootableButtonEnabled,
+            disabled = PAMenuFunctions.PALoot.isAutoLootAllLootableButtonDisabled,
         })
 
         PALLootableItemSubmenuTable:insert({
@@ -809,7 +809,7 @@ local function createPALLootableItemSubMenu()
             name = L.PALMenu_IgnButton,
             tooltip = L.PALMenu_IgnButton_T,
             func = PAMenuFunctions.PALoot.clickIgnoreAllLootableButton,
-            disabled = PAMenuFunctions.PALoot.getIsIgnoreAllLootableButtonEnabled,
+            disabled = PAMenuFunctions.PALoot.isIgnoreAllLootableButtonDisabled,
         })
     end
 end

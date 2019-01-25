@@ -109,7 +109,7 @@ local function LootItemIfAllowed(lootId, isItemStolen)
     end
 
     -- if item IS stolen, but looting stolen items is enabled, looting is allowed
-    if (isItemStolen and PA.savedVars.Loot[PA.activeProfile].lootStolenItemsEnabled) then
+    if (isItemStolen and PA.savedVars.Loot[PA.activeProfile].lootStolenItems) then
         LootItemById(lootId)
         return true
     end
@@ -143,7 +143,7 @@ local function OnLootUpdated()
                 alreadyOnLootUpdated = true
 
                 -- check if ItemLoot is enabled
-                if PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled then
+                if PA.savedVars.Loot[PA.activeProfile].lootItems then
                     -- get number of lootable items
                     local lootCount = GetNumLootItems()
 
@@ -247,7 +247,7 @@ local function OnLootUpdated()
                 end
 
                 -- check if GoldLoot is enabled
-                if PA.savedVars.Loot[PA.activeProfile].lootGoldEnabled then
+                if PA.savedVars.Loot[PA.activeProfile].lootGold then
                     -- Loot gold
                     LootGold()
                 end
@@ -268,7 +268,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, 
         -- check if addon is enabled
         if PA.savedVars.Loot[PA.activeProfile].enabled then
             -- check if ItemLoot is enabled
-            if PA.savedVars.Loot[PA.activeProfile].lootItemsEnabled then
+            if PA.savedVars.Loot[PA.activeProfile].lootItems then
                 -- check if the updated happened in the backpack
                 if (bagId == BAG_BACKPACK) then
                     -- only proceed if the update was triggered while harvesting (i.e. not from looting chests, wasps, mobs, etc)
