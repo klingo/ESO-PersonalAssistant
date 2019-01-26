@@ -1,6 +1,5 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PAL = PA.Loot
 
 local alreadyHarvesting = false
 local alreadyFishing = false
@@ -287,6 +286,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotId, isNewItem, 
 end
 
 
+-- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Loot = PA.Loot or {}
 PA.Loot.OnReticleTargetChanged = OnReticleTargetChanged
