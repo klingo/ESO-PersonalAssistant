@@ -450,8 +450,8 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PAJMenu_Enable,
             tooltip = L.PAJMenu_Enable_T,
-            getFunc = PAMenuFunctions.PAJunk.enabled,
-            setFunc = PAMenuFunctions.PAJunk.enabled,
+            getFunc = PAMenuFunctions.PAJunk.isEnabled,
+            setFunc = PAMenuFunctions.PAJunk.setIsEnabled,
             disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
             default = PAMenuDefaults.PAJunk.enabled,
         })
@@ -460,9 +460,9 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PAJMenu_AutoSellJunk,
             tooltip = L.PAJMenu_AutoSellJunk_T,
-            getFunc = PAMenuFunctions.PAJunk.autoSellJunk,
-            setFunc = PAMenuFunctions.PAJunk.autoSellJunk,
-            disabled = PAMenuFunctions.disabled.PAJunk.autoSellJunk,
+            getFunc = PAMenuFunctions.PAJunk.getAutoSellJunkSetting,
+            setFunc = PAMenuFunctions.PAJunk.setAutoSellJunkSetting,
+            disabled = PAMenuFunctions.PAJunk.isAutoSellJunkDisabled,
             default = PAMenuDefaults.PAJunk.autoSellJunk,
         })
 
@@ -475,9 +475,9 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PAJMenu_AutoMarkTrash,
             tooltip = L.PAJMenu_AutoMarkTrash_T,
-            getFunc = PAMenuFunctions.PAJunk.autoMarkTrash,
-            setFunc = PAMenuFunctions.PAJunk.autoMarkTrash,
-            disabled = PAMenuFunctions.disabled.PAJunk.autoMarkTrash,
+            getFunc = PAMenuFunctions.PAJunk.getAutoMarkTrashSetting,
+            setFunc = PAMenuFunctions.PAJunk.setAutoMarkTrashSetting,
+            disabled = PAMenuFunctions.PAJunk.isAutoMarkTrashDisabled,
             default = PAMenuDefaults.PAJunk.autoMarkTrash,
         })
 
@@ -485,9 +485,9 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PAJMenu_AutoMarkOrnate,
             tooltip = L.PAJMenu_AutoMarkOrnate_T,
-            getFunc = PAMenuFunctions.PAJunk.autoMarkOrnate,
-            setFunc = PAMenuFunctions.PAJunk.autoMarkOrnate,
-            disabled = PAMenuFunctions.disabled.PAJunk.autoMarkOrnate,
+            getFunc = PAMenuFunctions.PAJunk.getAutoMarkOrnateSetting,
+            setFunc = PAMenuFunctions.PAJunk.setAutoMarkOrnateSetting,
+            disabled = PAMenuFunctions.PAJunk.isAutoMarkOrnateDisabled,
             default = PAMenuDefaults.PAJunk.autoMarkOrnate,
         })
     end

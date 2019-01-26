@@ -1,37 +1,45 @@
--- Addon: PersonalAssistant.Junk
--- Developer: Klingo
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAEM = PA.EventManager
+local PASV = PA.SavedVars
 
-PAJ = {}
-PAJ.AddonName = "PersonalAssistantJunk"
-PAJ.AddonVersion = "1.0"
+-- Local constants --
+local AddonName = "PersonalAssistantJunk"
+local Junk_Defaults = {}
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 -- init default values
-function PAJ.initDefaults()
-    -- initialize the multi-profile structure
-    PAJ.Junk_Defaults = {}
-    -- -----------------------------------------------------
+local function initDefaults()
+    local PAMenuDefaults = PA.MenuDefaults
     -- default values for PAJunk
     for profileNo = 1, PAG_MAX_PROFILES do
-        PAJ.Junk_Defaults[profileNo] = PAMenu_Defaults.defaultSettings.PAJunk
+        Junk_Defaults[profileNo] = PAMenuDefaults.PAJunk
     end
 end
 
 
 -- init saved variables and register Addon
-function PAJ.initAddon(_, addOnName)
-    if addOnName ~= PAJ.AddonName then
+local function initAddon(_, addOnName)
+    if addOnName ~= AddonName then
         return
     end
 
     -- addon load started - unregister event
-    local PAEM = PersonalAssistant.EventManager
-    PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_ADD_ON_LOADED)
+    PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
     -- initialize the default values
-    PAJ.initDefaults()
+    initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PA.savedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, "Junk", PAJ.Junk_Defaults)
+    PASV.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, "Junk", Junk_Defaults)
 end
 
-PAEM.RegisterForEvent(PAJ.AddonName, EVENT_ADD_ON_LOADED, PAJ.initAddon)
+PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+-- Export
+PA.Junk = {
+    AddonName = AddonName
+}

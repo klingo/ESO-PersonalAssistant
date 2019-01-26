@@ -1,12 +1,10 @@
---
--- Created by IntelliJ IDEA.
--- User: Klingo
--- Date: 09.02.2017
--- Time: 20:20
---
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PASV = PA.SavedVars
+local PAHF = PA.HelperFunctions
+local PAEM = PA.EventManager
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     -- check what the difference in money is
@@ -32,23 +30,23 @@ local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     end
 
     -- set processing flag to FALSE again
-    PersonalAssistant.EventManager.isJunkProcessing = false
+    PAEM.isJunkProcessing = false
 end
 
 -- =====================================================================================================================
 -- =====================================================================================================================
 
-function PAJ.OnShopOpen()
+local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
-        if PA.savedVars.Junk[PA.activeProfile].enabled then
+        if PASV.Junk[PA.activeProfile].enabled then
             -- check if auto-sell is enabled
-            if PA.savedVars.Junk[PA.activeProfile].autoSellJunk then
+            if PASV.Junk[PA.activeProfile].autoSellJunk then
                 -- check if there is junk to sell (exclude stolen items = true)
                 if HasAnyJunk(BAG_BACKPACK, true) then
                     -- set processing flag to TRUE
-                    PersonalAssistant.EventManager.isJunkProcessing = true
+                    PAEM.isJunkProcessing = true
                     -- store current amount of money
                     local moneyBefore = GetCurrentMoney();
                     local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
@@ -56,7 +54,7 @@ function PAJ.OnShopOpen()
                     -- Sell all items marked as junk
                     SellAllJunk()
 
-                    -- Have to call it wiht some delay, as the "currentMoney" and item count is not updated fast enough
+                    -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
                     -- after calling SellAllJunk()
                     zo_callLater(function() GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
                 end
@@ -66,11 +64,11 @@ function PAJ.OnShopOpen()
 end
 
 
-function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
+local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
-        if PA.savedVars.Junk[PA.activeProfile].enabled then
+        if PASV.Junk[PA.activeProfile].enabled then
 
             -- check if the updated happened in the backpack and if the item is new
             if ((bagId == BAG_BACKPACK) and (isNewItem)) then
@@ -83,12 +81,12 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem,
                     local markAsJunk = false
 
                     -- check if it is trash and if auto-flag-trash is enabled
-                    if (PA.savedVars.Junk[PA.activeProfile].autoMarkTrash) then
+                    if (PASV.Junk[PA.activeProfile].autoMarkTrash) then
                         if (itemType == ITEMTYPE_TRASH) then markAsJunk = true end
                     end
 
                     -- check if item has the [Ornate] trait and if it is enabled
-                    if (PA.savedVars.Junk[PA.activeProfile].autoMarkOrnate) then
+                    if (PASV.Junk[PA.activeProfile].autoMarkOrnate) then
                         if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE) then
                             markAsJunk = true
                         end
@@ -113,3 +111,9 @@ function PAJ.OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem,
         end
     end
 end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Export
+PA.Junk = PA.Junk or {}
+PA.Junk.OnShopOpen = OnShopOpen
+PA.Junk.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
