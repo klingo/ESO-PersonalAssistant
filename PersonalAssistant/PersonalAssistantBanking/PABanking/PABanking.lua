@@ -1,12 +1,12 @@
--- Module: PersonalAssistant.PABanking
--- Developer: Klingo
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAHF = PA.HelperFUnctions
 
-PAB.isBankClosed = true
+local isBankClosed = true
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
-function PAB.OnBankOpen()
+local function OnBankOpen()
 
     if (PAHF.hasActiveProfile()) then
 
@@ -17,7 +17,7 @@ function PAB.OnBankOpen()
             local itemTransaction = false
 
             -- set the global variable to 'false'
-            PAB.isBankClosed = false
+            isBankClosed = false
 
             -- check if gold deposit is enabled
             if PA.savedVars.Banking[PA.activeProfile].enabledGold then
@@ -47,7 +47,14 @@ function PAB.OnBankOpen()
     end
 end
 
-function PAB.OnBankClose()
+local function OnBankClose()
     -- set the global variable to 'true' so the bankClosing can be detected
-    PAB.isBankClosed = true
+    isBankClosed = true
 end
+
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Export
+PA.Banking = PA.Banking or {}
+PA.Banking.OnBankOpen = OnBankOpen
+PA.Banking.OnBankClose = OnBankClose

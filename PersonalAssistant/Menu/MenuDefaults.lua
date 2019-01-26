@@ -34,7 +34,9 @@ PA.MenuDefaults = {
         depositTimerInterval = 300,
         ItemTypesMaterial = {},
         ItemTypes = {},
-        ItemTypesAdvanced = {},
+        ItemTypesAdvanced = {
+            advItemTypesValue = 100
+        },
     },
     PALoot = {
         enabled = false,

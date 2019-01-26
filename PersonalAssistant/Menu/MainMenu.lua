@@ -240,9 +240,9 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PABMenu_EnabledGold,
             tooltip = L.PABMenu_EnabledGold_T,
-            getFunc = PAMenuFunctions.PABanking.enabledGold,
-            setFunc = PAMenuFunctions.PABanking.enabledGold,
-            disabled = PAMenuFunctions.disabled.PABanking.enabledGold,
+            getFunc = PAMenuFunctions.PABanking.getGoldTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setGoldTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isGoldTransactionDisabled,
             default = PAMenuDefaults.PABanking.enabledGold,
         })
 
@@ -254,9 +254,9 @@ local function createMainMenu()
             tooltip = L.PABMenu_GoldTransactionStep_T,
             choices = PAMenuChoices.choices.PABanking.goldTransactionStep,
             choicesValues = PAMenuChoices.choicesValues.PABanking.goldTransactionStep,
-            getFunc = PAMenuFunctions.PABanking.goldTransactionStep,
-            setFunc = PAMenuFunctions.PABanking.goldTransactionStep,
-            disabled = PAMenuFunctions.disabled.PABanking.goldTransactionStep,
+            getFunc = PAMenuFunctions.PABanking.getGoldTransactionStepSetting,
+            setFunc = PAMenuFunctions.PABanking.setGoldTransactionStepSetting,
+            disabled = PAMenuFunctions.PABanking.isGoldTransactionStepDisabled,
             default = PAMenuDefaults.PABanking.goldTransactionStep,
         })
 
@@ -264,9 +264,9 @@ local function createMainMenu()
             type = "editbox",
             name = L.PABMenu_GoldMinToKeep,
             tooltip = L.PABMenu_GoldMinToKeep_T,
-            getFunc = PAMenuFunctions.PABanking.goldMinToKeep,
-            setFunc = PAMenuFunctions.PABanking.goldMinToKeep,
-            disabled = PAMenuFunctions.disabled.PABanking.goldMinToKeep,
+            getFunc = PAMenuFunctions.PABanking.getGoldMinToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setGoldMinToKeepSetting,
+            disabled = PAMenuFunctions.PABanking.isGoldMinToKeepDisabled,
             warning = L.PABMenu_GoldMinToKeep_W,
             default = PAMenuDefaults.PABanking.goldMinToKeep,
         })
@@ -275,9 +275,9 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PABMenu_WithdrawToMinGold,
             tooltip = L.PABMenu_WithdrawToMinGold_T,
-            getFunc = PAMenuFunctions.PABanking.withdrawToMinGold,
-            setFunc = PAMenuFunctions.PABanking.withdrawToMinGold,
-            disabled = PAMenuFunctions.disabled.PABanking.withdrawToMinGold,
+            getFunc = PAMenuFunctions.PABanking.getWithdrawToMinGoldSetting,
+            setFunc = PAMenuFunctions.PABanking.setWithdrawToMinGoldSetting,
+            disabled = PAMenuFunctions.PABanking.isWithdrawToMinGoldDisabled,
             default = PAMenuDefaults.PABanking.withdrawToMinGold,
         })
 
@@ -290,9 +290,9 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PABMenu_EnabledItems,
             tooltip = L.PABMenu_EnabledItems_T,
-            getFunc = PAMenuFunctions.PABanking.enabledItems,
-            setFunc = PAMenuFunctions.PABanking.enabledItems,
-            disabled = PAMenuFunctions.disabled.PABanking.enabledItems,
+            getFunc = PAMenuFunctions.PABanking.getItemTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setItemTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isItemTransactionDisabled,
             default = PAMenuDefaults.PABanking.enabledItems,
         })
 
@@ -331,9 +331,9 @@ local function createMainMenu()
             min = 200,
             max = 1000,
             step = 50,
-            getFunc = PAMenuFunctions.PABanking.depositTimerInterval,
-            setFunc = PAMenuFunctions.PABanking.depositTimerInterval,
-            disabled = PAMenuFunctions.disabled.PABanking.depositTimerInterval,
+            getFunc = PAMenuFunctions.PABanking.getDepositTimerIntervalSetting,
+            setFunc = PAMenuFunctions.PABanking.setDepositTimerIntervalSetting,
+            disabled = PAMenuFunctions.PABanking.isDepositTimerIntervalDisabled,
             default = PAMenuDefaults.PABanking.depositTimerInterval,
         })
     end
@@ -515,15 +515,15 @@ local function createPABItemTypeMaterialSubmenuTable()
             for _, itemType in pairs(PABItemTypesMaterial) do
                 PABItemTypeMaterialSubmenuTable:insert({
                     type = "dropdown",
-                    name = PALocale.getResourceMessage(itemType),
+                    name = L[itemType],
                     choices = PAMenuChoices.choices.PABanking.itemMoveMode,
                     choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
                     -- TODO: choicesTooltips
-                    getFunc = function() return PAMenuFunctions.PABanking.itemTypesMaterialMoveMode(itemType) end,
-                    setFunc = function(value) PAMenuFunctions.PABanking.itemTypesMaterialMoveMode(itemType, value) end,
+                    getFunc = function() return PAMenuFunctions.PABanking.getItemTypesMaterialMoveModeSetting(itemType) end,
+                    setFunc = function(value) PAMenuFunctions.PABanking.setItemTypesMaterialMoveModeSetting(itemType, value) end,
                     width = "half",
-                    disabled = PAMenuFunctions.disabled.PABanking.itemTypesMaterialMoveMode,
-                    -- default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
+                    disabled = PAMenuFunctions.PABanking.isItemTypesMaterialMoveModeDisabled,
+                    default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
                 })
             end
         end
@@ -545,10 +545,10 @@ local function createPABItemSubMenu()
             choices = PAMenuChoices.choices.PABanking.stackingType,
             choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
             -- TODO: choicesTooltips
-            getFunc = PAMenuFunctions.PABanking.itemsDepStackType,
-            setFunc = PAMenuFunctions.PABanking.itemsDepStackType,
+            getFunc = PAMenuFunctions.PABanking.getItemsDepStackTypeSetting,
+            setFunc = PAMenuFunctions.PABanking.setItemsDepStackTypeSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PABanking.itemsDepStackType,
+            disabled = PAMenuFunctions.PABanking.isItemsDepStackTypeDisabled,
             default = PAMenuDefaults.PABanking.itemsDepStackType,
         })
 
@@ -558,10 +558,10 @@ local function createPABItemSubMenu()
             tooltip = L.PABMenu_WitStackOnly_T,
             choices = PAMenuChoices.choices.PABanking.stackingType,
             choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
-            getFunc = PAMenuFunctions.PABanking.itemsWitStackType,
-            setFunc = PAMenuFunctions.PABanking.itemsWitStackType,
+            getFunc = PAMenuFunctions.PABanking.getItemsWitStackTypeSetting,
+            setFunc = PAMenuFunctions.PABanking.setItemsWitStackTypeSetting,
             width = "half",
-            disabled = PAMenuFunctions.disabled.PABanking.itemsWitStackType,
+            disabled = PAMenuFunctions.PABanking.isItemsWitStackTypeDisabled,
             default = PAMenuDefaults.PABanking.itemsWitStackType,
         })
 
@@ -573,15 +573,15 @@ local function createPABItemSubMenu()
         for _, itemType in pairs(PABItemTypes) do
             PABItemTypeSubmenuTable:insert({
                 type = "dropdown",
-                name = PALocale.getResourceMessage(itemType),
+                name = L[itemType],
                 choices = PAMenuChoices.choices.PABanking.itemMoveMode,
                 choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
                 -- TODO: choicesTooltips
-                getFunc = function() return PAMenuFunctions.PABanking.itemTypesMoveMode(itemType) end,
-                setFunc = function(value) PAMenuFunctions.PABanking.itemTypesMoveMode(itemType, value) end,
+                getFunc = function() return PAMenuFunctions.PABanking.getItemTypesMoveModeSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setItemTypesMoveModeSetting(itemType, value) end,
                 width = "half",
-                disabled = PAMenuFunctions.disabled.PABanking.itemTypesMoveMode,
-                -- default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
+                disabled = PAMenuFunctions.PABanking.isItemTypesMoveModeDisabled,
+                default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
             })
         end
 
@@ -589,24 +589,24 @@ local function createPABItemSubMenu()
             type = "button",
             name = L.PABMenu_DepButton,
             tooltip = L.PABMenu_DepButton_T,
-            func = PAMenuFunctions.func.PABanking.depositAllItemTypesButton,
-            disabled = PAMenuFunctions.disabled.PABanking.depositAllItemTypesButton,
+            func = PAMenuFunctions.PABanking.clickDepositAllItemTypesButton,
+            disabled = PAMenuFunctions.PABanking.isDepositAllItemTypesButtonDisabled,
         })
 
         PABItemTypeSubmenuTable:insert({
             type = "button",
             name = L.PABMenu_WitButton,
             tooltip = L.PABMenu_WitButton_T,
-            func = PAMenuFunctions.func.PABanking.withdrawAllItemTypesButton,
-            disabled = PAMenuFunctions.disabled.PABanking.withdrawAllItemTypesButton,
+            func = PAMenuFunctions.PABanking.clickWithdrawAllItemTypesButton,
+            disabled = PAMenuFunctions.PABanking.isWithdrawAllItemTypesButtonDisabled,
         })
 
         PABItemTypeSubmenuTable:insert({
             type = "button",
             name = L.PABMenu_IgnButton,
             tooltip = L.PABMenu_IgnButton_T,
-            func = PAMenuFunctions.func.PABanking.ignoreAllItemTypesButton,
-            disabled = PAMenuFunctions.disabled.PABanking.ignoreAllItemTypesButton,
+            func = PAMenuFunctions.PABanking.clickIgnoreAllItemTypesButton,
+            disabled = PAMenuFunctions.PABanking.isIgnoreAllItemTypesButtonDisabled,
         })
     end
 end
@@ -631,10 +631,10 @@ local function createPABItemAdvancedSubMenu()
                 choices = PAMenuChoices.choices.PABanking.mathOperator,
                 choicesValues = PAMenuChoices.choicesValues.PABanking.mathOperator,
                 -- TODO: choicesTooltips
-                getFunc = function() return PAMenuFunctions.PABanking.advItemTypesOperator(advancedItemType) end,
-                setFunc = function(value) PAMenuFunctions.PABanking.advItemTypesOperator(advancedItemType, value) end,
+                getFunc = function() return PAMenuFunctions.PABanking.getAdvItemTypesOperatorSetting(advancedItemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setAdvItemTypesOperatorSetting(advancedItemType, value) end,
                 width = "half",
-                disabled = PAMenuFunctions.disabled.PABanking.advItemTypesOperator,
+                disabled = PAMenuFunctions.PABanking.isAdvItemTypesOperatorDisabled,
                 default = L.REL_None, -- TODO: extract?
             })
 
@@ -642,11 +642,11 @@ local function createPABItemAdvancedSubMenu()
                 type = "editbox",
                 name = L.PABMenu_Keep_in_Backpack,
                 tooltip = L.PABMenu_Keep_in_Backpack_T,
-                getFunc = function() return PAMenuFunctions.PABanking.advItemTypesValue(advancedItemType) end,
-                setFunc = function(value) PAMenuFunctions.PABanking.advItemTypesValue(advancedItemType, value) end,
+                getFunc = function() return PAMenuFunctions.PABanking.getAdvItemTypesValueSetting(advancedItemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setAdvItemTypesValueSetting(advancedItemType, value) end,
                 width = "half",
-                disabled = PAMenuFunctions.disabled.PABanking.advItemTypesValue,
-                default = 100, -- TODO: extract?
+                disabled = PAMenuFunctions.PABanking.isAdvItemTypesValueDisabled,
+                default = PAMenuDefaults.PABanking.ItemTypesAdvanced.advItemTypesValue,
             })
         end
     end
