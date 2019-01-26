@@ -41,7 +41,7 @@ PersonalAssistant.Repair
     * https://www.esoui.com/downloads/info44-LibStub.html
 * [X] **(1)** Make "PersonalAssistant" the top-level-Addon and move others as nested-Addons
   * https://wiki.esoui.com/Addon_Structure
-* [ ] **(5)** Update Addon Manifest
+* [X] **(5)** Update Addon Manifest
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion
   * Variable Expansion - $(language)
@@ -127,6 +127,7 @@ PersonalAssistant.Repair
   * www.esoui.com/forums/showthread.php?t=6987
 * [ ] **(1)** PAJunk: Check if special message for marking as Trash/Ornate exists
 * [ ] **(1)** PAJunk: Add option to select type of notifications
+* [ ] **(2)** PAJunk: Add item context menu to flag item as junk
    
 ***
 
