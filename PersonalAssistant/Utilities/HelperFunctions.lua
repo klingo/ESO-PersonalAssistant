@@ -66,7 +66,8 @@ local function getFormattedItemLink(bagId, slotIndex)
 end
 
 local function hasActiveProfile()
-    return not PAMenu_Functions.disabled.PAGeneral.noProfileSelected()
+    local PAMenuFunctions = PA.MenuFunctions
+    return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
 end
 
 -- currently supports one text and n arguments

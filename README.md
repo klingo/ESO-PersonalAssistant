@@ -49,7 +49,8 @@ PersonalAssistant.Repair
   
   
 #### PARepair
-* [ ] **(2)** PARepair: Add chat message when repairing with Repair Kits
+* [ ] **(2)** PARepair: Implement Repair Kits
+    * Add Notification Options
 
 
 #### PABanking

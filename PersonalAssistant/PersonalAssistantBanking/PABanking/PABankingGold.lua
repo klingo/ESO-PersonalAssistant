@@ -1,10 +1,10 @@
--- Module: PersonalAssistant.PABanking.Gold
--- Developer: Klingo
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PASV = PA.SavedVars
+local PAHF = PA.HelperFunctions
+local L = PA.Localization
 
-PAB_Gold = {}
-
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function getGoldChangeAmount(currAmount, targetMinimum, transactionStep)
     local currMoneyKeepDiff = targetMinimum - currAmount
@@ -29,27 +29,37 @@ end
 
 
 local function withdrawGold(goldChange)
-    local bankedMoney = GetBankedMoney()
+    local bankedMoney = GetCurrencyAmount(CURT_MONEY, CURRENCY_LOCATION_BANK)
 
     if (bankedMoney >= goldChange) then
         -- actual WITHDRAWAL
-        WithdrawMoneyFromBank(goldChange)
-        PAHF.println("PAB_GoldWithdrawn", goldChange)
+        -- TODO: check for maxTransfer?
+        TransferCurrency(CURT_MONEY, goldChange, CURRENCY_LOCATION_BANK, CURRENCY_LOCATION_CHARACTER)
+        PAHF.println(L.PAB_GoldWithdrawn, goldChange)
     else
         -- not enough gold to withdraw planned amount; caclulcate minimum that can be withdrawn
-        local goldTransactionStep = PA.savedVars.Banking[PA.activeProfile].goldTransactionStep
+        local goldTransactionStep = PASV.Banking[PA.activeProfile].goldTransactionStep
         local toWithdraw = getGoldChangeAmount(bankedMoney, 0, goldTransactionStep) * -1
         -- actual WITHDRAWAL
-        WithdrawMoneyFromBank(toWithdraw)
-        PAHF.println("PAB_GoldWithdrawnInsufficient", toWithdraw, bankedMoney)
+        -- TODO: check for maxTransfer?
+        TransferCurrency(CURT_MONEY, toWithdraw, CURRENCY_LOCATION_BANK, CURRENCY_LOCATION_CHARACTER)
+        PAHF.println(L.PAB_GoldWithdrawnInsufficient, toWithdraw, bankedMoney)
     end
 end
 
 
 local function depositGold(goldChange)
     -- actual DEPOSIT
-    DepositMoneyIntoBank(goldChange)
-    PAHF.println("PAB_GoldDeposited", goldChange)
+    local maxTransfer = GetMaxCurrencyTransfer(CURT_MONEY, CURRENCY_LOCATION_CHARACTER, CURRENCY_LOCATION_BANK)
+    if (maxTransfer >= goldChange) then
+        TransferCurrency(CURT_MONEY, goldChange, CURRENCY_LOCATION_CHARACTER, CURRENCY_LOCATION_BANK)
+        PAHF.println(L.PAB_GoldDeposited, goldChange)
+    else
+        TransferCurrency(CURT_MONEY, maxTransfer, CURRENCY_LOCATION_CHARACTER, CURRENCY_LOCATION_BANK)
+        local exceededAmount = goldChange - maxTransfer
+        -- TODO: dedicated message when not all can be transfer
+        PAHF.println("Cannot deposit "..exceededAmount)
+    end
 end
 
 
@@ -57,12 +67,11 @@ end
 -- =====================================================================================================================
 
 
-function PAB_Gold.DepositWithdrawGold()
-
-    local currentMoney = GetCurrentMoney()
-    local goldMinToKeep = PA.savedVars.Banking[PA.activeProfile].goldMinToKeep
-    local withdrawToMinGold = PA.savedVars.Banking[PA.activeProfile].withdrawToMinGold
-    local goldTransactionStep = PA.savedVars.Banking[PA.activeProfile].goldTransactionStep
+local function DepositOrWithdrawGold()
+    local currentMoney = GetCurrencyAmount(CURT_MONEY, CURRENCY_LOCATION_CHARACTER)
+    local goldMinToKeep = PASV.Banking[PA.activeProfile].goldMinToKeep
+    local withdrawToMinGold = PASV.Banking[PA.activeProfile].withdrawToMinGold
+    local goldTransactionStep = PASV.Banking[PA.activeProfile].goldTransactionStep
 
     -- calculate the exact amount
     local goldChangeAmount = getGoldChangeAmount(currentMoney, goldMinToKeep, goldTransactionStep)
@@ -74,10 +83,12 @@ function PAB_Gold.DepositWithdrawGold()
         -- withdraw money
         withdrawGold(goldChangeAmount)
     else
-        -- no change required
+        -- no gold transaction required
     end
 end
 
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Export
+PA.Banking = PA.Banking or {}
+PA.Banking.DepositOrWithdrawGold = DepositOrWithdrawGold

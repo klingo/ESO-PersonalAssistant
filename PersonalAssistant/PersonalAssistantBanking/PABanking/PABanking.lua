@@ -1,6 +1,8 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PAHF = PA.HelperFUnctions
+local PASV = PA.SavedVars
+local PAB = PA.Banking
+local PAHF = PA.HelperFunctions
 
 local isBankClosed = true
 
@@ -11,7 +13,7 @@ local function OnBankOpen()
     if (PAHF.hasActiveProfile()) then
 
         -- check if addon is enabled
-        if PA.savedVars.Banking[PA.activeProfile].enabled then
+        if PASV.Banking[PA.activeProfile].enabled then
 
             local goldTransaction = false
             local itemTransaction = false
@@ -20,13 +22,13 @@ local function OnBankOpen()
             isBankClosed = false
 
             -- check if gold deposit is enabled
-            if PA.savedVars.Banking[PA.activeProfile].enabledGold then
+            if PASV.Banking[PA.activeProfile].goldTransaction then
                 -- trigger the deposit and withdrawal of gold
-                PAB_Gold.DepositWithdrawGold()
+                PAB.DepositOrWithdrawGold()
             end
 
             -- check if item deposit is enabled
-            if PA.savedVars.Banking[PA.activeProfile].enabledItems then
+            if PASV.Banking[PA.activeProfile].itemTransaction then
                 -- TODO: TEMPORARILY DISABLED !!!!
 --                PAB_Items.DepositWithdrawItems()
 --                PAB_Items.loopCount = 0
@@ -36,12 +38,14 @@ local function OnBankOpen()
 
         -- some debug statements
         if (PA.debug) then
-            PAHF_DEBUG.debugln("IsESOPlusSubscriber() = %s", tostring(IsESOPlusSubscriber()));
-            PAHF_DEBUG.debugln("HasCraftBagAccess() = %s", tostring(HasCraftBagAccess()));
-            PAHF_DEBUG.debugln("GetBagUseableSize(BAG_BACKPACK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BACKPACK), GetNumBagUsedSlots(BAG_BACKPACK), GetNumBagFreeSlots(BAG_BACKPACK));
-            PAHF_DEBUG.debugln("GetBagUseableSize(BAG_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BANK), GetNumBagUsedSlots(BAG_BANK), GetNumBagFreeSlots(BAG_BANK));
-            PAHF_DEBUG.debugln("GetBagUseableSize(BAG_SUBSCRIBER_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_SUBSCRIBER_BANK), GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK), GetNumBagFreeSlots(BAG_SUBSCRIBER_BANK));
-            PAHF_DEBUG.debugln("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId());
+            PAHF.debugln("IsESOPlusSubscriber() = %s", tostring(IsESOPlusSubscriber()));
+            PAHF.debugln("HasCraftBagAccess() = %s", tostring(HasCraftBagAccess()));
+            PAHF.debugln("GetBagUseableSize(BAG_BACKPACK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BACKPACK), GetNumBagUsedSlots(BAG_BACKPACK), GetNumBagFreeSlots(BAG_BACKPACK));
+            PAHF.debugln("GetBagUseableSize(BAG_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BANK), GetNumBagUsedSlots(BAG_BANK), GetNumBagFreeSlots(BAG_BANK));
+            PAHF.debugln("GetBagUseableSize(BAG_GUILDBANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_GUILDBANK), GetNumBagUsedSlots(BAG_GUILDBANK), GetNumBagFreeSlots(BAG_GUILDBANK));
+            PAHF.debugln("GetBagUseableSize(BAG_SUBSCRIBER_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_SUBSCRIBER_BANK), GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK), GetNumBagFreeSlots(BAG_SUBSCRIBER_BANK));
+            PAHF.debugln("GetBagUseableSize(BAG_VIRTUAL) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_VIRTUAL), GetNumBagUsedSlots(BAG_VIRTUAL), GetNumBagFreeSlots(BAG_VIRTUAL));
+            PAHF.debugln("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId());
         end
 
     end

@@ -23,6 +23,7 @@ local function getItemsIn(bagId)
     return itemTable
 end
 
+-- TODO: https://www.esoui.com/forums/showthread.php?t=7053&highlight=GetOrCreateBagCache
 
 local function moveItemTo(itemData, toBagId)
 
@@ -34,7 +35,7 @@ local function moveItemTo(itemData, toBagId)
     -- 6. move item --> 4
     -- 7. end
 
-
+-- GenerateFullSlotData
 --        local firstEmptySlot = FindFirstEmptySlotInBag(bagId)
 
 --    if IsProtectedFunction("RequestMoveItem") then

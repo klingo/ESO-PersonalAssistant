@@ -23,12 +23,12 @@ PA.MenuDefaults = {
     },
     PABanking = {
         enabled = true,
-        enabledGold = true,
+        goldTransaction = true,
         goldTransactionStep = 1,
-        goldMinToKeep = 250,
+        goldMinToKeep = 1000,
         withdrawToMinGold = false,
         goldLastDeposit = 0, -- timestamp to keep track of last gold depost
-        enabledItems = false,
+        itemTransaction = false,
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
         depositTimerInterval = 300,

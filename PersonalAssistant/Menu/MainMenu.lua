@@ -230,8 +230,8 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PABMenu_Enable,
             tooltip = L.PABMenu_Enable_T,
-            getFunc = PAMenuFunctions.PABanking.enabled,
-            setFunc = PAMenuFunctions.PABanking.enabled,
+            getFunc = PAMenuFunctions.PABanking.isEnabled,
+            setFunc = PAMenuFunctions.PABanking.setIsEnabled,
             disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
             default = PAMenuDefaults.PABanking.enabled,
         })
@@ -243,7 +243,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PABanking.getGoldTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setGoldTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isGoldTransactionDisabled,
-            default = PAMenuDefaults.PABanking.enabledGold,
+            default = PAMenuDefaults.PABanking.goldTransaction,
         })
 
         -- enabledGoldChatMode
@@ -293,7 +293,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PABanking.getItemTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setItemTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isItemTransactionDisabled,
-            default = PAMenuDefaults.PABanking.enabledItems,
+            default = PAMenuDefaults.PABanking.itemTransaction,
         })
 
         -- enabledItemsChatMode
