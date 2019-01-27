@@ -39,6 +39,7 @@ PersonalAssistant.Repair
 * [X] **(1)** Update to latest LAM version
 * [ ] **(1)** Get rid of LibStub (no longer needed due to AddOnVersion)
     * https://www.esoui.com/downloads/info44-LibStub.html
+* [X] **(1)** Remove LibAddonMenu out of addon and make it a hard dependency
 * [X] **(1)** Make "PersonalAssistant" the top-level-Addon and move others as nested-Addons
   * https://wiki.esoui.com/Addon_Structure
 * [X] **(5)** Update Addon Manifest
@@ -47,7 +48,7 @@ PersonalAssistant.Repair
   * Variable Expansion - $(language)
   
   
-#### PABanking
+#### PARepair
 * [ ] **(2)** PARepair: Add chat message when repairing with Repair Kits
 
 
@@ -99,6 +100,8 @@ PersonalAssistant.Repair
 * [ ] **(3)** PABanking: Advanced Item Types - Add Repair Kits (only Grand?)
 * [ ] **(2)** PABanking: Add option to select type of notifications
 * [ ] **(4)** PABanking: Add summary after transaction completed
+* [ ] **(5)** PABanking: Integrate selected features from Roomba
+    * https://www.esoui.com/downloads/info402-Roomba-GuildbankStacker.html
 
 
 #### PALoot
