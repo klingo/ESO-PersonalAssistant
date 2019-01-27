@@ -142,6 +142,19 @@ local function getDefaultProfileName(profileNo)
     end
 end
 
+-- Source: https://wiki.esoui.com/IsAddonRunning
+-- addonName *string*
+local function isAddonRunning(addonName)
+    local manager = GetAddOnManager()
+    for i = 1, manager:GetNumAddOns() do
+        local name, _, _, _, _, state = manager:GetAddOnInfo(i)
+        if name == addonName and state == ADDON_STATE_ENABLED then
+            return true
+        end
+    end
+    return false
+end
+
 -- Export
 PA.HelperFunctions = {
     round = round,
@@ -157,5 +170,6 @@ PA.HelperFunctions = {
     debugln = debugln,
     getProfileTextFromNumber = getProfileTextFromNumber,
     getProfileNumberFromText = getProfileNumberFromText,
-    getDefaultProfileName = getDefaultProfileName
+    getDefaultProfileName = getDefaultProfileName,
+    isAddonRunning = isAddonRunning
 }
