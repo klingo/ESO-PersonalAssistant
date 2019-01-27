@@ -21,6 +21,12 @@ local panelData = {
 }
 
 local optionsTable = setmetatable({}, { __index = table })
+
+local PABCurrencyGoldSubmenuTable = setmetatable({}, { __index = table })
+local PABCurrencyAlliancePointsSubmenuTable = setmetatable({}, { __index = table })
+local PABCurrencyTelVarSubmenuTable = setmetatable({}, { __index = table })
+local PABCurrencyWritVouchersSubmenuTable = setmetatable({}, { __index = table })
+
 local PABItemTypeMaterialSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeAdvancedSubmenuTable = setmetatable({}, { __index = table })
@@ -228,8 +234,8 @@ local function createMainMenu()
 
         optionsTable:insert({
             type = "checkbox",
-            name = L.PABMenu_Enable,
-            tooltip = L.PABMenu_Enable_T,
+            name = L.PABMenu_Currency_Enable,
+            tooltip = L.PABMenu_Currency_Enable_T,
             getFunc = PAMenuFunctions.PABanking.isEnabled,
             setFunc = PAMenuFunctions.PABanking.setIsEnabled,
             disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
@@ -237,49 +243,38 @@ local function createMainMenu()
         })
 
         optionsTable:insert({
-            type = "checkbox",
-            name = L.PABMenu_EnabledGold,
-            tooltip = L.PABMenu_EnabledGold_T,
-            getFunc = PAMenuFunctions.PABanking.getGoldTransactionSetting,
-            setFunc = PAMenuFunctions.PABanking.setGoldTransactionSetting,
-            disabled = PAMenuFunctions.PABanking.isGoldTransactionDisabled,
-            default = PAMenuDefaults.PABanking.goldTransaction,
-        })
-
-        -- enabledGoldChatMode
-
-        optionsTable:insert({
-            type = "dropdown",
-            name = L.PABMenu_GoldTransactionStep,
-            tooltip = L.PABMenu_GoldTransactionStep_T,
-            choices = PAMenuChoices.choices.PABanking.goldTransactionStep,
-            choicesValues = PAMenuChoices.choicesValues.PABanking.goldTransactionStep,
-            getFunc = PAMenuFunctions.PABanking.getGoldTransactionStepSetting,
-            setFunc = PAMenuFunctions.PABanking.setGoldTransactionStepSetting,
-            disabled = PAMenuFunctions.PABanking.isGoldTransactionStepDisabled,
-            default = PAMenuDefaults.PABanking.goldTransactionStep,
+            type = "submenu",
+            name = L.PABMenu_Currency_Gold_Header,
+            -- tooltip = L.PABMenu_Currency_Gold_Header_T,
+            controls = PABCurrencyGoldSubmenuTable,
+            disabled = PAMenuFunctions.PABanking.isGoldTransactionMenuDisabled,
         })
 
         optionsTable:insert({
-            type = "editbox",
-            name = L.PABMenu_GoldMinToKeep,
-            tooltip = L.PABMenu_GoldMinToKeep_T,
-            getFunc = PAMenuFunctions.PABanking.getGoldMinToKeepSetting,
-            setFunc = PAMenuFunctions.PABanking.setGoldMinToKeepSetting,
-            disabled = PAMenuFunctions.PABanking.isGoldMinToKeepDisabled,
-            warning = L.PABMenu_GoldMinToKeep_W,
-            default = PAMenuDefaults.PABanking.goldMinToKeep,
+            type = "submenu",
+            name = L.PABMenu_Currency_AlliancePoints_Header,
+            -- tooltip = L.PABMenu_Currency_AlliancePoints_Header_T,
+            controls = PABCurrencyAlliancePointsSubmenuTable,
+            disabled = PAMenuFunctions.PABanking.isAlliancePointsTransactionMenuDisabled,
         })
 
         optionsTable:insert({
-            type = "checkbox",
-            name = L.PABMenu_WithdrawToMinGold,
-            tooltip = L.PABMenu_WithdrawToMinGold_T,
-            getFunc = PAMenuFunctions.PABanking.getWithdrawToMinGoldSetting,
-            setFunc = PAMenuFunctions.PABanking.setWithdrawToMinGoldSetting,
-            disabled = PAMenuFunctions.PABanking.isWithdrawToMinGoldDisabled,
-            default = PAMenuDefaults.PABanking.withdrawToMinGold,
+            type = "submenu",
+            name = L.PABMenu_Currency_TelVar_Header,
+            -- tooltip = L.PABMenu_Currency_TelVar_Header_T,
+            controls = PABCurrencyTelVarSubmenuTable,
+            disabled = PAMenuFunctions.PABanking.isTelVarTransactionMenuDisabled,
         })
+
+        optionsTable:insert({
+            type = "submenu",
+            name = L.PABMenu_Currency_WritVouchers_Header,
+            -- tooltip = L.PABMenu_Currency_WritVouchers_Header_T,
+            controls = PABCurrencyWritVouchersSubmenuTable,
+            disabled = PAMenuFunctions.PABanking.isWritVouchersTransactionMenuDisabled,
+        })
+
+        -- -----------------------------------------------------------------------------------
 
         optionsTable:insert({
             type = "divider",
@@ -490,6 +485,183 @@ local function createMainMenu()
             disabled = PAMenuFunctions.PAJunk.isAutoMarkOrnateDisabled,
             default = PAMenuDefaults.PAJunk.autoMarkOrnate,
         })
+    end
+end
+
+-- =================================================================================================================
+
+local function createPABCurrencyGoldSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABCurrencyGoldSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Currency_Gold_Enabled,
+            tooltip = L.PABMenu_Currency_Gold_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getGoldTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setGoldTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isGoldTransactionDisabled,
+            default = PAMenuDefaults.PABanking.goldTransaction,
+        })
+
+        PABCurrencyGoldSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_Gold_MinToKeep,
+            tooltip = L.PABMenu_Currency_Gold_MinToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getGoldMinToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setGoldMinToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isGoldMinToKeepDisabled,
+            default = PAMenuDefaults.PABanking.goldMinToKeep,
+            reference = "PERSONALASSISTANT_PAB_GOLD_MIN",
+        })
+
+        PABCurrencyGoldSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_Gold_MaxToKeep,
+            tooltip = L.PABMenu_Currency_Gold_MaxToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getGoldMaxToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setGoldMaxToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isGoldMaxToKeepDisabled,
+            default = PAMenuDefaults.PABanking.goldMaxToKeep,
+            reference = "PERSONALASSISTANT_PAB_GOLD_MAX",
+        })
+    end
+end
+
+-- =================================================================================================================
+
+local function createPABCurrencyAlliancePointsSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABCurrencyAlliancePointsSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Currency_AlliancePoints_Enabled,
+            tooltip = L.PABMenu_Currency_AlliancePoints_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getAlliancePointsTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setAlliancePointsTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isAlliancePointsTransactionDisabled,
+            default = PAMenuDefaults.PABanking.alliancePointsTransaction,
+        })
+
+        PABCurrencyAlliancePointsSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_AlliancePoints_MinToKeep,
+            tooltip = L.PABMenu_Currency_AlliancePoints_MinToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getAlliancePointsMinToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setAlliancePointsMinToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isAlliancePointsMinToKeepDisabled,
+            default = PAMenuDefaults.PABanking.alliancePointsMinToKeep,
+            reference = "PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN",
+        })
+
+        PABCurrencyAlliancePointsSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_AlliancePoints_MaxToKeep,
+            tooltip = L.PABMenu_Currency_AlliancePoints_MiaxToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getAlliancePointsMaxToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setAlliancePointsMaxToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isAlliancePointsMaxToKeepDisabled,
+            default = PAMenuDefaults.PABanking.alliancePointsMaxToKeep,
+            reference = "PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX",
+        })
+    end
+end
+
+-- =================================================================================================================
+
+local function createPABCurrencyTelVarSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABCurrencyTelVarSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Currency_TelVar_Enabled,
+            tooltip = L.PABMenu_Currency_TelVar_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getTelVarTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setTelVarTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isTelVarTransactionDisabled,
+            default = PAMenuDefaults.PABanking.telVarTransaction,
+        })
+
+        PABCurrencyTelVarSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_TelVar_MinToKeep,
+            tooltip = L.PABMenu_Currency_TelVar_MinToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getTelVarMinToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setTelVarMinToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isTelVarMinToKeepDisabled,
+            default = PAMenuDefaults.PABanking.telVarMinToKeep,
+            reference = "PERSONALASSISTANT_PAB_TELVAR_MIN",
+        })
+        PABCurrencyTelVarSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_TelVar_MaxToKeep,
+            tooltip = L.PABMenu_Currency_TelVar_MaxToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getTelVarMaxToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setTelVarMaxToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isTelVarMaxToKeepDisabled,
+            default = PAMenuDefaults.PABanking.telVarMaxToKeep,
+            reference = "PERSONALASSISTANT_PAB_TELVAR_MAX",
+        })
+    end
+end
+
+-- =================================================================================================================
+
+local function createPABCurrencyWritVouchersSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABCurrencyWritVouchersSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Currency_WritVouchers_Enabled,
+            tooltip = L.PABMenu_Currency_WritVouchers_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getWritVouchersTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setWritVouchersTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isWritVouchersTransactionDisabled,
+            default = PAMenuDefaults.PABanking.writVouchersTransaction,
+        })
+
+        PABCurrencyWritVouchersSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_WritVouchers_MinToKeep,
+            tooltip = L.PABMenu_Currency_WritVouchers_MinToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getWritVouchersMinToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setWritVouchersMinToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isWritVouchersMinToKeepDisabled,
+            default = PAMenuDefaults.PABanking.writVouchersMinToKeep,
+            reference = "PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN",
+        })
+
+        PABCurrencyWritVouchersSubmenuTable:insert({
+            type = "editbox",
+            name = L.PABMenu_Currency_WritVouchers_MaxToKeep,
+            tooltip = L.PABMenu_Currency_WritVouchers_MaxToKeep_T,
+            getFunc = PAMenuFunctions.PABanking.getWritVouchersMaxToKeepSetting,
+            setFunc = PAMenuFunctions.PABanking.setWritVouchersMaxToKeepSetting,
+            width = "half",
+            disabled = PAMenuFunctions.PABanking.isWritVouchersMaxToKeepDisabled,
+            default = PAMenuDefaults.PABanking.writVouchersMaxToKeep,
+            reference = "PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX",
+        })
+
+
     end
 end
 
@@ -818,11 +990,18 @@ end
 
 local function createOptions()
     -- create main- and submenus with LAM-2
+    createPABCurrencyGoldSubmenuTable()
+    createPABCurrencyAlliancePointsSubmenuTable()
+    createPABCurrencyTelVarSubmenuTable()
+    createPABCurrencyWritVouchersSubmenuTable()
+
     createPABItemTypeMaterialSubmenuTable()
     createPABItemSubMenu()
     createPABItemAdvancedSubMenu()
+
     createPALHarvestableItemSubMenu()
     createPALLootableItemSubMenu()
+
     createMainMenu()
 
     -- and register it
@@ -833,11 +1012,5 @@ end
 
 -- Export
 PA.MainMenu = {
-    createMainMenu = createMainMenu,
-    createPABItemTypeMaterialSubmenuTable = createPABItemTypeMaterialSubmenuTable,
-    createPABItemSubMenu = createPABItemSubMenu,
-    createPABItemAdvancedSubMenu = createPABItemAdvancedSubMenu,
-    createPALHarvestableItemSubMenu = createPALHarvestableItemSubMenu,
-    createPALLootableItemSubMenu = createPALLootableItemSubMenu,
     createOptions = createOptions
 }

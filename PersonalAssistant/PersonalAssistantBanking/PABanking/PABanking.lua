@@ -24,7 +24,7 @@ local function OnBankOpen()
             -- check if gold deposit is enabled
             if PASV.Banking[PA.activeProfile].goldTransaction then
                 -- trigger the deposit and withdrawal of gold
-                PAB.DepositOrWithdrawGold()
+                PAB.depositOrWithdrawCurrencies()
             end
 
             -- check if item deposit is enabled

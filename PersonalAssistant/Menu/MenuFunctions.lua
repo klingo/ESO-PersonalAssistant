@@ -4,8 +4,7 @@ local PASV = PA.SavedVars
 local PAEM = PA.EventManager
 local L = PA.Localization
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
 -- PAGeneral
 
@@ -40,6 +39,29 @@ end
 
 local function isDisabledPAGeneralNoProfileSelected()
     return (PA.activeProfile == nil)
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function isDisabled(savedVarsTable, ...)
+    if (isDisabledPAGeneralNoProfileSelected()) then return true end
+    local args = { ... }
+    for _, v in ipairs(args) do
+        -- return true when ANY setting is OFF
+        if (not savedVarsTable[PA.activeProfile][v]) then return true end
+    end
+    -- return false when ALL settings are ON
+    return false
+end
+
+local function getValue(savedVarsTable, attribute)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    return savedVarsTable[PA.activeProfile][attribute]
+end
+
+local function setValue(savedVarsTable, attribute, value)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    savedVarsTable[PA.activeProfile][attribute] = value
 end
 
 --------------------------------------------------------------------------
@@ -277,75 +299,147 @@ local function setPABankingEnabled(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   goldTransaction
----------------------------------
-local function getPABankingGoldTransaction()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].goldTransaction
-end
-
-local function setPABankingGoldTransaction(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].goldTransaction = value
-end
-
-local function isDisabledPABankingGoldTransaction()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Banking[PA.activeProfile].enabled
-end
-
---------------------------------------------------------------------------
--- PABanking   goldTransactionStep
----------------------------------
-local function getPABankingGoldTransactionStep()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].goldTransactionStep
-end
-
-local function setPABankingGoldTransactionStep(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].goldTransactionStep = value
-end
-
-local function isDisabledPABankingGoldTransactionStep()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Banking[PA.activeProfile].enabled and PASV.Banking[PA.activeProfile].goldTransaction)
-end
-
---------------------------------------------------------------------------
 -- PABanking   goldMinToKeep
 ---------------------------------
-local function getPABankingGoldMinToKeep()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].goldMinToKeep
-end
-
-local function setPABankingGoldMinToKeep(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].goldMinToKeep = tonumber(value)
-end
-
-local function isDisabledPABankingGoldMinToKeep()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Banking[PA.activeProfile].enabled and PASV.Banking[PA.activeProfile].goldTransaction)
+local function setPABAnkingGoldMinToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_GOLD_MIN:UpdateValue()
+    else
+        local goldMaxToKeep = tonumber(getValue(PASV.Banking, "goldMaxToKeep"))
+        if (intValue <= goldMaxToKeep) then
+            setValue(PASV.Banking, "goldMinToKeep", value)
+        else
+            setValue(PASV.Banking, "goldMinToKeep", goldMaxToKeep)
+            PERSONALASSISTANT_PAB_GOLD_MIN:UpdateValue()
+        end
+    end
 end
 
 --------------------------------------------------------------------------
--- PABanking   withdrawToMinGold
+-- PABanking   goldMaxToKeep
 ---------------------------------
-local function getPABankingWithdrawToMinGold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].withdrawToMinGold
+local function setPABAnkingGoldMaxToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_GOLD_MAX:UpdateValue()
+    else
+        local goldMinToKeep = tonumber(getValue(PASV.Banking, "goldMinToKeep"))
+        if (intValue >= goldMinToKeep) then
+            setValue(PASV.Banking, "goldMaxToKeep", value)
+        else
+            setValue(PASV.Banking, "goldMaxToKeep", goldMinToKeep)
+            PERSONALASSISTANT_PAB_GOLD_MAX:UpdateValue()
+        end
+    end
 end
 
-local function setPABankingWithdrawToMinGold(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].withdrawToMinGold = value
+--------------------------------------------------------------------------
+-- PABanking   alliancePointsMinToKeep
+---------------------------------
+local function setPABAnkingAlliancePointsMinToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN:UpdateValue()
+    else
+        local alliancePointsMaxToKeep = tonumber(getValue(PASV.Banking, "alliancePointsMaxToKeep"))
+        if (intValue <= alliancePointsMaxToKeep) then
+            setValue(PASV.Banking, "alliancePointsMinToKeep", value)
+        else
+            setValue(PASV.Banking, "alliancePointsMinToKeep", alliancePointsMaxToKeep)
+            PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN:UpdateValue()
+        end
+    end
 end
 
-local function isDisabledPABankingWithdrawToMinGold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Banking[PA.activeProfile].enabled and PASV.Banking[PA.activeProfile].goldTransaction)
+--------------------------------------------------------------------------
+-- PABanking   alliancePointsMaxToKeep
+---------------------------------
+local function setPABAnkingAlliancePointsMaxToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX:UpdateValue()
+    else
+        local alliancePointsMinToKeep = tonumber(getValue(PASV.Banking, "alliancePointsMinToKeep"))
+        if (intValue >= alliancePointsMinToKeep) then
+            setValue(PASV.Banking, "alliancePointsMaxToKeep", value)
+        else
+            setValue(PASV.Banking, "alliancePointsMaxToKeep", alliancePointsMinToKeep)
+            PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX:UpdateValue()
+        end
+    end
+end
+
+--------------------------------------------------------------------------
+-- PABanking   telVarMinToKeep
+---------------------------------
+local function setPABAnkingTelVarMinToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_TELVAR_MIN:UpdateValue()
+    else
+        local telVarMaxToKeep = tonumber(getValue(PASV.Banking, "telVarMaxToKeep"))
+        if (intValue <= telVarMaxToKeep) then
+            setValue(PASV.Banking, "telVarMinToKeep", value)
+        else
+            setValue(PASV.Banking, "telVarMinToKeep", telVarMaxToKeep)
+            PERSONALASSISTANT_PAB_TELVAR_MIN:UpdateValue()
+        end
+    end
+end
+
+--------------------------------------------------------------------------
+-- PABanking   telVarMaxToKeep
+---------------------------------
+local function setPABAnkingTelVarMaxToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_TELVAR_MAX:UpdateValue()
+    else
+        local telVarMinToKeep = tonumber(getValue(PASV.Banking, "telVarMinToKeep"))
+        if (intValue >= telVarMinToKeep) then
+            setValue(PASV.Banking, "telVarMaxToKeep", value)
+        else
+            setValue(PASV.Banking, "telVarMaxToKeep", telVarMinToKeep)
+            PERSONALASSISTANT_PAB_TELVAR_MAX:UpdateValue()
+        end
+    end
+end
+
+--------------------------------------------------------------------------
+-- PABanking   writVouchersMinToKeep
+---------------------------------
+local function setPABAnkingWritVouchersMinToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN:UpdateValue()
+    else
+        local writVouchersMaxToKeep = tonumber(getValue(PASV.Banking, "writVouchersMaxToKeep"))
+        if (intValue <= writVouchersMaxToKeep) then
+            setValue(PASV.Banking, "writVouchersMinToKeep", value)
+        else
+            setValue(PASV.Banking, "writVouchersMinToKeep", writVouchersMaxToKeep)
+            PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN:UpdateValue()
+        end
+    end
+end
+
+--------------------------------------------------------------------------
+-- PABanking   writVouchersMaxToKeep
+---------------------------------
+local function setPABAnkingWritVouchersMaxToKeepSetting(value)
+    local intValue = tonumber(value)
+    if not intValue then
+        PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX:UpdateValue()
+    else
+        local writVouchersMinToKeep = tonumber(getValue(PASV.Banking, "writVouchersMinToKeep"))
+        if (intValue >= writVouchersMinToKeep) then
+            setValue(PASV.Banking, "writVouchersMaxToKeep", value)
+        else
+            setValue(PASV.Banking, "writVouchersMaxToKeep", writVouchersMinToKeep)
+            PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX:UpdateValue()
+        end
+    end
 end
 
 --------------------------------------------------------------------------
@@ -951,21 +1045,67 @@ PA.MenuFunctions = {
         isEnabled = getPABankingEenabled,
         setIsEnabled = setPABankingEnabled,
 
-        isGoldTransactionDisabled = isDisabledPABankingGoldTransaction,
-        getGoldTransactionSetting = getPABankingGoldTransaction,
-        setGoldTransactionSetting = setPABankingGoldTransaction,
+        -- -----------------------------------------------------------------------------------
 
-        isGoldTransactionStepDisabled = isDisabledPABankingGoldTransactionStep,
-        getGoldTransactionStepSetting = getPABankingGoldTransactionStep,
-        setGoldTransactionStepSetting = setPABankingGoldTransactionStep,
+        isGoldTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "enabled", "goldTransaction") end,
+        isGoldTransactionDisabled = function() return isDisabled(PASV.Banking, "enabled") end,
+        getGoldTransactionSetting = function() return getValue(PASV.Banking, "goldTransaction") end,
+        setGoldTransactionSetting = function(value) setValue(PASV.Banking, "goldTransaction", value) end,
 
-        isGoldMinToKeepDisabled = isDisabledPABankingGoldMinToKeep,
-        getGoldMinToKeepSetting = getPABankingGoldMinToKeep,
-        setGoldMinToKeepSetting =  setPABankingGoldMinToKeep,
+        isGoldMinToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "goldTransaction") end,
+        getGoldMinToKeepSetting = function() return getValue(PASV.Banking, "goldMinToKeep") end,
+        setGoldMinToKeepSetting =  setPABAnkingGoldMinToKeepSetting,
 
-        isWithdrawToMinGoldDisabled = isDisabledPABankingWithdrawToMinGold,
-        getWithdrawToMinGoldSetting = getPABankingWithdrawToMinGold,
-        setWithdrawToMinGoldSetting = setPABankingWithdrawToMinGold,
+        isGoldMaxToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "goldTransaction") end,
+        getGoldMaxToKeepSetting = function() return getValue(PASV.Banking, "goldMaxToKeep") end,
+        setGoldMaxToKeepSetting =  setPABAnkingGoldMaxToKeepSetting,
+
+        -- -----------------------------------------------------------------------------------
+
+        isAlliancePointsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "enabled", "alliancePointsTransaction") end,
+        isAlliancePointsTransactionDisabled = function() return isDisabled(PASV.Banking, "enabled") end,
+        getAlliancePointsTransactionSetting = function() return getValue(PASV.Banking, "alliancePointsTransaction") end,
+        setAlliancePointsTransactionSetting = function(value) setValue(PASV.Banking, "alliancePointsTransaction", value) end,
+
+        isAlliancePointsMinToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "alliancePointsTransaction") end,
+        getAlliancePointsMinToKeepSetting = function() return getValue(PASV.Banking, "alliancePointsMinToKeep") end,
+        setAlliancePointsMinToKeepSetting = setPABAnkingAlliancePointsMinToKeepSetting,
+
+        isAlliancePointsMaxToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "alliancePointsTransaction") end,
+        getAlliancePointsMaxToKeepSetting = function() return getValue(PASV.Banking, "alliancePointsMaxToKeep") end,
+        setAlliancePointsMaxToKeepSetting = setPABAnkingAlliancePointsMaxToKeepSetting,
+
+        -- -----------------------------------------------------------------------------------
+
+        isTelVarTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "enabled", "telVarTransaction") end,
+        isTelVarTransactionDisabled = function() return isDisabled(PASV.Banking, "enabled") end,
+        getTelVarTransactionSetting = function() return getValue(PASV.Banking, "telVarTransaction") end,
+        setTelVarTransactionSetting = function(value) setValue(PASV.Banking, "telVarTransaction", value) end,
+
+        isTelVarMinToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "telVarTransaction") end,
+        getTelVarMinToKeepSetting = function() return getValue(PASV.Banking, "telVarMinToKeep") end,
+        setTelVarMinToKeepSetting = setPABAnkingTelVarMinToKeepSetting,
+
+        isTelVarMaxToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "telVarTransaction") end,
+        getTelVarMaxToKeepSetting = function() return getValue(PASV.Banking, "telVarMaxToKeep") end,
+        setTelVarMaxToKeepSetting = setPABAnkingTelVarMaxToKeepSetting,
+
+        -- -----------------------------------------------------------------------------------
+
+        isWritVouchersTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "enabled", "writVouchersTransaction") end,
+        isWritVouchersTransactionDisabled = function() return isDisabled(PASV.Banking, "enabled") end,
+        getWritVouchersTransactionSetting = function() return getValue(PASV.Banking, "writVouchersTransaction") end,
+        setWritVouchersTransactionSetting = function(value) setValue(PASV.Banking, "writVouchersTransaction", value) end,
+
+        isWritVouchersMinToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "writVouchersTransaction") end,
+        getWritVouchersMinToKeepSetting = function() return getValue(PASV.Banking, "writVouchersMinToKeep") end,
+        setWritVouchersMinToKeepSetting = setPABAnkingWritVouchersMinToKeepSetting,
+
+        isWritVouchersMaxToKeepDisabled = function() return isDisabled(PASV.Banking, "enabled", "writVouchersTransaction") end,
+        getWritVouchersMaxToKeepSetting = function() return getValue(PASV.Banking, "writVouchersMaxToKeep") end,
+        setWritVouchersMaxToKeepSetting = setPABAnkingWritVouchersMaxToKeepSetting,
+
+        -- -----------------------------------------------------------------------------------
 
         isItemTransactionDisabled = isDisabledPABankingItemTransaction,
         getItemTransactionSetting = getPABankingItemTransaction,

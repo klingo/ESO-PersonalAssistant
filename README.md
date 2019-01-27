@@ -69,10 +69,11 @@ PersonalAssistant.Repair
     ```lua
     RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
     ```
-* [ ] **(3)** PABanking: Check new function for transferring currencies
+* [X] **(3)** PABanking: Check new function for transferring currencies
     ```lua
     TransferCurrency(currencyType, amount, fromLocation, toLocation).
     ```
+* [X] **(3)** PABanking: Support all four currency types    
 * [ ] **(4)** PABanking: Support Home Storage Banking Bags
     ```lua
     BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_TEN

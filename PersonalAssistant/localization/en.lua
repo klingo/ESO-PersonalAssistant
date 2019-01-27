@@ -22,15 +22,15 @@ PersonalAssistant.Localization = {
 
     -- PARepair Chat Output - Full Repair --
     PAR_FullRepair_ChatMode_None = "<no output>",
-    PAR_FullRepair_ChatMode_Min = PAC_COL_RED .. "- %d " .. PAC_ICON_GOLD,
-    PAR_FullRepair_ChatMode_Normal = PAC_COLTEXT_PAR .. PAC_COL_RED .. "- %d " .. PAC_ICON_GOLD,
-    PAR_FullRepair_ChatMode_Full = PAC_COLTEXT_PAR .. "All %s items repaired for " .. PAC_COL_RED .. "- %d " .. PAC_ICON_GOLD,
+    PAR_FullRepair_ChatMode_Min = PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
+    PAR_FullRepair_ChatMode_Normal = PAC_COLTEXT_PAR .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
+    PAR_FullRepair_ChatMode_Full = PAC_COLTEXT_PAR .. "All %s items repaired for " .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
 
     -- PARepair Chat Output - Partial Repair --
     PAR_PartialRepair_ChatMode_None = "<no output>",
-    PAR_PartialRepair_ChatMode_Min = PAC_COL_RED .. "- %d " .. PAC_ICON_GOLD .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_GOLD .. ")",
-    PAR_PartialRepair_ChatMode_Normal = PAC_COLTEXT_PAR .. PAC_COL_RED .. "- %d " .. PAC_ICON_GOLD .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_GOLD .. " missing)",
-    PAR_PartialRepair_ChatMode_Full = PAC_COLTEXT_PAR .. "%d / %d %s items repaired for " .. PAC_COL_RED .. "- %d " .. PAC_ICON_GOLD .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_GOLD .. " missing for full repair)",
+    PAR_PartialRepair_ChatMode_Min = PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. ")",
+    PAR_PartialRepair_ChatMode_Normal = PAC_COLTEXT_PAR .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. " missing)",
+    PAR_PartialRepair_ChatMode_Full = PAC_COLTEXT_PAR .. "%d / %d %s items repaired for " .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. " missing for full repair)",
 
     -- PARepair Chat Output - Weapon Charge --
     PAR_ReChargeWeapon_ChatMode_None = "<no output>",
@@ -39,9 +39,14 @@ PersonalAssistant.Localization = {
     PAR_ReChargeWeapon_ChatMode_Full = PAC_COLTEXT_PAR .. "Charged %s %s from %d%% to %d%%  with %s %s",
 
     -- PABanking --
-    PAB_GoldDeposited = PAC_COLTEXT_PAB .. "%d " .. PAC_ICON_GOLD .. " deposited.",
-    PAB_GoldWithdrawn = PAC_COLTEXT_PAB .. "%d " .. PAC_ICON_GOLD .. " withdrawn.",
-    PAB_GoldWithdrawnInsufficient = PAC_COLTEXT_PAB .. "%d / %d " .. PAC_ICON_GOLD .. " withdrawn. (not enough gold in bank!)",
+    PAB_Currency_Withdrawal_Full = table.concat({PAC_COLTEXT_PAB, "%d %s withdrawn."}),
+    PAB_Currency_Withdrawal_Partial_Source = table.concat({PAC_COLTEXT_PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
+    PAB_Currency_Withdrawal_Partial_Target = table.concat({PAC_COLTEXT_PAB, "%d / %d %s withdrawn. (Not enough space on character)"}),
+
+    PAB_Currency_Deposit_Full = table.concat({PAC_COLTEXT_PAB, "%d %s deposited."}),
+    PAB_Currency_Deposit_Partial_Source = table.concat({PAC_COLTEXT_PAB, "%d / %d %s deposited. (Character is empty)"}),
+    PAB_Currency_Deposit_Partial_Target = table.concat({PAC_COLTEXT_PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
+
     PAB_ItemMovedTo = PAC_COLTEXT_PAB .. "%d x %s moved to %s.",
     PAB_ItemNotMovedTo = PAC_COLTEXT_PAB .. "%d x %s NOT moved to %s.",
     PAB_ItemMovedToFailed = PAC_COLTEXT_PAB .. PAC_COL_ORANGE .. "FAILURE: %s could NOT be moved to %s.",
@@ -66,9 +71,9 @@ PersonalAssistant.Localization = {
 
     -- PALoot Chat Output - Loot Gold --
     PAL_Gold_ChatMode_None = "<no output>",
-    PAL_Gold_ChatMode_Min = PAC_COL_GREEN .. "+ %d " .. PAC_ICON_GOLD,
-    PAL_Gold_ChatMode_Normal = PAC_COLTEXT_PAL .. PAC_COL_GREEN .. "+ %d " .. PAC_ICON_GOLD,
-    PAL_Gold_ChatMode_Full = PAC_COLTEXT_PAL .. "Looted " .. PAC_COL_GREEN .. "+ %d " .. PAC_ICON_GOLD .. PAC_COL_DEFAULT .. " Gold",
+    PAL_Gold_ChatMode_Min = PAC_COL_GREEN .. "+ %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
+    PAL_Gold_ChatMode_Normal = PAC_COLTEXT_PAL .. PAC_COL_GREEN .. "+ %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
+    PAL_Gold_ChatMode_Full = PAC_COLTEXT_PAL .. "Looted " .. PAC_COL_GREEN .. "+ %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " Gold",
 
     -- PALoot Chat Output - Loot Items --
     PAL_Items_ChatMode_None = "<no output>",
@@ -85,7 +90,7 @@ PersonalAssistant.Localization = {
 
     -- PAJunk --
     PAJ_MarkedAsJunk = PAC_COLTEXT_PAJ .. "Marked %s as junk",
-    PAJ_SoldJunkInfo = PAC_COLTEXT_PAJ .. "Sold junk items for " .. PAC_COL_GREEN .. "%d " .. PAC_ICON_GOLD,
+    PAJ_SoldJunkInfo = PAC_COLTEXT_PAJ .. "Sold junk items for " .. PAC_COL_GREEN .. "%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
 
     -- MainMenu --
     MMenu_Title = PAC_COLTEXT_PA,
@@ -124,17 +129,57 @@ PersonalAssistant.Localization = {
 
     -- PABMenu --
     PABMenu_Header = PAC_COLTEXT_PAB,
-    PABMenu_Enable = PAC_COL_LIGHT_BLUE .. "Enable Auto Banking",
-    PABMenu_Enable_T = "Enable Auto Bank Deposit and Withdrawal?",
-    PABMenu_EnabledGold = "Deposit Gold",
-    PABMenu_EnabledGold_T = "Auto deposit gold to bank?",
-    PABMenu_GoldTransactionStep = "- Gold transactions in steps of ",
-    PABMenu_GoldTransactionStep_T = "In what steps shall gold be deposited and withdrawn?",
-    PABMenu_GoldMinToKeep = "- Min gold to keep on character",
-    PABMenu_GoldMinToKeep_T = "Minimum amount of gold to always keep on the character.",
-    PABMenu_GoldMinToKeep_W = "Invalid number --> No gold shall be kept on the character.",
-    PABMenu_WithdrawToMinGold = "- Withdraw gold if below minimum",
-    PABMenu_WithdrawToMinGold_T = "Automatically withdraw gold from the bank if there is less gold on the character than defined above?",
+    PABMenu_Currency_Enable = table.concat({PAC_COL_LIGHT_BLUE, "Enable Auto Banking for Currencies"}),
+    PABMenu_Currency_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Currencies?",
+
+    PABMenu_Currency_Gold_Header = table.concat({PAC_ICON_CURRENCY[CURT_MONEY].NORMAL, " ", "Gold"}),
+    PABMenu_Currency_Gold_Enabled = "Deposit/Withdraw Gold",
+    PABMenu_Currency_Gold_Enabled_T = "Automatically deposit excess Gold to the bank, or withdraw when needed?",
+    PABMenu_Currency_Gold_TransactionStep = "Transactions in steps of",
+    PABMenu_Currency_Gold_TransactionStep_T = "In what steps (amount) the Gold can be deposited or withdrawn",
+    PABMenu_Currency_Gold_WithdrawToMin = "Withdraw if below minimum",
+    PABMenu_Currency_Gold_WithdrawToMin_T = "Automatically withdraw Gold from the bank if there is less Gold on the character than defined",
+    PABMenu_Currency_Gold_MinToKeep = "Mininum to keep on character",
+    PABMenu_Currency_Gold_MinToKeep_T = "Minimum amount of Gold to always keep on the character; if necessary with additional withdrawals from te bank",
+    PABMenu_Currency_Gold_MaxToKeep = "Maximum to keep on character",
+    PABMenu_Currency_Gold_MaxToKeep_T = "Maximum amount of Gold to always keep on the character; everything above this amount is deposited to the bank",
+
+    PABMenu_Currency_AlliancePoints_Header = table.concat({PAC_ICON_CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, " ", "Alliance Points"}),
+    PABMenu_Currency_AlliancePoints_Enabled = "Deposit/Withdraw Alliance Points",
+    PABMenu_Currency_AlliancePoints_Enabled_T = "Automatically deposit excess Alliance Points to the bank, or withdraw when needed?",
+    PABMenu_Currency_AlliancePoints_TransactionStep = "Transactions in steps of",
+    PABMenu_Currency_AlliancePoints_TransactionStep_T = "In what steps (amount) the Alliance Points can be deposited or withdrawn",
+    PABMenu_Currency_AlliancePoints_WithdrawToMin = "Withdraw if below minimum",
+    PABMenu_Currency_AlliancePoints_WithdrawToMin_T = "Automatically withdraw Alliance Points from the bank if there are less Points on the character than defined",
+    PABMenu_Currency_AlliancePoints_MinToKeep = "Mininum to keep on character",
+    PABMenu_Currency_AlliancePoints_MinToKeep_T = "Minimum amount of Alliance Points to always keep on the character; if necessary with additional withdrawals from te bank",
+    PABMenu_Currency_AlliancePoints_MaxToKeep = "Maximum to keep on character",
+    PABMenu_Currency_AlliancePoints_MaxToKeep_T = "Maximum amount of Alliance Points to always keep on the character; everything above this amount is deposited to the bank",
+
+    PABMenu_Currency_TelVar_Header = table.concat({PAC_ICON_CURRENCY[CURT_TELVAR_STONES].NORMAL, " ", "Tel Var Stones"}),
+    PABMenu_Currency_TelVar_Enabled = "Deposit/Withdraw Tel Var Stones",
+    PABMenu_Currency_TelVar_Enabled_T = "Automatically deposit excess Tel Var Stones to the bank, or withdraw when needed?",
+    PABMenu_Currency_TelVar_TransactionStep = "Transactions in steps of",
+    PABMenu_Currency_TelVar_TransactionStep_T = "In what steps (amount) the Tel Var Stones can be deposited or withdrawn",
+    PABMenu_Currency_TelVar_WithdrawToMin = "Withdraw if below minimum",
+    PABMenu_Currency_TelVar_WithdrawToMin_T = "Automatically withdraw Tel Var Stones from the bank if there are less Stones on the character than defined",
+    PABMenu_Currency_TelVar_MinToKeep = "Mininum to keep on character",
+    PABMenu_Currency_TelVar_MinToKeep_T = "Minimum amount of Tel Var Stones to always keep on the character; if necessary with additional withdrawals from te bank",
+    PABMenu_Currency_TelVar_MaxToKeep = "Maximum to keep on character",
+    PABMenu_Currency_TelVar_MaxToKeep_T = "Maximum amount of Tel Var Stones to always keep on the character; everything above this amount is deposited to the bank",
+
+    PABMenu_Currency_WritVouchers_Header = table.concat({PAC_ICON_CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, " ", "Writ Vouchers"}),
+    PABMenu_Currency_WritVouchers_Enabled = "Deposit/Withdraw Writ Vouchers",
+    PABMenu_Currency_WritVouchers_Enabled_T = "Automatically deposit excess Writ Vouchers to the bank, or withdraw when needed?",
+    PABMenu_Currency_WritVouchers_TransactionStep = "Transactions in steps of",
+    PABMenu_Currency_WritVouchers_TransactionStep_T = "In what steps (amount) the Writ VOuchers can be deposited or withdrawn",
+    PABMenu_Currency_WritVouchers_WithdrawToMin = "Withdraw if below minimum",
+    PABMenu_Currency_WritVouchers_WithdrawToMin_T = "Automatically withdraw Writ Vouchers from the bank if there is less Vouchers on the character than defined",
+    PABMenu_Currency_WritVouchers_MinToKeep = "Mininum to keep on character",
+    PABMenu_Currency_WritVouchers_MinToKeep_T = "Minimum amount of Writ Vouchers to always keep on the character; if necessary with additional withdrawals from te bank",
+    PABMenu_Currency_WritVouchers_MaxToKeep = "Maximum to keep on character",
+    PABMenu_Currency_WritVouchers_MaxToKeep_T = "Maximum amount of Writ Vouchers to always keep on the character; everything above this amount is deposited to the bank",
+
     PABMenu_EnabledItems = "Deposit and withdraw items",
     PABMenu_EnabledItems_T = "Auto deposit and/or withdraw items to and from the bank?",
     PABMenu_DepItemTypeDesc = "Define an individual behaviour (deposit, withdraw, ignore) for common item types as well as more advanced ones.",

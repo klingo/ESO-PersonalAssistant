@@ -25,7 +25,7 @@ local PAMenuChoices = {
         }
     },
     PABanking = {
-        goldTransactionStep = {
+        transactionStep = {
             "1",
             "10",
             "100",
@@ -98,7 +98,7 @@ local PAMenuChoicesValues = {
         }
     },
     PABanking = {
-        goldTransactionStep = {
+        transactionStep = {
             1,
             10,
             100,

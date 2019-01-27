@@ -23,11 +23,23 @@ PA.MenuDefaults = {
     },
     PABanking = {
         enabled = true,
-        goldTransaction = true,
-        goldTransactionStep = 1,
+
+        goldTransaction = false,
         goldMinToKeep = 1000,
-        withdrawToMinGold = false,
-        goldLastDeposit = 0, -- timestamp to keep track of last gold depost
+        goldMaxToKeep = 5000,
+
+        alliancePointsTransaction = false,
+        alliancePointsMinToKeep = 1000,
+        alliancePointsMaxToKeep = 5000,
+
+        telVarTransaction = false,
+        telVarMinToKeep = 1000,
+        telVarMaxToKeep = 5000,
+
+        writVouchersTransaction = false,
+        writVouchersMinToKeep = 10,
+        writVouchersMaxToKeep = 100,
+
         itemTransaction = false,
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,

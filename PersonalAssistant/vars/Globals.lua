@@ -66,8 +66,24 @@ PAC_COLTEXT_PAL = PAC_COL_YELLOW .. "PA L" .. PAC_COL_WHITE .. "oot: " .. PAC_CO
 PAC_COLTEXT_PAJ = PAC_COL_YELLOW .. "PA J" .. PAC_COL_WHITE .. "unk: " .. PAC_COL_DEFAULT
 
 -- Icons
-PAC_ICON_GOLD = "|t16:16:/esoui/art/currency/currency_gold.dds|t"
-PAC_ICON_TALVAR = "|t16:16:/esoui/art/currency/currency_telvar.dds|t"
+PAC_ICON_CURRENCY = {
+    [CURT_MONEY] = {
+        SMALL = "|t16:16:/esoui/art/currency/currency_gold.dds|t",
+        NORMAL = "|t32:32:/esoui/art/currency/currency_gold_32.dds|t",
+    },
+    [CURT_ALLIANCE_POINTS] = {
+        SMALL = "|t16:16:/esoui/art/currency/alliancepoints.dds|t",
+        NORMAL = "|t32:32:/esoui/art/currency/alliancepoints_32.dds|t"
+    },
+    [CURT_TELVAR_STONES] = {
+        SMALL = "|t16:16:/esoui/art/currency/currency_telvar.dds|t",
+        NORMAL = "|t32:32:/esoui/art/currency/currency_telvar_32.dds|t",
+    },
+    [CURT_WRIT_VOUCHERS] = {
+        SMALL = "|160:16:/esoui/art/currency/currency_writvoucher.dds|t",
+        NORMAL = "|t32:32:/esoui/art/currency/currency_writvoucher_64.dds|t" -- currentnly no 32x32 version available
+    }
+}
 PAC_ICON_BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t"
 PAC_ICON_SOULGEM = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t"
 PAC_ICON_WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t"
