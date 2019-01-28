@@ -119,9 +119,9 @@ local PAMenuChoicesValues = {
             PAC_OPERATOR_NONE,
             PAC_OPERATOR_EQUAL,
             -- PAC_OPERATOR_LESSTHAN,
-            PAC_OPERATOR_LESSTAHNEQAL,
+            PAC_OPERATOR_LESSTHANOREQUAL,
             -- PAC_OPERATOR_GREATERTHAN,
-            PAC_OPERATOR_GREATERTHANEQUAL,
+            PAC_OPERATOR_GREATERTHANOREQUAL,
         },
     },
     PALoot = {

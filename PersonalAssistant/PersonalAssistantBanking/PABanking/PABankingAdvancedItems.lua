@@ -95,20 +95,20 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
             checkItemId = transferList[currItemTransferIndex]
             if (transferInfo[checkItemId]["backpackStackSize"] >= transferInfo[checkItemId]["targetStackSize"]) then
                 -- we already have enough items in the bank - no withdrawal, but maybe depositing required
-                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_LESSTAHNEQAL)) then
+                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_LESSTHANOREQUAL)) then
                     transferInfo[checkItemId]["toDeposit"] = transferInfo[checkItemId]["backpackStackSize"] - transferInfo[checkItemId]["targetStackSize"]
                     transferInfo[checkItemId]["toWithdraw"] = 0
-                elseif (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL) then
+                elseif (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANOREQUAL) then
                     transferInfo[checkItemId]["toDeposit"] = 0
                     transferInfo[checkItemId]["toWithdraw"] = 0
                 end
 
             elseif ((transferInfo[checkItemId]["backpackStackSize"] + transferInfo[checkItemId]["bankStackSize"]) >= transferInfo[checkItemId]["targetStackSize"]) then
                 -- with the bank, there are enough items - withdrawal might be required!
-                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
+                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANOREQUAL)) then
                     transferInfo[checkItemId]["toDeposit"] = 0
                     transferInfo[checkItemId]["toWithdraw"] = transferInfo[checkItemId]["targetStackSize"] - transferInfo[checkItemId]["backpackStackSize"]
-                elseif (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_LESSTAHNEQAL) then
+                elseif (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_LESSTHANOREQUAL) then
                     transferInfo[checkItemId]["toDeposit"] = 0
                     transferInfo[checkItemId]["toWithdraw"] = 0
                 end
@@ -117,7 +117,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
                 -- not enough items in total, but there are some left in the bank
                 transferInfo[checkItemId]["toDeposit"] = 0
                 transferInfo[checkItemId]["toWithdraw"] = transferInfo[checkItemId]["bankStackSize"]
-                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
+                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANOREQUAL)) then
                     -- SHOW WARNING: NOT ENOUGH ITEMS !!!
                 end
 
@@ -125,7 +125,7 @@ function PAB_AdvancedItems.DoAdvancedItemTransaction()
                 -- not enough items in total and nothing left in the bank
                 transferInfo[checkItemId]["toDeposit"] = 0
                 transferInfo[checkItemId]["toWithdraw"] = 0
-                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANEQUAL)) then
+                if ((transferInfo[checkItemId]["operator"] == PAC_OPERATOR_EQUAL) or (transferInfo[checkItemId]["operator"] == PAC_OPERATOR_GREATERTHANOREQUAL)) then
                     -- SHOW WARNING: NOT ENOUGH ITEMS !!!
                 end
             end
