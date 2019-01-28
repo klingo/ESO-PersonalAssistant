@@ -4,6 +4,110 @@ PersonalAssistant.SavedVars = {}
 PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+PersonalAssistant.Constants = {
+    PAGeneral = {
+        PAG_MAX_PROFILES = 5,
+        PAG_NO_PROFILE_SELECTED_ID = 6
+    },
+
+    PABanking = {
+        PAC_ITEMTYPE_IGNORE = 0,
+        PAC_ITEMTYPE_DEPOSIT = 1,
+        PAC_ITEMTYPE_WITHDRAWAL = 2,
+        PAC_ITEMTYPE_INHERIT = 3,
+
+        PAB_DEPOSIT_MAX_LOOPS = 3,
+
+        StackingType = {
+            PAB_STACKING_FULL = 0, -- 0: Full depositing/withdrawl
+            PAB_STACKING_CONTINUE = 1, -- 1: Continue existing stacks
+            PAB_STACKING_INCOMPLETE = 2, -- 2: Complete existing stacks
+        },
+
+        MoveMode = {
+            PAB_MOVETO_IGNORE = 0,
+            PAB_MOVETO_BANK = 1,
+            PAB_MOVETO_BACKPACK = 2,
+        }
+    },
+    PALoot = {
+        PAC_ITEMTYPE_LOOT = 1,
+        PAC_ITEMTYPE_DESTROY = 2,
+
+        PAL_TYPE_LOOT = 0,
+        PAL_TYPE_HARVEST = 1,
+    },
+
+    PAOperator = {
+        PAC_OPERATOR_NONE = 0,
+        PAC_OPERATOR_EQUAL = 1,
+        -- PAC_OPERATOR_LESSTHAN = 2,
+        PAC_OPERATOR_LESSTHANOREQUAL = 3,
+        -- PAC_OPERATOR_GREATERTHAN = 4,
+        PAC_OPERATOR_GREATERTHANOREQUAL = 5
+    },
+
+    PAChat = {
+        PA_OUTPUT_TYPE_NONE = 0,
+        PA_OUTPUT_TYPE_MIN = 1,
+        PA_OUTPUT_TYPE_NORMAL = 2,
+        PA_OUTPUT_TYPE_FULL = 3,
+    },
+
+    PAHeaders = {
+        PAC_COLTEXT_PA = table.concat({PAC_COL_YELLOW, "P", PAC_COL_WHITE, "rersonal", PAC_COL_YELLOW, "A", PAC_COL_WHITE, "ssistant"}),
+        PAC_COLTEXT_PAG = table.concat({PAC_COL_YELLOW, "PA G", PAC_COL_WHITE, "eneral: ", PAC_COL_DEFAULT}),
+        PAC_COLTEXT_PAB = table.concat({PAC_COL_YELLOW, "PA B", PAC_COL_WHITE, "anking: ", PAC_COL_DEFAULT}),
+        PAC_COLTEXT_PAR = table.concat({PAC_COL_YELLOW, "PA R", PAC_COL_WHITE, "epair: ", PAC_COL_DEFAULT}),
+        PAC_COLTEXT_PAL = table.concat({PAC_COL_YELLOW, "PA L", PAC_COL_WHITE, "oot: ", PAC_COL_DEFAULT}),
+        PAC_COLTEXT_PAJ = table.concat({PAC_COL_YELLOW, "PA J", PAC_COL_WHITE, "unk: ", PAC_COL_DEFAULT}),
+    },
+
+    PAColors = {
+        PAC_COL_DEFAULT = "|cFFFF00",
+        PAC_COL_WHITE = "|cFFFFFF",
+        PAC_COL_LIGHT_BLUE = "|cB0B0FF",
+        PAC_COL_GREEN = "|c00FF00",
+        PAC_COL_YELLOW = "|cFFD700",
+        PAC_COL_ORANGE = "|cFF7400",
+        PAC_COL_RED = "|cFF0000",
+    },
+
+    PAIcons = {
+        PAC_ICON_CURRENCY = {
+            [CURT_MONEY] = {
+                SMALL = "|t16:16:/esoui/art/currency/currency_gold.dds|t",
+                NORMAL = "|t32:32:/esoui/art/currency/currency_gold_32.dds|t",
+            },
+            [CURT_ALLIANCE_POINTS] = {
+                SMALL = "|t16:16:/esoui/art/currency/alliancepoints.dds|t",
+                NORMAL = "|t32:32:/esoui/art/currency/alliancepoints_32.dds|t"
+            },
+            [CURT_TELVAR_STONES] = {
+                SMALL = "|t16:16:/esoui/art/currency/currency_telvar.dds|t",
+                NORMAL = "|t32:32:/esoui/art/currency/currency_telvar_32.dds|t",
+            },
+            [CURT_WRIT_VOUCHERS] = {
+                SMALL = "|160:16:/esoui/art/currency/currency_writvoucher.dds|t",
+                NORMAL = "|t32:32:/esoui/art/currency/currency_writvoucher_64.dds|t" -- currentnly no 32x32 version available
+            }
+        },
+        PAC_ICON_BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t",
+        PAC_ICON_SOULGEM = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t",
+        PAC_ICON_WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t",
+
+        PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds",
+    },
+
+    PAItemLinks = {
+        PAC_ITEMCODE_BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Bananas]|h", -- Bananas, Normal Level 1
+        PAC_ITEMCODE_SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h[Grand Soul Gem]|h", -- Grand Soul Gem, Fine Level 50
+        PAC_ITEMCODE_WEAPON = "|H0:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h[Sword of the Dragon]|h", -- Sword of the Dragon, Epic Level 50 CP160
+    }
+}
+
 -- PA Banking
 PAC_ITEMTYPE_IGNORE = 0
 PAC_ITEMTYPE_DEPOSIT = 1
@@ -17,9 +121,9 @@ PAC_ITEMTYPE_DESTROY = 2
 PAC_OPERATOR_NONE = 0
 PAC_OPERATOR_EQUAL = 1
 -- PAC_OPERATOR_LESSTHAN = 2
-PAC_OPERATOR_LESSTAHNEQAL = 3
+PAC_OPERATOR_LESSTHANOREQUAL = 3
 -- PAC_OPERATOR_GREATERTHAN = 4
-PAC_OPERATOR_GREATERTHANEQUAL = 5
+PAC_OPERATOR_GREATERTHANOREQUAL = 5
 
 -- PersonalAssistant General
 PAG_MAX_PROFILES = 5

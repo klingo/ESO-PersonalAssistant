@@ -345,88 +345,98 @@ local function createMainMenu()
             name = L.PALMenu_Header
         })
 
-        optionsTable:insert({
-            type = "checkbox",
-            name = L.PALMenu_Enable,
-            tooltip = L.PALMenu_Enable_T,
-            getFunc = PAMenuFunctions.PALoot.isEnabled,
-            setFunc = PAMenuFunctions.PALoot.setIsEnabled,
-            disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-            default = PAMenuDefaults.PALoot.enabled,
-        })
+        if (GetSetting_Bool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)) then
+            -- In case of ESO Auto Loot is enabled, only show a remark that PALoot options are not available
+            optionsTable:insert({
+                type = "description",
+                text = L.PALMenu_ESOAutoLootDesc
+            })
 
-        optionsTable:insert({
-            type = "checkbox",
-            name = L.PALMenu_LootGold,
-            tooltip = L.PALMenu_LootGold_T,
-            getFunc = PAMenuFunctions.PALoot.getLootGoldSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootGoldSetting,
-            width = "half",
-            disabled = PAMenuFunctions.PALoot.isLootGoldDisabled,
-            default = PAMenuDefaults.PALoot.lootGold,
-        })
+        else
+            -- ESO Auto Loot disabled
+            optionsTable:insert({
+                type = "checkbox",
+                name = L.PALMenu_Enable,
+                tooltip = L.PALMenu_Enable_T,
+                getFunc = PAMenuFunctions.PALoot.isEnabled,
+                setFunc = PAMenuFunctions.PALoot.setIsEnabled,
+                disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+                default = PAMenuDefaults.PALoot.enabled,
+            })
 
-        optionsTable:insert({
-            type = "dropdown",
-            name = L.PALMenu_LootGoldChatMode,
-            tooltip = L.PALMenu_LootGoldChatMode_T,
-            choices = PAMenuChoices.choices.PALoot.lootGoldChatMode,
-            choicesValues = PAMenuChoices.choicesValues.PALoot.lootGoldChatMode,
-            getFunc = PAMenuFunctions.PALoot.getLootGoldChatModeSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootGoldChatModeSetting,
-            width = "half",
-            disabled = PAMenuFunctions.PALoot.isLootGoldChatModeDisabled,
-            default = PAMenuDefaults.PALoot.lootGoldChatMode,
-        })
+            optionsTable:insert({
+                type = "checkbox",
+                name = L.PALMenu_LootGold,
+                tooltip = L.PALMenu_LootGold_T,
+                getFunc = PAMenuFunctions.PALoot.getLootGoldSetting,
+                setFunc = PAMenuFunctions.PALoot.setLootGoldSetting,
+                width = "half",
+                disabled = PAMenuFunctions.PALoot.isLootGoldDisabled,
+                default = PAMenuDefaults.PALoot.lootGold,
+            })
 
-        optionsTable:insert({
-            type = "checkbox",
-            name = L.PALMenu_LootItems,
-            tooltip = L.PALMenu_LootItems_T,
-            getFunc = PAMenuFunctions.PALoot.getLootItemsSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootItemsSetting,
-            width = "half",
-            disabled = PAMenuFunctions.PALoot.isLootItemsDisabled,
-            default = PAMenuDefaults.PALoot.lootItems,
-        })
+            optionsTable:insert({
+                type = "dropdown",
+                name = L.PALMenu_LootGoldChatMode,
+                tooltip = L.PALMenu_LootGoldChatMode_T,
+                choices = PAMenuChoices.choices.PALoot.lootGoldChatMode,
+                choicesValues = PAMenuChoices.choicesValues.PALoot.lootGoldChatMode,
+                getFunc = PAMenuFunctions.PALoot.getLootGoldChatModeSetting,
+                setFunc = PAMenuFunctions.PALoot.setLootGoldChatModeSetting,
+                width = "half",
+                disabled = PAMenuFunctions.PALoot.isLootGoldChatModeDisabled,
+                default = PAMenuDefaults.PALoot.lootGoldChatMode,
+            })
 
-        optionsTable:insert({
-            type = "dropdown",
-            name = L.PALMenu_LootItemsChatMode,
-            tooltip = L.PALMenu_LootItemsChatMode_T,
-            choices = PAMenuChoices.choices.PALoot.lootItemsChatMode,
-            choicesValues = PAMenuChoices.choicesValues.PALoot.lootItemsChatMode,
-            getFunc = PAMenuFunctions.PALoot.getLootItemsChatModeSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootItemsChatModeSetting,
-            width = "half",
-            disabled = PAMenuFunctions.PALoot.isLootItemsChatModeDisabled,
-            default = PAMenuDefaults.PALoot.lootItemsChatMode,
-        })
+            optionsTable:insert({
+                type = "checkbox",
+                name = L.PALMenu_LootItems,
+                tooltip = L.PALMenu_LootItems_T,
+                getFunc = PAMenuFunctions.PALoot.getLootItemsSetting,
+                setFunc = PAMenuFunctions.PALoot.setLootItemsSetting,
+                width = "half",
+                disabled = PAMenuFunctions.PALoot.isLootItemsDisabled,
+                default = PAMenuDefaults.PALoot.lootItems,
+            })
 
-        optionsTable:insert({
-            type = "checkbox",
-            name = L.PALMenu_LootStolenItems,
-            tooltip = L.PALMenu_LootStolenItems_T,
-            getFunc = PAMenuFunctions.PALoot.getLootStolenItemsSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootStolenItemsSetting,
-            width = "half",
-            disabled = PAMenuFunctions.PALoot.isLootStolenItemsSettingDisabled,
-            default = PAMenuDefaults.PALoot.lootStolenItems,
-        })
+            optionsTable:insert({
+                type = "dropdown",
+                name = L.PALMenu_LootItemsChatMode,
+                tooltip = L.PALMenu_LootItemsChatMode_T,
+                choices = PAMenuChoices.choices.PALoot.lootItemsChatMode,
+                choicesValues = PAMenuChoices.choicesValues.PALoot.lootItemsChatMode,
+                getFunc = PAMenuFunctions.PALoot.getLootItemsChatModeSetting,
+                setFunc = PAMenuFunctions.PALoot.setLootItemsChatModeSetting,
+                width = "half",
+                disabled = PAMenuFunctions.PALoot.isLootItemsChatModeDisabled,
+                default = PAMenuDefaults.PALoot.lootItemsChatMode,
+            })
 
-        optionsTable:insert({
-            type = "submenu",
-            name = L.PALMenu_HarvestableItems,
-            tooltip = L.PALMenu_HarvestableItems_T,
-            controls = PALHarvestableItemSubmenuTable,
-        })
+            optionsTable:insert({
+                type = "checkbox",
+                name = L.PALMenu_LootStolenItems,
+                tooltip = L.PALMenu_LootStolenItems_T,
+                getFunc = PAMenuFunctions.PALoot.getLootStolenItemsSetting,
+                setFunc = PAMenuFunctions.PALoot.setLootStolenItemsSetting,
+                width = "half",
+                disabled = PAMenuFunctions.PALoot.isLootStolenItemsSettingDisabled,
+                default = PAMenuDefaults.PALoot.lootStolenItems,
+            })
 
-        optionsTable:insert({
-            type = "submenu",
-            name = L.PALMenu_LootableItems,
-            tooltip = L.PALMenu_LootableItems_T,
-            controls = PALLootableItemSubmenuTable,
-        })
+            optionsTable:insert({
+                type = "submenu",
+                name = L.PALMenu_HarvestableItems,
+                tooltip = L.PALMenu_HarvestableItems_T,
+                controls = PALHarvestableItemSubmenuTable,
+            })
+
+            optionsTable:insert({
+                type = "submenu",
+                name = L.PALMenu_LootableItems,
+                tooltip = L.PALMenu_LootableItems_T,
+                controls = PALLootableItemSubmenuTable,
+            })
+        end
     end
 
     -- =================================================================================================================

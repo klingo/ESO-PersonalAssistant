@@ -212,6 +212,7 @@ PersonalAssistant.Localization = {
 
     -- PALMenu --
     PALMenu_Header = PAC_COLTEXT_PAL,
+    PALMenu_ESOAutoLootDesc = PAC_COL_LIGHT_BLUE .. "With the Auto Loot option of ESO enabled, the settings of PALoot are not relevant since everything is already automatically looted.",
     PALMenu_Enable = PAC_COL_LIGHT_BLUE .. "Enable Auto Loot",
     PALMenu_Enable_T = "Enable Auto Loot?",
     PALMenu_LootGold = "Auto-Loot gold",

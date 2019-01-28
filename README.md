@@ -120,7 +120,7 @@ PersonalAssistant.Repair
     CURT_ALLIANCE_POINTS
     CURT_TELVAR_STONES
     ```
-* [ ] **(8)** PALoot: Check global ESO settings for AutoLoot
+* [X] **(8)** PALoot: Check global ESO settings for AutoLoot
     * http://cdn.esoui.com/forums/showthread.php?p=20437
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AOE_LOOT)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_ADD_TO_CRAFT_BAG)
