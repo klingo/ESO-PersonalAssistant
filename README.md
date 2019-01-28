@@ -23,10 +23,10 @@ PersonalAssistant.Repair
 ## Development ToDo
 
 #### General
-* [ ] **(7)** Update Currency System
+* [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
-* [ ] **(1)** Support ESO Plus Bags
+* [ ] **(2)** Support ESO Plus Bags
   * BAG_VIRTUAL (Dark Brotherhood)
     * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
   * BAG_SUBSCRIBER_BANK (Morrowind)
@@ -46,7 +46,12 @@ PersonalAssistant.Repair
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion
   * Variable Expansion - $(language)
-  
+* [ ] **(6)** Check new API from patch 4.3
+    ```lua
+    GetItemLinkTraitType(itemLink) – itemTraitType.
+    GetAddOnRootDirectoryPath(addOnIndex) – directoryPath.
+    GetAddOnVersion(addOnIndex) – version.
+    ```
   
 #### PARepair
 * [ ] **(2)** PARepair: Implement Repair Kits
