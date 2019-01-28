@@ -655,7 +655,7 @@ end
 ---------------------------------
 local function getPALootEnabled()
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Loot[PA.activeProfile].enabled
+    return (PASV.Loot[PA.activeProfile].enabled and not (GetSetting_Bool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)))
 end
 
 local function setPALootEnabled(value)
