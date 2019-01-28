@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 local L = PA.Localization
 
@@ -19,9 +20,9 @@ local PAMenuChoices = {
         },
         chargeWeaponsChatMode = {
             PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_None),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Min, PAC_ICON_SOULGEM, PAC_ICON_WEAPON, 15, 100),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Normal, PAC_ITEMCODE_WEAPON, 15, 100, PAC_ITEMCODE_SOULGEM),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Full, PAC_ICON_WEAPON, PAC_ITEMCODE_WEAPON, 15, 100, PAC_ICON_SOULGEM, PAC_ITEMCODE_SOULGEM),
+            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Min, PAC.ICONS.ITEMS.SOULGEM, PAC.ICONS.ITEMS.WEAPON, 15, 100),
+            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Normal, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ITEMLINKS.SOULGEM),
+            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Full, PAC.ICONS.ITEMS.WEAPON, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ICONS.ITEMS.SOULGEM, PAC.ITEMLINKS.SOULGEM),
         }
     },
     PABanking = {
@@ -60,9 +61,9 @@ local PAMenuChoices = {
         },
         lootItemsChatMode = {
             PAHF.getFormattedText(L.PAL_Items_ChatMode_None),
-            PAHF.getFormattedText(L.PAL_Items_ChatMode_Min, 2, PAC_ICON_BANANAS, ""),
-            PAHF.getFormattedText(L.PAL_Items_ChatMode_Normal, 2, PAC_ITEMCODE_BANANAS, PAC_ICON_BANANAS, ""),
-            PAHF.getFormattedText(L.PAL_Items_ChatMode_Full, 2, PAC_ITEMCODE_BANANAS, PAC_ICON_BANANAS, ""),
+            PAHF.getFormattedText(L.PAL_Items_ChatMode_Min, 2, PAC.ICONS.ITEMS.BANANAS, ""),
+            PAHF.getFormattedText(L.PAL_Items_ChatMode_Normal, 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
+            PAHF.getFormattedText(L.PAL_Items_ChatMode_Full, 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
         },
         itemTypesLootMode = {
             L.PAL_ItemType_Ignore,

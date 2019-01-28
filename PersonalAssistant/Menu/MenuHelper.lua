@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local L = PA.Localization
 
 local function setPALHarvestDropdownsTo(itemTypeKey)
@@ -27,12 +28,12 @@ local function getProfileList()
     local PASV = PA.SavedVars
 
     local profiles = {}
-    for profileNo = 1, PAG_MAX_PROFILES do
+    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         profiles[profileNo] = PASV.General[profileNo].name
     end
 
     if (PASV.Profile.activeProfile == nil) then
-        profiles[PAG_NO_PROFILE_SELECTED_ID] = L.PAG_PleaseSelectProfile
+        profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = L.PAG_PleaseSelectProfile
     end
 
     return profiles
@@ -42,12 +43,12 @@ local function getProfileListValues()
     local PASV = PA.SavedVars
 
     local profileValues = {}
-    for profileNo = 1, PAG_MAX_PROFILES do
+    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         profileValues[profileNo] = profileNo
     end
 
     if (PASV.Profile.activeProfile == nil) then
-        profileValues[PAG_NO_PROFILE_SELECTED_ID] = PAG_NO_PROFILE_SELECTED_ID
+        profileValues[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = PAC.GENERAL.NO_PROFILE_SELECTED_ID
     end
 
     return profileValues

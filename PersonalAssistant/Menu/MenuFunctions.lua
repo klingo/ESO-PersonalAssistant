@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAEM = PA.EventManager
 local L = PA.Localization
@@ -14,14 +15,14 @@ local L = PA.Localization
 local function getPAGeneralActiveProfile()
     local activeProfile = PASV.Profile.activeProfile
     if (activeProfile == nil) then
-        return PAG_NO_PROFILE_SELECTED_ID
+        return PAC.GENERAL.NO_PROFILE_SELECTED_ID
     else
         return activeProfile
     end
 end
 
 local function setPAGeneralActiveProfile(profileNo)
-    if (profileNo ~= nil and profileNo ~= PAG_NO_PROFILE_SELECTED_ID) then
+    if (profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID) then
         -- get the previously active prefoile first
         local prevProfile = PASV.Profile.activeProfile
         -- then save the new one

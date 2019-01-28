@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 
 local alreadyHarvesting = false
 local alreadyFishing = false
@@ -232,7 +233,7 @@ local function OnLootUpdated()
                         if (itemLooted) then
                             -- check if ItemLink is empty (i.e. its a quest item), then replace it with a regular String
                             if (itemLink == nil or itemLink == "") then
-                                itemLink = PAC_COL_WHITE .. "[" .. itemName .. "]"
+                                itemLink = PAC.COLORS.WHITE .. "[" .. itemName .. "]"
                             end
 
                             -- show output to chat (depending on setting)

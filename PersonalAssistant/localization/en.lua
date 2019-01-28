@@ -1,9 +1,10 @@
+local PAC = PersonalAssistant.Constants
 PersonalAssistant.Localization = {
     -- Type '/pa' for GUI."
     -- Welcome Messages --
-    Welcome_NoSupport = PAC_COLTEXT_PA .. PAC_COL_DEFAULT .. " at your service!   -   no localization for language [%s] available (yet).",
-    Welcome_Support = PAC_COLTEXT_PA .. PAC_COL_DEFAULT .. " at your service!",
-    Welcome_PleaseSelectProfile = PAC_COLTEXT_PA .. PAC_COL_DEFAULT .. " welcomes you! In order to get started, please go to the Addon Settings (or type /pa) and select a profile. Thank you :-)",
+    Welcome_NoSupport = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)."}),
+    Welcome_Support = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!"}),
+    Welcome_PleaseSelectProfile = table.concat({AC_COLTEXT_PA, PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type /pa) and select a profile. Thank you :-)"}),
 
     -- Key Bindings
     KB_Load_Profile1 = "Activate profile 1",
@@ -22,36 +23,36 @@ PersonalAssistant.Localization = {
 
     -- PARepair Chat Output - Full Repair --
     PAR_FullRepair_ChatMode_None = "<no output>",
-    PAR_FullRepair_ChatMode_Min = PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
-    PAR_FullRepair_ChatMode_Normal = PAC_COLTEXT_PAR .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
-    PAR_FullRepair_ChatMode_Full = PAC_COLTEXT_PAR .. "All %s items repaired for " .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
+    PAR_FullRepair_ChatMode_Min = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    PAR_FullRepair_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    PAR_FullRepair_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAR, "All %s items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- PARepair Chat Output - Partial Repair --
     PAR_PartialRepair_ChatMode_None = "<no output>",
-    PAR_PartialRepair_ChatMode_Min = PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. ")",
-    PAR_PartialRepair_ChatMode_Normal = PAC_COLTEXT_PAR .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. " missing)",
-    PAR_PartialRepair_ChatMode_Full = PAC_COLTEXT_PAR .. "%d / %d %s items repaired for " .. PAC_COL_RED .. "- %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " (%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. " missing for full repair)",
+    PAR_PartialRepair_ChatMode_Min = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
+    PAR_PartialRepair_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
+    PAR_PartialRepair_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d %s items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing for full repair)"}),
 
     -- PARepair Chat Output - Weapon Charge --
     PAR_ReChargeWeapon_ChatMode_None = "<no output>",
-    PAR_ReChargeWeapon_ChatMode_Min = PAC_COL_DEFAULT .. "%s %s (%d%% --> %d%%)",
-    PAR_ReChargeWeapon_ChatMode_Normal = PAC_COLTEXT_PAR .. "%s (%d%% --> %d%%) - %s",
-    PAR_ReChargeWeapon_ChatMode_Full = PAC_COLTEXT_PAR .. "Charged %s %s from %d%% to %d%%  with %s %s",
+    PAR_ReChargeWeapon_ChatMode_Min = table.concat({PAC.COLORS.DEFAULT, "%s %s (%d%% --> %d%%)"}),
+    PAR_ReChargeWeapon_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
+    PAR_ReChargeWeapon_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAR, "Charged %s %s from %d%% to %d%%  with %s %s"}),
 
     -- PABanking --
-    PAB_Currency_Withdrawal_Full = table.concat({PAC_COLTEXT_PAB, "%d %s withdrawn."}),
-    PAB_Currency_Withdrawal_Partial_Source = table.concat({PAC_COLTEXT_PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
-    PAB_Currency_Withdrawal_Partial_Target = table.concat({PAC_COLTEXT_PAB, "%d / %d %s withdrawn. (Not enough space on character)"}),
+    PAB_Currency_Withdrawal_Full = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn."}),
+    PAB_Currency_Withdrawal_Partial_Source = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
+    PAB_Currency_Withdrawal_Partial_Target = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Not enough space on character)"}),
 
-    PAB_Currency_Deposit_Full = table.concat({PAC_COLTEXT_PAB, "%d %s deposited."}),
-    PAB_Currency_Deposit_Partial_Source = table.concat({PAC_COLTEXT_PAB, "%d / %d %s deposited. (Character is empty)"}),
-    PAB_Currency_Deposit_Partial_Target = table.concat({PAC_COLTEXT_PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
+    PAB_Currency_Deposit_Full = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s deposited."}),
+    PAB_Currency_Deposit_Partial_Source = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Character is empty)"}),
+    PAB_Currency_Deposit_Partial_Target = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
 
-    PAB_ItemMovedTo = PAC_COLTEXT_PAB .. "%d x %s moved to %s.",
-    PAB_ItemNotMovedTo = PAC_COLTEXT_PAB .. "%d x %s NOT moved to %s.",
-    PAB_ItemMovedToFailed = PAC_COLTEXT_PAB .. PAC_COL_ORANGE .. "FAILURE: %s could NOT be moved to %s.",
-    PAB_NoSpaceInFor = PAC_COLTEXT_PAB .. PAC_COL_ORANGE .. "Not enough space in %s for: %s.",
-    PAB_NoDeposit = PAC_COLTEXT_PAB .. "Nothing to deposit.",
+    PAB_ItemMovedTo = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s."}),
+    PAB_ItemNotMovedTo = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s NOT moved to %s."}),
+    PAB_ItemMovedToFailed = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "FAILURE: %s could NOT be moved to %s."}),
+    PAB_NoSpaceInFor = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "Not enough space in %s for: %s."}),
+    PAB_NoDeposit = table.concat({PAC.COLORED_TEXTS.PAB, "Nothing to deposit."}),
     PAB_ItemType_None = "-",
     PAB_ItemType_Deposit = "Deposit",
     PAB_ItemType_Withdrawal = "Withdraw",
@@ -63,40 +64,40 @@ PersonalAssistant.Localization = {
     -- PALoot --
     PAL_ItemType_Ignore = "Ignore",
     PAL_ItemType_AutoLoot = "Auto-Loot",
-    PAL_ItemType_LootDestroy = "Auto-Loot and " .. PAC_COL_RED .. "Destroy",
+    PAL_ItemType_LootDestroy = table.concat({"Auto-Loot and ", PAC.COLORS.RED, "Destroy"}),
     PAL_RecipeUnknown_Suffix = "(unknown)",
     PAL_ItemType_Ignore_T = "Nothing happens, the item is ignored",
     PAL_ItemType_AutoLoot_T = "Automatically loots the item",
-    PAL_ItemType_LootDestroy_T = PAC_COL_RED .. "CAUTION: USE AT OWN RISK!|r Automatically loots the item, but then immediately destroys the looted amount again.",
+    PAL_ItemType_LootDestroy_T = table.concat({PAC.COLORS.RED, "CAUTION: USE AT OWN RISK!|r Automatically loots the item, but then immediately destroys the looted amount again."}),
 
     -- PALoot Chat Output - Loot Gold --
     PAL_Gold_ChatMode_None = "<no output>",
-    PAL_Gold_ChatMode_Min = PAC_COL_GREEN .. "+ %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
-    PAL_Gold_ChatMode_Normal = PAC_COLTEXT_PAL .. PAC_COL_GREEN .. "+ %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
-    PAL_Gold_ChatMode_Full = PAC_COLTEXT_PAL .. "Looted " .. PAC_COL_GREEN .. "+ %d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL .. PAC_COL_DEFAULT .. " Gold",
+    PAL_Gold_ChatMode_Min = table.concat({PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    PAL_Gold_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    PAL_Gold_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAL, "Looted ", PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " Gold"}),
 
     -- PALoot Chat Output - Loot Items --
     PAL_Items_ChatMode_None = "<no output>",
-    PAL_Items_ChatMode_Min = PAC_COL_DEFAULT .. "%d x %s %s",
-    PAL_Items_ChatMode_Normal = PAC_COL_DEFAULT .. "%d x %s %s %s",
-    PAL_Items_ChatMode_Full = PAC_COLTEXT_PAL .. "%d x %s %s %s",
+    PAL_Items_ChatMode_Min = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s"}),
+    PAL_Items_ChatMode_Normal = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s %s"}),
+    PAL_Items_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s %s"}),
 
     -- PALoot Chat Output - Loot Items Destroyed--
-    PAL_ItemsDestroy_Min = PAC_COL_DEFAULT .. "%d x %s destroyed",
-    PAL_ItemsDestroy_Normal = PAC_COL_DEFAULT .. "%d x %s %s destroyed",
-    PAL_ItemsDestroy_Full = PAC_COLTEXT_PAL .. "%d x %s %s have been destroyed",
-    PAL_ItemsDestroy_MoveFailed = PAC_COLTEXT_PAL .. PAC_COL_ORANGE .. "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely",
-    PAL_ItemsDestroy_DestroyFailed = PAC_COLTEXT_PAL .. PAC_COL_ORANGE .. "FAILURE: No free inventory slot to safely destroy %d/%d %s %s",
+    PAL_ItemsDestroy_Min = table.concat({PAC.COLORS.DEFAULT, "%d x %s destroyed"}),
+    PAL_ItemsDestroy_Normal = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s destroyed"}),
+    PAL_ItemsDestroy_Full = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s have been destroyed"}),
+    PAL_ItemsDestroy_MoveFailed = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"}),
+    PAL_ItemsDestroy_DestroyFailed = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: No free inventory slot to safely destroy %d/%d %s %s"}),
 
     -- PAJunk --
-    PAJ_MarkedAsJunk = PAC_COLTEXT_PAJ .. "Marked %s as junk",
-    PAJ_SoldJunkInfo = PAC_COLTEXT_PAJ .. "Sold junk items for " .. PAC_COL_GREEN .. "%d " .. PAC_ICON_CURRENCY[CURT_MONEY].SMALL,
+    PAJ_MarkedAsJunk = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk"}),
+    PAJ_SoldJunkInfo = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- MainMenu --
-    MMenu_Title = PAC_COLTEXT_PA,
+    MMenu_Title = PAC.COLORED_TEXTS.PA,
 
     -- PAGMenu --
-    PAGMenu_Header = PAC_COLTEXT_PAG,
+    PAGMenu_Header = PAC.COLORED_TEXTS.PAG,
     PAGMenu_ActiveProfile = "Active profile",
     PAGMenu_ActiveProfile_T = "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile.",
     PAGMenu_ActiveProfileRename = "Rename active profile",
@@ -105,8 +106,8 @@ PersonalAssistant.Localization = {
     PAGMenu_Welcome_T = "Display a welcome message from the addon upon successfully starting?",
 
     -- PARMenu --
-    PARMenu_Header = PAC_COLTEXT_PAR,
-    PARMenu_Enable = PAC_COL_LIGHT_BLUE .. "Enable Auto Repair",
+    PARMenu_Header = PAC.COLORED_TEXTS.PAR,
+    PARMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair"}),
     PARMenu_Enable_T = "Enable Auto Repair?",
     PARMenu_RepairWornGold = "Repair equipped items",
     PARMenu_RepairWornGold_T = "Repair equipped items at a merchant?",
@@ -128,11 +129,11 @@ PersonalAssistant.Localization = {
     PARMenu_ChargeWeaponsChatMode_T = "How to display the information of a re-charged weapon in the chat window",
 
     -- PABMenu --
-    PABMenu_Header = PAC_COLTEXT_PAB,
-    PABMenu_Currency_Enable = table.concat({PAC_COL_LIGHT_BLUE, "Enable Auto Banking for Currencies"}),
+    PABMenu_Header = PAC.COLORED_TEXTS.PAB,
+    PABMenu_Currency_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Currencies"}),
     PABMenu_Currency_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Currencies?",
 
-    PABMenu_Currency_Gold_Header = table.concat({PAC_ICON_CURRENCY[CURT_MONEY].NORMAL, " ", "Gold"}),
+    PABMenu_Currency_Gold_Header = table.concat({PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, " ", "Gold"}),
     PABMenu_Currency_Gold_Enabled = "Deposit/Withdraw Gold",
     PABMenu_Currency_Gold_Enabled_T = "Automatically deposit excess Gold to the bank, or withdraw when needed?",
     PABMenu_Currency_Gold_TransactionStep = "Transactions in steps of",
@@ -144,7 +145,7 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_Gold_MaxToKeep = "Maximum to keep on character",
     PABMenu_Currency_Gold_MaxToKeep_T = "Maximum amount of Gold to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_AlliancePoints_Header = table.concat({PAC_ICON_CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, " ", "Alliance Points"}),
+    PABMenu_Currency_AlliancePoints_Header = table.concat({PAC.ICONS.CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, " ", "Alliance Points"}),
     PABMenu_Currency_AlliancePoints_Enabled = "Deposit/Withdraw Alliance Points",
     PABMenu_Currency_AlliancePoints_Enabled_T = "Automatically deposit excess Alliance Points to the bank, or withdraw when needed?",
     PABMenu_Currency_AlliancePoints_TransactionStep = "Transactions in steps of",
@@ -156,7 +157,7 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_AlliancePoints_MaxToKeep = "Maximum to keep on character",
     PABMenu_Currency_AlliancePoints_MaxToKeep_T = "Maximum amount of Alliance Points to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_TelVar_Header = table.concat({PAC_ICON_CURRENCY[CURT_TELVAR_STONES].NORMAL, " ", "Tel Var Stones"}),
+    PABMenu_Currency_TelVar_Header = table.concat({PAC.ICONS.CURRENCY[CURT_TELVAR_STONES].NORMAL, " ", "Tel Var Stones"}),
     PABMenu_Currency_TelVar_Enabled = "Deposit/Withdraw Tel Var Stones",
     PABMenu_Currency_TelVar_Enabled_T = "Automatically deposit excess Tel Var Stones to the bank, or withdraw when needed?",
     PABMenu_Currency_TelVar_TransactionStep = "Transactions in steps of",
@@ -168,7 +169,7 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_TelVar_MaxToKeep = "Maximum to keep on character",
     PABMenu_Currency_TelVar_MaxToKeep_T = "Maximum amount of Tel Var Stones to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_WritVouchers_Header = table.concat({PAC_ICON_CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, " ", "Writ Vouchers"}),
+    PABMenu_Currency_WritVouchers_Header = table.concat({PAC.ICONS.CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, " ", "Writ Vouchers"}),
     PABMenu_Currency_WritVouchers_Enabled = "Deposit/Withdraw Writ Vouchers",
     PABMenu_Currency_WritVouchers_Enabled_T = "Automatically deposit excess Writ Vouchers to the bank, or withdraw when needed?",
     PABMenu_Currency_WritVouchers_TransactionStep = "Transactions in steps of",
@@ -184,7 +185,7 @@ PersonalAssistant.Localization = {
     PABMenu_EnabledItems_T = "Auto deposit and/or withdraw items to and from the bank?",
     PABMenu_DepItemTypeDesc = "Define an individual behaviour (deposit, withdraw, ignore) for common item types as well as more advanced ones.",
     PABMenu_ItemTypeMaterialSubmenu = "Crafting Material",
-    PABMenu_ItemTypeMaterialESOPlusDesc = PAC_COL_LIGHT_BLUE .. "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag.",
+    PABMenu_ItemTypeMaterialESOPlusDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag."}),
     PABMenu_DepItemType = "Common item types",
     PABMenu_DepItemType_T = "Open the sub-menu to define for each item type whether it shall be deposited, withdrawn or ignored.",
     PABMenu_DepStackOnly = "Stacking type (Deposit)",
@@ -195,7 +196,7 @@ PersonalAssistant.Localization = {
     PABMenu_Advanced_DepItemType_T = "Open the sub-menu to define for other item types on an advanced level whether they shall be deposited, withdrawn or ignored.",
     PABMenu_DepItemTimerInterval = "- Interval between item deposits (msecs)",
     PABMenu_DepItemTimerInterval_T = "How many msecs shall pass between two consecutive item deposits. If too many item deposits don't work, consider increasing this value.",
-    PABMenu_ItemType_Header = PAC_COL_LIGHT_BLUE .. "ITEM TYPES",
+    PABMenu_ItemType_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
     PABMenu_HideNoDeposit = "Hide 'Nothing to Deposit' message",
     PABMenu_HideNoDeposit_T = "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",
     PABMenu_HideAll = "Hide ALL banking messages",
@@ -206,14 +207,14 @@ PersonalAssistant.Localization = {
     PABMenu_WitButton_T = "Change all dropdown values to 'Withdraw'",
     PABMenu_IgnButton = "Ignore all",
     PABMenu_IgnButton_T = "Change all dropdown values to '-'",
-    PABMenu_Lockipck_Header = PAC_COL_LIGHT_BLUE .. "Lockpicks",
+    PABMenu_Lockipck_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "Lockpicks"}),
     PABMenu_Keep_in_Backpack = "Amount to keep in backpack",
     PABMenu_Keep_in_Backpack_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
 
     -- PALMenu --
-    PALMenu_Header = PAC_COLTEXT_PAL,
-    PALMenu_ESOAutoLootDesc = PAC_COL_LIGHT_BLUE .. "With the Auto Loot option of ESO enabled, the settings of PALoot are not relevant since everything is already automatically looted.",
-    PALMenu_Enable = PAC_COL_LIGHT_BLUE .. "Enable Auto Loot",
+    PALMenu_Header = PAC.COLORED_TEXTS.PAL,
+    PALMenu_ESOAutoLootDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "With the Auto Loot option of ESO enabled, the settings of PALoot are not relevant since everything is already automatically looted."}),
+    PALMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
     PALMenu_Enable_T = "Enable Auto Loot?",
     PALMenu_LootGold = "Auto-Loot gold",
     PALMenu_LootGold_T = "Automatically loot gold?",
@@ -228,14 +229,14 @@ PersonalAssistant.Localization = {
     PALMenu_HarvestableItems = "Harvestable items",
     PALMenu_HarvestableItems_T = "Open the sub-menu to define for each harvestable item type whether it shall be auto-looted or not.",
     PALMenu_HarvestableItemsDesc = "Enable and disable auto-loot for harvestable items such as ores, herbs, woods, runestones, or fishing holes.",
-    PALMenu_HarvestableItems_Bait_Header = PAC_COL_LIGHT_BLUE .. "BAIT HANDLING",
+    PALMenu_HarvestableItems_Bait_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "BAIT HANDLING"}),
     PALMenu_HarvestableItems_Bait = "Handling of [Bait] items",
     PALMenu_HarvestableItems_Bait_T = "When looting harvestable items, sometimes there also is bait which prevents the node from re-spawning when not looted. Define here what should happen in such cases.",
-    PALMenu_HarvestableItems_Header = PAC_COL_LIGHT_BLUE .. "ITEM TYPES",
+    PALMenu_HarvestableItems_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
     PALMenu_LootableItems = "Lootable items",
     PALMenu_LootableItems_T = "Open the sub-menu to define for each lootable item type whether it shall be auto-looted or not.",
     PALMenu_LootableItemsDesc = "Enable and disable auto-loot for lootable items such as clothing raw materials from animals.",
-    PALMenu_LootableItems_Header = PAC_COL_LIGHT_BLUE .. "ITEM TYPES",
+    PALMenu_LootableItems_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
     PALMenu_AutoLootQuestItems = "Quest Items",
     PALMenu_AutoLootLockpicks = "Lockpick",
     PALMenu_AutoLootAllButton = "Auto-Loot all",
@@ -244,8 +245,8 @@ PersonalAssistant.Localization = {
     PALMenu_IgnButton_T = "Change all dropdown values to 'Ignore'",
 
     -- PAJMenu --
-    PAJMenu_Header = PAC_COLTEXT_PAJ,
-    PAJMenu_Enable = PAC_COL_LIGHT_BLUE .. "Enable Auto Junk",
+    PAJMenu_Header = PAC.COLORED_TEXTS.PAJ,
+    PAJMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Junk"}),
     PAJMenu_Enable_T = "Enable Auto Junk?",
     PAJMenu_ItemTypeDesc = "Enable and disable the automatic marking as junk for different item types.",
     PAJMenu_AutoSellJunk = "Auto-Sell Junk?",

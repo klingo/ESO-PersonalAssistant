@@ -25,7 +25,7 @@ local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         if (moneyDiff > 0) then
             -- no item was sold, but money appeared out of nowhere
             -- should not happen :D
-            PAHF.println(PAC_COLTEXT_PAJ .. "Error #1337: This should not happen!")
+            PAHF.println(PAC.COLORED_TEXTS.PAJ .. "Error #1337: This should not happen!")
         end
     end
 

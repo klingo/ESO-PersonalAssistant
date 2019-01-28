@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 local L = PA.Localization
@@ -16,16 +17,16 @@ local function withdrawCurrency(ccyAmountToWithdraw, currencyType)
         -- enough currency in SOURCE
         if (maxCcyTransfer >= ccyAmountToWithdraw) then
             -- enough space in TARGET --> FULL
-            PAHF.println(L.PAB_Currency_Withdrawal_Full, ccyAmountToWithdraw, PAC_ICON_CURRENCY[currencyType].SMALL)
+            PAHF.println(L.PAB_Currency_Withdrawal_Full, ccyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
         else
             -- not enough space in TARGET --> PARTIAL (limited by TARGET)
             ccyAmountToWithdraw = maxCcyTransfer
-            PAHF.println(L.PAB_Currency_Withdrawal_Partial_Target, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC_ICON_CURRENCY[currencyType].SMALL)
+            PAHF.println(L.PAB_Currency_Withdrawal_Partial_Target, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
         end
     else
         -- not enough currency in SOURCE --> PARTIAL (limited by SOURCE)
         ccyAmountToWithdraw = ccyAmountOnBank
-        PAHF.println(L.PAB_Currency_Withdrawal_Partial_Source, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC_ICON_CURRENCY[currencyType].SMALL)
+        PAHF.println(L.PAB_Currency_Withdrawal_Partial_Source, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
     end
 
     -- actual WITHDRAWAL
@@ -42,16 +43,16 @@ local function depositCurrency(ccyAmountToDeposit, currencyType)
         -- enough currency in SOURCE
         if (maxCcyTransfer >= ccyAmountToDeposit) then
             -- enough space in TARGET --> FULL
-            PAHF.println(L.PAB_Currency_Deposit_Full, ccyAmountToDeposit, PAC_ICON_CURRENCY[currencyType].SMALL)
+            PAHF.println(L.PAB_Currency_Deposit_Full, ccyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
         else
             -- not enough space in TARGET --> PARTIAL (limited by TARGET)
             ccyAmountToDeposit = maxCcyTransfer
-            PAHF.println(L.PAB_Currency_Deposit_Partial_Target, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC_ICON_CURRENCY[currencyType].SMALL)
+            PAHF.println(L.PAB_Currency_Deposit_Partial_Target, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
         end
     else
         -- not enough currency in SOURCE --> PARTIAL (limited by SOURCE)
         ccyAmountToDeposit = ccyAmountOnCharacter
-        PAHF.println(L.PAB_Currency_Deposit_Partial_Source, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC_ICON_CURRENCY[currencyType].SMALL)
+        PAHF.println(L.PAB_Currency_Deposit_Partial_Source, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
     end
 
 

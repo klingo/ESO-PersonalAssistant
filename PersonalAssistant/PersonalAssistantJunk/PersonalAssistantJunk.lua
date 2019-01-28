@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAEM = PA.EventManager
 local PASV = PA.SavedVars
 
@@ -13,7 +14,7 @@ local Junk_Defaults = {}
 local function initDefaults()
     local PAMenuDefaults = PA.MenuDefaults
     -- default values for PAJunk
-    for profileNo = 1, PAG_MAX_PROFILES do
+    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         Junk_Defaults[profileNo] = PAMenuDefaults.PAJunk
     end
 end

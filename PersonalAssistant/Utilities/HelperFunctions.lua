@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PASVProfile = PASV.Profile
 local L = PA.Localization
@@ -117,13 +118,13 @@ end
 
 -- returns the profile number of the provided profile name
 local function getProfileNumberFromText(profileText)
-    for profileNo = 1, PAG_MAX_PROFILES do
+    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         if PASV.General[profileNo].name == profileText then
             return profileNo
         end
     end
     -- if nothing found
-    return PAG_NO_PROFILE_SELECTED_ID
+    return PAC.GENERAL.NO_PROFILE_SELECTED_ID
 end
 
 -- returns the default profile name of the provided profile number

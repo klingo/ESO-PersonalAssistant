@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 local PASV = PA.SavedVars
@@ -23,7 +24,7 @@ local function initDefaults()
     -- -----------------------------------------------------
     -- default values for Addon
     PA.General_Defaults.savedVarsVersion = "200"
-    for profileNo = 1, PAG_MAX_PROFILES do
+    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- -----------------------------------------------------
         -- default values for PAGeneral
         PA.General_Defaults[profileNo] = {}
