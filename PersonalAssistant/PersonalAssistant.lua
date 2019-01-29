@@ -97,9 +97,7 @@ PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction)
 function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6, itemSoundCategory)
     if (PA.debug) then
         local itemType, specializedItemType = GetItemType(bagId, slotIndex)
-        CHAT_SYSTEM:AddMessage("itemType = " .. itemType);
-        local strItemType = L["" .. itemType .. ""]
-        CHAT_SYSTEM:AddMessage("strItemType = " .. strItemType);
+        local strItemType = GetString("SI_ITEMTYPE", itemType)
         local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
         -- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
         local itemId = GetItemId(bagId, slotIndex)

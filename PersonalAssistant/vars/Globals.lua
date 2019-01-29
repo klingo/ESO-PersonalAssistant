@@ -50,6 +50,38 @@ PersonalAssistant.Constants = {
                 NORMAL = "|t32:32:/esoui/art/currency/currency_writvoucher_64.dds|t" -- currentnly no 32x32 version available
             }
         },
+        CRAFTBAG = {
+            BLACKSMITHING = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_blacksmithing_up.dds|t",
+            },
+            CLOTHING = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_clothing_up.dds|t",
+            },
+            WOODWORKING = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_woodworking_up.dds|t",
+            },
+            JEWELCRAFTING = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_jewelrycrafting_up.dds|t",
+            },
+            ALCHEMY = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_alchemy_up.dds|t",
+            },
+            ENCHANTING = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds|t",
+            },
+            PROVISIONING = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_provisioning_up.dds|t",
+            },
+            STYLEMATERIALS = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_stylematerial_up.dds|t",
+            },
+            TRAITITEMS = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_itemtrait_up.dds|t",
+            },
+            FURNISHING = {
+                LARGE = "|t48:48:/esoui/art/crafting/provisioner_indexicon_furnishings_up.dds|t",
+            }
+        },
         ITEMS = {
             BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t",
             SOULGEM = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t",
@@ -62,6 +94,54 @@ PersonalAssistant.Constants = {
         SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h[Grand Soul Gem]|h", -- Grand Soul Gem, Fine Level 50
         WEAPON = "|H0:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h[Sword of the Dragon]|h", -- Sword of the Dragon, Epic Level 50 CP160
     },
+
+    BANKING = {
+        BLACKSMITHING = {
+            ITEMTYPE_BLACKSMITHING_RAW_MATERIAL,
+            ITEMTYPE_BLACKSMITHING_MATERIAL,
+            ITEMTYPE_BLACKSMITHING_BOOSTER
+        },
+        CLOTHING = {
+            ITEMTYPE_CLOTHIER_RAW_MATERIAL,
+            ITEMTYPE_CLOTHIER_MATERIAL,
+            ITEMTYPE_CLOTHIER_BOOSTER
+        },
+        WOODWORKING = {
+            ITEMTYPE_WOODWORKING_RAW_MATERIAL,
+            ITEMTYPE_WOODWORKING_MATERIAL,
+            ITEMTYPE_WOODWORKING_BOOSTER
+        },
+        JEWELCRAFTING = {
+            ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL,
+            ITEMTYPE_JEWELRYCRAFTING_MATERIAL,
+            ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL
+        },
+        ALCHEMY = {
+            ITEMTYPE_REAGENT,
+            ITEMTYPE_POISON_BASE,
+            ITEMTYPE_POTION_BASE
+        },
+        ENCHANTING = {
+            ITEMTYPE_ENCHANTING_RUNE_ASPECT,
+            ITEMTYPE_ENCHANTING_RUNE_ESSENCE,
+            ITEMTYPE_ENCHANTING_RUNE_POTENCY
+        },
+        PROVISIONING = {
+            ITEMTYPE_INGREDIENT,
+            ITEMTYPE_LURE
+        },
+        STYLEMATERIALS = {
+            ITEMTYPE_RAW_MATERIAL,
+            ITEMTYPE_STYLE_MATERIAL
+        },
+        TRAITITEMS = {
+            ITEMTYPE_ARMOR_TRAIT,
+            ITEMTYPE_WEAPON_TRAIT
+        },
+        FURNISHING = {
+            ITEMTYPE_FURNISHING_MATERIAL
+        }
+    }
 }
 
 

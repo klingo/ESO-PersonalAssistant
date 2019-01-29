@@ -27,6 +27,17 @@ local PABCurrencyAlliancePointsSubmenuTable = setmetatable({}, { __index = table
 local PABCurrencyTelVarSubmenuTable = setmetatable({}, { __index = table })
 local PABCurrencyWritVouchersSubmenuTable = setmetatable({}, { __index = table })
 
+local PABItemsBlacksmithingSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsClothingSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsWoodworkingSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsJewelcraftingSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsAlchemySubmenuTable = setmetatable({}, { __index = table })
+local PABItemsEnchantingSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsProvisioningSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsStyleMaterialSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsTraitItemSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsFurnishingSubmenuTable = setmetatable({}, { __index = table })
+
 local PABItemTypeMaterialSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeAdvancedSubmenuTable = setmetatable({}, { __index = table })
@@ -236,10 +247,10 @@ local function createMainMenu()
             type = "checkbox",
             name = L.PABMenu_Currency_Enable,
             tooltip = L.PABMenu_Currency_Enable_T,
-            getFunc = PAMenuFunctions.PABanking.isEnabled,
-            setFunc = PAMenuFunctions.PABanking.setIsEnabled,
+            getFunc = PAMenuFunctions.PABanking.getCurrenciesEnabledSetting,
+            setFunc = PAMenuFunctions.PABanking.setCurrenciesEnabledSetting,
             disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-            default = PAMenuDefaults.PABanking.enabled,
+            default = PAMenuDefaults.PABanking.currenciesEnabled,
         })
 
         optionsTable:insert({
@@ -281,15 +292,114 @@ local function createMainMenu()
             alpha = 0.5,
         })
 
-        optionsTable:insert({
-            type = "checkbox",
-            name = L.PABMenu_EnabledItems,
-            tooltip = L.PABMenu_EnabledItems_T,
-            getFunc = PAMenuFunctions.PABanking.getItemTransactionSetting,
-            setFunc = PAMenuFunctions.PABanking.setItemTransactionSetting,
-            disabled = PAMenuFunctions.PABanking.isItemTransactionDisabled,
-            default = PAMenuDefaults.PABanking.itemTransaction,
-        })
+        -- Check if PA Banking module is loaded
+        if (PA.Banking) then
+            -- ------------------------- --
+            -- PersonalAssistant Banking --
+            -- ------------------------- --
+            if (IsESOPlusSubscriber()) then
+                -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
+                -- options are not available (--> Virtual Bag)
+
+                optionsTable:insert({
+                    type = "description",
+                    text = L.PABMenu_Crafting_ESOPlusDesc
+                })
+
+            else
+                -- Regular player without ESO Plus Subscription
+                optionsTable:insert({
+                    type = "checkbox",
+                    name = L.PABMenu_Crafting_Enable,
+                    tooltip = L.PABMenu_Crafting_Enable_T,
+                    getFunc = PAMenuFunctions.PABanking.getCraftingItemsEnabledSetting,
+                    setFunc = PAMenuFunctions.PABanking.setCraftingItemsEnabledSetting,
+                    disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+                    default = PAMenuDefaults.PABanking.craftingItemsEnabled,
+                })
+
+                --        optionsTable:insert({
+                --            type = "submenu",
+                --            name = L.PABMenu_Crafting_Blacksmithing_Header,
+                --            -- tooltip = L.PABMenu_Crafting_Blacksmithing_Header_T,
+                --            controls = PABItemsBlacksmithingSubmenuTable,
+                --            disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
+                --        })
+
+                --        optionsTable:insert({
+                --            type = "submenu",
+                --            name = L.PABMenu_Crafting_Clothing_Header,
+                --            -- tooltip = L.PABMenu_Crafting_Clothing_Header_T,
+                --            controls = PABItemsClothingSubmenuTable,
+                --            disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
+                --        })
+
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Woodworking_Header,
+                    -- tooltip = L.PABMenu_Crafting_Woodworking_Header_T,
+                    controls = PABItemsWoodworkingSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
+                })
+
+                --        optionsTable:insert({
+                --            type = "submenu",
+                --            name = L.PABMenu_Crafting_Jewelcrafting_Header,
+                --            -- tooltip = L.PABMenu_Crafting_Jewelcrafting_Header_T,
+                --            controls = PABItemsJewelcraftingSubmenuTable,
+                --            disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
+                --        })
+
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Alchemy_Header,
+                    -- tooltip = L.PABMenu_Crafting_Alchemy_Header_T,
+                    controls = PABItemsAlchemySubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isAlchemyTransactionMenuDisabled,
+                })
+
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Enchanting_Header,
+                    -- tooltip = L.PABMenu_Crafting_Enchanting_Header_T,
+                    controls = PABItemsEnchantingSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isEnchantingTransactionMenuDisabled,
+                })
+
+                --        optionsTable:insert({
+                --            type = "submenu",
+                --            name = L.PABMenu_Crafting_Provisioning_Header,
+                --            -- tooltip = L.PABMenu_Crafting_Provisioning_Header_T,
+                --            controls = PABItemnsProvisioningSubmenuTable,
+                --            disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
+                --        })
+                --
+                --        optionsTable:insert({
+                --            type = "submenu",
+                --            name = L.PABMenu_Crafting_StyleMaterial_Header,
+                --            -- tooltip = L.PABMenu_Crafting_StyleMaterial_Header_T,
+                --            controls = PABItemsStyleMaterialSubmenuTable,
+                --            disabled = PAMenuFunctions.PABanking.isStyleMaterialTransactionMenuDisabled,
+                --        })
+
+                --        optionsTable:insert({
+                --            type = "submenu",
+                --            name = L.PABMenu_Crafting_TraitItems_Header,
+                --            -- tooltip = L.PABMenu_Crafting_TraitItems_Header_T,
+                --            controls = PABItemsTraitItemSubmenuTable,
+                --            disabled = PAMenuFunctions.PABanking.isTraitItemTransactionMenuDisabled,
+                --        })
+
+                --        optionsTable:insert({
+                --            type = "submenu",
+                --            name = L.PABMenu_Crafting_Furnishing_Header,
+                --            -- tooltip = L.PABMenu_Crafting_Furnishing_Header_T,
+                --            controls = PABItemsFurnishingSubmenuTable,
+                --            disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
+                --        })
+            end
+        end
+
 
         -- enabledItemsChatMode
 
@@ -542,7 +652,7 @@ local function createPABCurrencyGoldSubmenuTable()
     end
 end
 
--- =================================================================================================================
+-- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABCurrencyAlliancePointsSubmenuTable()
     -- Check if PA Banking module is loaded
@@ -586,7 +696,7 @@ local function createPABCurrencyAlliancePointsSubmenuTable()
     end
 end
 
--- =================================================================================================================
+-- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABCurrencyTelVarSubmenuTable()
     -- Check if PA Banking module is loaded
@@ -629,7 +739,7 @@ local function createPABCurrencyTelVarSubmenuTable()
     end
 end
 
--- =================================================================================================================
+-- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABCurrencyWritVouchersSubmenuTable()
     -- Check if PA Banking module is loaded
@@ -670,9 +780,110 @@ local function createPABCurrencyWritVouchersSubmenuTable()
             default = PAMenuDefaults.PABanking.writVouchersMaxToKeep,
             reference = "PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX",
         })
-
-
     end
+end
+
+-- =================================================================================================================
+
+local function createPABItemsBlacksmithingSubmenuTable()
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsClothingSubmenuTable()
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsWoodworkingSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsWoodworkingSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Woodworking_Enabled,
+            tooltip = L.PABMenu_Crafting_Woodworking_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getWoodworkingTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setWoodworkingransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionDisabled,
+            default = PAMenuDefaults.PABanking.woodworkingTransaction,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsJewelcraftingSubmenuTable()
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsAlchemySubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsAlchemySubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Alchemy_Enabled,
+            tooltip = L.PABMenu_Crafting_Alchemy_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getAlchemyTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setAlchemyTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isAlchemyTransactionDisabled,
+            default = PAMenuDefaults.PABanking.alchemyTransaction,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsEnchantingSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsEnchantingSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Enchanting_Enabled,
+            tooltip = L.PABMenu_Crafting_Enchanting_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getEnchantingTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setEnchantingTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isEnchantingTransactionDisabled,
+            default = PAMenuDefaults.PABanking.enchantingTransaction,
+        })
+    end
+end
+
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsProvisioningSubmenuTable()
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsStyleMaterialSubmenuTable()
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsTraitItemSubmenuTable()
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABItemsFurnishingSubmenuTable()
+
 end
 
 -- =================================================================================================================
@@ -689,7 +900,7 @@ local function createPABItemTypeMaterialSubmenuTable()
 
             PABItemTypeMaterialSubmenuTable:insert({
                 type = "description",
-                text = L.PABMenu_ItemTypeMaterialESOPlusDesc
+                text = L.PABMenu_Crafting_ESOPlusDesc
             })
 
         else
@@ -1004,6 +1215,17 @@ local function createOptions()
     createPABCurrencyAlliancePointsSubmenuTable()
     createPABCurrencyTelVarSubmenuTable()
     createPABCurrencyWritVouchersSubmenuTable()
+
+    createPABItemsBlacksmithingSubmenuTable()
+    createPABItemsClothingSubmenuTable()
+    createPABItemsWoodworkingSubmenuTable()
+    createPABItemsJewelcraftingSubmenuTable()
+    createPABItemsAlchemySubmenuTable()
+    createPABItemsEnchantingSubmenuTable()
+    createPABItemsProvisioningSubmenuTable()
+    createPABItemsStyleMaterialSubmenuTable()
+    createPABItemsTraitItemSubmenuTable()
+    createPABItemsFurnishingSubmenuTable();
 
     createPABItemTypeMaterialSubmenuTable()
     createPABItemSubMenu()

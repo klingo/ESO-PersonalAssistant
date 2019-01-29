@@ -133,7 +133,7 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Currencies"}),
     PABMenu_Currency_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Currencies?",
 
-    PABMenu_Currency_Gold_Header = table.concat({PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, " ", "Gold"}),
+    PABMenu_Currency_Gold_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Gold"}),
     PABMenu_Currency_Gold_Enabled = "Deposit/Withdraw Gold",
     PABMenu_Currency_Gold_Enabled_T = "Automatically deposit excess Gold to the bank, or withdraw when needed?",
     PABMenu_Currency_Gold_TransactionStep = "Transactions in steps of",
@@ -145,7 +145,7 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_Gold_MaxToKeep = "Maximum to keep on character",
     PABMenu_Currency_Gold_MaxToKeep_T = "Maximum amount of Gold to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_AlliancePoints_Header = table.concat({PAC.ICONS.CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, " ", "Alliance Points"}),
+    PABMenu_Currency_AlliancePoints_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, "  ", "Alliance Points"}),
     PABMenu_Currency_AlliancePoints_Enabled = "Deposit/Withdraw Alliance Points",
     PABMenu_Currency_AlliancePoints_Enabled_T = "Automatically deposit excess Alliance Points to the bank, or withdraw when needed?",
     PABMenu_Currency_AlliancePoints_TransactionStep = "Transactions in steps of",
@@ -157,7 +157,7 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_AlliancePoints_MaxToKeep = "Maximum to keep on character",
     PABMenu_Currency_AlliancePoints_MaxToKeep_T = "Maximum amount of Alliance Points to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_TelVar_Header = table.concat({PAC.ICONS.CURRENCY[CURT_TELVAR_STONES].NORMAL, " ", "Tel Var Stones"}),
+    PABMenu_Currency_TelVar_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_TELVAR_STONES].NORMAL, "  ", "Tel Var Stones"}),
     PABMenu_Currency_TelVar_Enabled = "Deposit/Withdraw Tel Var Stones",
     PABMenu_Currency_TelVar_Enabled_T = "Automatically deposit excess Tel Var Stones to the bank, or withdraw when needed?",
     PABMenu_Currency_TelVar_TransactionStep = "Transactions in steps of",
@@ -169,7 +169,7 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_TelVar_MaxToKeep = "Maximum to keep on character",
     PABMenu_Currency_TelVar_MaxToKeep_T = "Maximum amount of Tel Var Stones to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_WritVouchers_Header = table.concat({PAC.ICONS.CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, " ", "Writ Vouchers"}),
+    PABMenu_Currency_WritVouchers_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, "  ", "Writ Vouchers"}),
     PABMenu_Currency_WritVouchers_Enabled = "Deposit/Withdraw Writ Vouchers",
     PABMenu_Currency_WritVouchers_Enabled_T = "Automatically deposit excess Writ Vouchers to the bank, or withdraw when needed?",
     PABMenu_Currency_WritVouchers_TransactionStep = "Transactions in steps of",
@@ -181,11 +181,29 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_WritVouchers_MaxToKeep = "Maximum to keep on character",
     PABMenu_Currency_WritVouchers_MaxToKeep_T = "Maximum amount of Writ Vouchers to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_EnabledItems = "Deposit and withdraw items",
-    PABMenu_EnabledItems_T = "Auto deposit and/or withdraw items to and from the bank?",
+    PABMenu_Crafting_ESOPlusDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag."}),
+
+    PABMenu_Crafting_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
+    PABMenu_Crafting_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
+
+    PABMenu_Crafting_Woodworking_Header = table.concat({PAC.ICONS.CRAFTBAG.WOODWORKING.LARGE, " ", "Woodworking"}),
+    PABMenu_Crafting_Woodworking_Enabled = "Deposit/Withdraw Woodworking Items",
+    PABMenu_Crafting_Woodworking_Enabled_T = "Automatically deposit Woodworking Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_Alchemy_Header = table.concat({PAC.ICONS.CRAFTBAG.ALCHEMY.LARGE, " ", "Alchemy"}),
+    PABMenu_Crafting_Alchemy_Enabled = "Deposit/Withdraw Alchemy Items",
+    PABMenu_Crafting_Alchemy_Enabled_T = "Automatically deposit Alchemy Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_Enchanting_Header = table.concat({PAC.ICONS.CRAFTBAG.ENCHANTING.LARGE, " ", "Enchanting"}),
+    PABMenu_Crafting_Enchanting_Enabled = "Deposit/Withdraw Alchemy Items",
+    PABMenu_Crafting_Enchanting_Enabled_T = "Automatically deposit Alchemy Items to the bank, or withdraw when needed?",
+
+
+
+
+
     PABMenu_DepItemTypeDesc = "Define an individual behaviour (deposit, withdraw, ignore) for common item types as well as more advanced ones.",
     PABMenu_ItemTypeMaterialSubmenu = "Crafting Material",
-    PABMenu_ItemTypeMaterialESOPlusDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag."}),
     PABMenu_DepItemType = "Common item types",
     PABMenu_DepItemType_T = "Open the sub-menu to define for each item type whether it shall be deposited, withdrawn or ignored.",
     PABMenu_DepStackOnly = "Stacking type (Deposit)",
@@ -213,7 +231,7 @@ PersonalAssistant.Localization = {
 
     -- PALMenu --
     PALMenu_Header = PAC.COLORED_TEXTS.PAL,
-    PALMenu_ESOAutoLootDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "With the Auto Loot option of ESO enabled, the settings of PALoot are not relevant since everything is already automatically looted."}),
+    PALMenu_ESOAutoLootDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "Because the Auto Loot option of ESO is turned on, PALoot has been disabled. Everything is already automatically looted."}),
     PALMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
     PALMenu_Enable_T = "Enable Auto Loot?",
     PALMenu_LootGold = "Auto-Loot gold",

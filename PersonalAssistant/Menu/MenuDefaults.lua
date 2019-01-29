@@ -22,7 +22,7 @@ PA.MenuDefaults = {
         chargeWeaponsChatMode = PA_OUTPUT_TYPE_NORMAL,
     },
     PABanking = {
-        enabled = true,
+        currenciesEnabled = true,
 
         goldTransaction = false,
         goldMinToKeep = 1000,
@@ -40,6 +40,31 @@ PA.MenuDefaults = {
         writVouchersMinToKeep = 10,
         writVouchersMaxToKeep = 100,
 
+        -- ---------------------------------------------
+
+        craftingItemsEnabled = false,
+
+        blacksmithingTransaction = false,
+
+        clothingTransaction = false,
+
+        woodworkingTransaction = false,
+
+        jewelcraftingTransaction = false,
+
+        alchemyTransaction = false,
+
+        enchantingTransaction = false,
+
+        provisioningTransaction = false,
+
+        styleMaterialTransaction = false,
+
+        traitItemTransaction = false,
+
+        furnishingTransaction = false,
+
+        -- ---------------------------------------------
         itemTransaction = false,
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
