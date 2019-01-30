@@ -186,6 +186,11 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
     PABMenu_Crafting_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
 
+    PABMenu_Crafting_DepositStacking = "Stacking type (Deposit)",
+    PABMenu_Crafting_DepositStacking_T = "Define whether all Crafting Items shall be deposited, or if only existing stacks have to be filled up to their max size.",
+    PABMenu_Crafting_WithdrawalStacking = "Stacking type (Withdraw)",
+    PABMenu_Crafting_WithdrawalStacking_T = "Define whether all Crafting Items shall be withdrawn, or if only existing stacks have to be filled up to their max size.",
+
     PABMenu_Crafting_Woodworking_Header = table.concat({PAC.ICONS.CRAFTBAG.WOODWORKING.LARGE, " ", "Woodworking"}),
     PABMenu_Crafting_Woodworking_Enabled = "Deposit/Withdraw Woodworking Items",
     PABMenu_Crafting_Woodworking_Enabled_T = "Automatically deposit Woodworking Items to the bank, or withdraw when needed?",
@@ -293,9 +298,8 @@ PersonalAssistant.Localization = {
     REL_GreaterThanEqual = "greater than or equal to (>=)",
 
     -- Stacking types --
-    ST_MoveAllFull = "Move everything", -- 0: Full deposit
-    ST_MoveExistingFull = "Move all if a stack exists", -- 1: Deposit if existing
-    ST_FillIncompleteOnly = "Only fill up existing stacks", -- 2: Fill existing stacks
+    ST_FullMove = "Move everything", -- 0: Full deposit
+    ST_IncompleteStacksOnly = "Only fill up existing stacks", -- 1: Fill existing stacks
 
     -- Official Item Types --
     -- TODO: fixme; problem is we need resolved value of "ITEMTYPE_ADDITIVE" as key and not the string itself

@@ -141,6 +141,26 @@ PersonalAssistant.Constants = {
         FURNISHING = {
             ITEMTYPE_FURNISHING_MATERIAL
         }
+    },
+
+    MOVE = {
+        IGNORE = 0,
+        DEPOSIT = 1,
+        WITHDRAW = 2
+    },
+
+    STACKING = {
+        FULL = 0, -- 0: Full depositing/withdrawal / create new stacks
+        INCOMPLETE = 1, -- 1: Fill only incomplete stacks
+    },
+
+    OPERATOR = {
+        NONE = 0,
+        EQUAL = 1,
+--        LESSTHAN = 2,
+        LESSTHANOREQUAL = 3,
+--        GREATERTHAN = 4,
+        GREATERTHANOREQUAL = 5
     }
 }
 

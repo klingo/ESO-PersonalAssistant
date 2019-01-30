@@ -449,21 +449,18 @@ local function setPABankingCraftingItemsEnabledSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   itemTransaction
+-- PABanking   craftingItemTypeMoveSetting
 ---------------------------------
-local function getPABankingItemTransaction()
+
+
+local function getPABankingCraftingItemTypeMoveSetting(itemType)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].itemTransaction
+    return PASV.Banking[PA.activeProfile].CraftingItemTypeMoves[itemType]
 end
 
-local function setPABankingItemTransaction(value)
+local function setPABankingCraftingItemTypeMoveSetting(itemType, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].itemTransaction = value
-end
-
-local function isDisabledPABankingItemTransaction()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Banking[PA.activeProfile].enabled
+    PASV.Banking[PA.activeProfile].CraftingItemTypeMoves[itemType] = value
 end
 
 --------------------------------------------------------------------------
@@ -1115,6 +1112,17 @@ PA.MenuFunctions = {
 
         getCraftingItemsEnabledSetting = function() return getValue(PASV.Banking, "craftingItemsEnabled") end,
         setCraftingItemsEnabledSetting = setPABankingCraftingItemsEnabledSetting,
+
+        isCraftingItemsDepositStackingDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getCraftingItemsDepositStackingSetting = function() return getValue(PASV.Banking, "craftingItemsDepositStacking") end,
+        setCraftingItemsDepositStackingSetting = function(value) setValue(PASV.Banking, "craftingItemsDepositStacking", value) end,
+
+        isCraftingItemsWithdrawalStackingDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getCraftingItemsWithdrawalStackingSetting = function() return getValue(PASV.Banking, "craftingItemsWithdrawalStacking") end,
+        setCraftingItemsWithdrawalStackingSetting = function(value) setValue(PASV.Banking, "craftingItemsWithdrawalStacking", value) end,
+
+        getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
+        setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 
         -- -----------------------------------------------------------------------------------
 

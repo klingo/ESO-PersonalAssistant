@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -43,26 +44,21 @@ PA.MenuDefaults = {
         -- ---------------------------------------------
 
         craftingItemsEnabled = false,
+        craftingItemsDepositStacking = PAC.STACKING.FULL,
+        craftingItemsWithdrawalStacking = PAC.STACKING.FULL,
 
         blacksmithingTransaction = false,
-
         clothingTransaction = false,
-
         woodworkingTransaction = false,
-
         jewelcraftingTransaction = false,
-
         alchemyTransaction = false,
-
         enchantingTransaction = false,
-
         provisioningTransaction = false,
-
         styleMaterialTransaction = false,
-
         traitItemTransaction = false,
-
         furnishingTransaction = false,
+
+        CraftingItemTypeMoves = {},
 
         -- ---------------------------------------------
         itemTransaction = false,

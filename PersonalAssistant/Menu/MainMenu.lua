@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAMenuHelper = PA.MenuHelper
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
@@ -397,6 +398,32 @@ local function createMainMenu()
                 --            controls = PABItemsFurnishingSubmenuTable,
                 --            disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
                 --        })
+
+                optionsTable:insert({
+                    type = "dropdown",
+                    name = L.PABMenu_Crafting_DepositStacking,
+                    tooltip = L.PABMenu_Crafting_DepositStacking_T,
+                    choices = PAMenuChoices.choices.PABanking.stackingType,
+                    choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
+                    width = "half",
+                    getFunc = PAMenuFunctions.PABanking.getCraftingItemsDepositStackingSetting,
+                    setFunc = PAMenuFunctions.PABanking.setCraftingItemsDepositStackingSetting,
+                    disabled = PAMenuFunctions.PABanking.isCraftingItemsDepositStackingDisabled,
+                    default = PAMenuDefaults.PABanking.craftingItemsDepositStacking,
+                })
+
+                optionsTable:insert({
+                    type = "dropdown",
+                    name = L.PABMenu_Crafting_WithdrawalStacking,
+                    tooltip = L.PABMenu_Crafting_WithdrawalStacking_T,
+                    choices = PAMenuChoices.choices.PABanking.stackingType,
+                    choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
+                    width = "half",
+                    getFunc = PAMenuFunctions.PABanking.getCraftingItemsWithdrawalStackingSetting,
+                    setFunc = PAMenuFunctions.PABanking.setCraftingItemsWithdrawalStackingSetting,
+                    disabled = PAMenuFunctions.PABanking.isCraftingItemsWithdrawalStackingDisabled,
+                    default = PAMenuDefaults.PABanking.craftingItemsWithdrawalStacking,
+                })
             end
         end
 
@@ -812,6 +839,21 @@ local function createPABItemsWoodworkingSubmenuTable()
             disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionDisabled,
             default = PAMenuDefaults.PABanking.woodworkingTransaction,
         })
+
+        for _, itemType in pairs(PAC.BANKING.WOODWORKING) do
+            PABItemsWoodworkingSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,  -- TODO: extract?
+            })
+        end
+
     end
 end
 

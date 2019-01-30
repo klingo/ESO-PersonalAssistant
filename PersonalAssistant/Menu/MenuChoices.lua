@@ -34,9 +34,8 @@ local PAMenuChoices = {
             "10000",
         },
         stackingType = {
-            L.ST_MoveAllFull,
-            L.ST_MoveExistingFull,
-            L.ST_FillIncompleteOnly
+            L.ST_FullMove,
+            L.ST_IncompleteStacksOnly
         },
         itemMoveMode = {
             L.PAB_MoveTo_Ignore,
@@ -107,14 +106,13 @@ local PAMenuChoicesValues = {
             10000,
         },
         stackingType = {
-            PAB_STACKING_FULL,
-            PAB_STACKING_CONTINUE,
-            PAB_STACKING_INCOMPLETE,
+            PAC.STACKING.FULL,
+            PAC.STACKING.INCOMPLETE
         },
         itemMoveMode = {
-            PAB_MOVETO_IGNORE,
-            PAB_MOVETO_BANK,
-            PAB_MOVETO_BACKPACK,
+            PAC.MOVE.IGNORE,
+            PAC.MOVE.DEPOSIT,
+            PAC.MOVE.WITHDRAW,
         },
         mathOperator = {
             PAC_OPERATOR_NONE,
