@@ -26,10 +26,9 @@ PersonalAssistant.Repair
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
-* [ ] **(2)** Support ESO Plus Bags
-  * BAG_VIRTUAL (Dark Brotherhood)
+* [X] **(2)** Support ESO Plus Bag: BAG_VIRTUAL (Dark Brotherhood)
     * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
-  * BAG_SUBSCRIBER_BANK (Morrowind)
+* [ ] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
     * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
 * [ ] **(8)** Check ItemLink Handling in HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?t=2054
@@ -128,8 +127,8 @@ PersonalAssistant.Repair
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT_STOLEN)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_LOOT_HISTORY)
-* [ ] **(1)** PALoot: Check if special message for Stealing is added?
-* [ ] **(1)** PALoot: Harvestable Items - Add Jewelcrafting items
+* [ ] **(3)** PALoot: Check if special message for Stealing is added?
+* [ ] **(3)** PALoot: Harvestable Items - Add Jewelcrafting items
 
 
 #### PAJunk
