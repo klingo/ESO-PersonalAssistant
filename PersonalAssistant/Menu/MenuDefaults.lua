@@ -43,7 +43,7 @@ PA.MenuDefaults = {
 
         -- ---------------------------------------------
 
-        craftingItemsEnabled = false,
+        craftingItemsEnabled = true,
         craftingItemsDepositStacking = PAC.STACKING.FULL,
         craftingItemsWithdrawalStacking = PAC.STACKING.FULL,
 
