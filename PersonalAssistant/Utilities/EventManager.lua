@@ -109,8 +109,10 @@ local function RefreshAllEventRegistrations()
         -- Check if the functionality is turned on within the addon
         if (PAMenuFunctions.PARepair.isEnabled()) then
             -- Register PARepair for RepairKits and WeaponCharges
+            -- TODO: Check this function
             RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.EventPlayerCombateState)
             -- Register PARepair (in correspondance with PAJunk)
+            -- TODO: Check this function
             RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, SharedEventOpenStore, "RepairJunkSharedEvent")
         else
             -- Unregister PARepair
@@ -128,7 +130,9 @@ local function RefreshAllEventRegistrations()
         local PABMenuFunctions =  PAMenuFunctions.PABanking
         if (PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()) then
             -- Register PABanking
+            -- TODO: Check this function
             RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
+            -- TODO: Check this function
             RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
         else
             -- Unregister PABanking
@@ -143,7 +147,9 @@ local function RefreshAllEventRegistrations()
         -- Check if the functionality is turned on within the addon
         if (PAMenuFunctions.PALoot.isEnabled()) then
             -- Register PALoot
+            -- TODO: Check this function
             RegisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED, PAL.OnLootUpdated)
+            -- TODO: Check this function
             RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
             ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PAL.OnReticleTargetChanged)
         else
@@ -160,8 +166,10 @@ local function RefreshAllEventRegistrations()
         -- Check if the functionality is turned on within the addon
         if (PAMenuFunctions.PAJunk.isEnabled()) then
             -- Register PAJunk for looting junk items
+            -- TODO: Check this function
             RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
             -- Register PAJunk (in correspondance with PARepair)
+            -- TODO: Check this function
             RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, SharedEventOpenStore, "RepairJunkSharedEvent")
         else
             -- Unegister PAJunk
@@ -182,5 +190,5 @@ PersonalAssistant.EventManager = {
     RegisterForEvent = RegisterForEvent,
     UnregisterForEvent = UnregisterForEvent,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
-    isJunkProcessing = false,
+    isJunkProcessing = false, -- TODO: check if really needed?
 }
