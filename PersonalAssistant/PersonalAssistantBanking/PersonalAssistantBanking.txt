@@ -16,6 +16,7 @@ PersonalAssistantBanking.lua
 
 # PABanking
 PABanking/PABankingCurrency.lua
+PABanking/PABankingCrafting.lua
 PABanking/PABankingItems.lua
 PABanking/PABankingAdvancedItems.lua
 PABanking/PABanking.lua

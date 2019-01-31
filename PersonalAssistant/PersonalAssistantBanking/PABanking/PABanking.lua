@@ -3,32 +3,33 @@ local PA = PersonalAssistant
 local PASV = PA.SavedVars
 local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
+local L = PA.Localization
 
 local isBankClosed = true
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnBankOpen()
-
     if (PAHF.hasActiveProfile()) then
-
         -- check if addon is enabled
         if PASV.Banking[PA.activeProfile].enabled then
 
-            local goldTransaction = false
-            local itemTransaction = false
+--            local goldTransaction = false
+--            local itemTransaction = false
 
             -- set the global variable to 'false'
-            isBankClosed = false
+--            isBankClosed = false
 
             -- check if gold deposit is enabled
-            if PASV.Banking[PA.activeProfile].goldTransaction then
+            if PASV.Banking[PA.activeProfile].currenciesEnabled then
                 -- trigger the deposit and withdrawal of gold
                 PAB.depositOrWithdrawCurrencies()
             end
 
             -- check if item deposit is enabled
-            if PASV.Banking[PA.activeProfile].itemTransaction then
+            if PASV.Banking[PA.activeProfile].craftingItemsEnabled then
+                -- trigger the deposit and withdrawal of crafting items
+                PAB.depositOrWithdrawCraftingItems()
                 -- TODO: TEMPORARILY DISABLED !!!!
 --                PAB_Items.DepositWithdrawItems()
 --                PAB_Items.loopCount = 0
@@ -53,7 +54,7 @@ end
 
 local function OnBankClose()
     -- set the global variable to 'true' so the bankClosing can be detected
-    isBankClosed = true
+--    isBankClosed = true
 end
 
 

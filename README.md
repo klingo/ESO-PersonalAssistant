@@ -60,6 +60,7 @@ PersonalAssistant.Repair
 
 #### PABanking
 * [ ] **(1)** PABanking: Refactor regarding inventory-loop  
+    https://www.esoui.com/forums/showthread.php?t=7053&highlight=GetOrCreateBagCache
     ```lua
     local bagSlots = SHARED_INVENTORY:GetBagCache(BAG_BACKPACK)
     if bagSlots then
