@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAMF = PA.MenuFunctions
 local PASV = PA.SavedVars
 local L = PA.Localization
 
@@ -11,10 +12,10 @@ local L = PA.Localization
 
 local _isBankTransferBlocked = false
 
--- initialise from SavedVars (can be updated later)
-local _craftingTransactionInterval = PA.MenuDefaults.PABanking.craftingTransactionInterval
-local _newDepositStacksAllowed = (PA.MenuDefaults.PABanking.craftingItemsDepositStacking == PAC.STACKING.FULL)
-local _newWithdrawalStacksAllowed = (PA.MenuDefaults.PABanking.craftingItemsWithdrawalStacking == PAC.STACKING.FULL)
+-- will be initialise from SavedVars upon triggering the module
+local _craftingTransactionInterval
+local _newDepositStacksAllowed
+local _newWithdrawalStacksAllowed
 
 
 local function _getComparator(itemTypeList)
@@ -141,13 +142,13 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
 end
 
 
-local function _doItemTransactions(fromBagCacheDeposit, toBagCacheDeposit, fromBagCacheWithdraw, toBagCacheWithdraw)
+local function _doItemTransactions(fromBagCacheDeposit, toBagCacheDeposit, fromBagCacheWithdrawal, toBagCacheWithdrawal)
     -- prepare the table for the items that need a new stack created
     local notMovedItemsTable = {}
 
     -- automatically fills up existing stacks; and if new stacks are needed (and allowed), these are added to the table
     _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheDeposit, toBagCacheDeposit, _newDepositStacksAllowed, notMovedItemsTable)
-    _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheWithdraw, toBagCacheWithdraw, _newWithdrawalStacksAllowed, notMovedItemsTable)
+    _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheWithdrawal, toBagCacheWithdrawal, _newWithdrawalStacksAllowed, notMovedItemsTable)
 
     -- after initial run-through, go though all not yet moved items and look for free slots for them
     if #notMovedItemsTable > 0 then
@@ -202,9 +203,9 @@ local function depositOrWithdrawCraftingItems()
     local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
 
     -- update the TransactionTimer and StacksAllowed options from the SavedVars
-    _craftingTransactionInterval = PASV.Banking.craftingTransactionInterval
-    _newDepositStacksAllowed = (PA.MenuDefaults.PABanking.craftingItemsDepositStacking == PAC.STACKING.FULL)
-    _newWithdrawalStacksAllowed = (PA.MenuDefaults.PABanking.craftingItemsWithdrawalStacking == PAC.STACKING.FULL)
+    _craftingTransactionInterval = PAMF.PABanking.getCraftingTransactionInvervalSetting()
+    _newDepositStacksAllowed = (PAMF.PABanking.getCraftingItemsDepositStackingSetting() == PAC.STACKING.FULL)
+    _newWithdrawalStacksAllowed = (PAMF.PABanking.getCraftingItemsWithdrawalStackingSetting() == PAC.STACKING.FULL)
 
     _doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache)
 end
