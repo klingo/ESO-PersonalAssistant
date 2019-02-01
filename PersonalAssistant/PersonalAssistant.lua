@@ -17,6 +17,9 @@ PA.debug = false
 PA.AddonName = "PersonalAssistant"
 PA.activeProfile = nil -- init with nil, is populated during [initAddon]
 
+-- PABanking
+PA.isBankClosed = true
+
 -- init default values
 local function initDefaults()
     -- initialize the multi-profile structure

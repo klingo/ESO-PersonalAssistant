@@ -75,20 +75,25 @@ local function _moveSecureItemsFromTo(notMovedTable, startIndex)
     local fromBagItemData = notMovedTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
     if (targetBagId ~= nil and firstEmptySlot ~= nil) then
-        local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
+        if not PA.isBankClosed then
+            local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
+            d("2) move " .. sourceStack .. " x " .. fromBagItemData.name)
+            _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
 
-        d("2) move " .. sourceStack .. " x " .. fromBagItemData.name)
-        _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
-
-        local newStartIndex = startIndex + 1
-        if newStartIndex <= #notMovedTable then
-            zo_callLater(function()
-                _moveSecureItemsFromTo(notMovedTable, newStartIndex)
-            end, _craftingTransactionInterval)
-            -- timer = timer + PASV.Banking[PA.activeProfile].depositTimerInterval
-            -- TODO: implement in UI+settings
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #notMovedTable then
+                zo_callLater(function()
+                    _moveSecureItemsFromTo(notMovedTable, newStartIndex)
+                end, _craftingTransactionInterval)
+                -- timer = timer + PASV.Banking[PA.activeProfile].depositTimerInterval
+                -- TODO: implement in UI+settings
+            else
+                d("2) all done!")
+                _isBankTransferBlocked = false
+            end
         else
-            d("2) all done!")
+            d("2) cannot move " .. fromBagItemData.name .. " - bank was closed")
+            -- TODO: abort; dont continue
             _isBankTransferBlocked = false
         end
     else
@@ -135,7 +140,6 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
 
         -- if the item could not be moved (because no further existing stack to fill up), add it to the notMoved table
         if not isItemMoved and newStacksAllowed then
-            d("1) add "..fromBagItemData.name.." to notMovedTable")
             table.insert(notMovedItemsTable, fromBagItemData)
         end
     end

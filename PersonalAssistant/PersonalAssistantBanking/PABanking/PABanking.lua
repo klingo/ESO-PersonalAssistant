@@ -5,8 +5,6 @@ local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
 local L = PA.Localization
 
-local isBankClosed = true
-
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnBankOpen()
@@ -18,7 +16,7 @@ local function OnBankOpen()
 --            local itemTransaction = false
 
             -- set the global variable to 'false'
---            isBankClosed = false
+            PA.isBankClosed = false
 
             -- check if gold deposit is enabled
             if PASV.Banking[PA.activeProfile].currenciesEnabled then
@@ -54,7 +52,7 @@ end
 
 local function OnBankClose()
     -- set the global variable to 'true' so the bankClosing can be detected
---    isBankClosed = true
+    PA.isBankClosed = true
 end
 
 
