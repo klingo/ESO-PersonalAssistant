@@ -1121,6 +1121,10 @@ PA.MenuFunctions = {
         getCraftingItemsWithdrawalStackingSetting = function() return getValue(PASV.Banking, "craftingItemsWithdrawalStacking") end,
         setCraftingItemsWithdrawalStackingSetting = function(value) setValue(PASV.Banking, "craftingItemsWithdrawalStacking", value) end,
 
+        isCraftingTransactionInvervalDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getCraftingTransactionInvervalSetting = function() return getValue(PASV.Banking, "craftingTransactionInterval") end,
+        setCraftingTransactionInvervalSetting = function(value) setValue(PASV.Banking, "craftingTransactionInterval", value) end,
+
         getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
         setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 

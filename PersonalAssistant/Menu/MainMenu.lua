@@ -424,6 +424,19 @@ local function createMainMenu()
                     disabled = PAMenuFunctions.PABanking.isCraftingItemsWithdrawalStackingDisabled,
                     default = PAMenuDefaults.PABanking.craftingItemsWithdrawalStacking,
                 })
+
+                optionsTable:insert({
+                    type = "slider",
+                    name = L.PABMenu_Crafting_Transaction_Interval,
+                    tooltip = L.PABMenu_Crafting_Transaction_Interval_T,
+                    min = 100,
+                    max = 1000,
+                    step = 50,
+                    getFunc = PAMenuFunctions.PABanking.getCraftingTransactionInvervalSetting,
+                    setFunc = PAMenuFunctions.PABanking.setCraftingTransactionInvervalSetting,
+                    disabled = PAMenuFunctions.PABanking.isCraftingTransactionInvervalDisabled,
+                    default = PAMenuDefaults.PABanking.craftingTransactionInterval,
+                })
             end
         end
 

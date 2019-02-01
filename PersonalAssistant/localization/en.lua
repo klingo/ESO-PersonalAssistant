@@ -203,6 +203,8 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Enchanting_Enabled = "Deposit/Withdraw Alchemy Items",
     PABMenu_Crafting_Enchanting_Enabled_T = "Automatically deposit Alchemy Items to the bank, or withdraw when needed?",
 
+    PABMenu_Crafting_Transaction_Interval = "Interval between item transactions (msecs)",
+    PABMenu_Crafting_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
 
 
 

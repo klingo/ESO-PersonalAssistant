@@ -46,6 +46,7 @@ PA.MenuDefaults = {
         craftingItemsEnabled = true,
         craftingItemsDepositStacking = PAC.STACKING.FULL,
         craftingItemsWithdrawalStacking = PAC.STACKING.FULL,
+        craftingTransactionInterval = 100,
 
         blacksmithingTransaction = false,
         clothingTransaction = false,
