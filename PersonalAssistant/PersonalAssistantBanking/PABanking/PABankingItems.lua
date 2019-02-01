@@ -349,10 +349,10 @@ function PAB_Items.DepositAndWithdrawItems(lastLoop)
 --    http://wiki.esoui.com/AddOn_Quick_Questions#How_do_I_generate_my_own_.22events.22_in_Lua.3F
 
     -- first deposit items to the bank
-    local itemsDeposited = DoItemTransaction(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
+    local itemsDeposited = DoItemTransactionOld(BAG_BACKPACK, BAG_BANK, PAC_ITEMTYPE_DEPOSIT, lastLoop)
 
     -- then withdraw items from the bank
-    local itemsWithdrawn = DoItemTransaction(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
+    local itemsWithdrawn = DoItemTransactionOld(BAG_BANK, BAG_BACKPACK, PAC_ITEMTYPE_WITHDRAWAL, lastLoop)
 
     -- then we can deposit the advanced items to the bank
 -- TODO: TEMPORARILY DISABLED !!!!!
