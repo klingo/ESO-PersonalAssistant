@@ -12,17 +12,7 @@ local L = PA.Localization
 
 local isBankTransferBlocked = false
 
-local depositComparator
-local withdrawComparator
-
-local toDepositBagCache
-local toWithdrawBagCache
-
-local toDepositBagIndex
-local toWithdragBagIndex
-
-local TIMER_TO_BE_REPLACED = 200
-
+local TIMER_TO_BE_REPLACED = 100
 
 local function getComparator(itemTypeList)
     return function(itemData)
@@ -34,6 +24,7 @@ local function getComparator(itemTypeList)
 end
 
 
+-- Actually requests the move of an item
 local function requestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount)
     if IsProtectedFunction("RequestMoveItem") then
         CallSecureProtected("RequestMoveItem", sourceBag, sourceSlot, destBag, destSlot, stackCount)
@@ -43,6 +34,10 @@ local function requestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCo
 end
 
 
+-- Given the sourceBagId, this function tries to find the first empty slot in a potential target bagId.
+-- If the sourceBagId is the Backpack, the target will be either from Bank or SubscriberBank.
+-- If the sourceBagId is the Bank or SubscriberBank, the target will always be the Backpack
+-- If no empty slot can be found, the function returns: nil, nil
 local function findFirstEmptySlotAndTargetBagFromSourceBag(sourceBagId)
     local targetBagId
     local targetSlotIndex
@@ -70,6 +65,8 @@ local function findFirstEmptySlotAndTargetBagFromSourceBag(sourceBagId)
 end
 
 
+-- Recursive function that tries to find new slots in the corresponding targetBags from the given list of itemDatas
+-- The startIndex indicates from which item in the list the check for moving should be started
 local function moveSecureItemsFromTo(notMovedTable, startIndex)
     local fromBagItemData = notMovedTable[startIndex]
     local targetBagId, firstEmptySlot = findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
@@ -97,21 +94,19 @@ local function moveSecureItemsFromTo(notMovedTable, startIndex)
 end
 
 
-local function moveItemsFromTo(fromBagCache, toBagCache, newStacksAllowed)
-
---    local notMovedTable = setmetatable({}, { __index = table })
-    local notMovedTable = {}
-
+-- Immediately moves items from source to target bag, if the same item exists in both locations (i.e. filling up existing
+-- stacks). All items that either cannot be moved because there is no matching item in the target bag, or because the
+-- existing stacks have already been filled up; these will be added to the [notMovedItemsTable] table. Provided that
+-- [newStacksAllowed] is set to true; otherwise the table will be returned unchanged
+local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBagCache, newStacksAllowed, notMovedItemsTable)
     for _, fromBagItemData in pairs(fromBagCache) do
         local isItemMoved = false
         local hasNoStacksLeft = false
-
         for _, toBagItemData in pairs(toBagCache) do
             if fromBagItemData.itemInstanceId == toBagItemData.itemInstanceId then
                 -- same itemInstanceId
                 local targetStack, targetMaxStack = GetSlotStackSize(toBagItemData.bagId, toBagItemData.slotIndex)
                 local targetFreeStacks = targetMaxStack - targetStack
-
                 if targetFreeStacks > 0 then
                     local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
                     if sourceStack <= targetFreeStacks then
@@ -128,7 +123,6 @@ local function moveItemsFromTo(fromBagCache, toBagCache, newStacksAllowed)
                     end
                 end
             end
-
             -- stop loop if item was already moved and no stacks to be moved are left
             if isItemMoved and hasNoStacksLeft then break end
         end
@@ -136,14 +130,23 @@ local function moveItemsFromTo(fromBagCache, toBagCache, newStacksAllowed)
         -- if the item could not be moved (because no further existing stack to fill up), add it to the notMoved table
         if not isItemMoved and newStacksAllowed then
             d("1) add "..fromBagItemData.name.." to notMovedTable")
---            notMovedTable:insert(fromBagItemData)
-            table.insert(notMovedTable, fromBagItemData)
+            table.insert(notMovedItemsTable, fromBagItemData)
         end
     end
+end
+
+
+local function doItemTransactions(fromBagCacheDeposit, toBagCacheDeposit, fromBagCacheWithdraw, toBagCacheWithdraw, newStacksAllowed)
+    -- prepare the table for the items that need a new stack created
+    local notMovedItemsTable = {}
+
+    -- automatically fills up existing stacks; and if new stacks are needed (and allowed), these are added to the table
+    stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheDeposit, toBagCacheDeposit, newStacksAllowed, notMovedItemsTable)
+    stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheWithdraw, toBagCacheWithdraw, newStacksAllowed, notMovedItemsTable)
 
     -- after initial run-through, go though all not yet moved items and look for free slots for them
-    if #notMovedTable > 0 then
-        moveSecureItemsFromTo(notMovedTable, 1)
+    if newStacksAllowed and #notMovedItemsTable > 0 then
+        moveSecureItemsFromTo(notMovedItemsTable, 1)
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
@@ -152,23 +155,14 @@ local function moveItemsFromTo(fromBagCache, toBagCache, newStacksAllowed)
 end
 
 
-local function depositCraftingItems(depositComparator, newStacksAllowed)
-    local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
-    local toFillUpBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
-    moveItemsFromTo(toDepositBagCache, toFillUpBagCache, newStacksAllowed)
-end
-
-local function withdrawCraftingItems(withdrawComparator, newStacksAllowed)
-    local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
-    local toFillUpBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
-    moveItemsFromTo(toWithdrawBagCache, toFillUpBagCache, newStacksAllowed)
+local function doSameBagStacking(bagId)
+    -- TODO: needed?
 end
 
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function depositOrWithdrawCraftingItems()
-
     -- prepare the table with itemTypes to deposit and withdraw
     local depositItemTypes = setmetatable({}, { __index = table })
     local withdrawItemTypes = setmetatable({}, { __index = table })
@@ -185,15 +179,14 @@ local function depositOrWithdrawCraftingItems()
     local depositComparator = getComparator(depositItemTypes)
     local withdrawComparator = getComparator(withdrawItemTypes)
 
-    -- first try to deposit everything
-    depositCraftingItems(depositComparator, true)
+    local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
+    local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
-    -- then withdraw
---    withdrawCraftingItems(withdrawComparator, false)
+    local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+    local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
 
-    -- finally try to deposit again (in case withdrawal freed up some space)
-    -- TODO: how to check if still needed?
---    depositCraftingItems(depositComparator, false)
+    -- TODO: get parameter from Settings
+    doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache, true)
 end
 
 
