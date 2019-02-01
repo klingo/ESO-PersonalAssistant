@@ -11,7 +11,7 @@ local L = PA.Localization
 -- =====================================================================================================================
 
 -- to enable certain debug statements (ingame: /padebugon & /padebugoff)
-PA.debug = true
+PA.debug = false
 
 -- other settings
 PA.AddonName = "PersonalAssistant"
