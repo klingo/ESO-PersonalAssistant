@@ -28,7 +28,7 @@ PersonalAssistant.Repair
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
 * [X] **(2)** Support ESO Plus Bag: BAG_VIRTUAL (Dark Brotherhood)
     * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
-* [ ] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
+* [X] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
     * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
 * [ ] **(8)** Check ItemLink Handling in HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?t=2054
@@ -58,7 +58,7 @@ PersonalAssistant.Repair
 
 
 #### PABanking
-* [ ] **(1)** PABanking: Refactor regarding inventory-loop  
+* [X] **(1)** PABanking: Refactor regarding inventory-loop  
     https://www.esoui.com/forums/showthread.php?t=7053&highlight=GetOrCreateBagCache
     ```lua
     local bagSlots = SHARED_INVENTORY:GetBagCache(BAG_BACKPACK)
@@ -70,7 +70,7 @@ PersonalAssistant.Repair
         end
     end
     ```
-* [ ] **(1)** PABanking: Refactor regarding Item Movement  
+* [X] **(1)** PABanking: Refactor regarding Item Movement  
     ```lua
     RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
     ```
@@ -132,6 +132,7 @@ PersonalAssistant.Repair
 
 
 #### PAJunk
+* [ ] **(1)** PAJunk: Add support for ESO internal item-locking
 * [ ] **(3)** PAJunk: Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
