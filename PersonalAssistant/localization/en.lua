@@ -186,6 +186,8 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
     PABMenu_Crafting_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
 
+    PABMenu_Crafting_Description = "Define an individual behaviour (deposit, withdraw, ignore) for Crafting Items",
+
     PABMenu_Crafting_GlobalMoveMode = "Change all above Crafting Item dropdowns to",
     PABMenu_Crafting_GlobalMoveMode_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Ignore'",
     PABMenu_Crafting_GlobalMoveMode_W = "This cannot be undone; all individually selected values will be lost",

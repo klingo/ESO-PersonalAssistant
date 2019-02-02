@@ -320,6 +320,11 @@ local function createMainMenu()
                 })
 
                 optionsTable:insert({
+                    type = "description",
+                    text = L.PABMenu_Crafting_Description
+                })
+
+                optionsTable:insert({
                     type = "submenu",
                     name = L.PABMenu_Crafting_Blacksmithing_Header,
                     -- tooltip = L.PABMenu_Crafting_Blacksmithing_Header_T,
