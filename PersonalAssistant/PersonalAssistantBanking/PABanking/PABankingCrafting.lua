@@ -71,8 +71,8 @@ end
 
 -- Recursive function that tries to find new slots in the corresponding targetBags from the given list of itemDatas
 -- The startIndex indicates from which item in the list the check for moving should be started
-local function _moveSecureItemsFromTo(notMovedTable, startIndex)
-    local fromBagItemData = notMovedTable[startIndex]
+local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedAgainTable)
+    local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
     if (targetBagId ~= nil and firstEmptySlot ~= nil) then
         if not PA.isBankClosed then
@@ -81,27 +81,49 @@ local function _moveSecureItemsFromTo(notMovedTable, startIndex)
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
 
             local newStartIndex = startIndex + 1
-            if newStartIndex <= #notMovedTable then
+            if newStartIndex <= #toBeMovedItemsTable then
                 zo_callLater(function()
-                    _moveSecureItemsFromTo(notMovedTable, newStartIndex)
+                    _moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
                 end, _craftingTransactionInterval)
-                -- timer = timer + PASV.Banking[PA.activeProfile].depositTimerInterval
-                -- TODO: implement in UI+settings
             else
-                d("2) all done!")
-                _isBankTransferBlocked = false
+                -- loop completed; check if there are any items to be moved again (re-try)
+                if (toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0) then
+                    -- if there are items left, try again
+                    zo_callLater(function()
+                        _moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
+                    end, _craftingTransactionInterval)
+                else
+                    -- nothing else that can be moved; done
+                    d("2) all done!")
+                    _isBankTransferBlocked = false
+                end
             end
         else
+            -- abort; dont continue
             d("2) cannot move " .. fromBagItemData.name .. " - bank was closed")
-            -- TODO: abort; dont continue
             _isBankTransferBlocked = false
         end
     else
-        d("2) cannot move " .. fromBagItemData.name .. " - not enough space")
-        -- TODO: abort; dont continue
-        _isBankTransferBlocked = false
+        -- cannot move item because there is not enough space; put it on separate list to try again afterwards
+        if (toBeMovedAgainTable ~= nil) then
+            table.insert(toBeMovedAgainTable, fromBagItemData)
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #toBeMovedItemsTable then
+                zo_callLater(function()
+                    _moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
+                end, _craftingTransactionInterval)
+            else
+                -- loop completed;  try again with the items added to the re-try list
+                zo_callLater(function()
+                    _moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
+                end, _craftingTransactionInterval)
+            end
+        else
+            -- Abort; dont continue (even in 2nd run no transfer possible)
+            d("2) cannot move " .. fromBagItemData.name .. " - not enough space")
+            _isBankTransferBlocked = false
+        end
     end
-
 end
 
 
@@ -148,15 +170,16 @@ end
 
 local function _doItemTransactions(fromBagCacheDeposit, toBagCacheDeposit, fromBagCacheWithdrawal, toBagCacheWithdrawal)
     -- prepare the table for the items that need a new stack created
-    local notMovedItemsTable = {}
+    local toBeMovedItemsTable = {}
+    local toBeMovedAgainTable = {}
 
     -- automatically fills up existing stacks; and if new stacks are needed (and allowed), these are added to the table
-    _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheDeposit, toBagCacheDeposit, _newDepositStacksAllowed, notMovedItemsTable)
-    _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheWithdrawal, toBagCacheWithdrawal, _newWithdrawalStacksAllowed, notMovedItemsTable)
+    _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheDeposit, toBagCacheDeposit, _newDepositStacksAllowed, toBeMovedItemsTable)
+    _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheWithdrawal, toBagCacheWithdrawal, _newWithdrawalStacksAllowed, toBeMovedItemsTable)
 
     -- after initial run-through, go though all not yet moved items and look for free slots for them
-    if #notMovedItemsTable > 0 then
-        _moveSecureItemsFromTo(notMovedItemsTable, 1)
+    if #toBeMovedItemsTable > 0 then
+        _moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
