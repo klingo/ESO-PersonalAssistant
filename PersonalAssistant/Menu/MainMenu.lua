@@ -39,7 +39,6 @@ local PABItemsStyleMaterialSubmenuTable = setmetatable({}, { __index = table })
 local PABItemsTraitItemSubmenuTable = setmetatable({}, { __index = table })
 local PABItemsFurnishingSubmenuTable = setmetatable({}, { __index = table })
 
-local PABItemTypeMaterialSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeSubmenuTable = setmetatable({}, { __index = table })
 local PABItemTypeAdvancedSubmenuTable = setmetatable({}, { __index = table })
 local PALHarvestableItemSubmenuTable = setmetatable({}, { __index = table })
@@ -460,18 +459,6 @@ local function createMainMenu()
 
 
         -- enabledItemsChatMode
-
-        optionsTable:insert({
-            type = "description",
-            text = L.PABMenu_DepItemTypeDesc
-        })
-
-        optionsTable:insert({
-            type = "submenu",
-            name = L.PABMenu_ItemTypeMaterialSubmenu,
-            -- tooltip = L.PABMenu_ItemTypeMaterialSubmenu_T,
-            controls = PABItemTypeMaterialSubmenuTable,
-        })
 
         optionsTable:insert({
             type = "submenu",
@@ -961,43 +948,6 @@ end
 
 -- =================================================================================================================
 
-local function createPABItemTypeMaterialSubmenuTable()
-    -- Check if PA Banking module is loaded
-    if (PA.Banking) then
-        -- ------------------------- --
-        -- PersonalAssistant Banking --
-        -- ------------------------- --
-        if (IsESOPlusSubscriber()) then
-            -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
-            -- options are not available (--> Virtual Bag)
-
-            PABItemTypeMaterialSubmenuTable:insert({
-                type = "description",
-                text = L.PABMenu_Crafting_ESOPlusDesc
-            })
-
-        else
-            -- Regular player without ESO Plus Subscription
-            for _, itemType in pairs(PABItemTypesMaterial) do
-                PABItemTypeMaterialSubmenuTable:insert({
-                    type = "dropdown",
-                    name = L[itemType],
-                    choices = PAMenuChoices.choices.PABanking.itemMoveMode,
-                    choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-                    -- TODO: choicesTooltips
-                    getFunc = function() return PAMenuFunctions.PABanking.getItemTypesMaterialMoveModeSetting(itemType) end,
-                    setFunc = function(value) PAMenuFunctions.PABanking.setItemTypesMaterialMoveModeSetting(itemType, value) end,
-                    width = "half",
-                    disabled = PAMenuFunctions.PABanking.isItemTypesMaterialMoveModeDisabled,
-                    default = PAC_ITEMTYPE_IGNORE,  -- TODO: extract?
-                })
-            end
-        end
-    end
-end
-
--- =================================================================================================================
-
 local function createPABItemSubMenu()
     -- Check if PA Banking module is loaded
     if (PA.Banking) then
@@ -1300,7 +1250,6 @@ local function createOptions()
     createPABItemsTraitItemSubmenuTable()
     createPABItemsFurnishingSubmenuTable();
 
-    createPABItemTypeMaterialSubmenuTable()
     createPABItemSubMenu()
     createPABItemAdvancedSubMenu()
 

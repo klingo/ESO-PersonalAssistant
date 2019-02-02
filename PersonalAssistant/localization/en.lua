@@ -243,8 +243,6 @@ PersonalAssistant.Localization = {
 
 
 
-    PABMenu_DepItemTypeDesc = "Define an individual behaviour (deposit, withdraw, ignore) for common item types as well as more advanced ones.",
-    PABMenu_ItemTypeMaterialSubmenu = "Crafting Material",
     PABMenu_DepItemType = "Common item types",
     PABMenu_DepItemType_T = "Open the sub-menu to define for each item type whether it shall be deposited, withdrawn or ignored.",
     PABMenu_DepStackOnly = "Stacking type (Deposit)",
