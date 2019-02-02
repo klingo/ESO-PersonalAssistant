@@ -730,7 +730,7 @@ local function createPABCurrencyAlliancePointsSubmenuTable()
         PABCurrencyAlliancePointsSubmenuTable:insert({
             type = "editbox",
             name = L.PABMenu_Currency_AlliancePoints_MaxToKeep,
-            tooltip = L.PABMenu_Currency_AlliancePoints_MiaxToKeep_T,
+            tooltip = L.PABMenu_Currency_AlliancePoints_MaxToKeep_T,
             getFunc = PAMenuFunctions.PABanking.getAlliancePointsMaxToKeepSetting,
             setFunc = PAMenuFunctions.PABanking.setAlliancePointsMaxToKeepSetting,
             width = "half",

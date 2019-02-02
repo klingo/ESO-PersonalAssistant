@@ -35,6 +35,8 @@ local function getBagName(bagId)
         return L.NS_Bag_Backpack
     elseif (bagId == BAG_BANK) then
         return L.NS_Bag_Bank
+    elseif (bagId == BAG_SUBSCRIBER_BANK) then
+        return L.NS_Bag_Subscriber_Bank
     else
         return L.NS_Bag_Unknown
     end
@@ -49,6 +51,8 @@ local function getBagNameAdjective(bagId)
         return L.NS_Bag_Backpacked
     elseif (bagId == BAG_BANK) then
         return L.NS_Bag_Banked
+    elseif (bagId == BAG_SUBSCRIBER_BANK) then
+        return L.NS_Bag_Subscriber_Banked
     else
         return L.NS_Bag_Unknown
     end
@@ -59,10 +63,8 @@ end
 local function getFormattedItemLink(bagId, slotIndex)
     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
     if itemLink == "" then return end
-
     local itemName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemName(bagId, slotIndex))
     local itemData = itemLink:match("|H.-:(.-)|h")
-
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
 
@@ -88,9 +90,12 @@ end
 
 -- currently supports one text and n arguments
 local function println(text, ...)
-    -- TODO: error handling?
-    local unpackedString = getFormattedText(text, ...)
-    CHAT_SYSTEM:AddMessage(unpackedString)
+    local textKey = L[text]
+    if textKey ~= nil then
+        CHAT_SYSTEM:AddMessage(getFormattedText(textKey, ...))
+    else
+        CHAT_SYSTEM:AddMessage(getFormattedText(text, ...))
+    end
 end
 
 -- the same like println, except that it only prints it if debug is on

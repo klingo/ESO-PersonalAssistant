@@ -13,6 +13,8 @@ PersonalAssistant.Localization = {
     KB_Load_Profile4 = "Activate profile 4",
     KB_Load_Profile5 = "Activate profile 5",
 
+    -- =================================================================================================================
+
     -- PAGeneral --
     PAG_Profile1 = "Profile 1",
     PAG_Profile2 = "Profile 2",
@@ -21,6 +23,7 @@ PersonalAssistant.Localization = {
     PAG_Profile5 = "Profile 5",
     PAG_PleaseSelectProfile = "<Please select Profile>",
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair Chat Output - Full Repair --
     PAR_FullRepair_ChatMode_None = "<no output>",
     PAR_FullRepair_ChatMode_Min = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
@@ -39,6 +42,7 @@ PersonalAssistant.Localization = {
     PAR_ReChargeWeapon_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
     PAR_ReChargeWeapon_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAR, "Charged %s %s from %d%% to %d%%  with %s %s"}),
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
     PAB_Currency_Withdrawal_Full = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn."}),
     PAB_Currency_Withdrawal_Partial_Source = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
@@ -48,19 +52,21 @@ PersonalAssistant.Localization = {
     PAB_Currency_Deposit_Partial_Source = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Character is empty)"}),
     PAB_Currency_Deposit_Partial_Target = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
 
+    PAB_Items_MovedTo_Full = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s"}),
+    PAB_Items_MovedTo_Partial = table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s moved to %s"}),
+    PAB_Items_MovedTo_OutOfSpace = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
+    PAB_Items_MovedTo_BankClosed = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
+
     PAB_ItemMovedTo = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s."}),
     PAB_ItemNotMovedTo = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s NOT moved to %s."}),
     PAB_ItemMovedToFailed = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "FAILURE: %s could NOT be moved to %s."}),
     PAB_NoSpaceInFor = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "Not enough space in %s for: %s."}),
-    PAB_NoDeposit = table.concat({PAC.COLORED_TEXTS.PAB, "Nothing to deposit."}),
-    PAB_ItemType_None = "-",
-    PAB_ItemType_Deposit = "Deposit",
-    PAB_ItemType_Withdrawal = "Withdraw",
-    PAB_ItemType_Inherit = "Depending on item type (below)",
+
     PAB_MoveTo_Ignore = "Ignore",
     PAB_MoveTo_Bank = "Deposit to Bank",
     PAB_MoveTo_Backpack = "Withdraw to Backpack",
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
     PAL_ItemType_Ignore = "Ignore",
     PAL_ItemType_AutoLoot = "Auto-Loot",
@@ -89,13 +95,17 @@ PersonalAssistant.Localization = {
     PAL_ItemsDestroy_MoveFailed = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"}),
     PAL_ItemsDestroy_DestroyFailed = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: No free inventory slot to safely destroy %d/%d %s %s"}),
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
     PAJ_MarkedAsJunk = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk"}),
     PAJ_SoldJunkInfo = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
+    -- =================================================================================================================
+
     -- MainMenu --
     MMenu_Title = PAC.COLORED_TEXTS.PA,
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PAGMenu --
     PAGMenu_Header = PAC.COLORED_TEXTS.PAG,
     PAGMenu_ActiveProfile = "Active profile",
@@ -105,6 +115,7 @@ PersonalAssistant.Localization = {
     PAGMenu_Welcome = "Show welcome message",
     PAGMenu_Welcome_T = "Display a welcome message from the addon upon successfully starting?",
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PARMenu --
     PARMenu_Header = PAC.COLORED_TEXTS.PAR,
     PARMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair"}),
@@ -128,6 +139,7 @@ PersonalAssistant.Localization = {
     PARMenu_ChargeWeaponsChatMode = "Chat display: Charging weapons",
     PARMenu_ChargeWeaponsChatMode_T = "How to display the information of a re-charged weapon in the chat window",
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PABMenu --
     PABMenu_Header = PAC.COLORED_TEXTS.PAB,
     PABMenu_Currency_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Currencies"}),
@@ -136,10 +148,6 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_Gold_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Gold"}),
     PABMenu_Currency_Gold_Enabled = "Deposit/Withdraw Gold",
     PABMenu_Currency_Gold_Enabled_T = "Automatically deposit excess Gold to the bank, or withdraw when needed?",
-    PABMenu_Currency_Gold_TransactionStep = "Transactions in steps of",
-    PABMenu_Currency_Gold_TransactionStep_T = "In what steps (amount) the Gold can be deposited or withdrawn",
-    PABMenu_Currency_Gold_WithdrawToMin = "Withdraw if below minimum",
-    PABMenu_Currency_Gold_WithdrawToMin_T = "Automatically withdraw Gold from the bank if there is less Gold on the character than defined",
     PABMenu_Currency_Gold_MinToKeep = "Mininum to keep on character",
     PABMenu_Currency_Gold_MinToKeep_T = "Minimum amount of Gold to always keep on the character; if necessary with additional withdrawals from te bank",
     PABMenu_Currency_Gold_MaxToKeep = "Maximum to keep on character",
@@ -148,10 +156,6 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_AlliancePoints_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, "  ", "Alliance Points"}),
     PABMenu_Currency_AlliancePoints_Enabled = "Deposit/Withdraw Alliance Points",
     PABMenu_Currency_AlliancePoints_Enabled_T = "Automatically deposit excess Alliance Points to the bank, or withdraw when needed?",
-    PABMenu_Currency_AlliancePoints_TransactionStep = "Transactions in steps of",
-    PABMenu_Currency_AlliancePoints_TransactionStep_T = "In what steps (amount) the Alliance Points can be deposited or withdrawn",
-    PABMenu_Currency_AlliancePoints_WithdrawToMin = "Withdraw if below minimum",
-    PABMenu_Currency_AlliancePoints_WithdrawToMin_T = "Automatically withdraw Alliance Points from the bank if there are less Points on the character than defined",
     PABMenu_Currency_AlliancePoints_MinToKeep = "Mininum to keep on character",
     PABMenu_Currency_AlliancePoints_MinToKeep_T = "Minimum amount of Alliance Points to always keep on the character; if necessary with additional withdrawals from te bank",
     PABMenu_Currency_AlliancePoints_MaxToKeep = "Maximum to keep on character",
@@ -160,10 +164,6 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_TelVar_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_TELVAR_STONES].NORMAL, "  ", "Tel Var Stones"}),
     PABMenu_Currency_TelVar_Enabled = "Deposit/Withdraw Tel Var Stones",
     PABMenu_Currency_TelVar_Enabled_T = "Automatically deposit excess Tel Var Stones to the bank, or withdraw when needed?",
-    PABMenu_Currency_TelVar_TransactionStep = "Transactions in steps of",
-    PABMenu_Currency_TelVar_TransactionStep_T = "In what steps (amount) the Tel Var Stones can be deposited or withdrawn",
-    PABMenu_Currency_TelVar_WithdrawToMin = "Withdraw if below minimum",
-    PABMenu_Currency_TelVar_WithdrawToMin_T = "Automatically withdraw Tel Var Stones from the bank if there are less Stones on the character than defined",
     PABMenu_Currency_TelVar_MinToKeep = "Mininum to keep on character",
     PABMenu_Currency_TelVar_MinToKeep_T = "Minimum amount of Tel Var Stones to always keep on the character; if necessary with additional withdrawals from te bank",
     PABMenu_Currency_TelVar_MaxToKeep = "Maximum to keep on character",
@@ -172,10 +172,6 @@ PersonalAssistant.Localization = {
     PABMenu_Currency_WritVouchers_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, "  ", "Writ Vouchers"}),
     PABMenu_Currency_WritVouchers_Enabled = "Deposit/Withdraw Writ Vouchers",
     PABMenu_Currency_WritVouchers_Enabled_T = "Automatically deposit excess Writ Vouchers to the bank, or withdraw when needed?",
-    PABMenu_Currency_WritVouchers_TransactionStep = "Transactions in steps of",
-    PABMenu_Currency_WritVouchers_TransactionStep_T = "In what steps (amount) the Writ VOuchers can be deposited or withdrawn",
-    PABMenu_Currency_WritVouchers_WithdrawToMin = "Withdraw if below minimum",
-    PABMenu_Currency_WritVouchers_WithdrawToMin_T = "Automatically withdraw Writ Vouchers from the bank if there is less Vouchers on the character than defined",
     PABMenu_Currency_WritVouchers_MinToKeep = "Mininum to keep on character",
     PABMenu_Currency_WritVouchers_MinToKeep_T = "Minimum amount of Writ Vouchers to always keep on the character; if necessary with additional withdrawals from te bank",
     PABMenu_Currency_WritVouchers_MaxToKeep = "Maximum to keep on character",
@@ -240,7 +236,7 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Transaction_Interval = "Interval between item transactions (msecs)",
     PABMenu_Crafting_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
 
-
+    -- -----------------------------------------------------------------------------------------------------------------
 
 
     PABMenu_DepItemType = "Common item types",
@@ -268,6 +264,7 @@ PersonalAssistant.Localization = {
     PABMenu_Keep_in_Backpack = "Amount to keep in backpack",
     PABMenu_Keep_in_Backpack_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PALMenu --
     PALMenu_Header = PAC.COLORED_TEXTS.PAL,
     PALMenu_ESOAutoLootDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "Because the Auto Loot option of ESO is turned on, PALoot has been disabled. Everything is already automatically looted."}),
@@ -301,6 +298,7 @@ PersonalAssistant.Localization = {
     PALMenu_IgnButton = "Ignore all",
     PALMenu_IgnButton_T = "Change all dropdown values to 'Ignore'",
 
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PAJMenu --
     PAJMenu_Header = PAC.COLORED_TEXTS.PAJ,
     PAJMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Junk"}),
@@ -313,14 +311,17 @@ PersonalAssistant.Localization = {
     PAJMenu_AutoMarkOrnate = "Auto-Mark [Ornate] trait",
     PAJMenu_AutoMarkOrnate_T = "Automatically mark items with [Ornate] trait as junk?",
 
+    -- =================================================================================================================
     -- Name Spaces --
     NS_Bag_Equipment = "", -- not required so far
     NS_Bag_Equipped = "equipped",
-    NS_Bag_Backpack = "backpack",
+    NS_Bag_Backpack = "Backpack",
     NS_Bag_Backpacked = "backpack",
-    NS_Bag_Bank = "bank",
+    NS_Bag_Bank = "Bank",
     NS_Bag_Banked = "", -- not required so far
-    NS_Bag_Unknown = "unknown",
+    NS_Bag_Subscriber_Bank = "Subscriber Bank",
+    NS_Bag_Subscriber_Banked = "", -- not required so far
+    NS_Bag_Unknown = "Unknown",
 
     -- Operators --
     REL_Operator = "Mathematical Operator",

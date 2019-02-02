@@ -1,14 +1,15 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 local PAMF = PA.MenuFunctions
 local PASV = PA.SavedVars
-local L = PA.Localization
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- TODO: Assumption: Filling up existing stacks can be done immediately; creating new stacks takes time (i.e. zo_callLater needed)
--- TODO: This is confirmed!
+-- NOTE: Filling up existing stacks can be done immediately; creating new stacks takes time (i.e. zo_callLater needed)
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local _isBankTransferBlocked = false
 
@@ -51,10 +52,10 @@ local function _findFirstEmptySlotAndTargetBagFromSourceBag(sourceBagId)
         targetBagId = BAG_BANK
         targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
         if targetSlotIndex == nil then
-            targetBagId = BAG_BAG_SUBSCRIBER_BANK
+            targetBagId = BAG_SUBSCRIBER_BANK
             targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
         end
-    elseif sourceBagId == BAG_BANK or sourceBagId == BAG_BAG_SUBSCRIBER_BANK then
+    elseif sourceBagId == BAG_BANK or sourceBagId == BAG_SUBSCRIBER_BANK then
         targetBagId = BAG_BACKPACK
         targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
     end
@@ -74,10 +75,11 @@ end
 local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedAgainTable)
     local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
+    local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
     if (targetBagId ~= nil and firstEmptySlot ~= nil) then
         if not PA.isBankClosed then
             local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
-            d("2) move " .. sourceStack .. " x " .. fromBagItemData.name)
+            PAHF.println("PAB_Items_MovedTo_Full", sourceStack, itemLink, PAHF.getBagName(targetBagId))
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
 
             local newStartIndex = startIndex + 1
@@ -94,13 +96,14 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                     end, _craftingTransactionInterval)
                 else
                     -- nothing else that can be moved; done
+                    -- TODO: end message?
                     d("2) all done!")
                     _isBankTransferBlocked = false
                 end
             end
         else
             -- abort; dont continue
-            d("2) cannot move " .. fromBagItemData.name .. " - bank was closed")
+            PAHF.println("PAB_Items_MovedTo_BankClosed", itemLink, PAHF.getBagName(BAG_BANK))
             _isBankTransferBlocked = false
         end
     else
@@ -120,7 +123,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
-            d("2) cannot move " .. fromBagItemData.name .. " - not enough space")
+            PAHF.println("PAB_Items_MovedTo_OutOfSpace", itemLink, PAHF.getBagName(BAG_BANK))
             _isBankTransferBlocked = false
         end
     end
@@ -142,15 +145,16 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                 local targetFreeStacks = targetMaxStack - targetStack
                 if targetFreeStacks > 0 then
                     local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
+                    local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
                     if sourceStack <= targetFreeStacks then
                         -- enough space to move all
-                        d("1) move " .. sourceStack .. " x " .. fromBagItemData.name)
+                        PAHF.println("PAB_Items_MovedTo_Full", sourceStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, sourceStack)
                         isItemMoved = true
                         hasNoStacksLeft = true
                     else
                         -- not enough space, only fill up stack possible
-                        d("1) move " .. targetFreeStacks .. "/" .. sourceStack .. " x " .. fromBagItemData.name)
+                        PAHF.println("PAB_Items_MovedTo_Partial", targetFreeStacks, sourceStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, targetFreeStacks)
                         isItemMoved = true
                     end
@@ -189,23 +193,12 @@ local function _doItemTransactions(fromBagCacheDeposit, toBagCacheDeposit, fromB
 end
 
 
-local function doSameBagStacking(bagId)
-    -- TODO: needed?
-end
-
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function depositOrWithdrawCraftingItems()
     -- check if bankTransfer is already blocked
     if _isBankTransferBlocked then return end
     _isBankTransferBlocked = true
-
-    -- TODO: to be evaluated if needed; and how to implement
---    if (sameBagStacking) then
---        doSameBagStacking(BAG_BACKPACK)
---        doSameBagStacking(BAG_BANK)
---        doSameBagStacking(BAG_SUBSCRIBER_BANK)
---    end
 
     -- prepare the table with itemTypes to deposit and withdraw
     local depositItemTypes = setmetatable({}, { __index = table })

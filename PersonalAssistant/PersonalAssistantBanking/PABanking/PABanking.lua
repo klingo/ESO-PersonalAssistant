@@ -3,7 +3,11 @@ local PA = PersonalAssistant
 local PASV = PA.SavedVars
 local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
-local L = PA.Localization
+
+
+local function doSameBagStacking(bagId)
+    -- TODO: needed?
+end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -12,11 +16,15 @@ local function OnBankOpen()
         -- check if addon is enabled
         if PASV.Banking[PA.activeProfile].enabled then
 
---            local goldTransaction = false
---            local itemTransaction = false
-
             -- set the global variable to 'false'
             PA.isBankClosed = false
+
+            -- TODO: to be evaluated if needed; and how to implement
+            --    if (sameBagStacking) then
+            --        doSameBagStacking(BAG_BACKPACK)
+            --        doSameBagStacking(BAG_BANK)
+            --        doSameBagStacking(BAG_SUBSCRIBER_BANK)
+            --    end
 
             -- check if gold deposit is enabled
             if PASV.Banking[PA.activeProfile].currenciesEnabled then
@@ -24,14 +32,10 @@ local function OnBankOpen()
                 PAB.depositOrWithdrawCurrencies()
             end
 
-            -- check if item deposit is enabled
+            -- check if Crafting Item deposit is enabled
             if PASV.Banking[PA.activeProfile].craftingItemsEnabled then
                 -- trigger the deposit and withdrawal of crafting items
                 PAB.depositOrWithdrawCraftingItems()
-                -- TODO: TEMPORARILY DISABLED !!!!
---                PAB_Items.DepositWithdrawItems()
---                PAB_Items.loopCount = 0
---                itemTransaction = PAB_Items.DepositAndWithdrawItems()
             end
         end
 
