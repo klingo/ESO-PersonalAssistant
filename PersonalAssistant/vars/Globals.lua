@@ -143,6 +143,44 @@ PersonalAssistant.Constants = {
         }
     },
 
+    BANKING_SPECIAL = {
+        GLYPHS = {
+            SPECIALIZED_ITEMTYPE_GLYPH_ARMOR,
+            SPECIALIZED_ITEMTYPE_GLYPH_JEWELRY,
+            SPECIALIZED_ITEMTYPE_GLYPH_WEAPON
+        },
+        LIQUIDS = {
+            SPECIALIZED_ITEMTYPE_POTION,
+            SPECIALIZED_ITEMTYPE_POISON
+        },
+        TROPHIES = {
+            SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP
+        }
+
+        -- ITEMTYPE_RECIPE
+        -- SPECIALIZED_ITEMTYPE_FISH
+        -- SPECIALIZED_ITEMTYPE_FLAVORING exists?
+        -- ITEMTYPE_FOOD exists?
+        -- ITEMTYPE_DRINK exists?
+        -- TEMTYPE_TREASURE
+        -- ITEMTYPE_TROPHY
+    },
+
+    BANKING_ADVANCED = {
+        SOUL_GEM = {
+            33265,  -- [Soul Gem (Empty)]
+            33271,  -- [Soul Gem]
+            61080,  -- [Crown Soul Gem]
+        },
+        REPAIR_KIT = {
+            44879,  -- [Grand Repair Kit]
+            61079,  -- [Crown Repair Kit]
+        },
+        GENERIC = {
+            -- generic container where any itemID can just be added and it will work out of the box
+        }
+    },
+
     MOVE = {
         IGNORE = 0,
         DEPOSIT = 1,

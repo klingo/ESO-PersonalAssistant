@@ -541,6 +541,7 @@ local function setPABankingCraftingItemTypeMoveAllSettings(value)
         PASV.Banking[PA.activeProfile].ItemTypesCrafting[itemType] = value
     end
     PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE:UpdateValue()
+    -- TODO: chat-message do inform user?
 end
 
 --------------------------------------------------------------------------
