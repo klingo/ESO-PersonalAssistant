@@ -59,7 +59,7 @@ PA.MenuDefaults = {
         traitItemTransaction = false,
         furnishingTransaction = false,
 
-        CraftingItemTypeMoves = {},
+        ItemTypesCrafting = {},
 
         -- ---------------------------------------------
         itemTransaction = false,

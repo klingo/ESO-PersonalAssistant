@@ -319,21 +319,21 @@ local function createMainMenu()
                     default = PAMenuDefaults.PABanking.craftingItemsEnabled,
                 })
 
-                --        optionsTable:insert({
-                --            type = "submenu",
-                --            name = L.PABMenu_Crafting_Blacksmithing_Header,
-                --            -- tooltip = L.PABMenu_Crafting_Blacksmithing_Header_T,
-                --            controls = PABItemsBlacksmithingSubmenuTable,
-                --            disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
-                --        })
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Blacksmithing_Header,
+                    -- tooltip = L.PABMenu_Crafting_Blacksmithing_Header_T,
+                    controls = PABItemsBlacksmithingSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
+                })
 
-                --        optionsTable:insert({
-                --            type = "submenu",
-                --            name = L.PABMenu_Crafting_Clothing_Header,
-                --            -- tooltip = L.PABMenu_Crafting_Clothing_Header_T,
-                --            controls = PABItemsClothingSubmenuTable,
-                --            disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
-                --        })
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Clothing_Header,
+                    -- tooltip = L.PABMenu_Crafting_Clothing_Header_T,
+                    controls = PABItemsClothingSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
+                })
 
                 optionsTable:insert({
                     type = "submenu",
@@ -343,13 +343,13 @@ local function createMainMenu()
                     disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
                 })
 
-                --        optionsTable:insert({
-                --            type = "submenu",
-                --            name = L.PABMenu_Crafting_Jewelcrafting_Header,
-                --            -- tooltip = L.PABMenu_Crafting_Jewelcrafting_Header_T,
-                --            controls = PABItemsJewelcraftingSubmenuTable,
-                --            disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
-                --        })
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Jewelcrafting_Header,
+                    -- tooltip = L.PABMenu_Crafting_Jewelcrafting_Header_T,
+                    controls = PABItemsJewelcraftingSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
+                })
 
                 optionsTable:insert({
                     type = "submenu",
@@ -367,37 +367,50 @@ local function createMainMenu()
                     disabled = PAMenuFunctions.PABanking.isEnchantingTransactionMenuDisabled,
                 })
 
-                --        optionsTable:insert({
-                --            type = "submenu",
-                --            name = L.PABMenu_Crafting_Provisioning_Header,
-                --            -- tooltip = L.PABMenu_Crafting_Provisioning_Header_T,
-                --            controls = PABItemnsProvisioningSubmenuTable,
-                --            disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
-                --        })
-                --
-                --        optionsTable:insert({
-                --            type = "submenu",
-                --            name = L.PABMenu_Crafting_StyleMaterial_Header,
-                --            -- tooltip = L.PABMenu_Crafting_StyleMaterial_Header_T,
-                --            controls = PABItemsStyleMaterialSubmenuTable,
-                --            disabled = PAMenuFunctions.PABanking.isStyleMaterialTransactionMenuDisabled,
-                --        })
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Provisioning_Header,
+                    -- tooltip = L.PABMenu_Crafting_Provisioning_Header_T,
+                    controls = PABItemsProvisioningSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
+                })
 
-                --        optionsTable:insert({
-                --            type = "submenu",
-                --            name = L.PABMenu_Crafting_TraitItems_Header,
-                --            -- tooltip = L.PABMenu_Crafting_TraitItems_Header_T,
-                --            controls = PABItemsTraitItemSubmenuTable,
-                --            disabled = PAMenuFunctions.PABanking.isTraitItemTransactionMenuDisabled,
-                --        })
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_StyleMaterials_Header,
+                    -- tooltip = L.PABMenu_Crafting_StyleMaterials_Header_T,
+                    controls = PABItemsStyleMaterialSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isStyleMaterialTransactionMenuDisabled,
+                })
 
-                --        optionsTable:insert({
-                --            type = "submenu",
-                --            name = L.PABMenu_Crafting_Furnishing_Header,
-                --            -- tooltip = L.PABMenu_Crafting_Furnishing_Header_T,
-                --            controls = PABItemsFurnishingSubmenuTable,
-                --            disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
-                --        })
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_TraitItems_Header,
+                    -- tooltip = L.PABMenu_Crafting_TraitItems_Header_T,
+                    controls = PABItemsTraitItemSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isTraitItemTransactionMenuDisabled,
+                })
+
+                optionsTable:insert({
+                    type = "submenu",
+                    name = L.PABMenu_Crafting_Furnishing_Header,
+                    -- tooltip = L.PABMenu_Crafting_Furnishing_Header_T,
+                    controls = PABItemsFurnishingSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
+                })
+
+                optionsTable:insert({
+                    type = "dropdown",
+                    name = L.PABMenu_Crafting_GlobalMoveMode,
+                    tooltip = L.PABMenu_Crafting_GlobalMoveMode_T,
+                    choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                    choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                    getFunc = function() return end,
+                    setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemsGlobalMoveModeSetting(value) end,
+                    disabled = PAMenuFunctions.PABanking.isCraftingItemsGlobalMoveModeDisabled,
+                    warning = L.PABMenu_Crafting_GlobalMoveMode_W,
+                    reference = "PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE",
+                })
 
                 optionsTable:insert({
                     type = "dropdown",

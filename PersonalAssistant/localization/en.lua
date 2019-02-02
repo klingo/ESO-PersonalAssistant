@@ -4,7 +4,7 @@ PersonalAssistant.Localization = {
     -- Welcome Messages --
     Welcome_NoSupport = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)."}),
     Welcome_Support = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!"}),
-    Welcome_PleaseSelectProfile = table.concat({AC_COLTEXT_PA, PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type /pa) and select a profile. Thank you :-)"}),
+    Welcome_PleaseSelectProfile = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type /pa) and select a profile. Thank you :-)"}),
 
     -- Key Bindings
     KB_Load_Profile1 = "Activate profile 1",
@@ -186,22 +186,54 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
     PABMenu_Crafting_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
 
+    PABMenu_Crafting_GlobalMoveMode = "Change all above Crafting Item dropdowns to",
+    PABMenu_Crafting_GlobalMoveMode_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Ignore'",
+    PABMenu_Crafting_GlobalMoveMode_W = "This cannot be undone; all individually selected values will be lost",
+
     PABMenu_Crafting_DepositStacking = "Stacking type (Deposit)",
-    PABMenu_Crafting_DepositStacking_T = "Define whether all Crafting Items shall be deposited, or if only existing stacks have to be filled up to their max size.",
+    PABMenu_Crafting_DepositStacking_T = "Define whether all Crafting Items shall be deposited, or only when there are existing stacks that can be completed.",
     PABMenu_Crafting_WithdrawalStacking = "Stacking type (Withdraw)",
-    PABMenu_Crafting_WithdrawalStacking_T = "Define whether all Crafting Items shall be withdrawn, or if only existing stacks have to be filled up to their max size.",
+    PABMenu_Crafting_WithdrawalStacking_T = "Define whether all Crafting Items shall be withdrawn, or only when there are existing stacks that can be completed.",
+
+    PABMenu_Crafting_Blacksmithing_Header = table.concat({PAC.ICONS.CRAFTBAG.BLACKSMITHING.LARGE, " ", "Blacksmithing"}),
+    PABMenu_Crafting_Blacksmithing_Enabled = "Deposit/Withdraw Blacksmithing Items",
+    PABMenu_Crafting_Blacksmithing_Enabled_T = "Automatically deposit Blacksmithing Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_Clothing_Header = table.concat({PAC.ICONS.CRAFTBAG.CLOTHING.LARGE, " ", "Clothing"}),
+    PABMenu_Crafting_Clothing_Enabled = "Deposit/Withdraw Clothing Items",
+    PABMenu_Crafting_Clothing_Enabled_T = "Automatically deposit Clothing Items to the bank, or withdraw when needed?",
 
     PABMenu_Crafting_Woodworking_Header = table.concat({PAC.ICONS.CRAFTBAG.WOODWORKING.LARGE, " ", "Woodworking"}),
     PABMenu_Crafting_Woodworking_Enabled = "Deposit/Withdraw Woodworking Items",
     PABMenu_Crafting_Woodworking_Enabled_T = "Automatically deposit Woodworking Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_Jewelcrafting_Header = table.concat({PAC.ICONS.CRAFTBAG.JEWELCRAFTING.LARGE, " ", "Jewelry Crafting"}),
+    PABMenu_Crafting_Jewelcrafting_Enabled = "Deposit/Withdraw Jewelry Crafting Items",
+    PABMenu_Crafting_Jewelcrafting_Enabled_T = "Automatically deposit Jewelry Crafting Items to the bank, or withdraw when needed?",
 
     PABMenu_Crafting_Alchemy_Header = table.concat({PAC.ICONS.CRAFTBAG.ALCHEMY.LARGE, " ", "Alchemy"}),
     PABMenu_Crafting_Alchemy_Enabled = "Deposit/Withdraw Alchemy Items",
     PABMenu_Crafting_Alchemy_Enabled_T = "Automatically deposit Alchemy Items to the bank, or withdraw when needed?",
 
     PABMenu_Crafting_Enchanting_Header = table.concat({PAC.ICONS.CRAFTBAG.ENCHANTING.LARGE, " ", "Enchanting"}),
-    PABMenu_Crafting_Enchanting_Enabled = "Deposit/Withdraw Alchemy Items",
-    PABMenu_Crafting_Enchanting_Enabled_T = "Automatically deposit Alchemy Items to the bank, or withdraw when needed?",
+    PABMenu_Crafting_Enchanting_Enabled = "Deposit/Withdraw Enchanting Items",
+    PABMenu_Crafting_Enchanting_Enabled_T = "Automatically deposit Enchanting Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_Provisioning_Header = table.concat({PAC.ICONS.CRAFTBAG.PROVISIONING.LARGE, " ", "Provisioning"}),
+    PABMenu_Crafting_Provisioning_Enabled = "Deposit/Withdraw Provisioning Items",
+    PABMenu_Crafting_Provisioning_Enabled_T = "Automatically deposit Provisioning Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_StyleMaterials_Header = table.concat({PAC.ICONS.CRAFTBAG.STYLEMATERIALS.LARGE, " ", "Style Materials"}),
+    PABMenu_Crafting_StyleMaterials_Enabled = "Deposit/Withdraw Style Material Items",
+    PABMenu_Crafting_StyleMaterials_Enabled_T = "Automatically deposit Style Material Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_TraitItems_Header = table.concat({PAC.ICONS.CRAFTBAG.TRAITITEMS.LARGE, " ", "Trait Items"}),
+    PABMenu_Crafting_TraitItems_Enabled = "Deposit/Withdraw Trait Items",
+    PABMenu_Crafting_TraitItems_Enabled_T = "Automatically deposit Trait Items to the bank, or withdraw when needed?",
+
+    PABMenu_Crafting_Furnishing_Header = table.concat({PAC.ICONS.CRAFTBAG.FURNISHING.LARGE, " ", "Furnishing"}),
+    PABMenu_Crafting_Furnishing_Enabled = "Deposit/Withdraw Furnishing Items",
+    PABMenu_Crafting_Furnishing_Enabled_T = "Automatically deposit Furnishing Items to the bank, or withdraw when needed?",
 
     PABMenu_Crafting_Transaction_Interval = "Interval between item transactions (msecs)",
     PABMenu_Crafting_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",

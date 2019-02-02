@@ -455,12 +455,20 @@ end
 
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].CraftingItemTypeMoves[itemType]
+    return PASV.Banking[PA.activeProfile].ItemTypesCrafting[itemType]
 end
 
 local function setPABankingCraftingItemTypeMoveSetting(itemType, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].CraftingItemTypeMoves[itemType] = value
+    PASV.Banking[PA.activeProfile].ItemTypesCrafting[itemType] = value
+end
+
+local function setPABankingCraftingItemTypeMoveAllSettings(value)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].ItemTypesCrafting) do
+        PASV.Banking[PA.activeProfile].ItemTypesCrafting[itemType] = value
+    end
+    PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE:UpdateValue()
 end
 
 --------------------------------------------------------------------------
@@ -1113,6 +1121,9 @@ PA.MenuFunctions = {
         getCraftingItemsEnabledSetting = function() return getValue(PASV.Banking, "craftingItemsEnabled") end,
         setCraftingItemsEnabledSetting = setPABankingCraftingItemsEnabledSetting,
 
+        isCraftingItemsGlobalMoveModeDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        setCraftingItemsGlobalMoveModeSetting = function(value) setPABankingCraftingItemTypeMoveAllSettings(value) end,
+
         isCraftingItemsDepositStackingDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
         getCraftingItemsDepositStackingSetting = function() return getValue(PASV.Banking, "craftingItemsDepositStacking") end,
         setCraftingItemsDepositStackingSetting = function(value) setValue(PASV.Banking, "craftingItemsDepositStacking", value) end,
@@ -1179,9 +1190,9 @@ PA.MenuFunctions = {
 
         -- -----------------------------------------------------------------------------------
 
-        isItemTransactionDisabled = isDisabledPABankingItemTransaction,
-        getItemTransactionSetting = getPABankingItemTransaction,
-        setItemTransactionSetting = setPABankingItemTransaction,
+
+
+
 
         isDepositTimerIntervalDisabled = isDisabledPABankingDepositTimerInterval,
         getDepositTimerIntervalSetting = getPABankingDepositTimerInterval,
