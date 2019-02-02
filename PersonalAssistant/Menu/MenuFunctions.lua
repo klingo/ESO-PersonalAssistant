@@ -1214,21 +1214,30 @@ PA.MenuFunctions = {
         -- -----------------------------------------------------------------------------------
 
         isBlacksmithingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "blacksmithingTransaction") end,
+        isBlacksmithingTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getBlacksmithingTransactionSetting = function() return getValue(PASV.Banking, "blacksmithingTransaction") end,
+        setBlacksmithingTransactionSetting = function(value) setValue(PASV.Banking, "blacksmithingTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 
         isClothingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "clothingTransaction") end,
+        isClothingTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getClothingTransactionSetting = function() return getValue(PASV.Banking, "clothingTransaction") end,
+        setClothingTransactionSetting = function(value) setValue(PASV.Banking, "clothingTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 
         isWoodworkingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "woodworkingTransaction") end,
         isWoodworkingTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
         getWoodworkingTransactionSetting = function() return getValue(PASV.Banking, "woodworkingTransaction") end,
-        setWoodworkingransactionSetting = function(value) setValue(PASV.Banking, "woodworkingTransaction", value) end,
+        setWoodworkingTransactionSetting = function(value) setValue(PASV.Banking, "woodworkingTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 
         isJewelcraftingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "jewelcraftingTransaction") end,
+        isJewelcraftingTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getJewelcraftingTransactionSetting = function() return getValue(PASV.Banking, "jewelcraftingTransaction") end,
+        setJewelcraftingTransactionSetting = function(value) setValue(PASV.Banking, "jewelcraftingTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 
@@ -1247,18 +1256,30 @@ PA.MenuFunctions = {
         -- -----------------------------------------------------------------------------------
 
         isProvisioningTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "provisioningTransaction") end,
+        isProvisioningTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getProvisioningTransactionSetting = function() return getValue(PASV.Banking, "provisioningTransaction") end,
+        setProvisioningTransactionSetting = function(value) setValue(PASV.Banking, "provisioningTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 
-        isStyleMaterialTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "styleMaterialTransaction") end,
+        isStyleMaterialsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "styleMaterialsTransaction") end,
+        isStyleMaterialsTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getStyleMaterialsTransactionSetting = function() return getValue(PASV.Banking, "styleMaterialsTransaction") end,
+        setStyleMaterialsTransactionSetting = function(value) setValue(PASV.Banking, "styleMaterialsTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 
-        isTraitItemTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "traitItemTransaction") end,
+        isTraitItemsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "traitItemsTransaction") end,
+        isTraitItemsTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getTraitItemsTransactionSetting = function() return getValue(PASV.Banking, "traitItemsTransaction") end,
+        setTraitItemsTransactionSetting = function(value) setValue(PASV.Banking, "traitItemsTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 
         isFurnishingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled", "furnishingTransaction") end,
+        isFurnishingTransactionDisabled = function() return isDisabled(PASV.Banking, "craftingItemsEnabled") end,
+        getFurnishingTransactionSetting = function() return getValue(PASV.Banking, "furnishingTransaction") end,
+        setFurnishingTransactionSetting = function(value) setValue(PASV.Banking, "furnishingTransaction", value) end,
 
         -- -----------------------------------------------------------------------------------
 

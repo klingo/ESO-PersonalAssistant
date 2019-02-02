@@ -35,8 +35,8 @@ local PABItemsJewelcraftingSubmenuTable = setmetatable({}, { __index = table })
 local PABItemsAlchemySubmenuTable = setmetatable({}, { __index = table })
 local PABItemsEnchantingSubmenuTable = setmetatable({}, { __index = table })
 local PABItemsProvisioningSubmenuTable = setmetatable({}, { __index = table })
-local PABItemsStyleMaterialSubmenuTable = setmetatable({}, { __index = table })
-local PABItemsTraitItemSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsStyleMaterialsSubmenuTable = setmetatable({}, { __index = table })
+local PABItemsTraitItemsSubmenuTable = setmetatable({}, { __index = table })
 local PABItemsFurnishingSubmenuTable = setmetatable({}, { __index = table })
 
 local PABItemTypeSubmenuTable = setmetatable({}, { __index = table })
@@ -383,16 +383,16 @@ local function createMainMenu()
                     type = "submenu",
                     name = L.PABMenu_Crafting_StyleMaterials_Header,
                     -- tooltip = L.PABMenu_Crafting_StyleMaterials_Header_T,
-                    controls = PABItemsStyleMaterialSubmenuTable,
-                    disabled = PAMenuFunctions.PABanking.isStyleMaterialTransactionMenuDisabled,
+                    controls = PABItemsStyleMaterialsSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionMenuDisabled,
                 })
 
                 optionsTable:insert({
                     type = "submenu",
                     name = L.PABMenu_Crafting_TraitItems_Header,
                     -- tooltip = L.PABMenu_Crafting_TraitItems_Header_T,
-                    controls = PABItemsTraitItemSubmenuTable,
-                    disabled = PAMenuFunctions.PABanking.isTraitItemTransactionMenuDisabled,
+                    controls = PABItemsTraitItemsSubmenuTable,
+                    disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionMenuDisabled,
                 })
 
                 optionsTable:insert({
@@ -831,13 +831,69 @@ end
 -- =================================================================================================================
 
 local function createPABItemsBlacksmithingSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsBlacksmithingSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Blacksmithing_Enabled,
+            tooltip = L.PABMenu_Crafting_Blacksmithing_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getBlacksmithingTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setBlacksmithingTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionDisabled,
+            default = PAMenuDefaults.PABanking.blacksmithingTransaction,
+        })
 
+        for _, itemType in pairs(PAC.BANKING.BLACKSMITHING) do
+            PABItemsBlacksmithingSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABItemsClothingSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsClothingSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Clothing_Enabled,
+            tooltip = L.PABMenu_Crafting_Clothing_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getClothingTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setClothingTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isClothingTransactionDisabled,
+            default = PAMenuDefaults.PABanking.clothingTransaction,
+        })
 
+        for _, itemType in pairs(PAC.BANKING.CLOTHING) do
+            PABItemsClothingSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -853,7 +909,7 @@ local function createPABItemsWoodworkingSubmenuTable()
             name = L.PABMenu_Crafting_Woodworking_Enabled,
             tooltip = L.PABMenu_Crafting_Woodworking_Enabled_T,
             getFunc = PAMenuFunctions.PABanking.getWoodworkingTransactionSetting,
-            setFunc = PAMenuFunctions.PABanking.setWoodworkingransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setWoodworkingTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionDisabled,
             default = PAMenuDefaults.PABanking.woodworkingTransaction,
         })
@@ -868,17 +924,44 @@ local function createPABItemsWoodworkingSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
                 disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
-                default = PAC.MOVE.IGNORE,  -- TODO: extract?
+                default = PAC.MOVE.IGNORE,
             })
         end
-
     end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABItemsJewelcraftingSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsJewelcraftingSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Jewelcrafting_Enabled,
+            tooltip = L.PABMenu_Crafting_Jewelcrafting_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getJewelcraftingTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setJewelcraftingTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionDisabled,
+            default = PAMenuDefaults.PABanking.jewelcraftingTransaction,
+        })
 
+        for _, itemType in pairs(PAC.BANKING.JEWELCRAFTING) do
+            PABItemsJewelcraftingSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -898,6 +981,20 @@ local function createPABItemsAlchemySubmenuTable()
             disabled = PAMenuFunctions.PABanking.isAlchemyTransactionDisabled,
             default = PAMenuDefaults.PABanking.alchemyTransaction,
         })
+
+        for _, itemType in pairs(PAC.BANKING.ALCHEMY) do
+            PABItemsAlchemySubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isAlchemyTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
     end
 end
 
@@ -918,32 +1015,157 @@ local function createPABItemsEnchantingSubmenuTable()
             disabled = PAMenuFunctions.PABanking.isEnchantingTransactionDisabled,
             default = PAMenuDefaults.PABanking.enchantingTransaction,
         })
+
+        for _, itemType in pairs(PAC.BANKING.ENCHANTING) do
+            PABItemsEnchantingSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isEnchantingTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
     end
 end
-
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABItemsProvisioningSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsProvisioningSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Provisioning_Enabled,
+            tooltip = L.PABMenu_Crafting_Provisioning_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getProvisioningTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setProvisioningTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isProvisioningTransactionDisabled,
+            default = PAMenuDefaults.PABanking.provisioningTransaction,
+        })
 
+        for _, itemType in pairs(PAC.BANKING.PROVISIONING) do
+            PABItemsProvisioningSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABItemsStyleMaterialSubmenuTable()
+local function createPABItemsStyleMaterialsSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsStyleMaterialsSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_StyleMaterials_Enabled,
+            tooltip = L.PABMenu_Crafting_StyleMaterials_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getStyleMaterialsTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setStyleMaterialsTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionDisabled,
+            default = PAMenuDefaults.PABanking.styleMaterialsTransaction,
+        })
 
+        for _, itemType in pairs(PAC.BANKING.STYLEMATERIALS) do
+            PABItemsStyleMaterialsSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABItemsTraitItemSubmenuTable()
+local function createPABItemsTraitItemsSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsTraitItemsSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_TraitItems_Enabled,
+            tooltip = L.PABMenu_Crafting_TraitItems_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getTraitItemsTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setTraitItemsTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionDisabled,
+            default = PAMenuDefaults.PABanking.traitItemsTransaction,
+        })
 
+        for _, itemType in pairs(PAC.BANKING.TRAITITEMS) do
+            PABItemsTraitItemsSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABItemsFurnishingSubmenuTable()
+    -- Check if PA Banking module is loaded
+    if (PA.Banking) then
+        -- ------------------------- --
+        -- PersonalAssistant Banking --
+        -- ------------------------- --
+        PABItemsFurnishingSubmenuTable:insert({
+            type = "checkbox",
+            name = L.PABMenu_Crafting_Furnishing_Enabled,
+            tooltip = L.PABMenu_Crafting_Furnishing_Enabled_T,
+            getFunc = PAMenuFunctions.PABanking.getFurnishingTransactionSetting,
+            setFunc = PAMenuFunctions.PABanking.setFurnishingTransactionSetting,
+            disabled = PAMenuFunctions.PABanking.isFurnishingTransactionDisabled,
+            default = PAMenuDefaults.PABanking.furnishingTransaction,
+        })
 
+        for _, itemType in pairs(PAC.BANKING.FURNISHING) do
+            PABItemsFurnishingSubmenuTable:insert({
+                type = "dropdown",
+                name = GetString("SI_ITEMTYPE", itemType),
+                choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+                -- TODO: choicesTooltips
+                getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
+                setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
+                disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
+                default = PAC.MOVE.IGNORE,
+            })
+        end
+    end
 end
 
 -- =================================================================================================================
@@ -1246,8 +1468,8 @@ local function createOptions()
     createPABItemsAlchemySubmenuTable()
     createPABItemsEnchantingSubmenuTable()
     createPABItemsProvisioningSubmenuTable()
-    createPABItemsStyleMaterialSubmenuTable()
-    createPABItemsTraitItemSubmenuTable()
+    createPABItemsStyleMaterialsSubmenuTable()
+    createPABItemsTraitItemsSubmenuTable()
     createPABItemsFurnishingSubmenuTable();
 
     createPABItemSubMenu()
