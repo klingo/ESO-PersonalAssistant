@@ -62,7 +62,7 @@ PersonalAssistant.Localization = {
     PAB_ItemMovedToFailed = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "FAILURE: %s could NOT be moved to %s."}),
     PAB_NoSpaceInFor = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "Not enough space in %s for: %s."}),
 
-    PAB_MoveTo_Ignore = "Ignore",
+    PAB_MoveTo_DoNothing = "Do Nothing",
     PAB_MoveTo_Bank = "Deposit to Bank",
     PAB_MoveTo_Backpack = "Withdraw to Backpack",
 
@@ -182,10 +182,10 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
     PABMenu_Crafting_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
 
-    PABMenu_Crafting_Description = "Define an individual behaviour (deposit, withdraw, ignore) for Crafting Items",
+    PABMenu_Crafting_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
 
     PABMenu_Crafting_GlobalMoveMode = "Change all above Crafting Item dropdowns to",
-    PABMenu_Crafting_GlobalMoveMode_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Ignore'",
+    PABMenu_Crafting_GlobalMoveMode_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
     PABMenu_Crafting_GlobalMoveMode_W = "This cannot be undone; all individually selected values will be lost",
 
     PABMenu_Crafting_DepositStacking = "Stacking type (Deposit)",

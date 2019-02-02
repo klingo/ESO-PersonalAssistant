@@ -415,46 +415,60 @@ local function createMainMenu()
                     warning = L.PABMenu_Crafting_GlobalMoveMode_W,
                     reference = "PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE",
                 })
-
-                optionsTable:insert({
-                    type = "dropdown",
-                    name = L.PABMenu_Crafting_DepositStacking,
-                    tooltip = L.PABMenu_Crafting_DepositStacking_T,
-                    choices = PAMenuChoices.choices.PABanking.stackingType,
-                    choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
-                    width = "half",
-                    getFunc = PAMenuFunctions.PABanking.getCraftingItemsDepositStackingSetting,
-                    setFunc = PAMenuFunctions.PABanking.setCraftingItemsDepositStackingSetting,
-                    disabled = PAMenuFunctions.PABanking.isCraftingItemsDepositStackingDisabled,
-                    default = PAMenuDefaults.PABanking.craftingItemsDepositStacking,
-                })
-
-                optionsTable:insert({
-                    type = "dropdown",
-                    name = L.PABMenu_Crafting_WithdrawalStacking,
-                    tooltip = L.PABMenu_Crafting_WithdrawalStacking_T,
-                    choices = PAMenuChoices.choices.PABanking.stackingType,
-                    choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
-                    width = "half",
-                    getFunc = PAMenuFunctions.PABanking.getCraftingItemsWithdrawalStackingSetting,
-                    setFunc = PAMenuFunctions.PABanking.setCraftingItemsWithdrawalStackingSetting,
-                    disabled = PAMenuFunctions.PABanking.isCraftingItemsWithdrawalStackingDisabled,
-                    default = PAMenuDefaults.PABanking.craftingItemsWithdrawalStacking,
-                })
-
-                optionsTable:insert({
-                    type = "slider",
-                    name = L.PABMenu_Crafting_Transaction_Interval,
-                    tooltip = L.PABMenu_Crafting_Transaction_Interval_T,
-                    min = 100,
-                    max = 1000,
-                    step = 50,
-                    getFunc = PAMenuFunctions.PABanking.getCraftingTransactionInvervalSetting,
-                    setFunc = PAMenuFunctions.PABanking.setCraftingTransactionInvervalSetting,
-                    disabled = PAMenuFunctions.PABanking.isCraftingTransactionInvervalDisabled,
-                    default = PAMenuDefaults.PABanking.craftingTransactionInterval,
-                })
             end
+
+            optionsTable:insert({
+                type = "divider",
+                alpha = 0.5,
+            })
+
+            -- TODO: Here come other item types
+
+            optionsTable:insert({
+                type = "divider",
+                alpha = 0.5,
+            })
+
+            optionsTable:insert({
+                type = "dropdown",
+                name = L.PABMenu_Crafting_DepositStacking,
+                tooltip = L.PABMenu_Crafting_DepositStacking_T,
+                choices = PAMenuChoices.choices.PABanking.stackingType,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
+                width = "half",
+                getFunc = PAMenuFunctions.PABanking.getCraftingItemsDepositStackingSetting,
+                setFunc = PAMenuFunctions.PABanking.setCraftingItemsDepositStackingSetting,
+                disabled = PAMenuFunctions.PABanking.isCraftingItemsDepositStackingDisabled,
+                default = PAMenuDefaults.PABanking.craftingItemsDepositStacking,
+            })
+
+            optionsTable:insert({
+                type = "dropdown",
+                name = L.PABMenu_Crafting_WithdrawalStacking,
+                tooltip = L.PABMenu_Crafting_WithdrawalStacking_T,
+                choices = PAMenuChoices.choices.PABanking.stackingType,
+                choicesValues = PAMenuChoices.choicesValues.PABanking.stackingType,
+                width = "half",
+                getFunc = PAMenuFunctions.PABanking.getCraftingItemsWithdrawalStackingSetting,
+                setFunc = PAMenuFunctions.PABanking.setCraftingItemsWithdrawalStackingSetting,
+                disabled = PAMenuFunctions.PABanking.isCraftingItemsWithdrawalStackingDisabled,
+                default = PAMenuDefaults.PABanking.craftingItemsWithdrawalStacking,
+            })
+
+            optionsTable:insert({
+                type = "slider",
+                name = L.PABMenu_Crafting_Transaction_Interval,
+                tooltip = L.PABMenu_Crafting_Transaction_Interval_T,
+                min = 100,
+                max = 1000,
+                step = 50,
+                getFunc = PAMenuFunctions.PABanking.getCraftingTransactionInvervalSetting,
+                setFunc = PAMenuFunctions.PABanking.setCraftingTransactionInvervalSetting,
+                disabled = PAMenuFunctions.PABanking.isCraftingTransactionInvervalDisabled,
+                default = PAMenuDefaults.PABanking.craftingTransactionInterval,
+            })
+
+
         end
 
 

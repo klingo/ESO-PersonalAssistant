@@ -38,7 +38,7 @@ local PAMenuChoices = {
             L.ST_IncompleteStacksOnly
         },
         itemMoveMode = {
-            L.PAB_MoveTo_Ignore,
+            L.PAB_MoveTo_DoNothing,
             L.PAB_MoveTo_Bank,
             L.PAB_MoveTo_Backpack
         },
