@@ -239,30 +239,6 @@ PAC_ITEMTYPE_INHERIT = 3
 PAC_ITEMTYPE_LOOT = 1
 PAC_ITEMTYPE_DESTROY = 2
 
-PAC_OPERATOR_NONE = 0
-PAC_OPERATOR_EQUAL = 1
--- PAC_OPERATOR_LESSTHAN = 2
-PAC_OPERATOR_LESSTHANOREQUAL = 3
--- PAC_OPERATOR_GREATERTHAN = 4
-PAC_OPERATOR_GREATERTHANOREQUAL = 5
-
--- PersonalAssistant Banking
-PAB_DEPOSIT_MAX_LOOPS = 3
-
--- PerstonalAssistant Banking - Stacking Types
-PAB_STACKING_FULL = 0 -- 0: Full depositing/withdrawl
-PAB_STACKING_CONTINUE = 1 -- 1: Continue existing stacks
-PAB_STACKING_INCOMPLETE = 2 -- 2: Complete existing stacks
-
--- PerstonalAssistant Banking - Move Mode
-PAB_MOVETO_IGNORE = 0
-PAB_MOVETO_BANK = 1
-PAB_MOVETO_BACKPACK = 2
-
--- PersonalAssistant Loot
-PAL_TYPE_LOOT = 0
-PAL_TYPE_HARVEST = 1
-
 -- PersonalAssistant Chat Output Types
 PA_OUTPUT_TYPE_NONE = 0
 PA_OUTPUT_TYPE_MIN = 1
@@ -338,10 +314,3 @@ PALLootableItemTypes:insert(ITEMTYPE_LURE)
 PALLootableItemTypes:insert(ITEMTYPE_STYLE_MATERIAL)
 PALLootableItemTypes:insert(ITEMTYPE_RAW_MATERIAL)
 PALLootableItemTypes:insert(ITEMTYPE_TRASH)
-
-
--- =====================================================================================================================
--- = PA Junk
--- =================================
--- PersonalAssistant Junk ItemTypes
--- PAJItemTypes = {}

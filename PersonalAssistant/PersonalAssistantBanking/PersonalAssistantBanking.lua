@@ -17,14 +17,6 @@ local function initDefaults()
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- get default vlaues from PAMenuDefaults
         Banking_Defaults[profileNo] = PAMenuDefaults.PABanking
-
---        -- default values for advanced ItemTypes
---        for _, itemType in pairs(PABItemTypesAdvanced) do
---            Banking_Defaults[profileNo].ItemTypesAdvanced[itemType] = {
---                Operator = PAC_OPERATOR_NONE,
---                Value = 50, -- Currently sets the value to 50 for ALL itemtypes!
---            }
---        end
     end
 end
 
