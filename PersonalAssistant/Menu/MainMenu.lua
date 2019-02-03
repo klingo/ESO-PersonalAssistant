@@ -44,7 +44,7 @@ local PALLootableItemSubmenuTable = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
 
-local function createMainMenu()
+local function createPAGeneralMenu()
     optionsTable:insert({
         type = "header",
         name = L.PAGMenu_Header
@@ -81,9 +81,9 @@ local function createMainMenu()
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
         default = PAMenuDefaults.PAGeneral.welcomeMessage,
     })
+end
 
-    -- =================================================================================================================
-
+local function createPARepairMenu()
     -- Check if PA Repair module is loaded
     if (PA.Repair) then
         -- ------------------------ --
@@ -228,9 +228,9 @@ local function createMainMenu()
 
         -- soul gem amount for alert
     end
+end
 
-    -- =================================================================================================================
-
+local function createPABankingMenu()
     -- Check if PA Banking module is loaded
     if (PA.Banking) then
         -- ------------------------- --
@@ -488,16 +488,10 @@ local function createMainMenu()
 
 
         end
-
-
-        -- enabledItemsChatMode
-
-
-
     end
+end
 
-    -- =================================================================================================================
-
+local function createPALootMenu()
     -- Check if PA Loot module is loaded
     if (PA.Loot) then
         -- ---------------------- --
@@ -601,9 +595,9 @@ local function createMainMenu()
             })
         end
     end
+end
 
-    -- =================================================================================================================
-
+local function createPAJunkMenu()
     -- Check if PA Junk module is loaded
     if (PA.Junk) then
         -- ------------------------- --
@@ -1256,7 +1250,7 @@ local function createPALHarvestableItemSubMenu()
     end
 end
 
--- =================================================================================================================
+-- -----------------------------------------------------------------------------------------------------------------
 
 local function createPALLootableItemSubMenu()
     -- Check if PA Loot module is loaded
@@ -1361,7 +1355,11 @@ local function createOptions()
     createPALHarvestableItemSubMenu()
     createPALLootableItemSubMenu()
 
-    createMainMenu()
+    createPAGeneralMenu()
+    createPARepairMenu()
+    createPABankingMenu()
+    createPALootMenu()
+    createPAJunkMenu()
 
     -- and register it
     LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
