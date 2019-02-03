@@ -84,6 +84,33 @@ PersonalAssistant.Constants = {
         },
         ITEMS = {
             BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t",
+            GENERIC_HELP = {
+                NORMAL = "|t32:32:/esoui/art/menubar/menubar_help_up.dds|t"
+            },
+            GLYPH_ARMOR_HEALTH = {
+                NORMAL = "|t32:32:/esoui/art/icons/enchantment_armor_healthboost.dds|t"
+            },
+            LOCKPICK = {
+                NORMAL = "|t32:32:/esoui/art/icons/lockpick.dds|t"
+            },
+            MOTIF = {
+                NORMAL = "|t32:32:/esoui/art/icons/quest_book_001.dds|t"
+            },
+            POISON = {
+                NORMAL = "|t32:32:/esoui/art/icons/crafting_poison_001_red_005.dds|t"
+            },
+            POTION = {
+                NORMAL = "|t32:32:/esoui/art/icons/consumable_potion_001_type_005.dds|t"
+            },
+            RECIPE = {
+                NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t" -- TODO: check; since duplicate with treasure map
+            },
+            REPAIRKIT = {
+                NORMAL = "|t32:32:/esoui/art/icons/quest_crate_001.dds|t"
+            },
+            REPAIRKIT_CROWN = {
+                NORMAL = "|t32:32:/esoui/art/icons/store_repairkit_002.dds|t"
+            },
             SOULGEM = {
                 SMALL = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t",
                 NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_filled.dds|t",
@@ -94,19 +121,10 @@ PersonalAssistant.Constants = {
             SOULGEM_EMPTY = {
                 NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_empty.dds|t",
             },
+            TREASURE_MAP = {
+                NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t"
+            },
             WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t",
-            LOCKPICK = {
-                NORMAL = "|t32:32:/esoui/art/icons/lockpick.dds|t"
-            },
-            REPAIRKIT = {
-                NORMAL = "|t32:32:/esoui/art/icons/quest_crate_001.dds|t"
-            },
-            REPAIRKIT_CROWN = {
-                NORMAL = "|t32:32:/esoui/art/icons/store_repairkit_002.dds|t"
-            },
-            GENERIC_HELP = {
-                NORMAL = "|t32:32:/esoui/art/menubar/menubar_help_up.dds|t"
-            },
         },
     },
 
@@ -176,6 +194,12 @@ PersonalAssistant.Constants = {
         },
         TROPHIES = {
             SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP
+        },
+        MOTIF = {
+            -- itemType = 8
+        },
+        RECIPE = {
+            -- itemType = 29
         }
 
         -- ITEMTYPE_RECIPE
