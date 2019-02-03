@@ -84,8 +84,29 @@ PersonalAssistant.Constants = {
         },
         ITEMS = {
             BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t",
-            SOULGEM = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t",
+            SOULGEM = {
+                SMALL = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t",
+                NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_filled.dds|t",
+            },
+            SOULGEM_CROWN = {
+                NORMAL = "|t32:32:/esoui/art/icons/store_soulgem_001.dds|t",
+            },
+            SOULGEM_EMPTY = {
+                NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_empty.dds|t",
+            },
             WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t",
+            LOCKPICK = {
+                NORMAL = "|t32:32:/esoui/art/icons/lockpick.dds|t"
+            },
+            REPAIRKIT = {
+                NORMAL = "|t32:32:/esoui/art/icons/quest_crate_001.dds|t"
+            },
+            REPAIRKIT_CROWN = {
+                NORMAL = "|t32:32:/esoui/art/icons/store_repairkit_002.dds|t"
+            },
+            GENERIC_HELP = {
+                NORMAL = "|t32:32:/esoui/art/menubar/menubar_help_up.dds|t"
+            },
         },
     },
 
@@ -167,6 +188,9 @@ PersonalAssistant.Constants = {
     },
 
     BANKING_ADVANCED = {
+        LOCKPICK = {
+            30357,  -- [Lockpick]
+        },
         SOUL_GEM = {
             33265,  -- [Soul Gem (Empty)]
             33271,  -- [Soul Gem]
@@ -177,6 +201,7 @@ PersonalAssistant.Constants = {
             61079,  -- [Crown Repair Kit]
         },
         GENERIC = {
+            64710 -- TODO: only for testing; to be removed again!
             -- generic container where any itemID can just be added and it will work out of the box
         }
     },

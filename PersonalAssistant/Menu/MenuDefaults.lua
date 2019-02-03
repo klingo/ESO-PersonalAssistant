@@ -68,6 +68,33 @@ PA.MenuDefaults = {
             specializedItemsEnabled = true,
         },
 
+        -- ---------------------------------------------
+
+        Advanced = {
+            advancedItemsEnabled = true,
+
+            lockpickTransaction = true,
+            lockpickOperator = PAC.OPERATOR.NONE,
+            lockpickAmount = 100,
+
+            soulGemTransaction = true,
+            soulGemOperator = PAC.OPERATOR.NONE,
+            soulGemAmount = 100,
+
+            repairKitTransaction = true,
+            repairKitOperator = PAC.OPERATOR.NONE,
+            repairKitAmount = 100,
+
+            genericTransaction = false,
+            genericOperator = PAC.OPERATOR.NONE,
+            genericAmount = 100,
+
+            ItemIdOperator = {},
+            ItemIdBackpackAmount = {},
+        },
+
+        -- ---------------------------------------------
+
         transactionDepositStacking = PAC.STACKING.FULL,
         transactionWithdrawalStacking = PAC.STACKING.FULL,
         transactionInterval = 100,

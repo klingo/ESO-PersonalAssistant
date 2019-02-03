@@ -233,14 +233,36 @@ PersonalAssistant.Localization = {
 
     PABMenu_Specialized_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
 
+    PABMenu_Advanced_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Advanced Items"}),
+    PABMenu_Advanced_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Advanced Items?",
 
+    PABMenu_Advanced_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Advanced Items",
+
+    PABMenu_Advanced_Lockpick_Header = table.concat({PAC.ICONS.ITEMS.LOCKPICK.NORMAL, " ", "Lockpicks"}), -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_Lockpick_Enabled = "Deposit/Withdraw Lockpicks", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_Lockpick_Enabled_T = "Automatically deposit Lockpicks to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+
+    PABMenu_Advanced_SoulGem_Header = table.concat({PAC.ICONS.ITEMS.SOULGEM.NORMAL, " ", "Soul Gems"}), -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_SoulGem_Enabled = "Deposit/Withdraw Soul Gems", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_SoulGem_Enabled_T = "Automatically deposit Soul Gems to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+
+    PABMenu_Advanced_RepairKit_Header = table.concat({PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, " ", "Repair Kits"}), -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_RepairKit_Enabled = "Deposit/Withdraw Repair Kits", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_RepairKit_Enabled_T = "Automatically deposit Repair Kits to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+
+    PABMenu_Advanced_Generic_Header = table.concat({PAC.ICONS.ITEMS.GENERIC_HELP.NORMAL, " ", "Other Items"}),
+    PABMenu_Advanced_Generic_Enabled = "Deposit/Withdraw Other Items",
+    PABMenu_Advanced_Generic_Enabled_T = "Automatically deposit Other Items to the bank, or withdraw when needed?",
+
+    PABMenu_Advanced_Keep_in_Backpack = "Amount to keep in backpack",
+    PABMenu_Advanced_Keep_in_Backpack_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
 
     -- -----------------------------------------------------------------------------------------------------------------
 
     PABMenu_DepositStacking = "Stacking type (Deposit)",
-    PABMenu_DepositStacking_T = "Define whether all Crafting Items shall be deposited, or only when there are existing stacks that can be completed.",
+    PABMenu_DepositStacking_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed.",
     PABMenu_WithdrawalStacking = "Stacking type (Withdraw)",
-    PABMenu_WithdrawalStacking_T = "Define whether all Crafting Items shall be withdrawn, or only when there are existing stacks that can be completed.",
+    PABMenu_WithdrawalStacking_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed.",
 
     PABMenu_Transaction_Interval = "Interval between item transactions (msecs)",
     PABMenu_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",

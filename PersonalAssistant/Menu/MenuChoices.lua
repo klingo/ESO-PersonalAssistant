@@ -20,9 +20,9 @@ local PAMenuChoices = {
         },
         chargeWeaponsChatMode = {
             PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_None),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Min, PAC.ICONS.ITEMS.SOULGEM, PAC.ICONS.ITEMS.WEAPON, 15, 100),
+            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Min, PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ICONS.ITEMS.WEAPON, 15, 100),
             PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Normal, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ITEMLINKS.SOULGEM),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Full, PAC.ICONS.ITEMS.WEAPON, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ICONS.ITEMS.SOULGEM, PAC.ITEMLINKS.SOULGEM),
+            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Full, PAC.ICONS.ITEMS.WEAPON, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ITEMLINKS.SOULGEM),
         }
     },
     PABanking = {
@@ -115,12 +115,12 @@ local PAMenuChoicesValues = {
             PAC.MOVE.WITHDRAW,
         },
         mathOperator = {
-            PAC_OPERATOR_NONE,
-            PAC_OPERATOR_EQUAL,
-            -- PAC_OPERATOR_LESSTHAN,
-            PAC_OPERATOR_LESSTHANOREQUAL,
-            -- PAC_OPERATOR_GREATERTHAN,
-            PAC_OPERATOR_GREATERTHANOREQUAL,
+            PAC.OPERATOR.NONE,
+            PAC.OPERATOR.EQUAL,
+            -- PAC.OPERATOR.LESSTHAN,
+            PAC.OPERATOR.LESSTHANOREQUAL,
+            -- PAC.OPERATOR.GREATERTHAN,
+            PAC.OPERATOR.GREATERTHANOREQUAL,
         },
     },
     PALoot = {
