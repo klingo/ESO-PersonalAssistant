@@ -1,68 +1,82 @@
 # PersonalAssistant
-PersonalAssistant, an Addon for 'The Elder Scrolls Online'
+PersonalAssistant, an Add-on for '[The Elder Scrolls Online](https://www.elderscrollsonline.com/ "Home - The Elder Scrolls Online")'
 
 ***
 
 ## Download
-http://www.esoui.com/downloads/info381-PersonalAssistant.html
+You can always download the latest version here: http://www.esoui.com/downloads/info381-PersonalAssistant.html
+
 
 ***
 
 ## How to use
+PersonalAssistant is an Add-on for '[The Elder Scrolls Online](https://www.elderscrollsonline.com/ "Home - The Elder Scrolls Online")' and consists of multiple nested Add-ons that can independently be turned on or off. The following section will explain in more detail how to use the different parts. 
+
+#### PersonalAssistant
 tbd
 
+#### PersonalAssistant Banking
+tbd
 
-PersonalAssistant
-PersonalAssistant.Banking
-PersonalAssistant.Junk
-PersonalAssistant.Loot
-PersonalAssistant.Repair
+#### PersonalAssistant Junk
+tbd
+
+#### PersonalAssistant Loot
+tbd
+
+#### PersonalAssistant Repair
+tbd
+
 
 ***
 
 ## Development ToDo
 
 This is my development ToDo list for V2 of PersonalAssistant
-* [ ] **(3)** Feature is not yet implemented (has priority **(3)**)
+
+How to read:
 * [X] **(1)** Feature is implemented (had priority **(1)**)
+* [ ] **(3)** Feature is not yet implemented (has priority **(3)**)
 
 #### General
-* [x] **(7)** Update Currency System
-  * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
-  * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
-* [X] **(2)** Support ESO Plus Bag: BAG_VIRTUAL (Dark Brotherhood)
-    * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
-* [X] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
-    * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
-* [ ] **(8)** Check ItemLink Handling in HelperFunctions.lua
-  * http://www.esoui.com/forums/showthread.php?t=2054
-  * http://www.esoui.com/forums/showthread.php?t=1944
-  * https://wiki.esoui.com/ZO_LinkHandler_CreateLink
-* [ ] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
-    * http://www.esoui.com/forums/showthread.php?p=7988
-    * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
-* [ ] **(2)** Check Currency Formatting
-    * https://wiki.esoui.com/Currency_Formatting
 * [X] **(1)** Update to latest LAM version
 * [X] **(1)** Get rid of LibStub (no longer needed due to AddOnVersion)
     * https://www.esoui.com/downloads/info44-LibStub.html
 * [X] **(1)** Remove LibAddonMenu out of addon and make it a hard dependency
 * [X] **(1)** Make "PersonalAssistant" the top-level-Addon and move others as nested-Addons
   * https://wiki.esoui.com/Addon_Structure
+* [X] **(2)** Support ESO Plus Bag: BAG_VIRTUAL (Dark Brotherhood)
+    * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
+* [X] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
+    * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
+* [ ] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
+    * http://www.esoui.com/forums/showthread.php?p=7988
+    * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
+* [ ] **(4)** Check Currency Formatting
+    * https://wiki.esoui.com/Currency_Formatting
 * [X] **(5)** Update Addon Manifest
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion
   * Variable Expansion - $(language)
-* [ ] **(6)** Check new API from patch 4.3
+* [ ] **(6)** Check ItemLink Handling in HelperFunctions.lua
+  * http://www.esoui.com/forums/showthread.php?t=2054
+  * http://www.esoui.com/forums/showthread.php?t=1944
+  * https://wiki.esoui.com/ZO_LinkHandler_CreateLink
+* [x] **(7)** Update Currency System
+  * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
+  * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
+* [ ] **(8)** Check new API from patch 4.3
     ```lua
     GetItemLinkTraitType(itemLink) – itemTraitType.
     GetAddOnRootDirectoryPath(addOnIndex) – directoryPath.
     GetAddOnVersion(addOnIndex) – version.
     ```
+
+
+
   
 #### PARepair
 * [ ] **(2)** PARepair: Implement Repair Kits
-    * Add Notification Options
 * [ ] **(2)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
 * [ ] **(2)** PALoot: Check API
     ```lua
@@ -83,6 +97,7 @@ This is my development ToDo list for V2 of PersonalAssistant
           Returns: number amountRepaired
     RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)       
     ```
+* [ ] **(4)** Add Notification Options
 
 
 #### PABanking
@@ -102,19 +117,6 @@ This is my development ToDo list for V2 of PersonalAssistant
     ```lua
     RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
     ```
-* [X] **(3)** PABanking: Check new function for transferring currencies
-    ```lua
-    TransferCurrency(currencyType, amount, fromLocation, toLocation).
-    ```
-* [X] **(3)** PABanking: Support all four currency types    
-* [ ] **(4)** PABanking: Support Home Storage Banking Bags
-    ```lua
-    BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_TEN
-    GetBankingBag() – bankingBag.
-    IsHouseBankBag(bag) – isHouseBankBag.
-    GetCollectibleForHouseBankBag(houseBankBag) – collectibleId.
-    GetCollectibleBankAccessBag(collectibleId) – houseBankBag.
-    ```
 * [X] **(1)** PABanking: Crafting Material - Add buttons for Deposit/Withdraw/Ignore all
 * [X] **(1)** PABanking: Crafting Material - Add Jewelcrafting items
     ```lua
@@ -130,19 +132,42 @@ This is my development ToDo list for V2 of PersonalAssistant
     ITEMTYPE_FURNISHING
     ITEMTYPE_FURNISHING_MATERIAL 
     ```
-* [ ] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
 * [ ] **(2)** PABanking: Advanced Item Types - Add Soul gems (empty / filled)
+* [X] **(3)** PABanking: Check new function for transferring currencies
+    ```lua
+    TransferCurrency(currencyType, amount, fromLocation, toLocation).
+    ```
+* [X] **(3)** PABanking: Support all four currency types
+* [ ] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
 * [ ] **(3)** PABanking: Advanced Item Types - Add Repair Kits (only Grand?)
-* [ ] **(2)** PABanking: Add option to select type of notifications
+* [ ] **(4)** PABanking: Add option to select type of notifications
 * [ ] **(4)** PABanking: Add summary after transaction completed
 * [ ] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
-* [ ] **(6)** PABanking: Add progress bar for stacking
 * [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked)
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
+* [ ] **(5)** PABanking: Support Home Storage Banking Bags
+    ```lua
+    BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_TEN
+    GetBankingBag() – bankingBag.
+    IsHouseBankBag(bag) – isHouseBankBag.
+    GetCollectibleForHouseBankBag(houseBankBag) – collectibleId.
+    GetCollectibleBankAccessBag(collectibleId) – houseBankBag.
+    ```
+* [ ] **(7)** PABanking: Add progress bar for stacking
 
 
 #### PALoot
+* [ ] **(2)** PALoot: Harvestable Items - Add Jewelcrafting items
+* [ ] **(2)** PALoot: Check API
+    ```lua
+    LootAll(boolean ignoreStolenItems)
+    LootItemById(number lootId)
+    LootCurrency(number CurrencyType type)
+    GetLootItemInfo(number lootIndex)
+          Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
+    ```
+* [ ] **(3)** PALoot: Check if special message for Stealing is added?
 * [ ] **(5)** PALoot: Loot other currencies than gold  - Still needed?!
     ```lua
     GetLootCurrency(number CurrencyType type)  
@@ -158,33 +183,22 @@ This is my development ToDo list for V2 of PersonalAssistant
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT_STOLEN)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_LOOT_HISTORY)
-* [ ] **(3)** PALoot: Check if special message for Stealing is added?
-* [ ] **(3)** PALoot: Harvestable Items - Add Jewelcrafting items
-* [ ] **(2)** PALoot: Check API
-    ```lua
-    LootAll(boolean ignoreStolenItems)
-    LootItemById(number lootId)
-    LootCurrency(number CurrencyType type)
-    GetLootItemInfo(number lootIndex)
-          Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
-    ```
 
 
 #### PAJunk
 * [ ] **(1)** PAJunk: Add support for ESO internal item-locking
+* [ ] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
 * [ ] **(3)** PAJunk: Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
-* [ ] **(1)** PAJunk: Check if special message for marking as Trash/Ornate exists
-* [ ] **(5)** PAJunk: Add option to select type of notifications
 * [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
-
+* [ ] **(5)** PAJunk: Add option to select type of notifications
 
 
 #### PAMail
-* [ ] **(8)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
-* [ ] **(8)** PAMail: Chat notification about looted items from Hirelings 
-* [ ] **(8)** PAMail: Check API
+* [ ] **(9)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
+* [ ] **(9)** PAMail: Chat notification about looted items from Hirelings 
+* [ ] **(9)** PAMail: Check API
     ```lua
     IsLocalMailboxFull()
           Returns: boolean isFull
