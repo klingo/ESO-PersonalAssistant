@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 local PAMenuHelper = PA.MenuHelper
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
@@ -1263,13 +1264,8 @@ local function createPABAdvancedLockpickSubmenuTable()
             local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
             PABAdvancedLockpickSubmenuTable:insert({
-                type = "description",
-                text = function() return itemLink end
-            })
-
-            PABAdvancedLockpickSubmenuTable:insert({
                 type = "dropdown",
-                name = L.REL_Operator,
+                name = function() return PAHF.getFormattedText(L.REL_Operator, itemLink) end,
                 tooltip = L.REL_Operator_T,
                 choices = PAMenuChoices.choices.PABanking.mathOperator,
                 choicesValues = PAMenuChoices.choicesValues.PABanking.mathOperator,
@@ -1316,13 +1312,8 @@ local function createPABAdvancedSoulGemSubmenuTable()
             local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
             PABAdvancedSoulGemSubmenuTable:insert({
-                type = "description",
-                text = function() return itemLink end
-            })
-
-            PABAdvancedSoulGemSubmenuTable:insert({
                 type = "dropdown",
-                name = L.REL_Operator,
+                name = function() return PAHF.getFormattedText(L.REL_Operator, itemLink) end,
                 tooltip = L.REL_Operator_T,
                 choices = PAMenuChoices.choices.PABanking.mathOperator,
                 choicesValues = PAMenuChoices.choicesValues.PABanking.mathOperator,
@@ -1369,13 +1360,8 @@ local function createPABAdvancedRepairKitSubmenuTable()
             local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
             PABAdvancedRepairKitSubmenuTable:insert({
-                type = "description",
-                text = function() return itemLink end
-            })
-
-            PABAdvancedRepairKitSubmenuTable:insert({
                 type = "dropdown",
-                name = L.REL_Operator,
+                name = function() return PAHF.getFormattedText(L.REL_Operator, itemLink) end,
                 tooltip = L.REL_Operator_T,
                 choices = PAMenuChoices.choices.PABanking.mathOperator,
                 choicesValues = PAMenuChoices.choicesValues.PABanking.mathOperator,
@@ -1422,13 +1408,8 @@ local function createPABAdvancedGenericSubmenuTable()
             local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
             PABAdvancedGenericSubmenuTable:insert({
-                type = "description",
-                text = function() return itemLink end
-            })
-
-            PABAdvancedGenericSubmenuTable:insert({
                 type = "dropdown",
-                name = L.REL_Operator,
+                name = function() return PAHF.getFormattedText(L.REL_Operator, itemLink) end,
                 tooltip = L.REL_Operator_T,
                 choices = PAMenuChoices.choices.PABanking.mathOperator,
                 choicesValues = PAMenuChoices.choicesValues.PABanking.mathOperator,

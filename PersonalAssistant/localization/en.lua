@@ -350,7 +350,8 @@ PersonalAssistant.Localization = {
     NS_Bag_Unknown = "Unknown",
 
     -- Operators --
-    REL_Operator = "Mathematical Operator",
+    REL_Operator = "> %s",
+    REL_Operator_T = "Select the Mathematical Operator for this item.",
     REL_None = "-",
     REL_Equal = "equals (=)",
     REL_LessThan = "less than (<)", -- not required so far
