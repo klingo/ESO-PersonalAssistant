@@ -22,6 +22,10 @@ PersonalAssistant.Repair
 
 ## Development ToDo
 
+This is my development ToDo list for V2 of PersonalAssistant
+* [ ] **(3)** Feature is not yet implemented (has priority **(3)**)
+* [X] **(1)** Feature is implemented (had priority **(1)**)
+
 #### General
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
@@ -33,8 +37,12 @@ PersonalAssistant.Repair
 * [ ] **(8)** Check ItemLink Handling in HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?t=2054
   * http://www.esoui.com/forums/showthread.php?t=1944
+  * https://wiki.esoui.com/ZO_LinkHandler_CreateLink
 * [ ] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
     * http://www.esoui.com/forums/showthread.php?p=7988
+    * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
+* [ ] **(2)** Check Currency Formatting
+    * https://wiki.esoui.com/Currency_Formatting
 * [X] **(1)** Update to latest LAM version
 * [X] **(1)** Get rid of LibStub (no longer needed due to AddOnVersion)
     * https://www.esoui.com/downloads/info44-LibStub.html
@@ -55,6 +63,26 @@ PersonalAssistant.Repair
 #### PARepair
 * [ ] **(2)** PARepair: Implement Repair Kits
     * Add Notification Options
+* [ ] **(2)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
+* [ ] **(2)** PALoot: Check API
+    ```lua
+    CanStoreRepair() 
+  
+    GetItemRepairCost(number Bag bagId, number slotIndex)
+          Returns: number repairCost
+    GetRepairAllCost()
+          Returns: number repairCost
+        
+    IsItemRepairKit(number Bag bagId, number slotIndex)
+          Returns: boolean isRepairKit
+    IsItemNonCrownRepairKit(number Bag bagId, number slotIndex)
+          Returns: boolean isNonCrownRepairKit
+    GetRepairKitTier(number Bag bagId, number slotIndex)
+          Returns: number tier
+    GetAmountRepairKitWouldRepairItem(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)
+          Returns: number amountRepaired
+    RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)       
+    ```
 
 
 #### PABanking
@@ -87,8 +115,8 @@ PersonalAssistant.Repair
     GetCollectibleForHouseBankBag(houseBankBag) – collectibleId.
     GetCollectibleBankAccessBag(collectibleId) – houseBankBag.
     ```
-* [ ] **(1)** PABanking: Crafting Material - Add buttons for Deposit/Withdraw/Ignore all
-* [ ] **(1)** PABanking: Crafting Material - Add Jewelcrafting items
+* [X] **(1)** PABanking: Crafting Material - Add buttons for Deposit/Withdraw/Ignore all
+* [X] **(1)** PABanking: Crafting Material - Add Jewelcrafting items
     ```lua
     ITEMTYPE_JEWELRYCRAFTING_BOOSTER
     ITEMTYPE_JEWELRYCRAFTING_MATERIAL
@@ -97,7 +125,7 @@ PersonalAssistant.Repair
     ITEMTYPE_JEWELRY_RAW_TRAIT
     ITEMTYPE_JEWELRY_TRAIT
     ```
-* [ ] **(1)** PABanking: Crafting Material - Add Furnishing items
+* [X] **(1)** PABanking: Crafting Material - Add Furnishing items
     ```lua
     ITEMTYPE_FURNISHING
     ITEMTYPE_FURNISHING_MATERIAL 
@@ -107,8 +135,11 @@ PersonalAssistant.Repair
 * [ ] **(3)** PABanking: Advanced Item Types - Add Repair Kits (only Grand?)
 * [ ] **(2)** PABanking: Add option to select type of notifications
 * [ ] **(4)** PABanking: Add summary after transaction completed
-* [ ] **(5)** PABanking: Integrate selected features from Roomba
-    * https://www.esoui.com/downloads/info402-Roomba-GuildbankStacker.html
+* [ ] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
+* [ ] **(6)** PABanking: Add progress bar for stacking
+* [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked)
+  * http://www.esoui.com/downloads/info630-FCOItemSaver.html
+  * www.esoui.com/forums/showthread.php?t=6987
 
 
 #### PALoot
@@ -129,6 +160,14 @@ PersonalAssistant.Repair
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_LOOT_HISTORY)
 * [ ] **(3)** PALoot: Check if special message for Stealing is added?
 * [ ] **(3)** PALoot: Harvestable Items - Add Jewelcrafting items
+* [ ] **(2)** PALoot: Check API
+    ```lua
+    LootAll(boolean ignoreStolenItems)
+    LootItemById(number lootId)
+    LootCurrency(number CurrencyType type)
+    GetLootItemInfo(number lootIndex)
+          Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
+    ```
 
 
 #### PAJunk
@@ -137,8 +176,38 @@ PersonalAssistant.Repair
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
 * [ ] **(1)** PAJunk: Check if special message for marking as Trash/Ornate exists
-* [ ] **(1)** PAJunk: Add option to select type of notifications
-* [ ] **(2)** PAJunk: Add item context menu to flag item as junk
+* [ ] **(5)** PAJunk: Add option to select type of notifications
+* [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
+
+
+
+#### PAMail
+* [ ] **(8)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
+* [ ] **(8)** PAMail: Chat notification about looted items from Hirelings 
+* [ ] **(8)** PAMail: Check API
+    ```lua
+    IsLocalMailboxFull()
+          Returns: boolean isFull
+    GetNumMailItems()
+          Returns: number numMail
+    GetNextMailId(id64:nilable lastMailId)
+          Returns: id64:nilable nextMailId
+    GetMailItemInfo(id64 mailId)
+          Returns: string senderDisplayName, string senderCharacterName, string subject, textureName icon, boolean unread, boolean fromSystem, boolean fromCustomerService, boolean returned, number numAttachments, number attachedMoney, number codAmount, number expiresInDays, number secsSinceReceived
+    GetMailSender(id64 mailId)
+          Returns: string senderDisplayName, string senderCharacterName
+    GetMailAttachmentInfo(id64 mailId)
+          Returns: number numAttachments, number attachedMoney, number codAmount
+    GetMailFlags(id64 mailId)
+          Returns: boolean unread, boolean returned, boolean fromSystem, boolean fromCustomerService
+    
+    RequestOpenMailbox() 
+    ReadMail(id64 mailId)
+    TakeMailAttachedItems(id64 mailId)
+    TakeMailAttachedMoney(id64 mailId)   
+    DeleteMail(id64 mailId, boolean forceDelete)     
+    CloseMailbox()            
+    ```
    
 ***
 
