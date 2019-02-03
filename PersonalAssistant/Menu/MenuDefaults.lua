@@ -23,49 +23,57 @@ PA.MenuDefaults = {
         chargeWeaponsChatMode = PA_OUTPUT_TYPE_NORMAL,
     },
     PABanking = {
-        currenciesEnabled = true,
+        Currencies = {
+            currenciesEnabled = true,
 
-        goldTransaction = false,
-        goldMinToKeep = 1000,
-        goldMaxToKeep = 5000,
+            goldTransaction = false,
+            goldMinToKeep = 1000,
+            goldMaxToKeep = 5000,
 
-        alliancePointsTransaction = false,
-        alliancePointsMinToKeep = 1000,
-        alliancePointsMaxToKeep = 5000,
+            alliancePointsTransaction = false,
+            alliancePointsMinToKeep = 1000,
+            alliancePointsMaxToKeep = 5000,
 
-        telVarTransaction = false,
-        telVarMinToKeep = 1000,
-        telVarMaxToKeep = 5000,
+            telVarTransaction = false,
+            telVarMinToKeep = 1000,
+            telVarMaxToKeep = 5000,
 
-        writVouchersTransaction = false,
-        writVouchersMinToKeep = 10,
-        writVouchersMaxToKeep = 100,
+            writVouchersTransaction = false,
+            writVouchersMinToKeep = 10,
+            writVouchersMaxToKeep = 100,
+        },
 
         -- ---------------------------------------------
 
-        craftingItemsEnabled = true,
-        craftingItemsDepositStacking = PAC.STACKING.FULL,
-        craftingItemsWithdrawalStacking = PAC.STACKING.FULL,
-        craftingTransactionInterval = 100,
+        Crafting = {
+            craftingItemsEnabled = true,
+            craftingItemsDepositStacking = PAC.STACKING.FULL,
+            craftingItemsWithdrawalStacking = PAC.STACKING.FULL,
+            craftingTransactionInterval = 100,
 
-        blacksmithingTransaction = true,
-        clothingTransaction = true,
-        woodworkingTransaction = true,
-        jewelcraftingTransaction = true,
-        alchemyTransaction = true,
-        enchantingTransaction = true,
-        provisioningTransaction = true,
-        styleMaterialsTransaction = true,
-        traitItemsTransaction = true,
-        furnishingTransaction = true,
+            blacksmithingTransaction = true,
+            clothingTransaction = true,
+            woodworkingTransaction = true,
+            jewelcraftingTransaction = true,
+            alchemyTransaction = true,
+            enchantingTransaction = true,
+            provisioningTransaction = true,
+            styleMaterialsTransaction = true,
+            traitItemsTransaction = true,
+            furnishingTransaction = true,
 
-        ItemTypesCrafting = {},
+            ItemTypesCrafting = {},
+        },
 
         -- ---------------------------------------------
         itemTransaction = false,
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
         depositTimerInterval = 300,
+
+        -- ---------------------------------------------
+
+        itemTransaction = false,
         ItemTypesMaterial = {},
         ItemTypes = {},
         ItemTypesAdvanced = {

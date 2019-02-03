@@ -250,7 +250,7 @@ local function createMainMenu()
             getFunc = PAMenuFunctions.PABanking.getCurrenciesEnabledSetting,
             setFunc = PAMenuFunctions.PABanking.setCurrenciesEnabledSetting,
             disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-            default = PAMenuDefaults.PABanking.currenciesEnabled,
+            default = PAMenuDefaults.PABanking.Currencies.currenciesEnabled,
         })
 
         optionsTable:insert({
@@ -315,7 +315,7 @@ local function createMainMenu()
                     getFunc = PAMenuFunctions.PABanking.getCraftingItemsEnabledSetting,
                     setFunc = PAMenuFunctions.PABanking.setCraftingItemsEnabledSetting,
                     disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-                    default = PAMenuDefaults.PABanking.craftingItemsEnabled,
+                    default = PAMenuDefaults.PABanking.Crafting.craftingItemsEnabled,
                 })
 
                 optionsTable:insert({
@@ -417,12 +417,17 @@ local function createMainMenu()
                 })
             end
 
+            -- ---------------------------------------------------------------------------------------------------------
+
             optionsTable:insert({
                 type = "divider",
                 alpha = 0.5,
             })
 
             -- TODO: Here come other item types
+
+
+            -- ---------------------------------------------------------------------------------------------------------
 
             optionsTable:insert({
                 type = "divider",
@@ -439,7 +444,7 @@ local function createMainMenu()
                 getFunc = PAMenuFunctions.PABanking.getCraftingItemsDepositStackingSetting,
                 setFunc = PAMenuFunctions.PABanking.setCraftingItemsDepositStackingSetting,
                 disabled = PAMenuFunctions.PABanking.isCraftingItemsDepositStackingDisabled,
-                default = PAMenuDefaults.PABanking.craftingItemsDepositStacking,
+                default = PAMenuDefaults.PABanking.Crafting.craftingItemsDepositStacking,
             })
 
             optionsTable:insert({
@@ -452,7 +457,7 @@ local function createMainMenu()
                 getFunc = PAMenuFunctions.PABanking.getCraftingItemsWithdrawalStackingSetting,
                 setFunc = PAMenuFunctions.PABanking.setCraftingItemsWithdrawalStackingSetting,
                 disabled = PAMenuFunctions.PABanking.isCraftingItemsWithdrawalStackingDisabled,
-                default = PAMenuDefaults.PABanking.craftingItemsWithdrawalStacking,
+                default = PAMenuDefaults.PABanking.Crafting.craftingItemsWithdrawalStacking,
             })
 
             optionsTable:insert({
@@ -465,7 +470,7 @@ local function createMainMenu()
                 getFunc = PAMenuFunctions.PABanking.getCraftingTransactionInvervalSetting,
                 setFunc = PAMenuFunctions.PABanking.setCraftingTransactionInvervalSetting,
                 disabled = PAMenuFunctions.PABanking.isCraftingTransactionInvervalDisabled,
-                default = PAMenuDefaults.PABanking.craftingTransactionInterval,
+                default = PAMenuDefaults.PABanking.Crafting.craftingTransactionInterval,
             })
 
 
@@ -682,7 +687,7 @@ local function createPABCurrencyGoldSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getGoldTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setGoldTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isGoldTransactionDisabled,
-            default = PAMenuDefaults.PABanking.goldTransaction,
+            default = PAMenuDefaults.PABanking.Currencies.goldTransaction,
         })
 
         PABCurrencyGoldSubmenuTable:insert({
@@ -693,7 +698,7 @@ local function createPABCurrencyGoldSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setGoldMinToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isGoldMinToKeepDisabled,
-            default = PAMenuDefaults.PABanking.goldMinToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.goldMinToKeep,
             reference = "PERSONALASSISTANT_PAB_GOLD_MIN",
         })
 
@@ -705,7 +710,7 @@ local function createPABCurrencyGoldSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setGoldMaxToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isGoldMaxToKeepDisabled,
-            default = PAMenuDefaults.PABanking.goldMaxToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.goldMaxToKeep,
             reference = "PERSONALASSISTANT_PAB_GOLD_MAX",
         })
     end
@@ -726,7 +731,7 @@ local function createPABCurrencyAlliancePointsSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getAlliancePointsTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setAlliancePointsTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isAlliancePointsTransactionDisabled,
-            default = PAMenuDefaults.PABanking.alliancePointsTransaction,
+            default = PAMenuDefaults.PABanking.Currencies.alliancePointsTransaction,
         })
 
         PABCurrencyAlliancePointsSubmenuTable:insert({
@@ -737,7 +742,7 @@ local function createPABCurrencyAlliancePointsSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setAlliancePointsMinToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isAlliancePointsMinToKeepDisabled,
-            default = PAMenuDefaults.PABanking.alliancePointsMinToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.alliancePointsMinToKeep,
             reference = "PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN",
         })
 
@@ -749,7 +754,7 @@ local function createPABCurrencyAlliancePointsSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setAlliancePointsMaxToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isAlliancePointsMaxToKeepDisabled,
-            default = PAMenuDefaults.PABanking.alliancePointsMaxToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.alliancePointsMaxToKeep,
             reference = "PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX",
         })
     end
@@ -770,7 +775,7 @@ local function createPABCurrencyTelVarSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getTelVarTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setTelVarTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isTelVarTransactionDisabled,
-            default = PAMenuDefaults.PABanking.telVarTransaction,
+            default = PAMenuDefaults.PABanking.Currencies.telVarTransaction,
         })
 
         PABCurrencyTelVarSubmenuTable:insert({
@@ -781,7 +786,7 @@ local function createPABCurrencyTelVarSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setTelVarMinToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isTelVarMinToKeepDisabled,
-            default = PAMenuDefaults.PABanking.telVarMinToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.telVarMinToKeep,
             reference = "PERSONALASSISTANT_PAB_TELVAR_MIN",
         })
         PABCurrencyTelVarSubmenuTable:insert({
@@ -792,7 +797,7 @@ local function createPABCurrencyTelVarSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setTelVarMaxToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isTelVarMaxToKeepDisabled,
-            default = PAMenuDefaults.PABanking.telVarMaxToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.telVarMaxToKeep,
             reference = "PERSONALASSISTANT_PAB_TELVAR_MAX",
         })
     end
@@ -813,7 +818,7 @@ local function createPABCurrencyWritVouchersSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getWritVouchersTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setWritVouchersTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isWritVouchersTransactionDisabled,
-            default = PAMenuDefaults.PABanking.writVouchersTransaction,
+            default = PAMenuDefaults.PABanking.Currencies.writVouchersTransaction,
         })
 
         PABCurrencyWritVouchersSubmenuTable:insert({
@@ -824,7 +829,7 @@ local function createPABCurrencyWritVouchersSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setWritVouchersMinToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isWritVouchersMinToKeepDisabled,
-            default = PAMenuDefaults.PABanking.writVouchersMinToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.writVouchersMinToKeep,
             reference = "PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN",
         })
 
@@ -836,7 +841,7 @@ local function createPABCurrencyWritVouchersSubmenuTable()
             setFunc = PAMenuFunctions.PABanking.setWritVouchersMaxToKeepSetting,
             width = "half",
             disabled = PAMenuFunctions.PABanking.isWritVouchersMaxToKeepDisabled,
-            default = PAMenuDefaults.PABanking.writVouchersMaxToKeep,
+            default = PAMenuDefaults.PABanking.Currencies.writVouchersMaxToKeep,
             reference = "PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX",
         })
     end
@@ -857,7 +862,7 @@ local function createPABItemsBlacksmithingSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getBlacksmithingTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setBlacksmithingTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionDisabled,
-            default = PAMenuDefaults.PABanking.blacksmithingTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.blacksmithingTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.BLACKSMITHING) do
@@ -891,7 +896,7 @@ local function createPABItemsClothingSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getClothingTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setClothingTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isClothingTransactionDisabled,
-            default = PAMenuDefaults.PABanking.clothingTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.clothingTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.CLOTHING) do
@@ -925,7 +930,7 @@ local function createPABItemsWoodworkingSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getWoodworkingTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setWoodworkingTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionDisabled,
-            default = PAMenuDefaults.PABanking.woodworkingTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.woodworkingTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.WOODWORKING) do
@@ -959,7 +964,7 @@ local function createPABItemsJewelcraftingSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getJewelcraftingTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setJewelcraftingTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionDisabled,
-            default = PAMenuDefaults.PABanking.jewelcraftingTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.jewelcraftingTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.JEWELCRAFTING) do
@@ -993,7 +998,7 @@ local function createPABItemsAlchemySubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getAlchemyTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setAlchemyTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isAlchemyTransactionDisabled,
-            default = PAMenuDefaults.PABanking.alchemyTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.alchemyTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.ALCHEMY) do
@@ -1027,7 +1032,7 @@ local function createPABItemsEnchantingSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getEnchantingTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setEnchantingTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isEnchantingTransactionDisabled,
-            default = PAMenuDefaults.PABanking.enchantingTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.enchantingTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.ENCHANTING) do
@@ -1061,7 +1066,7 @@ local function createPABItemsProvisioningSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getProvisioningTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setProvisioningTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isProvisioningTransactionDisabled,
-            default = PAMenuDefaults.PABanking.provisioningTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.provisioningTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.PROVISIONING) do
@@ -1095,7 +1100,7 @@ local function createPABItemsStyleMaterialsSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getStyleMaterialsTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setStyleMaterialsTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionDisabled,
-            default = PAMenuDefaults.PABanking.styleMaterialsTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.styleMaterialsTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.STYLEMATERIALS) do
@@ -1129,7 +1134,7 @@ local function createPABItemsTraitItemsSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getTraitItemsTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setTraitItemsTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionDisabled,
-            default = PAMenuDefaults.PABanking.traitItemsTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.traitItemsTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.TRAITITEMS) do
@@ -1163,7 +1168,7 @@ local function createPABItemsFurnishingSubmenuTable()
             getFunc = PAMenuFunctions.PABanking.getFurnishingTransactionSetting,
             setFunc = PAMenuFunctions.PABanking.setFurnishingTransactionSetting,
             disabled = PAMenuFunctions.PABanking.isFurnishingTransactionDisabled,
-            default = PAMenuDefaults.PABanking.furnishingTransaction,
+            default = PAMenuDefaults.PABanking.Crafting.furnishingTransaction,
         })
 
         for _, itemType in pairs(PAC.BANKING.FURNISHING) do
