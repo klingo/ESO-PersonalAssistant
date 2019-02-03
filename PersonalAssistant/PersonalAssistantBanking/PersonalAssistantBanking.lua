@@ -18,16 +18,6 @@ local function initDefaults()
         -- get default vlaues from PAMenuDefaults
         Banking_Defaults[profileNo] = PAMenuDefaults.PABanking
 
---        -- default values for ItemTypesMaterial (only prepare defaults for enabled itemTypes)
---        for _, itemType in pairs(PABItemTypesMaterial) do
---            Banking_Defaults[profileNo].ItemTypesMaterial[itemType] = PAC_ITEMTYPE_IGNORE
---        end
---
---        -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
---        for _, itemType in pairs(PABItemTypes) do
---            Banking_Defaults[profileNo].ItemTypes[itemType] = PAC_ITEMTYPE_IGNORE
---        end
---
 --        -- default values for advanced ItemTypes
 --        for _, itemType in pairs(PABItemTypesAdvanced) do
 --            Banking_Defaults[profileNo].ItemTypesAdvanced[itemType] = {

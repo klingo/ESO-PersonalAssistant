@@ -72,14 +72,8 @@ PA.MenuDefaults = {
         transactionWithdrawalStacking = PAC.STACKING.FULL,
         transactionInterval = 100,
 
-        itemsDepStackType = PAB_STACKING_FULL,
-        itemsWitStackType = PAB_STACKING_FULL,
-
         -- ---------------------------------------------
 
-        itemTransaction = false,
-        ItemTypesMaterial = {},
-        ItemTypes = {},
         ItemTypesAdvanced = {
             advItemTypesValue = 100
         },
