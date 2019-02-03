@@ -18,16 +18,6 @@ local _newDepositStacksAllowed
 local _newWithdrawalStacksAllowed
 
 
-local function _getComparator(itemTypeList)
-    return function(itemData)
-        for _, itemType in pairs(itemTypeList) do
-            if itemType == itemData.itemType then return true end
-        end
-        return false
-    end
-end
-
-
 -- Actually requests the move of an item
 local function _requestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount)
     if IsProtectedFunction("RequestMoveItem") then
@@ -221,8 +211,8 @@ local function depositOrWithdrawCraftingItems()
         end
     end
 
-    local depositComparator = _getComparator(depositItemTypes)
-    local withdrawComparator = _getComparator(withdrawItemTypes)
+    local depositComparator = PAB.getItemTypeComparator(depositItemTypes)
+    local withdrawComparator = PAB.getItemTypeComparator(withdrawItemTypes)
 
     local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
     local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)

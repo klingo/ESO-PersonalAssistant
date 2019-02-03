@@ -74,6 +74,8 @@ end
 
 local function depositOrWithdrawCurrencies()
 
+    PAHF.debugln("PA.Banking.depositOrWithdrawCurrencies")
+
     local currencies = {
         {
             currencyType = CURT_MONEY,

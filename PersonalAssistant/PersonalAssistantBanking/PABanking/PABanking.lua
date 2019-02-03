@@ -4,12 +4,11 @@ local PASV = PA.SavedVars
 local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
 
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function doSameBagStacking(bagId)
     -- TODO: needed?
 end
-
--- ---------------------------------------------------------------------------------------------------------------------
 
 local function triggerNextTransactionFunction()
     -- Execute the function queue
@@ -18,6 +17,27 @@ local function triggerNextTransactionFunction()
         local functionToCall = table.remove(PAB.transactionFunctionQueue)
         -- call that function and pass on the remaining list of transactionFunctions
         functionToCall()
+    end
+end
+
+
+local function getItemTypeComparator(itemTypeList)
+    return function(itemData)
+        for _, itemType in pairs(itemTypeList) do
+            if itemType == itemData.itemType then return true end
+        end
+        return false
+    end
+end
+
+-- TODO: getAdvancedItemTypeComparator???
+
+local function getItemIdComparator(itemIdList)
+    return function(itemData)
+        for _, customItemData in pairs(itemIdList) do
+            if customItemData.itemId == GetItemId(itemData.bagId, itemData.slotIndex)  then return true end
+        end
+        return false
     end
 end
 
@@ -79,3 +99,5 @@ PA.Banking = PA.Banking or {}
 PA.Banking.OnBankOpen = OnBankOpen
 PA.Banking.OnBankClose = OnBankClose
 PA.Banking.triggerNextTransactionFunction = triggerNextTransactionFunction
+PA.Banking.getItemTypeComparator = getItemTypeComparator
+PA.Banking.getItemIdComparator = getItemIdComparator
