@@ -111,9 +111,9 @@ PersonalAssistant.Constants = {
     },
 
     ITEMLINKS = {
-        BANANAS = "|H0:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Bananas]|h", -- Bananas, Normal Level 1
-        SOULGEM = "|H0:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h[Grand Soul Gem]|h", -- Grand Soul Gem, Fine Level 50
-        WEAPON = "|H0:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h[Sword of the Dragon]|h", -- Sword of the Dragon, Epic Level 50 CP160
+        BANANAS = "|H1:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", -- Bananas, Normal Level 1
+        SOULGEM = "|H1:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h", -- Grand Soul Gem, Fine Level 50
+        WEAPON = "|H1:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h|h", -- Sword of the Dragon, Epic Level 50 CP160
     },
 
     BANKING = {

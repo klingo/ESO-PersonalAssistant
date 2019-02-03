@@ -1260,6 +1260,13 @@ local function createPABAdvancedLockpickSubmenuTable()
         })
 
         for _, itemId in pairs(PAC.BANKING_ADVANCED.LOCKPICK) do
+            local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+            PABAdvancedLockpickSubmenuTable:insert({
+                type = "description",
+                text = function() return itemLink end
+            })
+
             PABAdvancedLockpickSubmenuTable:insert({
                 type = "dropdown",
                 name = L.REL_Operator,
@@ -1306,11 +1313,11 @@ local function createPABAdvancedSoulGemSubmenuTable()
         })
 
         for _, itemId in pairs(PAC.BANKING_ADVANCED.SOUL_GEM) do
-            optionsTable:insert({
-                type = "description",
-                text = function()
+            local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
-                end
+            PABAdvancedSoulGemSubmenuTable:insert({
+                type = "description",
+                text = function() return itemLink end
             })
 
             PABAdvancedSoulGemSubmenuTable:insert({
@@ -1359,6 +1366,13 @@ local function createPABAdvancedRepairKitSubmenuTable()
         })
 
         for _, itemId in pairs(PAC.BANKING_ADVANCED.REPAIR_KIT) do
+            local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+            PABAdvancedRepairKitSubmenuTable:insert({
+                type = "description",
+                text = function() return itemLink end
+            })
+
             PABAdvancedRepairKitSubmenuTable:insert({
                 type = "dropdown",
                 name = L.REL_Operator,
@@ -1405,6 +1419,13 @@ local function createPABAdvancedGenericSubmenuTable()
         })
 
         for _, itemId in pairs(PAC.BANKING_ADVANCED.GENERIC) do
+            local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+            PABAdvancedGenericSubmenuTable:insert({
+                type = "description",
+                text = function() return itemLink end
+            })
+
             PABAdvancedGenericSubmenuTable:insert({
                 type = "dropdown",
                 name = L.REL_Operator,
