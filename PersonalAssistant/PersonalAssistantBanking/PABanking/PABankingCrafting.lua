@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAB = PA.Banking
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 local PAMF = PA.MenuFunctions
@@ -10,8 +11,6 @@ local PASV = PA.SavedVars
 -- NOTE: Filling up existing stacks can be done immediately; creating new stacks takes time (i.e. zo_callLater needed)
 
 -- ---------------------------------------------------------------------------------------------------------------------
-
-local _isBankTransferBlocked = false
 
 -- will be initialise from SavedVars upon triggering the module
 local _transactionInterval
@@ -98,13 +97,15 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                     -- nothing else that can be moved; done
                     -- TODO: end message?
                     d("2) all done!")
-                    _isBankTransferBlocked = false
+                    PAB.isBankTransferBlocked = false
+                    -- Execute the function queue
+                    PAB.triggerNextTransactionFunction()
                 end
             end
         else
             -- abort; dont continue
             PAHF.println("PAB_Items_MovedTo_BankClosed", itemLink, PAHF.getBagName(BAG_BANK))
-            _isBankTransferBlocked = false
+            PAB.isBankTransferBlocked = false
         end
     else
         -- cannot move item because there is not enough space; put it on separate list to try again afterwards
@@ -124,7 +125,9 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
             PAHF.println("PAB_Items_MovedTo_OutOfSpace", itemLink, PAHF.getBagName(BAG_BANK))
-            _isBankTransferBlocked = false
+            PAB.isBankTransferBlocked = false
+            -- Execute the function queue
+            PAB.triggerNextTransactionFunction()
         end
     end
 end
@@ -188,7 +191,9 @@ local function _doItemTransactions(fromBagCacheDeposit, toBagCacheDeposit, fromB
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
         d("1) all done!")
-        _isBankTransferBlocked = false
+        PAB.isBankTransferBlocked = false
+        -- Execute the function queue
+        PAB.triggerNextTransactionFunction()
     end
 end
 
@@ -196,9 +201,12 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function depositOrWithdrawCraftingItems()
+
+    PAHF.debugln("PA.Banking.depositOrWithdrawCraftingItems")
+
     -- check if bankTransfer is already blocked
-    if _isBankTransferBlocked then return end
-    _isBankTransferBlocked = true
+    if PAB.isBankTransferBlocked then return end
+    PAB.isBankTransferBlocked = true
 
     -- prepare the table with itemTypes to deposit and withdraw
     local depositItemTypes = setmetatable({}, { __index = table })
