@@ -54,6 +54,8 @@ How to read:
     * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
 * [ ] **(4)** Check Currency Formatting
     * https://wiki.esoui.com/Currency_Formatting
+* [ ] **(4)** Add LDoc
+    * https://stevedonovan.github.io/ldoc/manual/doc.md.html
 * [X] **(5)** Update Addon Manifest
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion

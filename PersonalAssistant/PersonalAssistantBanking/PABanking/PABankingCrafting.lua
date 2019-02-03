@@ -14,7 +14,7 @@ local PASV = PA.SavedVars
 local _isBankTransferBlocked = false
 
 -- will be initialise from SavedVars upon triggering the module
-local _craftingTransactionInterval
+local _transactionInterval
 local _newDepositStacksAllowed
 local _newWithdrawalStacksAllowed
 
@@ -86,14 +86,14 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             if newStartIndex <= #toBeMovedItemsTable then
                 zo_callLater(function()
                     _moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
-                end, _craftingTransactionInterval)
+                end, _transactionInterval)
             else
                 -- loop completed; check if there are any items to be moved again (re-try)
                 if (toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0) then
                     -- if there are items left, try again
                     zo_callLater(function()
                         _moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
-                    end, _craftingTransactionInterval)
+                    end, _transactionInterval)
                 else
                     -- nothing else that can be moved; done
                     -- TODO: end message?
@@ -114,12 +114,12 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             if newStartIndex <= #toBeMovedItemsTable then
                 zo_callLater(function()
                     _moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
-                end, _craftingTransactionInterval)
+                end, _transactionInterval)
             else
                 -- loop completed;  try again with the items added to the re-try list
                 zo_callLater(function()
                     _moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
-                end, _craftingTransactionInterval)
+                end, _transactionInterval)
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
@@ -223,9 +223,9 @@ local function depositOrWithdrawCraftingItems()
     local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
 
     -- update the TransactionTimer and StacksAllowed options from the SavedVars
-    _craftingTransactionInterval = PAMF.PABanking.getCraftingTransactionInvervalSetting()
-    _newDepositStacksAllowed = (PAMF.PABanking.getCraftingItemsDepositStackingSetting() == PAC.STACKING.FULL)
-    _newWithdrawalStacksAllowed = (PAMF.PABanking.getCraftingItemsWithdrawalStackingSetting() == PAC.STACKING.FULL)
+    _transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
+    _newDepositStacksAllowed = (PAMF.PABanking.getTransactionDepositStackingSetting() == PAC.STACKING.FULL)
+    _newWithdrawalStacksAllowed = (PAMF.PABanking.getTransactionWithdrawalStackingSetting() == PAC.STACKING.FULL)
 
     _doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache)
 end

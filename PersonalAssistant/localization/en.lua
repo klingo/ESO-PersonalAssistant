@@ -188,11 +188,6 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_GlobalMoveMode_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
     PABMenu_Crafting_GlobalMoveMode_W = "This cannot be undone; all individually selected values will be lost",
 
-    PABMenu_Crafting_DepositStacking = "Stacking type (Deposit)",
-    PABMenu_Crafting_DepositStacking_T = "Define whether all Crafting Items shall be deposited, or only when there are existing stacks that can be completed.",
-    PABMenu_Crafting_WithdrawalStacking = "Stacking type (Withdraw)",
-    PABMenu_Crafting_WithdrawalStacking_T = "Define whether all Crafting Items shall be withdrawn, or only when there are existing stacks that can be completed.",
-
     PABMenu_Crafting_Blacksmithing_Header = table.concat({PAC.ICONS.CRAFTBAG.BLACKSMITHING.LARGE, " ", "Blacksmithing"}),
     PABMenu_Crafting_Blacksmithing_Enabled = "Deposit/Withdraw Blacksmithing Items",
     PABMenu_Crafting_Blacksmithing_Enabled_T = "Automatically deposit Blacksmithing Items to the bank, or withdraw when needed?",
@@ -233,22 +228,31 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Furnishing_Enabled = "Deposit/Withdraw Furnishing Items",
     PABMenu_Crafting_Furnishing_Enabled_T = "Automatically deposit Furnishing Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Transaction_Interval = "Interval between item transactions (msecs)",
-    PABMenu_Crafting_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
+    PABMenu_Specialized_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
+    PABMenu_Specialized_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
+
+    PABMenu_Specialized_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
+
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+
+    PABMenu_DepositStacking = "Stacking type (Deposit)",
+    PABMenu_DepositStacking_T = "Define whether all Crafting Items shall be deposited, or only when there are existing stacks that can be completed.",
+    PABMenu_WithdrawalStacking = "Stacking type (Withdraw)",
+    PABMenu_WithdrawalStacking_T = "Define whether all Crafting Items shall be withdrawn, or only when there are existing stacks that can be completed.",
+
+    PABMenu_Transaction_Interval = "Interval between item transactions (msecs)",
+    PABMenu_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
 
     -- -----------------------------------------------------------------------------------------------------------------
 
 
-    PABMenu_DepItemType = "Common item types",
-    PABMenu_DepItemType_T = "Open the sub-menu to define for each item type whether it shall be deposited, withdrawn or ignored.",
+
     PABMenu_DepStackOnly = "Stacking type (Deposit)",
     PABMenu_DepStackOnly_T = "Define whether all matching items shall be deposited completely, if only items that exist in the target container shall be deposited or if only existing stacks shall be filled up to their max size.",
     PABMenu_WitStackOnly = "Stacking type (Withdraw)",
     PABMenu_WitStackOnly_T = "Define whether all matching items shall be withdrawn completely, if only items that exist in the target container shall be withdrawn or if only existing stacks shall be filled up to their max size.",
-    PABMenu_Advanced_DepItemType = "Advanced item types",
-    PABMenu_Advanced_DepItemType_T = "Open the sub-menu to define for other item types on an advanced level whether they shall be deposited, withdrawn or ignored.",
-    PABMenu_DepItemTimerInterval = "- Interval between item deposits (msecs)",
-    PABMenu_DepItemTimerInterval_T = "How many msecs shall pass between two consecutive item deposits. If too many item deposits don't work, consider increasing this value.",
     PABMenu_ItemType_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
     PABMenu_HideNoDeposit = "Hide 'Nothing to Deposit' message",
     PABMenu_HideNoDeposit_T = "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",

@@ -319,7 +319,7 @@ local function setPABankingCurrenciesEnabledSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   goldMinToKeep
+-- PABanking   Currencies       goldMinToKeep
 ---------------------------------
 local function setPABAnkingGoldMinToKeepSetting(value)
     local intValue = tonumber(value)
@@ -346,7 +346,7 @@ local function setPABAnkingGoldMinToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   goldMaxToKeep
+-- PABanking   Currencies       goldMaxToKeep
 ---------------------------------
 local function setPABAnkingGoldMaxToKeepSetting(value)
     local intValue = tonumber(value)
@@ -373,7 +373,7 @@ local function setPABAnkingGoldMaxToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   alliancePointsMinToKeep
+-- PABanking   Currencies       alliancePointsMinToKeep
 ---------------------------------
 local function setPABAnkingAlliancePointsMinToKeepSetting(value)
     local intValue = tonumber(value)
@@ -400,7 +400,7 @@ local function setPABAnkingAlliancePointsMinToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   alliancePointsMaxToKeep
+-- PABanking   Currencies       alliancePointsMaxToKeep
 ---------------------------------
 local function setPABAnkingAlliancePointsMaxToKeepSetting(value)
     local intValue = tonumber(value)
@@ -427,7 +427,7 @@ local function setPABAnkingAlliancePointsMaxToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   telVarMinToKeep
+-- PABanking   Currencies       telVarMinToKeep
 ---------------------------------
 local function setPABAnkingTelVarMinToKeepSetting(value)
     local intValue = tonumber(value)
@@ -454,7 +454,7 @@ local function setPABAnkingTelVarMinToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   telVarMaxToKeep
+-- PABanking   Currencies       telVarMaxToKeep
 ---------------------------------
 local function setPABAnkingTelVarMaxToKeepSetting(value)
     local intValue = tonumber(value)
@@ -481,7 +481,7 @@ local function setPABAnkingTelVarMaxToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   writVouchersMinToKeep
+-- PABanking   Currencies       writVouchersMinToKeep
 ---------------------------------
 local function setPABAnkingWritVouchersMinToKeepSetting(value)
     local intValue = tonumber(value)
@@ -508,7 +508,7 @@ local function setPABAnkingWritVouchersMinToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   writVouchersMaxToKeep
+-- PABanking   Currencies       writVouchersMaxToKeep
 ---------------------------------
 local function setPABAnkingWritVouchersMaxToKeepSetting(value)
     local intValue = tonumber(value)
@@ -544,19 +544,8 @@ local function setPABankingCraftingItemsEnabledSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Specialized      specializedItemsEnabled
+-- PABanking   Crafting         craftingItemTypeMoveSetting
 ---------------------------------
-local function setPABankingSpecializedItemsEnabledSetting(value)
-    setValue(PASV.Banking, value, {"Specialized", "specializedItemsEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
-
---------------------------------------------------------------------------
--- PABanking   craftingItemTypeMoveSetting
----------------------------------
-
-
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     return PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting[itemType]
@@ -577,21 +566,12 @@ local function setPABankingCraftingItemTypeMoveAllSettings(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   depositTimerInterval
+-- PABanking   Specialized      specializedItemsEnabled
 ---------------------------------
-local function getPABankingDepositTimerInterval()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].depositTimerInterval
-end
-
-local function setPABankingDepositTimerInterval(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].depositTimerInterval = value
-end
-
-local function isDisabledPABankingDepositTimerInterval()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Banking[PA.activeProfile].enabled) -- TODO: fix this; is incomplete
+local function setPABankingSpecializedItemsEnabledSetting(value)
+    setValue(PASV.Banking, value, {"Specialized", "specializedItemsEnabled"})
+    -- when enabling/disabling a modules, refresh all event registrations
+    PAEM.RefreshAllEventRegistrations()
 end
 
 
@@ -1229,18 +1209,6 @@ PA.MenuFunctions = {
         isCraftingItemsGlobalMoveModeDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         setCraftingItemsGlobalMoveModeSetting = function(value) setPABankingCraftingItemTypeMoveAllSettings(value) end,
 
-        isCraftingItemsDepositStackingDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getCraftingItemsDepositStackingSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsDepositStacking"}) end,
-        setCraftingItemsDepositStackingSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingItemsDepositStacking"}) end,
-
-        isCraftingItemsWithdrawalStackingDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getCraftingItemsWithdrawalStackingSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsWithdrawalStacking"}) end,
-        setCraftingItemsWithdrawalStackingSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingItemsWithdrawalStacking"}) end,
-
-        isCraftingTransactionInvervalDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getCraftingTransactionInvervalSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingTransactionInterval"}) end,
-        setCraftingTransactionInvervalSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingTransactionInterval"}) end,
-
         getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
         setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 
@@ -1314,17 +1282,30 @@ PA.MenuFunctions = {
         getFurnishingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "furnishingTransaction"}) end,
         setFurnishingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "furnishingTransaction"}) end,
 
-        -- -----------------------------------------------------------------------------------
-
+        -- ----------------------------------------------------------------------------------
 
         getSpecializedItemsEnabledSetting = function() return getValue(PASV.Banking, {"Specialized", "specializedItemsEnabled"}) end,
         setSpecializedItemsEnabledSetting = setPABankingSpecializedItemsEnabledSetting,
 
+        -- ----------------------------------------------------------------------------------
+
+        isTransactionDepositStackingDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
+        getTransactionDepositStackingSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsDepositStacking"}) end,
+        setTransactionDepositStackingSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingItemsDepositStacking"}) end,
+
+        isTransactionWithdrawalStackingDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
+        getTransactionWithdrawalStackingSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsWithdrawalStacking"}) end,
+        setTransactionWithdrawalStackingSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingItemsWithdrawalStacking"}) end,
+
+        isTransactionInvervalDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
+        getTransactionInvervalSetting = function() return getValue(PASV.Banking, {"transactionInterval"}) end,
+        setTransactionInvervalSetting = function(value) setValue(PASV.Banking, value, {"transactionInterval"}) end,
+
+        -- ----------------------------------------------------------------------------------
 
 
-        isDepositTimerIntervalDisabled = isDisabledPABankingDepositTimerInterval,
-        getDepositTimerIntervalSetting = getPABankingDepositTimerInterval,
-        setDepositTimerIntervalSetting = setPABankingDepositTimerInterval,
+
+
 
         isItemTypesMaterialMoveModeDisabled = isDisabledPABankingItemTypesMaterialMoveMode,
         getItemTypesMaterialMoveModeSetting = getPABankingItemTypesMaterialMoveMode,

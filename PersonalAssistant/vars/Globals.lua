@@ -143,7 +143,7 @@ PersonalAssistant.Constants = {
         }
     },
 
-    BANKING_SPECIAL = {
+    BANKING_SPECIALIZED = {
         GLYPHS = {
             SPECIALIZED_ITEMTYPE_GLYPH_ARMOR,
             SPECIALIZED_ITEMTYPE_GLYPH_JEWELRY,

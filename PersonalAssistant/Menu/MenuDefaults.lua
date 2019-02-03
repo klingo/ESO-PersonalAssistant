@@ -47,9 +47,6 @@ PA.MenuDefaults = {
 
         Crafting = {
             craftingItemsEnabled = true,
-            craftingItemsDepositStacking = PAC.STACKING.FULL,
-            craftingItemsWithdrawalStacking = PAC.STACKING.FULL,
-            craftingTransactionInterval = 100,
 
             blacksmithingTransaction = true,
             clothingTransaction = true,
@@ -66,10 +63,17 @@ PA.MenuDefaults = {
         },
 
         -- ---------------------------------------------
-        itemTransaction = false,
+
+        Specialized = {
+            specializedItemsEnabled = true,
+        },
+
+        transactionDepositStacking = PAC.STACKING.FULL,
+        transactionWithdrawalStacking = PAC.STACKING.FULL,
+        transactionInterval = 100,
+
         itemsDepStackType = PAB_STACKING_FULL,
         itemsWitStackType = PAB_STACKING_FULL,
-        depositTimerInterval = 300,
 
         -- ---------------------------------------------
 
