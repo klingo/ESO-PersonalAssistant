@@ -323,7 +323,7 @@ end
 ---------------------------------
 local function setPABAnkingGoldMinToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_GOLD_MIN:UpdateValue()
     else
         local goldMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMaxToKeep"}))
@@ -350,7 +350,7 @@ end
 ---------------------------------
 local function setPABAnkingGoldMaxToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_GOLD_MAX:UpdateValue()
     else
         local goldMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMinToKeep"}))
@@ -377,7 +377,7 @@ end
 ---------------------------------
 local function setPABAnkingAlliancePointsMinToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN:UpdateValue()
     else
         local alliancePointsMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMaxToKeep"}))
@@ -404,7 +404,7 @@ end
 ---------------------------------
 local function setPABAnkingAlliancePointsMaxToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX:UpdateValue()
     else
         local alliancePointsMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMinToKeep"}))
@@ -431,7 +431,7 @@ end
 ---------------------------------
 local function setPABAnkingTelVarMinToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_TELVAR_MIN:UpdateValue()
     else
         local telVarMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMaxToKeep"}))
@@ -458,7 +458,7 @@ end
 ---------------------------------
 local function setPABAnkingTelVarMaxToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_TELVAR_MAX:UpdateValue()
     else
         local telVarMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMinToKeep"}))
@@ -485,7 +485,7 @@ end
 ---------------------------------
 local function setPABAnkingWritVouchersMinToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN:UpdateValue()
     else
         local writVouchersMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMaxToKeep"}))
@@ -512,7 +512,7 @@ end
 ---------------------------------
 local function setPABAnkingWritVouchersMaxToKeepSetting(value)
     local intValue = tonumber(value)
-    if not intValue then
+    if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX:UpdateValue()
     else
         local writVouchersMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMinToKeep"}))
@@ -609,7 +609,10 @@ end
 
 local function setPABankingAdvancedItemIdBackpackAmountSetting(advancedItemId, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId] = value
+    local intValue = tonumber(value)
+    if intValue and intValue >= 0 then
+        PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId] = value
+    end
 end
 
 -- =====================================================================================================================
