@@ -205,7 +205,7 @@ local function depositOrWithdrawCraftingItems()
     local withdrawItemTypes = setmetatable({}, { __index = table })
 
     -- fill up the table
-    for itemType, moveMode in pairs(PASV.Banking[PA.activeProfile].ItemTypesCrafting) do
+    for itemType, moveMode in pairs(PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting) do
         if (moveMode == PAC.MOVE.DEPOSIT) then
             depositItemTypes:insert(itemType)
         elseif (moveMode == PAC.MOVE.WITHDRAW) then

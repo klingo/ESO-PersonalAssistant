@@ -77,27 +77,27 @@ local function depositOrWithdrawCurrencies()
     local currencies = {
         {
             currencyType = CURT_MONEY,
-            enabled = PASV.Banking[PA.activeProfile].goldTransaction,
-            minToKeep = tonumber(PASV.Banking[PA.activeProfile].goldMinToKeep),
-            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].goldMaxToKeep),
+            enabled = PASV.Banking[PA.activeProfile].Currencies.goldTransaction,
+            minToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.goldMinToKeep),
+            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.goldMaxToKeep),
         },
         {
             currencyType = CURT_ALLIANCE_POINTS,
-            enabled = PASV.Banking[PA.activeProfile].alliancePointsTransaction,
-            minToKeep = tonumber(PASV.Banking[PA.activeProfile].alliancePointsMinToKeep),
-            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].alliancePointsMaxToKeep),
+            enabled = PASV.Banking[PA.activeProfile].Currencies.alliancePointsTransaction,
+            minToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.alliancePointsMinToKeep),
+            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.alliancePointsMaxToKeep),
         },
         {
             currencyType = CURT_TELVAR_STONES,
-            enabled = PASV.Banking[PA.activeProfile].telVarTransaction,
-            minToKeep = tonumber(PASV.Banking[PA.activeProfile].telVarMinToKeep),
-            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].telVarMaxToKeep),
+            enabled = PASV.Banking[PA.activeProfile].Currencies.telVarTransaction,
+            minToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.telVarMinToKeep),
+            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.telVarMaxToKeep),
         },
         {
             currencyType = CURT_WRIT_VOUCHERS,
-            enabled = PASV.Banking[PA.activeProfile].writVouchersTransaction,
-            minToKeep = tonumber(PASV.Banking[PA.activeProfile].writVouchersMinToKeep),
-            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].writVouchersMaxToKeep),
+            enabled = PASV.Banking[PA.activeProfile].Currencies.writVouchersTransaction,
+            minToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.writVouchersMinToKeep),
+            maxToKeep = tonumber(PASV.Banking[PA.activeProfile].Currencies.writVouchersMaxToKeep),
         },
     }
 
