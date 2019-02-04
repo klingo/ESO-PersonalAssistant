@@ -23,6 +23,15 @@ local function roundDown(num)
     end
 end
 
+local function isValueInTable(table, value)
+    for _, v in pairs(table) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
+
 local function isPlayerDead()
     return IsUnitDead("player")
 end
@@ -166,6 +175,7 @@ end
 PA.HelperFunctions = {
     round = round,
     roundDown = roundDown,
+    isValueInTable = isValueInTable,
     isPlayerDead = isPlayerDead,
     getBagName = getBagName,
     getBagNameAdjective = getBagNameAdjective,

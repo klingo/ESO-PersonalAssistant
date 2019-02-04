@@ -1273,7 +1273,7 @@ local function createPABAdvancedLockpickSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdMathOperatorSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdMathOperatorSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.lockpickOperator,
+                default = PAMenuDefaults.PABanking.Advanced.advancedOperator,
             })
 
             PABAdvancedLockpickSubmenuTable:insert({
@@ -1284,7 +1284,7 @@ local function createPABAdvancedLockpickSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdAmountSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdAmountSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.lockpickAmount
+                default = PAMenuDefaults.PABanking.Advanced.advancedAmount
             })
         end
     end
@@ -1321,7 +1321,7 @@ local function createPABAdvancedSoulGemSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdMathOperatorSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdMathOperatorSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.soulGemOperator,
+                default = PAMenuDefaults.PABanking.Advanced.advancedOperator,
             })
 
             PABAdvancedSoulGemSubmenuTable:insert({
@@ -1332,7 +1332,7 @@ local function createPABAdvancedSoulGemSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdAmountSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdAmountSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.soulGemAmount
+                default = PAMenuDefaults.PABanking.Advanced.advancedAmount
             })
         end
     end
@@ -1369,7 +1369,7 @@ local function createPABAdvancedRepairKitSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdMathOperatorSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdMathOperatorSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isRepairKitTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.repairKitOperator,
+                default = PAMenuDefaults.PABanking.Advanced.advancedOperator,
             })
 
             PABAdvancedRepairKitSubmenuTable:insert({
@@ -1380,7 +1380,7 @@ local function createPABAdvancedRepairKitSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdAmountSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdAmountSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isRepairKitTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.repairKitAmount
+                default = PAMenuDefaults.PABanking.Advanced.advancedAmount
             })
         end
     end
@@ -1417,7 +1417,7 @@ local function createPABAdvancedGenericSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdMathOperatorSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdMathOperatorSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isGenericTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.genericOperator,
+                default = PAMenuDefaults.PABanking.Advanced.advancedOperator,
             })
 
             PABAdvancedGenericSubmenuTable:insert({
@@ -1428,7 +1428,7 @@ local function createPABAdvancedGenericSubmenuTable()
                 getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemIdAmountSetting(itemId) end,
                 setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemIdAmountSetting(itemId, value) end,
                 disabled = PAMenuFunctions.PABanking.isGenericTransactionMenuDisabled,
-                default = PAMenuDefaults.PABanking.Advanced.genericAmount
+                default = PAMenuDefaults.PABanking.Advanced.advancedAmount
             })
         end
     end

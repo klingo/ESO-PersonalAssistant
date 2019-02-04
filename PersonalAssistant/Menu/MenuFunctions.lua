@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAMD = PA.MenuDefaults
 local PASV = PA.SavedVars
 local PAEM = PA.EventManager
 local L = PA.Localization
@@ -589,7 +590,8 @@ end
 ---------------------------------
 local function getPABankingAdvancedItemIdMathOperatorSetting(advancedItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].Advanced.ItemIdOperator[advancedItemId]
+    local value = PASV.Banking[PA.activeProfile].Advanced.ItemIdOperator[advancedItemId]
+    if (value) then return value else return tonumber(PAMD.PABanking.Advanced.advancedOperator) end
 end
 
 local function setPABankingAdvancedItemIdMathOperatorSetting(advancedItemId, value)
@@ -603,7 +605,8 @@ end
 
 local function getPABankingAdvancedItemIdBackpackAmountSetting(advancedItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId]
+    local value = PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId]
+    if (value) then return value else return tonumber(PAMD.PABanking.Advanced.advancedAmount) end
 end
 
 
@@ -611,7 +614,7 @@ local function setPABankingAdvancedItemIdBackpackAmountSetting(advancedItemId, v
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
-        PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId] = value
+        PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId] = intValue
     end
 end
 

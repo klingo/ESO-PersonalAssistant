@@ -74,23 +74,15 @@ PA.MenuDefaults = {
             advancedItemsEnabled = true,
 
             lockpickTransaction = true,
-            lockpickOperator = PAC.OPERATOR.NONE,
-            lockpickAmount = 100,
-
             soulGemTransaction = true,
-            soulGemOperator = PAC.OPERATOR.NONE,
-            soulGemAmount = 100,
-
             repairKitTransaction = true,
-            repairKitOperator = PAC.OPERATOR.NONE,
-            repairKitAmount = 100,
-
             genericTransaction = false,
-            genericOperator = PAC.OPERATOR.NONE,
-            genericAmount = 100,
 
             ItemIdOperator = {},
+            advancedOperator = PAC.OPERATOR.NONE,
+
             ItemIdBackpackAmount = {},
+            advancedAmount = 100,
         },
 
         -- ---------------------------------------------
