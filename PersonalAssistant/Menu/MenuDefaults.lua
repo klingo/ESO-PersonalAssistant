@@ -64,14 +64,23 @@ PA.MenuDefaults = {
 
         -- ---------------------------------------------
 
-        Specialized = {
-            specializedItemsEnabled = true,
+        Advanced = {
+            advancedItemsEnabled = true,
+
+            motifTransaction = true,
+            recipeTransaction = true,
+
+            glyphsTransaction = true,
+            liquidsTransaction = true,
+            trophiesTransaction = true,
+
+            ItemTypesAdvanced = {},
         },
 
         -- ---------------------------------------------
 
-        Advanced = {
-            advancedItemsEnabled = true,
+        Individual = {
+            individualItemsEnabled = true,
 
             lockpickTransaction = true,
             soulGemTransaction = true,
@@ -79,10 +88,10 @@ PA.MenuDefaults = {
             genericTransaction = false,
 
             ItemIdOperator = {},
-            advancedOperator = PAC.OPERATOR.NONE,
+            individualOperator = PAC.OPERATOR.NONE,
 
             ItemIdBackpackAmount = {},
-            advancedAmount = 100,
+            individualAmount = 100,
         },
 
         -- ---------------------------------------------
@@ -93,7 +102,7 @@ PA.MenuDefaults = {
 
         -- ---------------------------------------------
 
-        ItemTypesAdvanced = {
+        ItemTypesIndividual = {
             advItemTypesValue = 100
         },
     },

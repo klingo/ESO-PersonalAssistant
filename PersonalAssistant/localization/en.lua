@@ -228,34 +228,54 @@ PersonalAssistant.Localization = {
     PABMenu_Crafting_Furnishing_Enabled = "Deposit/Withdraw Furnishing Items",
     PABMenu_Crafting_Furnishing_Enabled_T = "Automatically deposit Furnishing Items to the bank, or withdraw when needed?",
 
-    PABMenu_Specialized_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
-    PABMenu_Specialized_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
+    PABMenu_Advanced_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
+    PABMenu_Advanced_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
 
-    PABMenu_Specialized_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
+    PABMenu_Advanced_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
 
-    PABMenu_Advanced_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Advanced Items"}),
-    PABMenu_Advanced_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Advanced Items?",
+    PABMenu_Advanced_Motif_Header = table.concat({PAC.ICONS.ITEMS.MOTIF.NORMAL, " ", "Motif"}),
+    PABMenu_Advanced_Motif_Enabled = "Deposit/Withdraw Motif Items",
+    PABMenu_Advanced_Motif_Enabled_T = "Automatically deposit Motif Items to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Advanced Items",
+    PABMenu_Advanced_Recipe_Header = table.concat({PAC.ICONS.ITEMS.RECIPE.NORMAL, " ", "Recipe"}),
+    PABMenu_Advanced_Recipe_Enabled = "Deposit/Withdraw Recipes",
+    PABMenu_Advanced_Recipe_Enabled_T = "Automatically deposit Recipes to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Lockpick_Header = table.concat({PAC.ICONS.ITEMS.LOCKPICK.NORMAL, " ", "Lockpicks"}), -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Advanced_Lockpick_Enabled = "Deposit/Withdraw Lockpicks", -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Advanced_Lockpick_Enabled_T = "Automatically deposit Lockpicks to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_Glyphs_Header = table.concat({PAC.ICONS.ITEMS.GLYPH_ARMOR_HEALTH.NORMAL, " ", "Glyphs"}),
+    PABMenu_Advanced_Glyphs_Enabled = "Deposit/Withdraw Glyphs",
+    PABMenu_Advanced_Glyphs_Enabled_T = "Automatically deposit Glyphs to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_SoulGem_Header = table.concat({PAC.ICONS.ITEMS.SOULGEM.NORMAL, " ", "Soul Gems"}), -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Advanced_SoulGem_Enabled = "Deposit/Withdraw Soul Gems", -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Advanced_SoulGem_Enabled_T = "Automatically deposit Soul Gems to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_Liquids_Header = table.concat({PAC.ICONS.ITEMS.POTION.NORMAL, " ", "Liquids"}),
+    PABMenu_Advanced_Liquids_Enabled = "Deposit/Withdraw Liquids",
+    PABMenu_Advanced_Liquids_Enabled_T = "Automatically deposit Liquids to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_RepairKit_Header = table.concat({PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, " ", "Repair Kits"}), -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Advanced_RepairKit_Enabled = "Deposit/Withdraw Repair Kits", -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Advanced_RepairKit_Enabled_T = "Automatically deposit Repair Kits to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Advanced_Trophies_Header = table.concat({PAC.ICONS.ITEMS.TREASURE_MAP.NORMAL, " ", "Trophies"}),
+    PABMenu_Advanced_Trophies_Enabled = "Deposit/Withdraw Trophies",
+    PABMenu_Advanced_Trophies_Enabled_T = "Automatically deposit Trophies to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Generic_Header = table.concat({PAC.ICONS.ITEMS.GENERIC_HELP.NORMAL, " ", "Other Items"}),
-    PABMenu_Advanced_Generic_Enabled = "Deposit/Withdraw Other Items",
-    PABMenu_Advanced_Generic_Enabled_T = "Automatically deposit Other Items to the bank, or withdraw when needed?",
+    PABMenu_Individual_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
+    PABMenu_Individual_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
 
-    PABMenu_Advanced_Keep_in_Backpack = "Amount to keep in backpack",
-    PABMenu_Advanced_Keep_in_Backpack_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
+    PABMenu_Individual_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Individual Items",
+
+    PABMenu_Individual_Lockpick_Header = table.concat({PAC.ICONS.ITEMS.LOCKPICK.NORMAL, " ", "Lockpicks"}), -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Individual_Lockpick_Enabled = "Deposit/Withdraw Lockpicks", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Individual_Lockpick_Enabled_T = "Automatically deposit Lockpicks to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+
+    PABMenu_Individual_SoulGem_Header = table.concat({PAC.ICONS.ITEMS.SOULGEM.NORMAL, " ", "Soul Gems"}), -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Individual_SoulGem_Enabled = "Deposit/Withdraw Soul Gems", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Individual_SoulGem_Enabled_T = "Automatically deposit Soul Gems to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+
+    PABMenu_Individual_RepairKit_Header = table.concat({PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, " ", "Repair Kits"}), -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Individual_RepairKit_Enabled = "Deposit/Withdraw Repair Kits", -- TODO: replace with SI_ITEMTYMPE ?
+    PABMenu_Individual_RepairKit_Enabled_T = "Automatically deposit Repair Kits to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+
+    PABMenu_Individual_Generic_Header = table.concat({PAC.ICONS.ITEMS.GENERIC_HELP.NORMAL, " ", "Other Items"}),
+    PABMenu_Individual_Generic_Enabled = "Deposit/Withdraw Other Items",
+    PABMenu_Individual_Generic_Enabled_T = "Automatically deposit Other Items to the bank, or withdraw when needed?",
+
+    PABMenu_Individual_Keep_in_Backpack = "Amount to keep in backpack",
+    PABMenu_Individual_Keep_in_Backpack_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
 
     -- -----------------------------------------------------------------------------------------------------------------
 

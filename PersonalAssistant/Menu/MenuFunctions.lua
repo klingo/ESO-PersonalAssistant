@@ -567,16 +567,7 @@ local function setPABankingCraftingItemTypeMoveAllSettings(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Specialized      specializedItemsEnabled
----------------------------------
-local function setPABankingSpecializedItemsEnabledSetting(value)
-    setValue(PASV.Banking, value, {"Specialized", "specializedItemsEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
-
---------------------------------------------------------------------------
--- PABanking   Advanced         advancedItemsEnabled
+-- PABanking   Advanced      advancedItemsEnabled
 ---------------------------------
 local function setPABankingAdvancedItemsEnabledSetting(value)
     setValue(PASV.Banking, value, {"Advanced", "advancedItemsEnabled"})
@@ -584,37 +575,68 @@ local function setPABankingAdvancedItemsEnabledSetting(value)
     PAEM.RefreshAllEventRegistrations()
 end
 
+--------------------------------------------------------------------------
+-- PABanking   Advanced         advancedItemTypeMoveSetting
+---------------------------------
+local function getPABankingAdvancedItemTypeMoveSetting(itemType)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    return PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType]
+end
+
+local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType] = value
+end
+
+--local function setPABankingAdvancedItemTypeMoveAllSettings(value)
+--    if (isDisabledPAGeneralNoProfileSelected()) then return end
+--    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced) do
+--        PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType] = value
+--    end
+--    PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE:UpdateValue()
+--    -- TODO: chat-message do inform user? / also new name needed if to be used here
+--end
 
 --------------------------------------------------------------------------
--- PABanking   Advanced         advancedMathOperator
+-- PABanking   Individual         individualItemsEnabled
 ---------------------------------
-local function getPABankingAdvancedItemIdMathOperatorSetting(advancedItemId)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    local value = PASV.Banking[PA.activeProfile].Advanced.ItemIdOperator[advancedItemId]
-    if (value) then return value else return tonumber(PAMD.PABanking.Advanced.advancedOperator) end
+local function setPABankingIndividualItemsEnabledSetting(value)
+    setValue(PASV.Banking, value, {"Individual", "individualItemsEnabled"})
+    -- when enabling/disabling a modules, refresh all event registrations
+    PAEM.RefreshAllEventRegistrations()
 end
 
-local function setPABankingAdvancedItemIdMathOperatorSetting(advancedItemId, value)
+
+--------------------------------------------------------------------------
+-- PABanking   Individual         individualMathOperator
+---------------------------------
+local function getPABankingIndividualItemIdMathOperatorSetting(individualItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].Advanced.ItemIdOperator[advancedItemId] = value
+    local value = PASV.Banking[PA.activeProfile].Individual.ItemIdOperator[individualItemId]
+    if (value) then return value else return tonumber(PAMD.PABanking.Individual.individualOperator) end
+end
+
+local function setPABankingIndividualItemIdMathOperatorSetting(individualItemId, value)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    PASV.Banking[PA.activeProfile].Individual.ItemIdOperator[individualItemId] = value
 end
 
 --------------------------------------------------------------------------
--- PABanking   Advanced         advancedBackpackAmount
+-- PABanking   Individual         individualBackpackAmount
 ---------------------------------
 
-local function getPABankingAdvancedItemIdBackpackAmountSetting(advancedItemId)
+local function getPABankingIndividualItemIdBackpackAmountSetting(individualItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    local value = PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId]
-    if (value) then return value else return tonumber(PAMD.PABanking.Advanced.advancedAmount) end
+    local value = PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount[individualItemId]
+    if (value) then return value else return tonumber(PAMD.PABanking.Individual.individualAmount) end
 end
 
 
-local function setPABankingAdvancedItemIdBackpackAmountSetting(advancedItemId, value)
+local function setPABankingIndividualItemIdBackpackAmountSetting(individualItemId, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
-        PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[advancedItemId] = intValue
+        PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount[individualItemId] = intValue
     end
 end
 
@@ -1020,10 +1042,11 @@ PA.MenuFunctions = {
         setChargeWeaponsChatModeSetting = setPARepairChargeWeaponsChatMode,
     },
     PABanking = {
+        -- -----------------------------------------------------------------------------------
+        -- CURRENCIES
+        -- -----------------------------
         getCurrenciesEnabledSetting = function() return getValue(PASV.Banking, {"Currencies", "currenciesEnabled"}) end,
         setCurrenciesEnabledSetting = setPABankingCurrenciesEnabledSetting,
-
-        -- -----------------------------------------------------------------------------------
 
         isGoldTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
         isGoldTransactionDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}) end,
@@ -1038,8 +1061,6 @@ PA.MenuFunctions = {
         getGoldMaxToKeepSetting = function() return getValue(PASV.Banking, {"Currencies", "goldMaxToKeep"}) end,
         setGoldMaxToKeepSetting =  setPABAnkingGoldMaxToKeepSetting,
 
-        -- -----------------------------------------------------------------------------------
-
         isAlliancePointsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
         isAlliancePointsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}) end,
         getAlliancePointsTransactionSetting = function() return getValue(PASV.Banking, {"Currencies", "alliancePointsTransaction"}) end,
@@ -1053,8 +1074,6 @@ PA.MenuFunctions = {
         getAlliancePointsMaxToKeepSetting = function() return getValue(PASV.Banking, {"Currencies", "alliancePointsMaxToKeep"}) end,
         setAlliancePointsMaxToKeepSetting = setPABAnkingAlliancePointsMaxToKeepSetting,
 
-        -- -----------------------------------------------------------------------------------
-
         isTelVarTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
         isTelVarTransactionDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}) end,
         getTelVarTransactionSetting = function() return getValue(PASV.Banking, {"Currencies", "telVarTransaction"}) end,
@@ -1067,8 +1086,6 @@ PA.MenuFunctions = {
         isTelVarMaxToKeepDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
         getTelVarMaxToKeepSetting = function() return getValue(PASV.Banking, {"Currencies", "telVarMaxToKeep"}) end,
         setTelVarMaxToKeepSetting = setPABAnkingTelVarMaxToKeepSetting,
-
-        -- -----------------------------------------------------------------------------------
 
         isWritVouchersTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "writVouchersTransaction"}) end,
         isWritVouchersTransactionDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}) end,
@@ -1084,7 +1101,8 @@ PA.MenuFunctions = {
         setWritVouchersMaxToKeepSetting = setPABAnkingWritVouchersMaxToKeepSetting,
 
         -- -----------------------------------------------------------------------------------
-
+        -- CRAFTING ITEMS
+        -- -----------------------------
         getCraftingItemsEnabledSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         setCraftingItemsEnabledSetting = setPABankingCraftingItemsEnabledSetting,
 
@@ -1094,70 +1112,50 @@ PA.MenuFunctions = {
         getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
         setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 
-        -- -----------------------------------------------------------------------------------
-
         isBlacksmithingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "blacksmithingTransaction"}) end,
         isBlacksmithingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getBlacksmithingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "blacksmithingTransaction"}) end,
         setBlacksmithingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "blacksmithingTransaction"}) end,
-
-        -- -----------------------------------------------------------------------------------
 
         isClothingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "clothingTransaction"}) end,
         isClothingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getClothingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "clothingTransaction"}) end,
         setClothingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "clothingTransaction"}) end,
 
-        -- -----------------------------------------------------------------------------------
-
         isWoodworkingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "woodworkingTransaction"}) end,
         isWoodworkingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getWoodworkingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "woodworkingTransaction"}) end,
         setWoodworkingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "woodworkingTransaction"}) end,
-
-        -- -----------------------------------------------------------------------------------
 
         isJewelcraftingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "jewelcraftingTransaction"}) end,
         isJewelcraftingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getJewelcraftingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "jewelcraftingTransaction"}) end,
         setJewelcraftingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "jewelcraftingTransaction"}) end,
 
-        -- -----------------------------------------------------------------------------------
-
         isAlchemyTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "alchemyTransaction"}) end,
         isAlchemyTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getAlchemyTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "alchemyTransaction"}) end,
         setAlchemyTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "alchemyTransaction"}) end,
-
-        -- -----------------------------------------------------------------------------------
 
         isEnchantingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "enchantingTransaction"}) end,
         isEnchantingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getEnchantingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "enchantingTransaction"}) end,
         setEnchantingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "enchantingTransaction"}) end,
 
-        -- -----------------------------------------------------------------------------------
-
         isProvisioningTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "provisioningTransaction"}) end,
         isProvisioningTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getProvisioningTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "provisioningTransaction"}) end,
         setProvisioningTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "provisioningTransaction"}) end,
-
-        -- -----------------------------------------------------------------------------------
 
         isStyleMaterialsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "styleMaterialsTransaction"}) end,
         isStyleMaterialsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getStyleMaterialsTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "styleMaterialsTransaction"}) end,
         setStyleMaterialsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "styleMaterialsTransaction"}) end,
 
-        -- -----------------------------------------------------------------------------------
-
         isTraitItemsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "traitItemsTransaction"}) end,
         isTraitItemsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getTraitItemsTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "traitItemsTransaction"}) end,
         setTraitItemsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "traitItemsTransaction"}) end,
-
-        -- -----------------------------------------------------------------------------------
 
         isFurnishingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "furnishingTransaction"}) end,
         isFurnishingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
@@ -1165,44 +1163,73 @@ PA.MenuFunctions = {
         setFurnishingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "furnishingTransaction"}) end,
 
         -- ----------------------------------------------------------------------------------
-
-        getSpecializedItemsEnabledSetting = function() return getValue(PASV.Banking, {"Specialized", "specializedItemsEnabled"}) end,
-        setSpecializedItemsEnabledSetting = setPABankingSpecializedItemsEnabledSetting,
-
-        -- ----------------------------------------------------------------------------------
-
+        -- ADVANCED ITEMS
+        -- -----------------------------
         getAdvancedItemsEnabledSetting = function() return getValue(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
         setAdvancedItemsEnabledSetting = setPABankingAdvancedItemsEnabledSetting,
 
+        getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
+        setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
+
+        isMotifTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "motifTransaction"}) end,
+        isMotifTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        getMotifTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "motifTransaction"}) end,
+        setMotifTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "motifTransaction"}) end,
+
+        isRecipeTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "recipeTransaction"}) end,
+        isRecipeTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        getRecipeTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "recipeTransaction"}) end,
+        setRecipeTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "recipeTransaction"}) end,
+
+        isGlyphsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "glyphsTransaction"}) end,
+        isGlyphsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        getGlyphsTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "glyphsTransaction"}) end,
+        setGlyphsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "glyphsTransaction"}) end,
+
+        isLiquidsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "liquidsTransaction"}) end,
+        isLiquidsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        getLiquidsTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "liquidsTransaction"}) end,
+        setLiquidsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "liquidsTransaction"}) end,
+
+        isTrophiesTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "trophiesTransaction"}) end,
+        isTrophiesTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        getTrophiesTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "trophiesTransaction"}) end,
+        setTrophiesTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "trophiesTransaction"}) end,
+
         -- ----------------------------------------------------------------------------------
+        -- INDIVIDUAL ITEMS
+        -- -----------------------------
+        getIndividualItemsEnabledSetting = function() return getValue(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
+        setIndividualItemsEnabledSetting = setPABankingIndividualItemsEnabledSetting,
 
-        isLockpickTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "lockpickTransaction"}) end,
-        isLockpickTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getLockpickTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "lockpickTransaction"}) end,
-        setLockpickTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "lockpickTransaction"}) end,
+        isLockpickTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "lockpickTransaction"}) end,
+        isLockpickTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
+        getLockpickTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "lockpickTransaction"}) end,
+        setLockpickTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "lockpickTransaction"}) end,
 
-        isSoulGemTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "soulGemTransaction"}) end,
-        isSoulGemTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getSoulGemTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "soulGemTransaction"}) end,
-        setSoulGemTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "soulGemTransaction"}) end,
+        isSoulGemTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "soulGemTransaction"}) end,
+        isSoulGemTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
+        getSoulGemTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "soulGemTransaction"}) end,
+        setSoulGemTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "soulGemTransaction"}) end,
 
-        isRepairKitTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "repairKitTransaction"}) end,
-        isRepairKitTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getRepairKitTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "repairKitTransaction"}) end,
-        setRepairKitTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "repairKitTransaction"}) end,
+        isRepairKitTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "repairKitTransaction"}) end,
+        isRepairKitTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
+        getRepairKitTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "repairKitTransaction"}) end,
+        setRepairKitTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "repairKitTransaction"}) end,
 
-        isGenericTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "genericTransaction"}) end,
-        isGenericTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getGenericTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "genericTransaction"}) end,
-        setGenericTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "genericTransaction"}) end,
+        isGenericTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "genericTransaction"}) end,
+        isGenericTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
+        getGenericTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "genericTransaction"}) end,
+        setGenericTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "genericTransaction"}) end,
 
-        getAdvancedItemIdMathOperatorSetting = getPABankingAdvancedItemIdMathOperatorSetting,
-        setAdvancedItemIdMathOperatorSetting = setPABankingAdvancedItemIdMathOperatorSetting,
-        getAdvancedItemIdAmountSetting = getPABankingAdvancedItemIdBackpackAmountSetting,
-        setAdvancedItemIdAmountSetting = setPABankingAdvancedItemIdBackpackAmountSetting,
+        getIndividualItemIdMathOperatorSetting = getPABankingIndividualItemIdMathOperatorSetting,
+        setIndividualItemIdMathOperatorSetting = setPABankingIndividualItemIdMathOperatorSetting,
+        getIndividualItemIdAmountSetting = getPABankingIndividualItemIdBackpackAmountSetting,
+        setIndividualItemIdAmountSetting = setPABankingIndividualItemIdBackpackAmountSetting,
 
         -- ----------------------------------------------------------------------------------
-
+        -- TRANSACTION SETTINGS
+        -- -----------------------------
         isTransactionDepositStackingDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
         getTransactionDepositStackingSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsDepositStacking"}) end,
         setTransactionDepositStackingSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingItemsDepositStacking"}) end,

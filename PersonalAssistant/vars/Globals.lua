@@ -182,36 +182,32 @@ PersonalAssistant.Constants = {
         }
     },
 
-    BANKING_SPECIALIZED = {
-        GLYPHS = {
-            SPECIALIZED_ITEMTYPE_GLYPH_ARMOR,
-            SPECIALIZED_ITEMTYPE_GLYPH_JEWELRY,
-            SPECIALIZED_ITEMTYPE_GLYPH_WEAPON
+    BANKING_ADVANCED = {
+        REGULAR = {
+            MOTIF = {
+                ITEMTYPE_RACIAL_STYLE_MOTIF,                 -- 8
+            },
+            RECIPE = {
+                ITEMTYPE_RECIPE,                            -- 29
+            }
         },
-        LIQUIDS = {
-            SPECIALIZED_ITEMTYPE_POTION,
-            SPECIALIZED_ITEMTYPE_POISON
-        },
-        TROPHIES = {
-            SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP
-        },
-        MOTIF = {
-            -- itemType = 8
-        },
-        RECIPE = {
-            -- itemType = 29
+        SPECIALIZED = {
+            GLYPHS = {
+                SPECIALIZED_ITEMTYPE_GLYPH_ARMOR,           -- 1000
+                SPECIALIZED_ITEMTYPE_GLYPH_JEWELRY,         -- 1250
+                SPECIALIZED_ITEMTYPE_GLYPH_WEAPON           -- 950
+            },
+            LIQUIDS = {
+                SPECIALIZED_ITEMTYPE_POTION,                -- 450
+                SPECIALIZED_ITEMTYPE_POISON                 -- 1400
+            },
+            TROPHIES = {
+                SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP    -- 100
+            },
         }
-
-        -- ITEMTYPE_RECIPE
-        -- SPECIALIZED_ITEMTYPE_FISH
-        -- SPECIALIZED_ITEMTYPE_FLAVORING exists?
-        -- ITEMTYPE_FOOD exists?
-        -- ITEMTYPE_DRINK exists?
-        -- TEMTYPE_TREASURE
-        -- ITEMTYPE_TROPHY
     },
 
-    BANKING_ADVANCED = {
+    BANKING_INDIVIDUAL = {
         LOCKPICK = {
             30357,  -- [Lockpick]
         },

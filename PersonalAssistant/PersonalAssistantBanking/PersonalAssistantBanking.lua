@@ -12,14 +12,14 @@ local AddonName = "PersonalAssistantBanking"
 local Banking_Defaults = {}
 
 
-local function _cleanupSavedVarsAdvancedItemIds()
+local function _cleanupSavedVarsIndividualItemIds()
     -- first check if a profile is active
     if not (PA.activeProfile == nil) then
         local globalItemIdTable = {}
         local savedVarsItemIdTable = {}
 
-        -- first, loop through all tables inside [BANKING_ADVANCED]
-        for _, groupTable in pairs(PAC.BANKING_ADVANCED) do
+        -- first, loop through all tables inside [BANKING_INDIVIDUAL]
+        for _, groupTable in pairs(PAC.BANKING_INDIVIDUAL) do
             -- then loop through the itemIds of these tables
             for _, itemId in pairs(groupTable) do
                 table.insert(globalItemIdTable, itemId)
@@ -27,7 +27,7 @@ local function _cleanupSavedVarsAdvancedItemIds()
         end
 
         -- then loop through the savedVars itemIds and store them in a separate list
-        for itemId, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount) do
+        for itemId, _ in pairs(PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount) do
             table.insert(savedVarsItemIdTable, itemId)
         end
 
@@ -36,8 +36,8 @@ local function _cleanupSavedVarsAdvancedItemIds()
         for _, savedVarsItemId in pairs(savedVarsItemIdTable) do
             if not PAHF.isValueInTable(globalItemIdTable, savedVarsItemId) then
                 -- itemId from the savedVars is not found in the Globals; delete them
-                PASV.Banking[PA.activeProfile].Advanced.ItemIdBackpackAmount[savedVarsItemId] = nil
-                PASV.Banking[PA.activeProfile].Advanced.ItemIdOperator[savedVarsItemId] = nil
+                PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount[savedVarsItemId] = nil
+                PASV.Banking[PA.activeProfile].Individual.ItemIdOperator[savedVarsItemId] = nil
             end
         end
     end
@@ -71,9 +71,9 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     PASV.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", 1, "Banking", Banking_Defaults)
 
-    -- as part of the initialisation, check if the savedVars [Advanced.ItemIdOperator] and [Advanced.ItemIdBackpackAmount]
+    -- as part of the initialisation, check if the savedVars [Individual.ItemIdOperator] and [Individual.ItemIdBackpackAmount]
     -- contain any IDs that are no longer configured in the PAConstants; if there are, remove them
-    _cleanupSavedVarsAdvancedItemIds()
+    _cleanupSavedVarsIndividualItemIds()
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)

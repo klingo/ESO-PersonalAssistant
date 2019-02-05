@@ -134,14 +134,14 @@ How to read:
     ITEMTYPE_FURNISHING
     ITEMTYPE_FURNISHING_MATERIAL 
     ```
-* [ ] **(2)** PABanking: Advanced Item Types - Add Soul gems (empty / filled)
+* [ ] **(2)** PABanking: Individual Item Types - Add Soul gems (empty / filled)
 * [X] **(3)** PABanking: Check new function for transferring currencies
     ```lua
     TransferCurrency(currencyType, amount, fromLocation, toLocation).
     ```
 * [X] **(3)** PABanking: Support all four currency types
 * [ ] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
-* [ ] **(3)** PABanking: Advanced Item Types - Add Repair Kits (only Grand?)
+* [ ] **(3)** PABanking: Individual Item Types - Add Repair Kits (only Grand?)
 * [ ] **(4)** PABanking: Add option to select type of notifications
 * [ ] **(4)** PABanking: Add summary after transaction completed
 * [ ] **(4)** PABanking: Add Bank stacking when opening (or keybind?)

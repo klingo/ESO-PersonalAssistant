@@ -30,7 +30,7 @@ local function getItemTypeComparator(itemTypeList)
     end
 end
 
--- TODO: getAdvancedItemTypeComparator???
+-- TODO: getIndividualItemTypeComparator???
 
 local function getItemIdComparator(itemIdList)
     return function(itemData)
@@ -62,11 +62,11 @@ local function OnBankOpen()
 
         -- check if the different transactions are enabled and add them to the function queue
         PAB.transactionFunctionQueue = {}
-        if PASV.Banking[PA.activeProfile].Specialized.specializedItemsEnabled then
-            table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawSpecializedItems)
-        end
-        if PASV.Banking[PA.activeProfile].Advanced.advancedItemsEnabled then
+        if PASV.Banking[PA.activeProfile].Advanced.specializedItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawAdvancedItems)
+        end
+        if PASV.Banking[PA.activeProfile].Individual.individualItemsEnabled then
+            table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawIndividualItems)
         end
         if PASV.Banking[PA.activeProfile].Crafting.craftingItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawCraftingItems)

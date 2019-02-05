@@ -129,7 +129,7 @@ local function RefreshAllEventRegistrations()
         -- Check if the functionality is turned on within the addon
         local PABMenuFunctions =  PAMenuFunctions.PABanking
         if (PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
-            or PABMenuFunctions.getSpecializedItemsEnabledSetting() or PABMenuFunctions.getAdvancedItemsEnabledSetting()) then
+            or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting()) then
             -- Register PABanking
             -- TODO: Check this function
             RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
