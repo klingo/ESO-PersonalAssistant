@@ -279,9 +279,9 @@ PersonalAssistant.Localization = {
 
     -- -----------------------------------------------------------------------------------------------------------------
 
-    PABMenu_DepositStacking = "Stacking type (Deposit)",
+    PABMenu_DepositStacking = "Stacking rule when depositing",
     PABMenu_DepositStacking_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed.",
-    PABMenu_WithdrawalStacking = "Stacking type (Withdraw)",
+    PABMenu_WithdrawalStacking = "Stacking rule when withdrawing",
     PABMenu_WithdrawalStacking_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed.",
 
     PABMenu_Transaction_Interval = "Interval between item transactions (msecs)",
