@@ -1271,6 +1271,9 @@ PA.MenuFunctions = {
         isTransactionInvervalDisabled = isPABankingTransactionIntervalDisabled,
         getTransactionInvervalSetting = function() return getValue(PASV.Banking, {"transactionInterval"}) end,
         setTransactionInvervalSetting = function(value) setValue(PASV.Banking, value, {"transactionInterval"}) end,
+
+        getAutoStackBankSetting = function() return getValue(PASV.Banking, {"autoStackBank"}) end,
+        setAutoStackBankSetting = function(value) setValue(PASV.Banking, value, {"autoStackBank"}) end,
     },
     PALoot = {
         isEnabled = getPALootEnabled,

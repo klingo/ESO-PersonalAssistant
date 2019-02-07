@@ -99,6 +99,7 @@ PA.MenuDefaults = {
         transactionDepositStacking = PAC.STACKING.FULL,
         transactionWithdrawalStacking = PAC.STACKING.FULL,
         transactionInterval = 100,
+        autoStackBank = true,
 
         -- ---------------------------------------------
 

@@ -287,6 +287,9 @@ PersonalAssistant.Localization = {
     PABMenu_Transaction_Interval = "Interval between item transactions (msecs)",
     PABMenu_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
 
+    PABMenu_AutoStackBank = "Auto-Stack all items when opening the bank",
+    PABMenu_AutoStackBank_T = "Automatically stack all items in the bank when opening it? Helps to keep everything better organized.",
+
     -- -----------------------------------------------------------------------------------------------------------------
 
 

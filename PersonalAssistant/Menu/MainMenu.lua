@@ -577,6 +577,16 @@ local function createPABankingMenu()
         disabled = PAMenuFunctions.PABanking.isTransactionInvervalDisabled,
         default = PAMenuDefaults.PABanking.transactionInterval,
     })
+
+    optionsTable:insert({
+        type = "checkbox",
+        name = L.PABMenu_AutoStackBank,
+        tooltip = L.PABMenu_AutoStackBank_T,
+        getFunc = PAMenuFunctions.PABanking.getAutoStackBankSetting,
+        setFunc = PAMenuFunctions.PABanking.setAutoStackBankSetting,
+        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PAMenuDefaults.PABanking.autoStackBank,
+    })
 end
 
 local function createPALootMenu()

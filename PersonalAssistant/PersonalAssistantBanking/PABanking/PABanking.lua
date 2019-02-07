@@ -167,6 +167,15 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
 end
 
 
+local function stackBank()
+    if PASV.Banking[PA.activeProfile].autoStackBank then
+        StackBag(BAG_BANK)
+        StackBag(BAG_SUBSCRIBER_BANK)
+    end
+    -- Execute the function queue
+    PAB.triggerNextTransactionFunction()
+end
+
 local function updateTransactionInterval()
     _transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
 end
@@ -208,13 +217,6 @@ local function OnBankOpen()
         -- set the global variable to 'false'
         PA.isBankClosed = false
 
-        -- TODO: to be evaluated if needed; and how to implement
-        --    if (sameBagStacking) then
-        --        doSameBagStacking(BAG_BACKPACK)
-        --        doSameBagStacking(BAG_BANK)
-        --        doSameBagStacking(BAG_SUBSCRIBER_BANK)
-        --    end
-
         -- check if gold deposit is enabled
         if PASV.Banking[PA.activeProfile].Currencies.currenciesEnabled then
             -- trigger the deposit and withdrawal of gold
@@ -223,6 +225,7 @@ local function OnBankOpen()
 
         -- check if the different transactions are enabled and add them to the function queue (will be executed in REVERSE order)
         PAB.transactionFunctionQueue = {}
+        table.insert(PAB.transactionFunctionQueue, stackBank)
         if PASV.Banking[PA.activeProfile].Advanced.specializedItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawAdvancedItems)
         end
@@ -232,6 +235,7 @@ local function OnBankOpen()
         if PASV.Banking[PA.activeProfile].Crafting.craftingItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawCraftingItems)
         end
+        table.insert(PAB.transactionFunctionQueue, stackBank)
 
         -- Execute the function queue
         PAB.triggerNextTransactionFunction()
