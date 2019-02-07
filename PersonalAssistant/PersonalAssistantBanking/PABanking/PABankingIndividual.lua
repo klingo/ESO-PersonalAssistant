@@ -4,7 +4,80 @@ local PAB = PA.Banking
 local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
-local L = PA.Localization
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function _doItemTransactions(individualItems, backpackBagCache, bankBagCache)
+    -- prepare the table for the items that need a new stack created
+    local toBeMovedItemsTable = {}
+    local toBeMovedAgainTable = {}
+
+    -- loop through all enabled individual Items
+    for itemId, customItemData in pairs(individualItems) do
+        local operator = customItemData.operator
+        local targetBackpackStack = customItemData.targetBackpackStack
+        local savedBackpackStack = 0
+
+        -- and check for deposits
+        for _, itemData in pairs(backpackBagCache) do
+            local backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            if (itemId == backpackItemId) then
+                local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
+                if ((operator == PAC.OPERATOR.LESSTHANOREQUAL or operator == PAC.OPERATOR.EQUAL) and ((savedBackpackStack + stack) > targetBackpackStack)) then
+                    -- Deposit (full or partial)
+                    local moveableStack = savedBackpackStack + stack - targetBackpackStack
+                    savedBackpackStack = targetBackpackStack
+                    local singleItemBagCache = {}
+                    table.insert(singleItemBagCache, itemData)
+                    d("only deposit: "..tostring(moveableStack))
+                    PAB.stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, bankBagCache, true, toBeMovedItemsTable, moveableStack)
+                else
+                    -- No deposit needed (yet)
+                    savedBackpackStack = savedBackpackStack + stack
+                end
+            end
+        end
+
+        -- and withdrawals
+        for _, itemData in pairs(bankBagCache) do
+            local bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            if (itemId == bankItemId) then
+                local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
+                if (operator == PAC.OPERATOR.GREATERTHANOREQUAL or operator == PAC.OPERATOR.EQUAL) then
+                    if (savedBackpackStack < targetBackpackStack) then
+                        -- Withdrawal (full or partial)
+                        local moveableStack = targetBackpackStack - savedBackpackStack
+                        if (moveableStack > stack) then
+                            moveableStack = stack
+                        end
+                        savedBackpackStack = savedBackpackStack + moveableStack
+                        local singleItemBagCache = {}
+                        table.insert(singleItemBagCache, itemData)
+                        d("only withdraw: "..tostring(moveableStack))
+                        PAB.stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, backpackBagCache, true, toBeMovedItemsTable, moveableStack)
+                    else
+                        -- No withdrawal needed (anymore)
+                    end
+                end
+            end
+        end
+    end
+
+    d("#toBeMovedItemsTable = "..tostring(#toBeMovedItemsTable))
+
+    -- after initial run-through, go though all not yet moved items and look for free slots for them
+    if #toBeMovedItemsTable > 0 then
+        PAB.moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)
+    else
+        -- all stacking done; and no further items to be moved
+        -- TODO: end message?
+        d("1) all done!")
+        PAB.isBankTransferBlocked = false
+        -- Execute the function queue
+        PAB.triggerNextTransactionFunction()
+    end
+end
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -20,35 +93,24 @@ local function depositOrWithdrawIndividualItems()
     local individualItems = {}
     local itemIdBackpackAmountTable = PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount
     local itemIdOperatorTable = PASV.Banking[PA.activeProfile].Individual.ItemIdOperator
-    for itemId, backpackAmount in pairs(itemIdBackpackAmountTable) do
+    for itemId, targetBackpackStack in pairs(itemIdBackpackAmountTable) do
         local operator = itemIdOperatorTable[itemId]
-        table.insert(individualItems, {
-            itemId = itemId,
-            operator = operator,
-            backpackAmount = backpackAmount
-        })
+        if operator ~= PAC.OPERATOR.NONE then
+            individualItems[itemId] = {
+                operator = operator,
+                targetBackpackStack = targetBackpackStack
+            }
+        end
     end
 
+    -- then get the matching data from the backpack and bank
     local itemIdComparator = PAB.getItemIdComparator(individualItems)
-
     local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
     local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
-    d("#backpackBagCache = "..tostring(#backpackBagCache))
-    d("#bankBagCache = "..tostring(#bankBagCache))
-
-
-    -- TODO: do stuff here!
-    -- 1) loop through itemId
-    -- 2) check how much is on character
-    -- 3) check how much is expected on character
-    -- 4) calculate transfer
-    -- 5) Execute?
-
-
-    PAB.isBankTransferBlocked = false
-    -- Execute the function queue
-    PAB.triggerNextTransactionFunction()
+    -- update the TransactionTimer option from the SavedVars; and trigger the itemTransactions
+    PAB.updateTransactionInterval()
+    _doItemTransactions(individualItems, backpackBagCache, bankBagCache)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
