@@ -191,6 +191,17 @@ local function triggerNextTransactionFunction()
     end
 end
 
+local function getCombinedItemTypeSpecializedComparator(itemTypeList, spevializedItemTypeList)
+    return function(itemData)
+        for _, itemType in pairs(itemTypeList) do
+            if itemType == itemData.itemType then return true end
+        end
+        for _, specializedItemType in pairs(spevializedItemTypeList) do
+            if specializedItemType == itemData.specializedItemType then return true end
+        end
+        return false
+    end
+end
 
 local function getItemTypeComparator(itemTypeList)
     return function(itemData)
@@ -226,7 +237,7 @@ local function OnBankOpen()
         -- check if the different transactions are enabled and add them to the function queue (will be executed in REVERSE order)
         PAB.transactionFunctionQueue = {}
         table.insert(PAB.transactionFunctionQueue, stackBank)
-        if PASV.Banking[PA.activeProfile].Advanced.specializedItemsEnabled then
+        if PASV.Banking[PA.activeProfile].Advanced.advancedItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawAdvancedItems)
         end
         if PASV.Banking[PA.activeProfile].Individual.individualItemsEnabled then
@@ -265,6 +276,7 @@ PA.Banking.OnBankOpen = OnBankOpen
 PA.Banking.OnBankClose = OnBankClose
 PA.Banking.updateTransactionInterval = updateTransactionInterval
 PA.Banking.triggerNextTransactionFunction = triggerNextTransactionFunction
+PA.Banking.getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator
 PA.Banking.getItemTypeComparator = getItemTypeComparator
 PA.Banking.getItemIdComparator = getItemIdComparator
 PA.Banking.moveSecureItemsFromTo = moveSecureItemsFromTo

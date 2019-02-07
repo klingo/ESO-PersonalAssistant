@@ -221,8 +221,7 @@ PersonalAssistant.Constants = {
             61079,  -- [Crown Repair Kit]
         },
         GENERIC = {
-            64710 -- TODO: only for testing; to be removed again!
-            -- generic container where any itemID can just be added and it will work out of the box
+            -- Generic container where any itemID can just be added and it will work out of the box
         }
     },
 
@@ -251,9 +250,6 @@ PersonalAssistant.Constants = {
 
 -- PA Banking
 PAC_ITEMTYPE_IGNORE = 0
-PAC_ITEMTYPE_DEPOSIT = 1
-PAC_ITEMTYPE_WITHDRAWAL = 2
-PAC_ITEMTYPE_INHERIT = 3
 
 -- PA Loot
 PAC_ITEMTYPE_LOOT = 1
@@ -268,9 +264,6 @@ PA_OUTPUT_TYPE_FULL = 3
 -- Icon Paths
 PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds"
 
--- Custom Item ID
-PAC_ITEMID_LOCKPICK = 30357
-
 
 -- =====================================================================================================================
 -- = PA Repair
@@ -282,15 +275,6 @@ PARWeaponSlots:insert(EQUIP_SLOT_OFF_HAND)
 PARWeaponSlots:insert(EQUIP_SLOT_BACKUP_MAIN)
 PARWeaponSlots:insert(EQUIP_SLOT_BACKUP_OFF)
 
--- =====================================================================================================================
--- = PA Banking
--- =================================
--- PersonalAssistant Banking Advanced ItemTypes
-PABItemTypesAdvanced = setmetatable({}, { __index = table })
--- Lockpick
-PABItemTypesAdvanced:insert(PAC_ITEMID_LOCKPICK)
--- Can't use ITEMTYPE_LOCKPICK or SPECIALIZED_ITEMTYPE_LOCKPICK
--- since the actual lockpicks are categorized as ITEMTYPE_TOOL (as of APIVersion 100018)
 
 -- =====================================================================================================================
 -- = PA Loot

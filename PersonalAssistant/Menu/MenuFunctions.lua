@@ -588,14 +588,18 @@ local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
     PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType] = value
 end
 
---local function setPABankingAdvancedItemTypeMoveAllSettings(value)
---    if (isDisabledPAGeneralNoProfileSelected()) then return end
---    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced) do
---        PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType] = value
---    end
---    PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE:UpdateValue()
---    -- TODO: chat-message do inform user? / also new name needed if to be used here
---end
+--------------------------------------------------------------------------
+-- PABanking   Advanced         advancedItemTypeSpecializedMoveSetting
+---------------------------------
+local function getPABankingAdvancedItemTypeSpecializedMoveSetting(itemType)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    return PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced[itemType]
+end
+
+local function setPABankingAdvancedItemTypeSpecializedMoveSetting(itemType, value)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced[itemType] = value
+end
 
 --------------------------------------------------------------------------
 -- PABanking   Individual         individualItemsEnabled
@@ -1200,6 +1204,9 @@ PA.MenuFunctions = {
 
         getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
         setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
+
+        getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
+        setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
 
         isMotifTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "motifTransaction"}) end,
         isMotifTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,

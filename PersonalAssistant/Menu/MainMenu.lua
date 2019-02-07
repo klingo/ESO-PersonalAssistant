@@ -1248,8 +1248,8 @@ local function createPABAdvancedGlyphsSubmenuTable()
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             -- TODO: choicesTooltips
-            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(specializedItemType) end,
-            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(specializedItemType, value) end,
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
             disabled = PAMenuFunctions.PABanking.isGlyphsTransactionMenuDisabled,
             default = PAC.MOVE.IGNORE,
         })
@@ -1276,8 +1276,8 @@ local function createPABAdvancedLiquidsSubmenuTable()
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             -- TODO: choicesTooltips
-            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(specializedItemType) end,
-            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(specializedItemType, value) end,
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
             disabled = PAMenuFunctions.PABanking.isLiquidsTransactionMenuDisabled,
             default = PAC.MOVE.IGNORE,
         })
@@ -1304,8 +1304,8 @@ local function createPABAdvancedTrophiesSubmenuTable()
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             -- TODO: choicesTooltips
-            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(specializedItemType) end,
-            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(specializedItemType, value) end,
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
             disabled = PAMenuFunctions.PABanking.isTrophiesTransactionMenuDisabled,
             default = PAC.MOVE.IGNORE,
         })

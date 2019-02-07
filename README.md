@@ -49,13 +49,12 @@ How to read:
     * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 * [X] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
     * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
+* [ ] **(2)** Check proper initialization of default values on first-time-use
 * [ ] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
     * http://www.esoui.com/forums/showthread.php?p=7988
     * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
 * [ ] **(4)** Check Currency Formatting
     * https://wiki.esoui.com/Currency_Formatting
-* [ ] **(4)** Add LDoc
-    * https://stevedonovan.github.io/ldoc/manual/doc.md.html
 * [X] **(5)** Update Addon Manifest
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion
@@ -64,6 +63,8 @@ How to read:
   * http://www.esoui.com/forums/showthread.php?t=2054
   * http://www.esoui.com/forums/showthread.php?t=1944
   * https://wiki.esoui.com/ZO_LinkHandler_CreateLink
+* [ ] **(7)** Add LDoc
+    * https://stevedonovan.github.io/ldoc/manual/doc.md.html
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
@@ -134,17 +135,17 @@ How to read:
     ITEMTYPE_FURNISHING
     ITEMTYPE_FURNISHING_MATERIAL 
     ```
-* [ ] **(2)** PABanking: Individual Item Types - Add Soul gems (empty / filled)
+* [X] **(2)** PABanking: Individual Item Types - Add Soul gems (empty / filled)
 * [X] **(3)** PABanking: Check new function for transferring currencies
     ```lua
     TransferCurrency(currencyType, amount, fromLocation, toLocation).
     ```
 * [X] **(3)** PABanking: Support all four currency types
 * [ ] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
-* [ ] **(3)** PABanking: Individual Item Types - Add Repair Kits (only Grand?)
+* [X] **(3)** PABanking: Individual Item Types - Add Repair Kits (only Grand?)
 * [ ] **(4)** PABanking: Add option to select type of notifications
 * [ ] **(4)** PABanking: Add summary after transaction completed
-* [ ] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
+* [X] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
 * [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked)
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987

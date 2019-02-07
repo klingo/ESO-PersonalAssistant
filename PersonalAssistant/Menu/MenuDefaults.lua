@@ -75,6 +75,7 @@ PA.MenuDefaults = {
             trophiesTransaction = true,
 
             ItemTypesAdvanced = {},
+            ItemTypesSpecializedAdvanced = {},
         },
 
         -- ---------------------------------------------
@@ -102,10 +103,6 @@ PA.MenuDefaults = {
         autoStackBank = true,
 
         -- ---------------------------------------------
-
-        ItemTypesIndividual = {
-            advItemTypesValue = 100
-        },
     },
     PALoot = {
         enabled = false,

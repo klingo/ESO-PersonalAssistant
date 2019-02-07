@@ -63,8 +63,6 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
         end
     end
 
-    d("#toBeMovedItemsTable = "..tostring(#toBeMovedItemsTable))
-
     -- after initial run-through, go though all not yet moved items and look for free slots for them
     if #toBeMovedItemsTable > 0 then
         PAB.moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)

@@ -79,7 +79,6 @@ local function depositOrWithdrawCraftingItems()
     _doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache)
 end
 
-
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
