@@ -291,11 +291,6 @@ PersonalAssistant.Localization = {
 
 
 
-    PABMenu_DepStackOnly = "Stacking type (Deposit)",
-    PABMenu_DepStackOnly_T = "Define whether all matching items shall be deposited completely, if only items that exist in the target container shall be deposited or if only existing stacks shall be filled up to their max size.",
-    PABMenu_WitStackOnly = "Stacking type (Withdraw)",
-    PABMenu_WitStackOnly_T = "Define whether all matching items shall be withdrawn completely, if only items that exist in the target container shall be withdrawn or if only existing stacks shall be filled up to their max size.",
-    PABMenu_ItemType_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
     PABMenu_HideNoDeposit = "Hide 'Nothing to Deposit' message",
     PABMenu_HideNoDeposit_T = "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",
     PABMenu_HideAll = "Hide ALL banking messages",
