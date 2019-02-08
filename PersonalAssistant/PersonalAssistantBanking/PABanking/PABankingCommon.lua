@@ -83,7 +83,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
                 else
                     -- nothing else that can be moved; done
                     -- TODO: end message?
-                    d("2) all done!")
+                    PAHF.debugln("2) all done!")
                     PAB.isBankTransferBlocked = false
                     -- Execute the function queue
                     PAB.triggerNextTransactionFunction()
@@ -197,7 +197,7 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
-        d("1) all done!")
+        PAHF.debugln("1) all done!")
         PAB.isBankTransferBlocked = false
         -- Execute the function queue
         PAB.triggerNextTransactionFunction()

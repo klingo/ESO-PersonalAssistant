@@ -69,7 +69,7 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
-        d("1) all done!")
+        PAHF.debugln("1) all done!")
         PAB.isBankTransferBlocked = false
         -- Execute the function queue
         PAB.triggerNextTransactionFunction()
