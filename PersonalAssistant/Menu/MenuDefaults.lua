@@ -59,7 +59,42 @@ PA.MenuDefaults = {
             traitItemsTransaction = true,
             furnishingTransaction = true,
 
-            ItemTypesCrafting = {},
+            ItemTypesCrafting = {
+                [ITEMTYPE_BLACKSMITHING_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_BLACKSMITHING_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_BLACKSMITHING_BOOSTER] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_CLOTHIER_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_CLOTHIER_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_CLOTHIER_BOOSTER] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_WOODWORKING_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_WOODWORKING_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_WOODWORKING_BOOSTER] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_JEWELRYCRAFTING_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_JEWELRYCRAFTING_BOOSTER] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_REAGENT] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_POISON_BASE] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_POTION_BASE] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_ENCHANTING_RUNE_ASPECT] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_ENCHANTING_RUNE_ESSENCE] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_ENCHANTING_RUNE_POTENCY] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_INGREDIENT] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_LURE] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_STYLE_MATERIAL] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_ARMOR_TRAIT] = PAC.MOVE.IGNORE,
+                [ITEMTYPE_WEAPON_TRAIT] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_FURNISHING_MATERIAL] = PAC.MOVE.IGNORE,
+            },
         },
 
         -- ---------------------------------------------
@@ -74,8 +109,21 @@ PA.MenuDefaults = {
             liquidsTransaction = true,
             trophiesTransaction = true,
 
-            ItemTypesAdvanced = {},
-            ItemTypesSpecializedAdvanced = {},
+            ItemTypesAdvanced = {
+                [ITEMTYPE_RACIAL_STYLE_MOTIF] = PAC.MOVE.IGNORE,
+
+                [ITEMTYPE_RECIPE] = PAC.MOVE.IGNORE,
+            },
+            ItemTypesSpecializedAdvanced = {
+                [SPECIALIZED_ITEMTYPE_GLYPH_ARMOR] = PAC.MOVE.IGNORE,
+                [SPECIALIZED_ITEMTYPE_GLYPH_JEWELRY] = PAC.MOVE.IGNORE,
+                [SPECIALIZED_ITEMTYPE_GLYPH_WEAPON] = PAC.MOVE.IGNORE,
+
+                [SPECIALIZED_ITEMTYPE_POTION] = PAC.MOVE.IGNORE,
+                [SPECIALIZED_ITEMTYPE_POISON] = PAC.MOVE.IGNORE,
+
+                [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = PAC.MOVE.IGNORE,
+            },
         },
 
         -- ---------------------------------------------
@@ -88,11 +136,27 @@ PA.MenuDefaults = {
             repairKitTransaction = true,
             genericTransaction = false,
 
-            ItemIdOperator = {},
-            individualOperator = PAC.OPERATOR.NONE,
+            ItemIdOperator = {
+                [30357] = PAC.OPERATOR.NONE,  -- [Lockpick]
 
-            ItemIdBackpackAmount = {},
-            individualAmount = 100,
+                [33265] = PAC.OPERATOR.NONE,  -- [Soul Gem (Empty)]
+                [33271] = PAC.OPERATOR.NONE,  -- [Soul Gem]
+                [61080] = PAC.OPERATOR.NONE,  -- [Crown Soul Gem]
+
+                [44879] = PAC.OPERATOR.NONE,  -- [Grand Repair Kit]
+                [61079] = PAC.OPERATOR.NONE,  -- [Crown Repair Kit]
+            },
+
+            ItemIdBackpackAmount = {
+                [30357] = 100,  -- [Lockpick]
+
+                [33265] = 100,  -- [Soul Gem (Empty)]
+                [33271] = 100,  -- [Soul Gem]
+                [61080] = 100,  -- [Crown Soul Gem]
+
+                [44879] = 100,  -- [Grand Repair Kit]
+                [61079] = 100,  -- [Crown Repair Kit]
+            },
         },
 
         -- ---------------------------------------------

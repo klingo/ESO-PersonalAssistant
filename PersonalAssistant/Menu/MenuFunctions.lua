@@ -617,7 +617,8 @@ end
 local function getPABankingIndividualItemIdMathOperatorSetting(individualItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     local value = PASV.Banking[PA.activeProfile].Individual.ItemIdOperator[individualItemId]
-    if (value) then return value else return tonumber(PAMD.PABanking.Individual.individualOperator) end
+    -- in case a new GENERIC individual item is added, return "-" by default
+    if (value) then return value else return tonumber(PAC.OPERATOR.NONE) end
 end
 
 local function setPABankingIndividualItemIdMathOperatorSetting(individualItemId, value)
@@ -631,7 +632,8 @@ end
 local function getPABankingIndividualItemIdBackpackAmountSetting(individualItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     local value = PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount[individualItemId]
-    if (value) then return value else return tonumber(PAMD.PABanking.Individual.individualAmount) end
+    -- in case a new GENERIC individual item is added, return "100" by default
+    if (value) then return value else return 100 end
 end
 
 
@@ -1268,12 +1270,12 @@ PA.MenuFunctions = {
         -- TRANSACTION SETTINGS
         -- -----------------------------
         isTransactionDepositStackingDisabled = isPABankingTransactionDepositStackingDisabled,
-        getTransactionDepositStackingSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsDepositStacking"}) end,
-        setTransactionDepositStackingSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingItemsDepositStacking"}) end,
+        getTransactionDepositStackingSetting = function() return getValue(PASV.Banking, {"transactionDepositStacking"}) end,
+        setTransactionDepositStackingSetting = function(value) setValue(PASV.Banking, value, {"transactionDepositStacking"}) end,
 
         isTransactionWithdrawalStackingDisabled = isPABankingTransactionWithdrawalStackingDisabled,
-        getTransactionWithdrawalStackingSetting = function() return getValue(PASV.Banking, {"Crafting", "craftingItemsWithdrawalStacking"}) end,
-        setTransactionWithdrawalStackingSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "craftingItemsWithdrawalStacking"}) end,
+        getTransactionWithdrawalStackingSetting = function() return getValue(PASV.Banking, {"transactionWithdrawalStacking"}) end,
+        setTransactionWithdrawalStackingSetting = function(value) setValue(PASV.Banking, value, {"transactionWithdrawalStacking"}) end,
 
         isTransactionInvervalDisabled = isPABankingTransactionIntervalDisabled,
         getTransactionInvervalSetting = function() return getValue(PASV.Banking, {"transactionInterval"}) end,

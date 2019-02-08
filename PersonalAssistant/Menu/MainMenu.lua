@@ -1338,7 +1338,7 @@ local function createPABIndividualLockpickSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualOperator,
+            default = PAC.OPERATOR.NONE,
         })
 
         PABIndividualLockpickSubmenuTable:insert({
@@ -1349,7 +1349,7 @@ local function createPABIndividualLockpickSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualAmount
+            default = 100
         })
     end
 end
@@ -1380,7 +1380,7 @@ local function createPABIndividualSoulGemSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualOperator,
+            default = PAC.OPERATOR.NONE,
         })
 
         PABIndividualSoulGemSubmenuTable:insert({
@@ -1391,7 +1391,7 @@ local function createPABIndividualSoulGemSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualAmount
+            default = 100
         })
     end
 end
@@ -1422,7 +1422,7 @@ local function createPABIndividualRepairKitSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isRepairKitTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualOperator,
+            default = PAC.OPERATOR.NONE,
         })
 
         PABIndividualRepairKitSubmenuTable:insert({
@@ -1433,7 +1433,7 @@ local function createPABIndividualRepairKitSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isRepairKitTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualAmount
+            default = 100
         })
     end
 end
@@ -1464,7 +1464,7 @@ local function createPABIndividualGenericSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isGenericTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualOperator,
+            default = PAC.OPERATOR.NONE,
         })
 
         PABIndividualGenericSubmenuTable:insert({
@@ -1475,7 +1475,7 @@ local function createPABIndividualGenericSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = PAMenuFunctions.PABanking.isGenericTransactionMenuDisabled,
-            default = PAMenuDefaults.PABanking.Individual.individualAmount
+            default = 100
         })
     end
 end
