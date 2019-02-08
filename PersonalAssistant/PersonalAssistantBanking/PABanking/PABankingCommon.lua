@@ -176,8 +176,8 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     local toBeMovedItemsTable = {}
     local toBeMovedAgainTable = {}
 
-    PAHF.debugln("#toDepositBagCache = "..tostring(#toDepositBagCache))
-    PAHF.debugln("#toWithdrawBagCache = "..tostring(#toWithdrawBagCache))
+    PAHF.debugln("#toDepositBagCache = "..tostring(#depositFromBagCache))
+    PAHF.debugln("#toWithdrawBagCache = "..tostring(#withdrawalFromBagCache))
 
     -- update the StacksAllowed options from the SavedVars
     -- TODO: Challenge this, as it does not make sense for Glyphs and Treasure Maps
