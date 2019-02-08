@@ -141,7 +141,7 @@ How to read:
     TransferCurrency(currencyType, amount, fromLocation, toLocation).
     ```
 * [X] **(3)** PABanking: Support all four currency types
-* [ ] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
+* [X] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
 * [X] **(3)** PABanking: Individual Item Types - Add Repair Kits (only Grand?)
 * [ ] **(4)** PABanking: Add option to select type of notifications
 * [ ] **(4)** PABanking: Add summary after transaction completed

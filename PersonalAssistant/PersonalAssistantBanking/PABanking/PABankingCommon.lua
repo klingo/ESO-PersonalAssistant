@@ -152,7 +152,9 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                         PAHF.println("PAB_Items_MovedTo_Partial", targetFreeStacks, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, targetFreeStacks)
                         -- reduce the remaining amount that needs to be moved
-                        stackToMove = stackToMove - targetFreeStacks
+                        if stackToMove ~= nil then
+                            stackToMove = stackToMove - targetFreeStacks
+                        end
                         -- cannot be set to [isItemMoved = true] because there is still a remaining stack that needs to be moved
                     end
                 end
