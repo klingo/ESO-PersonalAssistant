@@ -4,46 +4,12 @@ local PAB = PA.Banking
 local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
-local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-
-
-
--- TODO: exact duplicate with PABankingCrafting (simplify?
-local function _doItemTransactions(fromBagCacheDeposit, toBagCacheDeposit, fromBagCacheWithdrawal, toBagCacheWithdrawal)
-    -- prepare the table for the items that need a new stack created
-    local toBeMovedItemsTable = {}
-    local toBeMovedAgainTable = {}
-
-    -- update the StacksAllowed options from the SavedVars
-    -- TODO: Challenge this, as it does not make sense for Glyphs and Treasure Maps
-    local newDepositStacksAllowed = (PAMF.PABanking.getTransactionDepositStackingSetting() == PAC.STACKING.FULL)
-    local newWithdrawalStacksAllowed = (PAMF.PABanking.getTransactionWithdrawalStackingSetting() == PAC.STACKING.FULL)
-
-    -- automatically fills up existing stacks; and if new stacks are needed (and allowed), these are added to the table
-    PAB.stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheDeposit, toBagCacheDeposit, newDepositStacksAllowed, toBeMovedItemsTable)
-    PAB.stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCacheWithdrawal, toBagCacheWithdrawal, newWithdrawalStacksAllowed, toBeMovedItemsTable)
-
-
-
-    -- TODO: DO STUFF HERE
-
-    -- after initial run-through, go though all not yet moved items and look for free slots for them
-    if #toBeMovedItemsTable > 0 then
-        -- update the TransactionTimer option from the SavedVars
-        PA.transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
-        -- and trigger the recursive loop to move items
-        PAB.moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)
-    else
-        -- all stacking done; and no further items to be moved
-        -- TODO: end message?
-        d("1) all done!")
-        PAB.isBankTransferBlocked = false
-        -- Execute the function queue
-        PAB.triggerNextTransactionFunction()
-    end
+local function _doItemTransactions(depositFromBagCache, depositToBagCache, withdrawalFromBagCache, withdrawalToBagCache)
+    -- call the generic version
+    PAB.doGenericItemTransactions(depositFromBagCache, depositToBagCache, withdrawalFromBagCache, withdrawalToBagCache)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -86,10 +52,6 @@ local function depositOrWithdrawAdvancedItems()
 
     local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
     local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
-
-
-    d("#toDepositBagCache = "..tostring(#toDepositBagCache))
-    d("#toWithdrawBagCache = "..tostring(#toWithdrawBagCache))
 
     -- update the TransactionTimer option from the SavedVars; and trigger the itemTransactions
     PAB.updateTransactionInterval()

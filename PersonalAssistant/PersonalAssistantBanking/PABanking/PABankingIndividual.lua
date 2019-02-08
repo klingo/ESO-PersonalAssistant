@@ -29,7 +29,7 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
                     savedBackpackStack = targetBackpackStack
                     local singleItemBagCache = {}
                     table.insert(singleItemBagCache, itemData)
-                    d("only deposit: "..tostring(moveableStack))
+                    PAHF.debugln("Only deposit: "..tostring(moveableStack))
                     PAB.stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, bankBagCache, true, toBeMovedItemsTable, moveableStack)
                 else
                     -- No deposit needed (yet)
@@ -53,7 +53,7 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
                         savedBackpackStack = savedBackpackStack + moveableStack
                         local singleItemBagCache = {}
                         table.insert(singleItemBagCache, itemData)
-                        d("only withdraw: "..tostring(moveableStack))
+                        PAHF.debugln("Only withdraw: "..tostring(moveableStack))
                         PAB.stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, backpackBagCache, true, toBeMovedItemsTable, moveableStack)
                     else
                         -- No withdrawal needed (anymore)
