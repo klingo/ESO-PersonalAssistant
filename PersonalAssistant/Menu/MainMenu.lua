@@ -408,7 +408,7 @@ local function createPABankingMenu()
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemsGlobalMoveModeSetting(value) end,
             disabled = PAMenuFunctions.PABanking.isCraftingItemsGlobalMoveModeDisabled,
             warning = L.PABMenu_Crafting_GlobalMoveMode_W,
-            reference = "PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE",
+            reference = "PERSONALASSISTANT_PAB_CRAFTING_GLOBAL_MOVE_MODE",
         })
     end
 
@@ -472,6 +472,19 @@ local function createPABankingMenu()
         -- tooltip = L.PABMenu_Advanced_Trophies_Header_T,
         controls = PABAdvancedTrophiesSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isTrophiesTransactionMenuDisabled,
+    })
+
+    optionsTable:insert({
+        type = "dropdown",
+        name = L.PABMenu_Advanced_GlobalMoveMode,
+        tooltip = L.PABMenu_Advanced_GlobalMoveMode_T,
+        choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+        choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+        getFunc = function() return end,
+        setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemsGlobalMoveModeSetting(value) end,
+        disabled = PAMenuFunctions.PABanking.isAdvancedItemsGlobalMoveModeDisabled,
+        warning = L.PABMenu_Advanced_GlobalMoveMode_W,
+        reference = "PERSONALASSISTANT_PAB_ADVANCED_GLOBAL_MOVE_MODE",
     })
 
     -- -----------------------------------------------------------------------------------

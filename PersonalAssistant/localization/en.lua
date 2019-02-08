@@ -233,6 +233,10 @@ PersonalAssistant.Localization = {
 
     PABMenu_Advanced_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
 
+    PABMenu_Advanced_GlobalMoveMode = "Change all above Special Item dropdowns to",
+    PABMenu_Advanced_GlobalMoveMode_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
+    PABMenu_Advanced_GlobalMoveMode_W = "This cannot be undone; all individually selected values will be lost",
+
     PABMenu_Advanced_Motif_Header = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "Motif"}),
     PABMenu_Advanced_Motif_Enabled = "Deposit/Withdraw Motif Items",
     PABMenu_Advanced_Motif_Enabled_T = "Automatically deposit Motif Items to the bank, or withdraw when needed?",

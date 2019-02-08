@@ -562,7 +562,7 @@ local function setPABankingCraftingItemTypeMoveAllSettings(value)
     for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting) do
         PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting[itemType] = value
     end
-    PERSONALASSISTANT_PAB_GLOBAL_MOVE_MODE:UpdateValue()
+    PERSONALASSISTANT_PAB_CRAFTING_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
 end
 
@@ -599,6 +599,21 @@ end
 local function setPABankingAdvancedItemTypeSpecializedMoveSetting(itemType, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced[itemType] = value
+end
+
+--------------------------------------------------------------------------
+-- PABanking   Advanced         advancedItemTypeMoveSetting + advancedItemTypeSpecializedMoveSetting
+---------------------------------
+local function setPABankingAdvancedItemTypeMoveAllSettings(value)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced) do
+        PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType] = value
+    end
+    for specializedItemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced) do
+        PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced[specializedItemType] = value
+    end
+    PERSONALASSISTANT_PAB_ADVANCED_GLOBAL_MOVE_MODE:UpdateValue()
+    -- TODO: chat-message do inform user?
 end
 
 --------------------------------------------------------------------------
@@ -1206,6 +1221,9 @@ PA.MenuFunctions = {
 
         getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
         setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
+
+        isAdvancedItemsGlobalMoveModeDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        setAdvancedItemsGlobalMoveModeSetting = function(value) setPABankingAdvancedItemTypeMoveAllSettings(value) end,
 
         getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
         setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
