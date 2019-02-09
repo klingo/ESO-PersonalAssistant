@@ -100,6 +100,13 @@ PersonalAssistant.Localization = {
     PAJ_MarkedAsJunk = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk"}),
     PAJ_SoldJunkInfo = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAMail --
+    PAM_HirelingMailSubject_Enchanting = "Raw Enchanter Materials",
+    PAM_HirelingMailSubject_Woodworking = "Raw Woodworker Materials",
+    PAM_HirelingMailSubject_Clothing = "Raw Clothier Materials",
+    PAM_HirelingMailSubject_Blacksmithing = "Raw Blacksmith Materials",
+
     -- =================================================================================================================
 
     -- MainMenu --

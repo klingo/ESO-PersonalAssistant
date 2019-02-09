@@ -1,0 +1,18 @@
+; This Add-on is not created by, affiliated with or sponsored by ZeniMax
+; Media Inc. or its affiliates. The Elder Scrolls® and related logos are
+; registered trademarks or trademarks of ZeniMax Media Inc. in the United
+; States and/or other countries. All rights reserved.
+
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700M|rail
+## Version: 1.0.0
+## AddOnVersion: 100
+## Author: Klingo
+## APIVersion: 100025
+## SavedVariables: PersonalAssistantMail_SavedVariables
+## DependsOn: PersonalAssistant
+
+# Core
+PersonalAssistantMail.lua
+
+# PAMail
+PAMail/PAMail.lua

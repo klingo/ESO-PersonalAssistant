@@ -102,6 +102,7 @@ local function RefreshAllEventRegistrations()
     local PAB = PA.Banking
     local PAL = PA.Loot
     local PAJ = PA.Junk
+    local PAM = PA.Mail
 
 
     -- Check if the Addon 'PARepair' is even enabled
@@ -181,12 +182,26 @@ local function RefreshAllEventRegistrations()
             end
         end
     end
+
+    -- Check if the Addon 'PAMail' is even enabled
+    if (PAM) then
+        -- TODO: check if addon is enabled
+
+        -- TODO: does not work, check why
+        RegisterForEvent(PAM.AddonName, EVENT_PLAYER_ACTIVATED, PAM.checkMailInitial)
+
+        RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.checkMail)
+    else
+
+        -- TODO: unregister events
+    end
+
 end
 
--- =====================================================================================================================
--- =====================================================================================================================
 
-PersonalAssistant.EventManager = {
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Export
+PA.EventManager = {
     listAllEventsInSet = listAllEventsInSet,
     RegisterForEvent = RegisterForEvent,
     UnregisterForEvent = UnregisterForEvent,
