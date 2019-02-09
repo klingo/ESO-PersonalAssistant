@@ -199,9 +199,9 @@ How to read:
 
 
 #### PAMail
-* [ ] **(9)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
+* [X] **(9)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
 * [ ] **(9)** PAMail: Chat notification about looted items from Hirelings 
-* [ ] **(9)** PAMail: Check API
+* [X] **(9)** PAMail: Check API
     ```lua
     IsLocalMailboxFull()
           Returns: boolean isFull

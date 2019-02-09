@@ -1374,6 +1374,17 @@ PA.MenuFunctions = {
         isAutoMarkOrnateDisabled = isDisabledPAJunkAutoMarkOrnate,
         getAutoMarkOrnateSetting = getPAJunkAutoMarkOrnate,
         setAutoMarkOrnateSetting = setPAJunkAutoMarkOrnate,
+    },
+    PAMail = {
+        -- -----------------------------------------------------------------------------------
+        -- HIRELINGS
+        -- -----------------------------
+        getHirelingAutoMailEnabledSetting = function() return getValue(PASV.Mail, {"hirelingAutoMailEnabled"}) end,
+        setHirelingAutoMailEnabledSetting = function(value) setValue(PASV.Mail, value, {"hirelingAutoMailEnabled"}) end,
+
+        isHirelingDeleteEmptyMailsDisabled = function() return isDisabled(PASV.Mail, {"hirelingAutoMailEnabled"}) end,
+        getHirelingDeleteEmptyMailsSetting = function() return getValue(PASV.Mail, {"hirelingDeleteEmptyMails"}) end,
+        setHirelingDeleteEmptyMailsSetting = function(value) setValue(PASV.Mail, value, {"hirelingDeleteEmptyMails"}) end,
     }
 }
 

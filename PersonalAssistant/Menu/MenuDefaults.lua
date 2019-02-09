@@ -189,4 +189,8 @@ PA.MenuDefaults = {
         autoMarkTrash = true,
         autoMarkOrnate = false,
     },
+    PAMail = {
+        hirelingAutoMailEnabled = false,
+        hirelingDeleteEmptyMails = false,
+    }
 }

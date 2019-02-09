@@ -49,8 +49,9 @@ local function checkMail()
                 -- TODO: add proper notifiction
                 d(string.format("Received from Hireling Mail: %s", mailItemLink))
 
-                -- TODO: check if mail should be deleted (and do so)
-                -- DeleteMail(id64 mailId, boolean forceDelete)
+                if PASV.Mail[PA.activeProfile].hirelingDeleteEmptyMails then
+                    DeleteMail(mailId, false) -- TODO: check if [forceDelete] has to be change to 'true'
+                end
             end
         end
     end

@@ -366,6 +366,14 @@ PersonalAssistant.Localization = {
     PAJMenu_AutoMarkOrnate = "Auto-Mark [Ornate] trait",
     PAJMenu_AutoMarkOrnate_T = "Automatically mark items with [Ornate] trait as junk?",
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAMMenu --
+    PAMMenu_Header = PAC.COLORED_TEXTS.PAM,
+    PAMMenu_Hireling_AutoMail_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Mail for Hireling Materials?"}),
+    PAMMenu_Hireling_AutoMail_Enable_T = "Enable Auto Mail (read, loot, and delete) for Mails with Raw Materials from Hirelings?",
+    PAMMenu_Hireling_DeleteEmptyMails = "Delete empty Hireling Mails afterwards?",
+    PAMMenu_Hireling_DeleteEmptyMails_T = "After mails from Hirelings have been processed and their items looted, automatically delete the empty mails?",
+
     -- =================================================================================================================
     -- Name Spaces --
     NS_Bag_Equipment = "", -- not required so far

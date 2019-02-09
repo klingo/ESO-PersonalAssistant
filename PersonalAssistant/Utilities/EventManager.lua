@@ -185,17 +185,19 @@ local function RefreshAllEventRegistrations()
 
     -- Check if the Addon 'PAMail' is even enabled
     if (PAM) then
-        -- TODO: check if addon is enabled
-
-        -- TODO: does not work, check why
-        RegisterForEvent(PAM.AddonName, EVENT_PLAYER_ACTIVATED, PAM.checkMailInitial)
-
-        RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.checkMail)
-    else
-
-        -- TODO: unregister events
+        -- Check if the functionality is turned on within the addon
+        local PAMMenuFunctions =  PAMenuFunctions.PAMail
+        if PAMMenuFunctions.getHirelingAutoMailEnabledSetting() then
+            -- Register PAMail
+            -- TODO: EVENT_PLAYER_ACTIVATED does not work, check why (maybe not needed anyway?)
+            RegisterForEvent(PAM.AddonName, EVENT_PLAYER_ACTIVATED, PAM.checkMailInitial)
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.checkMail)
+        else
+            -- Unregister PAMail
+            UnregisterForEvent(PAM.AddonName, EVENT_PLAYER_ACTIVATED)
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED)
+        end
     end
-
 end
 
 

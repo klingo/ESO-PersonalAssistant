@@ -28,6 +28,7 @@ PersonalAssistant.Constants = {
         PAB = table.concat({"|cFFD700", "PA B", "|cFFFFFF", "anking: ", "|cFFFF00"}),
         PAR = table.concat({"|cFFD700", "PA R", "|cFFFFFF", "epair: ", "|cFFFF00"}),
         PAL = table.concat({"|cFFD700", "PA L", "|cFFFFFF", "oot: ", "|cFFFF00"}),
+        PAM = table.concat({"|cFFD700", "PA M", "|cFFFFFF", "ail: ", "|cFFFF00"}),
         PAJ = table.concat({"|cFFD700", "PA J", "|cFFFFFF", "unk: ", "|cFFFF00"}),
     },
 

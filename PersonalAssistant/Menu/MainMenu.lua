@@ -754,6 +754,33 @@ local function createPAJunkMenu()
     })
 end
 
+local function createPAMailMenu()
+    optionsTable:insert({
+        type = "header",
+        name = L.PAMMenu_Header
+    })
+
+    optionsTable:insert({
+        type = "checkbox",
+        name = L.PAMMenu_Hireling_AutoMail_Enable,
+        tooltip = L.PAMMenu_Hireling_AutoMail_Enable_T,
+        getFunc = PAMenuFunctions.PAMail.getHirelingAutoMailEnabledSetting,
+        setFunc = PAMenuFunctions.PAMail.setHirelingAutoMailEnabledSetting,
+        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PAMenuDefaults.PAMail.hirelingAutoMailEnabled,
+    })
+
+    optionsTable:insert({
+        type = "checkbox",
+        name = L.PAMMenu_Hireling_DeleteEmptyMails,
+        tooltip = L.PAMMenu_Hireling_DeleteEmptyMails_T,
+        getFunc = PAMenuFunctions.PAMail.getHirelingDeleteEmptyMailsSetting,
+        setFunc = PAMenuFunctions.PAMail.setHirelingDeleteEmptyMailsSetting,
+        disabled = PAMenuFunctions.PAMail.isHirelingDeleteEmptyMailsDisabled,
+        default = PAMenuDefaults.PAMail.hirelingDeleteEmptyMails,
+    })
+end
+
 -- =================================================================================================================
 
 local function createPABCurrencyGoldSubmenuTable()
@@ -1688,6 +1715,7 @@ local function createOptions()
     if (PA.Banking) then createPABankingMenu() end
     if (PA.Loot) then createPALootMenu() end
     if (PA.Junk) then createPAJunkMenu() end
+    if (PA.Mail) then createPAMailMenu() end
 
     -- and register it
     LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
