@@ -98,6 +98,8 @@ PersonalAssistant.Localization = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
     PAJ_MarkedAsJunk = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk"}),
+    PAJ_MarkedAsJunkTrash = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk (Trash)"}),
+    PAJ_MarkedAsJunkOrnate = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk (Ornate)"}),
     PAJ_SoldJunkInfo = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -365,7 +367,7 @@ PersonalAssistant.Localization = {
     PAJMenu_AutoMarkTrash = "Auto-Mark [Trash]",
     PAJMenu_AutoMarkTrash_T = "Automatically mark items of type [Trash] as junk?",
     PAJMenu_AutoMarkOrnate = "Auto-Mark [Ornate] trait",
-    PAJMenu_AutoMarkOrnate_T = "Automatically mark items with [Ornate] trait as junk?",
+    PAJMenu_AutoMarkOrnate_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMMenu --

@@ -191,11 +191,15 @@ How to read:
 
 #### PAJunk
 * [ ] **(1)** PAJunk: Add support for ESO internal item-locking
-* [ ] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
+* [X] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
+* [X] **(2)** PAJunk: Notification for junk items, even if they are already marked as junk
 * [ ] **(3)** PAJunk: Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
 * [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
+* [ ] **(4)** PAJunk: Inventory Size Warning
+* [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
+* [ ] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below
 * [ ] **(5)** PAJunk: Add option to select type of notifications
 
 

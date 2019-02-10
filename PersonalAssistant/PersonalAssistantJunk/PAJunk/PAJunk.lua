@@ -6,7 +6,7 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     -- check what the difference in money is
     local moneyDiff = GetCurrentMoney() - moneyBefore;
     local itemCountInBagDiff = itemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
@@ -33,12 +33,28 @@ local function GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     PAEM.isJunkProcessing = false
 end
 
--- =====================================================================================================================
--- =====================================================================================================================
+local function _markAsJunkIfPossible(bagId, slotIndex)
+    -- Check if ESO allows the item to be marked as junk
+    if CanItemBeMarkedAsJunk(bagId, slotIndex) then
+        -- TODO: integrate FCOItemSaver
+
+        -- It is considered safe to mark the item as junk now
+        SetItemIsJunk(bagId, slotIndex, true)
+
+        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+
+        return true, itemLink
+    else
+        d("Canot mark as Junk :(")
+    end
+    return false, nil
+end
+
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
-
         -- check if addon is enabled
         if PASV.Junk[PA.activeProfile].enabled then
             -- check if auto-sell is enabled
@@ -56,7 +72,7 @@ local function OnShopOpen()
 
                     -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
                     -- after calling SellAllJunk()
-                    zo_callLater(function() GiveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
+                    zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
                 end
             end
         end
@@ -70,43 +86,35 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
         -- check if addon is enabled
         if PASV.Junk[PA.activeProfile].enabled then
 
-            -- check if the updated happened in the backpack and if the item is new
-            if ((bagId == BAG_BACKPACK) and (isNewItem)) then
+            -- check if the updated happened in the backpack, if the item is new, and if it the item isn't already junk
+            if ((bagId == BAG_BACKPACK) and (isNewItem) and not IsItemJunk(bagId, slotIndex)) then
+                -- get the itemType and itemTrait
+                local itemType = GetItemType(bagId, slotIndex)
+                local itemTrait = GetItemTrait(bagId, slotIndex)
 
-                -- check if the item isnt already junk
-                if not IsItemJunk(bagId, slotIndex) then
-                    -- get the itemType
-                    local itemType = GetItemType(bagId, slotIndex)
-                    local itemTrait = GetItemTrait(bagId, slotIndex)
-                    local markAsJunk = false
+                local itemInstanceId = GetItemInstanceId(bagId, slotIndex)
+                local itemId = GetItemId(bagId, slotIndex)
 
-                    -- check if it is trash and if auto-flag-trash is enabled
-                    if (PASV.Junk[PA.activeProfile].autoMarkTrash) then
-                        if (itemType == ITEMTYPE_TRASH) then markAsJunk = true end
-                    end
+--                d("itemId="..tostring(itemId).."   |   itemInstanceId="..tostring(itemInstanceId))
 
-                    -- check if item has the [Ornate] trait and if it is enabled
-                    if (PASV.Junk[PA.activeProfile].autoMarkOrnate) then
-                        if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE) then
-                            markAsJunk = true
+                -- check for the different itemTypes and itemTraits
+                if (itemType == ITEMTYPE_TRASH) then
+                    if PASV.Junk[PA.activeProfile].autoMarkTrash then
+                        local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
+                        if (markedAsJunk) then
+                            PAHF.println("PAJ_MarkedAsJunkTrash", itemLink)
                         end
                     end
 
-                    -- TODO: check other item types etc.
-
-                    -----------------------------------------------------------------------
-
-                    if (markAsJunk) then
-                        -- Now we know for sure the item _should_ be marked as Junk. Check if this indeed is possible.
-                        if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-                            -- it is safe to mark the item as junk now
-                            SetItemIsJunk(bagId, slotIndex, true)
-
-                            local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-                            PAHF.println("PAJ_MarkedAsJunk", itemLink)
+                elseif (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE) then
+                    if PASV.Junk[PA.activeProfile].autoMarkOrnate then
+                        local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
+                        if (markedAsJunk) then
+                            PAHF.println("PAJ_MarkedAsJunkOrnate", itemLink)
                         end
                     end
                 end
+                -- TODO: check other item types etc.
             end
         end
     end

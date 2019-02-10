@@ -47,12 +47,13 @@ end
 --  Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
 local function SharedEventOpenStore()
 
+    local PAJ = PA.Junk
     if (PAJ) then
         -- first execute PAJunk (to sell junk and get gold)
         PAJ.OnShopOpen()
     end
 
-    local PAR = PersonalAssistant.Repair
+    local PAR = PA.Repair
     if (PAR) then
         -- only then execute PARepair (to spend gold for repairs)
         -- has to be done with some delay to get a proper update on the current gold amount from selling junk
