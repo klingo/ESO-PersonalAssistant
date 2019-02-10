@@ -1333,7 +1333,7 @@ PA.MenuFunctions = {
         -- ----------------------------------------------------------------------------------
         -- AUTO SELL JUNK
         -- -----------------------------
-        isAutoSellJunkDisabled = function() return isDisabled(PASV.Junk, {"enabled"}) end,
+        isAutoSellJunkDisabled = function() return false end, -- TODO: currently always enabled
         getAutoSellJunkSetting = function() return getValue(PASV.Junk, {"autoSellJunk"}) end,
         setAutoSellJunkSetting = function(value) setValue(PASV.Junk, value, {"autoSellJunk"}) end,
     },
