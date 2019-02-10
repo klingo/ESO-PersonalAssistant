@@ -161,6 +161,7 @@ How to read:
 
 
 #### PALoot
+* [ ] **(1)** PALoot: With ESO-Loot enabled, offer option to auto-loot stolen items only when hidden (if that ESO-setting is disabled)
 * [ ] **(2)** PALoot: Harvestable Items - Add Jewelcrafting items
 * [ ] **(2)** PALoot: Check API
     ```lua
