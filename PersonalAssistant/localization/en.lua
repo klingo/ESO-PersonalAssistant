@@ -106,6 +106,7 @@ PersonalAssistant.Localization = {
     PAM_HirelingMailSubject_Woodworking = "Raw Woodworker Materials",
     PAM_HirelingMailSubject_Clothing = "Raw Clothier Materials",
     PAM_HirelingMailSubject_Blacksmithing = "Raw Blacksmith Materials",
+    PAM_HirelingMailSubject_Provisioninig = "Raw Provisioner Materials",
 
     -- =================================================================================================================
 

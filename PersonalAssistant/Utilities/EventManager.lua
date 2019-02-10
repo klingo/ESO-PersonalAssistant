@@ -190,12 +190,14 @@ local function RefreshAllEventRegistrations()
         if PAMMenuFunctions.getHirelingAutoMailEnabledSetting() then
             -- Register PAMail
             -- TODO: EVENT_PLAYER_ACTIVATED does not work, check why (maybe not needed anyway?)
-            RegisterForEvent(PAM.AddonName, EVENT_PLAYER_ACTIVATED, PAM.checkMailInitial)
-            RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.checkMail)
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.readHirelingMails)
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE, PAM.takeAttachedItemsFromSingleMail)
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS, PAM.takeAttachedItemSuccess)
         else
             -- Unregister PAMail
-            UnregisterForEvent(PAM.AddonName, EVENT_PLAYER_ACTIVATED)
             UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED)
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE)
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS)
         end
     end
 end
