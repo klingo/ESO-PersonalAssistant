@@ -965,75 +965,13 @@ end
 -- PAJunk
 
 --------------------------------------------------------------------------
--- PAJunk   enabled
+-- PAJunk   AutoMarkAsJunk         autoMarkAsJunkEnabled
 ---------------------------------
-local function getPAJunkEnabled()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Junk[PA.activeProfile].enabled
-end
-
-local function setPAJunkEnabled(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Junk[PA.activeProfile].enabled = value
+local function setPAJunkAutoMarkAsJunkEnabledSetting(value)
+    setValue(PASV.Junk, value, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"})
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
 end
-
---------------------------------------------------------------------------
--- PAJunk   autoSellJunk
----------------------------------
-local function getPAJunkAutoSellJunk()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Junk[PA.activeProfile].autoSellJunk
-end
-
-local function setPAJunkAutoSellJunk(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Junk[PA.activeProfile].autoSellJunk = value
-end
-
-local function isDisabledPAJunkAutoSellJunk()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Junk[PA.activeProfile].enabled
-end
-
---------------------------------------------------------------------------
--- PAJunk   autoMarkTrash
----------------------------------
-local function getPAJunkAutoMarkTrash()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Junk[PA.activeProfile].autoMarkTrash
-end
-
-local function setPAJunkAutoMarkTrash(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Junk[PA.activeProfile].autoMarkTrash = value
-end
-
-local function isDisabledPAJunkAutoMarkTrash()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Junk[PA.activeProfile].enabled
-end
-
---------------------------------------------------------------------------
--- PAJunk   autoMarkOrnate
----------------------------------
-local function getPAJunkAutoMarkOrnate()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Junk[PA.activeProfile].autoMarkOrnate
-end
-
-local function setPAJunkAutoMarkOrnate(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Junk[PA.activeProfile].autoMarkOrnate = value
-end
-
-local function isDisabledPAJunkAutoMarkOrnate()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Junk[PA.activeProfile].enabled
-end
-
-
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -1360,20 +1298,44 @@ PA.MenuFunctions = {
         
     },
     PAJunk = {
-        isEnabled = getPAJunkEnabled,
-        setIsEnabled = setPAJunkEnabled,
+        getAutoMarkAsJunkEnabledSetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}) end,
+        setAutoMarkAsJunkEnabledSetting = setPAJunkAutoMarkAsJunkEnabledSetting,
 
-        isAutoSellJunkDisabled = isDisabledPAJunkAutoSellJunk,
-        getAutoSellJunkSetting = getPAJunkAutoSellJunk,
-        setAutoSellJunkSetting = setPAJunkAutoSellJunk,
+        -- ----------------------------------------------------------------------------------
+        -- AUTO MARK JUNK
+        -- -----------------------------
+        isAutoMarkAsJunkMenuDisabled = function() return isDisabled(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}) end,
 
-        isAutoMarkTrashDisabled = isDisabledPAJunkAutoMarkTrash,
-        getAutoMarkTrashSetting = getPAJunkAutoMarkTrash,
-        setAutoMarkTrashSetting = setPAJunkAutoMarkTrash,
+        isAutoMarkTrashDisabled = function() return isDisabled(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}) end,
+        getAutoMarkTrashSetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "autoMarkTrash"}) end,
+        setAutoMarkTrashSetting = function(value) setValue(PASV.Junk, value, {"AutoMarkAsJunk", "autoMarkTrash"}) end,
 
-        isAutoMarkOrnateDisabled = isDisabledPAJunkAutoMarkOrnate,
-        getAutoMarkOrnateSetting = getPAJunkAutoMarkOrnate,
-        setAutoMarkOrnateSetting = setPAJunkAutoMarkOrnate,
+        isAutoMarkOrnateDisabled = function() return isDisabled(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}) end,
+        getAutoMarkOrnateSetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "autoMarkOrnate"}) end,
+        setAutoMarkOrnateSetting = function(value) setValue(PASV.Junk, value, {"AutoMarkAsJunk", "autoMarkOrnate"}) end,
+
+        isAutoMarkWeaponsQualityDisabled = function() return isDisabled(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}) end,
+        getAutoMarkWeaponsQualitySetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "autoMarkWeaponsQuality"}) end,
+        setAutoMarkWeaponsQualitySetting = function(value) setValue(PASV.Junk, value, {"AutoMarkAsJunk", "autoMarkWeaponsQuality"}) end,
+
+        isAutoMarkWeaponsQualityThresholdDisabled = function() return isDisabled(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}, {"AutoMarkAsJunk", "autoMarkWeaponsQuality"}) end,
+        getAutoMarkWeaponsQualityThresholdSetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "autoMarkWeaponsQualityThreshold"}) end,
+        setAutoMarkWeaponsQualityThresholdSetting = function(value) setValue(PASV.Junk, value, {"AutoMarkAsJunk", "autoMarkWeaponsQualityThreshold"}) end,
+
+        isAutoMarkArmorQualityDisabled = function() return isDisabled(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}) end,
+        getAutoMarkArmorQualitySetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "autoMarkArmorQuality"}) end,
+        setAutoMarkArmorQualitySetting = function(value) setValue(PASV.Junk, value, {"AutoMarkAsJunk", "autoMarkArmorQuality"}) end,
+
+        isAutoMarkArmorQualityThresholdDisabled = function() return isDisabled(PASV.Junk, {"AutoMarkAsJunk", "autoMarkAsJunkEnabled"}, {"AutoMarkAsJunk", "autoMarkArmorQuality"}) end,
+        getAutoMarkArmorQualityThresholdSetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "autoMarkArmorQualityThreshold"}) end,
+        setAutoMarkArmorQualityThresholdSetting = function(value) setValue(PASV.Junk, value, {"AutoMarkAsJunk", "autoMarkArmorQualityThreshold"}) end,
+
+        -- ----------------------------------------------------------------------------------
+        -- AUTO SELL JUNK
+        -- -----------------------------
+        isAutoSellJunkDisabled = function() return isDisabled(PASV.Junk, {"enabled"}) end,
+        getAutoSellJunkSetting = function() return getValue(PASV.Junk, {"autoSellJunk"}) end,
+        setAutoSellJunkSetting = function(value) setValue(PASV.Junk, value, {"autoSellJunk"}) end,
     },
     PAMail = {
         -- -----------------------------------------------------------------------------------

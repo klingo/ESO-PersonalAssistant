@@ -20,6 +20,10 @@ PersonalAssistant.Constants = {
         YELLOW = "|cFFD700",
         ORANGE = "|cFF7400",
         RED = "|cFF0000",
+
+        ITEM_QUALITY = {
+
+        }
     },
 
     COLORED_TEXTS = {
@@ -81,6 +85,9 @@ PersonalAssistant.Constants = {
             },
             FURNISHING = {
                 LARGE = "|t48:48:/esoui/art/crafting/provisioner_indexicon_furnishings_up.dds|t",
+            },
+            JUNK = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_junk_up.dds|t",
             }
         },
         ITEMS = {

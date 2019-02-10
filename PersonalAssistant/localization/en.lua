@@ -97,9 +97,9 @@ PersonalAssistant.Localization = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
-    PAJ_MarkedAsJunk = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk"}),
-    PAJ_MarkedAsJunkTrash = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk (Trash)"}),
-    PAJ_MarkedAsJunkOrnate = table.concat({PAC.COLORED_TEXTS.PAJ, "Marked %s as junk (Ornate)"}),
+    PAJ_MarkedAsJunk = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk"}),
+    PAJ_MarkedAsJunkTrash = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Trash)"}),
+    PAJ_MarkedAsJunkOrnate = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Ornate)"}),
     PAJ_SoldJunkInfo = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -359,15 +359,28 @@ PersonalAssistant.Localization = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJMenu --
     PAJMenu_Header = PAC.COLORED_TEXTS.PAJ,
-    PAJMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Junk"}),
-    PAJMenu_Enable_T = "Enable Auto Junk?",
-    PAJMenu_ItemTypeDesc = "Enable and disable the automatic marking as junk for different item types.",
+    PAJMenu_ItemTypeDesc = "Enable and disable the automatic marking as junk for selected items based on various conditions.",
+
+    PAJMenu_AutoMarkAsJunk_Enabled = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk?"}),
+    PAJMenu_AutoMarkAsJunk_Enabled_T = "Automatically mark Items as Junk, depending on various different conditions?",
+    PAJMenu_AutoMarkAsJunk_Header = table.concat({PAC.ICONS.CRAFTBAG.JUNK.LARGE, " ", "Auto-Mark as Junk"}),
+
+    PAJMenu_AutoMarkTrash = "Auto-Mark [Trash] items",
+    PAJMenu_AutoMarkTrash_T = "Automatically mark items of type [Trash] as junk?",
+    PAJMenu_AutoMarkOrnate = "Auto-Mark [Ornate] trait items",
+    PAJMenu_AutoMarkOrnate_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
+
+    PAJMenu_AutoMarkWeaponsQuality = "Auto-Mark Weapons",
+    PAJMenu_AutoMarkWeaponsQuality_T = "???", -- TODO: add tooltip
+    PAJMenu_AutoMarkWeaponsQualityThreshold = "If Weapon quality level is at or below",
+    PAJMenu_AutoMarkWeaponsQualityThreshold_T = "Automatically mark weapons as junk if they are of the selected quality or lower",
+    PAJMenu_AutoMarkArmorQuality = "Auto-Mark Armor",
+    PAJMenu_AutoMarkArmorQuality_T = "???", -- TODO: add tooltip
+    PAJMenu_AutoMarkArmorQualityThreshold = "If Armor quality level is at or below",
+    PAJMenu_AutoMarkArmorQualityThreshold_T = "Automatically mark armor as junk if they are of the selected quality or lower",
+
     PAJMenu_AutoSellJunk = "Auto-Sell Junk?",
     PAJMenu_AutoSellJunk_T = "Automatically sell all items marked as junk?",
-    PAJMenu_AutoMarkTrash = "Auto-Mark [Trash]",
-    PAJMenu_AutoMarkTrash_T = "Automatically mark items of type [Trash] as junk?",
-    PAJMenu_AutoMarkOrnate = "Auto-Mark [Ornate] trait",
-    PAJMenu_AutoMarkOrnate_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMMenu --
@@ -402,6 +415,14 @@ PersonalAssistant.Localization = {
     -- Stacking types --
     ST_FullMove = "Move everything", -- 0: Full deposit
     ST_IncompleteStacksOnly = "Only fill up existing stacks", -- 1: Fill existing stacks
+
+    -- Item Qualitiy Levels --
+    QUAL_Trash = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
+    QUAL_Normal = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
+    QUAL_Fine = GetItemQualityColor(ITEM_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_MAGIC)),
+    QUAL_Superior = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
+    QUAL_Epic = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
+    QUAL_Legendary = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
 
     -- Official Item Types --
     -- TODO: fixme; problem is we need resolved value of "ITEMTYPE_ADDITIVE" as key and not the string itself

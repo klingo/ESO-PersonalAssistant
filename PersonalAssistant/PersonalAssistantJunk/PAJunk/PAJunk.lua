@@ -33,10 +33,22 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     PAEM.isJunkProcessing = false
 end
 
+
 local function _markAsJunkIfPossible(bagId, slotIndex)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
         -- TODO: integrate FCOItemSaver
+
+        local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
+        d("playerLocked="..tostring(playerLocked))
+
+--        Search on ESOUI Source Code CanItemBePlayerLocked(number Bag bagId, number slotIndex)
+--        Returns: boolean canBePlayerLocked
+--
+--        Search on ESOUI Source Code IsItemPlayerLocked(number Bag bagId, number slotIndex)
+--        Returns: boolean playerLocked
+--
+--        Search on ESOUI Source Code SetItemIsPlayerLocked(number Bag bagId, number slotIndex, boolean playerLocked)
 
         -- It is considered safe to mark the item as junk now
         SetItemIsJunk(bagId, slotIndex, true)
@@ -44,8 +56,6 @@ local function _markAsJunkIfPossible(bagId, slotIndex)
         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 
         return true, itemLink
-    else
-        d("Canot mark as Junk :(")
     end
     return false, nil
 end
@@ -55,25 +65,22 @@ end
 
 local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
-        -- check if addon is enabled
-        if PASV.Junk[PA.activeProfile].enabled then
-            -- check if auto-sell is enabled
-            if PASV.Junk[PA.activeProfile].autoSellJunk then
-                -- check if there is junk to sell (exclude stolen items = true)
-                if HasAnyJunk(BAG_BACKPACK, true) then
-                    -- set processing flag to TRUE
-                    PAEM.isJunkProcessing = true
-                    -- store current amount of money
-                    local moneyBefore = GetCurrentMoney();
-                    local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
+        -- check if auto-sell is enabled
+        if PASV.Junk[PA.activeProfile].autoSellJunk then
+            -- check if there is junk to sell (exclude stolen items = true)
+            if HasAnyJunk(BAG_BACKPACK, true) then
+                -- set processing flag to TRUE
+                PAEM.isJunkProcessing = true
+                -- store current amount of money
+                local moneyBefore = GetCurrentMoney();
+                local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
 
-                    -- Sell all items marked as junk
-                    SellAllJunk()
+                -- Sell all items marked as junk
+                SellAllJunk()
 
-                    -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
-                    -- after calling SellAllJunk()
-                    zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
-                end
+                -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
+                -- after calling SellAllJunk()
+                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
             end
         end
     end
@@ -83,19 +90,14 @@ end
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
 
-        -- check if addon is enabled
-        if PASV.Junk[PA.activeProfile].enabled then
+        -- check if auto-marking is enabled
+        if PASV.Junk[PA.activeProfile].AutoMarkAsJunk.autoMarkAsJunkEnabled then
 
-            -- check if the updated happened in the backpack, if the item is new, and if it the item isn't already junk
-            if ((bagId == BAG_BACKPACK) and (isNewItem) and not IsItemJunk(bagId, slotIndex)) then
+            -- check if the updated happened in the backpack and if the item is new
+            if ((bagId == BAG_BACKPACK) and (isNewItem)) then
                 -- get the itemType and itemTrait
                 local itemType = GetItemType(bagId, slotIndex)
                 local itemTrait = GetItemTrait(bagId, slotIndex)
-
-                local itemInstanceId = GetItemInstanceId(bagId, slotIndex)
-                local itemId = GetItemId(bagId, slotIndex)
-
---                d("itemId="..tostring(itemId).."   |   itemInstanceId="..tostring(itemInstanceId))
 
                 -- check for the different itemTypes and itemTraits
                 if (itemType == ITEMTYPE_TRASH) then

@@ -120,7 +120,7 @@ local function RefreshAllEventRegistrations()
             -- Unregister PARepair
             UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE)
             -- Unregister the SharedEvent, but only if PAJunk is not enabled!
-            if not (PAJ and PAMenuFunctions.PAJunk.isEnabled()) then
+            if not (PAJ and PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
                 UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
             end
         end
@@ -167,7 +167,7 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PAJunk' is even enabled
     if (PAJ) then
         -- Check if the functionality is turned on within the addon
-        if (PAMenuFunctions.PAJunk.isEnabled()) then
+        if (PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
             -- Register PAJunk for looting junk items
             -- TODO: Check this function
             RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)

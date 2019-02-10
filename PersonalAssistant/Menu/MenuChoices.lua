@@ -74,6 +74,16 @@ local PAMenuChoices = {
             L.PAL_ItemType_LootDestroy
         },
     },
+    PAJunk = {
+        qualityLevel = {
+            L.QUAL_Trash,
+            L.QUAL_Normal,
+            L.QUAL_Fine,
+            L.QUAL_Superior,
+            L.QUAL_Epic,
+            L.QUAL_Legendary,
+        }
+    }
 }
 
 local PAMenuChoicesValues = {
@@ -146,6 +156,16 @@ local PAMenuChoicesValues = {
             PAC_ITEMTYPE_DESTROY,
         },
     },
+    PAJunk = {
+        qualityLevel = {
+            ITEM_QUALITY_TRASH,     -- 0
+            ITEM_QUALITY_NORMAL,    -- 1
+            ITEM_QUALITY_MAGIC,     -- 2
+            ITEM_QUALITY_ARCANE,    -- 3
+            ITEM_QUALITY_ARTIFACT,  -- 4
+            ITEM_QUALITY_LEGENDARY, -- 5
+        }
+    }
 }
 
 local PAMenuChoicesTooltips = {

@@ -55,6 +55,8 @@ local PABIndividualGenericSubmenuTable = setmetatable({}, { __index = table })
 local PALHarvestableItemSubmenuTable = setmetatable({}, { __index = table })
 local PALLootableItemSubmenuTable = setmetatable({}, { __index = table })
 
+local PAJAutoMarkAsJunkSubMenu = setmetatable({}, { __index = table })
+
 -- =================================================================================================================
 
 local function createPAGeneralMenu()
@@ -709,13 +711,26 @@ local function createPAJunkMenu()
     })
 
     optionsTable:insert({
+        type = "description",
+        text = L.PAJMenu_ItemTypeDesc,
+    })
+
+    optionsTable:insert({
         type = "checkbox",
-        name = L.PAJMenu_Enable,
-        tooltip = L.PAJMenu_Enable_T,
-        getFunc = PAMenuFunctions.PAJunk.isEnabled,
-        setFunc = PAMenuFunctions.PAJunk.setIsEnabled,
-        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PAMenuDefaults.PAJunk.enabled,
+        name = L.PAJMenu_AutoMarkAsJunk_Enabled,
+        tooltip = L.PAJMenu_AutoMarkAsJunk_Enabled_T,
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkAsJunkEnabledSetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkAsJunkDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkAsJunkEnabled,
+    })
+
+    optionsTable:insert({
+        type = "submenu",
+        name = L.PAJMenu_AutoMarkAsJunk_Header,
+        -- tooltip = L.PAJMenu_AutoMarkAsJunk_Header_T,
+        controls = PAJAutoMarkAsJunkSubMenu,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkAsJunkMenuDisabled,
     })
 
     optionsTable:insert({
@@ -726,31 +741,6 @@ local function createPAJunkMenu()
         setFunc = PAMenuFunctions.PAJunk.setAutoSellJunkSetting,
         disabled = PAMenuFunctions.PAJunk.isAutoSellJunkDisabled,
         default = PAMenuDefaults.PAJunk.autoSellJunk,
-    })
-
-    optionsTable:insert({
-        type = "description",
-        text = L.PAJMenu_ItemTypeDesc,
-    })
-
-    optionsTable:insert({
-        type = "checkbox",
-        name = L.PAJMenu_AutoMarkTrash,
-        tooltip = L.PAJMenu_AutoMarkTrash_T,
-        getFunc = PAMenuFunctions.PAJunk.getAutoMarkTrashSetting,
-        setFunc = PAMenuFunctions.PAJunk.setAutoMarkTrashSetting,
-        disabled = PAMenuFunctions.PAJunk.isAutoMarkTrashDisabled,
-        default = PAMenuDefaults.PAJunk.autoMarkTrash,
-    })
-
-    optionsTable:insert({
-        type = "checkbox",
-        name = L.PAJMenu_AutoMarkOrnate,
-        tooltip = L.PAJMenu_AutoMarkOrnate_T,
-        getFunc = PAMenuFunctions.PAJunk.getAutoMarkOrnateSetting,
-        setFunc = PAMenuFunctions.PAJunk.setAutoMarkOrnateSetting,
-        disabled = PAMenuFunctions.PAJunk.isAutoMarkOrnateDisabled,
-        default = PAMenuDefaults.PAJunk.autoMarkOrnate,
     })
 end
 
@@ -1670,6 +1660,81 @@ local function createPALLootableItemSubMenu()
     })
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPAJAutoMarkAsJunkSubMenu()
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "checkbox",
+        name = L.PAJMenu_AutoMarkTrash,
+        tooltip = L.PAJMenu_AutoMarkTrash_T,
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkTrashSetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkTrashSetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkTrashDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkTrash,
+    })
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "checkbox",
+        name = L.PAJMenu_AutoMarkOrnate,
+        tooltip = L.PAJMenu_AutoMarkOrnate_T,
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkOrnateSetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkOrnateSetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkOrnateDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkOrnate,
+    })
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "checkbox",
+        name = L.PAJMenu_AutoMarkWeaponsQuality,
+        tooltip = L.PAJMenu_AutoMarkWeaponsQuality_T,
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkWeaponsQualitySetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkWeaponsQualitySetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkWeaponsQualityDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkWeaponsQuality,
+    })
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "dropdown",
+        name = L.PAJMenu_AutoMarkWeaponsQualityThreshold,
+        tooltip = L.PAJMenu_AutoMarkWeaponsQualityThreshold_T,
+        choices = PAMenuChoices.choices.PAJunk.qualityLevel,
+        choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
+        --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkWeaponsQualityThresholdSetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkWeaponsQualityThresholdSetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkWeaponsQualityThresholdDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkWeaponsQualityThreshold,
+    })
+
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "checkbox",
+        name = L.PAJMenu_AutoMarkArmorQuality,
+        tooltip = L.PAJMenu_AutoMarkArmorQuality_T,
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkArmorQualitySetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkArmorQualitySetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkArmorQualityDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkArmorQuality,
+    })
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "dropdown",
+        name = L.PAJMenu_AutoMarkArmorQualityThreshold,
+        tooltip = L.PAJMenu_AutoMarkArmorQualityThreshold_T,
+        choices = PAMenuChoices.choices.PAJunk.qualityLevel,
+        choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
+        --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkArmorQualityThresholdSetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkArmorQualityThresholdSetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkArmorQualityThresholdDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkArmorQualityThreshold,
+    })
+end
+
 -- =================================================================================================================
 
 local function createOptions()
@@ -1708,6 +1773,11 @@ local function createOptions()
     if (PA.Loot) then
         createPALHarvestableItemSubMenu()
         createPALLootableItemSubMenu()
+    end
+
+    -- create submenu for PAJunk
+    if (PA.Junk) then
+        createPAJAutoMarkAsJunkSubMenu()
     end
 
     createPAGeneralMenu()

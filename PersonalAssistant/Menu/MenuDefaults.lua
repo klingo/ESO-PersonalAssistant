@@ -184,10 +184,16 @@ PA.MenuDefaults = {
         harvestableBaitLootMode = PAC_ITEMTYPE_LOOT,
     },
     PAJunk = {
-        enabled = false,
+        AutoMarkAsJunk = {
+            autoMarkAsJunkEnabled = false,
+            autoMarkTrash = true,
+            autoMarkOrnate = true,
+            autoMarkWeaponsQuality = false,
+            autoMarkWeaponsQualityThreshold = 0,
+            autoMarkArmorQuality = false,
+            autoMarkArmorQualityThreshold = 0,
+        },
         autoSellJunk = true,
-        autoMarkTrash = true,
-        autoMarkOrnate = false,
     },
     PAMail = {
         hirelingAutoMailEnabled = false,
