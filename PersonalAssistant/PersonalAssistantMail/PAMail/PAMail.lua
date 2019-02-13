@@ -23,11 +23,17 @@ end
 
 local function readHirelingMails()
 
-    PAHF.debugln("PA.Mail.readHirelingMails")
+    -- first thing to do is to unregister the "num unread changes" event to avoid re-triggering it
+    PAEM.UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED)
 
+    PAHF.debugln("PA.Mail.readHirelingMails")
+    d("PA.Mail.readHirelingMails")
+
+    d(tostring(GetNumMailItems()))
     -- loop through all mails and get their details
     for i = 1, GetNumMailItems() do
         local mailId = GetNextMailId(mailId)
+        d(tostring(mailId))
 
         -- get all details from mail
         local senderDisplayName, senderCharacterName, subject, icon, unread, fromSystem, fromCustomerService, returned, numAttachments, attachedMoney, codAmount, expiresInDays, secsSinceReceived = GetMailItemInfo(mailId)
@@ -35,9 +41,14 @@ local function readHirelingMails()
 --        if (fromSystem and not fromCustomerService and unread and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject)) then
         if (fromSystem and not fromCustomerService and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject)) then
             -- if yes, request to read the mail (i.e. get "access" to the attached items)
+            d("read: "..tostring(mailId))
             RequestReadMail(mailId)
         end
     end
+
+    -- afterwards, re-register the event
+    PAEM.RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.readHirelingMails)
+
 end
 
 
@@ -69,7 +80,7 @@ local function takeAttachedItemsFromSingleMail(eventCode, mailId)
             local numAttachmentsNow = GetMailAttachmentInfo(mailId)
             if (numAttachmentsNow == 0) then
                 -- TODO: check if [forceDelete] has to be change to 'true'
-                zo_callLater(function() DeleteMail(mailId, false) end, 200)
+                zo_callLater(function() DeleteMail(mailId, false) end, 500)
             end
         end
     end
