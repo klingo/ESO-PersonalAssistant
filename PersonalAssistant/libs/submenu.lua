@@ -50,7 +50,7 @@ end
 
 local function AnimateSubmenu(clicked)
     local control = clicked:GetParent()
-    if control.disabled then return end
+--    if control.disabled then return end
 
     control.open = not control.open
     if control.open then
