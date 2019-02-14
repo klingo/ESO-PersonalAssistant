@@ -1,8 +1,8 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAR = PA.Repair
+local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
-local PASVRepair = PA.SavedVars.Repair
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ local function RepairItems(bagId, threshold)
         local notRepairedItemsCost = 0
         local currentMoney = GetCurrentMoney()
 
-        local PARepairSavedVars = PASVRepair[PA.activeProfile]
+        local PARepairSavedVars = PASV.Repair[PA.activeProfile]
 
         -- loop through all items of the corresponding bagId
         for index, data in pairs(bagCache) do
@@ -86,7 +86,7 @@ end
 
 local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
-        local PARepairSavedVars = PASVRepair[PA.activeProfile]
+        local PARepairSavedVars = PASV.Repair[PA.activeProfile]
         -- check if addon is enabled
         if PARepairSavedVars.enabled then
             -- early check if there is something to repair
@@ -106,21 +106,23 @@ end
 
 
 local function EventPlayerCombateState(_, inCombat)
-    if (PAHF.hasActiveProfile()) then
-        local PARepairSavedVars = PASVRepair[PA.activeProfile]
-        -- check if addon is enabled
-        if PARepairSavedVars.enabled then
-            -- check if player is not dead
-            if not PAHF.isPlayerDead() then
+    if not inCombat then
+        if (PAHF.hasActiveProfile()) then
+            local PARepairSavedVars = PASV.Repair[PA.activeProfile]
+            -- check if addon is enabled
+            if PARepairSavedVars.enabled then
+                -- check if player is not dead
+                if not PAHF.isPlayerDead() then
 
-                -- Check and repair equipped items with repair kits
-                if PARepairSavedVars.repairEquippedWithKit then
-                    PAR.RepairEquippedItemsWithKit()
-                end
+                    -- Check and repair equipped items with repair kits
+                    if PARepairSavedVars.repairEquippedWithKit then
+                        PAR.RepairEquippedItemsWithKit()
+                    end
 
-                -- Check and re-charged equipped weapons
-                if PARepairSavedVars.chargeWeapons then
-                    PAR.ReChargeWeapons()
+                    -- Check and re-charged equipped weapons
+                    if PARepairSavedVars.chargeWeapons then
+                        PAR.ReChargeWeapons()
+                    end
                 end
             end
         end
