@@ -65,7 +65,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             -- in case there was a custom amount to be moved defined; overwrite the stack size
             local customStackToMove = fromBagItemData.customStackToMove
             if (customStackToMove ~= nil) then sourceStack = customStackToMove end
-            PAHF.println("PAB_Items_MovedTo_Full", sourceStack, itemLink, PAHF.getBagName(targetBagId))
+            PAHF.println("SI_PA_BANKING_ITEMS_MOVED_COMPLETE", sourceStack, itemLink, PAHF.getBagName(targetBagId))
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
 
             local newStartIndex = startIndex + 1
@@ -91,7 +91,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             end
         else
             -- abort; dont continue
-            PAHF.println("PAB_Items_MovedTo_BankClosed", itemLink, PAHF.getBagName(BAG_BANK))
+            PAHF.println("SI_PA_BANKING_ITEMS_NOT_MOVED_BANKCLOSED", itemLink, PAHF.getBagName(BAG_BANK))
             PAB.isBankTransferBlocked = false
         end
     else
@@ -111,7 +111,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
-            PAHF.println("PAB_Items_MovedTo_OutOfSpace", itemLink, PAHF.getBagName(BAG_BANK))
+            PAHF.println("SI_PA_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE", itemLink, PAHF.getBagName(BAG_BANK))
             PAB.isBankTransferBlocked = false
             -- Execute the function queue
             PAB.triggerNextTransactionFunction()
@@ -143,13 +143,13 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                     end
                     if moveableStack <= targetFreeStacks then
                         -- enough space to move all
-                        PAHF.println("PAB_Items_MovedTo_Full", moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
+                        PAHF.println("SI_PA_BANKING_ITEMS_MOVED_COMPLETE", moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, moveableStack)
                         isItemMoved = true
                         hasNoStacksLeft = true
                     else
                         -- not enough space, only fill up stack possible
-                        PAHF.println("PAB_Items_MovedTo_Partial", targetFreeStacks, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
+                        PAHF.println("SI_PA_BANKING_ITEMS_MOVED_PARTIAL", targetFreeStacks, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, targetFreeStacks)
                         -- reduce the remaining amount that needs to be moved
                         if stackToMove ~= nil then

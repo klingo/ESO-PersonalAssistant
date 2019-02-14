@@ -1,313 +1,298 @@
 local PAC = PersonalAssistant.Constants
-PersonalAssistant.Localization = {
-    -- Type '/pa' for GUI."
+local PAStrings = {
     -- Welcome Messages --
-    Welcome_NoSupport = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)."}),
-    Welcome_Support = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!"}),
-    Welcome_PleaseSelectProfile = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type /pa) and select a profile. Thank you :-)"}),
+    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)."}),
+    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!"}),
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type /pa) and select a profile. Thank you :-)"}),
 
     -- Key Bindings
-    KB_Load_Profile1 = "Activate profile 1",
-    KB_Load_Profile2 = "Activate profile 2",
-    KB_Load_Profile3 = "Activate profile 3",
-    KB_Load_Profile4 = "Activate profile 4",
-    KB_Load_Profile5 = "Activate profile 5",
+    SI_PA_KB_LOAD_PROFILE = "Activate profile",
 
     -- =================================================================================================================
 
     -- PAGeneral --
-    PAG_Profile1 = "Profile 1",
-    PAG_Profile2 = "Profile 2",
-    PAG_Profile3 = "Profile 3",
-    PAG_Profile4 = "Profile 4",
-    PAG_Profile5 = "Profile 5",
-    PAG_PleaseSelectProfile = "<Please select Profile>",
+    SI_PA_PROFILE = "Profile 1",
+    SI_PA_PLEASE_SELECT_PROFILE = "<Please select Profile>",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair Chat Output - Full Repair --
-    PAR_FullRepair_ChatMode_None = "<no output>",
-    PAR_FullRepair_ChatMode_Min = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    PAR_FullRepair_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    PAR_FullRepair_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAR, "All %s items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_REPAIR_FULL_CHATMODE_NONE = "<no output>",
+    SI_PA_REPAIR_FULL_CHATMODE_MIN = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_REPAIR_FULL_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_REPAIR_FULL_CHATMODE_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "All %s items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- PARepair Chat Output - Partial Repair --
-    PAR_PartialRepair_ChatMode_None = "<no output>",
-    PAR_PartialRepair_ChatMode_Min = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
-    PAR_PartialRepair_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
-    PAR_PartialRepair_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d %s items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing for full repair)"}),
+    SI_PA_REPAIR_PARTIAL_CHATMODE_NONE = "<no output>",
+    SI_PA_REPAIR_PARTIAL_CHATMODE_MIN = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
+    SI_PA_REPAIR_PARTIAL_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
+    SI_PA_REPAIR_PARTIAL_CHATMODE_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d %s items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing for full repair)"}),
 
     -- PARepair Chat Output - Weapon Charge --
-    PAR_ReChargeWeapon_ChatMode_None = "<no output>",
-    PAR_ReChargeWeapon_ChatMode_Min = table.concat({PAC.COLORS.DEFAULT, "%s %s (%d%% --> %d%%)"}),
-    PAR_ReChargeWeapon_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
-    PAR_ReChargeWeapon_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAR, "Charged %s %s from %d%% to %d%%  with %s %s"}),
+    SI_PA_REPAIR_CHARGE_CHATMODE_NONE = "<no output>",
+    SI_PA_REPAIR_CHARGE_CHATMODE_MIN = table.concat({PAC.COLORS.DEFAULT, "%s %s (%d%% --> %d%%)"}),
+    SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
+    SI_PA_REPAIR_CHARGE_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAR, "Charged %s %s from %d%% to %d%%  with %s %s"}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
-    PAB_Currency_Withdrawal_Full = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn."}),
-    PAB_Currency_Withdrawal_Partial_Source = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
-    PAB_Currency_Withdrawal_Partial_Target = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Not enough space on character)"}),
+    SI_PA_BANKING_WITHDRAWAL_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn."}),
+    SI_PA_BANKING_WITHDRAWAL_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
+    SI_PA_BANKING_WITHDRAWAL_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Not enough space on character)"}),
 
-    PAB_Currency_Deposit_Full = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s deposited."}),
-    PAB_Currency_Deposit_Partial_Source = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Character is empty)"}),
-    PAB_Currency_Deposit_Partial_Target = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
+    SI_PA_BANKING_DEPOSIT_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s deposited."}),
+    SI_PA_BANKING_DEPOSIT_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Character is empty)"}),
+    SI_PA_BANKING_DEPOSIT_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
 
-    PAB_Items_MovedTo_Full = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s"}),
-    PAB_Items_MovedTo_Partial = table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s moved to %s"}),
-    PAB_Items_MovedTo_OutOfSpace = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
-    PAB_Items_MovedTo_BankClosed = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
+    SI_PA_BANKING_ITEMS_MOVED_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s"}),
+    SI_PA_BANKING_ITEMS_MOVED_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s moved to %s"}),
+    SI_PA_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
+    SI_PA_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
 
-    PAB_ItemMovedTo = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s."}),
-    PAB_ItemNotMovedTo = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s NOT moved to %s."}),
-    PAB_ItemMovedToFailed = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "FAILURE: %s could NOT be moved to %s."}),
-    PAB_NoSpaceInFor = table.concat({PAC.COLORED_TEXTS.PAB, PAC.COLORS.ORANGE, "Not enough space in %s for: %s."}),
-
-    PAB_MoveTo_DoNothing = "Do Nothing",
-    PAB_MoveTo_Bank = "Deposit to Bank",
-    PAB_MoveTo_Backpack = "Withdraw to Backpack",
+    SI_PA_BANKING_MOVE_MODE_DONOTHING = "Do Nothing",
+    SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
+    SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
-    PAL_ItemType_Ignore = "Ignore",
-    PAL_ItemType_AutoLoot = "Auto-Loot",
-    PAL_ItemType_LootDestroy = table.concat({"Auto-Loot and ", PAC.COLORS.RED, "Destroy"}),
-    PAL_RecipeUnknown_Suffix = "(unknown)",
-    PAL_ItemType_Ignore_T = "Nothing happens, the item is ignored",
-    PAL_ItemType_AutoLoot_T = "Automatically loots the item",
-    PAL_ItemType_LootDestroy_T = table.concat({PAC.COLORS.RED, "CAUTION: USE AT OWN RISK!|r Automatically loots the item, but then immediately destroys the looted amount again."}),
+    SI_PA_LOOT_LOOT_MODE_IGNORE = "Ignore",
+    SI_PA_LOOT_LOOT_MODE_IGNORE_T = "Nothing happens, the item is ignored",
+    SI_PA_LOOT_LOOT_MODE_AUTOLOOT = "Auto-Loot",
+    SI_PA_LOOT_LOOT_MODE_AUTOLOOT_T = "Automatically loots the item",
+    SI_PA_LOOT_LOOT_MODE_LOOTDESTROY = table.concat({"Auto-Loot and ", PAC.COLORS.RED, "Destroy"}),
+    SI_PA_LOOT_LOOT_MODE_LOOTDESTROY_T = table.concat({PAC.COLORS.RED, "CAUTION: USE AT OWN RISK!|r Automatically loots the item, but then immediately destroys the looted amount again."}),
+    SI_PA_LOOT_RECIPE_UNKNOWN_SUFFIX = "(unknown)",
 
     -- PALoot Chat Output - Loot Gold --
-    PAL_Gold_ChatMode_None = "<no output>",
-    PAL_Gold_ChatMode_Min = table.concat({PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    PAL_Gold_ChatMode_Normal = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    PAL_Gold_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAL, "Looted ", PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " Gold"}),
+    SI_PA_LOOT_GOLD_CHATMODE_NONE = "<no output>",
+    SI_PA_LOOT_GOLD_CHATMODE_MIN = table.concat({PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_LOOT_GOLD_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_LOOT_GOLD_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAL, "Looted ", PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " Gold"}),
 
     -- PALoot Chat Output - Loot Items --
-    PAL_Items_ChatMode_None = "<no output>",
-    PAL_Items_ChatMode_Min = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s"}),
-    PAL_Items_ChatMode_Normal = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s %s"}),
-    PAL_Items_ChatMode_Full = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s %s"}),
+    SI_PA_LOOT_ITEMS_CHATMODE_NONE = "<no output>",
+    SI_PA_LOOT_ITEMS_CHATMODE_MIN = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s"}),
+    SI_PA_LOOT_ITEMS_CHATMODE_NORMAL = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s %s"}),
+    SI_PA_LOOT_ITEMS_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s %s"}),
 
     -- PALoot Chat Output - Loot Items Destroyed--
-    PAL_ItemsDestroy_Min = table.concat({PAC.COLORS.DEFAULT, "%d x %s destroyed"}),
-    PAL_ItemsDestroy_Normal = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s destroyed"}),
-    PAL_ItemsDestroy_Full = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s have been destroyed"}),
-    PAL_ItemsDestroy_MoveFailed = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"}),
-    PAL_ItemsDestroy_DestroyFailed = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: No free inventory slot to safely destroy %d/%d %s %s"}),
+    SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN = table.concat({PAC.COLORS.DEFAULT, "%d x %s destroyed"}),
+    SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s destroyed"}),
+    SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s have been destroyed"}),
+
+    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"}),
+    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: No free inventory slot to safely destroy %d/%d %s %s"}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
-    PAJ_MarkedAsJunk = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk"}),
-    PAJ_MarkedAsJunkTrash = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Trash)"}),
-    PAJ_MarkedAsJunkOrnate = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Ornate)"}),
-    PAJ_SoldJunkInfo = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_JUNK_MARKED_AS_JUNK = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk"}),
+    SI_PA_JUNK_MARKED_AS_JUNK_TRASH = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Trash)"}),
+    SI_PA_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Ornate)"}),
+    SI_PA_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMail --
-    PAM_HirelingMailSubject_Enchanting = "Raw Enchanter Materials",
-    PAM_HirelingMailSubject_Woodworking = "Raw Woodworker Materials",
-    PAM_HirelingMailSubject_Clothing = "Raw Clothier Materials",
-    PAM_HirelingMailSubject_Blacksmithing = "Raw Blacksmith Materials",
-    PAM_HirelingMailSubject_Provisioninig = "Raw Provisioner Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_ENCHANTING = "Raw Enchanter Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_WOODWORKING = "Raw Woodworker Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_CLOTHING = "Raw Clothier Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_BLACKSMITHING = "Raw Blacksmith Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_PROVISIONING = "Raw Provisioner Materials",
 
     -- =================================================================================================================
 
     -- MainMenu --
-    MMenu_Title = PAC.COLORED_TEXTS.PA,
+    SI_PA_MENU_TITLE = PAC.COLORED_TEXTS.PA,
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGMenu --
-    PAGMenu_Header = PAC.COLORED_TEXTS.PAG,
-    PAGMenu_ActiveProfile = "Active profile",
-    PAGMenu_ActiveProfile_T = "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile.",
-    PAGMenu_ActiveProfileRename = "Rename active profile",
-    PAGMenu_ActiveProfileRename_T = "Rename the active profile",
-    PAGMenu_Welcome = "Show welcome message",
-    PAGMenu_Welcome_T = "Display a welcome message from the addon upon successfully starting?",
+    SI_PA_MENU_GENERAL_HEADER = PAC.COLORED_TEXTS.PAG,
+    SI_PA_MENU_GENERAL_ACTIVE_PROFILE = "Active profile",
+    SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T = "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile.",
+    SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME = "Rename active profile",
+    SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME_T = "Rename the active profile",
+    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
+    SI_PA_MENU_GENERAL_SHOW_WELCOME_T = "Display a welcome message from the addon upon successfully starting?",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARMenu --
-    PARMenu_Header = PAC.COLORED_TEXTS.PAR,
-    PARMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair"}),
-    PARMenu_Enable_T = "Enable Auto Repair?",
-    PARMenu_RepairWornGold = "Repair equipped items",
-    PARMenu_RepairWornGold_T = "Repair equipped items at a merchant?",
-    PARMenu_RepairWornGoldDura = "- Durability threshold in %",
-    PARMenu_RepairWornGoldDura_T = "Repair equipped items only if they are at or below the defined durability threshold.",
-    PARMenu_RepairWornKit = "Use Repair Kits",
-    PARMenu_RepairWornKit_T = "Repair equipped items with repair kits when out in the field? (Common repair kits will be used before greater ones)",
-    PARMenu_RepairWornKitDura = "- Durability threshold in %",
-    PARMenu_RepairWornKitDura_T = "Equipped items will only be repaired with a repair kit when their durability is at or below the defined threshold",
-    PARMenu_RepairFullChatMode = "Chat display: Full repairs",
-    PARMenu_RepairFullChatMode_T = "How to display the information of a full repair in the chat window",
-    PARMenu_RepairPartialChatMode = "Chat display: Partial/incomplete repairs",
-    PARMenu_RepairPartialChatMode_T = "How to display the information of an incomplet or parcial repair i.e. due to insufficient gold) in the chat window",
-    PARMenu_ChargeWeapons = "Re-Charge Weapons",
-    PARMenu_ChargeWeapons_T = "Re-Charge equipped weapons?",
-    PARMenu_ChargeWeaponsDura = "- Re-Charge threshold in %",
-    PARMenu_ChargeWeaponsDura_T = "Re-Charge equipped weapons when their charge level is at or below the defined threshold. (Lesser soul gems will be used before common ones)",
-    PARMenu_ChargeWeaponsChatMode = "Chat display: Charging weapons",
-    PARMenu_ChargeWeaponsChatMode_T = "How to display the information of a re-charged weapon in the chat window",
+    SI_PA_MENU_REPAIR_HEADER = PAC.COLORED_TEXTS.PAR,
+    SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair"}),
+    SI_PA_MENU_REPAIR_ENABLE_T = "Enable Auto Repair?",
+    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN = "Repair equipped items",
+    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_T = "Repair equipped items at a merchant?",
+    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY = "- Durability threshold in %",
+    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
+    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN = "Use Repair Kits",
+    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_T = "Repair equipped items with repair kits when out in the field? (Common repair kits will be used before greater ones)",
+    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY = "- Durability threshold in %",
+    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY_T = "Equipped items will only be repaired with a repair kit when their durability is at or below the defined threshold",
+    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL = "Chat display: Full repairs",
+    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL_T = "How to display the information of a full repair in the chat window",
+    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL = "Chat display: Partial/incomplete repairs",
+    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL_T = "How to display the information of an incomplet or parcial repair i.e. due to insufficient gold) in the chat window",
+    SI_PA_MENU_REPAIR_CHARGE_WEAPONS = "Re-Charge Weapons",
+    SI_PA_MENU_REPAIR_CHARGE_WEAPONS_T = "Re-Charge equipped weapons?",
+    SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY = "- Re-Charge threshold in %",
+    SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY_T = "Re-Charge equipped weapons when their charge level is at or below the defined threshold. (Lesser soul gems will be used before common ones)",
+    SI_PA_MENU_REPAIR_CHARGE_CHATMODE = "Chat display: Charging weapons",
+    SI_PA_MENU_REPAIR_CHARGE_CHATMODE_T = "How to display the information of a re-charged weapon in the chat window",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABMenu --
-    PABMenu_Header = PAC.COLORED_TEXTS.PAB,
-    PABMenu_Currency_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Currencies"}),
-    PABMenu_Currency_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Currencies?",
+    SI_PA_MENU_BANKING_HEADER = PAC.COLORED_TEXTS.PAB,
+    SI_PA_MENU_BANKING_CURRENCY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Currencies"}),
+    SI_PA_MENU_BANKING_CURRENCY_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Currencies?",
 
-    PABMenu_Currency_Gold_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Gold"}),
-    PABMenu_Currency_Gold_Enabled = "Deposit/Withdraw Gold",
-    PABMenu_Currency_Gold_Enabled_T = "Automatically deposit excess Gold to the bank, or withdraw when needed?",
-    PABMenu_Currency_Gold_MinToKeep = "Mininum to keep on character",
-    PABMenu_Currency_Gold_MinToKeep_T = "Minimum amount of Gold to always keep on the character; if necessary with additional withdrawals from te bank",
-    PABMenu_Currency_Gold_MaxToKeep = "Maximum to keep on character",
-    PABMenu_Currency_Gold_MaxToKeep_T = "Maximum amount of Gold to always keep on the character; everything above this amount is deposited to the bank",
+    SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Gold"}),
+    SI_PA_MENU_BANKING_CURRENCY_GOLD_ENABLE = "Deposit/Withdraw Gold",
+    SI_PA_MENU_BANKING_CURRENCY_GOLD_ENABLE_T = "Automatically deposit excess Gold to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CURRENCY_GOLD_MINTOKEEP = "Mininum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_GOLD_MINTOKEEP_T = "Minimum amount of Gold to always keep on the character; if necessary with additional withdrawals from te bank",
+    SI_PA_MENU_BANKING_CURRENCY_GOLD_MAXTOKEEP = "Maximum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_GOLD_MAXTOKEEP_T = "Maximum amount of Gold to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_AlliancePoints_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, "  ", "Alliance Points"}),
-    PABMenu_Currency_AlliancePoints_Enabled = "Deposit/Withdraw Alliance Points",
-    PABMenu_Currency_AlliancePoints_Enabled_T = "Automatically deposit excess Alliance Points to the bank, or withdraw when needed?",
-    PABMenu_Currency_AlliancePoints_MinToKeep = "Mininum to keep on character",
-    PABMenu_Currency_AlliancePoints_MinToKeep_T = "Minimum amount of Alliance Points to always keep on the character; if necessary with additional withdrawals from te bank",
-    PABMenu_Currency_AlliancePoints_MaxToKeep = "Maximum to keep on character",
-    PABMenu_Currency_AlliancePoints_MaxToKeep_T = "Maximum amount of Alliance Points to always keep on the character; everything above this amount is deposited to the bank",
+    SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, "  ", "Alliance Points"}),
+    SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_ENABLE = "Deposit/Withdraw Alliance Points",
+    SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_ENABLE_T = "Automatically deposit excess Alliance Points to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_MINTOKEEP = "Mininum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_MINTOKEEP_T = "Minimum amount of Alliance Points to always keep on the character; if necessary with additional withdrawals from te bank",
+    SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_MAXTOKEEP = "Maximum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_MAXTOKEEP_T = "Maximum amount of Alliance Points to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_TelVar_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_TELVAR_STONES].NORMAL, "  ", "Tel Var Stones"}),
-    PABMenu_Currency_TelVar_Enabled = "Deposit/Withdraw Tel Var Stones",
-    PABMenu_Currency_TelVar_Enabled_T = "Automatically deposit excess Tel Var Stones to the bank, or withdraw when needed?",
-    PABMenu_Currency_TelVar_MinToKeep = "Mininum to keep on character",
-    PABMenu_Currency_TelVar_MinToKeep_T = "Minimum amount of Tel Var Stones to always keep on the character; if necessary with additional withdrawals from te bank",
-    PABMenu_Currency_TelVar_MaxToKeep = "Maximum to keep on character",
-    PABMenu_Currency_TelVar_MaxToKeep_T = "Maximum amount of Tel Var Stones to always keep on the character; everything above this amount is deposited to the bank",
+    SI_PA_MENU_BANKING_CURRENCY_TELVAR_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_TELVAR_STONES].NORMAL, "  ", "Tel Var Stones"}),
+    SI_PA_MENU_BANKING_CURRENCY_TELVAR_ENABLE = "Deposit/Withdraw Tel Var Stones",
+    SI_PA_MENU_BANKING_CURRENCY_TELVAR_ENABLE_T = "Automatically deposit excess Tel Var Stones to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CURRENCY_TELVAR_MINTOKEEP = "Mininum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_TELVAR_MINTOKEEP_T = "Minimum amount of Tel Var Stones to always keep on the character; if necessary with additional withdrawals from te bank",
+    SI_PA_MENU_BANKING_CURRENCY_TELVAR_MAXTOKEEP = "Maximum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_TELVAR_MAXTOKEEP_T = "Maximum amount of Tel Var Stones to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Currency_WritVouchers_Header = table.concat({" ", PAC.ICONS.CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, "  ", "Writ Vouchers"}),
-    PABMenu_Currency_WritVouchers_Enabled = "Deposit/Withdraw Writ Vouchers",
-    PABMenu_Currency_WritVouchers_Enabled_T = "Automatically deposit excess Writ Vouchers to the bank, or withdraw when needed?",
-    PABMenu_Currency_WritVouchers_MinToKeep = "Mininum to keep on character",
-    PABMenu_Currency_WritVouchers_MinToKeep_T = "Minimum amount of Writ Vouchers to always keep on the character; if necessary with additional withdrawals from te bank",
-    PABMenu_Currency_WritVouchers_MaxToKeep = "Maximum to keep on character",
-    PABMenu_Currency_WritVouchers_MaxToKeep_T = "Maximum amount of Writ Vouchers to always keep on the character; everything above this amount is deposited to the bank",
+    SI_PA_MENU_BANKING_CURRENCY_WRIT_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_WRIT_VOUCHERS].NORMAL, "  ", "Writ Vouchers"}),
+    SI_PA_MENU_BANKING_CURRENCY_WRIT_ENABLE = "Deposit/Withdraw Writ Vouchers",
+    SI_PA_MENU_BANKING_CURRENCY_WRIT_ENABLE_T = "Automatically deposit excess Writ Vouchers to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CURRENCY_WRIT_MINTOKEEP = "Mininum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_WRIT_MINTOKEEP_T = "Minimum amount of Writ Vouchers to always keep on the character; if necessary with additional withdrawals from te bank",
+    SI_PA_MENU_BANKING_CURRENCY_WRIT_MAXTOKEEP = "Maximum to keep on character",
+    SI_PA_MENU_BANKING_CURRENCY_WRIT_MAXTOKEEP_T = "Maximum amount of Writ Vouchers to always keep on the character; everything above this amount is deposited to the bank",
 
-    PABMenu_Crafting_ESOPlusDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag."}),
+    SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag."}),
 
-    PABMenu_Crafting_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
-    PABMenu_Crafting_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
+    SI_PA_MENU_BANKING_CRAFTING_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
 
-    PABMenu_Crafting_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
+    SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
 
-    PABMenu_Crafting_GlobalMoveMode = "Change all above Crafting Item dropdowns to",
-    PABMenu_Crafting_GlobalMoveMode_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
-    PABMenu_Crafting_GlobalMoveMode_W = "This cannot be undone; all individually selected values will be lost",
+    SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Change all above Crafting Item dropdowns to",
+    SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
+    SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_W = "This cannot be undone; all individually selected values will be lost",
 
-    PABMenu_Crafting_Blacksmithing_Header = table.concat({PAC.ICONS.CRAFTBAG.BLACKSMITHING.LARGE, " ", "Blacksmithing"}),
-    PABMenu_Crafting_Blacksmithing_Enabled = "Deposit/Withdraw Blacksmithing Items",
-    PABMenu_Crafting_Blacksmithing_Enabled_T = "Automatically deposit Blacksmithing Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.BLACKSMITHING.LARGE, " ", "Blacksmithing"}),
+    SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ENABLE = "Deposit/Withdraw Blacksmithing Items",
+    SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ENABLE_T = "Automatically deposit Blacksmithing Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Clothing_Header = table.concat({PAC.ICONS.CRAFTBAG.CLOTHING.LARGE, " ", "Clothing"}),
-    PABMenu_Crafting_Clothing_Enabled = "Deposit/Withdraw Clothing Items",
-    PABMenu_Crafting_Clothing_Enabled_T = "Automatically deposit Clothing Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_CLOTHING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.CLOTHING.LARGE, " ", "Clothing"}),
+    SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ENABLE = "Deposit/Withdraw Clothing Items",
+    SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ENABLE_T = "Automatically deposit Clothing Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Woodworking_Header = table.concat({PAC.ICONS.CRAFTBAG.WOODWORKING.LARGE, " ", "Woodworking"}),
-    PABMenu_Crafting_Woodworking_Enabled = "Deposit/Withdraw Woodworking Items",
-    PABMenu_Crafting_Woodworking_Enabled_T = "Automatically deposit Woodworking Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.WOODWORKING.LARGE, " ", "Woodworking"}),
+    SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ENABLE = "Deposit/Withdraw Woodworking Items",
+    SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ENABLE_T = "Automatically deposit Woodworking Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Jewelcrafting_Header = table.concat({PAC.ICONS.CRAFTBAG.JEWELCRAFTING.LARGE, " ", "Jewelry Crafting"}),
-    PABMenu_Crafting_Jewelcrafting_Enabled = "Deposit/Withdraw Jewelry Crafting Items",
-    PABMenu_Crafting_Jewelcrafting_Enabled_T = "Automatically deposit Jewelry Crafting Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.JEWELCRAFTING.LARGE, " ", "Jewelry Crafting"}),
+    SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ENABLE = "Deposit/Withdraw Jewelry Crafting Items",
+    SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ENABLE_T = "Automatically deposit Jewelry Crafting Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Alchemy_Header = table.concat({PAC.ICONS.CRAFTBAG.ALCHEMY.LARGE, " ", "Alchemy"}),
-    PABMenu_Crafting_Alchemy_Enabled = "Deposit/Withdraw Alchemy Items",
-    PABMenu_Crafting_Alchemy_Enabled_T = "Automatically deposit Alchemy Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_HEADER = table.concat({PAC.ICONS.CRAFTBAG.ALCHEMY.LARGE, " ", "Alchemy"}),
+    SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ENABLE = "Deposit/Withdraw Alchemy Items",
+    SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ENABLE_T = "Automatically deposit Alchemy Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Enchanting_Header = table.concat({PAC.ICONS.CRAFTBAG.ENCHANTING.LARGE, " ", "Enchanting"}),
-    PABMenu_Crafting_Enchanting_Enabled = "Deposit/Withdraw Enchanting Items",
-    PABMenu_Crafting_Enchanting_Enabled_T = "Automatically deposit Enchanting Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.ENCHANTING.LARGE, " ", "Enchanting"}),
+    SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ENABLE = "Deposit/Withdraw Enchanting Items",
+    SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ENABLE_T = "Automatically deposit Enchanting Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Provisioning_Header = table.concat({PAC.ICONS.CRAFTBAG.PROVISIONING.LARGE, " ", "Provisioning"}),
-    PABMenu_Crafting_Provisioning_Enabled = "Deposit/Withdraw Provisioning Items",
-    PABMenu_Crafting_Provisioning_Enabled_T = "Automatically deposit Provisioning Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.PROVISIONING.LARGE, " ", "Provisioning"}),
+    SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ENABLE = "Deposit/Withdraw Provisioning Items",
+    SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ENABLE_T = "Automatically deposit Provisioning Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_StyleMaterials_Header = table.concat({PAC.ICONS.CRAFTBAG.STYLEMATERIALS.LARGE, " ", "Style Materials"}),
-    PABMenu_Crafting_StyleMaterials_Enabled = "Deposit/Withdraw Style Material Items",
-    PABMenu_Crafting_StyleMaterials_Enabled_T = "Automatically deposit Style Material Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_HEADER = table.concat({PAC.ICONS.CRAFTBAG.STYLEMATERIALS.LARGE, " ", "Style Materials"}),
+    SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ENABLE = "Deposit/Withdraw Style Material Items",
+    SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ENABLE_T = "Automatically deposit Style Material Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_TraitItems_Header = table.concat({PAC.ICONS.CRAFTBAG.TRAITITEMS.LARGE, " ", "Trait Items"}),
-    PABMenu_Crafting_TraitItems_Enabled = "Deposit/Withdraw Trait Items",
-    PABMenu_Crafting_TraitItems_Enabled_T = "Automatically deposit Trait Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_HEADER = table.concat({PAC.ICONS.CRAFTBAG.TRAITITEMS.LARGE, " ", "Trait Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ENABLE = "Deposit/Withdraw Trait Items",
+    SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ENABLE_T = "Automatically deposit Trait Items to the bank, or withdraw when needed?",
 
-    PABMenu_Crafting_Furnishing_Header = table.concat({PAC.ICONS.CRAFTBAG.FURNISHING.LARGE, " ", "Furnishing"}),
-    PABMenu_Crafting_Furnishing_Enabled = "Deposit/Withdraw Furnishing Items",
-    PABMenu_Crafting_Furnishing_Enabled_T = "Automatically deposit Furnishing Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_CRAFTING_FURNISHING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.FURNISHING.LARGE, " ", "Furnishing"}),
+    SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ENABLE = "Deposit/Withdraw Furnishing Items",
+    SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ENABLE_T = "Automatically deposit Furnishing Items to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
-    PABMenu_Advanced_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
+    SI_PA_MENU_BANKING_ADVANCED_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
+    SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
 
-    PABMenu_Advanced_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
+    SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
 
-    PABMenu_Advanced_GlobalMoveMode = "Change all above Special Item dropdowns to",
-    PABMenu_Advanced_GlobalMoveMode_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
-    PABMenu_Advanced_GlobalMoveMode_W = "This cannot be undone; all individually selected values will be lost",
+    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Change all above Special Item dropdowns to",
+    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
+    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_W = "This cannot be undone; all individually selected values will be lost",
 
-    PABMenu_Advanced_Motif_Header = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "Motif"}),
-    PABMenu_Advanced_Motif_Enabled = "Deposit/Withdraw Motif Items",
-    PABMenu_Advanced_Motif_Enabled_T = "Automatically deposit Motif Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "Motif"}),
+    SI_PA_MENU_BANKING_ADVANCED_MOTIF_ENABLE = "Deposit/Withdraw Motif Items",
+    SI_PA_MENU_BANKING_ADVANCED_MOTIF_ENABLE_T = "Automatically deposit Motif Items to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Recipe_Header = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "Recipe"}),
-    PABMenu_Advanced_Recipe_Enabled = "Deposit/Withdraw Recipes",
-    PABMenu_Advanced_Recipe_Enabled_T = "Automatically deposit Recipes to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "Recipe"}),
+    SI_PA_MENU_BANKING_ADVANCED_RECIPE_ENABLE = "Deposit/Withdraw Recipes",
+    SI_PA_MENU_BANKING_ADVANCED_RECIPE_ENABLE_T = "Automatically deposit Recipes to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Glyphs_Header = table.concat({" ", PAC.ICONS.ITEMS.GLYPH_ARMOR_HEALTH.NORMAL, "  ", "Glyphs"}),
-    PABMenu_Advanced_Glyphs_Enabled = "Deposit/Withdraw Glyphs",
-    PABMenu_Advanced_Glyphs_Enabled_T = "Automatically deposit Glyphs to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.GLYPH_ARMOR_HEALTH.NORMAL, "  ", "Glyphs"}),
+    SI_PA_MENU_BANKING_ADVANCED_GLYPHS_ENABLE = "Deposit/Withdraw Glyphs",
+    SI_PA_MENU_BANKING_ADVANCED_GLYPHS_ENABLE_T = "Automatically deposit Glyphs to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Liquids_Header = table.concat({" ", PAC.ICONS.ITEMS.POTION.NORMAL, "  ", "Liquids"}),
-    PABMenu_Advanced_Liquids_Enabled = "Deposit/Withdraw Liquids",
-    PABMenu_Advanced_Liquids_Enabled_T = "Automatically deposit Liquids to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.POTION.NORMAL, "  ", "Liquids"}),
+    SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_ENABLE = "Deposit/Withdraw Liquids",
+    SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_ENABLE_T = "Automatically deposit Liquids to the bank, or withdraw when needed?",
 
-    PABMenu_Advanced_Trophies_Header = table.concat({" ", PAC.ICONS.ITEMS.TREASURE_MAP.NORMAL, "  ", "Trophies"}),
-    PABMenu_Advanced_Trophies_Enabled = "Deposit/Withdraw Trophies",
-    PABMenu_Advanced_Trophies_Enabled_T = "Automatically deposit Trophies to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.TREASURE_MAP.NORMAL, "  ", "Trophies"}),
+    SI_PA_MENU_BANKING_ADVANCED_TROPHIES_ENABLE = "Deposit/Withdraw Trophies",
+    SI_PA_MENU_BANKING_ADVANCED_TROPHIES_ENABLE_T = "Automatically deposit Trophies to the bank, or withdraw when needed?",
 
-    PABMenu_Individual_Enable = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
-    PABMenu_Individual_Enable_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
+    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
 
-    PABMenu_Individual_Description = "Define an individual behaviour (deposit, withdraw, or do nothing) for Individual Items",
+    SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Individual Items",
 
-    PABMenu_Individual_Lockpick_Header = table.concat({" ", PAC.ICONS.ITEMS.LOCKPICK.NORMAL, "  ", "Lockpicks"}), -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Individual_Lockpick_Enabled = "Deposit/Withdraw Lockpicks", -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Individual_Lockpick_Enabled_T = "Automatically deposit Lockpicks to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER = table.concat({" ", PAC.ICONS.ITEMS.LOCKPICK.NORMAL, "  ", "Lockpicks"}), -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_ENABLE = "Deposit/Withdraw Lockpicks", -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_ENABLE_T = "Automatically deposit Lockpicks to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
 
-    PABMenu_Individual_SoulGem_Header = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Soul Gems"}), -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Individual_SoulGem_Enabled = "Deposit/Withdraw Soul Gems", -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Individual_SoulGem_Enabled_T = "Automatically deposit Soul Gems to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Soul Gems"}), -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_ENABLE = "Deposit/Withdraw Soul Gems", -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_ENABLE_T = "Automatically deposit Soul Gems to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
 
-    PABMenu_Individual_RepairKit_Header = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair Kits"}), -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Individual_RepairKit_Enabled = "Deposit/Withdraw Repair Kits", -- TODO: replace with SI_ITEMTYMPE ?
-    PABMenu_Individual_RepairKit_Enabled_T = "Automatically deposit Repair Kits to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair Kits"}), -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_ENABLE = "Deposit/Withdraw Repair Kits", -- TODO: replace with SI_ITEMTYMPE ?
+    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_ENABLE_T = "Automatically deposit Repair Kits to the bank, or withdraw when needed?", -- TODO: replace with SI_ITEMTYMPE ?
 
-    PABMenu_Individual_Generic_Header = table.concat({" ", PAC.ICONS.ITEMS.GENERIC_HELP.NORMAL, "  ", "Other Items"}),
-    PABMenu_Individual_Generic_Enabled = "Deposit/Withdraw Other Items",
-    PABMenu_Individual_Generic_Enabled_T = "Automatically deposit Other Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER = table.concat({" ", PAC.ICONS.ITEMS.GENERIC_HELP.NORMAL, "  ", "Other Items"}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_ENABLE = "Deposit/Withdraw Other Items",
+    SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_ENABLE_T = "Automatically deposit Other Items to the bank, or withdraw when needed?",
 
-    PABMenu_Individual_Keep_in_Backpack = "Amount to keep in backpack",
-    PABMenu_Individual_Keep_in_Backpack_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-
-    PABMenu_DepositStacking = "Stacking rule when depositing",
-    PABMenu_DepositStacking_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed.",
-    PABMenu_WithdrawalStacking = "Stacking rule when withdrawing",
-    PABMenu_WithdrawalStacking_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed.",
-
-    PABMenu_Transaction_Interval = "Interval between item transactions (msecs)",
-    PABMenu_Transaction_Interval_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
-
-    PABMenu_AutoStackBank = "Auto-Stack all items when opening the bank",
-    PABMenu_AutoStackBank_T = "Automatically stack all items in the bank when opening it? Helps to keep everything better organized.",
+    SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK = "Amount to keep in backpack",
+    SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
 
     -- -----------------------------------------------------------------------------------------------------------------
 
+    SI_PA_MENU_BANKING_DEPOSIT_STACKING = "Stacking rule when depositing",
+    SI_PA_MENU_BANKING_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed.",
+    SI_PA_MENU_BANKING_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",
+    SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed.",
 
+    SI_PA_MENU_BANKING_TRANSACTION_INTERVAL = "Interval between item transactions (msecs)",
+    SI_PA_MENU_BANKING_TRANSACTION_INTERVAL_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
 
+    SI_PA_MENU_BANKING_AUTOSTACKBANK = "Auto-Stack all items when opening the bank",
+    SI_PA_MENU_BANKING_AUTOSTACKBANK_T = "Automatically stack all items in the bank when opening it? Helps to keep everything better organized.",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- CURRENTLY NOT USED --
     PABMenu_HideNoDeposit = "Hide 'Nothing to Deposit' message",
     PABMenu_HideNoDeposit_T = "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",
     PABMenu_HideAll = "Hide ALL banking messages",
@@ -324,169 +309,108 @@ PersonalAssistant.Localization = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALMenu --
-    PALMenu_Header = PAC.COLORED_TEXTS.PAL,
-    PALMenu_ESOAutoLootDesc = table.concat({PAC.COLORS.LIGHT_BLUE, "Because the Auto Loot option of ESO is turned on, PALoot has been disabled. Everything is already automatically looted."}),
-    PALMenu_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
-    PALMenu_Enable_T = "Enable Auto Loot?",
-    PALMenu_LootGold = "Auto-Loot gold",
-    PALMenu_LootGold_T = "Automatically loot gold?",
-    PALMenu_LootGoldChatMode = "Chat Display of Auto-Looted Gold",
-    PALMenu_LootGoldChatMode_T = "How to display the information of looted gold in the chat window",
-    PALMenu_LootItems = "Auto-Loot items",
-    PALMenu_LootItems_T = "Automatically loot items?",
-    PALMenu_LootItemsChatMode = "Chat Display of Auto-Looted Items",
-    PALMenu_LootItemsChatMode_T = "How to display the information of looted items in the chat window",
-    PALMenu_LootStolenItems = "Auto-Steal items",
-    PALMenu_LootStolenItems_T = "Include (to be) stolen items for the Auto-Loot?",
-    PALMenu_HarvestableItems = "Harvestable items",
-    PALMenu_HarvestableItems_T = "Open the sub-menu to define for each harvestable item type whether it shall be auto-looted or not.",
-    PALMenu_HarvestableItemsDesc = "Enable and disable auto-loot for harvestable items such as ores, herbs, woods, runestones, or fishing holes.",
-    PALMenu_HarvestableItems_Bait_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "BAIT HANDLING"}),
-    PALMenu_HarvestableItems_Bait = "Handling of [Bait] items",
-    PALMenu_HarvestableItems_Bait_T = "When looting harvestable items, sometimes there also is bait which prevents the node from re-spawning when not looted. Define here what should happen in such cases.",
-    PALMenu_HarvestableItems_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
-    PALMenu_LootableItems = "Lootable items",
-    PALMenu_LootableItems_T = "Open the sub-menu to define for each lootable item type whether it shall be auto-looted or not.",
-    PALMenu_LootableItemsDesc = "Enable and disable auto-loot for lootable items such as clothing raw materials from animals.",
-    PALMenu_LootableItems_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
-    PALMenu_AutoLootQuestItems = "Quest Items",
-    PALMenu_AutoLootLockpicks = "Lockpick",
-    PALMenu_AutoLootAllButton = "Auto-Loot all",
-    PALMenu_AutoLootAllButton_T = "Change all dropdown values to 'Auto-Loot'",
-    PALMenu_IgnButton = "Ignore all",
-    PALMenu_IgnButton_T = "Change all dropdown values to 'Ignore'",
+    SI_PA_MENU_LOOT_HEADER = PAC.COLORED_TEXTS.PAL,
+    SI_PA_MENU_LOOT_ESO_AUTOLOOT_DESCRIPTION = table.concat({PAC.COLORS.LIGHT_BLUE, "Because the Auto Loot option of ESO is turned on, PALoot has been disabled. Everything is already automatically looted."}),
+    SI_PA_MENU_LOOT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
+    SI_PA_MENU_LOOT_ENABLE_T = "Enable Auto Loot?",
+    SI_PA_MENU_LOOT_LOOT_GOLD = "Auto-Loot gold",
+    SI_PA_MENU_LOOT_LOOT_GOLD_T = "Automatically loot gold?",
+    SI_PA_MENU_LOOT_LOOT_GOLD_CHATMODE = "Chat Display of Auto-Looted Gold",
+    SI_PA_MENU_LOOT_LOOT_GOLD_CHATMODE_T = "How to display the information of looted gold in the chat window",
+    SI_PA_MENU_LOOT_LOOT_ITEMS = "Auto-Loot items",
+    SI_PA_MENU_LOOT_LOOT_ITEMS_T = "Automatically loot items?",
+    SI_PA_MENU_LOOT_LOOT_ITEMS_CHATMODE = "Chat Display of Auto-Looted Items",
+    SI_PA_MENU_LOOT_LOOT_ITEMS_CHATMODE_T = "How to display the information of looted items in the chat window",
+    SI_PA_MENU_LOOT_LOOT_STOLENITEMS = "Auto-Steal items",
+    SI_PA_MENU_LOOT_LOOT_STOLENITEMS_T = "Include (to be) stolen items for the Auto-Loot?",
+    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS = "Harvestable items",
+    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_T = "Open the sub-menu to define for each harvestable item type whether it shall be auto-looted or not.",
+    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_DESCRIPTION = "Enable and disable auto-loot for harvestable items such as ores, herbs, woods, runestones, or fishing holes.",
+    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT_HEADER = table.concat({PAC.COLORS.LIGHT_BLUE, "BAIT HANDLING"}),
+    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT = "Handling of [Bait] items",
+    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT_T = "When looting harvestable items, sometimes there also is bait which prevents the node from re-spawning when not looted. Define here what should happen in such cases.",
+    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_HEADER = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
+    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS = "Lootable items",
+    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_T = "Open the sub-menu to define for each lootable item type whether it shall be auto-looted or not.",
+    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_DESCRIPTION = "Enable and disable auto-loot for lootable items such as clothing raw materials from animals.",
+    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_HEADER = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
+    SI_PA_MENU_LOOT_AUTOLOOT_QUESTITEMS = "Quest Items",
+    SI_PA_MENU_LOOT_AUTOLOOT_LOCKPICKS = "Lockpick",
+    SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON = "Auto-Loot all",
+    SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON_T = "Change all dropdown values to 'Auto-Loot'",
+    SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON = "Ignore all",
+    SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON_T = "Change all dropdown values to 'Ignore'",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJMenu --
-    PAJMenu_Header = PAC.COLORED_TEXTS.PAJ,
-    PAJMenu_ItemTypeDesc = "Enable and disable the automatic marking as junk for selected items based on various conditions.",
+    SI_PA_MENU_JUNK_HEADER = PAC.COLORED_TEXTS.PAJ,
+    SI_PA_MENU_JUNK_ITEMTYPE_DESCRIPTION = "Enable and disable the automatic marking as junk for selected items based on various conditions.",
 
-    PAJMenu_AutoMarkAsJunk_Enabled = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk?"}),
-    PAJMenu_AutoMarkAsJunk_Enabled_T = "Automatically mark Items as Junk, depending on various different conditions?",
-    PAJMenu_AutoMarkAsJunk_Header = table.concat({PAC.ICONS.CRAFTBAG.JUNK.LARGE, " ", "Auto-Mark as Junk"}),
+    SI_PA_MENU_JUNK_AUTOMARK_ENABLE = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk?"}),
+    SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T = "Automatically mark Items as Junk, depending on various different conditions?",
+    SI_PA_MENU_JUNK_AUTOMARK_HEADER = table.concat({PAC.ICONS.CRAFTBAG.JUNK.LARGE, " ", "Auto-Mark as Junk"}),
 
-    PAJMenu_AutoMarkTrash = "Auto-Mark [Trash] items",
-    PAJMenu_AutoMarkTrash_T = "Automatically mark items of type [Trash] as junk?",
-    PAJMenu_AutoMarkOrnate = "Auto-Mark [Ornate] trait items",
-    PAJMenu_AutoMarkOrnate_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
+    SI_PA_MENU_JUNK_AUTOMARK_TRASH = "Auto-Mark [Trash] items",
+    SI_PA_MENU_JUNK_AUTOMARK_TRASH_T = "Automatically mark items of type [Trash] as junk?",
+    SI_PA_MENU_JUNK_AUTOMARK_ORNATE = "Auto-Mark [Ornate] trait items",
+    SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
 
-    PAJMenu_AutoMarkWeaponsQuality = "Auto-Mark Weapons",
-    PAJMenu_AutoMarkWeaponsQuality_T = "???", -- TODO: add tooltip
-    PAJMenu_AutoMarkWeaponsQualityThreshold = "If Weapon quality level is at or below",
-    PAJMenu_AutoMarkWeaponsQualityThreshold_T = "Automatically mark weapons as junk if they are of the selected quality or lower",
-    PAJMenu_AutoMarkArmorQuality = "Auto-Mark Armor",
-    PAJMenu_AutoMarkArmorQuality_T = "???", -- TODO: add tooltip
-    PAJMenu_AutoMarkArmorQualityThreshold = "If Armor quality level is at or below",
-    PAJMenu_AutoMarkArmorQualityThreshold_T = "Automatically mark armor as junk if they are of the selected quality or lower",
+    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY = "Auto-Mark Weapons",
+    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_T = "???", -- TODO: add tooltip
+    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_THRESHOLD = "If Weapon quality level is at or below",
+    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_THRESHOLD_T = "Automatically mark weapons as junk if they are of the selected quality or lower",
+    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY = "Auto-Mark Armor",
+    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_T = "???", -- TODO: add tooltip
+    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_THRESHOLD = "If Armor quality level is at or below",
+    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_THRESHOLD_T = "Automatically mark armor as junk if they are of the selected quality or lower",
 
-    PAJMenu_AutoSellJunk = "Auto-Sell Junk?",
-    PAJMenu_AutoSellJunk_T = "Automatically sell all items marked as junk?",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk?",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk?",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMMenu --
-    PAMMenu_Header = PAC.COLORED_TEXTS.PAM,
-    PAMMenu_Hireling_AutoMail_Enable = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Mail for Hireling Materials?"}),
-    PAMMenu_Hireling_AutoMail_Enable_T = "Enable Auto Mail (read, loot, and delete) for Mails with Raw Materials from Hirelings?",
-    PAMMenu_Hireling_DeleteEmptyMails = "Delete empty Hireling Mails afterwards?",
-    PAMMenu_Hireling_DeleteEmptyMails_T = "After mails from Hirelings have been processed and their items looted, automatically delete the empty mails?",
+    SI_PA_MENU_MAIL_HEADER = PAC.COLORED_TEXTS.PAM,
+    SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Mail for Hireling Materials?"}),
+    SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE_T = "Enable Auto Mail (read, loot, and delete) for Mails with Raw Materials from Hirelings?",
+    SI_PA_MENU_MAIL_HIRELING_DELETE_EMPTYMAILS = "Delete empty Hireling Mails afterwards?",
+    SI_PA_MENU_MAIL_HIRELING_DELETE_EMPTYMAILS_T = "After mails from Hirelings have been processed and their items looted, automatically delete the empty mails?",
 
     -- =================================================================================================================
     -- Name Spaces --
-    NS_Bag_Equipment = "", -- not required so far
-    NS_Bag_Equipped = "equipped",
-    NS_Bag_Backpack = "Backpack",
-    NS_Bag_Backpacked = "backpack",
-    NS_Bag_Bank = "Bank",
-    NS_Bag_Banked = "", -- not required so far
-    NS_Bag_Subscriber_Bank = "Subscriber Bank",
-    NS_Bag_Subscriber_Banked = "", -- not required so far
-    NS_Bag_Unknown = "Unknown",
+    SI_PA_NS_BAG_EQUIPMENT = "", -- not required so far
+    SI_PA_NS_BAG_EQUIPPED = "equipped",
+    SI_PA_NS_BAG_BACKPACK = "Backpack",
+    SI_PA_NS_BAG_BACKPACKED = "backpack",
+    SI_PA_NS_BAG_BANK = "Bank",
+    SI_PA_NS_BAG_BANKED = "", -- not required so far
+    SI_PA_NS_BAG_SUBSCRIBER_BANK = "Subscriber Bank",
+    SI_PA_NS_BAG_SUBSCRIBER_BANKED = "", -- not required so far
+    SI_PA_NS_BAG_UNKNOWN = "Unknown",
 
     -- Operators --
-    REL_Operator = "> %s",
-    REL_Operator_T = "Select the Mathematical Operator for this item.",
-    REL_None = "-",
-    REL_Equal = "equals (=)",
-    REL_LessThan = "less than (<)", -- not required so far
-    REL_LessThanEqual = "less than or equal to (<=)",
-    REL_GreaterThan = "greater than (>)", -- not required so far
-    REL_GreaterThanEqual = "greater than or equal to (>=)",
+    SI_PA_REL_OPERATOR = "> %s",
+    SI_PA_REL_OPERATOR_T = "Select the Mathematical Operator for this item.",
+    SI_PA_REL_NONE = "-",
+    SI_PA_REL_EQUAL = "equals (=)",
+    SI_PA_REL_LESSTHAN = "less than (<)", -- not required so far
+    SI_PA_REL_LESSTHANEQUAL = "less than or equal to (<=)",
+    SI_PA_REL_GREATERTHAN = "greater than (>)", -- not required so far
+    SI_PA_REL_GREATERTHANEQUAL = "greater than or equal to (>=)",
 
     -- Stacking types --
-    ST_FullMove = "Move everything", -- 0: Full deposit
-    ST_IncompleteStacksOnly = "Only fill up existing stacks", -- 1: Fill existing stacks
+    SI_PA_ST_MOVE_FULL = "Move everything", -- 0: Full deposit
+    SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Only fill up existing stacks", -- 1: Fill existing stacks
 
     -- Item Qualitiy Levels --
-    QUAL_Trash = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
-    QUAL_Normal = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
-    QUAL_Fine = GetItemQualityColor(ITEM_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_MAGIC)),
-    QUAL_Superior = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
-    QUAL_Epic = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
-    QUAL_Legendary = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
-
-    -- Official Item Types --
-    -- TODO: fixme; problem is we need resolved value of "ITEMTYPE_ADDITIVE" as key and not the string itself
-    ITEMTYPE_ADDITIVE = "enITEMTYPE_ADDITIVE",
-    ITEMTYPE_ARMOR = "Armor (any)",
-    ITEMTYPE_ARMOR_BOOSTER = "enITEMTYPE_ARMOR_BOOSTER",
-    ITEMTYPE_ARMOR_TRAIT = "Armor Trait",
-    ITEMTYPE_AVA_REPAIR = "enITEMTYPE_AVA_REPAIR",
-    ITEMTYPE_BLACKSMITHING_BOOSTER = "Temper (Blacksmithing)",
-    ITEMTYPE_BLACKSMITHING_MATERIAL = "Material (Blacksmithing)",
-    ITEMTYPE_BLACKSMITHING_RAW_MATERIAL = "Raw Material (Blacksmithing)",
-    ITEMTYPE_CLOTHIER_BOOSTER = "Tannin (Clothing)",
-    ITEMTYPE_CLOTHIER_MATERIAL = "Material (Clothing)",
-    ITEMTYPE_CLOTHIER_RAW_MATERIAL = "Raw Material (Clothing)",
-    ITEMTYPE_COLLECTIBLE = "Collectible",
-    ITEMTYPE_CONTAINER = "Container",
-    ITEMTYPE_COSTUME = "Costume",
-    ITEMTYPE_CROWN_ITEM = "enITEMTYPE_CROWN_ITEM",
-    ITEMTYPE_CROWN_REPAIR = "enITEMTYPE_CROWN_REPAIR",
-    ITEMTYPE_DEPRECATED = "enITEMTYPE_DEPRECATED",
-    ITEMTYPE_DISGUISE = "enITEMTYPE_DISGUISE",
-    ITEMTYPE_DRINK = "Drink",
-    ITEMTYPE_ENCHANTING_RUNE_ASPECT = "Aspect Runestone (Enchanting)",
-    ITEMTYPE_ENCHANTING_RUNE_ESSENCE = "Essence Runestone (Enchanting)",
-    ITEMTYPE_ENCHANTING_RUNE_POTENCY = "Potency Runestone (Enchanting)",
-    ITEMTYPE_ENCHANTMENT_BOOSTER = "enITEMTYPE_ENCHANTMENT_BOOSTER",
-    ITEMTYPE_FISH = "Fish",
-    ITEMTYPE_FLAVORING = "enITEMTYPE_FLAVORING",
-    ITEMTYPE_FOOD = "Food",
-    ITEMTYPE_FURNISHING_MATERIAL = "Furnishing Material",
-    ITEMTYPE_GLYPH_ARMOR = "Armor Glyph (Enchanting)",
-    ITEMTYPE_GLYPH_JEWELRY = "Jewelry Glyph (Enchanting)",
-    ITEMTYPE_GLYPH_WEAPON = "Weapon Glyph (Enchanting)",
-    ITEMTYPE_INGREDIENT = "Ingredient (Provisioning)",
-    ITEMTYPE_LOCKPICK = "enITEMTYPE_LOCKPICK",
-    ITEMTYPE_LURE = "Bait",
-    ITEMTYPE_MASTER_WRIT = "enITEMTYPE_MASTER_WRIT",
-    ITEMTYPE_MAX_VALUE = "enITEMTYPE_MAX_VALUE",
-    ITEMTYPE_MIN_VALUE = "enITEMTYPE_MIN_VALUE",
-    ITEMTYPE_MOUNT = "enITEMTYPE_MOUNT",
-    ITEMTYPE_NONE = "enITEMTYPE_NONE",
-    ITEMTYPE_PLUG = "enITEMTYPE_PLUG",
-    ITEMTYPE_POISON = "Poison",
-    ITEMTYPE_POISON_BASE = "Poison Solvent (Alchemy)",
-    ITEMTYPE_POTION = "Potion",
-    ITEMTYPE_POTION_BASE = "Potion Solvent (Alchemy)",
-    ITEMTYPE_RACIAL_STYLE_MOTIF = "Motif",
-    ITEMTYPE_RAW_MATERIAL = "Raw Material",
-    ITEMTYPE_REAGENT = "Reagent (Alchemy)",
-    ITEMTYPE_RECIPE = "Recipe (Provisioning)",
-    ITEMTYPE_SIEGE = "enITEMTYPE_SIEGE",
-    ITEMTYPE_SOUL_GEM = "Soul Gem",
-    ITEMTYPE_SPELLCRAFTING_TABLET = "enITEMTYPE_SPELLCRAFTING_TABLET",
-    ITEMTYPE_SPICE = "enITEMTYPE_SPICE",
-    ITEMTYPE_STYLE_MATERIAL = "Style Material",
-    ITEMTYPE_TABARD = "enITEMTYPE_TABARD",
-    ITEMTYPE_TOOL = "Tool",
-    ITEMTYPE_TRASH = "Trash",
-    ITEMTYPE_TREASURE = "enITEMTYPE_TREASURE",
-    ITEMTYPE_TROPHY = "Trophy",
-    ITEMTYPE_WEAPON = "Weapon (any)",
-    ITEMTYPE_WEAPON_BOOSTER = "enITEMTYPE_WEAPON_BOOSTER",
-    ITEMTYPE_WEAPON_TRAIT = "Weapon Trait",
-    ITEMTYPE_WOODWORKING_BOOSTER = "Resin (Woodworking)",
-    ITEMTYPE_WOODWORKING_MATERIAL = "Material (Woodworking)",
-    ITEMTYPE_WOODWORKING_RAW_MATERIAL = "Raw Material (Woodworking)"
+    SI_PA_QUALITY_TRASH = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
+    SI_PA_QUALITY_NORMAL = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
+    SI_PA_QUALITY_FINE = GetItemQualityColor(ITEM_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_MAGIC)),
+    SI_PA_QUALITY_SUPERIOR = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
+    SI_PA_QUALITY_EPIC = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
+    SI_PA_QUALITY_LEGENDARY = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
 }
+
+for key, value in pairs(PAStrings) do
+    ZO_CreateStringId(key, value)
+    SafeAddVersion(key, 1)
+end

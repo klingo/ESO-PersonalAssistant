@@ -2,27 +2,26 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
-local L = PA.Localization
 
 local PAMenuChoices = {
     PARepair = {
         repairFullChatMode = {
-            PAHF.getFormattedText(L.PAR_FullRepair_ChatMode_None),
-            PAHF.getFormattedText(L.PAR_FullRepair_ChatMode_Min, 115),
-            PAHF.getFormattedText(L.PAR_FullRepair_ChatMode_Normal, 115),
-            PAHF.getFormattedText(L.PAR_FullRepair_ChatMode_Full, L.NS_Bag_Equipped, 115),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_NONE)),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_MIN), 115),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_NORMAL), 115),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_FULL), GetString(SI_PA_NS_BAG_EQUIPPED), 115),
         },
         repairPartialChatMode = {
-            PAHF.getFormattedText(L.PAR_PartialRepair_ChatMode_None),
-            PAHF.getFormattedText(L.PAR_PartialRepair_ChatMode_Min, 115, 65),
-            PAHF.getFormattedText(L.PAR_PartialRepair_ChatMode_Normal, 115, 65),
-            PAHF.getFormattedText(L.PAR_PartialRepair_ChatMode_Full, 3, 7, L.NS_Bag_Equipped, 115, 65),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_NONE)),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_MIN), 115, 65),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_NORMAL), 115, 65),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_FULL), 3, 7, GetString(SI_PA_NS_BAG_EQUIPPED), 115, 65),
         },
         chargeWeaponsChatMode = {
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_None),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Min, PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ICONS.ITEMS.WEAPON, 15, 100),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Normal, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ITEMLINKS.SOULGEM),
-            PAHF.getFormattedText(L.PAR_ReChargeWeapon_ChatMode_Full, PAC.ICONS.ITEMS.WEAPON, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ITEMLINKS.SOULGEM),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NONE)),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ICONS.ITEMS.WEAPON, 15, 100),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ITEMLINKS.SOULGEM),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MAX), PAC.ICONS.ITEMS.WEAPON, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ITEMLINKS.SOULGEM),
         }
     },
     PABanking = {
@@ -34,54 +33,54 @@ local PAMenuChoices = {
             "10000",
         },
         stackingType = {
-            L.ST_FullMove,
-            L.ST_IncompleteStacksOnly
+            GetString(SI_PA_ST_MOVE_FULL),
+            GetString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY)
         },
         itemMoveMode = {
-            L.PAB_MoveTo_DoNothing,
-            L.PAB_MoveTo_Bank,
-            L.PAB_MoveTo_Backpack
+            GetString(SI_PA_BANKING_MOVE_MODE_DONOTHING),
+            GetString(SI_PA_BANKING_MOVE_MODE_TOBANK),
+            GetString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK)
         },
         mathOperator = {
-            L.REL_None,
-            L.REL_Equal,
-            -- L.REL_LessThan,
-            L.REL_LessThanEqual,
-            -- L.REL_GreaterThan,
-            L.REL_GreaterThanEqual
+            GetString(SI_PA_REL_NONE),
+            GetString(SI_PA_REL_EQUAL),
+            -- GetString(SI_PA_REL_LESSTHAN),
+            GetString(SI_PA_REL_LESSTHANEQUAL),
+            -- GetString(SI_PA_REL_GREATERTHAN),
+            GetString(SI_PA_REL_GREATERTHANEQUAL)
         },
     },
     PALoot = {
         lootGoldChatMode = {
-            PAHF.getFormattedText(L.PAL_Gold_ChatMode_None),
-            PAHF.getFormattedText(L.PAL_Gold_ChatMode_Min, 123),
-            PAHF.getFormattedText(L.PAL_Gold_ChatMode_Normal, 123),
-            PAHF.getFormattedText(L.PAL_Gold_ChatMode_Full, 123),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_NONE)),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_MIN), 123),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_NORMAL), 123),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_MAX), 123),
         },
         lootItemsChatMode = {
-            PAHF.getFormattedText(L.PAL_Items_ChatMode_None),
-            PAHF.getFormattedText(L.PAL_Items_ChatMode_Min, 2, PAC.ICONS.ITEMS.BANANAS, ""),
-            PAHF.getFormattedText(L.PAL_Items_ChatMode_Normal, 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
-            PAHF.getFormattedText(L.PAL_Items_ChatMode_Full, 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_NONE)),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_MIN), 2, PAC.ICONS.ITEMS.BANANAS, ""),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_NORMAL), 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
+            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_MAX), 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
         },
         itemTypesLootMode = {
-            L.PAL_ItemType_Ignore,
-            L.PAL_ItemType_AutoLoot
+            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE),
+            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT)
         },
         harvestableBaitLootMode = {
-            L.PAL_ItemType_Ignore,
-            L.PAL_ItemType_AutoLoot,
-            L.PAL_ItemType_LootDestroy
+            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE),
+            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT),
+            GetString(SI_PA_LOOT_LOOT_MODE_LOOTDESTROY)
         },
     },
     PAJunk = {
         qualityLevel = {
-            L.QUAL_Trash,
-            L.QUAL_Normal,
-            L.QUAL_Fine,
-            L.QUAL_Superior,
-            L.QUAL_Epic,
-            L.QUAL_Legendary,
+            GetString(SI_PA_QUALITY_TRASH),
+            GetString(SI_PA_QUALITY_NORMAL),
+            GetString(SI_PA_QUALITY_FINE),
+            GetString(SI_PA_QUALITY_SUPERIOR),
+            GetString(SI_PA_QUALITY_EPIC),
+            GetString(SI_PA_QUALITY_LEGENDARY),
         }
     }
 }
@@ -171,13 +170,13 @@ local PAMenuChoicesValues = {
 local PAMenuChoicesTooltips = {
     PALoot = {
         itemTypesLootMode = {
-            L.PAL_ItemType_Ignore_T,
-            L.PAL_ItemType_AutoLoot_T
+            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE_T),
+            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT_T)
         },
         harvestableBaitLootMode = {
-            L.PAL_ItemType_Ignore_T,
-            L.PAL_ItemType_AutoLoot_T,
-            L.PAL_ItemType_LootDestroy_T
+            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE_T),
+            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT_T),
+            GetString(SI_PA_LOOT_LOOT_MODE_LOOTDESTROY_T)
         },
     }
 }

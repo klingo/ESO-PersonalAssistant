@@ -4,16 +4,15 @@ local PAM = PA.Mail
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
-local L = PA.Localization
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local hirelingMailSubjects = {}
-table.insert(hirelingMailSubjects, L.PAM_HirelingMailSubject_Enchanting)
-table.insert(hirelingMailSubjects, L.PAM_HirelingMailSubject_Woodworking)
-table.insert(hirelingMailSubjects, L.PAM_HirelingMailSubject_Clothing)
-table.insert(hirelingMailSubjects, L.PAM_HirelingMailSubject_Blacksmithing)
-table.insert(hirelingMailSubjects, L.PAM_HirelingMailSubject_Provisioninig)
+table.insert(hirelingMailSubjects, GetString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_ENCHANTING))
+table.insert(hirelingMailSubjects, GetString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_WOODWORKING))
+table.insert(hirelingMailSubjects, GetString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_CLOTHING))
+table.insert(hirelingMailSubjects, GetString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_BLACKSMITHING))
+table.insert(hirelingMailSubjects, GetString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_PROVISIONING))
 
 local function isMailSubjectFromHireling(mailSubject)
     return PAHF.isValueInTable(hirelingMailSubjects, mailSubject)

@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAHF = PA.HelperFunctions
 local PASVRepair = PA.SavedVars.Repair
-local L = PA.Localization
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -82,9 +81,9 @@ local function ReChargeWeapons()
 
                     -- show output to chat (depending on setting)
                     local chargeWeaponsChatMode = PASVRepair[PA.activeProfile].chargeWeaponsChatMode
-                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(L.ReChargeWeapon_ChatMode_Full, weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(L.ReChargeWeapon_ChatMode_Normal, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(L.ReChargeWeapon_ChatMode_Min, gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
+                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Full), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Normal), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Min), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
                     end -- PA_OUTPUT_TYPE_NONE => no chat output
 
                     if (totalGemCount < 10) then

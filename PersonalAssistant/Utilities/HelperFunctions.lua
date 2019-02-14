@@ -3,7 +3,6 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PASVProfile = PASV.Profile
-local L = PA.Localization
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -39,15 +38,15 @@ end
 -- returns a noun for the bagId
 local function getBagName(bagId)
     if (bagId == BAG_WORN) then
-        return L.NS_Bag_Equipment
+        return GetString(SI_PA_NS_BAG_EQUIPMENT)
     elseif (bagId == BAG_BACKPACK) then
-        return L.NS_Bag_Backpack
+        return GetString(SI_PA_NS_BAG_BACKPACK)
     elseif (bagId == BAG_BANK) then
-        return L.NS_Bag_Bank
+        return GetString(SI_PA_NS_BAG_BANK)
     elseif (bagId == BAG_SUBSCRIBER_BANK) then
-        return L.NS_Bag_Subscriber_Bank
+        return GetString(SI_PA_NS_BAG_SUBSCRIBER_BANK)
     else
-        return L.NS_Bag_Unknown
+        return GetString(SI_PA_NS_BAG_UNKNOWN)
     end
 end
 
@@ -55,15 +54,15 @@ end
 -- returns an adjective for the bagId
 local function getBagNameAdjective(bagId)
     if (bagId == BAG_WORN) then
-        return L.NS_Bag_Equipped
+        return GetString(SI_PA_NS_BAG_EQUIPPED)
     elseif (bagId == BAG_BACKPACK) then
-        return L.NS_Bag_Backpacked
+        return GetString(SI_PA_NS_BAG_BACKPACKED)
     elseif (bagId == BAG_BANK) then
-        return L.NS_Bag_Banked
+        return GetString(SI_PA_NS_BAG_BANKED)
     elseif (bagId == BAG_SUBSCRIBER_BANK) then
-        return L.NS_Bag_Subscriber_Banked
+        return GetString(SI_PA_NS_BAG_SUBSCRIBER_BANKED)
     else
-        return L.NS_Bag_Unknown
+        return GetString(SI_PA_NS_BAG_UNKNOWN)
     end
 end
 
@@ -94,7 +93,7 @@ end
 
 -- currently supports one text and n arguments
 local function println(text, ...)
-    local textKey = L[text]
+    local textKey = GetString(text)
     if textKey ~= nil then
         CHAT_SYSTEM:AddMessage(getFormattedText(textKey, ...))
     else
@@ -119,7 +118,7 @@ local function getProfileTextFromNumber(number)
     end
 
     if (profileNo == nil) then
-        return L.PAG_PleaseSelectProfile
+        return GetString(SI_PA_PLEASE_SELECT_PROFILE)
     end
 
     return PASV.General[profileNo].name
@@ -138,18 +137,10 @@ end
 
 -- returns the default profile name of the provided profile number
 local function getDefaultProfileName(profileNo)
-    if profileNo == 1 then
-        return L.PAG_Profile1
-    elseif profileNo == 2 then
-        return L.PAG_Profile2
-    elseif profileNo == 3 then
-        return L.PAG_Profile3
-    elseif profileNo == 4 then
-        return L.PAG_Profile4
-    elseif profileNo == 5 then
-        return L.PAG_Profile5
+    if profileNo <= PAC.GENERAL.MAX_PROFILES then
+        return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
     else
-        return L.PAG_PleaseSelectProfile
+        return GetString(SI_PA_PLEASE_SELECT_PROFILE)
     end
 end
 

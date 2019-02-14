@@ -4,7 +4,6 @@ local PAC = PA.Constants
 local PAMD = PA.MenuDefaults
 local PASV = PA.SavedVars
 local PAEM = PA.EventManager
-local L = PA.Localization
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

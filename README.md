@@ -59,6 +59,15 @@ How to read:
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion
   * Variable Expansion - $(language)
+* [X] **(5)** Update localization to make use of ESO API
+    * https://wiki.esoui.com/How_to_add_localization_support
+    ```lua
+    GetString(string stringVariablePrefix, number contextId)
+      Returns: string stringValue 
+    ZO_CreateStringId(stringId, stringToAdd)
+    SafeAddVersion(stringId, stringVersion) 
+    SafeAddString(stringId, stringValue, stringVersion) 
+    ```
 * [ ] **(6)** Check ItemLink Handling in HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?t=2054
   * http://www.esoui.com/forums/showthread.php?t=1944

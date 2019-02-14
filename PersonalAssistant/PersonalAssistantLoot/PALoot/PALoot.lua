@@ -32,12 +32,12 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
                     itemDestroyed = true
                 else
                     -- could not move items, therefore cannot safely destroy item
-                    PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_MoveFailed"), amountToDestroy, stackSize, itemLink, iconString)
+                    PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE"), amountToDestroy, stackSize, itemLink, iconString)
                 end
             end, 500)
         else
             -- no free slot available, cannot safely destroy item!
-            PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_DestroyFailed"), amountToDestroy, stackSize, itemLink, iconString)
+            PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY"), amountToDestroy, stackSize, itemLink, iconString)
         end
     else
         -- destroy all items (since there were no existing before)
@@ -48,9 +48,9 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
     if (itemDestroyed) then
         PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
         local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-        if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Full"), amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Normal"), amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_ItemsDestroy_Min"), amountToDestroy, iconString)
+        if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX"), amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL"), amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN"), amountToDestroy, iconString)
         end -- PA_OUTPUT_TYPE_NONE => no chat output
     end
 end
@@ -68,9 +68,9 @@ local function LootGold()
         LootMoney()
         -- show output to chat (depending on setting)
         local lootGoldChatMode = PA.savedVars.Loot[PA.activeProfile].lootGoldChatMode
-        if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Full"), unownedMoney)
-        elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Normal"), unownedMoney)
-        elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Gold_ChatMode_Min"), unownedMoney)
+        if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_GOLD_CHATMODE_MAX"), unownedMoney)
+        elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_GOLD_CHATMODE_NORMAL"), unownedMoney)
+        elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_GOLD_CHATMODE_MIN"), unownedMoney)
         end -- PA_OUTPUT_TYPE_NONE => no chat output
     end
 end
@@ -199,7 +199,7 @@ local function OnLootUpdated()
 
                                     -- if item was a recipe that is unknown, add a suffix description
                                     if (itemType == ITEMTYPE_RECIPE and not IsItemLinkRecipeKnown(itemLink)) then
-                                        suffixDesc = PALocale.getResourceMessage("PAL_RecipeUnknown_Suffix")
+                                        suffixDesc = PALocale.getResourceMessage("SI_PA_LOOT_RECIPE_UNKNOWN_SUFFIX")
                                     end
                                 end
                                 break
@@ -238,9 +238,9 @@ local function OnLootUpdated()
 
                             -- show output to chat (depending on setting)
                             local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-                            if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Full"), itemCount, itemLink, iconString, suffixDesc)
-                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Normal"), itemCount, itemLink, iconString, suffixDesc)
-                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("PAL_Items_ChatMode_Min"), itemCount, iconString, suffixDesc)
+                            if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_CHATMODE_MAX"), itemCount, itemLink, iconString, suffixDesc)
+                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_CHATMODE_NORMAL"), itemCount, itemLink, iconString, suffixDesc)
+                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(PALocale.getResourceMessage("SI_PA_LOOT_ITEMS_CHATMODE_MIN"), itemCount, iconString, suffixDesc)
                             end -- PA_OUTPUT_TYPE_NONE => no chat output
                         end
                     end

@@ -5,7 +5,6 @@ local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 local PASV = PA.SavedVars
 local PAHelperFunctions = PA.HelperFunctions
-local L = PA.Localization
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -77,16 +76,16 @@ local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
 
     if (PA.activeProfile == nil) then
-        PAHF.println(L.Welcome_PleaseSelectProfile)
+        PAHF.println(GetString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE))
     else
         -- a valid profile is selected and thus the events can be initialised
         PAEM.RefreshAllEventRegistrations()
         -- then check for the welcome message
         if PASV.General[PA.activeProfile].welcome then
             if PASV.Profile.language ~= "en" and PASV.Profile.language ~= "de" and PASV.Profile.language ~= "fr" then
-                PAHF.println(L.Welcome_NoSupport, GetCVar("language.2"))
+                PAHF.println(GetString(SI_PA_WELCOME_NO_SUPPORT), GetCVar("language.2"))
             else
-                PAHF.println(L.Welcome_Support)
+                PAHF.println(GetString(SI_PA_WELCOME_SUPPORT))
             end
         end
     end
