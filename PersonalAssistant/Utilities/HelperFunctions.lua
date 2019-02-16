@@ -100,7 +100,7 @@ end
 -- currently supports one text and n arguments
 local function println(text, ...)
     local textKey = GetString(text)
-    if textKey ~= nil then
+    if textKey ~= nil and textKey ~= "" then
         CHAT_SYSTEM:AddMessage(getFormattedText(textKey, ...))
     else
         CHAT_SYSTEM:AddMessage(getFormattedText(text, ...))
