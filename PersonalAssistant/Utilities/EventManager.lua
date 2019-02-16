@@ -109,7 +109,7 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PARepair' is even enabled
     if (PAR) then
         -- Check if the functionality is turned on within the addon
-        if (PAMenuFunctions.PARepair.isEnabled()) then
+        if (PAMenuFunctions.PARepair.getAutoRepairEnabledSetting()) then
             -- Register PARepair for RepairKits and WeaponCharges
             -- TODO: Check this function
             RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.EventPlayerCombateState)
@@ -178,7 +178,7 @@ local function RefreshAllEventRegistrations()
             -- Unegister PAJunk
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
             -- Unregister the SharedEvent, but only if PARepair is not enabled!
-            if not (PAR and PAMenuFunctions.PARepair.isEnabled()) then
+            if not (PAR and PAMenuFunctions.PARepair.getAutoRepairEnabledSetting()) then
                 UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
             end
         end

@@ -38,9 +38,9 @@ end
 local function ReChargeWeapons()
 
     -- Check and re-charged equipped weapons
-    if PASVRepair[PA.activeProfile].chargeWeapons then
+    if PASVRepair[PA.activeProfile].RechargeWeapons.useSoulGems then
 
-        local chargeThreshold = PASVRepair[PA.activeProfile].chargeWeaponsThreshold
+        local chargeThreshold = PASVRepair[PA.activeProfile].RechargeWeapons.chargeWeaponsThreshold
         local weaponsToCharge = setmetatable({}, { __index = table })
 
         -- based on the list of chargeable slots, check which ones really need to be charged
@@ -80,7 +80,7 @@ local function ReChargeWeapons()
                     totalGemCount = totalGemCount - 1
 
                     -- show output to chat (depending on setting)
-                    local chargeWeaponsChatMode = PASVRepair[PA.activeProfile].chargeWeaponsChatMode
+                    local chargeWeaponsChatMode = PASVRepair[PA.activeProfile].RechargeWeapons.chargeWeaponsChatMode
                     if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Full), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
                     elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Normal), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
                     elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Min), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)

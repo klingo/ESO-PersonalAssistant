@@ -1,10 +1,50 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PAR = PA.Repair
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
+
+local _repairItemList
+
+local function _handleFullReport(threshold, repairedItemCount, notRepairedItemCount, repairCost, missingGold)
+    PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_INTRO, threshold)
+    -- in casee of full chat mode; it does not matter if full or partial repair was made
+    for _, itemData in pairs(_repairItemList) do
+        if itemData.repaired then
+            PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_REPAIRED, itemData.itemLink, itemData.itemCondition, itemData.repairCost)
+        else
+            PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_NOT_REPAIRED, itemData.itemLink, itemData.itemCondition)
+        end
+    end
+    if notRepairedItemCount > 0 then
+        PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_SUMMARY_PARTIAL, repairedItemCount, (repairedItemCount + notRepairedItemCount),repairCost, missingGold)
+    else
+        PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_SUMMARY_FULL, repairedItemCount, (repairedItemCount + notRepairedItemCount), repairCost)
+    end
+end
+
+local function _handleNormalReport(notRepairedItemCount, repairCost, missingGold)
+    if notRepairedItemCount > 0 then
+        PAHF.println(SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_PARTIAL, repairCost, missingGold)
+    else
+        PAHF.println(SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_FULL, repairCost)
+    end
+end
+
+local function _handleMinimalReport(notRepairedItemCount, repairCost, missingGold)
+    if notRepairedItemCount > 0 then
+        PAHF.println(SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_PARTIAL, repairCost, missingGold)
+    else
+        PAHF.println(SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_FULL, repairCost)
+    end
+
+end
+
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+
 
 -- TODO: NON-VENDOR
 -- use repairkits (after leaving combat)
@@ -25,23 +65,32 @@ local function RepairItems(bagId, threshold)
         local notRepairedItemCount = 0
         local notRepairedItemsCost = 0
         local currentMoney = GetCurrentMoney()
+        _repairItemList = {}
 
         local PARepairSavedVars = PASV.Repair[PA.activeProfile]
 
         -- loop through all items of the corresponding bagId
-        for index, data in pairs(bagCache) do
+        for slotIndex, data in pairs(bagCache) do
             -- check first if the item has durability (and therefore is repairable)
-            if DoesItemHaveDurability(bagId, index) then
+            if DoesItemHaveDurability(bagId, slotIndex) then
                 -- then compare it with the threshold
-                if GetItemCondition(bagId, index) <= threshold then
-                    local stackSize = GetSlotStackSize(bagId, index)
+                local itemCondition = GetItemCondition(bagId, slotIndex)
+                if itemCondition <= threshold then
+                    local stackSize = GetSlotStackSize(bagId, slotIndex)
                     -- get the repair cost for that item and repair if possible
-                    local itemRepairCost = GetItemRepairCost(bagId, index)
+                    local itemRepairCost = GetItemRepairCost(bagId, slotIndex)
                     if itemRepairCost > 0 then
                         if (itemRepairCost > currentMoney) then
                             -- even though not enough money available, continue as maybe a cheaper item still can be repaired
                             notRepairedItemCount = notRepairedItemCount + stackSize
                             notRepairedItemsCost = notRepairedItemsCost + itemRepairCost
+                            -- add the item to the list as NOT repaired
+                            table.insert(_repairItemList, {
+                                itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS),
+                                repairCost = itemRepairCost,
+                                itemCondition = itemCondition,
+                                repaired = false
+                            })
                         else
                             -- sum up the total repair costs
                             repairCost = repairCost + itemRepairCost;
@@ -50,50 +99,44 @@ local function RepairItems(bagId, threshold)
                             -- currentMoney has to be manually calculated, as the "GetCurrentMoney()"
                             -- does not yet reflect the just made repairs
                             currentMoney = currentMoney - itemRepairCost
+                            -- add the item to the list as repaired
+                            table.insert(_repairItemList, {
+                                itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS),
+                                repairCost = itemRepairCost,
+                                itemCondition = itemCondition,
+                                repaired = true
+                            })
                         end
                     end
                 end
             end
         end
 
-        local bagName = PAHF.getBagNameAdjective(bagId)
+        local repairChatMode = PARepairSavedVars.RepairEquipped.repairWithGoldChatMode
+        local missingGold = notRepairedItemsCost - currentMoney
 
-        if notRepairedItemCount > 0 then
-            -- at least one item was not repaired
-            local missingGold = notRepairedItemsCost - currentMoney
-            -- show output to chat (depending on setting)
-            local repairPartialChatMode = PARepairSavedVars.repairPartialChatMode
-            if (repairPartialChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(SI_PA_REPAIR_PARTIAL_CHATMODE_FULL, repairedItemCount, (repairedItemCount + notRepairedItemCount), bagName, repairCost, missingGold)
-            elseif (repairPartialChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(SI_PA_REPAIR_PARTIAL_CHATMODE_NORMAL, repairCost, missingGold)
-            elseif (repairPartialChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(SI_PA_REPAIR_PARTIAL_CHATMODE_MIN, repairCost, missingGold)
-            end -- PA_OUTPUT_TYPE_NONE => no chat output
-
-        else
-            -- all repairable itmes were repaired
-            if repairedItemCount > 0 then
-                -- show output to chat (depending on setting)
-                local repairFullChatMode = PARepairSavedVars.repairFullChatMode
-                if (repairFullChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(SI_PA_REPAIR_FULL_CHATMODE_FULL, bagName, repairCost)
-                elseif (repairFullChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(SI_PA_REPAIR_FULL_CHATMODE_NORMAL, repairCost)
-                elseif (repairFullChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(SI_PA_REPAIR_FULL_CHATMODE_MIN, repairCost)
-                end -- PA_OUTPUT_TYPE_NONE => no chat output
-            else
-                -- Nothing to Repair
-            end
+        -- based on the settings, handle the chat output
+        if repairChatMode == PA_OUTPUT_TYPE_FULL then
+            _handleFullReport(threshold, repairedItemCount, notRepairedItemCount, repairCost, missingGold)
+        elseif repairChatMode == PA_OUTPUT_TYPE_NORMAL then
+            _handleNormalReport(notRepairedItemCount, repairCost, missingGold)
+        elseif repairChatMode == PA_OUTPUT_TYPE_MIN then
+            _handleMinimalReport(notRepairedItemCount, repairCost, missingGold)
         end
     end
 end
+
 
 local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
         local PARepairSavedVars = PASV.Repair[PA.activeProfile]
         -- check if addon is enabled
-        if PARepairSavedVars.enabled then
+        if PARepairSavedVars.autoRepairEnabled then
             -- early check if there is something to repair
             if GetRepairAllCost() > 0 then
                 -- check if equipped items shall be repaired
-                if PARepairSavedVars.repairEquipped then
-                    RepairItems(BAG_WORN, PARepairSavedVars.repairEquippedThreshold)
+                if PARepairSavedVars.RepairEquipped.repairWithGold then
+                    RepairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
                 end
                 -- check if backpack items shall be repaired
 --                if PARepairSavedVars.repairBackpack then
@@ -115,13 +158,15 @@ local function EventPlayerCombateState(_, inCombat)
                 if not PAHF.isPlayerDead() then
 
                     -- Check and repair equipped items with repair kits
-                    if PARepairSavedVars.repairEquippedWithKit then
-                        PAR.RepairEquippedItemsWithKit()
+                    if PARepairSavedVars.RepairEquipped.repairWithRepairKit then
+                        -- TODO: for testing purposes disabled
+--                        PAR.RepairEquippedItemsWithKit()
                     end
 
                     -- Check and re-charged equipped weapons
-                    if PARepairSavedVars.chargeWeapons then
-                        PAR.ReChargeWeapons()
+                    if PARepairSavedVars.RechargeWeapons.useSoulGems then
+                        -- TODO: for testing purposes disabled
+--                        PAR.ReChargeWeapons()
                     end
                 end
             end

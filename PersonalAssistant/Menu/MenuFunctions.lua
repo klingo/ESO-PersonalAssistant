@@ -66,6 +66,32 @@ local function isDisabled(savedVarsTable, ...)
 end
 
 
+local function isDisabledDebug(savedVarsTable, ...)
+    if (isDisabledPAGeneralNoProfileSelected()) then return true end
+    local args = { ... }
+    for _, tbl in ipairs(args) do
+        -- return true when ANY setting is OFF
+        if (#tbl == 1) then
+            local attributeLevelOne = tbl[1]
+            d(tostring(attributeLevelOne).."="..tostring(savedVarsTable[PA.activeProfile][attributeLevelOne]))
+            if (not savedVarsTable[PA.activeProfile][attributeLevelOne]) then return true end
+        elseif (#tbl == 2) then
+            local attributeLevelOne = tbl[1]
+            local attributeLevelTwo = tbl[2]
+            d(tostring(attributeLevelOne).."."..tostring(attributeLevelTwo).."="..tostring(savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]))
+            if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]) then return true end
+        else
+            -- if either no table was sent, or more than 2; always return true (i.e. disabled)
+            d("return true")
+            return true
+        end
+    end
+    -- return false when ALL settings are ON
+    d("return false")
+    return false
+end
+
+
 local function getValue(savedVarsTable, attributeTbl)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     if (#attributeTbl == 1) then
@@ -126,181 +152,12 @@ end
 -- PARepair
 
 --------------------------------------------------------------------------
--- PARepair   enable
+-- PARepair   autoRepairEnabled
 ---------------------------------
-local function getPARepairEnabled()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
---    return PersonalAssistant.SavedVars.Repair[PersonalAssistant.SavedVars.Profile.activeProfile].enabled
-    return PASV.Repair[PA.activeProfile].enabled
-end
-
 local function setPARepairEnabled(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].enabled = value
+    setValue(PASV.Repair, value, {"autoRepairEnabled"})
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
-end
-
---------------------------------------------------------------------------
--- PARepair   repairEquipped
----------------------------------
-local function getPARepairRepairEquipped()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].repairEquipped
-end
-
-local function setPARepairRepairEquipped(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].repairEquipped = value
-end
-
-local function isDisabledPARepairRepairEquipped()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Repair[PA.activeProfile].enabled
-end
-
---------------------------------------------------------------------------
--- PARepair   repairEquippedThreshold
----------------------------------
-local function getPARepairRepairEquippedThreshold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].repairEquippedThreshold
-end
-
-local function setPARepairRepairEquippedThreshold(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].repairEquippedThreshold = value
-end
-
-local function isDisabledPARepairRepairEquippedThreshold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Repair[PA.activeProfile].enabled and PASV.Repair[PA.activeProfile].repairEquipped)
-end
-
---------------------------------------------------------------------------
--- PARepair   repairEquippedWithKit
----------------------------------
-local function getPARepairRepairEquippedWithKit()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].repairEquippedWithKit
-end
-
-local function setPARepairRepairEquippedWithKit(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].repairEquippedWithKit = value
-end
-
-local function isDisabledPARepairRepairEquippedWithKit()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Repair[PA.activeProfile].enabled
-end
-
---------------------------------------------------------------------------
--- PARepair   repairEquippedWithKitThreshold
----------------------------------
-local function getPARepairRepairEquippedWithKitThreshold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].repairEquippedWithKitThreshold
-end
-
-local function setPARepairRepairEquippedWithKitThreshold(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].repairEquippedWithKitThreshold = value
-end
-
-local function isDisabledPARepairRepairEquippedWithKitThreshold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Repair[PA.activeProfile].enabled and PASV.Repair[PA.activeProfile].repairEquippedWithKit)
-end
-
---------------------------------------------------------------------------
--- PARepair   repairFullChatMode
----------------------------------
-local function getPARepairRepairFullChatMode()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].repairFullChatMode
-end
-
-local function setPARepairRepairFullChatMode(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].repairFullChatMode = value
-end
-
-local function isDisabledPARepairRepairFullChatMode()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Repair[PA.activeProfile].enabled and PASV.Repair[PA.activeProfile].repairEquipped)
-end
-
---------------------------------------------------------------------------
--- PARepair   repairPartialChatMode
----------------------------------
-local function getPARepairRepairPartialChatMode()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].repairPartialChatMode
-end
-
-local function setPARepairRepairPartialChatMode(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].repairPartialChatMode = value
-end
-
-local function isDisabledPARepairRepairPartialChatMode()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Repair[PA.activeProfile].enabled and PASV.Repair[PA.activeProfile].repairEquipped)
-end
-
---------------------------------------------------------------------------
--- PARepair   chargeWeapons
----------------------------------
-local function getPARepairChargeWeapons()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].chargeWeapons
-end
-
-local function setPARepairChargeWeapons(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].chargeWeapons = value
-end
-
-local function isDisabledPARepairChargeWeapons()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not PASV.Repair[PA.activeProfile].enabled
-end
-
---------------------------------------------------------------------------
--- PARepair   chargeWeaponsThreshold
----------------------------------
-local function getPARepairChargeWeaponsThreshold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].chargeWeaponsThreshold
-end
-
-local function setPARepairChargeWeaponsThreshold(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].chargeWeaponsThreshold = value
-end
-
-local function isDisabledPARepairChargeWeaponsThreshold()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Repair[PA.activeProfile].enabled and PASV.Repair[PA.activeProfile].chargeWeapons)
-end
-
---------------------------------------------------------------------------
--- PARepair   chargeWeaponsChatMode
----------------------------------
-local function getPARepairChargeWeaponsChatMode()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Repair[PA.activeProfile].chargeWeaponsChatMode
-end
-
-local function setPARepairChargeWeaponsChatMode(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Repair[PA.activeProfile].chargeWeaponsChatMode = value
-end
-
-local function isDisabledPARepairChargeWeaponsChatMode()
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    return not (PASV.Repair[PA.activeProfile].enabled and PASV.Repair[PA.activeProfile].chargeWeapons)
 end
 
 
@@ -990,44 +847,61 @@ PA.MenuFunctions = {
         setWelcomeMessageSetting = setPAGeneralWelcomeMessage
     },
     PARepair = {
-        isEnabled = getPARepairEnabled,
-        setIsEnabled = setPARepairEnabled,
+        getAutoRepairEnabledSetting = function() return getValue(PASV.Repair, {"autoRepairEnabled"}) end,
+        setAutoRepairEnabledSetting = setPARepairEnabled,
 
-        isRepairEquippedDisabled = isDisabledPARepairRepairEquipped,
-        getRepairEquippedSetting = getPARepairRepairEquipped,
-        setRepairEquippedSetting = setPARepairRepairEquipped,
+        -- -----------------------------------------------------------------------------------
+        -- REPAIR WITH GOLD
+        -- -----------------------------
+        isRepairWithGoldMenuDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
+        isRepairWithGoldDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}) end,
+        getRepairWithGoldSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithGold"}) end,
+        setRepairWithGoldSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithGold"}) end,
 
-        isRepairEquippedThresholdDisabled = isDisabledPARepairRepairEquippedThreshold,
-        getRepairEquippedThresholdSetting = getPARepairRepairEquippedThreshold,
-        setRepairEquippedThresholdSetting = setPARepairRepairEquippedThreshold,
+        isRepairWithGoldDurabilityThresholdDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
+        getRepairWithGoldDurabilityThresholdSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
+        setRepairWithGoldDurabilityThresholdSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
 
-        isRepairEquippedWithKitDisabled = isDisabledPARepairRepairEquippedWithKit,
-        getRepairEquippedWithKitSetting = getPARepairRepairEquippedWithKit,
-        setRepairEquippedWithKitSetting = setPARepairRepairEquippedWithKit,
+        isRepairWithGoldChatModeDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
+        getRepairWithGoldChatModeSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithGoldChatMode"}) end,
+        setRepairWithGoldChatModeSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithGoldChatMode"}) end,
 
-        isRepairEquippedWithKitThresholdDisabled = isDisabledPARepairRepairEquippedWithKitThreshold,
-        getRepairEquippedWithKitThresholdSetting = getPARepairRepairEquippedWithKitThreshold,
-        setRepairEquippedWithKitThresholdSetting = setPARepairRepairEquippedWithKitThreshold,
+        -- -----------------------------------------------------------------------------------
+        -- REPAIR WITH REPAIR KITS
+        -- -----------------------------
+        isRepairWithRepairKitMenuDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+        isRepairWithRepairKitDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}) end,
+        getRepairWithRepairKitSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithRepairKit"}) end,
+        setRepairWithRepairKitSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithRepairKit"}) end,
 
-        isRepairFullChatModeDisabled = isDisabledPARepairRepairFullChatMode,
-        getRepairFullChatModeSetting = getPARepairRepairFullChatMode,
-        setRepairFullChatModeSetting = setPARepairRepairFullChatMode,
+        -- TODO: Use Regular Repair Kits
 
-        isRepairPartialChatModeDisabled = isDisabledPARepairRepairPartialChatMode,
-        getRepairPartialChatModeSetting = getPARepairRepairPartialChatMode,
-        setRepairPartialChatModeSetting = setPARepairRepairPartialChatMode,
+        -- TODO: Threshold
 
-        isChargeWeaponsDisabled = isDisabledPARepairChargeWeapons,
-        getChargeWeaponsSetting = getPARepairChargeWeapons,
-        setChargeWeaponsSetting = setPARepairChargeWeapons,
+        -- TODO: Use Crown Repair Kits
 
-        isChargeWeaponsThresholdDisabled = isDisabledPARepairChargeWeaponsThreshold,
-        getChargeWeaponsThresholdSetting = getPARepairChargeWeaponsThreshold,
-        setChargeWeaponsThresholdSetting = setPARepairChargeWeaponsThreshold,
+        -- TODO: Threshold
 
-        isChargeWeaponsChatModeDisabled = isDisabledPARepairChargeWeaponsChatMode,
-        getChargeWeaponsChatModeSetting = getPARepairChargeWeaponsChatMode,
-        setChargeWeaponsChatModeSetting = setPARepairChargeWeaponsChatMode,
+        -- TODO: Low Repair Kit Warning
+
+        -- TODO: Chat Mode
+
+        -- -----------------------------------------------------------------------------------
+        -- RECHARGE WITH SOUL GEMS
+        -- -----------------------------
+        isRechargeWithSoulGemMenuDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
+        isRechargeWithSoulGemDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}) end,
+        getRechargeWithSoulGemSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "useSoulGems"}) end,
+        setRechargeWithSoulGemSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "useSoulGems"}) end,
+
+        isChargeWeaponsThresholdDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
+        getChargeWeaponsThresholdSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "chargeWeaponsThreshold"}) end,
+        setChargeWeaponsThresholdSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "chargeWeaponsThreshold"}) end,
+
+        -- TODO: Low Soul Gem Warning
+
+        -- TODO: Chat Mode
+
     },
     PABanking = {
         -- -----------------------------------------------------------------------------------

@@ -5,17 +5,11 @@ local PAHF = PA.HelperFunctions
 
 local PAMenuChoices = {
     PARepair = {
-        repairFullChatMode = {
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_NONE)),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_MIN), 115),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_NORMAL), 115),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_FULL_CHATMODE_FULL), GetString(SI_PA_NS_BAG_EQUIPPED), 115),
-        },
-        repairPartialChatMode = {
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_NONE)),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_MIN), 115, 65),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_NORMAL), 115, 65),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_PARTIAL_CHATMODE_FULL), 3, 7, GetString(SI_PA_NS_BAG_EQUIPPED), 115, 65),
+        repairChatMode = {
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_NONE)),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_MIN), 115, 65),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_NORMAL), 115, 65),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_FULL)),
         },
         chargeWeaponsChatMode = {
             PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NONE)),
@@ -87,13 +81,7 @@ local PAMenuChoices = {
 
 local PAMenuChoicesValues = {
     PARepair = {
-        repairFullChatMode = {
-            PA_OUTPUT_TYPE_NONE,
-            PA_OUTPUT_TYPE_MIN,
-            PA_OUTPUT_TYPE_NORMAL,
-            PA_OUTPUT_TYPE_FULL,
-        },
-        repairPartialChatMode = {
+        repairChatMode = {
             PA_OUTPUT_TYPE_NONE,
             PA_OUTPUT_TYPE_MIN,
             PA_OUTPUT_TYPE_NORMAL,

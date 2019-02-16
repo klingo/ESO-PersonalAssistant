@@ -23,6 +23,10 @@ local panelData = {
 
 local optionsTable = setmetatable({}, { __index = table })
 
+local PARGoldSubmenuTable = setmetatable({}, { __index = table })
+local PARRepairKitSubmenuTable = setmetatable({}, { __index = table })
+local PARRechargeSubmenuTable = setmetatable({}, { __index = table })
+
 local PABCurrencyGoldSubmenuTable = setmetatable({}, { __index = table })
 local PABCurrencyAlliancePointsSubmenuTable = setmetatable({}, { __index = table })
 local PABCurrencyTelVarSubmenuTable = setmetatable({}, { __index = table })
@@ -106,132 +110,154 @@ local function createPARepairMenu()
     optionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_ENABLE),
-        tooltip = GetString(SI_PA_MENU_REPAIR_ENABLE_T),
-        getFunc = PAMenuFunctions.PARepair.isEnabled,
-        setFunc = PAMenuFunctions.PARepair.setIsEnabled,
+        getFunc = PAMenuFunctions.PARepair.getAutoRepairEnabledSetting,
+        setFunc = PAMenuFunctions.PARepair.setAutoRepairEnabledSetting,
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PAMenuDefaults.PARepair.enabled,
+        default = PAMenuDefaults.PARepair.autoRepairEnabled,
     })
 
     optionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN),
-        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_T),
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getRepairEquippedSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairEquippedSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairEquippedDisabled,
-        default = PAMenuDefaults.PARepair.repairEquipped,
+        type = "submenu",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
+        controls = PARGoldSubmenuTable,
+        disabled = PAMenuFunctions.PARepair.isRepairWithGoldMenuDisabled,
     })
 
     optionsTable:insert({
-        type = "slider",
-        name = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY),
-        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY_T),
-        min = 0,
-        max = 99,
-        step = 1,
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getRepairEquippedThresholdSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairEquippedThresholdSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairEquippedThresholdDisabled,
-        default = PAMenuDefaults.PARepair.repairEquippedThreshold,
+        type = "submenu",
+        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER),
+        controls = PARRepairKitSubmenuTable,
+        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitMenuDisabled,
     })
 
     optionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN),
-        tooltip = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_T),
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getRepairEquippedWithKitSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairEquippedWithKitSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairEquippedWithKitDisabled,
-        default = PAMenuDefaults.PARepair.repairEquippedWithKit,
+        type = "submenu",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_HEADER),
+        controls = PARRechargeSubmenuTable,
+        disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemMenuDisabled,
     })
 
-    optionsTable:insert({
-        type = "slider",
-        name = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY),
-        tooltip = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY_T),
-        min = 0,
-        max = 99,
-        step = 1,
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getRepairEquippedWithKitThresholdSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairEquippedWithKitThresholdSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairEquippedWithKitThresholdDisabled,
-        default = PAMenuDefaults.PARepair.repairEquippedWithKitThreshold,
-    })
+    -- TODO: clean up below settings (will be replaced!)
 
-    optionsTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL),
-        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL_T),
-        choices = PAMenuChoices.choices.PARepair.repairFullChatMode,
-        choicesValues = PAMenuChoices.choicesValues.PARepair.repairFullChatMode,
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getRepairFullChatModeSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairFullChatModeSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairFullChatModeDisabled,
-        default = PAMenuDefaults.PARepair.repairFullChatMode,
-    })
-
-    optionsTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL),
-        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL_T),
-        choices = PAMenuChoices.choices.PARepair.repairPartialChatMode,
-        choicesValues = PAMenuChoices.choicesValues.PARepair.repairPartialChatMode,
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getRepairPartialChatModeSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairPartialChatModeSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairPartialChatModeDisabled,
-        default = PAMenuDefaults.PARepair.repairPartialChatMode,
-    })
-
-    optionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
-
-    optionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS),
-        tooltip = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS_T),
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsSetting,
-        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsSetting,
-        disabled = PAMenuFunctions.PARepair.isChargeWeaponsDisabled,
-        default = PAMenuDefaults.PARepair.chargeWeapons,
-    })
-
-    optionsTable:insert({
-        type = "slider",
-        name = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY),
-        tooltip = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY_T),
-        min = 0,
-        max = 99,
-        step = 1,
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsThresholdSetting,
-        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsThresholdSetting,
-        disabled = PAMenuFunctions.PARepair.isChargeWeaponsThresholdDisabled,
-        default = PAMenuDefaults.PARepair.chargeWeaponsThreshold,
-    })
-
-    -- chargin output-mode
-    optionsTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_REPAIR_CHARGE_CHATMODE),
-        tooltip = GetString(SI_PA_MENU_REPAIR_CHARGE_CHATMODE_T),
-        choices = PAMenuChoices.choices.PARepair.chargeWeaponsChatMode,
-        choicesValues = PAMenuChoices.choicesValues.PARepair.chargeWeaponsChatMode,
-        width = "half",
-        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsChatModeSetting,
-        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsChatModeSetting,
-        disabled = PAMenuFunctions.PARepair.isChargeWeaponsChatModeDisabled,
-        default = PAMenuDefaults.PARepair.chargeWeaponsChatMode,
-    })
+--    optionsTable:insert({
+--        type = "checkbox",
+--        name = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_T),
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairEquippedSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairEquippedSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairEquippedDisabled,
+--        default = PAMenuDefaults.PARepair.repairEquipped,
+--    })
+--
+--    optionsTable:insert({
+--        type = "slider",
+--        name = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY_T),
+--        min = 0,
+--        max = 99,
+--        step = 1,
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairEquippedThresholdSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairEquippedThresholdSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairEquippedThresholdDisabled,
+--        default = PAMenuDefaults.PARepair.repairEquippedThreshold,
+--    })
+--
+--    optionsTable:insert({
+--        type = "checkbox",
+--        name = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_T),
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairEquippedWithKitSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairEquippedWithKitSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairEquippedWithKitDisabled,
+--        default = PAMenuDefaults.PARepair.repairEquippedWithKit,
+--    })
+--
+--    optionsTable:insert({
+--        type = "slider",
+--        name = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY_T),
+--        min = 0,
+--        max = 99,
+--        step = 1,
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairEquippedWithKitThresholdSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairEquippedWithKitThresholdSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairEquippedWithKitThresholdDisabled,
+--        default = PAMenuDefaults.PARepair.repairEquippedWithKitThreshold,
+--    })
+--
+--    optionsTable:insert({
+--        type = "dropdown",
+--        name = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL_T),
+--        choices = PAMenuChoices.choices.PARepair.repairFullChatMode,
+--        choicesValues = PAMenuChoices.choicesValues.PARepair.repairFullChatMode,
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairFullChatModeSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairFullChatModeSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairFullChatModeDisabled,
+--        default = PAMenuDefaults.PARepair.repairFullChatMode,
+--    })
+--
+--    optionsTable:insert({
+--        type = "dropdown",
+--        name = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL_T),
+--        choices = PAMenuChoices.choices.PARepair.repairPartialChatMode,
+--        choicesValues = PAMenuChoices.choicesValues.PARepair.repairPartialChatMode,
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairPartialChatModeSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairPartialChatModeSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairPartialChatModeDisabled,
+--        default = PAMenuDefaults.PARepair.repairPartialChatMode,
+--    })
+--
+--    optionsTable:insert({
+--        type = "divider",
+--        alpha = 0.5,
+--    })
+--
+--    optionsTable:insert({
+--        type = "checkbox",
+--        name = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS_T),
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsSetting,
+--        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsSetting,
+--        disabled = PAMenuFunctions.PARepair.isChargeWeaponsDisabled,
+--        default = PAMenuDefaults.PARepair.chargeWeapons,
+--    })
+--
+--    optionsTable:insert({
+--        type = "slider",
+--        name = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY_T),
+--        min = 0,
+--        max = 99,
+--        step = 1,
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsThresholdSetting,
+--        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsThresholdSetting,
+--        disabled = PAMenuFunctions.PARepair.isChargeWeaponsThresholdDisabled,
+--        default = PAMenuDefaults.PARepair.chargeWeaponsThreshold,
+--    })
+--
+--    -- chargin output-mode
+--    optionsTable:insert({
+--        type = "dropdown",
+--        name = GetString(SI_PA_MENU_REPAIR_CHARGE_CHATMODE),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_CHARGE_CHATMODE_T),
+--        choices = PAMenuChoices.choices.PARepair.chargeWeaponsChatMode,
+--        choicesValues = PAMenuChoices.choicesValues.PARepair.chargeWeaponsChatMode,
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsChatModeSetting,
+--        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsChatModeSetting,
+--        disabled = PAMenuFunctions.PARepair.isChargeWeaponsChatModeDisabled,
+--        default = PAMenuDefaults.PARepair.chargeWeaponsChatMode,
+--    })
 
     -- soul gem alert
 
@@ -757,6 +783,108 @@ local function createPAMailMenu()
         default = PAMenuDefaults.PAMail.hirelingDeleteEmptyMails,
     })
 end
+
+-- =================================================================================================================
+
+local function createPARGoldSubmenuTable()
+    PARGoldSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_ENABLE),
+        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T),
+        getFunc = PAMenuFunctions.PARepair.getRepairWithGoldSetting,
+        setFunc = PAMenuFunctions.PARepair.setRepairWithGoldSetting,
+        disabled = PAMenuFunctions.PARepair.isRepairWithGoldDisabled,
+        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithGold,
+    })
+
+    PARGoldSubmenuTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_DURABILITY),
+        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T),
+        min = 0,
+        max = 99,
+        step = 1,
+--        width = "half",
+        getFunc = PAMenuFunctions.PARepair.getRepairWithGoldDurabilityThresholdSetting,
+        setFunc = PAMenuFunctions.PARepair.setRepairWithGoldDurabilityThresholdSetting,
+        disabled = PAMenuFunctions.PARepair.isRepairWithGoldDurabilityThresholdDisabled,
+        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithGoldDurabilityThreshold,
+    })
+
+    PARGoldSubmenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_REPAIR_CHATMODE_FULL),
+        tooltip = GetString(SI_PA_MENU_REPAIR_CHATMODE_FULL_T),
+        choices = PAMenuChoices.choices.PARepair.repairChatMode,
+        choicesValues = PAMenuChoices.choicesValues.PARepair.repairChatMode,
+--            width = "half",
+        getFunc = PAMenuFunctions.PARepair.getRepairWithGoldChatModeSetting,
+        setFunc = PAMenuFunctions.PARepair.setRepairWithGoldChatModeSetting,
+        disabled = PAMenuFunctions.PARepair.isRepairWithGoldChatModeDisabled,
+        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithGoldChatMode,
+    })
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPARRepairKitSubmenuTable()
+    PARRepairKitSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T),
+        getFunc = PAMenuFunctions.PARepair.getRepairWithRepairKitSetting,
+        setFunc = PAMenuFunctions.PARepair.setRepairWithRepairKitSetting,
+        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitDisabled,
+        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithRepairKit,
+    })
+
+
+    -- TODO: Use Regular Repair Kits
+
+    -- TODO: Threshold
+
+    -- TODO: Use Crown Repair Kits
+
+    -- TODO: Threshold
+
+    -- TODO: Low Repair Kit Warning
+
+    -- TODO: Chat Mode
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPARRechargeSubmenuTable()
+    PARRechargeSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE),
+        tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T),
+        getFunc = PAMenuFunctions.PARepair.getRechargeWithSoulGemSetting,
+        setFunc = PAMenuFunctions.PARepair.setRechargeWithSoulGemSetting,
+        disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemDisabled,
+        default = PAMenuDefaults.PARepair.RechargeWeapons.useSoulGems,
+    })
+
+    PARRechargeSubmenuTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_DURABILITY),
+        tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_DURABILITY_T),
+        min = 0,
+        max = 99,
+        step = 1,
+--        width = "half",
+        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsThresholdSetting,
+        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsThresholdSetting,
+        disabled = PAMenuFunctions.PARepair.isChargeWeaponsThresholdDisabled,
+        default = PAMenuDefaults.PARepair.RechargeWeapons.chargeWeaponsThreshold,
+    })
+
+    -- TODO: Low Soul Gem Warning
+
+    -- TODO: Chat Mode
+end
+
 
 -- =================================================================================================================
 
@@ -1748,6 +1876,14 @@ end
 -- =================================================================================================================
 
 local function createOptions()
+    -- create submenu for PARepair
+    if PA.Repair then
+        createPARGoldSubmenuTable()
+        createPARRepairKitSubmenuTable()
+        createPARRechargeSubmenuTable()
+    end
+
+
     -- create submenu for PABanking
     if (PA.Banking) then
         createPABCurrencyGoldSubmenuTable()
@@ -1780,22 +1916,22 @@ local function createOptions()
     end
 
     -- create submenu for PALoot
-    if (PA.Loot) then
+    if PA.Loot then
         createPALHarvestableItemSubMenu()
         createPALLootableItemSubMenu()
     end
 
     -- create submenu for PAJunk
-    if (PA.Junk) then
+    if PA.Junk then
         createPAJAutoMarkAsJunkSubMenu()
     end
 
     createPAGeneralMenu()
-    if (PA.Repair) then createPARepairMenu() end
-    if (PA.Banking) then createPABankingMenu() end
-    if (PA.Loot) then createPALootMenu() end
-    if (PA.Junk) then createPAJunkMenu() end
-    if (PA.Mail) then createPAMailMenu() end
+    if PA.Repair then createPARepairMenu() end
+    if PA.Banking then createPABankingMenu() end
+    if PA.Loot then createPALootMenu() end
+    if PA.Junk then createPAJunkMenu() end
+    if PA.Mail then createPAMailMenu() end
 
     -- and register it
     LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)

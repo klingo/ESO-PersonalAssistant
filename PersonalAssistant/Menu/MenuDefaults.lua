@@ -11,16 +11,34 @@ PA.MenuDefaults = {
         welcomeMessage = true,
     },
     PARepair = {
-        enabled = true,
-        repairEquipped = true,
-        repairEquippedThreshold = 75,
-        repairEquippedWithKit = false,
-        repairEquippedWithKitThreshold = 50,
-        repairFullChatMode = PA_OUTPUT_TYPE_NORMAL,
-        repairPartialChatMode = PA_OUTPUT_TYPE_NORMAL,
-        chargeWeapons = false,
-        chargeWeaponsThreshold = 10,
-        chargeWeaponsChatMode = PA_OUTPUT_TYPE_NORMAL,
+        autoRepairEnabled = true,
+
+        -- ---------------------------------------------
+
+        RepairEquipped = {
+            repairWithGold = true,
+            repairWithGoldDurabilityThreshold = 75,
+            repairWithGoldChatMode = PA_OUTPUT_TYPE_NORMAL,
+
+            repairWithRepairKit = false,
+            repairWithRepairKitThreshold = 75,
+            repairWithRepairKitChatMode = PA_OUTPUT_TYPE_NORMAL,
+
+            repairWithCrownRepairKit = false,
+            repairWithCrownRepairKitThreshold = 50,
+            repairWithCrownRepairKitChatMode = PA_OUTPUT_TYPE_NORMAL,
+
+            lowRepairKitWarning = true,
+        },
+
+        -- ---------------------------------------------
+
+        RechargeWeapons = {
+            useSoulGems = false,
+            chargeWeaponsThreshold = 10,
+            chargeWeaponsChatMode = PA_OUTPUT_TYPE_NORMAL,
+            lowSoulGemWarning = true,
+        },
     },
     PABanking = {
         Currencies = {
