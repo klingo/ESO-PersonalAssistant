@@ -95,7 +95,7 @@ local function RepairItems(bagId, threshold)
                             -- sum up the total repair costs
                             repairCost = repairCost + itemRepairCost;
                             repairedItemCount = repairedItemCount + stackSize
-                            RepairItem(bagId, index)
+                            RepairItem(bagId, slotIndex)
                             -- currentMoney has to be manually calculated, as the "GetCurrentMoney()"
                             -- does not yet reflect the just made repairs
                             currentMoney = currentMoney - itemRepairCost
