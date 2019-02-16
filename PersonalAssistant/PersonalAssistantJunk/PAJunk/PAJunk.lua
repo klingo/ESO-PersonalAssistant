@@ -15,10 +15,10 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         -- at lesat one item was sold (although it might have been worthless)
         if (moneyDiff > 0) then
             -- some valuable junk was sold
-            PAHF.println("SI_PA_JUNK_SOLD_JUNK_INFO", moneyDiff)
+            PAHF.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
         else
             -- only worthless junk was sold
-            PAHF.println("SI_PA_JUNK_SOLD_JUNK_INFO", moneyDiff)
+            PAHF.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
         end
     else
         -- no item was sold
@@ -104,7 +104,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if PASV.Junk[PA.activeProfile].autoMarkTrash then
                         local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
                         if (markedAsJunk) then
-                            PAHF.println("SI_PA_JUNK_MARKED_AS_JUNK_TRASH", itemLink)
+                            PAHF.println(SI_PA_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                         end
                     end
 
@@ -112,7 +112,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if PASV.Junk[PA.activeProfile].autoMarkOrnate then
                         local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
                         if (markedAsJunk) then
-                            PAHF.println("SI_PA_JUNK_MARKED_AS_JUNK_ORNATE", itemLink)
+                            PAHF.println(SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
                         end
                     end
                 end

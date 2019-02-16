@@ -63,9 +63,9 @@ local function RepairItems(bagId, threshold)
             local missingGold = notRepairedItemsCost - currentMoney
             -- show output to chat (depending on setting)
             local repairPartialChatMode = PARepairSavedVars.repairPartialChatMode
-            if (repairPartialChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(GetString(PartialRepair_ChatMode_Full), repairedItemCount, (repairedItemCount + notRepairedItemCount), bagName, repairCost, missingGold)
-            elseif (repairPartialChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(GetString(PartialRepair_ChatMode_Normal), repairCost, missingGold)
-            elseif (repairPartialChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(GetString(PartialRepair_ChatMode_Min), repairCost, missingGold)
+            if (repairPartialChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(SI_PA_REPAIR_PARTIAL_CHATMODE_FULL, repairedItemCount, (repairedItemCount + notRepairedItemCount), bagName, repairCost, missingGold)
+            elseif (repairPartialChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(SI_PA_REPAIR_PARTIAL_CHATMODE_NORMAL, repairCost, missingGold)
+            elseif (repairPartialChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(SI_PA_REPAIR_PARTIAL_CHATMODE_MIN, repairCost, missingGold)
             end -- PA_OUTPUT_TYPE_NONE => no chat output
 
         else
@@ -73,9 +73,9 @@ local function RepairItems(bagId, threshold)
             if repairedItemCount > 0 then
                 -- show output to chat (depending on setting)
                 local repairFullChatMode = PARepairSavedVars.repairFullChatMode
-                if (repairFullChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(GetString(FullRepair_ChatMode_Full), bagName, repairCost)
-                elseif (repairFullChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(GetString(FullRepair_ChatMode_Normal), repairCost)
-                elseif (repairFullChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(GetString(FullRepair_ChatMode_Min), repairCost)
+                if (repairFullChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(SI_PA_REPAIR_FULL_CHATMODE_FULL, bagName, repairCost)
+                elseif (repairFullChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(SI_PA_REPAIR_FULL_CHATMODE_NORMAL, repairCost)
+                elseif (repairFullChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(SI_PA_REPAIR_FULL_CHATMODE_MIN, repairCost)
                 end -- PA_OUTPUT_TYPE_NONE => no chat output
             else
                 -- Nothing to Repair

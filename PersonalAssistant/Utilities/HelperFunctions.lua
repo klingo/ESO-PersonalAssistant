@@ -91,6 +91,12 @@ local function getFormattedText(text, ...)
     return unpackedString
 end
 
+
+local function getFormattedKey(key, ...)
+    local text = GetString(key)
+    return getFormattedText(text, ...)
+end
+
 -- currently supports one text and n arguments
 local function println(text, ...)
     local textKey = GetString(text)
@@ -168,6 +174,7 @@ PA.HelperFunctions = {
     getFormattedItemLink = getFormattedItemLink,
     hasActiveProfile = hasActiveProfile,
     getFormattedText = getFormattedText,
+    getFormattedKey = getFormattedKey,
     println = println,
     debugln = debugln,
     getProfileTextFromNumber = getProfileTextFromNumber,
