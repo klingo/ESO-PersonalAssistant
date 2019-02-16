@@ -326,7 +326,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_HEADER_T),
             controls = PABCraftingBlacksmithingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
         })
@@ -334,7 +333,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_HEADER_T),
             controls = PABCraftingClothingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
         })
@@ -342,7 +340,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_HEADER_T),
             controls = PABCraftingWoodworkingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
         })
@@ -350,7 +347,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_HEADER_T),
             controls = PABCraftingJewelcraftingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
         })
@@ -358,7 +354,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_HEADER_T),
             controls = PABCraftingAlchemySubmenuTable,
             disabled = PAMenuFunctions.PABanking.isAlchemyTransactionMenuDisabled,
         })
@@ -366,7 +361,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_HEADER_T),
             controls = PABCraftingEnchantingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isEnchantingTransactionMenuDisabled,
         })
@@ -374,7 +368,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_HEADER_T),
             controls = PABCraftingProvisioningSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
         })
@@ -382,7 +375,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_HEADER_T),
             controls = PABCraftingStyleMaterialsSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionMenuDisabled,
         })
@@ -390,7 +382,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_HEADER_T),
             controls = PABCraftingTraitItemsSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionMenuDisabled,
         })
@@ -398,7 +389,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_HEADER_T),
             controls = PABCraftingFurnishingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
         })
@@ -444,7 +434,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER_T),
         controls = PABAdvancedMotifSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isMotifTransactionMenuDisabled,
     })
@@ -452,7 +441,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER_T),
         controls = PABAdvancedRecipeSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isRecipeTransactionMenuDisabled,
     })
@@ -460,7 +448,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER_T),
         controls = PABAdvancedGlyphsSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isGlyphsTransactionMenuDisabled,
     })
@@ -468,7 +455,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER_T),
         controls = PABAdvancedLiquidsSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isLiquidsTransactionMenuDisabled,
     })
@@ -476,7 +462,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER_T),
         controls = PABAdvancedTrophiesSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isTrophiesTransactionMenuDisabled,
     })
@@ -521,7 +506,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER_T),
         controls = PABIndividualLockpickSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
     })
@@ -529,7 +513,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER_T),
         controls = PABIndividualSoulGemSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
     })
@@ -537,7 +520,6 @@ local function createPABankingMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER_T),
         controls = PABIndividualRepairKitSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isRepairKitTransactionMenuDisabled,
     })
@@ -547,7 +529,6 @@ local function createPABankingMenu()
         optionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER),
-            -- tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER_T),
             controls = PABIndividualGenericSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isGenericTransactionMenuDisabled,
         })
@@ -735,7 +716,6 @@ local function createPAJunkMenu()
     optionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_HEADER),
-        -- tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_HEADER_T),
         controls = PAJAutoMarkAsJunkSubMenu,
         disabled = PAMenuFunctions.PAJunk.isAutoMarkAsJunkMenuDisabled,
     })
