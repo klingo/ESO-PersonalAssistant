@@ -52,7 +52,7 @@ PersonalAssistant.Constants = {
             },
             [CURT_WRIT_VOUCHERS] = {
                 SMALL = "|160:16:/esoui/art/currency/currency_writvoucher.dds|t",
-                NORMAL = "|t32:32:/esoui/art/currency/currency_writvoucher_64.dds|t" -- currentnly no 32x32 version available
+                NORMAL = "|t32:32:/esoui/art/currency/currency_writvoucher_64.dds|t" -- currently no 32x32 version available
             }
         },
         CRAFTBAG = {
