@@ -40,7 +40,7 @@ local function _markAsJunkIfPossible(bagId, slotIndex)
         -- TODO: integrate FCOItemSaver
 
         local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
-        d("playerLocked="..tostring(playerLocked))
+--        d("playerLocked="..tostring(playerLocked))
 
 --        Search on ESOUI Source Code CanItemBePlayerLocked(number Bag bagId, number slotIndex)
 --        Returns: boolean canBePlayerLocked

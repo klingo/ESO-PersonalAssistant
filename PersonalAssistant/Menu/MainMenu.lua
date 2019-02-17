@@ -880,9 +880,6 @@ local function createPARRechargeSubmenuTable()
         default = PAMenuDefaults.PARepair.RechargeWeapons.chargeWeaponsThreshold,
     })
 
-    -- TODO: Low Soul Gem Warning
-
-    -- TODO: Chat Mode
     PARRechargeSubmenuTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE),
@@ -894,6 +891,16 @@ local function createPARRechargeSubmenuTable()
         setFunc = PAMenuFunctions.PARepair.setChargeWeaponsChatModeSetting,
         disabled = PAMenuFunctions.PARepair.isChargeWeaponsChatModeDisabled,
         default = PAMenuDefaults.PARepair.RechargeWeapons.chargeWeaponsChatMode,
+    })
+
+    PARRechargeSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING),
+        tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T),
+        getFunc = PAMenuFunctions.PARepair.getLowSoulGemWarningSetting,
+        setFunc = PAMenuFunctions.PARepair.setLowSoulGemWarningSetting,
+        disabled = PAMenuFunctions.PARepair.isLowSoulGemWarningDisabled,
+        default = PAMenuDefaults.PARepair.RechargeWeapons.lowSoulGemWarning,
     })
 end
 

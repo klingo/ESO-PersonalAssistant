@@ -208,7 +208,7 @@ How to read:
 * [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
 * [ ] **(4)** PAJunk: Inventory Size Warning
 * [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
-* [ ] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below
+* [ ] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
 * [ ] **(5)** PAJunk: Add option to select type of notifications
 
 

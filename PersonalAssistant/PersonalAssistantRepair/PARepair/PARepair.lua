@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAR = PA.Repair
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
@@ -162,8 +163,7 @@ local function EventPlayerCombateState(_, inCombat)
 
                     -- Check and repair equipped items with repair kits
                     if PARepairSavedVars.RepairEquipped.repairWithRepairKit then
-                        -- TODO: for testing purposes disabled
---                        PAR.RepairEquippedItemsWithKit()
+                        PAR.RepairEquippedItemsWithKit()
                     end
 
                     -- Check and re-charged equipped weapons

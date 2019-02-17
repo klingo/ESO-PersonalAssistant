@@ -39,6 +39,9 @@ local PAStrings = {
     SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
     SI_PA_REPAIR_CHARGE_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAR, "Charged %s %s from %d%% to %d%%  with %s %s"}),
 
+    SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have %d ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), " left"}),
+    SI_PA_REPAIR_CHARGE_NO_GEM_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
     SI_PA_BANKING_WITHDRAWAL_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn."}),
@@ -138,6 +141,8 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
 
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), ". If you have none left, it will only warn max once every 10 minutes"}),
 
     SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN = "Repair equipped items",
     SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_T = "Repair equipped items at a merchant?",

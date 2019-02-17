@@ -6,6 +6,10 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local _lastNoSoulGemWarningGameTime = 0
+
+-- --------------------------------------------------------------------------------------------------------------------
+
 local function _getSoulGemsIn(bagId)
     local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId) -- TODO: updateto use soul-gem filtertpye
     local gemTable = setmetatable({}, { __index = table })
@@ -44,8 +48,6 @@ local function ReChargeWeapons()
     -- Check and re-charged equipped weapons
     if PARepairSavedVars.RechargeWeapons.useSoulGems then
 
-        PAHF.debugln("Check for Weapon Recharge")
-
         local chargeThreshold = PARepairSavedVars.RechargeWeapons.chargeWeaponsThreshold
         local weaponsToCharge = setmetatable({}, { __index = table })
 
@@ -82,8 +84,6 @@ local function ReChargeWeapons()
                     PAHF.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(BAG_WORN, weapon.weaponSlot), gemTable[#gemTable].itemName, chargeableAmount, weapon.charges, weapon.maxCharges)
 
                     -- actually charge the item
-                    d(GetItemName(gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex))
-                    d(GetItemName(BAG_WORN, weapon.weaponSlot))
                     ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex)
                     totalGemCount = totalGemCount - 1
 
@@ -94,13 +94,19 @@ local function ReChargeWeapons()
                     elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
                     end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
 
-                    if (totalGemCount < 10) then
-                        -- TODO: low gem count warning
-                        -- TODO: replace '10' with savedVars setting
+                    if (totalGemCount <= 5 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning) then
+                        PAHF.println(SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT, totalGemCount)
                     end
-                else
-                    -- TODO: message about no more gems available
-                    -- TODO: warn only every X minutes
+
+                elseif PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
+                    local gameTimeMilliseconds = GetGameTimeMilliseconds()
+                    local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoSoulGemWarningGameTime
+                    local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
+
+                    if (gameTimeMinutesPassed >= 10) then
+                        _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
+                        PAHF.println(SI_PA_REPAIR_CHARGE_NO_GEM_COUNT)
+                    end
                 end
             end
         end

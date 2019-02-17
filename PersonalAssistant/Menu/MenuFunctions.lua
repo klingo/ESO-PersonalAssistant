@@ -898,11 +898,13 @@ PA.MenuFunctions = {
         getChargeWeaponsThresholdSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "chargeWeaponsThreshold"}) end,
         setChargeWeaponsThresholdSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "chargeWeaponsThreshold"}) end,
 
-        -- TODO: Low Soul Gem Warning
-
         isChargeWeaponsChatModeDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
         getChargeWeaponsChatModeSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,
         setChargeWeaponsChatModeSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,
+
+        isLowSoulGemWarningDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
+        getLowSoulGemWarningSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "lowSoulGemWarning"}) end,
+        setLowSoulGemWarningSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "lowSoulGemWarning"}) end,
 
     },
     PABanking = {
