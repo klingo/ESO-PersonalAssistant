@@ -48,10 +48,10 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
     if (itemDestroyed) then
         PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
         local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-        if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX, amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL, amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN, amountToDestroy, iconString)
-        end -- PA_OUTPUT_TYPE_NONE => no chat output
+        if (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX, amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL, amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN, amountToDestroy, iconString)
+        end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
     end
 end
 
@@ -68,10 +68,10 @@ local function LootGold()
         LootMoney()
         -- show output to chat (depending on setting)
         local lootGoldChatMode = PA.savedVars.Loot[PA.activeProfile].lootGoldChatMode
-        if (lootGoldChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(SI_PA_LOOT_GOLD_CHATMODE_MAX, unownedMoney)
-        elseif (lootGoldChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(SI_PA_LOOT_GOLD_CHATMODE_NORMAL, unownedMoney)
-        elseif (lootGoldChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(SI_PA_LOOT_GOLD_CHATMODE_MIN, unownedMoney)
-        end -- PA_OUTPUT_TYPE_NONE => no chat output
+        if (lootGoldChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAHF.println(SI_PA_LOOT_GOLD_CHATMODE_MAX, unownedMoney)
+        elseif (lootGoldChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAHF.println(SI_PA_LOOT_GOLD_CHATMODE_NORMAL, unownedMoney)
+        elseif (lootGoldChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(SI_PA_LOOT_GOLD_CHATMODE_MIN, unownedMoney)
+        end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
     end
 end
 
@@ -238,10 +238,10 @@ local function OnLootUpdated()
 
                             -- show output to chat (depending on setting)
                             local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-                            if (lootItemsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(SI_PA_LOOT_ITEMS_CHATMODE_MAX, itemCount, itemLink, iconString, suffixDesc)
-                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(SI_PA_LOOT_ITEMS_CHATMODE_NORMAL, itemCount, itemLink, iconString, suffixDesc)
-                            elseif (lootItemsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(SI_PA_LOOT_ITEMS_CHATMODE_MIN, itemCount, iconString, suffixDesc)
-                            end -- PA_OUTPUT_TYPE_NONE => no chat output
+                            if (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAHF.println(SI_PA_LOOT_ITEMS_CHATMODE_MAX, itemCount, itemLink, iconString, suffixDesc)
+                            elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAHF.println(SI_PA_LOOT_ITEMS_CHATMODE_NORMAL, itemCount, itemLink, iconString, suffixDesc)
+                            elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(SI_PA_LOOT_ITEMS_CHATMODE_MIN, itemCount, iconString, suffixDesc)
+                            end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
                         end
                     end
                 end

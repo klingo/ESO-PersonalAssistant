@@ -18,15 +18,15 @@ PA.MenuDefaults = {
         RepairEquipped = {
             repairWithGold = true,
             repairWithGoldDurabilityThreshold = 75,
-            repairWithGoldChatMode = PA_OUTPUT_TYPE_NORMAL,
+            repairWithGoldChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
 
             repairWithRepairKit = false,
             repairWithRepairKitThreshold = 75,
-            repairWithRepairKitChatMode = PA_OUTPUT_TYPE_NORMAL,
+            repairWithRepairKitChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
 
             repairWithCrownRepairKit = false,
             repairWithCrownRepairKitThreshold = 50,
-            repairWithCrownRepairKitChatMode = PA_OUTPUT_TYPE_NORMAL,
+            repairWithCrownRepairKitChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
 
             lowRepairKitWarning = true,
         },
@@ -36,7 +36,7 @@ PA.MenuDefaults = {
         RechargeWeapons = {
             useSoulGems = false,
             chargeWeaponsThreshold = 10,
-            chargeWeaponsChatMode = PA_OUTPUT_TYPE_NORMAL,
+            chargeWeaponsChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
             lowSoulGemWarning = true,
         },
     },
@@ -189,9 +189,9 @@ PA.MenuDefaults = {
     PALoot = {
         enabled = false,
         lootGold = true,
-        lootGoldChatMode = PA_OUTPUT_TYPE_NORMAL,
+        lootGoldChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
         lootItems = true,
-        lootItemsChatMode = PA_OUTPUT_TYPE_FULL,
+        lootItemsChatMode = PAC.CHATMODE.OUTPUT_MAX,
         lootStolenItems = false,
         HarvestableItemTypes = {},
         LootableItemTypes = {},

@@ -119,11 +119,11 @@ local function RepairItems(bagId, threshold)
         local missingGold = notRepairedItemsCost - currentMoney
 
         -- based on the settings, handle the chat output
-        if repairChatMode == PA_OUTPUT_TYPE_FULL then
+        if repairChatMode == PAC.CHATMODE.OUTPUT_MAX then
             _handleFullReport(threshold, repairedItemCount, notRepairedItemCount, repairCost, missingGold)
-        elseif repairChatMode == PA_OUTPUT_TYPE_NORMAL then
+        elseif repairChatMode == PAC.CHATMODE.OUTPUT_NORMAL then
             _handleNormalReport(repairedItemCount, notRepairedItemCount, repairCost, missingGold)
-        elseif repairChatMode == PA_OUTPUT_TYPE_MIN then
+        elseif repairChatMode == PAC.CHATMODE.OUTPUT_MIN then
             _handleMinimalReport(repairedItemCount, notRepairedItemCount, repairCost, missingGold)
         end
     end

@@ -89,10 +89,10 @@ local function ReChargeWeapons()
 
                     -- show output to chat (depending on setting)
                     local chargeWeaponsChatMode = PARepairSavedVars.RechargeWeapons.chargeWeaponsChatMode
-                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MAX), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
-                    end -- PA_OUTPUT_TYPE_NONE => no chat output
+                    if (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MAX), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
+                    end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
 
                     if (totalGemCount < 10) then
                         -- TODO: low gem count warning

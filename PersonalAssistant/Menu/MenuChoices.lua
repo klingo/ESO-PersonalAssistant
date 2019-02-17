@@ -82,16 +82,16 @@ local PAMenuChoices = {
 local PAMenuChoicesValues = {
     PARepair = {
         repairChatMode = {
-            PA_OUTPUT_TYPE_NONE,
-            PA_OUTPUT_TYPE_MIN,
-            PA_OUTPUT_TYPE_NORMAL,
-            PA_OUTPUT_TYPE_FULL,
+            PAC.CHATMODE.OUTPUT_NONE,
+            PAC.CHATMODE.OUTPUT_MIN,
+            PAC.CHATMODE.OUTPUT_NORMAL,
+            PAC.CHATMODE.OUTPUT_MAX,
         },
         chargeWeaponsChatMode = {
-            PA_OUTPUT_TYPE_NONE,
-            PA_OUTPUT_TYPE_MIN,
-            PA_OUTPUT_TYPE_NORMAL,
-            PA_OUTPUT_TYPE_FULL,
+            PAC.CHATMODE.OUTPUT_NONE,
+            PAC.CHATMODE.OUTPUT_MIN,
+            PAC.CHATMODE.OUTPUT_NORMAL,
+            PAC.CHATMODE.OUTPUT_MAX,
         }
     },
     PABanking = {
@@ -122,16 +122,16 @@ local PAMenuChoicesValues = {
     },
     PALoot = {
         lootGoldChatMode = {
-            PA_OUTPUT_TYPE_NONE,
-            PA_OUTPUT_TYPE_MIN,
-            PA_OUTPUT_TYPE_NORMAL,
-            PA_OUTPUT_TYPE_FULL,
+            PAC.CHATMODE.OUTPUT_NONE,
+            PAC.CHATMODE.OUTPUT_MIN,
+            PAC.CHATMODE.OUTPUT_NORMAL,
+            PAC.CHATMODE.OUTPUT_MAX,
         },
         lootItemsChatMode = {
-            PA_OUTPUT_TYPE_NONE,
-            PA_OUTPUT_TYPE_MIN,
-            PA_OUTPUT_TYPE_NORMAL,
-            PA_OUTPUT_TYPE_FULL,
+            PAC.CHATMODE.OUTPUT_NONE,
+            PAC.CHATMODE.OUTPUT_MIN,
+            PAC.CHATMODE.OUTPUT_NORMAL,
+            PAC.CHATMODE.OUTPUT_MAX,
         },
         itemTypesLootMode = {
             PAC_ITEMTYPE_IGNORE,

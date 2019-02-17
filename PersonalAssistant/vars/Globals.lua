@@ -260,23 +260,21 @@ PersonalAssistant.Constants = {
         LESSTHANOREQUAL = 3,
 --        GREATERTHAN = 4,
         GREATERTHANOREQUAL = 5
-    }
+    },
+
+    CHATMODE = {
+        OUTPUT_NONE = 0,
+        OUTPUT_MIN = 1,
+        OUTPUT_NORMAL = 2,
+        OUTPUT_MAX = 3,
+    },
 }
 
 
-
--- PA Banking
-PAC_ITEMTYPE_IGNORE = 0
-
 -- PA Loot
+PAC_ITEMTYPE_IGNORE = 0
 PAC_ITEMTYPE_LOOT = 1
 PAC_ITEMTYPE_DESTROY = 2
-
--- PersonalAssistant Chat Output Types
-PA_OUTPUT_TYPE_NONE = 0
-PA_OUTPUT_TYPE_MIN = 1
-PA_OUTPUT_TYPE_NORMAL = 2
-PA_OUTPUT_TYPE_FULL = 3
 
 -- Icon Paths
 PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds"
