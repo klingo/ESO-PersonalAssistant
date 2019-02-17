@@ -20,17 +20,10 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair Chat Output - UI Settings --
     SI_PA_REPAIR_CHATMODE_NONE = "<no output>",
-    SI_PA_REPAIR_CHATMODE_MIN = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
-    SI_PA_REPAIR_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
     SI_PA_REPAIR_CHATMODE_MAX = "Full Detail Report",
 
-    -- PARepair Chat Output - MIN setting --
-    SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_FULL = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_PARTIAL = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
-
     -- PARepair Chat Output - NORMAL setting --
-    SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
+    SI_PA_REPAIR_CHAT_OUTPUT_GOLD_MISSING = "missing", -- example output: "[...] (55 Gold missing)"
 
     -- PARepair Chat Output - MAX setting --
     SI_PA_REPAIR_CHATMODE_MAX_INTRO = table.concat({PAC.COLORED_TEXTS.PAR, "Repairing all items with a durability of ", PAC.COLORS.WHITE, "%d%%", PAC.COLORS.DEFAULT, " or lower:"}),
@@ -387,6 +380,21 @@ local PAGenericStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMMenu --
     SI_PA_MENU_MAIL_HEADER = PAC.COLORED_TEXTS.PAM,
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PARepair Chat Output - UI Settings --
+    SI_PA_REPAIR_CHATMODE_MIN = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
+    SI_PA_REPAIR_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " ", GetString(SI_PA_REPAIR_CHAT_OUTPUT_GOLD_MISSING),")"}),
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PARepair Chat Output - MIN setting --
+    SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_FULL = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_PARTIAL = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PARepair Chat Output - NORMAL setting --
+    SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " ", GetString(SI_PA_REPAIR_CHAT_OUTPUT_GOLD_MISSING) ,")"}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot Chat Output - Loot Items --
