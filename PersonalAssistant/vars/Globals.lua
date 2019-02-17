@@ -142,6 +142,15 @@ PersonalAssistant.Constants = {
         WEAPON = "|H1:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h|h", -- Sword of the Dragon, Epic Level 50 CP160
     },
 
+    REPAIR = {
+        WEAPON_SLOTS = {
+            EQUIP_SLOT_MAIN_HAND,
+            EQUIP_SLOT_OFF_HAND,
+            EQUIP_SLOT_BACKUP_MAIN,
+            EQUIP_SLOT_BACKUP_OFF,
+        }
+    },
+
     BANKING = {
         BLACKSMITHING = {
             ITEMTYPE_BLACKSMITHING_RAW_MATERIAL,
@@ -271,18 +280,6 @@ PA_OUTPUT_TYPE_FULL = 3
 
 -- Icon Paths
 PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds"
-
-
--- =====================================================================================================================
--- = PA Repair
--- =================================
--- PersonalAssistant Repair WeaponSlots
-PARWeaponSlots = setmetatable({}, { __index = table })
-PARWeaponSlots:insert(EQUIP_SLOT_MAIN_HAND)
-PARWeaponSlots:insert(EQUIP_SLOT_OFF_HAND)
-PARWeaponSlots:insert(EQUIP_SLOT_BACKUP_MAIN)
-PARWeaponSlots:insert(EQUIP_SLOT_BACKUP_OFF)
-
 
 -- =====================================================================================================================
 -- = PA Loot

@@ -1,13 +1,13 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
+local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
-local PASVRepair = PA.SavedVars.Repair
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
-local function GetSoulGemsIn(bagId)
-    local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
+local function _getSoulGemsIn(bagId)
+    local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId) -- TODO: updateto use soul-gem filtertpye
     local gemTable = setmetatable({}, { __index = table })
     local totalGemCount = 0
 
@@ -16,7 +16,7 @@ local function GetSoulGemsIn(bagId)
         -- check if it is a filled soulGem
         if (IsItemSoulGem(SOUL_GEM_TYPE_FILLED, data.bagId, data.slotIndex)) then
             gemTable:insert({
---                bagId = data.bagId,
+                bagId = data.bagId,
                 slotIndex = data.slotIndex,
                 itemName = data.name,
                 itemLink = GetItemLink(data.bagId, data.slotIndex, LINK_STYLE_BRACKETS),
@@ -35,16 +35,22 @@ local function GetSoulGemsIn(bagId)
     return gemTable, totalGemCount
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function ReChargeWeapons()
 
-    -- Check and re-charged equipped weapons
-    if PASVRepair[PA.activeProfile].RechargeWeapons.useSoulGems then
+    local PARepairSavedVars = PASV.Repair[PA.activeProfile]
 
-        local chargeThreshold = PASVRepair[PA.activeProfile].RechargeWeapons.chargeWeaponsThreshold
+    -- Check and re-charged equipped weapons
+    if PARepairSavedVars.RechargeWeapons.useSoulGems then
+
+        PAHF.debugln("Check for Weapon Recharge")
+
+        local chargeThreshold = PARepairSavedVars.RechargeWeapons.chargeWeaponsThreshold
         local weaponsToCharge = setmetatable({}, { __index = table })
 
         -- based on the list of chargeable slots, check which ones really need to be charged
-        for _, weaponSlot in pairs(PARWeaponSlots) do
+        for _, weaponSlot in pairs(PAC.REPAIR.WEAPON_SLOTS) do
             local charges, maxCharges = GetChargeInfoForItem(BAG_WORN, weaponSlot)
             local chargePerc = PAHF.round(100 / maxCharges * charges, 2)
 
@@ -58,7 +64,7 @@ local function ReChargeWeapons()
 
         -- are there weapons to charge?
         if (#weaponsToCharge > 0) then
-            local gemTable, totalGemCount = GetSoulGemsIn(BAG_BACKPACK)
+            local gemTable, totalGemCount = _getSoulGemsIn(BAG_BACKPACK)
 
             -- from the list of actually to be charged weapons, charge them
             for _, weapon in pairs(weaponsToCharge) do
@@ -76,14 +82,16 @@ local function ReChargeWeapons()
                     PAHF.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(BAG_WORN, weapon.weaponSlot), gemTable[#gemTable].itemName, chargeableAmount, weapon.charges, weapon.maxCharges)
 
                     -- actually charge the item
-                    ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
+                    d(GetItemName(gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex))
+                    d(GetItemName(BAG_WORN, weapon.weaponSlot))
+                    ChargeItemWithSoulGem(BAG_WORN, weapon.weaponSlot, gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex)
                     totalGemCount = totalGemCount - 1
 
                     -- show output to chat (depending on setting)
-                    local chargeWeaponsChatMode = PASVRepair[PA.activeProfile].RechargeWeapons.chargeWeaponsChatMode
-                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Full), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemName)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Normal), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(GetString(ReChargeWeapon_ChatMode_Min), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
+                    local chargeWeaponsChatMode = PARepairSavedVars.RechargeWeapons.chargeWeaponsChatMode
+                    if (chargeWeaponsChatMode == PA_OUTPUT_TYPE_FULL) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MAX), weapon.iconString, weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_NORMAL) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PA_OUTPUT_TYPE_MIN) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
                     end -- PA_OUTPUT_TYPE_NONE => no chat output
 
                     if (totalGemCount < 10) then

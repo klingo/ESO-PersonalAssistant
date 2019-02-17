@@ -168,8 +168,7 @@ local function EventPlayerCombateState(_, inCombat)
 
                     -- Check and re-charged equipped weapons
                     if PARepairSavedVars.RechargeWeapons.useSoulGems then
-                        -- TODO: for testing purposes disabled
---                        PAR.ReChargeWeapons()
+                        PAR.ReChargeWeapons()
                     end
                 end
             end

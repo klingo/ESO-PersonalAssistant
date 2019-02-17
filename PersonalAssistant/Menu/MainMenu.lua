@@ -883,6 +883,18 @@ local function createPARRechargeSubmenuTable()
     -- TODO: Low Soul Gem Warning
 
     -- TODO: Chat Mode
+    PARRechargeSubmenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE),
+        tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T),
+        choices = PAMenuChoices.choices.PARepair.chargeWeaponsChatMode,
+        choicesValues = PAMenuChoices.choicesValues.PARepair.chargeWeaponsChatMode,
+--        width = "half",
+        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsChatModeSetting,
+        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsChatModeSetting,
+        disabled = PAMenuFunctions.PARepair.isChargeWeaponsChatModeDisabled,
+        default = PAMenuDefaults.PARepair.RechargeWeapons.chargeWeaponsChatMode,
+    })
 end
 
 

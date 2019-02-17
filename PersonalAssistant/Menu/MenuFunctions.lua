@@ -900,7 +900,9 @@ PA.MenuFunctions = {
 
         -- TODO: Low Soul Gem Warning
 
-        -- TODO: Chat Mode
+        isChargeWeaponsChatModeDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
+        getChargeWeaponsChatModeSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,
+        setChargeWeaponsChatModeSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,
 
     },
     PABanking = {

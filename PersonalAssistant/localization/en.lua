@@ -142,6 +142,9 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_RECHARGE_DURABILITY = "Re-Charge threshold in %",
     SI_PA_MENU_REPAIR_RECHARGE_DURABILITY_T = "Re-Charge equipped weapons when their charge level is at or below the defined threshold. (Lesser soul gems will be used before common ones)",
 
+    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
+    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
+
 
     SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN = "Repair equipped items",
     SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_T = "Repair equipped items at a merchant?",
