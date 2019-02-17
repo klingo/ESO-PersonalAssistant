@@ -9,7 +9,7 @@ local PAMenuChoices = {
             PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_NONE)),
             PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_MIN), 115, 65),
             PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_NORMAL), 115, 65),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_FULL)),
+            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_MAX)),
         },
         chargeWeaponsChatMode = {
             PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NONE)),

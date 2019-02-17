@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAR = PA.Repair
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
@@ -8,34 +9,36 @@ local PAHF = PA.HelperFunctions
 local _repairItemList
 
 local function _handleFullReport(threshold, repairedItemCount, notRepairedItemCount, repairCost, missingGold)
-    PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_INTRO, threshold)
+    PAHF.println(SI_PA_REPAIR_CHATMODE_MAX_INTRO, threshold)
     -- in casee of full chat mode; it does not matter if full or partial repair was made
     for _, itemData in pairs(_repairItemList) do
         if itemData.repaired then
-            PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_REPAIRED, itemData.itemLink, itemData.itemCondition, itemData.repairCost)
+            PAHF.println(SI_PA_REPAIR_CHATMODE_MAX_REPAIRED, itemData.itemLink, itemData.itemCondition, itemData.repairCost)
         else
-            PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_NOT_REPAIRED, itemData.itemLink, itemData.itemCondition)
+            PAHF.println(SI_PA_REPAIR_CHATMODE_MAX_NOT_REPAIRED, itemData.itemLink, itemData.itemCondition)
         end
     end
     if notRepairedItemCount > 0 then
-        PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_SUMMARY_PARTIAL, repairedItemCount, (repairedItemCount + notRepairedItemCount),repairCost, missingGold)
+        PAHF.println(SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_PARTIAL, repairedItemCount, (repairedItemCount + notRepairedItemCount),repairCost, missingGold)
+    elseif repairedItemCount > 0 then
+        PAHF.println(SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_FULL, repairedItemCount, (repairedItemCount + notRepairedItemCount), repairCost)
     else
-        PAHF.println(SI_PA_REPAIR_CHATMODE_FULL_SUMMARY_FULL, repairedItemCount, (repairedItemCount + notRepairedItemCount), repairCost)
+        PAHF.println(SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_NOTHING)
     end
 end
 
-local function _handleNormalReport(notRepairedItemCount, repairCost, missingGold)
+local function _handleNormalReport(repairedItemCount, notRepairedItemCount, repairCost, missingGold)
     if notRepairedItemCount > 0 then
         PAHF.println(SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_PARTIAL, repairCost, missingGold)
-    else
+    elseif repairedItemCount > 0 then
         PAHF.println(SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_FULL, repairCost)
     end
 end
 
-local function _handleMinimalReport(notRepairedItemCount, repairCost, missingGold)
+local function _handleMinimalReport(repairedItemCount, notRepairedItemCount, repairCost, missingGold)
     if notRepairedItemCount > 0 then
         PAHF.println(SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_PARTIAL, repairCost, missingGold)
-    else
+    elseif repairedItemCount > 0 then
         PAHF.println(SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_FULL, repairCost)
     end
 
@@ -119,9 +122,9 @@ local function RepairItems(bagId, threshold)
         if repairChatMode == PA_OUTPUT_TYPE_FULL then
             _handleFullReport(threshold, repairedItemCount, notRepairedItemCount, repairCost, missingGold)
         elseif repairChatMode == PA_OUTPUT_TYPE_NORMAL then
-            _handleNormalReport(notRepairedItemCount, repairCost, missingGold)
+            _handleNormalReport(repairedItemCount, notRepairedItemCount, repairCost, missingGold)
         elseif repairChatMode == PA_OUTPUT_TYPE_MIN then
-            _handleMinimalReport(notRepairedItemCount, repairCost, missingGold)
+            _handleMinimalReport(repairedItemCount, notRepairedItemCount, repairCost, missingGold)
         end
     end
 end

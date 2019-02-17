@@ -22,7 +22,7 @@ local PAStrings = {
     SI_PA_REPAIR_CHATMODE_NONE = "<no output>",
     SI_PA_REPAIR_CHATMODE_MIN = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
     SI_PA_REPAIR_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
-    SI_PA_REPAIR_CHATMODE_FULL = "Full Report",
+    SI_PA_REPAIR_CHATMODE_MAX = "Full Detail Report",
 
     -- PARepair Chat Output - MIN setting --
     SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_FULL = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
@@ -32,12 +32,13 @@ local PAStrings = {
     SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
 
-    -- PARepair Chat Output - FULL setting --
-    SI_PA_REPAIR_CHATMODE_FULL_INTRO = table.concat({PAC.COLORED_TEXTS.PAR, "Repairing all items with a durability of ", PAC.COLORS.WHITE, "%d%%", PAC.COLORS.DEFAULT, " or lower:"}),
-    SI_PA_REPAIR_CHATMODE_FULL_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_FULL_NOT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Could not repair %s ", PAC.COLORS.WHITE, "(%d%%)"}),
-    SI_PA_REPAIR_CHATMODE_FULL_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_FULL_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing for full repair)"}),
+    -- PARepair Chat Output - MAX setting --
+    SI_PA_REPAIR_CHATMODE_MAX_INTRO = table.concat({PAC.COLORED_TEXTS.PAR, "Repairing all items with a durability of ", PAC.COLORS.WHITE, "%d%%", PAC.COLORS.DEFAULT, " or lower:"}),
+    SI_PA_REPAIR_CHATMODE_MAX_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_REPAIR_CHATMODE_MAX_NOT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Could not repair %s ", PAC.COLORS.WHITE, "(%d%%)"}),
+    SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing for full repair)"}),
+    SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_NOTHING = table.concat({PAC.COLORED_TEXTS.PAR, "Nothing to repair"}),
 
     -- PARepair Chat Output - Weapon Charge --
     SI_PA_REPAIR_CHARGE_CHATMODE_NONE = "<no output>",
@@ -127,10 +128,8 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_GOLD_DURABILITY = "Durability threshold in %",
     SI_PA_MENU_REPAIR_GOLD_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
 
-    SI_PA_MENU_REPAIR_CHATMODE_FULL = "Chat display after Repairs",
-    SI_PA_MENU_REPAIR_CHATMODE_FULL_T = "How to display the information of a full repair in the chat window",
-    SI_PA_MENU_REPAIR_CHATMODE_PARTIAL = "Chat display: Partial/incomplete repairs",
-    SI_PA_MENU_REPAIR_CHATMODE_PARTIAL_T = "How to display the information of an incomplet or parcial repair i.e. due to insufficient gold) in the chat window",
+    SI_PA_MENU_REPAIR_CHATMODE = "Chat display after Repairs",
+    SI_PA_MENU_REPAIR_CHATMODE_T = "How to display the information of a full repair in the chat window",
 
     SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),

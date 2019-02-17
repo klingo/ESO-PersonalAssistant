@@ -813,8 +813,8 @@ local function createPARGoldSubmenuTable()
 
     PARGoldSubmenuTable:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_REPAIR_CHATMODE_FULL),
-        tooltip = GetString(SI_PA_MENU_REPAIR_CHATMODE_FULL_T),
+        name = GetString(SI_PA_MENU_REPAIR_CHATMODE),
+        tooltip = GetString(SI_PA_MENU_REPAIR_CHATMODE_T),
         choices = PAMenuChoices.choices.PARepair.repairChatMode,
         choicesValues = PAMenuChoices.choicesValues.PARepair.repairChatMode,
 --            width = "half",
