@@ -39,7 +39,7 @@ local function OnBankOpen()
         if PASV.Banking[PA.activeProfile].Individual.individualItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawIndividualItems)
         end
-        if PASV.Banking[PA.activeProfile].Crafting.craftingItemsEnabled then
+        if PASV.Banking[PA.activeProfile].Crafting.craftingItemsEnabled  and not IsESOPlusSubscriber() then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawCraftingItems)
         end
         table.insert(PAB.transactionFunctionQueue, _stackBank)
