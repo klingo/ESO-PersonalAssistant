@@ -88,9 +88,8 @@ How to read:
 
   
 #### PARepair
-* [ ] **(2)** PARepair: Implement Repair Kits
-* [ ] **(2)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
-* [ ] **(2)** PALoot: Check API
+* [ ] **(3)** PARepair: Implement Repair Kits
+* [ ] **(3)** PALoot: Check API
     ```lua
     CanStoreRepair() 
   
@@ -109,7 +108,8 @@ How to read:
           Returns: number amountRepaired
     RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)       
     ```
-* [ ] **(4)** Add Notification Options
+* [ ] **(4)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
+* [ ] **(5)** Add Notification Options
 
 
 #### PABanking
@@ -170,9 +170,9 @@ How to read:
 
 
 #### PALoot
-* [ ] **(1)** PALoot: With ESO-Loot enabled, offer option to auto-loot stolen items only when hidden (if that ESO-setting is disabled)
-* [ ] **(2)** PALoot: Harvestable Items - Add Jewelcrafting items
-* [ ] **(2)** PALoot: Check API
+* [ ] **(3)** PALoot: With ESO-Loot enabled, offer option to auto-loot stolen items only when hidden (if that ESO-setting is disabled)
+* [ ] **(4)** PALoot: Harvestable Items - Add Jewelcrafting items
+* [ ] **(4)** PALoot: Check API
     ```lua
     LootAll(boolean ignoreStolenItems)
     LootItemById(number lootId)
@@ -180,8 +180,8 @@ How to read:
     GetLootItemInfo(number lootIndex)
           Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
     ```
-* [ ] **(3)** PALoot: Check if special message for Stealing is added?
-* [ ] **(5)** PALoot: Loot other currencies than gold  - Still needed?!
+* [ ] **(5)** PALoot: Check if special message for Stealing is added?
+* [ ] **(7)** PALoot: Loot other currencies than gold  - Still needed?!
     ```lua
     GetLootCurrency(number CurrencyType type)  
     Returns: number unownedCurrency, number ownedCurrency
@@ -199,9 +199,9 @@ How to read:
 
 
 #### PAJunk
-* [ ] **(1)** PAJunk: Add support for ESO internal item-locking
 * [X] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
 * [X] **(2)** PAJunk: Notification for junk items, even if they are already marked as junk
+* [ ] **(3)** PAJunk: Add support for ESO internal item-locking
 * [ ] **(3)** PAJunk: Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
@@ -209,6 +209,7 @@ How to read:
 * [ ] **(4)** PAJunk: Inventory Size Warning
 * [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
 * [ ] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
+* [ ] **(4)** PAJunk: Auto-Junk KNOWN recipes of quality XYZ and below
 * [ ] **(5)** PAJunk: Add option to select type of notifications
 
 

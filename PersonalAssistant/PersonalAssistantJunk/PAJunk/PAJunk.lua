@@ -42,13 +42,13 @@ local function _markAsJunkIfPossible(bagId, slotIndex)
         local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
 --        d("playerLocked="..tostring(playerLocked))
 
---        Search on ESOUI Source Code CanItemBePlayerLocked(number Bag bagId, number slotIndex)
+--        CanItemBePlayerLocked(number Bag bagId, number slotIndex)
 --        Returns: boolean canBePlayerLocked
 --
---        Search on ESOUI Source Code IsItemPlayerLocked(number Bag bagId, number slotIndex)
+--        IsItemPlayerLocked(number Bag bagId, number slotIndex)
 --        Returns: boolean playerLocked
 --
---        Search on ESOUI Source Code SetItemIsPlayerLocked(number Bag bagId, number slotIndex, boolean playerLocked)
+--        SetItemIsPlayerLocked(number Bag bagId, number slotIndex, boolean playerLocked)
 
         -- It is considered safe to mark the item as junk now
         SetItemIsJunk(bagId, slotIndex, true)

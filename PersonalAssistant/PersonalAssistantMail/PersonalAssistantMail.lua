@@ -15,9 +15,9 @@ local Mail_Defaults = {}
 -- init default values
 local function initDefaults()
     local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PABanking
+    -- default values for PAMail
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        -- get default vlaues from PAMenuDefaults
+        -- get default values from PAMenuDefaults
         Mail_Defaults[profileNo] = PAMenuDefaults.PAMail
     end
 end
@@ -36,7 +36,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.Mail = ZO_SavedVars:NewAccountWide("PersonalAssistantMail_SavedVariables", 1, "Mail", Mail_Defaults)
+    PASV.Mail = ZO_SavedVars:NewAccountWide("PersonalAssistantMail_SavedVariables", 1, nil, Mail_Defaults)
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)

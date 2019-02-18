@@ -4,6 +4,8 @@ local PAC = PA.Constants
 local PAEM = PA.EventManager
 local PASV = PA.SavedVars
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
 -- Local constants --
 local AddonName = "PersonalAssistantLoot"
 local Loot_Defaults = {}
@@ -15,7 +17,7 @@ local function initDefaults()
     local PAMenuDefaults = PA.MenuDefaults
     -- default values for PALoot
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        -- get default vlaues from PAMenuDefaults
+        -- get default values from PAMenuDefaults
         Loot_Defaults[profileNo] = PAMenuDefaults.PALoot
 
         -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
@@ -47,7 +49,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, "Loot", Loot_Defaults)
+    PASV.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, nil, Loot_Defaults)
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
