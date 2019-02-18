@@ -4,11 +4,11 @@
 ; States and/or other countries. All rights reserved.
 
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700B|ranking
-## Description: Define rules to automatically deposit items to the bank, or withdraw from there.
+## Description: PABanking follows defined rules to deposit items and currencies to the bank, or withdraw from there.
 ## Version: 1.0.0
 ## AddOnVersion: 100
 ## Author: Klingo
-## APIVersion: 100025
+## APIVersion: 100025 100026
 ## SavedVariables: PersonalAssistantBanking_SavedVariables
 ## DependsOn: PersonalAssistant
 

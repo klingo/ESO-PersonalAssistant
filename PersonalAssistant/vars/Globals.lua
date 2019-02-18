@@ -20,10 +20,6 @@ PersonalAssistant.Constants = {
         YELLOW = "|cFFD700",
         ORANGE = "|cFF7400",
         RED = "|cFF0000",
-
-        ITEM_QUALITY = {
-
-        }
     },
 
     COLORED_TEXTS = {

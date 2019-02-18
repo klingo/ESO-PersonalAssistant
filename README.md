@@ -77,7 +77,7 @@ How to read:
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
-* [ ] **(8)** Check new API from patch 4.3
+* [ ] **(8)** Check new API from patch 4.3 (Wrathstone)
     ```lua
     GetItemLinkTraitType(itemLink) – itemTraitType.
     GetAddOnRootDirectoryPath(addOnIndex) – directoryPath.

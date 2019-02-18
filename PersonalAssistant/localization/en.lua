@@ -103,6 +103,8 @@ local PAStrings = {
 
     -- =================================================================================================================
 
+    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGMenu --
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE = "Active profile",
@@ -131,8 +133,8 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "???",
 
-    SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
-    SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), "?"}),
+    SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+    SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Recharge equipped weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), "?"}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "???",
 
     SI_PA_MENU_REPAIR_RECHARGE_DURABILITY = "Re-Charge threshold in %",
@@ -141,7 +143,7 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
 
-    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), ". If you have none left, it will only warn max once every 10 minutes"}),
 
     SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN = "Repair equipped items",
@@ -363,14 +365,14 @@ local PAGenericStrings = {
     SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_HEADER = table.concat({PAC.ICONS.CRAFTBAG.TRAITITEMS.LARGE, " ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_TRAIT_ITEMS)}),
     SI_PA_MENU_BANKING_CRAFTING_FURNISHING_HEADER = table.concat({PAC.ICONS.CRAFTBAG.FURNISHING.LARGE, " ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_FURNISHING)}),
 
-    SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)}),
-    SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
+    SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
+    SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.GLYPH_ARMOR_HEALTH.NORMAL, "  ", GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)}),
     SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.POTION.NORMAL, "  ", GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS)}),
-    SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.TREASURE_MAP.NORMAL, "  ", GetString("SI_ITEMTYPE", ITEMTYPE_TROPHY)}),
+    SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.TREASURE_MAP.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_TROPHY))}),
 
-    SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER = table.concat({" ", PAC.ICONS.ITEMS.LOCKPICK.NORMAL, "  ", GetString("SI_ITEMTYPE", ITEMTYPE_LOCKPICK)}),
-    SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER = table.concat({" ", PAC.ICONS.ITEMS.LOCKPICK.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_LOCKPICK))}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
     SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER = table.concat({" ", PAC.ICONS.ITEMS.GENERIC_HELP.NORMAL, "  ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC)}),
 

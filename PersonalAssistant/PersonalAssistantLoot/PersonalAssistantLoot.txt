@@ -7,7 +7,7 @@
 ## Version: 1.0.0
 ## AddOnVersion: 100
 ## Author: Klingo
-## APIVersion: 100025
+## APIVersion: 100025 100026
 ## SavedVariables: PersonalAssistantLoot_SavedVariables
 ## DependsOn: PersonalAssistant
 

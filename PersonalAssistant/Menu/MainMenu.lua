@@ -321,8 +321,7 @@ local function createPABankingMenu()
         alpha = 0.5,
     })
 
-    -- TODO: REVERT THE \not\ here
-    if (not IsESOPlusSubscriber()) then
+    if (IsESOPlusSubscriber()) then
         -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
         -- options are not available (--> Virtual Bag)
 
@@ -839,6 +838,10 @@ local function createPARRepairKitSubmenuTable()
         default = PAMenuDefaults.PARepair.RepairEquipped.repairWithRepairKit,
     })
 
+    PARRepairKitSubmenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
+    })
 
     -- TODO: Use Regular Repair Kits
 
@@ -1863,6 +1866,10 @@ local function createPAJAutoMarkAsJunkSubMenu()
         default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkWeaponsQualityThreshold,
     })
 
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
+    })
 
     PAJAutoMarkAsJunkSubMenu:insert({
         type = "checkbox",
@@ -1887,6 +1894,11 @@ local function createPAJAutoMarkAsJunkSubMenu()
         setFunc = PAMenuFunctions.PAJunk.setAutoMarkArmorQualityThresholdSetting,
         disabled = PAMenuFunctions.PAJunk.isAutoMarkArmorQualityThresholdDisabled,
         default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkArmorQualityThreshold,
+    })
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
     })
 end
 

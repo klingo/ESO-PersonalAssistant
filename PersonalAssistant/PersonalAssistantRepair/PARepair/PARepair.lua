@@ -48,17 +48,6 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-
-
--- TODO: NON-VENDOR
--- use repairkits (after leaving combat)
--- yes/no, plus define threshold
-
-
--- TODO: NON-VENDOR
--- use soul gems to recharge weapon (after leaving combat)
--- yes/no, plus define threshold
-
 -- repair all items that are below the given threshold for the bag
 local function RepairItems(bagId, threshold)
     local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)

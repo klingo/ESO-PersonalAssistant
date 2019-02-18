@@ -35,7 +35,7 @@ PA.MenuDefaults = {
 
         RechargeWeapons = {
             useSoulGems = false,
-            chargeWeaponsThreshold = 10,
+            chargeWeaponsThreshold = 5,
             chargeWeaponsChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
             lowSoulGemWarning = true,
         },
