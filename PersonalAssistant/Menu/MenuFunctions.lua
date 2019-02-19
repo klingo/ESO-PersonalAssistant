@@ -183,7 +183,7 @@ local function setPABAnkingGoldMinToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_GOLD_MIN:UpdateValue()
     else
-        local goldMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMaxToKeep"}))
+        local goldMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMaxToKeep"}) or PAMD.PABanking.Currencies.goldMaxToKeep)
 
         -- OPTION 1: if min > max, deny changing min value
 --        if (intValue <= goldMaxToKeep) then
@@ -210,7 +210,7 @@ local function setPABAnkingGoldMaxToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_GOLD_MAX:UpdateValue()
     else
-        local goldMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMinToKeep"}))
+        local goldMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMinToKeep"}) or PAMD.PABanking.Currencies.goldMinToKeep)
 
         -- OPTION 1: if max < min, deny changing max value
 --        if (intValue >= goldMinToKeep) then
@@ -237,7 +237,7 @@ local function setPABAnkingAlliancePointsMinToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN:UpdateValue()
     else
-        local alliancePointsMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMaxToKeep"}))
+        local alliancePointsMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMaxToKeep"}) or PAMD.PABanking.Currencies.alliancePointsMaxToKeep)
 
         -- OPTION 1: if min > max, deny changing min value
 --        if (intValue <= alliancePointsMaxToKeep) then
@@ -264,7 +264,7 @@ local function setPABAnkingAlliancePointsMaxToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX:UpdateValue()
     else
-        local alliancePointsMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMinToKeep"}))
+        local alliancePointsMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMinToKeep"}) or PAMD.PABanking.Currencies.alliancePointsMinToKeep)
 
         -- OPTION 1: if max < min, deny changing max value
 --        if (intValue >= alliancePointsMinToKeep) then
@@ -291,7 +291,7 @@ local function setPABAnkingTelVarMinToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_TELVAR_MIN:UpdateValue()
     else
-        local telVarMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMaxToKeep"}))
+        local telVarMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMaxToKeep"}) or PAMD.PABanking.Currencies.telVarMaxToKeep)
 
         -- OPTION 1: if min > max, deny changing min value
 --        if (intValue <= telVarMaxToKeep) then
@@ -318,7 +318,7 @@ local function setPABAnkingTelVarMaxToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_TELVAR_MAX:UpdateValue()
     else
-        local telVarMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMinToKeep"}))
+        local telVarMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMinToKeep"}) or PAMD.PABanking.Currencies.telVarMinToKeep)
 
         -- OPTION 1: if max < min, deny changing max value
 --        if (intValue >= telVarMinToKeep) then
@@ -345,7 +345,7 @@ local function setPABAnkingWritVouchersMinToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN:UpdateValue()
     else
-        local writVouchersMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMaxToKeep"}))
+        local writVouchersMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMaxToKeep"}) or PAMD.PABanking.Currencies.writVouchersMaxToKeep)
 
         -- OPTION 1: if min > max, deny changing min value
 --        if (intValue <= writVouchersMaxToKeep) then
@@ -372,7 +372,7 @@ local function setPABAnkingWritVouchersMaxToKeepSetting(value)
     if not intValue or intValue < 0 then
         PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX:UpdateValue()
     else
-        local writVouchersMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMinToKeep"}))
+        local writVouchersMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMinToKeep"}) or PAMD.PABanking.Currencies.writVouchersMinToKeep)
 
         -- OPTION 1: if max < min, deny changing max value
 --        if (intValue >= writVouchersMinToKeep) then
