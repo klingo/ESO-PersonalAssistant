@@ -419,22 +419,22 @@ local function setPABankingCraftingItemsEnabledSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Crafting         craftingItemTypeMoveSetting
+-- PABanking   Crafting.ItemTypes         craftingItemTypeMoveSetting
 ---------------------------------
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting[itemType]
+    return PASV.Banking[PA.activeProfile].Crafting.ItemTypes[itemType].moveMode
 end
 
 local function setPABankingCraftingItemTypeMoveSetting(itemType, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting[itemType] = value
+    PASV.Banking[PA.activeProfile].Crafting.ItemTypes[itemType].moveMode = value
 end
 
 local function setPABankingCraftingItemTypeMoveAllSettings(value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting) do
-        PASV.Banking[PA.activeProfile].Crafting.ItemTypesCrafting[itemType] = value
+    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Crafting.ItemTypes) do
+        PASV.Banking[PA.activeProfile].Crafting.ItemTypes[itemType].moveMode = value
     end
     PERSONALASSISTANT_PAB_CRAFTING_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
@@ -996,55 +996,55 @@ PA.MenuFunctions = {
         getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
         setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 
-        isBlacksmithingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "blacksmithingTransaction"}) end,
+        isBlacksmithingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
         isBlacksmithingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getBlacksmithingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "blacksmithingTransaction"}) end,
-        setBlacksmithingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "blacksmithingTransaction"}) end,
+        getBlacksmithingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
+        setBlacksmithingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
 
-        isClothingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "clothingTransaction"}) end,
+        isClothingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
         isClothingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getClothingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "clothingTransaction"}) end,
-        setClothingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "clothingTransaction"}) end,
+        getClothingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
+        setClothingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
 
-        isWoodworkingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "woodworkingTransaction"}) end,
+        isWoodworkingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
         isWoodworkingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getWoodworkingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "woodworkingTransaction"}) end,
-        setWoodworkingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "woodworkingTransaction"}) end,
+        getWoodworkingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
+        setWoodworkingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
 
-        isJewelcraftingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "jewelcraftingTransaction"}) end,
+        isJewelcraftingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
         isJewelcraftingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getJewelcraftingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "jewelcraftingTransaction"}) end,
-        setJewelcraftingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "jewelcraftingTransaction"}) end,
+        getJewelcraftingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
+        setJewelcraftingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
 
-        isAlchemyTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "alchemyTransaction"}) end,
+        isAlchemyTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
         isAlchemyTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getAlchemyTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "alchemyTransaction"}) end,
-        setAlchemyTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "alchemyTransaction"}) end,
+        getAlchemyTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
+        setAlchemyTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
 
-        isEnchantingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "enchantingTransaction"}) end,
+        isEnchantingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
         isEnchantingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getEnchantingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "enchantingTransaction"}) end,
-        setEnchantingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "enchantingTransaction"}) end,
+        getEnchantingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
+        setEnchantingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
 
-        isProvisioningTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "provisioningTransaction"}) end,
+        isProvisioningTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
         isProvisioningTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getProvisioningTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "provisioningTransaction"}) end,
-        setProvisioningTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "provisioningTransaction"}) end,
+        getProvisioningTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
+        setProvisioningTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
 
-        isStyleMaterialsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "styleMaterialsTransaction"}) end,
+        isStyleMaterialsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
         isStyleMaterialsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getStyleMaterialsTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "styleMaterialsTransaction"}) end,
-        setStyleMaterialsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "styleMaterialsTransaction"}) end,
+        getStyleMaterialsTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
+        setStyleMaterialsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
 
-        isTraitItemsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "traitItemsTransaction"}) end,
+        isTraitItemsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
         isTraitItemsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getTraitItemsTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "traitItemsTransaction"}) end,
-        setTraitItemsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "traitItemsTransaction"}) end,
+        getTraitItemsTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
+        setTraitItemsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
 
-        isFurnishingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "furnishingTransaction"}) end,
+        isFurnishingTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
         isFurnishingTransactionDisabled = function() return isDisabled(PASV.Banking, {"Crafting", "craftingItemsEnabled"}) end,
-        getFurnishingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "furnishingTransaction"}) end,
-        setFurnishingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "furnishingTransaction"}) end,
+        getFurnishingTransactionSetting = function() return getValue(PASV.Banking, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
+        setFurnishingTransactionSetting = function(value) setValue(PASV.Banking, value, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
 
         -- ----------------------------------------------------------------------------------
         -- ADVANCED ITEMS

@@ -1072,7 +1072,7 @@ local function createPABCraftingBlacksmithingSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getBlacksmithingTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setBlacksmithingTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.blacksmithingTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.blacksmithingEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.BLACKSMITHING) do
@@ -1101,7 +1101,7 @@ local function createPABCraftingClothingSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getClothingTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setClothingTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isClothingTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.clothingTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.clothingEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.CLOTHING) do
@@ -1130,7 +1130,7 @@ local function createPABCraftingWoodworkingSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getWoodworkingTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setWoodworkingTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.woodworkingTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.woodworkingEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.WOODWORKING) do
@@ -1159,7 +1159,7 @@ local function createPABCraftingJewelcraftingSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getJewelcraftingTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setJewelcraftingTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.jewelcraftingTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.jewelcraftingEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.JEWELCRAFTING) do
@@ -1188,7 +1188,7 @@ local function createPABCraftingAlchemySubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getAlchemyTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setAlchemyTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isAlchemyTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.alchemyTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.alchemyEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.ALCHEMY) do
@@ -1217,7 +1217,7 @@ local function createPABCraftingEnchantingSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getEnchantingTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setEnchantingTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isEnchantingTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.enchantingTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.enchantingEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.ENCHANTING) do
@@ -1246,7 +1246,7 @@ local function createPABCraftingProvisioningSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getProvisioningTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setProvisioningTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isProvisioningTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.provisioningTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.provisioningEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.PROVISIONING) do
@@ -1275,7 +1275,7 @@ local function createPABCraftingStyleMaterialsSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getStyleMaterialsTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setStyleMaterialsTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.styleMaterialsTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.styleMaterialsEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.STYLEMATERIALS) do
@@ -1304,7 +1304,7 @@ local function createPABCraftingTraitItemsSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getTraitItemsTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setTraitItemsTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.traitItemsTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.traitItemsEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.TRAITITEMS) do
@@ -1333,7 +1333,7 @@ local function createPABCraftingFurnishingSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getFurnishingTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setFurnishingTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isFurnishingTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Crafting.furnishingTransaction,
+        default = PAMenuDefaults.PABanking.Crafting.TransactionSettings.furnishingEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING.FURNISHING) do
@@ -1920,16 +1920,18 @@ local function createOptions()
         createPABCurrencyTelVarSubmenuTable()
         createPABCurrencyWritVouchersSubmenuTable()
 
-        createPABCraftingBlacksmithingSubmenuTable()
-        createPABCraftingClothingSubmenuTable()
-        createPABCraftingWoodworkingSubmenuTable()
-        createPABCraftingJewelcraftingSubmenuTable()
-        createPABCraftingAlchemySubmenuTable()
-        createPABCraftingEnchantingSubmenuTable()
-        createPABCraftingProvisioningSubmenuTable()
-        createPABCraftingStyleMaterialsSubmenuTable()
-        createPABCraftingTraitItemsSubmenuTable()
-        createPABCraftingFurnishingSubmenuTable()
+        if not IsESOPlusSubscriber() then
+            createPABCraftingBlacksmithingSubmenuTable()
+            createPABCraftingClothingSubmenuTable()
+            createPABCraftingWoodworkingSubmenuTable()
+            createPABCraftingJewelcraftingSubmenuTable()
+            createPABCraftingAlchemySubmenuTable()
+            createPABCraftingEnchantingSubmenuTable()
+            createPABCraftingProvisioningSubmenuTable()
+            createPABCraftingStyleMaterialsSubmenuTable()
+            createPABCraftingTraitItemsSubmenuTable()
+            createPABCraftingFurnishingSubmenuTable()
+        end
 
         createPABAdvancedMotifSubmenuTable()
         createPABAdvancedRecipeSubmenuTable()
