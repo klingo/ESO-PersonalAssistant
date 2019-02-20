@@ -116,31 +116,54 @@ PA.MenuDefaults = {
         },
 
         -- ---------------------------------------------
-
         Advanced = {
             advancedItemsEnabled = true,
 
-            motifTransaction = true,
-            recipeTransaction = true,
-
-            glyphsTransaction = true,
-            liquidsTransaction = true,
-            trophiesTransaction = true,
-
-            ItemTypesAdvanced = {
-                [ITEMTYPE_RACIAL_STYLE_MOTIF] = PAC.MOVE.IGNORE,
-
-                [ITEMTYPE_RECIPE] = PAC.MOVE.IGNORE,
+            ItemTypes = {
+                [ITEMTYPE_RACIAL_STYLE_MOTIF] = {
+                    enabledSetting = "motivesEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [ITEMTYPE_RECIPE] = {
+                    enabledSetting = "recipesEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [ITEMTYPE_GLYPH_ARMOR] = {
+                    enabledSetting = "glyphsEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [ITEMTYPE_GLYPH_JEWELRY] = {
+                    enabledSetting = "glyphsEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [ITEMTYPE_GLYPH_WEAPON] = {
+                    enabledSetting = "glyphsEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
             },
-            ItemTypesSpecializedAdvanced = {
-                [SPECIALIZED_ITEMTYPE_GLYPH_ARMOR] = PAC.MOVE.IGNORE,
-                [SPECIALIZED_ITEMTYPE_GLYPH_JEWELRY] = PAC.MOVE.IGNORE,
-                [SPECIALIZED_ITEMTYPE_GLYPH_WEAPON] = PAC.MOVE.IGNORE,
 
-                [SPECIALIZED_ITEMTYPE_POTION] = PAC.MOVE.IGNORE,
-                [SPECIALIZED_ITEMTYPE_POISON] = PAC.MOVE.IGNORE,
+            SpecializedItemTypes = {
+                [SPECIALIZED_ITEMTYPE_POTION] = {
+                    enabledSetting = "liquidsEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [SPECIALIZED_ITEMTYPE_POISON] = {
+                    enabledSetting = "liquidsEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = {
+                    enabledSetting = "trophiesEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+            },
 
-                [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = PAC.MOVE.IGNORE,
+            TransactionSettings = {
+                motivesEnabled = true,
+                recipesEnabled = true,
+                glyphsEnabled = true,
+
+                liquidsEnabled = true,
+                trophiesEnabled = true,
             },
         },
 

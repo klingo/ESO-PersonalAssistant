@@ -29,18 +29,22 @@ local function depositOrWithdrawAdvancedItems()
     local withdrawSpezializedItemTypes = setmetatable({}, { __index = table })
 
     -- fill up the table(s)
-    for itemType, moveMode in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced) do
-        if (moveMode == PAC.MOVE.DEPOSIT) then
-            depositItemTypes:insert(itemType)
-        elseif (moveMode == PAC.MOVE.WITHDRAW) then
-            withdrawItemTypes:insert(itemType)
+    for itemType, moveConfig in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypes) do
+        if PASV.Banking[PA.activeProfile].Advanced.TransactionSettings[moveConfig.enabledSetting] then
+            if (moveConfig.moveMode == PAC.MOVE.DEPOSIT) then
+                depositItemTypes:insert(itemType)
+            elseif (moveConfig.moveMode == PAC.MOVE.WITHDRAW) then
+                withdrawItemTypes:insert(itemType)
+            end
         end
     end
-    for specializedItemType, moveMode in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced) do
-        if (moveMode == PAC.MOVE.DEPOSIT) then
-            depositSpecializedItemTypes:insert(specializedItemType)
-        elseif (moveMode == PAC.MOVE.WITHDRAW) then
-            withdrawSpezializedItemTypes:insert(specializedItemType)
+    for specializedItemType, moveConfig in pairs(PASV.Banking[PA.activeProfile].Advanced.SpecializedItemTypes) do
+        if PASV.Banking[PA.activeProfile].Advanced.TransactionSettings[moveConfig.enabledSetting] then
+            if (moveConfig.moveMode == PAC.MOVE.DEPOSIT) then
+                depositSpecializedItemTypes:insert(specializedItemType)
+            elseif (moveConfig.moveMode == PAC.MOVE.WITHDRAW) then
+                withdrawSpezializedItemTypes:insert(specializedItemType)
+            end
         end
     end
 

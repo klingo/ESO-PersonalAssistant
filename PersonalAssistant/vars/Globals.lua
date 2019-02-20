@@ -202,17 +202,21 @@ PersonalAssistant.Constants = {
             },
             RECIPE = {
                 ITEMTYPE_RECIPE,                            -- 29
-            }
+            },
+            GLYPHS = {
+                ITEMTYPE_GLYPH_ARMOR,                       -- 21
+                ITEMTYPE_GLYPH_JEWELRY,                     -- 26
+                ITEMTYPE_GLYPH_WEAPON,                      -- 20
+            },
+--            LIQUIDS = {
+--                ITEMTYPE_POISON,                            -- 30
+--                ITEMTYPE_POTION,                            -- 7
+--            }
         },
         SPECIALIZED = {
-            GLYPHS = {
-                SPECIALIZED_ITEMTYPE_GLYPH_ARMOR,           -- 1000
-                SPECIALIZED_ITEMTYPE_GLYPH_JEWELRY,         -- 1250
-                SPECIALIZED_ITEMTYPE_GLYPH_WEAPON           -- 950
-            },
             LIQUIDS = {
                 SPECIALIZED_ITEMTYPE_POTION,                -- 450
-                SPECIALIZED_ITEMTYPE_POISON                 -- 1400
+                SPECIALIZED_ITEMTYPE_POISON,                -- 1400
             },
             TROPHIES = {
                 SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP    -- 100

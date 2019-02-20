@@ -45,6 +45,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function isDisabled(savedVarsTable, ...)
+    -- TODO: optimize this?
     if (isDisabledPAGeneralNoProfileSelected()) then return true end
     local args = { ... }
     for _, tbl in ipairs(args) do
@@ -56,8 +57,13 @@ local function isDisabled(savedVarsTable, ...)
             local attributeLevelOne = tbl[1]
             local attributeLevelTwo = tbl[2]
             if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]) then return true end
+        elseif (#tbl == 3) then
+            local attributeLevelOne = tbl[1]
+            local attributeLevelTwo = tbl[2]
+            local attributeLevelThree = tbl[3]
+            if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree]) then return true end
         else
-            -- if either no table was sent, or more than 2; always return true (i.e. disabled)
+            -- if either no table was sent, or more than 3; always return true (i.e. disabled)
             return true
         end
     end
@@ -67,6 +73,7 @@ end
 
 
 local function isDisabledDebug(savedVarsTable, ...)
+    -- TODO: optimize this?
     if (isDisabledPAGeneralNoProfileSelected()) then return true end
     local args = { ... }
     for _, tbl in ipairs(args) do
@@ -80,8 +87,14 @@ local function isDisabledDebug(savedVarsTable, ...)
             local attributeLevelTwo = tbl[2]
             d(tostring(attributeLevelOne).."."..tostring(attributeLevelTwo).."="..tostring(savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]))
             if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]) then return true end
+        elseif (#tbl == 3) then
+            local attributeLevelOne = tbl[1]
+            local attributeLevelTwo = tbl[2]
+            local attributeLevelThree = tbl[3]
+            d(tostring(attributeLevelOne).."."..tostring(attributeLevelTwo).."."..tostring(attributeLevelThree).."="..tostring(savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree]))
+            if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree]) then return true end
         else
-            -- if either no table was sent, or more than 2; always return true (i.e. disabled)
+            -- if either no table was sent, or more than 3; always return true (i.e. disabled)
             d("return true")
             return true
         end
@@ -93,18 +106,18 @@ end
 
 
 local function getValue(savedVarsTable, attributeTbl)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    if (#attributeTbl == 1) then
-        local attributeLevelOne = attributeTbl[1]
-        return savedVarsTable[PA.activeProfile][attributeLevelOne]
-    elseif (#attributeTbl == 2) then
-        local attributeLevelOne = attributeTbl[1]
-        local attributeLevelTwo = attributeTbl[2]
-        return savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    if #attributeTbl > 0 then
+        local newTableLevel = savedVarsTable[PA.activeProfile]
+        for _, attribute in ipairs(attributeTbl) do
+            newTableLevel = newTableLevel[attribute]
+        end
+        return newTableLevel
     else return end
 end
 
 local function setValue(savedVarsTable, value, attributeTbl)
+    -- TODO: optimize this somehow to make it more dynmimc
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     if (#attributeTbl == 1) then
         local attributeLevelOne = attributeTbl[1]
@@ -113,6 +126,11 @@ local function setValue(savedVarsTable, value, attributeTbl)
         local attributeLevelOne = attributeTbl[1]
         local attributeLevelTwo = attributeTbl[2]
         savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo] = value
+    elseif (#attributeTbl == 3) then
+        local attributeLevelOne = attributeTbl[1]
+        local attributeLevelTwo = attributeTbl[2]
+        local attributeLevelThree = attributeTbl[3]
+        savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree] = value
     else return end
 end
 
@@ -432,29 +450,29 @@ local function setPABankingAdvancedItemsEnabledSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Advanced         advancedItemTypeMoveSetting
+-- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType]
+    return PASV.Banking[PA.activeProfile].Advanced.ItemTypes[itemType].moveMode
 end
 
 local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType] = value
+    PASV.Banking[PA.activeProfile].Advanced.ItemTypes[itemType].moveMode = value
 end
 
 --------------------------------------------------------------------------
--- PABanking   Advanced         advancedItemTypeSpecializedMoveSetting
+-- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSpecializedMoveSetting
 ---------------------------------
-local function getPABankingAdvancedItemTypeSpecializedMoveSetting(itemType)
+local function getPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced[itemType]
+    return PASV.Banking[PA.activeProfile].Advanced.SpecializedItemTypes[specializedItemType].moveMode
 end
 
-local function setPABankingAdvancedItemTypeSpecializedMoveSetting(itemType, value)
+local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced[itemType] = value
+    PASV.Banking[PA.activeProfile].Advanced.SpecializedItemTypes[specializedItemType].moveMode = value
 end
 
 --------------------------------------------------------------------------
@@ -462,11 +480,11 @@ end
 ---------------------------------
 local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced) do
-        PASV.Banking[PA.activeProfile].Advanced.ItemTypesAdvanced[itemType] = value
+    for itemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypes) do
+        PASV.Banking[PA.activeProfile].Advanced.ItemTypes[itemType].moveMode = value
     end
-    for specializedItemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced) do
-        PASV.Banking[PA.activeProfile].Advanced.ItemTypesSpecializedAdvanced[specializedItemType] = value
+    for specializedItemType, _ in pairs(PASV.Banking[PA.activeProfile].Advanced.SpecializedItemTypes) do
+        PASV.Banking[PA.activeProfile].Advanced.SpecializedItemTypes[specializedItemType].moveMode = value
     end
     PERSONALASSISTANT_PAB_ADVANCED_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
@@ -1043,30 +1061,30 @@ PA.MenuFunctions = {
         getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
         setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
 
-        isMotifTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "motifTransaction"}) end,
+        isMotifTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "motivesEnabled"}) end,
         isMotifTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getMotifTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "motifTransaction"}) end,
-        setMotifTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "motifTransaction"}) end,
+        getMotifTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "motivesEnabled"}) end,
+        setMotifTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "motivesEnabled"}) end,
 
-        isRecipeTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "recipeTransaction"}) end,
+        isRecipeTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
         isRecipeTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getRecipeTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "recipeTransaction"}) end,
-        setRecipeTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "recipeTransaction"}) end,
+        getRecipeTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
+        setRecipeTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
 
-        isGlyphsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "glyphsTransaction"}) end,
+        isGlyphsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
         isGlyphsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getGlyphsTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "glyphsTransaction"}) end,
-        setGlyphsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "glyphsTransaction"}) end,
+        getGlyphsTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
+        setGlyphsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
 
-        isLiquidsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "liquidsTransaction"}) end,
+        isLiquidsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
         isLiquidsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getLiquidsTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "liquidsTransaction"}) end,
-        setLiquidsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "liquidsTransaction"}) end,
+        getLiquidsTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
+        setLiquidsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
 
-        isTrophiesTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "trophiesTransaction"}) end,
+        isTrophiesTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
         isTrophiesTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getTrophiesTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "trophiesTransaction"}) end,
-        setTrophiesTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "trophiesTransaction"}) end,
+        getTrophiesTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
+        setTrophiesTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
 
         -- ----------------------------------------------------------------------------------
         -- INDIVIDUAL ITEMS

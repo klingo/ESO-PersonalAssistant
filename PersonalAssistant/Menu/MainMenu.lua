@@ -1362,7 +1362,7 @@ local function createPABAdvancedMotifSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getMotifTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setMotifTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isMotifTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Advanced.motifTransaction,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.motivesEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.MOTIF) do
@@ -1391,7 +1391,7 @@ local function createPABAdvancedRecipeSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getRecipeTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setRecipeTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isRecipeTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Advanced.recipeTransaction,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.recipesEnabled,
     })
 
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.RECIPE) do
@@ -1420,18 +1420,18 @@ local function createPABAdvancedGlyphsSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getGlyphsTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setGlyphsTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isGlyphsTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Advanced.glyphsTransaction,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.glyphsEnabled,
     })
 
-    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.GLYPHS) do
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.GLYPHS) do
         PABAdvancedGlyphsSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
+            name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             -- TODO: choicesTooltips
-            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
-            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isGlyphsTransactionMenuDisabled,
             default = PAC.MOVE.IGNORE,
         })
@@ -1449,7 +1449,7 @@ local function createPABAdvancedLiquidsSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getLiquidsTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setLiquidsTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isLiquidsTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Advanced.liquidsTransaction,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.liquidsEnabled,
     })
 
     for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.LIQUIDS) do
@@ -1478,7 +1478,7 @@ local function createPABAdvancedTrophiesSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getTrophiesTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setTrophiesTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isTrophiesTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Advanced.trophiesTransaction,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.trophiesEnabled,
     })
 
     for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) do
