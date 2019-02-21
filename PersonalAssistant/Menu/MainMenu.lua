@@ -1449,7 +1449,7 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABAdvancedLiquidsSubmenuTable()
-    local _craftingName = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS)
+    local _craftingName = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_POTION)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_POISON))
     PABAdvancedLiquidsSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
