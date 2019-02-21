@@ -48,6 +48,7 @@ local PABAdvancedRecipeSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAdvancedGlyphsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedLiquidsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedFoodDrinksSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
 
 local PABIndividualLockpickSubmenuTable = setmetatable({}, { __index = table })
@@ -482,6 +483,13 @@ local function createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER),
         controls = PABAdvancedLiquidsSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isLiquidsTransactionMenuDisabled,
+    })
+
+    optionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_FOOD_DRINKS_HEADER),
+        controls = PABAdvancedFoodDrinksSubmenuTable,
+        disabled = PAMenuFunctions.PABanking.isFoodDrinksTransactionMenuDisabled,
     })
 
     optionsTable:insert({
@@ -1441,7 +1449,7 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function createPABAdvancedLiquidsSubmenuTable()
-    local _craftingName = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS)
+    local _craftingName = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_POTION)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_POISON))
     PABAdvancedLiquidsSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
@@ -1452,20 +1460,50 @@ local function createPABAdvancedLiquidsSubmenuTable()
         default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.liquidsEnabled,
     })
 
-    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.LIQUIDS) do
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) do
         PABAdvancedLiquidsSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
+            name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             -- TODO: choicesTooltips
-            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
-            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isLiquidsTransactionMenuDisabled,
             default = PAC.MOVE.IGNORE,
         })
     end
 end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPABAdvancedFoodDrinksSubmenuTable()
+    local _craftingName = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_FOOD)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_DRINK))
+    PABAdvancedFoodDrinksSubmenuTable:insert({
+        type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _craftingName),
+        getFunc = PAMenuFunctions.PABanking.getFoodDrinksTransactionSetting,
+        setFunc = PAMenuFunctions.PABanking.setFoodDrinksTransactionSetting,
+        disabled = PAMenuFunctions.PABanking.isFoodDrinksTransactionDisabled,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.foodDrinksEnabled,
+    })
+
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) do
+        PABAdvancedFoodDrinksSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString("SI_ITEMTYPE", itemType),
+            choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+            choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+            -- TODO: choicesTooltips
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
+            disabled = PAMenuFunctions.PABanking.isFoodDrinksTransactionMenuDisabled,
+            default = PAC.MOVE.IGNORE,
+        })
+    end
+end
+
 
 -- -----------------------------------------------------------------------------------------------------------------
 
@@ -1938,6 +1976,7 @@ local function createOptions()
 
         createPABAdvancedGlyphsSubmenuTable()
         createPABAdvancedLiquidsSubmenuTable()
+        createPABAdvancedFoodDrinksSubmenuTable()
         createPABAdvancedTrophiesSubmenuTable()
 
         createPABIndividualLockpickSubmenuTable()

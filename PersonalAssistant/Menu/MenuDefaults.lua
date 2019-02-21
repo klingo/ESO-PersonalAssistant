@@ -217,17 +217,25 @@ PA.MenuDefaults = {
                     enabledSetting = "glyphsEnabled",
                     moveMode = PAC.MOVE.IGNORE,
                 },
+                [ITEMTYPE_POTION] = {
+                    enabledSetting = "liquidsEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [ITEMTYPE_POISON] = {
+                    enabledSetting = "liquidsEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [ITEMTYPE_FOOD] = {
+                    enabledSetting = "foodDrinksEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [ITEMTYPE_DRINK] = {
+                    enabledSetting = "foodDrinksEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
             },
 
             SpecializedItemTypes = {
-                [SPECIALIZED_ITEMTYPE_POTION] = {
-                    enabledSetting = "liquidsEnabled",
-                    moveMode = PAC.MOVE.IGNORE,
-                },
-                [SPECIALIZED_ITEMTYPE_POISON] = {
-                    enabledSetting = "liquidsEnabled",
-                    moveMode = PAC.MOVE.IGNORE,
-                },
                 [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = {
                     enabledSetting = "trophiesEnabled",
                     moveMode = PAC.MOVE.IGNORE,
@@ -238,6 +246,7 @@ PA.MenuDefaults = {
                 motivesEnabled = true,
                 recipesEnabled = true,
                 glyphsEnabled = true,
+                foodDrinksEnabled = true,
 
                 liquidsEnabled = true,
                 trophiesEnabled = true,
