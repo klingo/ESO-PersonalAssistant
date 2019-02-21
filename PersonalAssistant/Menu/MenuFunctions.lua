@@ -505,14 +505,14 @@ end
 ---------------------------------
 local function getPABankingIndividualItemIdMathOperatorSetting(individualItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    local value = PASV.Banking[PA.activeProfile].Individual.ItemIdOperator[individualItemId]
+    local value = PASV.Banking[PA.activeProfile].Individual.ItemIds[individualItemId].operator
     -- in case a new GENERIC individual item is added, return "-" by default
     if (value) then return value else return tonumber(PAC.OPERATOR.NONE) end
 end
 
 local function setPABankingIndividualItemIdMathOperatorSetting(individualItemId, value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Banking[PA.activeProfile].Individual.ItemIdOperator[individualItemId] = value
+    PASV.Banking[PA.activeProfile].Individual.ItemIds[individualItemId].operator = value
 end
 
 --------------------------------------------------------------------------
@@ -520,7 +520,7 @@ end
 ---------------------------------
 local function getPABankingIndividualItemIdBackpackAmountSetting(individualItemId)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    local value = PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount[individualItemId]
+    local value = PASV.Banking[PA.activeProfile].Individual.ItemIds[individualItemId].backpackAmount
     -- in case a new GENERIC individual item is added, return "100" by default
     if (value) then return value else return 100 end
 end
@@ -530,7 +530,7 @@ local function setPABankingIndividualItemIdBackpackAmountSetting(individualItemI
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
-        PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount[individualItemId] = intValue
+        PASV.Banking[PA.activeProfile].Individual.ItemIds[individualItemId].backpackAmount = intValue
     end
 end
 
@@ -1092,25 +1092,25 @@ PA.MenuFunctions = {
         getIndividualItemsEnabledSetting = function() return getValue(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
         setIndividualItemsEnabledSetting = setPABankingIndividualItemsEnabledSetting,
 
-        isLockpickTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "lockpickTransaction"}) end,
+        isLockpickTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "lockpicksEnabled"}) end,
         isLockpickTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
-        getLockpickTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "lockpickTransaction"}) end,
-        setLockpickTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "lockpickTransaction"}) end,
+        getLockpickTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "TransactionSettings", "lockpicksEnabled"}) end,
+        setLockpickTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "TransactionSettings", "lockpicksEnabled"}) end,
 
-        isSoulGemTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "soulGemTransaction"}) end,
+        isSoulGemTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "soulGemsEnabled"}) end,
         isSoulGemTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
-        getSoulGemTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "soulGemTransaction"}) end,
-        setSoulGemTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "soulGemTransaction"}) end,
+        getSoulGemTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "TransactionSettings", "soulGemsEnabled"}) end,
+        setSoulGemTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "TransactionSettings", "soulGemsEnabled"}) end,
 
-        isRepairKitTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "repairKitTransaction"}) end,
+        isRepairKitTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "repairKitsEnabled"}) end,
         isRepairKitTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
-        getRepairKitTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "repairKitTransaction"}) end,
-        setRepairKitTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "repairKitTransaction"}) end,
+        getRepairKitTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "TransactionSettings", "repairKitsEnabled"}) end,
+        setRepairKitTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "TransactionSettings", "repairKitsEnabled"}) end,
 
-        isGenericTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "genericTransaction"}) end,
+        isGenericTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "genericsEnabled"}) end,
         isGenericTransactionDisabled = function() return isDisabled(PASV.Banking, {"Individual", "individualItemsEnabled"}) end,
-        getGenericTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "genericTransaction"}) end,
-        setGenericTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "genericTransaction"}) end,
+        getGenericTransactionSetting = function() return getValue(PASV.Banking, {"Individual", "TransactionSettings", "genericsEnabled"}) end,
+        setGenericTransactionSetting = function(value) setValue(PASV.Banking, value, {"Individual", "TransactionSettings", "genericsEnabled"}) end,
 
         getIndividualItemIdMathOperatorSetting = getPABankingIndividualItemIdMathOperatorSetting,
         setIndividualItemIdMathOperatorSetting = setPABankingIndividualItemIdMathOperatorSetting,

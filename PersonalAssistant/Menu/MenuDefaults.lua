@@ -249,31 +249,54 @@ PA.MenuDefaults = {
         Individual = {
             individualItemsEnabled = true,
 
-            lockpickTransaction = true,
-            soulGemTransaction = true,
-            repairKitTransaction = true,
-            genericTransaction = false,
+            ItemIds = {
+                [30357] = {     -- [Lockpick]
+                    enabledSetting = "lockpicksEnabled",
+                    operator = PAC.OPERATOR.NONE,
+                    backpackAmount = 100,
+                },
 
-            ItemIdOperator = {
-                [30357] = PAC.OPERATOR.NONE,  -- [Lockpick]
+                [33265] = {     -- [Soul Gem (Empty)]
+                    enabledSetting = "soulGemsEnabled",
+                    operator = PAC.OPERATOR.NONE,
+                    backpackAmount = 100,
+                },
+                [33271] = {     -- [Soul Gem]
+                    enabledSetting = "soulGemsEnabled",
+                    operator = PAC.OPERATOR.NONE,
+                    backpackAmount = 100,
+                },
+                [61080] = {     -- [Crown Soul Gem]
+                    enabledSetting = "soulGemsEnabled",
+                    operator = PAC.OPERATOR.NONE,
+                    backpackAmount = 100,
+                },
 
-                [33265] = PAC.OPERATOR.NONE,  -- [Soul Gem (Empty)]
-                [33271] = PAC.OPERATOR.NONE,  -- [Soul Gem]
-                [61080] = PAC.OPERATOR.NONE,  -- [Crown Soul Gem]
+                [44879] = {     -- [Grand Repair Kit]
+                    enabledSetting = "repairKitsEnabled",
+                    operator = PAC.OPERATOR.NONE,
+                    backpackAmount = 100,
+                },
+                [61079] = {     -- [Crown Repair Kit]
+                    enabledSetting = "repairKitsEnabled",
+                    operator = PAC.OPERATOR.NONE,
+                    backpackAmount = 100,
+                },
 
-                [44879] = PAC.OPERATOR.NONE,  -- [Grand Repair Kit]
-                [61079] = PAC.OPERATOR.NONE,  -- [Crown Repair Kit]
+                -- [custom] itemIds to be entered here and following
+--                [custom] = {
+--                    enabledSetting = "genericsEnabled",
+--                    operator = PAC.OPERATOR.NONE,
+--                    backpackAmount = 100,
+--                }
             },
 
-            ItemIdBackpackAmount = {
-                [30357] = 100,  -- [Lockpick]
+            TransactionSettings = {
+                lockpicksEnabled = true,
+                soulGemsEnabled = true,
+                repairKitsEnabled = true,
 
-                [33265] = 100,  -- [Soul Gem (Empty)]
-                [33271] = 100,  -- [Soul Gem]
-                [61080] = 100,  -- [Crown Soul Gem]
-
-                [44879] = 100,  -- [Grand Repair Kit]
-                [61079] = 100,  -- [Crown Repair Kit]
+                genericsEnabled = false,
             },
         },
 

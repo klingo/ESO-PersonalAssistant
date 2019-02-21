@@ -89,14 +89,13 @@ local function depositOrWithdrawIndividualItems()
 
     -- preapre and fill the table with all individual items that needs to be transferred
     local individualItems = {}
-    local itemIdBackpackAmountTable = PASV.Banking[PA.activeProfile].Individual.ItemIdBackpackAmount
-    local itemIdOperatorTable = PASV.Banking[PA.activeProfile].Individual.ItemIdOperator
-    for itemId, targetBackpackStack in pairs(itemIdBackpackAmountTable) do
-        local operator = itemIdOperatorTable[itemId]
+    local itemIdTable = PASV.Banking[PA.activeProfile].Individual.ItemIds
+    for itemId, moveConfig in pairs(itemIdTable) do
+        local operator = moveConfig.operator
         if operator ~= PAC.OPERATOR.NONE then
             individualItems[itemId] = {
                 operator = operator,
-                targetBackpackStack = targetBackpackStack
+                targetBackpackStack = moveConfig.backpackAmount
             }
         end
     end

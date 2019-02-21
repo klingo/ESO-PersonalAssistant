@@ -1507,7 +1507,7 @@ local function createPABIndividualLockpickSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getLockpickTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setLockpickTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isLockpickTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.lockpickTransaction,
+        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.lockpicksEnabled,
     })
 
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.LOCKPICK) do
@@ -1550,7 +1550,7 @@ local function createPABIndividualSoulGemSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getSoulGemTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setSoulGemTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isSoulGemTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.soulGemTransaction,
+        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.soulGemsEnabled,
     })
 
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.SOUL_GEM) do
@@ -1593,7 +1593,7 @@ local function createPABIndividualRepairKitSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getRepairKitTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setRepairKitTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isRepairKitTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.repairKitTransaction,
+        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.repairKitsEnabled,
     })
 
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.REPAIR_KIT) do
@@ -1636,7 +1636,7 @@ local function createPABIndividualGenericSubmenuTable()
         getFunc = PAMenuFunctions.PABanking.getGenericTransactionSetting,
         setFunc = PAMenuFunctions.PABanking.setGenericTransactionSetting,
         disabled = PAMenuFunctions.PABanking.isGenericTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.genericTransaction,
+        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.genericsEnabled,
     })
 
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.GENERIC) do
