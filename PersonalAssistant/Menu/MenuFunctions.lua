@@ -1081,6 +1081,11 @@ PA.MenuFunctions = {
         getLiquidsTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
         setLiquidsTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
 
+        isFoodDrinksTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
+        isFoodDrinksTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        getFoodDrinksTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
+        setFoodDrinksTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
+
         isTrophiesTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
         isTrophiesTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
         getTrophiesTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,

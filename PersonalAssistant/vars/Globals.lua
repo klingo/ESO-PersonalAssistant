@@ -88,6 +88,9 @@ PersonalAssistant.Constants = {
         },
         ITEMS = {
             BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t",
+            FOOD = {
+                NORMAL = "|t32:32:/esoui/art/icons/crafting_bowl_002.dds|t"
+            },
             GENERIC_HELP = {
                 NORMAL = "|t32:32:/esoui/art/menubar/menubar_help_up.dds|t"
             },
@@ -209,9 +212,13 @@ PersonalAssistant.Constants = {
                 ITEMTYPE_GLYPH_WEAPON,                      -- 20
             },
             LIQUIDS = {
-                ITEMTYPE_POISON,                            -- 30
                 ITEMTYPE_POTION,                            -- 7
-            }
+                ITEMTYPE_POISON,                            -- 30
+            },
+            FOOD_DRINKS = {
+                ITEMTYPE_FOOD,                              -- 4
+                ITEMTYPE_DRINK,                             -- 12
+            },
         },
         SPECIALIZED = {
             TROPHIES = {
