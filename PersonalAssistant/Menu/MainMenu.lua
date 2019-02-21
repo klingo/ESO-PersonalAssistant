@@ -1452,15 +1452,15 @@ local function createPABAdvancedLiquidsSubmenuTable()
         default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.liquidsEnabled,
     })
 
-    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.LIQUIDS) do
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) do
         PABAdvancedLiquidsSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
+            name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             -- TODO: choicesTooltips
-            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
-            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isLiquidsTransactionMenuDisabled,
             default = PAC.MOVE.IGNORE,
         })

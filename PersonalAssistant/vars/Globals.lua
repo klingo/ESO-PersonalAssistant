@@ -208,16 +208,12 @@ PersonalAssistant.Constants = {
                 ITEMTYPE_GLYPH_JEWELRY,                     -- 26
                 ITEMTYPE_GLYPH_WEAPON,                      -- 20
             },
---            LIQUIDS = {
---                ITEMTYPE_POISON,                            -- 30
---                ITEMTYPE_POTION,                            -- 7
---            }
+            LIQUIDS = {
+                ITEMTYPE_POISON,                            -- 30
+                ITEMTYPE_POTION,                            -- 7
+            }
         },
         SPECIALIZED = {
-            LIQUIDS = {
-                SPECIALIZED_ITEMTYPE_POTION,                -- 450
-                SPECIALIZED_ITEMTYPE_POISON,                -- 1400
-            },
             TROPHIES = {
                 SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP    -- 100
             },
