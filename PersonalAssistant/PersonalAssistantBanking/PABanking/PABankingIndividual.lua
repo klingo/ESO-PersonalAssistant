@@ -18,8 +18,10 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
         local targetBackpackStack = customItemData.targetBackpackStack
         local savedBackpackStack = 0
 
-        -- and check for deposits
-        for _, itemData in pairs(backpackBagCache) do
+        -- and check for deposits (in reverse order, to start with incomplete stacks)
+--        for _, itemData in pairs(backpackBagCache) do
+        for index = #backpackBagCache, 1, -1 do
+            local itemData = backpackBagCache[index]
             local backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
             if (itemId == backpackItemId) then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
@@ -38,8 +40,10 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
             end
         end
 
-        -- and withdrawals
-        for _, itemData in pairs(bankBagCache) do
+        -- and withdrawals (in reverse order, to start with incomplete stacks)
+--        for _, itemData in pairs(bankBagCache) do
+        for index = #bankBagCache, 1, -1 do
+            local itemData = bankBagCache[index]
             local bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
             if (itemId == bankItemId) then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)

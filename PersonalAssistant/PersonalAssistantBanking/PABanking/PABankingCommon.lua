@@ -64,8 +64,14 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
             -- in case there was a custom amount to be moved defined; overwrite the stack size
             local customStackToMove = fromBagItemData.customStackToMove
+            local customStackToMoveOriginal = fromBagItemData.customStackToMoveOriginal
             if (customStackToMove ~= nil) then sourceStack = customStackToMove end
-            PAHF.println(SI_PA_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
+            -- if there either was no original amount; or it is the same as the one to be moved, treat it as a complete move
+            if (customStackToMoveOriginal == nil or customStackToMoveOriginal == customStackToMove) then
+                PAHF.println(SI_PA_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
+            else
+                PAHF.println(SI_PA_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLink, PAHF.getBagName(targetBagId))
+            end
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
 
             local newStartIndex = startIndex + 1
@@ -124,38 +130,41 @@ end
 -- stacks). All items that either cannot be moved because there is no matching item in the target bag, or because the
 -- existing stacks have already been filled up; these will be added to the [notMovedItemsTable] table. Provided that
 -- [newStacksAllowed] is set to true; otherwise the table will be returned unchanged
-local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBagCache, newStacksAllowed, notMovedItemsTable, stackToMove)
+local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBagCache, newStacksAllowed, notMovedItemsTable, overruleStackToMove)
     for _, fromBagItemData in pairs(fromBagCache) do
         local isItemMoved = false
         local hasNoStacksLeft = false
-        for _, toBagItemData in pairs(toBagCache) do
+
+        local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
+        local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
+        local stackToMove = overruleStackToMove or sourceStack
+        PAHF.debugln("try to move %d x %s", stackToMove, itemLink)
+
+        for toBagCacheIndex, toBagItemData in pairs(toBagCache) do
             if fromBagItemData.itemInstanceId == toBagItemData.itemInstanceId then
                 -- same itemInstanceId
-                local targetStack, targetMaxStack = GetSlotStackSize(toBagItemData.bagId, toBagItemData.slotIndex)
+                local _, targetMaxStack = GetSlotStackSize(toBagItemData.bagId, toBagItemData.slotIndex)
+                local targetStack = toBagItemData.stackCount -- cannot use [GetSlotStackSize] becuase it does not reflect changes after the bagCache is created
                 local targetFreeStacks = targetMaxStack - targetStack
                 if targetFreeStacks > 0 then
-                    local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
-                    local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
-                    local moveableStack = sourceStack
-                    if stackToMove ~= nil then
-                        -- only some of the stack can be moved; update the [moveableStack]
-                        moveableStack = stackToMove
-                    end
+                    local moveableStack = stackToMove
                     if moveableStack <= targetFreeStacks then
                         -- enough space to move all
                         PAHF.println(SI_PA_BANKING_ITEMS_MOVED_COMPLETE, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, moveableStack)
                         isItemMoved = true
                         hasNoStacksLeft = true
+                        -- update the stackCount in the bagCache manually (since we don't want to completely re-generate it)
+                        toBagCache[toBagCacheIndex].stackCount = targetStack + moveableStack
                     else
                         -- not enough space, only fill up stack possible
                         PAHF.println(SI_PA_BANKING_ITEMS_MOVED_PARTIAL, targetFreeStacks, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, targetFreeStacks)
-                        -- reduce the remaining amount that needs to be moved
-                        if stackToMove ~= nil then
-                            stackToMove = stackToMove - targetFreeStacks
-                        end
                         -- cannot be set to [isItemMoved = true] because there is still a remaining stack that needs to be moved
+                        -- reduce the remaining amount that needs to be moved
+                        stackToMove = stackToMove - targetFreeStacks
+                        -- update the stackCount in the bagCache manually (since we don't want to completely re-generate it)
+                        toBagCache[toBagCacheIndex].stackCount = targetStack + targetFreeStacks
                     end
                 end
             end
@@ -165,8 +174,40 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
 
         -- if the item could not be moved (because no further existing stack to fill up), add it to the notMoved table
         if not isItemMoved and newStacksAllowed then
-            fromBagItemData.customStackToMove = stackToMove
-            table.insert(notMovedItemsTable, fromBagItemData)
+            -- check if there are already not moved items; and if the current to be moved item is not a full stack
+            if #notMovedItemsTable > 0 and stackToMove < sourceStackMaxSize then
+                -- loop through all items already added to list
+                for index, prevBagItemData in pairs(notMovedItemsTable) do
+                    -- check if it is the same item and if there is some space left
+                    if prevBagItemData.itemInstanceId == fromBagItemData.itemInstanceId and prevBagItemData.customStackToMove < sourceStackMaxSize then
+                        local prevSourceFreeStack = sourceStackMaxSize - prevBagItemData.customStackToMove
+                        if prevSourceFreeStack >= stackToMove and fromBagItemData.stackCount >= stackToMove then
+                            -- stack everything
+                            notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + stackToMove
+                            notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
+                            _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, stackToMove)
+                            -- nothing left to be moved
+                            stackToMove = 0
+                            break
+                        else
+                            -- stack only partial
+                            notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + prevSourceFreeStack
+                            notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
+                            _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, prevSourceFreeStack)
+                            -- partial left to be moved
+                            stackToMove = stackToMove - prevSourceFreeStack
+                        end
+                    end
+                end
+            end
+
+            -- if there is something left to be moved; add it to the list
+            if (stackToMove and stackToMove > 0) then
+                fromBagItemData.customStackToMove = stackToMove
+                fromBagItemData.customStackToMoveOriginal = sourceStack
+                PAHF.debugln("not moved: %d / %d x %s", stackToMove, sourceStack, itemLink)
+                table.insert(notMovedItemsTable, fromBagItemData)
+            end
         end
     end
 end
