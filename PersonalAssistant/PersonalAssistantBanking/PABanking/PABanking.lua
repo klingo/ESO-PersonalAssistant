@@ -10,10 +10,11 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _stackBank()
-    if PASV.Banking[PA.activeProfile].autoStackBank then
+local function _stackBags()
+    if PASV.Banking[PA.activeProfile].autoStackBags then
         StackBag(BAG_BANK)
         StackBag(BAG_SUBSCRIBER_BANK)
+        StackBag(BAG_BACKPACK)
     end
     -- Execute the function queue
     PAB.triggerNextTransactionFunction()
@@ -32,7 +33,7 @@ local function OnBankOpen()
 
         -- check if the different transactions are enabled and add them to the function queue (will be executed in REVERSE order)
         PAB.transactionFunctionQueue = {}
-        table.insert(PAB.transactionFunctionQueue, _stackBank)
+        table.insert(PAB.transactionFunctionQueue, _stackBags)
         if PASV.Banking[PA.activeProfile].Advanced.advancedItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawAdvancedItems)
         end
@@ -42,7 +43,7 @@ local function OnBankOpen()
         if PASV.Banking[PA.activeProfile].Crafting.craftingItemsEnabled  and not IsESOPlusSubscriber() then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawCraftingItems)
         end
-        table.insert(PAB.transactionFunctionQueue, _stackBank)
+        table.insert(PAB.transactionFunctionQueue, _stackBags)
 
         -- Execute the function queue
         PAB.triggerNextTransactionFunction()
