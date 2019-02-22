@@ -616,12 +616,12 @@ local function createPABankingMenu()
 
     optionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_AUTOSTACKBANK),
-        tooltip = GetString(SI_PA_MENU_BANKING_AUTOSTACKBANK_T),
-        getFunc = PAMenuFunctions.PABanking.getAutoStackBankSetting,
-        setFunc = PAMenuFunctions.PABanking.setAutoStackBankSetting,
+        name = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS),
+        tooltip = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T),
+        getFunc = PAMenuFunctions.PABanking.getAutoStackBagsSetting,
+        setFunc = PAMenuFunctions.PABanking.setAutoStackBagsSetting,
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PAMenuDefaults.PABanking.autoStackBank,
+        default = PAMenuDefaults.PABanking.autoStackBags,
     })
 end
 

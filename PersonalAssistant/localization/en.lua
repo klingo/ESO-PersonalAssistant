@@ -213,8 +213,8 @@ local PAStrings = {
     SI_PA_MENU_BANKING_TRANSACTION_INTERVAL = "Interval between item transactions (msecs)",
     SI_PA_MENU_BANKING_TRANSACTION_INTERVAL_T = "The time in milliseconds between two consecutive item transactions. If too many item moves don't work, consider increasing this value.",
 
-    SI_PA_MENU_BANKING_AUTOSTACKBANK = "Auto-Stack all items when opening the bank",
-    SI_PA_MENU_BANKING_AUTOSTACKBANK_T = "Automatically stack all items in the bank when opening it? Helps to keep everything better organized.",
+    SI_PA_MENU_BANKING_AUTOSTACKBAGS = "Auto-Stack all items when opening the bank",
+    SI_PA_MENU_BANKING_AUTOSTACKBAGS_T = "Automatically stack all items in the bank and in the backpack when accessing the bank? Helps to keep everything better organized.",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- CURRENTLY NOT USED --
