@@ -105,6 +105,9 @@ local function depositOrWithdrawIndividualItems()
     local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
     local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
+    PAHF.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+    PAHF.debugln("#bankBagCache = "..tostring(#bankBagCache))
+
     -- update the TransactionTimer option from the SavedVars; and trigger the itemTransactions
     PAB.updateTransactionInterval()
     _doItemTransactions(individualItems, backpackBagCache, bankBagCache)
