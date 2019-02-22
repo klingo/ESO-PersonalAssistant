@@ -255,7 +255,7 @@ local function triggerNextTransactionFunction()
         -- remove the last entry from the list, and store it
         local functionToCall = table.remove(PAB.transactionFunctionQueue)
         -- call that function and pass on the remaining list of transactionFunctions
-        functionToCall()
+        zo_callLater(function() functionToCall() end, _transactionInterval)
     end
 end
 
