@@ -146,7 +146,7 @@ local function EventPlayerCombateState(_, inCombat)
         if (PAHF.hasActiveProfile()) then
             local PARepairSavedVars = PASV.Repair[PA.activeProfile]
             -- check if addon is enabled
-            if PARepairSavedVars.enabled then
+            if PARepairSavedVars.autoRepairEnabled then
                 -- check if player is not dead
                 if not PAHF.isPlayerDead() then
 
