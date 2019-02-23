@@ -101,7 +101,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
                 -- check for the different itemTypes and itemTraits
                 if (itemType == ITEMTYPE_TRASH) then
-                    if PASV.Junk[PA.activeProfile].autoMarkTrash then
+                    if PASV.Junk[PA.activeProfile].AutoMarkAsJunk.autoMarkTrash then
                         local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
                         if (markedAsJunk) then
                             PAHF.println(SI_PA_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
@@ -109,7 +109,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     end
 
                 elseif (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE) then
-                    if PASV.Junk[PA.activeProfile].autoMarkOrnate then
+                    if PASV.Junk[PA.activeProfile].AutoMarkAsJunk.autoMarkOrnate then
                         local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
                         if (markedAsJunk) then
                             PAHF.println(SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
