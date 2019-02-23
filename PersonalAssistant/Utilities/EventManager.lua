@@ -1,43 +1,39 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
-local registeredIdentifierSet = {}
+local _registeredIdentifierSet = {}
 
-local function addEventToSet(key)
-    registeredIdentifierSet[key] = true
+local function _addEventToSet(key)
+    _registeredIdentifierSet[key] = true
 end
 
-local function removeEventFromSet(key)
-    registeredIdentifierSet[key] = nil
+local function _removeEventFromSet(key)
+    _registeredIdentifierSet[key] = nil
 end
 
-local function containsEventInSet(key)
-    return registeredIdentifierSet[key] ~= nil
+local function _containsEventInSet(key)
+    return _registeredIdentifierSet[key] ~= nil
 end
 
-local function listAllEventsInSet()
-    d("----------------------------------------------------")
-    d("PA: listing all registered events")
-    for key, value in pairs(registeredIdentifierSet) do
-        -- d(key.."="..tostring(value))
-        d(key)
+local function _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
+    if (paIdentifier ~= nil and paIdentifier ~= "") then
+        -- if a specific PA identifier was set, use this one as the ESO identifer
+        return table.concat({ESO_EVENT, "_", paIdentifier})
+    else
+        -- elsecreate esoIdentifier based on module/addonName and ESO event
+        return table.concat({ESO_EVENT, "_", addonName})
     end
-    d("----------------------------------------------------")
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
 
--- =====================================================================================================================
--- =====================================================================================================================
-
-
-local function WaitForJunkProcessingToExecute(functionToExecute, firstCall)
+local function _waitForJunkProcessingToExecute(functionToExecute, firstCall)
     local PAEM = PA.EventManager
     if (PAEM.isJunkProcessing or firstCall) then
         -- still 'true', try again in 50 ms
-        zo_callLater(function() WaitForJunkProcessingToExecute(functionToExecute, false) end, 50)
+        zo_callLater(function() _waitForJunkProcessingToExecute(functionToExecute, false) end, 50)
     else
         -- boolean is false, execute method now
         functionToExecute()
@@ -45,7 +41,7 @@ local function WaitForJunkProcessingToExecute(functionToExecute, firstCall)
 end
 
 --  Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
-local function SharedEventOpenStore()
+local function _sharedEventOpenStore()
 
     local PAJ = PA.Junk
     if (PAJ) then
@@ -57,45 +53,57 @@ local function SharedEventOpenStore()
     if (PAR) then
         -- only then execute PARepair (to spend gold for repairs)
         -- has to be done with some delay to get a proper update on the current gold amount from selling junk
-        WaitForJunkProcessingToExecute(function() PAR.OnShopOpen() end, true)
+        _waitForJunkProcessingToExecute(function() PAR.OnShopOpen() end, true)
     end
 end
 
--- =====================================================================================================================
--- =====================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
-
-local function RegisterForEvent(addonName, ESOevent, executableFunction, paIdentifier)
-    -- create esoIdentifier based on module/addonName and ESO event
-    local esoIdentifier = ESOevent .. "_" .. addonName
-
-    -- if a specific PA identifier was set, use this one as the ESO identifer
-    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent .. "_" .. paIdentifier end
+local function RegisterForEvent(addonName, ESO_EVENT, executableFunction, paIdentifier, ESO_FILTER, ESOFilterValue)
+    -- get the esoIdentifier
+    local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
 
     -- an event will only be registered with ESO, when the same identiifer is not yet registered
-    if not containsEventInSet(esoIdentifier) then
+    if not _containsEventInSet(esoIdentifier) then
         -- register the event with ESO
-        EVENT_MANAGER:RegisterForEvent(esoIdentifier, ESOevent, executableFunction)
+        EVENT_MANAGER:RegisterForEvent(esoIdentifier, ESO_EVENT, executableFunction)
         -- and add it to PA's internal list of registered events
-        addEventToSet(esoIdentifier)
+        _addEventToSet(esoIdentifier)
     end
 end
 
+local function RegisterFilterForEvent(addonName, ESO_EVENT, paIdentifier, ESO_FILTER, ESOFilterValue)
+    -- get the esoIdentifier
+    local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
+
+    -- check if a filter was provided
+    if ESO_FILTER ~=nil and ESOFilterValue ~= nil then
+        EVENT_MANAGER:AddFilterForEvent(esoIdentifier, ESO_EVENT, ESO_FILTER, ESOFilterValue)
+    end
+end
 
 local function UnregisterForEvent(addonName, ESOevent, paIdentifier)
-    -- create esoIdentifier based on addonName and ESO event
-    local esoIdentifier = ESOevent .. "_" .. addonName
-
-    -- if a specific PA identifier was set, use this one as the ESO identifer
-    if (paIdentifier ~= nil and paIdentifier ~= "") then esoIdentifier = ESOevent .. "_" .. paIdentifier end
+    -- get the esoIdentifier
+    local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
 
     -- unregister the event from ESO
     EVENT_MANAGER:UnregisterForEvent(esoIdentifier, ESOevent)
     -- and remove it from PA's internal list of registered events
-    removeEventFromSet(esoIdentifier)
+    _removeEventFromSet(esoIdentifier)
 end
 
 
+local function listAllEventsInSet()
+    d("----------------------------------------------------")
+    d("PA: listing all registered events")
+    for key, value in pairs(_registeredIdentifierSet) do
+        -- d(key.."="..tostring(value))
+        d(key)
+    end
+    d("----------------------------------------------------")
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function RefreshAllEventRegistrations()
     local PAMenuFunctions = PA.MenuFunctions
@@ -115,7 +123,7 @@ local function RefreshAllEventRegistrations()
             RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.EventPlayerCombateState)
             -- Register PARepair (in correspondance with PAJunk)
             -- TODO: Check this function
-            RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, SharedEventOpenStore, "RepairJunkSharedEvent")
+            RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
         else
             -- Unregister PARepair
             UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE)
@@ -169,13 +177,13 @@ local function RefreshAllEventRegistrations()
         -- Check if the functionality is turned on within the addon
         if (PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
             -- Register PAJunk for looting junk items
-            -- TODO: Check this function
             RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
+            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
+            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
             -- Register PAJunk (in correspondance with PARepair)
-            -- TODO: Check this function
-            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, SharedEventOpenStore, "RepairJunkSharedEvent")
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
         else
-            -- Unegister PAJunk
+            -- Unregister PAJunk
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
             -- Unregister the SharedEvent, but only if PARepair is not enabled!
             if not (PAR and PAMenuFunctions.PARepair.getAutoRepairEnabledSetting()) then
