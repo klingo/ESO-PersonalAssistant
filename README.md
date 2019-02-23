@@ -49,8 +49,8 @@ How to read:
     * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
 * [X] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
     * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
-* [ ] **(2)** Check proper initialization of default values on first-time-use
-* [ ] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
+* [X] **(2)** Check proper initialization of default values on first-time-use
+* [X] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
     * http://www.esoui.com/forums/showthread.php?p=7988
     * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
 * [ ] **(4)** Check Currency Formatting
@@ -89,7 +89,7 @@ How to read:
   
 #### PARepair
 * [ ] **(3)** PARepair: Implement Repair Kits
-* [ ] **(3)** PALoot: Check API
+* [ ] **(3)** PARepair: Check API
     ```lua
     CanStoreRepair() 
   
@@ -208,7 +208,7 @@ How to read:
 * [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
 * [ ] **(4)** PAJunk: Inventory Size Warning
 * [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
-* [ ] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
+* [X] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
 * [ ] **(4)** PAJunk: Auto-Junk KNOWN recipes of quality XYZ and below
 * [ ] **(5)** PAJunk: Add option to select type of notifications
 
