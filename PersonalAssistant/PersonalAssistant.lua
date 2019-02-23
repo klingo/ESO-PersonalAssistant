@@ -19,6 +19,9 @@ PA.activeProfile = nil -- init with nil, is populated during [initAddon]
 -- PABanking
 PA.isBankClosed = true
 
+-- whether welcome message should be shown, or was already shown
+local showWelcomeMessage = true
+
 -- init default values
 local function initDefaults()
     -- initialize the multi-profile structure
@@ -81,7 +84,8 @@ local function introduction()
         -- a valid profile is selected and thus the events can be initialised
         PAEM.RefreshAllEventRegistrations()
         -- then check for the welcome message
-        if PASV.General[PA.activeProfile].welcome then
+        if showWelcomeMessage and PASV.General[PA.activeProfile].welcome then
+            showWelcomeMessage = false
             if PASV.Profile.language ~= "en" and PASV.Profile.language ~= "de" and PASV.Profile.language ~= "fr" then
                 PAHF.println(SI_PA_WELCOME_NO_SUPPORT, GetCVar("language.2"))
             else
@@ -118,6 +122,9 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         elseif (bagId == BAG_SUBSCRIBER_BANK) then bagName = "BAG_SUBSCRIBER_BANK" end
 
         PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, strSpecializedItemType, icon, bagName)
+
+--        local hasSet, setName, numBonuses, numEquipped, maxEquipped, setId = GetItemLinkSetInfo(itemLink, bagId == BAG_WORN)
+--        PAHF.println("%s ->  hasSet: %s, setName: %s, numBonuses: %d, numEquipped: %d, maxEquipped: %d, setId: %d", itemLink, tostring(hasSet), setName, numBonuses, numEquipped, maxEquipped, setId)
     end
 end
 
