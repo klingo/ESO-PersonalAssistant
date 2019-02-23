@@ -342,6 +342,10 @@ PA.MenuDefaults = {
             autoMarkWeaponsQualityThreshold = 0,
             autoMarkArmorQuality = false,
             autoMarkArmorQualityThreshold = 0,
+            autoMarkJewelryQuality = false,
+            autoMarkJewelryQualityThreshold = 0,
+
+            includeSetItems = false,
         },
         autoSellJunk = true,
     },

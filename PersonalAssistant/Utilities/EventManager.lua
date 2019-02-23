@@ -209,6 +209,7 @@ end
 PA.EventManager = {
     listAllEventsInSet = listAllEventsInSet,
     RegisterForEvent = RegisterForEvent,
+    RegisterFilterForEvent = RegisterFilterForEvent,
     UnregisterForEvent = UnregisterForEvent,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
     isJunkProcessing = false, -- TODO: check if really needed?

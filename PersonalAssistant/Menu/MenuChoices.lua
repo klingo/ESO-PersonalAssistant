@@ -74,7 +74,7 @@ local PAMenuChoices = {
             GetString(SI_PA_QUALITY_FINE),
             GetString(SI_PA_QUALITY_SUPERIOR),
             GetString(SI_PA_QUALITY_EPIC),
-            GetString(SI_PA_QUALITY_LEGENDARY),
+--            GetString(SI_PA_QUALITY_LEGENDARY),
         }
     }
 }
@@ -150,7 +150,7 @@ local PAMenuChoicesValues = {
             ITEM_QUALITY_MAGIC,     -- 2
             ITEM_QUALITY_ARCANE,    -- 3
             ITEM_QUALITY_ARTIFACT,  -- 4
-            ITEM_QUALITY_LEGENDARY, -- 5
+--            ITEM_QUALITY_LEGENDARY, -- 5
         }
     }
 }

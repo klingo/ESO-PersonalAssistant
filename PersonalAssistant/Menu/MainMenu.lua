@@ -1905,11 +1905,6 @@ local function createPAJAutoMarkAsJunkSubMenu()
     })
 
     PAJAutoMarkAsJunkSubMenu:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
-    })
-
-    PAJAutoMarkAsJunkSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_T),
@@ -1935,9 +1930,42 @@ local function createPAJAutoMarkAsJunkSubMenu()
     })
 
     PAJAutoMarkAsJunkSubMenu:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_T),
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkJewelryQualitySetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkJewelryQualitySetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkJewelryQualityDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkJewelryQuality,
     })
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_THRESHOLD_T),
+        choices = PAMenuChoices.choices.PAJunk.qualityLevel,
+        choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
+        --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkJewelryQualityThresholdSetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkJewelryQualityThresholdSetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkJewelryQualityThresholdDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkJewelryQualityThreshold,
+    })
+
+
+    PAJAutoMarkAsJunkSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getIncludeSetItemsSetting,
+        setFunc = PAMenuFunctions.PAJunk.setIncludeSetItemsSetting,
+        disabled = PAMenuFunctions.PAJunk.isIncludeSetItemsDisabled,
+        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.includeSetItems,
+    })
+
 end
 
 -- =================================================================================================================

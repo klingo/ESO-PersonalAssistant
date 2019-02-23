@@ -34,7 +34,7 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
 end
 
 
-local function _markAsJunkIfPossible(bagId, slotIndex)
+local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
         -- TODO: integrate FCOItemSaver
@@ -53,11 +53,15 @@ local function _markAsJunkIfPossible(bagId, slotIndex)
         -- It is considered safe to mark the item as junk now
         SetItemIsJunk(bagId, slotIndex, true)
 
-        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+        -- make sure an itemLink is present
+        if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
 
-        return true, itemLink
+        -- print provided success message
+        PAHF.println(successMessageKey, itemLink)
+    else
+        -- print failure message
+        -- TODO: to be implemented
     end
-    return false, nil
 end
 
 
@@ -89,34 +93,63 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
+        local PAJunkSavedVars = PASV.Junk[PA.activeProfile]
 
         -- check if auto-marking is enabled
-        if PASV.Junk[PA.activeProfile].AutoMarkAsJunk.autoMarkAsJunkEnabled then
+        if PAJunkSavedVars.AutoMarkAsJunk.autoMarkAsJunkEnabled then
 
             -- check if the updated happened in the backpack and if the item is new
-            if ((bagId == BAG_BACKPACK) and (isNewItem)) then
+            if (bagId == BAG_BACKPACK and isNewItem) then
                 -- get the itemType and itemTrait
+                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                 local itemType = GetItemType(bagId, slotIndex)
                 local itemTrait = GetItemTrait(bagId, slotIndex)
+                local itemQuality = GetItemQuality(bagId, slotIndex)
+                local hasSet = GetItemLinkSetInfo(itemLink, bagId == BAG_WORN)
 
-                -- check for the different itemTypes and itemTraits
-                if (itemType == ITEMTYPE_TRASH) then
-                    if PASV.Junk[PA.activeProfile].AutoMarkAsJunk.autoMarkTrash then
-                        local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
-                        if (markedAsJunk) then
-                            PAHF.println(SI_PA_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
-                        end
-                    end
 
-                elseif (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE) then
-                    if PASV.Junk[PA.activeProfile].AutoMarkAsJunk.autoMarkOrnate then
-                        local markedAsJunk, itemLink = _markAsJunkIfPossible(bagId, slotIndex)
-                        if (markedAsJunk) then
-                            PAHF.println(SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
+                -- first check if it is not a Set, or if it is that the corresponding setting is enabled
+                if not hasSet or (hasSet and PAJunkSavedVars.AutoMarkAsJunk.includeSetItems) then
+                    -- check for the different itemTypes and itemTraits
+                    if itemType == ITEMTYPE_TRASH then
+                        if PAJunkSavedVars.AutoMarkAsJunk.autoMarkTrash then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                         end
+
+                    elseif itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE then
+                        if PAJunkSavedVars.AutoMarkAsJunk.autoMarkOrnate then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
+                        end
+
+                    elseif itemType == ITEMTYPE_WEAPON then
+                        if PAJunkSavedVars.AutoMarkAsJunk.autoMarkWeaponsQuality then
+                            if itemQuality <= PAJunkSavedVars.AutoMarkAsJunk.autoMarkWeaponsQualityThreshold then
+                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                            end
+                        end
+
+                    elseif itemType == ITEMTYPE_ARMOR then
+                        local equipType = GetItemLinkEquipType(itemLink)
+                        if equipType == EQUIP_TYPE_RING or equipType == EQUIP_TYPE_NECK then
+                            -- Jewelry
+                            if PAJunkSavedVars.AutoMarkAsJunk.autoMarkJewelryQuality then
+                                if itemQuality <= PAJunkSavedVars.AutoMarkAsJunk.autoMarkJewelryQualityThreshold then
+                                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                end
+                            end
+
+                        else
+                            --Apparel
+                            if PAJunkSavedVars.AutoMarkAsJunk.autoMarkArmorQuality then
+                                if itemQuality <= PAJunkSavedVars.AutoMarkAsJunk.autoMarkArmorQualityThreshold then
+                                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                end
+                            end
+                        end
+
+                        -- TODO: check other item types etc.
                     end
                 end
-                -- TODO: check other item types etc.
             end
         end
     end

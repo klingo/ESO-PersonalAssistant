@@ -91,6 +91,7 @@ local PAStrings = {
     SI_PA_JUNK_MARKED_AS_JUNK = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk"}),
     SI_PA_JUNK_MARKED_AS_JUNK_TRASH = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Trash)"}),
     SI_PA_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Ornate)"}),
+    SI_PA_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Quality)"}),
     SI_PA_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -281,11 +282,18 @@ local PAStrings = {
     SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY = "Auto-Mark Weapons",
     SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_T = "???", -- TODO: add tooltip
     SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_THRESHOLD = "If Weapon quality level is at or below",
-    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_THRESHOLD_T = "Automatically mark weapons as junk if they are of the selected quality or lower",
+    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_THRESHOLD_T = "Automatically mark Weapons as Junk if they are of the selected quality or lower",
     SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY = "Auto-Mark Armor",
     SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_T = "???", -- TODO: add tooltip
     SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_THRESHOLD = "If Armor quality level is at or below",
-    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_THRESHOLD_T = "Automatically mark armor as junk if they are of the selected quality or lower",
+    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_THRESHOLD_T = "Automatically mark Armor as Junk if it is of the selected quality or lower",
+    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY = "Auto-Mark Jewelry",
+    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_T = "???",  -- TODO: add tooltip
+    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_THRESHOLD = "If Jewelry quality level is at or below",
+    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_THRESHOLD_T = "Automatically mark Jewelry as Junk if it is of the selected quality or lower",
+
+    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Auto-Mark Items that are part of a Set",
+    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "If turned OFF, only items that are NOT belonging to a set will be marked as Junk",
 
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk?",
     SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk?",
