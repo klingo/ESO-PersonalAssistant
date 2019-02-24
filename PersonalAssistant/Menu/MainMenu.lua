@@ -56,6 +56,10 @@ local PABIndividualSoulGemSubmenuTable = setmetatable({}, { __index = table })
 local PABIndividualRepairKitSubmenuTable = setmetatable({}, { __index = table })
 local PABIndividualGenericSubmenuTable = setmetatable({}, { __index = table })
 
+local PALLootRecipesSubmenuTable = setmetatable({}, { __index = table })
+local PALLootMotifsSubmenuTable = setmetatable({}, { __index = table })
+local PALLootApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
+
 local PAJAutoMarkAsJunkSubMenu = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
@@ -637,6 +641,28 @@ local function createPALootMenu()
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
         default = PAMenuDefaults.PALoot.enabled,
     })
+
+    optionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER),
+        controls = PALLootRecipesSubmenuTable,
+        disabled = PAMenuFunctions.PALoot.isLootRecipesMenuDisabled,
+    })
+
+    optionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER),
+        controls = PALLootMotifsSubmenuTable,
+        disabled = PAMenuFunctions.PALoot.isLootMotifsMenuDisabled,
+    })
+
+    optionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER),
+        controls = PALLootApparelWeaponsSubmenuTable,
+        disabled = PAMenuFunctions.PALoot.isLootApparelWeaponsMenuDisabled,
+    })
+
 end
 
 local function createPAJunkMenu()
@@ -1622,8 +1648,67 @@ end
 
 -- =================================================================================================================
 
+local function createPALLootRecipesSubmenuTable()
+    PALLootRecipesSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES),
+        tooltip = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES_T),
+        getFunc = PAMenuFunctions.PALoot.getLootRecipesSetting,
+        setFunc = PAMenuFunctions.PALoot.setLootRecipesSetting,
+        disabled = PAMenuFunctions.PALoot.isLootRecipesDisabled,
+        default = PAMenuDefaults.PALoot.LootRecipes.enabled,
+    })
+
+    PALLootRecipesSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG),
+        tooltip = GetString(SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG_T),
+        getFunc = PAMenuFunctions.PALoot.getUnknownRecipeMsgSetting,
+        setFunc = PAMenuFunctions.PALoot.setUnknownRecipeMsgSetting,
+        disabled = PAMenuFunctions.PALoot.isUnknownRecipeMsgDisabled,
+        default = PAMenuDefaults.PALoot.LootRecipes.unknownRecipeMsg,
+    })
+end
 
 -- -----------------------------------------------------------------------------------------------------------------
+
+local function createPALLootMotifsSubmenuTable()
+    PALLootMotifsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS),
+        tooltip = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS_T),
+        getFunc = PAMenuFunctions.PALoot.getLootMotifsSetting,
+        setFunc = PAMenuFunctions.PALoot.setLootMotifsSetting,
+        disabled = PAMenuFunctions.PALoot.isLootMotifsDisabled,
+        default = PAMenuDefaults.PALoot.LootMotifs.enabled,
+    })
+
+    PALLootMotifsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG),
+        tooltip = GetString(SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG_T),
+        getFunc = PAMenuFunctions.PALoot.getUnknownMotifMsgSetting,
+        setFunc = PAMenuFunctions.PALoot.setUnknownMotifMsgSetting,
+        disabled = PAMenuFunctions.PALoot.isUnknownMotifMsgDisabled,
+        default = PAMenuDefaults.PALoot.LootMotifs.unknownMotifMsg,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function createPALLootApparelWeaponsSubmenuTable()
+    PALLootApparelWeaponsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS),
+        tooltip = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_T),
+        getFunc = PAMenuFunctions.PALoot.getLootApparelWeaponsSetting,
+        setFunc = PAMenuFunctions.PALoot.setLootApparelWeaponsSetting,
+        disabled = PAMenuFunctions.PALoot.isLootApparelWeaponsDisabled,
+        default = PAMenuDefaults.PALoot.LootApparelWeapons.enabled,
+    })
+end
+
+-- =================================================================================================================
 
 local function createPAJAutoMarkAsJunkSubMenu()
     PAJAutoMarkAsJunkSubMenu:insert({
@@ -1782,6 +1867,9 @@ local function createOptions()
 
     -- create submenu for PALoot
     if PA.Loot then
+        createPALLootRecipesSubmenuTable()
+        createPALLootMotifsSubmenuTable()
+        createPALLootApparelWeaponsSubmenuTable()
     end
 
     -- create submenu for PAJunk

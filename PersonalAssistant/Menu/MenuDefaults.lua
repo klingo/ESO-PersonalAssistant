@@ -291,13 +291,15 @@ PA.MenuDefaults = {
                     operator = PAC.OPERATOR.NONE,
                     backpackAmount = 100,
                 },
-
                 -- [custom] itemIds to be entered here and following
---                [custom] = {
---                    enabledSetting = "genericsEnabled",
---                    operator = PAC.OPERATOR.NONE,
---                    backpackAmount = 100,
---                }
+                --[[----------------------------------------------------------------------
+                [custom] = {
+                    enabledSetting = "genericsEnabled",
+                    operator = PAC.OPERATOR.NONE,
+                    backpackAmount = 100,
+                }
+                --]]----------------------------------------------------------------------
+
             },
 
             TransactionSettings = {
@@ -321,10 +323,22 @@ PA.MenuDefaults = {
     PALoot = {
         enabled = false,
 
-        Notifications = {
-            lootUnknownRecipe = true,
-            lootUnknownTrait = true,
-            lootUnknownMotif = true,
+        LootRecipes = {
+            enabled = true,
+
+            unknownRecipeMsg = true
+        },
+
+        LootMotifs = {
+            enabled = true,
+
+            unknownMotifMsg = true,
+        },
+
+        LootApparelWeapons = {
+            enabled = true,
+
+            unknownTraitMsg = true,
         }
     },
     PAJunk = {

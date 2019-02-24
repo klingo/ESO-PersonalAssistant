@@ -63,6 +63,10 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
+    SI_PA_LOOT_RECIPE_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s is ", PAC.COLORS.ORANGE,"unknown", PAC.COLORS.DEFAULT, "!"}),
+    SI_PA_LOOT_MOTIF_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s is ", PAC.COLORS.ORANGE,"unknown", PAC.COLORS.DEFAULT, "!"}),
+    SI_PA_LOOT_TRAIT_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
+
     SI_PA_LOOT_LOOT_MODE_IGNORE = "Ignore",
     SI_PA_LOOT_LOOT_MODE_IGNORE_T = "Nothing happens, the item is ignored",
     SI_PA_LOOT_LOOT_MODE_AUTOLOOT = "Auto-Loot",
@@ -235,6 +239,29 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALMenu --
+    -- Loot Recipes
+    SI_PA_MENU_LOOT_LOOT_RECIPES = table.concat({"Enable Events when looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
+    SI_PA_MENU_LOOT_LOOT_RECIPES_T = "???",
+    SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER = table.concat({PAC.ICONS.ITEMS.RECIPE.NORMAL, " ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
+
+    SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
+    SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG_T = "???",
+
+    -- Loot Motifs
+    SI_PA_MENU_LOOT_LOOT_MOTIFS = table.concat({"Enable Events when looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
+    SI_PA_MENU_LOOT_LOOT_MOTIFS_T = "???",
+    SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER = table.concat({PAC.ICONS.ITEMS.MOTIF.NORMAL, " ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
+
+    SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
+    SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG_T = "???",
+
+    -- Loot Apparel & Weapons
+    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS = table.concat({"Enable Events when looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_T = "???",
+    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER = table.concat({PAC.ICONS.ITEMS.WEAPON, " ", "When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- CURRENTLY NOT USED --
     SI_PA_MENU_LOOT_ESO_AUTOLOOT_DESCRIPTION = table.concat({PAC.COLORS.LIGHT_BLUE, "Because the Auto Loot option of ESO is turned on, PALoot has been disabled. Everything is already automatically looted."}),
     SI_PA_MENU_LOOT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
     SI_PA_MENU_LOOT_ENABLE_T = "Enable Auto Loot?",

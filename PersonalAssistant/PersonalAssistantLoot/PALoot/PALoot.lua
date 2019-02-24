@@ -166,37 +166,48 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
         -- check if addon is enabled
         if PALootSavedVars.enabled then
-
-            local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
             local itemType, specializedItemType = GetItemType(bagId, slotIndex)
+            local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+            local itemFilterType = GetItemFilterTypeInfo(bagId, slotIndex)
 
-            local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
-
-            if itemType == ITEMTYPE_RECIPE then
+            -- Recipes
+            if PALootSavedVars.LootRecipes.enabled and itemType == ITEMTYPE_RECIPE then
                 local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
                 if not isRecipeKnown then
-                    PAHF.println("UNKNOWN recipe looted: %s", itemLink)
+                    PAHF.println(SI_PA_LOOT_RECIPE_UNKNOWN, itemLink)
                 else
+                    -- TODO: to be removed? or to be implemented properly?
                     PAHF.println("known recipe looted: %s", itemLink)
                 end
-            end
 
-            if canBeResearched then
-                PAHF.println("UNKNOWN trait looted: %s", itemLink)
+            -- Motifs
+            elseif PALootSavedVars.LootMotifs.enabled and itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+                -- TODO: to be implemented
 
-                local tradeskillType = GetItemLinkCraftingSkillType(itemLink)
-                local numLines = GetNumSmithingResearchLines(tradeskillType)
-                local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
-                local craftingType, researchLineName = GetRearchLineInfoFromRetraitItem(bagId, slotIndex)
-                d("canBeResearched="..tostring(canBeResearched))
-                d("tradeskillType="..tostring(tradeskillType))
-                d("numLines="..tostring(numLines))
-                d("traitType="..tostring(traitType))
-                d("traitName="..GetString("SI_ITEMTRAITTYPE", traitType))
-                d("traitDescription="..tostring(traitDescription))
-                d("craftingType="..tostring(craftingType))
-                d("researchLineName="..tostring(researchLineName))
-            else
+            -- Apparel & Weapons
+            elseif PALootSavedVars.LootApparelWeapons.enabled and (itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS) then
+                local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+                if canBeResearched then
+
+                    local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
+                    local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
+
+                    PAHF.println(SI_PA_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
+
+
+--                    local tradeskillType = GetItemLinkCraftingSkillType(itemLink)
+--                    local numLines = GetNumSmithingResearchLines(tradeskillType)
+--                    local craftingType, researchLineName = GetRearchLineInfoFromRetraitItem(bagId, slotIndex)
+--                    d("canBeResearched="..tostring(canBeResearched))
+--                    d("tradeskillType="..tostring(tradeskillType))
+--                    d("numLines="..tostring(numLines))
+--                    d("traitType="..tostring(traitType))
+--                    d("traitName="..GetString("SI_ITEMTRAITTYPE", traitType))
+--                    d("traitDescription="..tostring(traitDescription))
+--                    d("craftingType="..tostring(craftingType))
+--                    d("researchLineName="..tostring(researchLineName))
+                else
+                end
             end
 
 
