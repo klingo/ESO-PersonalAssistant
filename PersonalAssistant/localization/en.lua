@@ -244,7 +244,7 @@ local PAStrings = {
     SI_PA_MENU_LOOT_LOOT_RECIPES_T = "???",
     SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER = table.concat({PAC.ICONS.ITEMS.RECIPE.NORMAL, " ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
 
-    SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
+    SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
     SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG_T = "???",
 
     -- Loot Motifs

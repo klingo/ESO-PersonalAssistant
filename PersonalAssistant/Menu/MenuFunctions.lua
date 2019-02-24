@@ -910,9 +910,9 @@ PA.MenuFunctions = {
         getLootRecipesSetting = function() return getValue(PASV.Loot, {"LootRecipes", "enabled"}) end,
         setLootRecipesSetting = function(value) setValue(PASV.Loot, value, {"LootRecipes", "enabled"}) end,
 
-        isUnknownRecipeMsgDisabled = function() return isDisabled(PASV.Banking, {"enabled"}, {"LootRecipes", "enabled"}) end,
-        getUnknownRecipeMsgSetting = function() return getValue(PASV.Banking, {"LootRecipes", "unknownRecipeMsg"}) end,
-        setUnknownRecipeMsgSetting = function(value) setValue(PASV.Banking, value, {"LootRecipes", "unknownRecipeMsg"}) end,
+        isUnknownRecipeMsgDisabled = function() return isDisabled(PASV.Loot, {"enabled"}, {"LootRecipes", "enabled"}) end,
+        getUnknownRecipeMsgSetting = function() return getValue(PASV.Loot, {"LootRecipes", "unknownRecipeMsg"}) end,
+        setUnknownRecipeMsgSetting = function(value) setValue(PASV.Loot, value, {"LootRecipes", "unknownRecipeMsg"}) end,
 
         -- ----------------------------------------------------------------------------------
         -- MOTIFS SETTINGS
@@ -922,9 +922,9 @@ PA.MenuFunctions = {
         getLootMotifsSetting = function() return getValue(PASV.Loot, {"LootMotifs", "enabled"}) end,
         setLootMotifsSetting = function(value) setValue(PASV.Loot, value, {"LootMotifs", "enabled"}) end,
 
-        isUnknownMotifMsgDisabled = function() return isDisabled(PASV.Banking, {"enabled"}, {"LootMotifs", "enabled"}) end,
-        getUnknownMotifMsgSetting = function() return getValue(PASV.Banking, {"LootMotifs", "unknownMotifMsg"}) end,
-        setUnknownMotifMsgSetting = function(value) setValue(PASV.Banking, value, {"LootMotifs", "unknownMotifMsg"}) end,
+        isUnknownMotifMsgDisabled = function() return isDisabled(PASV.Loot, {"enabled"}, {"LootMotifs", "enabled"}) end,
+        getUnknownMotifMsgSetting = function() return getValue(PASV.Loot, {"LootMotifs", "unknownMotifMsg"}) end,
+        setUnknownMotifMsgSetting = function(value) setValue(PASV.Loot, value, {"LootMotifs", "unknownMotifMsg"}) end,
 
         -- ----------------------------------------------------------------------------------
         -- APPAREL WEAPONS SETTINGS
@@ -934,9 +934,9 @@ PA.MenuFunctions = {
         getLootApparelWeaponsSetting = function() return getValue(PASV.Loot, {"LootApparelWeapons", "enabled"}) end,
         setLootApparelWeaponsSetting = function(value) setValue(PASV.Loot, value, {"LootApparelWeapons", "enabled"}) end,
 
-        isUnknownTraitMsgDisabled = function() return isDisabled(PASV.Banking, {"enabled"}, {"LootApparelWeapons", "enabled"}) end,
-        getUnknownTraitMsgSetting = function() return getValue(PASV.Banking, {"LootApparelWeapons", "unknownTraitMsg"}) end,
-        setUnknownTraitMsgSetting = function(value) setValue(PASV.Banking, value, {"LootApparelWeapons", "unknownTraitMsg"}) end,
+        isUnknownTraitMsgDisabled = function() return isDisabled(PASV.Loot, {"enabled"}, {"LootApparelWeapons", "enabled"}) end,
+        getUnknownTraitMsgSetting = function() return getValue(PASV.Loot, {"LootApparelWeapons", "unknownTraitMsg"}) end,
+        setUnknownTraitMsgSetting = function(value) setValue(PASV.Loot, value, {"LootApparelWeapons", "unknownTraitMsg"}) end,
 
     },
     PAJunk = {
