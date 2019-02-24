@@ -320,18 +320,12 @@ PA.MenuDefaults = {
     },
     PALoot = {
         enabled = false,
-        lootGold = true,
-        lootGoldChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
-        lootItems = true,
-        lootItemsChatMode = PAC.CHATMODE.OUTPUT_MAX,
-        lootStolenItems = false,
-        HarvestableItemTypes = {},
-        LootableItemTypes = {},
-        harvestableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
-        lootableItemTypesLootMode = PAC_ITEMTYPE_IGNORE,
-        lockpickLootMode = PAC_ITEMTYPE_IGNORE,
-        questItemsLootMode = PAC_ITEMTYPE_IGNORE,
-        harvestableBaitLootMode = PAC_ITEMTYPE_LOOT,
+
+        Notifications = {
+            lootUnknownRecipe = true,
+            lootUnknownTrait = true,
+            lootUnknownMotif = true,
+        }
     },
     PAJunk = {
         AutoMarkAsJunk = {

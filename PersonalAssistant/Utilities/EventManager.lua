@@ -159,15 +159,17 @@ local function RefreshAllEventRegistrations()
         if (PAMenuFunctions.PALoot.isEnabled()) then
             -- Register PALoot
             -- TODO: Check this function
-            RegisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED, PAL.OnLootUpdated)
+--            RegisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED, PAL.OnLootUpdated)
             -- TODO: Check this function
             RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
-            ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PAL.OnReticleTargetChanged)
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+--            ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", PAL.OnReticleTargetChanged)
         else
             -- Unregister PALoot
-            UnregisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED)
+--            UnregisterForEvent(PAL.AddonName, EVENT_LOOT_UPDATED)
             UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-            ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", nil)
+--            ZO_PreHookHandler(RETICLE.interact, "OnEffectivelyShown", nil)
         end
     end
 

@@ -56,9 +56,6 @@ local PABIndividualSoulGemSubmenuTable = setmetatable({}, { __index = table })
 local PABIndividualRepairKitSubmenuTable = setmetatable({}, { __index = table })
 local PABIndividualGenericSubmenuTable = setmetatable({}, { __index = table })
 
-local PALHarvestableItemSubmenuTable = setmetatable({}, { __index = table })
-local PALLootableItemSubmenuTable = setmetatable({}, { __index = table })
-
 local PAJAutoMarkAsJunkSubMenu = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
@@ -631,98 +628,15 @@ local function createPALootMenu()
         name = GetString(SI_PA_MENU_LOOT_HEADER)
     })
 
-    if (GetSetting_Bool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)) then
-        -- In case of ESO Auto Loot is enabled, only show a remark that PALoot options are not available
-        optionsTable:insert({
-            type = "description",
-            text = GetString(SI_PA_MENU_LOOT_ESO_AUTOLOOT_DESCRIPTION)
-        })
-
-    else
-        -- ESO Auto Loot disabled
-        optionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_LOOT_ENABLE),
-            tooltip = GetString(SI_PA_MENU_LOOT_ENABLE_T),
-            getFunc = PAMenuFunctions.PALoot.isEnabled,
-            setFunc = PAMenuFunctions.PALoot.setIsEnabled,
-            disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-            default = PAMenuDefaults.PALoot.enabled,
-        })
-
-        optionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_LOOT_LOOT_GOLD),
-            tooltip = GetString(SI_PA_MENU_LOOT_LOOT_GOLD_T),
-            width = "half",
-            getFunc = PAMenuFunctions.PALoot.getLootGoldSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootGoldSetting,
-            disabled = PAMenuFunctions.PALoot.isLootGoldDisabled,
-            default = PAMenuDefaults.PALoot.lootGold,
-        })
-
-        optionsTable:insert({
-            type = "dropdown",
-            name = GetString(SI_PA_MENU_LOOT_LOOT_GOLD_CHATMODE),
-            tooltip = GetString(SI_PA_MENU_LOOT_LOOT_GOLD_CHATMODE_T),
-            choices = PAMenuChoices.choices.PALoot.lootGoldChatMode,
-            choicesValues = PAMenuChoices.choicesValues.PALoot.lootGoldChatMode,
-            width = "half",
-            getFunc = PAMenuFunctions.PALoot.getLootGoldChatModeSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootGoldChatModeSetting,
-            disabled = PAMenuFunctions.PALoot.isLootGoldChatModeDisabled,
-            default = PAMenuDefaults.PALoot.lootGoldChatMode,
-        })
-
-        optionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_LOOT_LOOT_ITEMS),
-            tooltip = GetString(SI_PA_MENU_LOOT_LOOT_ITEMS_T),
-            width = "half",
-            getFunc = PAMenuFunctions.PALoot.getLootItemsSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootItemsSetting,
-            disabled = PAMenuFunctions.PALoot.isLootItemsDisabled,
-            default = PAMenuDefaults.PALoot.lootItems,
-        })
-
-        optionsTable:insert({
-            type = "dropdown",
-            name = GetString(SI_PA_MENU_LOOT_LOOT_ITEMS_CHATMODE),
-            tooltip = GetString(SI_PA_MENU_LOOT_LOOT_ITEMS_CHATMODE_T),
-            choices = PAMenuChoices.choices.PALoot.lootItemsChatMode,
-            choicesValues = PAMenuChoices.choicesValues.PALoot.lootItemsChatMode,
-            width = "half",
-            getFunc = PAMenuFunctions.PALoot.getLootItemsChatModeSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootItemsChatModeSetting,
-            disabled = PAMenuFunctions.PALoot.isLootItemsChatModeDisabled,
-            default = PAMenuDefaults.PALoot.lootItemsChatMode,
-        })
-
-        optionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_LOOT_LOOT_STOLENITEMS),
-            tooltip = GetString(SI_PA_MENU_LOOT_LOOT_STOLENITEMS_T),
-            width = "half",
-            getFunc = PAMenuFunctions.PALoot.getLootStolenItemsSetting,
-            setFunc = PAMenuFunctions.PALoot.setLootStolenItemsSetting,
-            disabled = PAMenuFunctions.PALoot.isLootStolenItemsSettingDisabled,
-            default = PAMenuDefaults.PALoot.lootStolenItems,
-        })
-
-        optionsTable:insert({
-            type = "submenu",
-            name = GetString(SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS),
-            tooltip = GetString(SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_T),
-            controls = PALHarvestableItemSubmenuTable,
-        })
-
-        optionsTable:insert({
-            type = "submenu",
-            name = GetString(SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS),
-            tooltip = GetString(SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_T),
-            controls = PALLootableItemSubmenuTable,
-        })
-    end
+    optionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_LOOT_ENABLE_T),
+        getFunc = PAMenuFunctions.PALoot.isEnabled,
+        setFunc = PAMenuFunctions.PALoot.setIsEnabled,
+        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PAMenuDefaults.PALoot.enabled,
+    })
 end
 
 local function createPAJunkMenu()
@@ -1708,153 +1622,6 @@ end
 
 -- =================================================================================================================
 
-local function createPALHarvestableItemSubMenu()
-    PALHarvestableItemSubmenuTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_DESCRIPTION)
-    })
-
-    PALHarvestableItemSubmenuTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT_HEADER)
-    })
-
-    local baitChoices = PAMenuChoices.choices.PALoot.harvestableBaitLootMode
-    local baitChoicesValues = PAMenuChoices.choicesValues.PALoot.harvestableBaitLootMode
-    local baitChoicesTooltips = PAMenuChoices.choicesTooltips.PALoot.harvestableBaitLootMode
-    if (IsESOPlusSubscriber()) then
-        -- Override the values in case of ESO Plus (no option to "destroy" bait, as it directly goes to virtual bag)
-        -- Removes the last entry from the dropdowns (option: loot & destroy)
-        table.remove(baitChoices)
-        table.remove(baitChoicesValues)
-        table.remove(baitChoicesTooltips)
-    end
-
-    PALHarvestableItemSubmenuTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT),
-        tooltip = GetString(SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT_T),
-        choices = baitChoices,
-        choicesValues = baitChoicesValues,
-        choicesTooltips = baitChoicesTooltips,
-        getFunc = PAMenuFunctions.PALoot.getHarvestableBaitLootModeSetting,
-        setFunc = PAMenuFunctions.PALoot.setHarvestableBaitLootModeSetting,
-        disabled = PAMenuFunctions.PALoot.isHarvestableBaitLootModeDisabled,
-        default = PAMenuDefaults.PALoot.harvestableBaitLootMode,
-    })
-
-    PALHarvestableItemSubmenuTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_HEADER)
-    })
-
-    for index, itemType in pairs(PALHarvestableItemTypes) do
-        PALHarvestableItemSubmenuTable:insert({
-            type = "dropdown",
-            name = GetString("SI_ITEMTYPE", itemType),
-            choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
-            choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
-            choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-            width = "half",
-            getFunc = function() return PAMenuFunctions.PALoot.getHarvestableItemTypesLootModeSetting(itemType) end,
-            setFunc = function(value) PAMenuFunctions.PALoot.setHarvestableItemTypesLootModeSetting(itemType, value) end,
-            disabled = PAMenuFunctions.PALoot.isHarvestableItemTypesLootModeDisabled,
-            default = PAMenuDefaults.PALoot.harvestableItemTypesLootMode,
-        })
-    end
-
-    PALHarvestableItemSubmenuTable:insert({
-        type = "button",
-        name = GetString(SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON),
-        tooltip = GetString(SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON_T),
-        func = PAMenuFunctions.PALoot.clickAutoLootAllHarvestableButton,
-        disabled = PAMenuFunctions.PALoot.isAutoLootAllHarvestableButtonDisabled,
-    })
-
-    PALHarvestableItemSubmenuTable:insert({
-        type = "button",
-        name = GetString(SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON),
-        tooltip = GetString(SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON_T),
-        func = PAMenuFunctions.PALoot.clickIgnoreAllHarvestableButton,
-        disabled = PAMenuFunctions.PALoot.isIgnoreAllHarvestableButtonDisabled,
-    })
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
-local function createPALLootableItemSubMenu()
-    PALLootableItemSubmenuTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_DESCRIPTION)
-    })
-
-    PALLootableItemSubmenuTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_HEADER)
-    })
-
-    for index, itemType in pairs(PALLootableItemTypes) do
-        PALLootableItemSubmenuTable:insert({
-            type = "dropdown",
-            name = Getstring("SI_ITEMTYPE", itemType),
-            choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
-            choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
-            choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-            width = "half",
-            getFunc = function() return PAMenuFunctions.PALoot.getLootableItemTypesLootModeSetting(itemType) end,
-            setFunc = function(value) PAMenuFunctions.PALoot.setLootableItemTypesLootModeSetting(itemType, value) end,
-            disabled = PAMenuFunctions.PALoot.isLootableItemTypesLootModeDisabled,
-            default = PAMenuDefaults.PALoot.lootableItemTypesLootMode,
-        })
-    end
-
-    PALLootableItemSubmenuTable:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
-
-    PALLootableItemSubmenuTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_LOOT_AUTOLOOT_LOCKPICKS),
-        choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
-        choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
-        choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-        width = "half",
-        getFunc = PAMenuFunctions.PALoot.getLockpickLootModeSetting,
-        setFunc = PAMenuFunctions.PALoot.setLockpickLootModeSetting,
-        disabled = PAMenuFunctions.PALoot.isLockpickLootModeDisabled,
-        default = PAMenuDefaults.PALoot.lockpickLootMode,
-    })
-
-    PALLootableItemSubmenuTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_LOOT_AUTOLOOT_QUESTITEMS),
-        choices = PAMenuChoices.choices.PALoot.itemTypesLootMode,
-        choicesValues = PAMenuChoices.choicesValues.PALoot.itemTypesLootMode,
-        choicesTooltips = PAMenuChoices.choicesTooltips.PALoot.itemTypesLootMode,
-        width = "half",
-        getFunc = PAMenuFunctions.PALoot.getQuestItemsLootModeSetting,
-        setFunc = PAMenuFunctions.PALoot.setQuestItemsLootModeSetting,
-        disabled = PAMenuFunctions.PALoot.isQuestItemsLootModeDisabled,
-        default = PAMenuDefaults.PALoot.questItemsLootMode,
-    })
-
-    PALLootableItemSubmenuTable:insert({
-        type = "button",
-        name = GetString(SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON),
-        tooltip = GetString(SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON_T),
-        func = PAMenuFunctions.PALoot.clickAutoLootAllLootableButton,
-        disabled = PAMenuFunctions.PALoot.isAutoLootAllLootableButtonDisabled,
-    })
-
-    PALLootableItemSubmenuTable:insert({
-        type = "button",
-        name = GetString(SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON),
-        tooltip = GetString(SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON_T),
-        func = PAMenuFunctions.PALoot.clickIgnoreAllLootableButton,
-        disabled = PAMenuFunctions.PALoot.isIgnoreAllLootableButtonDisabled,
-    })
-end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
@@ -2015,8 +1782,6 @@ local function createOptions()
 
     -- create submenu for PALoot
     if PA.Loot then
-        createPALHarvestableItemSubMenu()
-        createPALLootableItemSubMenu()
     end
 
     -- create submenu for PAJunk

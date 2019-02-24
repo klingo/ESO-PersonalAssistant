@@ -16,6 +16,7 @@ PersonalAssistant.Constants = {
         DEFAULT = "|cFFFF00",
         WHITE = "|cFFFFFF",
         LIGHT_BLUE = "|cB0B0FF",
+        GOLD = "|cC5C29E",
         GREEN = "|c00FF00",
         YELLOW = "|cFFD700",
         ORANGE_RED = "|cFF7400",
@@ -283,45 +284,3 @@ PAC_ITEMTYPE_DESTROY = 2
 -- Icon Paths
 PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds"
 
--- =====================================================================================================================
--- = PA Loot
--- =================================
--- PersonalAssistant Loot Harvestable ItemTypes
-PALHarvestableItemTypes = setmetatable({}, { __index = table })
--- Alchemy
-PALHarvestableItemTypes:insert(ITEMTYPE_REAGENT)
-PALHarvestableItemTypes:insert(ITEMTYPE_POTION_BASE)
-PALHarvestableItemTypes:insert(ITEMTYPE_FURNISHING_MATERIAL)
--- Blacksmithing
-PALHarvestableItemTypes:insert(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL)
--- Clothing
-PALHarvestableItemTypes:insert(ITEMTYPE_CLOTHIER_RAW_MATERIAL)
--- Woodworking
-PALHarvestableItemTypes:insert(ITEMTYPE_WOODWORKING_RAW_MATERIAL)
--- Enchanting
-PALHarvestableItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ASPECT)
-PALHarvestableItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_ESSENCE)
-PALHarvestableItemTypes:insert(ITEMTYPE_ENCHANTING_RUNE_POTENCY)
--- Provisioning
-PALHarvestableItemTypes:insert(ITEMTYPE_INGREDIENT)
--- Fishing
-PALHarvestableItemTypes:insert(ITEMTYPE_FISH)
-
--- ---------------------------------------------------------------------------------------------------------------------
--- PersonalAssistant Loot Lootable ItemTypes
-PALLootableItemTypes = setmetatable({}, { __index = table })
--- Alchemy
-PALLootableItemTypes:insert(ITEMTYPE_POISON_BASE)
--- Clothing
--- Enchanting
-PALLootableItemTypes:insert(ITEMTYPE_GLYPH_ARMOR)
-PALLootableItemTypes:insert(ITEMTYPE_GLYPH_JEWELRY)
-PALLootableItemTypes:insert(ITEMTYPE_GLYPH_WEAPON)
--- Provisioning
-PALLootableItemTypes:insert(ITEMTYPE_RECIPE)
--- Fishing
-PALLootableItemTypes:insert(ITEMTYPE_LURE)
--- Others
-PALLootableItemTypes:insert(ITEMTYPE_STYLE_MATERIAL)
-PALLootableItemTypes:insert(ITEMTYPE_RAW_MATERIAL)
-PALLootableItemTypes:insert(ITEMTYPE_TRASH)

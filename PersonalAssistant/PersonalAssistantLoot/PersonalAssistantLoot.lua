@@ -19,22 +19,9 @@ local function initDefaults()
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- get default values from PAMenuDefaults
         Loot_Defaults[profileNo] = PAMenuDefaults.PALoot
-
-        -- default values for ItemTypes (only prepare defaults for enabled itemTypes)
-        -- auto-loot=true, ignore=false
-        for i = 1, #PALHarvestableItemTypes do
-            if PALHarvestableItemTypes[i] ~= "" then
-                Loot_Defaults[profileNo].HarvestableItemTypes[PALHarvestableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
-            end
-        end
-
-        for i = 1, #PALLootableItemTypes do
-            if PALLootableItemTypes[i] ~= "" then
-                Loot_Defaults[profileNo].LootableItemTypes[PALLootableItemTypes[i]] = PAC_ITEMTYPE_IGNORE
-            end
-        end
     end
 end
+
 
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)

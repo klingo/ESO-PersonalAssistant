@@ -19,13 +19,6 @@ local PAMenuChoices = {
         }
     },
     PABanking = {
-        transactionStep = {
-            "1",
-            "10",
-            "100",
-            "1000",
-            "10000",
-        },
         stackingType = {
             GetString(SI_PA_ST_MOVE_FULL),
             GetString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY)
@@ -45,27 +38,7 @@ local PAMenuChoices = {
         },
     },
     PALoot = {
-        lootGoldChatMode = {
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_NONE)),
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_MIN), 123),
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_NORMAL), 123),
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_GOLD_CHATMODE_MAX), 123),
-        },
-        lootItemsChatMode = {
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_NONE)),
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_MIN), 2, PAC.ICONS.ITEMS.BANANAS, ""),
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_NORMAL), 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
-            PAHF.getFormattedText(GetString(SI_PA_LOOT_ITEMS_CHATMODE_MAX), 2, PAC.ITEMLINKS.BANANAS, PAC.ICONS.ITEMS.BANANAS, ""),
-        },
-        itemTypesLootMode = {
-            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE),
-            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT)
-        },
-        harvestableBaitLootMode = {
-            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE),
-            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT),
-            GetString(SI_PA_LOOT_LOOT_MODE_LOOTDESTROY)
-        },
+
     },
     PAJunk = {
         qualityLevel = {
@@ -95,13 +68,6 @@ local PAMenuChoicesValues = {
         }
     },
     PABanking = {
-        transactionStep = {
-            1,
-            10,
-            100,
-            1000,
-            10000,
-        },
         stackingType = {
             PAC.STACKING.FULL,
             PAC.STACKING.INCOMPLETE
@@ -121,27 +87,7 @@ local PAMenuChoicesValues = {
         },
     },
     PALoot = {
-        lootGoldChatMode = {
-            PAC.CHATMODE.OUTPUT_NONE,
-            PAC.CHATMODE.OUTPUT_MIN,
-            PAC.CHATMODE.OUTPUT_NORMAL,
-            PAC.CHATMODE.OUTPUT_MAX,
-        },
-        lootItemsChatMode = {
-            PAC.CHATMODE.OUTPUT_NONE,
-            PAC.CHATMODE.OUTPUT_MIN,
-            PAC.CHATMODE.OUTPUT_NORMAL,
-            PAC.CHATMODE.OUTPUT_MAX,
-        },
-        itemTypesLootMode = {
-            PAC_ITEMTYPE_IGNORE,
-            PAC_ITEMTYPE_LOOT,
-        },
-        harvestableBaitLootMode = {
-            PAC_ITEMTYPE_IGNORE,
-            PAC_ITEMTYPE_LOOT,
-            PAC_ITEMTYPE_DESTROY,
-        },
+
     },
     PAJunk = {
         qualityLevel = {
@@ -156,17 +102,6 @@ local PAMenuChoicesValues = {
 }
 
 local PAMenuChoicesTooltips = {
-    PALoot = {
-        itemTypesLootMode = {
-            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE_T),
-            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT_T)
-        },
-        harvestableBaitLootMode = {
-            GetString(SI_PA_LOOT_LOOT_MODE_IGNORE_T),
-            GetString(SI_PA_LOOT_LOOT_MODE_AUTOLOOT_T),
-            GetString(SI_PA_LOOT_LOOT_MODE_LOOTDESTROY_T)
-        },
-    }
 }
 
 -- Export
