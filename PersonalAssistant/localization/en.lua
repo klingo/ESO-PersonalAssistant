@@ -83,15 +83,15 @@ local PAStrings = {
     SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s destroyed"}),
     SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s have been destroyed"}),
 
-    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"}),
-    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE, "FAILURE: No free inventory slot to safely destroy %d/%d %s %s"}),
+    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE_RED, "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"}),
+    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE_RED, "FAILURE: No free inventory slot to safely destroy %d/%d %s %s"}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
     SI_PA_JUNK_MARKED_AS_JUNK = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk"}),
-    SI_PA_JUNK_MARKED_AS_JUNK_TRASH = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Trash)"}),
-    SI_PA_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Ornate)"}),
-    SI_PA_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (Quality)"}),
+    SI_PA_JUNK_MARKED_AS_JUNK_TRASH = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Trash", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Quality", PAC.COLORS.DEFAULT, ")"}),
     SI_PA_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
 
     -- -----------------------------------------------------------------------------------------------------------------

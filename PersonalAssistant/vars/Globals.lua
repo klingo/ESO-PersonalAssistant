@@ -18,7 +18,8 @@ PersonalAssistant.Constants = {
         LIGHT_BLUE = "|cB0B0FF",
         GREEN = "|c00FF00",
         YELLOW = "|cFFD700",
-        ORANGE = "|cFF7400",
+        ORANGE_RED = "|cFF7400",
+        ORANGE = "|cFFA500",
         RED = "|cFF0000",
     },
 
