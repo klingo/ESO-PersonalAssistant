@@ -72,7 +72,7 @@ local function RegisterForEvent(addonName, ESO_EVENT, executableFunction, paIden
     end
 end
 
-local function RegisterFilterForEvent(addonName, ESO_EVENT, paIdentifier, ESO_FILTER, ESOFilterValue)
+local function RegisterFilterForEvent(addonName, ESO_EVENT, ESO_FILTER, ESOFilterValue, paIdentifier)
     -- get the esoIdentifier
     local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
 
