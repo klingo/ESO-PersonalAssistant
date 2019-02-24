@@ -274,13 +274,3 @@ PersonalAssistant.Constants = {
         OUTPUT_MAX = 3,
     },
 }
-
-
--- PA Loot
-PAC_ITEMTYPE_IGNORE = 0
-PAC_ITEMTYPE_LOOT = 1
-PAC_ITEMTYPE_DESTROY = 2
-
--- Icon Paths
-PAC_ICON_LOCKPICK_PATH = "/esoui/art/icons/lockpick.dds"
-

@@ -248,21 +248,6 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 --            GetCraftingSkillName(number TradeskillType craftingSkillType)
 --            Returns: string name
 
-            --            -- check if ItemLoot is enabled
---            if PA.savedVars.Loot[PA.activeProfile].lootItems then
---                -- check if the updated happened in the backpack
---                if (bagId == BAG_BACKPACK) then
---                    -- only proceed if the update was triggered while harvesting (i.e. not from looting chests, wasps, mobs, etc)
---                    if (alreadyHarvesting) then
---                        -- get the itemType
---                        local itemType = GetItemType(BAG_BACKPACK, slotId)
---                        -- check if it is bait, and if bait is set to be destroyed
---                        if ((itemType == ITEMTYPE_LURE) and (PAMenu_Functions.getFunc.PALoot.harvestableBaitLootMode() == PAC_ITEMTYPE_DESTROY)) then
---                            DestroyNumOfItems(BAG_BACKPACK, slotId, stackCountChange)
---                        end
---                    end
---                end
---            end
         end
     end
 end
