@@ -8,7 +8,7 @@
 ## Version: 2.0.0
 ## AddOnVersion: 200
 ## Author: Klingo
-## APIVersion: 100025 100026
+## APIVersion: 100026
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## DependsOn: LibAddonMenu-2.0
 
