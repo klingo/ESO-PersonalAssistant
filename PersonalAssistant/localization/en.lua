@@ -63,7 +63,7 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
-    SI_PA_LOOT_RECIPE_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s is ", PAC.COLORS.ORANGE,"unknown", PAC.COLORS.DEFAULT, "!"}),
+    SI_PA_LOOT_RECIPE_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
     SI_PA_LOOT_MOTIF_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s is ", PAC.COLORS.ORANGE,"unknown", PAC.COLORS.DEFAULT, "!"}),
     SI_PA_LOOT_TRAIT_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
 
