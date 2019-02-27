@@ -242,7 +242,7 @@ local PAStrings = {
     -- Loot Recipes
     SI_PA_MENU_LOOT_LOOT_RECIPES = table.concat({"Enable Events when looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
     SI_PA_MENU_LOOT_LOOT_RECIPES_T = "???",
-    SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER = table.concat({PAC.ICONS.ITEMS.RECIPE.NORMAL, " ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
+    SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
 
     SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
     SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG_T = "???",
@@ -250,7 +250,7 @@ local PAStrings = {
     -- Loot Motifs
     SI_PA_MENU_LOOT_LOOT_MOTIFS = table.concat({"Enable Events when looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
     SI_PA_MENU_LOOT_LOOT_MOTIFS_T = "???",
-    SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER = table.concat({PAC.ICONS.ITEMS.MOTIF.NORMAL, " ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
+    SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
 
     SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
     SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG_T = "???",
@@ -258,7 +258,7 @@ local PAStrings = {
     -- Loot Apparel & Weapons
     SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS = table.concat({"Enable Events when looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
     SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_T = "???",
-    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.WEAPON, "   ", "When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", "When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- CURRENTLY NOT USED --
@@ -299,27 +299,40 @@ local PAStrings = {
 
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk?"}),
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T = "Automatically mark Items as Junk, depending on various different conditions?",
-    SI_PA_MENU_JUNK_AUTOMARK_HEADER = table.concat({PAC.ICONS.CRAFTBAG.JUNK.LARGE, " ", "Auto-Mark as Junk"}),
 
-    SI_PA_MENU_JUNK_AUTOMARK_TRASH = "Auto-Mark [Trash] items",
-    SI_PA_MENU_JUNK_AUTOMARK_TRASH_T = "Automatically mark items of type [Trash] as junk?",
+    SI_PA_MENU_JUNK_TRASH_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.JUNK.NORMAL, "  ", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH)}), -- TODO: move to generic section
+    SI_PA_MENU_JUNK_TRASH_AUTOMARK = "Auto-Mark [Trash] items",
+    SI_PA_MENU_JUNK_TRASH_AUTOMARK_T = "Automatically mark items of type [Trash] as junk?",
+
+    SI_PA_MENU_JUNK_WEAPONS_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_WEAPON))}), -- TODO: move to generic section
+    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_WEAPON))}),
+    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_T = "???", -- TODO: add tooltip
+    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD = "If Weapon quality level is at or below",
+    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Weapons as Junk if they are of the selected quality or lower",
+
+    SI_PA_MENU_JUNK_ARMOR_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.ARMOR.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_ARMOR))}), -- TODO: move to generic section
+    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_ARMOR))}),
+    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_T = "???", -- TODO: add tooltip
+    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD = "If Armor quality level is at or below",
+    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Armor as Junk if it is of the selected quality or lower",
+
+    SI_PA_MENU_JUNK_JEWELRY_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.JEWELRY.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))}), -- TODO: move to generic section
+    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY = table.concat({"Auto-Mark "}, zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))),
+    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_T = "???",  -- TODO: add tooltip
+    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD = "If Jewelry quality level is at or below",
+    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Jewelry as Junk if it is of the selected quality or lower",
+
+
+
+
+
+
+    SI_PA_MENU_JUNK_AUTOMARK_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.JUNK.NORMAL, "  ", "Auto-Mark as Junk"}),
+
     SI_PA_MENU_JUNK_AUTOMARK_ORNATE = "Auto-Mark [Ornate] trait items",
     SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
 
-    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY = "Auto-Mark Weapons",
-    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_T = "???", -- TODO: add tooltip
-    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_THRESHOLD = "If Weapon quality level is at or below",
-    SI_PA_MENU_JUNK_AUTOMARK_WEAPONSQUALITY_THRESHOLD_T = "Automatically mark Weapons as Junk if they are of the selected quality or lower",
-    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY = "Auto-Mark Armor",
-    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_T = "???", -- TODO: add tooltip
-    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_THRESHOLD = "If Armor quality level is at or below",
-    SI_PA_MENU_JUNK_AUTOMARK_ARMORQUALITY_THRESHOLD_T = "Automatically mark Armor as Junk if it is of the selected quality or lower",
-    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY = "Auto-Mark Jewelry",
-    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_T = "???",  -- TODO: add tooltip
-    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_THRESHOLD = "If Jewelry quality level is at or below",
-    SI_PA_MENU_JUNK_AUTOMARK_JEWELRYQUALITY_THRESHOLD_T = "Automatically mark Jewelry as Junk if it is of the selected quality or lower",
-
-    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Auto-Mark Items that are part of a Set",
+    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Also mark Items that are part of a Set",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "If turned OFF, only items that are NOT belonging to a set will be marked as Junk",
 
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk?",

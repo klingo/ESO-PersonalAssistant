@@ -85,7 +85,20 @@ PersonalAssistant.Constants = {
                 LARGE = "|t48:48:/esoui/art/crafting/provisioner_indexicon_furnishings_up.dds|t",
             },
             JUNK = {
+                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_junk_up.dds|t",
                 LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_junk_up.dds|t",
+            },
+            WEAPON = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_weapons_up.dds|t",
+                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_weapons_up.dds|t",
+            },
+            ARMOR = {
+                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_armor_up.dds|t",
+                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_armor_up.dds|t",
+            },
+            JEWELRY = {
+                LARGE = "|t48:48:/esoui/art/crafting/jewelry_tabicon_icon_up.dds|t",
+                NORMAL = "|t32:32:/esoui/art/crafting/jewelry_tabicon_icon_up.dds|t",
             }
         },
         ITEMS = {
@@ -104,6 +117,9 @@ PersonalAssistant.Constants = {
             },
             MOTIF = {
                 NORMAL = "|t32:32:/esoui/art/icons/quest_book_001.dds|t"
+            },
+            ORNATE = {
+                NORMAL = "|t32:32:/esoui/art/inventory/inventory_trait_ornate_icon.dds|t"
             },
             POISON = {
                 NORMAL = "|t32:32:/esoui/art/icons/crafting_poison_001_red_005.dds|t"

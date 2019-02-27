@@ -342,9 +342,31 @@ PA.MenuDefaults = {
         }
     },
     PAJunk = {
-        AutoMarkAsJunk = {
-            autoMarkAsJunkEnabled = false,
+        autoMarkAsJunkEnabled = false,
+        Trash = {
             autoMarkTrash = true,
+        },
+        Weapons = {
+            autoMarkOrnate = true,
+            autoMarkQuality = false,
+            autoMarkQualityThreshold = 0,
+            autoMarkIncludingSets = false,
+        },
+        Armor = {
+            autoMarkOrnate = true,
+            autoMarkQuality = false,
+            autoMarkQualityThreshold = 0,
+            autoMarkIncludingSets = false,
+        },
+        Jewelry = {
+            autoMarkOrnate = true,
+            autoMarkQuality = false,
+            autoMarkQualityThreshold = 0,
+            autoMarkIncludingSets = false,
+        },
+
+
+        AutoMarkAsJunk = {
             autoMarkOrnate = true,
             autoMarkWeaponsQuality = false,
             autoMarkWeaponsQualityThreshold = 0,
