@@ -125,6 +125,38 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 
 --        local hasSet, setName, numBonuses, numEquipped, maxEquipped, setId = GetItemLinkSetInfo(itemLink, bagId == BAG_WORN)
 --        PAHF.println("%s ->  hasSet: %s, setName: %s, numBonuses: %d, numEquipped: %d, maxEquipped: %d, setId: %d", itemLink, tostring(hasSet), setName, numBonuses, numEquipped, maxEquipped, setId)
+
+        local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+        local isBeingResearched = PA.Loot.isTraitBeingResearched(itemLink)
+        local tradeskillType = GetItemLinkCraftingSkillType(itemLink)
+        local numLines = GetNumSmithingResearchLines(tradeskillType)
+        local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
+        local craftingType, researchLineName = GetRearchLineInfoFromRetraitItem(bagId, slotIndex)
+
+        d("canBeResearched="..tostring(canBeResearched))
+        d("isBeingResearched="..tostring(isBeingResearched))
+        d("tradeskillType="..tostring(tradeskillType))
+        d("numLines="..tostring(numLines))
+        d("traitType="..tostring(traitType))
+        d("traitDescription="..tostring(traitDescription))
+        d("craftingType="..tostring(craftingType))
+        d("researchLineName="..tostring(researchLineName))
+
+
+
+--        local traitIndex = PA.Loot.TraitIndexFromItemTraitType[traitType]
+--        if traitIndex ~= nil and type(traitIndex) == "number" then
+--            -- todo?
+--        end
+--
+--        local craftingType, researchLineName = GetRearchLineInfoFromRetraitItem(bagId, slotIndex)
+--
+--        local _, _, known = GetSmithingResearchLineTraitInfo(tradeskillType, researchLineIndex, traitIndex)
+--        if not known then
+--            local duration = GetSmithingResearchLineTraitTimes(tradeskillType, researchLineIndex, traitIndex)
+--        end
+
+
     end
 end
 

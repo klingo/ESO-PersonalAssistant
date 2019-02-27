@@ -258,7 +258,7 @@ local PAStrings = {
     -- Loot Apparel & Weapons
     SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS = table.concat({"Enable Events when looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
     SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_T = "???",
-    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER = table.concat({PAC.ICONS.ITEMS.WEAPON, " ", "When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.WEAPON, "   ", "When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- CURRENTLY NOT USED --

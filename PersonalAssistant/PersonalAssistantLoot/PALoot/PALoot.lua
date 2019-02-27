@@ -46,13 +46,8 @@ local TraitIndexFromItemTraitType = {
     [ITEM_TRAIT_TYPE_JEWELRY_ORNATE] = nil,     -- 24
 }
 
-local CLOTHIER = CRAFTING_TYPE_CLOTHIER
-local WOODWORKING = CRAFTING_TYPE_WOODWORKING
-local BLACKSMITHING = CRAFTING_TYPE_BLACKSMITHING
-local JEWELCRAFTING = CRAFTING_TYPE_JEWELRYCRAFTING
-
 local ResearchLineIndexFromType = {
-    [CLOTHIER] = {
+    [CRAFTING_TYPE_CLOTHIER] = {
         ARMOR =  {
             -- add +7 for "Medium" armor (instead of "Light")
             [EQUIP_TYPE_CHEST] = 1,             -- 3
@@ -64,19 +59,17 @@ local ResearchLineIndexFromType = {
             [EQUIP_TYPE_WAIST] = 7,             -- 8
         },
     },
-    [WOODWORKING] = {
+    [CRAFTING_TYPE_WOODWORKING] = {
         WEAPON = {
             [WEAPONTYPE_BOW] = 1,               -- 8
             [WEAPONTYPE_FIRE_STAFF] = 2,        -- 12
             [WEAPONTYPE_FROST_STAFF] = 3,       -- 13
             [WEAPONTYPE_LIGHTNING_STAFF] = 4,   -- 15
             [WEAPONTYPE_HEALING_STAFF] = 5,     -- 9
-        },
-        ARMOR = {
-            [EQUIP_TYPE_OFF_HAND] = 6,          -- 7
-        },
+            [WEAPONTYPE_SHIELD] = 6,            -- 7
+        }
     },
-    [BLACKSMITHING] = {
+    [CRAFTING_TYPE_BLACKSMITHING] = {
         WEAPON = {
             [WEAPONTYPE_AXE] = 1,               -- 1
             [WEAPONTYPE_HAMMER] = 2,            -- 2
@@ -96,7 +89,7 @@ local ResearchLineIndexFromType = {
             [EQUIP_TYPE_WAIST] = 14,            -- 8
         }
     },
-    [JEWELCRAFTING] = {
+    [CRAFTING_TYPE_JEWELRYCRAFTING] = {
         ARMOR = {
             [EQUIP_TYPE_NECK] = 1,              -- 2
             [EQUIP_TYPE_RING] = 2,              -- 12
@@ -104,10 +97,63 @@ local ResearchLineIndexFromType = {
     },
 }
 
+local WoodworkingWeaponTypes = {
+    [WEAPONTYPE_BOW] = true,
+    [WEAPONTYPE_FIRE_STAFF] = true,
+    [WEAPONTYPE_FROST_STAFF] = true,
+    [WEAPONTYPE_HEALING_STAFF] = true,
+    [WEAPONTYPE_LIGHTNING_STAFF] = true,
+    [WEAPONTYPE_SHIELD] = true,
+}
+
+local BlacksmithingWeaponTypes = {
+    [WEAPONTYPE_AXE] = true,
+    [WEAPONTYPE_DAGGER] = true,
+    [WEAPONTYPE_HAMMER] = true,
+    [WEAPONTYPE_SWORD] = true,
+    [WEAPONTYPE_TWO_HANDED_AXE] = true,
+    [WEAPONTYPE_TWO_HANDED_HAMMER] = true,
+    [WEAPONTYPE_TWO_HANDED_SWORD] = true,
+}
+
+local JewelcraftingEquipTypes = {
+    [EQUIP_TYPE_RING] = true,
+    [EQUIP_TYPE_NECK] = true,
+}
+
+
 local function GetResearchLineIndexFromItemLink(itemLink)
-
+    local itemType = GetItemLinkItemType(itemLink)
+    -- Apparel
+    if itemType == ITEMTYPE_ARMOR then
+        -- check equipType to distinguish Jewelry from other Apparel
+        local equipType = GetItemLinkEquipType(itemLink)
+        if JewelcraftingEquipTypes[equipType] then
+            return ResearchLineIndexFromType[CRAFTING_TYPE_JEWELRYCRAFTING].ARMOR[equipType]
+        else
+            -- check armorType to distinguish Light/Medium/Heavy Armor
+            local armorType = GetItemLinkArmorType(itemLink)
+            if armorType == ARMORTYPE_LIGHT then
+                return ResearchLineIndexFromType[CRAFTING_TYPE_CLOTHIER].ARMOR[equipType]
+            elseif armorType == ARMORTYPE_MEDIUM then
+                return ResearchLineIndexFromType[CRAFTING_TYPE_CLOTHIER].ARMOR[equipType] + 7
+            elseif armorType == ARMORTYPE_HEAVY then
+                return ResearchLineIndexFromType[CRAFTING_TYPE_BLACKSMITHING].ARMOR[equipType]
+            end
+        end
+        -- Weapon
+    elseif itemType == ITEMTYPE_WEAPON then
+        -- check weaponType to distinguish between Blacksmithing and Woodworking
+        local weaponType = GetItemLinkWeaponType(itemLink)
+        if BlacksmithingWeaponTypes[weaponType] then
+            return ResearchLineIndexFromType[CRAFTING_TYPE_BLACKSMITHING].WEAPON[weaponType]
+        elseif WoodworkingWeaponTypes[weaponType] then
+            return ResearchLineIndexFromType[CRAFTING_TYPE_WOODWORKING].WEAPON[weaponType]
+        end
+    end
+    -- if no match found, return nil
+    return nil
 end
-
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -160,6 +206,21 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
 end
 
 
+local function isTraitBeingResearched(itemLink)
+    local craftingSkillType = GetItemLinkCraftingSkillType(itemLink)
+    local researchLineIndex = GetResearchLineIndexFromItemLink(itemLink)
+    local traitType = GetItemLinkTraitInfo(itemLink)
+    local traitIndex = TraitIndexFromItemTraitType[traitType]
+
+    -- try to get remaining research time
+    local duration = GetSmithingResearchLineTraitTimes(craftingSkillType, researchLineIndex, traitIndex)
+
+    -- either the duration is returned (being researched); or nil (not being researched)
+    return duration ~= nil
+end
+
+
+
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
         local PALootSavedVars = PASV.Loot[PA.activeProfile]
@@ -187,6 +248,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             -- Apparel & Weapons
             elseif PALootSavedVars.LootApparelWeapons.enabled and (itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS) then
                 local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+--                local isBeingResearched = isTraitBeingResearched(itemLink)
+
                 if canBeResearched then
 
                     local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
@@ -268,4 +331,5 @@ end
 -- Export
 PA.Loot = PA.Loot or {}
 PA.Loot.TraitIndexFromItemTraitType = TraitIndexFromItemTraitType
+PA.Loot.isTraitBeingResearched = isTraitBeingResearched
 PA.Loot.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
