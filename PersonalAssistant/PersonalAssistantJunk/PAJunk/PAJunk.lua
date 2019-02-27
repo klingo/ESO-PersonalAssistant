@@ -6,6 +6,8 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local _isMailboxOpen = false
+
 local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     -- check what the difference in money is
     local moneyDiff = GetCurrentMoney() - moneyBefore;
@@ -91,10 +93,20 @@ local function OnShopOpen()
 end
 
 
+local function OnMailboxOpen()
+    _isMailboxOpen = true
+end
+
+
+local function OnMailboxClose()
+    _isMailboxOpen = false
+end
+
+
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
-        -- only proceed, if the crafting window is NOT open (otherwise crafted items could also be marked as junk)
-        if not ZO_CraftingUtils_IsCraftingWindowOpen() then
+        -- only proceed, if neither the crafting window nor the mailbox are NOT open (otherwise crafted/retrieved items could also be marked as junk)
+        if not ZO_CraftingUtils_IsCraftingWindowOpen() and not _isMailboxOpen then
             local PAJunkSavedVars = PASV.Junk[PA.activeProfile]
 
             -- check if auto-marking is enabled
@@ -162,4 +174,6 @@ end
 -- Export
 PA.Junk = PA.Junk or {}
 PA.Junk.OnShopOpen = OnShopOpen
+PA.Junk.OnMailboxOpen = OnMailboxOpen
+PA.Junk.OnMailboxClose = OnMailboxClose
 PA.Junk.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate

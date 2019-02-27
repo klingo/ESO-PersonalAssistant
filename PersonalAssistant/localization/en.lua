@@ -295,7 +295,7 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJMenu --
-    SI_PA_MENU_JUNK_ITEMTYPE_DESCRIPTION = "Enable and disable the automatic marking as junk for selected items based on various conditions.",
+    SI_PA_MENU_JUNK_ITEMTYPE_DESCRIPTION = "PALoot can directly mark items as junk if they match any of the configurable rules; except if it just was created or retrieved from mail.",
 
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk?"}),
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T = "Automatically mark Items as Junk, depending on various different conditions?",

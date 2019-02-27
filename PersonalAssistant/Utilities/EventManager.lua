@@ -184,6 +184,9 @@ local function RefreshAllEventRegistrations()
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
             -- Register PAJunk (in correspondance with PARepair)
             RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
+            -- Register Mailbox Open check (to disable marking as junk)
+            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen)
+            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose)
         else
             -- Unregister PAJunk
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
@@ -191,6 +194,9 @@ local function RefreshAllEventRegistrations()
             if not (PAR and PAMenuFunctions.PARepair.getAutoRepairEnabledSetting()) then
                 UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
             end
+            -- Unregister Mailbox Check
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX)
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX)
         end
     end
 
