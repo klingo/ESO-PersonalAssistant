@@ -343,6 +343,7 @@ PA.MenuDefaults = {
     },
     PAJunk = {
         autoMarkAsJunkEnabled = false,
+
         Trash = {
             autoMarkTrash = true,
         },
@@ -365,18 +366,6 @@ PA.MenuDefaults = {
             autoMarkIncludingSets = false,
         },
 
-
-        AutoMarkAsJunk = {
-            autoMarkOrnate = true,
-            autoMarkWeaponsQuality = false,
-            autoMarkWeaponsQualityThreshold = 0,
-            autoMarkArmorQuality = false,
-            autoMarkArmorQualityThreshold = 0,
-            autoMarkJewelryQuality = false,
-            autoMarkJewelryQualityThreshold = 0,
-
-            includeSetItems = false,
-        },
         autoSellJunk = true,
     },
     PAMail = {

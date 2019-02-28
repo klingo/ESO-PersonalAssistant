@@ -953,7 +953,7 @@ PA.MenuFunctions = {
         getTrashAutoMarkSetting = function() return getValue(PASV.Junk, {"Trash", "autoMarkTrash"}) end,
         setTrashAutoMarkSetting = function(value) setValue(PASV.Junk, value, {"Trash", "autoMarkTrash"}) end,
 
-        isWeaponsMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Weapons", "autoMarkOrnate"}, {"Weapons", "autoMarkQuality"}) end, -- TODO: to extend
+        isWeaponsMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Weapons", "autoMarkOrnate"}, {"Weapons", "autoMarkQuality"}, {"Weapons", "autoMarkIncludingSets"}) end, -- TODO: to extend
         isWeaponsAutoMarkOrnateDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
         getWeaponsAutoMarkOrnateSetting = function() return getValue(PASV.Junk, {"Weapons", "autoMarkOrnate"}) end,
         setWeaponsAutoMarkOrnateSetting = function(value) setValue(PASV.Junk, value, {"Weapons", "autoMarkOrnate"}) end,
@@ -963,8 +963,11 @@ PA.MenuFunctions = {
         isWeaponsAutoMarkQualityThresholdDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Weapons", "autoMarkQuality"}) end,
         getWeaponsAutoMarkQualityThresholdSetting = function() return getValue(PASV.Junk, {"Weapons", "autoMarkQualityThreshold"}) end,
         setWeaponsAutoMarkQualityThresholdSetting = function(value) setValue(PASV.Junk, value, {"Weapons", "autoMarkQualityThreshold"}) end,
+        isWeaponsIncludeSetItemsDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
+        getWeaponsIncludeSetItemsSetting = function() return getValue(PASV.Junk, {"Weapons", "autoMarkIncludingSets"}) end,
+        setWeaponsIncludeSetItemsSetting = function(value) setValue(PASV.Junk, value, {"Weapons", "autoMarkIncludingSets"}) end,
 
-        isArmorMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Armor", "autoMarkOrnate"}, {"Armor", "autoMarkQuality"}) end, -- TODO: to extend
+        isArmorMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Armor", "autoMarkOrnate"}, {"Armor", "autoMarkQuality"}, {"Armor", "autoMarkIncludingSets"}) end, -- TODO: to extend
         isArmorAutoMarkOrnateDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
         getArmorAutoMarkOrnateSetting = function() return getValue(PASV.Junk, {"Armor", "autoMarkOrnate"}) end,
         setArmorAutoMarkOrnateSetting = function(value) setValue(PASV.Junk, value, {"Armor", "autoMarkOrnate"}) end,
@@ -974,8 +977,11 @@ PA.MenuFunctions = {
         isArmorAutoMarkQualityThresholdDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Armor", "autoMarkQuality"}) end,
         getArmorAutoMarkQualityThresholdSetting = function() return getValue(PASV.Junk, {"Armor", "autoMarkQualityThreshold"}) end,
         setArmorAutoMarkQualityThresholdSetting = function(value) setValue(PASV.Junk, value, {"Armor", "autoMarkQualityThreshold"}) end,
+        isArmorIncludeSetItemsDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
+        getArmorIncludeSetItemsSetting = function() return getValue(PASV.Junk, {"Armor", "autoMarkIncludingSets"}) end,
+        setArmorIncludeSetItemsSetting = function(value) setValue(PASV.Junk, value, {"Armor", "autoMarkIncludingSets"}) end,
 
-        isJewelryMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Jewelry", "autoMarkOrnate"}, {"Jewelry", "autoMarkQuality"}) end, -- TODO: to extend
+        isJewelryMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Jewelry", "autoMarkOrnate"}, {"Jewelry", "autoMarkQuality"}, {"Jewelry", "autoMarkIncludingSets"}) end, -- TODO: to extend
         isJewelryAutoMarkOrnateDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
         getJewelryAutoMarkOrnateSetting = function() return getValue(PASV.Junk, {"Jewelry", "autoMarkOrnate"}) end,
         setJewelryAutoMarkOrnateSetting = function(value) setValue(PASV.Junk, value, {"Jewelry", "autoMarkOrnate"}) end,
@@ -985,16 +991,9 @@ PA.MenuFunctions = {
         isJewelryAutoMarkQualityThresholdDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Jewelry", "autoMarkQuality"}) end,
         getJewelryAutoMarkQualityThresholdSetting = function() return getValue(PASV.Junk, {"Jewelry", "autoMarkQualityThreshold"}) end,
         setJewelryAutoMarkQualityThresholdSetting = function(value) setValue(PASV.Junk, value, {"Jewelry", "autoMarkQualityThreshold"}) end,
-
-
-
-
-
-
-
-        isIncludeSetItemsDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
-        getIncludeSetItemsSetting = function() return getValue(PASV.Junk, {"AutoMarkAsJunk", "includeSetItems"}) end,
-        setIncludeSetItemsSetting = function(value) setValue(PASV.Junk, value, {"AutoMarkAsJunk", "includeSetItems"}) end,
+        isJewelryIncludeSetItemsDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
+        getJewelryIncludeSetItemsSetting = function() return getValue(PASV.Junk, {"Jewelry", "autoMarkIncludingSets"}) end,
+        setJewelryIncludeSetItemsSetting = function(value) setValue(PASV.Junk, value, {"Jewelry", "autoMarkIncludingSets"}) end,
 
         -- ----------------------------------------------------------------------------------
         -- AUTO SELL JUNK

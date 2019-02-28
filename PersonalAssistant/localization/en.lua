@@ -331,11 +331,6 @@ local PAStrings = {
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Also mark Items that are part of a Set",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "If turned OFF, only items that are NOT belonging to a set will be marked as Junk",
 
-
-    SI_PA_MENU_JUNK_AUTOMARK_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.JUNK.NORMAL, "  ", "Auto-Mark as Junk"}),
-
-
-
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMMenu --
     SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Mail for Hireling Materials?"}),

@@ -68,6 +68,18 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     end
 end
 
+local function _hasItemTypeAutoMarkIncludingSets(itemType, itemEquipType)
+    if itemType == ITEMTYPE_WEAPON then
+        return PAMFJ.getWeaponsIncludeSetItemsSetting()
+    elseif itemType == ITEMTYPE_ARMOR then
+        if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
+            return PAMFJ.getJewelryIncludeSetItemsSetting()
+        else
+            return PAMFJ.getArmorIncludeSetItemsSetting()
+        end
+    end
+    return false -- if unknown, return false
+end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -120,10 +132,11 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     local itemType = GetItemType(bagId, slotIndex)
                     local itemTrait = GetItemTrait(bagId, slotIndex)
                     local itemQuality = GetItemQuality(bagId, slotIndex)
+                    local itemEquipType = GetItemLinkEquipType(itemLink)
                     local hasSet = GetItemLinkSetInfo(itemLink, bagId == BAG_WORN)
 
                     -- first check if it is not a Set, or if it is that the corresponding setting is enabled
-                    if not hasSet or (hasSet and PAMFJ.getIncludeSetItemsSetting()) then
+                    if not hasSet or (hasSet and _hasItemTypeAutoMarkIncludingSets(itemType, itemEquipType)) then
                         -- check for the different itemTypes and itemTraits
                         if itemType == ITEMTYPE_TRASH then
                             if PAMFJ.getTrashAutoMarkSetting() then
@@ -141,8 +154,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             end
 
                         elseif itemType == ITEMTYPE_ARMOR then
-                            local equipType = GetItemLinkEquipType(itemLink)
-                            if (equipType == EQUIP_TYPE_RING or equipType == EQUIP_TYPE_NECK) and PAMFJ.getJewelryAutoMarkQualitySetting() then
+                            if (itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK) and PAMFJ.getJewelryAutoMarkQualitySetting() then
                                 -- Jewelry
                                 if itemQuality <= PAMFJ.getJewelryAutoMarkQualityThresholdSetting() then
                                     _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
