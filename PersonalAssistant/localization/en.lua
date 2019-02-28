@@ -322,21 +322,19 @@ local PAStrings = {
     SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD = "If Jewelry quality level is at or below",
     SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Jewelry as Junk if it is of the selected quality or lower",
 
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk?",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk?",
 
-
-
+    -- General texts used across: Weapons, Armor, Jewelry
+    SI_PA_MENU_JUNK_AUTOMARK_ORNATE = "Auto-Mark [Ornate] trait items",
+    SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
+    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Also mark Items that are part of a Set",
+    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "If turned OFF, only items that are NOT belonging to a set will be marked as Junk",
 
 
     SI_PA_MENU_JUNK_AUTOMARK_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.JUNK.NORMAL, "  ", "Auto-Mark as Junk"}),
 
-    SI_PA_MENU_JUNK_AUTOMARK_ORNATE = "Auto-Mark [Ornate] trait items",
-    SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
 
-    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Also mark Items that are part of a Set",
-    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "If turned OFF, only items that are NOT belonging to a set will be marked as Junk",
-
-    SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk?",
-    SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk?",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMMenu --

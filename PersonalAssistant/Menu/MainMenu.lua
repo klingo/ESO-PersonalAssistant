@@ -1750,16 +1750,6 @@ end
 local function createPAJAutoMarkAsJunkSubMenu()
     PAJAutoMarkAsJunkSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
-        getFunc = PAMenuFunctions.PAJunk.getAutoMarkOrnateSetting,
-        setFunc = PAMenuFunctions.PAJunk.setAutoMarkOrnateSetting,
-        disabled = PAMenuFunctions.PAJunk.isAutoMarkOrnateDisabled,
-        default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.autoMarkOrnate,
-    })
-
-    PAJAutoMarkAsJunkSubMenu:insert({
-        type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
         width = "half",
@@ -1768,7 +1758,6 @@ local function createPAJAutoMarkAsJunkSubMenu()
         disabled = PAMenuFunctions.PAJunk.isIncludeSetItemsDisabled,
         default = PAMenuDefaults.PAJunk.AutoMarkAsJunk.includeSetItems,
     })
-
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -1788,7 +1777,15 @@ local function createPAJTrashSubMenu()
 end
 
 local function createPAJWeaponsSubMenu()
-    -- TODO: mark ornate weapons
+    PAJWeaponsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
+        getFunc = PAMenuFunctions.PAJunk.getWeaponsAutoMarkOrnateSetting,
+        setFunc = PAMenuFunctions.PAJunk.setWeaponsAutoMarkOrnateSetting,
+        disabled = PAMenuFunctions.PAJunk.isWeaponsAutoMarkOrnateDisabled,
+        default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
+    })
 
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
@@ -1819,7 +1816,15 @@ local function createPAJWeaponsSubMenu()
 end
 
 local function createPAJArmorSubMenu()
-    -- TODO: mark ornate armor
+    PAJArmorSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
+        getFunc = PAMenuFunctions.PAJunk.getArmorAutoMarkOrnateSetting,
+        setFunc = PAMenuFunctions.PAJunk.setArmorAutoMarkOrnateSetting,
+        disabled = PAMenuFunctions.PAJunk.isArmorAutoMarkOrnateDisabled,
+        default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
+    })
 
     PAJArmorSubMenu:insert({
         type = "checkbox",
@@ -1850,9 +1855,15 @@ local function createPAJArmorSubMenu()
 end
 
 local function createPAJJewelrySubMenu()
-    -- TODO: mark ornate jewelry
-    -- TODO: mark jewelry of quality
-
+    PAJJewelrySubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
+        getFunc = PAMenuFunctions.PAJunk.getJewelryAutoMarkOrnateSetting,
+        setFunc = PAMenuFunctions.PAJunk.setJewelryAutoMarkOrnateSetting,
+        disabled = PAMenuFunctions.PAJunk.isJewelryAutoMarkOrnateDisabled,
+        default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
+    })
 
     PAJJewelrySubMenu:insert({
         type = "checkbox",

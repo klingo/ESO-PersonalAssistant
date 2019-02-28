@@ -130,12 +130,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                             end
 
-
---                        elseif itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAMFJ.
-                        elseif itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE or itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE then
-                            if PAMFJ.getAutoMarkOrnateSetting() then
-                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
-                            end
+                        elseif (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAMFJ.getWeaponsAutoMarkOrnateSetting()) or
+                                (itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAMFJ.getArmorAutoMarkOrnateSetting()) or
+                                (itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAMFJ.getJewelryAutoMarkOrnateSetting()) then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
 
                         elseif itemType == ITEMTYPE_WEAPON and PAMFJ.getWeaponsAutoMarkQualitySetting() then
                             if itemQuality <= PAMFJ.getWeaponsAutoMarkQualityThresholdSetting() then
