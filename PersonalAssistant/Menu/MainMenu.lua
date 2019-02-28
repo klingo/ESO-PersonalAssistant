@@ -1761,11 +1761,6 @@ local function createPAJWeaponsSubMenu()
     })
 
     PAJWeaponsSubMenu:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
-
-    PAJWeaponsSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY),
         tooltip = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_T),
@@ -1791,10 +1786,14 @@ local function createPAJWeaponsSubMenu()
     })
 
     PAJWeaponsSubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJWeaponsSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
-        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getWeaponsIncludeSetItemsSetting,
         setFunc = PAMenuFunctions.PAJunk.setWeaponsIncludeSetItemsSetting,
         disabled = PAMenuFunctions.PAJunk.isWeaponsIncludeSetItemsDisabled,
@@ -1811,11 +1810,6 @@ local function createPAJArmorSubMenu()
         setFunc = PAMenuFunctions.PAJunk.setArmorAutoMarkOrnateSetting,
         disabled = PAMenuFunctions.PAJunk.isArmorAutoMarkOrnateDisabled,
         default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
-    })
-
-    PAJArmorSubMenu:insert({
-        type = "divider",
-        alpha = 0.5,
     })
 
     PAJArmorSubMenu:insert({
@@ -1844,10 +1838,14 @@ local function createPAJArmorSubMenu()
     })
 
     PAJArmorSubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJArmorSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
-        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getArmorIncludeSetItemsSetting,
         setFunc = PAMenuFunctions.PAJunk.setArmorIncludeSetItemsSetting,
         disabled = PAMenuFunctions.PAJunk.isArmorIncludeSetItemsDisabled,
@@ -1864,11 +1862,6 @@ local function createPAJJewelrySubMenu()
         setFunc = PAMenuFunctions.PAJunk.setJewelryAutoMarkOrnateSetting,
         disabled = PAMenuFunctions.PAJunk.isJewelryAutoMarkOrnateDisabled,
         default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
-    })
-
-    PAJJewelrySubMenu:insert({
-        type = "divider",
-        alpha = 0.5,
     })
 
     PAJJewelrySubMenu:insert({
@@ -1897,10 +1890,14 @@ local function createPAJJewelrySubMenu()
     })
 
     PAJJewelrySubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJJewelrySubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
-        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getJewelryIncludeSetItemsSetting,
         setFunc = PAMenuFunctions.PAJunk.setJewelryIncludeSetItemsSetting,
         disabled = PAMenuFunctions.PAJunk.isJewelryIncludeSetItemsDisabled,
