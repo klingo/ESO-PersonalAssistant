@@ -194,219 +194,93 @@ local function setPABankingCurrenciesEnabledSetting(value)
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Currencies       [dynamic]   generic function to update min Currency values
+---------------------------------
+local function setPABankingCurrencyMinToKeepSetting(PA_LAM_REF_TO_CHANGE, PA_LAM_REF_OTHER, variableToChangeName, variableOtherName, value)
+    local intValue = tonumber(value)
+    if not intValue or intValue < 0 then
+        PA_LAM_REF_TO_CHANGE:UpdateValue()
+    else
+        local currencyToKeep = tonumber(getValue(PASV.Banking, {"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
+        setValue(PASV.Banking, intValue, {"Currencies", variableToChangeName})
+        if (intValue > currencyToKeep) then
+            setValue(PASV.Banking, intValue, {"Currencies", variableOtherName})
+            PA_LAM_REF_OTHER:UpdateValue()
+        end
+    end
+end
+
+--------------------------------------------------------------------------
+-- PABanking   Currencies       [dynamic]   generic function to update max Currency values
+---------------------------------
+local function setPABankingCurrencyMaxToKeepSetting(PA_LAM_REF_TO_CHANGE, PA_LAM_REF_OTHER, variableToChangeName, variableOtherName, value)
+    local intValue = tonumber(value)
+    if not intValue or intValue < 0 then
+        PA_LAM_REF_TO_CHANGE:UpdateValue()
+    else
+        local currencyToKeep = tonumber(getValue(PASV.Banking, {"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
+        setValue(PASV.Banking, intValue, {"Currencies", variableToChangeName})
+        if (intValue < currencyToKeep) then
+            setValue(PASV.Banking, intValue, {"Currencies", variableOtherName})
+            PA_LAM_REF_OTHER:UpdateValue()
+        end
+    end
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Currencies       goldMinToKeep
 ---------------------------------
 local function setPABAnkingGoldMinToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_GOLD_MIN:UpdateValue()
-    else
-        local goldMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMaxToKeep"}) or PAMD.PABanking.Currencies.goldMaxToKeep)
-
-        -- OPTION 1: if min > max, deny changing min value
---        if (intValue <= goldMaxToKeep) then
---            setValue(PASV.Banking, intValue, {"Currencies", "goldMinToKeep"})
---        else
---            setValue(PASV.Banking, goldMaxToKeep, {"Currencies", "goldMinToKeep"})
---            PERSONALASSISTANT_PAB_GOLD_MIN:UpdateValue()
---        end
-
-        -- OPTION 2: if min > max, also change max value
-        setValue(PASV.Banking, intValue, {"Currencies", "goldMinToKeep"})
-        if (intValue > goldMaxToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "goldMaxToKeep"})
-            PERSONALASSISTANT_PAB_GOLD_MAX:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMinToKeepSetting(PERSONALASSISTANT_PAB_GOLD_MIN, PERSONALASSISTANT_PAB_GOLD_MAX, "goldMinToKeep", "goldMaxToKeep", value)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       goldMaxToKeep
 ---------------------------------
 local function setPABAnkingGoldMaxToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_GOLD_MAX:UpdateValue()
-    else
-        local goldMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "goldMinToKeep"}) or PAMD.PABanking.Currencies.goldMinToKeep)
-
-        -- OPTION 1: if max < min, deny changing max value
---        if (intValue >= goldMinToKeep) then
---            setValue(PASV.Banking, intValue, {"Currencies", "goldMaxToKeep"})
---        else
---            setValue(PASV.Banking, goldMinToKeep, {"Currencies", "goldMaxToKeep"})
---            PERSONALASSISTANT_PAB_GOLD_MAX:UpdateValue()
---        end
-
-        -- OPTION 2: if max < min, also change min value
-        setValue(PASV.Banking, intValue, {"Currencies", "goldMaxToKeep"})
-        if (intValue < goldMinToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "goldMinToKeep"})
-            PERSONALASSISTANT_PAB_GOLD_MIN:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMaxToKeepSetting(PERSONALASSISTANT_PAB_GOLD_MAX, PERSONALASSISTANT_PAB_GOLD_MIN, "goldMaxToKeep", "goldMinToKeep", value)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       alliancePointsMinToKeep
 ---------------------------------
 local function setPABAnkingAlliancePointsMinToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN:UpdateValue()
-    else
-        local alliancePointsMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMaxToKeep"}) or PAMD.PABanking.Currencies.alliancePointsMaxToKeep)
-
-        -- OPTION 1: if min > max, deny changing min value
---        if (intValue <= alliancePointsMaxToKeep) then
---            setValue(PASV.Banking, intValue, {"Currencies", "alliancePointsMinToKeep"})
---        else
---            setValue(PASV.Banking, alliancePointsMaxToKeep, {"Currencies", "alliancePointsMinToKeep"})
---            PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN:UpdateValue()
---        end
-
-        -- OPTION 2: if min > max, also change max value
-        setValue(PASV.Banking, intValue, {"Currencies", "alliancePointsMinToKeep"})
-        if (intValue > alliancePointsMaxToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "alliancePointsMaxToKeep"})
-            PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMinToKeepSetting(PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN, PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX, "alliancePointsMinToKeep", "alliancePointsMaxToKeep", value)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       alliancePointsMaxToKeep
 ---------------------------------
 local function setPABAnkingAlliancePointsMaxToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX:UpdateValue()
-    else
-        local alliancePointsMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "alliancePointsMinToKeep"}) or PAMD.PABanking.Currencies.alliancePointsMinToKeep)
-
-        -- OPTION 1: if max < min, deny changing max value
---        if (intValue >= alliancePointsMinToKeep) then
---            setValue(PASV.Banking, intValue, {"Currencies", "alliancePointsMaxToKeep"})
---        else
---            setValue(PASV.Banking, alliancePointsMinToKeep, {"Currencies", "alliancePointsMaxToKeep"})
---            PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX:UpdateValue()
---        end
-
-        -- OPTION 2: if max < min, also change min value
-        setValue(PASV.Banking, intValue, {"Currencies", "alliancePointsMaxToKeep"})
-        if (intValue < alliancePointsMinToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "alliancePointsMinToKeep"})
-            PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMaxToKeepSetting(PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MAX, PERSONALASSISTANT_PAB_ALLIANCEPOINTS_MIN, "alliancePointsMaxToKeep", "alliancePointsMinToKeep", value)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       telVarMinToKeep
 ---------------------------------
 local function setPABAnkingTelVarMinToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_TELVAR_MIN:UpdateValue()
-    else
-        local telVarMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMaxToKeep"}) or PAMD.PABanking.Currencies.telVarMaxToKeep)
-
-        -- OPTION 1: if min > max, deny changing min value
---        if (intValue <= telVarMaxToKeep) then
---            setValue(PASV.Banking, intValue, {"Currencies", "telVarMinToKeep"})
---        else
---            setValue(PASV.Banking, telVarMaxToKeep, {"Currencies", "telVarMinToKeep"})
---            PERSONALASSISTANT_PAB_TELVAR_MIN:UpdateValue()
---        end
-
-        -- OPTION 2: if min > max, also change max value
-        setValue(PASV.Banking, intValue, {"Currencies", "telVarMinToKeep"})
-        if (intValue > telVarMaxToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "telVarMaxToKeep"})
-            PERSONALASSISTANT_PAB_TELVAR_MAX:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMinToKeepSetting(PERSONALASSISTANT_PAB_TELVAR_MIN, PERSONALASSISTANT_PAB_TELVAR_MAX, "telVarMinToKeep", "telVarMaxToKeep", value)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       telVarMaxToKeep
 ---------------------------------
 local function setPABAnkingTelVarMaxToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_TELVAR_MAX:UpdateValue()
-    else
-        local telVarMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "telVarMinToKeep"}) or PAMD.PABanking.Currencies.telVarMinToKeep)
-
-        -- OPTION 1: if max < min, deny changing max value
---        if (intValue >= telVarMinToKeep) then
---            setValue(PASV.Banking, intValue, {"Currencies", "telVarMaxToKeep"})
---        else
---            setValue(PASV.Banking, telVarMinToKeep, {"Currencies", "telVarMaxToKeep"})
---            PERSONALASSISTANT_PAB_TELVAR_MAX:UpdateValue()
---        end
-
-        -- OPTION 2: if max < min, also change min value
-        setValue(PASV.Banking, intValue, {"Currencies", "telVarMaxToKeep"})
-        if (intValue < telVarMinToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "telVarMinToKeep"})
-            PERSONALASSISTANT_PAB_TELVAR_MIN:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMaxToKeepSetting(PERSONALASSISTANT_PAB_TELVAR_MAX, PERSONALASSISTANT_PAB_TELVAR_MIN, "telVarMaxToKeep", "telVarMinToKeep", value)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       writVouchersMinToKeep
 ---------------------------------
 local function setPABAnkingWritVouchersMinToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN:UpdateValue()
-    else
-        local writVouchersMaxToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMaxToKeep"}) or PAMD.PABanking.Currencies.writVouchersMaxToKeep)
-
-        -- OPTION 1: if min > max, deny changing min value
---        if (intValue <= writVouchersMaxToKeep) then
---            setValue(PASV.Banking, intValue, {"writVouchersMinToKeep"})
---        else
---            setValue(PASV.Banking, writVouchersMaxToKeep, {"Currencies", "writVouchersMinToKeep"})
---            PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN:UpdateValue()
---        end
-
-        -- OPTION 2: if min > max, also change max value
-        setValue(PASV.Banking, intValue, {"Currencies", "writVouchersMinToKeep"})
-        if (intValue > writVouchersMaxToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "writVouchersMaxToKeep"})
-            PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMinToKeepSetting(PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN, PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX, "writVouchersMinToKeep", "writVouchersMaxToKeep", value)
 end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       writVouchersMaxToKeep
 ---------------------------------
 local function setPABAnkingWritVouchersMaxToKeepSetting(value)
-    local intValue = tonumber(value)
-    if not intValue or intValue < 0 then
-        PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX:UpdateValue()
-    else
-        local writVouchersMinToKeep = tonumber(getValue(PASV.Banking, {"Currencies", "writVouchersMinToKeep"}) or PAMD.PABanking.Currencies.writVouchersMinToKeep)
-
-        -- OPTION 1: if max < min, deny changing max value
---        if (intValue >= writVouchersMinToKeep) then
---            setValue(PASV.Banking, intValue, {"Currencies", "writVouchersMaxToKeep"})
---        else
---            setValue(PASV.Banking, writVouchersMinToKeep, {"Currencies", "writVouchersMaxToKeep"})
---            PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX:UpdateValue()
---        end
-
-        -- OPTION 2: if max < min, also change min value
-        setValue(PASV.Banking, intValue, {"Currencies", "writVouchersMaxToKeep"})
-        if (intValue < writVouchersMinToKeep) then
-            setValue(PASV.Banking, intValue, {"Currencies", "writVouchersMinToKeep"})
-            PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN:UpdateValue()
-        end
-    end
+    setPABankingCurrencyMaxToKeepSetting(PERSONALASSISTANT_PAB_WRITVOUCHERS_MAX, PERSONALASSISTANT_PAB_WRITVOUCHERS_MIN, "writVouchersMaxToKeep", "writVouchersMinToKeep", value)
 end
 
 --------------------------------------------------------------------------
@@ -1014,14 +888,3 @@ PA.MenuFunctions = {
         setHirelingDeleteEmptyMailsSetting = function(value) setValue(PASV.Mail, value, {"hirelingDeleteEmptyMails"}) end,
     }
 }
-
-
-
-
-
-
-
-
-
-
-
