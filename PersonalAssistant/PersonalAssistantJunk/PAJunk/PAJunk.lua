@@ -3,7 +3,6 @@ local PA = PersonalAssistant
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 local PAMF = PA.MenuFunctions
-local PAMFJ = PAMF.PAJunk
 local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -69,13 +68,14 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
 end
 
 local function _hasItemTypeAutoMarkIncludingSets(itemType, itemEquipType)
+    local PASVJunk = PASV.Junk[PA.activeProfile]
     if itemType == ITEMTYPE_WEAPON then
-        return PAMFJ.getWeaponsIncludeSetItemsSetting()
+        return PASVJunk.Weapons.autoMarkIncludingSets
     elseif itemType == ITEMTYPE_ARMOR then
         if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
-            return PAMFJ.getJewelryIncludeSetItemsSetting()
+            return PASVJunk.Jewelry.autoMarkIncludingSets
         else
-            return PAMFJ.getArmorIncludeSetItemsSetting()
+            return PASVJunk.Armor.autoMarkIncludingSets
         end
     end
     return false -- if unknown, return false
@@ -121,9 +121,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
     if (PAHF.hasActiveProfile()) then
         -- only proceed, if neither the crafting window nor the mailbox are NOT open (otherwise crafted/retrieved items could also be marked as junk)
         if not ZO_CraftingUtils_IsCraftingWindowOpen() and not _isMailboxOpen then
+            local PASVJunk = PASV.Junk[PA.activeProfile]
 
             -- check if auto-marking is enabled
-            if PAMFJ.getAutoMarkAsJunkEnabledSetting() then
+            if PASVJunk.autoMarkAsJunkEnabled then
 
                 -- check if the updated happened in the backpack and if the item is new
                 if (bagId == BAG_BACKPACK and isNewItem) then
@@ -139,35 +140,37 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if not hasSet or (hasSet and _hasItemTypeAutoMarkIncludingSets(itemType, itemEquipType)) then
                         -- check for the different itemTypes and itemTraits
                         if itemType == ITEMTYPE_TRASH then
-                            if PAMFJ.getTrashAutoMarkSetting() then
+                            if PASVJunk.Trash.autoMarkTrash then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                             end
 
-                        elseif (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAMFJ.getWeaponsAutoMarkOrnateSetting()) or
-                                (itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAMFJ.getArmorAutoMarkOrnateSetting()) or
-                                (itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAMFJ.getJewelryAutoMarkOrnateSetting()) then
+                        elseif (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PASVJunk.Weapons.autoMarkOrnate or
+                                itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PASVJunk.Armor.autoMarkOrnate or
+                                itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PASVJunk.Jewelry.autoMarkOrnate) then
                             _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
 
-                        elseif itemType == ITEMTYPE_WEAPON and PAMFJ.getWeaponsAutoMarkQualitySetting() then
-                            if itemQuality <= PAMFJ.getWeaponsAutoMarkQualityThresholdSetting() then
+                        elseif itemType == ITEMTYPE_WEAPON and PASVJunk.Weapons.autoMarkQuality then
+                            if itemQuality <= PASVJunk.Weapons.autoMarkQualityThreshold then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
 
                         elseif itemType == ITEMTYPE_ARMOR then
-                            if (itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK) and PAMFJ.getJewelryAutoMarkQualitySetting() then
+                            if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
                                 -- Jewelry
-                                if itemQuality <= PAMFJ.getJewelryAutoMarkQualityThresholdSetting() then
+                                if PASVJunk.Jewelry.autoMarkQuality and itemQuality <= PASVJunk.Jewelry.autoMarkQualityThreshold then
                                     _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                                 end
 
-                            elseif PAMFJ.getArmorAutoMarkQualitySetting() then
+                            else
                                 --Apparel
-                                if itemQuality <= PAMFJ.getArmorAutoMarkQualityThresholdSetting() then
+                                if PASVJunk.Armor.autoMarkQuality and itemQuality <= PASVJunk.Armor.autoMarkQualityThreshold then
                                     _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                                 end
                             end
 
                             -- TODO: check other item types etc.
+
+                            -- TODO: check for unknown traits
                         end
                     end
                 end
