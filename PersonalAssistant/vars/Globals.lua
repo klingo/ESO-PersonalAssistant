@@ -240,7 +240,8 @@ PersonalAssistant.Constants = {
         },
         SPECIALIZED = {
             TROPHIES = {
-                SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP    -- 100
+                SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
+                SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101
             },
         }
     },

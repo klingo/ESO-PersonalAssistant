@@ -240,6 +240,10 @@ PA.MenuDefaults = {
                     enabledSetting = "trophiesEnabled",
                     moveMode = PAC.MOVE.IGNORE,
                 },
+                [SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = {
+                    enabledSetting = "trophiesEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
             },
 
             TransactionSettings = {
