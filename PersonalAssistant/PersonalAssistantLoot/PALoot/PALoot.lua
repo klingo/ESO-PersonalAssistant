@@ -122,23 +122,23 @@ local JewelcraftingEquipTypes = {
 }
 
 
-local function GetResearchLineIndexFromItemLink(itemLink)
+local function GetCraftingTypeAndResearchLineIndexFromItemLink(itemLink)
     local itemType = GetItemLinkItemType(itemLink)
     -- Apparel
     if itemType == ITEMTYPE_ARMOR then
         -- check equipType to distinguish Jewelry from other Apparel
         local equipType = GetItemLinkEquipType(itemLink)
         if JewelcraftingEquipTypes[equipType] then
-            return ResearchLineIndexFromType[CRAFTING_TYPE_JEWELRYCRAFTING].ARMOR[equipType]
+            return CRAFTING_TYPE_JEWELRYCRAFTING, ResearchLineIndexFromType[CRAFTING_TYPE_JEWELRYCRAFTING].ARMOR[equipType]
         else
             -- check armorType to distinguish Light/Medium/Heavy Armor
             local armorType = GetItemLinkArmorType(itemLink)
             if armorType == ARMORTYPE_LIGHT then
-                return ResearchLineIndexFromType[CRAFTING_TYPE_CLOTHIER].ARMOR[equipType]
+                return CRAFTING_TYPE_CLOTHIER, ResearchLineIndexFromType[CRAFTING_TYPE_CLOTHIER].ARMOR[equipType]
             elseif armorType == ARMORTYPE_MEDIUM then
-                return ResearchLineIndexFromType[CRAFTING_TYPE_CLOTHIER].ARMOR[equipType] + 7
+                return CRAFTING_TYPE_CLOTHIER, ResearchLineIndexFromType[CRAFTING_TYPE_CLOTHIER].ARMOR[equipType] + 7
             elseif armorType == ARMORTYPE_HEAVY then
-                return ResearchLineIndexFromType[CRAFTING_TYPE_BLACKSMITHING].ARMOR[equipType]
+                return CRAFTING_TYPE_BLACKSMITHING, ResearchLineIndexFromType[CRAFTING_TYPE_BLACKSMITHING].ARMOR[equipType]
             end
         end
         -- Weapon
@@ -146,9 +146,9 @@ local function GetResearchLineIndexFromItemLink(itemLink)
         -- check weaponType to distinguish between Blacksmithing and Woodworking
         local weaponType = GetItemLinkWeaponType(itemLink)
         if BlacksmithingWeaponTypes[weaponType] then
-            return ResearchLineIndexFromType[CRAFTING_TYPE_BLACKSMITHING].WEAPON[weaponType]
+            return CRAFTING_TYPE_BLACKSMITHING, ResearchLineIndexFromType[CRAFTING_TYPE_BLACKSMITHING].WEAPON[weaponType]
         elseif WoodworkingWeaponTypes[weaponType] then
-            return ResearchLineIndexFromType[CRAFTING_TYPE_WOODWORKING].WEAPON[weaponType]
+            return CRAFTING_TYPE_WOODWORKING, ResearchLineIndexFromType[CRAFTING_TYPE_WOODWORKING].WEAPON[weaponType]
         end
     end
     -- if no match found, return nil
@@ -207,8 +207,7 @@ end
 
 
 local function isTraitBeingResearched(itemLink)
-    local craftingSkillType = GetItemLinkCraftingSkillType(itemLink)
-    local researchLineIndex = GetResearchLineIndexFromItemLink(itemLink)
+    local craftingSkillType, researchLineIndex = GetCraftingTypeAndResearchLineIndexFromItemLink(itemLink)
     local traitType = GetItemLinkTraitInfo(itemLink)
     local traitIndex = TraitIndexFromItemTraitType[traitType]
 
