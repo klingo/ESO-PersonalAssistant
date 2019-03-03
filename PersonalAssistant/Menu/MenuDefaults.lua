@@ -356,18 +356,21 @@ PA.MenuDefaults = {
             autoMarkQuality = false,
             autoMarkQualityThreshold = 0,
             autoMarkIncludingSets = false,
+            autoMarkUnknownTraits = false,
         },
         Armor = {
             autoMarkOrnate = true,
             autoMarkQuality = false,
             autoMarkQualityThreshold = 0,
             autoMarkIncludingSets = false,
+            autoMarkUnknownTraits = false,
         },
         Jewelry = {
             autoMarkOrnate = true,
             autoMarkQuality = false,
             autoMarkQualityThreshold = 0,
             autoMarkIncludingSets = false,
+            autoMarkUnknownTraits = false,
         },
 
         autoSellJunk = true,

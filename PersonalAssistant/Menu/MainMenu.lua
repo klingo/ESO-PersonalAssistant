@@ -1794,10 +1794,22 @@ local function createPAJWeaponsSubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
+        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getWeaponsIncludeSetItemsSetting,
         setFunc = PAMenuFunctions.PAJunk.setWeaponsIncludeSetItemsSetting,
         disabled = PAMenuFunctions.PAJunk.isWeaponsIncludeSetItemsDisabled,
         default = PAMenuDefaults.PAJunk.Weapons.autoMarkIncludingSets,
+    })
+
+    PAJWeaponsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getWeaponsIncludeUnknownTraitsSetting,
+        setFunc = PAMenuFunctions.PAJunk.setWeaponsIncludeUnknownTraitsSetting,
+        disabled = PAMenuFunctions.PAJunk.isWeaponsIncludeUnknownTraitsDisabled,
+        default = PAMenuDefaults.PAJunk.Weapons.autoMarkUnknownTraits,
     })
 end
 
@@ -1846,10 +1858,22 @@ local function createPAJArmorSubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
+        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getArmorIncludeSetItemsSetting,
         setFunc = PAMenuFunctions.PAJunk.setArmorIncludeSetItemsSetting,
         disabled = PAMenuFunctions.PAJunk.isArmorIncludeSetItemsDisabled,
         default = PAMenuDefaults.PAJunk.Armor.autoMarkIncludingSets,
+    })
+
+    PAJArmorSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getArmorIncludeUnknownTraitsSetting,
+        setFunc = PAMenuFunctions.PAJunk.setArmorIncludeUnknownTraitsSetting,
+        disabled = PAMenuFunctions.PAJunk.isArmorIncludeUnknownTraitsDisabled,
+        default = PAMenuDefaults.PAJunk.Armor.autoMarkUnknownTraits,
     })
 end
 
@@ -1898,10 +1922,22 @@ local function createPAJJewelrySubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
+        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getJewelryIncludeSetItemsSetting,
         setFunc = PAMenuFunctions.PAJunk.setJewelryIncludeSetItemsSetting,
         disabled = PAMenuFunctions.PAJunk.isJewelryIncludeSetItemsDisabled,
         default = PAMenuDefaults.PAJunk.Jewelry.autoMarkIncludingSets,
+    })
+
+    PAJJewelrySubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
+        width = "half",
+        getFunc = PAMenuFunctions.PAJunk.getJewelryIncludeUnknownTraitsSetting,
+        setFunc = PAMenuFunctions.PAJunk.setJewelryIncludeUnknownTraitsSetting,
+        disabled = PAMenuFunctions.PAJunk.isJewelryIncludeUnknownTraitsDisabled,
+        default = PAMenuDefaults.PAJunk.Jewelry.autoMarkUnknownTraits,
     })
 end
 
