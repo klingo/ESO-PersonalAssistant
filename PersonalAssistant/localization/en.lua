@@ -39,7 +39,7 @@ local PAStrings = {
     SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
     SI_PA_REPAIR_CHARGE_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAR, "Charged %s %s from %d%% to %d%%  with %s %s"}),
 
-    SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have %d ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), " left"}),
+    SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), " left"}),
     SI_PA_REPAIR_CHARGE_NO_GEM_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
 
     -- -----------------------------------------------------------------------------------------------------------------

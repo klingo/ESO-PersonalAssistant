@@ -64,9 +64,10 @@ local function ReChargeWeapons()
             end
         end
 
+        local gemTable, totalGemCount = _getSoulGemsIn(BAG_BACKPACK)
+
         -- are there weapons to charge?
         if (#weaponsToCharge > 0) then
-            local gemTable, totalGemCount = _getSoulGemsIn(BAG_BACKPACK)
 
             -- from the list of actually to be charged weapons, charge them
             for _, weapon in pairs(weaponsToCharge) do
@@ -93,20 +94,23 @@ local function ReChargeWeapons()
                     elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), weapon.itemLink, weapon.chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
                     elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), gemTable[#gemTable].iconString, weapon.iconString, weapon.chargePerc, finalChargesPerc)
                     end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
+                end
+            end
+        end
 
-                    if (totalGemCount <= 5 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning) then
-                        PAHF.println(SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT, totalGemCount)
-                    end
+        -- check remaining soul gems
+        if totalGemCount <= 10 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning  then
+            local gameTimeMilliseconds = GetGameTimeMilliseconds()
+            local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoSoulGemWarningGameTime
+            local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
 
-                elseif PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
-                    local gameTimeMilliseconds = GetGameTimeMilliseconds()
-                    local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoSoulGemWarningGameTime
-                    local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
+            if (gameTimeMinutesPassed >= 10) then
+                _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
 
-                    if (gameTimeMinutesPassed >= 10) then
-                        _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
-                        PAHF.println(SI_PA_REPAIR_CHARGE_NO_GEM_COUNT)
-                    end
+                if totalGemCount > 0 then
+                    PAHF.println(SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT, totalGemCount)
+                else
+                    PAHF.println(SI_PA_REPAIR_CHARGE_NO_GEM_COUNT)
                 end
             end
         end
