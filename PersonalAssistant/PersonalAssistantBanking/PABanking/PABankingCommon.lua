@@ -137,6 +137,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
 
         local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
         local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
+        local isUnique = IsItemLinkUnique(itemLink)
         local stackToMove = overruleStackToMove or sourceStack
         PAHF.debugln("try to move %d x %s", stackToMove, itemLink)
 
@@ -172,8 +173,8 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
             if isItemMoved and hasNoStacksLeft then break end
         end
 
-        -- if the item could not be moved (because no further existing stack to fill up), add it to the notMoved table
-        if not isItemMoved and newStacksAllowed then
+        -- if the item could not be moved (because no further existing stack to fill up), add it to the notMoved table (provided it is not unique)
+        if not isItemMoved and not isUnique and newStacksAllowed then
             -- check if there are already not moved items; and if the current to be moved item is not a full stack
             if #notMovedItemsTable > 0 and stackToMove < sourceStackMaxSize then
                 -- loop through all items already added to list
