@@ -110,7 +110,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         -- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
         local itemId = GetItemId(bagId, slotIndex)
         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-        local icon = GetItemInfo(bagId, slotIndex)
+        local icon, _, _, _, _, _, itemStyleId = GetItemInfo(bagId, slotIndex)
 
         local bagName = ""
         if (bagId == BAG_BACKPACK) then bagName = "BAG_BACKPACK"
@@ -132,6 +132,8 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         local numLines = GetNumSmithingResearchLines(tradeskillType)
         local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
         local craftingType, researchLineName = GetRearchLineInfoFromRetraitItem(bagId, slotIndex)
+        local itemEquipType = GetItemLinkEquipType(itemLink)
+        local isUnique = IsItemLinkUnique(itemLink)
 
         d("canBeResearched="..tostring(canBeResearched))
         d("isBeingResearched="..tostring(isBeingResearched))
@@ -141,10 +143,27 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         d("traitDescription="..tostring(traitDescription))
         d("craftingType="..tostring(craftingType))
         d("researchLineName="..tostring(researchLineName))
+        d("itemEquipType="..tostring(itemEquipType))
+        d("isUnique="..tostring(isUnique))
+
+        local itemStyle = GetItemLinkItemStyle(itemLink)
+        local itemStyleName = GetItemStyleName(itemStyle)
+        local isItemStyleKnown = IsSmithingStyleKnown(itemStyleId, 1)
+
+        d("itemStyle="..tostring(itemStyle))
+        d("itemStyleName="..tostring(itemStyleName))
+        d("isItemStyleKnown="..tostring(isItemStyleKnown))
+
+        local isBook = IsItemLinkBook(itemLink)
+        local isPartOfCollection = IsItemLinkBookPartOfCollection(itemLink)
+        local isKnown= IsItemLinkBookKnown(itemLink)
+
+        d("isBook="..tostring(isBook))
+        d("isPartOfCollection="..tostring(isPartOfCollection))
+        d("isKnown="..tostring(isKnown))
 
 
-
---        local traitIndex = PA.Loot.TraitIndexFromItemTraitType[traitType]
+        --        local traitIndex = PA.Loot.TraitIndexFromItemTraitType[traitType]
 --        if traitIndex ~= nil and type(traitIndex) == "number" then
 --            -- todo?
 --        end
