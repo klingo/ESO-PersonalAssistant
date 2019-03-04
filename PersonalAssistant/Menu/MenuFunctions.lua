@@ -595,10 +595,6 @@ PA.MenuFunctions = {
         getRechargeWithSoulGemSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "useSoulGems"}) end,
         setRechargeWithSoulGemSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "useSoulGems"}) end,
 
-        isChargeWeaponsThresholdDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
-        getChargeWeaponsThresholdSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "chargeWeaponsThreshold"}) end,
-        setChargeWeaponsThresholdSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "chargeWeaponsThreshold"}) end,
-
         isChargeWeaponsChatModeDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
         getChargeWeaponsChatModeSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,
         setChargeWeaponsChatModeSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,

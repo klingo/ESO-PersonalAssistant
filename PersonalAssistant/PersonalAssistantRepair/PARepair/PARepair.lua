@@ -140,32 +140,6 @@ local function OnShopOpen()
     end
 end
 
-
-local function EventPlayerCombateState(_, inCombat)
-    if not inCombat then
-        if (PAHF.hasActiveProfile()) then
-            local PARepairSavedVars = PASV.Repair[PA.activeProfile]
-            -- check if addon is enabled
-            if PARepairSavedVars.autoRepairEnabled then
-                -- check if player is not dead
-                if not PAHF.isPlayerDead() then
-
-                    -- Check and repair equipped items with repair kits
-                    if PARepairSavedVars.RepairEquipped.repairWithRepairKit then
-                        PAR.RepairEquippedItemsWithKit()
-                    end
-
-                    -- Check and re-charged equipped weapons
-                    if PARepairSavedVars.RechargeWeapons.useSoulGems then
-                        PAR.ReChargeWeapons()
-                    end
-                end
-            end
-        end
-    end
-end
-
 -- Export
 PA.Repair = PA.Repair or {}
 PA.Repair.OnShopOpen = OnShopOpen
-PA.Repair.EventPlayerCombateState = EventPlayerCombateState

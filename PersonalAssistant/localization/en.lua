@@ -140,10 +140,7 @@ local PAStrings = {
 
     SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Recharge equipped weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), "?"}),
-    SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "???",
-
-    SI_PA_MENU_REPAIR_RECHARGE_DURABILITY = "Re-Charge threshold in %",
-    SI_PA_MENU_REPAIR_RECHARGE_DURABILITY_T = "Re-Charge equipped weapons when their charge level is at or below the defined threshold. (Lesser soul gems will be used before common ones)",
+    SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Re-Charge equipped weapons when their charge level reaches zero. ",
 
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
