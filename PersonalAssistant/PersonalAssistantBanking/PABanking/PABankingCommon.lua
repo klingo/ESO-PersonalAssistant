@@ -134,10 +134,10 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
     for _, fromBagItemData in pairs(fromBagCache) do
         local isItemMoved = false
         local hasNoStacksLeft = false
+        local skipItem = false
 
         local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
         local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
-        local isUnique = IsItemLinkUnique(itemLink)
         local stackToMove = overruleStackToMove or sourceStack
         PAHF.debugln("try to move %d x %s", stackToMove, itemLink)
 
@@ -167,14 +167,18 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                         -- update the stackCount in the bagCache manually (since we don't want to completely re-generate it)
                         toBagCache[toBagCacheIndex].stackCount = targetStack + targetFreeStacks
                     end
+                elseif IsItemLinkUnique(itemLink) then
+                    -- match was found, but since it is unique prevent any further move-attempts by skipping it
+                    skipItem = true
+                    break
                 end
             end
             -- stop loop if item was already moved and no stacks to be moved are left
             if isItemMoved and hasNoStacksLeft then break end
         end
 
-        -- if the item could not be moved (because no further existing stack to fill up), add it to the notMoved table (provided it is not unique)
-        if not isItemMoved and not isUnique and newStacksAllowed then
+        -- if the item could not be moved (because no further existing stack to fill up), add it to the notMoved table
+        if not isItemMoved and not skipItem and newStacksAllowed then
             -- check if there are already not moved items; and if the current to be moved item is not a full stack
             if #notMovedItemsTable > 0 and stackToMove < sourceStackMaxSize then
                 -- loop through all items already added to list
