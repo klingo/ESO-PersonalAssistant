@@ -236,91 +236,36 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 if not isRecipeKnown then
                     PAHF.println(SI_PA_LOOT_RECIPE_UNKNOWN, itemLink)
                 else
-                    -- TODO: to be removed? or to be implemented properly?
-                    PAHF.println("known recipe looted: %s", itemLink)
+                    -- Recipe is already known; do nothing for now
+                    PAHF.debugln("known recipe looted: %s", itemLink)
                 end
 
             -- Motifs
             elseif PALootSavedVars.LootMotifs.enabled and itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-                -- TODO: to be implemented
+                local isBook = IsItemLinkBook(itemLink)
+                if isBook then
+                    local isKnown= IsItemLinkBookKnown(itemLink)
+                    if not isKnown then
+                        PAHF.println(SI_PA_LOOT_MOTIF_UNKNOWN, itemLink)
+                    else
+                        -- Motif is already known; do nothing for now
+                        PAHF.debugln("known mnotif looted: %s", itemLink)
+                    end
+                end
 
             -- Apparel & Weapons
             elseif PALootSavedVars.LootApparelWeapons.enabled and (itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS) then
                 local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
 --                local isBeingResearched = isTraitBeingResearched(itemLink)
-
                 if canBeResearched then
-
                     local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
                     local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
-
                     PAHF.println(SI_PA_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
-
-
---                    local tradeskillType = GetItemLinkCraftingSkillType(itemLink)
---                    local numLines = GetNumSmithingResearchLines(tradeskillType)
---                    local craftingType, researchLineName = GetRearchLineInfoFromRetraitItem(bagId, slotIndex)
---                    d("canBeResearched="..tostring(canBeResearched))
---                    d("tradeskillType="..tostring(tradeskillType))
---                    d("numLines="..tostring(numLines))
---                    d("traitType="..tostring(traitType))
---                    d("traitName="..GetString("SI_ITEMTRAITTYPE", traitType))
---                    d("traitDescription="..tostring(traitDescription))
---                    d("craftingType="..tostring(craftingType))
---                    d("researchLineName="..tostring(researchLineName))
                 else
+                    -- Trait already researched
+                    PAHF.debugln("item with known trait looted: %s", itemLink)
                 end
             end
-
-
-
---            Search on ESOUI Source Code IsItemLinkRecipeKnown(string itemLink)
---            Returns: boolean isRecipeKnown
-
-
-
---            GetItemTrait(number Bag bagId, number slotIndex)
---            Returns: number ItemTraitType trait
---
---            GetItemLinkTraitInfo(string itemLink)
---            Returns: number ItemTraitType traitType, string traitDescription
---
---            GetItemTraitInformation(number Bag bagId, number slotIndex)
---            Returns: number ItemTraitInformation itemTraitInformation
---
---            GetItemTraitInformationFromItemLink(string itemLink)
---            Returns: number ItemTraitInformation itemTraitInformation
---
---
---
---
---            CanItemLinkBeTraitResearched(string itemLink)
---            Returns: boolean canBeResearched
---
---
---
---            ResearchSmithingTrait(number Bag bagId, number slotIndex)
---
---
---
---            GetItemLinkCraftingSkillType(string itemLink)
---            Returns: number TradeskillType tradeskillType
---
---            GetItemCraftingInfo(number Bag bagId, number slotIndex)
---            Returns: number TradeskillType usedInCraftingType, number ItemType itemType, number:nilable extraInfo1, number:nilable extraInfo2, number:nilable extraInfo3
---
---            GetNumSmithingResearchLines(number TradeskillType craftingSkillType)
---            Returns: number numLines
---
---            GetSmithingResearchLineTraitInfo(number TradeskillType craftingSkillType, number researchLineIndex, number traitIndex)
---            Returns: number ItemTraitType traitType, string traitDescription, boolean known
---
---
---
---
---            GetCraftingSkillName(number TradeskillType craftingSkillType)
---            Returns: string name
-
         end
     end
 end
