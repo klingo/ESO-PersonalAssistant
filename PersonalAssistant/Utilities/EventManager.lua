@@ -133,7 +133,7 @@ local function RefreshAllEventRegistrations()
             RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
         else
             -- Unregister PARepair
-            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE)
+--            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE)
             -- Unregister the SharedEvent, but only if PAJunk is not enabled!
             if not (PAJ and PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
                 UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")

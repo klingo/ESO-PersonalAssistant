@@ -44,14 +44,15 @@ end
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     local PARepairSavedVars = PASV.Repair[PA.activeProfile]
 
-    -- check fi it is enabled
+    -- check if it is enabled
     if bagId == BAG_WORN and PARepairSavedVars.RechargeWeapons.useSoulGems then
         local itemType = GetItemType(bagId, slotIndex)
         local rechargeable = IsItemChargeable(bagId, slotIndex)
         -- check if it s a weapon and if it is chargeable
         if rechargeable and itemType == ITEMTYPE_WEAPON then
             local charges, maxCharges = GetChargeInfoForItem(bagId , slotIndex)
-            if charges <= 0 then
+            -- might need to be increased, because once it reaches 0; this event [INVENTORY_UPDATE_REASON_ITEM_CHARGE] is no longer triggered!
+            if charges <= 1 then
                 local gemTable, totalGemCount = _getSoulGemsIn(BAG_BACKPACK)
                 if totalGemCount > 0 then
                     local chargeableAmount = GetAmountSoulGemWouldChargeItem(bagId, slotIndex, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
