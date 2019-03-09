@@ -146,6 +146,10 @@ PersonalAssistant.Constants = {
             SOULGEM_EMPTY = {
                 NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_empty.dds|t",
             },
+            STOLEN = {
+                SMALL = "|t16:16:/esoui/art/inventory/inventory_stolenitem_icon.dds|t",
+                NORMAL = "|t32:32:/esoui/art/inventory/inventory_stolenitem_icon.dds|t"
+            },
             TREASURE_MAP = {
                 NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t"
             },

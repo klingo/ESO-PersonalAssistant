@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 local PAMF = PA.MenuFunctions
@@ -59,8 +60,16 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
         -- make sure an itemLink is present
         if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
 
+        -- and check if it is stolen
+        local itemStolen = IsItemLinkStolen(itemLink)
+
         -- print provided success message
-        PAHF.println(successMessageKey, itemLink)
+        if itemStolen then
+            local params = table.concat({itemLink, " ", PAC.ICONS.ITEMS.STOLEN.SMALL})
+            PAHF.println(successMessageKey, params)
+        else
+            PAHF.println(successMessageKey, itemLink)
+        end
     else
         -- print failure message
         -- TODO: to be implemented
