@@ -122,19 +122,22 @@ end
 
 local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
-        local PARepairSavedVars = PASV.Repair[PA.activeProfile]
-        -- check if addon is enabled
-        if PARepairSavedVars.autoRepairEnabled then
-            -- early check if there is something to repair
-            if GetRepairAllCost() > 0 then
-                -- check if equipped items shall be repaired
-                if PARepairSavedVars.RepairEquipped.repairWithGold then
-                    RepairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
+        -- check if store can repair
+        if CanStoreRepair() then
+            local PARepairSavedVars = PASV.Repair[PA.activeProfile]
+            -- check if addon is enabled
+            if PARepairSavedVars.autoRepairEnabled then
+                -- early check if there is something to repair
+                if GetRepairAllCost() > 0 then
+                    -- check if equipped items shall be repaired
+                    if PARepairSavedVars.RepairEquipped.repairWithGold then
+                        RepairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
+                    end
+                    -- check if backpack items shall be repaired
+    --                if PARepairSavedVars.repairBackpack then
+    --                    RepairItems(BAG_BACKPACK, PARepairSavedVars.repairBackpackThreshrold)
+    --                end
                 end
-                -- check if backpack items shall be repaired
---                if PARepairSavedVars.repairBackpack then
---                    RepairItems(BAG_BACKPACK, PARepairSavedVars.repairBackpackThreshrold)
---                end
             end
         end
     end

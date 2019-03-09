@@ -41,7 +41,7 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
+local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     local PARepairSavedVars = PASV.Repair[PA.activeProfile]
 
     -- check if it is enabled
@@ -55,7 +55,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             if charges <= 1 then
                 local gemTable, totalGemCount = _getSoulGemsIn(BAG_BACKPACK)
                 if totalGemCount > 0 then
-                    local chargeableAmount = GetAmountSoulGemWouldChargeItem(bagId, slotIndex, BAG_BACKPACK, gemTable[#gemTable].slotIndex)
+                    local chargeableAmount = GetAmountSoulGemWouldChargeItem(bagId, slotIndex, gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex)
                     local finalChargesPerc = 100
                     if ((charges + chargeableAmount) < maxCharges) then
                         finalChargesPerc = PAHF.round(100 / maxCharges * (charges + chargeableAmount))
@@ -81,7 +81,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 end
 
                 -- check remaining soul gems
-                if totalGemCount <= 10 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning  then
+                if totalGemCount <= 10 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
                     local gameTimeMilliseconds = GetGameTimeMilliseconds()
                     local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoSoulGemWarningGameTime
                     local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
@@ -104,4 +104,4 @@ end
 
 -- Export
 PA.Repair = PA.Repair or {}
-PA.Repair.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
+PA.Repair.RechargeEquippedWeaponsWithSoulGems = RechargeEquippedWeaponsWithSoulGems

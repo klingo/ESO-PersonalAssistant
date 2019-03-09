@@ -575,15 +575,22 @@ PA.MenuFunctions = {
         getRepairWithRepairKitSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithRepairKit"}) end,
         setRepairWithRepairKitSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithRepairKit"}) end,
 
-        -- TODO: Use Regular Repair Kits
+        isRepairWithRepairKitDurabilityThresholdDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+        getRepairWithRepairKitDurabilityThresholdSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithRepairKitThreshold"}) end,
+        setRepairWithRepairKitDurabilityThresholdSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithRepairKitThreshold"}) end,
 
-        -- TODO: Threshold
+--        isRepairWithCrownRepairKitDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}) end,
+--        getRepairWithCrownRepairKitSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
+--        setRepairWithCrownRepairKitSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
+--
+--        isRepairWithCrownRepairKitDurabilityThresholdDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
+--        getRepairWithCrownRepairKitDurabilityThresholdSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
+--        setRepairWithCrownRepairKitDurabilityThresholdSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
 
-        -- TODO: Use Crown Repair Kits
-
-        -- TODO: Threshold
-
-        -- TODO: Low Repair Kit Warning
+--        isLowRepairKitWarningDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
+        isLowRepairKitWarningDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+        getLowRepairKitWarningSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "lowRepairKitWarning"}) end,
+        setLowRepairKitWarningSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "lowRepairKitWarning"}) end,
 
         -- TODO: Chat Mode
 
@@ -890,7 +897,6 @@ PA.MenuFunctions = {
         isWeaponsIncludeUnknownTraitsDisabled = isPAJunkWeaponsAdditionalSettingsDisabled,
         getWeaponsIncludeUnknownTraitsSetting = function() return getValue(PASV.Junk, {"Weapons", "autoMarkUnknownTraits"}) end,
         setWeaponsIncludeUnknownTraitsSetting = function(value) setValue(PASV.Junk, value, {"Weapons", "autoMarkUnknownTraits"}) end,
-
 
         isArmorMenuDisabled = isPAJunkArmorMenuDisabled,
         isArmorAutoMarkOrnateDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,

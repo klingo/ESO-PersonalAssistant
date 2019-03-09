@@ -105,6 +105,40 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function OnFenceOpen(eventCode, allowSell, allowLaunder)
+    if (PAHF.hasActiveProfile()) then
+        -- check if auto-sell is enabled
+        if allowSell and PASV.Junk[PA.activeProfile].autoSellJunk then
+            -- check if there is junk to sell (exclude stolen items = false)
+            if HasAnyJunk(BAG_BACKPACK) then
+                -- set processing flag to TRUE
+                PAEM.isJunkProcessing = true
+                -- store current amount of money
+                local moneyBefore = GetCurrentMoney();
+                local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
+
+                local bagCache = SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_BACKPACK)
+                for slotIndex, itemData in pairs(bagCache) do
+                    if itemData.stolen and itemData.isJunk then
+                        local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+                        if sellsUsed == totalSells then
+                            -- TODO: warn that no more sells are possible at Fence
+                            d("no more sells possible; please wait "..tostring(resetTimeSeconds).." seconds")
+                            break
+                        end
+                        -- Sell the (stolen) item which was marked as junk
+                        SellInventoryItem(itemData.bagId, itemData.slotIndex, itemData.stackCount)
+                    end
+                end
+
+                -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
+                -- after calling SellAllJunk()
+                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
+            end
+        end
+    end
+end
+
 local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
         -- check if auto-sell is enabled
@@ -198,6 +232,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Junk = PA.Junk or {}
+PA.Junk.OnFenceOpen = OnFenceOpen
 PA.Junk.OnShopOpen = OnShopOpen
 PA.Junk.OnMailboxOpen = OnMailboxOpen
 PA.Junk.OnMailboxClose = OnMailboxClose

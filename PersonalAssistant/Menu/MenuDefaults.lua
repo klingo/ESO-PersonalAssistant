@@ -21,11 +21,11 @@ PA.MenuDefaults = {
             repairWithGoldChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
 
             repairWithRepairKit = false,
-            repairWithRepairKitThreshold = 75,
+            repairWithRepairKitThreshold = 25,
             repairWithRepairKitChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
 
             repairWithCrownRepairKit = false,
-            repairWithCrownRepairKitThreshold = 50,
+            repairWithCrownRepairKitThreshold = 25,
             repairWithCrownRepairKitChatMode = PAC.CHATMODE.OUTPUT_NORMAL,
 
             lowRepairKitWarning = true,

@@ -42,15 +42,18 @@ end
 
 --  Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
 local function _sharedEventOpenStore()
+    local PAMenuFunctions = PA.MenuFunctions
+    local PARMenuFunctions =  PAMenuFunctions.PARepair
+    local PAJMenuFunctions =  PAMenuFunctions.PAJunk
 
     local PAJ = PA.Junk
-    if (PAJ) then
+    if PAJ and PAJMenuFunctions.getAutoSellJunkSetting() then
         -- first execute PAJunk (to sell junk and get gold)
         PAJ.OnShopOpen()
     end
 
     local PAR = PA.Repair
-    if (PAR) then
+    if PAR and PARMenuFunctions.getRepairWithGoldSetting() then
         -- only then execute PARepair (to spend gold for repairs)
         -- has to be done with some delay to get a proper update on the current gold amount from selling junk
         _waitForJunkProcessingToExecute(function() PAR.OnShopOpen() end, true)
@@ -59,11 +62,11 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function RegisterForEvent(addonName, ESO_EVENT, executableFunction, paIdentifier, ESO_FILTER, ESOFilterValue)
+local function RegisterForEvent(addonName, ESO_EVENT, executableFunction, paIdentifier)
     -- get the esoIdentifier
     local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
 
-    -- an event will only be registered with ESO, when the same identiifer is not yet registered
+    -- an event will only be registered with ESO, when the same identifier is not yet registered
     if not _containsEventInSet(esoIdentifier) then
         -- register the event with ESO
         EVENT_MANAGER:RegisterForEvent(esoIdentifier, ESO_EVENT, executableFunction)
@@ -76,9 +79,12 @@ local function RegisterFilterForEvent(addonName, ESO_EVENT, ESO_FILTER, ESOFilte
     -- get the esoIdentifier
     local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
 
-    -- check if a filter was provided
-    if ESO_FILTER ~=nil and ESOFilterValue ~= nil then
-        EVENT_MANAGER:AddFilterForEvent(esoIdentifier, ESO_EVENT, ESO_FILTER, ESOFilterValue)
+    -- an event filter will only be registered with ESO, when an event with the same identifier is already registered
+    if _containsEventInSet(esoIdentifier) then
+        -- check if a filter was provided
+        if ESO_FILTER ~=nil and ESOFilterValue ~= nil then
+            EVENT_MANAGER:AddFilterForEvent(esoIdentifier, ESO_EVENT, ESO_FILTER, ESOFilterValue)
+        end
     end
 end
 
@@ -117,23 +123,46 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PARepair' is even enabled
     if PAR then
         -- Check if the functionality is turned on within the addon
-        if PAMenuFunctions.PARepair.getAutoRepairEnabledSetting() then
-            -- Register PARepair for RepairKits and WeaponCharges
-            -- TODO: Check this function
---            RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.EventPlayerCombateState)
-
+        local PARMenuFunctions = PAMenuFunctions.PARepair
+        -- Check if the functionality is turned on within the addon
+        if PARMenuFunctions.getAutoRepairEnabledSetting() then
+            -- TODO: add RefreshAllEventRegistrations to getter/setter function
             -- Register for WeaponCharges
-            -- TODO: check if it is enabled here and Refresh the events upon changing that setting
-            RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.OnInventorySingleSlotUpdate)
-            RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
-            RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_ITEM_CHARGE)
+            if PARMenuFunctions.getRechargeWithSoulGemSetting() then
+                -- TODO: check if it is enabled here and Refresh the events upon changing that setting
+                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RechargeEquippedWeaponsWithSoulGems, "SoulGems")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_ITEM_CHARGE)
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
+            end
+
+            -- Register for RepairKits
+            if PARMenuFunctions.getRepairWithRepairKitSetting() then
+                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RepairEquippedItemsWithRepairKits, "RepairKits")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DURABILITY_CHANGE)
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+            end
+
+            -- Register for GoldRepair
+            -- TODO: make new separate event that still checks for selling Junk
+--            if PARMenuFunctions.getRepairWithGoldSetting() then
+--                RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
+--            else
+                --
+--            end
 
             -- Register PARepair (in correspondance with PAJunk)
             -- TODO: Check this function
             RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
+
         else
             -- Unregister PARepair
---            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE)
+            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
+            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+
             -- Unregister the SharedEvent, but only if PAJunk is not enabled!
             if not (PAJ and PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
                 UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
@@ -183,6 +212,8 @@ local function RefreshAllEventRegistrations()
             RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+            -- Register PAJunk (for Fences)
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen)
             -- Register PAJunk (in correspondance with PARepair)
             RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
             -- Register Mailbox Open check (to disable marking as junk)
@@ -191,6 +222,7 @@ local function RefreshAllEventRegistrations()
         else
             -- Unregister PAJunk
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE)
             -- Unregister the SharedEvent, but only if PARepair is not enabled!
             if not (PAR and PAMenuFunctions.PARepair.getAutoRepairEnabledSetting()) then
                 UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")

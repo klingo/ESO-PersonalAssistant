@@ -686,19 +686,59 @@ local function createPARRepairKitSubmenuTable()
     })
 
     PARRepairKitSubmenuTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY),
+        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T),
+        min = 0,
+        max = 99,
+        step = 1,
+        getFunc = PAMenuFunctions.PARepair.getRepairWithRepairKitDurabilityThresholdSetting,
+        setFunc = PAMenuFunctions.PARepair.setRepairWithRepairKitDurabilityThresholdSetting,
+        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitDurabilityThresholdDisabled,
+        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithRepairKitThreshold,
+    })
+
+
+    PARRepairKitSubmenuTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
     })
 
-    -- TODO: Use Regular Repair Kits
 
-    -- TODO: Threshold
+--    PARRepairKitSubmenuTable:insert({
+--        type = "checkbox",
+--        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T),
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairWithCrownRepairKitSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairWithCrownRepairKitSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairWithCrownRepairKitDisabled,
+--        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithCrownRepairKit,
+--    })
+--
+--    PARRepairKitSubmenuTable:insert({
+--        type = "slider",
+--        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY),
+--        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T),
+--        min = 0,
+--        max = 99,
+--        step = 1,
+--        width = "half",
+--        getFunc = PAMenuFunctions.PARepair.getRepairWithCrownRepairKitDurabilityThresholdSetting,
+--        setFunc = PAMenuFunctions.PARepair.setRepairWithCrownRepairKitDurabilityThresholdSetting,
+--        disabled = PAMenuFunctions.PARepair.isRepairWithCrownRepairKitDurabilityThresholdDisabled,
+--        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithCrownRepairKitThreshold,
+--    })
 
-    -- TODO: Use Crown Repair Kits
-
-    -- TODO: Threshold
-
-    -- TODO: Low Repair Kit Warning
+    PARRepairKitSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING),
+        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T),
+        getFunc = PAMenuFunctions.PARepair.getLowRepairKitWarningSetting,
+        setFunc = PAMenuFunctions.PARepair.setLowRepairKitWarningSetting,
+        disabled = PAMenuFunctions.PARepair.isLowRepairKitWarningDisabled,
+        default = PAMenuDefaults.PARepair.RepairEquipped.lowRepairKitWarning,
+    })
 
     -- TODO: Chat Mode
 end

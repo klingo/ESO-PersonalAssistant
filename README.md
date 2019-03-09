@@ -106,7 +106,6 @@ How to read:
           Returns: number amountRepaired
     RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)       
     ```
-* [ ] **(4)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
 * [ ] **(5)** Add Notification Options
 
 
@@ -206,7 +205,7 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
 
 
 #### PARepair
-* tbd
+* [ ] **(4)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
 
 
 #### PABanking

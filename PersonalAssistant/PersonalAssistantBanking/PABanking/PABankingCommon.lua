@@ -281,6 +281,7 @@ local function getCombinedItemTypeSpecializedComparator(itemTypeList, spevialize
     end
 end
 
+-- TODO: move to Helper Functions!
 local function getItemTypeComparator(itemTypeList, includeStolenItems)
     return function(itemData)
         for _, itemType in pairs(itemTypeList) do

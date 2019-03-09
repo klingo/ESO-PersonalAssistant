@@ -33,6 +33,10 @@ local PAStrings = {
     SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing for full repair)"}),
     SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_NOTHING = table.concat({PAC.COLORED_TEXTS.PAR, "Nothing to repair"}),
 
+    -- PARepair Chat Output - Item Repair --
+    SI_PA_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " left"}),
+    SI_PA_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
+
     -- PARepair Chat Output - Weapon Charge --
     SI_PA_REPAIR_CHARGE_CHATMODE_NONE = "<no output>",
     SI_PA_REPAIR_CHARGE_CHATMODE_MIN = table.concat({PAC.COLORS.DEFAULT, "%s %s (%d%% --> %d%%)"}),
@@ -126,45 +130,30 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_GOLD_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Repair with ", GetCurrencyName(CURT_MONEY)}),
     SI_PA_MENU_REPAIR_GOLD_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetCurrencyName(CURT_MONEY), "?"}),
     SI_PA_MENU_REPAIR_GOLD_ENABLE_T = "???",
-
     SI_PA_MENU_REPAIR_GOLD_DURABILITY = "Durability threshold in %",
     SI_PA_MENU_REPAIR_GOLD_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
-
     SI_PA_MENU_REPAIR_CHATMODE = "Chat display after Repairs",
     SI_PA_MENU_REPAIR_CHATMODE_T = "How to display the information of a full repair in the chat window",
 
     SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "???",
+    SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY = "Durability threshold in %",
+    SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Use Crown ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T = "???",
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY = "Avg. durability threshold in %",
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T = "Repair ALL equipped items only if they are on average at or below the defined durability threshold.",
+    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING = table.concat({"Warn when low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), ". If you have none left, it will only warn max once every 10 minutes"}),
 
     SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Recharge equipped weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), "?"}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Re-Charge equipped weapons when their charge level reaches zero. ",
-
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
-
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), ". If you have none left, it will only warn max once every 10 minutes"}),
-
-    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN = "Repair equipped items",
-    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_T = "Repair equipped items at a merchant?",
-    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY = "- Durability threshold in %",
-    SI_PA_MENU_REPAIR_GOLD_REPAIR_WORN_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
-    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN = "Use Repair Kits",
-    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_T = "Repair equipped items with repair kits when out in the field? (Common repair kits will be used before greater ones)",
-    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY = "- Durability threshold in %",
-    SI_PA_MENU_REPAIR_KIT_REPAIR_WORN_DURABILITY_T = "Equipped items will only be repaired with a repair kit when their durability is at or below the defined threshold",
-    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL = "Chat display: Full repairs",
-    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_FULL_T = "How to display the information of a full repair in the chat window",
-    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL = "Chat display: Partial/incomplete repairs",
-    SI_PA_MENU_REPAIR_REPAIR_CHATMODE_PARTIAL_T = "How to display the information of an incomplet or parcial repair i.e. due to insufficient gold) in the chat window",
-    SI_PA_MENU_REPAIR_CHARGE_WEAPONS = "Re-Charge Weapons",
-    SI_PA_MENU_REPAIR_CHARGE_WEAPONS_T = "Re-Charge equipped weapons?",
-    SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY = "- Re-Charge threshold in %",
-    SI_PA_MENU_REPAIR_CHARGE_WEAPONS_DURABILITY_T = "Re-Charge equipped weapons when their charge level is at or below the defined threshold. (Lesser soul gems will be used before common ones)",
-    SI_PA_MENU_REPAIR_CHARGE_CHATMODE = "Chat display: Charging weapons",
-    SI_PA_MENU_REPAIR_CHARGE_CHATMODE_T = "How to display the information of a re-charged weapon in the chat window",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABMenu --
