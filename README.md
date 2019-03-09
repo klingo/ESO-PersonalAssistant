@@ -68,6 +68,9 @@ How to read:
     SafeAddVersion(stringId, stringVersion) 
     SafeAddString(stringId, stringValue, stringVersion) 
     ```
+* [ ] **(4)** Cleanup Localizations and Getter/Setter Functions
+* [ ] **(5)** Add German Localization
+* [ ] **(5)** Add French Localization (NTakit)
 * [ ] **(6)** Check ItemLink Handling in HelperFunctions.lua
   * http://www.esoui.com/forums/showthread.php?t=2054
   * http://www.esoui.com/forums/showthread.php?t=1944
