@@ -30,9 +30,9 @@ tbd
 
 ***
 
-## Development ToDo
+## Development ToDo (v2.0.0)
 
-This is my development ToDo list for V2 of PersonalAssistant
+This is my development ToDo list for the initial V2 release of PersonalAssistant
 
 How to read:
 * [X] **(1)** Feature is implemented (had priority **(1)**)
@@ -72,8 +72,6 @@ How to read:
   * http://www.esoui.com/forums/showthread.php?t=2054
   * http://www.esoui.com/forums/showthread.php?t=1944
   * https://wiki.esoui.com/ZO_LinkHandler_CreateLink
-* [ ] **(7)** Add LDoc
-    * https://stevedonovan.github.io/ldoc/manual/doc.md.html
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
@@ -83,9 +81,6 @@ How to read:
     GetAddOnRootDirectoryPath(addOnIndex) – directoryPath.
     GetAddOnVersion(addOnIndex) – version.
     ```
-
-
-
   
 #### PARepair
 * [ ] **(3)** PARepair: Implement Repair Kits
@@ -153,26 +148,13 @@ How to read:
 * [X] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
 * [X] **(3)** PABanking: Individual Item Types - Add Repair Kits (only Grand?)
 * [ ] **(4)** PABanking: Add option to select type of notifications
-* [ ] **(4)** PABanking: Add summary after transaction completed
 * [X] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
-* [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked)
-  * http://www.esoui.com/downloads/info630-FCOItemSaver.html
-  * www.esoui.com/forums/showthread.php?t=6987
-* [ ] **(5)** PABanking: Support Home Storage Banking Bags
-    ```lua
-    BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_TEN
-    GetBankingBag() – bankingBag.
-    IsHouseBankBag(bag) – isHouseBankBag.
-    GetCollectibleForHouseBankBag(houseBankBag) – collectibleId.
-    GetCollectibleBankAccessBag(collectibleId) – houseBankBag.
-    ```
-* [ ] **(7)** PABanking: Add progress bar for stacking
 
 
 #### PALoot
 * [ ] **(3)** PALoot: With ESO-Loot enabled, offer option to auto-loot stolen items only when hidden (if that ESO-setting is disabled)
-* [ ] **(4)** PALoot: Harvestable Items - Add Jewelcrafting items
-* [ ] **(4)** PALoot: Check API
+* [X] **(4)** PALoot: Harvestable Items - Add Jewelcrafting items --> No longer needed
+* [X] **(4)** PALoot: Check API --> No longer needed
     ```lua
     LootAll(boolean ignoreStolenItems)
     LootItemById(number lootId)
@@ -180,8 +162,8 @@ How to read:
     GetLootItemInfo(number lootIndex)
           Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
     ```
-* [ ] **(5)** PALoot: Check if special message for Stealing is added?
-* [ ] **(7)** PALoot: Loot other currencies than gold  - Still needed?!
+* [X] **(5)** PALoot: Check if special message for Stealing is added? --> No longer needed
+* [X] **(7)** PALoot: Loot other currencies than gold  - Still needed?! --> No!
     ```lua
     GetLootCurrency(number CurrencyType type)  
     Returns: number unownedCurrency, number ownedCurrency
@@ -201,16 +183,55 @@ How to read:
 #### PAJunk
 * [X] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
 * [X] **(2)** PAJunk: Notification for junk items, even if they are already marked as junk
-* [ ] **(3)** PAJunk: Add support for ESO internal item-locking
-* [ ] **(3)** PAJunk: Add support for FCOItemSaver
-  * http://www.esoui.com/downloads/info630-FCOItemSaver.html
-  * www.esoui.com/forums/showthread.php?t=6987
-* [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
 * [ ] **(4)** PAJunk: Inventory Size Warning
 * [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
 * [X] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
 * [ ] **(4)** PAJunk: Auto-Junk KNOWN recipes of quality XYZ and below
 * [ ] **(5)** PAJunk: Add option to select type of notifications
+
+
+   
+***
+
+## Development ToDo (v2.x.x)
+
+This is my development ToDo list for the subsequent releases of PersonalAssistant afterwards
+
+#### General
+* [ ] **(7)** Add LDoc
+    * https://stevedonovan.github.io/ldoc/manual/doc.md.html
+
+
+#### PARepair
+* tbd
+
+
+#### PABanking
+* [ ] **(4)** PABanking: Add summary after transaction completed
+* [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked)
+  * http://www.esoui.com/downloads/info630-FCOItemSaver.html
+  * www.esoui.com/forums/showthread.php?t=6987
+* [ ] **(5)** PABanking: Support Home Storage Banking Bags
+    ```lua
+    BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_TEN
+    GetBankingBag() – bankingBag.
+    IsHouseBankBag(bag) – isHouseBankBag.
+    GetCollectibleForHouseBankBag(houseBankBag) – collectibleId.
+    GetCollectibleBankAccessBag(collectibleId) – houseBankBag.
+    ```
+* [ ] **(7)** PABanking: Add progress bar for stacking
+
+
+#### PALoot
+* tbd
+
+
+#### PAJunk
+* [ ] **(3)** PAJunk: Add support for ESO internal item-locking
+* [ ] **(3)** PAJunk: Add support for FCOItemSaver
+  * http://www.esoui.com/downloads/info630-FCOItemSaver.html
+  * www.esoui.com/forums/showthread.php?t=6987
+* [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
 
 
 #### PAMail
@@ -240,7 +261,7 @@ How to read:
     DeleteMail(id64 mailId, boolean forceDelete)     
     CloseMailbox()            
     ```
-   
+
 ***
 
 ## Disclaimer
