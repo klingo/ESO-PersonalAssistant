@@ -772,10 +772,10 @@ PA.MenuFunctions = {
         getFoodDrinksTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
         setFoodDrinksTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
 
-        isTrophiesTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
-        isTrophiesTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
-        getTrophiesTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
-        setTrophiesTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
+        isPapersTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "papersEnabled"}) end,
+        isPapersTransactionDisabled = function() return isDisabled(PASV.Banking, {"Advanced", "advancedItemsEnabled"}) end,
+        getPapersTransactionSetting = function() return getValue(PASV.Banking, {"Advanced", "TransactionSettings", "papersEnabled"}) end,
+        setPapersTransactionSetting = function(value) setValue(PASV.Banking, value, {"Advanced", "TransactionSettings", "papersEnabled"}) end,
 
         -- ----------------------------------------------------------------------------------
         -- INDIVIDUAL ITEMS

@@ -236,11 +236,15 @@ PA.MenuDefaults = {
 
             SpecializedItemTypes = {
                 [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = {
-                    enabledSetting = "trophiesEnabled",
+                    enabledSetting = "papersEnabled",
                     moveMode = PAC.MOVE.IGNORE,
                 },
                 [SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = {
-                    enabledSetting = "trophiesEnabled",
+                    enabledSetting = "papersEnabled",
+                    moveMode = PAC.MOVE.IGNORE,
+                },
+                [SPECIALIZED_ITEMTYPE_MASTER_WRIT] = {
+                    enabledSetting = "papersEnabled",
                     moveMode = PAC.MOVE.IGNORE,
                 },
             },
@@ -252,7 +256,7 @@ PA.MenuDefaults = {
                 foodDrinksEnabled = true,
 
                 liquidsEnabled = true,
-                trophiesEnabled = true,
+                papersEnabled = true,
             },
         },
 
