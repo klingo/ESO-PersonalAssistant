@@ -8,7 +8,7 @@
 ## Version: 1.0.0
 ## AddOnVersion: 100
 ## Author: Klingo
-## APIVersion: 100025 100026
+## APIVersion: 100026
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
 
@@ -21,4 +21,6 @@ PARepair/PARepairKit.lua
 PARepair/PARepair.lua
 
 # Menu
+Menu/PARepairMenuDefaults.lua
+Menu/PARepairMenuFunctions.lua
 Menu/PARepairMenu.lua

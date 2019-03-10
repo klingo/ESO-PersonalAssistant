@@ -124,6 +124,7 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                         if sellsUsed == totalSells then
                             -- TODO: warn that no more sells are possible at Fence
                             d("no more sells possible; please wait "..tostring(resetTimeSeconds).." seconds")
+                            ZO_Alert(UI_ALERT_CATEGORY_ALERT, SOUNDS.NEGATIVE_CLICK, "no more sells possible; please wait "..tostring(resetTimeSeconds).." seconds")
                             break
                         end
                         -- Sell the (stolen) item which was marked as junk

@@ -8,7 +8,7 @@
 ## Version: 1.0.0
 ## AddOnVersion: 100
 ## Author: Klingo
-## APIVersion: 100025 100026
+## APIVersion: 100026
 ## SavedVariables: PersonalAssistantJunk_SavedVariables
 ## DependsOn: PersonalAssistant
 
@@ -19,4 +19,6 @@ PersonalAssistantJunk.lua
 PAJunk/PAJunk.lua
 
 # Menu
+Menu/PAJunkMenuDefaults.lua
+Menu/PAJunkMenuFunctions.lua
 Menu/PAJunkMenu.lua

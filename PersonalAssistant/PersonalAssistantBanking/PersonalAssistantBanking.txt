@@ -8,7 +8,7 @@
 ## Version: 1.0.0
 ## AddOnVersion: 100
 ## Author: Klingo
-## APIVersion: 100025 100026
+## APIVersion: 100026
 ## SavedVariables: PersonalAssistantBanking_SavedVariables
 ## DependsOn: PersonalAssistant
 
@@ -24,4 +24,6 @@ PABanking/PABankingIndividual.lua
 PABanking/PABanking.lua
 
 # Menu
+Menu/PABankingMenuDefaults.lua
+Menu/PABankingMenuFunctions.lua
 Menu/PABankingMenu.lua

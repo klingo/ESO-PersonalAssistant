@@ -8,7 +8,7 @@
 ## Version: 1.0.0
 ## AddOnVersion: 100
 ## Author: Klingo
-## APIVersion: 100025 100026
+## APIVersion: 100026
 ## SavedVariables: PersonalAssistantMail_SavedVariables
 ## DependsOn: PersonalAssistant
 
@@ -19,4 +19,6 @@ PersonalAssistantMail.lua
 PAMail/PAMail.lua
 
 # Menu
+Menu/PAMailMenuDefaults.lua
+Menu/PAMailMenuFunctions.lua
 Menu/PAMailMenu.lua
