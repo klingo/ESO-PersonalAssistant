@@ -44,6 +44,9 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PASV.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", 1, nil, Banking_Defaults)
+
+    -- create the options with LAM-2
+    PA.Banking.createOptions()
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
