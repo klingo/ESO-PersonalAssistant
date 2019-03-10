@@ -17,3 +17,6 @@ PersonalAssistantJunk.lua
 
 # PAJunk
 PAJunk/PAJunk.lua
+
+# Menu
+Menu/PAJunkMenu.lua

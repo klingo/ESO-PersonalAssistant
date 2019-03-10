@@ -86,8 +86,8 @@ How to read:
     ```
   
 #### PARepair
-* [ ] **(3)** PARepair: Implement Repair Kits
-* [ ] **(3)** PARepair: Check API
+* [X] **(3)** PARepair: Implement Repair Kits
+* [X] **(3)** PARepair: Check API
     ```lua
     CanStoreRepair() 
   
