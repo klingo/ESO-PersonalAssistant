@@ -427,7 +427,7 @@ end
 
 -- =================================================================================================================
 
-local function createPABCurrencyGoldSubmenuTable()
+local function _createPABCurrencyGoldSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_MONEY)
     PABCurrencyGoldSubmenuTable:insert({
         type = "checkbox",
@@ -466,7 +466,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCurrencyAlliancePointsSubmenuTable()
+local function _createPABCurrencyAlliancePointsSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_ALLIANCE_POINTS)
     PABCurrencyAlliancePointsSubmenuTable:insert({
         type = "checkbox",
@@ -505,7 +505,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCurrencyTelVarSubmenuTable()
+local function _createPABCurrencyTelVarSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_TELVAR_STONES)
     PABCurrencyTelVarSubmenuTable:insert({
         type = "checkbox",
@@ -543,7 +543,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCurrencyWritVouchersSubmenuTable()
+local function _createPABCurrencyWritVouchersSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_WRIT_VOUCHERS)
     PABCurrencyWritVouchersSubmenuTable:insert({
         type = "checkbox",
@@ -582,7 +582,7 @@ end
 
 -- =================================================================================================================
 
-local function createPABCraftingBlacksmithingSubmenuTable()
+local function _createPABCraftingBlacksmithingSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_BLACKSMITHING)
     PABCraftingBlacksmithingSubmenuTable:insert({
         type = "checkbox",
@@ -611,7 +611,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingClothingSubmenuTable()
+local function _createPABCraftingClothingSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_CLOTHING)
     PABCraftingClothingSubmenuTable:insert({
         type = "checkbox",
@@ -640,7 +640,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingWoodworkingSubmenuTable()
+local function _createPABCraftingWoodworkingSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WOODWORKING)
     PABCraftingWoodworkingSubmenuTable:insert({
         type = "checkbox",
@@ -669,7 +669,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingJewelcraftingSubmenuTable()
+local function _createPABCraftingJewelcraftingSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRYCRAFTING)
     PABCraftingJewelcraftingSubmenuTable:insert({
         type = "checkbox",
@@ -698,7 +698,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingAlchemySubmenuTable()
+local function _createPABCraftingAlchemySubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ALCHEMY)
     PABCraftingAlchemySubmenuTable:insert({
         type = "checkbox",
@@ -727,7 +727,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingEnchantingSubmenuTable()
+local function _createPABCraftingEnchantingSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ENCHANTING)
     PABCraftingEnchantingSubmenuTable:insert({
         type = "checkbox",
@@ -756,7 +756,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingProvisioningSubmenuTable()
+local function _createPABCraftingProvisioningSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_PROVISIONING)
     PABCraftingProvisioningSubmenuTable:insert({
         type = "checkbox",
@@ -785,7 +785,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingStyleMaterialsSubmenuTable()
+local function _createPABCraftingStyleMaterialsSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_STYLE_MATERIALS)
     PABCraftingStyleMaterialsSubmenuTable:insert({
         type = "checkbox",
@@ -814,7 +814,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingTraitItemsSubmenuTable()
+local function _createPABCraftingTraitItemsSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_TRAIT_ITEMS)
     PABCraftingTraitItemsSubmenuTable:insert({
         type = "checkbox",
@@ -843,7 +843,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABCraftingFurnishingSubmenuTable()
+local function _createPABCraftingFurnishingSubmenuTable()
     local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_FURNISHING)
     PABCraftingFurnishingSubmenuTable:insert({
         type = "checkbox",
@@ -872,7 +872,7 @@ end
 
 -- =================================================================================================================
 
-local function createPABAdvancedMotifSubmenuTable()
+local function _createPABAdvancedMotifSubmenuTable()
     local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)
     PABAdvancedMotifSubmenuTable:insert({
         type = "checkbox",
@@ -901,7 +901,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABAdvancedRecipeSubmenuTable()
+local function _createPABAdvancedRecipeSubmenuTable()
     local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)
     PABAdvancedRecipeSubmenuTable:insert({
         type = "checkbox",
@@ -930,7 +930,7 @@ end
 
 -- =================================================================================================================
 
-local function createPABAdvancedGlyphsSubmenuTable()
+local function _createPABAdvancedGlyphsSubmenuTable()
     local _craftingName = GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)
     PABAdvancedGlyphsSubmenuTable:insert({
         type = "checkbox",
@@ -959,7 +959,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABAdvancedLiquidsSubmenuTable()
+local function _createPABAdvancedLiquidsSubmenuTable()
     local _craftingName = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_POTION)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_POISON))
     PABAdvancedLiquidsSubmenuTable:insert({
         type = "checkbox",
@@ -988,7 +988,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABAdvancedFoodDrinksSubmenuTable()
+local function _createPABAdvancedFoodDrinksSubmenuTable()
     local _craftingName = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_FOOD)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_DRINK))
     PABAdvancedFoodDrinksSubmenuTable:insert({
         type = "checkbox",
@@ -1015,10 +1015,9 @@ local function createPABAdvancedFoodDrinksSubmenuTable()
     end
 end
 
-
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABAdvancedPapersSubmenuTable()
+local function _createPABAdvancedPapersSubmenuTable()
     local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_TROPHY)
     PABAdvancedPapersSubmenuTable:insert({
         type = "checkbox",
@@ -1047,7 +1046,7 @@ end
 
 -- =================================================================================================================
 
-local function createPABIndividualLockpickSubmenuTable()
+local function _createPABIndividualLockpickSubmenuTable()
     local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_LOCKPICK)
     PABIndividualLockpickSubmenuTable:insert({
         type = "checkbox",
@@ -1090,7 +1089,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABIndividualSoulGemSubmenuTable()
+local function _createPABIndividualSoulGemSubmenuTable()
     local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)
     PABIndividualSoulGemSubmenuTable:insert({
         type = "checkbox",
@@ -1133,7 +1132,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABIndividualRepairKitSubmenuTable()
+local function _createPABIndividualRepairKitSubmenuTable()
     local _craftingName = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)
     PABIndividualRepairKitSubmenuTable:insert({
         type = "checkbox",
@@ -1176,7 +1175,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function createPABIndividualGenericSubmenuTable()
+local function _createPABIndividualGenericSubmenuTable()
     local _craftingName = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC)
     PABIndividualGenericSubmenuTable:insert({
         type = "checkbox",
@@ -1222,36 +1221,36 @@ end
 local function createOptions()
     _createPABankingMenu()
 
-    createPABCurrencyGoldSubmenuTable()
-    createPABCurrencyAlliancePointsSubmenuTable()
-    createPABCurrencyTelVarSubmenuTable()
-    createPABCurrencyWritVouchersSubmenuTable()
+    _createPABCurrencyGoldSubmenuTable()
+    _createPABCurrencyAlliancePointsSubmenuTable()
+    _createPABCurrencyTelVarSubmenuTable()
+    _createPABCurrencyWritVouchersSubmenuTable()
 
     if not IsESOPlusSubscriber() then
-        createPABCraftingBlacksmithingSubmenuTable()
-        createPABCraftingClothingSubmenuTable()
-        createPABCraftingWoodworkingSubmenuTable()
-        createPABCraftingJewelcraftingSubmenuTable()
-        createPABCraftingAlchemySubmenuTable()
-        createPABCraftingEnchantingSubmenuTable()
-        createPABCraftingProvisioningSubmenuTable()
-        createPABCraftingStyleMaterialsSubmenuTable()
-        createPABCraftingTraitItemsSubmenuTable()
-        createPABCraftingFurnishingSubmenuTable()
+        _createPABCraftingBlacksmithingSubmenuTable()
+        _createPABCraftingClothingSubmenuTable()
+        _createPABCraftingWoodworkingSubmenuTable()
+        _createPABCraftingJewelcraftingSubmenuTable()
+        _createPABCraftingAlchemySubmenuTable()
+        _createPABCraftingEnchantingSubmenuTable()
+        _createPABCraftingProvisioningSubmenuTable()
+        _createPABCraftingStyleMaterialsSubmenuTable()
+        _createPABCraftingTraitItemsSubmenuTable()
+        _createPABCraftingFurnishingSubmenuTable()
     end
 
-    createPABAdvancedMotifSubmenuTable()
-    createPABAdvancedRecipeSubmenuTable()
+    _createPABAdvancedMotifSubmenuTable()
+    _createPABAdvancedRecipeSubmenuTable()
 
-    createPABAdvancedGlyphsSubmenuTable()
-    createPABAdvancedLiquidsSubmenuTable()
-    createPABAdvancedFoodDrinksSubmenuTable()
-    createPABAdvancedPapersSubmenuTable()
+    _createPABAdvancedGlyphsSubmenuTable()
+    _createPABAdvancedLiquidsSubmenuTable()
+    _createPABAdvancedFoodDrinksSubmenuTable()
+    _createPABAdvancedPapersSubmenuTable()
 
-    createPABIndividualLockpickSubmenuTable()
-    createPABIndividualSoulGemSubmenuTable()
-    createPABIndividualRepairKitSubmenuTable()
-    createPABIndividualGenericSubmenuTable()
+    _createPABIndividualLockpickSubmenuTable()
+    _createPABIndividualSoulGemSubmenuTable()
+    _createPABIndividualRepairKitSubmenuTable()
+    _createPABIndividualGenericSubmenuTable()
 
     LAM2:RegisterAddonPanel("PersonalAssistantBankingAddonOptions", PABankingPanelData)
     LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)
