@@ -3,7 +3,6 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
-local PAMenuChoices = PA.MenuChoices
 
 local LAM2 = LibStub("LibAddonMenu-2.0")
 
