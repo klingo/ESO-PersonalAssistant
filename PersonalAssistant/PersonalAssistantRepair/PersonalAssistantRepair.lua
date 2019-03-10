@@ -44,6 +44,9 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PASV.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, nil, Repair_Defaults)
+
+    -- create the options with LAM-2
+    PA.Repair.createOptions()
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)

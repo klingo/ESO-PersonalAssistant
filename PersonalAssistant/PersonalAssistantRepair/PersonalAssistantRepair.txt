@@ -19,3 +19,6 @@ PersonalAssistantRepair.lua
 PARepair/PARepairCharge.lua
 PARepair/PARepairKit.lua
 PARepair/PARepair.lua
+
+# Menu
+Menu/PARepairMenu.lua

@@ -44,6 +44,9 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PASV.Mail = ZO_SavedVars:NewAccountWide("PersonalAssistantMail_SavedVariables", 1, nil, Mail_Defaults)
+
+    -- create the options with LAM-2
+    PA.Mail.createOptions()
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)

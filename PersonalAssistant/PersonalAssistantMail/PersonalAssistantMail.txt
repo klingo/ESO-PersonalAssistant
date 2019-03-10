@@ -17,3 +17,6 @@ PersonalAssistantMail.lua
 
 # PAMail
 PAMail/PAMail.lua
+
+# Menu
+Menu/PAMailMenu.lua
