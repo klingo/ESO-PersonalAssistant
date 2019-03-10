@@ -123,8 +123,13 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                         local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
                         if sellsUsed == totalSells then
                             -- TODO: warn that no more sells are possible at Fence
-                            d("no more sells possible; please wait "..tostring(resetTimeSeconds).." seconds")
-                            ZO_Alert(UI_ALERT_CATEGORY_ALERT, SOUNDS.NEGATIVE_CLICK, "no more sells possible; please wait "..tostring(resetTimeSeconds).." seconds")
+                            local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
+                            if resetTimeHours >= 1 then
+                                PAJ.println(SI_PA_JUNK_FENCE_LIMIT_HOURS, resetTimeHours)
+                            else
+                                local resetTimeMinutes = PAHF.round(resetTimeSeconds / 60, 0)
+                                PAJ.println(SI_PA_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
+                            end
                             break
                         end
                         -- Sell the (stolen) item which was marked as junk
