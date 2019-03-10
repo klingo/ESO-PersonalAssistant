@@ -34,6 +34,7 @@ local PAStrings = {
     SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_NOTHING = table.concat({PAC.COLORED_TEXTS.PAR, "Nothing to repair"}),
 
     -- PARepair Chat Output - Item Repair --
+    SI_PA_REPAIR_REPAIRKIT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
     SI_PA_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " left"}),
     SI_PA_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
 

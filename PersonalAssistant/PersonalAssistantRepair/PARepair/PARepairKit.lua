@@ -20,6 +20,7 @@ local function _getRepairKitsIn(bagId)
     local totalStackCount = 0
     for _, itemData in pairs(backpackBagCache) do
         totalStackCount = totalStackCount + itemData.stackCount
+        itemData.itemLink = GetItemLink(itemData.bagId, itemData.slotIndex, LINK_STYLE_BRACKETS)
     end
 
     return backpackBagCache, totalStackCount
@@ -43,19 +44,17 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
                 local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
                 if totalRepairKitCount > 0 then
                     local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
-                    local finalRepairPerc = itemCondition + repairableAmount
 
                     -- some debug information
-                    PAHF.println("Want to repair: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
+                    PAHF.debugln("Want to repair: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
 
                     -- actually repair the item
---                    RepairItemWithRepairKit(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
+                    RepairItemWithRepairKit(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
                     totalRepairKitCount = totalRepairKitCount - 1
 
                     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-                    local iconString = "|t20:20:"..GetItemLinkInfo(itemLink).."|t "
 
-                    -- TODO: Repair Chat Output
+                    PAHF.println(GetString(SI_PA_REPAIR_REPAIRKIT_REPAIRED), itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
                 end
 
                 -- check remaining repair kits
