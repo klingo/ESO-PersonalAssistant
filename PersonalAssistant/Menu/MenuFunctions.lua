@@ -551,6 +551,10 @@ PA.MenuFunctions = {
         getAutoRepairEnabledSetting = function() return getValue(PASV.Repair, {"autoRepairEnabled"}) end,
         setAutoRepairEnabledSetting = setPARepairEnabled,
 
+        isChatOutputDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}) end,
+        getChatOutputSetting = function() return getValue(PASV.Repair, {"chatOutput"}) end,
+        setChatOutputSetting = function(value) setValue(PASV.Repair, value, {"chatOutput"}) end,
+
         -- -----------------------------------------------------------------------------------
         -- REPAIR WITH GOLD
         -- -----------------------------
@@ -612,6 +616,10 @@ PA.MenuFunctions = {
 
     },
     PABanking = {
+        isChatOutputDisabled = false, -- always enabled
+        getChatOutputSetting = function() return getValue(PASV.Banking, {"chatOutput"}) end,
+        setChatOutputSetting = function(value) setValue(PASV.Banking, value, {"chatOutput"}) end,
+
         -- -----------------------------------------------------------------------------------
         -- CURRENCIES
         -- -----------------------------
@@ -830,6 +838,10 @@ PA.MenuFunctions = {
         isEnabled = getPALootEnabled,
         setIsEnabled = setPALootEnabled,
 
+        isChatOutputDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
+        getChatOutputSetting = function() return getValue(PASV.Loot, {"chatOutput"}) end,
+        setChatOutputSetting = function(value) setValue(PASV.Loot, value, {"chatOutput"}) end,
+
         -- ----------------------------------------------------------------------------------
         -- RECIPES SETTINGS
         -- -----------------------------
@@ -870,6 +882,10 @@ PA.MenuFunctions = {
     PAJunk = {
         getAutoMarkAsJunkEnabledSetting = function() return getValue(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
         setAutoMarkAsJunkEnabledSetting = setPAJunkAutoMarkAsJunkEnabledSetting,
+
+        isChatOutputDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
+        getChatOutputSetting = function() return getValue(PASV.Junk, {"chatOutput"}) end,
+        setChatOutputSetting = function(value) setValue(PASV.Junk, value, {"chatOutput"}) end,
 
         -- ----------------------------------------------------------------------------------
         -- AUTO MARK JUNK
@@ -940,6 +956,10 @@ PA.MenuFunctions = {
         setAutoSellJunkSetting = function(value) setValue(PASV.Junk, value, {"autoSellJunk"}) end,
     },
     PAMail = {
+        isChatOutputDisabled = false, -- always enabled
+        getChatOutputSetting = function() return getValue(PASV.Mail, {"chatOutput"}) end,
+        setChatOutputSetting = function(value) setValue(PASV.Mail, value, {"chatOutput"}) end,
+
         -- -----------------------------------------------------------------------------------
         -- HIRELINGS
         -- -----------------------------

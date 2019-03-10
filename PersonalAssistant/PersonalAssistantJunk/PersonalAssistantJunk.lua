@@ -3,6 +3,7 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
 local PASV = PA.SavedVars
+local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -11,6 +12,13 @@ local AddonName = "PersonalAssistantJunk"
 local Junk_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
+
+-- only prints out PAJunk texts if chatOutput is enabled
+local function println(text, ...)
+    if PASV.Junk[PA.activeProfile].chatOutput then
+        PAHF.println(text, ...)
+    end
+end
 
 -- init default values
 local function initDefaults()
@@ -21,7 +29,6 @@ local function initDefaults()
         Junk_Defaults[profileNo] = PAMenuDefaults.PAJunk
     end
 end
-
 
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
@@ -45,5 +52,6 @@ PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
 -- Export
 PA.Junk = {
-    AddonName = AddonName
+    AddonName = AddonName,
+    println = println
 }

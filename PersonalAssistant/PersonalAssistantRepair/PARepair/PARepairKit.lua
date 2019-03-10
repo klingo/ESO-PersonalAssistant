@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAR = PA.Repair
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
@@ -54,7 +55,7 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
 
                     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 
-                    PAHF.println(GetString(SI_PA_REPAIR_REPAIRKIT_REPAIRED), itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
+                    PAR.println(GetString(SI_PA_REPAIR_REPAIRKIT_REPAIRED), itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
                 end
 
                 -- check remaining repair kits
@@ -67,9 +68,9 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
                         _lastNoRepairKitWarningGameTime = gameTimeMilliseconds
 
                         if totalRepairKitCount > 0 then
-                            PAHF.println(SI_PA_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT, totalRepairKitCount)
+                            PAR.println(SI_PA_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT, totalRepairKitCount)
                         else
-                            PAHF.println(SI_PA_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT)
+                            PAR.println(SI_PA_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT)
                         end
                     end
                 end

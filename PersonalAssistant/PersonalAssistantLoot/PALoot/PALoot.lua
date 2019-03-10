@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAL = PA.Loot
 local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
@@ -182,12 +183,12 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
                     itemDestroyed = true
                 else
                     -- could not move items, therefore cannot safely destroy item
-                    PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE, amountToDestroy, stackSize, itemLink, iconString)
+                    PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE, amountToDestroy, stackSize, itemLink, iconString)
                 end
             end, 500)
         else
             -- no free slot available, cannot safely destroy item!
-            PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY, amountToDestroy, stackSize, itemLink, iconString)
+            PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY, amountToDestroy, stackSize, itemLink, iconString)
         end
     else
         -- destroy all items (since there were no existing before)
@@ -196,11 +197,11 @@ local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
     end
 
     if (itemDestroyed) then
-        PAHF_DEBUG.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
+        PAHF.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
         local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-        if (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX, amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL, amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN, amountToDestroy, iconString)
+        if (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX, amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL, amountToDestroy, itemLink, iconString)
+        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN, amountToDestroy, iconString)
         end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
     end
 end
@@ -234,7 +235,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             if PALootSavedVars.LootRecipes.enabled and itemType == ITEMTYPE_RECIPE then
                 local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
                 if not isRecipeKnown then
-                    PAHF.println(SI_PA_LOOT_RECIPE_UNKNOWN, itemLink)
+                    PAL.println(SI_PA_LOOT_RECIPE_UNKNOWN, itemLink)
                 else
                     -- Recipe is already known; do nothing for now
                     PAHF.debugln("known recipe looted: %s", itemLink)
@@ -246,7 +247,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 if isBook then
                     local isKnown= IsItemLinkBookKnown(itemLink)
                     if not isKnown then
-                        PAHF.println(SI_PA_LOOT_MOTIF_UNKNOWN, itemLink)
+                        PAL.println(SI_PA_LOOT_MOTIF_UNKNOWN, itemLink)
                     else
                         -- Motif is already known; do nothing for now
                         PAHF.debugln("known mnotif looted: %s", itemLink)
@@ -260,7 +261,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 if canBeResearched then
                     local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
                     local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
-                    PAHF.println(SI_PA_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
+                    PAL.println(SI_PA_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
                 else
                     -- Trait already researched
                     PAHF.debugln("item with known trait looted: %s", itemLink)

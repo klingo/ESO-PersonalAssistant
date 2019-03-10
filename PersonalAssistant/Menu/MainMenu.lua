@@ -142,6 +142,16 @@ local function createPARepairMenu()
         controls = PARRechargeSubmenuTable,
         disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemMenuDisabled,
     })
+
+    optionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        getFunc = PAMenuFunctions.PARepair.getChatOutputSetting,
+        setFunc = PAMenuFunctions.PARepair.setChatOutputSetting,
+        disabled = PAMenuFunctions.PARepair.isChatOutputDisabled,
+        default = PAMenuDefaults.PARepair.chatOutput,
+    })
 end
 
 local function createPABankingMenu()
@@ -502,6 +512,16 @@ local function createPABankingMenu()
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
         default = PAMenuDefaults.PABanking.autoStackBags,
     })
+
+    optionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        getFunc = PAMenuFunctions.PABanking.getChatOutputSetting,
+        setFunc = PAMenuFunctions.PABanking.setChatOutputSetting,
+        disabled = PAMenuFunctions.PABanking.isChatOutputDisabled,
+        default = PAMenuDefaults.PABanking.chatOutput,
+    })
 end
 
 local function createPALootMenu()
@@ -541,6 +561,15 @@ local function createPALootMenu()
         disabled = PAMenuFunctions.PALoot.isLootApparelWeaponsMenuDisabled,
     })
 
+    optionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        getFunc = PAMenuFunctions.PALoot.getChatOutputSetting,
+        setFunc = PAMenuFunctions.PALoot.setChatOutputSetting,
+        disabled = PAMenuFunctions.PALoot.isChatOutputDisabled,
+        default = PAMenuDefaults.PALoot.chatOutput,
+    })
 end
 
 local function createPAJunkMenu()
@@ -601,6 +630,16 @@ local function createPAJunkMenu()
         disabled = PAMenuFunctions.PAJunk.isAutoSellJunkDisabled,
         default = PAMenuDefaults.PAJunk.autoSellJunk,
     })
+
+    optionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        getFunc = PAMenuFunctions.PAJunk.getChatOutputSetting,
+        setFunc = PAMenuFunctions.PAJunk.setChatOutputSetting,
+        disabled = PAMenuFunctions.PAJunk.isChatOutputDisabled,
+        default = PAMenuDefaults.PAJunk.chatOutput,
+    })
 end
 
 local function createPAMailMenu()
@@ -627,6 +666,16 @@ local function createPAMailMenu()
         setFunc = PAMenuFunctions.PAMail.setHirelingDeleteEmptyMailsSetting,
         disabled = PAMenuFunctions.PAMail.isHirelingDeleteEmptyMailsDisabled,
         default = PAMenuDefaults.PAMail.hirelingDeleteEmptyMails,
+    })
+
+    optionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        getFunc = PAMenuFunctions.PAMail.getChatOutputSetting,
+        setFunc = PAMenuFunctions.PAMail.setChatOutputSetting,
+        disabled = PAMenuFunctions.PAMail.isChatOutputDisabled,
+        default = PAMenuDefaults.PAMail.chatOutput,
     })
 end
 
@@ -699,12 +748,11 @@ local function createPARRepairKitSubmenuTable()
     })
 
 
-    PARRepairKitSubmenuTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
-    })
-
-
+--    PARRepairKitSubmenuTable:insert({
+--        type = "description",
+--        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
+--    })
+--
 --    PARRepairKitSubmenuTable:insert({
 --        type = "checkbox",
 --        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE),
@@ -739,8 +787,6 @@ local function createPARRepairKitSubmenuTable()
         disabled = PAMenuFunctions.PARepair.isLowRepairKitWarningDisabled,
         default = PAMenuDefaults.PARepair.RepairEquipped.lowRepairKitWarning,
     })
-
-    -- TODO: Chat Mode
 end
 
 -- -----------------------------------------------------------------------------------------------------------------

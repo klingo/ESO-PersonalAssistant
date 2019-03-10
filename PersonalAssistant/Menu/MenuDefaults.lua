@@ -12,6 +12,7 @@ PA.MenuDefaults = {
     },
     PARepair = {
         autoRepairEnabled = true,
+        chatOutput = true,
 
         -- ---------------------------------------------
 
@@ -40,6 +41,8 @@ PA.MenuDefaults = {
         },
     },
     PABanking = {
+        chatOutput = true,
+
         Currencies = {
             currenciesEnabled = true,
 
@@ -329,6 +332,7 @@ PA.MenuDefaults = {
     },
     PALoot = {
         enabled = false,
+        chatOutput = true,
 
         LootRecipes = {
             enabled = true,
@@ -350,6 +354,7 @@ PA.MenuDefaults = {
     },
     PAJunk = {
         autoMarkAsJunkEnabled = false,
+        chatOutput = true,
 
         Trash = {
             autoMarkTrash = true,
@@ -379,6 +384,8 @@ PA.MenuDefaults = {
         autoSellJunk = true,
     },
     PAMail = {
+        chatOutput = true,
+
         hirelingAutoMailEnabled = false,
         hirelingDeleteEmptyMails = false,
     }

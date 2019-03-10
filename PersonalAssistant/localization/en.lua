@@ -123,6 +123,9 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
     SI_PA_MENU_GENERAL_SHOW_WELCOME_T = "Display a welcome message from the addon upon successfully starting?",
 
+    SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE = "Enable Chat Output",
+    SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T = "Should information about actions from the addon be printed to the chat?",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARMenu --
     SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Equipped Items"}),

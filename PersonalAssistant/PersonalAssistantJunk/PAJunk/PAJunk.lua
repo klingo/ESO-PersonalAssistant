@@ -1,9 +1,9 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAJ = PA.Junk
 local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
-local PAMF = PA.MenuFunctions
 local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -19,17 +19,17 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         -- at lesat one item was sold (although it might have been worthless)
         if (moneyDiff > 0) then
             -- some valuable junk was sold
-            PAHF.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
+            PAJ.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
         else
             -- only worthless junk was sold
-            PAHF.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
+            PAJ.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
         end
     else
         -- no item was sold
         if (moneyDiff > 0) then
             -- no item was sold, but money appeared out of nowhere
             -- should not happen :D
-            PAHF.println(PAC.COLORED_TEXTS.PAJ .. "Error #1337: This should not happen!")
+            PAJ.println(PAC.COLORED_TEXTS.PAJ .. "Error #1337: This should not happen!")
         end
     end
 
@@ -66,9 +66,9 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
         -- print provided success message
         if itemStolen then
             local params = table.concat({itemLink, " ", PAC.ICONS.ITEMS.STOLEN.SMALL})
-            PAHF.println(successMessageKey, params)
+            PAJ.println(successMessageKey, params)
         else
-            PAHF.println(successMessageKey, itemLink)
+            PAJ.println(successMessageKey, itemLink)
         end
     else
         -- print failure message

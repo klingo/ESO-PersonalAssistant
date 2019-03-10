@@ -3,6 +3,7 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
 local PASV = PA.SavedVars
+local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -11,6 +12,13 @@ local AddonName = "PersonalAssistantRepair"
 local Repair_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
+
+-- only prints out PARepair texts if chatOutput is enabled
+local function println(text, ...)
+    if PASV.Repair[PA.activeProfile].chatOutput then
+        PAHF.println(text, ...)
+    end
+end
 
 -- init default values
 local function initDefaults()
@@ -43,6 +51,7 @@ PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- Export
-PersonalAssistant.Repair = {
-    AddonName = AddonName
+PA.Repair = {
+    AddonName = AddonName,
+    println = println
 }

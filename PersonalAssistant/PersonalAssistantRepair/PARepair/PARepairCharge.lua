@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAR = PA.Repair
 local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
@@ -74,9 +75,9 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
 
                     -- show output to chat (depending on setting)
                     local chargeWeaponsChatMode = PARepairSavedVars.RechargeWeapons.chargeWeaponsChatMode
-                    if (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MAX), iconString, itemLink, chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), itemLink, chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
-                    elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAHF.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), gemTable[#gemTable].iconString, iconString, chargePerc, finalChargesPerc)
+                    if (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAR.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MAX), iconString, itemLink, chargePerc, finalChargesPerc, gemTable[#gemTable].iconString, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAR.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), itemLink, chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    elseif (chargeWeaponsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAR.println(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), gemTable[#gemTable].iconString, iconString, chargePerc, finalChargesPerc)
                     end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
                 end
 
@@ -90,9 +91,9 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                         _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
 
                         if totalGemCount > 0 then
-                            PAHF.println(SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT, totalGemCount)
+                            PAR.println(SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT, totalGemCount)
                         else
-                            PAHF.println(SI_PA_REPAIR_CHARGE_NO_GEM_COUNT)
+                            PAR.println(SI_PA_REPAIR_CHARGE_NO_GEM_COUNT)
                         end
                     end
                 end

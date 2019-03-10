@@ -3,6 +3,7 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
 local PASV = PA.SavedVars
+local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -11,6 +12,13 @@ local AddonName = "PersonalAssistantMail"
 local Mail_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
+
+-- only prints out PAMail texts if chatOutput is enabled
+local function println(text, ...)
+    if PASV.Mail[PA.activeProfile].chatOutput then
+        PAHF.println(text, ...)
+    end
+end
 
 -- init default values
 local function initDefaults()
@@ -21,7 +29,6 @@ local function initDefaults()
         Mail_Defaults[profileNo] = PAMenuDefaults.PAMail
     end
 end
-
 
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
@@ -45,5 +52,6 @@ PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
 -- Export
 PA.Mail = {
-    AddonName = AddonName
+    AddonName = AddonName,
+    println = println
 }
