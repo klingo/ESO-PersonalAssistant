@@ -14,14 +14,79 @@ local panelData = {
     name = "PersonalAssistant",
     displayName = GetString(SI_PA_MENU_TITLE),
     author = "Klingo",
-    version = PA.AddonVersion,
+    version = PAC.ADDON_VERSION,
     website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
     slashCommand = "/pa",
     registerForRefresh = true,
     registerForDefaults = true,
 }
 
+local PABankingPanelData = {
+    type = "panel",
+    name = "PersonalAssistant Banking",
+    displayName = GetString(SI_PA_MENU_TITLE),
+    author = "Klingo",
+    version = PAC.ADDON_VERSION,
+    website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+    slashCommand = "/pabanking",
+    registerForRefresh = true,
+    registerForDefaults = true,
+}
+
+local PAJunkPanelData = {
+    type = "panel",
+    name = "PersonalAssistant Junk",
+    displayName = GetString(SI_PA_MENU_TITLE),
+    author = "Klingo",
+    version = PAC.ADDON_VERSION,
+    website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+    slashCommand = "/pajunk",
+    registerForRefresh = true,
+    registerForDefaults = true,
+}
+
+local PALootPanelData = {
+    type = "panel",
+    name = "PersonalAssistant Loot",
+    displayName = GetString(SI_PA_MENU_TITLE),
+    author = "Klingo",
+    version = PAC.ADDON_VERSION,
+    website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+    slashCommand = "/paloot",
+    registerForRefresh = true,
+    registerForDefaults = true,
+}
+
+local PAMailPanelData = {
+    type = "panel",
+    name = "PersonalAssistant Mail",
+    displayName = GetString(SI_PA_MENU_TITLE),
+    author = "Klingo",
+    version = PAC.ADDON_VERSION,
+    website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+    slashCommand = "/pamail",
+    registerForRefresh = true,
+    registerForDefaults = true,
+}
+
+local PARepairPanelData = {
+    type = "panel",
+    name = "PersonalAssistant Repair",
+    displayName = GetString(SI_PA_MENU_TITLE),
+    author = "Klingo",
+    version = PAC.ADDON_VERSION,
+    website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+    slashCommand = "/parepair",
+    registerForRefresh = true,
+    registerForDefaults = true,
+}
+
 local optionsTable = setmetatable({}, { __index = table })
+local PABankingOptionsTable = setmetatable({}, { __index = table })
+local PAJunkOptionsTable = setmetatable({}, { __index = table })
+local PALootOptionsTable = setmetatable({}, { __index = table })
+local PAMailOptionsTable = setmetatable({}, { __index = table })
+local PARepairOptionsTable = setmetatable({}, { __index = table })
 
 local PARGoldSubmenuTable = setmetatable({}, { __index = table })
 local PARRepairKitSubmenuTable = setmetatable({}, { __index = table })
@@ -107,62 +172,17 @@ local function createPAGeneralMenu()
     })
 end
 
-local function createPARepairMenu()
-    optionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_REPAIR_HEADER)
-    })
-
-    optionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_REPAIR_ENABLE),
-        getFunc = PAMenuFunctions.PARepair.getAutoRepairEnabledSetting,
-        setFunc = PAMenuFunctions.PARepair.setAutoRepairEnabledSetting,
-        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PAMenuDefaults.PARepair.autoRepairEnabled,
-    })
-
-    optionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
-        controls = PARGoldSubmenuTable,
-        disabled = PAMenuFunctions.PARepair.isRepairWithGoldMenuDisabled,
-    })
-
-    optionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER),
-        controls = PARRepairKitSubmenuTable,
-        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitMenuDisabled,
-    })
-
-    optionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_HEADER),
-        controls = PARRechargeSubmenuTable,
-        disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemMenuDisabled,
-    })
-
-    optionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
-        getFunc = PAMenuFunctions.PARepair.getChatOutputSetting,
-        setFunc = PAMenuFunctions.PARepair.setChatOutputSetting,
-        disabled = PAMenuFunctions.PARepair.isChatOutputDisabled,
-        default = PAMenuDefaults.PARepair.chatOutput,
-    })
-end
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function createPABankingMenu()
     local _groupName = GetString(SI_PA_MENU_BANKING_CURRENCY)
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "header",
         name = GetString(SI_PA_MENU_BANKING_HEADER)
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ENABLE, _groupName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ENABLE_T, _groupName),
@@ -172,7 +192,7 @@ local function createPABankingMenu()
         default = PAMenuDefaults.PABanking.Currencies.currenciesEnabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER),
         tooltip = GetCurrencyDescription(CURT_MONEY),
@@ -180,7 +200,7 @@ local function createPABankingMenu()
         disabled = PAMenuFunctions.PABanking.isGoldTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_HEADER),
         tooltip = GetCurrencyDescription(CURT_ALLIANCE_POINTS),
@@ -188,7 +208,7 @@ local function createPABankingMenu()
         disabled = PAMenuFunctions.PABanking.isAlliancePointsTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_TELVAR_HEADER),
         tooltip = GetCurrencyDescription(CURT_TELVAR_STONES),
@@ -196,7 +216,7 @@ local function createPABankingMenu()
         disabled = PAMenuFunctions.PABanking.isTelVarTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_WRIT_HEADER),
         tooltip = GetCurrencyDescription(CURT_WRIT_VOUCHERS),
@@ -206,7 +226,7 @@ local function createPABankingMenu()
 
     -- -----------------------------------------------------------------------------------
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "divider",
         alpha = 0.5,
     })
@@ -215,7 +235,7 @@ local function createPABankingMenu()
         -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
         -- options are not available (--> Virtual Bag)
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "description",
             text = GetString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC)
         })
@@ -223,7 +243,7 @@ local function createPABankingMenu()
     else
         local _groupName = GetString(SI_PA_MENU_BANKING_CRAFTING)
         -- Regular player without ESO Plus Subscription
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "checkbox",
             name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, _groupName),
             tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, _groupName),
@@ -233,82 +253,82 @@ local function createPABankingMenu()
             default = PAMenuDefaults.PABanking.Crafting.craftingItemsEnabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "description",
             text = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_DESCRIPTION, _groupName)
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_HEADER),
             controls = PABCraftingBlacksmithingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_HEADER),
             controls = PABCraftingClothingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_HEADER),
             controls = PABCraftingWoodworkingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_HEADER),
             controls = PABCraftingJewelcraftingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_HEADER),
             controls = PABCraftingAlchemySubmenuTable,
             disabled = PAMenuFunctions.PABanking.isAlchemyTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_HEADER),
             controls = PABCraftingEnchantingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isEnchantingTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_HEADER),
             controls = PABCraftingProvisioningSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_HEADER),
             controls = PABCraftingStyleMaterialsSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_HEADER),
             controls = PABCraftingTraitItemsSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_HEADER),
             controls = PABCraftingFurnishingSubmenuTable,
             disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
         })
 
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "dropdown",
             name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE, _groupName),
             tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, _groupName),
@@ -326,12 +346,12 @@ local function createPABankingMenu()
 
     local _groupName = GetString(SI_PA_MENU_BANKING_ADVANCED)
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "divider",
         alpha = 0.5,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, _groupName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, _groupName),
@@ -341,54 +361,54 @@ local function createPABankingMenu()
         default = PAMenuDefaults.PABanking.Advanced.advancedItemsEnabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "description",
         text = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_DESCRIPTION, _groupName)
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER),
         controls = PABAdvancedMotifSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isMotifTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER),
         controls = PABAdvancedRecipeSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isRecipeTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER),
         controls = PABAdvancedGlyphsSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isGlyphsTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER),
         controls = PABAdvancedLiquidsSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isLiquidsTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_FOOD_DRINKS_HEADER),
         controls = PABAdvancedFoodDrinksSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isFoodDrinksTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_PAPERS_HEADER),
         controls = PABAdvancedPapersSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isPapersTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "dropdown",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE, _groupName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, _groupName),
@@ -405,12 +425,12 @@ local function createPABankingMenu()
 
     local _groupName = GetString(SI_PA_MENU_BANKING_INDIVIDUAL)
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "divider",
         alpha = 0.5,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, _groupName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, _groupName),
@@ -420,26 +440,26 @@ local function createPABankingMenu()
         default = PAMenuDefaults.PABanking.Individual.individualItemsEnabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "description",
         text = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_DESCRIPTION, _groupName)
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER),
         controls = PABIndividualLockpickSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER),
         controls = PABIndividualSoulGemSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER),
         controls = PABIndividualRepairKitSubmenuTable,
@@ -448,7 +468,7 @@ local function createPABankingMenu()
 
     -- check if there are any generic items added; if not skip the menu
     if (#PAC.BANKING_INDIVIDUAL.GENERIC > 0) then
-        optionsTable:insert({
+        PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER),
             controls = PABIndividualGenericSubmenuTable,
@@ -459,12 +479,12 @@ local function createPABankingMenu()
 
     -- ---------------------------------------------------------------------------------------------------------
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "divider",
         alpha = 0.5,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING),
         tooltip = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T),
@@ -477,7 +497,7 @@ local function createPABankingMenu()
         default = PAMenuDefaults.PABanking.transactionDepositStacking,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING),
         tooltip = GetString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T),
@@ -490,7 +510,7 @@ local function createPABankingMenu()
         default = PAMenuDefaults.PABanking.transactionWithdrawalStacking,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "slider",
         name = GetString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL),
         tooltip = GetString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL_T),
@@ -503,7 +523,7 @@ local function createPABankingMenu()
         default = PAMenuDefaults.PABanking.transactionInterval,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS),
         tooltip = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T),
@@ -513,7 +533,7 @@ local function createPABankingMenu()
         default = PAMenuDefaults.PABanking.autoStackBags,
     })
 
-    optionsTable:insert({
+    PABankingOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
         tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
@@ -524,66 +544,20 @@ local function createPABankingMenu()
     })
 end
 
-local function createPALootMenu()
-    optionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_LOOT_HEADER)
-    })
-
-    optionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_LOOT_ENABLE_T),
-        getFunc = PAMenuFunctions.PALoot.isEnabled,
-        setFunc = PAMenuFunctions.PALoot.setIsEnabled,
-        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PAMenuDefaults.PALoot.enabled,
-    })
-
-    optionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER),
-        controls = PALLootRecipesSubmenuTable,
-        disabled = PAMenuFunctions.PALoot.isLootRecipesMenuDisabled,
-    })
-
-    optionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER),
-        controls = PALLootMotifsSubmenuTable,
-        disabled = PAMenuFunctions.PALoot.isLootMotifsMenuDisabled,
-    })
-
-    optionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER),
-        controls = PALLootApparelWeaponsSubmenuTable,
-        disabled = PAMenuFunctions.PALoot.isLootApparelWeaponsMenuDisabled,
-    })
-
-    optionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
-        getFunc = PAMenuFunctions.PALoot.getChatOutputSetting,
-        setFunc = PAMenuFunctions.PALoot.setChatOutputSetting,
-        disabled = PAMenuFunctions.PALoot.isChatOutputDisabled,
-        default = PAMenuDefaults.PALoot.chatOutput,
-    })
-end
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function createPAJunkMenu()
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "header",
         name = GetString(SI_PA_MENU_JUNK_HEADER)
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_JUNK_ITEMTYPE_DESCRIPTION),
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T),
@@ -593,35 +567,35 @@ local function createPAJunkMenu()
         default = PAMenuDefaults.PAJunk.autoMarkAsJunkEnabled,
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_TRASH_HEADER),
         controls = PAJTrashSubMenu,
         disabled = PAMenuFunctions.PAJunk.isTrashMenuDisabled,
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_HEADER),
         controls = PAJWeaponsSubMenu,
         disabled = PAMenuFunctions.PAJunk.isWeaponsMenuDisabled,
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_ARMOR_HEADER),
         controls = PAJArmorSubMenu,
         disabled = PAMenuFunctions.PAJunk.isArmorMenuDisabled,
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_JEWELRY_HEADER),
         controls = PAJJewelrySubMenu,
         disabled = PAMenuFunctions.PAJunk.isJewelryMenuDisabled,
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_T),
@@ -631,7 +605,7 @@ local function createPAJunkMenu()
         default = PAMenuDefaults.PAJunk.autoSellJunk,
     })
 
-    optionsTable:insert({
+    PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
         tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
@@ -642,13 +616,65 @@ local function createPAJunkMenu()
     })
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function createPALootMenu()
+    PALootOptionsTable:insert({
+        type = "header",
+        name = GetString(SI_PA_MENU_LOOT_HEADER)
+    })
+
+    PALootOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_LOOT_ENABLE_T),
+        getFunc = PAMenuFunctions.PALoot.isEnabled,
+        setFunc = PAMenuFunctions.PALoot.setIsEnabled,
+        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PAMenuDefaults.PALoot.enabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER),
+        controls = PALLootRecipesSubmenuTable,
+        disabled = PAMenuFunctions.PALoot.isLootRecipesMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER),
+        controls = PALLootMotifsSubmenuTable,
+        disabled = PAMenuFunctions.PALoot.isLootMotifsMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER),
+        controls = PALLootApparelWeaponsSubmenuTable,
+        disabled = PAMenuFunctions.PALoot.isLootApparelWeaponsMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        getFunc = PAMenuFunctions.PALoot.getChatOutputSetting,
+        setFunc = PAMenuFunctions.PALoot.setChatOutputSetting,
+        disabled = PAMenuFunctions.PALoot.isChatOutputDisabled,
+        default = PAMenuDefaults.PALoot.chatOutput,
+    })
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function createPAMailMenu()
-    optionsTable:insert({
+    PAMailOptionsTable:insert({
         type = "header",
         name = GetString(SI_PA_MENU_MAIL_HEADER)
     })
 
-    optionsTable:insert({
+    PAMailOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE),
         tooltip = GetString(SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE_T),
@@ -658,7 +684,7 @@ local function createPAMailMenu()
         default = PAMenuDefaults.PAMail.hirelingAutoMailEnabled,
     })
 
-    optionsTable:insert({
+    PAMailOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_MAIL_HIRELING_DELETE_EMPTYMAILS),
         tooltip = GetString(SI_PA_MENU_MAIL_HIRELING_DELETE_EMPTYMAILS_T),
@@ -668,7 +694,7 @@ local function createPAMailMenu()
         default = PAMenuDefaults.PAMail.hirelingDeleteEmptyMails,
     })
 
-    optionsTable:insert({
+    PAMailOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
         tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
@@ -676,6 +702,55 @@ local function createPAMailMenu()
         setFunc = PAMenuFunctions.PAMail.setChatOutputSetting,
         disabled = PAMenuFunctions.PAMail.isChatOutputDisabled,
         default = PAMenuDefaults.PAMail.chatOutput,
+    })
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function createPARepairMenu()
+    PARepairOptionsTable:insert({
+        type = "header",
+        name = GetString(SI_PA_MENU_REPAIR_HEADER)
+    })
+
+    PARepairOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_ENABLE),
+        getFunc = PAMenuFunctions.PARepair.getAutoRepairEnabledSetting,
+        setFunc = PAMenuFunctions.PARepair.setAutoRepairEnabledSetting,
+        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PAMenuDefaults.PARepair.autoRepairEnabled,
+    })
+
+    PARepairOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
+        controls = PARGoldSubmenuTable,
+        disabled = PAMenuFunctions.PARepair.isRepairWithGoldMenuDisabled,
+    })
+
+    PARepairOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER),
+        controls = PARRepairKitSubmenuTable,
+        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitMenuDisabled,
+    })
+
+    PARepairOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_HEADER),
+        controls = PARRechargeSubmenuTable,
+        disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemMenuDisabled,
+    })
+
+    PARepairOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        getFunc = PAMenuFunctions.PARepair.getChatOutputSetting,
+        setFunc = PAMenuFunctions.PARepair.setChatOutputSetting,
+        disabled = PAMenuFunctions.PARepair.isChatOutputDisabled,
+        default = PAMenuDefaults.PARepair.chatOutput,
     })
 end
 
@@ -1891,16 +1966,15 @@ end
 -- =================================================================================================================
 
 local function createOptions()
-    -- create submenu for PARepair
-    if PA.Repair then
-        createPARGoldSubmenuTable()
-        createPARRepairKitSubmenuTable()
-        createPARRechargeSubmenuTable()
-    end
+    -- Create and register the General Menu
+    createPAGeneralMenu()
+    LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
+    LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
 
+    -- Create and register the PABanking Menu
+    if PA.Banking then
+        createPABankingMenu()
 
-    -- create submenu for PABanking
-    if (PA.Banking) then
         createPABCurrencyGoldSubmenuTable()
         createPABCurrencyAlliancePointsSubmenuTable()
         createPABCurrencyTelVarSubmenuTable()
@@ -1931,33 +2005,55 @@ local function createOptions()
         createPABIndividualSoulGemSubmenuTable()
         createPABIndividualRepairKitSubmenuTable()
         createPABIndividualGenericSubmenuTable()
+
+        LAM2:RegisterAddonPanel("PersonalAssistantBankingAddonOptions", PABankingPanelData)
+        LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)
     end
 
-    -- create submenu for PALoot
-    if PA.Loot then
-        createPALLootRecipesSubmenuTable()
-        createPALLootMotifsSubmenuTable()
-        createPALLootApparelWeaponsSubmenuTable()
-    end
-
-    -- create submenu for PAJunk
+    -- Create and register the PAJunk Menu
     if PA.Junk then
+        createPAJunkMenu()
+
         createPAJTrashSubMenu()
         createPAJWeaponsSubMenu()
         createPAJArmorSubMenu()
         createPAJJewelrySubMenu()
+
+        LAM2:RegisterAddonPanel("PersonalAssistantJunkAddonOptions", PAJunkPanelData)
+        LAM2:RegisterOptionControls("PersonalAssistantJunkAddonOptions", PAJunkOptionsTable)
     end
 
-    createPAGeneralMenu()
-    if PA.Repair then createPARepairMenu() end
-    if PA.Banking then createPABankingMenu() end
-    if PA.Loot then createPALootMenu() end
-    if PA.Junk then createPAJunkMenu() end
-    if PA.Mail then createPAMailMenu() end
+    -- Create and register the PALoot Menu
+    if PA.Loot then
+        createPALootMenu()
 
-    -- and register it
-    LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
-    LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
+        createPALLootRecipesSubmenuTable()
+        createPALLootMotifsSubmenuTable()
+        createPALLootApparelWeaponsSubmenuTable()
+
+        LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
+        LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
+    end
+
+    -- Create and register the PAMail Menu
+    if PA.Mail then
+        createPAMailMenu()
+
+        LAM2:RegisterAddonPanel("PersonalAssistantMailAddonOptions", PAMailPanelData)
+        LAM2:RegisterOptionControls("PersonalAssistantMailAddonOptions", PAMailOptionsTable)
+    end
+
+    -- Create and register the PARepair Menu
+    if PA.Repair then
+        createPARepairMenu()
+
+        createPARGoldSubmenuTable()
+        createPARRepairKitSubmenuTable()
+        createPARRechargeSubmenuTable()
+
+        LAM2:RegisterAddonPanel("PersonalAssistantRepairAddonOptions", PARepairPanelData)
+        LAM2:RegisterOptionControls("PersonalAssistantRepairAddonOptions", PARepairOptionsTable)
+    end
 end
 
 
