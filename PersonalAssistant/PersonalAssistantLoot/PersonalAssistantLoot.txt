@@ -16,3 +16,6 @@ PersonalAssistantLoot.lua
 
 # PALoot
 PALoot/PALoot.lua
+
+# Menu
+Menu/PALootMenu.lua
