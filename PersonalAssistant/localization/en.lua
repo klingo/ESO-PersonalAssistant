@@ -11,113 +11,13 @@ local PAStrings = {
     -- Key Bindings
     SI_PA_KB_LOAD_PROFILE = "Activate profile",
 
-    -- =================================================================================================================
 
-    -- PAGeneral --
-    SI_PA_PROFILE = "Profile",
+    -- =================================================================================================================
+    -- == MENU/PANEL TEXTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAGeneral Menu --
     SI_PA_PLEASE_SELECT_PROFILE = "<Please select Profile>",
 
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PARepair Chat Output - UI Settings --
-    SI_PA_REPAIR_CHATMODE_NONE = "<no output>",
-    SI_PA_REPAIR_CHATMODE_MAX = "Full Detail Report",
-
-    -- PARepair Chat Output - NORMAL setting --
-    SI_PA_REPAIR_CHAT_OUTPUT_GOLD_MISSING = "missing", -- example output: "[...] (55 Gold missing)"
-
-    -- PARepair Chat Output - MAX setting --
-    SI_PA_REPAIR_CHATMODE_MAX_INTRO = table.concat({PAC.COLORED_TEXTS.PAR, "Repairing all items with a durability of ", PAC.COLORS.WHITE, "%d%%", PAC.COLORS.DEFAULT, " or lower:"}),
-    SI_PA_REPAIR_CHATMODE_MAX_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_MAX_NOT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Could not repair %s ", PAC.COLORS.WHITE, "(%d%%)"}),
-    SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, "%d / %d items repaired for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing for full repair)"}),
-    SI_PA_REPAIR_CHATMODE_MAX_SUMMARY_NOTHING = table.concat({PAC.COLORED_TEXTS.PAR, "Nothing to repair"}),
-
-    -- PARepair Chat Output - Item Repair --
-    SI_PA_REPAIR_REPAIRKIT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
-    SI_PA_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " left"}),
-    SI_PA_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
-
-    -- PARepair Chat Output - Weapon Charge --
-    SI_PA_REPAIR_CHARGE_CHATMODE_NONE = "<no output>",
-    SI_PA_REPAIR_CHARGE_CHATMODE_MIN = table.concat({PAC.COLORS.DEFAULT, "%s %s (%d%% --> %d%%)"}),
-    SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
-    SI_PA_REPAIR_CHARGE_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAR, "Charged %s %s from %d%% to %d%%  with %s %s"}),
-
-    SI_PA_REPAIR_CHARGE_LOW_GEM_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), " left"}),
-    SI_PA_REPAIR_CHARGE_NO_GEM_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PABanking --
-    SI_PA_BANKING_WITHDRAWAL_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn."}),
-    SI_PA_BANKING_WITHDRAWAL_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
-    SI_PA_BANKING_WITHDRAWAL_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Not enough space on character)"}),
-
-    SI_PA_BANKING_DEPOSIT_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s deposited."}),
-    SI_PA_BANKING_DEPOSIT_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Character is empty)"}),
-    SI_PA_BANKING_DEPOSIT_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
-
-    SI_PA_BANKING_ITEMS_MOVED_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s"}),
-    SI_PA_BANKING_ITEMS_MOVED_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s moved to %s"}),
-    SI_PA_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
-    SI_PA_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
-
-    SI_PA_BANKING_MOVE_MODE_DONOTHING = "Do Nothing",
-    SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
-    SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PALoot --
-    SI_PA_LOOT_RECIPE_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
-    SI_PA_LOOT_MOTIF_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
-    SI_PA_LOOT_TRAIT_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
-
-    SI_PA_LOOT_LOOT_MODE_IGNORE = "Ignore",
-    SI_PA_LOOT_LOOT_MODE_IGNORE_T = "Nothing happens, the item is ignored",
-    SI_PA_LOOT_LOOT_MODE_AUTOLOOT = "Auto-Loot",
-    SI_PA_LOOT_LOOT_MODE_AUTOLOOT_T = "Automatically loots the item",
-    SI_PA_LOOT_LOOT_MODE_LOOTDESTROY = table.concat({"Auto-Loot and ", PAC.COLORS.RED, "Destroy"}),
-    SI_PA_LOOT_LOOT_MODE_LOOTDESTROY_T = table.concat({PAC.COLORS.RED, "CAUTION: USE AT OWN RISK!|r Automatically loots the item, but then immediately destroys the looted amount again."}),
-    SI_PA_LOOT_RECIPE_UNKNOWN_SUFFIX = "(unknown)",
-
-    -- PALoot Chat Output - Loot Gold --
-    SI_PA_LOOT_GOLD_CHATMODE_NONE = "<no output>",
-    SI_PA_LOOT_GOLD_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAL, "Looted ", PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " Gold"}),
-
-    -- PALoot Chat Output - Loot Items --
-    SI_PA_LOOT_ITEMS_CHATMODE_NONE = "<no output>",
-
-    -- PALoot Chat Output - Loot Items Destroyed--
-    SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN = table.concat({PAC.COLORS.DEFAULT, "%d x %s destroyed"}),
-    SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s destroyed"}),
-    SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s have been destroyed"}),
-
-    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE_RED, "FAILURE: Could NOT split %d/%d %s %s into seperate stack to destroy safely"}),
-    SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.ORANGE_RED, "FAILURE: No free inventory slot to safely destroy %d/%d %s %s"}),
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PAJunk --
-    SI_PA_JUNK_MARKED_AS_JUNK_TRASH = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Trash", PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Quality", PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_JUNK_FENCE_LIMIT_HOURS = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours."}),
-    SI_PA_JUNK_FENCE_LIMIT_MINUTES = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes."}),
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PAMail --
-    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_ENCHANTING = "Raw Enchanter Materials",
-    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_WOODWORKING = "Raw Woodworker Materials",
-    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_CLOTHING = "Raw Clothier Materials",
-    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_BLACKSMITHING = "Raw Blacksmith Materials",
-    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_PROVISIONING = "Raw Provisioner Materials",
-
-    -- =================================================================================================================
-
-    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PAGMenu --
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE = "Active profile",
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T = "Select the profile settings that shall be used. Changing the selection will automatically load the settings. Changes below will automatically be stored under the profile.",
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME = "Rename active profile",
@@ -125,45 +25,10 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
     SI_PA_MENU_GENERAL_SHOW_WELCOME_T = "Display a welcome message from the addon upon successfully starting?",
 
-    SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE = "Enable Chat Output",
-    SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T = "Should information about actions from the addon be printed to the chat?",
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PARMenu --
-    SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Equipped Items"}),
-
-    -- TODO: Refactor all texts below for PARepair!
-    SI_PA_MENU_REPAIR_GOLD_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Repair with ", GetCurrencyName(CURT_MONEY)}),
-    SI_PA_MENU_REPAIR_GOLD_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetCurrencyName(CURT_MONEY), "?"}),
-    SI_PA_MENU_REPAIR_GOLD_ENABLE_T = "???",
-    SI_PA_MENU_REPAIR_GOLD_DURABILITY = "Durability threshold in %",
-    SI_PA_MENU_REPAIR_GOLD_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
-    SI_PA_MENU_REPAIR_CHATMODE = "Chat display after Repairs",
-    SI_PA_MENU_REPAIR_CHATMODE_T = "How to display the information of a full repair in the chat window",
-
-    SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
-    SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
-    SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "???",
-    SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY = "Durability threshold in %",
-    SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
-    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Use Crown ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
-    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T = "???",
-    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY = "Avg. durability threshold in %",
-    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T = "Repair ALL equipped items only if they are on average at or below the defined durability threshold.",
-    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING = table.concat({"Warn when low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
-    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), ". If you have none left, it will only warn max once every 10 minutes"}),
-
-    SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
-    SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Recharge equipped weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), "?"}),
-    SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Re-Charge equipped weapons when their charge level reaches zero. ",
-    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
-    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
-    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
-    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), ". If you have none left, it will only warn max once every 10 minutes"}),
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PABMenu --
-    SI_PA_MENU_BANKING_CURRENCY = "Currencies",
+    -- PABanking Menu --
+    SI_PA_MENU_BANKING_CURRENCY = GetString(SI_INVENTORY_CURRENCIES), -- TODO: move to generic?
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
 
@@ -200,8 +65,6 @@ local PAStrings = {
     SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T = "Change all above %s Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
     SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W = "This cannot be undone; all individually selected values will be lost",
 
-    -- -----------------------------------------------------------------------------------------------------------------
-
     SI_PA_MENU_BANKING_DEPOSIT_STACKING = "Stacking rule when depositing",
     SI_PA_MENU_BANKING_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed.",
     SI_PA_MENU_BANKING_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",
@@ -213,88 +76,18 @@ local PAStrings = {
     SI_PA_MENU_BANKING_AUTOSTACKBAGS = "Auto-Stack all items when opening the bank",
     SI_PA_MENU_BANKING_AUTOSTACKBAGS_T = "Automatically stack all items in the bank and in the backpack when accessing the bank? Helps to keep everything better organized.",
 
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- CURRENTLY NOT USED --
-    PABMenu_HideNoDeposit = "Hide 'Nothing to Deposit' message",
-    PABMenu_HideNoDeposit_T = "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",
-    PABMenu_HideAll = "Hide ALL banking messages",
-    PABMenu_HideAll_T = "Silent-Mode: No banking message will be displayed. You also won't see your deposited gold/items.",
-    PABMenu_DepButton = "Deposit all",
-    PABMenu_DepButton_T = "Change all dropdown values to 'Deposit'",
-    PABMenu_WitButton = "Withdraw all",
-    PABMenu_WitButton_T = "Change all dropdown values to 'Withdraw'",
-    PABMenu_IgnButton = "Ignore all",
-    PABMenu_IgnButton_T = "Change all dropdown values to '-'",
-    PABMenu_Lockipck_Header = table.concat({PAC.COLORS.LIGHT_BLUE, "Lockpicks"}),
-    PABMenu_Keep_in_Backpack = "Amount to keep in backpack",
-    PABMenu_Keep_in_Backpack_T = "Define the amount which shall together with the mathematical operator be kept in the backpack.",
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PALMenu --
-    -- Loot Recipes
-    SI_PA_MENU_LOOT_LOOT_RECIPES = table.concat({"Enable Events when looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
-    SI_PA_MENU_LOOT_LOOT_RECIPES_T = "???",
-    SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
-
-    SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
-    SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG_T = "???",
-
-    -- Loot Motifs
-    SI_PA_MENU_LOOT_LOOT_MOTIFS = table.concat({"Enable Events when looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
-    SI_PA_MENU_LOOT_LOOT_MOTIFS_T = "???",
-    SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
-
-    SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
-    SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG_T = "???",
-
-    -- Loot Apparel & Weapons
-    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS = table.concat({"Enable Events when looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
-    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_T = "???",
-    SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", "When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- CURRENTLY NOT USED --
-    SI_PA_MENU_LOOT_ESO_AUTOLOOT_DESCRIPTION = table.concat({PAC.COLORS.LIGHT_BLUE, "Because the Auto Loot option of ESO is turned on, PALoot has been disabled. Everything is already automatically looted."}),
-    SI_PA_MENU_LOOT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
-    SI_PA_MENU_LOOT_ENABLE_T = "Enable Auto Loot?",
-    SI_PA_MENU_LOOT_LOOT_GOLD = "Auto-Loot gold",
-    SI_PA_MENU_LOOT_LOOT_GOLD_T = "Automatically loot gold?",
-    SI_PA_MENU_LOOT_LOOT_GOLD_CHATMODE = "Chat Display of Auto-Looted Gold",
-    SI_PA_MENU_LOOT_LOOT_GOLD_CHATMODE_T = "How to display the information of looted gold in the chat window",
-    SI_PA_MENU_LOOT_LOOT_ITEMS = "Auto-Loot items",
-    SI_PA_MENU_LOOT_LOOT_ITEMS_T = "Automatically loot items?",
-    SI_PA_MENU_LOOT_LOOT_ITEMS_CHATMODE = "Chat Display of Auto-Looted Items",
-    SI_PA_MENU_LOOT_LOOT_ITEMS_CHATMODE_T = "How to display the information of looted items in the chat window",
-    SI_PA_MENU_LOOT_LOOT_STOLENITEMS = "Auto-Steal items",
-    SI_PA_MENU_LOOT_LOOT_STOLENITEMS_T = "Include (to be) stolen items for the Auto-Loot?",
-    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS = "Harvestable items",
-    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_T = "Open the sub-menu to define for each harvestable item type whether it shall be auto-looted or not.",
-    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_DESCRIPTION = "Enable and disable auto-loot for harvestable items such as ores, herbs, woods, runestones, or fishing holes.",
-    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT_HEADER = table.concat({PAC.COLORS.LIGHT_BLUE, "BAIT HANDLING"}),
-    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT = "Handling of [Bait] items",
-    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_BAIT_T = "When looting harvestable items, sometimes there also is bait which prevents the node from re-spawning when not looted. Define here what should happen in such cases.",
-    SI_PA_MENU_LOOT_LOOT_HARVESTABLEITEMS_HEADER = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
-    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS = "Lootable items",
-    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_T = "Open the sub-menu to define for each lootable item type whether it shall be auto-looted or not.",
-    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_DESCRIPTION = "Enable and disable auto-loot for lootable items such as clothing raw materials from animals.",
-    SI_PA_MENU_LOOT_LOOT_LOOTABLEITEMS_HEADER = table.concat({PAC.COLORS.LIGHT_BLUE, "ITEM TYPES"}),
-    SI_PA_MENU_LOOT_AUTOLOOT_QUESTITEMS = "Quest Items",
-    SI_PA_MENU_LOOT_AUTOLOOT_LOCKPICKS = "Lockpick",
-    SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON = "Auto-Loot all",
-    SI_PA_MENU_LOOT_AUTOLOOT_ALL_BUTTON_T = "Change all dropdown values to 'Auto-Loot'",
-    SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON = "Ignore all",
-    SI_PA_MENU_LOOT_IGNORE_ALL_BUTTON_T = "Change all dropdown values to 'Ignore'",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PAJMenu --
+    -- PAJunk Menu --
+    -- TODO: Refactor all texts below for PAJunk!
     SI_PA_MENU_JUNK_ITEMTYPE_DESCRIPTION = "PALoot can directly mark items as junk if they match any of the configurable rules; except if it just was created or retrieved from mail.",
 
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk?"}),
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T = "Automatically mark Items as Junk, depending on various different conditions?",
 
     SI_PA_MENU_JUNK_TRASH_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.JUNK.NORMAL, "  ", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH)}), -- TODO: move to generic section
-    SI_PA_MENU_JUNK_TRASH_AUTOMARK = "Auto-Mark [Trash] items",
-    SI_PA_MENU_JUNK_TRASH_AUTOMARK_T = "Automatically mark items of type [Trash] as junk?",
+    SI_PA_MENU_JUNK_TRASH_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] items"}),
+    SI_PA_MENU_JUNK_TRASH_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] as junk?"}),
 
     SI_PA_MENU_JUNK_WEAPONS_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_WEAPON))}), -- TODO: move to generic section
     SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_WEAPON))}),
@@ -318,31 +111,141 @@ local PAStrings = {
     SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk?",
 
     -- General texts used across: Weapons, Armor, Jewelry
-    SI_PA_MENU_JUNK_AUTOMARK_ORNATE = "Auto-Mark [Ornate] trait items",
-    SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = "Automatically mark items with [Ornate] trait (increased sell price) as junk?",
+    SI_PA_MENU_JUNK_AUTOMARK_ORNATE = table.concat({"Auto-Mark [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] trait items"}),
+    SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = table.concat({"Automatically mark items with [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] trait (increased sell price) as junk?"}),
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Also mark Items that are part of a Set",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "If turned OFF, only items that are NOT belonging to a set will be marked as Junk\nRecommendation: OFF",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS = "Also mark Items with unknown Traits",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T = "If turned OFF, only items with no Traits or known Traits will be marked as Junk\nRecommendation: OFF",
 
+
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PAMMenu --
+    -- PALoot Menu --
+    -- TODO: Refactor all texts below for PALoot!
+    -- Loot Recipes
+    SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
+    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
+    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = "???",
+
+    -- Loot Motifs
+    SI_PA_MENU_LOOT_MOTIFS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF))}),
+    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
+    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = "???",
+
+    -- Loot Apparel & Weapons
+    SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", "When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "Display message if Trait is not yet researched",
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = "???",
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAMail Menu --
     SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Mail for Hireling Materials?"}),
     SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE_T = "Enable Auto Mail (read, loot, and delete) for Mails with Raw Materials from Hirelings?",
     SI_PA_MENU_MAIL_HIRELING_DELETE_EMPTYMAILS = "Delete empty Hireling Mails afterwards?",
     SI_PA_MENU_MAIL_HIRELING_DELETE_EMPTYMAILS_T = "After mails from Hirelings have been processed and their items looted, automatically delete the empty mails?",
 
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PARepair Menu --
+    SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Equipped Items"}),
+
+    -- TODO: Refactor all texts below for PARepair!
+    SI_PA_MENU_REPAIR_GOLD_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Repair with ", GetCurrencyName(CURT_MONEY)}),
+    SI_PA_MENU_REPAIR_GOLD_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetCurrencyName(CURT_MONEY), "?"}),
+    SI_PA_MENU_REPAIR_GOLD_ENABLE_T = "???",
+    SI_PA_MENU_REPAIR_GOLD_DURABILITY = "Durability threshold in %",
+    SI_PA_MENU_REPAIR_GOLD_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
+
+    SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "???",
+    SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY = "Durability threshold in %",
+    SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold.",
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Use Crown ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T = "???",
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY = "Avg. durability threshold in %",
+    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T = "Repair ALL equipped items only if they are on average at or below the defined durability threshold.",
+    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING = table.concat({"Warn when low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), ". If you have none left, it will only warn max once every 10 minutes"}),
+
+    SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+    SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Recharge equipped weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), "?"}),
+    SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Re-Charge equipped weapons when their charge level reaches zero. ",
+    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
+    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), ". If you have none left, it will only warn max once every 10 minutes"}),
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Generic Menu --
+    SI_PA_MENU_CHAT_OUTPUT_ENABLE = "Enable Chat Output",
+    SI_PA_MENU_CHAT_OUTPUT_ENABLE_T = "Should information about actions from the addon be printed to the chat?",
+
+    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
+
+
     -- =================================================================================================================
-    -- Name Spaces --
-    SI_PA_NS_BAG_EQUIPMENT = "", -- not required so far
-    SI_PA_NS_BAG_EQUIPPED = "equipped",
-    SI_PA_NS_BAG_BACKPACK = "Backpack",
-    SI_PA_NS_BAG_BACKPACKED = "backpack",
-    SI_PA_NS_BAG_BANK = "Bank",
-    SI_PA_NS_BAG_BANKED = "", -- not required so far
-    SI_PA_NS_BAG_SUBSCRIBER_BANK = "Subscriber Bank",
-    SI_PA_NS_BAG_SUBSCRIBER_BANKED = "", -- not required so far
-    SI_PA_NS_BAG_UNKNOWN = "Unknown",
+    -- == CHAT OUTPUTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn."}),
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Bank is empty)"}),
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn. (Not enough space on character)"}),
+
+    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s deposited."}),
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Character is empty)"}),
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited. (Not enough space in bank)"}),
+
+    SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s"}),
+    SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s moved to %s"}),
+    SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
+    SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAJunk --
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Quality", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours."}),
+    SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes."}),
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PALoot --
+    SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
+    SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
+    SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PARepair --
+    SI_PA_CHAT_REPAIR_OUTPUT_MISSING = "missing", -- example output: "[...] (55 Gold missing)"
+
+    SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
+    SI_PA_CHAT_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " left"}),
+    SI_PA_CHAT_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
+
+    SI_PA_CHAT_REPAIR_CHARGE_WEAPON = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
+    SI_PA_CHAT_REPAIR_CHARGE_LOW_GEM_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), " left"}),
+    SI_PA_CHAT_REPAIR_CHARGE_NO_GEM_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
+
+
+    -- =================================================================================================================
+    -- == OTHER STRINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAGeneral --
+    SI_PA_PROFILE = "Profile",
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_PA_BANKING_MOVE_MODE_DONOTHING = "Do Nothing",
+    SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
+    SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
 
     -- Operators --
     SI_PA_REL_OPERATOR_T = "Select the Mathematical Operator for this item.",
@@ -355,6 +258,43 @@ local PAStrings = {
     -- Stacking types --
     SI_PA_ST_MOVE_FULL = "Move everything", -- 0: Full deposit
     SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Only fill up existing stacks", -- 1: Fill existing stacks
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAMail --
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_ENCHANTING = "Raw Enchanter Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_WOODWORKING = "Raw Woodworker Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_CLOTHING = "Raw Clothier Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_BLACKSMITHING = "Raw Blacksmith Materials",
+    SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_PROVISIONING = "Raw Provisioner Materials",
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Name Spaces --
+    SI_PA_NS_BAG_EQUIPMENT = "", -- not required so far
+    SI_PA_NS_BAG_BACKPACK = "Backpack",
+    SI_PA_NS_BAG_BANK = "Bank",
+    SI_PA_NS_BAG_SUBSCRIBER_BANK = "Subscriber Bank",
+    SI_PA_NS_BAG_UNKNOWN = "Unknown",
+
+
+
+    -- =================================================================================================================
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- CURRENTLY NOT USED --
+    -- TODO. check if texts can be reused for chat output enable/disable
+    PABMenu_HideNoDeposit = "Hide 'Nothing to Deposit' message",
+    PABMenu_HideNoDeposit_T = "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",
+    PABMenu_HideAll = "Hide ALL banking messages",
+    PABMenu_HideAll_T = "Silent-Mode: No banking message will be displayed. You also won't see your deposited gold/items.",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- TODO: to be removed below?
+    SI_PA_MENU_LOOT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
+    SI_PA_MENU_LOOT_ENABLE_T = "Enable Auto Loot?",
+
+    -- =================================================================================================================
+
 }
 
 for key, value in pairs(PAStrings) do
@@ -367,20 +307,18 @@ local PAGenericStrings = {
     -- =================================================================================================================
     -- Language independent texts (do not need to be translated/copied to other languages --
 
+    -- =================================================================================================================
+    -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- MainMenu --
     SI_PA_MENU_TITLE = PAC.COLORED_TEXTS.PA,
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PAGMenu --
+    -- PAGeneral Menu --
     SI_PA_MENU_GENERAL_HEADER = PAC.COLORED_TEXTS.PAG,
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PARMenu --
-    SI_PA_MENU_REPAIR_HEADER = PAC.COLORED_TEXTS.PAR,
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PABMenu --
+    -- PABanking Menu --
     SI_PA_MENU_BANKING_HEADER = PAC.COLORED_TEXTS.PAB,
 
     SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", GetCurrencyName(CURT_MONEY)}),
@@ -411,44 +349,37 @@ local PAGenericStrings = {
     SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER = table.concat({" ", PAC.ICONS.ITEMS.GENERIC_HELP.NORMAL, "  ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC)}),
 
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PALMenu --
-    SI_PA_MENU_LOOT_HEADER = PAC.COLORED_TEXTS.PAL,
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PAJMenu --
+    -- PAJunk Menu --
     SI_PA_MENU_JUNK_HEADER = PAC.COLORED_TEXTS.PAJ,
 
+
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PAMMenu --
+    -- PALoot Menu --
+    SI_PA_MENU_LOOT_HEADER = PAC.COLORED_TEXTS.PAL,
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAMail Menu --
     SI_PA_MENU_MAIL_HEADER = PAC.COLORED_TEXTS.PAM,
 
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PARepair Chat Output - UI Settings --
-    SI_PA_REPAIR_CHATMODE_MIN = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
-    SI_PA_REPAIR_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " ", GetString(SI_PA_REPAIR_CHAT_OUTPUT_GOLD_MISSING),")"}),
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PARepair Chat Output - MIN setting --
-    SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_FULL = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_MIN_SUMMARY_PARTIAL = table.concat({PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, ")"}),
+    -- PARepair Menu --
+    SI_PA_MENU_REPAIR_HEADER = PAC.COLORED_TEXTS.PAR,
 
+
+    -- =================================================================================================================
+    -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PARepair Chat Output - NORMAL setting --
-    SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_REPAIR_CHATMODE_NORMAL_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " ", GetString(SI_PA_REPAIR_CHAT_OUTPUT_GOLD_MISSING) ,")"}),
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PALoot Chat Output - Loot Items --
-    SI_PA_LOOT_ITEMS_CHATMODE_MIN = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s"}),
-    SI_PA_LOOT_ITEMS_CHATMODE_NORMAL = table.concat({PAC.COLORS.DEFAULT, "%d x %s %s %s"}),
-    SI_PA_LOOT_ITEMS_CHATMODE_MAX = table.concat({PAC.COLORED_TEXTS.PAL, "%d x %s %s %s"}),
-
-    -- PALoot Chat Output - Loot Gold --
-    SI_PA_LOOT_GOLD_CHATMODE_MIN = table.concat({PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_LOOT_GOLD_CHATMODE_NORMAL = table.concat({PAC.COLORED_TEXTS.PAL, PAC.COLORS.GREEN, "+ %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    -- PARepair Chat Output --
+    SI_PA_CHAT_REPAIR_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " ", GetString(SI_PA_CHAT_REPAIR_OUTPUT_MISSING) ,")"}),
 
 
+    -- =================================================================================================================
+    -- == OTHER STRINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- Operators --
     SI_PA_REL_OPERATOR = "> %s",

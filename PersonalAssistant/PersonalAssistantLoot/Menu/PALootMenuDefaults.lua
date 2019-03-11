@@ -8,20 +8,14 @@ local PALootMenuDefaults = {
     chatOutput = true,
 
     LootRecipes = {
-        enabled = true,
-
         unknownRecipeMsg = true
     },
 
     LootMotifs = {
-        enabled = true,
-
         unknownMotifMsg = true,
     },
 
     LootApparelWeapons = {
-        enabled = true,
-
         unknownTraitMsg = true,
     }
 }

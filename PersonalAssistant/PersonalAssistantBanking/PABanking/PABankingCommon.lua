@@ -68,9 +68,9 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             if (customStackToMove ~= nil) then sourceStack = customStackToMove end
             -- if there either was no original amount; or it is the same as the one to be moved, treat it as a complete move
             if (customStackToMoveOriginal == nil or customStackToMoveOriginal == customStackToMove) then
-                PAB.println(SI_PA_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
+                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
             else
-                PAB.println(SI_PA_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLink, PAHF.getBagName(targetBagId))
+                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLink, PAHF.getBagName(targetBagId))
             end
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
 
@@ -97,7 +97,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             end
         else
             -- abort; dont continue
-            PAB.println(SI_PA_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, itemLink, PAHF.getBagName(BAG_BANK))
+            PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, itemLink, PAHF.getBagName(BAG_BANK))
             PAB.isBankTransferBlocked = false
         end
     else
@@ -110,14 +110,14 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
                     moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
                 end, _transactionInterval)
             else
-                -- loop completed;  try again with the items added to the re-try list
+                -- loop completed; try again with the items added to the re-try list
                 zo_callLater(function()
                     moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
                 end, _transactionInterval)
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
-            PAB.println(SI_PA_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, itemLink, PAHF.getBagName(BAG_BANK))
+            PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, itemLink, PAHF.getBagName(BAG_BANK))
             PAB.isBankTransferBlocked = false
             -- Execute the function queue
             PAB.triggerNextTransactionFunction()
@@ -151,7 +151,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                     local moveableStack = stackToMove
                     if moveableStack <= targetFreeStacks then
                         -- enough space to move all
-                        PAB.println(SI_PA_BANKING_ITEMS_MOVED_COMPLETE, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
+                        PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, moveableStack)
                         isItemMoved = true
                         hasNoStacksLeft = true
@@ -159,7 +159,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                         toBagCache[toBagCacheIndex].stackCount = targetStack + moveableStack
                     else
                         -- not enough space, only fill up stack possible
-                        PAB.println(SI_PA_BANKING_ITEMS_MOVED_PARTIAL, targetFreeStacks, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
+                        PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, targetFreeStacks, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, targetFreeStacks)
                         -- cannot be set to [isItemMoved = true] because there is still a remaining stack that needs to be moved
                         -- reduce the remaining amount that needs to be moved

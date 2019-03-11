@@ -17,16 +17,16 @@ local function withdrawCurrency(ccyAmountToWithdraw, currencyType)
         -- enough currency in SOURCE
         if (maxCcyTransfer >= ccyAmountToWithdraw) then
             -- enough space in TARGET --> FULL
-            PAB.println(SI_PA_BANKING_WITHDRAWAL_COMPLETE, ccyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, ccyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
         else
             -- not enough space in TARGET --> PARTIAL (limited by TARGET)
             ccyAmountToWithdraw = maxCcyTransfer
-            PAB.println(SI_PA_BANKING_WITHDRAWAL_PARTIAL_TARGET, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
         end
     else
         -- not enough currency in SOURCE --> PARTIAL (limited by SOURCE)
         ccyAmountToWithdraw = ccyAmountOnBank
-        PAB.println(SI_PA_BANKING_WITHDRAWAL_PARTIAL_SOURCE, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
+        PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
     end
 
     -- actual WITHDRAWAL
@@ -43,16 +43,16 @@ local function depositCurrency(ccyAmountToDeposit, currencyType)
         -- enough currency in SOURCE
         if (maxCcyTransfer >= ccyAmountToDeposit) then
             -- enough space in TARGET --> FULL
-            PAB.println(SI_PA_BANKING_DEPOSIT_COMPLETE, ccyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, ccyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
         else
             -- not enough space in TARGET --> PARTIAL (limited by TARGET)
             ccyAmountToDeposit = maxCcyTransfer
-            PAB.println(SI_PA_BANKING_DEPOSIT_PARTIAL_TARGET, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
         end
     else
         -- not enough currency in SOURCE --> PARTIAL (limited by SOURCE)
         ccyAmountToDeposit = ccyAmountOnCharacter
-        PAB.println(SI_PA_BANKING_DEPOSIT_PARTIAL_SOURCE, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
+        PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
     end
 
 

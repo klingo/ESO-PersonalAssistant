@@ -89,8 +89,8 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
         getFunc = PAMenuFunctions.PAJunk.getChatOutputSetting,
         setFunc = PAMenuFunctions.PAJunk.setChatOutputSetting,
         disabled = PAMenuFunctions.PAJunk.isChatOutputDisabled,

@@ -32,6 +32,8 @@ local function _createPALootMenu()
         name = GetString(SI_PA_MENU_LOOT_HEADER)
     })
 
+    -- TODO: add description
+
     PALootOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_LOOT_ENABLE),
@@ -44,29 +46,29 @@ local function _createPALootMenu()
 
     PALootOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES_HEADER),
+        name = GetString(SI_PA_MENU_LOOT_RECIPES_HEADER),
         controls = PALLootRecipesSubmenuTable,
         disabled = PAMenuFunctions.PALoot.isLootRecipesMenuDisabled,
     })
 
     PALootOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS_HEADER),
+        name = GetString(SI_PA_MENU_LOOT_MOTIFS_HEADER),
         controls = PALLootMotifsSubmenuTable,
         disabled = PAMenuFunctions.PALoot.isLootMotifsMenuDisabled,
     })
 
     PALootOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_HEADER),
+        name = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER),
         controls = PALLootApparelWeaponsSubmenuTable,
         disabled = PAMenuFunctions.PALoot.isLootApparelWeaponsMenuDisabled,
     })
 
     PALootOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
         getFunc = PAMenuFunctions.PALoot.getChatOutputSetting,
         setFunc = PAMenuFunctions.PALoot.setChatOutputSetting,
         disabled = PAMenuFunctions.PALoot.isChatOutputDisabled,
@@ -79,18 +81,8 @@ end
 local function _createPALLootRecipesSubmenuTable()
     PALLootRecipesSubmenuTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES),
-        tooltip = GetString(SI_PA_MENU_LOOT_LOOT_RECIPES_T),
-        getFunc = PAMenuFunctions.PALoot.getLootRecipesSetting,
-        setFunc = PAMenuFunctions.PALoot.setLootRecipesSetting,
-        disabled = PAMenuFunctions.PALoot.isLootRecipesDisabled,
-        default = PAMenuDefaults.PALoot.LootRecipes.enabled,
-    })
-
-    PALLootRecipesSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG),
-        tooltip = GetString(SI_PA_MENU_LOOT_UNKNOWN_RECIPE_MSG_T),
+        name = GetString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG),
+        tooltip = GetString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T),
         getFunc = PAMenuFunctions.PALoot.getUnknownRecipeMsgSetting,
         setFunc = PAMenuFunctions.PALoot.setUnknownRecipeMsgSetting,
         disabled = PAMenuFunctions.PALoot.isUnknownRecipeMsgDisabled,
@@ -103,18 +95,8 @@ end
 local function _createPALLootMotifsSubmenuTable()
     PALLootMotifsSubmenuTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS),
-        tooltip = GetString(SI_PA_MENU_LOOT_LOOT_MOTIFS_T),
-        getFunc = PAMenuFunctions.PALoot.getLootMotifsSetting,
-        setFunc = PAMenuFunctions.PALoot.setLootMotifsSetting,
-        disabled = PAMenuFunctions.PALoot.isLootMotifsDisabled,
-        default = PAMenuDefaults.PALoot.LootMotifs.enabled,
-    })
-
-    PALLootMotifsSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG),
-        tooltip = GetString(SI_PA_MENU_LOOT_UNKNOWN_MOTIF_MSG_T),
+        name = GetString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG),
+        tooltip = GetString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T),
         getFunc = PAMenuFunctions.PALoot.getUnknownMotifMsgSetting,
         setFunc = PAMenuFunctions.PALoot.setUnknownMotifMsgSetting,
         disabled = PAMenuFunctions.PALoot.isUnknownMotifMsgDisabled,
@@ -127,12 +109,12 @@ end
 local function _createPALLootApparelWeaponsSubmenuTable()
     PALLootApparelWeaponsSubmenuTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS),
-        tooltip = GetString(SI_PA_MENU_LOOT_LOOT_APPARELWEAPONS_T),
-        getFunc = PAMenuFunctions.PALoot.getLootApparelWeaponsSetting,
-        setFunc = PAMenuFunctions.PALoot.setLootApparelWeaponsSetting,
-        disabled = PAMenuFunctions.PALoot.isLootApparelWeaponsDisabled,
-        default = PAMenuDefaults.PALoot.LootApparelWeapons.enabled,
+        name = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG),
+        tooltip = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T),
+        getFunc = PAMenuFunctions.PALoot.getUnknownTraitMsgSetting,
+        setFunc = PAMenuFunctions.PALoot.setUnknownTraitMsgSetting,
+        disabled = PAMenuFunctions.PALoot.isUnknownTraitMsgDisabled,
+        default = PAMenuDefaults.PALoot.LootApparelWeapons.unknownTraitMsg,
     })
 end
 

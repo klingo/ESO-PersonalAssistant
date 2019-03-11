@@ -289,11 +289,11 @@ local PABankingMenuFunctions = {
 
     isGoldMinToKeepDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
     getGoldMinToKeepSetting = function() return getValue(PASV.Banking, {"Currencies", "goldMinToKeep"}) end,
-    setGoldMinToKeepSetting =  setPABAnkingGoldMinToKeepSetting,
+    setGoldMinToKeepSetting = setPABAnkingGoldMinToKeepSetting,
 
     isGoldMaxToKeepDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
     getGoldMaxToKeepSetting = function() return getValue(PASV.Banking, {"Currencies", "goldMaxToKeep"}) end,
-    setGoldMaxToKeepSetting =  setPABAnkingGoldMaxToKeepSetting,
+    setGoldMaxToKeepSetting = setPABAnkingGoldMaxToKeepSetting,
 
     isAlliancePointsTransactionMenuDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
     isAlliancePointsTransactionDisabled = function() return isDisabled(PASV.Banking, {"Currencies", "currenciesEnabled"}) end,

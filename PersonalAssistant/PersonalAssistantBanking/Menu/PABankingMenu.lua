@@ -63,6 +63,8 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_HEADER)
     })
 
+    -- TODO: add description
+
     PABankingOptionsTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ENABLE, _groupName),
@@ -416,8 +418,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
         getFunc = PAMenuFunctions.PABanking.getChatOutputSetting,
         setFunc = PAMenuFunctions.PABanking.setChatOutputSetting,
         disabled = PAMenuFunctions.PABanking.isChatOutputDisabled,

@@ -78,7 +78,7 @@ local PAJunkMenuFunctions = {
     getAutoMarkAsJunkEnabledSetting = function() return getValue(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
     setAutoMarkAsJunkEnabledSetting = setPAJunkAutoMarkAsJunkEnabledSetting,
 
-    isChatOutputDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
+    isChatOutputDisabled = function() return false end, -- TODO: currently always enabled
     getChatOutputSetting = function() return getValue(PASV.Junk, {"chatOutput"}) end,
     setChatOutputSetting = function(value) setValue(PASV.Junk, value, {"chatOutput"}) end,
 
@@ -87,7 +87,7 @@ local PAJunkMenuFunctions = {
     -- -----------------------------
     isAutoMarkAsJunkMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
 
-    isTrashMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Trash", "autoMarkTrash"}) end,  -- TODO: to extend
+    isTrashMenuDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}, {"Trash", "autoMarkTrash"}) end, -- TODO: to extend
     isTrashAutoMarkDisabled = function() return isDisabled(PASV.Junk, {"autoMarkAsJunkEnabled"}) end,
     getTrashAutoMarkSetting = function() return getValue(PASV.Junk, {"Trash", "autoMarkTrash"}) end,
     setTrashAutoMarkSetting = function(value) setValue(PASV.Junk, value, {"Trash", "autoMarkTrash"}) end,

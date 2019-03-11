@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAL = PA.Loot
-local PAC = PA.Constants
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
@@ -49,7 +48,7 @@ local TraitIndexFromItemTraitType = {
 
 local ResearchLineIndexFromType = {
     [CRAFTING_TYPE_CLOTHIER] = {
-        ARMOR =  {
+        ARMOR = {
             -- add +7 for "Medium" armor (instead of "Light")
             [EQUIP_TYPE_CHEST] = 1,             -- 3
             [EQUIP_TYPE_FEET] = 2,              -- 10
@@ -158,55 +157,6 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- TODO: check if maybe still needed later?
-local function DestroyNumOfItems(bagId, slotId, amountToDestroy)
-    local itemDestroyed = false
-    -- create the itemlink of the to be destroyed item
-    local itemLink = GetItemLink(bagId, slotId, LINK_STYLE_BRACKETS)
-    local icon = GetItemLinkInfo(itemLink)
-    local iconString = "|t20:20:" .. icon .. "|t "
-    -- get the current size of item stack
-    local stackSize = GetSlotStackSize(bagId, slotId)
-    -- check if there were items before
-    if (stackSize > amountToDestroy) then
-        -- there already was a stack existing in the inventory, we shall only delete the new items
-        local firstEmptySlot = FindFirstEmptySlotInBag(bagId)
-        if (firstEmptySlot ~= nil) then
-            -- there is a free slot to split the stack, go ahead!
-            local result = CallSecureProtected("RequestMoveItem", bagId, slotId, bagId, firstEmptySlot, amountToDestroy)
-
-            -- give it some time to actually move the item
-            zo_callLater(function()
-                if (result) then
-                    -- item successfully moved to new empty stlot, destroy that now
-                    DestroyItem(bagId, firstEmptySlot)
-                    itemDestroyed = true
-                else
-                    -- could not move items, therefore cannot safely destroy item
-                    PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_FAILED_MOVE, amountToDestroy, stackSize, itemLink, iconString)
-                end
-            end, 500)
-        else
-            -- no free slot available, cannot safely destroy item!
-            PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_FAILED_DESTORY, amountToDestroy, stackSize, itemLink, iconString)
-        end
-    else
-        -- destroy all items (since there were no existing before)
-        DestroyItem(bagId, slotId)
-        itemDestroyed = true
-    end
-
-    if (itemDestroyed) then
-        PAHF.debugln("Item destroyed --> %d x %s      %d should remain in inventory", amountToDestroy, itemLink, stackSize - amountToDestroy)
-        local lootItemsChatMode = PA.savedVars.Loot[PA.activeProfile].lootItemsChatMode
-        if (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MAX) then PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MAX, amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_NORMAL) then PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_NORMAL, amountToDestroy, itemLink, iconString)
-        elseif (lootItemsChatMode == PAC.CHATMODE.OUTPUT_MIN) then PAL.println(SI_PA_LOOT_ITEMS_DESTROYED_CHATMODE_MIN, amountToDestroy, iconString)
-        end -- PAC.CHATMODE.OUTPUT_NONE => no chat output
-    end
-end
-
-
 local function isTraitBeingResearched(itemLink)
     local craftingSkillType, researchLineIndex = GetCraftingTypeAndResearchLineIndexFromItemLink(itemLink)
     local traitType = GetItemLinkTraitInfo(itemLink)
@@ -219,52 +169,56 @@ local function isTraitBeingResearched(itemLink)
     return duration ~= nil
 end
 
-
-
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if (PAHF.hasActiveProfile()) then
         local PALootSavedVars = PASV.Loot[PA.activeProfile]
 
         -- check if addon is enabled
         if PALootSavedVars.enabled then
-            local itemType, specializedItemType = GetItemType(bagId, slotIndex)
+            local itemType = GetItemType(bagId, slotIndex)
             local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
             local itemFilterType = GetItemFilterTypeInfo(bagId, slotIndex)
 
             -- Recipes
-            if PALootSavedVars.LootRecipes.enabled and itemType == ITEMTYPE_RECIPE then
-                local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
-                if not isRecipeKnown then
-                    PAL.println(SI_PA_LOOT_RECIPE_UNKNOWN, itemLink)
-                else
-                    -- Recipe is already known; do nothing for now
-                    PAHF.debugln("known recipe looted: %s", itemLink)
+            if itemType == ITEMTYPE_RECIPE then
+                if PALootSavedVars.LootRecipes.unknownRecipeMsg then
+                    local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
+                    if not isRecipeKnown then
+                        PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
+                    else
+                        -- Recipe is already known; do nothing for now
+                        PAHF.debugln("known recipe looted: %s", itemLink)
+                    end
                 end
 
             -- Motifs
-            elseif PALootSavedVars.LootMotifs.enabled and itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-                local isBook = IsItemLinkBook(itemLink)
-                if isBook then
-                    local isKnown= IsItemLinkBookKnown(itemLink)
-                    if not isKnown then
-                        PAL.println(SI_PA_LOOT_MOTIF_UNKNOWN, itemLink)
-                    else
-                        -- Motif is already known; do nothing for now
-                        PAHF.debugln("known mnotif looted: %s", itemLink)
+            elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+                if PALootSavedVars.LootMotifs.unknownMotifMsg then
+                    local isBook = IsItemLinkBook(itemLink)
+                    if isBook then
+                        local isKnown= IsItemLinkBookKnown(itemLink)
+                        if not isKnown then
+                            PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+                        else
+                            -- Motif is already known; do nothing for now
+                            PAHF.debugln("known mnotif looted: %s", itemLink)
+                        end
                     end
                 end
 
             -- Apparel & Weapons
-            elseif PALootSavedVars.LootApparelWeapons.enabled and (itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS) then
-                local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
---                local isBeingResearched = isTraitBeingResearched(itemLink)
-                if canBeResearched then
-                    local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
-                    local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
-                    PAL.println(SI_PA_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
-                else
-                    -- Trait already researched
-                    PAHF.debugln("item with known trait looted: %s", itemLink)
+            elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS then
+                if PALootSavedVars.LootApparelWeapons.unknownTraitMsg then
+                    local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+    --                local isBeingResearched = isTraitBeingResearched(itemLink)
+                    if canBeResearched then
+                        local traitType, traitDescription = GetItemLinkTraitInfo(itemLink)
+                        local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
+                        PAL.println(SI_PA_CHAT_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
+                    else
+                        -- Trait already researched
+                        PAHF.debugln("item with known trait looted: %s", itemLink)
+                    end
                 end
             end
         end

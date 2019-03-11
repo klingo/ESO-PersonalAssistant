@@ -40,11 +40,11 @@ local function _waitForJunkProcessingToExecute(functionToExecute, firstCall)
     end
 end
 
---  Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
+-- Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
 local function _sharedEventOpenStore()
     local PAMenuFunctions = PA.MenuFunctions
-    local PARMenuFunctions =  PAMenuFunctions.PARepair
-    local PAJMenuFunctions =  PAMenuFunctions.PAJunk
+    local PARMenuFunctions = PAMenuFunctions.PARepair
+    local PAJMenuFunctions = PAMenuFunctions.PAJunk
 
     local PAJ = PA.Junk
     if PAJ and PAJMenuFunctions.getAutoSellJunkSetting() then
@@ -173,7 +173,7 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PABanking' is even enabled
     if (PAB) then
         -- Check if the functionality is turned on within the addon
-        local PABMenuFunctions =  PAMenuFunctions.PABanking
+        local PABMenuFunctions = PAMenuFunctions.PABanking
         if (PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
             or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting()) then
             -- Register PABanking
@@ -236,7 +236,7 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PAMail' is even enabled
     if (PAM) then
         -- Check if the functionality is turned on within the addon
-        local PAMMenuFunctions =  PAMenuFunctions.PAMail
+        local PAMMenuFunctions = PAMenuFunctions.PAMail
         if PAMMenuFunctions.getHirelingAutoMailEnabledSetting() then
             -- Register PAMail
             -- TODO: EVENT_PLAYER_ACTIVATED does not work, check why (maybe not needed anyway?)

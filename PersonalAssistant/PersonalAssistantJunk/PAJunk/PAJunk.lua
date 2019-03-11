@@ -19,10 +19,10 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         -- at lesat one item was sold (although it might have been worthless)
         if (moneyDiff > 0) then
             -- some valuable junk was sold
-            PAJ.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
         else
             -- only worthless junk was sold
-            PAJ.println(SI_PA_JUNK_SOLD_JUNK_INFO, moneyDiff)
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
         end
     else
         -- no item was sold
@@ -116,19 +116,18 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                 -- store current amount of money
                 local moneyBefore = GetCurrentMoney();
                 local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
-
+                -- get all items to loop through the stolen/junk ones
                 local bagCache = SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_BACKPACK)
-                for slotIndex, itemData in pairs(bagCache) do
+                for _, itemData in pairs(bagCache) do
                     if itemData.stolen and itemData.isJunk then
                         local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
                         if sellsUsed == totalSells then
-                            -- TODO: warn that no more sells are possible at Fence
                             local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
                             if resetTimeHours >= 1 then
-                                PAJ.println(SI_PA_JUNK_FENCE_LIMIT_HOURS, resetTimeHours)
+                                PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, resetTimeHours)
                             else
                                 local resetTimeMinutes = PAHF.round(resetTimeSeconds / 60, 0)
-                                PAJ.println(SI_PA_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
+                                PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
                             end
                             break
                         end
@@ -186,7 +185,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             local PASVJunk = PASV.Junk[PA.activeProfile]
 
             -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
-            if isNewItem and PASVJunk.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK  then
+            if isNewItem and PASVJunk.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemType and itemTrait
                 local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                 local itemType = GetItemType(bagId, slotIndex)
@@ -197,7 +196,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- first check for regular Trash
                 if itemType == ITEMTYPE_TRASH then
                     if PASVJunk.Trash.autoMarkTrash then
-                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
+                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                     end
 
                 -- then check if it is not a Set, or if it is that the corresponding setting is enabled
@@ -207,24 +206,24 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PASVJunk.Weapons.autoMarkOrnate or
                             itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PASVJunk.Armor.autoMarkOrnate or
                             itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PASVJunk.Jewelry.autoMarkOrnate) then
-                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
+                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
 
                     elseif itemType == ITEMTYPE_WEAPON and PASVJunk.Weapons.autoMarkQuality then
                         if itemQuality <= PASVJunk.Weapons.autoMarkQualityThreshold then
-                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                         end
 
                     elseif itemType == ITEMTYPE_ARMOR then
                         if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
                             -- Jewelry
                             if PASVJunk.Jewelry.autoMarkQuality and itemQuality <= PASVJunk.Jewelry.autoMarkQualityThreshold then
-                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
 
                         else
                             --Apparel
                             if PASVJunk.Armor.autoMarkQuality and itemQuality <= PASVJunk.Armor.autoMarkQualityThreshold then
-                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
                         end
                     end

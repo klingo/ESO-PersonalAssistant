@@ -1,23 +1,8 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 
 local PAMenuChoices = {
-    PARepair = {
-        repairChatMode = {
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_NONE)),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_MIN), 115, 65),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_NORMAL), 115, 65),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHATMODE_MAX)),
-        },
-        chargeWeaponsChatMode = {
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NONE)),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MIN), PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ICONS.ITEMS.WEAPON, 15, 100),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_NORMAL), PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ITEMLINKS.SOULGEM),
-            PAHF.getFormattedText(GetString(SI_PA_REPAIR_CHARGE_CHATMODE_MAX), PAC.ICONS.ITEMS.WEAPON, PAC.ITEMLINKS.WEAPON, 15, 100, PAC.ICONS.ITEMS.SOULGEM.SMALL, PAC.ITEMLINKS.SOULGEM),
-        }
-    },
     PABanking = {
         stackingType = {
             GetString(SI_PA_ST_MOVE_FULL),
@@ -37,9 +22,6 @@ local PAMenuChoices = {
             GetString(SI_PA_REL_GREATERTHANEQUAL)
         },
     },
-    PALoot = {
-
-    },
     PAJunk = {
         qualityLevel = {
             GetString(SI_PA_QUALITY_TRASH),
@@ -53,20 +35,6 @@ local PAMenuChoices = {
 }
 
 local PAMenuChoicesValues = {
-    PARepair = {
-        repairChatMode = {
-            PAC.CHATMODE.OUTPUT_NONE,
-            PAC.CHATMODE.OUTPUT_MIN,
-            PAC.CHATMODE.OUTPUT_NORMAL,
-            PAC.CHATMODE.OUTPUT_MAX,
-        },
-        chargeWeaponsChatMode = {
-            PAC.CHATMODE.OUTPUT_NONE,
-            PAC.CHATMODE.OUTPUT_MIN,
-            PAC.CHATMODE.OUTPUT_NORMAL,
-            PAC.CHATMODE.OUTPUT_MAX,
-        }
-    },
     PABanking = {
         stackingType = {
             PAC.STACKING.FULL,
@@ -85,9 +53,6 @@ local PAMenuChoicesValues = {
             -- PAC.OPERATOR.GREATERTHAN,
             PAC.OPERATOR.GREATERTHANOREQUAL,
         },
-    },
-    PALoot = {
-
     },
     PAJunk = {
         qualityLevel = {

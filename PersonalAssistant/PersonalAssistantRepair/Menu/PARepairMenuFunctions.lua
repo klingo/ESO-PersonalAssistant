@@ -43,10 +43,6 @@ local PARepairMenuFunctions = {
     getRepairWithGoldDurabilityThresholdSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
     setRepairWithGoldDurabilityThresholdSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
 
-    isRepairWithGoldChatModeDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
-    getRepairWithGoldChatModeSetting = function() return getValue(PASV.Repair, {"RepairEquipped", "repairWithGoldChatMode"}) end,
-    setRepairWithGoldChatModeSetting = function(value) setValue(PASV.Repair, value, {"RepairEquipped", "repairWithGoldChatMode"}) end,
-
     -- -----------------------------------------------------------------------------------
     -- REPAIR WITH REPAIR KITS
     -- -----------------------------
@@ -81,10 +77,6 @@ local PARepairMenuFunctions = {
     isRechargeWithSoulGemDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}) end,
     getRechargeWithSoulGemSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "useSoulGems"}) end,
     setRechargeWithSoulGemSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "useSoulGems"}) end,
-
-    isChargeWeaponsChatModeDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
-    getChargeWeaponsChatModeSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,
-    setChargeWeaponsChatModeSetting = function(value) setValue(PASV.Repair, value, {"RechargeWeapons", "chargeWeaponsChatMode"}) end,
 
     isLowSoulGemWarningDisabled = function() return isDisabled(PASV.Repair, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
     getLowSoulGemWarningSetting = function() return getValue(PASV.Repair, {"RechargeWeapons", "lowSoulGemWarning"}) end,

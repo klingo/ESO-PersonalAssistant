@@ -3,7 +3,6 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
-local PAMenuChoices = PA.MenuChoices
 
 local LAM2 = LibStub("LibAddonMenu-2.0")
 
@@ -32,6 +31,8 @@ local function _createPARepairMenu()
         type = "header",
         name = GetString(SI_PA_MENU_REPAIR_HEADER)
     })
+
+    -- TODO: add description
 
     PARepairOptionsTable:insert({
         type = "checkbox",
@@ -65,8 +66,8 @@ local function _createPARepairMenu()
 
     PARepairOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_GENERAL_CHAT_OUTPUT_ENABLE_T),
+        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
+        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
         getFunc = PAMenuFunctions.PARepair.getChatOutputSetting,
         setFunc = PAMenuFunctions.PARepair.setChatOutputSetting,
         disabled = PAMenuFunctions.PARepair.isChatOutputDisabled,
@@ -100,20 +101,6 @@ local function _createPARGoldSubmenuTable()
         disabled = PAMenuFunctions.PARepair.isRepairWithGoldDurabilityThresholdDisabled,
         default = PAMenuDefaults.PARepair.RepairEquipped.repairWithGoldDurabilityThreshold,
     })
-
-    PARGoldSubmenuTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_REPAIR_CHATMODE),
-        tooltip = GetString(SI_PA_MENU_REPAIR_CHATMODE_T),
-        choices = PAMenuChoices.choices.PARepair.repairChatMode,
-        choicesValues = PAMenuChoices.choicesValues.PARepair.repairChatMode,
-        --            width = "half",
-        getFunc = PAMenuFunctions.PARepair.getRepairWithGoldChatModeSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairWithGoldChatModeSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairWithGoldChatModeDisabled,
-        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithGoldChatMode,
-    })
-
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -195,18 +182,6 @@ local function _createPARRechargeSubmenuTable()
         setFunc = PAMenuFunctions.PARepair.setRechargeWithSoulGemSetting,
         disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemDisabled,
         default = PAMenuDefaults.PARepair.RechargeWeapons.useSoulGems,
-    })
-
-    PARRechargeSubmenuTable:insert({
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE),
-        tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T),
-        choices = PAMenuChoices.choices.PARepair.chargeWeaponsChatMode,
-        choicesValues = PAMenuChoices.choicesValues.PARepair.chargeWeaponsChatMode,
-        getFunc = PAMenuFunctions.PARepair.getChargeWeaponsChatModeSetting,
-        setFunc = PAMenuFunctions.PARepair.setChargeWeaponsChatModeSetting,
-        disabled = PAMenuFunctions.PARepair.isChargeWeaponsChatModeDisabled,
-        default = PAMenuDefaults.PARepair.RechargeWeapons.chargeWeaponsChatMode,
     })
 
     PARRechargeSubmenuTable:insert({
