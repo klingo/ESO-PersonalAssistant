@@ -155,6 +155,7 @@ How to read:
 
 #### PALoot
 * [ ] **(3)** PALoot: With ESO-Loot enabled, offer option to auto-loot stolen items only when hidden (if that ESO-setting is disabled)
+* [ ] **(4)** PALoot: Inventory Size Warning
 * [X] **(4)** PALoot: Harvestable Items - Add Jewelcrafting items --> No longer needed
 * [X] **(4)** PALoot: Check API --> No longer needed
     ```lua
@@ -186,10 +187,8 @@ How to read:
 #### PAJunk
 * [X] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
 * [X] **(2)** PAJunk: Notification for junk items, even if they are already marked as junk
-* [ ] **(4)** PAJunk: Inventory Size Warning
-* [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
 * [X] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
-* [ ] **(4)** PAJunk: Auto-Junk KNOWN recipes of quality XYZ and below
+* [ ] **(4)** PAJunk: Auto-Junk "bad" default potions/poisons as well as drinks & food without any buffs 
 * [ ] **(5)** PAJunk: Add Notification Options (Individual Options & Overall Silent-Mode)
 
 
@@ -206,12 +205,14 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
 
 
 #### PARepair
+* [ ] **(3)** PARepair: Add option to choose Soul Gem amount for "low-count" warning
+* [ ] **(3)** PARepair: Add option to choose Repair Kit amount for "low-count" warning
 * [ ] **(4)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
 
 
 #### PABanking
 * [ ] **(4)** PABanking: Add summary after transaction completed
-* [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked)
+* [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked?)
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
 * [ ] **(5)** PABanking: Support Home Storage Banking Bags
@@ -226,7 +227,7 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
 
 
 #### PALoot
-* tbd
+* [ ] **(6)** PALoot: Add option to select certain Sets; if looted show notification and auto-lock item
 
 
 #### PAJunk
@@ -235,9 +236,11 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
 * [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
+* [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
 
 
 #### PAMail
+* [ ] **(8)** PAMail: Rename to PAWorker?
 * [X] **(9)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
 * [ ] **(9)** PAMail: Chat notification about looted items from Hirelings 
 * [X] **(9)** PAMail: Check API
@@ -264,6 +267,10 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
     DeleteMail(id64 mailId, boolean forceDelete)     
     CloseMailbox()            
     ```
+
+#### PAWorker
+* [ ] **(9)** PAWorker:  Add Button at Craft Stations to deconstruct all items of certain quality (except with unknown traits)
+* [ ] **(9)** PAWorker:  Add Button at Craft Stations to refine all raw materials
 
 ***
 
