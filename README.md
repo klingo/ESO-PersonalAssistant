@@ -106,7 +106,7 @@ How to read:
           Returns: number amountRepaired
     RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)       
     ```
-* [ ] **(5)** Add Notification Options
+* [ ] **(5)** PARepair: Add Notification Options (Individual Options & Overall Silent-Mode)
 
 
 #### PABanking
@@ -149,8 +149,8 @@ How to read:
 * [X] **(3)** PABanking: Support all four currency types
 * [X] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
 * [X] **(3)** PABanking: Individual Item Types - Add Repair Kits (only Grand?)
-* [ ] **(4)** PABanking: Add option to select type of notifications
 * [X] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
+* [ ] **(5)** PABAnking: Add Notification Options (Individual Options & Overall Silent-Mode)
 
 
 #### PALoot
@@ -165,6 +165,7 @@ How to read:
           Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
     ```
 * [X] **(5)** PALoot: Check if special message for Stealing is added? --> No longer needed
+* [ ] **(5)** PALoot: Add Notification Options (Individual Options & Overall Silent-Mode)
 * [X] **(7)** PALoot: Loot other currencies than gold  - Still needed?! --> No!
     ```lua
     GetLootCurrency(number CurrencyType type)  
@@ -189,13 +190,13 @@ How to read:
 * [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
 * [X] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
 * [ ] **(4)** PAJunk: Auto-Junk KNOWN recipes of quality XYZ and below
-* [ ] **(5)** PAJunk: Add option to select type of notifications
+* [ ] **(5)** PAJunk: Add Notification Options (Individual Options & Overall Silent-Mode)
 
 
    
 ***
 
-## Development ToDo (v2.x.x)
+## Development ToDo (later)
 
 This is my development ToDo list for the subsequent releases of PersonalAssistant afterwards
 
