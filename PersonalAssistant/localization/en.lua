@@ -16,6 +16,8 @@ local PAStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral Menu --
+    SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant is a collection of various features that have the goal to make playing ESO more convenient for you.",
+
     SI_PA_PLEASE_SELECT_PROFILE = "<Please select Profile>",
 
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE = "Active profile",
@@ -28,6 +30,8 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking Menu --
+    SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting and other Items for you between your character's backpack and the bank.",
+
     SI_PA_MENU_BANKING_CURRENCY = GetString(SI_INVENTORY_CURRENCIES), -- TODO: move to generic?
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
@@ -80,7 +84,7 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk Menu --
     -- TODO: Refactor all texts below for PAJunk!
-    SI_PA_MENU_JUNK_ITEMTYPE_DESCRIPTION = "PALoot can directly mark items as junk if they match any of the configurable rules; except if it just was created or retrieved from mail.",
+    SI_PA_MENU_JUNK_DESCRIPTION = "PAJunk can directly mark items as junk if they match any of the configurable rules; except if it just was created or retrieved from mail.",
 
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE = table.concat({" ", PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk?"}),
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T = "Automatically mark Items as Junk, depending on various different conditions?",
@@ -122,6 +126,7 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot Menu --
     -- TODO: Refactor all texts below for PALoot!
+    SI_PA_MENU_LOOT_DESCRIPTION = "PALoot can notify you when items of special interest (such as unknown recipes, motifs, or traits) have been looted.",
     -- Loot Recipes
     SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE))}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
@@ -140,6 +145,8 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMail Menu --
+    SI_PA_MENU_MAIL_DESCRIPTION = "PAMail hopefully will be able to independently collect the materials sent to you by the Crafting Hirelings ;-)",
+
     SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Mail for Hireling Materials?"}),
     SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE_T = "Enable Auto Mail (read, loot, and delete) for Mails with Raw Materials from Hirelings?",
     SI_PA_MENU_MAIL_HIRELING_DELETE_EMPTYMAILS = "Delete empty Hireling Mails afterwards?",
@@ -148,6 +155,8 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair Menu --
+    SI_PA_MENU_REPAIR_DESCRIPTION = "PARepair repairs your armor and recharges your weapons for you, be it at a merchant or out on the field.",
+
     SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Equipped Items"}),
 
     -- TODO: Refactor all texts below for PARepair!

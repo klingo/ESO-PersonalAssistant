@@ -29,6 +29,11 @@ local function _createPAMailMenu()
     })
 
     PAMailOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_MAIL_DESCRIPTION),
+    })
+
+    PAMailOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE),
         tooltip = GetString(SI_PA_MENU_MAIL_HIRELING_AUTOMAIL_ENABLE_T),

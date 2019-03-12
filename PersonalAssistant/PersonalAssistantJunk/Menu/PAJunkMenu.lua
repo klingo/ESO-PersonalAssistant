@@ -36,7 +36,7 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "description",
-        text = GetString(SI_PA_MENU_JUNK_ITEMTYPE_DESCRIPTION),
+        text = GetString(SI_PA_MENU_JUNK_DESCRIPTION),
     })
 
     PAJunkOptionsTable:insert({

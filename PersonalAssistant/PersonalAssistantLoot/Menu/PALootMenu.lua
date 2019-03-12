@@ -32,7 +32,10 @@ local function _createPALootMenu()
         name = GetString(SI_PA_MENU_LOOT_HEADER)
     })
 
-    -- TODO: add description
+    PALootOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_LOOT_DESCRIPTION),
+    })
 
     PALootOptionsTable:insert({
         type = "checkbox",

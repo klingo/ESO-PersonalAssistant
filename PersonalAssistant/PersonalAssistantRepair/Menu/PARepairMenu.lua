@@ -32,7 +32,10 @@ local function _createPARepairMenu()
         name = GetString(SI_PA_MENU_REPAIR_HEADER)
     })
 
-    -- TODO: add description
+    PARepairOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_REPAIR_DESCRIPTION),
+    })
 
     PARepairOptionsTable:insert({
         type = "checkbox",

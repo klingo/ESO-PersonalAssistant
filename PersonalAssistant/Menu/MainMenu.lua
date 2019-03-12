@@ -7,7 +7,7 @@ local PAMenuDefaults = PA.MenuDefaults
 
 local LAM2 = LibStub("LibAddonMenu-2.0")
 
-local panelData = {
+local PAGeneralPanelData = {
     type = "panel",
     name = "PersonalAssistant",
     displayName = GetString(SI_PA_MENU_TITLE),
@@ -19,17 +19,22 @@ local panelData = {
     registerForDefaults = true,
 }
 
-local optionsTable = setmetatable({}, { __index = table })
+local PAGeneralOptionsTable = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
 
 local function createPAGeneralMenu()
-    optionsTable:insert({
+    PAGeneralOptionsTable:insert({
         type = "header",
         name = GetString(SI_PA_MENU_GENERAL_HEADER)
     })
 
-    optionsTable:insert({
+    PAGeneralOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_GENERAL_DESCRIPTION),
+    })
+
+    PAGeneralOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE),
         tooltip = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T),
@@ -41,7 +46,7 @@ local function createPAGeneralMenu()
         reference = "PERSONALASSISTANT_PROFILEDROPDOWN",
     })
 
-    optionsTable:insert({
+    PAGeneralOptionsTable:insert({
         type = "editbox",
         name = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME),
         tooltip = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME_T),
@@ -51,7 +56,7 @@ local function createPAGeneralMenu()
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
     })
 
-    optionsTable:insert({
+    PAGeneralOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME),
         tooltip = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME_T),
@@ -67,8 +72,8 @@ end
 local function createOptions()
     -- Create and register the General Menu
     createPAGeneralMenu()
-    LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", panelData)
-    LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", optionsTable)
+    LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)
+    LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", PAGeneralOptionsTable)
 end
 
 -- Export

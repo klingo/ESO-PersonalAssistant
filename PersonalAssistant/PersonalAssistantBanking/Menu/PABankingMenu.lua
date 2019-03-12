@@ -63,7 +63,10 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_HEADER)
     })
 
-    -- TODO: add description
+    PABankingOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_BANKING_DESCRIPTION),
+    })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
