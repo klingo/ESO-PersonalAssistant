@@ -32,6 +32,8 @@ local function setPAGeneralActiveProfile(profileNo)
         end
         -- also refresh all event registrations
         PAEM.RefreshAllEventRegistrations()
+        -- and refresh all SavedVar references that are profile-specific
+        PAEM.RefreshAllSavedVarReferences(profileNo)
     end
 end
 

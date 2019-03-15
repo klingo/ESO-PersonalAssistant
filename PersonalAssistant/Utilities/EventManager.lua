@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PASV = PA.SavedVars
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -118,7 +119,6 @@ local function RefreshAllEventRegistrations()
     local PAL = PA.Loot
     local PAJ = PA.Junk
     local PAM = PA.Mail
-
 
     -- Check if the Addon 'PARepair' is even enabled
     if PAR then
@@ -263,6 +263,32 @@ local function RefreshAllEventRegistrations()
 end
 
 
+
+--[[
+Each Sub-Addon write the SavedVars (for all profiles) in the first column, wheres this function references the currently
+selected profile in the second column whenever the profile is changed:
+--------------------------------------------------------------------------------------------
+Sub-AddOn   | Cross-Profile SavedVars               | Curr-Profile SavedVars
+--------------------------------------------------------------------------------------------
+PABanking   | PersonalAssistant.SavedVars.Banking   | PersonalAssistant.Banking.SavedVars
+PAJunk      | PersonalAssistant.SavedVars.Junk      | PersonalAssistant.Junk.SavedVars
+PALoot      | PersonalAssistant.SavedVars.Loot      | PersonalAssistant.Loot.SavedVars
+PAMail      | PersonalAssistant.SavedVars.Mail      | PersonalAssistant.Mail.SavedVars
+PARepair    | PersonalAssistant.SavedVars.Repair    | PersonalAssistant.Repair.SavedVars
+--------------------------------------------------------------------------------------------
+--]]
+local function RefreshAllSavedVarReferences(activeProfile)
+    -- refreshes all profile specific SavedVars references, so the profile does not need to be read all the time
+    if not PA.General then PA.General = {} end
+    PA.General.SavedVars = PASV.General[activeProfile]
+
+    if PA.Banking then PA.Banking.SavedVars = PASV.Banking[activeProfile] end
+    if PA.Junk then PA.Junk.SavedVars = PASV.Junk[activeProfile] end
+    if PA.Loot then PA.Loot.SavedVars = PASV.Loot[activeProfile] end
+    if PA.Mail then PA.Mail.SavedVars = PASV.Mail[activeProfile] end
+    if PA.Repair then PA.Repair.SavedVars = PASV.Repair[activeProfile] end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.EventManager = {
@@ -271,5 +297,6 @@ PA.EventManager = {
     RegisterFilterForEvent = RegisterFilterForEvent,
     UnregisterForEvent = UnregisterForEvent,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
+    RefreshAllSavedVarReferences = RefreshAllSavedVarReferences,
     isJunkProcessing = false, -- TODO: check if really needed?
 }

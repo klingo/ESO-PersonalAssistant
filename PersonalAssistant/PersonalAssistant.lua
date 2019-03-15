@@ -81,10 +81,13 @@ local function introduction()
     if (PA.activeProfile == nil) then
         PAHF.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
-        -- a valid profile is selected and thus the events can be initialised
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshAllSavedVarReferences(PA.activeProfile)
+        -- then also all the events can be initialised
         PAEM.RefreshAllEventRegistrations()
-        -- then check for the welcome message
-        if showWelcomeMessage and PASV.General[PA.activeProfile].welcome then
+        -- finally check for the welcome message
+        local PAGSavedVars = PA.General.SavedVars
+        if showWelcomeMessage and PAGSavedVars.welcome then
             showWelcomeMessage = false
             if PASV.Profile.language ~= "en" and PASV.Profile.language ~= "de" and PASV.Profile.language ~= "fr" then
                 PAHF.println(SI_PA_WELCOME_NO_SUPPORT, GetCVar("language.2"))
