@@ -42,7 +42,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function isDisabled(savedVarsTable, ...)
-    -- TODO: optimize this?
+    -- TODO: get rid of this function
     if (isDisabledPAGeneralNoProfileSelected()) then return true end
     local args = { ... }
     for _, tbl in ipairs(args) do
@@ -68,9 +68,8 @@ local function isDisabled(savedVarsTable, ...)
     return false
 end
 
-
 local function isDisabledDebug(savedVarsTable, ...)
-    -- TODO: optimize this?
+    -- TODO: get rid of this function
     if (isDisabledPAGeneralNoProfileSelected()) then return true end
     local args = { ... }
     for _, tbl in ipairs(args) do
@@ -103,6 +102,7 @@ end
 
 
 local function getValue(savedVarsTable, attributeTbl)
+    -- TODO: get rid of this function
     if isDisabledPAGeneralNoProfileSelected() then return end
     if #attributeTbl > 0 then
         local newTableLevel = savedVarsTable[PA.activeProfile]
@@ -114,7 +114,7 @@ local function getValue(savedVarsTable, attributeTbl)
 end
 
 local function setValue(savedVarsTable, value, attributeTbl)
-    -- TODO: optimize this somehow to make it more dynmimc
+    -- TODO: get rid of this function
     if (isDisabledPAGeneralNoProfileSelected()) then return end
     if (#attributeTbl == 1) then
         local attributeLevelOne = attributeTbl[1]
@@ -130,6 +130,49 @@ local function setValue(savedVarsTable, value, attributeTbl)
         savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree] = value
     else return end
 end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function getValueV2(savedVarsTable, attributeTbl)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    if #attributeTbl > 0 then
+        for _, attribute in ipairs(attributeTbl) do
+            savedVarsTable = savedVarsTable[attribute]
+        end
+        return savedVarsTable
+    else return end
+end
+
+local function setValueV2(savedVarsTable, value, attributeTbl)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if #attributeTbl > 0 then
+        for index, attribute in ipairs(attributeTbl) do
+            if index < #attributeTbl then
+                savedVarsTable = savedVarsTable[attribute]
+            else
+                savedVarsTable[attribute] = value
+            end
+        end
+    else return end
+end
+
+local function isDisabledV2(savedVarsTable, ...)
+    if (isDisabledPAGeneralNoProfileSelected()) then return true end
+    local args = { ... }
+    for _, attributeTbl in ipairs(args) do
+        -- return true when ANY setting is OFF
+        local localSavedVarsTable = savedVarsTable
+        if #attributeTbl > 0 then
+            for _, attribute in ipairs(attributeTbl) do
+                localSavedVarsTable = localSavedVarsTable[attribute]
+            end
+            if not localSavedVarsTable then return true end
+        end
+    end
+    -- return false when ALL settings are ON (or no settings provided)
+    return false
+end
+
 
 --------------------------------------------------------------------------
 -- PAGeneral   activeProfileRename
@@ -181,5 +224,8 @@ PA.MenuFunctions = {
 
 PA.MenuFunctions.isDisabledPAGeneralNoProfileSelected = isDisabledPAGeneralNoProfileSelected
 PA.MenuFunctions.isDisabled = isDisabled
+PA.MenuFunctions.isDisabledV2 = isDisabledV2
 PA.MenuFunctions.getValue = getValue
+PA.MenuFunctions.getValueV2 = getValueV2
 PA.MenuFunctions.setValue = setValue
+PA.MenuFunctions.setValueV2 = setValueV2
