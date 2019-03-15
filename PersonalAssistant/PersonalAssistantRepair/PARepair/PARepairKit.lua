@@ -7,6 +7,7 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _lastNoRepairKitWarningGameTime = 0
+local _repairKitCountPattern = GetString(SI_PA_PATTERN_REPAIRKIT_COUNT)
 
 -- --------------------------------------------------------------------------------------------------------------------
 
@@ -60,18 +61,22 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
 
                 -- check remaining repair kits
                 if totalRepairKitCount <= 10 and PARepairSavedVars.RepairEquipped.lowRepairKitWarning then
-                    local gameTimeMilliseconds = GetGameTimeMilliseconds()
-                    local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoRepairKitWarningGameTime
-                    local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
-
-                    if (gameTimeMinutesPassed >= 10) then
-                        _lastNoRepairKitWarningGameTime = gameTimeMilliseconds
-
-                        if totalRepairKitCount > 0 then
-                            PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT, totalRepairKitCount)
-                        else
-                            PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT)
+                    local formatted = zo_strformat(_repairKitCountPattern, totalRepairKitCount)
+                    if totalRepairKitCount == 0 then
+                        -- if no repair kits left, have a orange-red message (but only every 10 minutes)
+                        local gameTimeMilliseconds = GetGameTimeMilliseconds()
+                        local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoRepairKitWarningGameTime
+                        local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
+                        if (gameTimeMinutesPassed >= 10) then
+                            _lastNoRepairKitWarningGameTime = gameTimeMilliseconds
+                            PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
                         end
+                    elseif totalRepairKitCount <= 5 then
+                        -- if at or below 5 soul gems, have a orange message
+                        PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
+                    elseif totalRepairKitCount <= 10 then
+                        -- if at or below 10 free slots, have a yellow message
+                        PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
                     end
                 end
             end
@@ -86,6 +91,8 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
 
 end
 
+
+-- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Repair = PA.Repair or {}
 PA.Repair.RepairEquippedItemsWithRepairKits = RepairEquippedItemsWithRepairKits

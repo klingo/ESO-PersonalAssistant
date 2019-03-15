@@ -233,19 +233,15 @@ local PAStrings = {
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({PAC.COLORED_TEXTS.PAL, "%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[inventory space/inventory space/inventory spaces]>> left!"}),
-
+    SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAL, "%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[Repair Kits/Repair Kit/Repair Kits]>> left!"}),
+    SI_PA_PATTERN_SOULGEM_COUNT = table.concat({PAC.COLORED_TEXTS.PAL, "%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[Soul Gems/SoulGem/Soul Gems]>> left!"}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair --
     SI_PA_CHAT_REPAIR_OUTPUT_MISSING = "missing", -- example output: "[...] (55 Gold missing)"
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
-    SI_PA_CHAT_REPAIR_REPAIRKIT_LOW_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " left"}),
-    SI_PA_CHAT_REPAIR_REPAIRKIT_NO_REPAIRKIT_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
-
     SI_PA_CHAT_REPAIR_CHARGE_WEAPON = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
-    SI_PA_CHAT_REPAIR_CHARGE_LOW_GEM_COUNT =  table.concat({PAC.COLORED_TEXTS.PAR, "You only have ", PAC.COLORS.WHITE, "%d", PAC.COLORS.DEFAULT, " ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), " left"}),
-    SI_PA_CHAT_REPAIR_CHARGE_NO_GEM_COUNT = table.concat({PAC.COLORED_TEXTS.PAR, "You are out of ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
 
 
     -- =================================================================================================================

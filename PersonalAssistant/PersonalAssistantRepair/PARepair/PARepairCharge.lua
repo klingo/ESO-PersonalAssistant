@@ -7,6 +7,7 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _lastNoSoulGemWarningGameTime = 0
+local _soulGemCountPattern = GetString(SI_PA_PATTERN_SOULGEM_COUNT)
 
 -- --------------------------------------------------------------------------------------------------------------------
 
@@ -69,7 +70,6 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                     totalGemCount = totalGemCount - 1
 
                     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-                    local iconString = "|t20:20:"..GetItemLinkInfo(itemLink).."|t "
                     local chargePerc = PAHF.round(100 / maxCharges * charges, 2)
 
                     -- show output to chat
@@ -78,18 +78,22 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
 
                 -- check remaining soul gems
                 if totalGemCount <= 10 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
-                    local gameTimeMilliseconds = GetGameTimeMilliseconds()
-                    local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoSoulGemWarningGameTime
-                    local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
-
-                    if (gameTimeMinutesPassed >= 10) then
-                        _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
-
-                        if totalGemCount > 0 then
-                            PAR.println(SI_PA_CHAT_REPAIR_CHARGE_LOW_GEM_COUNT, totalGemCount)
-                        else
-                            PAR.println(SI_PA_CHAT_REPAIR_CHARGE_NO_GEM_COUNT)
+                    local formatted = zo_strformat(_soulGemCountPattern, totalGemCount)
+                    if totalGemCount == 0 then
+                        -- if no soul gems left, have a orange-red message (but only every 10 minutes)
+                        local gameTimeMilliseconds = GetGameTimeMilliseconds()
+                        local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoSoulGemWarningGameTime
+                        local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
+                        if (gameTimeMinutesPassed >= 10) then
+                            _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
+                            PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
                         end
+                    elseif totalGemCount <= 5 then
+                        -- if at or below 5 soul gems, have a orange message
+                        PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
+                    elseif totalGemCount <= 10 then
+                        -- if at or below 10 free slots, have a yellow message
+                        PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
                     end
                 end
             end
@@ -98,6 +102,7 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
 end
 
 
+-- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Repair = PA.Repair or {}
 PA.Repair.RechargeEquippedWeaponsWithSoulGems = RechargeEquippedWeaponsWithSoulGems
