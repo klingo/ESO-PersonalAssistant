@@ -48,8 +48,8 @@ local function depositOrWithdrawAdvancedItems()
         end
     end
 
-    local depositComparator = PAB.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes)
-    local withdrawComparator = PAB.getCombinedItemTypeSpecializedComparator(withdrawItemTypes, withdrawSpezializedItemTypes)
+    local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes)
+    local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawItemTypes, withdrawSpezializedItemTypes)
 
     local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
     local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)

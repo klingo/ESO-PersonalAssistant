@@ -264,43 +264,6 @@ local function triggerNextTransactionFunction()
     end
 end
 
-local function _isNotStolenOrStolenAndAllowed(itemData, isStolenAllowed)
-    local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
-    return not isStolen or (isStolen and isStolenAllowed)
-end
-
-local function getCombinedItemTypeSpecializedComparator(itemTypeList, spevializedItemTypeList, includeStolenItems)
-    return function(itemData)
-        for _, itemType in pairs(itemTypeList) do
-            if itemType == itemData.itemType and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
-        end
-        for _, specializedItemType in pairs(spevializedItemTypeList) do
-            if specializedItemType == itemData.specializedItemType and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
-        end
-        return false
-    end
-end
-
--- TODO: move to Helper Functions!
-local function getItemTypeComparator(itemTypeList, includeStolenItems)
-    return function(itemData)
-        for _, itemType in pairs(itemTypeList) do
-            if itemType == itemData.itemType and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
-        end
-        return false
-    end
-end
-
-
-local function getItemIdComparator(itemIdList, includeStolenItems)
-    return function(itemData)
-        for itemId, _ in pairs(itemIdList) do
-            if itemId == GetItemId(itemData.bagId, itemData.slotIndex) and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
-        end
-        return false
-    end
-end
-
 local function updateTransactionInterval()
     _transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
 end
@@ -312,7 +275,4 @@ PA.Banking.moveSecureItemsFromTo = moveSecureItemsFromTo
 PA.Banking.stackInTargetBagAndPopulateNotMovedItemsTable = stackInTargetBagAndPopulateNotMovedItemsTable
 PA.Banking.doGenericItemTransactions = doGenericItemTransactions
 PA.Banking.triggerNextTransactionFunction = triggerNextTransactionFunction
-PA.Banking.getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator
-PA.Banking.getItemTypeComparator = getItemTypeComparator
-PA.Banking.getItemIdComparator = getItemIdComparator
 PA.Banking.updateTransactionInterval = updateTransactionInterval

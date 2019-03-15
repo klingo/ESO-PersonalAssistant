@@ -1,8 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PASV = PA.SavedVars
-local PASVProfile = PASV.Profile
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -32,7 +30,6 @@ local function getItemTypeComparator(itemTypeList, includeStolenItems)
         return false
     end
 end
-
 
 local function getItemIdComparator(itemIdList, includeStolenItems)
     return function(itemData)
@@ -161,6 +158,8 @@ end
 
 -- Export
 PA.HelperFunctions = {
+    getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
+    getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,
     round = round,
     roundDown = roundDown,

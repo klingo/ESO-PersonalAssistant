@@ -37,8 +37,8 @@ local function depositOrWithdrawCraftingItems()
         end
     end
 
-    local depositComparator = PAB.getItemTypeComparator(depositItemTypes)
-    local withdrawComparator = PAB.getItemTypeComparator(withdrawItemTypes)
+    local depositComparator = PAHF.getItemTypeComparator(depositItemTypes)
+    local withdrawComparator = PAHF.getItemTypeComparator(withdrawItemTypes)
 
     local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
     local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
