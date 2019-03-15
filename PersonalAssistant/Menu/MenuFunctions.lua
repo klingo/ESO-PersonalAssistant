@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PASV = PA.SavedVars
 local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -10,7 +9,7 @@ local PAEM = PA.EventManager
 -- PAGeneral   activeProfile
 ---------------------------------
 local function getPAGeneralActiveProfile()
-    local activeProfile = PASV.Profile.activeProfile
+    local activeProfile = PA.SavedVars.Profile.activeProfile
     if (activeProfile == nil) then
         return PAC.GENERAL.NO_PROFILE_SELECTED_ID
     else
@@ -20,10 +19,11 @@ end
 
 local function setPAGeneralActiveProfile(profileNo)
     if (profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID) then
+        local PASavedVars = PA.SavedVars
         -- get the previously active prefoile first
-        local prevProfile = PASV.Profile.activeProfile
+        local prevProfile = PASavedVars.Profile.activeProfile
         -- then save the new one
-        PASV.Profile.activeProfile = profileNo
+        PASavedVars.Profile.activeProfile = profileNo
         PA.activeProfile = profileNo
         -- if the previous profile was the "no profile selected" one, refresh the dropdown values
         if (prevProfile == nil) then
@@ -39,98 +39,6 @@ end
 
 local function isDisabledPAGeneralNoProfileSelected()
     return (PA.activeProfile == nil)
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
-
-local function isDisabled(savedVarsTable, ...)
-    -- TODO: get rid of this function
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    local args = { ... }
-    for _, tbl in ipairs(args) do
-        -- return true when ANY setting is OFF
-        if (#tbl == 1) then
-            local attributeLevelOne = tbl[1]
-            if (not savedVarsTable[PA.activeProfile][attributeLevelOne]) then return true end
-        elseif (#tbl == 2) then
-            local attributeLevelOne = tbl[1]
-            local attributeLevelTwo = tbl[2]
-            if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]) then return true end
-        elseif (#tbl == 3) then
-            local attributeLevelOne = tbl[1]
-            local attributeLevelTwo = tbl[2]
-            local attributeLevelThree = tbl[3]
-            if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree]) then return true end
-        else
-            -- if either no table was sent, or more than 3; always return true (i.e. disabled)
-            return true
-        end
-    end
-    -- return false when ALL settings are ON
-    return false
-end
-
-local function isDisabledDebug(savedVarsTable, ...)
-    -- TODO: get rid of this function
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
-    local args = { ... }
-    for _, tbl in ipairs(args) do
-        -- return true when ANY setting is OFF
-        if (#tbl == 1) then
-            local attributeLevelOne = tbl[1]
-            d(tostring(attributeLevelOne).."="..tostring(savedVarsTable[PA.activeProfile][attributeLevelOne]))
-            if (not savedVarsTable[PA.activeProfile][attributeLevelOne]) then return true end
-        elseif (#tbl == 2) then
-            local attributeLevelOne = tbl[1]
-            local attributeLevelTwo = tbl[2]
-            d(tostring(attributeLevelOne).."."..tostring(attributeLevelTwo).."="..tostring(savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]))
-            if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo]) then return true end
-        elseif (#tbl == 3) then
-            local attributeLevelOne = tbl[1]
-            local attributeLevelTwo = tbl[2]
-            local attributeLevelThree = tbl[3]
-            d(tostring(attributeLevelOne).."."..tostring(attributeLevelTwo).."."..tostring(attributeLevelThree).."="..tostring(savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree]))
-            if (not savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree]) then return true end
-        else
-            -- if either no table was sent, or more than 3; always return true (i.e. disabled)
-            d("return true")
-            return true
-        end
-    end
-    -- return false when ALL settings are ON
-    d("return false")
-    return false
-end
-
-
-local function getValue(savedVarsTable, attributeTbl)
-    -- TODO: get rid of this function
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    if #attributeTbl > 0 then
-        local newTableLevel = savedVarsTable[PA.activeProfile]
-        for _, attribute in ipairs(attributeTbl) do
-            newTableLevel = newTableLevel[attribute]
-        end
-        return newTableLevel
-    else return end
-end
-
-local function setValue(savedVarsTable, value, attributeTbl)
-    -- TODO: get rid of this function
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    if (#attributeTbl == 1) then
-        local attributeLevelOne = attributeTbl[1]
-        savedVarsTable[PA.activeProfile][attributeLevelOne] = value
-    elseif (#attributeTbl == 2) then
-        local attributeLevelOne = attributeTbl[1]
-        local attributeLevelTwo = attributeTbl[2]
-        savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo] = value
-    elseif (#attributeTbl == 3) then
-        local attributeLevelOne = attributeTbl[1]
-        local attributeLevelTwo = attributeTbl[2]
-        local attributeLevelThree = attributeTbl[3]
-        savedVarsTable[PA.activeProfile][attributeLevelOne][attributeLevelTwo][attributeLevelThree] = value
-    else return end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -181,13 +89,13 @@ end
 ---------------------------------
 local function getPAGeneralActiveProfileRename()
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.General[PA.activeProfile].name
+    return PA.SavedVars.General[PA.activeProfile].name
 end
 
 local function setPAGeneralActiveProfileRename(profileName)
     if (profileName ~= nil and profileName ~= "") then
         local PAMenuHelper = PA.MenuHelper
-        PASV.General[PA.activeProfile].name = profileName
+        PA.SavedVars.General[PA.activeProfile].name = profileName
         -- when profile was changed, reload the profile list
         PAMenuHelper.reloadProfileList()
     end
@@ -198,12 +106,12 @@ end
 ---------------------------------
 local function getPAGeneralWelcomeMessage()
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    return PASV.General[PA.activeProfile].welcome
+    return PA.SavedVars.General[PA.activeProfile].welcome
 end
 
 local function setPAGeneralWelcomeMessage(value)
     if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.General[PA.activeProfile].welcome = value
+    PA.SavedVars.General[PA.activeProfile].welcome = value
 end
 
 -- =====================================================================================================================
@@ -225,9 +133,6 @@ PA.MenuFunctions = {
 }
 
 PA.MenuFunctions.isDisabledPAGeneralNoProfileSelected = isDisabledPAGeneralNoProfileSelected
-PA.MenuFunctions.isDisabled = isDisabled
-PA.MenuFunctions.isDisabledV2 = isDisabledV2
-PA.MenuFunctions.getValue = getValue
-PA.MenuFunctions.getValueV2 = getValueV2
-PA.MenuFunctions.setValue = setValue
-PA.MenuFunctions.setValueV2 = setValueV2
+PA.MenuFunctions.isDisabled = isDisabledV2
+PA.MenuFunctions.getValue = getValueV2
+PA.MenuFunctions.setValue = setValueV2

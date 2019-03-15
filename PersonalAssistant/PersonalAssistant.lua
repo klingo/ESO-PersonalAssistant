@@ -3,7 +3,6 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
-local PASV = PA.SavedVars
 local PAHelperFunctions = PA.HelperFunctions
 
 -- =====================================================================================================================
@@ -52,18 +51,19 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, nil, PA.General_Defaults)
-    PASV.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = nil })
+    local PASavedVars = PA.SavedVars
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, nil, PA.General_Defaults)
+    PASavedVars.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = nil })
 
     -- initialize language
-    PASV.Profile.language = GetCVar("language.2") or "en"
+    PASavedVars.Profile.language = GetCVar("language.2") or "en"
 
     -- create the options with LAM-2
     local PAMainMenu = PA.MainMenu
     PAMainMenu.createOptions()
 
     -- get the active Profile
-    PA.activeProfile = PASV.Profile.activeProfile
+    PA.activeProfile = PASavedVars.Profile.activeProfile
 
     -- register slash-commands
     SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
@@ -89,7 +89,8 @@ local function introduction()
         local PAGSavedVars = PA.General.SavedVars
         if showWelcomeMessage and PAGSavedVars.welcome then
             showWelcomeMessage = false
-            if PASV.Profile.language ~= "en" and PASV.Profile.language ~= "de" and PASV.Profile.language ~= "fr" then
+            local PASavedVars = PA.SavedVars
+            if PASavedVars.Profile.language ~= "en" and PASavedVars.Profile.language ~= "de" and PASavedVars.Profile.language ~= "fr" then
                 PAHF.println(SI_PA_WELCOME_NO_SUPPORT, GetCVar("language.2"))
             else
                 PAHF.println(SI_PA_WELCOME_SUPPORT)

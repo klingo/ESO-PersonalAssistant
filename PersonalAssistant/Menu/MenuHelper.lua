@@ -5,14 +5,14 @@ local PAC = PA.Constants
 -- --------------------------------------------------------------------------------------------------------
 
 local function getProfileList()
-    local PASV = PA.SavedVars
+    local PASavedVars = PA.SavedVars
 
     local profiles = {}
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        profiles[profileNo] = PASV.General[profileNo].name
+        profiles[profileNo] = PASavedVars.General[profileNo].name
     end
 
-    if (PASV.Profile.activeProfile == nil) then
+    if (PASavedVars.Profile.activeProfile == nil) then
         profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_PLEASE_SELECT_PROFILE)
     end
 
@@ -20,14 +20,14 @@ local function getProfileList()
 end
 
 local function getProfileListValues()
-    local PASV = PA.SavedVars
+    local PASavedVars = PA.SavedVars
 
     local profileValues = {}
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         profileValues[profileNo] = profileNo
     end
 
-    if (PASV.Profile.activeProfile == nil) then
+    if (PASavedVars.Profile.activeProfile == nil) then
         profileValues[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = PAC.GENERAL.NO_PROFILE_SELECTED_ID
     end
 

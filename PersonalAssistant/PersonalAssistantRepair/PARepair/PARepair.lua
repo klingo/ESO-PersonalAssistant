@@ -1,18 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAR = PA.Repair
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _repairItemList
 
-
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- repair all items that are below the given threshold for the bag
 local function RepairItems(bagId, threshold)
+    -- TODO: add another SavedVars check?
     local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
 
     if (bagCache) then
@@ -23,7 +22,7 @@ local function RepairItems(bagId, threshold)
         local currentMoney = GetCurrentMoney()
         _repairItemList = {}
 
-        local PARepairSavedVars = PASV.Repair[PA.activeProfile]
+        local PARepairSavedVars = PAR.SavedVars -- TODO: remove if no saved vars check added
 
         -- loop through all items of the corresponding bagId
         for slotIndex, data in pairs(bagCache) do
@@ -83,7 +82,7 @@ local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
         -- check if store can repair
         if CanStoreRepair() then
-            local PARepairSavedVars = PASV.Repair[PA.activeProfile]
+            local PARepairSavedVars = PAR.SavedVars
             -- check if addon is enabled
             if PARepairSavedVars.autoRepairEnabled then
                 -- early check if there is something to repair

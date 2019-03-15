@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -15,7 +14,7 @@ local Mail_Defaults = {}
 
 -- only prints out PAMail texts if chatOutput is enabled
 local function println(text, ...)
-    if PASV.Mail[PA.activeProfile].chatOutput then
+    if PA.Mail.SavedVars.chatOutput then
         PAHF.println(text, ...)
     end
 end
@@ -43,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.Mail = ZO_SavedVars:NewAccountWide("PersonalAssistantMail_SavedVariables", 1, nil, Mail_Defaults)
+    PA.SavedVars.Mail = ZO_SavedVars:NewAccountWide("PersonalAssistantMail_SavedVariables", 1, nil, Mail_Defaults)
 
     -- create the options with LAM-2
     PA.Mail.createOptions()

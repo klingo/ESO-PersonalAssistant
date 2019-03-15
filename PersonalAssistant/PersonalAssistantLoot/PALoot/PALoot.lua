@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAL = PA.Loot
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -176,7 +175,7 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
    if (PAHF.hasActiveProfile()) then
-        local PALootSavedVars = PASV.Loot[PA.activeProfile]
+       local PALootSavedVars = PAL.SavedVars
         local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
         -- check if addon is enabled

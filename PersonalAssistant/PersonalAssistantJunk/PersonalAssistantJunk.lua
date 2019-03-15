@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -15,7 +14,7 @@ local Junk_Defaults = {}
 
 -- only prints out PAJunk texts if chatOutput is enabled
 local function println(text, ...)
-    if PASV.Junk[PA.activeProfile].chatOutput then
+    if PA.Junk.SavedVars.chatOutput then
         PAHF.println(text, ...)
     end
 end
@@ -43,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, nil, Junk_Defaults)
+    PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", 1, nil, Junk_Defaults)
 
     -- create the options with LAM-2
     PA.Junk.createOptions()

@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAM = PA.Mail
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 
@@ -52,6 +51,7 @@ end
 
 
 local function takeAttachedItemsFromSingleMail(eventCode, mailId)
+    local PAMailSavedVars = PAM.SavedVars
 
     PAHF.debugln("PA.Mail.takeAttachedItemsFromSingleMail")
     d("PA.Mail.takeAttachedItemsFromSingleMail")
@@ -75,7 +75,7 @@ local function takeAttachedItemsFromSingleMail(eventCode, mailId)
             d(string.format("Received from Hireling Mail: %s", mailItemLink))
         end
 
-        if PASV.Mail[PA.activeProfile].hirelingDeleteEmptyMails then
+        if PAMailSavedVars.hirelingDeleteEmptyMails then
             local numAttachmentsNow = GetMailAttachmentInfo(mailId)
             if (numAttachmentsNow == 0) then
                 -- TODO: check if [forceDelete] has to be change to 'true'

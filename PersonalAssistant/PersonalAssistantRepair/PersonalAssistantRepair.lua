@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -15,7 +14,7 @@ local Repair_Defaults = {}
 
 -- only prints out PARepair texts if chatOutput is enabled
 local function println(text, ...)
-    if PASV.Repair[PA.activeProfile].chatOutput then
+    if PA.Repair.SavedVars.chatOutput then
         PAHF.println(text, ...)
     end
 end
@@ -43,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, nil, Repair_Defaults)
+    PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", 1, nil, Repair_Defaults)
 
     -- create the options with LAM-2
     PA.Repair.createOptions()

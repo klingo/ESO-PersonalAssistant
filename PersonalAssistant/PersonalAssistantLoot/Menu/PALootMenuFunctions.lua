@@ -1,12 +1,11 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PASV = PA.SavedVars
+local PAL = PA.Loot
 local PAEM = PA.EventManager
 local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local isDisabledPAGeneralNoProfileSelected = PAMF.isDisabledPAGeneralNoProfileSelected
 local getValue = PAMF.getValue
 local setValue = PAMF.setValue
 local isDisabled = PAMF.isDisabled
@@ -16,15 +15,9 @@ local isDisabled = PAMF.isDisabled
 --------------------------------------------------------------------------
 -- PALoot   enabled
 ---------------------------------
-local function getPALootEnabled()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    --    return (PASV.Loot[PA.activeProfile].enabled and not (GetSetting_Bool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)))
-    return PASV.Loot[PA.activeProfile].enabled
-end
-
 local function setPALootEnabled(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
-    PASV.Loot[PA.activeProfile].enabled = value
+    setValue(PAL.SavedVars, value, {"enabled"})
+
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
 end
@@ -32,42 +25,42 @@ end
 -- =================================================================================================================
 
 local PALootMenuFunctions = {
-    isEnabled = getPALootEnabled,
+    isEnabled = function() return getValue(PAL.SavedVars, {"enabled"}) end,
     setIsEnabled = setPALootEnabled,
 
     -- ----------------------------------------------------------------------------------
     -- RECIPES SETTINGS
     -- -----------------------------
-    isLootRecipesMenuDisabled = function() return isDisabled(PASV.Loot, {"enabled"}, {"LootRecipes", "unknownRecipeMsg"}) end,
-    isUnknownRecipeMsgDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
-    getUnknownRecipeMsgSetting = function() return getValue(PASV.Loot, {"LootRecipes", "unknownRecipeMsg"}) end,
-    setUnknownRecipeMsgSetting = function(value) setValue(PASV.Loot, value, {"LootRecipes", "unknownRecipeMsg"}) end,
+    isLootRecipesMenuDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}, {"LootRecipes", "unknownRecipeMsg"}) end,
+    isUnknownRecipeMsgDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
+    getUnknownRecipeMsgSetting = function() return getValue(PAL.SavedVars, {"LootRecipes", "unknownRecipeMsg"}) end,
+    setUnknownRecipeMsgSetting = function(value) setValue(PAL.SavedVars, value, {"LootRecipes", "unknownRecipeMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- MOTIFS SETTINGS
     -- -----------------------------
-    isLootMotifsMenuDisabled = function() return isDisabled(PASV.Loot, {"enabled"}, {"LootMotifs", "unknownMotifMsg"}) end,
-    isUnknownMotifMsgDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
-    getUnknownMotifMsgSetting = function() return getValue(PASV.Loot, {"LootMotifs", "unknownMotifMsg"}) end,
-    setUnknownMotifMsgSetting = function(value) setValue(PASV.Loot, value, {"LootMotifs", "unknownMotifMsg"}) end,
+    isLootMotifsMenuDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}, {"LootMotifs", "unknownMotifMsg"}) end,
+    isUnknownMotifMsgDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
+    getUnknownMotifMsgSetting = function() return getValue(PAL.SavedVars, {"LootMotifs", "unknownMotifMsg"}) end,
+    setUnknownMotifMsgSetting = function(value) setValue(PAL.SavedVars, value, {"LootMotifs", "unknownMotifMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS
     -- -----------------------------
-    isLootApparelWeaponsMenuDisabled = function() return isDisabled(PASV.Loot, {"enabled"}, {"LootApparelWeapons", "unknownTraitMsg"}) end,
-    isUnknownTraitMsgDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
-    getUnknownTraitMsgSetting = function() return getValue(PASV.Loot, {"LootApparelWeapons", "unknownTraitMsg"}) end,
-    setUnknownTraitMsgSetting = function(value) setValue(PASV.Loot, value, {"LootApparelWeapons", "unknownTraitMsg"}) end,
+    isLootApparelWeaponsMenuDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}, {"LootApparelWeapons", "unknownTraitMsg"}) end,
+    isUnknownTraitMsgDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
+    getUnknownTraitMsgSetting = function() return getValue(PAL.SavedVars, {"LootApparelWeapons", "unknownTraitMsg"}) end,
+    setUnknownTraitMsgSetting = function(value) setValue(PAL.SavedVars, value, {"LootApparelWeapons", "unknownTraitMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
 
-    isLowInventorySpaceWarningDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
-    getLowInventorySpaceWarningSetting = function() return getValue(PASV.Loot, {"lowInventorySpaceWarning"}) end,
-    setLowInventorySpaceWarningSetting = function(value) setValue(PASV.Loot, value, {"lowInventorySpaceWarning"}) end,
+    isLowInventorySpaceWarningDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
+    getLowInventorySpaceWarningSetting = function() return getValue(PAL.SavedVars, {"lowInventorySpaceWarning"}) end,
+    setLowInventorySpaceWarningSetting = function(value) setValue(PAL.SavedVars, value, {"lowInventorySpaceWarning"}) end,
 
-    isChatOutputDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
-    getChatOutputSetting = function() return getValue(PASV.Loot, {"chatOutput"}) end,
-    setChatOutputSetting = function(value) setValue(PASV.Loot, value, {"chatOutput"}) end,
+    isChatOutputDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
+    getChatOutputSetting = function() return getValue(PAL.SavedVars, {"chatOutput"}) end,
+    setChatOutputSetting = function(value) setValue(PAL.SavedVars, value, {"chatOutput"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

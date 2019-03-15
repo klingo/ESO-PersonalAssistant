@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -15,7 +14,7 @@ local Banking_Defaults = {}
 
 -- only prints out PABanking texts if chatOutput is enabled
 local function println(text, ...)
-    if PASV.Banking[PA.activeProfile].chatOutput then
+    if PA.Banking.SavedVars.chatOutput then
         PAHF.println(text, ...)
     end
 end
@@ -43,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", 1, nil, Banking_Defaults)
+    PA.SavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", 1, nil, Banking_Defaults)
 
     -- create the options with LAM-2
     PA.Banking.createOptions()

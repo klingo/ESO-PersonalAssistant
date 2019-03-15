@@ -1,6 +1,5 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PASV = PA.SavedVars
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -279,14 +278,15 @@ PARepair    | PersonalAssistant.SavedVars.Repair    | PersonalAssistant.Repair.S
 --]]
 local function RefreshAllSavedVarReferences(activeProfile)
     -- refreshes all profile specific SavedVars references, so the profile does not need to be read all the time
+    local PASavedVars = PA.SavedVars
     if not PA.General then PA.General = {} end
-    PA.General.SavedVars = PASV.General[activeProfile]
+    PA.General.SavedVars = PASavedVars.General[activeProfile]
 
-    if PA.Banking then PA.Banking.SavedVars = PASV.Banking[activeProfile] end
-    if PA.Junk then PA.Junk.SavedVars = PASV.Junk[activeProfile] end
-    if PA.Loot then PA.Loot.SavedVars = PASV.Loot[activeProfile] end
-    if PA.Mail then PA.Mail.SavedVars = PASV.Mail[activeProfile] end
-    if PA.Repair then PA.Repair.SavedVars = PASV.Repair[activeProfile] end
+    if PA.Banking then PA.Banking.SavedVars = PASavedVars.Banking[activeProfile] end
+    if PA.Junk then PA.Junk.SavedVars = PASavedVars.Junk[activeProfile] end
+    if PA.Loot then PA.Loot.SavedVars = PASavedVars.Loot[activeProfile] end
+    if PA.Mail then PA.Mail.SavedVars = PASavedVars.Mail[activeProfile] end
+    if PA.Repair then PA.Repair.SavedVars = PASavedVars.Repair[activeProfile] end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAJ = PA.Junk
 local PAC = PA.Constants
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 
@@ -90,11 +89,11 @@ local function _hasAdditionalChecksPassed(itemLink, itemType)
     end
 
     if savedVarsGroup ~= nil then
-        local PASVJunk = PASV.Junk[PA.activeProfile]
+        local PAJunkSavedVars = PAJ.SavedVars
         local hasSet = GetItemLinkSetInfo(itemLink, false)
         local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
-        if not hasSet or (hasSet and PASVJunk[savedVarsGroup].autoMarkIncludingSets) then
-            if not canBeResearched or (canBeResearched and PASVJunk[savedVarsGroup].autoMarkUnknownTraits) then
+        if not hasSet or (hasSet and PAJunkSavedVars[savedVarsGroup].autoMarkIncludingSets) then
+            if not canBeResearched or (canBeResearched and PAJunkSavedVars[savedVarsGroup].autoMarkUnknownTraits) then
                 return true
             end
         end
@@ -108,7 +107,7 @@ end
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
     if (PAHF.hasActiveProfile()) then
         -- check if auto-sell is enabled
-        if allowSell and PASV.Junk[PA.activeProfile].autoSellJunk then
+        if allowSell and PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = false)
             if HasAnyJunk(BAG_BACKPACK) then
                 -- set processing flag to TRUE
@@ -147,7 +146,7 @@ end
 local function OnShopOpen()
     if (PAHF.hasActiveProfile()) then
         -- check if auto-sell is enabled
-        if PASV.Junk[PA.activeProfile].autoSellJunk then
+        if PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = true)
             if HasAnyJunk(BAG_BACKPACK, true) then
                 -- set processing flag to TRUE
@@ -182,10 +181,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
     if (PAHF.hasActiveProfile()) then
         -- only proceed, if neither the crafting window nor the mailbox are NOT open (otherwise crafted/retrieved items could also be marked as junk)
         if not ZO_CraftingUtils_IsCraftingWindowOpen() and not _isMailboxOpen then
-            local PASVJunk = PASV.Junk[PA.activeProfile]
+            local PAJunkSavedVars = PAJ.SavedVars
 
             -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
-            if isNewItem and PASVJunk.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
+            if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemType and itemTrait
                 local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                 local itemType = GetItemType(bagId, slotIndex)
@@ -195,7 +194,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
                 -- first check for regular Trash
                 if itemType == ITEMTYPE_TRASH then
-                    if PASVJunk.Trash.autoMarkTrash then
+                    if PAJunkSavedVars.Trash.autoMarkTrash then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                     end
 
@@ -203,26 +202,26 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- also check if it does not have unknown traits, or if the corresponding setting is enabled
                 elseif _hasAdditionalChecksPassed(itemLink, itemType) then
                     -- check for the different itemTypes and itemTraits
-                    if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PASVJunk.Weapons.autoMarkOrnate or
-                            itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PASVJunk.Armor.autoMarkOrnate or
-                            itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PASVJunk.Jewelry.autoMarkOrnate) then
+                    if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
+                            itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
+                            itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate) then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
 
-                    elseif itemType == ITEMTYPE_WEAPON and PASVJunk.Weapons.autoMarkQuality then
-                        if itemQuality <= PASVJunk.Weapons.autoMarkQualityThreshold then
+                    elseif itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQuality then
+                        if itemQuality <= PAJunkSavedVars.Weapons.autoMarkQualityThreshold then
                             _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                         end
 
                     elseif itemType == ITEMTYPE_ARMOR then
                         if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
                             -- Jewelry
-                            if PASVJunk.Jewelry.autoMarkQuality and itemQuality <= PASVJunk.Jewelry.autoMarkQualityThreshold then
+                            if PAJunkSavedVars.Jewelry.autoMarkQuality and itemQuality <= PAJunkSavedVars.Jewelry.autoMarkQualityThreshold then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
 
                         else
                             --Apparel
-                            if PASVJunk.Armor.autoMarkQuality and itemQuality <= PASVJunk.Armor.autoMarkQualityThreshold then
+                            if PAJunkSavedVars.Armor.autoMarkQuality and itemQuality <= PAJunkSavedVars.Armor.autoMarkQualityThreshold then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
                         end

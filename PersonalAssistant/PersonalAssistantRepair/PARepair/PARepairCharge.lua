@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAR = PA.Repair
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -43,7 +42,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    local PARepairSavedVars = PASV.Repair[PA.activeProfile]
+    local PARepairSavedVars = PAR.SavedVars
 
     -- check if it is enabled
     if bagId == BAG_WORN and PARepairSavedVars.RechargeWeapons.useSoulGems then

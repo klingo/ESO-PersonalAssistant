@@ -1,6 +1,5 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PASV = PA.SavedVars
 local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
 
@@ -11,7 +10,7 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _stackBags()
-    if PASV.Banking[PA.activeProfile].autoStackBags then
+    if PAB.SavedVars.autoStackBags then
         StackBag(BAG_BANK)
         StackBag(BAG_SUBSCRIBER_BANK)
         StackBag(BAG_BACKPACK)
@@ -26,7 +25,7 @@ local function OnBankOpen()
         PA.isBankClosed = false
 
         -- check if gold deposit is enabled
-        if PASV.Banking[PA.activeProfile].Currencies.currenciesEnabled then
+        if PAB.SavedVars.Currencies.currenciesEnabled then
             -- trigger the deposit and withdrawal of gold
             PAB.depositOrWithdrawCurrencies()
         end
@@ -34,13 +33,13 @@ local function OnBankOpen()
         -- check if the different transactions are enabled and add them to the function queue (will be executed in REVERSE order)
         PAB.transactionFunctionQueue = {}
         table.insert(PAB.transactionFunctionQueue, _stackBags)
-        if PASV.Banking[PA.activeProfile].Advanced.advancedItemsEnabled then
+        if PAB.SavedVars.Advanced.advancedItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawAdvancedItems)
         end
-        if PASV.Banking[PA.activeProfile].Individual.individualItemsEnabled then
+        if PAB.SavedVars.Individual.individualItemsEnabled then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawIndividualItems)
         end
-        if PASV.Banking[PA.activeProfile].Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
+        if PAB.SavedVars.Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
             table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawCraftingItems)
         end
         table.insert(PAB.transactionFunctionQueue, _stackBags)

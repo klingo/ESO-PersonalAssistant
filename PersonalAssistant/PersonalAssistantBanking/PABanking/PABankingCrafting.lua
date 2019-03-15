@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAC = PA.Constants
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -27,8 +26,8 @@ local function depositOrWithdrawCraftingItems()
     local withdrawItemTypes = setmetatable({}, { __index = table })
 
     -- fill up the table
-    for itemType, moveConfig in pairs(PASV.Banking[PA.activeProfile].Crafting.ItemTypes) do
-        if PASV.Banking[PA.activeProfile].Crafting.TransactionSettings[moveConfig.enabledSetting] then
+    for itemType, moveConfig in pairs(PAB.SavedVars.Crafting.ItemTypes) do
+        if PAB.SavedVars.Crafting.TransactionSettings[moveConfig.enabledSetting] then
             if (moveConfig.moveMode == PAC.MOVE.DEPOSIT) then
                 depositItemTypes:insert(itemType)
             elseif (moveConfig.moveMode == PAC.MOVE.WITHDRAW) then

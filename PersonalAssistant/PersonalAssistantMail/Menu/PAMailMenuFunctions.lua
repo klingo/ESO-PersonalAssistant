@@ -1,6 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PASV = PA.SavedVars
+local PAM = PA.Mail
 local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -13,18 +13,18 @@ local isDisabled = PAMF.isDisabled
 
 local PAMailMenuFunctions = {
     isChatOutputDisabled = false, -- always enabled
-    getChatOutputSetting = function() return getValue(PASV.Mail, {"chatOutput"}) end,
-    setChatOutputSetting = function(value) setValue(PASV.Mail, value, {"chatOutput"}) end,
+    getChatOutputSetting = function() return getValue(PAM.SavedVars, {"chatOutput"}) end,
+    setChatOutputSetting = function(value) setValue(PAM.SavedVars, value, {"chatOutput"}) end,
 
     -- -----------------------------------------------------------------------------------
     -- HIRELINGS
     -- -----------------------------
-    getHirelingAutoMailEnabledSetting = function() return getValue(PASV.Mail, {"hirelingAutoMailEnabled"}) end,
-    setHirelingAutoMailEnabledSetting = function(value) setValue(PASV.Mail, value, {"hirelingAutoMailEnabled"}) end,
+    getHirelingAutoMailEnabledSetting = function() return getValue(PAM.SavedVars, {"hirelingAutoMailEnabled"}) end,
+    setHirelingAutoMailEnabledSetting = function(value) setValue(PAM.SavedVars, value, {"hirelingAutoMailEnabled"}) end,
 
-    isHirelingDeleteEmptyMailsDisabled = function() return isDisabled(PASV.Mail, {"hirelingAutoMailEnabled"}) end,
-    getHirelingDeleteEmptyMailsSetting = function() return getValue(PASV.Mail, {"hirelingDeleteEmptyMails"}) end,
-    setHirelingDeleteEmptyMailsSetting = function(value) setValue(PASV.Mail, value, {"hirelingDeleteEmptyMails"}) end,
+    isHirelingDeleteEmptyMailsDisabled = function() return isDisabled(PAM.SavedVars, {"hirelingAutoMailEnabled"}) end,
+    getHirelingDeleteEmptyMailsSetting = function() return getValue(PAM.SavedVars, {"hirelingDeleteEmptyMails"}) end,
+    setHirelingDeleteEmptyMailsSetting = function(value) setValue(PAM.SavedVars, value, {"hirelingDeleteEmptyMails"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAC = PA.Constants
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -93,7 +92,7 @@ local function depositOrWithdrawIndividualItems()
 
     -- preapre and fill the table with all individual items that needs to be transferred
     local individualItems = {}
-    local itemIdTable = PASV.Banking[PA.activeProfile].Individual.ItemIds
+    local itemIdTable = PAB.SavedVars.Individual.ItemIds
     for itemId, moveConfig in pairs(itemIdTable) do
         local operator = moveConfig.operator
         if operator ~= PAC.OPERATOR.NONE then

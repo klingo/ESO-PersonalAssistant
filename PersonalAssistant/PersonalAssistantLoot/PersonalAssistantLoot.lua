@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAEM = PA.EventManager
-local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -15,7 +14,7 @@ local Loot_Defaults = {}
 
 -- only prints out PALoot texts if chatOutput is enabled
 local function println(text, ...)
-    if PASV.Loot[PA.activeProfile].chatOutput then
+    if PA.Loot.SavedVars.chatOutput then
         PAHF.println(text, ...)
     end
 end
@@ -43,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PASV.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, nil, Loot_Defaults)
+    PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, nil, Loot_Defaults)
 
     -- create the options with LAM-2
     PA.Loot.createOptions()
