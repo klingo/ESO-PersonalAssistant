@@ -193,13 +193,23 @@ local function RefreshAllEventRegistrations()
     if (PAL) then
         -- Check if the functionality is turned on within the addon
         if (PAMenuFunctions.PALoot.isEnabled()) then
-            -- Register PALoot
+            -- Register PALoot to check looted items
             RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
             RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
             RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+
+            -- needed in order to track stacking the backpack
+            RegisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, PAL.UpdateNumBagUsedSlots)
+            RegisterFilterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
+            -- TODO. test if neede for bank?
+
+            -- needed in order to track individual sells at vendor
+            RegisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, PAL.UpdateNumBagUsedSlots)
         else
             -- Unregister PALoot
             UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+            UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG)
+            UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT)
         end
     end
 

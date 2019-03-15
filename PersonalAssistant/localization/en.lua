@@ -142,6 +142,9 @@ local PAStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "Display message if Trait is not yet researched",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = "???",
 
+    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on free space in inventory",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T ="Display a warning in the chat window if you are low on inventory space. Starting at 15% free slots, getting more frequent the closer to no free space it gets.",
+
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAMail Menu --
@@ -228,6 +231,8 @@ local PAStrings = {
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.COLORED_TEXTS.PAL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
+
+    SI_PA_PATTERN_INVENTORY_COUNT = table.concat({PAC.COLORED_TEXTS.PAL, "%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[inventory space/inventory space/inventory spaces]>> left!"}),
 
 
     -- -----------------------------------------------------------------------------------------------------------------

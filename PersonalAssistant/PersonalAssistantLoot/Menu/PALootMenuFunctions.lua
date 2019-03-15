@@ -61,6 +61,10 @@ local PALootMenuFunctions = {
 
     -- ----------------------------------------------------------------------------------
 
+    isLowInventorySpaceWarningDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
+    getLowInventorySpaceWarningSetting = function() return getValue(PASV.Loot, {"lowInventorySpaceWarning"}) end,
+    setLowInventorySpaceWarningSetting = function(value) setValue(PASV.Loot, value, {"lowInventorySpaceWarning"}) end,
+
     isChatOutputDisabled = function() return isDisabled(PASV.Loot, {"enabled"}) end,
     getChatOutputSetting = function() return getValue(PASV.Loot, {"chatOutput"}) end,
     setChatOutputSetting = function(value) setValue(PASV.Loot, value, {"chatOutput"}) end,

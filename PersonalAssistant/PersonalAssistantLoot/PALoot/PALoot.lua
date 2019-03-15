@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAL = PA.Loot
 local PASV = PA.SavedVars
 local PAHF = PA.HelperFunctions
@@ -155,6 +156,11 @@ local function GetCraftingTypeAndResearchLineIndexFromItemLink(itemLink)
     return nil
 end
 
+
+-- init with current numUsedSlots
+local _prevUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
+local _inventoryCountPattern = GetString(SI_PA_PATTERN_INVENTORY_COUNT)
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function isTraitBeingResearched(itemLink)
@@ -170,8 +176,9 @@ local function isTraitBeingResearched(itemLink)
 end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    if (PAHF.hasActiveProfile()) then
+   if (PAHF.hasActiveProfile()) then
         local PALootSavedVars = PASV.Loot[PA.activeProfile]
+        local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
         -- check if addon is enabled
         if PALootSavedVars.enabled then
@@ -221,8 +228,35 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     end
                 end
             end
+
+            -- after all itemTypes are checked, see how much space is left in bag (only if usedSlots has increased)
+            if usedSlots > _prevUsedSlots and PALootSavedVars.lowInventorySpaceWarning then
+                local freeSlots = GetNumBagFreeSlots(BAG_BACKPACK)
+                local formatted = zo_strformat(_inventoryCountPattern, freeSlots)
+                if freeSlots == 0 then
+                    -- if no free slots, have a orange-red message
+                    PAL.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
+                elseif freeSlots <= 5 then
+                    -- if at or below 5 free slots, have a orange message everytime
+                    PAL.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
+                elseif freeSlots <= 10 then
+                    -- if at or below 10 free slots, have a yellow message everytime
+                    PAL.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                end
+            end
         end
-    end
+
+       -- update the stored number of previously used slots
+       _prevUsedSlots = usedSlots end
+end
+
+
+local function UpdateNumBagUsedSlots(eventCode)
+    -- update the number of used stacks in case player does stack all items in backpack
+    -- should be updated 100ms after event was triggered (during test it took ~30ms until value was correct)
+    zo_callLater(function()
+        _prevUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
+    end, 100)
 end
 
 
@@ -232,3 +266,4 @@ PA.Loot = PA.Loot or {}
 PA.Loot.TraitIndexFromItemTraitType = TraitIndexFromItemTraitType
 PA.Loot.isTraitBeingResearched = isTraitBeingResearched
 PA.Loot.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
+PA.Loot.UpdateNumBagUsedSlots = UpdateNumBagUsedSlots

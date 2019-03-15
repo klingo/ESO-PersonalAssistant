@@ -5,7 +5,6 @@ local PA = PersonalAssistant
 
 local PALootMenuDefaults = {
     enabled = false,
-    chatOutput = true,
 
     LootRecipes = {
         unknownRecipeMsg = true
@@ -17,7 +16,10 @@ local PALootMenuDefaults = {
 
     LootApparelWeapons = {
         unknownTraitMsg = true,
-    }
+    },
+
+    lowInventorySpaceWarning = true,
+    chatOutput = true,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

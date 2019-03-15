@@ -70,6 +70,16 @@ local function _createPALootMenu()
 
     PALootOptionsTable:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING),
+        tooltip = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T),
+        getFunc = PAMenuFunctions.PALoot.getLowInventorySpaceWarningSetting,
+        setFunc = PAMenuFunctions.PALoot.setLowInventorySpaceWarningSetting,
+        disabled = PAMenuFunctions.PALoot.isLowInventorySpaceWarningDisabled,
+        default = PAMenuDefaults.PALoot.lowInventorySpaceWarning,
+    })
+
+    PALootOptionsTable:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
         tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
         getFunc = PAMenuFunctions.PALoot.getChatOutputSetting,
