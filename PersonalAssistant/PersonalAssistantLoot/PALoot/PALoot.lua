@@ -122,7 +122,6 @@ local JewelcraftingEquipTypes = {
     [EQUIP_TYPE_NECK] = true,
 }
 
-
 local function GetCraftingTypeAndResearchLineIndexFromItemLink(itemLink)
     local itemType = GetItemLinkItemType(itemLink)
     -- Apparel

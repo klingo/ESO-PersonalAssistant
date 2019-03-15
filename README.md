@@ -53,6 +53,7 @@ How to read:
 * [X] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
     * http://www.esoui.com/forums/showthread.php?p=7988
     * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
+* [ ] **(4)** Refactoring of EventManager
 * [ ] **(4)** Check Currency Formatting
     * https://wiki.esoui.com/Currency_Formatting
 * [X] **(5)** Update Addon Manifest
@@ -85,6 +86,8 @@ How to read:
     GetAddOnVersion(addOnIndex) – version.
     ```
   
+  
+
 #### PARepair
 * [X] **(3)** PARepair: Implement Repair Kits
 * [X] **(3)** PARepair: Check API
@@ -107,7 +110,6 @@ How to read:
     RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)       
     ```
 * [ ] **(5)** PARepair: Add Notification Options (Individual Options & Overall Silent-Mode)
-
 
 #### PABanking
 * [X] **(1)** PABanking: Refactor regarding inventory-loop  
@@ -152,9 +154,7 @@ How to read:
 * [X] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
 * [ ] **(5)** PABAnking: Add Notification Options (Individual Options & Overall Silent-Mode)
 
-
 #### PALoot
-* [ ] **(3)** PALoot: With ESO-Loot enabled, offer option to auto-loot stolen items only when hidden (if that ESO-setting is disabled)
 * [ ] **(4)** PALoot: Inventory Size Warning
 * [X] **(4)** PALoot: Harvestable Items - Add Jewelcrafting items --> No longer needed
 * [X] **(4)** PALoot: Check API --> No longer needed
@@ -183,7 +183,6 @@ How to read:
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT_STOLEN)
         *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_LOOT_HISTORY)
 
-
 #### PAJunk
 * [X] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
 * [X] **(2)** PAJunk: Notification for junk items, even if they are already marked as junk
@@ -194,6 +193,7 @@ How to read:
 
    
 ***
+
 
 ## Development ToDo (later)
 
@@ -227,6 +227,26 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
 
 
 #### PALoot
+* [ ] **(3)** PALoot: With ESO-Loot enabled, offer option to auto-loot stolen items only when hidden (if that ESO-setting is disabled)
+    ```lua
+    GetUnitStealthState(string unitTag)
+          Returns: number stealthState
+       
+    EVENT_LOOT_UPDATED
+    GetInteractionType()
+          Returns: number InteractionType interactMode 
+          INTERACTION_PICKPOCKET
+          INTERACTION_LOOT
+        
+    GetNumLootItems()
+          Returns: number count 
+    GetLootItemInfo(number lootIndex)
+          Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType lootType 
+    LootItemById(number lootId) 
+    GetLootMoney()
+          Returns: number unownedMoney, number ownedMoney 
+    LootMoney() 
+    ```
 * [ ] **(6)** PALoot: Add option to select certain Sets; if looted show notification and auto-lock item
 
 
@@ -266,6 +286,10 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
     TakeMailAttachedMoney(id64 mailId)   
     DeleteMail(id64 mailId, boolean forceDelete)     
     CloseMailbox()            
+    ```
+* [X] **(9)** PAMail: Check API
+    ```lua
+    EVENT_NEW_DAILY_LOGIN_REWARD_AVAILABLE (number eventCode)          
     ```
 
 #### PAWorker

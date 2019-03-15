@@ -171,7 +171,7 @@ local function RefreshAllEventRegistrations()
     end
 
     -- Check if the Addon 'PABanking' is even enabled
-    if (PAB) then
+    if PAB then
         -- Check if the functionality is turned on within the addon
         local PABMenuFunctions = PAMenuFunctions.PABanking
         if (PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
@@ -190,7 +190,7 @@ local function RefreshAllEventRegistrations()
 
 
     -- Check if the Addon 'PAloot' is even enabled
-    if (PAL) then
+    if PAL then
         -- Check if the functionality is turned on within the addon
         if (PAMenuFunctions.PALoot.isEnabled()) then
             -- Register PALoot to check looted items
@@ -215,7 +215,7 @@ local function RefreshAllEventRegistrations()
 
 
     -- Check if the Addon 'PAJunk' is even enabled
-    if (PAJ) then
+    if PAJ then
         -- Check if the functionality is turned on within the addon
         if (PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
             -- Register PAJunk for looting junk items
@@ -244,7 +244,7 @@ local function RefreshAllEventRegistrations()
     end
 
     -- Check if the Addon 'PAMail' is even enabled
-    if (PAM) then
+    if PAM then
         -- Check if the functionality is turned on within the addon
         local PAMMenuFunctions = PAMenuFunctions.PAMail
         if PAMMenuFunctions.getHirelingAutoMailEnabledSetting() then
