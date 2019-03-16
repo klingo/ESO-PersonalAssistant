@@ -187,7 +187,6 @@ How to read:
 * [X] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
 * [X] **(2)** PAJunk: Notification for junk items, even if they are already marked as junk
 * [X] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
-* [ ] **(4)** PAJunk: Auto-Junk "bad" default potions/poisons as well as drinks & food without any buffs 
 * [ ] **(5)** PAJunk: Add Notification Options (Individual Options & Overall Silent-Mode)
 
 
@@ -257,6 +256,7 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
   * www.esoui.com/forums/showthread.php?t=6987
 * [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
 * [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
+* [ ] **(4)** PAJunk: Auto-Junk "bad" default potions/poisons as well as drinks & food without any buffs 
 
 
 #### PAMail
