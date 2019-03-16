@@ -92,6 +92,11 @@ local PAJunkMenuFunctions = {
     getTrashAutoMarkSetting = function() return getValue(PAJ.SavedVars, {"Trash", "autoMarkTrash"}) end,
     setTrashAutoMarkSetting = function(value) setValue(PAJ.SavedVars, value, {"Trash", "autoMarkTrash"}) end,
 
+    isCollectiblesMenuDisabled = function() return isDisabled(PAJ.SavedVars, {"autoMarkAsJunkEnabled"}, {"Collectibles", "autoMarkSellToMerchant"}) end,
+    isAutoMarkSellToMerchantDisabled = function() return isDisabled(PAJ.SavedVars, {"autoMarkAsJunkEnabled"}) end,
+    getAutoMarkSellToMerchantSetting = function() return getValue(PAJ.SavedVars, {"Collectibles", "autoMarkSellToMerchant"}) end,
+    setAutoMarkSellToMerchantSetting = function(value) setValue(PAJ.SavedVars, value, {"Collectibles", "autoMarkSellToMerchant"}) end,
+
     isWeaponsMenuDisabled = isPAJunkWeaponsMenuDisabled,
     isWeaponsAutoMarkOrnateDisabled = function() return isDisabled(PAJ.SavedVars, {"autoMarkAsJunkEnabled"}) end,
     getWeaponsAutoMarkOrnateSetting = function() return getValue(PAJ.SavedVars, {"Weapons", "autoMarkOrnate"}) end,

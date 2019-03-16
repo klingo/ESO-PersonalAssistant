@@ -165,6 +165,12 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         d("isPartOfCollection="..tostring(isPartOfCollection))
         d("isKnown="..tostring(isKnown))
 
+        local flavorText = GetItemLinkFlavorText(itemLink)
+        d("flavorText="..tostring(flavorText))
+
+        local sellInformation = GetItemLinkSellInformation(itemLink)
+        d("sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
+
 
         --        local traitIndex = PA.Loot.TraitIndexFromItemTraitType[traitType]
 --        if traitIndex ~= nil and type(traitIndex) == "number" then

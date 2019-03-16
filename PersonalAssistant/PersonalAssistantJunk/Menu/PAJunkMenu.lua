@@ -22,6 +22,7 @@ local PAJunkPanelData = {
 local PAJunkOptionsTable = setmetatable({}, { __index = table })
 
 local PAJTrashSubMenu = setmetatable({}, { __index = table })
+local PAJCollectiblesSubMenu = setmetatable({}, { __index = table })
 local PAJWeaponsSubMenu = setmetatable({}, { __index = table })
 local PAJArmorSubMenu = setmetatable({}, { __index = table })
 local PAJJewelrySubMenu = setmetatable({}, { __index = table })
@@ -54,6 +55,13 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_TRASH_HEADER),
         controls = PAJTrashSubMenu,
         disabled = PAMenuFunctions.PAJunk.isTrashMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_HEADER),
+        controls = PAJCollectiblesSubMenu,
+        disabled = PAMenuFunctions.PAJunk.isCollectiblesMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -112,6 +120,20 @@ local function _createPAJTrashSubMenu()
     })
 
     -- TODO: mark junk food
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAJCollectiblesSubMenu()
+    PAJCollectiblesSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK),
+        tooltip = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T),
+        getFunc = PAMenuFunctions.PAJunk.getAutoMarkSellToMerchantSetting,
+        setFunc = PAMenuFunctions.PAJunk.setAutoMarkSellToMerchantSetting,
+        disabled = PAMenuFunctions.PAJunk.isAutoMarkSellToMerchantDisabled,
+        default = PAMenuDefaults.PAJunk.Collectibles.autoMarkSellToMerchant,
+    })
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -318,6 +340,7 @@ local function createOptions()
     _createPAJunkMenu()
 
     _createPAJTrashSubMenu()
+    _createPAJCollectiblesSubMenu()
     _createPAJWeaponsSubMenu()
     _createPAJArmorSubMenu()
     _createPAJJewelrySubMenu()

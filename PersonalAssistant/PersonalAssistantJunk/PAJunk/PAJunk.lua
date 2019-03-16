@@ -188,9 +188,6 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- get the itemType and itemTrait
                 local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                 local itemType = GetItemType(bagId, slotIndex)
-                local itemTrait = GetItemTrait(bagId, slotIndex)
-                local itemQuality = GetItemQuality(bagId, slotIndex)
-                local itemEquipType = GetItemLinkEquipType(itemLink)
 
                 -- first check for regular Trash
                 if itemType == ITEMTYPE_TRASH then
@@ -201,6 +198,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- then check if it is not a Set, or if it is that the corresponding setting is enabled
                 -- also check if it does not have unknown traits, or if the corresponding setting is enabled
                 elseif _hasAdditionalChecksPassed(itemLink, itemType) then
+                    local itemTrait = GetItemTrait(bagId, slotIndex)
+                    local itemQuality = GetItemQuality(bagId, slotIndex)
                     -- check for the different itemTypes and itemTraits
                     if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
                             itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
@@ -213,6 +212,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         end
 
                     elseif itemType == ITEMTYPE_ARMOR then
+                        local itemEquipType = GetItemLinkEquipType(itemLink)
                         if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
                             -- Jewelry
                             if PAJunkSavedVars.Jewelry.autoMarkQuality and itemQuality <= PAJunkSavedVars.Jewelry.autoMarkQualityThreshold then
@@ -227,6 +227,13 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         end
                     end
                     -- TODO: check for other item types etc.
+                else
+                    local sellInformation = GetItemLinkSellInformation(itemLink)
+                    if sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
+                        if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                        end
+                    end
                 end
             end
         end

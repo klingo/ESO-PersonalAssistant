@@ -10,6 +10,9 @@ local PAJunkMenuDefaults = {
     Trash = {
         autoMarkTrash = true,
     },
+    Collectibles = {
+        autoMarkSellToMerchant = false,
+    },
     Weapons = {
         autoMarkOrnate = true,
         autoMarkQuality = false,
