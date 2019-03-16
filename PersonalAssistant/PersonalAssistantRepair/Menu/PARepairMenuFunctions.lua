@@ -68,6 +68,10 @@ local PARepairMenuFunctions = {
     getLowRepairKitWarningSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "lowRepairKitWarning"}) end,
     setLowRepairKitWarningSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "lowRepairKitWarning"}) end,
 
+    isLowRepairKitThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}, {"RepairEquipped", "lowRepairKitWarning"}) end,
+    getLowRepairKitThresholdSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "lowRepairKitThreshold"}) end,
+    setLowRepairKitThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "lowRepairKitThreshold"}) end,
+
     -- TODO: Chat Mode
 
     -- -----------------------------------------------------------------------------------
@@ -81,6 +85,10 @@ local PARepairMenuFunctions = {
     isLowSoulGemWarningDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
     getLowSoulGemWarningSetting = function() return getValue(PAR.SavedVars, {"RechargeWeapons", "lowSoulGemWarning"}) end,
     setLowSoulGemWarningSetting = function(value) setValue(PAR.SavedVars, value, {"RechargeWeapons", "lowSoulGemWarning"}) end,
+
+    isLowSoulGemThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}, {"RechargeWeapons", "lowSoulGemWarning"}) end,
+    getLowSoulGemThresholdSetting = function() return getValue(PAR.SavedVars, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
+    setLowSoulGemThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

@@ -231,15 +231,19 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             if usedSlots > _prevUsedSlots and PALootSavedVars.lowInventorySpaceWarning then
                 local freeSlots = GetNumBagFreeSlots(BAG_BACKPACK)
                 local formatted = zo_strformat(_inventoryCountPattern, freeSlots)
+                local lowInventorySpaceThreshold = PALootSavedVars.lowInventorySpaceThreshold
+
                 if freeSlots == 0 then
                     -- if no free slots, have a orange-red message
                     PAL.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
-                elseif freeSlots <= 5 then
-                    -- if at or below 5 free slots, have a orange message
-                    PAL.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
-                elseif freeSlots <= 10 then
-                    -- if at or below 10 free slots, have a yellow message
-                    PAL.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                elseif freeSlots <= lowInventorySpaceThreshold then
+                    if freeSlots <= 5 then
+                        -- if at or below 5 free slots, have a orange message
+                        PAL.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
+                    else
+                        -- in all other cases, have a yellow message
+                        PAL.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                    end
                 end
             end
         end

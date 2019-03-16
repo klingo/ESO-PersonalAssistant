@@ -20,6 +20,7 @@ local PARepairMenuDefaults = {
         repairWithCrownRepairKitThreshold = 25,
 
         lowRepairKitWarning = true,
+        lowRepairKitThreshold = 10,
     },
 
     -- ---------------------------------------------
@@ -27,6 +28,7 @@ local PARepairMenuDefaults = {
     RechargeWeapons = {
         useSoulGems = false,
         lowSoulGemWarning = true,
+        lowSoulGemThreshold = 10,
     },
 }
 

@@ -72,10 +72,25 @@ local function _createPALootMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING),
         tooltip = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T),
+        width = "half",
         getFunc = PAMenuFunctions.PALoot.getLowInventorySpaceWarningSetting,
         setFunc = PAMenuFunctions.PALoot.setLowInventorySpaceWarningSetting,
         disabled = PAMenuFunctions.PALoot.isLowInventorySpaceWarningDisabled,
         default = PAMenuDefaults.PALoot.lowInventorySpaceWarning,
+    })
+
+    PALootOptionsTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T),
+        min = 0,
+        max = GetNumBagFreeSlots(BAG_BACKPACK) + GetNumBagUsedSlots(BAG_BACKPACK),
+        step = 1,
+        width = "half",
+        getFunc = PAMenuFunctions.PALoot.getLowInventorySpaceThresholdSetting,
+        setFunc = PAMenuFunctions.PALoot.setLowInventorySpaceThresholdSetting,
+        disabled = PAMenuFunctions.PALoot.isLowInventorySpaceThresholdDisabled,
+        default = PAMenuDefaults.PALoot.lowInventorySpaceThreshold,
     })
 
     PALootOptionsTable:insert({

@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAR = PA.Repair
 local PAHF = PA.HelperFunctions
 
@@ -61,6 +62,8 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
                 -- check remaining repair kits
                 if totalRepairKitCount <= 10 and PARepairSavedVars.RepairEquipped.lowRepairKitWarning then
                     local formatted = zo_strformat(_repairKitCountPattern, totalRepairKitCount)
+                    local lowRepairKitThreshold = PARepairSavedVars.RepairEquipped.lowRepairKitThreshold
+
                     if totalRepairKitCount == 0 then
                         -- if no repair kits left, have a orange-red message (but only every 10 minutes)
                         local gameTimeMilliseconds = GetGameTimeMilliseconds()
@@ -70,24 +73,19 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
                             _lastNoRepairKitWarningGameTime = gameTimeMilliseconds
                             PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
                         end
-                    elseif totalRepairKitCount <= 5 then
-                        -- if at or below 5 soul gems, have a orange message
-                        PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
-                    elseif totalRepairKitCount <= 10 then
-                        -- if at or below 10 free slots, have a yellow message
-                        PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                    elseif totalRepairKitCount <= lowRepairKitThreshold then
+                        if totalRepairKitCount <= 5 then
+                            -- if at or below 5 soul gems, have a orange message
+                            PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
+                        else
+                            -- in all other cases, have a yellow message
+                            PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                        end
                     end
                 end
             end
         end
      end
-
-
---    GetAmountRepairKitWouldRepairItem(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)
---    Returns: number amountRepaired
-
---    RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)
-
 end
 
 

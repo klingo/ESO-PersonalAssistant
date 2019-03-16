@@ -155,7 +155,7 @@ How to read:
 * [ ] **(5)** PABAnking: Add Notification Options (Individual Options & Overall Silent-Mode)
 
 #### PALoot
-* [ ] **(4)** PALoot: Inventory Size Warning
+* [X] **(4)** PALoot: Inventory Size Warning
 * [X] **(4)** PALoot: Harvestable Items - Add Jewelcrafting items --> No longer needed
 * [X] **(4)** PALoot: Check API --> No longer needed
     ```lua

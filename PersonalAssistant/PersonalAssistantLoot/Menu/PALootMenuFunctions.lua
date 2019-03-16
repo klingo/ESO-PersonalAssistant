@@ -58,6 +58,10 @@ local PALootMenuFunctions = {
     getLowInventorySpaceWarningSetting = function() return getValue(PAL.SavedVars, {"lowInventorySpaceWarning"}) end,
     setLowInventorySpaceWarningSetting = function(value) setValue(PAL.SavedVars, value, {"lowInventorySpaceWarning"}) end,
 
+    isLowInventorySpaceThresholdDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}, {"lowInventorySpaceWarning"}) end,
+    getLowInventorySpaceThresholdSetting = function() return getValue(PAL.SavedVars, {"lowInventorySpaceThreshold"}) end,
+    setLowInventorySpaceThresholdSetting = function(value) setValue(PAL.SavedVars, value, {"lowInventorySpaceThreshold"}) end,
+
     isChatOutputDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
     getChatOutputSetting = function() return getValue(PAL.SavedVars, {"chatOutput"}) end,
     setChatOutputSetting = function(value) setValue(PAL.SavedVars, value, {"chatOutput"}) end,

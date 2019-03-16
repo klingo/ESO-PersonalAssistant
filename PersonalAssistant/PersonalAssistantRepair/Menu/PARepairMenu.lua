@@ -167,10 +167,25 @@ local function _createPARRepairKitSubmenuTable()
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING),
         tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T),
+        width = "half",
         getFunc = PAMenuFunctions.PARepair.getLowRepairKitWarningSetting,
         setFunc = PAMenuFunctions.PARepair.setLowRepairKitWarningSetting,
         disabled = PAMenuFunctions.PARepair.isLowRepairKitWarningDisabled,
         default = PAMenuDefaults.PARepair.RepairEquipped.lowRepairKitWarning,
+    })
+
+    PARRepairKitSubmenuTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T),
+        min = 0,
+        max = 200,
+        step = 1,
+        width = "half",
+        getFunc = PAMenuFunctions.PARepair.getLowRepairKitThresholdSetting,
+        setFunc = PAMenuFunctions.PARepair.setLowRepairKitThresholdSetting,
+        disabled = PAMenuFunctions.PARepair.isLowRepairKitThresholdDisabled,
+        default = PAMenuDefaults.PARepair.RechargeWeapons.lowRepairKitThreshold,
     })
 end
 
@@ -191,10 +206,25 @@ local function _createPARRechargeSubmenuTable()
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING),
         tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T),
+        width = "half",
         getFunc = PAMenuFunctions.PARepair.getLowSoulGemWarningSetting,
         setFunc = PAMenuFunctions.PARepair.setLowSoulGemWarningSetting,
         disabled = PAMenuFunctions.PARepair.isLowSoulGemWarningDisabled,
         default = PAMenuDefaults.PARepair.RechargeWeapons.lowSoulGemWarning,
+    })
+
+    PARRechargeSubmenuTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T),
+        min = 0,
+        max = 200,
+        step = 1,
+        width = "half",
+        getFunc = PAMenuFunctions.PARepair.getLowSoulGemThresholdSetting,
+        setFunc = PAMenuFunctions.PARepair.setLowSoulGemThresholdSetting,
+        disabled = PAMenuFunctions.PARepair.isLowSoulGemThresholdDisabled,
+        default = PAMenuDefaults.PARepair.RechargeWeapons.lowSoulGemThreshold,
     })
 end
 

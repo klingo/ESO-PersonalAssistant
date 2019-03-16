@@ -142,8 +142,10 @@ local PAStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "Display message if Trait is not yet researched",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = "???",
 
-    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on free space in inventory",
-    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T ="Display a warning in the chat window if you are low on inventory space. Starting at 15% free slots, getting more frequent the closer to no free space it gets.",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on inventory space",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T ="Display a warning in the chat window if you are low on inventory space",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Inventory space threshold",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T = "If the remaining free inventory space is below this threshold, a message is displayed in the chat window",
 
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -179,7 +181,9 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY = "Avg. durability threshold in %",
     SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T = "Repair ALL equipped items only if they are on average at or below the defined durability threshold.",
     SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING = table.concat({"Warn when low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
-    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), ". If you have none left, it will only warn max once every 10 minutes"}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), ". If you have none left, it will warn you once every 10 minutes at most."}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD = "Repair Kit threshold",
+    SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T = table.concat({"If the remaining amount of ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " is below this threshold, a message is displayed in the chat window"}),
 
     SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Recharge equipped weapons with ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), "?"}),
@@ -187,7 +191,9 @@ local PAStrings = {
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
     SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM))}),
-    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), ". If you have none left, it will only warn max once every 10 minutes"}),
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), ". If you have none left, it will warn you once every 10 minutes at most."}),
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD = table.concat({GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM), " threshold"}),
+    SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T = table.concat({"If the remaining amount of ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)), " is below this threshold, a message is displayed in the chat window"}),
 
 
     -- -----------------------------------------------------------------------------------------------------------------

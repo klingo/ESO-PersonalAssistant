@@ -19,6 +19,7 @@ local PALootMenuDefaults = {
     },
 
     lowInventorySpaceWarning = true,
+    lowInventorySpaceThreshold = 10,
     chatOutput = true,
 }
 

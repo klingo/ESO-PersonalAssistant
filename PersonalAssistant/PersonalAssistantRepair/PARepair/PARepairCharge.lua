@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAR = PA.Repair
 local PAHF = PA.HelperFunctions
 
@@ -78,6 +79,8 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                 -- check remaining soul gems
                 if totalGemCount <= 10 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
                     local formatted = zo_strformat(_soulGemCountPattern, totalGemCount)
+                    local lowSoulGemThreshold = PARepairSavedVars.RechargeWeapons.lowSoulGemThreshold
+
                     if totalGemCount == 0 then
                         -- if no soul gems left, have a orange-red message (but only every 10 minutes)
                         local gameTimeMilliseconds = GetGameTimeMilliseconds()
@@ -87,12 +90,14 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                             _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
                             PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
                         end
-                    elseif totalGemCount <= 5 then
-                        -- if at or below 5 soul gems, have a orange message
-                        PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
-                    elseif totalGemCount <= 10 then
-                        -- if at or below 10 free slots, have a yellow message
-                        PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                    elseif totalGemCount <= lowSoulGemThreshold then
+                        if totalGemCount <= 5 then
+                            -- if at or below 5 soul gems, have a orange message
+                            PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
+                        else
+                            -- in all other cases, have a yellow message
+                            PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                        end
                     end
                 end
             end
