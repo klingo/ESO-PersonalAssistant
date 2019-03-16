@@ -12,9 +12,9 @@ local Repair_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- only prints out PARepair texts if chatOutput is enabled
+-- only prints out PARepair texts if silentMode is disabled
 local function println(text, ...)
-    if PA.Repair.SavedVars.chatOutput then
+    if not PA.Repair.SavedVars.silentMode then
         PAHF.println(text, ...)
     end
 end

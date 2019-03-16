@@ -95,12 +95,12 @@ local function _createPALootMenu()
 
     PALootOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
-        getFunc = PAMenuFunctions.PALoot.getChatOutputSetting,
-        setFunc = PAMenuFunctions.PALoot.setChatOutputSetting,
-        disabled = PAMenuFunctions.PALoot.isChatOutputDisabled,
-        default = PAMenuDefaults.PALoot.chatOutput,
+        name = GetString(SI_PA_MENU_SILENT_MODE),
+        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
+        getFunc = PAMenuFunctions.PALoot.getSilentModeSetting,
+        setFunc = PAMenuFunctions.PALoot.setSilentModeSetting,
+        disabled = PAMenuFunctions.PALoot.isSilentModeDisabled,
+        default = PAMenuDefaults.PALoot.silentMode,
     })
 end
 

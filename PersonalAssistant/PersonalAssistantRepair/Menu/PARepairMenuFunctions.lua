@@ -27,10 +27,6 @@ local PARepairMenuFunctions = {
     getAutoRepairEnabledSetting = function() return getValue(PAR.SavedVars, {"autoRepairEnabled"}) end,
     setAutoRepairEnabledSetting = setPARepairEnabled,
 
-    isChatOutputDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}) end,
-    getChatOutputSetting = function() return getValue(PAR.SavedVars, {"chatOutput"}) end,
-    setChatOutputSetting = function(value) setValue(PAR.SavedVars, value, {"chatOutput"}) end,
-
     -- -----------------------------------------------------------------------------------
     -- REPAIR WITH GOLD
     -- -----------------------------
@@ -88,6 +84,14 @@ local PARepairMenuFunctions = {
     isLowSoulGemThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}, {"RechargeWeapons", "lowSoulGemWarning"}) end,
     getLowSoulGemThresholdSetting = function() return getValue(PAR.SavedVars, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
     setLowSoulGemThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
+
+    -- -----------------------------------------------------------------------------------
+    -- SILENT MODE
+    -- -----------------------------
+    isSilentModeDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}) end,
+    getSilentModeSetting = function() return getValue(PAR.SavedVars, {"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(PAR.SavedVars, value, {"silentMode"}) end,
+
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

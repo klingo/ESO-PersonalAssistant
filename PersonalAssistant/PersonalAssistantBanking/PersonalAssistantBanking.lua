@@ -12,9 +12,9 @@ local Banking_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- only prints out PABanking texts if chatOutput is enabled
+-- only prints out PABanking texts if silentMode is disabled
 local function println(text, ...)
-    if PA.Banking.SavedVars.chatOutput then
+    if not PA.Banking.SavedVars.silentMode then
         PAHF.println(text, ...)
     end
 end

@@ -62,9 +62,9 @@ local PALootMenuFunctions = {
     getLowInventorySpaceThresholdSetting = function() return getValue(PAL.SavedVars, {"lowInventorySpaceThreshold"}) end,
     setLowInventorySpaceThresholdSetting = function(value) setValue(PAL.SavedVars, value, {"lowInventorySpaceThreshold"}) end,
 
-    isChatOutputDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
-    getChatOutputSetting = function() return getValue(PAL.SavedVars, {"chatOutput"}) end,
-    setChatOutputSetting = function(value) setValue(PAL.SavedVars, value, {"chatOutput"}) end,
+    isSilentModeDisabled = function() return isDisabled(PAL.SavedVars, {"enabled"}) end,
+    getSilentModeSetting = function() return getValue(PAL.SavedVars, {"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(PAL.SavedVars, value, {"silentMode"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

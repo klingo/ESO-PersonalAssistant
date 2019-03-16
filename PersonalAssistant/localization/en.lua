@@ -202,8 +202,9 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
-    SI_PA_MENU_CHAT_OUTPUT_ENABLE = "Enable Chat Output",
-    SI_PA_MENU_CHAT_OUTPUT_ENABLE_T = "Should information about actions from the addon be printed to the chat?",
+    SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
+    SI_PA_MENU_SILENT_MODE_T = "If Silent Mode is enabled, no messages from this Addon will be displayed in the chat anymore",
+    -- TODO: make this specific per addon
 
     SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
 
@@ -297,16 +298,6 @@ local PAStrings = {
     SI_PA_NS_BAG_BANK = "Bank",
     SI_PA_NS_BAG_SUBSCRIBER_BANK = "Subscriber Bank",
     SI_PA_NS_BAG_UNKNOWN = "Unknown",
-
-
-    -- =================================================================================================================
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- CURRENTLY NOT USED --
-    -- TODO. check if texts can be reused for chat output enable/disable
-    PABMenu_HideNoDeposit = "Hide 'Nothing to Deposit' message",
-    PABMenu_HideNoDeposit_T = "Hide 'Nothing to Deposit' message. You will see a message if there is something to deposit, though.",
-    PABMenu_HideAll = "Hide ALL banking messages",
-    PABMenu_HideAll_T = "Silent-Mode: No banking message will be displayed. You also won't see your deposited gold/items.",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- TODO: to be removed below?

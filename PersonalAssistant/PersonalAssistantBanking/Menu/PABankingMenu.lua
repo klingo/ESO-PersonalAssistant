@@ -421,12 +421,12 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
-        getFunc = PAMenuFunctions.PABanking.getChatOutputSetting,
-        setFunc = PAMenuFunctions.PABanking.setChatOutputSetting,
-        disabled = PAMenuFunctions.PABanking.isChatOutputDisabled,
-        default = PAMenuDefaults.PABanking.chatOutput,
+        name = GetString(SI_PA_MENU_SILENT_MODE),
+        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
+        getFunc = PAMenuFunctions.PABanking.getSilentModeSetting,
+        setFunc = PAMenuFunctions.PABanking.setSilentModeSetting,
+        disabled = PAMenuFunctions.PABanking.isSilentModeDisabled,
+        default = PAMenuDefaults.PABanking.silentMode,
     })
 end
 

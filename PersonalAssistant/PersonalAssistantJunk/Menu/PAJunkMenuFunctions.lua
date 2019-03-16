@@ -78,10 +78,6 @@ local PAJunkMenuFunctions = {
     getAutoMarkAsJunkEnabledSetting = function() return getValue(PAJ.SavedVars, {"autoMarkAsJunkEnabled"}) end,
     setAutoMarkAsJunkEnabledSetting = setPAJunkAutoMarkAsJunkEnabledSetting,
 
-    isChatOutputDisabled = function() return false end, -- TODO: currently always enabled
-    getChatOutputSetting = function() return getValue(PAJ.SavedVars, {"chatOutput"}) end,
-    setChatOutputSetting = function(value) setValue(PAJ.SavedVars, value, {"chatOutput"}) end,
-
     -- ----------------------------------------------------------------------------------
     -- AUTO MARK JUNK
     -- -----------------------------
@@ -154,6 +150,14 @@ local PAJunkMenuFunctions = {
     isAutoSellJunkDisabled = function() return false end, -- TODO: currently always enabled
     getAutoSellJunkSetting = function() return getValue(PAJ.SavedVars, {"autoSellJunk"}) end,
     setAutoSellJunkSetting = function(value) setValue(PAJ.SavedVars, value, {"autoSellJunk"}) end,
+
+    -- ----------------------------------------------------------------------------------
+    -- SILENT MODE
+    -- -----------------------------
+    isSilentModeDisabled = function() return false end, -- TODO: currently always enabled
+    getSilentModeSetting = function() return getValue(PAJ.SavedVars, {"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(PAJ.SavedVars, value, {"silentMode"}) end,
+
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

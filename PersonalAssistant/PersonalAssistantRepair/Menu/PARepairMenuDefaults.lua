@@ -5,7 +5,6 @@ local PA = PersonalAssistant
 
 local PARepairMenuDefaults = {
     autoRepairEnabled = true,
-    chatOutput = true,
 
     -- ---------------------------------------------
 
@@ -30,6 +29,10 @@ local PARepairMenuDefaults = {
         lowSoulGemWarning = true,
         lowSoulGemThreshold = 10,
     },
+
+    -- ---------------------------------------------
+
+    silentMode = false,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

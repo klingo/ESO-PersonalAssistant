@@ -4,10 +4,10 @@ local PA = PersonalAssistant
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PAMailMenuDefaults = {
-    chatOutput = true,
-
     hirelingAutoMailEnabled = false,
     hirelingDeleteEmptyMails = false,
+
+    silentMode = false,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

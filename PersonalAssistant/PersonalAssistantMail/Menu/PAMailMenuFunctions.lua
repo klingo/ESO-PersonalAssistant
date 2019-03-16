@@ -12,10 +12,6 @@ local isDisabled = PAMF.isDisabled
 -- =================================================================================================================
 
 local PAMailMenuFunctions = {
-    isChatOutputDisabled = false, -- always enabled
-    getChatOutputSetting = function() return getValue(PAM.SavedVars, {"chatOutput"}) end,
-    setChatOutputSetting = function(value) setValue(PAM.SavedVars, value, {"chatOutput"}) end,
-
     -- -----------------------------------------------------------------------------------
     -- HIRELINGS
     -- -----------------------------
@@ -25,6 +21,13 @@ local PAMailMenuFunctions = {
     isHirelingDeleteEmptyMailsDisabled = function() return isDisabled(PAM.SavedVars, {"hirelingAutoMailEnabled"}) end,
     getHirelingDeleteEmptyMailsSetting = function() return getValue(PAM.SavedVars, {"hirelingDeleteEmptyMails"}) end,
     setHirelingDeleteEmptyMailsSetting = function(value) setValue(PAM.SavedVars, value, {"hirelingDeleteEmptyMails"}) end,
+
+    -- -----------------------------------------------------------------------------------
+    -- SILENT MODE
+    -- -----------------------------
+    isSilentModeDisabled = false, -- always enabled
+    getSilentModeSetting = function() return getValue(PAM.SavedVars, {"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(PAM.SavedVars, value, {"silentMode"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

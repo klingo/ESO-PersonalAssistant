@@ -271,10 +271,6 @@ end
 
 -- =================================================================================================================
 local PABankingMenuFunctions = {
-    isChatOutputDisabled = false, -- always enabled
-    getChatOutputSetting = function() return getValue(PAB.SavedVars, {"chatOutput"}) end,
-    setChatOutputSetting = function(value) setValue(PAB.SavedVars, value, {"chatOutput"}) end,
-
     -- -----------------------------------------------------------------------------------
     -- CURRENCIES
     -- -----------------------------
@@ -488,6 +484,13 @@ local PABankingMenuFunctions = {
 
     getAutoStackBagsSetting = function() return getValue(PAB.SavedVars, {"autoStackBags"}) end,
     setAutoStackBagsSetting = function(value) setValue(PAB.SavedVars, value, {"autoStackBags"}) end,
+
+    -- ----------------------------------------------------------------------------------
+    -- SILENT MODE
+    -- -----------------------------
+    isSilentModeDisabled = false, -- always enabled
+    getSilentModeSetting = function() return getValue(PAB.SavedVars, {"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(PAB.SavedVars, value, {"silentMode"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

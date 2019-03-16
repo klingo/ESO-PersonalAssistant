@@ -12,9 +12,9 @@ local Loot_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- only prints out PALoot texts if chatOutput is enabled
+-- only prints out PALoot texts if silentMode is disabled
 local function println(text, ...)
-    if PA.Loot.SavedVars.chatOutput then
+    if not PA.Loot.SavedVars.silentMode then
         PAHF.println(text, ...)
     end
 end

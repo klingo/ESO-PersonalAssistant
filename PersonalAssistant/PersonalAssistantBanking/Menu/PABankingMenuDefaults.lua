@@ -5,8 +5,6 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PABankingMenuDefaults = {
-    chatOutput = true,
-
     Currencies = {
         currenciesEnabled = true,
 
@@ -293,6 +291,8 @@ local PABankingMenuDefaults = {
     autoStackBags = true,
 
     -- ---------------------------------------------
+
+    silentMode = false,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

@@ -5,7 +5,6 @@ local PA = PersonalAssistant
 
 local PAJunkMenuDefaults = {
     autoMarkAsJunkEnabled = false,
-    chatOutput = true,
 
     Trash = {
         autoMarkTrash = true,
@@ -36,6 +35,8 @@ local PAJunkMenuDefaults = {
     },
 
     autoSellJunk = true,
+
+    silentMode = false,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

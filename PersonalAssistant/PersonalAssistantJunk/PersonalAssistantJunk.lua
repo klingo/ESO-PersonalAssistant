@@ -12,9 +12,9 @@ local Junk_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- only prints out PAJunk texts if chatOutput is enabled
+-- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
-    if PA.Junk.SavedVars.chatOutput then
+    if not PA.Junk.SavedVars.silentMode then
         PAHF.println(text, ...)
     end
 end

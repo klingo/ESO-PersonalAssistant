@@ -12,9 +12,9 @@ local Mail_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- only prints out PAMail texts if chatOutput is enabled
+-- only prints out PAMail texts if silentMode is disabled
 local function println(text, ...)
-    if PA.Mail.SavedVars.chatOutput then
+    if not PA.Mail.SavedVars.silentMode then
         PAHF.println(text, ...)
     end
 end

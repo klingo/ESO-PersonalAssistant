@@ -55,12 +55,12 @@ local function _createPAMailMenu()
 
     PAMailOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
-        getFunc = PAMenuFunctions.PAMail.getChatOutputSetting,
-        setFunc = PAMenuFunctions.PAMail.setChatOutputSetting,
-        disabled = PAMenuFunctions.PAMail.isChatOutputDisabled,
-        default = PAMenuDefaults.PAMail.chatOutput,
+        name = GetString(SI_PA_MENU_SILENT_MODE),
+        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
+        getFunc = PAMenuFunctions.PAMail.getSilentModeSetting,
+        setFunc = PAMenuFunctions.PAMail.setSilentModeSetting,
+        disabled = PAMenuFunctions.PAMail.isSilentModeDisabled,
+        default = PAMenuDefaults.PAMail.silentMode,
     })
 end
 

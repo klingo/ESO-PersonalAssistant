@@ -69,12 +69,12 @@ local function _createPARepairMenu()
 
     PARepairOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_CHAT_OUTPUT_ENABLE_T),
-        getFunc = PAMenuFunctions.PARepair.getChatOutputSetting,
-        setFunc = PAMenuFunctions.PARepair.setChatOutputSetting,
-        disabled = PAMenuFunctions.PARepair.isChatOutputDisabled,
-        default = PAMenuDefaults.PARepair.chatOutput,
+        name = GetString(SI_PA_MENU_SILENT_MODE),
+        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
+        getFunc = PAMenuFunctions.PARepair.getSilentModeSetting,
+        setFunc = PAMenuFunctions.PARepair.setSilentModeSetting,
+        disabled = PAMenuFunctions.PARepair.isSilentModeDisabled,
+        default = PAMenuDefaults.PARepair.silentMode,
     })
 end
 
