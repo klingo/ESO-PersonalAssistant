@@ -63,7 +63,6 @@ local PARepairMenuFunctions = {
     --        getRepairWithCrownRepairKitDurabilityThresholdSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
     --        setRepairWithCrownRepairKitDurabilityThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
 
-    --        isLowRepairKitWarningDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
     isLowRepairKitWarningDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
     getLowRepairKitWarningSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "lowRepairKitWarning"}) end,
     setLowRepairKitWarningSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "lowRepairKitWarning"}) end,

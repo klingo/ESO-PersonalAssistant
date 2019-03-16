@@ -254,8 +254,9 @@ end
 
 
 local function UpdateNumBagUsedSlots(eventCode)
-    -- update the number of used stacks in case player does stack all items in backpack
-    -- should be updated 100ms after event was triggered (during test it took ~30ms until value was correct)
+    -- update the number of used stacks in case player does stack all items in backpack (or if items are sold)
+    -- this is done 100ms after event was triggered (during test it took ~30ms until the value from GetNumBagUsedSlots
+    -- was correct)
     zo_callLater(function()
         _prevUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
     end, 100)
