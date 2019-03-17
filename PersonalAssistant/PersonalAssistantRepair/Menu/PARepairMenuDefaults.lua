@@ -13,10 +13,10 @@ local PARepairMenuDefaults = {
         repairWithGoldDurabilityThreshold = 75,
 
         repairWithRepairKit = false,
-        repairWithRepairKitThreshold = 25,
+        repairWithRepairKitThreshold = 10,
 
         repairWithCrownRepairKit = false,
-        repairWithCrownRepairKitThreshold = 25,
+        repairWithCrownRepairKitThreshold = 10,
 
         lowRepairKitWarning = true,
         lowRepairKitThreshold = 10,
