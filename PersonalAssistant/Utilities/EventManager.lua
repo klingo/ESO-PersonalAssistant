@@ -108,7 +108,6 @@ local function FireCallbacks(addonName, callbackName, paIdentifier)
     local esoIdentifier = _getCallbackEsoIdentifier(addonName, callbackName, paIdentifier)
     -- check fi the Callback is registered and if yes fire it
     if _containsEventInSet(esoIdentifier) then
-        d("fire callback!")
         CALLBACK_MANAGER:FireCallbacks(esoIdentifier)
     end
 end
