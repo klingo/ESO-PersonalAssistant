@@ -4,15 +4,13 @@ local PAB = PA.Banking
 local PAC = PA.Constants
 local PAMF = PA.MenuFunctions
 local PAHF = PA.HelperFunctions
+local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- NOTE: Filling up existing stacks can be done immediately; creating new stacks takes time (i.e. zo_callLater needed)
 
 -- ---------------------------------------------------------------------------------------------------------------------
-
--- will be initialise from SavedVars upon triggering the module
-local _transactionInterval
 
 local function _requestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount)
     if IsProtectedFunction("RequestMoveItem") then
@@ -56,6 +54,7 @@ end
 -- Recursive function that tries to find new slots in the corresponding targetBags from the given list of itemDatas
 -- The startIndex indicates from which item in the list the check for moving should be started
 local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedAgainTable)
+    local transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
     local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
     local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
@@ -78,21 +77,21 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             if newStartIndex <= #toBeMovedItemsTable then
                 zo_callLater(function()
                     moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
-                end, _transactionInterval)
+                end, transactionInterval)
             else
                 -- loop completed; check if there are any items to be moved again (re-try)
                 if (toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0) then
                     -- if there are items left, try again
                     zo_callLater(function()
                         moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
-                    end, _transactionInterval)
+                    end, transactionInterval)
                 else
                     -- nothing else that can be moved; done
                     -- TODO: end message?
                     PAHF.debugln("2) all done!")
                     PAB.isBankTransferBlocked = false
                     -- Execute the function queue
-                    PAB.triggerNextTransactionFunction()
+                    PAEM.executeNextFunctionInQueue(PAB.AddonName)
                 end
             end
         else
@@ -108,19 +107,19 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             if newStartIndex <= #toBeMovedItemsTable then
                 zo_callLater(function()
                     moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
-                end, _transactionInterval)
+                end, transactionInterval)
             else
                 -- loop completed; try again with the items added to the re-try list
                 zo_callLater(function()
                     moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
-                end, _transactionInterval)
+                end, transactionInterval)
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
             PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, itemLink, PAHF.getBagName(BAG_BANK))
             PAB.isBankTransferBlocked = false
             -- Execute the function queue
-            PAB.triggerNextTransactionFunction()
+            PAEM.executeNextFunctionInQueue(PAB.AddonName)
         end
     end
 end
@@ -248,24 +247,8 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
         PAHF.debugln("1) all done!")
         PAB.isBankTransferBlocked = false
         -- Execute the function queue
-        PAB.triggerNextTransactionFunction()
+        PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
-
-local function triggerNextTransactionFunction()
-    -- Execute the function queue
-    if #PAB.transactionFunctionQueue > 0 then
-        -- remove the last entry from the list, and store it
-        local functionToCall = table.remove(PAB.transactionFunctionQueue)
-        -- call that function and pass on the remaining list of transactionFunctions
-        zo_callLater(function() functionToCall() end, _transactionInterval)
-    end
-end
-
-local function updateTransactionInterval()
-    _transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -274,5 +257,3 @@ PA.Banking = PA.Banking or {}
 PA.Banking.moveSecureItemsFromTo = moveSecureItemsFromTo
 PA.Banking.stackInTargetBagAndPopulateNotMovedItemsTable = stackInTargetBagAndPopulateNotMovedItemsTable
 PA.Banking.doGenericItemTransactions = doGenericItemTransactions
-PA.Banking.triggerNextTransactionFunction = triggerNextTransactionFunction
-PA.Banking.updateTransactionInterval = updateTransactionInterval

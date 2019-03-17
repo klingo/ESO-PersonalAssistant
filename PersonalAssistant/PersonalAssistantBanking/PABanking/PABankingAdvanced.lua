@@ -56,8 +56,7 @@ local function depositOrWithdrawAdvancedItems()
     local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
     local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
 
-    -- update the TransactionTimer option from the SavedVars; and trigger the itemTransactions
-    PAB.updateTransactionInterval()
+    -- trigger the itemTransactions
     _doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache)
 end
 

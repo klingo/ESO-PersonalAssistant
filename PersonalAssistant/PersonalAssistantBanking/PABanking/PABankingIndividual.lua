@@ -3,6 +3,7 @@ local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
+local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -75,7 +76,7 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
         PAHF.debugln("1) all done!")
         PAB.isBankTransferBlocked = false
         -- Execute the function queue
-        PAB.triggerNextTransactionFunction()
+        PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end
 end
 
@@ -111,8 +112,7 @@ local function depositOrWithdrawIndividualItems()
     PAHF.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
     PAHF.debugln("#bankBagCache = "..tostring(#bankBagCache))
 
-    -- update the TransactionTimer option from the SavedVars; and trigger the itemTransactions
-    PAB.updateTransactionInterval()
+    -- trigger the itemTransactions
     _doItemTransactions(individualItems, backpackBagCache, bankBagCache)
 end
 

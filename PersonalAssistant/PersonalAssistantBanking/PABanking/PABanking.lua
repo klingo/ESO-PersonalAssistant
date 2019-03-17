@@ -2,6 +2,8 @@
 local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
+local PAMF = PA.MenuFunctions
+local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -16,7 +18,7 @@ local function _stackBags()
         StackBag(BAG_BACKPACK)
     end
     -- Execute the function queue
-    PAB.triggerNextTransactionFunction()
+    PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
 local function OnBankOpen()
@@ -31,21 +33,21 @@ local function OnBankOpen()
         end
 
         -- check if the different transactions are enabled and add them to the function queue (will be executed in REVERSE order)
-        PAB.transactionFunctionQueue = {}
-        table.insert(PAB.transactionFunctionQueue, _stackBags)
+        -- give it 100ms time to "refresh" the bag data structure after stacking
+        PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
         if PAB.SavedVars.Advanced.advancedItemsEnabled then
-            table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawAdvancedItems)
+            PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedItems, PAB.AddonName, 100)
         end
         if PAB.SavedVars.Individual.individualItemsEnabled then
-            table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawIndividualItems)
+            PAEM.addFunctionToQueue(PAB.depositOrWithdrawIndividualItems, PAB.AddonName, 100)
         end
         if PAB.SavedVars.Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
-            table.insert(PAB.transactionFunctionQueue, PAB.depositOrWithdrawCraftingItems)
+            PAEM.addFunctionToQueue(PAB.depositOrWithdrawCraftingItems, PAB.AddonName, 100)
         end
-        table.insert(PAB.transactionFunctionQueue, _stackBags)
+        PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
 
         -- Execute the function queue
-        PAB.triggerNextTransactionFunction()
+        PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end
 
     -- some debug statements

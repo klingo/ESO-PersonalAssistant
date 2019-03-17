@@ -29,6 +29,39 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local _functionQueue = {}
+
+local function addFunctionToQueue(functionToBeExecuted, queueName, functionDelay)
+    -- make sure queueName and functionDelay are provided
+    if queueName == nil then queueName = "default" end
+    if functionDelay == nil then functionDelay = 0 end
+
+    -- make sure queue is existing
+    if _functionQueue[queueName] == nil then _functionQueue[queueName] = {} end
+
+    -- now insert function into queue
+    table.insert(_functionQueue[queueName], {
+        fnct = functionToBeExecuted,
+        delay = functionDelay
+    })
+end
+
+local function executeNextFunctionInQueue(queueName)
+    -- make sure queueName is provided
+    if queueName == nil then queueName = "default" end
+    -- get queue and execute first entry if existing
+    local queue = _functionQueue[queueName]
+    if queue ~= nil and #queue > 0 then
+        local functionData = table.remove(queue)
+        local functionToCall = functionData.fnct
+        local functionDelay = functionData.delay
+
+        zo_callLater(function() functionToCall() end, functionDelay)
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function _waitForJunkProcessingToExecute(functionToExecute, firstCall)
     local PAEM = PA.EventManager
     if (PAEM.isJunkProcessing or firstCall) then
@@ -293,6 +326,8 @@ end
 -- Export
 PA.EventManager = {
     listAllEventsInSet = listAllEventsInSet,
+    addFunctionToQueue = addFunctionToQueue,
+    executeNextFunctionInQueue = executeNextFunctionInQueue,
     RegisterForEvent = RegisterForEvent,
     RegisterFilterForEvent = RegisterFilterForEvent,
     UnregisterForEvent = UnregisterForEvent,
