@@ -605,7 +605,6 @@ local function _createPABCraftingBlacksmithingSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
@@ -634,7 +633,6 @@ local function _createPABCraftingClothingSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
@@ -663,7 +661,6 @@ local function _createPABCraftingWoodworkingSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
@@ -692,7 +689,6 @@ local function _createPABCraftingJewelcraftingSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
@@ -721,7 +717,6 @@ local function _createPABCraftingAlchemySubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isAlchemyTransactionMenuDisabled,
@@ -750,7 +745,6 @@ local function _createPABCraftingEnchantingSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isEnchantingTransactionMenuDisabled,
@@ -779,7 +773,6 @@ local function _createPABCraftingProvisioningSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
@@ -808,7 +801,6 @@ local function _createPABCraftingStyleMaterialsSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionMenuDisabled,
@@ -837,7 +829,6 @@ local function _createPABCraftingTraitItemsSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionMenuDisabled,
@@ -866,7 +857,6 @@ local function _createPABCraftingFurnishingSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
@@ -895,7 +885,6 @@ local function _createPABAdvancedMotifSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isMotifTransactionMenuDisabled,
@@ -924,7 +913,6 @@ local function _createPABAdvancedRecipeSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isRecipeTransactionMenuDisabled,
@@ -953,7 +941,6 @@ local function _createPABAdvancedGlyphsSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isGlyphsTransactionMenuDisabled,
@@ -982,7 +969,6 @@ local function _createPABAdvancedLiquidsSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isLiquidsTransactionMenuDisabled,
@@ -1011,7 +997,6 @@ local function _createPABAdvancedFoodDrinksSubmenuTable()
             name = GetString("SI_ITEMTYPE", itemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isFoodDrinksTransactionMenuDisabled,
@@ -1040,7 +1025,6 @@ local function _createPABAdvancedPapersSubmenuTable()
             name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
-            -- TODO: choicesTooltips
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
             disabled = PAMenuFunctions.PABanking.isPapersTransactionMenuDisabled,

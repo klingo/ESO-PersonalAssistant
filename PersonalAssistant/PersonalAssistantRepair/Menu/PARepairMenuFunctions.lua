@@ -67,8 +67,6 @@ local PARepairMenuFunctions = {
     getLowRepairKitThresholdSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "lowRepairKitThreshold"}) end,
     setLowRepairKitThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "lowRepairKitThreshold"}) end,
 
-    -- TODO: Chat Mode
-
     -- -----------------------------------------------------------------------------------
     -- RECHARGE WITH SOUL GEMS
     -- -----------------------------
