@@ -16,7 +16,7 @@ local PABankingPanelData = {
     author = "Klingo",
     version = PAC.ADDON_VERSION,
     website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
-    slashCommand = "/pabanking",
+    slashCommand = "/pab",
     registerForRefresh = true,
     registerForDefaults = true,
 }

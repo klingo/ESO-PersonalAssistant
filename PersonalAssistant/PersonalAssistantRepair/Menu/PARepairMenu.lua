@@ -13,7 +13,7 @@ local PARepairPanelData = {
     author = "Klingo",
     version = PAC.ADDON_VERSION,
     website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
-    slashCommand = "/parepair",
+    slashCommand = "/par",
     registerForRefresh = true,
     registerForDefaults = true,
 }

@@ -18,9 +18,9 @@ PersonalAssistant.Constants = {
         DEFAULT = "|cFFFF00",
         WHITE = "|cFFFFFF",
         LIGHT_BLUE = "|cB0B0FF",
-        GOLD = "|cC5C29E",
+        GOLD = "|cC5C29E", -- TODO: not used
         GREEN = "|c00FF00",
-        YELLOW = "|cFFD700",
+        YELLOW = "|cFFD700", -- TODO: not used
         ORANGE_RED = "|cFF7400",
         ORANGE = "|cFFA500",
         RED = "|cFF0000",
@@ -107,7 +107,6 @@ PersonalAssistant.Constants = {
             }
         },
         ITEMS = {
-            BANANAS = "|t20:20:/esoui/art/icons/crafting_bananas.dds|t",
             FOOD = {
                 NORMAL = "|t32:32:/esoui/art/icons/crafting_bowl_002.dds|t"
             },
@@ -123,32 +122,34 @@ PersonalAssistant.Constants = {
             MOTIF = {
                 NORMAL = "|t32:32:/esoui/art/icons/quest_book_001.dds|t"
             },
-            ORNATE = {
+            ORNATE = { -- TODO: not used
+                SMALL = "|t16:16:/esoui/art/inventory/inventory_trait_ornate_icon.dds|t",
                 NORMAL = "|t32:32:/esoui/art/inventory/inventory_trait_ornate_icon.dds|t"
             },
-            POISON = {
+            POISON = { -- TODO: not used
                 NORMAL = "|t32:32:/esoui/art/icons/crafting_poison_001_red_005.dds|t"
             },
             POTION = {
                 NORMAL = "|t32:32:/esoui/art/icons/consumable_potion_001_type_005.dds|t"
             },
             RECIPE = {
-                NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t" -- TODO: check; since duplicate with treasure map
+                -- TODO: check; since duplicate with treasure map
+                NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t"
             },
             REPAIRKIT = {
                 NORMAL = "|t32:32:/esoui/art/icons/quest_crate_001.dds|t"
             },
-            REPAIRKIT_CROWN = {
+            REPAIRKIT_CROWN = { -- TODO: not used
                 NORMAL = "|t32:32:/esoui/art/icons/store_repairkit_002.dds|t"
             },
             SOULGEM = {
                 SMALL = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t",
                 NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_filled.dds|t",
             },
-            SOULGEM_CROWN = {
+            SOULGEM_CROWN = { -- TODO: not used
                 NORMAL = "|t32:32:/esoui/art/icons/store_soulgem_001.dds|t",
             },
-            SOULGEM_EMPTY = {
+            SOULGEM_EMPTY = { -- TODO: not used
                 NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_empty.dds|t",
             },
             STOLEN = {
@@ -158,23 +159,7 @@ PersonalAssistant.Constants = {
             TREASURE_MAP = {
                 NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t"
             },
-            WEAPON = "|t20:20:/esoui/art/icons/gear_nord_1hsword_d.dds|t",
         },
-    },
-
-    ITEMLINKS = {
-        BANANAS = "|H1:item:33755:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", -- Bananas, Normal Level 1
-        SOULGEM = "|H1:item:33271:1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h", -- Grand Soul Gem, Fine Level 50
-        WEAPON = "|H1:item:84607:361:50:0:0:0:0:0:0:0:0:0:0:0:0:5:0:0:0:0:0|h|h", -- Sword of the Dragon, Epic Level 50 CP160
-    },
-
-    REPAIR = {
-        WEAPON_SLOTS = {
-            EQUIP_SLOT_MAIN_HAND,
-            EQUIP_SLOT_OFF_HAND,
-            EQUIP_SLOT_BACKUP_MAIN,
-            EQUIP_SLOT_BACKUP_OFF,
-        }
     },
 
     BANKING = {
@@ -292,12 +277,5 @@ PersonalAssistant.Constants = {
         LESSTHANOREQUAL = 3,
 --        GREATERTHAN = 4,
         GREATERTHANOREQUAL = 5
-    },
-
-    CHATMODE = {
-        OUTPUT_NONE = 0,
-        OUTPUT_MIN = 1,
-        OUTPUT_NORMAL = 2,
-        OUTPUT_MAX = 3,
     },
 }

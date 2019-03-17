@@ -21,7 +21,7 @@ local PAGeneralPanelData = {
 
 local PAGeneralOptionsTable = setmetatable({}, { __index = table })
 
--- =================================================================================================================
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({

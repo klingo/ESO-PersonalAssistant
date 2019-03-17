@@ -13,7 +13,7 @@ local PALootPanelData = {
     author = "Klingo",
     version = PAC.ADDON_VERSION,
     website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
-    slashCommand = "/paloot",
+    slashCommand = "/pal",
     registerForRefresh = true,
     registerForDefaults = true,
 }

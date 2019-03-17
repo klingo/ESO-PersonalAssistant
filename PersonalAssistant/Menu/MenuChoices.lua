@@ -2,6 +2,8 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local PAMenuChoices = {
     PABanking = {
         stackingType = {
