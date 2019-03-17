@@ -22,9 +22,17 @@ local function _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
         -- if a specific PA identifier was set, use this one as the ESO identifer
         return table.concat({ESO_EVENT, "_", paIdentifier})
     else
-        -- elsecreate esoIdentifier based on module/addonName and ESO event
+        -- else create esoIdentifier based on module/addonName and ESO event
         return table.concat({ESO_EVENT, "_", addonName})
     end
+end
+
+local function _getEventEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
+    return "EV_".._getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
+end
+
+local function _getCallbackEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
+    return "CB_".._getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -62,43 +70,9 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _waitForJunkProcessingToExecute(functionToExecute, firstCall)
-    local PAEM = PA.EventManager
-    if (PAEM.isJunkProcessing or firstCall) then
-        -- still 'true', try again in 50 ms
-        zo_callLater(function() _waitForJunkProcessingToExecute(functionToExecute, false) end, 50)
-    else
-        -- boolean is false, execute method now
-        functionToExecute()
-    end
-end
-
--- Acts as a dispatcher between PARepair and PAJunk that both depend on [EVENT_OPEN_STORE]
-local function _sharedEventOpenStore()
-    local PAMenuFunctions = PA.MenuFunctions
-    local PARMenuFunctions = PAMenuFunctions.PARepair
-    local PAJMenuFunctions = PAMenuFunctions.PAJunk
-
-    local PAJ = PA.Junk
-    if PAJ and PAJMenuFunctions.getAutoSellJunkSetting() then
-        -- first execute PAJunk (to sell junk and get gold)
-        PAJ.OnShopOpen()
-    end
-
-    local PAR = PA.Repair
-    if PAR and PARMenuFunctions.getRepairWithGoldSetting() then
-        -- only then execute PARepair (to spend gold for repairs)
-        -- has to be done with some delay to get a proper update on the current gold amount from selling junk
-        _waitForJunkProcessingToExecute(function() PAR.OnShopOpen() end, true)
-    end
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
-
 local function RegisterForEvent(addonName, ESO_EVENT, executableFunction, paIdentifier)
     -- get the esoIdentifier
-    local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
-
+    local esoIdentifier = _getEventEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
     -- an event will only be registered with ESO, when the same identifier is not yet registered
     if not _containsEventInSet(esoIdentifier) then
         -- register the event with ESO
@@ -110,8 +84,7 @@ end
 
 local function RegisterFilterForEvent(addonName, ESO_EVENT, ESO_FILTER, ESOFilterValue, paIdentifier)
     -- get the esoIdentifier
-    local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
-
+    local esoIdentifier = _getEventEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
     -- an event filter will only be registered with ESO, when an event with the same identifier is already registered
     if _containsEventInSet(esoIdentifier) then
         -- check if a filter was provided
@@ -121,16 +94,45 @@ local function RegisterFilterForEvent(addonName, ESO_EVENT, ESO_FILTER, ESOFilte
     end
 end
 
-local function UnregisterForEvent(addonName, ESOevent, paIdentifier)
+local function UnregisterForEvent(addonName, ESO_EVENT, paIdentifier)
     -- get the esoIdentifier
-    local esoIdentifier = _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
-
+    local esoIdentifier = _getEventEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
     -- unregister the event from ESO
-    EVENT_MANAGER:UnregisterForEvent(esoIdentifier, ESOevent)
+    EVENT_MANAGER:UnregisterForEvent(esoIdentifier, ESO_EVENT)
     -- and remove it from PA's internal list of registered events
     _removeEventFromSet(esoIdentifier)
 end
 
+local function FireCallbacks(addonName, callbackName, paIdentifier)
+    -- get the esoIdentifier
+    local esoIdentifier = _getCallbackEsoIdentifier(addonName, callbackName, paIdentifier)
+    -- check fi the Callback is registered and if yes fire it
+    if _containsEventInSet(esoIdentifier) then
+        d("fire callback!")
+        CALLBACK_MANAGER:FireCallbacks(esoIdentifier)
+    end
+end
+
+local function RegisterForCallback(addonName, callbackName, executableFunction, paIdentifier)
+    -- get the esoIdentifier
+    local esoIdentifier = _getCallbackEsoIdentifier(addonName, callbackName, paIdentifier)
+    -- a callback will only be registered with ESO, when the same callback is not yet registered
+    if not _containsEventInSet(esoIdentifier) then
+        -- register the callback with ESO
+        CALLBACK_MANAGER:RegisterCallback(esoIdentifier, executableFunction)
+        -- and add it to PA's internal list of registered events/callbacks
+        _addEventToSet(esoIdentifier)
+    end
+end
+
+local function UnregisterForCallback(addonName, callbackName, executableFunction, paIdentifier)
+    -- get the esoIdentifier
+    local esoIdentifier = _getCallbackEsoIdentifier(addonName, callbackName, paIdentifier)
+    -- unregister the callback from ESO
+    CALLBACK_MANAGER:UnregisterCallback(esoIdentifier, executableFunction)
+    -- and remove it from PA's internal list of registered events/callbacks
+    _removeEventFromSet(esoIdentifier)
+end
 
 local function listAllEventsInSet()
     d("----------------------------------------------------")
@@ -144,6 +146,7 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+-- TODO: properly call this function in all necessary places!
 local function RefreshAllEventRegistrations()
     local PAMenuFunctions = PA.MenuFunctions
     local PAR = PA.Repair
@@ -179,26 +182,27 @@ local function RefreshAllEventRegistrations()
             end
 
             -- Register for GoldRepair
-            -- TODO: make new separate event that still checks for selling Junk
---            if PARMenuFunctions.getRepairWithGoldSetting() then
---                RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
---            else
-                --
---            end
-
-            -- Register PARepair (in correspondance with PAJunk)
-            -- TODO: Check this function
-            RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
-
+            if PARMenuFunctions.getRepairWithGoldSetting() then
+                -- check if AutoSellJunk is also enabled
+                if PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
+                    -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
+                    RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                else
+                    -- if not, we can register the PARepair Open Store Event
+                    RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                    -- and unregister callback if existing
+                    UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                end
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
+                UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+            end
         else
             -- Unregister PARepair
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
-
-            -- Unregister the SharedEvent, but only if PAJunk is not enabled!
-            if not (PAJ and PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
-                UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
-            end
+            UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
+            UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
         end
     end
 
@@ -209,9 +213,7 @@ local function RefreshAllEventRegistrations()
         if (PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
             or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting()) then
             -- Register PABanking
-            -- TODO: Check this function
             RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
-            -- TODO: Check this function
             RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
         else
             -- Unregister PABanking
@@ -224,7 +226,8 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PAloot' is even enabled
     if PAL then
         -- Check if the functionality is turned on within the addon
-        if (PAMenuFunctions.PALoot.isEnabled()) then
+        local PALMenuFunctions = PAMenuFunctions.PALoot
+        if (PALMenuFunctions.isEnabled()) then
             -- Register PALoot to check looted items
             RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
             RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
@@ -249,26 +252,33 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PAJunk' is even enabled
     if PAJ then
         -- Check if the functionality is turned on within the addon
-        if (PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting()) then
+        local PAJMenuFunctions = PAMenuFunctions.PAJunk
+        if (PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting()) then
             -- Register PAJunk for looting junk items
             RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
-            -- Register PAJunk (for Fences)
-            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen)
-            -- Register PAJunk (in correspondance with PARepair)
-            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, _sharedEventOpenStore, "RepairJunkSharedEvent")
+
+            -- Register PAJunk for selling
+            if PAJMenuFunctions.getAutoSellJunkSetting() then
+                -- Register PAJunk (for Merchants and Fences)
+                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen)
+                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen)
+            else
+                -- Or unregister if auto-sell is disabled
+                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE)
+                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE)
+            end
+
             -- Register Mailbox Open check (to disable marking as junk)
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen)
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose)
         else
             -- Unregister PAJunk
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE)
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE)
-            -- Unregister the SharedEvent, but only if PARepair is not enabled!
-            if not (PAR and PAMenuFunctions.PARepair.getAutoRepairEnabledSetting()) then
-                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "RepairJunkSharedEvent")
-            end
+
             -- Unregister Mailbox Check
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX)
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX)
@@ -331,7 +341,7 @@ PA.EventManager = {
     RegisterForEvent = RegisterForEvent,
     RegisterFilterForEvent = RegisterFilterForEvent,
     UnregisterForEvent = UnregisterForEvent,
+    FireCallbacks = FireCallbacks,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
     RefreshAllSavedVarReferences = RefreshAllSavedVarReferences,
-    isJunkProcessing = false, -- TODO: check if really needed?
 }

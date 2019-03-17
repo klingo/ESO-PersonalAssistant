@@ -32,8 +32,8 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         end
     end
 
-    -- set processing flag to FALSE again
-    PAEM.isJunkProcessing = false
+    -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered
+    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
 end
 
 
@@ -110,8 +110,6 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
         if allowSell and PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = false)
             if HasAnyJunk(BAG_BACKPACK) then
-                -- set processing flag to TRUE
-                PAEM.isJunkProcessing = true
                 -- store current amount of money
                 local moneyBefore = GetCurrentMoney();
                 local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
@@ -149,8 +147,6 @@ local function OnShopOpen()
         if PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = true)
             if HasAnyJunk(BAG_BACKPACK, true) then
-                -- set processing flag to TRUE
-                PAEM.isJunkProcessing = true
                 -- store current amount of money
                 local moneyBefore = GetCurrentMoney();
                 local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
@@ -161,6 +157,9 @@ local function OnShopOpen()
                 -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
                 -- after calling SellAllJunk()
                 zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
+            else
+                -- if there is no junk, immediately fire the callback event for PARepair
+                PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
             end
         end
     end
