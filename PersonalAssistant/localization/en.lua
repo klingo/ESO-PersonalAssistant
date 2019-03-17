@@ -115,8 +115,8 @@ local PAStrings = {
     SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD = "If Jewelry quality level is at or below",
     SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Jewelry as Junk if it is of the selected quality or lower",
 
-    SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk?",
-    SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk?",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk when visiting a Merchant or a Fence?",
 
     -- General texts used across: Weapons, Armor, Jewelry
     SI_PA_MENU_JUNK_AUTOMARK_ORNATE = table.concat({"Auto-Mark [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] trait items"}),
