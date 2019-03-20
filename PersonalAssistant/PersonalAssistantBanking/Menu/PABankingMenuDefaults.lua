@@ -169,6 +169,10 @@ local PABankingMenuDefaults = {
                 enabledSetting = "recipesEnabled",
                 moveMode = PAC.MOVE.IGNORE,
             },
+            [ITEMTYPE_MASTER_WRIT] = {
+                enabledSetting = "writsEnabled",
+                moveMode = PAC.MOVE.IGNORE,
+            },
             [ITEMTYPE_GLYPH_ARMOR] = {
                 enabledSetting = "glyphsEnabled",
                 moveMode = PAC.MOVE.IGNORE,
@@ -201,15 +205,15 @@ local PABankingMenuDefaults = {
 
         SpecializedItemTypes = {
             [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = {
-                enabledSetting = "papersEnabled",
+                enabledSetting = "trophiesEnabled",
                 moveMode = PAC.MOVE.IGNORE,
             },
             [SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = {
-                enabledSetting = "papersEnabled",
+                enabledSetting = "trophiesEnabled",
                 moveMode = PAC.MOVE.IGNORE,
             },
-            [SPECIALIZED_ITEMTYPE_MASTER_WRIT] = {
-                enabledSetting = "papersEnabled",
+            [SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT] = {
+                enabledSetting = "trophiesEnabled",
                 moveMode = PAC.MOVE.IGNORE,
             },
         },
@@ -217,11 +221,12 @@ local PABankingMenuDefaults = {
         TransactionSettings = {
             motivesEnabled = true,
             recipesEnabled = true,
+            writsEnabled = true,
             glyphsEnabled = true,
+            liquidsEnabled = true,
             foodDrinksEnabled = true,
 
-            liquidsEnabled = true,
-            papersEnabled = true,
+            trophiesEnabled = true,
         },
     },
 

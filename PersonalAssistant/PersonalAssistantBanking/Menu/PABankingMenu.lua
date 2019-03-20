@@ -41,11 +41,12 @@ local PABCraftingFurnishingSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAdvancedMotifSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedRecipeSubmenuTable = setmetatable({}, { __index = table })
-
+local PABAdvancedWritsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedGlyphsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedLiquidsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFoodDrinksSubmenuTable = setmetatable({}, { __index = table })
-local PABAdvancedPapersSubmenuTable = setmetatable({}, { __index = table })
+
+local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
 
 local PABIndividualLockpickSubmenuTable = setmetatable({}, { __index = table })
 local PABIndividualSoulGemSubmenuTable = setmetatable({}, { __index = table })
@@ -265,6 +266,12 @@ local function _createPABankingMenu()
         controls = PABAdvancedRecipeSubmenuTable,
         disabled = PAMenuFunctions.PABanking.isRecipeTransactionMenuDisabled,
     })
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_WRITS_HEADER),
+        controls = PABAdvancedWritsSubmenuTable,
+        disabled = PAMenuFunctions.PABanking.isWritsTransactionMenuDisabled,
+    })
 
     PABankingOptionsTable:insert({
         type = "submenu",
@@ -289,9 +296,9 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_PAPERS_HEADER),
-        controls = PABAdvancedPapersSubmenuTable,
-        disabled = PAMenuFunctions.PABanking.isPapersTransactionMenuDisabled,
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER),
+        controls = PABAdvancedTrophiesSubmenuTable,
+        disabled = PAMenuFunctions.PABanking.isTrophiesTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -921,6 +928,34 @@ local function _createPABAdvancedRecipeSubmenuTable()
     end
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAdvancedWritsSubmenuTable()
+    local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_MASTER_WRIT)
+    PABAdvancedWritsSubmenuTable:insert({
+        type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
+        getFunc = PAMenuFunctions.PABanking.getWritsTransactionSetting,
+        setFunc = PAMenuFunctions.PABanking.setWritsTransactionSetting,
+        disabled = PAMenuFunctions.PABanking.isWritsTransactionDisabled,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.writsEnabled,
+    })
+
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.WRITS) do
+        PABAdvancedWritsSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString("SI_ITEMTYPE", itemType),
+            choices = PAMenuChoices.choices.PABanking.itemMoveMode,
+            choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
+            getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
+            setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
+            disabled = PAMenuFunctions.PABanking.isWritsTransactionMenuDisabled,
+            default = PAC.MOVE.IGNORE,
+        })
+    end
+end
+
 -- =================================================================================================================
 
 local function _createPABAdvancedGlyphsSubmenuTable()
@@ -1005,29 +1040,29 @@ local function _createPABAdvancedFoodDrinksSubmenuTable()
     end
 end
 
--- -----------------------------------------------------------------------------------------------------------------
+-- =================================================================================================================
 
-local function _createPABAdvancedPapersSubmenuTable()
-    local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_TROPHY)
-    PABAdvancedPapersSubmenuTable:insert({
+local function _createPABAdvancedTrophiesSubmenuTable()
+    local _craftingName = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", TEMTYPE_TROPHY))
+    PABAdvancedTrophiesSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
-        getFunc = PAMenuFunctions.PABanking.getPapersTransactionSetting,
-        setFunc = PAMenuFunctions.PABanking.setPapersTransactionSetting,
-        disabled = PAMenuFunctions.PABanking.isPapersTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.papersEnabled,
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _craftingName),
+        getFunc = PAMenuFunctions.PABanking.getTrophiesTransactionSetting,
+        setFunc = PAMenuFunctions.PABanking.setTrophiesTransactionSetting,
+        disabled = PAMenuFunctions.PABanking.isTrophiesTransactionDisabled,
+        default = PAMenuDefaults.PABanking.Advanced.TransactionSettings.trophiesEnabled,
     })
 
-    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.PAPERS) do
-        PABAdvancedPapersSubmenuTable:insert({
+    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) do
+        PABAdvancedTrophiesSubmenuTable:insert({
             type = "dropdown",
             name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
-            disabled = PAMenuFunctions.PABanking.isPapersTransactionMenuDisabled,
+            disabled = PAMenuFunctions.PABanking.isTrophiesTransactionMenuDisabled,
             default = PAC.MOVE.IGNORE,
         })
     end
@@ -1230,11 +1265,12 @@ local function createOptions()
 
     _createPABAdvancedMotifSubmenuTable()
     _createPABAdvancedRecipeSubmenuTable()
-
+    _createPABAdvancedWritsSubmenuTable()
     _createPABAdvancedGlyphsSubmenuTable()
     _createPABAdvancedLiquidsSubmenuTable()
     _createPABAdvancedFoodDrinksSubmenuTable()
-    _createPABAdvancedPapersSubmenuTable()
+
+    _createPABAdvancedTrophiesSubmenuTable()
 
     _createPABIndividualLockpickSubmenuTable()
     _createPABIndividualSoulGemSubmenuTable()

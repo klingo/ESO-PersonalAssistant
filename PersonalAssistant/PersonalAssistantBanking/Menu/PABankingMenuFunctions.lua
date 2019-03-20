@@ -416,6 +416,11 @@ local PABankingMenuFunctions = {
     getRecipeTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
     setRecipeTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
 
+    isWritsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "writsEnabled"}) end,
+    isWritsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
+    getWritsTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "writsEnabled"}) end,
+    setWritsTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "writsEnabled"}) end,
+
     isGlyphsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
     isGlyphsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
     getGlyphsTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
@@ -431,10 +436,10 @@ local PABankingMenuFunctions = {
     getFoodDrinksTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
     setFoodDrinksTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
 
-    isPapersTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "papersEnabled"}) end,
-    isPapersTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getPapersTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "papersEnabled"}) end,
-    setPapersTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "papersEnabled"}) end,
+    isTrophiesTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
+    isTrophiesTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
+    getTrophiesTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
+    setTrophiesTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- INDIVIDUAL ITEMS

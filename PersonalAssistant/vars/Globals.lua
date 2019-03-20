@@ -119,6 +119,9 @@ PersonalAssistant.Constants = {
             LOCKPICK = {
                 NORMAL = "|t32:32:/esoui/art/icons/lockpick.dds|t"
             },
+            MASTER_WRIT = {
+                NORMAL = "|t32:32:/esoui/art/icons/master_writ_woodworking.dds|t"
+            },
             MOTIF = {
                 NORMAL = "|t32:32:/esoui/art/icons/quest_book_001.dds|t"
             },
@@ -133,7 +136,6 @@ PersonalAssistant.Constants = {
                 NORMAL = "|t32:32:/esoui/art/icons/consumable_potion_001_type_005.dds|t"
             },
             RECIPE = {
-                -- TODO: check; since duplicate with treasure map
                 NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t"
             },
             REPAIRKIT = {
@@ -156,8 +158,8 @@ PersonalAssistant.Constants = {
                 SMALL = "|t16:16:/esoui/art/inventory/inventory_stolenitem_icon.dds|t",
                 NORMAL = "|t32:32:/esoui/art/inventory/inventory_stolenitem_icon.dds|t"
             },
-            TREASURE_MAP = {
-                NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t"
+            TROPHY = {
+                NORMAL = "|t32:32:/esoui/art/icons/quest_daedricembers.dds|t",
             },
         },
     },
@@ -218,6 +220,9 @@ PersonalAssistant.Constants = {
             RECIPE = {
                 ITEMTYPE_RECIPE,                            -- 29
             },
+            WRITS = {
+                ITEMTYPE_MASTER_WRIT,                        -- 60
+            },
             GLYPHS = {
                 ITEMTYPE_GLYPH_ARMOR,                       -- 21
                 ITEMTYPE_GLYPH_JEWELRY,                     -- 26
@@ -233,10 +238,12 @@ PersonalAssistant.Constants = {
             },
         },
         SPECIALIZED = {
-            PAPERS = {
+            TROPHIES = {
                 SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
                 SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101
-                SPECIALIZED_ITEMTYPE_MASTER_WRIT,           -- 2750
+                SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
+                -- TODO:  check:
+                -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107
             },
         }
     },
