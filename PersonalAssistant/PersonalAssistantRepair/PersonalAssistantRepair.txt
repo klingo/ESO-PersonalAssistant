@@ -12,6 +12,10 @@
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
 
+# Localization
+localization/en.lua
+localization/$(language).lua
+
 # Core
 PersonalAssistantRepair.lua
 

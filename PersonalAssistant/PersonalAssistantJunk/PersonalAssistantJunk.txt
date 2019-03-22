@@ -12,6 +12,10 @@
 ## SavedVariables: PersonalAssistantJunk_SavedVariables
 ## DependsOn: PersonalAssistant
 
+# Localization
+localization/en.lua
+localization/$(language).lua
+
 # Core
 PersonalAssistantJunk.lua
 
