@@ -77,7 +77,7 @@ end
 local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
 
-    if (PA.activeProfile == nil) then
+    if PA.activeProfile == nil then
         PAHF.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
         -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
@@ -104,7 +104,7 @@ PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction)
 -- =====================================================================================================================
 -- Dev-Debug --
 function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6, itemSoundCategory)
-    if (PA.debug) then
+    if PA.debug then
         local itemType, specializedItemType = GetItemType(bagId, slotIndex)
         local strItemType = GetString("SI_ITEMTYPE", itemType)
         local strSpecializedItemType = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType)
@@ -115,13 +115,13 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         local icon, _, _, _, _, _, itemStyleId = GetItemInfo(bagId, slotIndex)
 
         local bagName = ""
-        if (bagId == BAG_BACKPACK) then bagName = "BAG_BACKPACK"
-        elseif (bagId == BAG_BANK) then bagName = "BAG_BANK"
-        elseif (bagId == BAG_BUYBACK) then bagName = "BAG_BUYBACK"
-        elseif (bagId == BAG_GUILDBANK) then bagName = "BAG_GUILDBANK"
-        elseif (bagId == BAG_VIRTUAL) then bagName = "BAG_VIRTUAL"
-        elseif (bagId == BAG_WORN) then bagName = "BAG_WORN"
-        elseif (bagId == BAG_SUBSCRIBER_BANK) then bagName = "BAG_SUBSCRIBER_BANK" end
+        if bagId == BAG_BACKPACK then bagName = "BAG_BACKPACK"
+        elseif bagId == BAG_BANK then bagName = "BAG_BANK"
+        elseif bagId == BAG_BUYBACK then bagName = "BAG_BUYBACK"
+        elseif bagId == BAG_GUILDBANK then bagName = "BAG_GUILDBANK"
+        elseif bagId == BAG_VIRTUAL then bagName = "BAG_VIRTUAL"
+        elseif bagId == BAG_WORN then bagName = "BAG_WORN"
+        elseif bagId == BAG_SUBSCRIBER_BANK then bagName = "BAG_SUBSCRIBER_BANK" end
 
         PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, strSpecializedItemType, icon, bagName)
 
@@ -189,7 +189,7 @@ end
 
 function PA.toggleDebug(newStatus)
     PA.debug = newStatus
-    if (newStatus) then
+    if newStatus then
         PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
     else
         PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)

@@ -48,9 +48,9 @@ local function round(num, numDecimalPlaces)
 end
 
 local function roundDown(num)
-    if (num > 0) then
+    if num > 0 then
         return math.floor(num)
-    elseif (num < 0) then
+    elseif num < 0 then
         return math.ceil(num)
     else
         return num
@@ -72,13 +72,13 @@ end
 
 -- returns a noun for the bagId
 local function getBagName(bagId)
-    if (bagId == BAG_WORN) then
+    if bagId == BAG_WORN then
         return GetString(SI_PA_NS_BAG_EQUIPMENT)
-    elseif (bagId == BAG_BACKPACK) then
+    elseif bagId == BAG_BACKPACK then
         return GetString(SI_PA_NS_BAG_BACKPACK)
-    elseif (bagId == BAG_BANK) then
+    elseif bagId == BAG_BANK then
         return GetString(SI_PA_NS_BAG_BANK)
-    elseif (bagId == BAG_SUBSCRIBER_BANK) then
+    elseif bagId == BAG_SUBSCRIBER_BANK then
         return GetString(SI_PA_NS_BAG_SUBSCRIBER_BANK)
     else
         return GetString(SI_PA_NS_BAG_UNKNOWN)
@@ -103,7 +103,7 @@ end
 local function getFormattedText(text, ...)
     local args = { ... }
     local unpackedString = string.format(text, unpack(args))
-    if (unpackedString == "") then
+    if unpackedString == "" then
         unpackedString = text
     end
     return unpackedString
@@ -127,7 +127,7 @@ end
 
 -- the same like println, except that it only prints it if debug is on
 local function debugln(key, ...)
-    if (PA.debug) then
+    if PA.debug then
         println(key, ...)
     end
 end

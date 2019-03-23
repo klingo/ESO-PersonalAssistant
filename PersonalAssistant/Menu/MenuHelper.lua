@@ -12,7 +12,7 @@ local function getProfileList()
         profiles[profileNo] = PASavedVars.General[profileNo].name
     end
 
-    if (PASavedVars.Profile.activeProfile == nil) then
+    if PASavedVars.Profile.activeProfile == nil then
         profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_PLEASE_SELECT_PROFILE)
     end
 
@@ -27,7 +27,7 @@ local function getProfileListValues()
         profileValues[profileNo] = profileNo
     end
 
-    if (PASavedVars.Profile.activeProfile == nil) then
+    if PASavedVars.Profile.activeProfile == nil then
         profileValues[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = PAC.GENERAL.NO_PROFILE_SELECTED_ID
     end
 

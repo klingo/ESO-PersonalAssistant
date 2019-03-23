@@ -36,8 +36,8 @@ local function readHirelingMails()
         -- get all details from mail
         local senderDisplayName, senderCharacterName, subject, icon, unread, fromSystem, fromCustomerService, returned, numAttachments, attachedMoney, codAmount, expiresInDays, secsSinceReceived = GetMailItemInfo(mailId)
 
---        if (fromSystem and not fromCustomerService and unread and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject)) then
-        if (fromSystem and not fromCustomerService and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject)) then
+--        if fromSystem and not fromCustomerService and unread and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject) then
+        if fromSystem and not fromCustomerService and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject) then
             -- if yes, request to read the mail (i.e. get "access" to the attached items)
             d("read: "..tostring(mailId))
             RequestReadMail(mailId)
@@ -63,8 +63,8 @@ local function takeAttachedItemsFromSingleMail(eventCode, mailId)
     -- get all details from mail
     local senderDisplayName, senderCharacterName, subject, icon, unread, fromSystem, fromCustomerService, returned, numAttachments, attachedMoney, codAmount, expiresInDays, secsSinceReceived = GetMailItemInfo(mailId)
 
-    --        if (fromSystem and not fromCustomerService and unread and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject)) then
-    if (fromSystem and not fromCustomerService and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject)) then
+    --        if fromSystem and not fromCustomerService and unread and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject) then
+    if fromSystem and not fromCustomerService and numAttachments > 0 and attachedMoney == 0 and isMailSubjectFromHireling(subject) then
         for attachIndex = 1, numAttachments do
             -- loot the items
             TakeMailAttachedItems(mailId)
@@ -77,7 +77,7 @@ local function takeAttachedItemsFromSingleMail(eventCode, mailId)
 
         if PAMailSavedVars.hirelingDeleteEmptyMails then
             local numAttachmentsNow = GetMailAttachmentInfo(mailId)
-            if (numAttachmentsNow == 0) then
+            if numAttachmentsNow == 0 then
                 -- TODO: check if [forceDelete] has to be change to 'true'
                 zo_callLater(function() DeleteMail(mailId, false) end, 500)
             end

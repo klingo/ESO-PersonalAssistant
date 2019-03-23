@@ -58,15 +58,15 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
     local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
     local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
-    if (targetBagId ~= nil and firstEmptySlot ~= nil) then
+    if targetBagId ~= nil and firstEmptySlot ~= nil then
         if not PA.isBankClosed then
             local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
             -- in case there was a custom amount to be moved defined; overwrite the stack size
             local customStackToMove = fromBagItemData.customStackToMove
             local customStackToMoveOriginal = fromBagItemData.customStackToMoveOriginal
-            if (customStackToMove ~= nil) then sourceStack = customStackToMove end
+            if customStackToMove ~= nil then sourceStack = customStackToMove end
             -- if there either was no original amount; or it is the same as the one to be moved, treat it as a complete move
-            if (customStackToMoveOriginal == nil or customStackToMoveOriginal == customStackToMove) then
+            if customStackToMoveOriginal == nil or customStackToMoveOriginal == customStackToMove then
                 PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
             else
                 PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLink, PAHF.getBagName(targetBagId))
@@ -80,7 +80,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
                 end, transactionInterval)
             else
                 -- loop completed; check if there are any items to be moved again (re-try)
-                if (toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0) then
+                if toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0 then
                     -- if there are items left, try again
                     zo_callLater(function()
                         moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
@@ -101,7 +101,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
         end
     else
         -- cannot move item because there is not enough space; put it on separate list to try again afterwards
-        if (toBeMovedAgainTable ~= nil) then
+        if toBeMovedAgainTable ~= nil then
             table.insert(toBeMovedAgainTable, fromBagItemData)
             local newStartIndex = startIndex + 1
             if newStartIndex <= #toBeMovedItemsTable then
@@ -206,7 +206,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
             end
 
             -- if there is something left to be moved; add it to the list
-            if (stackToMove and stackToMove > 0) then
+            if stackToMove and stackToMove > 0 then
                 fromBagItemData.customStackToMove = stackToMove
                 fromBagItemData.customStackToMoveOriginal = sourceStack
                 PAHF.debugln("not moved: %d / %d x %s", stackToMove, sourceStack, itemLink)

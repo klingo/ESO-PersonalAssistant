@@ -69,7 +69,7 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
                         local gameTimeMilliseconds = GetGameTimeMilliseconds()
                         local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoRepairKitWarningGameTime
                         local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
-                        if (gameTimeMinutesPassed >= 10) then
+                        if gameTimeMinutesPassed >= 10 then
                             _lastNoRepairKitWarningGameTime = gameTimeMilliseconds
                             PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
                         end

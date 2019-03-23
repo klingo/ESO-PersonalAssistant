@@ -10,7 +10,7 @@ local PAEM = PA.EventManager
 ---------------------------------
 local function getPAGeneralActiveProfile()
     local activeProfile = PA.SavedVars.Profile.activeProfile
-    if (activeProfile == nil) then
+    if activeProfile == nil then
         return PAC.GENERAL.NO_PROFILE_SELECTED_ID
     else
         return activeProfile
@@ -18,7 +18,7 @@ local function getPAGeneralActiveProfile()
 end
 
 local function setPAGeneralActiveProfile(profileNo)
-    if (profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID) then
+    if profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         local PASavedVars = PA.SavedVars
         -- get the previously active prefoile first
         local prevProfile = PASavedVars.Profile.activeProfile
@@ -26,7 +26,7 @@ local function setPAGeneralActiveProfile(profileNo)
         PASavedVars.Profile.activeProfile = profileNo
         PA.activeProfile = profileNo
         -- if the previous profile was the "no profile selected" one, refresh the dropdown values
-        if (prevProfile == nil) then
+        if prevProfile == nil then
             local PAMenuHelper = PA.MenuHelper
             PAMenuHelper.reloadProfileList()
         end
@@ -54,7 +54,7 @@ local function getValueV2(savedVarsTable, attributeTbl)
 end
 
 local function setValueV2(savedVarsTable, value, attributeTbl)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     if #attributeTbl > 0 then
         for index, attribute in ipairs(attributeTbl) do
             if index < #attributeTbl then
@@ -67,7 +67,7 @@ local function setValueV2(savedVarsTable, value, attributeTbl)
 end
 
 local function isDisabledV2(savedVarsTable, ...)
-    if (isDisabledPAGeneralNoProfileSelected()) then return true end
+    if isDisabledPAGeneralNoProfileSelected() then return true end
     local args = { ... }
     for _, attributeTbl in ipairs(args) do
         -- return true when ANY setting is OFF
@@ -88,12 +88,12 @@ end
 -- PAGeneral   activeProfileRename
 ---------------------------------
 local function getPAGeneralActiveProfileRename()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     return PA.SavedVars.General[PA.activeProfile].name
 end
 
 local function setPAGeneralActiveProfileRename(profileName)
-    if (profileName ~= nil and profileName ~= "") then
+    if profileName ~= nil and profileName ~= "" then
         local PAMenuHelper = PA.MenuHelper
         PA.SavedVars.General[PA.activeProfile].name = profileName
         -- when profile was changed, reload the profile list
@@ -105,12 +105,12 @@ end
 -- PAGeneral   welcomeMessage
 ---------------------------------
 local function getPAGeneralWelcomeMessage()
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     return PA.SavedVars.General[PA.activeProfile].welcome
 end
 
 local function setPAGeneralWelcomeMessage(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     PA.SavedVars.General[PA.activeProfile].welcome = value
 end
 

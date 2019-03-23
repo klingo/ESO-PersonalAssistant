@@ -174,7 +174,7 @@ local function isTraitBeingResearched(itemLink)
 end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-   if (PAHF.hasActiveProfile()) then
+   if PAHF.hasActiveProfile() then
        local PALootSavedVars = PAL.SavedVars
         local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 

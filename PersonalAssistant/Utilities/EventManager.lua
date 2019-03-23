@@ -18,7 +18,7 @@ local function _containsEventInSet(key)
 end
 
 local function _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
-    if (paIdentifier ~= nil and paIdentifier ~= "") then
+    if paIdentifier ~= nil and paIdentifier ~= "" then
         -- if a specific PA identifier was set, use this one as the ESO identifer
         return table.concat({ESO_EVENT, "_", paIdentifier})
     else
@@ -209,8 +209,8 @@ local function RefreshAllEventRegistrations()
     if PAB then
         -- Check if the functionality is turned on within the addon
         local PABMenuFunctions = PAMenuFunctions.PABanking
-        if (PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
-            or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting()) then
+        if PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
+            or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting() then
             -- Register PABanking
             RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
             RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
@@ -226,7 +226,7 @@ local function RefreshAllEventRegistrations()
     if PAL then
         -- Check if the functionality is turned on within the addon
         local PALMenuFunctions = PAMenuFunctions.PALoot
-        if (PALMenuFunctions.isEnabled()) then
+        if PALMenuFunctions.isEnabled() then
             -- Register PALoot to check looted items
             RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
             RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
@@ -252,7 +252,7 @@ local function RefreshAllEventRegistrations()
     if PAJ then
         -- Check if the functionality is turned on within the addon
         local PAJMenuFunctions = PAMenuFunctions.PAJunk
-        if (PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting()) then
+        if PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting() then
             -- Register PAJunk for looting junk items
             RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)

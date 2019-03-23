@@ -118,7 +118,7 @@ local function _createPABankingMenu()
         alpha = 0.5,
     })
 
-    if (IsESOPlusSubscriber()) then
+    if IsESOPlusSubscriber() then
         -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
         -- options are not available (--> Virtual Bag)
 
@@ -360,7 +360,7 @@ local function _createPABankingMenu()
     })
 
     -- check if there are any generic items added; if not skip the menu
-    if (#PAC.BANKING_INDIVIDUAL.GENERIC > 0) then
+    if #PAC.BANKING_INDIVIDUAL.GENERIC > 0 then
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER),

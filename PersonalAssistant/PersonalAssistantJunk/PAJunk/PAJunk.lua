@@ -14,9 +14,9 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     local moneyDiff = GetCurrentMoney() - moneyBefore;
     local itemCountInBagDiff = itemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
 
-    if (itemCountInBagDiff > 0) then
+    if itemCountInBagDiff > 0 then
         -- at lesat one item was sold (although it might have been worthless)
-        if (moneyDiff > 0) then
+        if moneyDiff > 0 then
             -- some valuable junk was sold
             PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
         else
@@ -25,7 +25,7 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         end
     else
         -- no item was sold
-        if (moneyDiff > 0) then
+        if moneyDiff > 0 then
             -- no item was sold, but money appeared out of nowhere
             -- should not happen :D
             PAJ.println(PAC.COLORED_TEXTS.PAJ .. "Error #1337: This should not happen!")
@@ -105,7 +105,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
-    if (PAHF.hasActiveProfile()) then
+    if PAHF.hasActiveProfile() then
         -- check if auto-sell is enabled
         if allowSell and PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = false)
@@ -142,7 +142,7 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
 end
 
 local function OnShopOpen()
-    if (PAHF.hasActiveProfile()) then
+    if PAHF.hasActiveProfile() then
         -- check if auto-sell is enabled
         if PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = true)
@@ -177,7 +177,7 @@ end
 
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    if (PAHF.hasActiveProfile()) then
+    if PAHF.hasActiveProfile() then
         -- only proceed, if neither the crafting window nor the mailbox are NOT open (otherwise crafted/retrieved items could also be marked as junk)
         if not ZO_CraftingUtils_IsCraftingWindowOpen() and not _isMailboxOpen then
             local PAJunkSavedVars = PAJ.SavedVars
@@ -200,9 +200,9 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     local itemTrait = GetItemTrait(bagId, slotIndex)
                     local itemQuality = GetItemQuality(bagId, slotIndex)
                     -- check for the different itemTypes and itemTraits
-                    if (itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
+                    if itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
                             itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
-                            itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate) then
+                            itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
 
                     elseif itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQuality then

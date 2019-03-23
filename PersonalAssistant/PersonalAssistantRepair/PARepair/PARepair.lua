@@ -14,7 +14,7 @@ local function RepairItems(bagId, threshold)
     -- TODO: add another SavedVars check?
     local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
 
-    if (bagCache) then
+    if bagCache then
         local repairCost = 0
         local repairedItemCount = 0
         local notRepairedItemCount = 0
@@ -35,7 +35,7 @@ local function RepairItems(bagId, threshold)
                     -- get the repair cost for that item and repair if possible
                     local itemRepairCost = GetItemRepairCost(bagId, slotIndex)
                     if itemRepairCost > 0 then
-                        if (itemRepairCost > currentMoney) then
+                        if itemRepairCost > currentMoney then
                             -- even though not enough money available, continue as maybe a cheaper item still can be repaired
                             notRepairedItemCount = notRepairedItemCount + stackSize
                             notRepairedItemsCost = notRepairedItemsCost + itemRepairCost
@@ -79,7 +79,7 @@ end
 
 
 local function OnShopOpen()
-    if (PAHF.hasActiveProfile()) then
+    if PAHF.hasActiveProfile() then
         -- check if store can repair
         if CanStoreRepair() then
             local PARepairSavedVars = PAR.SavedVars

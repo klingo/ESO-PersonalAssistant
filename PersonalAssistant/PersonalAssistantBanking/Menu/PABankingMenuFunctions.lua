@@ -25,7 +25,7 @@ local function setPABankingCurrencyMinToKeepSetting(PA_LAM_REF_TO_CHANGE, PA_LAM
     else
         local currencyToKeep = tonumber(getValue(PAB.SavedVars, {"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
         setValue(PAB.SavedVars, intValue, {"Currencies", variableToChangeName})
-        if (intValue > currencyToKeep) then
+        if intValue > currencyToKeep then
             setValue(PAB.SavedVars, intValue, {"Currencies", variableOtherName})
             PA_LAM_REF_OTHER:UpdateValue()
         end
@@ -42,7 +42,7 @@ local function setPABankingCurrencyMaxToKeepSetting(PA_LAM_REF_TO_CHANGE, PA_LAM
     else
         local currencyToKeep = tonumber(getValue(PAB.SavedVars, {"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
         setValue(PAB.SavedVars, intValue, {"Currencies", variableToChangeName})
-        if (intValue < currencyToKeep) then
+        if intValue < currencyToKeep then
             setValue(PAB.SavedVars, intValue, {"Currencies", variableOtherName})
             PA_LAM_REF_OTHER:UpdateValue()
         end
@@ -129,17 +129,17 @@ end
 -- PABanking   Crafting.ItemTypes         craftingItemTypeMoveSetting
 ---------------------------------
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     return PAB.SavedVars.Crafting.ItemTypes[itemType].moveMode
 end
 
 local function setPABankingCraftingItemTypeMoveSetting(itemType, value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     PAB.SavedVars.Crafting.ItemTypes[itemType].moveMode = value
 end
 
 local function setPABankingCraftingItemTypeMoveAllSettings(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     for itemType, _ in pairs(PAB.SavedVars.Crafting.ItemTypes) do
         PAB.SavedVars.Crafting.ItemTypes[itemType].moveMode = value
     end
@@ -160,12 +160,12 @@ end
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode
 end
 
 local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode = value
 end
 
@@ -173,12 +173,12 @@ end
 -- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSpecializedMoveSetting
 ---------------------------------
 local function getPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode
 end
 
 local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode = value
 end
 
@@ -217,7 +217,7 @@ end
 -- PABanking   Advanced         advancedItemTypeMoveSetting + advancedItemTypeSpecializedMoveSetting
 ---------------------------------
 local function setPABankingAdvancedItemTypeMoveAllSettings(value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     for itemType, _ in pairs(PAB.SavedVars.Advanced.ItemTypes) do
         PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode = value
     end
@@ -255,14 +255,14 @@ end
 -- PABanking   Individual         individualMathOperator
 ---------------------------------
 local function getPABankingIndividualItemIdMathOperatorSetting(individualItemId)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     local value = PAB.SavedVars.Individual.ItemIds[individualItemId].operator
     -- in case a new GENERIC individual item is added, return "-" by default
-    if (value) then return value else return tonumber(PAC.OPERATOR.NONE) end
+    if value then return value else return tonumber(PAC.OPERATOR.NONE) end
 end
 
 local function setPABankingIndividualItemIdMathOperatorSetting(individualItemId, value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     PAB.SavedVars.Individual.ItemIds[individualItemId].operator = value
 end
 
@@ -270,14 +270,14 @@ end
 -- PABanking   Individual         individualBackpackAmount
 ---------------------------------
 local function getPABankingIndividualItemIdBackpackAmountSetting(individualItemId)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     local value = PAB.SavedVars.Individual.ItemIds[individualItemId].backpackAmount
     -- in case a new GENERIC individual item is added, return "100" by default
-    if (value) then return value else return 100 end
+    if value then return value else return 100 end
 end
 
 local function setPABankingIndividualItemIdBackpackAmountSetting(individualItemId, value)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
         PAB.SavedVars.Individual.ItemIds[individualItemId].backpackAmount = intValue
@@ -289,7 +289,7 @@ end
 -- PABanking   Individual         individualBackpackAmountDisabled
 ---------------------------------
 local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
-    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabledPAGeneralNoProfileSelected() then return end
     if isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return true end
     if PAB.SavedVars.Individual.ItemIds[individualItemId].operator ~= PAC.OPERATOR.NONE then return false end
     -- if there was no 'false' returned until here; then return true
@@ -300,9 +300,9 @@ end
 -- PABanking   transactionDepositStacking
 ---------------------------------
 local function isPABankingTransactionDepositStackingDisabled()
-    if (not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"})) then return false end
-    if (not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"})) then return false end
-    if (not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"})) then return false end
+    if not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) then return false end
+    if not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return false end
+    if not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 
@@ -310,9 +310,9 @@ end
 -- PABanking   transactionWithdrawalStacking
 ---------------------------------
 local function isPABankingTransactionWithdrawalStackingDisabled()
-    if (not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"})) then return false end
-    if (not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"})) then return false end
-    if (not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"})) then return false end
+    if not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) then return false end
+    if not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return false end
+    if not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 
@@ -320,9 +320,9 @@ end
 -- PABanking   transactionInterval
 ---------------------------------
 local function isPABankingTransactionIntervalDisabled()
-    if (not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"})) then return false end
-    if (not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"})) then return false end
-    if (not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"})) then return false end
+    if not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) then return false end
+    if not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return false end
+    if not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 

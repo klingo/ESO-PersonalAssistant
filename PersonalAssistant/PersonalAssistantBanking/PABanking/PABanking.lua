@@ -22,7 +22,7 @@ local function _stackBags()
 end
 
 local function OnBankOpen()
-    if (PAHF.hasActiveProfile()) then
+    if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.isBankClosed = false
 

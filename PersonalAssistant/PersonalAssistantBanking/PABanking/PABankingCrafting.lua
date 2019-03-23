@@ -29,9 +29,9 @@ local function depositOrWithdrawCraftingItems()
         -- fill up the table
         for itemType, moveConfig in pairs(PAB.SavedVars.Crafting.ItemTypes) do
             if PAB.SavedVars.Crafting.TransactionSettings[moveConfig.enabledSetting] then
-                if (moveConfig.moveMode == PAC.MOVE.DEPOSIT) then
+                if moveConfig.moveMode == PAC.MOVE.DEPOSIT then
                     depositItemTypes:insert(itemType)
-                elseif (moveConfig.moveMode == PAC.MOVE.WITHDRAW) then
+                elseif moveConfig.moveMode == PAC.MOVE.WITHDRAW then
                     withdrawItemTypes:insert(itemType)
                 end
             end

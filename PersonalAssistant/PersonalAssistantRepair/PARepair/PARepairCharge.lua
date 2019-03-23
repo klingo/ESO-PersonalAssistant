@@ -19,7 +19,7 @@ local function _getSoulGemsIn(bagId)
     -- create a table with all soulgems
     for _, data in pairs(bagCache) do
         -- check if it is a filled soulGem
-        if (IsItemSoulGem(SOUL_GEM_TYPE_FILLED, data.bagId, data.slotIndex)) then
+        if IsItemSoulGem(SOUL_GEM_TYPE_FILLED, data.bagId, data.slotIndex) then
             gemTable:insert({
                 bagId = data.bagId,
                 slotIndex = data.slotIndex,
@@ -59,7 +59,7 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                 if totalGemCount > 0 then
                     local chargeableAmount = GetAmountSoulGemWouldChargeItem(bagId, slotIndex, gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex)
                     local finalChargesPerc = 100
-                    if ((charges + chargeableAmount) < maxCharges) then
+                    if (charges + chargeableAmount) < maxCharges then
                         finalChargesPerc = PAHF.round(100 / maxCharges * (charges + chargeableAmount))
                     end
 
@@ -87,7 +87,7 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                         local gameTimeMilliseconds = GetGameTimeMilliseconds()
                         local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoSoulGemWarningGameTime
                         local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
-                        if (gameTimeMinutesPassed >= 10) then
+                        if gameTimeMinutesPassed >= 10 then
                             _lastNoSoulGemWarningGameTime = gameTimeMilliseconds
                             PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
                         end

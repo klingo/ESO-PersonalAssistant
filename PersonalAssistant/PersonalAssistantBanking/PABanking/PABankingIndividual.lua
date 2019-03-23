@@ -23,9 +23,9 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
         for index = #backpackBagCache, 1, -1 do
             local itemData = backpackBagCache[index]
             local backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
-            if (itemId == backpackItemId) then
+            if itemId == backpackItemId then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
-                if ((operator == PAC.OPERATOR.LESSTHANOREQUAL or operator == PAC.OPERATOR.EQUAL) and ((savedBackpackStack + stack) > targetBackpackStack)) then
+                if (operator == PAC.OPERATOR.LESSTHANOREQUAL or operator == PAC.OPERATOR.EQUAL) and ((savedBackpackStack + stack) > targetBackpackStack) then
                     -- Deposit (full or partial)
                     local moveableStack = savedBackpackStack + stack - targetBackpackStack
                     savedBackpackStack = targetBackpackStack
@@ -45,13 +45,13 @@ local function _doItemTransactions(individualItems, backpackBagCache, bankBagCac
         for index = #bankBagCache, 1, -1 do
             local itemData = bankBagCache[index]
             local bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
-            if (itemId == bankItemId) then
+            if itemId == bankItemId then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
-                if (operator == PAC.OPERATOR.GREATERTHANOREQUAL or operator == PAC.OPERATOR.EQUAL) then
-                    if (savedBackpackStack < targetBackpackStack) then
+                if operator == PAC.OPERATOR.GREATERTHANOREQUAL or operator == PAC.OPERATOR.EQUAL then
+                    if savedBackpackStack < targetBackpackStack then
                         -- Withdrawal (full or partial)
                         local moveableStack = targetBackpackStack - savedBackpackStack
-                        if (moveableStack > stack) then
+                        if moveableStack > stack then
                             moveableStack = stack
                         end
                         savedBackpackStack = savedBackpackStack + moveableStack

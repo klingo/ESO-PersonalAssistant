@@ -12,9 +12,9 @@ local function withdrawCurrency(ccyAmountToWithdraw, currencyType)
     local originalCcyAmountToWithdraw = ccyAmountToWithdraw
 
     -- check if all requested amount can be transfered; if not calculate the valid amount
-    if (ccyAmountOnBank >= ccyAmountToWithdraw) then
+    if ccyAmountOnBank >= ccyAmountToWithdraw then
         -- enough currency in SOURCE
-        if (maxCcyTransfer >= ccyAmountToWithdraw) then
+        if maxCcyTransfer >= ccyAmountToWithdraw then
             -- enough space in TARGET --> FULL
             PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, ccyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
         else
@@ -38,9 +38,9 @@ local function depositCurrency(ccyAmountToDeposit, currencyType)
     local maxCcyTransfer = GetMaxCurrencyTransfer(currencyType, CURRENCY_LOCATION_CHARACTER, CURRENCY_LOCATION_BANK)
     local originalCcyAmountToDeposit = ccyAmountToDeposit
 
-    if (ccyAmountOnCharacter >= ccyAmountToDeposit) then
+    if ccyAmountOnCharacter >= ccyAmountToDeposit then
         -- enough currency in SOURCE
-        if (maxCcyTransfer >= ccyAmountToDeposit) then
+        if maxCcyTransfer >= ccyAmountToDeposit then
             -- enough space in TARGET --> FULL
             PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, ccyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
         else
@@ -104,7 +104,7 @@ local function depositOrWithdrawCurrencies()
         }
 
         for _, currency in pairs(currencies) do
-            if (currency.enabled) then
+            if currency.enabled then
                 -- get the current amount of the currency on character
                 local currentCcyAmount = GetCurrencyAmount(currency.currencyType, CURRENCY_LOCATION_CHARACTER)
 
@@ -112,10 +112,10 @@ local function depositOrWithdrawCurrencies()
                 local changeCcyAmount = getChangeCcyAmount(currentCcyAmount, currency.minToKeep, currency.maxToKeep)
 
                 -- act based on the to be transferred amount
-                if (changeCcyAmount < 0) then
+                if changeCcyAmount < 0 then
                     -- deposit currency
                     depositCurrency(changeCcyAmount * -1, currency.currencyType)
-                elseif (changeCcyAmount > 0) then
+                elseif changeCcyAmount > 0 then
                     -- withdraw currency
                     withdrawCurrency(changeCcyAmount, currency.currencyType)
                 else
