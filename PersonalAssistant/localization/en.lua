@@ -56,6 +56,8 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
 
+    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT = "Repair Kits",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- Operators --
     SI_PA_REL_OPERATOR_T = "Select the Mathematical Operator for this item",

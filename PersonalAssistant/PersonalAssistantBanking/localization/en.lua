@@ -7,7 +7,7 @@ local PABStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking Menu --
-    SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting and other Items for you between your character's backpack and the bank",
+    SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting- and other Items for between your character's backpack and the bank",
 
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
@@ -19,7 +19,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
 
     SI_PA_MENU_BANKING_INDIVIDUAL = "Individual",
-    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT = "Repair Kits",
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC = "Other",
 
     SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK = "Amount to keep in backpack",
