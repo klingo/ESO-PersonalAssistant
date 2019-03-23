@@ -994,17 +994,6 @@ end
 -- =================================================================================================================
 
 local function _createPABIndividualLockpickSubmenuTable()
-    local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_LOCKPICK)
-    PABIndividualLockpickSubmenuTable:insert({
-        type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
-        getFunc = PAMenuFunctions.PABanking.getLockpickTransactionSetting,
-        setFunc = PAMenuFunctions.PABanking.setLockpickTransactionSetting,
-        disabled = PAMenuFunctions.PABanking.isLockpickTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.lockpicksEnabled,
-    })
-
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.LOCKPICK) do
         local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
@@ -1017,7 +1006,7 @@ local function _createPABIndividualLockpickSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
+            disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
             default = PAC.OPERATOR.NONE,
         })
 
@@ -1028,7 +1017,7 @@ local function _createPABIndividualLockpickSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isLockpickTransactionMenuDisabled,
+            disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
             default = 100
         })
     end
@@ -1037,17 +1026,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABIndividualSoulGemSubmenuTable()
-    local _craftingName = GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)
-    PABIndividualSoulGemSubmenuTable:insert({
-        type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
-        getFunc = PAMenuFunctions.PABanking.getSoulGemTransactionSetting,
-        setFunc = PAMenuFunctions.PABanking.setSoulGemTransactionSetting,
-        disabled = PAMenuFunctions.PABanking.isSoulGemTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.soulGemsEnabled,
-    })
-
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.SOUL_GEM) do
         local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
@@ -1060,7 +1038,7 @@ local function _createPABIndividualSoulGemSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
+            disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
             default = PAC.OPERATOR.NONE,
         })
 
@@ -1071,7 +1049,7 @@ local function _createPABIndividualSoulGemSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isSoulGemTransactionMenuDisabled,
+            disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
             default = 100
         })
     end
@@ -1080,17 +1058,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABIndividualRepairKitSubmenuTable()
-    local _craftingName = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)
-    PABIndividualRepairKitSubmenuTable:insert({
-        type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _craftingName),
-        getFunc = PAMenuFunctions.PABanking.getRepairKitTransactionSetting,
-        setFunc = PAMenuFunctions.PABanking.setRepairKitTransactionSetting,
-        disabled = PAMenuFunctions.PABanking.isRepairKitTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.repairKitsEnabled,
-    })
-
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.REPAIR_KIT) do
         local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
@@ -1103,7 +1070,7 @@ local function _createPABIndividualRepairKitSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isRepairKitTransactionMenuDisabled,
+            disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
             default = PAC.OPERATOR.NONE,
         })
 
@@ -1114,7 +1081,7 @@ local function _createPABIndividualRepairKitSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isRepairKitTransactionMenuDisabled,
+            disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
             default = 100
         })
     end
@@ -1123,17 +1090,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABIndividualGenericSubmenuTable()
-    local _craftingName = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC)
-    PABIndividualGenericSubmenuTable:insert({
-        type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CRAFTING_ANY_ITEMS__ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
-        getFunc = PAMenuFunctions.PABanking.getGenericTransactionSetting,
-        setFunc = PAMenuFunctions.PABanking.setGenericTransactionSetting,
-        disabled = PAMenuFunctions.PABanking.isGenericTransactionDisabled,
-        default = PAMenuDefaults.PABanking.Individual.TransactionSettings.genericsEnabled,
-    })
-
     for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.GENERIC) do
         local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
 
@@ -1146,7 +1102,7 @@ local function _createPABIndividualGenericSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isGenericTransactionMenuDisabled,
+            disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
             default = PAC.OPERATOR.NONE,
         })
 
@@ -1157,7 +1113,7 @@ local function _createPABIndividualGenericSubmenuTable()
             width = "half",
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = PAMenuFunctions.PABanking.isGenericTransactionMenuDisabled,
+            disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
             default = 100
         })
     end

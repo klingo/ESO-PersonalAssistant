@@ -187,45 +187,40 @@ local PABankingMenuDefaults = {
 
         ItemIds = {
             [30357] = {     -- [Lockpick]
-                enabledSetting = "lockpicksEnabled",
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             },
 
             [33265] = {     -- [Soul Gem (Empty)]
-                enabledSetting = "soulGemsEnabled",
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             },
             [33271] = {     -- [Soul Gem]
-                enabledSetting = "soulGemsEnabled",
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             },
             [61080] = {     -- [Crown Soul Gem]
-                enabledSetting = "soulGemsEnabled",
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             },
 
             [44879] = {     -- [Grand Repair Kit]
-                enabledSetting = "repairKitsEnabled",
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             },
             [61079] = {     -- [Crown Repair Kit]
-                enabledSetting = "repairKitsEnabled",
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             },
+
             -- [custom] itemIds to be entered here and following
             --[[----------------------------------------------------------------------
             [custom] = {
-                enabledSetting = "genericsEnabled",
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             }
             --]]----------------------------------------------------------------------
+            -- remember to also update Globals: BANKING_INDIVIDUAl.GENERIC
 
         },
 

@@ -238,6 +238,20 @@ local function setPABankingIndividualItemsEnabledSetting(value)
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Individual.ItemIds         operator
+---------------------------------
+local function isIndividualItemsDisabledOrAllItemIdsOperatorNone(itemIdList)
+    if isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return true end
+
+    -- if savedVarsArgs is not disabled, check the itemTypes
+    for _, individualItemId in ipairs(itemIdList) do
+        if PAB.SavedVars.Individual.ItemIds[individualItemId].operator ~= PAC.OPERATOR.NONE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Individual         individualMathOperator
 ---------------------------------
 local function getPABankingIndividualItemIdMathOperatorSetting(individualItemId)
@@ -268,6 +282,18 @@ local function setPABankingIndividualItemIdBackpackAmountSetting(individualItemI
     if intValue and intValue >= 0 then
         PAB.SavedVars.Individual.ItemIds[individualItemId].backpackAmount = intValue
     end
+end
+
+
+--------------------------------------------------------------------------
+-- PABanking   Individual         individualBackpackAmountDisabled
+---------------------------------
+local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
+    if (isDisabledPAGeneralNoProfileSelected()) then return end
+    if isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return true end
+    if PAB.SavedVars.Individual.ItemIds[individualItemId].operator ~= PAC.OPERATOR.NONE then return false end
+    -- if there was no 'false' returned until here; then return true
+    return true
 end
 
 --------------------------------------------------------------------------
@@ -452,30 +478,17 @@ local PABankingMenuFunctions = {
     getIndividualItemsEnabledSetting = function() return getValue(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) end,
     setIndividualItemsEnabledSetting = setPABankingIndividualItemsEnabledSetting,
 
-    isLockpickTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "lockpicksEnabled"}) end,
-    isLockpickTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) end,
-    getLockpickTransactionSetting = function() return getValue(PAB.SavedVars, {"Individual", "TransactionSettings", "lockpicksEnabled"}) end,
-    setLockpickTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Individual", "TransactionSettings", "lockpicksEnabled"}) end,
-
-    isSoulGemTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "soulGemsEnabled"}) end,
-    isSoulGemTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) end,
-    getSoulGemTransactionSetting = function() return getValue(PAB.SavedVars, {"Individual", "TransactionSettings", "soulGemsEnabled"}) end,
-    setSoulGemTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Individual", "TransactionSettings", "soulGemsEnabled"}) end,
-
-    isRepairKitTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "repairKitsEnabled"}) end,
-    isRepairKitTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) end,
-    getRepairKitTransactionSetting = function() return getValue(PAB.SavedVars, {"Individual", "TransactionSettings", "repairKitsEnabled"}) end,
-    setRepairKitTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Individual", "TransactionSettings", "repairKitsEnabled"}) end,
-
-    isGenericTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}, {"Individual", "TransactionSettings", "genericsEnabled"}) end,
-    isGenericTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) end,
-    getGenericTransactionSetting = function() return getValue(PAB.SavedVars, {"Individual", "TransactionSettings", "genericsEnabled"}) end,
-    setGenericTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Individual", "TransactionSettings", "genericsEnabled"}) end,
+    isLockpickTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.LOCKPICK) end,
+    isSoulGemTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.SOUL_GEM) end,
+    isRepairKitTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.REPAIR_KIT) end,
+    isGenericTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.GENERIC) end,
 
     getIndividualItemIdMathOperatorSetting = getPABankingIndividualItemIdMathOperatorSetting,
     setIndividualItemIdMathOperatorSetting = setPABankingIndividualItemIdMathOperatorSetting,
     getIndividualItemIdAmountSetting = getPABankingIndividualItemIdBackpackAmountSetting,
     setIndividualItemIdAmountSetting = setPABankingIndividualItemIdBackpackAmountSetting,
+
+    isIndividualItemIdAmountDisabled = function(itemId) return isIndividualItemsDisabledOrItemIdOperatorNone(itemId) end,
 
     -- ----------------------------------------------------------------------------------
     -- TRANSACTION SETTINGS
