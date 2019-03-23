@@ -223,14 +223,6 @@ local PABankingMenuDefaults = {
             -- remember to also update Globals: BANKING_INDIVIDUAl.GENERIC
 
         },
-
-        TransactionSettings = {
-            lockpicksEnabled = true,
-            soulGemsEnabled = true,
-            repairKitsEnabled = true,
-
-            genericsEnabled = false,
-        },
     },
 
     -- ---------------------------------------------
