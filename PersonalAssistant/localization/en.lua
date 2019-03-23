@@ -29,9 +29,9 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
+    -- TODO: make this specific per addon
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
     SI_PA_MENU_SILENT_MODE_T = "If Silent Mode is enabled, no messages from this Addon will be displayed in the chat anymore",
-    -- TODO: make this specific per addon
 
     SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
 
@@ -49,6 +49,26 @@ local PAStrings = {
     SI_PA_NS_BAG_BANK = "Bank",
     SI_PA_NS_BAG_SUBSCRIBER_BANK = "Subscriber Bank",
     SI_PA_NS_BAG_UNKNOWN = "Unknown",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_PA_BANKING_MOVE_MODE_DONOTHING = "Do Nothing",
+    SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
+    SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Operators --
+    SI_PA_REL_OPERATOR_T = "Select the Mathematical Operator for this item",
+    SI_PA_REL_EQUAL = "equals (=)",
+    SI_PA_REL_LESSTHAN = "less than (<)", -- not required so far
+    SI_PA_REL_LESSTHANEQUAL = "less than or equal to (<=)",
+    SI_PA_REL_GREATERTHAN = "greater than (>)", -- not required so far
+    SI_PA_REL_GREATERTHANEQUAL = "greater than or equal to (>=)",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Stacking types --
+    SI_PA_ST_MOVE_FULL = "Move everything", -- 0: Full deposit
+    SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Only fill up existing stacks", -- 1: Fill existing stacks
 }
 
 for key, value in pairs(PAStrings) do
@@ -75,23 +95,6 @@ local PAGenericStrings = {
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PABanking --
-    SI_PA_BANKING_MOVE_MODE_DONOTHING = "Do Nothing",
-    SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
-    SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
-
-    -- Operators --
-    SI_PA_REL_OPERATOR_T = "Select the Mathematical Operator for this item",
-    SI_PA_REL_EQUAL = "equals (=)",
-    SI_PA_REL_LESSTHAN = "less than (<)", -- not required so far
-    SI_PA_REL_LESSTHANEQUAL = "less than or equal to (<=)",
-    SI_PA_REL_GREATERTHAN = "greater than (>)", -- not required so far
-    SI_PA_REL_GREATERTHANEQUAL = "greater than or equal to (>=)",
-
-    -- Stacking types --
-    SI_PA_ST_MOVE_FULL = "Move everything", -- 0: Full deposit
-    SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Only fill up existing stacks", -- 1: Fill existing stacks
-
     -- Item Qualitiy Levels --
     SI_PA_QUALITY_TRASH = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
     SI_PA_QUALITY_NORMAL = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
@@ -99,6 +102,11 @@ local PAGenericStrings = {
     SI_PA_QUALITY_SUPERIOR = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
     SI_PA_QUALITY_EPIC = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
     SI_PA_QUALITY_LEGENDARY = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Operators --
+    SI_PA_REL_OPERATOR = "> %s",
+    SI_PA_REL_NONE = "-",
 }
 
 for key, value in pairs(PAGenericStrings) do
