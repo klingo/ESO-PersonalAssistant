@@ -182,6 +182,37 @@ local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedIte
     PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode = value
 end
 
+
+--------------------------------------------------------------------------
+-- PABanking   Advanced.ItemTypes         moveMode
+---------------------------------
+local function isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(...)
+    if isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return true end
+
+    -- if savedVarsArgs is not disabled, check the itemTypes
+    local args = { ... }
+    for _, itemType in ipairs(args) do
+        if PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode ~= PAC.MOVE.IGNORE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
+-- PABanking   Advanced.SpecializedItemTypes         moveMode
+---------------------------------
+local function isAdvancedItemsDisabledOrAllISpecializedtemTypesMoveModeIgnore(...)
+    if isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return true end
+
+    -- if savedVarsArgs is not disabled, check the itemTypes
+    local args = { ... }
+    for _, specializedItemType in ipairs(args) do
+        if PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode ~= PAC.MOVE.IGNORE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
 --------------------------------------------------------------------------
 -- PABanking   Advanced         advancedItemTypeMoveSetting + advancedItemTypeSpecializedMoveSetting
 ---------------------------------
@@ -406,40 +437,14 @@ local PABankingMenuFunctions = {
     getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
     setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
 
-    isMotifTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "motivesEnabled"}) end,
-    isMotifTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getMotifTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "motivesEnabled"}) end,
-    setMotifTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "motivesEnabled"}) end,
+    isMotifTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_RACIAL_STYLE_MOTIF) end,
+    isRecipeTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_RECIPE) end,
+    isWritsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_MASTER_WRIT) end,
+    isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_GLYPH_ARMOR, ITEMTYPE_GLYPH_JEWELRY, ITEMTYPE_GLYPH_WEAPON) end,
+    isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_POTION, ITEMTYPE_POISON) end,
+    isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_FOOD, ITEMTYPE_DRINK) end,
+    isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllISpecializedtemTypesMoveModeIgnore(SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP, SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT, SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT) end,
 
-    isRecipeTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
-    isRecipeTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getRecipeTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
-    setRecipeTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "recipesEnabled"}) end,
-
-    isWritsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "writsEnabled"}) end,
-    isWritsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getWritsTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "writsEnabled"}) end,
-    setWritsTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "writsEnabled"}) end,
-
-    isGlyphsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
-    isGlyphsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getGlyphsTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
-    setGlyphsTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "glyphsEnabled"}) end,
-
-    isLiquidsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
-    isLiquidsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getLiquidsTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
-    setLiquidsTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "liquidsEnabled"}) end,
-
-    isFoodDrinksTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
-    isFoodDrinksTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getFoodDrinksTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
-    setFoodDrinksTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "foodDrinksEnabled"}) end,
-
-    isTrophiesTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
-    isTrophiesTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
-    getTrophiesTransactionSetting = function() return getValue(PAB.SavedVars, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
-    setTrophiesTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Advanced", "TransactionSettings", "trophiesEnabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- INDIVIDUAL ITEMS

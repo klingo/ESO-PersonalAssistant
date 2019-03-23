@@ -75,50 +75,52 @@ local function depositOrWithdrawCurrencies()
 
     PAHF.debugln("PA.Banking.depositOrWithdrawCurrencies")
 
-    local currencies = {
-        {
-            currencyType = CURT_MONEY,
-            enabled = PAB.SavedVars.Currencies.goldTransaction,
-            minToKeep = tonumber(PAB.SavedVars.Currencies.goldMinToKeep),
-            maxToKeep = tonumber(PAB.SavedVars.Currencies.goldMaxToKeep),
-        },
-        {
-            currencyType = CURT_ALLIANCE_POINTS,
-            enabled = PAB.SavedVars.Currencies.alliancePointsTransaction,
-            minToKeep = tonumber(PAB.SavedVars.Currencies.alliancePointsMinToKeep),
-            maxToKeep = tonumber(PAB.SavedVars.Currencies.alliancePointsMaxToKeep),
-        },
-        {
-            currencyType = CURT_TELVAR_STONES,
-            enabled = PAB.SavedVars.Currencies.telVarTransaction,
-            minToKeep = tonumber(PAB.SavedVars.Currencies.telVarMinToKeep),
-            maxToKeep = tonumber(PAB.SavedVars.Currencies.telVarMaxToKeep),
-        },
-        {
-            currencyType = CURT_WRIT_VOUCHERS,
-            enabled = PAB.SavedVars.Currencies.writVouchersTransaction,
-            minToKeep = tonumber(PAB.SavedVars.Currencies.writVouchersMinToKeep),
-            maxToKeep = tonumber(PAB.SavedVars.Currencies.writVouchersMaxToKeep),
-        },
-    }
+    if PAB.SavedVars.Currencies.currenciesEnabled then
+        local currencies = {
+            {
+                currencyType = CURT_MONEY,
+                enabled = PAB.SavedVars.Currencies.goldTransaction,
+                minToKeep = tonumber(PAB.SavedVars.Currencies.goldMinToKeep),
+                maxToKeep = tonumber(PAB.SavedVars.Currencies.goldMaxToKeep),
+            },
+            {
+                currencyType = CURT_ALLIANCE_POINTS,
+                enabled = PAB.SavedVars.Currencies.alliancePointsTransaction,
+                minToKeep = tonumber(PAB.SavedVars.Currencies.alliancePointsMinToKeep),
+                maxToKeep = tonumber(PAB.SavedVars.Currencies.alliancePointsMaxToKeep),
+            },
+            {
+                currencyType = CURT_TELVAR_STONES,
+                enabled = PAB.SavedVars.Currencies.telVarTransaction,
+                minToKeep = tonumber(PAB.SavedVars.Currencies.telVarMinToKeep),
+                maxToKeep = tonumber(PAB.SavedVars.Currencies.telVarMaxToKeep),
+            },
+            {
+                currencyType = CURT_WRIT_VOUCHERS,
+                enabled = PAB.SavedVars.Currencies.writVouchersTransaction,
+                minToKeep = tonumber(PAB.SavedVars.Currencies.writVouchersMinToKeep),
+                maxToKeep = tonumber(PAB.SavedVars.Currencies.writVouchersMaxToKeep),
+            },
+        }
 
-    for _, currency in pairs(currencies) do
-        if (currency.enabled) then
-            -- get the current amount of the currency on character
-            local currentCcyAmount = GetCurrencyAmount(currency.currencyType, CURRENCY_LOCATION_CHARACTER)
+        for _, currency in pairs(currencies) do
+            if (currency.enabled) then
+                -- get the current amount of the currency on character
+                local currentCcyAmount = GetCurrencyAmount(currency.currencyType, CURRENCY_LOCATION_CHARACTER)
 
-            -- get the amount that needs to be transfered (either way)
-            local changeCcyAmount = getChangeCcyAmount(currentCcyAmount, currency.minToKeep, currency.maxToKeep)
+                -- get the amount that needs to be transfered (either way)
+                local changeCcyAmount = getChangeCcyAmount(currentCcyAmount, currency.minToKeep, currency.maxToKeep)
 
-            -- act based on the to be transferred amount
-            if (changeCcyAmount < 0) then
-                -- deposit currency
-                depositCurrency(changeCcyAmount * -1, currency.currencyType)
-            elseif (changeCcyAmount > 0) then
-                -- withdraw currency
-                withdrawCurrency(changeCcyAmount, currency.currencyType)
-            else
-                -- no currency transaction required
+                -- act based on the to be transferred amount
+                if (changeCcyAmount < 0) then
+                    -- deposit currency
+                    depositCurrency(changeCcyAmount * -1, currency.currencyType)
+                elseif (changeCcyAmount > 0) then
+                    -- withdraw currency
+                    withdrawCurrency(changeCcyAmount, currency.currencyType)
+                else
+                    -- no currency transaction required
+                end
             end
         end
     end

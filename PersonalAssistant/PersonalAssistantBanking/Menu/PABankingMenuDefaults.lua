@@ -161,72 +161,22 @@ local PABankingMenuDefaults = {
         advancedItemsEnabled = true,
 
         ItemTypes = {
-            [ITEMTYPE_RACIAL_STYLE_MOTIF] = {
-                enabledSetting = "motivesEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_RECIPE] = {
-                enabledSetting = "recipesEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_MASTER_WRIT] = {
-                enabledSetting = "writsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_GLYPH_ARMOR] = {
-                enabledSetting = "glyphsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_GLYPH_JEWELRY] = {
-                enabledSetting = "glyphsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_GLYPH_WEAPON] = {
-                enabledSetting = "glyphsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_POTION] = {
-                enabledSetting = "liquidsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_POISON] = {
-                enabledSetting = "liquidsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_FOOD] = {
-                enabledSetting = "foodDrinksEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_DRINK] = {
-                enabledSetting = "foodDrinksEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_RACIAL_STYLE_MOTIF] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_RECIPE] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_MASTER_WRIT] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_GLYPH_ARMOR] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_GLYPH_JEWELRY] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_GLYPH_WEAPON] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_POTION] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_POISON] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_FOOD] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_DRINK] = PAC.MOVE.IGNORE,
         },
 
         SpecializedItemTypes = {
-            [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = {
-                enabledSetting = "trophiesEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = {
-                enabledSetting = "trophiesEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT] = {
-                enabledSetting = "trophiesEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-        },
-
-        TransactionSettings = {
-            motivesEnabled = true,
-            recipesEnabled = true,
-            writsEnabled = true,
-            glyphsEnabled = true,
-            liquidsEnabled = true,
-            foodDrinksEnabled = true,
-
-            trophiesEnabled = true,
+            [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = PAC.MOVE.IGNORE,
+            [SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = PAC.MOVE.IGNORE,
+            [SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT] = PAC.MOVE.IGNORE,
         },
     },
 

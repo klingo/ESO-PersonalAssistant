@@ -26,24 +26,16 @@ local function OnBankOpen()
         -- set the global variable to 'false'
         PA.isBankClosed = false
 
-        -- check if gold deposit is enabled
-        if PAB.SavedVars.Currencies.currenciesEnabled then
-            -- trigger the deposit and withdrawal of gold
-            PAB.depositOrWithdrawCurrencies()
-        end
+        -- trigger the deposit and withdrawal of gold
+        PAB.depositOrWithdrawCurrencies()
 
-        -- check if the different transactions are enabled and add them to the function queue (will be executed in REVERSE order)
+        -- add the different item transactions to the function queue (will be executed in REVERSE order)
+        -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
-        if PAB.SavedVars.Advanced.advancedItemsEnabled then
-            PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedItems, PAB.AddonName, 100)
-        end
-        if PAB.SavedVars.Individual.individualItemsEnabled then
-            PAEM.addFunctionToQueue(PAB.depositOrWithdrawIndividualItems, PAB.AddonName, 100)
-        end
-        if PAB.SavedVars.Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
-            PAEM.addFunctionToQueue(PAB.depositOrWithdrawCraftingItems, PAB.AddonName, 100)
-        end
+        PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedItems, PAB.AddonName, 100)
+        PAEM.addFunctionToQueue(PAB.depositOrWithdrawIndividualItems, PAB.AddonName, 100)
+        PAEM.addFunctionToQueue(PAB.depositOrWithdrawCraftingItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
 
         -- Execute the function queue

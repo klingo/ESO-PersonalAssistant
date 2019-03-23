@@ -17,47 +17,45 @@ local function depositOrWithdrawAdvancedItems()
 
     PAHF.debugln("PA.Banking.depositOrWithdrawAdvancedItems")
 
-    -- check if bankTransfer is already blocked
-    if PAB.isBankTransferBlocked then return end
-    PAB.isBankTransferBlocked = true
+    if PAB.SavedVars.Advanced.advancedItemsEnabled then
+        -- check if bankTransfer is already blocked
+        if PAB.isBankTransferBlocked then return end
+        PAB.isBankTransferBlocked = true
 
-    -- prepare the table with itemTypes to deposit and withdraw
-    local depositItemTypes = setmetatable({}, { __index = table })
-    local depositSpecializedItemTypes = setmetatable({}, { __index = table })
-    local withdrawItemTypes = setmetatable({}, { __index = table })
-    local withdrawSpezializedItemTypes = setmetatable({}, { __index = table })
+        -- prepare the table with itemTypes to deposit and withdraw
+        local depositItemTypes = setmetatable({}, { __index = table })
+        local depositSpecializedItemTypes = setmetatable({}, { __index = table })
+        local withdrawItemTypes = setmetatable({}, { __index = table })
+        local withdrawSpezializedItemTypes = setmetatable({}, { __index = table })
 
-    -- fill up the table(s)
-    for itemType, moveConfig in pairs(PAB.SavedVars.Advanced.ItemTypes) do
-        if PAB.SavedVars.Advanced.TransactionSettings[moveConfig.enabledSetting] then
-            if (moveConfig.moveMode == PAC.MOVE.DEPOSIT) then
+        -- fill up the table(s)
+        for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do
+            if moveMode == PAC.MOVE.DEPOSIT then
                 depositItemTypes:insert(itemType)
-            elseif (moveConfig.moveMode == PAC.MOVE.WITHDRAW) then
+            elseif moveMode == PAC.MOVE.WITHDRAW then
                 withdrawItemTypes:insert(itemType)
             end
         end
-    end
-    for specializedItemType, moveConfig in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
-        if PAB.SavedVars.Advanced.TransactionSettings[moveConfig.enabledSetting] then
-            if (moveConfig.moveMode == PAC.MOVE.DEPOSIT) then
+        for specializedItemType, moveMode in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
+            if moveMode == PAC.MOVE.DEPOSIT then
                 depositSpecializedItemTypes:insert(specializedItemType)
-            elseif (moveConfig.moveMode == PAC.MOVE.WITHDRAW) then
+            elseif moveMode == PAC.MOVE.WITHDRAW then
                 withdrawSpezializedItemTypes:insert(specializedItemType)
             end
         end
+
+        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes)
+        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawItemTypes, withdrawSpezializedItemTypes)
+
+        local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
+        local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+
+        local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+        local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
+
+        -- trigger the itemTransactions
+        _doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache)
     end
-
-    local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes)
-    local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawItemTypes, withdrawSpezializedItemTypes)
-
-    local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
-    local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
-
-    local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
-    local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
-
-    -- trigger the itemTransactions
-    _doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
