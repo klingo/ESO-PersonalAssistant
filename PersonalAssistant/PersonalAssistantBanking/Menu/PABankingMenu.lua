@@ -883,7 +883,7 @@ local function _createPABAdvancedMotifSubmenuTable()
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = false,
+            disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
             default = PAC.MOVE.IGNORE,
         })
     end
@@ -900,7 +900,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = false,
+            disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
             default = PAC.MOVE.IGNORE,
         })
     end
@@ -917,7 +917,7 @@ local function _createPABAdvancedWritsSubmenuTable()
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = false,
+            disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
             default = PAC.MOVE.IGNORE,
         })
     end
@@ -934,7 +934,7 @@ local function _createPABAdvancedGlyphsSubmenuTable()
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = false,
+            disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
             default = PAC.MOVE.IGNORE,
         })
     end
@@ -951,7 +951,7 @@ local function _createPABAdvancedLiquidsSubmenuTable()
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = false,
+            disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
             default = PAC.MOVE.IGNORE,
         })
     end
@@ -968,7 +968,7 @@ local function _createPABAdvancedFoodDrinksSubmenuTable()
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = false,
+            disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
             default = PAC.MOVE.IGNORE,
         })
     end
@@ -985,7 +985,7 @@ local function _createPABAdvancedTrophiesSubmenuTable()
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
-            disabled = false,
+            disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
             default = PAC.MOVE.IGNORE,
         })
     end
