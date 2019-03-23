@@ -6,9 +6,17 @@ local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local getValue = PAMF.getValue
-local setValue = PAMF.setValue
-local isDisabled = PAMF.isDisabled
+local function getValue(...)
+    return PAMF.getValue(PAR.SavedVars, ...)
+end
+
+local function setValue(value, ...)
+    PAMF.setValue(PAR.SavedVars, value, ...)
+end
+
+local function isDisabled(...)
+    return PAMF.isDisabled(PAR.SavedVars, ...)
+end
 
 -- =================================================================================================================
 
@@ -16,7 +24,7 @@ local isDisabled = PAMF.isDisabled
 -- PARepair   autoRepairEnabled
 ---------------------------------
 local function setPARepairEnabled(value)
-    setValue(PAR.SavedVars, value, {"autoRepairEnabled"})
+    setValue(value, {"autoRepairEnabled"})
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
 end
@@ -24,71 +32,71 @@ end
 -- =================================================================================================================
 
 local PARepairMenuFunctions = {
-    getAutoRepairEnabledSetting = function() return getValue(PAR.SavedVars, {"autoRepairEnabled"}) end,
+    getAutoRepairEnabledSetting = function() return getValue({"autoRepairEnabled"}) end,
     setAutoRepairEnabledSetting = setPARepairEnabled,
 
     -- -----------------------------------------------------------------------------------
     -- REPAIR WITH GOLD
     -- -----------------------------
-    isRepairWithGoldMenuDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
-    isRepairWithGoldDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}) end,
-    getRepairWithGoldSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "repairWithGold"}) end,
-    setRepairWithGoldSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "repairWithGold"}) end,
+    isRepairWithGoldMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
+    isRepairWithGoldDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
+    getRepairWithGoldSetting = function() return getValue({"RepairEquipped", "repairWithGold"}) end,
+    setRepairWithGoldSetting = function(value) setValue(value, {"RepairEquipped", "repairWithGold"}) end,
 
-    isRepairWithGoldDurabilityThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
-    getRepairWithGoldDurabilityThresholdSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
-    setRepairWithGoldDurabilityThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
+    isRepairWithGoldDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
+    getRepairWithGoldDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
+    setRepairWithGoldDurabilityThresholdSetting = function(value) setValue(value, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
 
     -- -----------------------------------------------------------------------------------
     -- REPAIR WITH REPAIR KITS
     -- -----------------------------
-    isRepairWithRepairKitMenuDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
-    isRepairWithRepairKitDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}) end,
-    getRepairWithRepairKitSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "repairWithRepairKit"}) end,
-    setRepairWithRepairKitSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "repairWithRepairKit"}) end,
+    isRepairWithRepairKitMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+    isRepairWithRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
+    getRepairWithRepairKitSetting = function() return getValue({"RepairEquipped", "repairWithRepairKit"}) end,
+    setRepairWithRepairKitSetting = function(value) setValue(value, {"RepairEquipped", "repairWithRepairKit"}) end,
 
-    isRepairWithRepairKitDurabilityThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
-    getRepairWithRepairKitDurabilityThresholdSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "repairWithRepairKitThreshold"}) end,
-    setRepairWithRepairKitDurabilityThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "repairWithRepairKitThreshold"}) end,
+    isRepairWithRepairKitDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+    getRepairWithRepairKitDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithRepairKitThreshold"}) end,
+    setRepairWithRepairKitDurabilityThresholdSetting = function(value) setValue(value, {"RepairEquipped", "repairWithRepairKitThreshold"}) end,
 
-    --        isRepairWithCrownRepairKitDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}) end,
-    --        getRepairWithCrownRepairKitSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
-    --        setRepairWithCrownRepairKitSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
+    --        isRepairWithCrownRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
+    --        getRepairWithCrownRepairKitSetting = function() return getValue({"RepairEquipped", "repairWithCrownRepairKit"}) end,
+    --        setRepairWithCrownRepairKitSetting = function(value) setValue(value, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
     --
-    --        isRepairWithCrownRepairKitDurabilityThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
-    --        getRepairWithCrownRepairKitDurabilityThresholdSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
-    --        setRepairWithCrownRepairKitDurabilityThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
+    --        isRepairWithCrownRepairKitDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
+    --        getRepairWithCrownRepairKitDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
+    --        setRepairWithCrownRepairKitDurabilityThresholdSetting = function(value) setValue(value, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
 
-    isLowRepairKitWarningDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
-    getLowRepairKitWarningSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "lowRepairKitWarning"}) end,
-    setLowRepairKitWarningSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "lowRepairKitWarning"}) end,
+    isLowRepairKitWarningDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+    getLowRepairKitWarningSetting = function() return getValue({"RepairEquipped", "lowRepairKitWarning"}) end,
+    setLowRepairKitWarningSetting = function(value) setValue(value, {"RepairEquipped", "lowRepairKitWarning"}) end,
 
-    isLowRepairKitThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}, {"RepairEquipped", "lowRepairKitWarning"}) end,
-    getLowRepairKitThresholdSetting = function() return getValue(PAR.SavedVars, {"RepairEquipped", "lowRepairKitThreshold"}) end,
-    setLowRepairKitThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RepairEquipped", "lowRepairKitThreshold"}) end,
+    isLowRepairKitThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}, {"RepairEquipped", "lowRepairKitWarning"}) end,
+    getLowRepairKitThresholdSetting = function() return getValue({"RepairEquipped", "lowRepairKitThreshold"}) end,
+    setLowRepairKitThresholdSetting = function(value) setValue(value, {"RepairEquipped", "lowRepairKitThreshold"}) end,
 
     -- -----------------------------------------------------------------------------------
     -- RECHARGE WITH SOUL GEMS
     -- -----------------------------
-    isRechargeWithSoulGemMenuDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
-    isRechargeWithSoulGemDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}) end,
-    getRechargeWithSoulGemSetting = function() return getValue(PAR.SavedVars, {"RechargeWeapons", "useSoulGems"}) end,
-    setRechargeWithSoulGemSetting = function(value) setValue(PAR.SavedVars, value, {"RechargeWeapons", "useSoulGems"}) end,
+    isRechargeWithSoulGemMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
+    isRechargeWithSoulGemDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
+    getRechargeWithSoulGemSetting = function() return getValue({"RechargeWeapons", "useSoulGems"}) end,
+    setRechargeWithSoulGemSetting = function(value) setValue(value, {"RechargeWeapons", "useSoulGems"}) end,
 
-    isLowSoulGemWarningDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
-    getLowSoulGemWarningSetting = function() return getValue(PAR.SavedVars, {"RechargeWeapons", "lowSoulGemWarning"}) end,
-    setLowSoulGemWarningSetting = function(value) setValue(PAR.SavedVars, value, {"RechargeWeapons", "lowSoulGemWarning"}) end,
+    isLowSoulGemWarningDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
+    getLowSoulGemWarningSetting = function() return getValue({"RechargeWeapons", "lowSoulGemWarning"}) end,
+    setLowSoulGemWarningSetting = function(value) setValue(value, {"RechargeWeapons", "lowSoulGemWarning"}) end,
 
-    isLowSoulGemThresholdDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}, {"RechargeWeapons", "lowSoulGemWarning"}) end,
-    getLowSoulGemThresholdSetting = function() return getValue(PAR.SavedVars, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
-    setLowSoulGemThresholdSetting = function(value) setValue(PAR.SavedVars, value, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
+    isLowSoulGemThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}, {"RechargeWeapons", "lowSoulGemWarning"}) end,
+    getLowSoulGemThresholdSetting = function() return getValue({"RechargeWeapons", "lowSoulGemThreshold"}) end,
+    setLowSoulGemThresholdSetting = function(value) setValue(value, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
 
     -- -----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
-    isSilentModeDisabled = function() return isDisabled(PAR.SavedVars, {"autoRepairEnabled"}) end,
-    getSilentModeSetting = function() return getValue(PAR.SavedVars, {"silentMode"}) end,
-    setSilentModeSetting = function(value) setValue(PAR.SavedVars, value, {"silentMode"}) end,
+    isSilentModeDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
+    getSilentModeSetting = function() return getValue({"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 
 }
 

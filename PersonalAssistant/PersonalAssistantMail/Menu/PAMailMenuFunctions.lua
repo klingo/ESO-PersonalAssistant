@@ -5,9 +5,17 @@ local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local getValue = PAMF.getValue
-local setValue = PAMF.setValue
-local isDisabled = PAMF.isDisabled
+local function getValue(...)
+    return PAMF.getValue(PAM.SavedVars, ...)
+end
+
+local function setValue(value, ...)
+    PAMF.setValue(PAM.SavedVars, value, ...)
+end
+
+local function isDisabled(...)
+    return PAMF.isDisabled(PAM.SavedVars, ...)
+end
 
 -- =================================================================================================================
 
@@ -15,19 +23,19 @@ local PAMailMenuFunctions = {
     -- -----------------------------------------------------------------------------------
     -- HIRELINGS
     -- -----------------------------
-    getHirelingAutoMailEnabledSetting = function() return getValue(PAM.SavedVars, {"hirelingAutoMailEnabled"}) end,
-    setHirelingAutoMailEnabledSetting = function(value) setValue(PAM.SavedVars, value, {"hirelingAutoMailEnabled"}) end,
+    getHirelingAutoMailEnabledSetting = function() return getValue({"hirelingAutoMailEnabled"}) end,
+    setHirelingAutoMailEnabledSetting = function(value) setValue(value, {"hirelingAutoMailEnabled"}) end,
 
-    isHirelingDeleteEmptyMailsDisabled = function() return isDisabled(PAM.SavedVars, {"hirelingAutoMailEnabled"}) end,
-    getHirelingDeleteEmptyMailsSetting = function() return getValue(PAM.SavedVars, {"hirelingDeleteEmptyMails"}) end,
-    setHirelingDeleteEmptyMailsSetting = function(value) setValue(PAM.SavedVars, value, {"hirelingDeleteEmptyMails"}) end,
+    isHirelingDeleteEmptyMailsDisabled = function() return isDisabled({"hirelingAutoMailEnabled"}) end,
+    getHirelingDeleteEmptyMailsSetting = function() return getValue({"hirelingDeleteEmptyMails"}) end,
+    setHirelingDeleteEmptyMailsSetting = function(value) setValue(value, {"hirelingDeleteEmptyMails"}) end,
 
     -- -----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
     isSilentModeDisabled = false, -- always enabled
-    getSilentModeSetting = function() return getValue(PAM.SavedVars, {"silentMode"}) end,
-    setSilentModeSetting = function(value) setValue(PAM.SavedVars, value, {"silentMode"}) end,
+    getSilentModeSetting = function() return getValue({"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

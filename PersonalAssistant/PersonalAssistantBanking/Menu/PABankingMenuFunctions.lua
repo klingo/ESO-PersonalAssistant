@@ -9,9 +9,18 @@ local PAMF = PA.MenuFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local isDisabledPAGeneralNoProfileSelected = PAMF.isDisabledPAGeneralNoProfileSelected
-local getValue = PAMF.getValue
-local setValue = PAMF.setValue
-local isDisabled = PAMF.isDisabled
+
+local function getValue(...)
+    return PAMF.getValue(PAB.SavedVars, ...)
+end
+
+local function setValue(value, ...)
+    PAMF.setValue(PAB.SavedVars, value, ...)
+end
+
+local function isDisabled(...)
+    return PAMF.isDisabled(PAB.SavedVars, ...)
+end
 
 -- =================================================================================================================
 
@@ -23,10 +32,10 @@ local function setPABankingCurrencyMinToKeepSetting(PA_LAM_REF_TO_CHANGE, PA_LAM
     if not intValue or intValue < 0 then
         PA_LAM_REF_TO_CHANGE:UpdateValue()
     else
-        local currencyToKeep = tonumber(getValue(PAB.SavedVars, {"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
-        setValue(PAB.SavedVars, intValue, {"Currencies", variableToChangeName})
+        local currencyToKeep = tonumber(getValue({"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
+        setValue(intValue, {"Currencies", variableToChangeName})
         if intValue > currencyToKeep then
-            setValue(PAB.SavedVars, intValue, {"Currencies", variableOtherName})
+            setValue(intValue, {"Currencies", variableOtherName})
             PA_LAM_REF_OTHER:UpdateValue()
         end
     end
@@ -40,10 +49,10 @@ local function setPABankingCurrencyMaxToKeepSetting(PA_LAM_REF_TO_CHANGE, PA_LAM
     if not intValue or intValue < 0 then
         PA_LAM_REF_TO_CHANGE:UpdateValue()
     else
-        local currencyToKeep = tonumber(getValue(PAB.SavedVars, {"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
-        setValue(PAB.SavedVars, intValue, {"Currencies", variableToChangeName})
+        local currencyToKeep = tonumber(getValue({"Currencies", variableOtherName}) or PAMD.PABanking.Currencies[variableOtherName])
+        setValue(intValue, {"Currencies", variableToChangeName})
         if intValue < currencyToKeep then
-            setValue(PAB.SavedVars, intValue, {"Currencies", variableOtherName})
+            setValue(intValue, {"Currencies", variableOtherName})
             PA_LAM_REF_OTHER:UpdateValue()
         end
     end
@@ -55,7 +64,7 @@ end
 -- PABanking   Currencies       currenciesEnabled
 ---------------------------------
 local function setPABankingCurrenciesEnabledSetting(value)
-    setValue(PAB.SavedVars, value, {"Currencies", "currenciesEnabled"})
+    setValue(value, {"Currencies", "currenciesEnabled"})
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
 end
@@ -120,7 +129,7 @@ end
 -- PABanking   Crafting         craftingItemsEnabled
 ---------------------------------
 local function setPABankingCraftingItemsEnabledSetting(value)
-    setValue(PAB.SavedVars, value, {"Crafting", "craftingItemsEnabled"})
+    setValue(value, {"Crafting", "craftingItemsEnabled"})
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
 end
@@ -151,7 +160,7 @@ end
 -- PABanking   Advanced      advancedItemsEnabled
 ---------------------------------
 local function setPABankingAdvancedItemsEnabledSetting(value)
-    setValue(PAB.SavedVars, value, {"Advanced", "advancedItemsEnabled"})
+    setValue(value, {"Advanced", "advancedItemsEnabled"})
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
 end
@@ -187,7 +196,7 @@ end
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(...)
-    if isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return true end
+    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
 
     -- if savedVarsArgs is not disabled, check the itemTypes
     local args = { ... }
@@ -202,7 +211,7 @@ end
 -- PABanking   Advanced.SpecializedItemTypes         moveMode
 ---------------------------------
 local function isAdvancedItemsDisabledOrAllISpecializedtemTypesMoveModeIgnore(...)
-    if isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return true end
+    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
 
     -- if savedVarsArgs is not disabled, check the itemTypes
     local args = { ... }
@@ -232,7 +241,7 @@ end
 -- PABanking   Individual         individualItemsEnabled
 ---------------------------------
 local function setPABankingIndividualItemsEnabledSetting(value)
-    setValue(PAB.SavedVars, value, {"Individual", "individualItemsEnabled"})
+    setValue(value, {"Individual", "individualItemsEnabled"})
     -- when enabling/disabling a modules, refresh all event registrations
     PAEM.RefreshAllEventRegistrations()
 end
@@ -241,7 +250,7 @@ end
 -- PABanking   Individual.ItemIds         operator
 ---------------------------------
 local function isIndividualItemsDisabledOrAllItemIdsOperatorNone(itemIdList)
-    if isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return true end
+    if isDisabled({"Individual", "individualItemsEnabled"}) then return true end
 
     -- if savedVarsArgs is not disabled, check the itemTypes
     for _, individualItemId in ipairs(itemIdList) do
@@ -290,7 +299,7 @@ end
 ---------------------------------
 local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    if isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return true end
+    if isDisabled({"Individual", "individualItemsEnabled"}) then return true end
     if PAB.SavedVars.Individual.ItemIds[individualItemId].operator ~= PAC.OPERATOR.NONE then return false end
     -- if there was no 'false' returned until here; then return true
     return true
@@ -300,9 +309,9 @@ end
 -- PABanking   transactionDepositStacking
 ---------------------------------
 local function isPABankingTransactionDepositStackingDisabled()
-    if not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) then return false end
-    if not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return false end
-    if not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return false end
+    if not isDisabled({"Crafting", "craftingItemsEnabled"}) then return false end
+    if not isDisabled({"Advanced", "advancedItemsEnabled"}) then return false end
+    if not isDisabled({"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 
@@ -310,9 +319,9 @@ end
 -- PABanking   transactionWithdrawalStacking
 ---------------------------------
 local function isPABankingTransactionWithdrawalStackingDisabled()
-    if not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) then return false end
-    if not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return false end
-    if not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return false end
+    if not isDisabled({"Crafting", "craftingItemsEnabled"}) then return false end
+    if not isDisabled({"Advanced", "advancedItemsEnabled"}) then return false end
+    if not isDisabled({"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 
@@ -320,9 +329,9 @@ end
 -- PABanking   transactionInterval
 ---------------------------------
 local function isPABankingTransactionIntervalDisabled()
-    if not isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) then return false end
-    if not isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) then return false end
-    if not isDisabled(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) then return false end
+    if not isDisabled({"Crafting", "craftingItemsEnabled"}) then return false end
+    if not isDisabled({"Advanced", "advancedItemsEnabled"}) then return false end
+    if not isDisabled({"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 
@@ -331,133 +340,133 @@ local PABankingMenuFunctions = {
     -- -----------------------------------------------------------------------------------
     -- CURRENCIES
     -- -----------------------------
-    getCurrenciesEnabledSetting = function() return getValue(PAB.SavedVars, {"Currencies", "currenciesEnabled"}) end,
+    getCurrenciesEnabledSetting = function() return getValue({"Currencies", "currenciesEnabled"}) end,
     setCurrenciesEnabledSetting = setPABankingCurrenciesEnabledSetting,
 
-    isGoldTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
-    isGoldTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}) end,
-    getGoldTransactionSetting = function() return getValue(PAB.SavedVars, {"Currencies", "goldTransaction"}) end,
-    setGoldTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Currencies", "goldTransaction"}) end,
+    isGoldTransactionMenuDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
+    isGoldTransactionDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}) end,
+    getGoldTransactionSetting = function() return getValue({"Currencies", "goldTransaction"}) end,
+    setGoldTransactionSetting = function(value) setValue(value, {"Currencies", "goldTransaction"}) end,
 
-    isGoldMinToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
-    getGoldMinToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "goldMinToKeep"}) end,
+    isGoldMinToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
+    getGoldMinToKeepSetting = function() return getValue({"Currencies", "goldMinToKeep"}) end,
     setGoldMinToKeepSetting = setPABAnkingGoldMinToKeepSetting,
 
-    isGoldMaxToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
-    getGoldMaxToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "goldMaxToKeep"}) end,
+    isGoldMaxToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
+    getGoldMaxToKeepSetting = function() return getValue({"Currencies", "goldMaxToKeep"}) end,
     setGoldMaxToKeepSetting = setPABAnkingGoldMaxToKeepSetting,
 
-    isAlliancePointsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
-    isAlliancePointsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}) end,
-    getAlliancePointsTransactionSetting = function() return getValue(PAB.SavedVars, {"Currencies", "alliancePointsTransaction"}) end,
-    setAlliancePointsTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Currencies", "alliancePointsTransaction"}) end,
+    isAlliancePointsTransactionMenuDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
+    isAlliancePointsTransactionDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}) end,
+    getAlliancePointsTransactionSetting = function() return getValue({"Currencies", "alliancePointsTransaction"}) end,
+    setAlliancePointsTransactionSetting = function(value) setValue(value, {"Currencies", "alliancePointsTransaction"}) end,
 
-    isAlliancePointsMinToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
-    getAlliancePointsMinToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "alliancePointsMinToKeep"}) end,
+    isAlliancePointsMinToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
+    getAlliancePointsMinToKeepSetting = function() return getValue({"Currencies", "alliancePointsMinToKeep"}) end,
     setAlliancePointsMinToKeepSetting = setPABAnkingAlliancePointsMinToKeepSetting,
 
-    isAlliancePointsMaxToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
-    getAlliancePointsMaxToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "alliancePointsMaxToKeep"}) end,
+    isAlliancePointsMaxToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "alliancePointsTransaction"}) end,
+    getAlliancePointsMaxToKeepSetting = function() return getValue({"Currencies", "alliancePointsMaxToKeep"}) end,
     setAlliancePointsMaxToKeepSetting = setPABAnkingAlliancePointsMaxToKeepSetting,
 
-    isTelVarTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
-    isTelVarTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}) end,
-    getTelVarTransactionSetting = function() return getValue(PAB.SavedVars, {"Currencies", "telVarTransaction"}) end,
-    setTelVarTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Currencies", "telVarTransaction"}) end,
+    isTelVarTransactionMenuDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
+    isTelVarTransactionDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}) end,
+    getTelVarTransactionSetting = function() return getValue({"Currencies", "telVarTransaction"}) end,
+    setTelVarTransactionSetting = function(value) setValue(value, {"Currencies", "telVarTransaction"}) end,
 
-    isTelVarMinToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
-    getTelVarMinToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "telVarMinToKeep"}) end,
+    isTelVarMinToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
+    getTelVarMinToKeepSetting = function() return getValue({"Currencies", "telVarMinToKeep"}) end,
     setTelVarMinToKeepSetting = setPABAnkingTelVarMinToKeepSetting,
 
-    isTelVarMaxToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
-    getTelVarMaxToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "telVarMaxToKeep"}) end,
+    isTelVarMaxToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "telVarTransaction"}) end,
+    getTelVarMaxToKeepSetting = function() return getValue({"Currencies", "telVarMaxToKeep"}) end,
     setTelVarMaxToKeepSetting = setPABAnkingTelVarMaxToKeepSetting,
 
-    isWritVouchersTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "writVouchersTransaction"}) end,
-    isWritVouchersTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}) end,
-    getWritVouchersTransactionSetting = function() return getValue(PAB.SavedVars, {"Currencies", "writVouchersTransaction"}) end,
-    setWritVouchersTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Currencies", "writVouchersTransaction"}) end,
+    isWritVouchersTransactionMenuDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "writVouchersTransaction"}) end,
+    isWritVouchersTransactionDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}) end,
+    getWritVouchersTransactionSetting = function() return getValue({"Currencies", "writVouchersTransaction"}) end,
+    setWritVouchersTransactionSetting = function(value) setValue(value, {"Currencies", "writVouchersTransaction"}) end,
 
-    isWritVouchersMinToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "writVouchersTransaction"}) end,
-    getWritVouchersMinToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "writVouchersMinToKeep"}) end,
+    isWritVouchersMinToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "writVouchersTransaction"}) end,
+    getWritVouchersMinToKeepSetting = function() return getValue({"Currencies", "writVouchersMinToKeep"}) end,
     setWritVouchersMinToKeepSetting = setPABAnkingWritVouchersMinToKeepSetting,
 
-    isWritVouchersMaxToKeepDisabled = function() return isDisabled(PAB.SavedVars, {"Currencies", "currenciesEnabled"}, {"Currencies", "writVouchersTransaction"}) end,
-    getWritVouchersMaxToKeepSetting = function() return getValue(PAB.SavedVars, {"Currencies", "writVouchersMaxToKeep"}) end,
+    isWritVouchersMaxToKeepDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "writVouchersTransaction"}) end,
+    getWritVouchersMaxToKeepSetting = function() return getValue({"Currencies", "writVouchersMaxToKeep"}) end,
     setWritVouchersMaxToKeepSetting = setPABAnkingWritVouchersMaxToKeepSetting,
 
     -- -----------------------------------------------------------------------------------
     -- CRAFTING ITEMS
     -- -----------------------------
-    getCraftingItemsEnabledSetting = function() return getValue(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
+    getCraftingItemsEnabledSetting = function() return getValue({"Crafting", "craftingItemsEnabled"}) end,
     setCraftingItemsEnabledSetting = setPABankingCraftingItemsEnabledSetting,
 
-    isCraftingItemsGlobalMoveModeDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
+    isCraftingItemsGlobalMoveModeDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
     setCraftingItemsGlobalMoveModeSetting = function(value) setPABankingCraftingItemTypeMoveAllSettings(value) end,
 
     getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
     setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 
-    isBlacksmithingTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
-    isBlacksmithingTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getBlacksmithingTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
-    setBlacksmithingTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
+    isBlacksmithingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
+    isBlacksmithingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getBlacksmithingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
+    setBlacksmithingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
 
-    isClothingTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
-    isClothingTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getClothingTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
-    setClothingTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
+    isClothingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
+    isClothingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getClothingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "clothingEnabled"}) end,
+    setClothingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
 
-    isWoodworkingTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
-    isWoodworkingTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getWoodworkingTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
-    setWoodworkingTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
+    isWoodworkingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
+    isWoodworkingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getWoodworkingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
+    setWoodworkingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
 
-    isJewelcraftingTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
-    isJewelcraftingTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getJewelcraftingTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
-    setJewelcraftingTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
+    isJewelcraftingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
+    isJewelcraftingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getJewelcraftingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
+    setJewelcraftingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
 
-    isAlchemyTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
-    isAlchemyTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getAlchemyTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
-    setAlchemyTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
+    isAlchemyTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
+    isAlchemyTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getAlchemyTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
+    setAlchemyTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
 
-    isEnchantingTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
-    isEnchantingTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getEnchantingTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
-    setEnchantingTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
+    isEnchantingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
+    isEnchantingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getEnchantingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
+    setEnchantingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
 
-    isProvisioningTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
-    isProvisioningTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getProvisioningTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
-    setProvisioningTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
+    isProvisioningTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
+    isProvisioningTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getProvisioningTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
+    setProvisioningTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
 
-    isStyleMaterialsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
-    isStyleMaterialsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getStyleMaterialsTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
-    setStyleMaterialsTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
+    isStyleMaterialsTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
+    isStyleMaterialsTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getStyleMaterialsTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
+    setStyleMaterialsTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
 
-    isTraitItemsTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
-    isTraitItemsTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getTraitItemsTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
-    setTraitItemsTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
+    isTraitItemsTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
+    isTraitItemsTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getTraitItemsTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
+    setTraitItemsTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
 
-    isFurnishingTransactionMenuDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
-    isFurnishingTransactionDisabled = function() return isDisabled(PAB.SavedVars, {"Crafting", "craftingItemsEnabled"}) end,
-    getFurnishingTransactionSetting = function() return getValue(PAB.SavedVars, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
-    setFurnishingTransactionSetting = function(value) setValue(PAB.SavedVars, value, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
+    isFurnishingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
+    isFurnishingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
+    getFurnishingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
+    setFurnishingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- ADVANCED ITEMS
     -- -----------------------------
-    getAdvancedItemsEnabledSetting = function() return getValue(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
+    getAdvancedItemsEnabledSetting = function() return getValue({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsEnabledSetting = setPABankingAdvancedItemsEnabledSetting,
 
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
 
-    isAdvancedItemsGlobalMoveModeDisabled = function() return isDisabled(PAB.SavedVars, {"Advanced", "advancedItemsEnabled"}) end,
+    isAdvancedItemsGlobalMoveModeDisabled = function() return isDisabled({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsGlobalMoveModeSetting = function(value) setPABankingAdvancedItemTypeMoveAllSettings(value) end,
 
     getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
@@ -475,7 +484,7 @@ local PABankingMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- INDIVIDUAL ITEMS
     -- -----------------------------
-    getIndividualItemsEnabledSetting = function() return getValue(PAB.SavedVars, {"Individual", "individualItemsEnabled"}) end,
+    getIndividualItemsEnabledSetting = function() return getValue({"Individual", "individualItemsEnabled"}) end,
     setIndividualItemsEnabledSetting = setPABankingIndividualItemsEnabledSetting,
 
     isLockpickTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.LOCKPICK) end,
@@ -494,26 +503,26 @@ local PABankingMenuFunctions = {
     -- TRANSACTION SETTINGS
     -- -----------------------------
     isTransactionDepositStackingDisabled = isPABankingTransactionDepositStackingDisabled,
-    getTransactionDepositStackingSetting = function() return getValue(PAB.SavedVars, {"transactionDepositStacking"}) end,
-    setTransactionDepositStackingSetting = function(value) setValue(PAB.SavedVars, value, {"transactionDepositStacking"}) end,
+    getTransactionDepositStackingSetting = function() return getValue({"transactionDepositStacking"}) end,
+    setTransactionDepositStackingSetting = function(value) setValue(value, {"transactionDepositStacking"}) end,
 
     isTransactionWithdrawalStackingDisabled = isPABankingTransactionWithdrawalStackingDisabled,
-    getTransactionWithdrawalStackingSetting = function() return getValue(PAB.SavedVars, {"transactionWithdrawalStacking"}) end,
-    setTransactionWithdrawalStackingSetting = function(value) setValue(PAB.SavedVars, value, {"transactionWithdrawalStacking"}) end,
+    getTransactionWithdrawalStackingSetting = function() return getValue({"transactionWithdrawalStacking"}) end,
+    setTransactionWithdrawalStackingSetting = function(value) setValue(value, {"transactionWithdrawalStacking"}) end,
 
     isTransactionInvervalDisabled = isPABankingTransactionIntervalDisabled,
-    getTransactionInvervalSetting = function() return getValue(PAB.SavedVars, {"transactionInterval"}) end,
-    setTransactionInvervalSetting = function(value) setValue(PAB.SavedVars, value, {"transactionInterval"}) end,
+    getTransactionInvervalSetting = function() return getValue({"transactionInterval"}) end,
+    setTransactionInvervalSetting = function(value) setValue(value, {"transactionInterval"}) end,
 
-    getAutoStackBagsSetting = function() return getValue(PAB.SavedVars, {"autoStackBags"}) end,
-    setAutoStackBagsSetting = function(value) setValue(PAB.SavedVars, value, {"autoStackBags"}) end,
+    getAutoStackBagsSetting = function() return getValue({"autoStackBags"}) end,
+    setAutoStackBagsSetting = function(value) setValue(value, {"autoStackBags"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
     isSilentModeDisabled = false, -- always enabled
-    getSilentModeSetting = function() return getValue(PAB.SavedVars, {"silentMode"}) end,
-    setSilentModeSetting = function(value) setValue(PAB.SavedVars, value, {"silentMode"}) end,
+    getSilentModeSetting = function() return getValue({"silentMode"}) end,
+    setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------
