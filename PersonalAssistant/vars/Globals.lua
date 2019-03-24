@@ -288,6 +288,6 @@ PersonalAssistant.Constants = {
     },
 
     ITEM_QUALITY = {
-        DISALBED = -1,
+        DISABLED = -1,
     }
 }
