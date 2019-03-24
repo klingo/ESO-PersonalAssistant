@@ -27,7 +27,7 @@ PersonalAssistant.Constants = {
     },
 
     COLORED_TEXTS = {
-        PA = table.concat({"|cFFD700", "P", "|cFFFFFF", "rersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant"}),
+        PA = table.concat({"|cFFD700", "P", "|cFFFFFF", "ersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant"}),
         PAG = table.concat({"|cFFD700", "PA G", "|cFFFFFF", "eneral: ", "|cFFFF00"}),
         PAB = table.concat({"|cFFD700", "PA B", "|cFFFFFF", "anking: ", "|cFFFF00"}),
         PAR = table.concat({"|cFFD700", "PA R", "|cFFFFFF", "epair: ", "|cFFFF00"}),
