@@ -878,7 +878,7 @@ local function _createPABAdvancedMotifSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.MOTIF) do
         PABAdvancedMotifSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_ITEMTYPE", itemType),
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
@@ -895,7 +895,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.RECIPE) do
         PABAdvancedRecipeSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_ITEMTYPE", itemType),
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
@@ -912,7 +912,7 @@ local function _createPABAdvancedWritsSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.WRITS) do
         PABAdvancedWritsSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_ITEMTYPE", itemType),
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
@@ -929,7 +929,7 @@ local function _createPABAdvancedGlyphsSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.GLYPHS) do
         PABAdvancedGlyphsSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_ITEMTYPE", itemType),
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
@@ -946,7 +946,7 @@ local function _createPABAdvancedLiquidsSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) do
         PABAdvancedLiquidsSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_ITEMTYPE", itemType),
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
@@ -963,7 +963,7 @@ local function _createPABAdvancedFoodDrinksSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) do
         PABAdvancedFoodDrinksSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_ITEMTYPE", itemType),
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
@@ -980,7 +980,7 @@ local function _createPABAdvancedTrophiesSubmenuTable()
     for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) do
         PABAdvancedTrophiesSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
+            name = zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType)),
             choices = PAMenuChoices.choices.PABanking.itemMoveMode,
             choicesValues = PAMenuChoices.choicesValues.PABanking.itemMoveMode,
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
