@@ -168,7 +168,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         d("flavorText="..tostring(flavorText))
 
         local sellInformation = GetItemLinkSellInformation(itemLink)
-        d("sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
+        d("sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation).."("..sellInformation..")")
 
 
         --        local traitIndex = PA.Loot.TraitIndexFromItemTraitType[traitType]
