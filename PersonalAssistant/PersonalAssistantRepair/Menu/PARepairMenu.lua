@@ -98,7 +98,6 @@ local function _createPARGoldSubmenuTable()
         min = 0,
         max = 99,
         step = 1,
-        --        width = "half",
         getFunc = PAMenuFunctions.PARepair.getRepairWithGoldDurabilityThresholdSetting,
         setFunc = PAMenuFunctions.PARepair.setRepairWithGoldDurabilityThresholdSetting,
         disabled = PAMenuFunctions.PARepair.isRepairWithGoldDurabilityThresholdDisabled,

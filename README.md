@@ -54,8 +54,7 @@ How to read:
     * http://www.esoui.com/forums/showthread.php?p=7988
     * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
 * [X] **(4)** Refactoring of EventManager
-* [ ] **(4)** Check Currency Formatting
-    * https://wiki.esoui.com/Currency_Formatting
+* [X] **(4)** Read all default values for the menu from the xxxMenuDefaults.lua file instead of hardcoding
 * [X] **(5)** Update Addon Manifest
   * https://wiki.esoui.com/Addon_manifest_(.txt)_format
   * AddOnVersion
@@ -72,19 +71,9 @@ How to read:
 * [ ] **(4)** Cleanup Localizations and Getter/Setter Functions
 * [ ] **(5)** Add German Localization
 * [ ] **(5)** Add French Localization (NTakit)
-* [ ] **(6)** Check ItemLink Handling in HelperFunctions.lua
-  * http://www.esoui.com/forums/showthread.php?t=2054
-  * http://www.esoui.com/forums/showthread.php?t=1944
-  * https://wiki.esoui.com/ZO_LinkHandler_CreateLink
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
-* [ ] **(8)** Check new API from patch 4.3 (Wrathstone)
-    ```lua
-    GetItemLinkTraitType(itemLink) – itemTraitType.
-    GetAddOnRootDirectoryPath(addOnIndex) – directoryPath.
-    GetAddOnVersion(addOnIndex) – version.
-    ```
   
   
 
@@ -199,9 +188,20 @@ How to read:
 This is my development ToDo list for the subsequent releases of PersonalAssistant afterwards
 
 #### General
+* [ ] **(4)** Check Currency Formatting
+    * https://wiki.esoui.com/Currency_Formatting
+* [ ] **(6)** Check ItemLink Handling in HelperFunctions.lua
+  * http://www.esoui.com/forums/showthread.php?t=2054
+  * http://www.esoui.com/forums/showthread.php?t=1944
+  * https://wiki.esoui.com/ZO_LinkHandler_CreateLink
 * [ ] **(7)** Add LDoc
     * https://stevedonovan.github.io/ldoc/manual/doc.md.html
-
+* [ ] **(8)** Check new API from patch 4.3 (Wrathstone)
+    ```lua
+    GetItemLinkTraitType(itemLink) – itemTraitType.
+    GetAddOnRootDirectoryPath(addOnIndex) – directoryPath.
+    GetAddOnVersion(addOnIndex) – version.
+    ```
 
 #### PARepair
 * [ ] **(3)** PARepair: Add option to choose Soul Gem amount for "low-count" warning

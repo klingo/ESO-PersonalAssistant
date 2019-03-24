@@ -615,7 +615,7 @@ local function _createPABCraftingBlacksmithingSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isBlacksmithingTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -643,7 +643,7 @@ local function _createPABCraftingClothingSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isClothingTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -671,7 +671,7 @@ local function _createPABCraftingWoodworkingSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isWoodworkingTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -699,7 +699,7 @@ local function _createPABCraftingJewelcraftingSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isJewelcraftingTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -727,7 +727,7 @@ local function _createPABCraftingAlchemySubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isAlchemyTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -755,7 +755,7 @@ local function _createPABCraftingEnchantingSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isEnchantingTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -783,7 +783,7 @@ local function _createPABCraftingProvisioningSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isProvisioningTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -811,7 +811,7 @@ local function _createPABCraftingStyleMaterialsSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isStyleMaterialsTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -839,7 +839,7 @@ local function _createPABCraftingTraitItemsSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isTraitItemsTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -867,7 +867,7 @@ local function _createPABCraftingFurnishingSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setCraftingItemTypeMoveSetting(itemType, value) end,
             disabled = PAMenuFunctions.PABanking.isFurnishingTransactionMenuDisabled,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Crafting.ItemTypes[itemType].moveMode,
         })
     end
 end
@@ -884,7 +884,7 @@ local function _createPABAdvancedMotifSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Advanced.ItemTypes[itemType],
         })
     end
 end
@@ -901,7 +901,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Advanced.ItemTypes[itemType],
         })
     end
 end
@@ -918,7 +918,7 @@ local function _createPABAdvancedWritsSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Advanced.ItemTypes[itemType],
         })
     end
 end
@@ -935,7 +935,7 @@ local function _createPABAdvancedGlyphsSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Advanced.ItemTypes[itemType],
         })
     end
 end
@@ -952,7 +952,7 @@ local function _createPABAdvancedLiquidsSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Advanced.ItemTypes[itemType],
         })
     end
 end
@@ -969,7 +969,7 @@ local function _createPABAdvancedFoodDrinksSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeMoveSetting(itemType, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Advanced.ItemTypes[itemType],
         })
     end
 end
@@ -986,7 +986,7 @@ local function _createPABAdvancedTrophiesSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getAdvancedItemsEnabledSetting() end,
-            default = PAC.MOVE.IGNORE,
+            default = PAMenuDefaults.PABanking.Advanced.SpecializedItemTypes[specializedItemType],
         })
     end
 end
@@ -1007,7 +1007,7 @@ local function _createPABIndividualLockpickSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
-            default = PAC.OPERATOR.NONE,
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].operator,
         })
 
         PABIndividualLockpickSubmenuTable:insert({
@@ -1018,7 +1018,7 @@ local function _createPABIndividualLockpickSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
-            default = 100
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].backpackAmount,
         })
     end
 end
@@ -1039,7 +1039,7 @@ local function _createPABIndividualSoulGemSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
-            default = PAC.OPERATOR.NONE,
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].operator,
         })
 
         PABIndividualSoulGemSubmenuTable:insert({
@@ -1050,7 +1050,7 @@ local function _createPABIndividualSoulGemSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
-            default = 100
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].backpackAmount,
         })
     end
 end
@@ -1071,7 +1071,7 @@ local function _createPABIndividualRepairKitSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
-            default = PAC.OPERATOR.NONE,
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].operator,
         })
 
         PABIndividualRepairKitSubmenuTable:insert({
@@ -1082,7 +1082,7 @@ local function _createPABIndividualRepairKitSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
-            default = 100
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].backpackAmount,
         })
     end
 end
@@ -1103,7 +1103,7 @@ local function _createPABIndividualGenericSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = function() return not PAMenuFunctions.PABanking.getIndividualItemsEnabledSetting() end,
-            default = PAC.OPERATOR.NONE,
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].operator,
         })
 
         PABIndividualGenericSubmenuTable:insert({
@@ -1114,7 +1114,7 @@ local function _createPABIndividualGenericSubmenuTable()
             getFunc = function() return PAMenuFunctions.PABanking.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PAMenuFunctions.PABanking.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PAMenuFunctions.PABanking.isIndividualItemIdAmountDisabled(itemId) end,
-            default = 100
+            default = PAMenuDefaults.PABanking.Individual.ItemIds[itemId].backpackAmount,
         })
     end
 end
