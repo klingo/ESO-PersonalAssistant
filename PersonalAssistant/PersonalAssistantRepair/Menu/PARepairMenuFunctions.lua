@@ -33,7 +33,7 @@ local PARepairMenuFunctions = {
     isRepairWithGoldMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
     isRepairWithGoldDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
     getRepairWithGoldSetting = function() return getValue({"RepairEquipped", "repairWithGold"}) end,
-    setRepairWithGoldSetting = function(value) setValue(value, {"RepairEquipped", "repairWithGold"}) end,
+    setRepairWithGoldSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "repairWithGold"}) end,
 
     isRepairWithGoldDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
     getRepairWithGoldDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
@@ -45,7 +45,7 @@ local PARepairMenuFunctions = {
     isRepairWithRepairKitMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
     isRepairWithRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
     getRepairWithRepairKitSetting = function() return getValue({"RepairEquipped", "repairWithRepairKit"}) end,
-    setRepairWithRepairKitSetting = function(value) setValue(value, {"RepairEquipped", "repairWithRepairKit"}) end,
+    setRepairWithRepairKitSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "repairWithRepairKit"}) end,
 
     isRepairWithRepairKitDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
     getRepairWithRepairKitDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithRepairKitThreshold"}) end,
@@ -73,7 +73,7 @@ local PARepairMenuFunctions = {
     isRechargeWithSoulGemMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
     isRechargeWithSoulGemDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
     getRechargeWithSoulGemSetting = function() return getValue({"RechargeWeapons", "useSoulGems"}) end,
-    setRechargeWithSoulGemSetting = function(value) setValue(value, {"RechargeWeapons", "useSoulGems"}) end,
+    setRechargeWithSoulGemSetting = function(value) setValueAndRefreshEvents(value, {"RechargeWeapons", "useSoulGems"}) end,
 
     isLowSoulGemWarningDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
     getLowSoulGemWarningSetting = function() return getValue({"RechargeWeapons", "lowSoulGemWarning"}) end,

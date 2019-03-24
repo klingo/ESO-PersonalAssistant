@@ -53,7 +53,7 @@ How to read:
 * [X] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
     * http://www.esoui.com/forums/showthread.php?p=7988
     * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
-* [ ] **(4)** Refactoring of EventManager
+* [X] **(4)** Refactoring of EventManager
 * [ ] **(4)** Check Currency Formatting
     * https://wiki.esoui.com/Currency_Formatting
 * [X] **(5)** Update Addon Manifest

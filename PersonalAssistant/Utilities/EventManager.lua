@@ -145,73 +145,16 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- TODO: properly call this function in all necessary places!
 local function RefreshAllEventRegistrations()
     local PAMenuFunctions = PA.MenuFunctions
-    local PAR = PA.Repair
-    local PAB = PA.Banking
-    local PAL = PA.Loot
-    local PAJ = PA.Junk
-    local PAM = PA.Mail
-
-    -- Check if the Addon 'PARepair' is even enabled
-    if PAR then
-        -- Check if the functionality is turned on within the addon
-        local PARMenuFunctions = PAMenuFunctions.PARepair
-        -- Check if the functionality is turned on within the addon
-        if PARMenuFunctions.getAutoRepairEnabledSetting() then
-            -- TODO: add RefreshAllEventRegistrations to getter/setter function
-            -- Register for WeaponCharges
-            if PARMenuFunctions.getRechargeWithSoulGemSetting() then
-                -- TODO: check if it is enabled here and Refresh the events upon changing that setting
-                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RechargeEquippedWeaponsWithSoulGems, "SoulGems")
-                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
-                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_ITEM_CHARGE)
-            else
-                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
-            end
-
-            -- Register for RepairKits
-            if PARMenuFunctions.getRepairWithRepairKitSetting() then
-                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RepairEquippedItemsWithRepairKits, "RepairKits")
-                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
-                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DURABILITY_CHANGE)
-            else
-                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
-            end
-
-            -- Register for GoldRepair
-            if PARMenuFunctions.getRepairWithGoldSetting() then
-                -- check if AutoSellJunk is also enabled
-                if PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
-                    -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
-                    RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
-                else
-                    -- if not, we can register the PARepair Open Store Event
-                    RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
-                    -- and unregister callback if existing
-                    UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
-                end
-            else
-                UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
-                UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
-            end
-        else
-            -- Unregister PARepair completely
-            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
-            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
-            UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
-            UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
-        end
-    end
-
 
     -- Check if the Addon 'PABanking' is even enabled
+    local PAB = PA.Banking
     if PAB then
         -- Check if the functionality is turned on within the addon
         local PABMenuFunctions = PAMenuFunctions.PABanking
         if PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
-            or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting() then
+                or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting() then
             -- Register PABanking
             RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
             RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
@@ -223,33 +166,8 @@ local function RefreshAllEventRegistrations()
     end
 
 
-    -- Check if the Addon 'PAloot' is even enabled
-    if PAL then
-        -- Check if the functionality is turned on within the addon
-        local PALMenuFunctions = PAMenuFunctions.PALoot
-        if PALMenuFunctions.isEnabled() then
-            -- Register PALoot to check looted items
-            RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
-            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
-            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
-
-            -- needed in order to track stacking the backpack
-            -- TODO: why is this triggered when selling Junk?!
-            RegisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, PAL.UpdateNumBagUsedSlots)
-            RegisterFilterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
-
-            -- needed in order to track individual sells at vendor
-            RegisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, PAL.UpdateNumBagUsedSlots)
-        else
-            -- Unregister PALoot completely
-            UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-            UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG)
-            UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT)
-        end
-    end
-
-
     -- Check if the Addon 'PAJunk' is even enabled
+    local PAJ = PA.Junk
     if PAJ then
         -- Check if the functionality is turned on within the addon
         local PAJMenuFunctions = PAMenuFunctions.PAJunk
@@ -285,7 +203,36 @@ local function RefreshAllEventRegistrations()
         end
     end
 
+
+    -- Check if the Addon 'PAloot' is even enabled
+    local PAL = PA.Loot
+    if PAL then
+        -- Check if the functionality is turned on within the addon
+        local PALMenuFunctions = PAMenuFunctions.PALoot
+        if PALMenuFunctions.isEnabled() then
+            -- Register PALoot to check looted items
+            RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+
+            -- needed in order to track stacking the backpack
+            -- TODO: why is this triggered when selling Junk?!
+            RegisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, PAL.UpdateNumBagUsedSlots)
+            RegisterFilterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
+
+            -- needed in order to track individual sells at vendor
+            RegisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, PAL.UpdateNumBagUsedSlots)
+        else
+            -- Unregister PALoot completely
+            UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+            UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG)
+            UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT)
+        end
+    end
+
+
     -- Check if the Addon 'PAMail' is even enabled
+    local PAM = PA.Mail
     if PAM then
         -- Check if the functionality is turned on within the addon
         local PAMMenuFunctions = PAMenuFunctions.PAMail
@@ -299,6 +246,58 @@ local function RefreshAllEventRegistrations()
             UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED)
             UnregisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE)
             UnregisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS)
+        end
+    end
+
+
+    -- Check if the Addon 'PARepair' is even enabled
+    local PAR = PA.Repair
+    if PAR then
+        -- Check if the functionality is turned on within the addon
+        local PARMenuFunctions = PAMenuFunctions.PARepair
+        -- Check if the functionality is turned on within the addon
+        if PARMenuFunctions.getAutoRepairEnabledSetting() then
+            -- Register for GoldRepair
+            if PARMenuFunctions.getRepairWithGoldSetting() then
+                -- check if AutoSellJunk is also enabled
+                if PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
+                    -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
+                    RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                else
+                    -- if not, we can register the PARepair Open Store Event
+                    RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                    -- and unregister callback if existing
+                    UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                end
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
+                UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+            end
+
+            -- Register for RepairKits
+            if PARMenuFunctions.getRepairWithRepairKitSetting() then
+                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RepairEquippedItemsWithRepairKits, "RepairKits")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DURABILITY_CHANGE)
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+            end
+
+            -- Register for WeaponCharges
+            if PARMenuFunctions.getRechargeWithSoulGemSetting() then
+                -- TODO: check if it is enabled here and Refresh the events upon changing that setting
+                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RechargeEquippedWeaponsWithSoulGems, "SoulGems")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_ITEM_CHARGE)
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
+            end
+        else
+            -- Unregister PARepair completely
+            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
+            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+            UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
+            UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
         end
     end
 end
