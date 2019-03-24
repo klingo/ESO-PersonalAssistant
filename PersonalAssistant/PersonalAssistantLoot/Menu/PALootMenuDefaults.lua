@@ -4,7 +4,7 @@ local PA = PersonalAssistant
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PALootMenuDefaults = {
-    enabled = false,
+    enabled = true,
 
     LootRecipes = {
         unknownRecipeMsg = true
