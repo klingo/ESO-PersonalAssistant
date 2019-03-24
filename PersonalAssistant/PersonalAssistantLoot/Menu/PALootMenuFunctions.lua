@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAL = PA.Loot
-local PAEM = PA.EventManager
 local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -14,27 +13,19 @@ local function setValue(value, ...)
     PAMF.setValue(PAL.SavedVars, value, ...)
 end
 
+local function setValueAndRefreshEvents(value, ...)
+    PAMF.setValueAndRefreshEvents(PAL.SavedVars, value, ...)
+end
+
 local function isDisabled(...)
     return PAMF.isDisabled(PAL.SavedVars, ...)
 end
 
 -- =================================================================================================================
 
---------------------------------------------------------------------------
--- PALoot   enabled
----------------------------------
-local function setPALootEnabled(value)
-    setValue(value, {"enabled"})
-
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
-
--- =================================================================================================================
-
 local PALootMenuFunctions = {
     isEnabled = function() return getValue({"enabled"}) end,
-    setIsEnabled = setPALootEnabled,
+    setIsEnabled = function(value) setValueAndRefreshEvents(value, {"enabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- RECIPES SETTINGS

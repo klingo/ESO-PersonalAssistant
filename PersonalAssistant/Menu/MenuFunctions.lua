@@ -66,6 +66,11 @@ local function setValueV2(savedVarsTable, value, attributeTbl)
     else return end
 end
 
+local function setValueAndRefreshEvents(savedVarsTable, value, attributeTbl)
+    setValueV2(savedVarsTable, value, attributeTbl)
+    PAEM.RefreshAllEventRegistrations()
+end
+
 local function isDisabledV2(savedVarsTable, ...)
     if isDisabledPAGeneralNoProfileSelected() then return true end
     local args = { ... }
@@ -154,3 +159,4 @@ PA.MenuFunctions.isDisabled = isDisabledV2
 PA.MenuFunctions.isDisabledAll = isDisabledAllV2
 PA.MenuFunctions.getValue = getValueV2
 PA.MenuFunctions.setValue = setValueV2
+PA.MenuFunctions.setValueAndRefreshEvents = setValueAndRefreshEvents

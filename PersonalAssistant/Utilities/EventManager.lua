@@ -197,13 +197,14 @@ local function RefreshAllEventRegistrations()
                 UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
             end
         else
-            -- Unregister PARepair
+            -- Unregister PARepair completely
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
             UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
             UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
         end
     end
+
 
     -- Check if the Addon 'PABanking' is even enabled
     if PAB then
@@ -215,7 +216,7 @@ local function RefreshAllEventRegistrations()
             RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
             RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
         else
-            -- Unregister PABanking
+            -- Unregister PABanking completely
             UnregisterForEvent(PAB.AddonName, EVENT_OPEN_BANK)
             UnregisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK)
         end
@@ -240,7 +241,7 @@ local function RefreshAllEventRegistrations()
             -- needed in order to track individual sells at vendor
             RegisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, PAL.UpdateNumBagUsedSlots)
         else
-            -- Unregister PALoot
+            -- Unregister PALoot completely
             UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
             UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG)
             UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT)
@@ -273,12 +274,12 @@ local function RefreshAllEventRegistrations()
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen)
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose)
         else
-            -- Unregister PAJunk
+            -- Unregister PAJunk completely
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE)
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE)
 
-            -- Unregister Mailbox Check
+            -- Unregister PAJunk Mailbox Check
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX)
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX)
         end
@@ -290,12 +291,11 @@ local function RefreshAllEventRegistrations()
         local PAMMenuFunctions = PAMenuFunctions.PAMail
         if PAMMenuFunctions.getHirelingAutoMailEnabledSetting() then
             -- Register PAMail
-            -- TODO: EVENT_PLAYER_ACTIVATED does not work, check why (maybe not needed anyway?)
             RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.readHirelingMails)
             RegisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE, PAM.takeAttachedItemsFromSingleMail)
             RegisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS, PAM.takeAttachedItemSuccess)
         else
-            -- Unregister PAMail
+            -- Unregister PAMail completely
             UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED)
             UnregisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE)
             UnregisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS)

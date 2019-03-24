@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAR = PA.Repair
-local PAEM = PA.EventManager
 local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -14,26 +13,19 @@ local function setValue(value, ...)
     PAMF.setValue(PAR.SavedVars, value, ...)
 end
 
+local function setValueAndRefreshEvents(value, ...)
+    PAMF.setValueAndRefreshEvents(PAR.SavedVars, value, ...)
+end
+
 local function isDisabled(...)
     return PAMF.isDisabled(PAR.SavedVars, ...)
 end
 
 -- =================================================================================================================
 
---------------------------------------------------------------------------
--- PARepair   autoRepairEnabled
----------------------------------
-local function setPARepairEnabled(value)
-    setValue(value, {"autoRepairEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
-
--- =================================================================================================================
-
 local PARepairMenuFunctions = {
     getAutoRepairEnabledSetting = function() return getValue({"autoRepairEnabled"}) end,
-    setAutoRepairEnabledSetting = setPARepairEnabled,
+    setAutoRepairEnabledSetting = function(value) setValueAndRefreshEvents(value, {"autoRepairEnabled"}) end,
 
     -- -----------------------------------------------------------------------------------
     -- REPAIR WITH GOLD

@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAJ = PA.Junk
-local PAEM = PA.EventManager
 local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -15,6 +14,10 @@ local function setValue(value, ...)
     PAMF.setValue(PAJ.SavedVars, value, ...)
 end
 
+local function setValueAndRefreshEvents(value, ...)
+    PAMF.setValueAndRefreshEvents(PAJ.SavedVars, value, ...)
+end
+
 local function isDisabled(...)
     return PAMF.isDisabled(PAJ.SavedVars, ...)
 end
@@ -24,15 +27,6 @@ local function isDisabledAll(...)
 end
 
 -- =================================================================================================================
-
---------------------------------------------------------------------------
--- PAJunk   autoMarkAsJunkEnabled
----------------------------------
-local function setPAJunkAutoMarkAsJunkEnabledSetting(value)
-    setValue(value, {"autoMarkAsJunkEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
 
 --------------------------------------------------------------------------
 -- PAJunk   Weapons
@@ -74,7 +68,7 @@ end
 
 local PAJunkMenuFunctions = {
     getAutoMarkAsJunkEnabledSetting = function() return getValue({"autoMarkAsJunkEnabled"}) end,
-    setAutoMarkAsJunkEnabledSetting = setPAJunkAutoMarkAsJunkEnabledSetting,
+    setAutoMarkAsJunkEnabledSetting = function(value) setValueAndRefreshEvents(value, {"autoMarkAsJunkEnabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- AUTO MARK JUNK
@@ -136,14 +130,14 @@ local PAJunkMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK
     -- -----------------------------
-    isAutoSellJunkDisabled = function() return false end, -- TODO: currently always enabled
+    isAutoSellJunkDisabled = function() return false end, -- currently always enabled
     getAutoSellJunkSetting = function() return getValue({"autoSellJunk"}) end,
     setAutoSellJunkSetting = function(value) setValue(value, {"autoSellJunk"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
-    isSilentModeDisabled = function() return false end, -- TODO: currently always enabled
+    isSilentModeDisabled = function() return false end, -- currently always enabled
     getSilentModeSetting = function() return getValue({"silentMode"}) end,
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 

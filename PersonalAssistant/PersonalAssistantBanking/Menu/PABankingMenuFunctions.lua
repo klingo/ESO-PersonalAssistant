@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAB = PA.Banking
-local PAEM = PA.EventManager
 local PAMD = PA.MenuDefaults
 local PAMF = PA.MenuFunctions
 
@@ -16,6 +15,10 @@ end
 
 local function setValue(value, ...)
     PAMF.setValue(PAB.SavedVars, value, ...)
+end
+
+local function setValueAndRefreshEvents(value, ...)
+    PAMF.setValueAndRefreshEvents(PAB.SavedVars, value, ...)
 end
 
 local function isDisabled(...)
@@ -59,15 +62,6 @@ local function setPABankingCurrencyMaxToKeepSetting(PA_LAM_REF_TO_CHANGE, PA_LAM
 end
 
 -- =================================================================================================================
-
---------------------------------------------------------------------------
--- PABanking   Currencies       currenciesEnabled
----------------------------------
-local function setPABankingCurrenciesEnabledSetting(value)
-    setValue(value, {"Currencies", "currenciesEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
 
 --------------------------------------------------------------------------
 -- PABanking   Currencies       goldMinToKeep
@@ -126,15 +120,6 @@ local function setPABAnkingWritVouchersMaxToKeepSetting(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Crafting         craftingItemsEnabled
----------------------------------
-local function setPABankingCraftingItemsEnabledSetting(value)
-    setValue(value, {"Crafting", "craftingItemsEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
-
---------------------------------------------------------------------------
 -- PABanking   Crafting.ItemTypes         craftingItemTypeMoveSetting
 ---------------------------------
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
@@ -154,15 +139,6 @@ local function setPABankingCraftingItemTypeMoveAllSettings(value)
     end
     PERSONALASSISTANT_PAB_CRAFTING_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
-end
-
---------------------------------------------------------------------------
--- PABanking   Advanced      advancedItemsEnabled
----------------------------------
-local function setPABankingAdvancedItemsEnabledSetting(value)
-    setValue(value, {"Advanced", "advancedItemsEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
 end
 
 --------------------------------------------------------------------------
@@ -238,15 +214,6 @@ local function setPABankingAdvancedItemTypeMoveAllSettings(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Individual         individualItemsEnabled
----------------------------------
-local function setPABankingIndividualItemsEnabledSetting(value)
-    setValue(value, {"Individual", "individualItemsEnabled"})
-    -- when enabling/disabling a modules, refresh all event registrations
-    PAEM.RefreshAllEventRegistrations()
-end
-
---------------------------------------------------------------------------
 -- PABanking   Individual.ItemIds         operator
 ---------------------------------
 local function isIndividualItemsDisabledOrAllItemIdsOperatorNone(itemIdList)
@@ -292,7 +259,6 @@ local function setPABankingIndividualItemIdBackpackAmountSetting(individualItemI
         PAB.SavedVars.Individual.ItemIds[individualItemId].backpackAmount = intValue
     end
 end
-
 
 --------------------------------------------------------------------------
 -- PABanking   Individual         individualBackpackAmountDisabled
@@ -341,7 +307,7 @@ local PABankingMenuFunctions = {
     -- CURRENCIES
     -- -----------------------------
     getCurrenciesEnabledSetting = function() return getValue({"Currencies", "currenciesEnabled"}) end,
-    setCurrenciesEnabledSetting = setPABankingCurrenciesEnabledSetting,
+    setCurrenciesEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Currencies", "currenciesEnabled"}) end,
 
     isGoldTransactionMenuDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}, {"Currencies", "goldTransaction"}) end,
     isGoldTransactionDisabled = function() return isDisabled({"Currencies", "currenciesEnabled"}) end,
@@ -399,7 +365,7 @@ local PABankingMenuFunctions = {
     -- CRAFTING ITEMS
     -- -----------------------------
     getCraftingItemsEnabledSetting = function() return getValue({"Crafting", "craftingItemsEnabled"}) end,
-    setCraftingItemsEnabledSetting = setPABankingCraftingItemsEnabledSetting,
+    setCraftingItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Crafting", "craftingItemsEnabled"}) end,
 
     isCraftingItemsGlobalMoveModeDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
     setCraftingItemsGlobalMoveModeSetting = function(value) setPABankingCraftingItemTypeMoveAllSettings(value) end,
@@ -461,7 +427,7 @@ local PABankingMenuFunctions = {
     -- ADVANCED ITEMS
     -- -----------------------------
     getAdvancedItemsEnabledSetting = function() return getValue({"Advanced", "advancedItemsEnabled"}) end,
-    setAdvancedItemsEnabledSetting = setPABankingAdvancedItemsEnabledSetting,
+    setAdvancedItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Advanced", "advancedItemsEnabled"}) end,
 
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
@@ -485,7 +451,7 @@ local PABankingMenuFunctions = {
     -- INDIVIDUAL ITEMS
     -- -----------------------------
     getIndividualItemsEnabledSetting = function() return getValue({"Individual", "individualItemsEnabled"}) end,
-    setIndividualItemsEnabledSetting = setPABankingIndividualItemsEnabledSetting,
+    setIndividualItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Individual", "individualItemsEnabled"}) end,
 
     isLockpickTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.LOCKPICK) end,
     isSoulGemTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.SOUL_GEM) end,
@@ -520,7 +486,7 @@ local PABankingMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
-    isSilentModeDisabled = false, -- always enabled
+    isSilentModeDisabled = function() return false end, -- currently always enabled
     getSilentModeSetting = function() return getValue({"silentMode"}) end,
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }
