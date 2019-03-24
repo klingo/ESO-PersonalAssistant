@@ -78,9 +78,9 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                 end
 
                 -- check remaining soul gems
-                if totalGemCount <= 10 and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
+                local lowSoulGemThreshold = PARepairSavedVars.RechargeWeapons.lowSoulGemThreshold
+                if totalGemCount <= lowSoulGemThreshold and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
                     local formatted = zo_strformat(_soulGemCountPattern, totalGemCount)
-                    local lowSoulGemThreshold = PARepairSavedVars.RechargeWeapons.lowSoulGemThreshold
 
                     if totalGemCount == 0 then
                         -- if no soul gems left, have a orange-red message (but only every 10 minutes)
