@@ -60,9 +60,9 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
                 end
 
                 -- check remaining repair kits
-                if totalRepairKitCount <= 10 and PARepairSavedVars.RepairEquipped.lowRepairKitWarning then
+                local lowRepairKitThreshold = PARepairSavedVars.RepairEquipped.lowRepairKitThreshold
+                if totalRepairKitCount <= lowRepairKitThreshold and PARepairSavedVars.RepairEquipped.lowRepairKitWarning then
                     local formatted = zo_strformat(_repairKitCountPattern, totalRepairKitCount)
-                    local lowRepairKitThreshold = PARepairSavedVars.RepairEquipped.lowRepairKitThreshold
 
                     if totalRepairKitCount == 0 then
                         -- if no repair kits left, have a orange-red message (but only every 10 minutes)
