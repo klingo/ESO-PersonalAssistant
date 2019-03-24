@@ -10,22 +10,22 @@ local PAJunkMenuDefaults = {
         autoMarkTrash = true,
     },
     Collectibles = {
-        autoMarkSellToMerchant = false,
+        autoMarkSellToMerchant = true,
     },
     Weapons = {
-        autoMarkOrnate = true,
+        autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkUnknownTraits = false,
     },
     Armor = {
-        autoMarkOrnate = true,
+        autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkUnknownTraits = false,
     },
     Jewelry = {
-        autoMarkOrnate = true,
+        autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkUnknownTraits = false,
