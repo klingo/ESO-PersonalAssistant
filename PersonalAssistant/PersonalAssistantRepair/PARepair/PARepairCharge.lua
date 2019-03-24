@@ -9,28 +9,41 @@ local PAHF = PA.HelperFunctions
 local _lastNoSoulGemWarningGameTime = 0
 local _soulGemCountPattern = GetString(SI_PA_PATTERN_SOULGEM_COUNT)
 
+local _soulGemItemTypes = setmetatable({}, { __index = table })
+_soulGemItemTypes:insert(ITEMTYPE_SOUL_GEM)
+
+local TIER_CROWN_COUL_GEM = 0
+local TIER_SOUL_GEM = 1
+
 -- --------------------------------------------------------------------------------------------------------------------
 
 local function _getSoulGemsIn(bagId)
-    local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId) -- TODO: updateto use soul-gem filtertpye
+    local soulGemComparator = PAHF.getItemTypeComparator(_soulGemItemTypes)
+    local soulGemBagCache = SHARED_INVENTORY:GenerateFullSlotData(soulGemComparator, bagId)
+
     local gemTable = setmetatable({}, { __index = table })
     local totalGemCount = 0
 
     -- create a table with all soulgems
-    for _, data in pairs(bagCache) do
+    for _, data in pairs(soulGemBagCache) do
         -- check if it is a filled soulGem
         if IsItemSoulGem(SOUL_GEM_TYPE_FILLED, data.bagId, data.slotIndex) then
-            gemTable:insert({
-                bagId = data.bagId,
-                slotIndex = data.slotIndex,
-                itemName = data.name,
-                itemLink = GetItemLink(data.bagId, data.slotIndex, LINK_STYLE_BRACKETS),
---                stackCount = data.stackCount,
-                gemTier = GetSoulGemItemInfo(data.bagId, data.slotIndex),
-                iconString = "|t20:20:"..data.iconFile.."|t ",
-            })
-            -- update the total gem count
-            totalGemCount = totalGemCount + data.stackCount
+            -- currently Crown Soul Gems are excluded until they can be properly handled
+            -- TODO: recheck at a later state
+            local tier = GetSoulGemItemInfo(data.bagId, data.slotIndex)
+            if tier == TIER_SOUL_GEM then
+                gemTable:insert({
+                    bagId = data.bagId,
+                    slotIndex = data.slotIndex,
+                    itemName = data.name,
+                    itemLink = GetItemLink(data.bagId, data.slotIndex, LINK_STYLE_BRACKETS),
+    --                stackCount = data.stackCount,
+                    gemTier = tier,
+                    iconString = "|t20:20:"..data.iconFile.."|t ",
+                })
+                -- update the total gem count
+                totalGemCount = totalGemCount + data.stackCount
+            end
         end
     end
 
@@ -111,3 +124,4 @@ end
 -- Export
 PA.Repair = PA.Repair or {}
 PA.Repair.RechargeEquippedWeaponsWithSoulGems = RechargeEquippedWeaponsWithSoulGems
+PA.Repair.testMe = testMe
