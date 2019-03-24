@@ -83,6 +83,23 @@ local function isDisabledV2(savedVarsTable, ...)
     return false
 end
 
+local function isDisabledAllV2(savedVarsTable, ...)
+    if isDisabledPAGeneralNoProfileSelected() then return true end
+    local args = { ... }
+    for _, attributeTbl in ipairs(args) do
+        -- return false when ANY setting is ON
+        local localSavedVarsTable = savedVarsTable
+        if #attributeTbl > 0 then
+            for _, attribute in ipairs(attributeTbl) do
+                localSavedVarsTable = localSavedVarsTable[attribute]
+            end
+            if localSavedVarsTable then return false end
+        end
+    end
+    -- return true when ALL settings are OFF (or no settings provided)
+    return true
+end
+
 
 --------------------------------------------------------------------------
 -- PAGeneral   activeProfileRename
@@ -134,5 +151,6 @@ PA.MenuFunctions = {
 
 PA.MenuFunctions.isDisabledPAGeneralNoProfileSelected = isDisabledPAGeneralNoProfileSelected
 PA.MenuFunctions.isDisabled = isDisabledV2
+PA.MenuFunctions.isDisabledAll = isDisabledAllV2
 PA.MenuFunctions.getValue = getValueV2
 PA.MenuFunctions.setValue = setValueV2

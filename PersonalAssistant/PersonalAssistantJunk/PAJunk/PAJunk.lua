@@ -205,7 +205,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
 
-                    elseif itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQuality then
+                    elseif itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
                         if itemQuality <= PAJunkSavedVars.Weapons.autoMarkQualityThreshold then
                             _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                         end
@@ -214,13 +214,13 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         local itemEquipType = GetItemLinkEquipType(itemLink)
                         if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
                             -- Jewelry
-                            if PAJunkSavedVars.Jewelry.autoMarkQuality and itemQuality <= PAJunkSavedVars.Jewelry.autoMarkQualityThreshold then
+                            if PAJunkSavedVars.Jewelry.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED and itemQuality <= PAJunkSavedVars.Jewelry.autoMarkQualityThreshold then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
 
                         else
                             --Apparel
-                            if PAJunkSavedVars.Armor.autoMarkQuality and itemQuality <= PAJunkSavedVars.Armor.autoMarkQualityThreshold then
+                            if PAJunkSavedVars.Armor.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED and itemQuality <= PAJunkSavedVars.Armor.autoMarkQualityThreshold then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
                         end

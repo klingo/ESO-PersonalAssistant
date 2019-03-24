@@ -286,4 +286,8 @@ PersonalAssistant.Constants = {
 --        GREATERTHAN = 4,
         GREATERTHANOREQUAL = 5
     },
+
+    ITEM_QUALITY = {
+        DISALBED = -1,
+    }
 }

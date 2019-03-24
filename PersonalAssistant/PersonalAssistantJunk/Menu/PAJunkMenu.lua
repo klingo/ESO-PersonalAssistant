@@ -150,24 +150,12 @@ local function _createPAJWeaponsSubMenu()
     })
 
     PAJWeaponsSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY),
-        tooltip = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_T),
-        width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getWeaponsAutoMarkQualitySetting,
-        setFunc = PAMenuFunctions.PAJunk.setWeaponsAutoMarkQualitySetting,
-        disabled = PAMenuFunctions.PAJunk.isWeaponsAutoMarkQualityDisabled,
-        default = PAMenuDefaults.PAJunk.Weapons.autoMarkQuality,
-    })
-
-    PAJWeaponsSubMenu:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD),
         tooltip = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD_T),
         choices = PAMenuChoices.choices.PAJunk.qualityLevel,
         choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
-        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getWeaponsAutoMarkQualityThresholdSetting,
         setFunc = PAMenuFunctions.PAJunk.setWeaponsAutoMarkQualityThresholdSetting,
         disabled = PAMenuFunctions.PAJunk.isWeaponsAutoMarkQualityThresholdDisabled,
@@ -216,24 +204,12 @@ local function _createPAJArmorSubMenu()
     })
 
     PAJArmorSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY),
-        tooltip = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_T),
-        width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getArmorAutoMarkQualitySetting,
-        setFunc = PAMenuFunctions.PAJunk.setArmorAutoMarkQualitySetting,
-        disabled = PAMenuFunctions.PAJunk.isArmorAutoMarkQualityDisabled,
-        default = PAMenuDefaults.PAJunk.Armor.autoMarkQuality,
-    })
-
-    PAJArmorSubMenu:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD),
         tooltip = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD_T),
         choices = PAMenuChoices.choices.PAJunk.qualityLevel,
         choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
-        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getArmorAutoMarkQualityThresholdSetting,
         setFunc = PAMenuFunctions.PAJunk.setArmorAutoMarkQualityThresholdSetting,
         disabled = PAMenuFunctions.PAJunk.isArmorAutoMarkQualityThresholdDisabled,
@@ -282,24 +258,12 @@ local function _createPAJJewelrySubMenu()
     })
 
     PAJJewelrySubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY),
-        tooltip = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_T),
-        width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getJewelryAutoMarkQualitySetting,
-        setFunc = PAMenuFunctions.PAJunk.setJewelryAutoMarkQualitySetting,
-        disabled = PAMenuFunctions.PAJunk.isJewelryAutoMarkQualityDisabled,
-        default = PAMenuDefaults.PAJunk.Jewelry.autoMarkQuality,
-    })
-
-    PAJJewelrySubMenu:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD),
         tooltip = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD_T),
         choices = PAMenuChoices.choices.PAJunk.qualityLevel,
         choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
-        width = "half",
         getFunc = PAMenuFunctions.PAJunk.getJewelryAutoMarkQualityThresholdSetting,
         setFunc = PAMenuFunctions.PAJunk.setJewelryAutoMarkQualityThresholdSetting,
         disabled = PAMenuFunctions.PAJunk.isJewelryAutoMarkQualityThresholdDisabled,

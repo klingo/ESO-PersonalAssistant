@@ -19,26 +19,20 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] items"}),
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T = table.concat({"Automatically mark items of with the indicator [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] as junk?"}),
 
-    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_WEAPON))}),
-    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_T = "???", -- TODO: add tooltip
-    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD = "If Weapon quality level is at or below",
+    SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_WEAPON)), " with quality at or below"}),
     SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Weapons as Junk if they are of the selected quality or lower",
 
-    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_ARMOR))}),
-    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_T = "???", -- TODO: add tooltip
-    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD = "If Armor quality level is at or below",
+    SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", ITEMTYPE_ARMOR)), " with quality at or below"}),
     SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Armor as Junk if it is of the selected quality or lower",
 
-    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY = table.concat({"Auto-Mark "}, zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))),
-    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_T = "???",  -- TODO: add tooltip
-    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD = "If Jewelry quality level is at or below",
+    SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD = table.concat({"Auto-Mark ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY)), " with quality at or below"}),
     SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark Jewelry as Junk if it is of the selected quality or lower",
 
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
     SI_PA_MENU_JUNK_AUTOSELL_JUNK_T = "Automatically sell all items marked as junk when visiting a Merchant or a Fence?",
 
     -- General texts used across: Weapons, Armor, Jewelry
-    SI_PA_MENU_JUNK_AUTOMARK_ORNATE = table.concat({"Auto-Mark [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] trait items"}),
+    SI_PA_MENU_JUNK_AUTOMARK_ORNATE = table.concat({"Auto-Mark Items with [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] trait"}),
     SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = table.concat({"Automatically mark items with [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] trait (increased sell price) as junk?"}),
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Also mark Items that are part of a Set",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "If turned OFF, only items that are NOT belonging to a set will be marked as Junk\nRecommendation: OFF",

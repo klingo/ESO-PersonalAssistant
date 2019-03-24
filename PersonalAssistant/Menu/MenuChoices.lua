@@ -26,6 +26,7 @@ local PAMenuChoices = {
     },
     PAJunk = {
         qualityLevel = {
+            GetString(SI_PA_QUALITY_DISABLED),
             GetString(SI_PA_QUALITY_TRASH),
             GetString(SI_PA_QUALITY_NORMAL),
             GetString(SI_PA_QUALITY_FINE),
@@ -58,12 +59,13 @@ local PAMenuChoicesValues = {
     },
     PAJunk = {
         qualityLevel = {
-            ITEM_QUALITY_TRASH,     -- 0
-            ITEM_QUALITY_NORMAL,    -- 1
-            ITEM_QUALITY_MAGIC,     -- 2
-            ITEM_QUALITY_ARCANE,    -- 3
-            ITEM_QUALITY_ARTIFACT,  -- 4
---            ITEM_QUALITY_LEGENDARY, -- 5
+            PAC.ITEM_QUALITY.DISABLED,  -- -1 (disabled)
+            ITEM_QUALITY_TRASH,         -- 0
+            ITEM_QUALITY_NORMAL,        -- 1
+            ITEM_QUALITY_MAGIC,         -- 2
+            ITEM_QUALITY_ARCANE,        -- 3
+            ITEM_QUALITY_ARTIFACT,      -- 4
+--            ITEM_QUALITY_LEGENDARY,     -- 5
         }
     }
 }
