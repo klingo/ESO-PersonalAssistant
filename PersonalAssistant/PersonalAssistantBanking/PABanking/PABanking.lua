@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
-local PAMF = PA.MenuFunctions
 local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
