@@ -40,7 +40,7 @@ end
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- TODO: integrate FCOItemSaver
+        -- TODO: integrate FCOItemSaver?
 
         local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
 --        d("playerLocked="..tostring(playerLocked))

@@ -285,7 +285,6 @@ local function RefreshAllEventRegistrations()
 
             -- Register for WeaponCharges
             if PARMenuFunctions.getRechargeWithSoulGemSetting() then
-                -- TODO: check if it is enabled here and Refresh the events upon changing that setting
                 RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RechargeEquippedWeaponsWithSoulGems, "SoulGems")
                 RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
                 RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_ITEM_CHARGE)

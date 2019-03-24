@@ -66,7 +66,6 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
         if rechargeable and itemType == ITEMTYPE_WEAPON then
             local charges, maxCharges = GetChargeInfoForItem(bagId , slotIndex)
             -- might need to be increased, because once it reaches 0; this event [INVENTORY_UPDATE_REASON_ITEM_CHARGE] is no longer triggered!
-            -- TODO: still needs to be tested long-term (so far so good though)
             if charges <= 1 then
                 local gemTable, totalGemCount = _getSoulGemsIn(BAG_BACKPACK)
                 if totalGemCount > 0 then

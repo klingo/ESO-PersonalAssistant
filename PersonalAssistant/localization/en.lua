@@ -29,7 +29,6 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
-    -- TODO: make this specific per addon
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
     SI_PA_MENU_SILENT_MODE_T = "If Silent Mode is enabled, no messages from this Addon will be displayed in the chat anymore",
 
