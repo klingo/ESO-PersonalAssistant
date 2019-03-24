@@ -88,6 +88,7 @@ local function depositOrWithdrawIndividualItems()
     PAHF.debugln("PA.Banking.depositOrWithdrawIndividualItems")
 
     if PAB.SavedVars.Individual.individualItemsEnabled then
+
         -- check if bankTransfer is already blocked
         if PAB.isBankTransferBlocked then return end
         PAB.isBankTransferBlocked = true
@@ -115,6 +116,9 @@ local function depositOrWithdrawIndividualItems()
 
         -- trigger the itemTransactions
         _doItemTransactions(individualItems, backpackBagCache, bankBagCache)
+    else
+        -- else, continue with the next function in queue
+        PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end
 end
 

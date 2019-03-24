@@ -2,6 +2,7 @@
 local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAC = PA.Constants
+local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -48,6 +49,9 @@ local function depositOrWithdrawCraftingItems()
 
         -- trigger the itemTransactions
         _doItemTransactions(toDepositBagCache, toFillUpDepositBagCache, toWithdrawBagCache, toFillUpWithdrawBagCache)
+    else
+        -- else, continue with the next function in queue
+        PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end
 end
 
