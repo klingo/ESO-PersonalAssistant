@@ -48,8 +48,8 @@ local PALStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
     -- TODO: to be removed below?
-    SI_PA_MENU_LOOT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Loot"}),
-    SI_PA_MENU_LOOT_ENABLE_T = "Enable Auto Loot?",
+    SI_PA_MENU_LOOT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Loot Events"}),
+    SI_PA_MENU_LOOT_ENABLE_T = "Enable Loot Events?", -- TODO: to be redone
 }
 
 for key, value in pairs(PALStrings) do
