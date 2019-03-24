@@ -1,9 +1,10 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAMenuFunctions = PA.MenuFunctions
-local PAMenuDefaults = PA.MenuDefaults
-local PAMenuChoices = PA.MenuChoices
+local PAJMenuChoices = PA.MenuChoices.choices.PAJunk
+local PAJMenuChoicesValues = PA.MenuChoices.choicesValues.PAJunk
+local PAJMenuDefaults = PA.MenuDefaults.PAJunk
+local PAJMenuFunctions = PA.MenuFunctions.PAJunk
 
 local LAM2 = LibStub("LibAddonMenu-2.0")
 
@@ -44,65 +45,65 @@ local function _createPAJunkMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T),
-        getFunc = PAMenuFunctions.PAJunk.getAutoMarkAsJunkEnabledSetting,
-        setFunc = PAMenuFunctions.PAJunk.setAutoMarkAsJunkEnabledSetting,
-        disabled = PAMenuFunctions.PAJunk.isAutoMarkAsJunkDisabled,
-        default = PAMenuDefaults.PAJunk.autoMarkAsJunkEnabled,
+        getFunc = PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting,
+        setFunc = PAJMenuFunctions.setAutoMarkAsJunkEnabledSetting,
+        disabled = PAJMenuFunctions.isAutoMarkAsJunkDisabled,
+        default = PAJMenuDefaults.autoMarkAsJunkEnabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_TRASH_HEADER),
         controls = PAJTrashSubMenu,
-        disabled = PAMenuFunctions.PAJunk.isTrashMenuDisabled,
+        disabled = PAJMenuFunctions.isTrashMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_HEADER),
         controls = PAJCollectiblesSubMenu,
-        disabled = PAMenuFunctions.PAJunk.isCollectiblesMenuDisabled,
+        disabled = PAJMenuFunctions.isCollectiblesMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_HEADER),
         controls = PAJWeaponsSubMenu,
-        disabled = PAMenuFunctions.PAJunk.isWeaponsMenuDisabled,
+        disabled = PAJMenuFunctions.isWeaponsMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_ARMOR_HEADER),
         controls = PAJArmorSubMenu,
-        disabled = PAMenuFunctions.PAJunk.isArmorMenuDisabled,
+        disabled = PAJMenuFunctions.isArmorMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_JEWELRY_HEADER),
         controls = PAJJewelrySubMenu,
-        disabled = PAMenuFunctions.PAJunk.isJewelryMenuDisabled,
+        disabled = PAJMenuFunctions.isJewelryMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_T),
-        getFunc = PAMenuFunctions.PAJunk.getAutoSellJunkSetting,
-        setFunc = PAMenuFunctions.PAJunk.setAutoSellJunkSetting,
-        disabled = PAMenuFunctions.PAJunk.isAutoSellJunkDisabled,
-        default = PAMenuDefaults.PAJunk.autoSellJunk,
+        getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
+        setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
+        disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
+        default = PAJMenuDefaults.autoSellJunk,
     })
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
         tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
-        getFunc = PAMenuFunctions.PAJunk.getSilentModeSetting,
-        setFunc = PAMenuFunctions.PAJunk.setSilentModeSetting,
-        disabled = PAMenuFunctions.PAJunk.isSilentModeDisabled,
-        default = PAMenuDefaults.PAJunk.silentMode,
+        getFunc = PAJMenuFunctions.getSilentModeSetting,
+        setFunc = PAJMenuFunctions.setSilentModeSetting,
+        disabled = PAJMenuFunctions.isSilentModeDisabled,
+        default = PAJMenuDefaults.silentMode,
     })
 end
 
@@ -113,10 +114,10 @@ local function _createPAJTrashSubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_TRASH_AUTOMARK),
         tooltip = GetString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T),
-        getFunc = PAMenuFunctions.PAJunk.getTrashAutoMarkSetting,
-        setFunc = PAMenuFunctions.PAJunk.setTrashAutoMarkSetting,
-        disabled = PAMenuFunctions.PAJunk.isTrashAutoMarkDisabled,
-        default = PAMenuDefaults.PAJunk.Trash.autoMarkTrash,
+        getFunc = PAJMenuFunctions.getTrashAutoMarkSetting,
+        setFunc = PAJMenuFunctions.setTrashAutoMarkSetting,
+        disabled = PAJMenuFunctions.isTrashAutoMarkDisabled,
+        default = PAJMenuDefaults.Trash.autoMarkTrash,
     })
 
     -- TODO: mark junk food
@@ -129,10 +130,10 @@ local function _createPAJCollectiblesSubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK),
         tooltip = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T),
-        getFunc = PAMenuFunctions.PAJunk.getAutoMarkSellToMerchantSetting,
-        setFunc = PAMenuFunctions.PAJunk.setAutoMarkSellToMerchantSetting,
-        disabled = PAMenuFunctions.PAJunk.isAutoMarkSellToMerchantDisabled,
-        default = PAMenuDefaults.PAJunk.Collectibles.autoMarkSellToMerchant,
+        getFunc = PAJMenuFunctions.getAutoMarkSellToMerchantSetting,
+        setFunc = PAJMenuFunctions.setAutoMarkSellToMerchantSetting,
+        disabled = PAJMenuFunctions.isAutoMarkSellToMerchantDisabled,
+        default = PAJMenuDefaults.Collectibles.autoMarkSellToMerchant,
     })
 end
 
@@ -143,23 +144,23 @@ local function _createPAJWeaponsSubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
-        getFunc = PAMenuFunctions.PAJunk.getWeaponsAutoMarkOrnateSetting,
-        setFunc = PAMenuFunctions.PAJunk.setWeaponsAutoMarkOrnateSetting,
-        disabled = PAMenuFunctions.PAJunk.isWeaponsAutoMarkOrnateDisabled,
-        default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
+        getFunc = PAJMenuFunctions.getWeaponsAutoMarkOrnateSetting,
+        setFunc = PAJMenuFunctions.setWeaponsAutoMarkOrnateSetting,
+        disabled = PAJMenuFunctions.isWeaponsAutoMarkOrnateDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkOrnate,
     })
 
     PAJWeaponsSubMenu:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD),
         tooltip = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD_T),
-        choices = PAMenuChoices.choices.PAJunk.qualityLevel,
-        choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
+        choices = PAJMenuChoices.qualityLevel,
+        choicesValues = PAJMenuChoicesValues.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
-        getFunc = PAMenuFunctions.PAJunk.getWeaponsAutoMarkQualityThresholdSetting,
-        setFunc = PAMenuFunctions.PAJunk.setWeaponsAutoMarkQualityThresholdSetting,
-        disabled = PAMenuFunctions.PAJunk.isWeaponsAutoMarkQualityThresholdDisabled,
-        default = PAMenuDefaults.PAJunk.Weapons.autoMarkQualityThreshold,
+        getFunc = PAJMenuFunctions.getWeaponsAutoMarkQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setWeaponsAutoMarkQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isWeaponsAutoMarkQualityThresholdDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkQualityThreshold,
     })
 
     PAJWeaponsSubMenu:insert({
@@ -172,10 +173,10 @@ local function _createPAJWeaponsSubMenu()
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
         width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getWeaponsIncludeSetItemsSetting,
-        setFunc = PAMenuFunctions.PAJunk.setWeaponsIncludeSetItemsSetting,
-        disabled = PAMenuFunctions.PAJunk.isWeaponsIncludeSetItemsDisabled,
-        default = PAMenuDefaults.PAJunk.Weapons.autoMarkIncludingSets,
+        getFunc = PAJMenuFunctions.getWeaponsIncludeSetItemsSetting,
+        setFunc = PAJMenuFunctions.setWeaponsIncludeSetItemsSetting,
+        disabled = PAJMenuFunctions.isWeaponsIncludeSetItemsDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkIncludingSets,
     })
 
     PAJWeaponsSubMenu:insert({
@@ -183,10 +184,10 @@ local function _createPAJWeaponsSubMenu()
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
         width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getWeaponsIncludeUnknownTraitsSetting,
-        setFunc = PAMenuFunctions.PAJunk.setWeaponsIncludeUnknownTraitsSetting,
-        disabled = PAMenuFunctions.PAJunk.isWeaponsIncludeUnknownTraitsDisabled,
-        default = PAMenuDefaults.PAJunk.Weapons.autoMarkUnknownTraits,
+        getFunc = PAJMenuFunctions.getWeaponsIncludeUnknownTraitsSetting,
+        setFunc = PAJMenuFunctions.setWeaponsIncludeUnknownTraitsSetting,
+        disabled = PAJMenuFunctions.isWeaponsIncludeUnknownTraitsDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkUnknownTraits,
     })
 end
 
@@ -197,23 +198,23 @@ local function _createPAJArmorSubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
-        getFunc = PAMenuFunctions.PAJunk.getArmorAutoMarkOrnateSetting,
-        setFunc = PAMenuFunctions.PAJunk.setArmorAutoMarkOrnateSetting,
-        disabled = PAMenuFunctions.PAJunk.isArmorAutoMarkOrnateDisabled,
-        default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
+        getFunc = PAJMenuFunctions.getArmorAutoMarkOrnateSetting,
+        setFunc = PAJMenuFunctions.setArmorAutoMarkOrnateSetting,
+        disabled = PAJMenuFunctions.isArmorAutoMarkOrnateDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkOrnate,
     })
 
     PAJArmorSubMenu:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD),
         tooltip = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD_T),
-        choices = PAMenuChoices.choices.PAJunk.qualityLevel,
-        choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
+        choices = PAJMenuChoices.qualityLevel,
+        choicesValues = PAJMenuChoicesValues.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
-        getFunc = PAMenuFunctions.PAJunk.getArmorAutoMarkQualityThresholdSetting,
-        setFunc = PAMenuFunctions.PAJunk.setArmorAutoMarkQualityThresholdSetting,
-        disabled = PAMenuFunctions.PAJunk.isArmorAutoMarkQualityThresholdDisabled,
-        default = PAMenuDefaults.PAJunk.Armor.autoMarkQualityThreshold,
+        getFunc = PAJMenuFunctions.getArmorAutoMarkQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setArmorAutoMarkQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isArmorAutoMarkQualityThresholdDisabled,
+        default = PAJMenuDefaults.Armor.autoMarkQualityThreshold,
     })
 
     PAJArmorSubMenu:insert({
@@ -226,10 +227,10 @@ local function _createPAJArmorSubMenu()
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
         width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getArmorIncludeSetItemsSetting,
-        setFunc = PAMenuFunctions.PAJunk.setArmorIncludeSetItemsSetting,
-        disabled = PAMenuFunctions.PAJunk.isArmorIncludeSetItemsDisabled,
-        default = PAMenuDefaults.PAJunk.Armor.autoMarkIncludingSets,
+        getFunc = PAJMenuFunctions.getArmorIncludeSetItemsSetting,
+        setFunc = PAJMenuFunctions.setArmorIncludeSetItemsSetting,
+        disabled = PAJMenuFunctions.isArmorIncludeSetItemsDisabled,
+        default = PAJMenuDefaults.Armor.autoMarkIncludingSets,
     })
 
     PAJArmorSubMenu:insert({
@@ -237,10 +238,10 @@ local function _createPAJArmorSubMenu()
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
         width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getArmorIncludeUnknownTraitsSetting,
-        setFunc = PAMenuFunctions.PAJunk.setArmorIncludeUnknownTraitsSetting,
-        disabled = PAMenuFunctions.PAJunk.isArmorIncludeUnknownTraitsDisabled,
-        default = PAMenuDefaults.PAJunk.Armor.autoMarkUnknownTraits,
+        getFunc = PAJMenuFunctions.getArmorIncludeUnknownTraitsSetting,
+        setFunc = PAJMenuFunctions.setArmorIncludeUnknownTraitsSetting,
+        disabled = PAJMenuFunctions.isArmorIncludeUnknownTraitsDisabled,
+        default = PAJMenuDefaults.Armor.autoMarkUnknownTraits,
     })
 end
 
@@ -251,23 +252,23 @@ local function _createPAJJewelrySubMenu()
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
-        getFunc = PAMenuFunctions.PAJunk.getJewelryAutoMarkOrnateSetting,
-        setFunc = PAMenuFunctions.PAJunk.setJewelryAutoMarkOrnateSetting,
-        disabled = PAMenuFunctions.PAJunk.isJewelryAutoMarkOrnateDisabled,
-        default = PAMenuDefaults.PAJunk.Weapons.autoMarkOrnate,
+        getFunc = PAJMenuFunctions.getJewelryAutoMarkOrnateSetting,
+        setFunc = PAJMenuFunctions.setJewelryAutoMarkOrnateSetting,
+        disabled = PAJMenuFunctions.isJewelryAutoMarkOrnateDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkOrnate,
     })
 
     PAJJewelrySubMenu:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD),
         tooltip = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD_T),
-        choices = PAMenuChoices.choices.PAJunk.qualityLevel,
-        choicesValues = PAMenuChoices.choicesValues.PAJunk.qualityLevel,
+        choices = PAJMenuChoices.qualityLevel,
+        choicesValues = PAJMenuChoicesValues.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
-        getFunc = PAMenuFunctions.PAJunk.getJewelryAutoMarkQualityThresholdSetting,
-        setFunc = PAMenuFunctions.PAJunk.setJewelryAutoMarkQualityThresholdSetting,
-        disabled = PAMenuFunctions.PAJunk.isJewelryAutoMarkQualityThresholdDisabled,
-        default = PAMenuDefaults.PAJunk.Jewelry.autoMarkQualityThreshold,
+        getFunc = PAJMenuFunctions.getJewelryAutoMarkQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setJewelryAutoMarkQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isJewelryAutoMarkQualityThresholdDisabled,
+        default = PAJMenuDefaults.Jewelry.autoMarkQualityThreshold,
     })
 
     PAJJewelrySubMenu:insert({
@@ -280,10 +281,10 @@ local function _createPAJJewelrySubMenu()
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
         width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getJewelryIncludeSetItemsSetting,
-        setFunc = PAMenuFunctions.PAJunk.setJewelryIncludeSetItemsSetting,
-        disabled = PAMenuFunctions.PAJunk.isJewelryIncludeSetItemsDisabled,
-        default = PAMenuDefaults.PAJunk.Jewelry.autoMarkIncludingSets,
+        getFunc = PAJMenuFunctions.getJewelryIncludeSetItemsSetting,
+        setFunc = PAJMenuFunctions.setJewelryIncludeSetItemsSetting,
+        disabled = PAJMenuFunctions.isJewelryIncludeSetItemsDisabled,
+        default = PAJMenuDefaults.Jewelry.autoMarkIncludingSets,
     })
 
     PAJJewelrySubMenu:insert({
@@ -291,10 +292,10 @@ local function _createPAJJewelrySubMenu()
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
         width = "half",
-        getFunc = PAMenuFunctions.PAJunk.getJewelryIncludeUnknownTraitsSetting,
-        setFunc = PAMenuFunctions.PAJunk.setJewelryIncludeUnknownTraitsSetting,
-        disabled = PAMenuFunctions.PAJunk.isJewelryIncludeUnknownTraitsDisabled,
-        default = PAMenuDefaults.PAJunk.Jewelry.autoMarkUnknownTraits,
+        getFunc = PAJMenuFunctions.getJewelryIncludeUnknownTraitsSetting,
+        setFunc = PAJMenuFunctions.setJewelryIncludeUnknownTraitsSetting,
+        disabled = PAJMenuFunctions.isJewelryIncludeUnknownTraitsDisabled,
+        default = PAJMenuDefaults.Jewelry.autoMarkUnknownTraits,
     })
 end
 

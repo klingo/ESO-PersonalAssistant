@@ -1,8 +1,8 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAMenuFunctions = PA.MenuFunctions
-local PAMenuDefaults = PA.MenuDefaults
+local PARMenuFunctions = PA.MenuFunctions.PARepair
+local PARMenuDefaults = PA.MenuDefaults.PARepair
 
 local LAM2 = LibStub("LibAddonMenu-2.0")
 
@@ -40,41 +40,41 @@ local function _createPARepairMenu()
     PARepairOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_ENABLE),
-        getFunc = PAMenuFunctions.PARepair.getAutoRepairEnabledSetting,
-        setFunc = PAMenuFunctions.PARepair.setAutoRepairEnabledSetting,
-        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PAMenuDefaults.PARepair.autoRepairEnabled,
+        getFunc = PARMenuFunctions.getAutoRepairEnabledSetting,
+        setFunc = PARMenuFunctions.setAutoRepairEnabledSetting,
+        disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PARMenuDefaults.autoRepairEnabled,
     })
 
     PARepairOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
         controls = PARGoldSubmenuTable,
-        disabled = PAMenuFunctions.PARepair.isRepairWithGoldMenuDisabled,
+        disabled = PARMenuFunctions.isRepairWithGoldMenuDisabled,
     })
 
     PARepairOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER),
         controls = PARRepairKitSubmenuTable,
-        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitMenuDisabled,
+        disabled = PARMenuFunctions.isRepairWithRepairKitMenuDisabled,
     })
 
     PARepairOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_REPAIR_RECHARGE_HEADER),
         controls = PARRechargeSubmenuTable,
-        disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemMenuDisabled,
+        disabled = PARMenuFunctions.isRechargeWithSoulGemMenuDisabled,
     })
 
     PARepairOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
         tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
-        getFunc = PAMenuFunctions.PARepair.getSilentModeSetting,
-        setFunc = PAMenuFunctions.PARepair.setSilentModeSetting,
-        disabled = PAMenuFunctions.PARepair.isSilentModeDisabled,
-        default = PAMenuDefaults.PARepair.silentMode,
+        getFunc = PARMenuFunctions.getSilentModeSetting,
+        setFunc = PARMenuFunctions.setSilentModeSetting,
+        disabled = PARMenuFunctions.isSilentModeDisabled,
+        default = PARMenuDefaults.silentMode,
     })
 end
 
@@ -85,10 +85,10 @@ local function _createPARGoldSubmenuTable()
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_GOLD_ENABLE),
         tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T),
-        getFunc = PAMenuFunctions.PARepair.getRepairWithGoldSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairWithGoldSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairWithGoldDisabled,
-        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithGold,
+        getFunc = PARMenuFunctions.getRepairWithGoldSetting,
+        setFunc = PARMenuFunctions.setRepairWithGoldSetting,
+        disabled = PARMenuFunctions.isRepairWithGoldDisabled,
+        default = PARMenuDefaults.RepairEquipped.repairWithGold,
     })
 
     PARGoldSubmenuTable:insert({
@@ -98,10 +98,10 @@ local function _createPARGoldSubmenuTable()
         min = 0,
         max = 99,
         step = 1,
-        getFunc = PAMenuFunctions.PARepair.getRepairWithGoldDurabilityThresholdSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairWithGoldDurabilityThresholdSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairWithGoldDurabilityThresholdDisabled,
-        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithGoldDurabilityThreshold,
+        getFunc = PARMenuFunctions.getRepairWithGoldDurabilityThresholdSetting,
+        setFunc = PARMenuFunctions.setRepairWithGoldDurabilityThresholdSetting,
+        disabled = PARMenuFunctions.isRepairWithGoldDurabilityThresholdDisabled,
+        default = PARMenuDefaults.RepairEquipped.repairWithGoldDurabilityThreshold,
     })
 end
 
@@ -112,10 +112,10 @@ local function _createPARRepairKitSubmenuTable()
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE),
         tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T),
-        getFunc = PAMenuFunctions.PARepair.getRepairWithRepairKitSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairWithRepairKitSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitDisabled,
-        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithRepairKit,
+        getFunc = PARMenuFunctions.getRepairWithRepairKitSetting,
+        setFunc = PARMenuFunctions.setRepairWithRepairKitSetting,
+        disabled = PARMenuFunctions.isRepairWithRepairKitDisabled,
+        default = PARMenuDefaults.RepairEquipped.repairWithRepairKit,
     })
 
     PARRepairKitSubmenuTable:insert({
@@ -125,10 +125,10 @@ local function _createPARRepairKitSubmenuTable()
         min = 0,
         max = 99,
         step = 1,
-        getFunc = PAMenuFunctions.PARepair.getRepairWithRepairKitDurabilityThresholdSetting,
-        setFunc = PAMenuFunctions.PARepair.setRepairWithRepairKitDurabilityThresholdSetting,
-        disabled = PAMenuFunctions.PARepair.isRepairWithRepairKitDurabilityThresholdDisabled,
-        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithRepairKitThreshold,
+        getFunc = PARMenuFunctions.getRepairWithRepairKitDurabilityThresholdSetting,
+        setFunc = PARMenuFunctions.setRepairWithRepairKitDurabilityThresholdSetting,
+        disabled = PARMenuFunctions.isRepairWithRepairKitDurabilityThresholdDisabled,
+        default = PARMenuDefaults.RepairEquipped.repairWithRepairKitThreshold,
     })
 
 
@@ -142,10 +142,10 @@ local function _createPARRepairKitSubmenuTable()
     --        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE),
     --        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T),
     --        width = "half",
-    --        getFunc = PAMenuFunctions.PARepair.getRepairWithCrownRepairKitSetting,
-    --        setFunc = PAMenuFunctions.PARepair.setRepairWithCrownRepairKitSetting,
-    --        disabled = PAMenuFunctions.PARepair.isRepairWithCrownRepairKitDisabled,
-    --        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithCrownRepairKit,
+    --        getFunc = PARMenuFunctions.getRepairWithCrownRepairKitSetting,
+    --        setFunc = PARMenuFunctions.setRepairWithCrownRepairKitSetting,
+    --        disabled = PARMenuFunctions.isRepairWithCrownRepairKitDisabled,
+    --        default = PARMenuDefaults.RepairEquipped.repairWithCrownRepairKit,
     --    })
     --
     --    PARRepairKitSubmenuTable:insert({
@@ -156,10 +156,10 @@ local function _createPARRepairKitSubmenuTable()
     --        max = 99,
     --        step = 1,
     --        width = "half",
-    --        getFunc = PAMenuFunctions.PARepair.getRepairWithCrownRepairKitDurabilityThresholdSetting,
-    --        setFunc = PAMenuFunctions.PARepair.setRepairWithCrownRepairKitDurabilityThresholdSetting,
-    --        disabled = PAMenuFunctions.PARepair.isRepairWithCrownRepairKitDurabilityThresholdDisabled,
-    --        default = PAMenuDefaults.PARepair.RepairEquipped.repairWithCrownRepairKitThreshold,
+    --        getFunc = PARMenuFunctions.getRepairWithCrownRepairKitDurabilityThresholdSetting,
+    --        setFunc = PARMenuFunctions.setRepairWithCrownRepairKitDurabilityThresholdSetting,
+    --        disabled = PARMenuFunctions.isRepairWithCrownRepairKitDurabilityThresholdDisabled,
+    --        default = PARMenuDefaults.RepairEquipped.repairWithCrownRepairKitThreshold,
     --    })
 
     PARRepairKitSubmenuTable:insert({
@@ -167,10 +167,10 @@ local function _createPARRepairKitSubmenuTable()
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING),
         tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T),
         width = "half",
-        getFunc = PAMenuFunctions.PARepair.getLowRepairKitWarningSetting,
-        setFunc = PAMenuFunctions.PARepair.setLowRepairKitWarningSetting,
-        disabled = PAMenuFunctions.PARepair.isLowRepairKitWarningDisabled,
-        default = PAMenuDefaults.PARepair.RepairEquipped.lowRepairKitWarning,
+        getFunc = PARMenuFunctions.getLowRepairKitWarningSetting,
+        setFunc = PARMenuFunctions.setLowRepairKitWarningSetting,
+        disabled = PARMenuFunctions.isLowRepairKitWarningDisabled,
+        default = PARMenuDefaults.RepairEquipped.lowRepairKitWarning,
     })
 
     PARRepairKitSubmenuTable:insert({
@@ -181,10 +181,10 @@ local function _createPARRepairKitSubmenuTable()
         max = 200,
         step = 1,
         width = "half",
-        getFunc = PAMenuFunctions.PARepair.getLowRepairKitThresholdSetting,
-        setFunc = PAMenuFunctions.PARepair.setLowRepairKitThresholdSetting,
-        disabled = PAMenuFunctions.PARepair.isLowRepairKitThresholdDisabled,
-        default = PAMenuDefaults.PARepair.RechargeWeapons.lowRepairKitThreshold,
+        getFunc = PARMenuFunctions.getLowRepairKitThresholdSetting,
+        setFunc = PARMenuFunctions.setLowRepairKitThresholdSetting,
+        disabled = PARMenuFunctions.isLowRepairKitThresholdDisabled,
+        default = PARMenuDefaults.RechargeWeapons.lowRepairKitThreshold,
     })
 end
 
@@ -195,10 +195,10 @@ local function _createPARRechargeSubmenuTable()
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE),
         tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T),
-        getFunc = PAMenuFunctions.PARepair.getRechargeWithSoulGemSetting,
-        setFunc = PAMenuFunctions.PARepair.setRechargeWithSoulGemSetting,
-        disabled = PAMenuFunctions.PARepair.isRechargeWithSoulGemDisabled,
-        default = PAMenuDefaults.PARepair.RechargeWeapons.useSoulGems,
+        getFunc = PARMenuFunctions.getRechargeWithSoulGemSetting,
+        setFunc = PARMenuFunctions.setRechargeWithSoulGemSetting,
+        disabled = PARMenuFunctions.isRechargeWithSoulGemDisabled,
+        default = PARMenuDefaults.RechargeWeapons.useSoulGems,
     })
 
     PARRechargeSubmenuTable:insert({
@@ -206,10 +206,10 @@ local function _createPARRechargeSubmenuTable()
         name = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING),
         tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T),
         width = "half",
-        getFunc = PAMenuFunctions.PARepair.getLowSoulGemWarningSetting,
-        setFunc = PAMenuFunctions.PARepair.setLowSoulGemWarningSetting,
-        disabled = PAMenuFunctions.PARepair.isLowSoulGemWarningDisabled,
-        default = PAMenuDefaults.PARepair.RechargeWeapons.lowSoulGemWarning,
+        getFunc = PARMenuFunctions.getLowSoulGemWarningSetting,
+        setFunc = PARMenuFunctions.setLowSoulGemWarningSetting,
+        disabled = PARMenuFunctions.isLowSoulGemWarningDisabled,
+        default = PARMenuDefaults.RechargeWeapons.lowSoulGemWarning,
     })
 
     PARRechargeSubmenuTable:insert({
@@ -220,10 +220,10 @@ local function _createPARRechargeSubmenuTable()
         max = 200,
         step = 1,
         width = "half",
-        getFunc = PAMenuFunctions.PARepair.getLowSoulGemThresholdSetting,
-        setFunc = PAMenuFunctions.PARepair.setLowSoulGemThresholdSetting,
-        disabled = PAMenuFunctions.PARepair.isLowSoulGemThresholdDisabled,
-        default = PAMenuDefaults.PARepair.RechargeWeapons.lowSoulGemThreshold,
+        getFunc = PARMenuFunctions.getLowSoulGemThresholdSetting,
+        setFunc = PARMenuFunctions.setLowSoulGemThresholdSetting,
+        disabled = PARMenuFunctions.isLowSoulGemThresholdDisabled,
+        default = PARMenuDefaults.RechargeWeapons.lowSoulGemThreshold,
     })
 end
 
