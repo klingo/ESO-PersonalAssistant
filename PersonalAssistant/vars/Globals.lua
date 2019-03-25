@@ -162,6 +162,11 @@ PersonalAssistant.Constants = {
                 NORMAL = "|t32:32:/esoui/art/icons/quest_daedricembers.dds|t",
             },
         },
+        OTHERS = {
+            HOME = {
+                NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t"
+            }
+        }
     },
 
     BANKING = {

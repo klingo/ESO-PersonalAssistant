@@ -76,7 +76,6 @@ local function createPAGeneralMenu()
         PAGeneralOptionsTable:insert({
             type = "button",
             name = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE),
---            icon
             width = "half",
             func = PAMenuFunctions.PAGeneral.teleportToPrimaryHouse,
             disabled = PAMenuFunctions.PAGeneral.isTeleportToPrimaryHouseDisabled,
@@ -84,6 +83,31 @@ local function createPAGeneralMenu()
             warning = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W),
         })
     end
+
+--    PAGeneralOptionsTable:insert({
+--        type = "button",
+--        name = "English",
+--        func = function() SetCVar("language.2", "en") end,
+--        isDangerous = true,
+--        warning = "The Game language will be changed to English!",
+--    })
+--
+--    PAGeneralOptionsTable:insert({
+--        type = "button",
+--        name = "German",
+--        func = function() SetCVar("language.2", "de") end,
+--        isDangerous = true,
+--        warning = "The Game language will be changed to German!",
+--    })
+--
+--    PAGeneralOptionsTable:insert({
+--        type = "button",
+--        name = "French",
+--        func = function() SetCVar("language.2", "fr") end,
+--        isDangerous = true,
+--        warning = "The Game language will be changed to French!",
+--    })
+
 end
 
 -- =================================================================================================================
