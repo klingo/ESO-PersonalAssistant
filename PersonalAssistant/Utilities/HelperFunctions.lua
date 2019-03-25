@@ -85,15 +85,6 @@ local function getBagName(bagId)
     end
 end
 
--- returns a fixed/formatted ItemLink
-local function getFormattedItemLink(bagId, slotIndex)
-    local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-    if itemLink == "" then return end
-    local itemName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemName(bagId, slotIndex))
-    local itemData = itemLink:match("|H.-:(.-)|h")
-    return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
-end
-
 local function hasActiveProfile()
     local PAMenuFunctions = PA.MenuFunctions
     return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
@@ -166,7 +157,6 @@ PA.HelperFunctions = {
     isValueInTable = isValueInTable,
     isPlayerDead = isPlayerDead,
     getBagName = getBagName,
-    getFormattedItemLink = getFormattedItemLink,
     hasActiveProfile = hasActiveProfile,
     getFormattedText = getFormattedText,
     getFormattedKey = getFormattedKey,

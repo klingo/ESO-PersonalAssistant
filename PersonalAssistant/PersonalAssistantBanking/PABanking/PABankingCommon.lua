@@ -57,7 +57,7 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
     local transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
     local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
-    local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
+    local itemLink = GetItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex, LINK_STYLE_BRACKETS)
     if targetBagId ~= nil and firstEmptySlot ~= nil then
         if not PA.isBankClosed then
             local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
@@ -135,7 +135,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
         local hasNoStacksLeft = false
         local skipItem = false
 
-        local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
+        local itemLink = GetItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex, LINK_STYLE_BRACKETS)
         local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
         local stackToMove = overruleStackToMove or sourceStack
         PAHF.debugln("try to move %d x %s", stackToMove, itemLink)
