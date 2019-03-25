@@ -65,6 +65,25 @@ local function createPAGeneralMenu()
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
         default = PAMenuDefaults.PAGeneral.welcomeMessage,
     })
+
+    local houseId = GetHousingPrimaryHouse()
+    if houseId then
+        PAGeneralOptionsTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE),
+--            icon
+            width = "half",
+            func = PAMenuFunctions.PAGeneral.teleportToPrimaryHouse,
+            disabled = PAMenuFunctions.PAGeneral.isTeleportToPrimaryHouseDisabled,
+            isDangerous = true,
+            warning = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W),
+        })
+    end
 end
 
 -- =================================================================================================================

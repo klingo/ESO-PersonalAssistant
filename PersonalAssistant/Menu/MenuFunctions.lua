@@ -136,6 +136,17 @@ local function setPAGeneralWelcomeMessage(value)
     PA.SavedVars.General[PA.activeProfile].welcome = value
 end
 
+
+--------------------------------------------------------------------------
+-- PAGeneral   teleportToPrimaryHouse
+---------------------------------
+local function doPAGeneralTeleportToPrimaryHouse()
+    local houseId = GetHousingPrimaryHouse()
+    if houseId and CanLeaveCurrentLocationViaTeleport() then
+        RequestJumpToHouse(houseId)
+    end
+end
+
 -- =====================================================================================================================
 
 -- Export
@@ -150,7 +161,10 @@ PA.MenuFunctions = {
         setActiveProfileRename = setPAGeneralActiveProfileRename,
 
         getWelcomeMessageSetting = getPAGeneralWelcomeMessage,
-        setWelcomeMessageSetting = setPAGeneralWelcomeMessage
+        setWelcomeMessageSetting = setPAGeneralWelcomeMessage,
+
+        isTeleportToPrimaryHouseDisabled = function() return not CanLeaveCurrentLocationViaTeleport() end,
+        teleportToPrimaryHouse = doPAGeneralTeleportToPrimaryHouse,
     },
 }
 

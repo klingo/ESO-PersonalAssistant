@@ -27,6 +27,9 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
     SI_PA_MENU_GENERAL_SHOW_WELCOME_T = "Display a welcome message from the addon upon successfully starting?",
 
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = "Teleport to Primary House",
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
