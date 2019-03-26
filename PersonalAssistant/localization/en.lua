@@ -53,7 +53,7 @@ local PAStrings = {
     SI_PA_NS_BAG_UNKNOWN = "Unknown",
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- ItemTypes --
+    -- ItemTypes (Custom Singluar/Plural definition) --
     SI_PA_ITEMTYPE4 = "<<1[Food/Foods]>>",
     SI_PA_ITEMTYPE5 = "<<1[Trophy/Trophies]>>",
     SI_PA_ITEMTYPE7 = "<<1[Potion/Potions]>>",

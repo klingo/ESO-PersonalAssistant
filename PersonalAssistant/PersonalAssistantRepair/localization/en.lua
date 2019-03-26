@@ -47,7 +47,8 @@ local PARStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair --
-    SI_PA_CHAT_REPAIR_OUTPUT_MISSING = "missing", -- example output: "[...] (55 Gold missing)"
+    SI_PA_CHAT_REPAIR_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired equipped items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired equpped items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
     SI_PA_CHAT_REPAIR_CHARGE_WEAPON = table.concat({PAC.COLORED_TEXTS.PAR, "%s (%d%% --> %d%%) - %s"}),
@@ -78,9 +79,6 @@ local PARGenericStrings = {
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PARepair Chat Output --
-    SI_PA_CHAT_REPAIR_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " ", GetString(SI_PA_CHAT_REPAIR_OUTPUT_MISSING) ,")"}),
 }
 
 for key, value in pairs(PARGenericStrings) do
