@@ -146,12 +146,12 @@ end
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    return PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode
+    return PAB.SavedVars.Advanced.ItemTypes[itemType]
 end
 
 local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode = value
+    PAB.SavedVars.Advanced.ItemTypes[itemType] = value
 end
 
 --------------------------------------------------------------------------
@@ -159,12 +159,12 @@ end
 ---------------------------------
 local function getPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    return PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode
+    return PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType]
 end
 
 local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode = value
+    PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
 end
 
 
@@ -177,7 +177,7 @@ local function isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(...)
     -- if savedVarsArgs is not disabled, check the itemTypes
     local args = { ... }
     for _, itemType in ipairs(args) do
-        if PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode ~= PAC.MOVE.IGNORE then return false end
+        if PAB.SavedVars.Advanced.ItemTypes[itemType] ~= PAC.MOVE.IGNORE then return false end
     end
     -- if there was no 'false' returned until here; then return true
     return true
@@ -192,7 +192,7 @@ local function isAdvancedItemsDisabledOrAllISpecializedtemTypesMoveModeIgnore(..
     -- if savedVarsArgs is not disabled, check the itemTypes
     local args = { ... }
     for _, specializedItemType in ipairs(args) do
-        if PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode ~= PAC.MOVE.IGNORE then return false end
+        if PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] ~= PAC.MOVE.IGNORE then return false end
     end
     -- if there was no 'false' returned until here; then return true
     return true
@@ -204,10 +204,10 @@ end
 local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     if isDisabledPAGeneralNoProfileSelected() then return end
     for itemType, _ in pairs(PAB.SavedVars.Advanced.ItemTypes) do
-        PAB.SavedVars.Advanced.ItemTypes[itemType].moveMode = value
+        PAB.SavedVars.Advanced.ItemTypes[itemType] = value
     end
     for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
-        PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType].moveMode = value
+        PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
     end
     PERSONALASSISTANT_PAB_ADVANCED_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
