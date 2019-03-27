@@ -3,9 +3,11 @@ local PA = PersonalAssistant
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- Export
-PA.MenuDefaults = {
-    PAGeneral = {
-        welcomeMessage = true,
-    },
+local PAGeneralMenuDefaults = {
+    welcomeMessage = true,
 }
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Export
+PA.MenuDefaults = PA.MenuDefaults or {}
+PA.MenuDefaults.PAGeneral = PAGeneralMenuDefaults
