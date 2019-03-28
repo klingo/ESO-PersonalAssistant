@@ -22,7 +22,7 @@ SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Wann 
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Warne wenn Inventarplätze ausgehen", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Zeige eine Warnung im Chatfenster an wenn dir die Inventarplätze ausgehen", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Schwellenwert für Inventarplätze", 1)
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wemnn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Meldung im Chat ausgegeben", 1)
+SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wenn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Meldung im Chat ausgegeben", 1)
 
 
 -- =================================================================================================================
