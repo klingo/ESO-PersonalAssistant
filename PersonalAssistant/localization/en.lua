@@ -23,9 +23,7 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE = "Active profile",
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T = "Select the active profile for PersonalAssistant. It will automatically load all settings stored under that profile and changes are stored in the same place.",
     SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME = "Rename active profile",
-    SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME_T = "Rename the active profile",
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
-    SI_PA_MENU_GENERAL_SHOW_WELCOME_T = "Display a welcome message from the addon upon successfully starting?",
 
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
@@ -33,7 +31,6 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
-    SI_PA_MENU_SILENT_MODE_T = "If Silent Mode is enabled, no messages from this Addon will be displayed in the chat anymore",
 
     SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
 

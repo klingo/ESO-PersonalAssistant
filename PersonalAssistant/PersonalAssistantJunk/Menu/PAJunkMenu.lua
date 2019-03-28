@@ -44,7 +44,6 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T),
         getFunc = PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting,
         setFunc = PAJMenuFunctions.setAutoMarkAsJunkEnabledSetting,
         disabled = PAJMenuFunctions.isAutoMarkAsJunkDisabled,
@@ -89,7 +88,6 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_T),
         getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
         setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
         disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
@@ -99,7 +97,6 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
-        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
         getFunc = PAJMenuFunctions.getSilentModeSetting,
         setFunc = PAJMenuFunctions.setSilentModeSetting,
         disabled = PAJMenuFunctions.isSilentModeDisabled,

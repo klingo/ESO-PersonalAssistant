@@ -56,7 +56,6 @@ local function _createPAMailMenu()
     PAMailOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
-        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
         getFunc = PAMMenuFunctions.getSilentModeSetting,
         setFunc = PAMMenuFunctions.setSilentModeSetting,
         disabled = PAMMenuFunctions.isSilentModeDisabled,

@@ -40,7 +40,6 @@ local function _createPALootMenu()
     PALootOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_LOOT_ENABLE),
-        tooltip = GetString(SI_PA_MENU_LOOT_ENABLE_T),
         getFunc = PALMenuFunctions.isEnabled,
         setFunc = PALMenuFunctions.setIsEnabled,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
@@ -96,7 +95,6 @@ local function _createPALootMenu()
     PALootOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
-        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
         getFunc = PALMenuFunctions.getSilentModeSetting,
         setFunc = PALMenuFunctions.setSilentModeSetting,
         disabled = PALMenuFunctions.isSilentModeDisabled,

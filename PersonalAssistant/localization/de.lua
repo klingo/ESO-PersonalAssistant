@@ -21,9 +21,7 @@ SafeAddString(SI_PA_PLEASE_SELECT_PROFILE, "<Bitte Profil wählen>", 1)
 SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE, "Profil aktivieren", 1)
 SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T, "Das aktuelle Profil für PersonalAssistant auswählen. Es werden automatisch alle Einstellungen von diesem Profil geladen und am gleichen Ort auch wieder abgespeichert.", 1)
 SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME, "Aktuelles Profil umbenennen", 1)
-SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME_T, "Das aktuelles Profil umbenennen", 1)
 SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
-SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME_T, "Zeige eine Willkommensmeldung von der Erweiterung an wenn es erfolgreich geladen werden konnte?", 1)
 
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
@@ -31,7 +29,6 @@ SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Ge
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Ruhemodus (Deaktiviert ALLE Meldungen)", 1)
-SafeAddString(SI_PA_MENU_SILENT_MODE_T, "Wenn der Ruhemodus aktiviert ist, werden von dieser Erweiterung keine Meldungen mehr im Chat angezeigt", 1)
 
 SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Noch nicht implementiert!"}), 1)
 

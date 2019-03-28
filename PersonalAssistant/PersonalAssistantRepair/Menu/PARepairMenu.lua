@@ -70,7 +70,6 @@ local function _createPARepairMenu()
     PARepairOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
-        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
         getFunc = PARMenuFunctions.getSilentModeSetting,
         setFunc = PARMenuFunctions.setSilentModeSetting,
         disabled = PARMenuFunctions.isSilentModeDisabled,

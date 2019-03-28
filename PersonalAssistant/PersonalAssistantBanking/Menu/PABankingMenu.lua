@@ -73,7 +73,6 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ENABLE, _groupName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ENABLE_T, _groupName),
         getFunc = PABMenuFunctions.getCurrenciesEnabledSetting,
         setFunc = PABMenuFunctions.setCurrenciesEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -430,7 +429,6 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
-        tooltip = GetString(SI_PA_MENU_SILENT_MODE_T),
         getFunc = PABMenuFunctions.getSilentModeSetting,
         setFunc = PABMenuFunctions.setSilentModeSetting,
         disabled = PABMenuFunctions.isSilentModeDisabled,
@@ -445,7 +443,6 @@ local function _createPABCurrencyGoldSubmenuTable()
     PABCurrencyGoldSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _currencyName),
         getFunc = PABMenuFunctions.getGoldTransactionSetting,
         setFunc = PABMenuFunctions.setGoldTransactionSetting,
         disabled = PABMenuFunctions.isGoldTransactionDisabled,
@@ -484,7 +481,6 @@ local function _createPABCurrencyAlliancePointsSubmenuTable()
     PABCurrencyAlliancePointsSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _currencyName),
         getFunc = PABMenuFunctions.getAlliancePointsTransactionSetting,
         setFunc = PABMenuFunctions.setAlliancePointsTransactionSetting,
         disabled = PABMenuFunctions.isAlliancePointsTransactionDisabled,
@@ -523,7 +519,6 @@ local function _createPABCurrencyTelVarSubmenuTable()
     PABCurrencyTelVarSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _currencyName),
         getFunc = PABMenuFunctions.getTelVarTransactionSetting,
         setFunc = PABMenuFunctions.setTelVarTransactionSetting,
         disabled = PABMenuFunctions.isTelVarTransactionDisabled,
@@ -561,7 +556,6 @@ local function _createPABCurrencyWritVouchersSubmenuTable()
     PABCurrencyWritVouchersSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _currencyName),
         getFunc = PABMenuFunctions.getWritVouchersTransactionSetting,
         setFunc = PABMenuFunctions.setWritVouchersTransactionSetting,
         disabled = PABMenuFunctions.isWritVouchersTransactionDisabled,
@@ -600,7 +594,6 @@ local function _createPABCraftingBlacksmithingSubmenuTable()
     PABCraftingBlacksmithingSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getBlacksmithingTransactionSetting,
         setFunc = PABMenuFunctions.setBlacksmithingTransactionSetting,
         disabled = PABMenuFunctions.isBlacksmithingTransactionDisabled,
@@ -628,7 +621,6 @@ local function _createPABCraftingClothingSubmenuTable()
     PABCraftingClothingSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getClothingTransactionSetting,
         setFunc = PABMenuFunctions.setClothingTransactionSetting,
         disabled = PABMenuFunctions.isClothingTransactionDisabled,
@@ -656,7 +648,6 @@ local function _createPABCraftingWoodworkingSubmenuTable()
     PABCraftingWoodworkingSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getWoodworkingTransactionSetting,
         setFunc = PABMenuFunctions.setWoodworkingTransactionSetting,
         disabled = PABMenuFunctions.isWoodworkingTransactionDisabled,
@@ -684,7 +675,6 @@ local function _createPABCraftingJewelcraftingSubmenuTable()
     PABCraftingJewelcraftingSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getJewelcraftingTransactionSetting,
         setFunc = PABMenuFunctions.setJewelcraftingTransactionSetting,
         disabled = PABMenuFunctions.isJewelcraftingTransactionDisabled,
@@ -712,7 +702,6 @@ local function _createPABCraftingAlchemySubmenuTable()
     PABCraftingAlchemySubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getAlchemyTransactionSetting,
         setFunc = PABMenuFunctions.setAlchemyTransactionSetting,
         disabled = PABMenuFunctions.isAlchemyTransactionDisabled,
@@ -740,7 +729,6 @@ local function _createPABCraftingEnchantingSubmenuTable()
     PABCraftingEnchantingSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getEnchantingTransactionSetting,
         setFunc = PABMenuFunctions.setEnchantingTransactionSetting,
         disabled = PABMenuFunctions.isEnchantingTransactionDisabled,
@@ -768,7 +756,6 @@ local function _createPABCraftingProvisioningSubmenuTable()
     PABCraftingProvisioningSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getProvisioningTransactionSetting,
         setFunc = PABMenuFunctions.setProvisioningTransactionSetting,
         disabled = PABMenuFunctions.isProvisioningTransactionDisabled,
@@ -796,7 +783,6 @@ local function _createPABCraftingStyleMaterialsSubmenuTable()
     PABCraftingStyleMaterialsSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getStyleMaterialsTransactionSetting,
         setFunc = PABMenuFunctions.setStyleMaterialsTransactionSetting,
         disabled = PABMenuFunctions.isStyleMaterialsTransactionDisabled,
@@ -824,7 +810,6 @@ local function _createPABCraftingTraitItemsSubmenuTable()
     PABCraftingTraitItemsSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getTraitItemsTransactionSetting,
         setFunc = PABMenuFunctions.setTraitItemsTransactionSetting,
         disabled = PABMenuFunctions.isTraitItemsTransactionDisabled,
@@ -852,7 +837,6 @@ local function _createPABCraftingFurnishingSubmenuTable()
     PABCraftingFurnishingSubmenuTable:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T, _craftingName),
         getFunc = PABMenuFunctions.getFurnishingTransactionSetting,
         setFunc = PABMenuFunctions.setFurnishingTransactionSetting,
         disabled = PABMenuFunctions.isFurnishingTransactionDisabled,

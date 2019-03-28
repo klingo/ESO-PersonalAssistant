@@ -49,7 +49,6 @@ local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
         type = "editbox",
         name = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME),
-        tooltip = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME_T),
         width = "half",
         getFunc = PAMenuFunctions.PAGeneral.getActiveProfileRename,
         setFunc = PAMenuFunctions.PAGeneral.setActiveProfileRename,
@@ -59,7 +58,6 @@ local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME),
-        tooltip = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME_T),
         getFunc = PAMenuFunctions.PAGeneral.getWelcomeMessageSetting,
         setFunc = PAMenuFunctions.PAGeneral.setWelcomeMessageSetting,
         disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,

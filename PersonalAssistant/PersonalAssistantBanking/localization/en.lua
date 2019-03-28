@@ -26,15 +26,12 @@ local PABStrings = {
 
     -- Generic definitions for any type --
     SI_PA_MENU_BANKING_ANY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for %s"}),
-    SI_PA_MENU_BANKING_ANY_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different %s?",
     SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for %s Items"}),
     SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different %s Items?",
 
     SI_PA_MENU_BANKING_ANY_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for %s Items",
     SI_PA_MENU_BANKING_ANY_TYPE_ENABLE = "Deposit/Withdraw %s",
-    SI_PA_MENU_BANKING_ANY_TYPE_ENABLE_T = "Automatically deposit %s to the bank, or withdraw when needed?",
-    SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE = "Deposit/Withdraw %s Items",
-    SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE_T = "Automatically deposit %s Items to the bank, or withdraw when needed?",
+    SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE = "Deposit/Withdraw %s Items", -- TODO: remove "Items"?
 
     SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "Minimum amount of %s to always keep on the character; if necessary with additional withdrawals from the bank",
     SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "Maximum amount of %s to always keep on the character; everything above this amount is deposited to the bank",
