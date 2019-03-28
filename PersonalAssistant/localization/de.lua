@@ -52,20 +52,20 @@ SafeAddString(SI_PA_NS_BAG_UNKNOWN, "Unbekannt", 1)
 SafeAddString(SI_PA_ITEMTYPE4, "<<1[Nahrung/Nahrungen]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE5, "<<1[Trophäe/Trophäen]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE7, "<<1[Trank/Tränke]>>", 1)
---SafeAddString(SI_PA_ITEMTYPE8, "<<1[tbd/tbd]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE8, "<<1[Stil/Stile]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE12, "<<1[Getränk/Getränke]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE19, "<<1[Seelenstein/Seelensteine]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE22, "<<1[Dietrich/Dietriche]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Rezept/Rezepte]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Gift/Gifte]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Sammlung/Sammlungen]>>", 1)
---SafeAddString(SI_PA_ITEMTYPE60, "<<1[tbd/tbd]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE60, "<<1[Meisterschrieb/Meisterschriebe]>>", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
 SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Nichts machen", 1)
-SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "In Bank deponieren", 1)
-SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Nach Inventar abheben", 1)
+SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "In Truhe einlagern", 1)
+SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Ins Inventar entnehmen", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Reparaturmaterialien", 1)
 

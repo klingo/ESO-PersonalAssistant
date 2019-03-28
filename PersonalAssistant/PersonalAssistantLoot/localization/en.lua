@@ -24,7 +24,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Whenever an ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " or a ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " is looted that has a trait that is not yet research by this character, a message is displayed in the chat"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on inventory space",
-    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T ="Display a warning in the chat window if you are low on inventory space",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Display a warning in the chat window if you are low on inventory space",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Inventory space threshold",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T = "If the remaining free inventory space is at or below this threshold, a message is displayed in the chat window",
 
