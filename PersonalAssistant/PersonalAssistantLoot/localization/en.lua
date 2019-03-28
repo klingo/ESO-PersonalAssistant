@@ -12,17 +12,17 @@ local PALStrings = {
     -- Loot Recipes
     SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
-    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = "???",
+    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), "is looted that is not yet known by this character, a message is displayed in the chat"}),
 
     -- Loot Motifs
     SI_PA_MENU_LOOT_MOTIFS_HEADER = table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"Display message if ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
-    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = "???",
+    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), "is looted that is not yet known by this character, a message is displayed in the chat"}),
 
     -- Loot Apparel & Weapons
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", "When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "Display message if Trait is not yet researched",
-    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = "???",
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Whenever an ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " or a ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " is lootet that has a trait that is not yet research by this character, a message is displayed in the chat"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on inventory space",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T ="Display a warning in the chat window if you are low on inventory space",
