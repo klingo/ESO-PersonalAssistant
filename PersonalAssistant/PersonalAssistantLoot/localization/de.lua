@@ -3,7 +3,7 @@ local PAC = PersonalAssistant.Constants
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PALoot Menu --
-SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot ckann dich darübe rinformieren wenn du Gegenstände von speziellem Interesse (wie unbekannte Rezepte, Stile oder Eigenschaften) eingesammelt werden", 1)
+SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot kann dich darüber informieren wenn Gegenstände von speziellem Interesse (wie unbekannte Rezepte, Stile oder Eigenschaften) eingesammelt werden", 1)
 -- Loot Recipes
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)}), 1)
@@ -20,9 +20,9 @@ SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "Informiere bei nicht 
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " oder eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}), 1)
 
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Warne wenn Inventarplätze ausgehen", 1)
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Zeige eine Warnung im Chatfenster an wenn dir die Inventarplätze ausgehen", 1)
+SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Schwellenwert für Inventarplätze", 1)
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wenn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Meldung im Chat ausgegeben", 1)
+SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wenn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Warnung im Chat ausgegeben", 1)
 
 
 -- =================================================================================================================
