@@ -22,7 +22,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC = "Other",
 
     SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK = "Amount to keep in backpack",
-    SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T = "Define the amount which shall together with the mathematical operator be kept in the backpack",
+    SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T = "Define the amount which (based on the mathematical operator) shall be kept in the backpack",
 
     -- Generic definitions for any type --
     SI_PA_MENU_BANKING_ANY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for %s"}),
