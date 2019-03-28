@@ -184,7 +184,7 @@ local function _createPARRepairKitSubmenuTable()
         getFunc = PARMenuFunctions.getLowRepairKitThresholdSetting,
         setFunc = PARMenuFunctions.setLowRepairKitThresholdSetting,
         disabled = PARMenuFunctions.isLowRepairKitThresholdDisabled,
-        default = PARMenuDefaults.RechargeWeapons.lowRepairKitThreshold,
+        default = PARMenuDefaults.RepairEquipped.lowRepairKitThreshold,
     })
 end
 
