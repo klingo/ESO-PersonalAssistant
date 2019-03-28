@@ -9,13 +9,13 @@ SafeAddString(SI_PA_MENU_REPAIR_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Au
 
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Reparatur mit ", GetCurrencyName(CURT_MONEY)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetCurrencyName(CURT_MONEY), "?"}), 1)
---SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T, "tbd", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T, "Wenn ein Händler besucht wird, werden getragene Ausrüstungen automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY, "Haltbarkeitsschwelle in %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T, "Repariere getragene Ausrüstung nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Reparatur mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}), 1)
---SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T, "tbd", 1)
+SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T, "Unterwegs werden getragenen Ausrüstungen automatisch repariert wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY, "Schwellenwert der Haltbarkeit in %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T, "Repariere getragene Gegenstände nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 --SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE, "tbd", 1)
