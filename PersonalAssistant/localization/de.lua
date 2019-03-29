@@ -1,5 +1,4 @@
 local PAC = PersonalAssistant.Constants
-
 -- =================================================================================================================
 -- Welcome Messages --
 SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " zu deinen Diensten!   -   für deine Sprache [%s] ist leider (noch) keine Lokalisierung verfügbar"}), 1)

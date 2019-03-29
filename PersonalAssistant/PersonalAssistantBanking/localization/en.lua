@@ -7,7 +7,7 @@ local PABStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking Menu --
-    SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting- and other Items for between your character's backpack and the bank",
+    SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting- and other Items between your character's backpack and the bank",
 
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",

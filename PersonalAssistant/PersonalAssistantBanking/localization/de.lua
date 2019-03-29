@@ -3,16 +3,16 @@ local PAC = PersonalAssistant.Constants
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking Menu --
---SafeAddString(SI_PA_MENU_BANKING_DESCRIPTION, "tbd", 1)
+SafeAddString(SI_PA_MENU_BANKING_DESCRIPTION, "PABanking kann Währungen, Handwerks- und andere Gegenstände für dich zwischen deinem Inventar und der Truhe hin und her schieben", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimal im Inventar behalten", 1)
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximal im Inventar behalten", 1)
 
---SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "tbd", 1)
---SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, "tbd", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "Handwerks", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "Als ESO Plus-Mitglied ist das Einlagern/Entnehmen von Handwerksmaterialien nicht relevant da alle davon in unbeschränkter Menge im Handwerksbeutel verstaut werden können."}), 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spezielle", 1)
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: figure out why this does not overwrite the English one
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: to be checked why this is not replacing the English text
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "Einzelne", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Anderes", 1)
@@ -33,13 +33,13 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Minimale Menge an %s die imme
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Maximale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird alles darüber in die Truhe eingelagert", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE, "Ändere alle obigen Dropdown-Listen nach", 1)
---SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, "tbd", 1)
+SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, "Ändere alle obigen %s Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Dies kann nicht rückgängig gemacht werden; alle individuellen Einträge werden überschrieben", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING, "Regel fürs Stapeln beim Einlagern", 1)
---SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T, "tbd", 1)
+SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T, "Definiere ob alle Gegenstände in die Truhe eingelagert werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING, "Regel fürs Stapeln beim Entnehmen", 1)
---SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T, "tbd", 1)
+SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T, "Definiere ob alle Gegenstände ins Inventar entnommen werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL, "Intervall zwischen einzelnen Transaktionen (in ms)", 1)
 SafeAddString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL_T, "Die Zeit in Millisekunden zwischen zwei aufeinanderfolgenden Transaktionen von Gegenständen. Wenn zu viele Verschiebungen fehlschlagen kann versucht werden diesen Wert zu erhöhen.", 1)
