@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 local PAJMenuChoices = PA.MenuChoices.choices.PAJunk
 local PAJMenuChoicesValues = PA.MenuChoices.choicesValues.PAJunk
 local PAJMenuDefaults = PA.MenuDefaults.PAJunk
@@ -137,10 +138,11 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAJWeaponsSubMenu()
+    local _typeName = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_ORNATE, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T, _typeName),
         getFunc = PAJMenuFunctions.getWeaponsAutoMarkOrnateSetting,
         setFunc = PAJMenuFunctions.setWeaponsAutoMarkOrnateSetting,
         disabled = PAJMenuFunctions.isWeaponsAutoMarkOrnateDisabled,
@@ -149,8 +151,8 @@ local function _createPAJWeaponsSubMenu()
 
     PAJWeaponsSubMenu:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD),
-        tooltip = GetString(SI_PA_MENU_JUNK_WEAPONS_AUTOMARK_QUALITY_THRESHOLD_T),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, _typeName),
         choices = PAJMenuChoices.qualityLevel,
         choicesValues = PAJMenuChoicesValues.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
@@ -168,7 +170,7 @@ local function _createPAJWeaponsSubMenu()
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
         width = "half",
         getFunc = PAJMenuFunctions.getWeaponsIncludeSetItemsSetting,
         setFunc = PAJMenuFunctions.setWeaponsIncludeSetItemsSetting,
@@ -179,7 +181,7 @@ local function _createPAJWeaponsSubMenu()
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         width = "half",
         getFunc = PAJMenuFunctions.getWeaponsIncludeUnknownTraitsSetting,
         setFunc = PAJMenuFunctions.setWeaponsIncludeUnknownTraitsSetting,
@@ -191,10 +193,11 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAJArmorSubMenu()
+    local _typeName = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR))
     PAJArmorSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_ORNATE, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T, _typeName),
         getFunc = PAJMenuFunctions.getArmorAutoMarkOrnateSetting,
         setFunc = PAJMenuFunctions.setArmorAutoMarkOrnateSetting,
         disabled = PAJMenuFunctions.isArmorAutoMarkOrnateDisabled,
@@ -203,8 +206,8 @@ local function _createPAJArmorSubMenu()
 
     PAJArmorSubMenu:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD),
-        tooltip = GetString(SI_PA_MENU_JUNK_ARMOR_AUTOMARK_QUALITY_THRESHOLD_T),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, _typeName),
         choices = PAJMenuChoices.qualityLevel,
         choicesValues = PAJMenuChoicesValues.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
@@ -222,7 +225,7 @@ local function _createPAJArmorSubMenu()
     PAJArmorSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
         width = "half",
         getFunc = PAJMenuFunctions.getArmorIncludeSetItemsSetting,
         setFunc = PAJMenuFunctions.setArmorIncludeSetItemsSetting,
@@ -233,7 +236,7 @@ local function _createPAJArmorSubMenu()
     PAJArmorSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         width = "half",
         getFunc = PAJMenuFunctions.getArmorIncludeUnknownTraitsSetting,
         setFunc = PAJMenuFunctions.setArmorIncludeUnknownTraitsSetting,
@@ -245,10 +248,11 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAJJewelrySubMenu()
+    local _typeName = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))
     PAJJewelrySubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_ORNATE, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T, _typeName),
         getFunc = PAJMenuFunctions.getJewelryAutoMarkOrnateSetting,
         setFunc = PAJMenuFunctions.setJewelryAutoMarkOrnateSetting,
         disabled = PAJMenuFunctions.isJewelryAutoMarkOrnateDisabled,
@@ -257,8 +261,8 @@ local function _createPAJJewelrySubMenu()
 
     PAJJewelrySubMenu:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD),
-        tooltip = GetString(SI_PA_MENU_JUNK_JEWELRY_AUTOMARK_QUALITY_THRESHOLD_T),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, _typeName),
         choices = PAJMenuChoices.qualityLevel,
         choicesValues = PAJMenuChoicesValues.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
@@ -276,7 +280,7 @@ local function _createPAJJewelrySubMenu()
     PAJJewelrySubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
         width = "half",
         getFunc = PAJMenuFunctions.getJewelryIncludeSetItemsSetting,
         setFunc = PAJMenuFunctions.setJewelryIncludeSetItemsSetting,
@@ -287,7 +291,7 @@ local function _createPAJJewelrySubMenu()
     PAJJewelrySubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         width = "half",
         getFunc = PAJMenuFunctions.getJewelryIncludeUnknownTraitsSetting,
         setFunc = PAJMenuFunctions.setJewelryIncludeUnknownTraitsSetting,
