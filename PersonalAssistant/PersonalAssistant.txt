@@ -3,7 +3,7 @@
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v2.0.0 - BETA 7|r
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v2.0.0 - BETA 8 RC 1|r
 ## Description: Contains core functions, must be enabled to use any other PersonalAssistant Add-On.
 ## Version: 2.0.0
 ## AddOnVersion: 200
