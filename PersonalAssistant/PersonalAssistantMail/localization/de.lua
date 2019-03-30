@@ -22,7 +22,7 @@ local PAC = PersonalAssistant.Constants
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAMail --
 SafeAddString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_ENCHANTING, "Verzauberermaterial", 1)
---SafeAddString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_WOODWORKING, "Raw Woodworker Materials", 1)
+SafeAddString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_WOODWORKING, "Schreinermaterial", 1)
 SafeAddString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_CLOTHING, "Schneidermaterial", 1)
 SafeAddString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_BLACKSMITHING, "Schmiedematerial", 1)
 SafeAddString(SI_PA_MAIL_HIRELINGS_MAIL_SUBJECT_PROVISIONING, "Versorgerzutaten", 1)
