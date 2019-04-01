@@ -255,7 +255,7 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
 * [ ] **(3)** PAJunk: Add item context menu to flag permanently item as junk
-* [ ] **(4)** PAJunk: Destroy items with 0g value that are marked as junk
+* [ ] **(4)** PAJunk: Destroy items with 0g value (or non-sellable ones) that are marked as junk
 * [ ] **(4)** PAJunk: Auto-Junk "bad" default potions/poisons as well as drinks & food without any buffs 
 
 
