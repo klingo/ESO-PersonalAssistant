@@ -68,9 +68,15 @@ How to read:
     SafeAddVersion(stringId, stringVersion) 
     SafeAddString(stringId, stringValue, stringVersion) 
     ```
-* [ ] **(4)** Cleanup Localizations and Getter/Setter Functions
-* [ ] **(5)** Add German Localization
+* [X] **(4)** Cleanup Localizations and Getter/Setter Functions
+* [X] **(5)** Add German Localization
 * [ ] **(5)** Add French Localization (NTakit)
+    1. Translations with ITEMFILTERTYPE are wrong; use the ones from skill window (at least for Tailoring)
+    2. SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE = "Deposit/Withdraw %s Items",
+       In french, that is "Dépôt/Retrait des objets de %s" or "Dépôt/Retrait des objets d'%s"
+    3. SI_PA_MENU_BANKING_ANY_DESCRIPTION
+       "%s objects" in english can be "crafting objects" or "special objects"
+       but in french, it should be "Objets d'artisanat" and "Objets spéciaux"
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
