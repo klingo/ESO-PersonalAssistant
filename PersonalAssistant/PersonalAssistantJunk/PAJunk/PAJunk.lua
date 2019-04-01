@@ -184,8 +184,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
             if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
-                -- get the itemType and itemTrait
-                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
+                local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                 local itemType = GetItemType(bagId, slotIndex)
 
                 -- first check for regular Trash

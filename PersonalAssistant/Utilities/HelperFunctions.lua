@@ -90,6 +90,16 @@ local function hasActiveProfile()
     return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
 end
 
+-- returns a fixed/formatted ItemLink
+-- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
+local function getFormattedItemLink(bagId, slotIndex)
+    local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+    if itemLink == "" then return end
+    local itemName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemName(bagId, slotIndex))
+    local itemData = itemLink:match("|H.-:(.-)|h")
+    return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
+end
+
 -- currently supports one text and n arguments
 local function getFormattedText(text, ...)
     local args = { ... }
@@ -158,6 +168,7 @@ PA.HelperFunctions = {
     isPlayerDead = isPlayerDead,
     getBagName = getBagName,
     hasActiveProfile = hasActiveProfile,
+    getFormattedItemLink = getFormattedItemLink,
     getFormattedText = getFormattedText,
     getFormattedKey = getFormattedKey,
     println = println,
