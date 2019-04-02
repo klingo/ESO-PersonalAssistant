@@ -39,7 +39,6 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE
 SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für %s Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen %sn Gegenständen", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_ANY_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für %s Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "%s einlagern/entnehmen", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Minimale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird fehlendes von der Truhe entnommen", 1)
