@@ -142,7 +142,7 @@ local function _createPABankingMenu()
 
         PABankingOptionsTable:insert({
             type = "description",
-            text = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_DESCRIPTION, _groupName)
+            text = GetString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION)
         })
 
         PABankingOptionsTable:insert({
@@ -250,7 +250,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "description",
-        text = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_DESCRIPTION, _groupName)
+        text = GetString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION)
     })
 
     PABankingOptionsTable:insert({
@@ -335,7 +335,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "description",
-        text = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_DESCRIPTION, _groupName)
+        text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION)
     })
 
     PABankingOptionsTable:insert({

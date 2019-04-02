@@ -9,12 +9,15 @@ SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimal im Inventar behalt
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximal im Inventar behalten", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "Handwerks", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "Als ESO Plus-Mitglied ist das Einlagern/Entnehmen von Handwerksmaterialien nicht relevant da alle davon in unbeschränkter Menge im Handwerksbeutel verstaut werden können."}), 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spezielle", 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für spezielle Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: to be checked why this is not replacing the English text
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "Einzelne", 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für einzelne Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Anderes", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK, "Im Inventar zu behaltende Menge", 1)

@@ -9,12 +9,15 @@ local PAC = PersonalAssistant.Constants
 --SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, tbd"", 1)
 
 --SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "tbd", 1)
+--SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "tbd", 1)
 --SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC,"tbd", 1)
 
 --SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "tbd", 1)
+--SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "tbd", 1)
 --SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "tbd", 1) -- TODO: to be checked why this is not replacing the English text
 
 --SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "tbd", 1)
+--SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "tbd", 1)
 --SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "tbd", 1)
 
 --SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK, "tbd", 1)
@@ -25,7 +28,6 @@ local PAC = PersonalAssistant.Constants
 --SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, "tbd", 1)
 --SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, "tbd", 1)
 
---SafeAddString(SI_PA_MENU_BANKING_ANY_DESCRIPTION, "tbd", 1)
 --SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "tbd", 1)
 --SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, "tbd", 1)
 

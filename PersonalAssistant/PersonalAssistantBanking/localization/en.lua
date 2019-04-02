@@ -13,12 +13,15 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
 
     SI_PA_MENU_BANKING_CRAFTING = "Crafting",
+    SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
     SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag"}),
 
     SI_PA_MENU_BANKING_ADVANCED = "Special",
+    SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
 
     SI_PA_MENU_BANKING_INDIVIDUAL = "Individual",
+    SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Individual Items",
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC = "Other",
 
     SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK = "Amount to keep in backpack",
@@ -29,7 +32,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for %s Items"}),
     SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different %s Items?",
 
-    SI_PA_MENU_BANKING_ANY_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for %s Items",
     SI_PA_MENU_BANKING_ANY_TYPE_ENABLE = "Deposit/Withdraw %s",
     SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE = "Deposit/Withdraw %s Items", -- TODO: remove "Items"?
 
