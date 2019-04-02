@@ -9,15 +9,15 @@ SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimum à garder sur soi"
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximum à garder sur soi", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "Artisanat", 1)
---SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "tbd", 1) -- TODO: need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Définir l'action spécifique (dépose, retrait, aucune action) pour les matériaux d'artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "En tant que membre ESO Plus, the dépot/retrait de matériaux d'artisanat n'est pas utile puisqu'ils peuvent être tous transportés dans le sac d'artisanat"}), 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spécial", 1)
---SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "tbd", 1) -- TODO: need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Définir l'action spécifique (dépose, retrait, aucune action) pour les objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1) -- TODO: to be checked why this is not replacing the English text
 
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "Individuel", 1)
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "tbd", 1) -- TODO: need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "Objets utilitaires", 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Définir l'action spécifique (dépose, retrait, aucune action) pour les objets utilitaires", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Autre", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK, "Quantité à conserver dans l'inventaire", 1)
