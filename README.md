@@ -77,6 +77,7 @@ How to read:
     3. SI_PA_MENU_BANKING_ANY_DESCRIPTION
        "%s objects" in english can be "crafting objects" or "special objects"
        but in french, it should be "Objets d'artisanat" and "Objets spéciaux"
+    4. The settings for "in a set" or "without known traits" should be one a full line :
 * [x] **(7)** Update Currency System
   * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
   * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
