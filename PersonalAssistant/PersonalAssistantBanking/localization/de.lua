@@ -12,6 +12,17 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "Handwerks", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "Als ESO Plus-Mitglied ist das Einlagern/Entnehmen von Handwerksmaterialien nicht relevant da alle davon in unbeschränkter Menge im Handwerksbeutel verstaut werden können."}), 1)
 
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_BLACKSMITHING), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_CLOTHING), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WOODWORKING), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRYCRAFTING), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ALCHEMY), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ENCHANTING), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_PROVISIONING), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_STYLE_MATERIALS), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_TRAIT_ITEMS), " Gegenstände einlagern/entnehmen"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE, table.concat({GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_FURNISHING), " Gegenstände einlagern/entnehmen"}), 1)
+
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spezielle", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für spezielle Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: to be checked why this is not replacing the English text
@@ -30,7 +41,6 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, "Aktiviere automatisches Ei
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für %s Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "%s einlagern/entnehmen", 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, "%s Gegenstände einlagern/entnehmen", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Minimale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird fehlendes von der Truhe entnommen", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Maximale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird alles darüber in die Truhe eingelagert", 1)

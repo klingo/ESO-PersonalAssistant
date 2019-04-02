@@ -12,6 +12,17 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "Artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Définir l'action spécifique (dépose, retrait, aucune action) pour les matériaux d'artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "En tant que membre ESO Plus, the dépot/retrait de matériaux d'artisanat n'est pas utile puisqu'ils peuvent être tous transportés dans le sac d'artisanat"}), 1)
 
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_BLACKSMITHING)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_CLOTHING)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WOODWORKING)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRYCRAFTING)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ALCHEMY)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ENCHANTING)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_PROVISIONING)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_STYLE_MATERIALS)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_TRAIT_ITEMS)}), 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_FURNISHING)}), 1) -- TODO: Need Takit! :)
+
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spécial", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Définir l'action spécifique (dépose, retrait, aucune action) pour les objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1) -- TODO: to be checked why this is not replacing the English text
@@ -29,7 +40,6 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, table.concat({PAC.COLORS.LIGH
 SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets d'%s ?", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "Déposer/Retirer les %s", 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, "Déposer/Retirer les matériaux de %s", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Quantité minimum de %s à conserver sur ce personnage ; si nécessaire en retirant de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Quantité maximum de %s à conserver sur ce personnage ; tout surplus sera déposé en banque", 1)

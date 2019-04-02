@@ -590,10 +590,9 @@ end
 -- =================================================================================================================
 
 local function _createPABCraftingBlacksmithingSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_BLACKSMITHING)
     PABCraftingBlacksmithingSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getBlacksmithingTransactionSetting,
         setFunc = PABMenuFunctions.setBlacksmithingTransactionSetting,
         disabled = PABMenuFunctions.isBlacksmithingTransactionDisabled,
@@ -617,10 +616,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingClothingSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_CLOTHING)
     PABCraftingClothingSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getClothingTransactionSetting,
         setFunc = PABMenuFunctions.setClothingTransactionSetting,
         disabled = PABMenuFunctions.isClothingTransactionDisabled,
@@ -644,10 +642,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingWoodworkingSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WOODWORKING)
     PABCraftingWoodworkingSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getWoodworkingTransactionSetting,
         setFunc = PABMenuFunctions.setWoodworkingTransactionSetting,
         disabled = PABMenuFunctions.isWoodworkingTransactionDisabled,
@@ -671,10 +668,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingJewelcraftingSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRYCRAFTING)
     PABCraftingJewelcraftingSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getJewelcraftingTransactionSetting,
         setFunc = PABMenuFunctions.setJewelcraftingTransactionSetting,
         disabled = PABMenuFunctions.isJewelcraftingTransactionDisabled,
@@ -698,10 +694,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingAlchemySubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ALCHEMY)
     PABCraftingAlchemySubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getAlchemyTransactionSetting,
         setFunc = PABMenuFunctions.setAlchemyTransactionSetting,
         disabled = PABMenuFunctions.isAlchemyTransactionDisabled,
@@ -725,10 +720,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingEnchantingSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ENCHANTING)
     PABCraftingEnchantingSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getEnchantingTransactionSetting,
         setFunc = PABMenuFunctions.setEnchantingTransactionSetting,
         disabled = PABMenuFunctions.isEnchantingTransactionDisabled,
@@ -752,10 +746,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingProvisioningSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_PROVISIONING)
     PABCraftingProvisioningSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getProvisioningTransactionSetting,
         setFunc = PABMenuFunctions.setProvisioningTransactionSetting,
         disabled = PABMenuFunctions.isProvisioningTransactionDisabled,
@@ -779,10 +772,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingStyleMaterialsSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_STYLE_MATERIALS)
     PABCraftingStyleMaterialsSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getStyleMaterialsTransactionSetting,
         setFunc = PABMenuFunctions.setStyleMaterialsTransactionSetting,
         disabled = PABMenuFunctions.isStyleMaterialsTransactionDisabled,
@@ -806,10 +798,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingTraitItemsSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_TRAIT_ITEMS)
     PABCraftingTraitItemsSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getTraitItemsTransactionSetting,
         setFunc = PABMenuFunctions.setTraitItemsTransactionSetting,
         disabled = PABMenuFunctions.isTraitItemsTransactionDisabled,
@@ -833,10 +824,9 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingFurnishingSubmenuTable()
-    local _craftingName = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_FURNISHING)
     PABCraftingFurnishingSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _craftingName),
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE),
         getFunc = PABMenuFunctions.getFurnishingTransactionSetting,
         setFunc = PABMenuFunctions.setFurnishingTransactionSetting,
         disabled = PABMenuFunctions.isFurnishingTransactionDisabled,

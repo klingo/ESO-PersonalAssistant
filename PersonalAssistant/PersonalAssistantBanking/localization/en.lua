@@ -16,6 +16,17 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
     SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag"}),
 
+    SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_BLACKSMITHING), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_CLOTHING), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WOODWORKING), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRYCRAFTING), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ALCHEMY), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ENCHANTING), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_PROVISIONING), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_STYLE_MATERIALS), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_TRAIT_ITEMS), " Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_FURNISHING), " Items"}),
+
     SI_PA_MENU_BANKING_ADVANCED = "Special",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
@@ -33,7 +44,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different %s Items?",
 
     SI_PA_MENU_BANKING_ANY_TYPE_ENABLE = "Deposit/Withdraw %s",
-    SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE = "Deposit/Withdraw %s Items", -- TODO: remove "Items"?
 
     SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "Minimum amount of %s to always keep on the character; if necessary with additional withdrawals from the bank",
     SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "Maximum amount of %s to always keep on the character; everything above this amount is deposited to the bank",
