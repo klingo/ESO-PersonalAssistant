@@ -81,3 +81,8 @@ SafeAddString(SI_PA_REL_GREATERTHANEQUAL, "supérieur ou égal à (>=)", 1)
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Tout déplacer", 1)
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles existantes", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- PABanking - overriding the ItemFilterTypes because they are wrong in French --
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING, "Coûture", 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING, "Enchantement", 1) -- TODO: Need Takit! :)
