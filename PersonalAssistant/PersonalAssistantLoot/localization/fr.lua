@@ -7,7 +7,7 @@ SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot peut vous avertir quand vous 
 
 -- Loot Recipes
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "Sur prise du butin ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Afficher un message si la ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " n'est pas connue"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Afficher un message si la ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), 1), " n'est pas connue"}), 1) -- zo_strformat needed to avoid "Recette^f"
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Quand une ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " du butin n'est pas encore connue par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
 -- Loot Motifs
