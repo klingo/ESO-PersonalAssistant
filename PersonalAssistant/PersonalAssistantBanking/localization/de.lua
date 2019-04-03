@@ -5,10 +5,13 @@ local PAC = PersonalAssistant.Constants
 -- PABanking Menu --
 SafeAddString(SI_PA_MENU_BANKING_DESCRIPTION, "PABanking kann Währungen, Handwerks- und andere Gegenstände für dich zwischen deinem Inventar und der Truhe hin und her schieben", 1)
 
+SafeAddString(SI_PA_MENU_BANKING_CURRENCY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für ", GetString(SI_INVENTORY_CURRENCIES)}), 1)
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimal im Inventar behalten", 1)
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximal im Inventar behalten", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING, "Handwerks", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Handwerks Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "Als ESO Plus-Mitglied ist das Einlagern/Entnehmen von Handwerksmaterialien nicht relevant da alle davon in unbeschränkter Menge im Handwerksbeutel verstaut werden können."}), 1)
 
@@ -24,10 +27,14 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE, table.concat(
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING), " Gegenstände einlagern/entnehmen"}), 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spezielle", 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Spezielle Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Speziellen Gegenständen", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für spezielle Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: to be checked why this is not replacing the English text
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "Einzelne", 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Einzelne Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Einzelnen Gegenständen", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für einzelne Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Anderes", 1)
 
@@ -35,10 +42,6 @@ SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK, "Im Inventar zu beha
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T, "Definiere die Menge welche (basierend auf dem mathematischen Operator) im Inventar behalten werden soll", 1)
 
 -- Generic definitions for any type --
-SafeAddString(SI_PA_MENU_BANKING_ANY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für %s"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für %s Gegenstände"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen %sn Gegenständen", 1)
-
 SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "%s einlagern/entnehmen", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Minimale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird fehlendes von der Truhe entnommen", 1)

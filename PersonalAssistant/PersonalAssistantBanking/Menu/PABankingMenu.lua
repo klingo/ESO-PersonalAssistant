@@ -58,8 +58,6 @@ local PABIndividualGenericSubmenuTable = setmetatable({}, { __index = table })
 -- =================================================================================================================
 
 local function _createPABankingMenu()
-    local _groupName = GetString(SI_PA_MENU_BANKING_CURRENCY)
-
     PABankingOptionsTable:insert({
         type = "header",
         name = GetString(SI_PA_MENU_BANKING_HEADER)
@@ -72,7 +70,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ENABLE, _groupName),
+        name = GetString(SI_PA_MENU_BANKING_CURRENCY_ENABLE),
         getFunc = PABMenuFunctions.getCurrenciesEnabledSetting,
         setFunc = PABMenuFunctions.setCurrenciesEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -132,8 +130,8 @@ local function _createPABankingMenu()
         -- Regular player without ESO Plus Subscription
         PABankingOptionsTable:insert({
             type = "checkbox",
-            name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, _groupName),
-            tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, _groupName),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE),
+            tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T),
             getFunc = PABMenuFunctions.getCraftingItemsEnabledSetting,
             setFunc = PABMenuFunctions.setCraftingItemsEnabledSetting,
             disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -240,8 +238,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, _groupName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, _groupName),
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE),
+        tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T),
         getFunc = PABMenuFunctions.getAdvancedItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAdvancedItemsEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -325,8 +323,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE, _groupName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T, _groupName),
+        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE),
+        tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T),
         getFunc = PABMenuFunctions.getIndividualItemsEnabledSetting,
         setFunc = PABMenuFunctions.setIndividualItemsEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,

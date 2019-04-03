@@ -9,10 +9,13 @@ local PABStrings = {
     -- PABanking Menu --
     SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting- and other Items between your character's backpack and the bank",
 
+    SI_PA_MENU_BANKING_CURRENCY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for ", GetString(SI_INVENTORY_CURRENCIES)}),
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
 
     SI_PA_MENU_BANKING_CRAFTING = "Crafting",
+    SI_PA_MENU_BANKING_CRAFTING_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
     SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
     SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag"}),
 
@@ -28,10 +31,14 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING)}),
 
     SI_PA_MENU_BANKING_ADVANCED = "Special",
+    SI_PA_MENU_BANKING_ADVANCED_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
+    SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
 
     SI_PA_MENU_BANKING_INDIVIDUAL = "Individual",
+    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
     SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Individual Items",
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC = "Other",
 
@@ -39,10 +46,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T = "Define the amount which (based on the mathematical operator) shall be kept in the backpack",
 
     -- Generic definitions for any type --
-    SI_PA_MENU_BANKING_ANY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for %s"}),
-    SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for %s Items"}),
-    SI_PA_MENU_BANKING_ANY_ITEMS_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different %s Items?",
-
     SI_PA_MENU_BANKING_ANY_TYPE_ENABLE = "Deposit/Withdraw %s",
 
     SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "Minimum amount of %s to always keep on the character; if necessary with additional withdrawals from the bank",
@@ -97,8 +100,6 @@ local PABGenericStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking Menu --
     SI_PA_MENU_BANKING_HEADER = PAC.COLORED_TEXTS.PAB,
-
-    SI_PA_MENU_BANKING_CURRENCY = GetString(SI_INVENTORY_CURRENCIES),
 
     SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", GetCurrencyName(CURT_MONEY)}),
     SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_ALLIANCE_POINTS].NORMAL, "  ", GetCurrencyName(CURT_ALLIANCE_POINTS)}),
