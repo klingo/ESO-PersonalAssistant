@@ -14,6 +14,8 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, table.concat({PAC.COLORS.LIGHT
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets d'Artisanat ?", 1) -- TODO: Need Takit to double-check! :)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Définir l'action spécifique (dépose, retrait, aucune action) pour les matériaux d'artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "En tant que membre ESO Plus, the dépot/retrait de matériaux d'artisanat n'est pas utile puisqu'ils peuvent être tous transportés dans le sac d'artisanat"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE, "Changer tous les menus des objets d'artisanat", 1) -- TODO: Need Takit to double-check! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets d'artisanat précédent en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1) -- TODO: Need Takit to double-check! :)
 
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING)}), 1) -- TODO: Need Takit! :)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING)}), 1) -- TODO: Need Takit! :)
@@ -31,6 +33,8 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, table.concat({PAC.COLORS.LIGHT
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets de spécial ?", 1) -- TODO: Need Takit to double-check! :)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Définir l'action spécifique (dépose, retrait, aucune action) pour les objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1) -- TODO: to be checked why this is not replacing the English text
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE, "Changer tous les menus des objets de spécial", 1) -- TODO: Need Takit to double-check! :)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets de spécial précédent en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1) -- TODO: Need Takit to double-check! :)
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "Objets utilitaires", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets d'utilitaires"}), 1) -- TODO: Need Takit to double-check! :)
@@ -47,8 +51,6 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "Déposer/Retirer les %s", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Quantité minimum de %s à conserver sur ce personnage ; si nécessaire en retirant de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Quantité maximum de %s à conserver sur ce personnage ; tout surplus sera déposé en banque", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE, "Changer tous les menus des objets d'%s", 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets d'%s précédent en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Ceci ne peut pas être annulé ; toutes les valeurs actuelles seront perdues", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING, "Règle d'empilement à la dépose", 1)

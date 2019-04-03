@@ -18,6 +18,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
     SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
     SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag"}),
+    SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Change all above Crafting Item dropdowns to",
+    SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
     SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING), " Items"}),
     SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING), " Items"}),
@@ -35,6 +37,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
+    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Change all above Special Item dropdowns to",
+    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
     SI_PA_MENU_BANKING_INDIVIDUAL = "Individual",
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
@@ -51,8 +55,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "Minimum amount of %s to always keep on the character; if necessary with additional withdrawals from the bank",
     SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "Maximum amount of %s to always keep on the character; everything above this amount is deposited to the bank",
 
-    SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE = "Change all above %s Item dropdowns to",
-    SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T = "Change all above %s Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
     SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W = "This cannot be undone; all individually selected values will be lost",
 
     SI_PA_MENU_BANKING_DEPOSIT_STACKING = "Stacking rule when depositing",

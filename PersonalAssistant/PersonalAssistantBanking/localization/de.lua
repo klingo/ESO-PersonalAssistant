@@ -14,6 +14,8 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, table.concat({PAC.COLORS.LIGHT
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "Als ESO Plus-Mitglied ist das Einlagern/Entnehmen von Handwerksmaterialien nicht relevant da alle davon in unbeschränkter Menge im Handwerksbeutel verstaut werden können."}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE, "Ändere alle obigen Dropdown-Listen nach", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T, "Ändere alle obigen Handwerks Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING), " Gegenstände einlagern/entnehmen"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING), " Gegenstände einlagern/entnehmen"}), 1)
@@ -31,6 +33,8 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, table.concat({PAC.COLORS.LIGHT
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Speziellen Gegenständen", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für spezielle Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: to be checked why this is not replacing the English text
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE, "Ändere alle obigen Dropdown-Listen nach", 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T, "Ändere alle obigen Speziellen Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL, "Einzelne", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Einzelne Gegenstände"}), 1)
@@ -47,8 +51,6 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "%s einlagern/entnehmen", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Minimale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird fehlendes von der Truhe entnommen", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Maximale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird alles darüber in die Truhe eingelagert", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE, "Ändere alle obigen Dropdown-Listen nach", 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, "Ändere alle obigen %s Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Dies kann nicht rückgängig gemacht werden; alle individuellen Einträge werden überschrieben", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING, "Regel fürs Stapeln beim Einlagern", 1)

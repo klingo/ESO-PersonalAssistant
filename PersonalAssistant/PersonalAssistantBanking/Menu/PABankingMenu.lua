@@ -126,7 +126,6 @@ local function _createPABankingMenu()
         })
 
     else
-        local _groupName = GetString(SI_PA_MENU_BANKING_CRAFTING)
         -- Regular player without ESO Plus Subscription
         PABankingOptionsTable:insert({
             type = "checkbox",
@@ -215,8 +214,8 @@ local function _createPABankingMenu()
 
         PABankingOptionsTable:insert({
             type = "dropdown",
-            name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE, _groupName),
-            tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, _groupName),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE),
+            tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return end,
@@ -228,8 +227,6 @@ local function _createPABankingMenu()
     end
 
     -- ---------------------------------------------------------------------------------------------------------
-
-    local _groupName = GetString(SI_PA_MENU_BANKING_ADVANCED)
 
     PABankingOptionsTable:insert({
         type = "divider",
@@ -301,8 +298,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "dropdown",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE, _groupName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_T, _groupName),
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE),
+        tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T),
         choices = PABMenuChoices.itemMoveMode,
         choicesValues = PABMenuChoicesValues.itemMoveMode,
         getFunc = function() return end,
@@ -313,8 +310,6 @@ local function _createPABankingMenu()
     })
 
     -- -----------------------------------------------------------------------------------
-
-    local _groupName = GetString(SI_PA_MENU_BANKING_INDIVIDUAL)
 
     PABankingOptionsTable:insert({
         type = "divider",
