@@ -85,4 +85,5 @@ SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles exis
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking - overriding the ItemFilterTypes because they are wrong in French --
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING, "Coûture", 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING, "Ameublement", 1) -- TODO: Need Takit! :)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING, "Enchantement", 1) -- TODO: Need Takit! :)
