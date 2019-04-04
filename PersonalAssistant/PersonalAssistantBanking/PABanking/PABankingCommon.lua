@@ -57,7 +57,8 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
     local transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
     local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
-    local itemLink = GetItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex, LINK_STYLE_BRACKETS)
+    -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
+    local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
     if targetBagId ~= nil and firstEmptySlot ~= nil then
         if not PA.isBankClosed then
             local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
