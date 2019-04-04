@@ -3,26 +3,26 @@ local PAC = PersonalAssistant.Constants
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PALoot Menu --
-SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot peut vous avertir quand vous obtenez des objets spécifiques (tels que des recettes inconnues, des motifs, ou des traits)", 1)
+SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot peut vous avertir en affichant un message quand vous obtenez des objets spécifiques (tels que des recettes inconnues, des motifs, ou des traits)", 1)
 
 -- Loot Recipes
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "Sur prise du butin ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Afficher un message si la ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), 1), " n'est pas connue"}), 1) -- zo_strformat needed to avoid "Recette^f"
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Quand une ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " du butin n'est pas encore connue par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "Sur butin de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Avertir si la ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), 1), " n'est pas connue"}), 1) -- zo_strformat needed to avoid "Recette^f"
+SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Quand une ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), 1), " du butin n'est pas encore connue par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
 -- Loot Motifs
-SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "Sur prise du butin ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Afficher un message si le ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " n'est pas connu"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "Sur butin de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Avertir si le ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " n'est pas connu"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
 -- Loot Apparel & Weapons
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", "Sur prise du butin ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}), 1)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "Afficher un message si un Trait n'a pas encore été recherché", 1)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", "Sur butin d'", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " ou d'", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}), 1)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "Avertir si le Trait n'est pas connu", 1)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " ou un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Avertir sur espace faible de l'inventaire", 1)
+SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Avertir si l'espace restant est faible", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Affiche un avertissement dans la fenêtre de chat s'il reste peu d'espace dans votre inventaire", 1)
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Seuil d'espace faible", 1)
+SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Seuil d' “espace faible”", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Si la place disponible restante dans l'inventaire est plus petite ou égale au seuil, un message sera affiché dans la fenêtre de chat", 1)
 
 

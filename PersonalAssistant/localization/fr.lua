@@ -27,7 +27,7 @@ SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actue
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
-SafeAddString(SI_PA_MENU_SILENT_MODE, "Mode silencieux (désactiver TOUS les messages dans le chat)", 1)
+SafeAddString(SI_PA_MENU_SILENT_MODE, "Mode silencieux (Ne RIEN afficher dans le chat)", 1)
 
 SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, "Pas encore implémenté !", 1)
 
@@ -84,6 +84,6 @@ SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles exis
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking - overriding the ItemFilterTypes because they are wrong in French --
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING, "Coûture", 1) -- TODO: Need Takit! :)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING, "Ameublement", 1) -- TODO: Need Takit! :)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING, "Enchantement", 1) -- TODO: Need Takit! :)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING, "Coûture", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING, "Enchantement", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING, "Ameublement", 1)
