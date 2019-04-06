@@ -186,10 +186,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
                 local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
-                local itemType = GetItemType(bagId, slotIndex)
+                local itemType, specializedItemType = GetItemType(bagId, slotIndex)
 
                 -- first check for regular Trash
-                if itemType == ITEMTYPE_TRASH then
+                if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
                     if PAJunkSavedVars.Trash.autoMarkTrash then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                     end
