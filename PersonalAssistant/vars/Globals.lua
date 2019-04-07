@@ -27,13 +27,13 @@ PersonalAssistant.Constants = {
     },
 
     COLORED_TEXTS = {
-        PA = table.concat({"|cFFD700", "P", "|cFFFFFF", "ersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant"}),
-        PAG = table.concat({"|cFFD700", "PA G", "|cFFFFFF", "eneral: ", "|cFFFF00"}),
-        PAB = table.concat({"|cFFD700", "PA B", "|cFFFFFF", "anking: ", "|cFFFF00"}),
-        PAR = table.concat({"|cFFD700", "PA R", "|cFFFFFF", "epair: ", "|cFFFF00"}),
-        PAL = table.concat({"|cFFD700", "PA L", "|cFFFFFF", "oot: ", "|cFFFF00"}),
-        PAM = table.concat({"|cFFD700", "PA M", "|cFFFFFF", "ail: ", "|cFFFF00"}),
-        PAJ = table.concat({"|cFFD700", "PA J", "|cFFFFFF", "unk: ", "|cFFFF00"}),
+        PA = table.concat({"|cFFD700", "P", "|cFFFFFF", "ersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant", "|r"}),
+        PAG = table.concat({"|cFFD700", "PA G", "|cFFFFFF", "eneral: ", "|r"}),
+        PAB = table.concat({"|cFFD700", "PA B", "|cFFFFFF", "anking: ", "|r"}),
+        PAR = table.concat({"|cFFD700", "PA R", "|cFFFFFF", "epair: ", "|r"}),
+        PAL = table.concat({"|cFFD700", "PA L", "|cFFFFFF", "oot: ", "|r"}),
+        PAM = table.concat({"|cFFD700", "PA M", "|cFFFFFF", "ail: ", "|r"}),
+        PAJ = table.concat({"|cFFD700", "PA J", "|cFFFFFF", "unk: ", "|r"}),
     },
 
     ICONS = {
