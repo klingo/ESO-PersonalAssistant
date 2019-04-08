@@ -75,7 +75,7 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     end
 end
 
-local function _hasAdditionalChecksPassed(itemLink, itemType)
+local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
     local savedVarsGroup
     if itemType == ITEMTYPE_WEAPON then
         savedVarsGroup = "Weapons"
@@ -196,7 +196,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
                 -- then check if it is not a Set, or if it is that the corresponding setting is enabled
                 -- also check if it does not have unknown traits, or if the corresponding setting is enabled
-                elseif _hasAdditionalChecksPassed(itemLink, itemType) then
+                elseif _hasAdditionalApparelChecksPassed(itemLink, itemType) then
                     local itemTrait = GetItemTrait(bagId, slotIndex)
                     local itemQuality = GetItemQuality(bagId, slotIndex)
                     -- check for the different itemTypes and itemTraits
