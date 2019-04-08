@@ -225,7 +225,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             end
                         end
                     end
-                    -- TODO: check for other item types etc.
+                elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
+                    if PAJunkSavedVars.Treasures.autoMarkTreasure then
+                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
+                    end
                 else
                     local sellInformation = GetItemLinkSellInformation(itemLink)
                     if sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then

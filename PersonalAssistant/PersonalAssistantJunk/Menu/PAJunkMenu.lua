@@ -25,6 +25,7 @@ local PAJunkOptionsTable = setmetatable({}, { __index = table })
 
 local PAJTrashSubMenu = setmetatable({}, { __index = table })
 local PAJCollectiblesSubMenu = setmetatable({}, { __index = table })
+local PAJMiscellaneousSubMenu = setmetatable({}, { __index = table })
 local PAJWeaponsSubMenu = setmetatable({}, { __index = table })
 local PAJArmorSubMenu = setmetatable({}, { __index = table })
 local PAJJewelrySubMenu = setmetatable({}, { __index = table })
@@ -63,6 +64,13 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_HEADER),
         controls = PAJCollectiblesSubMenu,
         disabled = PAJMenuFunctions.isCollectiblesMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_HEADER),
+        controls = PAJMiscellaneousSubMenu,
+        disabled = PAJMenuFunctions.isMiscellaneousMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -132,6 +140,20 @@ local function _createPAJCollectiblesSubMenu()
         setFunc = PAJMenuFunctions.setAutoMarkSellToMerchantSetting,
         disabled = PAJMenuFunctions.isAutoMarkSellToMerchantDisabled,
         default = PAJMenuDefaults.Collectibles.autoMarkSellToMerchant,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAJMiscellaneousSubMenu()
+    PAJMiscellaneousSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK),
+        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK_T),
+        getFunc = PAJMenuFunctions.getTreasureAutoMarkSetting,
+        setFunc = PAJMenuFunctions.setTreasureAutoMarkSetting,
+        disabled = PAJMenuFunctions.isTreasureAutoMarkDisabled,
+        default = PAJMenuDefaults.Miscellaneous.autoMarkTreasure,
     })
 end
 
@@ -301,6 +323,7 @@ local function createOptions()
 
     _createPAJTrashSubMenu()
     _createPAJCollectiblesSubMenu()
+    _createPAJMiscellaneousSubMenu()
     _createPAJWeaponsSubMenu()
     _createPAJArmorSubMenu()
     _createPAJJewelrySubMenu()

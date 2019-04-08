@@ -85,6 +85,11 @@ local PAJunkMenuFunctions = {
     getAutoMarkSellToMerchantSetting = function() return getValue({"Collectibles", "autoMarkSellToMerchant"}) end,
     setAutoMarkSellToMerchantSetting = function(value) setValue(value, {"Collectibles", "autoMarkSellToMerchant"}) end,
 
+    isMiscellaneousMenuDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}, {"Treasures", "autoMarkTreasure"}) end,
+    isTreasureAutoMarkDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getTreasureAutoMarkSetting = function() return getValue({"Treasures", "autoMarkTreasure"}) end,
+    setTreasureAutoMarkSetting = function(value) setValue(value, {"Treasures", "autoMarkTreasure"}) end,
+
     isWeaponsMenuDisabled = isPAJunkWeaponsMenuDisabled,
     isWeaponsAutoMarkOrnateDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getWeaponsAutoMarkOrnateSetting = function() return getValue({"Weapons", "autoMarkOrnate"}) end,

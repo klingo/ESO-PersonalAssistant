@@ -12,6 +12,9 @@ local PAJunkMenuDefaults = {
     Collectibles = {
         autoMarkSellToMerchant = true,
     },
+    Miscellaneous = {
+        autoMarkTreasure = false,
+    },
     Weapons = {
         autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,

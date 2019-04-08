@@ -89,6 +89,9 @@ PersonalAssistant.Constants = {
             COLLECTIBLES = {
                 NORMAL = "|t32:32:/esoui/art/collections/collections_tabicon_collectibles_up.dds|t",
             },
+            MISCELLANEOUS = {
+                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_misc_up.dds|t",
+            },
             JUNK = {
                 NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_junk_up.dds|t",
                 LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_junk_up.dds|t",
