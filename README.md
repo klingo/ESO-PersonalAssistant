@@ -30,169 +30,13 @@ tbd
 
 ***
 
-## Development ToDo (v2.0.0)
+## Future Development Ideas
 
-This is my development ToDo list for the initial V2 release of PersonalAssistant
+This is my development ToDo list for the subsequent releases of PersonalAssistant after the release of V2
 
 How to read:
 * [X] **(1)** Feature is implemented (had priority **(1)**)
 * [ ] **(3)** Feature is not yet implemented (has priority **(3)**)
-
-#### General
-* [X] **(1)** Update to latest LAM version
-* [X] **(1)** Get rid of LibStub (no longer needed due to AddOnVersion)
-    * https://www.esoui.com/downloads/info44-LibStub.html
-* [X] **(1)** Remove LibAddonMenu out of addon and make it a hard dependency
-* [X] **(1)** Make "PersonalAssistant" the top-level-Addon and move others as nested-Addons
-  * https://wiki.esoui.com/Addon_Structure
-* [X] **(2)** Support ESO Plus Bag: BAG_VIRTUAL (Dark Brotherhood)
-    * https://forums.elderscrollsonline.com/en/discussion/261946/dark-brotherhood-api-patch-notes-change-log-pts
-* [X] **(2)** Support ESO Plus Bag: BAG_SUBSCRIBER_BANK (Morrowind)
-    * https://forums.elderscrollsonline.com/en/discussion/335644/update-14-api-patch-notes-change-log-pts
-* [X] **(2)** Check proper initialization of default values on first-time-use
-* [X] **(3)** Check Singular/Plural formatting for HelperFunctions.lua
-    * http://www.esoui.com/forums/showthread.php?p=7988
-    * https://wiki.esoui.com/How_to_format_strings_with_zo_strformat
-* [X] **(4)** Refactoring of EventManager
-* [X] **(4)** Read all default values for the menu from the xxxMenuDefaults.lua file instead of hardcoding
-* [X] **(5)** Update Addon Manifest
-  * https://wiki.esoui.com/Addon_manifest_(.txt)_format
-  * AddOnVersion
-  * Variable Expansion - $(language)
-* [X] **(5)** Update localization to make use of ESO API
-    * https://wiki.esoui.com/How_to_add_localization_support
-    ```lua
-    GetString(string stringVariablePrefix, number contextId)
-      Returns: string stringValue 
-    ZO_CreateStringId(stringId, stringToAdd)
-    SafeAddVersion(stringId, stringVersion) 
-    SafeAddString(stringId, stringValue, stringVersion) 
-    ```
-* [X] **(4)** Cleanup Localizations and Getter/Setter Functions
-* [X] **(5)** Add German Localization
-* [ ] **(5)** Add French Localization (NTakit)
-    1. Translations with ITEMFILTERTYPE are wrong; use the ones from skill window (at least for Tailoring)
-    2. SI_PA_MENU_BANKING_ANY_TYPE_ITEMS_ENABLE = "Deposit/Withdraw %s Items",
-       In french, that is "Dépôt/Retrait des objets de %s" or "Dépôt/Retrait des objets d'%s"
-    3. SI_PA_MENU_BANKING_ANY_DESCRIPTION
-       "%s objects" in english can be "crafting objects" or "special objects"
-       but in french, it should be "Objets d'artisanat" and "Objets spéciaux"
-    4. The settings for "in a set" or "without known traits" should be one a full line :
-* [x] **(7)** Update Currency System
-  * https://forums.elderscrollsonline.com/en/discussion/200789/imperial-city-api-patch-notes-change-log-live/p1
-  * https://forums.elderscrollsonline.com/en/discussion/371967/update-16-api-patch-notes-change-log-pts#latest
-  
-  
-
-#### PARepair
-* [X] **(3)** PARepair: Implement Repair Kits
-* [X] **(3)** PARepair: Check API
-    ```lua
-    CanStoreRepair() 
-  
-    GetItemRepairCost(number Bag bagId, number slotIndex)
-          Returns: number repairCost
-    GetRepairAllCost()
-          Returns: number repairCost
-        
-    IsItemRepairKit(number Bag bagId, number slotIndex)
-          Returns: boolean isRepairKit
-    IsItemNonCrownRepairKit(number Bag bagId, number slotIndex)
-          Returns: boolean isNonCrownRepairKit
-    GetRepairKitTier(number Bag bagId, number slotIndex)
-          Returns: number tier
-    GetAmountRepairKitWouldRepairItem(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)
-          Returns: number amountRepaired
-    RepairItemWithRepairKit(number Bag itemToRepairBagId, number itemToRepairSlotIndex, number Bag repairKitToConsumeBagId, number repairKitToConsumeSlotIndex)       
-    ```
-* [ ] **(5)** PARepair: Add Notification Options (Individual Options & Overall Silent-Mode)
-
-#### PABanking
-* [X] **(1)** PABanking: Refactor regarding inventory-loop  
-    https://www.esoui.com/forums/showthread.php?t=7053&highlight=GetOrCreateBagCache
-    ```lua
-    local bagSlots = SHARED_INVENTORY:GetBagCache(BAG_BACKPACK)
-    if bagSlots then
-        for index, data in pairs(bagSlots) do
-            data.stolen
-            data.isGemmable
-            itemLink = GetItemLink(BAG_BACKPACK, index)
-        end
-    end
-    ```
-* [X] **(1)** PABanking: Refactor regarding Item Movement  
-    ```lua
-    RequestMoveItem (number sourceBag, number sourceSlot, number destBag, number destSlot, number stackCount)
-    ```
-* [X] **(1)** PABanking: Crafting Material - Add buttons for Deposit/Withdraw/Ignore all
-* [X] **(1)** PABanking: Crafting Material - Add Jewelcrafting items
-    ```lua
-    ITEMTYPE_JEWELRYCRAFTING_BOOSTER
-    ITEMTYPE_JEWELRYCRAFTING_MATERIAL
-    ITEMTYPE_JEWELRYCRAFTING_RAW_BOOSTER
-    ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL
-    ITEMTYPE_JEWELRY_RAW_TRAIT
-    ITEMTYPE_JEWELRY_TRAIT
-    ```
-* [X] **(1)** PABanking: Crafting Material - Add Furnishing items
-    ```lua
-    ITEMTYPE_FURNISHING
-    ITEMTYPE_FURNISHING_MATERIAL 
-    ```
-* [X] **(2)** PABanking: Individual Item Types - Add Soul gems (empty / filled)
-* [X] **(3)** PABanking: Check new function for transferring currencies
-    ```lua
-    TransferCurrency(currencyType, amount, fromLocation, toLocation).
-    ```
-* [X] **(3)** PABanking: Support all four currency types
-* [X] **(3)** PABanking: Common Item Types - Add Maps (utilizing SpeializedItemTypes)
-* [X] **(3)** PABanking: Individual Item Types - Add Repair Kits (only Grand?)
-* [X] **(4)** PABanking: Add Bank stacking when opening (or keybind?)
-* [ ] **(5)** PABAnking: Add Notification Options (Individual Options & Overall Silent-Mode)
-
-#### PALoot
-* [X] **(4)** PALoot: Inventory Size Warning
-* [X] **(4)** PALoot: Harvestable Items - Add Jewelcrafting items --> No longer needed
-* [X] **(4)** PALoot: Check API --> No longer needed
-    ```lua
-    LootAll(boolean ignoreStolenItems)
-    LootItemById(number lootId)
-    LootCurrency(number CurrencyType type)
-    GetLootItemInfo(number lootIndex)
-          Returns: number lootId, string name, textureName icon, number count, number quality, number value, boolean isQuest, boolean stolen, number LootItemType itemType
-    ```
-* [X] **(5)** PALoot: Check if special message for Stealing is added? --> No longer needed
-* [ ] **(5)** PALoot: Add Notification Options (Individual Options & Overall Silent-Mode)
-* [X] **(7)** PALoot: Loot other currencies than gold  - Still needed?! --> No!
-    ```lua
-    GetLootCurrency(number CurrencyType type)  
-    Returns: number unownedCurrency, number ownedCurrency
-  
-    CURT_ALLIANCE_POINTS
-    CURT_TELVAR_STONES
-    ```
-* [X] **(8)** PALoot: Check global ESO settings for AutoLoot
-    * http://cdn.esoui.com/forums/showthread.php?p=20437
-        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AOE_LOOT)
-        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_ADD_TO_CRAFT_BAG)
-        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT)
-        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_AUTO_LOOT_STOLEN)
-        *  GetSettingBool(SETTING_TYPE_LOOT, LOOT_SETTING_LOOT_HISTORY)
-
-#### PAJunk
-* [X] **(1)** PAJunk: Check if marking as Trash/Ornate works correctly (or implement)
-* [X] **(2)** PAJunk: Notification for junk items, even if they are already marked as junk
-* [X] **(4)** PAJunk: Auto-Junk Weapons/Armor of quality XYZ and below (unless it is a Set!)
-* [ ] **(5)** PAJunk: Add Notification Options (Individual Options & Overall Silent-Mode)
-
-
-   
-***
-
-
-## Development ToDo (later)
-
-This is my development ToDo list for the subsequent releases of PersonalAssistant afterwards
 
 #### General
 * [ ] **(4)** Check Currency Formatting
@@ -211,8 +55,6 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
     ```
 
 #### PARepair
-* [ ] **(3)** PARepair: Add option to choose Soul Gem amount for "low-count" warning
-* [ ] **(3)** PARepair: Add option to choose Repair Kit amount for "low-count" warning
 * [ ] **(4)** PARepair: Logic for Grand Repair Kits vs. Crown Repair Kits
 
 
@@ -221,7 +63,7 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
 * [ ] **(5)** PAJunk: Add support for FCOItemSaver (i.e. do not deposit/withdraw items that are locked?)
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
-* [ ] **(5)** PABanking: Support Home Storage Banking Bags
+* [ ] **(5)** PABanking: Support Home Storage Banking Bags?
     ```lua
     BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_TEN
     GetBankingBag() – bankingBag.
@@ -257,7 +99,6 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
 
 
 #### PAJunk
-* [ ] **(3)** PAJunk: Add support for ESO internal item-locking
 * [ ] **(3)** PAJunk: Add support for FCOItemSaver
   * http://www.esoui.com/downloads/info630-FCOItemSaver.html
   * www.esoui.com/forums/showthread.php?t=6987
@@ -267,10 +108,9 @@ This is my development ToDo list for the subsequent releases of PersonalAssistan
 
 
 #### PAMail
-* [ ] **(8)** PAMail: Rename to PAWorker?
-* [X] **(9)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
+* [ ] **(9)** PAMail: Automatically open Mailbox and take items from Hirelings (feasible? interval? at-login?)
 * [ ] **(9)** PAMail: Chat notification about looted items from Hirelings 
-* [X] **(9)** PAMail: Check API
+* [ ] **(9)** PAMail: Check API
     ```lua
     IsLocalMailboxFull()
           Returns: boolean isFull
