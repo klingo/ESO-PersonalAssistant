@@ -264,7 +264,7 @@ end
 -- PABanking   Individual         individualBackpackAmountDisabled
 ---------------------------------
 local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
-    if isDisabledPAGeneralNoProfileSelected() then return end
+    if isDisabledPAGeneralNoProfileSelected() then return true end
     if isDisabled({"Individual", "individualItemsEnabled"}) then return true end
     if PAB.SavedVars.Individual.ItemIds[individualItemId].operator ~= PAC.OPERATOR.NONE then return false end
     -- if there was no 'false' returned until here; then return true
@@ -486,7 +486,7 @@ local PABankingMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
-    isSilentModeDisabled = function() return false end, -- currently always enabled
+    isSilentModeDisabled = function() return isDisabled() end, -- currently always enabled
     getSilentModeSetting = function() return getValue({"silentMode"}) end,
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }

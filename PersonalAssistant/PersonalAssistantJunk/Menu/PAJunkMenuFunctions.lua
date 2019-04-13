@@ -135,14 +135,14 @@ local PAJunkMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK
     -- -----------------------------
-    isAutoSellJunkDisabled = function() return false end, -- currently always enabled
+    isAutoSellJunkDisabled = function() return isDisabled() end, -- currently always enabled
     getAutoSellJunkSetting = function() return getValue({"autoSellJunk"}) end,
     setAutoSellJunkSetting = function(value) setValueAndRefreshEvents(value, {"autoSellJunk"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
-    isSilentModeDisabled = function() return false end, -- currently always enabled
+    isSilentModeDisabled = function() return isDisabled() end, -- currently always enabled
     getSilentModeSetting = function() return getValue({"silentMode"}) end,
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 

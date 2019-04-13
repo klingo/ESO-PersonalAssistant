@@ -2,6 +2,7 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
+local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
 local PAJMenuChoices = PA.MenuChoices.choices.PAJunk
 local PAJMenuChoicesValues = PA.MenuChoices.choicesValues.PAJunk
 local PAJMenuDefaults = PA.MenuDefaults.PAJunk
@@ -48,7 +49,7 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE),
         getFunc = PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting,
         setFunc = PAJMenuFunctions.setAutoMarkAsJunkEnabledSetting,
-        disabled = PAJMenuFunctions.isAutoMarkAsJunkDisabled,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
         default = PAJMenuDefaults.autoMarkAsJunkEnabled,
     })
 
