@@ -30,10 +30,10 @@ local function setPAGeneralActiveProfile(profileNo)
             local PAMenuHelper = PA.MenuHelper
             PAMenuHelper.reloadProfileList()
         end
-        -- also refresh all event registrations
-        PAEM.RefreshAllEventRegistrations()
-        -- and refresh all SavedVar references that are profile-specific
+        -- refresh all SavedVar references that are profile-specific
         PAEM.RefreshAllSavedVarReferences(profileNo)
+        -- and also refresh all event registrations
+        PAEM.RefreshAllEventRegistrations()
     end
 end
 
