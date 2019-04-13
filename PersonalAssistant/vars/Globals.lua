@@ -243,6 +243,7 @@ PersonalAssistant.Constants = {
             FOOD_DRINKS = {
                 ITEMTYPE_FOOD,                              -- 4
                 ITEMTYPE_DRINK,                             -- 12
+                ITEMTYPE_FISH,                              -- 54
             },
         },
         SPECIALIZED = {

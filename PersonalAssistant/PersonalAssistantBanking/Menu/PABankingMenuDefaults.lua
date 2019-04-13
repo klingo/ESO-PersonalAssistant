@@ -171,6 +171,7 @@ local PABankingMenuDefaults = {
             [ITEMTYPE_POISON] = PAC.MOVE.IGNORE,
             [ITEMTYPE_FOOD] = PAC.MOVE.IGNORE,
             [ITEMTYPE_DRINK] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_FISH] = PAC.MOVE.IGNORE,
         },
 
         SpecializedItemTypes = {

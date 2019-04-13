@@ -443,7 +443,7 @@ local PABankingMenuFunctions = {
     isWritsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_MASTER_WRIT) end,
     isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_GLYPH_ARMOR, ITEMTYPE_GLYPH_JEWELRY, ITEMTYPE_GLYPH_WEAPON) end,
     isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_POTION, ITEMTYPE_POISON) end,
-    isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_FOOD, ITEMTYPE_DRINK) end,
+    isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_FOOD, ITEMTYPE_DRINK, ITEMTYPE_FISH) end,
     isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllISpecializedtemTypesMoveModeIgnore(SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP, SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT, SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT, SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT, SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT) end,
 
 
