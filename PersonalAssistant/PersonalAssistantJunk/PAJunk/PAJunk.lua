@@ -226,7 +226,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         end
                     end
                 elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
-                    if PAJunkSavedVars.Treasures.autoMarkTreasure then
+                    if PAJunkSavedVars.Miscellaneous.autoMarkTreasure then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
                     end
                 else
