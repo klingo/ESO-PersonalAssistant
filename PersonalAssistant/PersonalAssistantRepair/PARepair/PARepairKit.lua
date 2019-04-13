@@ -89,8 +89,18 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
     end
 end
 
+local function CheckAndRepairEquippedItemsWithRepairKits()
+    -- only proceed if player is not dead (since repairkits cannot be used then)
+    if not PAHF.isPlayerDead then
+        local bagCache = SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_WORN)
+        for _, itemData in pairs(bagCache) do
+            RepairEquippedItemsWithRepairKits(nil, itemData.bagId, itemData.slotIndex)
+        end
+    end
+end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Repair = PA.Repair or {}
 PA.Repair.RepairEquippedItemsWithRepairKits = RepairEquippedItemsWithRepairKits
+PA.Repair.CheckAndRepairEquippedItemsWithRepairKits = CheckAndRepairEquippedItemsWithRepairKits

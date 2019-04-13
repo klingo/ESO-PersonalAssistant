@@ -279,8 +279,10 @@ local function RefreshAllEventRegistrations()
                 RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RepairEquippedItemsWithRepairKits, "RepairKits")
                 RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN)
                 RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DURABILITY_CHANGE)
+                RegisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, PAR.CheckAndRepairEquippedItemsWithRepairKits, "RepairKits")
             else
                 UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+                UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits")
             end
 
             -- Register for WeaponCharges
@@ -295,6 +297,7 @@ local function RefreshAllEventRegistrations()
             -- Unregister PARepair completely
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits")
             UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
             UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
         end
