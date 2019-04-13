@@ -31,61 +31,62 @@ end
 -- --------------------------------------------------------------------------------------------------------------------
 
 local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    local PARepairSavedVars = PAR.SavedVars
+    -- only proceed if player is not dead (since repairkits cannot be used then)
+    if not PAHF.isPlayerDead then
+        -- check if it is enabled
+        local PARepairSavedVars = PAR.SavedVars
+        if bagId == BAG_WORN and (PARepairSavedVars.RepairEquipped.repairWithRepairKit or PARepairSavedVars.RepairEquipped.repairWithCrownRepairKit) then
+            local hasDurability = DoesItemHaveDurability(bagId, slotIndex)
+            -- check if it is repairable
+            if hasDurability then
+                local itemCondition = GetItemCondition(bagId, slotIndex)
+                local repairKitThreshold = PARepairSavedVars.RepairEquipped.repairWithRepairKitThreshold
+                -- check if it is below and would need to be repaired
+                if itemCondition <= repairKitThreshold then
+                    local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
+                    if totalRepairKitCount > 0 then
+                        local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
 
-    -- check if it is enabled
-    if bagId == BAG_WORN and (PARepairSavedVars.RepairEquipped.repairWithRepairKit or PARepairSavedVars.RepairEquipped.repairWithCrownRepairKit) then
-        local itemType = GetItemType(bagId, slotIndex)
-        local hasDurability = DoesItemHaveDurability(bagId, slotIndex)
-        -- check if it is repairable
-        if hasDurability then
-            local itemCondition = GetItemCondition(bagId, slotIndex)
-            local repairKitThreshold = PARepairSavedVars.RepairEquipped.repairWithRepairKitThreshold
-            -- check if it is below and would need to be repaired
-            if itemCondition <= repairKitThreshold then
-                local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
-                if totalRepairKitCount > 0 then
-                    local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
+                        -- some debug information
+                        PAHF.debugln("Want to repair: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
 
-                    -- some debug information
-                    PAHF.debugln("Want to repair: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
+                        -- actually repair the item
+                        RepairItemWithRepairKit(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
+                        totalRepairKitCount = totalRepairKitCount - 1
 
-                    -- actually repair the item
-                    RepairItemWithRepairKit(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
-                    totalRepairKitCount = totalRepairKitCount - 1
+                        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 
-                    local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                        PAR.println(GetString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED), itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
+                    end
 
-                    PAR.println(GetString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED), itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
-                end
+                    -- check remaining repair kits
+                    local lowRepairKitThreshold = PARepairSavedVars.RepairEquipped.lowRepairKitThreshold
+                    if totalRepairKitCount <= lowRepairKitThreshold and PARepairSavedVars.RepairEquipped.lowRepairKitWarning then
+                        local formatted = zo_strformat(_repairKitCountPattern, totalRepairKitCount)
 
-                -- check remaining repair kits
-                local lowRepairKitThreshold = PARepairSavedVars.RepairEquipped.lowRepairKitThreshold
-                if totalRepairKitCount <= lowRepairKitThreshold and PARepairSavedVars.RepairEquipped.lowRepairKitWarning then
-                    local formatted = zo_strformat(_repairKitCountPattern, totalRepairKitCount)
-
-                    if totalRepairKitCount == 0 then
-                        -- if no repair kits left, have a orange-red message (but only every 10 minutes)
-                        local gameTimeMilliseconds = GetGameTimeMilliseconds()
-                        local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoRepairKitWarningGameTime
-                        local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
-                        if gameTimeMinutesPassed >= 10 then
-                            _lastNoRepairKitWarningGameTime = gameTimeMilliseconds
-                            PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
-                        end
-                    elseif totalRepairKitCount <= lowRepairKitThreshold then
-                        if totalRepairKitCount <= 5 then
-                            -- if at or below 5 soul gems, have a orange message
-                            PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
-                        else
-                            -- in all other cases, have a yellow message
-                            PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                        if totalRepairKitCount == 0 then
+                            -- if no repair kits left, have a orange-red message (but only every 10 minutes)
+                            local gameTimeMilliseconds = GetGameTimeMilliseconds()
+                            local gameTimeMillisecondsPassed = gameTimeMilliseconds - _lastNoRepairKitWarningGameTime
+                            local gameTimeMinutesPassed = gameTimeMillisecondsPassed / 1000 / 60
+                            if gameTimeMinutesPassed >= 10 then
+                                _lastNoRepairKitWarningGameTime = gameTimeMilliseconds
+                                PAR.println(formatted, PAC.COLORS.ORANGE_RED, PAC.COLORS.ORANGE_RED)
+                            end
+                        elseif totalRepairKitCount <= lowRepairKitThreshold then
+                            if totalRepairKitCount <= 5 then
+                                -- if at or below 5 soul gems, have a orange message
+                                PAR.println(formatted, PAC.COLORS.ORANGE, PAC.COLORS.ORANGE)
+                            else
+                                -- in all other cases, have a yellow message
+                                PAR.println(formatted, PAC.COLORS.DEFAULT, PAC.COLORS.DEFAULT)
+                            end
                         end
                     end
                 end
             end
         end
-     end
+    end
 end
 
 
