@@ -5,8 +5,8 @@
 
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700R|repair
 ## Description: PARepair repairs your worn equipment at vendors or on the field, and recharges the weapons too.
-## Version: 1.0.0
-## AddOnVersion: 100
+## Version: 2.0.0
+## AddOnVersion: 200
 ## Author: Klingo
 ## APIVersion: 100026
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
