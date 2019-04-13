@@ -27,7 +27,7 @@ local function initDefaults()
     PA.General_Defaults = {}
     -- -----------------------------------------------------
     -- default values for Addon
-    PA.General_Defaults.savedVarsVersion = "200"
+    PA.General_Defaults.savedVarsVersion = "201"
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- -----------------------------------------------------
         -- default values for PAGeneral

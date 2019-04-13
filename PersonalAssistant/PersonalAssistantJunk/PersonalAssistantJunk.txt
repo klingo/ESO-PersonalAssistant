@@ -5,8 +5,8 @@
 
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700J|runk
 ## Description: PAJunk marks items as junk for you and sells them at merchants.
-## Version: 1.0.0
-## AddOnVersion: 100
+## Version: 2.0.1
+## AddOnVersion: 201
 ## Author: Klingo
 ## APIVersion: 100026
 ## SavedVariables: PersonalAssistantJunk_SavedVariables
