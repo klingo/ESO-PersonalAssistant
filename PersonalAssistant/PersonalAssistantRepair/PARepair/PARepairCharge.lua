@@ -39,8 +39,8 @@ local function _getSoulGemsIn(bagId)
         end
     end
 
-    -- sort table based on the gemTiers (lower tier first)
-    table.sort(gemTable, function(a, b) return a.gemTier < b.gemTier end)
+    -- sort table based on the gemTiers (higher tier first | crown = tier 0 | regular = tier 1)
+    table.sort(gemTable, function(a, b) return a.gemTier > b.gemTier end)
 
     return gemTable, totalGemCount
 end
