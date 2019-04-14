@@ -7,6 +7,38 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local _writTable
+local _someItemskippedForLWC = false
+
+local function _passesLazyWritCraftingCompatibilityCheck(itemType)
+    if WritCreater and WritCreater:GetSettings().shouldGrab and PAB.SavedVars.lazyWritCraftingCompatiblity then
+        -- 1
+        if _writTable[CRAFTING_TYPE_BLACKSMITHING] and (itemType == ITEMTYPE_BLACKSMITHING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+            return false
+        -- 2
+        elseif _writTable[CRAFTING_TYPE_CLOTHIER] and (itemType == ITEMTYPE_CLOTHIER_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+            return false
+        -- 3
+        elseif _writTable[CRAFTING_TYPE_ENCHANTING] and (itemType == ITEMTYPE_ENCHANTING_RUNE_ASPECT or itemType == ITEMTYPE_ENCHANTING_RUNE_ESSENCE or itemType == ITEMTYPE_ENCHANTING_RUNE_POTENCY) then
+            return false
+        -- 4
+        elseif _writTable[CRAFTING_TYPE_ALCHEMY] and (itemType == ITEMTYPE_REAGENT or itemType == ITEMTYPE_POISON_BASE or itemType == ITEMTYPE_POTION_BASE) then
+            return false
+        -- 5
+        elseif _writTable[CRAFTING_TYPE_PROVISIONING] and itemType == ITEMTYPE_INGREDIENT then
+            return false
+        -- 6
+        elseif _writTable[CRAFTING_TYPE_WOODWORKING] and (itemType == ITEMTYPE_WOODWORKING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+            return false
+        -- 7
+        elseif _writTable[CRAFTING_TYPE_JEWELRYCRAFTING] and (itemType == ITEMTYPE_JEWELRYCRAFTING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+            return false
+        end
+    end
+    -- either LazyWritCrafter is not installed/enabled, or the withdraw function is disabled; either way proceed
+    return true
+end
+
 local function _doItemTransactions(depositFromBagCache, depositToBagCache, withdrawalFromBagCache, withdrawalToBagCache)
     -- call the generic version
     PAB.doGenericItemTransactions(depositFromBagCache, depositToBagCache, withdrawalFromBagCache, withdrawalToBagCache)
@@ -23,6 +55,11 @@ local function depositOrWithdrawCraftingItems()
         if PAB.isBankTransferBlocked then return end
         PAB.isBankTransferBlocked = true
 
+        -- get the writ quest table if LazyWritCrafter is enabled
+        if WritCreater then
+            _writTable = WritCreater.writSearch()
+        end
+
         -- prepare the table with itemTypes to deposit and withdraw
         local depositItemTypes = setmetatable({}, { __index = table })
         local withdrawItemTypes = setmetatable({}, { __index = table })
@@ -31,11 +68,22 @@ local function depositOrWithdrawCraftingItems()
         for itemType, moveConfig in pairs(PAB.SavedVars.Crafting.ItemTypes) do
             if PAB.SavedVars.Crafting.TransactionSettings[moveConfig.enabledSetting] then
                 if moveConfig.moveMode == PAC.MOVE.DEPOSIT then
-                    depositItemTypes:insert(itemType)
+                    if _passesLazyWritCraftingCompatibilityCheck(itemType) then
+                        depositItemTypes:insert(itemType)
+                    else
+                        _someItemskippedForLWC = true
+                        PAHF.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
+                    end
                 elseif moveConfig.moveMode == PAC.MOVE.WITHDRAW then
                     withdrawItemTypes:insert(itemType)
                 end
             end
+        end
+
+        -- if some items were skipped because of LWC; display a message
+        if _someItemskippedForLWC then
+            PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
+            _someItemskippedForLWC = false
         end
 
         local depositComparator = PAHF.getItemTypeComparator(depositItemTypes)

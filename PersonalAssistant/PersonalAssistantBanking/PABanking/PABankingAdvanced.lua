@@ -7,6 +7,26 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local _writTable
+local _someItemskippedForLWC = false
+
+local function _passesLazyWritCraftingCompatibilityCheck(itemType)
+    if WritCreater and WritCreater:GetSettings().shouldGrab and PAB.SavedVars.lazyWritCraftingCompatiblity then
+        -- 3
+        if _writTable[CRAFTING_TYPE_ENCHANTING] and (itemType == ITEMTYPE_GLYPH_ARMOR or itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) then
+            return false
+        -- 4
+        elseif _writTable[CRAFTING_TYPE_ALCHEMY] and (itemType == ITEMTYPE_POTION or itemType == ITEMTYPE_POISON) then
+            return false
+        -- 5
+        elseif _writTable[CRAFTING_TYPE_PROVISIONING] and (itemType == ITEMTYPE_FOOD or itemType == ITEMTYPE_DRINK) then
+            return false
+        end
+    end
+    -- either LazyWritCrafter is not installed/enabled, or the withdraw function is disabled; either way proceed
+    return true
+end
+
 local function _doItemTransactions(depositFromBagCache, depositToBagCache, withdrawalFromBagCache, withdrawalToBagCache)
     -- call the generic version
     PAB.doGenericItemTransactions(depositFromBagCache, depositToBagCache, withdrawalFromBagCache, withdrawalToBagCache)
@@ -23,6 +43,11 @@ local function depositOrWithdrawAdvancedItems()
         if PAB.isBankTransferBlocked then return end
         PAB.isBankTransferBlocked = true
 
+        -- get the writ quest table if LazyWritCrafter is enabled
+        if WritCreater then
+            _writTable = WritCreater.writSearch()
+        end
+
         -- prepare the table with itemTypes to deposit and withdraw
         local depositItemTypes = setmetatable({}, { __index = table })
         local depositSpecializedItemTypes = setmetatable({}, { __index = table })
@@ -32,7 +57,12 @@ local function depositOrWithdrawAdvancedItems()
         -- fill up the table(s)
         for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do
             if moveMode == PAC.MOVE.DEPOSIT then
-                depositItemTypes:insert(itemType)
+                if _passesLazyWritCraftingCompatibilityCheck(itemType) then
+                    depositItemTypes:insert(itemType)
+                else
+                    _someItemskippedForLWC = true
+                    PAHF.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
+                end
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 withdrawItemTypes:insert(itemType)
             end
@@ -43,6 +73,12 @@ local function depositOrWithdrawAdvancedItems()
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 withdrawSpezializedItemTypes:insert(specializedItemType)
             end
+        end
+
+        -- if some items were skipped because of LWC; display a message
+        if _someItemskippedForLWC then
+            PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
+            _someItemskippedForLWC = false
         end
 
         local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes)

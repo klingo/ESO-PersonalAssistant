@@ -53,6 +53,9 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Maximale Menge an %s die imme
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Dies kann nicht rückgängig gemacht werden; alle individuellen Einträge werden überschrieben", 1)
 
+SafeAddString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY, "Kompatibilität mit Dolgubon's Lazy Writ Crafter", 1)
+SafeAddString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T, "Wenn du aktive Schrieb Quests hast und 'Gegenstände entnehmen' in Dolgubon's Lazy Writ Crafter aktiviert ist, dann wird für diese Gegenstände  die 'In Truhe einlagern' Einstellung ignoriert. Dadurch sollen eben entnommene Gegenstände nicht wieder direkt eingelagert werden", 1)
+
 SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING, "Regel fürs Stapeln beim Einlagern", 1)
 SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T, "Definiere ob alle Gegenstände in die Truhe eingelagert werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING, "Regel fürs Stapeln beim Entnehmen", 1)
@@ -81,3 +84,4 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, table.concat({PAC.COLORED
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s in %s verschoben"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, table.concat({PAC.COLORED_TEXTS.PAB, "%s konnte nicht in %s verschoben werden. Nicht genügend Platz!"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, table.concat({PAC.COLORED_TEXTS.PAB, "%s konnte nicht in %s verschoben werden. Fenster wurde geschlossen!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, table.concat({PAC.COLORED_TEXTS.PAB, "Manche Gegenstände wurden NICHT eingelagert um potentielle Überlagerungen mit Dolgubon's Lazy Writ Crafter zu vermeiden"}), 1)
