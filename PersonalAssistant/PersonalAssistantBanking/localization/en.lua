@@ -57,6 +57,9 @@ local PABStrings = {
 
     SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W = "This cannot be undone; all individually selected values will be lost",
 
+    SI_PA_MENU_BANKING_LWC_COMPATIBILTY = "Compatibility with Dolgubon's Lazy Writ Crafter",
+    SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T = "When you have active Writ Crafting quests and 'Withdraw writ items' is enabled in Dolgubon's Lazy Writ Crafter, then for these items the 'Deposit to Bank' setting is ignored. This is to avoid having withdrawn items immediately re-deposited",
+
     SI_PA_MENU_BANKING_DEPOSIT_STACKING = "Stacking rule when depositing",
     SI_PA_MENU_BANKING_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed",
     SI_PA_MENU_BANKING_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",
@@ -85,6 +88,7 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s moved to %s"}),
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
+    SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = table.concat({PAC.COLORED_TEXTS.PAB, "Some items were NOT deposited to avoid potential interferences with Dolgubon's Lazy Writ Crafter"}),
 }
 
 for key, value in pairs(PABStrings) do
