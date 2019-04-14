@@ -53,8 +53,8 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Quantité maximum de %s à co
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Ceci ne peut pas être annulé ; toutes les valeurs actuelles seront perdues", 1)
 
---SafeAddString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY, "tbd", 1) -- TODO: TAKTI
---SafeAddString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T, "tbd", 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY, "Compatibilité avec Dolgubon's Lazy Writ Crafter", 1)
+SafeAddString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T, "Si vous avez des commandes d'artisanat en cours et que 'Prendre les matériaux de commande' est activé dans Dolgubon's Lazy Writ Crafter, alors ces objets ne seront pas déposés même si vous avez choisi 'Déposer en banque'. Ceci est pour éviter de remettre directement en banque les objets qui viennent d'être retirés.", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING, "Règle d'empilement à la dépose", 1)
 SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T, "Définir si tous les objets doivent être déposés, ou seulement quand il y a des piles existantes à compléter", 1)
@@ -84,7 +84,7 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, table.concat({PAC.COLORED
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s déplacés vers %s"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, table.concat({PAC.COLORED_TEXTS.PAB, "Impossible de déplacer %s vers %s. Pas assez d'espace !"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, table.concat({PAC.COLORED_TEXTS.PAB, "Impossible de déplacer %s vers %s. La fenêtre a été fermée !"}), 1)
---SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "tbd", 1) -- TODO: TAKTI
+SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, table.concat({PAC.COLORED_TEXTS.PAB, "Certains matériaux n'ont PAS été déposés pour éviter de potentielles interférences avec Dolgubon's Lazy Writ Crafter"}), 1)
 
 
 -- =================================================================================================================
