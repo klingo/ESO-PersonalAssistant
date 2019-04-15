@@ -116,6 +116,27 @@ local function _createPABankingMenu()
         alpha = 0.5,
     })
 
+
+    -- check if player has the addon [Dolgubon's Lazy Writ Crafter]
+    if WritCreater then
+        -- if yes, add additional option
+        PABankingOptionsTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY),
+            tooltip = GetString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T),
+            getFunc = PABMenuFunctions.getLazyWritCraftingCompatiblitySetting,
+            setFunc = PABMenuFunctions.setLazyWritCraftingCompatiblitySetting,
+            disabled = PAGMenuFunctions.isNoProfileSelected,
+            default = PABMenuDefaults.lazyWritCraftingCompatiblity,
+        })
+
+        PABankingOptionsTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+    end
+
+
     if IsESOPlusSubscriber() then
         -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
         -- options are not available (--> Virtual Bag)
