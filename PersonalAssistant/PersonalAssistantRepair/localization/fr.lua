@@ -11,7 +11,11 @@ SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({" ", PAC.ICONS.CURREN
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Réparer les objets équipés avec de l'or ?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T, "En visitant un marchand, tous les objets équipés en dessous du seuil de durabilité défini seront automatiquement réparés", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY, "Seuil de durabilité en %", 1)
-SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T, "Réparer les objets équipés que s'ils sont en-dessous du seuil de durabilité", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T, "Réparer les objets équipés seulement s'ils sont en-dessous du seuil de durabilité", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE, "Réparer les objets dans l'inventaire avec de l'or ?", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "En visitant un marchand, tous les objets dans l'inventaire en dessous du seuil de durabilité défini seront automatiquement réparés", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY, "Seuil de durabilité en %", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Réparer les objets dans l'inventaire seulement s'ils sont en-dessous du seuil de durabilité", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Réparer avec des ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Réparer les objets équipés avec des nécessaires"}), 1) -- GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " ?"}), 1) -- It was too long

@@ -92,9 +92,9 @@ local function OnShopOpen()
                         RepairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
                     end
                     -- check if backpack items shall be repaired
-    --                if PARepairSavedVars.repairBackpack then
-    --                    RepairItems(BAG_BACKPACK, PARepairSavedVars.repairBackpackThreshrold)
-    --                end
+                    if PARepairSavedVars.RepairInventory.repairWithGold then
+                        RepairItems(BAG_BACKPACK, PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)
+                    end
                 end
             end
         end
