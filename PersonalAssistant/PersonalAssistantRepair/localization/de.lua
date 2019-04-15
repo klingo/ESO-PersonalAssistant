@@ -12,6 +12,10 @@ SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Repariere Ausrüstun
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T, "Wenn ein Händler besucht wird, werden getragene Ausrüstungen automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY, "Haltbarkeitsschwelle in %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T, "Repariere getragene Ausrüstung nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE, table.concat({"Repariere Inventar mit ", GetCurrencyName(CURT_MONEY), "?"}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "Wenn ein Händler besucht wird, werden Ausrüstungen im Inventar automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY, "Haltbarkeitsschwelle in %", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Repariere Ausrüstung im Inventar nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Reparatur mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}), 1)
@@ -43,5 +47,8 @@ SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T, table.concat({"Wen
 -- PARepair --
 SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_FULL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
+
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
 
 SafeAddString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " mit %s"}), 1)

@@ -16,6 +16,10 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_GOLD_ENABLE_T = "When visiting a merchant, all equipped items that are at or below the defined threshold will automatically be repaired",
     SI_PA_MENU_REPAIR_GOLD_DURABILITY = "Durability threshold in %",
     SI_PA_MENU_REPAIR_GOLD_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold",
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE = table.concat({"Repair inventory Items with ", GetCurrencyName(CURT_MONEY), "?"}),
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T = "When visiting a merchant, all items in the inventory that are at or below the defined threshold will automatically be repaired",
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY = "Durability threshold in %",
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T = "Repair items in the inventory only if they are at or below the defined durability threshold",
 
     SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({"Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
@@ -48,6 +52,9 @@ local PARStrings = {
     -- PARepair --
     SI_PA_CHAT_REPAIR_SUMMARY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired equipped items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired equipped items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
+
+    SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired inventory items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired inventory items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({PAC.COLORED_TEXTS.PAR, "Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
 
