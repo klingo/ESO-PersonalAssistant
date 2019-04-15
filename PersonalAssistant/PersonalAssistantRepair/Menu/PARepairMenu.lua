@@ -102,6 +102,29 @@ local function _createPARGoldSubmenuTable()
         disabled = PARMenuFunctions.isRepairWithGoldDurabilityThresholdDisabled,
         default = PARMenuDefaults.RepairEquipped.repairWithGoldDurabilityThreshold,
     })
+
+    PARGoldSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE),
+        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T),
+        getFunc = PARMenuFunctions.getRepairInventoryWithGoldSetting,
+        setFunc = PARMenuFunctions.setRepairInventoryWithGoldSetting,
+        disabled = PARMenuFunctions.isRepairInventoryWithGoldDisabled,
+        default = PARMenuDefaults.RepairInventory.repairWithGold,
+    })
+
+    PARGoldSubmenuTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY),
+        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T),
+        min = 0,
+        max = 99,
+        step = 1,
+        getFunc = PARMenuFunctions.getRepairInventoryWithGoldDurabilityThresholdSetting,
+        setFunc = PARMenuFunctions.setRepairInventoryWithGoldDurabilityThresholdSetting,
+        disabled = PARMenuFunctions.isRepairInventoryWithGoldDurabilityThresholdDisabled,
+        default = PARMenuDefaults.RepairInventory.repairWithGoldDurabilityThreshold,
+    })
 end
 
 -- -----------------------------------------------------------------------------------------------------------------

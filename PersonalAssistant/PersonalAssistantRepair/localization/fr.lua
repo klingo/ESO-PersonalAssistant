@@ -11,7 +11,11 @@ SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({" ", PAC.ICONS.CURREN
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Réparer les objets équipés avec de l'or ?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T, "En visitant un marchand, tous les objets équipés en dessous du seuil de durabilité défini seront automatiquement réparés", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY, "Seuil de durabilité en %", 1)
-SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T, "Réparer les objets équipés que s'ils sont en-dessous du seuil de durabilité", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T, "Réparer les objets équipés seulement s'ils sont en-dessous du seuil de durabilité", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE, "Réparer les objets dans l'inventaire avec de l'or ?", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "En visitant un marchand, tous les objets dans l'inventaire en dessous du seuil de durabilité défini seront automatiquement réparés", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY, "Seuil de durabilité en %", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Réparer les objets dans l'inventaire seulement s'ils sont en-dessous du seuil de durabilité", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Réparer avec des ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Réparer les objets équipés avec des nécessaires"}), 1) -- GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " ?"}), 1) -- It was too long
@@ -43,5 +47,8 @@ SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T, table.concat({"Si 
 -- PARepair --
 SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_FULL, table.concat({PAC.COLORED_TEXTS.PAR, "Réparation des objets équipés effectuée pour ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAR, "Réparation des objets équipés effectuée pour ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " manquant)"}), 1)
+
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, table.concat({PAC.COLORED_TEXTS.PAR, "Réparation des objets dans l'inventaire effectuée pour ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAR, "Réparation des objets dans l'inventaire effectuée pour ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " manquant)"}), 1)
 
 SafeAddString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, table.concat({PAC.COLORED_TEXTS.PAR, "Réparation de %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " effectuée avec %s"}), 1)

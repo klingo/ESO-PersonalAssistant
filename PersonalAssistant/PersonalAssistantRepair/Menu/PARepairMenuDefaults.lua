@@ -24,6 +24,13 @@ local PARepairMenuDefaults = {
 
     -- ---------------------------------------------
 
+    RepairInventory = {
+        repairWithGold = false,
+        repairWithGoldDurabilityThreshold = 75,
+    },
+
+    -- ---------------------------------------------
+
     RechargeWeapons = {
         useSoulGems = false,
         lowSoulGemWarning = true,
