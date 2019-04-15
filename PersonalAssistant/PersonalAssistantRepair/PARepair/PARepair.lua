@@ -70,9 +70,17 @@ local function RepairItems(bagId, threshold)
         -- show output to chat
         if notRepairedItemCount > 0 then
             local missingGold = notRepairedItemsCost - currentMoney
-            PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, repairCost, missingGold)
+            if bagId == BAG_BACKPACK then
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, repairCost, missingGold)
+            else
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, repairCost, missingGold)
+            end
         elseif repairedItemCount > 0 then
-            PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_FULL, repairCost)
+            if bagId == BAG_BACKPACK then
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, repairCost)
+            else
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_FULL, repairCost)
+            end
         end
     end
 end
