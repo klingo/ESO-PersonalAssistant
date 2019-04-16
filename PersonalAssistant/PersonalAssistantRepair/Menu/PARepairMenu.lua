@@ -51,6 +51,7 @@ local function _createPARepairMenu()
         name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
         controls = PARGoldSubmenuTable,
         disabled = PARMenuFunctions.isRepairWithGoldMenuDisabled,
+        personalassistant = true,
     })
 
     PARepairOptionsTable:insert({
@@ -58,6 +59,7 @@ local function _createPARepairMenu()
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER),
         controls = PARRepairKitSubmenuTable,
         disabled = PARMenuFunctions.isRepairWithRepairKitMenuDisabled,
+        personalassistant = true,
     })
 
     PARepairOptionsTable:insert({
@@ -65,6 +67,7 @@ local function _createPARepairMenu()
         name = GetString(SI_PA_MENU_REPAIR_RECHARGE_HEADER),
         controls = PARRechargeSubmenuTable,
         disabled = PARMenuFunctions.isRechargeWithSoulGemMenuDisabled,
+        personalassistant = true,
     })
 
     PARepairOptionsTable:insert({

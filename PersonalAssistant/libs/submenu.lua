@@ -4,6 +4,7 @@
     tooltip = "My submenu tooltip", -- -- or string id or function returning a string (optional)
     controls = {sliderData, buttonData} --(optional) used by LAM
     disabled = function() return db.someBooleanSetting end, --or boolean (optional)
+    personalassistant = boolean (optional)
     reference = "MyAddonSubmenu" --(optional) unique global reference to control
 } ]]
 
@@ -50,7 +51,7 @@ end
 
 local function AnimateSubmenu(clicked)
     local control = clicked:GetParent()
---    if control.disabled then return end
+    if control.disabled and not control.data.personalassistant then return end
 
     control.open = not control.open
     if control.open then
