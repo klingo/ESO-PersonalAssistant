@@ -58,6 +58,7 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_TRASH_HEADER),
         controls = PAJTrashSubMenu,
         disabled = PAJMenuFunctions.isTrashMenuDisabled,
+        personalassistant = true,
     })
 
     PAJunkOptionsTable:insert({
@@ -65,6 +66,7 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_HEADER),
         controls = PAJCollectiblesSubMenu,
         disabled = PAJMenuFunctions.isCollectiblesMenuDisabled,
+        personalassistant = true,
     })
 
     PAJunkOptionsTable:insert({
@@ -72,6 +74,7 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_HEADER),
         controls = PAJMiscellaneousSubMenu,
         disabled = PAJMenuFunctions.isMiscellaneousMenuDisabled,
+        personalassistant = true,
     })
 
     PAJunkOptionsTable:insert({
@@ -79,6 +82,7 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_HEADER),
         controls = PAJWeaponsSubMenu,
         disabled = PAJMenuFunctions.isWeaponsMenuDisabled,
+        personalassistant = true,
     })
 
     PAJunkOptionsTable:insert({
@@ -86,6 +90,7 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_ARMOR_HEADER),
         controls = PAJArmorSubMenu,
         disabled = PAJMenuFunctions.isArmorMenuDisabled,
+        personalassistant = true,
     })
 
     PAJunkOptionsTable:insert({
@@ -93,6 +98,7 @@ local function _createPAJunkMenu()
         name = GetString(SI_PA_MENU_JUNK_JEWELRY_HEADER),
         controls = PAJJewelrySubMenu,
         disabled = PAJMenuFunctions.isJewelryMenuDisabled,
+        personalassistant = true,
     })
 
     PAJunkOptionsTable:insert({
