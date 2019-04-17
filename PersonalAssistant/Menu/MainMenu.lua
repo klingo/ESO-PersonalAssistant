@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 local PAMenuHelper = PA.MenuHelper
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
@@ -111,6 +112,12 @@ end
 -- =================================================================================================================
 
 local function createOptions()
+    -- first check for the latest version of the LAM2-submenu widget that is needed for disabledLabel
+    local lamSubmenuVersion = LAM2.widgets.submenu or 0
+    if lamSubmenuVersion < 13 then
+        zo_callLater(function() PAHF.println(SI_PA_LAM_OUTDATED) end, 5000)
+    end
+
     -- Create and register the General Menu
     createPAGeneralMenu()
     LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)
