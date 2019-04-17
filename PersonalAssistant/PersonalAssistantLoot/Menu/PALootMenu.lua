@@ -50,24 +50,21 @@ local function _createPALootMenu()
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_RECIPES_HEADER),
         controls = PALLootRecipesSubmenuTable,
-        disabled = PALMenuFunctions.isLootRecipesMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PALMenuFunctions.isLootRecipesMenuDisabled,
     })
 
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_MOTIFS_HEADER),
         controls = PALLootMotifsSubmenuTable,
-        disabled = PALMenuFunctions.isLootMotifsMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PALMenuFunctions.isLootMotifsMenuDisabled,
     })
 
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER),
         controls = PALLootApparelWeaponsSubmenuTable,
-        disabled = PALMenuFunctions.isLootApparelWeaponsMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PALMenuFunctions.isLootApparelWeaponsMenuDisabled,
     })
 
     PALootOptionsTable:insert({

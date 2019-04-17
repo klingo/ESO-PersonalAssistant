@@ -82,8 +82,7 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER),
         tooltip = GetCurrencyDescription(CURT_MONEY),
         controls = PABCurrencyGoldSubmenuTable,
-        disabled = PABMenuFunctions.isGoldTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isGoldTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -91,8 +90,7 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_HEADER),
         tooltip = GetCurrencyDescription(CURT_ALLIANCE_POINTS),
         controls = PABCurrencyAlliancePointsSubmenuTable,
-        disabled = PABMenuFunctions.isAlliancePointsTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isAlliancePointsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -100,8 +98,7 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_TELVAR_HEADER),
         tooltip = GetCurrencyDescription(CURT_TELVAR_STONES),
         controls = PABCurrencyTelVarSubmenuTable,
-        disabled = PABMenuFunctions.isTelVarTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isTelVarTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -109,8 +106,7 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_WRIT_HEADER),
         tooltip = GetCurrencyDescription(CURT_WRIT_VOUCHERS),
         controls = PABCurrencyWritVouchersSubmenuTable,
-        disabled = PABMenuFunctions.isWritVouchersTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isWritVouchersTransactionMenuDisabled,
     })
 
     -- -----------------------------------------------------------------------------------
@@ -171,80 +167,70 @@ local function _createPABankingMenu()
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_HEADER),
             controls = PABCraftingBlacksmithingSubmenuTable,
-            disabled = PABMenuFunctions.isBlacksmithingTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isBlacksmithingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_HEADER),
             controls = PABCraftingClothingSubmenuTable,
-            disabled = PABMenuFunctions.isClothingTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isClothingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_HEADER),
             controls = PABCraftingWoodworkingSubmenuTable,
-            disabled = PABMenuFunctions.isWoodworkingTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isWoodworkingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_HEADER),
             controls = PABCraftingJewelcraftingSubmenuTable,
-            disabled = PABMenuFunctions.isJewelcraftingTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isJewelcraftingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_HEADER),
             controls = PABCraftingAlchemySubmenuTable,
-            disabled = PABMenuFunctions.isAlchemyTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isAlchemyTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_HEADER),
             controls = PABCraftingEnchantingSubmenuTable,
-            disabled = PABMenuFunctions.isEnchantingTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isEnchantingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_HEADER),
             controls = PABCraftingProvisioningSubmenuTable,
-            disabled = PABMenuFunctions.isProvisioningTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isProvisioningTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_HEADER),
             controls = PABCraftingStyleMaterialsSubmenuTable,
-            disabled = PABMenuFunctions.isStyleMaterialsTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isStyleMaterialsTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_HEADER),
             controls = PABCraftingTraitItemsSubmenuTable,
-            disabled = PABMenuFunctions.isTraitItemsTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isTraitItemsTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_HEADER),
             controls = PABCraftingFurnishingSubmenuTable,
-            disabled = PABMenuFunctions.isFurnishingTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isFurnishingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
@@ -287,55 +273,48 @@ local function _createPABankingMenu()
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER),
         controls = PABAdvancedMotifSubmenuTable,
-        disabled = PABMenuFunctions.isMotifTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isMotifTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER),
         controls = PABAdvancedRecipeSubmenuTable,
-        disabled = PABMenuFunctions.isRecipeTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isRecipeTransactionMenuDisabled,
     })
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_WRITS_HEADER),
         controls = PABAdvancedWritsSubmenuTable,
-        disabled = PABMenuFunctions.isWritsTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isWritsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER),
         controls = PABAdvancedGlyphsSubmenuTable,
-        disabled = PABMenuFunctions.isGlyphsTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isGlyphsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER),
         controls = PABAdvancedLiquidsSubmenuTable,
-        disabled = PABMenuFunctions.isLiquidsTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isLiquidsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_FOOD_DRINKS_HEADER),
         controls = PABAdvancedFoodDrinksSubmenuTable,
-        disabled = PABMenuFunctions.isFoodDrinksTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isFoodDrinksTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER),
         controls = PABAdvancedTrophiesSubmenuTable,
-        disabled = PABMenuFunctions.isTrophiesTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isTrophiesTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -377,24 +356,21 @@ local function _createPABankingMenu()
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER),
         controls = PABIndividualLockpickSubmenuTable,
-        disabled = PABMenuFunctions.isLockpickTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isLockpickTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER),
         controls = PABIndividualSoulGemSubmenuTable,
-        disabled = PABMenuFunctions.isSoulGemTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isSoulGemTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER),
         controls = PABIndividualRepairKitSubmenuTable,
-        disabled = PABMenuFunctions.isRepairKitTransactionMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PABMenuFunctions.isRepairKitTransactionMenuDisabled,
     })
 
     -- check if there are any generic items added; if not skip the menu
@@ -403,8 +379,7 @@ local function _createPABankingMenu()
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER),
             controls = PABIndividualGenericSubmenuTable,
-            disabled = PABMenuFunctions.isGenericTransactionMenuDisabled,
-            personalassistant = true,
+            disabledLabel = PABMenuFunctions.isGenericTransactionMenuDisabled,
         })
     end
 

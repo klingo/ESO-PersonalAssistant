@@ -57,48 +57,42 @@ local function _createPAJunkMenu()
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_TRASH_HEADER),
         controls = PAJTrashSubMenu,
-        disabled = PAJMenuFunctions.isTrashMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PAJMenuFunctions.isTrashMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_HEADER),
         controls = PAJCollectiblesSubMenu,
-        disabled = PAJMenuFunctions.isCollectiblesMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PAJMenuFunctions.isCollectiblesMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_HEADER),
         controls = PAJMiscellaneousSubMenu,
-        disabled = PAJMenuFunctions.isMiscellaneousMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PAJMenuFunctions.isMiscellaneousMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_HEADER),
         controls = PAJWeaponsSubMenu,
-        disabled = PAJMenuFunctions.isWeaponsMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PAJMenuFunctions.isWeaponsMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_ARMOR_HEADER),
         controls = PAJArmorSubMenu,
-        disabled = PAJMenuFunctions.isArmorMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PAJMenuFunctions.isArmorMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_JEWELRY_HEADER),
         controls = PAJJewelrySubMenu,
-        disabled = PAJMenuFunctions.isJewelryMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PAJMenuFunctions.isJewelryMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
