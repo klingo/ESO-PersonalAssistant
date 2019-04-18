@@ -80,6 +80,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER),
+        icon = ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture,
         tooltip = GetCurrencyDescription(CURT_MONEY),
         controls = PABCurrencyGoldSubmenuTable,
         disabledLabel = PABMenuFunctions.isGoldTransactionMenuDisabled,
@@ -88,6 +89,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_HEADER),
+        icon = ZO_CURRENCIES_DATA[CURT_ALLIANCE_POINTS].keyboardTexture,
         tooltip = GetCurrencyDescription(CURT_ALLIANCE_POINTS),
         controls = PABCurrencyAlliancePointsSubmenuTable,
         disabledLabel = PABMenuFunctions.isAlliancePointsTransactionMenuDisabled,
@@ -96,6 +98,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_TELVAR_HEADER),
+        icon = ZO_CURRENCIES_DATA[CURT_TELVAR_STONES].keyboardTexture,
         tooltip = GetCurrencyDescription(CURT_TELVAR_STONES),
         controls = PABCurrencyTelVarSubmenuTable,
         disabledLabel = PABMenuFunctions.isTelVarTransactionMenuDisabled,
@@ -104,6 +107,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_CURRENCY_WRIT_HEADER),
+        icon = ZO_CURRENCIES_DATA[CURT_WRIT_VOUCHERS].keyboardTexture,
         tooltip = GetCurrencyDescription(CURT_WRIT_VOUCHERS),
         controls = PABCurrencyWritVouchersSubmenuTable,
         disabledLabel = PABMenuFunctions.isWritVouchersTransactionMenuDisabled,
@@ -165,70 +169,90 @@ local function _createPABankingMenu()
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING),
+            icon = PAC.ICONS.CRAFTBAG.BLACKSMITHING.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingBlacksmithingSubmenuTable,
             disabledLabel = PABMenuFunctions.isBlacksmithingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING),
+            icon = PAC.ICONS.CRAFTBAG.CLOTHING.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingClothingSubmenuTable,
             disabledLabel = PABMenuFunctions.isClothingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING),
+            icon = PAC.ICONS.CRAFTBAG.WOODWORKING.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingWoodworkingSubmenuTable,
             disabledLabel = PABMenuFunctions.isWoodworkingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING),
+            icon = PAC.ICONS.CRAFTBAG.JEWELCRAFTING.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingJewelcraftingSubmenuTable,
             disabledLabel = PABMenuFunctions.isJewelcraftingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY),
+            icon = PAC.ICONS.CRAFTBAG.ALCHEMY.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingAlchemySubmenuTable,
             disabledLabel = PABMenuFunctions.isAlchemyTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING),
+            icon = PAC.ICONS.CRAFTBAG.ENCHANTING.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingEnchantingSubmenuTable,
             disabledLabel = PABMenuFunctions.isEnchantingTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING),
+            icon = PAC.ICONS.CRAFTBAG.PROVISIONING.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingProvisioningSubmenuTable,
             disabledLabel = PABMenuFunctions.isProvisioningTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS),
+            icon = PAC.ICONS.CRAFTBAG.STYLEMATERIALS.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingStyleMaterialsSubmenuTable,
             disabledLabel = PABMenuFunctions.isStyleMaterialsTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS),
+            icon = PAC.ICONS.CRAFTBAG.TRAITITEMS.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
             controls = PABCraftingTraitItemsSubmenuTable,
             disabledLabel = PABMenuFunctions.isTraitItemsTransactionMenuDisabled,
         })
 
         PABankingOptionsTable:insert({
             type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_HEADER),
+            name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING),
+            icon = PAC.ICONS.CRAFTBAG.FURNISHING.PATH,
+            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
             controls = PABCraftingFurnishingSubmenuTable,
             disabledLabel = PABMenuFunctions.isFurnishingTransactionMenuDisabled,
         })
@@ -272,6 +296,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER),
+        icon = PAC.ICONS.ITEMS.MOTIF.PATH,
         controls = PABAdvancedMotifSubmenuTable,
         disabledLabel = PABMenuFunctions.isMotifTransactionMenuDisabled,
     })
@@ -279,12 +304,14 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER),
+        icon = PAC.ICONS.ITEMS.RECIPE.PATH,
         controls = PABAdvancedRecipeSubmenuTable,
         disabledLabel = PABMenuFunctions.isRecipeTransactionMenuDisabled,
     })
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_WRITS_HEADER),
+        icon = PAC.ICONS.ITEMS.MASTER_WRIT.PATH,
         controls = PABAdvancedWritsSubmenuTable,
         disabledLabel = PABMenuFunctions.isWritsTransactionMenuDisabled,
     })
@@ -292,6 +319,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER),
+        icon = PAC.ICONS.ITEMS.GLYPH_ARMOR_HEALTH.PATH,
         controls = PABAdvancedGlyphsSubmenuTable,
         disabledLabel = PABMenuFunctions.isGlyphsTransactionMenuDisabled,
     })
@@ -299,6 +327,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER),
+        icon = PAC.ICONS.ITEMS.POTION.PATH,
         controls = PABAdvancedLiquidsSubmenuTable,
         disabledLabel = PABMenuFunctions.isLiquidsTransactionMenuDisabled,
     })
@@ -306,6 +335,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_FOOD_DRINKS_HEADER),
+        icon = PAC.ICONS.ITEMS.FOOD.PATH,
         controls = PABAdvancedFoodDrinksSubmenuTable,
         disabledLabel = PABMenuFunctions.isFoodDrinksTransactionMenuDisabled,
     })
@@ -313,6 +343,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER),
+        icon = PAC.ICONS.ITEMS.TROPHY.PATH,
         controls = PABAdvancedTrophiesSubmenuTable,
         disabledLabel = PABMenuFunctions.isTrophiesTransactionMenuDisabled,
     })
@@ -355,6 +386,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER),
+        icon = PAC.ICONS.ITEMS.LOCKPICK.PATH,
         controls = PABIndividualLockpickSubmenuTable,
         disabledLabel = PABMenuFunctions.isLockpickTransactionMenuDisabled,
     })
@@ -362,6 +394,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER),
+        icon = PAC.ICONS.ITEMS.SOULGEM.PATH,
         controls = PABIndividualSoulGemSubmenuTable,
         disabledLabel = PABMenuFunctions.isSoulGemTransactionMenuDisabled,
     })
@@ -369,6 +402,7 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER),
+        icon = PAC.ICONS.ITEMS.REPAIRKIT.PATH,
         controls = PABIndividualRepairKitSubmenuTable,
         disabledLabel = PABMenuFunctions.isRepairKitTransactionMenuDisabled,
     })
@@ -378,6 +412,7 @@ local function _createPABankingMenu()
         PABankingOptionsTable:insert({
             type = "submenu",
             name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER),
+            icon = PAC.ICONS.ITEMS.GENERIC_HELP.PATH,
             controls = PABIndividualGenericSubmenuTable,
             disabledLabel = PABMenuFunctions.isGenericTransactionMenuDisabled,
         })

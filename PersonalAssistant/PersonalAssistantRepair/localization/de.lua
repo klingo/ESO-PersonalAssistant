@@ -7,7 +7,7 @@ SafeAddString(SI_PA_MENU_REPAIR_DESCRIPTION, "PARepair repariert deine getragene
 
 SafeAddString(SI_PA_MENU_REPAIR_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Automatische Reparatur getragener Ausrüstung"}), 1)
 
-SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Reparatur mit ", GetCurrencyName(CURT_MONEY)}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({"Reparatur mit ", GetCurrencyName(CURT_MONEY)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetCurrencyName(CURT_MONEY), "?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T, "Wenn ein Händler besucht wird, werden getragene Ausrüstungen automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY, "Haltbarkeitsschwelle in %", 1)
@@ -17,7 +17,7 @@ SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "Wenn ein Händler besu
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY, "Haltbarkeitsschwelle in %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Repariere Ausrüstung im Inventar nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 
-SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Reparatur mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({"Reparatur mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T, "Unterwegs werden getragenen Ausrüstungen automatisch repariert wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY, "Schwellenwert der Haltbarkeit in %", 1)
@@ -31,7 +31,7 @@ SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T, table.concat({"Zeig
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD, "Schwellenwert für Reparaturmat.", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T, table.concat({"Wenn die Anzahl verbleibender ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " auf oder unter diesen Schwellenwert fällt, ird eine Meldung im Chat ausgegeben"}), 1)
 
-SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_HEADER, table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Waffen mit ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "n aufladen"}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_HEADER, table.concat({"Waffen mit ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "n aufladen"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE, table.concat({"Getragene Waffen mit ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "n aufladen?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T, "Getragene Waffen aufladen wenn deren Aufladung komplett aufgebraucht ist. Es werden zuerst Kronen-Seelensteine verwendet und erst danach reguläre Seelensteine.", 1)
 --SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE, "tbd", 1)

@@ -56,6 +56,8 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_TRASH_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.JUNK.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJTrashSubMenu,
         disabledLabel = PAJMenuFunctions.isTrashMenuDisabled,
     })
@@ -63,6 +65,8 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.COLLECTIBLES.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJCollectiblesSubMenu,
         disabledLabel = PAJMenuFunctions.isCollectiblesMenuDisabled,
     })
@@ -70,6 +74,8 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.MISCELLANEOUS.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJMiscellaneousSubMenu,
         disabledLabel = PAJMenuFunctions.isMiscellaneousMenuDisabled,
     })
@@ -77,6 +83,8 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_WEAPONS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.WEAPON.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJWeaponsSubMenu,
         disabledLabel = PAJMenuFunctions.isWeaponsMenuDisabled,
     })
@@ -84,6 +92,8 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_ARMOR_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.ARMOR.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJArmorSubMenu,
         disabledLabel = PAJMenuFunctions.isArmorMenuDisabled,
     })
@@ -91,6 +101,8 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_JUNK_JEWELRY_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.JEWELRY.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJJewelrySubMenu,
         disabledLabel = PAJMenuFunctions.isJewelryMenuDisabled,
     })

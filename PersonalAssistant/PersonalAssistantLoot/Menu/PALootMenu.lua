@@ -49,6 +49,7 @@ local function _createPALootMenu()
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_RECIPES_HEADER),
+        icon = PAC.ICONS.ITEMS.RECIPE.PATH,
         controls = PALLootRecipesSubmenuTable,
         disabledLabel = PALMenuFunctions.isLootRecipesMenuDisabled,
     })
@@ -56,6 +57,7 @@ local function _createPALootMenu()
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_MOTIFS_HEADER),
+        icon = PAC.ICONS.ITEMS.MOTIF.PATH,
         controls = PALLootMotifsSubmenuTable,
         disabledLabel = PALMenuFunctions.isLootMotifsMenuDisabled,
     })
@@ -63,6 +65,8 @@ local function _createPALootMenu()
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.WEAPON.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PALLootApparelWeaponsSubmenuTable,
         disabledLabel = PALMenuFunctions.isLootApparelWeaponsMenuDisabled,
     })
