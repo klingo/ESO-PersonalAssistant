@@ -12,9 +12,6 @@
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## DependsOn: LibAddonMenu-2.0
 
-# LibAddonMenu-2.0 customized widgets (overwrite)
-libs/submenu.lua
-
 # LibCustomMenu
 # libs/LibCustomMenu/LibCustomMenu.lua
 

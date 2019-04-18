@@ -37,136 +37,131 @@ PersonalAssistant.Constants = {
     },
 
     ICONS = {
+        TEXTURE_COORDS = {
+            MEDIUM = {0.125, 0.875, 0.125, 0.875},
+            LARGE = {0.15, 0.85, 0.15, 0.85},
+        },
         CURRENCY = {
             [CURT_MONEY] = {
-                SMALL = "|t16:16:/esoui/art/currency/currency_gold.dds|t",
-                NORMAL = "|t32:32:/esoui/art/currency/currency_gold_32.dds|t",
+                SMALL = table.concat({"|t16:16:", ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture, "|t"}),
             },
             [CURT_ALLIANCE_POINTS] = {
-                SMALL = "|t16:16:/esoui/art/currency/alliancepoints.dds|t",
-                NORMAL = "|t32:32:/esoui/art/currency/alliancepoints_32.dds|t"
+                SMALL = table.concat({"|t16:16:", ZO_CURRENCIES_DATA[CURT_ALLIANCE_POINTS].keyboardTexture, "|t"}),
             },
             [CURT_TELVAR_STONES] = {
-                SMALL = "|t16:16:/esoui/art/currency/currency_telvar.dds|t",
-                NORMAL = "|t32:32:/esoui/art/currency/currency_telvar_32.dds|t",
+                SMALL = table.concat({"|t16:16:", ZO_CURRENCIES_DATA[CURT_TELVAR_STONES].keyboardTexture, "|t"}),
             },
             [CURT_WRIT_VOUCHERS] = {
-                SMALL = "|160:16:/esoui/art/currency/currency_writvoucher.dds|t",
-                NORMAL = "|t32:32:/esoui/art/currency/currency_writvoucher_64.dds|t" -- currently no 32x32 version available
+                SMALL = table.concat({"|t16:16:", ZO_CURRENCIES_DATA[CURT_WRIT_VOUCHERS].keyboardTexture, "|t"}),
             }
         },
         CRAFTBAG = {
             BLACKSMITHING = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_blacksmithing_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_blacksmithing_up.dds",
             },
             CLOTHING = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_clothing_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_clothing_up.dds",
             },
             WOODWORKING = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_woodworking_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_woodworking_up.dds",
             },
             JEWELCRAFTING = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_jewelrycrafting_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_jewelrycrafting_up.dds",
             },
             ALCHEMY = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_alchemy_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_alchemy_up.dds",
             },
             ENCHANTING = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds",
             },
             PROVISIONING = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_provisioning_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_provisioning_up.dds",
             },
             STYLEMATERIALS = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_stylematerial_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_stylematerial_up.dds",
             },
             TRAITITEMS = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_craftbag_itemtrait_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_itemtrait_up.dds",
             },
             FURNISHING = {
-                LARGE = "|t48:48:/esoui/art/crafting/provisioner_indexicon_furnishings_up.dds|t",
+                PATH = "/esoui/art/crafting/provisioner_indexicon_furnishings_up.dds",
             },
             COLLECTIBLES = {
-                NORMAL = "|t32:32:/esoui/art/collections/collections_tabicon_collectibles_up.dds|t",
+                PATH = "/esoui/art/collections/collections_tabicon_collectibles_up.dds",
             },
             MISCELLANEOUS = {
-                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_misc_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_misc_up.dds",
             },
             JUNK = {
-                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_junk_up.dds|t",
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_junk_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_junk_up.dds",
             },
             WEAPON = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_weapons_up.dds|t",
-                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_weapons_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_weapons_up.dds",
             },
             ARMOR = {
-                LARGE = "|t48:48:/esoui/art/inventory/inventory_tabicon_armor_up.dds|t",
-                NORMAL = "|t32:32:/esoui/art/inventory/inventory_tabicon_armor_up.dds|t",
+                PATH = "/esoui/art/inventory/inventory_tabicon_armor_up.dds",
             },
             JEWELRY = {
-                LARGE = "|t48:48:/esoui/art/crafting/jewelry_tabicon_icon_up.dds|t",
-                NORMAL = "|t32:32:/esoui/art/crafting/jewelry_tabicon_icon_up.dds|t",
+                PATH = "/esoui/art/crafting/jewelry_tabicon_icon_up.dds",
             }
         },
         ITEMS = {
             FOOD = {
-                NORMAL = "|t32:32:/esoui/art/icons/crafting_bowl_002.dds|t"
+                PATH = "/esoui/art/icons/crafting_bowl_002.dds",
             },
             GENERIC_HELP = {
-                NORMAL = "|t32:32:/esoui/art/menubar/menubar_help_up.dds|t"
+                PATH = "/esoui/art/menubar/menubar_help_up.dds",
             },
             GLYPH_ARMOR_HEALTH = {
-                NORMAL = "|t32:32:/esoui/art/icons/enchantment_armor_healthboost.dds|t"
+                PATH = "/esoui/art/icons/enchantment_armor_healthboost.dds",
             },
             LOCKPICK = {
-                NORMAL = "|t32:32:/esoui/art/icons/lockpick.dds|t"
+                PATH = "/esoui/art/icons/lockpick.dds",
             },
             MASTER_WRIT = {
-                NORMAL = "|t32:32:/esoui/art/icons/master_writ_woodworking.dds|t"
+                PATH = "/esoui/art/icons/master_writ_woodworking.dds",
             },
             MOTIF = {
-                NORMAL = "|t32:32:/esoui/art/icons/quest_book_001.dds|t"
+                PATH = "/esoui/art/icons/quest_book_001.dds",
             },
             ORNATE = { -- TODO: not used
-                SMALL = "|t16:16:/esoui/art/inventory/inventory_trait_ornate_icon.dds|t",
-                NORMAL = "|t32:32:/esoui/art/inventory/inventory_trait_ornate_icon.dds|t"
+                PATH = "/esoui/art/inventory/inventory_trait_ornate_icon.dds",
             },
             POISON = { -- TODO: not used
-                NORMAL = "|t32:32:/esoui/art/icons/crafting_poison_001_red_005.dds|t"
+                PATH = "/esoui/art/icons/crafting_poison_001_red_005.dds",
             },
             POTION = {
-                NORMAL = "|t32:32:/esoui/art/icons/consumable_potion_001_type_005.dds|t"
+                PATH = "/esoui/art/icons/consumable_potion_001_type_005.dds",
             },
             RECIPE = {
-                NORMAL = "|t32:32:/esoui/art/icons/quest_scroll_001.dds|t"
+                PATH = "/esoui/art/icons/quest_scroll_001.dds",
             },
             REPAIRKIT = {
-                NORMAL = "|t32:32:/esoui/art/icons/quest_crate_001.dds|t"
+                PATH = "/esoui/art/icons/quest_crate_001.dds",
             },
             REPAIRKIT_CROWN = { -- TODO: not used
-                NORMAL = "|t32:32:/esoui/art/icons/store_repairkit_002.dds|t"
+                PATH = "/esoui/art/icons/store_repairkit_002.dds",
             },
             SOULGEM = {
-                SMALL = "|t20:20:/esoui/art/icons/soulgem_006_filled.dds|t",
-                NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_filled.dds|t",
+                PATH = "/esoui/art/icons/soulgem_006_filled.dds",
             },
             SOULGEM_CROWN = { -- TODO: not used
-                NORMAL = "|t32:32:/esoui/art/icons/store_soulgem_001.dds|t",
+                PATH = "/esoui/art/icons/store_soulgem_001.dds",
             },
             SOULGEM_EMPTY = { -- TODO: not used
-                NORMAL = "|t32:32:/esoui/art/icons/soulgem_006_empty.dds|t",
+                PATH = "/esoui/art/icons/soulgem_006_empty.dds",
             },
             STOLEN = {
+                PATH = "/esoui/art/inventory/inventory_stolenitem_icon.dds",
                 SMALL = "|t16:16:/esoui/art/inventory/inventory_stolenitem_icon.dds|t",
-                NORMAL = "|t32:32:/esoui/art/inventory/inventory_stolenitem_icon.dds|t"
             },
             TROPHY = {
-                NORMAL = "|t32:32:/esoui/art/icons/quest_daedricembers.dds|t",
+                PATH = "/esoui/art/icons/quest_daedricembers.dds",
             },
         },
         OTHERS = {
             HOME = {
+                PATH = "/esoui/art/guild/tabicon_home_up.dds",
                 NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t"
             }
         }

@@ -5,17 +5,17 @@ local PAC = PersonalAssistant.Constants
 -- PALoot Menu --
 SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot kann dich darüber informieren wenn Gegenstände von speziellem Interesse (wie unbekannte Rezepte, Stile oder Eigenschaften) eingesammelt werden", 1)
 -- Loot Recipes
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({" ", PAC.ICONS.ITEMS.RECIPE.NORMAL, "  ", "Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)}), 1)
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " eingesammelt wird das von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
 
 -- Loot Motifs
-SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({" ", PAC.ICONS.ITEMS.MOTIF.NORMAL, "  ", "Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2), " einsammeln"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2), " einsammeln"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
 
 -- Loot Apparel & Weapons
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, table.concat({" ", PAC.ICONS.CRAFTBAG.WEAPON.NORMAL, "  ", "Beim ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)), " einsammeln"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, table.concat({"Beim ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)), " einsammeln"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "Informiere bei nicht analysierten Eigenschaften", 1)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " oder eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}), 1)
 

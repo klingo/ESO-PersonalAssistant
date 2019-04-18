@@ -5,6 +5,8 @@ SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORED_TEXTS.PA, PAC.
 SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " à votre service !"}), 1)
 SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") afin de sélectionner un profil. Merci :-)"}), 1)
 
+--SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.ORANGE_RED, " benötigt eine aktuellere Version von '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' als derzeit installiert ist. Bitte die neuste Version von ", PAC.COLORS.WHITE, "esoui.com", PAC.COLORS.ORANGE_RED, " herunterladen und diese verwenden"}), 1)
+
 -- Key Bindings
 SafeAddString(SI_PA_KB_LOAD_PROFILE, "Activer le profil", 1)
 
