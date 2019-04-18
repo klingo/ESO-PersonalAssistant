@@ -20,7 +20,10 @@ local function _stackBags()
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
-local function OnBankOpen()
+local function OnBankOpen(eventCode, bankBag)
+    -- immediately stop if not the actual BANK bag is opened (i.e. HOUSE_BANK)
+    if not bankBag == BAG_BANK then return end
+
     if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.isBankClosed = false
