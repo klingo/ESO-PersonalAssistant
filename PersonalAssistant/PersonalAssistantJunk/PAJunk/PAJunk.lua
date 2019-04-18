@@ -32,8 +32,10 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         end
     end
 
-    -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered
-    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
+    -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
+    if PA.Repair then
+        PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
+    end
 end
 
 
