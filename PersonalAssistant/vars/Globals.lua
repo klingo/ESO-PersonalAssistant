@@ -7,7 +7,7 @@ PersonalAssistant.MenuHelper = {}
 -- ---------------------------------------------------------------------------------------------------------------------
 
 PersonalAssistant.Constants = {
-    ADDON_VERSION = "2.0.1",
+    ADDON_VERSION = "2.0.2",
 
     GENERAL = {
         MAX_PROFILES = 5,
