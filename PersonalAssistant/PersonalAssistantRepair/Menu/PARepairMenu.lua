@@ -49,25 +49,25 @@ local function _createPARepairMenu()
     PARepairOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
+        icon = ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture,
         controls = PARGoldSubmenuTable,
-        disabled = PARMenuFunctions.isRepairWithGoldMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PARMenuFunctions.isRepairWithGoldMenuDisabled,
     })
 
     PARepairOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER),
+        icon = PAC.ICONS.ITEMS.REPAIRKIT.PATH,
         controls = PARRepairKitSubmenuTable,
-        disabled = PARMenuFunctions.isRepairWithRepairKitMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PARMenuFunctions.isRepairWithRepairKitMenuDisabled,
     })
 
     PARepairOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_REPAIR_RECHARGE_HEADER),
+        icon = PAC.ICONS.ITEMS.SOULGEM.PATH,
         controls = PARRechargeSubmenuTable,
-        disabled = PARMenuFunctions.isRechargeWithSoulGemMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PARMenuFunctions.isRechargeWithSoulGemMenuDisabled,
     })
 
     PARepairOptionsTable:insert({

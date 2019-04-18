@@ -8,6 +8,8 @@ local PAStrings = {
     SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!"}),
     SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
 
+    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
+
     -- Key Bindings
     SI_PA_KB_LOAD_PROFILE = "Activate profile",
 

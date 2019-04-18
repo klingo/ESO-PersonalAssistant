@@ -49,25 +49,26 @@ local function _createPALootMenu()
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_RECIPES_HEADER),
+        icon = PAC.ICONS.ITEMS.RECIPE.PATH,
         controls = PALLootRecipesSubmenuTable,
-        disabled = PALMenuFunctions.isLootRecipesMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PALMenuFunctions.isLootRecipesMenuDisabled,
     })
 
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_MOTIFS_HEADER),
+        icon = PAC.ICONS.ITEMS.MOTIF.PATH,
         controls = PALLootMotifsSubmenuTable,
-        disabled = PALMenuFunctions.isLootMotifsMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PALMenuFunctions.isLootMotifsMenuDisabled,
     })
 
     PALootOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.WEAPON.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PALLootApparelWeaponsSubmenuTable,
-        disabled = PALMenuFunctions.isLootApparelWeaponsMenuDisabled,
-        personalassistant = true,
+        disabledLabel = PALMenuFunctions.isLootApparelWeaponsMenuDisabled,
     })
 
     PALootOptionsTable:insert({

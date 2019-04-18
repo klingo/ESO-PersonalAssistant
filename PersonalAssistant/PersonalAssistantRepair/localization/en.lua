@@ -11,7 +11,7 @@ local PARStrings = {
 
     SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Equipped Items"}),
 
-    SI_PA_MENU_REPAIR_GOLD_HEADER = table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  ", "Repair with ", GetCurrencyName(CURT_MONEY)}),
+    SI_PA_MENU_REPAIR_GOLD_HEADER = table.concat({"Repair with ", GetCurrencyName(CURT_MONEY)}),
     SI_PA_MENU_REPAIR_GOLD_ENABLE = table.concat({"Repair equipped Items with ", GetCurrencyName(CURT_MONEY), "?"}),
     SI_PA_MENU_REPAIR_GOLD_ENABLE_T = "When visiting a merchant, all equipped items that are at or below the defined threshold will automatically be repaired",
     SI_PA_MENU_REPAIR_GOLD_DURABILITY = "Durability threshold in %",
@@ -21,7 +21,7 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY = "Durability threshold in %",
     SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T = "Repair items in the inventory only if they are at or below the defined durability threshold",
 
-    SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({" ", PAC.ICONS.ITEMS.REPAIRKIT.NORMAL, "  ", "Repair with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
+    SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({"Repair with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({"Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "When out on the field, all equipped items that are at or below the defined threshold will automatically be repaired",
     SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY = "Durability threshold in %",
@@ -35,7 +35,7 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD = "Repair Kit threshold",
     SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T = table.concat({"If the remaining amount of ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " is below this threshold, a message is displayed in the chat window"}),
 
-    SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({" ", PAC.ICONS.ITEMS.SOULGEM.NORMAL, "  ", "Recharge Weapons with ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}),
+    SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({"Recharge Weapons with ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({"Recharge equipped weapons with ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "?"}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Re-Charge equipped weapons when their charge level reaches zero. It will first use Crown Soul Gems and only afterwards regular Soul Gems.",
 --    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",

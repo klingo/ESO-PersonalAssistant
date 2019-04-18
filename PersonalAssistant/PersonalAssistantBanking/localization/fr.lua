@@ -94,4 +94,4 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, table.concat({PAC.COLORED_TE
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking Menu --
-SafeAddString(SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER, table.concat({" ", PAC.ICONS.CURRENCY[CURT_MONEY].NORMAL, "  pièces d'or"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER, "pièces d'or", 1)
