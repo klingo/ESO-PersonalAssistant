@@ -11,8 +11,13 @@ local _isMailboxOpen = false
 
 local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     -- check what the difference in money is
-    local moneyDiff = GetCurrentMoney() - moneyBefore;
-    local itemCountInBagDiff = itemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
+    local currentMonday = GetCurrentMoney()
+    local moneyDiff = currentMonday - moneyBefore;
+    local numBagUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
+    local itemCountInBagDiff = itemCountInBagBefore - numBagUsedSlots
+
+    PAHF.debugln("_giveSoldJunkFeedback: moneyBefore = %d / GetCurrentMoney = %d / moneyDiff = %d", moneyBefore, currentMonday, moneyDiff)
+    PAHF.debugln("_giveSoldJunkFeedback: itemCountInBagBefore = %d / GetNumBagUsedSlots = %d / itemCountInBagDiff = %d", itemCountInBagBefore, numBagUsedSlots, itemCountInBagDiff)
 
     if itemCountInBagDiff > 0 then
         -- at lesat one item was sold (although it might have been worthless)
@@ -137,7 +142,7 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
 
                 -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
                 -- after calling SellAllJunk()
-                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
+                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 500)
             end
         end
     end
@@ -158,7 +163,7 @@ local function OnShopOpen()
 
                 -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
                 -- after calling SellAllJunk()
-                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 200)
+                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 500)
             else
                 -- if there is no junk, immediately fire the callback event for PARepair
                 PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
