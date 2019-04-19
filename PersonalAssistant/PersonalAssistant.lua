@@ -165,6 +165,9 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 
         local sellInformation = GetItemLinkSellInformation(itemLink)
         d("sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation).."("..sellInformation..")")
+
+        local isItemFromCrownStore = IsItemFromCrownStore(bagId, slotIndex)
+        d("isItemFromCrownStore="..tostring(isItemFromCrownStore))
     end
 end
 

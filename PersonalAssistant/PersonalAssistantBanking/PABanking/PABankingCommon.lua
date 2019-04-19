@@ -152,6 +152,14 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
     end
 end
 
+local function _isSameItem(itemDataA, itemDataB)
+    if itemDataA.itemInstanceId == itemDataB.itemInstanceId then
+        local isItemAFromCrownStore = IsItemFromCrownStore(itemDataA.bagId, itemDataA.slotIndex)
+        local isItemBFromCrownStore = IsItemFromCrownStore(itemDataB.bagId, itemDataB.slotIndex)
+        return isItemAFromCrownStore == isItemBFromCrownStore
+    end
+    return false
+end
 
 -- Immediately moves items from source to target bag, if the same item exists in both locations (i.e. filling up existing
 -- stacks). All items that either cannot be moved because there is no matching item in the target bag, or because the
@@ -169,8 +177,8 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
         PAHF.debugln("try to move %d x %s", stackToMove, itemLink)
 
         for toBagCacheIndex, toBagItemData in pairs(toBagCache) do
-            if fromBagItemData.itemInstanceId == toBagItemData.itemInstanceId then
-                -- same itemInstanceId
+            if _isSameItem(fromBagItemData, toBagItemData) then
+                -- same itemInstanceId and same CrownStore source information
                 local _, targetMaxStack = GetSlotStackSize(toBagItemData.bagId, toBagItemData.slotIndex)
                 local targetStack = toBagItemData.stackCount -- cannot use [GetSlotStackSize] becuase it does not reflect changes after the bagCache is created
                 local targetFreeStacks = targetMaxStack - targetStack
@@ -211,7 +219,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                 -- loop through all items already added to list
                 for index, prevBagItemData in pairs(notMovedItemsTable) do
                     -- check if it is the same item and if there is some space left
-                    if prevBagItemData.itemInstanceId == fromBagItemData.itemInstanceId and prevBagItemData.customStackToMove < sourceStackMaxSize then
+                    if _isSameItem(prevBagItemData, fromBagItemData) and prevBagItemData.customStackToMove < sourceStackMaxSize then
                         local prevSourceFreeStack = sourceStackMaxSize - prevBagItemData.customStackToMove
                         if prevSourceFreeStack >= stackToMove and fromBagItemData.stackCount >= stackToMove then
                             -- stack everything
