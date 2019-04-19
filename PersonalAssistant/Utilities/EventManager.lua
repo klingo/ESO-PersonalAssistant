@@ -260,7 +260,7 @@ local function RefreshAllEventRegistrations()
             -- Register for GoldRepair
             if PARMenuFunctions.getRepairWithGoldSetting() or PARMenuFunctions.getRepairInventoryWithGoldSetting() then
                 -- check if AutoSellJunk is also enabled
-                if PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
+                if PAMenuFunctions.PAJunk and PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
                     -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
                     RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
                 else
