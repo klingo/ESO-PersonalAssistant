@@ -61,9 +61,6 @@ SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T, "Definiere ob alle Gegenst�
 SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING, "Regel fürs Stapeln beim Entnehmen", 1)
 SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T, "Definiere ob alle Gegenstände ins Inventar entnommen werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL, "Intervall zwischen einzelnen Transaktionen (in ms)", 1)
-SafeAddString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL_T, "Die Zeit in Millisekunden zwischen zwei aufeinanderfolgenden Transaktionen von Gegenständen. Wenn zu viele Verschiebungen fehlschlagen kann versucht werden diesen Wert zu erhöhen.", 1)
-
 SafeAddString(SI_PA_MENU_BANKING_AUTOSTACKBAGS, "Automatisch alle Gegenstände stapeln", 1)
 SafeAddString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T, "Sollen automatisch alle Gegenstände im Inventar und in der Truhe gestapelt werden wenn die Truhe geöffnet wird? Ist hilfreich um alles besser organisiert zu halten", 1)
 

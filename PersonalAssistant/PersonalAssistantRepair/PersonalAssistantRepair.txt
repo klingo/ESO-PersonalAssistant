@@ -8,7 +8,7 @@
 ## Version: 2.0.2
 ## AddOnVersion: 20002
 ## Author: Klingo
-## APIVersion: 100026
+## APIVersion: 100026 100027
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
 

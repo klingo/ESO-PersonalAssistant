@@ -61,9 +61,6 @@ SafeAddString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T, "Définir si tous les objet
 SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING, "Règle d'empilement au retrait", 1)
 SafeAddString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T, "Définir si tous les objets doivent être retirés, ou seulement quand il y a des piles existantes à compléter", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL, "Intervalle entre les déplacements (msecs)", 1)
-SafeAddString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL_T, "Temps en millisecondes entre deux déplacements d'objets consécutifs. S'il y a des déplacements qui ne fonctionnent pas, pensez à augmenter cette valeur", 1)
-
 SafeAddString(SI_PA_MENU_BANKING_AUTOSTACKBAGS, "Empiler les objets à l'ouverture de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T, "Empiler automatiquement tous les objets dans la banque et l'inventaire à l'ouverture de la banque ? Cela permet une meilleure organisation", 1)
 
