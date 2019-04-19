@@ -10,6 +10,9 @@ local PAEM = PA.EventManager
 
 -- NOTE: Filling up existing stacks can be done immediately; creating new stacks takes time (i.e. zo_callLater needed)
 
+local MOVE_SECURE_ITEMS_INTERVAL_MS = 50
+local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_moveSecureItemsFromTo"
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _requestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount)
@@ -53,8 +56,9 @@ end
 
 -- Recursive function that tries to find new slots in the corresponding targetBags from the given list of itemDatas
 -- The startIndex indicates from which item in the list the check for moving should be started
+-- If [toBeMovedAgainTable] is NOT nil, then not moved items will be added to that list and re-tried afterwards
+-- If [toBeMovedAgainTable] is nil, then failed moves will NOT be re-tried
 local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedAgainTable)
-    local transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
     local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
     -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
@@ -66,35 +70,57 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             local customStackToMove = fromBagItemData.customStackToMove
             local customStackToMoveOriginal = fromBagItemData.customStackToMoveOriginal
             if customStackToMove ~= nil then sourceStack = customStackToMove end
-            -- if there either was no original amount; or it is the same as the one to be moved, treat it as a complete move
-            if customStackToMoveOriginal == nil or customStackToMoveOriginal == customStackToMove then
-                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
-            else
-                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLink, PAHF.getBagName(targetBagId))
-            end
+            -- request the move of the item
+            local moveStartGameTime = GetGameTimeMilliseconds()
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
+            -- ---------------------------------------------------------------------------------------------------------
+            -- Now "wait" until the item move has been complete/confirmed (or until bank is closed!)
+            EVENT_MANAGER:RegisterForUpdate(CALL_LATER_FUNCTION_NAME, MOVE_SECURE_ITEMS_INTERVAL_MS,
+                function()
+                    -- check if the item has already "arrived" at its target bag/slot
+                    local itemId = GetItemId(targetBagId, firstEmptySlot)
+                    if itemId > 0 or PA.isBankClosed then
+                        -- TODO: also check itemId for verification?
+                        -- if item has arrived or bank window is closed stop the interval; in first case proceed with the next item
+                        EVENT_MANAGER:UnregisterForUpdate(CALL_LATER_FUNCTION_NAME)
+                        local moveFinishGameTime = GetGameTimeMilliseconds()
+                        PAHF.debugln('Item transaction took approx. %d ms', moveFinishGameTime - moveStartGameTime)
+                        -- check if the bank has been closed in the meanwhile
+                        if PA.isBankClosed then
+                            -- as per current observations, the transfer always finishes even if the bank has ben clsoed before verification
+                            -- TODO: might need to be checked in more detail in future
+                            -- if bank was closed, abort and dont continue
+                            PAB.isBankTransferBlocked = false
+                        else
+                            -- item move has been verified
+                            -- if there either was no original amount; or it is the same as the one to be moved, treat it as a complete move
+                            if customStackToMoveOriginal == nil or customStackToMoveOriginal == customStackToMove then
+                                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
+                            else
+                                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLink, PAHF.getBagName(targetBagId))
+                            end
 
-            local newStartIndex = startIndex + 1
-            if newStartIndex <= #toBeMovedItemsTable then
-                zo_callLater(function()
-                    moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
-                end, transactionInterval)
-            else
-                -- loop completed; check if there are any items to be moved again (re-try)
-                if toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0 then
-                    -- if there are items left, try again
-                    zo_callLater(function()
-                        moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
-                    end, transactionInterval)
-                else
-                    -- nothing else that can be moved; done
-                    -- TODO: end message?
-                    PAHF.debugln("2) all done!")
-                    PAB.isBankTransferBlocked = false
-                    -- Execute the function queue
-                    PAEM.executeNextFunctionInQueue(PAB.AddonName)
-                end
-            end
+                            local newStartIndex = startIndex + 1
+                            if newStartIndex <= #toBeMovedItemsTable then
+                                moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
+                            else
+                                -- loop completed; check if there are any items to be moved again (re-try)
+                                if toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0 then
+                                    -- if there are items left, try again
+                                    moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
+                                else
+                                    -- nothing else that can be moved; done
+                                    -- TODO: end message?
+                                    PAHF.debugln("2) all done!")
+                                    PAB.isBankTransferBlocked = false
+                                    -- Execute the function queue
+                                    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+                                end
+                            end
+                        end
+                    end
+                end)
+            -- ---------------------------------------------------------------------------------------------------------
         else
             -- abort; dont continue
             PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, itemLink, PAHF.getBagName(BAG_BANK))
@@ -106,14 +132,10 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             table.insert(toBeMovedAgainTable, fromBagItemData)
             local newStartIndex = startIndex + 1
             if newStartIndex <= #toBeMovedItemsTable then
-                zo_callLater(function()
-                    moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
-                end, transactionInterval)
+                moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
             else
                 -- loop completed; try again with the items added to the re-try list
-                zo_callLater(function()
-                    moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
-                end, transactionInterval)
+                moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
@@ -210,7 +232,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
             if stackToMove and stackToMove > 0 then
                 fromBagItemData.customStackToMove = stackToMove
                 fromBagItemData.customStackToMoveOriginal = sourceStack
-                PAHF.debugln("not moved: %d / %d x %s", stackToMove, sourceStack, itemLink)
+                PAHF.debugln("not moved: %d / %d x %s (need new stack)", stackToMove, sourceStack, itemLink)
                 table.insert(notMovedItemsTable, fromBagItemData)
             end
         end
@@ -238,9 +260,7 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
 
     -- after initial run-through, go though all not yet moved items and look for free slots for them
     if #toBeMovedItemsTable > 0 then
-        -- update the TransactionTimer option from the SavedVars
-        PA.transactionInterval = PAMF.PABanking.getTransactionInvervalSetting()
-        -- and trigger the recursive loop to move items
+        -- trigger the recursive loop to move items
         PAB.moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)
     else
         -- all stacking done; and no further items to be moved

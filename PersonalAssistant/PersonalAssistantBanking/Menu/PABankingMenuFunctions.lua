@@ -291,16 +291,6 @@ local function isPABankingTransactionWithdrawalStackingDisabled()
     return true
 end
 
---------------------------------------------------------------------------
--- PABanking   transactionInterval
----------------------------------
-local function isPABankingTransactionIntervalDisabled()
-    if not isDisabled({"Crafting", "craftingItemsEnabled"}) then return false end
-    if not isDisabled({"Advanced", "advancedItemsEnabled"}) then return false end
-    if not isDisabled({"Individual", "individualItemsEnabled"}) then return false end
-    return true
-end
-
 -- =================================================================================================================
 local PABankingMenuFunctions = {
     -- -----------------------------------------------------------------------------------
@@ -482,10 +472,6 @@ local PABankingMenuFunctions = {
     isTransactionWithdrawalStackingDisabled = isPABankingTransactionWithdrawalStackingDisabled,
     getTransactionWithdrawalStackingSetting = function() return getValue({"transactionWithdrawalStacking"}) end,
     setTransactionWithdrawalStackingSetting = function(value) setValue(value, {"transactionWithdrawalStacking"}) end,
-
-    isTransactionInvervalDisabled = isPABankingTransactionIntervalDisabled,
-    getTransactionInvervalSetting = function() return getValue({"transactionInterval"}) end,
-    setTransactionInvervalSetting = function(value) setValue(value, {"transactionInterval"}) end,
 
     getAutoStackBagsSetting = function() return getValue({"autoStackBags"}) end,
     setAutoStackBagsSetting = function(value) setValue(value, {"autoStackBags"}) end,
