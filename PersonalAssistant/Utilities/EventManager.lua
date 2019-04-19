@@ -281,13 +281,13 @@ local function RefreshAllEventRegistrations()
                 RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN, "RepairKits")
                 RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DURABILITY_CHANGE, "RepairKits")
                 -- this is to repair items after materializing from ghost to alive
-                RegisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, PAR.CheckAndRepairAllEquippedItemsWithRepairKits, "RepairKits")
+                RegisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, PAR.CheckAndRepairAllEquippedItemsWithRepairKits, "RepairKits-Reincarnate")
                 -- this is to repair items after respawning at a wayshrine (without ghost form)
-                RegisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, PAR.CheckAndRepairAllEquippedItemsWithRepairKits, "RepairKits")
+                RegisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, PAR.CheckAndRepairAllEquippedItemsWithRepairKits, "RepairKits-Alive")
             else
                 UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
-                UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits")
-                UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, "RepairKits")
+                UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits-Reincarnate")
+                UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, "RepairKits-Alive")
             end
 
             -- Register for WeaponCharges
@@ -302,8 +302,8 @@ local function RefreshAllEventRegistrations()
             -- Unregister PARepair completely
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
-            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits")
-            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, "RepairKits")
+            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits-Reincarnate")
+            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, "RepairKits-Alive")
             UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
             UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
         end
