@@ -35,7 +35,6 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
 
     -- check if it is enabled
     if bagId == BAG_WORN and (PARepairSavedVars.RepairEquipped.repairWithRepairKit or PARepairSavedVars.RepairEquipped.repairWithCrownRepairKit) then
-        local itemType = GetItemType(bagId, slotIndex)
         local hasDurability = DoesItemHaveDurability(bagId, slotIndex)
         -- check if it is repairable
         if hasDurability then
