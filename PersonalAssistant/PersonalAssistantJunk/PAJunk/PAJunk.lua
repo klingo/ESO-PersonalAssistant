@@ -9,38 +9,57 @@ local PAEM = PA.EventManager
 
 local _isMailboxOpen = false
 
+local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetMoneyAndUsedSlots"
+local GET_MONEY_AND_USED_SLOTS_INTERVAL_MS = 100
+local GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS = 1000
+
+local function _getUniqueUpdateIdentifier()
+    return CALL_LATER_FUNCTION_NAME
+end
+
 local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
-    -- check what the difference in money is
-    local currentMonday = GetCurrentMoney()
-    local moneyDiff = currentMonday - moneyBefore;
-    local numBagUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
-    local itemCountInBagDiff = itemCountInBagBefore - numBagUsedSlots
+    -- before starting make sure any already registered UpdateEvent is unregistered to not run them in parallel
+    local identifier = _getUniqueUpdateIdentifier()
+    EVENT_MANAGER:UnregisterForUpdate(identifier)
+    local startGameTime = GetGameTimeMilliseconds()
+    -- now register for the interval
+    EVENT_MANAGER:RegisterForUpdate(identifier, GET_MONEY_AND_USED_SLOTS_INTERVAL_MS,
+        function()
+            -- check what the difference in money is
+            local currentMoney = GetCurrentMoney()
+            local moneyDiff = currentMoney - moneyBefore;
+            local numBagUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
+            local itemCountInBagDiff = itemCountInBagBefore - numBagUsedSlots
+            local passedGameTime = GetGameTimeMilliseconds() - startGameTime
 
-    PAHF.debugln("_giveSoldJunkFeedback: moneyBefore = %d / GetCurrentMoney = %d / moneyDiff = %d", moneyBefore, currentMonday, moneyDiff)
-    PAHF.debugln("_giveSoldJunkFeedback: itemCountInBagBefore = %d / GetNumBagUsedSlots = %d / itemCountInBagDiff = %d", itemCountInBagBefore, numBagUsedSlots, itemCountInBagDiff)
+            if moneyDiff > 0 or itemCountInBagDiff > 0 or passedGameTime > GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS then
+                EVENT_MANAGER:UnregisterForUpdate(identifier)
+                PAHF.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
 
-    if itemCountInBagDiff > 0 then
-        -- at lesat one item was sold (although it might have been worthless)
-        if moneyDiff > 0 then
-            -- some valuable junk was sold
-            PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
-        else
-            -- only worthless junk was sold
-            PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
-        end
-    else
-        -- no item was sold
-        if moneyDiff > 0 then
-            -- no item was sold, but money appeared out of nowhere
-            -- should not happen :D
-            PAJ.println(PAC.COLORED_TEXTS.PAJ .. "Error #1337: This should not happen!")
-        end
-    end
+                if itemCountInBagDiff > 0 then
+                    -- at lesat one item was sold (although it might have been worthless)
+                    if moneyDiff > 0 then
+                        -- some valuable junk was sold
+                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
+                    else
+                        -- only worthless junk was sold
+                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
+                    end
+                else
+                    -- no item was sold
+                    if moneyDiff > 0 then
+                        -- no item was sold, but money appeared out of nowhere
+                        -- should not happen :D
+                        PAJ.println(PAC.COLORED_TEXTS.PAJ .. "It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
+                    end
+                end
 
-    -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
-    if PA.Repair then
-        PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
-    end
+                -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
+                if PA.Repair then
+                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
+                end
+            end
+        end)
 end
 
 
@@ -140,9 +159,8 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                     end
                 end
 
-                -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
-                -- after calling SellAllJunk()
-                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 500)
+                -- after calling SellAllJunk(), give feedback about the changes
+                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
             end
         end
     end
@@ -161,9 +179,8 @@ local function OnShopOpen()
                 -- Sell all items marked as junk
                 SellAllJunk()
 
-                -- Have to call it with some delay, as the "currentMoney" and item count is not updated fast enough
-                -- after calling SellAllJunk()
-                zo_callLater(function() _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore) end, 500)
+                -- after calling SellAllJunk(), give feedback about the changes
+                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
             else
                 -- if there is no junk, immediately fire the callback event for PARepair
                 PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
