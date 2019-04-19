@@ -15,6 +15,10 @@ local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_moveSecureItemsFromTo"
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function _getUniqueUpdateIdentifier(bagId, slotIndex)
+    return table.concat({CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
+end
+
 local function _requestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount)
     if IsProtectedFunction("RequestMoveItem") then
         CallSecureProtected("RequestMoveItem", sourceBag, sourceSlot, destBag, destSlot, stackCount)
@@ -75,14 +79,15 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
             -- ---------------------------------------------------------------------------------------------------------
             -- Now "wait" until the item move has been complete/confirmed (or until bank is closed!)
-            EVENT_MANAGER:RegisterForUpdate(CALL_LATER_FUNCTION_NAME, MOVE_SECURE_ITEMS_INTERVAL_MS,
+            local identifier = _getUniqueUpdateIdentifier(fromBagItemData.bagId, fromBagItemData.slotIndex)
+            EVENT_MANAGER:RegisterForUpdate(identifier, MOVE_SECURE_ITEMS_INTERVAL_MS,
                 function()
                     -- check if the item has already "arrived" at its target bag/slot
                     local itemId = GetItemId(targetBagId, firstEmptySlot)
                     if itemId > 0 or PA.isBankClosed then
                         -- TODO: also check itemId for verification?
                         -- if item has arrived or bank window is closed stop the interval; in first case proceed with the next item
-                        EVENT_MANAGER:UnregisterForUpdate(CALL_LATER_FUNCTION_NAME)
+                        EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local moveFinishGameTime = GetGameTimeMilliseconds()
                         PAHF.debugln('Item transaction took approx. %d ms', moveFinishGameTime - moveStartGameTime)
                         -- check if the bank has been closed in the meanwhile
