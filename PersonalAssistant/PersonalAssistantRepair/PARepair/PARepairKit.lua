@@ -92,10 +92,10 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
 end
 
 local function CheckAndRepairSingleEquippedItemWithRepairKit(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    -- need to wait a little bit (e.g. 200ms) because this event is also triggered when dying, but [IsUnitDead("player")] still returns 'false' for a short amount of time
+    -- need to wait a little bit (e.g. 500ms) because this event is also triggered when dying, but [IsUnitDead("player")] still returns 'false' for a short amount of time
     -- because the durability loss (triggering this function) happens before the player actually is considered dead
     -- triggering a repair when dead can cause ESO to hang itself and force the player to the login screen
-    zo_callLater(function() RepairEquippedItemWithRepairKit(bagId, slotIndex) end, 200)
+    zo_callLater(function() RepairEquippedItemWithRepairKit(bagId, slotIndex) end, 500)
 end
 
 local function CheckAndRepairAllEquippedItemsWithRepairKits()
