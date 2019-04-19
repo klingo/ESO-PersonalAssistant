@@ -7,7 +7,6 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _lastNoRepairKitWarningGameTime = 0
-local _repairKitCountPattern = GetString(SI_PA_PATTERN_REPAIRKIT_COUNT)
 
 -- --------------------------------------------------------------------------------------------------------------------
 
@@ -63,7 +62,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
                     -- check remaining repair kits
                     local lowRepairKitThreshold = PARepairSavedVars.RepairEquipped.lowRepairKitThreshold
                     if totalRepairKitCount <= lowRepairKitThreshold and PARepairSavedVars.RepairEquipped.lowRepairKitWarning then
-                        local formatted = zo_strformat(_repairKitCountPattern, totalRepairKitCount)
+                        local formatted = zo_strformat(GetString(SI_PA_PATTERN_REPAIRKIT_COUNT), totalRepairKitCount)
 
                         if totalRepairKitCount == 0 then
                             -- if no repair kits left, have a orange-red message (but only every 10 minutes)
