@@ -7,7 +7,6 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _lastNoSoulGemWarningGameTime = 0
-local _soulGemCountPattern = GetString(SI_PA_PATTERN_SOULGEM_COUNT)
 
 local _soulGemItemTypes = setmetatable({}, { __index = table })
 _soulGemItemTypes:insert(ITEMTYPE_SOUL_GEM)
@@ -84,7 +83,7 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                 -- check remaining soul gems
                 local lowSoulGemThreshold = PARepairSavedVars.RechargeWeapons.lowSoulGemThreshold
                 if totalGemCount <= lowSoulGemThreshold and PARepairSavedVars.RechargeWeapons.lowSoulGemWarning then
-                    local formatted = zo_strformat(_soulGemCountPattern, totalGemCount)
+                    local formatted = zo_strformat(GetString(SI_PA_PATTERN_SOULGEM_COUNT), totalGemCount)
 
                     if totalGemCount == 0 then
                         -- if no soul gems left, have a orange-red message (but only every 10 minutes)

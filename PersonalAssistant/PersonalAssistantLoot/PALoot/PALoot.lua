@@ -165,7 +165,6 @@ end
 
 -- init with current numUsedSlots
 local _prevUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
-local _inventoryCountPattern = GetString(SI_PA_PATTERN_INVENTORY_COUNT)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -238,7 +237,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             -- after all itemTypes are checked, see how much space is left in bag (only if usedSlots has increased)
             if usedSlots > _prevUsedSlots and PALootSavedVars.lowInventorySpaceWarning then
                 local freeSlots = GetNumBagFreeSlots(BAG_BACKPACK)
-                local formatted = zo_strformat(_inventoryCountPattern, freeSlots)
+                local formatted = zo_strformat(GetString(SI_PA_PATTERN_INVENTORY_COUNT), freeSlots)
                 local lowInventorySpaceThreshold = PALootSavedVars.lowInventorySpaceThreshold
 
                 if freeSlots == 0 then
