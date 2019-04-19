@@ -9,9 +9,9 @@ local PAEM = PA.EventManager
 
 local _isMailboxOpen = false
 
-local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetMoneyAndUsedSlots"
 local GET_MONEY_AND_USED_SLOTS_INTERVAL_MS = 100
 local GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS = 1000
+local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetMoneyAndUsedSlots"
 
 local function _getUniqueUpdateIdentifier()
     return CALL_LATER_FUNCTION_NAME

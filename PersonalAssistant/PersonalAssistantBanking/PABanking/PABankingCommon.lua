@@ -8,7 +8,7 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- NOTE: Filling up existing stacks can be done immediately; creating new stacks takes time (i.e. zo_callLater needed)
+-- NOTE: Filling up existing stacks can be done immediately; creating new stacks takes time (i.e. delay required)
 
 local MOVE_SECURE_ITEMS_INTERVAL_MS = 50
 local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_moveSecureItemsFromTo"
