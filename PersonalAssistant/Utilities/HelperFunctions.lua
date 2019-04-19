@@ -70,6 +70,10 @@ local function isPlayerDead()
     return IsUnitDead("player")
 end
 
+local function isPlayerDeadOrReincarnating()
+   return IsUnitDeadOrReincarnating("player")
+end
+
 -- returns a noun for the bagId
 local function getBagName(bagId)
     if bagId == BAG_WORN then
@@ -166,6 +170,7 @@ PA.HelperFunctions = {
     roundDown = roundDown,
     isValueInTable = isValueInTable,
     isPlayerDead = isPlayerDead,
+    isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,
     hasActiveProfile = hasActiveProfile,
     getFormattedItemLink = getFormattedItemLink,

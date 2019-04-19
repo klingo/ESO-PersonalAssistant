@@ -30,9 +30,9 @@ end
 
 -- --------------------------------------------------------------------------------------------------------------------
 
-local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
+local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
     -- only proceed if player is not dead (since repairkits cannot be used then)
-    if not PAHF.isPlayerDead then
+    if not PAHF.isPlayerDeadOrReincarnating() then
         -- check if it is enabled
         local PARepairSavedVars = PAR.SavedVars
         if bagId == BAG_WORN and (PARepairSavedVars.RepairEquipped.repairWithRepairKit or PARepairSavedVars.RepairEquipped.repairWithCrownRepairKit) then
@@ -41,20 +41,21 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
             if hasDurability then
                 local itemCondition = GetItemCondition(bagId, slotIndex)
                 local repairKitThreshold = PARepairSavedVars.RepairEquipped.repairWithRepairKitThreshold
+                PAHF.debugln("%s is at %d/%d", GetItemName(bagId, slotIndex), itemCondition, 100)
                 -- check if it is below and would need to be repaired
                 if itemCondition <= repairKitThreshold then
                     local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
                     if totalRepairKitCount > 0 then
                         local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
+                        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 
                         -- some debug information
-                        PAHF.debugln("Want to repair: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
+                        PAHF.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
 
                         -- actually repair the item
                         RepairItemWithRepairKit(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
                         totalRepairKitCount = totalRepairKitCount - 1
-
-                        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                        --PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
 
                         PAR.println(GetString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED), itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
                     end
@@ -86,15 +87,26 @@ local function RepairEquippedItemsWithRepairKits(eventCode, bagId, slotIndex, is
                 end
             end
         end
+    else
+        PAHF.debugln("RepairEquippedItemWithRepairKit.isPlayerDeadOrReincarnating (caught!)")
     end
 end
 
-local function CheckAndRepairEquippedItemsWithRepairKits()
+local function CheckAndRepairSingleEquippedItemWithRepairKit(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
+    -- need to wait a little bit (e.g. 200ms) because this event is also triggered when dying, but [IsUnitDead("player")] still returns 'false' for a short amount of time
+    -- because the durability loss (triggering this function) happens before the player actually is considered dead
+    -- triggering a repair when dead can cause ESO to hang itself and force the player to the login screen
+    zo_callLater(function() RepairEquippedItemWithRepairKit(bagId, slotIndex) end, 200)
+end
+
+local function CheckAndRepairAllEquippedItemsWithRepairKits()
     -- only proceed if player is not dead (since repairkits cannot be used then)
-    if not PAHF.isPlayerDead then
+    if not PAHF.isPlayerDeadOrReincarnating() then
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_WORN)
         for _, itemData in pairs(bagCache) do
-            RepairEquippedItemsWithRepairKits(nil, itemData.bagId, itemData.slotIndex)
+            if DoesItemHaveDurability(itemData.bagId, itemData.slotIndex) then
+                RepairEquippedItemWithRepairKit(nil, itemData.bagId, itemData.slotIndex)
+            end
         end
     end
 end
@@ -102,5 +114,5 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Repair = PA.Repair or {}
-PA.Repair.RepairEquippedItemsWithRepairKits = RepairEquippedItemsWithRepairKits
-PA.Repair.CheckAndRepairEquippedItemsWithRepairKits = CheckAndRepairEquippedItemsWithRepairKits
+PA.Repair.CheckAndRepairSingleEquippedItemWithRepairKit = CheckAndRepairSingleEquippedItemWithRepairKit
+PA.Repair.CheckAndRepairAllEquippedItemsWithRepairKits = CheckAndRepairAllEquippedItemsWithRepairKits
