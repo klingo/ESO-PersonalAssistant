@@ -7,7 +7,7 @@ PersonalAssistant.MenuHelper = {}
 -- ---------------------------------------------------------------------------------------------------------------------
 
 PersonalAssistant.Constants = {
-    ADDON_VERSION = "2.0.1",
+    ADDON_VERSION = "2.0.2",
 
     GENERAL = {
         MAX_PROFILES = 5,
@@ -247,6 +247,7 @@ PersonalAssistant.Constants = {
                 SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101
                 SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
                 SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
+                SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
                 SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
                 -- TODO:  check:
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107

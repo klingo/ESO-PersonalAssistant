@@ -453,19 +453,6 @@ local function _createPABankingMenu()
     })
 
     PABankingOptionsTable:insert({
-        type = "slider",
-        name = GetString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL),
-        tooltip = GetString(SI_PA_MENU_BANKING_TRANSACTION_INTERVAL_T),
-        min = 100,
-        max = 1000,
-        step = 50,
-        getFunc = PABMenuFunctions.getTransactionInvervalSetting,
-        setFunc = PABMenuFunctions.setTransactionInvervalSetting,
-        disabled = PABMenuFunctions.isTransactionInvervalDisabled,
-        default = PABMenuDefaults.transactionInterval,
-    })
-
-    PABankingOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS),
         tooltip = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T),
