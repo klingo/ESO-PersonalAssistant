@@ -182,8 +182,10 @@ local function OnShopOpen()
                 -- after calling SellAllJunk(), give feedback about the changes
                 _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
             else
-                -- if there is no junk, immediately fire the callback event for PARepair
-                PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
+                -- if there is no junk, immediately fire the callback event for PARepair (if PARepair is enabled)
+                if PA.Repair then
+                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
+                end
             end
         end
     end
