@@ -105,7 +105,7 @@ local function CheckAndRepairAllEquippedItemsWithRepairKits()
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_WORN)
         for _, itemData in pairs(bagCache) do
             if DoesItemHaveDurability(itemData.bagId, itemData.slotIndex) then
-                RepairEquippedItemWithRepairKit(nil, itemData.bagId, itemData.slotIndex)
+                RepairEquippedItemWithRepairKit(itemData.bagId, itemData.slotIndex)
             end
         end
     end
