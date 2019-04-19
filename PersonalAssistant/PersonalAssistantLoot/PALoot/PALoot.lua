@@ -6,6 +6,14 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local GET_NUM_BAG_USED_SLOTS_INTERVAL_MS = 100
+local GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS = 1000
+local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetNumBagUsedSlots"
+
+local function _getUniqueUpdateIdentifier()
+    return CALL_LATER_FUNCTION_NAME
+end
+
 local TraitIndexFromItemTraitType = {
     [ITEM_TRAIT_TYPE_WEAPON_POWERED] = 1,       -- 1
     [ITEM_TRAIT_TYPE_WEAPON_CHARGED] = 2,       -- 2
@@ -253,13 +261,25 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 end
 
 
+-- update the number of used stacks in case player does stack all items in backpack (or if items are sold)
+-- this is checked with a 100ms interval after the event was triggered. It will repeatedly try it until the number
+-- has changed or until the timeout has been reached
 local function UpdateNumBagUsedSlots(eventCode)
-    -- update the number of used stacks in case player does stack all items in backpack (or if items are sold)
-    -- this is done 100ms after event was triggered (during test it took ~30ms until the value from GetNumBagUsedSlots
-    -- was correct)
-    zo_callLater(function()
-        _prevUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
-    end, 100)
+    -- before starting make sure any already registered UpdateEvent is unregistered to not run them in parallel
+    local identifier = _getUniqueUpdateIdentifier()
+    EVENT_MANAGER:UnregisterForUpdate(identifier)
+    local startGameTime = GetGameTimeMilliseconds()
+    local beforeUsedSlots = _prevUsedSlots
+    EVENT_MANAGER:RegisterForUpdate(identifier, GET_NUM_BAG_USED_SLOTS_INTERVAL_MS,
+        function()
+            local nowUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
+            local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+            if nowUsedSlots ~= beforeUsedSlots or passedGameTime > GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS then
+                EVENT_MANAGER:UnregisterForUpdate(identifier)
+                PAHF.debugln('UpdateNumBagUsedSlots took approx. %d ms (%d -> %d)', passedGameTime, _prevUsedSlots, nowUsedSlots)
+                _prevUsedSlots = nowUsedSlots
+            end
+        end)
 end
 
 
