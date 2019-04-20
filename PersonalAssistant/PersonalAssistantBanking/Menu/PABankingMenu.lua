@@ -626,15 +626,6 @@ end
 -- =================================================================================================================
 
 local function _createPABCraftingBlacksmithingSubmenuTable()
-    PABCraftingBlacksmithingSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getBlacksmithingTransactionSetting,
-        setFunc = PABMenuFunctions.setBlacksmithingTransactionSetting,
-        disabled = PABMenuFunctions.isBlacksmithingTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.blacksmithingEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.BLACKSMITHING) do
         PABCraftingBlacksmithingSubmenuTable:insert({
             type = "dropdown",
@@ -643,8 +634,8 @@ local function _createPABCraftingBlacksmithingSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isBlacksmithingTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -652,15 +643,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingClothingSubmenuTable()
-    PABCraftingClothingSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getClothingTransactionSetting,
-        setFunc = PABMenuFunctions.setClothingTransactionSetting,
-        disabled = PABMenuFunctions.isClothingTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.clothingEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.CLOTHING) do
         PABCraftingClothingSubmenuTable:insert({
             type = "dropdown",
@@ -669,8 +651,8 @@ local function _createPABCraftingClothingSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isClothingTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -678,15 +660,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingWoodworkingSubmenuTable()
-    PABCraftingWoodworkingSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getWoodworkingTransactionSetting,
-        setFunc = PABMenuFunctions.setWoodworkingTransactionSetting,
-        disabled = PABMenuFunctions.isWoodworkingTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.woodworkingEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.WOODWORKING) do
         PABCraftingWoodworkingSubmenuTable:insert({
             type = "dropdown",
@@ -695,8 +668,8 @@ local function _createPABCraftingWoodworkingSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isWoodworkingTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -704,15 +677,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingJewelcraftingSubmenuTable()
-    PABCraftingJewelcraftingSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getJewelcraftingTransactionSetting,
-        setFunc = PABMenuFunctions.setJewelcraftingTransactionSetting,
-        disabled = PABMenuFunctions.isJewelcraftingTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.jewelcraftingEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.JEWELCRAFTING) do
         PABCraftingJewelcraftingSubmenuTable:insert({
             type = "dropdown",
@@ -721,8 +685,8 @@ local function _createPABCraftingJewelcraftingSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isJewelcraftingTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -730,15 +694,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingAlchemySubmenuTable()
-    PABCraftingAlchemySubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getAlchemyTransactionSetting,
-        setFunc = PABMenuFunctions.setAlchemyTransactionSetting,
-        disabled = PABMenuFunctions.isAlchemyTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.alchemyEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.ALCHEMY) do
         PABCraftingAlchemySubmenuTable:insert({
             type = "dropdown",
@@ -747,8 +702,8 @@ local function _createPABCraftingAlchemySubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isAlchemyTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -756,15 +711,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingEnchantingSubmenuTable()
-    PABCraftingEnchantingSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getEnchantingTransactionSetting,
-        setFunc = PABMenuFunctions.setEnchantingTransactionSetting,
-        disabled = PABMenuFunctions.isEnchantingTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.enchantingEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.ENCHANTING) do
         PABCraftingEnchantingSubmenuTable:insert({
             type = "dropdown",
@@ -773,8 +719,8 @@ local function _createPABCraftingEnchantingSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isEnchantingTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -782,15 +728,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingProvisioningSubmenuTable()
-    PABCraftingProvisioningSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getProvisioningTransactionSetting,
-        setFunc = PABMenuFunctions.setProvisioningTransactionSetting,
-        disabled = PABMenuFunctions.isProvisioningTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.provisioningEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.PROVISIONING) do
         PABCraftingProvisioningSubmenuTable:insert({
             type = "dropdown",
@@ -799,8 +736,8 @@ local function _createPABCraftingProvisioningSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isProvisioningTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -808,15 +745,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingStyleMaterialsSubmenuTable()
-    PABCraftingStyleMaterialsSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getStyleMaterialsTransactionSetting,
-        setFunc = PABMenuFunctions.setStyleMaterialsTransactionSetting,
-        disabled = PABMenuFunctions.isStyleMaterialsTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.styleMaterialsEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.STYLEMATERIALS) do
         PABCraftingStyleMaterialsSubmenuTable:insert({
             type = "dropdown",
@@ -825,8 +753,8 @@ local function _createPABCraftingStyleMaterialsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isStyleMaterialsTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -834,15 +762,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingTraitItemsSubmenuTable()
-    PABCraftingTraitItemsSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getTraitItemsTransactionSetting,
-        setFunc = PABMenuFunctions.setTraitItemsTransactionSetting,
-        disabled = PABMenuFunctions.isTraitItemsTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.traitItemsEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.TRAITITEMS) do
         PABCraftingTraitItemsSubmenuTable:insert({
             type = "dropdown",
@@ -851,8 +770,8 @@ local function _createPABCraftingTraitItemsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isTraitItemsTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end
@@ -860,15 +779,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABCraftingFurnishingSubmenuTable()
-    PABCraftingFurnishingSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE),
-        getFunc = PABMenuFunctions.getFurnishingTransactionSetting,
-        setFunc = PABMenuFunctions.setFurnishingTransactionSetting,
-        disabled = PABMenuFunctions.isFurnishingTransactionDisabled,
-        default = PABMenuDefaults.Crafting.TransactionSettings.furnishingEnabled,
-    })
-
     for _, itemType in pairs(PAC.BANKING.FURNISHING) do
         PABCraftingFurnishingSubmenuTable:insert({
             type = "dropdown",
@@ -877,8 +787,8 @@ local function _createPABCraftingFurnishingSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getCraftingItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setCraftingItemTypeMoveSetting(itemType, value) end,
-            disabled = PABMenuFunctions.isFurnishingTransactionMenuDisabled,
-            default = PABMenuDefaults.Crafting.ItemTypes[itemType].moveMode,
+            disabled = function() return not PABMenuFunctions.getCraftingItemsEnabledSetting() end,
+            default = PABMenuDefaults.Crafting.ItemTypes[itemType],
         })
     end
 end

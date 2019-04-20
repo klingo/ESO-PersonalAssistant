@@ -65,18 +65,16 @@ local function depositOrWithdrawCraftingItems()
         local withdrawItemTypes = setmetatable({}, { __index = table })
 
         -- fill up the table
-        for itemType, moveConfig in pairs(PAB.SavedVars.Crafting.ItemTypes) do
-            if PAB.SavedVars.Crafting.TransactionSettings[moveConfig.enabledSetting] then
-                if moveConfig.moveMode == PAC.MOVE.DEPOSIT then
-                    if _passesLazyWritCraftingCompatibilityCheck(itemType) then
-                        depositItemTypes:insert(itemType)
-                    else
-                        _someItemskippedForLWC = true
-                        PAHF.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
-                    end
-                elseif moveConfig.moveMode == PAC.MOVE.WITHDRAW then
-                    withdrawItemTypes:insert(itemType)
+        for itemType, moveMode in pairs(PAB.SavedVars.Crafting.ItemTypes) do
+            if moveMode == PAC.MOVE.DEPOSIT then
+                if _passesLazyWritCraftingCompatibilityCheck(itemType) then
+                    depositItemTypes:insert(itemType)
+                else
+                    _someItemskippedForLWC = true
+                    PAHF.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
+            elseif moveMode == PAC.MOVE.WITHDRAW then
+                withdrawItemTypes:insert(itemType)
             end
         end
 

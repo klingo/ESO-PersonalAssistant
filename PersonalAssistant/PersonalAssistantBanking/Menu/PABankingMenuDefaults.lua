@@ -31,128 +31,40 @@ local PABankingMenuDefaults = {
         craftingItemsEnabled = true,
 
         ItemTypes = {
-            [ITEMTYPE_BLACKSMITHING_RAW_MATERIAL] = {
-                enabledSetting = "blacksmithingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_BLACKSMITHING_MATERIAL] = {
-                enabledSetting = "blacksmithingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_BLACKSMITHING_BOOSTER] = {
-                enabledSetting = "blacksmithingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_BLACKSMITHING_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_BLACKSMITHING_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_BLACKSMITHING_BOOSTER] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_CLOTHIER_RAW_MATERIAL] = {
-                enabledSetting = "clothingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_CLOTHIER_MATERIAL] = {
-                enabledSetting = "clothingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_CLOTHIER_BOOSTER] = {
-                enabledSetting = "clothingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_CLOTHIER_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_CLOTHIER_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_CLOTHIER_BOOSTER] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_WOODWORKING_RAW_MATERIAL] = {
-                enabledSetting = "woodworkingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_WOODWORKING_MATERIAL] = {
-                enabledSetting = "woodworkingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_WOODWORKING_BOOSTER] = {
-                enabledSetting = "woodworkingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_WOODWORKING_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_WOODWORKING_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_WOODWORKING_BOOSTER] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL] = {
-                enabledSetting = "jewelcraftingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_JEWELRYCRAFTING_MATERIAL] = {
-                enabledSetting = "jewelcraftingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_JEWELRYCRAFTING_BOOSTER] = {
-                enabledSetting = "jewelcraftingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_JEWELRYCRAFTING_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_JEWELRYCRAFTING_BOOSTER] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_REAGENT] = {
-                enabledSetting = "alchemyEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_POISON_BASE] = {
-                enabledSetting = "alchemyEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_POTION_BASE] = {
-                enabledSetting = "alchemyEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_REAGENT] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_POISON_BASE] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_POTION_BASE] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_ENCHANTING_RUNE_ASPECT] = {
-                enabledSetting = "enchantingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_ENCHANTING_RUNE_ESSENCE] = {
-                enabledSetting = "enchantingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_ENCHANTING_RUNE_POTENCY] = {
-                enabledSetting = "enchantingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_ENCHANTING_RUNE_ASPECT] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_ENCHANTING_RUNE_ESSENCE] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_ENCHANTING_RUNE_POTENCY] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_INGREDIENT] = {
-                enabledSetting = "provisioningEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_LURE] = {
-                enabledSetting = "provisioningEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_INGREDIENT] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_LURE] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_RAW_MATERIAL] = {
-                enabledSetting = "styleMaterialsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_STYLE_MATERIAL] = {
-                enabledSetting = "styleMaterialsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_RAW_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_STYLE_MATERIAL] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_ARMOR_TRAIT] = {
-                enabledSetting = "traitItemsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-            [ITEMTYPE_WEAPON_TRAIT] = {
-                enabledSetting = "traitItemsEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
+            [ITEMTYPE_ARMOR_TRAIT] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_WEAPON_TRAIT] = PAC.MOVE.IGNORE,
 
-            [ITEMTYPE_FURNISHING_MATERIAL] = {
-                enabledSetting = "furnishingEnabled",
-                moveMode = PAC.MOVE.IGNORE,
-            },
-        },
-
-        TransactionSettings = {
-            blacksmithingEnabled = true,
-            clothingEnabled = true,
-            woodworkingEnabled = true,
-            jewelcraftingEnabled = true,
-            alchemyEnabled = true,
-            enchantingEnabled = true,
-            provisioningEnabled = true,
-            styleMaterialsEnabled = true,
-            traitItemsEnabled = true,
-            furnishingEnabled = true,
+            [ITEMTYPE_FURNISHING_MATERIAL] = PAC.MOVE.IGNORE,
         },
     },
 
