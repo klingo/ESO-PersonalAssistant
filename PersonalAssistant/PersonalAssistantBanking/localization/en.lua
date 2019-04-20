@@ -21,17 +21,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Change all above Crafting Item dropdowns to",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
-    SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING), " Items"}),
-    SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING), " Items"}),
-    SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING), " Items"}),
-    SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING), " Items"}),
-    SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY), " Items"}),
-    SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING), " Items"}),
-    SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING), " Items"}),
-    SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS)}),
-    SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS)}),
-    SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE = table.concat({"Deposit/Withdraw ", GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING)}),
-
     SI_PA_MENU_BANKING_ADVANCED = "Special",
     SI_PA_MENU_BANKING_ADVANCED_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",

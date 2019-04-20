@@ -17,17 +17,6 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE, "Changer tous les menus des objets d'artisanat en :", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets d'artisanat précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux de ", GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux de ", GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux de ", GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux de ", GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux d'", GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux d'", GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux de ", GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE, table.concat({"Déposer/Retirer les ", GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS)}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE, table.concat({"Déposer/Retirer les matériaux d'", GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING)}), 1)
-
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spécial", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets spéciaux"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets spéciaux ?", 1)

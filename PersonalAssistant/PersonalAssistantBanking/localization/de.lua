@@ -17,17 +17,6 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE, "Ändere alle obigen Dropdown-Listen nach", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T, "Ändere alle obigen Handwerks Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_BLACKSMITHING), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_WOODWORKING), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_JEWELCRAFTING), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_ALCHEMY), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_PROVISIONING), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS), " Gegenstände einlagern/entnehmen"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING_ITEMS_ENABLE, table.concat({GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING), " Gegenstände einlagern/entnehmen"}), 1)
-
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED, "Spezielle", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Spezielle Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Speziellen Gegenständen", 1)

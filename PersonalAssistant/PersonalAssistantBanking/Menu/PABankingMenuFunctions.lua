@@ -124,21 +124,36 @@ end
 ---------------------------------
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    return PAB.SavedVars.Crafting.ItemTypes[itemType].moveMode
+    return PAB.SavedVars.Crafting.ItemTypes[itemType]
 end
 
 local function setPABankingCraftingItemTypeMoveSetting(itemType, value)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    PAB.SavedVars.Crafting.ItemTypes[itemType].moveMode = value
+    PAB.SavedVars.Crafting.ItemTypes[itemType] = value
 end
 
 local function setPABankingCraftingItemTypeMoveAllSettings(value)
     if isDisabledPAGeneralNoProfileSelected() then return end
     for itemType, _ in pairs(PAB.SavedVars.Crafting.ItemTypes) do
-        PAB.SavedVars.Crafting.ItemTypes[itemType].moveMode = value
+        PAB.SavedVars.Crafting.ItemTypes[itemType] = value
     end
     PERSONALASSISTANT_PAB_CRAFTING_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
+end
+
+--------------------------------------------------------------------------
+-- PABanking   Crafting.ItemTypes         moveMode
+---------------------------------
+local function isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(...)
+    if isDisabled({"Crafting", "craftingItemsEnabled"}) then return true end
+
+    -- if savedVarsArgs is not disabled, check the itemTypes
+    local args = { ... }
+    for _, itemType in ipairs(args) do
+        if PAB.SavedVars.Crafting.ItemTypes[itemType] ~= PAC.MOVE.IGNORE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
 end
 
 --------------------------------------------------------------------------
@@ -363,55 +378,16 @@ local PABankingMenuFunctions = {
     getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
     setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 
-    isBlacksmithingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
-    isBlacksmithingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getBlacksmithingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
-    setBlacksmithingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "blacksmithingEnabled"}) end,
-
-    isClothingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
-    isClothingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getClothingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "clothingEnabled"}) end,
-    setClothingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "clothingEnabled"}) end,
-
-    isWoodworkingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
-    isWoodworkingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getWoodworkingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
-    setWoodworkingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "woodworkingEnabled"}) end,
-
-    isJewelcraftingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
-    isJewelcraftingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getJewelcraftingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
-    setJewelcraftingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "jewelcraftingEnabled"}) end,
-
-    isAlchemyTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
-    isAlchemyTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getAlchemyTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
-    setAlchemyTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "alchemyEnabled"}) end,
-
-    isEnchantingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
-    isEnchantingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getEnchantingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
-    setEnchantingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "enchantingEnabled"}) end,
-
-    isProvisioningTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
-    isProvisioningTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getProvisioningTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
-    setProvisioningTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "provisioningEnabled"}) end,
-
-    isStyleMaterialsTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
-    isStyleMaterialsTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getStyleMaterialsTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
-    setStyleMaterialsTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "styleMaterialsEnabled"}) end,
-
-    isTraitItemsTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
-    isTraitItemsTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getTraitItemsTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
-    setTraitItemsTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "traitItemsEnabled"}) end,
-
-    isFurnishingTransactionMenuDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
-    isFurnishingTransactionDisabled = function() return isDisabled({"Crafting", "craftingItemsEnabled"}) end,
-    getFurnishingTransactionSetting = function() return getValue({"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
-    setFurnishingTransactionSetting = function(value) setValue(value, {"Crafting", "TransactionSettings", "furnishingEnabled"}) end,
+    isBlacksmithingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL, ITEMTYPE_BLACKSMITHING_MATERIAL, ITEMTYPE_BLACKSMITHING_BOOSTER) end,
+    isClothingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_CLOTHIER_RAW_MATERIAL, ITEMTYPE_CLOTHIER_MATERIAL, ITEMTYPE_CLOTHIER_BOOSTER) end,
+    isWoodworkingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_WOODWORKING_RAW_MATERIAL, ITEMTYPE_WOODWORKING_MATERIAL, ITEMTYPE_WOODWORKING_BOOSTER) end,
+    isJewelcraftingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL, ITEMTYPE_JEWELRYCRAFTING_MATERIAL, ITEMTYPE_JEWELRYCRAFTING_BOOSTER) end,
+    isAlchemyTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_REAGENT, ITEMTYPE_POISON_BASE, ITEMTYPE_POTION_BASE) end,
+    isEnchantingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_ENCHANTING_RUNE_ASPECT, ITEMTYPE_ENCHANTING_RUNE_ESSENCE, ITEMTYPE_ENCHANTING_RUNE_POTENCY) end,
+    isProvisioningTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_INGREDIENT, ITEMTYPE_LURE) end,
+    isStyleMaterialsTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_RAW_MATERIAL, ITEMTYPE_STYLE_MATERIAL) end,
+    isTraitItemsTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_ARMOR_TRAIT, ITEMTYPE_WEAPON_TRAIT) end,
+    isFurnishingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_FURNISHING_MATERIAL) end,
 
     -- ----------------------------------------------------------------------------------
     -- ADVANCED ITEMS
