@@ -1,0 +1,153 @@
+2.0.2   (April 18, 2019)
+- add support for LibAddonMenu-2.0r27
+- add "Fish" to the "Foods & Drinks" section ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/26"]#26[/URL])
+- add "Runebox Fragments" to > Special Items > Trophies ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/50"]#50[/URL])
+- add compatibility mode with LazyWritCrafter Addon ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/31"]#31[/URL])
+- add option to repair items in backpack for gold ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/34"]#34[/URL])
+- updated PARepair to first use Crown Soul Gems and then regular Soul Gems ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/33"]#33[/URL])
+- fixed item transaction issue when accessing house bank (reported by Oliviander | [URL="https://github.com/klingo/ESO-PersonalAssistant/issues/44"]#44[/URL])
+- fixed LUA issue when selling junk at a merchant with PARepair disabled (reported by PhnxZ | [URL="https://github.com/klingo/ESO-PersonalAssistant/issues/47"]#47[/URL])
+
+2.0.1   (April 13, 2019)
+- fixed an issue when selecting a profile for the first time
+- fixed an issue with PAJunk not marking Treasure items as junk
+
+2.0.0   (April 11, 2019)
+- the completely re-designed and re-factored PersonalAssistant 2.0.0 is available now!
+
+1.8.3   (February 25, 2019)
+- updated to APIVersion 100026
+
+1.8.2   (January 20, 2019)
+- updated to APIVersion 100025
+- updated PALoot and PABanking with Jewelry Crafting items
+
+1.8.1   (May 28, 2017)
+- add support for the ESO Plus Subscriber Bank
+- add "Fish" to the list of auto-lootable items
+- fixed an issue where stolen items were attempted to be deposited to the bank
+
+1.8.0   (May 22, 2017)
+- updated to APIVersion 100019 (3.0 : Morrowind)
+- updated PALoot with new ItemType (Furnishing Material)
+
+1.7.0   (February 10, 2017)
+- introduces PALoot: automatically loots gold and harvestable items (customizable)
+- introduces PAJunk: sells all junk to merchants and automatically marks trash items as such
+
+1.6.1   (February 06, 2017)
+- updated to APIVersion 100018
+
+1.6.0   (February 05, 2017)
+- updated to APIVersion 100017
+- updated LibStub from 1.0 r2 to 1.0 r4
+- updated LibAddonMenu from 2.0 r16 to 2.0 r23
+- fixed issue with goldTransactionStep
+- update ItemTypes (remove no longer existing and add new ones)
+
+1.5.6   (November 09, 2014)
+- updated to APIVersion 100010
+- updated LibAddonMenu from 2.0 r14 to 2.0 r16
+
+1.5.5   (September 15, 2014)
+- updated to APIVersion 100009
+- implemented a third stacking option (fill existing stacks)
+- increased amount of profiles from 3 to 5
+- removed "/pa" command (wasn't working anyway)
+
+1.5.4   (August 20, 2014)
+- added an option to enable "stacking only" for deposits and withdrawals
+
+1.5.3   (August 12, 2014)
+- added possibility for keybinding the different profiles
+- introduced first advanced itemtype: lockpicks
+
+1.5.2   (August 05, 2014)
+- updated to APIVersion 100008
+- replaced API function that has been removed with latest patch
+
+1.5.1b   (July 05, 2014)
+- fixed another issue that caused problems when installing the addon for the first time
+
+1.5.1a   (July 05, 2014)
+- fixed a small bug when withdrawing gold
+- removed some old LAM-1 code that could cause problems
+
+1.5.1   (July 05, 2014)
+- removed old settings menu based on LAM-1
+- added three new item types: GLYPH_ARMOR, GLYPH_JEWELRY & GLYPH_WEAPON
+- added support for up to three (settings) profiles per character
+- automatic "migration" of old settings into the default Profile 1
+
+1.5.0   (June 26, 2014)
+- updated to APIVersion 100007
+- fixed an issue with the SavedVars initialisation (not related to SavedVars "bug" with ESO v1.2.3)
+- completely redesigned the settings screen based on LAM2 (parallel mode supported at the moment)
+- added disclosure text based on ZO's new AddOn Terms of Use
+- added three new item types: ENCHANTING_RUNE_ASPECT, ENCHANTING_RUNE_ESSENCE & ENCHANTING_RUNE_POTENCY
+
+1.4.3   (June 11, 2014)
+- fixed an issue with the "PA BAnking Hide ALL messages" setting (reported by seaniv)
+- fixed a maxStackSize issue that could happen with items that only stack to 20 (reported by Sinful Soul)
+- added four new item types: DRINK, FOOD, POTION & RECIPE
+- added a new option to explcitely define what shall happen with items marked as junk
+- moved the interval slider from the submenu into the main menu
+
+1.4.2   (June 02, 2014)
+- added french localization (thanks to esoui-user [URL="http://www.esoui.com/forums/member.php?u=10379"]NTak[/URL])
+- moved the slider added in 1.4.1 to the bottom of the itemdeposit submenu
+- sucess/failure messages of item deposits will now only be displayed after the item move has been verified
+- if there are failed deposits, the addon will try to re-deposit them
+
+1.4.1   (May 30, 2014)
+- updated LibAddonMenu from 1.0 r7 to 1.0 r8
+- added option to disable welcome message when the addon loads
+- added slider in the itemdeposit submenu to manually change the interval for new deposits
+
+1.4.0a   (May 24, 2014)
+- updated to APIVersion 100004
+- removed all hireling related code, as the hireling chests were removed with patch v1.1.2
+
+1.4.0   (May 17, 2014)
+- replaced all hardcoded texts with localized keys
+- added german localization (threre some minor grammar issues due to dynamic string building)
+- PABanking.Items added an option to automatically open hireling chests before item deposit
+- PABanking.Items added a button to set all itemTypes to ignored
+- PABanking.Items increased deposit-timer, unsuccesful item deposit doesn't happen anymore since then
+
+1.3.0   (May 14, 2014)
+- Fixed issue in PARepair (wrongly calculated amount of items to repair)
+- Replaced PADeposit with PABanking (new SavedVariables)
+- PABanking.Gold will now withdraw goild if it is below the defined minimum
+- PABanking.Items can set each item type to "-", "deposit" or "withdraw"
+- Completeley removed PAWithdraw
+
+1.2.2   (May 12, 2014)
+- Added option to not deposit items marked as junk
+- Fixed ItemLink in case of failed deposit
+- Delays the creation of the menu by 1 second to (try to) avoid too many anchors processed at startup
+
+1.2.1a   (May 11, 2014)
+- Resolved another issue with the languages
+- Fixed "Nothing to deposit" message
+
+1.2.1   (May 10, 2014)
+- Resolved Bug #638 (lua error when language != en)
+
+1.2.0   (May 7, 2014)
+- Added ItemDeposit based on (the most common) ItemTypes
+- Slightly restructured GoldDeposit
+- Added a first localization file
+- New versions for SavedVariables (sorry for that, had to re-design some parts)
+
+1.1.1   (May 3, 2014)
+- Fixed "Deposit Gold" checkbox issue
+- Fixed a missing "Nothing to repair" message
+
+1.1.0   (May 1, 2014)
+- Updated the settings menu (new SavedVariables!)
+- A durability threshold is also available for inventory items
+- More detailed chat output
+
+1.0.0   (Apr 27, 2014)
+- Initial release
