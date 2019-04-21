@@ -129,7 +129,8 @@ local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
             local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
             if not canBeResearched or (canBeResearched and PAJunkSavedVarsGroup.autoMarkUnknownTraits) then
                 local itemTraitType = GetItemLinkTraitType(itemLink)
-                if PAJunkSavedVarsGroup.autoMarkIntricateTrait or not _isIntricateTraitType(itemTraitType) then
+                local isIntricateTtrait = _isIntricateTraitType(itemTraitType)
+                if not isIntricateTtrait or (isIntricateTtrait and PAJunkSavedVarsGroup.autoMarkIntricateTrait) then
                     return true
                 end
             end
