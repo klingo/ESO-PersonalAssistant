@@ -101,6 +101,13 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     end
 end
 
+local function _isIntricateTraitType(itemTraitType)
+    if itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE then return true end
+    if itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE then return true end
+    if itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then return true end
+    return false
+end
+
 local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
     local savedVarsGroup
     if itemType == ITEMTYPE_WEAPON then
@@ -116,11 +123,15 @@ local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
 
     if savedVarsGroup ~= nil then
         local PAJunkSavedVars = PAJ.SavedVars
+        local PAJunkSavedVarsGroup = PAJunkSavedVars[savedVarsGroup]
         local hasSet = GetItemLinkSetInfo(itemLink, false)
-        local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
-        if not hasSet or (hasSet and PAJunkSavedVars[savedVarsGroup].autoMarkIncludingSets) then
-            if not canBeResearched or (canBeResearched and PAJunkSavedVars[savedVarsGroup].autoMarkUnknownTraits) then
-                return true
+        if not hasSet or (hasSet and PAJunkSavedVarsGroup.autoMarkIncludingSets) then
+            local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+            if not canBeResearched or (canBeResearched and PAJunkSavedVarsGroup.autoMarkUnknownTraits) then
+                local itemTraitType = GetItemLinkTraitType(itemLink)
+                if PAJunkSavedVarsGroup.autoMarkIntricateTrait or not _isIntricateTraitType(itemTraitType) then
+                    return true
+                end
             end
         end
     end

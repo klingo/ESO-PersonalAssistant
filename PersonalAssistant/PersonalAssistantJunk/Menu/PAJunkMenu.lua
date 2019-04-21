@@ -214,6 +214,16 @@ local function _createPAJWeaponsSubMenu()
 
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
+        getFunc = PAJMenuFunctions.getWeaponsIncludeIntricateTraitSetting,
+        setFunc = PAJMenuFunctions.setWeaponsIncludeIntricateTraitSetting,
+        disabled = PAJMenuFunctions.isWeaponsIncludeIntricateTraitDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkIntricateTrait,
+    })
+
+    PAJWeaponsSubMenu:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         getFunc = PAJMenuFunctions.getWeaponsIncludeUnknownTraitsSetting,
@@ -267,6 +277,16 @@ local function _createPAJArmorSubMenu()
 
     PAJArmorSubMenu:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
+        getFunc = PAJMenuFunctions.getArmorIncludeIntricateTraitSetting,
+        setFunc = PAJMenuFunctions.setArmorIncludeIntricateTraitSetting,
+        disabled = PAJMenuFunctions.isArmorIncludeIntricateTraitDisabled,
+        default = PAJMenuDefaults.Armor.autoMarkIntricateTrait,
+    })
+
+    PAJArmorSubMenu:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         getFunc = PAJMenuFunctions.getArmorIncludeUnknownTraitsSetting,
@@ -316,6 +336,16 @@ local function _createPAJJewelrySubMenu()
         setFunc = PAJMenuFunctions.setJewelryIncludeSetItemsSetting,
         disabled = PAJMenuFunctions.isJewelryIncludeSetItemsDisabled,
         default = PAJMenuDefaults.Jewelry.autoMarkIncludingSets,
+    })
+
+    PAJJewelrySubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
+        getFunc = PAJMenuFunctions.getJewelryIncludeIntricateTraitSetting,
+        setFunc = PAJMenuFunctions.setJewelryIncludeIntricateTraitSetting,
+        disabled = PAJMenuFunctions.isJewelryIncludeIntricateTraitDisabled,
+        default = PAJMenuDefaults.Jewelry.autoMarkIntricateTrait,
     })
 
     PAJJewelrySubMenu:insert({
