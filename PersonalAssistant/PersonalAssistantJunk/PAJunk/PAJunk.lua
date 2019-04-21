@@ -62,6 +62,13 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         end)
 end
 
+local function _isIntricateTraitType(itemLink)
+    local itemTraitType = GetItemLinkTraitType(itemLink)
+    if itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE then return true end
+    if itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE then return true end
+    if itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then return true end
+    return false
+end
 
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
     -- Check if ESO allows the item to be marked as junk
@@ -87,25 +94,19 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
 
         -- and check if it is stolen
         local itemStolen = IsItemLinkStolen(itemLink)
+        local intricateTrait = _isIntricateTraitType(itemLink)
+
+        -- prepare additional icons if needed
+        local itemLinkExt = itemLink
+        if intricateTrait then itemLinkExt = table.concat({itemLinkExt, " ", PAC.ICONS.ITEMS.TRAITS.INTRICATE.SMALL}) end
+        if itemStolen then itemLinkExt = table.concat({itemLinkExt, " ", PAC.ICONS.ITEMS.STOLEN.SMALL}) end
 
         -- print provided success message
-        if itemStolen then
-            local params = table.concat({itemLink, " ", PAC.ICONS.ITEMS.STOLEN.SMALL})
-            PAJ.println(successMessageKey, params)
-        else
-            PAJ.println(successMessageKey, itemLink)
-        end
+        PAJ.println(successMessageKey, itemLinkExt)
     else
         -- print failure message
         -- TODO: to be implemented
     end
-end
-
-local function _isIntricateTraitType(itemTraitType)
-    if itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE then return true end
-    if itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE then return true end
-    if itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then return true end
-    return false
 end
 
 local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
@@ -128,8 +129,7 @@ local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
         if not hasSet or (hasSet and PAJunkSavedVarsGroup.autoMarkIncludingSets) then
             local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
             if not canBeResearched or (canBeResearched and PAJunkSavedVarsGroup.autoMarkUnknownTraits) then
-                local itemTraitType = GetItemLinkTraitType(itemLink)
-                local isIntricateTtrait = _isIntricateTraitType(itemTraitType)
+                local isIntricateTtrait = _isIntricateTraitType(itemLink)
                 if not isIntricateTtrait or (isIntricateTtrait and PAJunkSavedVarsGroup.autoMarkIntricateTrait) then
                     return true
                 end

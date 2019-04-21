@@ -155,6 +155,12 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/inventory/inventory_stolenitem_icon.dds",
                 SMALL = "|t16:16:/esoui/art/inventory/inventory_stolenitem_icon.dds|t",
             },
+            TRAITS = {
+                INTRICATE = {
+                    PATH = "/esoui/art/inventory/inventory_trait_intricate_icon.dds",
+                    SMALL = "|t16:16:/esoui/art/inventory/inventory_trait_intricate_icon.dds|t",
+                },
+            },
             TROPHY = {
                 PATH = "/esoui/art/icons/quest_daedricembers.dds",
             },
