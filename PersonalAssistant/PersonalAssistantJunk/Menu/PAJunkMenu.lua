@@ -207,7 +207,7 @@ local function _createPAJWeaponsSubMenu()
 
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
         getFunc = PAJMenuFunctions.getWeaponsIncludeSetItemsSetting,
         setFunc = PAJMenuFunctions.setWeaponsIncludeSetItemsSetting,
@@ -227,7 +227,7 @@ local function _createPAJWeaponsSubMenu()
 
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         getFunc = PAJMenuFunctions.getWeaponsIncludeUnknownTraitsSetting,
         setFunc = PAJMenuFunctions.setWeaponsIncludeUnknownTraitsSetting,
@@ -270,7 +270,7 @@ local function _createPAJArmorSubMenu()
 
     PAJArmorSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
         getFunc = PAJMenuFunctions.getArmorIncludeSetItemsSetting,
         setFunc = PAJMenuFunctions.setArmorIncludeSetItemsSetting,
@@ -290,7 +290,7 @@ local function _createPAJArmorSubMenu()
 
     PAJArmorSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         getFunc = PAJMenuFunctions.getArmorIncludeUnknownTraitsSetting,
         setFunc = PAJMenuFunctions.setArmorIncludeUnknownTraitsSetting,
@@ -333,7 +333,7 @@ local function _createPAJJewelrySubMenu()
 
     PAJJewelrySubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
         getFunc = PAJMenuFunctions.getJewelryIncludeSetItemsSetting,
         setFunc = PAJMenuFunctions.setJewelryIncludeSetItemsSetting,
@@ -353,7 +353,7 @@ local function _createPAJJewelrySubMenu()
 
     PAJJewelrySubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         getFunc = PAJMenuFunctions.getJewelryIncludeUnknownTraitsSetting,
         setFunc = PAJMenuFunctions.setJewelryIncludeUnknownTraitsSetting,

@@ -23,11 +23,11 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, "Markiere %s mit Quali
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, "Automatisch %s als Trödel markieren wenn deren Qualität genau auf oder unter der ausgewählten Qualität liegt", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE, table.concat({"Markiere %s mit Eigenschaft [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T, table.concat({"Automatisch %s mit der Eigenschaft [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] (erhöhter Verkaufspreis) als Trödel markieren?"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, "Markiere auch Set-Gegenstände", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, "Markiere auch %s von einem Set", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, "Wenn AUSgeschaltet, dann werden nur %s die NICHT zu einem Set gehören als Trödel markiert", 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, table.concat({"Markiere %s mit der Eigenschaft [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"]"}),1 )
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, table.concat({"Markiere auch %s mit Eigenschaft [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"]"}),1 )
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, table.concat({"Wenn AUSgeschaltet, dann werden %s mit der Eigenschaft [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"] NICHT als Trödel markiert (unabhängig von der Qualität)"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, "Markiere unbekannte Eigenschaften", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, "Markiere %s mit unbekannten Eigenschaften", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Wenn AUSgeschaltet, dann werden nur %s ohne Eigenschaften oder mit bereits analysierten Eigenschaften als Trödel markiert", 1)
 
 
