@@ -214,7 +214,7 @@ local function _createPAJWeaponsSubMenu()
 
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
         getFunc = PAJMenuFunctions.getWeaponsIncludeIntricateTraitSetting,
         setFunc = PAJMenuFunctions.setWeaponsIncludeIntricateTraitSetting,
@@ -277,7 +277,7 @@ local function _createPAJArmorSubMenu()
 
     PAJArmorSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
         getFunc = PAJMenuFunctions.getArmorIncludeIntricateTraitSetting,
         setFunc = PAJMenuFunctions.setArmorIncludeIntricateTraitSetting,
@@ -340,7 +340,7 @@ local function _createPAJJewelrySubMenu()
 
     PAJJewelrySubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
         getFunc = PAJMenuFunctions.getJewelryIncludeIntricateTraitSetting,
         setFunc = PAJMenuFunctions.setJewelryIncludeIntricateTraitSetting,
