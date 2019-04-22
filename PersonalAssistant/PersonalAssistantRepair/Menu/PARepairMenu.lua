@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PACAddon = PAC.ADDON
 local PARMenuFunctions = PA.MenuFunctions.PARepair
 local PARMenuDefaults = PA.MenuDefaults.PARepair
 
@@ -8,11 +9,13 @@ local LAM2 = LibStub("LibAddonMenu-2.0")
 
 local PARepairPanelData = {
     type = "panel",
-    name = "PersonalAssistant Repair",
-    displayName = GetString(SI_PA_MENU_TITLE),
-    author = "Klingo",
-    version = PAC.ADDON_VERSION,
-    website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+    name = PACAddon.NAME_RAW.REPAIR,
+    displayName = PACAddon.NAME_DISPLAY,
+    author = PACAddon.AUTHOR,
+    version = PACAddon.VERSION_DISPLAY,
+    website = PACAddon.WEBSITE,
+    feedback = PACAddon.FEEDBACK,
+    keywords = PACAddon.KEYWORDS,
     slashCommand = "/par",
     registerForRefresh = true,
     registerForDefaults = true,

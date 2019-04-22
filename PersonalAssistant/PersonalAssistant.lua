@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 local PAHelperFunctions = PA.HelperFunctions
@@ -35,6 +36,10 @@ local function initDefaults()
         PA.General_Defaults[profileNo].name = PAHelperFunctions.getDefaultProfileName(profileNo)
         PA.General_Defaults[profileNo].welcome = true
     end
+
+    PA.Profile_Defaults = {
+        activeProfile = nil,
+    }
 end
 
 
@@ -52,8 +57,8 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
-    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, nil, PA.General_Defaults)
-    PASavedVars.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = nil })
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.GENERAL, nil, PA.General_Defaults)
+    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.ACTIVE_PROFILE, nil, PA.Profile_Defaults)
 
     -- initialize language
     PASavedVars.Profile.language = GetCVar("language.2") or "en"

@@ -7,7 +7,30 @@ PersonalAssistant.MenuHelper = {}
 -- ---------------------------------------------------------------------------------------------------------------------
 
 PersonalAssistant.Constants = {
-    ADDON_VERSION = "2.0.2",
+    ADDON = {
+        NAME_RAW = {
+            GENERAL = "PersonalAssistant",
+            BANKING = "PersonalAssistant Banking",
+            JUNK = "PersonalAssistant Junk",
+            LOOT = "PersonalAssistant Loot",
+            REPAIR = "PersonalAssistant Repair",
+        },
+        NAME_DISPLAY = table.concat({"|cFFD700", "P", "|cFFFFFF", "ersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant", "|r"}),
+        AUTHOR = "Klingo",
+        VERSION_DISPLAY = "2.0.2",
+        VERSION_RAW = "020002",
+        WEBSITE = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+        FEEDBACK = "https://github.com/klingo/ESO-PersonalAssistant/issues/new",
+        KEYWORDS = "banking, junk, loot, repair",
+        SAVED_VARS_VERSION = { -- changing these values cause all settings to be reset!
+            GENERAL = 1,
+            ACTIVE_PROFILE = 1,
+            BANKING = 3,
+            JUNK = 2,
+            LOOT = 1,
+            REPAIR = 1,
+        },
+    },
 
     GENERAL = {
         MAX_PROFILES = 5,

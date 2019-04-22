@@ -42,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", 1, nil, Loot_Defaults)
+    PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.LOOT, nil, Loot_Defaults)
 
     -- create the options with LAM-2
     PA.Loot.createOptions()
