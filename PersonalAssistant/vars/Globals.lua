@@ -21,7 +21,13 @@ PersonalAssistant.Constants = {
         VERSION_RAW = "020002",
         WEBSITE = "http://www.esoui.com/downloads/info381-PersonalAssistant",
         FEEDBACK = "https://github.com/klingo/ESO-PersonalAssistant/issues/new",
-        KEYWORDS = "banking, junk, loot, repair",
+        KEYWORDS = {
+            GENERAL = "general, profile, house",
+            BANKING = "banking, deposit, withdraw, currency, currencies, bank",
+            JUNK = "junk, mark, fence, sell",
+            LOOT = "loot, unknown, recipe, motif, trait",
+            REPAIR = "repair, repairkit, recharge, soulgem",
+        },
         SAVED_VARS_VERSION = { -- changing these values cause all settings to be reset!
             GENERAL = 1,
             ACTIVE_PROFILE = 1,
