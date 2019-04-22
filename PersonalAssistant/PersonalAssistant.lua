@@ -60,8 +60,6 @@ local function initAddon(_, addOnName)
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.GENERAL, nil, PA.General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.ACTIVE_PROFILE, nil, PA.Profile_Defaults)
 
-    -- initialize language
-    PASavedVars.Profile.language = GetCVar("language.2") or "en"
 
     -- create the options with LAM-2
     local PAMainMenu = PA.MainMenu
@@ -92,9 +90,9 @@ local function introduction()
         local PAGSavedVars = PA.General.SavedVars
         if showWelcomeMessage and PAGSavedVars.welcome then
             showWelcomeMessage = false
-            local PASavedVars = PA.SavedVars
-            if PASavedVars.Profile.language ~= "en" and PASavedVars.Profile.language ~= "de" and PASavedVars.Profile.language ~= "fr" then
-                PAHF.println(SI_PA_WELCOME_NO_SUPPORT, GetCVar("language.2"))
+            local currLanguage = GetCVar("language.2") or "en"
+            if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr" then
+                PAHF.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
                 PAHF.println(SI_PA_WELCOME_SUPPORT)
             end
