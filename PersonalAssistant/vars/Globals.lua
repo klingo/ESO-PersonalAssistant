@@ -17,8 +17,8 @@ PersonalAssistant.Constants = {
         },
         NAME_DISPLAY = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
         AUTHOR = "Klingo",
-        VERSION_DISPLAY = "2.0.2",
         VERSION_RAW = "020002",
+        VERSION_DISPLAY = "2.0.2",
         WEBSITE = "http://www.esoui.com/downloads/info381-PersonalAssistant",
         FEEDBACK = "https://www.esoui.com/downloads/info381-PersonalAssistant.html#comments",
         KEYWORDS = {
