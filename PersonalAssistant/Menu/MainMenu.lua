@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAMenuHelper = PA.MenuHelper
 local PAMenuFunctions = PA.MenuFunctions
@@ -10,11 +11,13 @@ local LAM2 = LibStub("LibAddonMenu-2.0")
 
 local PAGeneralPanelData = {
     type = "panel",
-    name = "PersonalAssistant",
-    displayName = GetString(SI_PA_MENU_TITLE),
-    author = "Klingo",
-    version = PAC.ADDON_VERSION,
-    website = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+    name = PACAddon.NAME_RAW.GENERAL,
+    displayName = PACAddon.NAME_DISPLAY,
+    author = PACAddon.AUTHOR,
+    version = PACAddon.VERSION_DISPLAY,
+    website = PACAddon.WEBSITE,
+    feedback = PACAddon.FEEDBACK,
+    keywords = PACAddon.KEYWORDS.GENERAL,
     slashCommand = "/pa",
     registerForRefresh = true,
     registerForDefaults = true,
@@ -83,30 +86,32 @@ local function createPAGeneralMenu()
         })
     end
 
---    PAGeneralOptionsTable:insert({
---        type = "button",
---        name = "English",
---        func = function() SetCVar("language.2", "en") end,
---        isDangerous = true,
---        warning = "The Game language will be changed to English!",
---    })
---
---    PAGeneralOptionsTable:insert({
---        type = "button",
---        name = "German",
---        func = function() SetCVar("language.2", "de") end,
---        isDangerous = true,
---        warning = "The Game language will be changed to German!",
---    })
---
---    PAGeneralOptionsTable:insert({
---        type = "button",
---        name = "French",
---        func = function() SetCVar("language.2", "fr") end,
---        isDangerous = true,
---        warning = "The Game language will be changed to French!",
---    })
+    -- register additional buttons to switch between languages (only for Addon author)
+    if GetUnitName("player") == PACAddon.AUTHOR then
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = "English",
+            func = function() SetCVar("language.2", "en") end,
+            isDangerous = true,
+            warning = "The Game language will be changed to English!",
+        })
 
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = "German",
+            func = function() SetCVar("language.2", "de") end,
+            isDangerous = true,
+            warning = "The Game language will be changed to German!",
+        })
+
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = "French",
+            func = function() SetCVar("language.2", "fr") end,
+            isDangerous = true,
+            warning = "The Game language will be changed to French!",
+        })
+    end
 end
 
 -- =================================================================================================================
