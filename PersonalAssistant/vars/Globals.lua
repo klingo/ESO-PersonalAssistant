@@ -282,10 +282,10 @@ PersonalAssistant.Constants = {
                 SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101
                 SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
                 SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
+                -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
                 SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
                 SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
-                -- TODO:  check:
-                -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107
+                SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
             },
         }
     },
