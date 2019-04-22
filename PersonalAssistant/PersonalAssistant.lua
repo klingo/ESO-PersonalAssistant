@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 local PAHelperFunctions = PA.HelperFunctions
@@ -27,7 +28,7 @@ local function initDefaults()
     PA.General_Defaults = {}
     -- -----------------------------------------------------
     -- default values for Addon
-    PA.General_Defaults.savedVarsVersion = "20002"
+    PA.General_Defaults.savedVarsVersion = PACAddon.VERSION_RAW
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- -----------------------------------------------------
         -- default values for PAGeneral
@@ -35,6 +36,10 @@ local function initDefaults()
         PA.General_Defaults[profileNo].name = PAHelperFunctions.getDefaultProfileName(profileNo)
         PA.General_Defaults[profileNo].welcome = true
     end
+
+    PA.Profile_Defaults = {
+        activeProfile = nil,
+    }
 end
 
 
@@ -52,11 +57,9 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
-    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", 1, nil, PA.General_Defaults)
-    PASavedVars.Profile = ZO_SavedVars:New("PersonalAssistant_SavedVariables" , 1 , nil, { activeProfile = nil })
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.GENERAL, nil, PA.General_Defaults)
+    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.ACTIVE_PROFILE, nil, PA.Profile_Defaults)
 
-    -- initialize language
-    PASavedVars.Profile.language = GetCVar("language.2") or "en"
 
     -- create the options with LAM-2
     local PAMainMenu = PA.MainMenu
@@ -65,10 +68,12 @@ local function initAddon(_, addOnName)
     -- get the active Profile
     PA.activeProfile = PASavedVars.Profile.activeProfile
 
-    -- register slash-commands
-    SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
-    SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
-    SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+    -- register additional slash-commands (only for Addon author)
+    if GetUnitName("player") == PACAddon.AUTHOR then
+        SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
+        SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
+        SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+    end
 end
 
 
@@ -87,9 +92,9 @@ local function introduction()
         local PAGSavedVars = PA.General.SavedVars
         if showWelcomeMessage and PAGSavedVars.welcome then
             showWelcomeMessage = false
-            local PASavedVars = PA.SavedVars
-            if PASavedVars.Profile.language ~= "en" and PASavedVars.Profile.language ~= "de" and PASavedVars.Profile.language ~= "fr" then
-                PAHF.println(SI_PA_WELCOME_NO_SUPPORT, GetCVar("language.2"))
+            local currLanguage = GetCVar("language.2") or "en"
+            if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr" then
+                PAHF.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
                 PAHF.println(SI_PA_WELCOME_SUPPORT)
             end

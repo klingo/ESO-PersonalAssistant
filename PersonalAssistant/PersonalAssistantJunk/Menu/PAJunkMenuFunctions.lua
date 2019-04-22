@@ -33,7 +33,7 @@ end
 ---------------------------------
 local function isPAJunkWeaponsMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Weapons", "autoMarkOrnate"}, {"Weapons", "autoMarkIncludingSets"}, {"Weapons", "autoMarkUnknownTraits"}) then
+    if isDisabledAll({"Weapons", "autoMarkOrnate"}, {"Weapons", "autoMarkIncludingSets"}, {"Weapons", "autoMarkIntricateTrait"}, {"Weapons", "autoMarkUnknownTraits"}) then
         if tonumber(getValue({"Weapons", "autoMarkQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
     end
     -- if no 'true' returned so far, return false now
@@ -45,7 +45,7 @@ end
 ---------------------------------
 local function isPAJunkArmorMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Armor", "autoMarkOrnate"}, {"Armor", "autoMarkIncludingSets"}, {"Armor", "autoMarkUnknownTraits"}) then
+    if isDisabledAll({"Armor", "autoMarkOrnate"}, {"Armor", "autoMarkIncludingSets"}, {"Armor", "autoMarkIntricateTrait"}, {"Armor", "autoMarkUnknownTraits"}) then
         if tonumber(getValue({"Armor", "autoMarkQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
     end
     -- if no 'true' returned so far, return false now
@@ -57,7 +57,7 @@ end
 ---------------------------------
 local function isPAJunkJewelryMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Jewelry", "autoMarkOrnate"}, {"Jewelry", "autoMarkIncludingSets"}, {"Jewelry", "autoMarkUnknownTraits"}) then
+    if isDisabledAll({"Jewelry", "autoMarkOrnate"}, {"Jewelry", "autoMarkIncludingSets"}, {"Jewelry", "autoMarkIntricateTrait"}, {"Jewelry", "autoMarkUnknownTraits"}) then
         if tonumber(getValue({"Jewelry", "autoMarkQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
     end
     -- if no 'true' returned so far, return false now
@@ -100,6 +100,9 @@ local PAJunkMenuFunctions = {
     isWeaponsIncludeSetItemsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getWeaponsIncludeSetItemsSetting = function() return getValue({"Weapons", "autoMarkIncludingSets"}) end,
     setWeaponsIncludeSetItemsSetting = function(value) setValue(value, {"Weapons", "autoMarkIncludingSets"}) end,
+    isWeaponsIncludeIntricateTraitDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getWeaponsIncludeIntricateTraitSetting = function() return getValue({"Weapons", "autoMarkIntricateTrait"}) end,
+    setWeaponsIncludeIntricateTraitSetting = function(value) setValue(value, {"Weapons", "autoMarkIntricateTrait"}) end,
     isWeaponsIncludeUnknownTraitsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getWeaponsIncludeUnknownTraitsSetting = function() return getValue({"Weapons", "autoMarkUnknownTraits"}) end,
     setWeaponsIncludeUnknownTraitsSetting = function(value) setValue(value, {"Weapons", "autoMarkUnknownTraits"}) end,
@@ -114,6 +117,9 @@ local PAJunkMenuFunctions = {
     isArmorIncludeSetItemsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getArmorIncludeSetItemsSetting = function() return getValue({"Armor", "autoMarkIncludingSets"}) end,
     setArmorIncludeSetItemsSetting = function(value) setValue(value, {"Armor", "autoMarkIncludingSets"}) end,
+    isArmorIncludeIntricateTraitDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getArmorIncludeIntricateTraitSetting = function() return getValue({"Armor", "autoMarkIntricateTrait"}) end,
+    setArmorIncludeIntricateTraitSetting = function(value) setValue(value, {"Armor", "autoMarkIntricateTrait"}) end,
     isArmorIncludeUnknownTraitsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getArmorIncludeUnknownTraitsSetting = function() return getValue({"Armor", "autoMarkUnknownTraits"}) end,
     setArmorIncludeUnknownTraitsSetting = function(value) setValue(value, {"Armor", "autoMarkUnknownTraits"}) end,
@@ -128,6 +134,9 @@ local PAJunkMenuFunctions = {
     isJewelryIncludeSetItemsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getJewelryIncludeSetItemsSetting = function() return getValue({"Jewelry", "autoMarkIncludingSets"}) end,
     setJewelryIncludeSetItemsSetting = function(value) setValue(value, {"Jewelry", "autoMarkIncludingSets"}) end,
+    isJewelryIncludeIntricateTraitDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getJewelryIncludeIntricateTraitSetting = function() return getValue({"Jewelry", "autoMarkIntricateTrait"}) end,
+    setJewelryIncludeIntricateTraitSetting = function(value) setValue(value, {"Jewelry", "autoMarkIntricateTrait"}) end,
     isJewelryIncludeUnknownTraitsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getJewelryIncludeUnknownTraitsSetting = function() return getValue({"Jewelry", "autoMarkUnknownTraits"}) end,
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
