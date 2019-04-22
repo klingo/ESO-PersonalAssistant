@@ -15,7 +15,7 @@ PersonalAssistant.Constants = {
             LOOT = "PersonalAssistant Loot",
             REPAIR = "PersonalAssistant Repair",
         },
-        NAME_DISPLAY = table.concat({"|cFFD700", "P", "|cFFFFFF", "ersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant", "|r"}),
+        NAME_DISPLAY = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
         AUTHOR = "Klingo",
         VERSION_DISPLAY = "2.0.2",
         VERSION_RAW = "020002",
@@ -56,13 +56,13 @@ PersonalAssistant.Constants = {
     },
 
     COLORED_TEXTS = {
-        PA = table.concat({"|cFFD700", "P", "|cFFFFFF", "ersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant", "|r"}),
-        PAG = table.concat({"|cFFD700", "PA G", "|cFFFFFF", "eneral: ", "|r"}),
-        PAB = table.concat({"|cFFD700", "PA B", "|cFFFFFF", "anking: ", "|r"}),
-        PAR = table.concat({"|cFFD700", "PA R", "|cFFFFFF", "epair: ", "|r"}),
-        PAL = table.concat({"|cFFD700", "PA L", "|cFFFFFF", "oot: ", "|r"}),
-        PAM = table.concat({"|cFFD700", "PA M", "|cFFFFFF", "ail: ", "|r"}),
-        PAJ = table.concat({"|cFFD700", "PA J", "|cFFFFFF", "unk: ", "|r"}),
+        PA = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
+        PAG = table.concat({"|cFFD700", "PA G", "|r", "|cFFFFFF", "eneral: ", "|r"}),
+        PAB = table.concat({"|cFFD700", "PA B", "|r", "|cFFFFFF", "anking: ", "|r"}),
+        PAR = table.concat({"|cFFD700", "PA R", "|r", "|cFFFFFF", "epair: ", "|r"}),
+        PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot: ", "|r"}),
+        PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail: ", "|r"}),
+        PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk: ", "|r"}),
     },
 
     ICONS = {
