@@ -86,30 +86,32 @@ local function createPAGeneralMenu()
         })
     end
 
---    PAGeneralOptionsTable:insert({
---        type = "button",
---        name = "English",
---        func = function() SetCVar("language.2", "en") end,
---        isDangerous = true,
---        warning = "The Game language will be changed to English!",
---    })
---
---    PAGeneralOptionsTable:insert({
---        type = "button",
---        name = "German",
---        func = function() SetCVar("language.2", "de") end,
---        isDangerous = true,
---        warning = "The Game language will be changed to German!",
---    })
---
---    PAGeneralOptionsTable:insert({
---        type = "button",
---        name = "French",
---        func = function() SetCVar("language.2", "fr") end,
---        isDangerous = true,
---        warning = "The Game language will be changed to French!",
---    })
+    -- register additional buttons to switch between languages (only for Addon author)
+    if GetUnitName("player") == PACAddon.AUTHOR then
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = "English",
+            func = function() SetCVar("language.2", "en") end,
+            isDangerous = true,
+            warning = "The Game language will be changed to English!",
+        })
 
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = "German",
+            func = function() SetCVar("language.2", "de") end,
+            isDangerous = true,
+            warning = "The Game language will be changed to German!",
+        })
+
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = "French",
+            func = function() SetCVar("language.2", "fr") end,
+            isDangerous = true,
+            warning = "The Game language will be changed to French!",
+        })
+    end
 end
 
 -- =================================================================================================================
