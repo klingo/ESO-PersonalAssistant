@@ -19,18 +19,21 @@ local PAJunkMenuDefaults = {
         autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
+        autoMarkIntricateTrait = false,
         autoMarkUnknownTraits = false,
     },
     Armor = {
         autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
+        autoMarkIntricateTrait = false,
         autoMarkUnknownTraits = false,
     },
     Jewelry = {
         autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
+        autoMarkIntricateTrait = false,
         autoMarkUnknownTraits = false,
     },
 

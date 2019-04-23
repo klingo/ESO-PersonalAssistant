@@ -7,7 +7,36 @@ PersonalAssistant.MenuHelper = {}
 -- ---------------------------------------------------------------------------------------------------------------------
 
 PersonalAssistant.Constants = {
-    ADDON_VERSION = "2.0.2",
+    ADDON = {
+        NAME_RAW = {
+            GENERAL = "PersonalAssistant",
+            BANKING = "PersonalAssistant Banking",
+            JUNK = "PersonalAssistant Junk",
+            LOOT = "PersonalAssistant Loot",
+            REPAIR = "PersonalAssistant Repair",
+        },
+        NAME_DISPLAY = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
+        AUTHOR = "Klingo",
+        VERSION_RAW = "020002",
+        VERSION_DISPLAY = "2.0.2",
+        WEBSITE = "http://www.esoui.com/downloads/info381-PersonalAssistant",
+        FEEDBACK = "https://www.esoui.com/downloads/info381-PersonalAssistant.html#comments",
+        KEYWORDS = {
+            GENERAL = "general, profile, house",
+            BANKING = "banking, deposit, withdraw, currency, currencies, bank",
+            JUNK = "junk, mark, fence, sell",
+            LOOT = "loot, unknown, recipe, motif, trait",
+            REPAIR = "repair, repairkit, recharge, soulgem",
+        },
+        SAVED_VARS_VERSION = { -- changing these values cause all settings to be reset!
+            GENERAL = 1,
+            ACTIVE_PROFILE = 1,
+            BANKING = 3,
+            JUNK = 2,
+            LOOT = 1,
+            REPAIR = 1,
+        },
+    },
 
     GENERAL = {
         MAX_PROFILES = 5,
@@ -27,13 +56,13 @@ PersonalAssistant.Constants = {
     },
 
     COLORED_TEXTS = {
-        PA = table.concat({"|cFFD700", "P", "|cFFFFFF", "ersonal", "|cFFD700", "A", "|cFFFFFF", "ssistant", "|r"}),
-        PAG = table.concat({"|cFFD700", "PA G", "|cFFFFFF", "eneral: ", "|r"}),
-        PAB = table.concat({"|cFFD700", "PA B", "|cFFFFFF", "anking: ", "|r"}),
-        PAR = table.concat({"|cFFD700", "PA R", "|cFFFFFF", "epair: ", "|r"}),
-        PAL = table.concat({"|cFFD700", "PA L", "|cFFFFFF", "oot: ", "|r"}),
-        PAM = table.concat({"|cFFD700", "PA M", "|cFFFFFF", "ail: ", "|r"}),
-        PAJ = table.concat({"|cFFD700", "PA J", "|cFFFFFF", "unk: ", "|r"}),
+        PA = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
+        PAG = table.concat({"|cFFD700", "PA G", "|r", "|cFFFFFF", "eneral: ", "|r"}),
+        PAB = table.concat({"|cFFD700", "PA B", "|r", "|cFFFFFF", "anking: ", "|r"}),
+        PAR = table.concat({"|cFFD700", "PA R", "|r", "|cFFFFFF", "epair: ", "|r"}),
+        PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot: ", "|r"}),
+        PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail: ", "|r"}),
+        PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk: ", "|r"}),
     },
 
     ICONS = {
@@ -155,6 +184,12 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/inventory/inventory_stolenitem_icon.dds",
                 SMALL = "|t16:16:/esoui/art/inventory/inventory_stolenitem_icon.dds|t",
             },
+            TRAITS = {
+                INTRICATE = {
+                    PATH = "/esoui/art/inventory/inventory_trait_intricate_icon.dds",
+                    SMALL = "|t16:16:/esoui/art/inventory/inventory_trait_intricate_icon.dds|t",
+                },
+            },
             TROPHY = {
                 PATH = "/esoui/art/icons/quest_daedricembers.dds",
             },
@@ -247,10 +282,10 @@ PersonalAssistant.Constants = {
                 SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101
                 SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
                 SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
+                -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
                 SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
                 SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
-                -- TODO:  check:
-                -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107
+                SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
             },
         }
     },
