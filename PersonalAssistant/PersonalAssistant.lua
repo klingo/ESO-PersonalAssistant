@@ -70,11 +70,11 @@ local function initAddon(_, addOnName)
     PA.activeProfile = PASavedVars.Profile.activeProfile
 
     -- register additional slash-commands (only for Addon author)
-    if GetUnitName("player") == PACAddon.AUTHOR then
+--    if GetUnitName("player") == PACAddon.AUTHOR then
         SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
         SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
         SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
-    end
+--    end
 end
 
 
