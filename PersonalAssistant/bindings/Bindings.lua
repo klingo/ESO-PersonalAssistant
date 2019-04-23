@@ -1,6 +1,28 @@
-local L = PersonalAssistant.Localization
-ZO_CreateStringId("SI_BINDING_NAME_ACTIVATE_PROFILE_1", table.concat({GetString(SI_PA_KB_LOAD_PROFILE), " 1"}))
-ZO_CreateStringId("SI_BINDING_NAME_ACTIVATE_PROFILE_2", table.concat({GetString(SI_PA_KB_LOAD_PROFILE), " 2"}))
-ZO_CreateStringId("SI_BINDING_NAME_ACTIVATE_PROFILE_3", table.concat({GetString(SI_PA_KB_LOAD_PROFILE), " 3"}))
-ZO_CreateStringId("SI_BINDING_NAME_ACTIVATE_PROFILE_4", table.concat({GetString(SI_PA_KB_LOAD_PROFILE), " 4"}))
-ZO_CreateStringId("SI_BINDING_NAME_ACTIVATE_PROFILE_5", table.concat({GetString(SI_PA_KB_LOAD_PROFILE), " 5"}))
+-- Local instances of Global tables --
+local PA = PersonalAssistant
+local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
+local PAMF = PA.MenuFunctions
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function loadProfile(profileNo)
+    if profileNo > 0 and profileNo <= PAC.GENERAL.MAX_PROFILES then
+        local activeProfile = PAMF.PAGeneral.getActiveProfile()
+        if activeProfile ~= profileNo then
+            PAMF.PAGeneral.setActiveProfile(profileNo)
+            -- then inform player
+            PAHF.println(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, PA.SavedVars.General[PA.activeProfile].name)
+        end
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Export
+PA.Bindings = {
+    loadProfile = loadProfile
+}
+
+for i = 1, PAC.GENERAL.MAX_PROFILES do
+    ZO_CreateStringId(table.concat({"SI_BINDING_NAME_ACTIVATE_PROFILE_", tostring(i)}), table.concat({GetString(SI_PA_KB_LOAD_PROFILE), " ", tostring(i)}))
+end
