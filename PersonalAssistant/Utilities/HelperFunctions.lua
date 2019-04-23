@@ -137,6 +137,13 @@ local function debugln(key, ...)
     end
 end
 
+-- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
+local function debuglnAuthor(key, ...)
+    if GetUnitName("player") == PAC.ADDON.AUTHOR then
+        println(key, ...)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- returns the default profile name of the provided profile number
@@ -178,6 +185,7 @@ PA.HelperFunctions = {
     getFormattedKey = getFormattedKey,
     println = println,
     debugln = debugln,
+    debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
     isAddonRunning = isAddonRunning
 }

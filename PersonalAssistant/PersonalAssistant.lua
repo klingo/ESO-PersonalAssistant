@@ -4,6 +4,7 @@ local PAC = PA.Constants
 local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
+local PASVP = PA.SavedVarsPatcher
 local PAHelperFunctions = PA.HelperFunctions
 
 -- =====================================================================================================================
@@ -104,6 +105,7 @@ end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon)
 PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction)
+PAEM.RegisterForEvent(PACAddon.NAME_RAW.GENERAL, EVENT_PLAYER_ACTIVATED, PASVP.applyPatchIfNeeded, "SavedVarsPatcher")
 
 -- =====================================================================================================================
 -- Dev-Debug --
