@@ -2,19 +2,19 @@
     <Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
         <Category name="|cFFD700P|rersonal|cFFD700A|rssistant">
             <Action name="ACTIVATE_PROFILE_1">
-                <Down>MenuHelper.loadProfile(1)</Down>
+                <Down>PersonalAssistant.Bindings.loadProfile(1)</Down>
             </Action>
             <Action name="ACTIVATE_PROFILE_2">
-                <Down>MenuHelper.loadProfile(2)</Down>
+                <Down>PersonalAssistant.Bindings.loadProfile(2)</Down>
             </Action>
             <Action name="ACTIVATE_PROFILE_3">
-                <Down>MenuHelper.loadProfile(3)</Down>
+                <Down>PersonalAssistant.Bindings.loadProfile(3)</Down>
             </Action>
             <Action name="ACTIVATE_PROFILE_4">
-                <Down>MenuHelper.loadProfile(4)</Down>
+                <Down>PersonalAssistant.Bindings.loadProfile(4)</Down>
             </Action>
             <Action name="ACTIVATE_PROFILE_5">
-                <Down>MenuHelper.loadProfile(5)</Down>
+                <Down>PersonalAssistant.Bindings.loadProfile(5)</Down>
             </Action>
         </Category>
     </Layer>

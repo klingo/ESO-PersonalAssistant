@@ -28,6 +28,7 @@ localization/$(language).lua
 # Core-Utilities
 Utilities/HelperFunctions.lua
 Utilities/EventManager.lua
+Utilities/SavedVarsPatcher.lua
 
 # Settings
 Menu/MenuDefaults.lua

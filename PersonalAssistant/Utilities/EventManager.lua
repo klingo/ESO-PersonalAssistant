@@ -20,7 +20,7 @@ end
 local function _getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
     if paIdentifier ~= nil and paIdentifier ~= "" then
         -- if a specific PA identifier was set, use this one as the ESO identifer
-        return table.concat({ESO_EVENT, "_", paIdentifier})
+        return table.concat({ESO_EVENT, "_", addonName, "_", paIdentifier})
     else
         -- else create esoIdentifier based on module/addonName and ESO event
         return table.concat({ESO_EVENT, "_", addonName})
@@ -156,12 +156,12 @@ local function RefreshAllEventRegistrations()
         if PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
                 or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting() then
             -- Register PABanking
-            RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen)
-            RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose)
+            RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen, "OpenBank")
+            RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose, "CloseBank")
         else
             -- Unregister PABanking completely
-            UnregisterForEvent(PAB.AddonName, EVENT_OPEN_BANK)
-            UnregisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK)
+            UnregisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, "OpenBank")
+            UnregisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, "CloseBank")
         end
     end
 
@@ -173,33 +173,33 @@ local function RefreshAllEventRegistrations()
         local PAJMenuFunctions = PAMenuFunctions.PAJunk
         if PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting() then
             -- Register PAJunk for looting junk items
-            RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate)
-            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
-            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+            RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
 
             -- Register PAJunk for selling
             if PAJMenuFunctions.getAutoSellJunkSetting() then
                 -- Register PAJunk (for Merchants and Fences)
-                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen)
-                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen)
+                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
+                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
             else
                 -- Or unregister if auto-sell is disabled
-                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE)
-                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE)
+                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
+                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
             end
 
             -- Register Mailbox Open check (to disable marking as junk)
-            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen)
-            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose)
+            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen, "OpenMailbox")
+            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose, "CloseMailbox")
         else
             -- Unregister PAJunk completely
-            UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE)
-            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE)
+            UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
+            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
+            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
 
             -- Unregister PAJunk Mailbox Check
-            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX)
-            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX)
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
         end
     end
 
@@ -211,22 +211,22 @@ local function RefreshAllEventRegistrations()
         local PALMenuFunctions = PAMenuFunctions.PALoot
         if PALMenuFunctions.isEnabled() then
             -- Register PALoot to check looted items
-            RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate)
-            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
-            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+            RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
 
             -- needed in order to track stacking the backpack
             -- TODO: why is this triggered when selling Junk?!
-            RegisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, PAL.UpdateNumBagUsedSlots)
-            RegisterFilterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
+            RegisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, PAL.UpdateNumBagUsedSlots, "StackedAllItems")
+            RegisterFilterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "StackedAllItems")
 
             -- needed in order to track individual sells at vendor
-            RegisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, PAL.UpdateNumBagUsedSlots)
+            RegisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, PAL.UpdateNumBagUsedSlots, "SellReceipt")
         else
             -- Unregister PALoot completely
-            UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-            UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG)
-            UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT)
+            UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
+            UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, "StackedAllItems")
+            UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, "SellReceipt")
         end
     end
 
@@ -238,14 +238,14 @@ local function RefreshAllEventRegistrations()
         local PAMMenuFunctions = PAMenuFunctions.PAMail
         if PAMMenuFunctions.getHirelingAutoMailEnabledSetting() then
             -- Register PAMail
-            RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.readHirelingMails)
-            RegisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE, PAM.takeAttachedItemsFromSingleMail)
-            RegisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS, PAM.takeAttachedItemSuccess)
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.readHirelingMails, "NumUnreadChanged")
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE, PAM.takeAttachedItemsFromSingleMail, "MailReadable")
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS, PAM.takeAttachedItemSuccess, "TakeAttachedItemSuccess")
         else
             -- Unregister PAMail completely
-            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED)
-            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE)
-            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS)
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, "NumUnreadChanged")
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE, "MailReadable")
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS, "TakeAttachedItemSuccess")
         end
     end
 
@@ -262,16 +262,16 @@ local function RefreshAllEventRegistrations()
                 -- check if AutoSellJunk is also enabled
                 if PAMenuFunctions.PAJunk and PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
                     -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
-                    RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                    RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
                 else
                     -- if not, we can register the PARepair Open Store Event
-                    RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                    RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
                     -- and unregister callback if existing
-                    UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                    UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
                 end
             else
-                UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
-                UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+                UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "OpenStore")
+                UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
             end
 
             -- Register for RepairKits
