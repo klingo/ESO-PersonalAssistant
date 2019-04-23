@@ -29,7 +29,7 @@ local function initDefaults()
     PA.General_Defaults = {}
     -- -----------------------------------------------------
     -- default values for Addon
-    PA.General_Defaults.savedVarsVersion = PACAddon.VERSION_RAW
+    PA.General_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- -----------------------------------------------------
         -- default values for PAGeneral
@@ -58,8 +58,8 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
-    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.GENERAL, nil, PA.General_Defaults)
-    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.ACTIVE_PROFILE, nil, PA.Profile_Defaults)
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, PA.General_Defaults)
+    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.Profile_Defaults)
 
 
     -- create the options with LAM-2
