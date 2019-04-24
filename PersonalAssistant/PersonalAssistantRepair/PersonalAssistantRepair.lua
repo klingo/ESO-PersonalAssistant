@@ -42,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.REPAIR, nil, Repair_Defaults)
+    PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR, nil, Repair_Defaults)
 
     -- create the options with LAM-2
     PA.Repair.createOptions()

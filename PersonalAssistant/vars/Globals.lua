@@ -29,12 +29,15 @@ PersonalAssistant.Constants = {
             REPAIR = "repair, repairkit, recharge, soulgem",
         },
         SAVED_VARS_VERSION = { -- changing these values cause all settings to be reset!
-            GENERAL = 1,
-            ACTIVE_PROFILE = 1,
-            BANKING = 2,
-            JUNK = 2,
-            LOOT = 1,
-            REPAIR = 1,
+            MAJOR = {
+                GENERAL = 1,
+                PROFILE = 1,
+                BANKING = 2,
+                JUNK = 2,
+                LOOT = 1,
+                REPAIR = 1,
+            },
+            MINOR = 020003,
         },
     },
 

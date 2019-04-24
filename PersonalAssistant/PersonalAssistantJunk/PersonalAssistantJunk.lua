@@ -42,7 +42,7 @@ local function initAddon(_, addOnName)
     initDefaults()
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.JUNK, nil, Junk_Defaults)
+    PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Junk_Defaults)
 
     -- create the options with LAM-2
     PA.Junk.createOptions()

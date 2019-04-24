@@ -17,7 +17,7 @@ local function applyPatchIfNeeded()
 
     -- Upgrade to v2.0.3
     if prevStoredSavedVarsVersion < 020003 then
-        PAHF.debuglnAuthor("START Upgrading SavedVarsVersion to: 020003")
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
             -- 1) get rid of:   PABanking.transactionInterval
             PASavedVars.Banking[profileNo].transactionInterval = nil
@@ -31,11 +31,11 @@ local function applyPatchIfNeeded()
                 end
             end
         end
-        PAHF.debuglnAuthor("FINISH Upgrading SavedVarsVersion to: 020003")
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
     end
 
     -- in the end, update the savedVarsVersion
-    PASavedVars.General.savedVarsVersion = PACAddon.VERSION_RAW
+    PASavedVars.General.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
