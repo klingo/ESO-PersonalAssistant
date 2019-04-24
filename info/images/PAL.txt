@@ -1,0 +1,2 @@
+caption: PA Loot (2.0.0)
+display order: 3

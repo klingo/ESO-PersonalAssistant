@@ -1,0 +1,46 @@
+[B][SIZE=4][COLOR=Yellow]P[/COLOR][COLOR=White]ersonal[/COLOR][COLOR=Yellow]A[/COLOR][COLOR=White]ssistant[/COLOR] [COLOR=Yellow]V2[/COLOR][/SIZE][/B]
+
+[SIZE=2]There are already many addons out there that support Auto-Repair or Auto-Gold-Deposit functionalities, but none of them had the features I'd like to have seen. Because of that, PersonalAssistant was born.
+
+After a two year long break from ESO, I finally managed to complete the major refactoring that started back in 2017. But not only that, I also added many more features that I could not even have thought of back then. I hope you will have as much fun using this addon, like I had working on it! :)[/SIZE]
+
+
+[SIZE=3][COLOR=Yellow]PA [/COLOR][COLOR=White]General[/COLOR][/SIZE][LIST]
+[*]Up to five different account-wide profiles that can be renamed
+[*]Shortcut to travel to your home (if available)[/LIST]
+
+[SIZE=3][COLOR=Yellow]PA B[/COLOR][COLOR=White]anking[/COLOR][/SIZE][LIST]
+[*]Currencies (gold, alliance points, ...) can be withdrawn from and deposited to your bank
+[*]Crafting materials can be withdrawn from and deposited to your bank (if you are not ESO Plus Subscriber)
+[*]Other selected items such as motives, recipes, writs, glyphs, trophies etc. can be withdrawn from and deposited to your bank
+[*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory[/LIST]
+
+[SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
+[*]Trash items can be marked as junk
+[*]Items with the "sell to merchant" information can be marked as junk
+[*]Treasures (such as the ones found when stealing) can be marked as junk
+[*]Items with [Ornate] trait can be marked as junk
+[*]Weapons, Armor, or Jewelries below a certain quality level can be marked as junk (quality threshold can be defined)
+[*]Junk can be sold at merchants and fences[/LIST]
+
+[SIZE=3][COLOR=Yellow]PA L[/COLOR][COLOR=White]oot[/COLOR][/SIZE][LIST]
+[*]Informs you when an unknown recipe is looted
+[*]Informs you when an unknown motif/page is looted
+[*]Informs you when an item with a not yet researched trait is looted
+[*]Informs you when you are running out of inventory space (threshold can be defined)[/LIST]
+
+[SIZE=3][COLOR=Yellow]PA R[/COLOR][COLOR=White]epair[/COLOR][/SIZE][LIST]
+[*]Repairs your items for you when you visit a merchant (threshold can be defined)
+[*]Repairs your items out on the field when you have (non-crown) repair kits available (threshold can be defined)
+[*]Recharges your weapons when they run out of charges and you have filled soul gems available
+[*]Informs you when you are running out of soul gems, or repair kits (thresholds can be defined)[/LIST]
+
+[SIZE=3]Credits[/SIZE][LIST]
+[*] Special thanks to [URL="http://www.esoui.com/forums/member.php?u=10379"]NTak[/URL] for the French translation!
+[*] A big thank you also to the creators of [URL="http://www.esoui.com/downloads/info7-LibAddonMenu.html"]LibAddonMenu (LAM-2.0)[/URL]![/LIST]
+
+[SIZE=3]Issues? Requests?[/SIZE][LIST]
+[*] In case of issues or requests, please either drop a comment here on the AddOn page, or alternatively raise an issue on the GitHub page ([URL="https://github.com/klingo/ESO-PersonalAssistant/issues/new"]Link: New Issue[/URL])[/LIST]
+
+[SIZE=3]Info[/SIZE][LIST]
+[*] Source code is on GitHub: [URL="https://github.com/klingo/ESO-PersonalAssistant"]PersonalAssistant[/URL][/LIST]
