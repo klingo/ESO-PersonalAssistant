@@ -1,3 +1,6 @@
+2.0.4   (April 24, 2019)
+- fixed an issue from 2.0.3 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/74"]#74[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/75"]#75[/URL])
+
 2.0.3   (April 24, 2019)
 - add support for Elsweyr (APIVersion 100027) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/54"]#54[/URL])
 - add option to NOT mark [Intricate] items as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/66"]#66[/URL])
