@@ -37,13 +37,13 @@ PersonalAssistant.Constants = {
                 LOOT = 1,
                 REPAIR = 1,
             },
-            MINOR = 020004,
+            MINOR = 020100,
         },
     },
 
     GENERAL = {
-        MAX_PROFILES = 5,
-        NO_PROFILE_SELECTED_ID = 6
+        MAX_PROFILES = 8,
+        NO_PROFILE_SELECTED_ID = 9
     },
 
     COLORS = {
