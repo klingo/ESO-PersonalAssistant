@@ -5,7 +5,6 @@ local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 local PASVP = PA.SavedVarsPatcher
-local PAHelperFunctions = PA.HelperFunctions
 
 -- =====================================================================================================================
 -- =====================================================================================================================
@@ -33,9 +32,10 @@ local function initDefaults()
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- -----------------------------------------------------
         -- default values for PAGeneral
-        PA.General_Defaults[profileNo] = {}
-        PA.General_Defaults[profileNo].name = PAHelperFunctions.getDefaultProfileName(profileNo)
-        PA.General_Defaults[profileNo].welcome = true
+        PA.General_Defaults[profileNo] = {
+            name = PAHF.getDefaultProfileName(profileNo),
+            welcome = true
+        }
     end
 
     PA.Profile_Defaults = {
