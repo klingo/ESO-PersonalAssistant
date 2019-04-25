@@ -34,6 +34,16 @@ local function applyPatchIfNeeded()
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
     end
 
+    -- Upgrade to v2.1.0
+    if prevStoredSavedVarsVersion < 020100 then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) set up:       PABanking.AvA
+            PASavedVars.Banking[profileNo].AvA = PA.MenuDefaults.PABanking.AvA
+        end
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
+    end
+
     -- in the end, update the savedVarsVersion
     PASavedVars.General.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
 end

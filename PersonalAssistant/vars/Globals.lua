@@ -37,7 +37,7 @@ PersonalAssistant.Constants = {
                 LOOT = 1,
                 REPAIR = 1,
             },
-            MINOR = 020004,
+            MINOR = 020100,
         },
     },
 
@@ -197,6 +197,40 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/icons/quest_daedricembers.dds",
             },
         },
+        SIEGE = {
+            BALLISTA = {
+                PATH = "/esoui/art/icons/ava_siege_weapon_001.dds",
+            },
+            CATAPULT = {
+                PATH = "/esoui/art/icons/ava_siege_ui_003.dds",
+            },
+            GRAVEYARD = {
+                [ALLIANCE_ALDMERI_DOMINION] = {
+                    PATH = "/esoui/art/icons/ava_siege_ui_006.dds",
+                },
+                [ALLIANCE_EBONHEART_PACT] = {
+                    PATH = "/esoui/art/icons/ava_siege_ui_008.dds",
+                },
+                [ALLIANCE_DAGGERFALL_COVENANT] = {
+                    PATH = "/esoui/art/icons/ava_siege_ui_007.dds",
+                },
+            },
+            OIL = {
+                PATH = "/esoui/art/icons/ava_siege_weapon_002.dds",
+            },
+            OTHER = {
+                PATH = "/esoui/art/icons/rune_a.dds",
+            },
+            RAM = {
+                PATH = "/esoui/art/icons/ava_siege_weapon_004.dds",
+            },
+            REPAIR = {
+                PATH = "/esoui/art/icons/crafting_forester_weapon_component_005.dds",
+            },
+            TREBUCHET = {
+                PATH = "/esoui/art/icons/ava_siege_weapon_005.dds",
+            }
+        },
         OTHERS = {
             HOME = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",
@@ -309,6 +343,106 @@ PersonalAssistant.Constants = {
         GENERIC = {
             -- Generic container where any itemID can just be added and it will work out of the box
             -- remember to also update PABankingMenuDefaults: Crafting.Individual.ItemIds (generic section)
+        }
+    },
+
+    BANKING_AVA = {
+        SIEGE = {
+            [ALLIANCE_ALDMERI_DOMINION] = {
+                BALLISTA = {
+                    [1000] = 36567,  -- [Dominion Ballista]
+                    [1100] = 27970,  -- [Dominion Fire Ballista]
+                    [1200] = 27973,  -- [Dominion Lightning Ballista]
+                    [1300] = 64515,  -- [Dominion Cold Fire Ballista]
+                },
+                CATAPULT = {
+                    [2000] = 27964,  -- [Dominion Meatbag Catapult]
+                    [2100] = 27967,  -- [Dominion Oil Catapult]
+                    [2200] = 44770,  -- [Dominion Scattershot Catapult]
+                },
+                TREBUCHET = {
+                    [3000] = 27105,  -- [Dominion Firepot Trebuchet]
+                    [3100] = 44768,  -- [Dominion Iceball Trebuchet]
+                    [3200] = 44769,  -- [Dominion Stone Trebuchet]
+                    [3300] = 64512,  -- [Dominion Cold Fire Trebuchet]
+                    [3400] = 64520,  -- [Dominion Cold Stone Trebuchet]
+                },
+                RAM = {
+                    [4000] = 29534,  -- [Dominion Battering Ram]
+                },
+                OIL = {
+                    [5000] = 30359,  -- [Flaming Oil]        -- same for all alliances!
+                },
+                GRAVEYARD = {
+                    [6000] = 29533,  -- [Dominion Forward Camp]
+                },
+            },
+            [ALLIANCE_EBONHEART_PACT] = {
+                BALLISTA = {
+                    [1000] = 36568,  -- [Pact Ballista]
+                    [1100] = 27971,  -- [Pact Fire Ballista]
+                    [1200] = 27974,  -- [Pact Lightning Ballista]
+                    [1300] = 64516,  -- [Pact Cold Fire Ballista]
+                },
+                CATAPULT = {
+                    [2000] = 27965,  -- [Pact Meatbag Catapult]
+                    [2100] = 27968,  -- [Pact Oil Catapult]
+                    [2200] = 44777,  -- [Pact Scattershot Catapult]
+                },
+                TREBUCHET = {
+                    [3000] = 27114,  -- [Pact Firepot Trebuchet]
+                    [3100] = 44775,  -- [Pact Iceball Trebuchet]
+                    [3200] = 44776,  -- [Pact Stone Trebuchet]
+                    [3300] = 64513,  -- [Pact Cold Fire Trebuchet]
+                    [3400] = 64519,  -- [Pact Cold Stone Trebuchet]
+                },
+                RAM = {
+                    [4000] = 27850,  -- [Pact Battering Ram]
+                },
+                OIL = {
+                    [5000] = 30359,  -- [Flaming Oil]        -- same for all alliances!
+                },
+                GRAVEYARD = {
+                    [6000] = 29534,  -- [Pact Forward Camp]
+                },
+            },
+            [ALLIANCE_DAGGERFALL_COVENANT] = {
+                BALLISTA = {
+                    [1000] = 36569,  -- [Covenant Ballista]
+                    [1100] = 27972,  -- [Covenant Fire Ballista]
+                    [1200] = 27975,  -- [Covenant Lightning Ballista]
+                    [1300] = 64517,  -- [Covenant Cold Fire Ballista]
+                },
+                CATAPULT = {
+                    [2000] = 27966,  -- [Covenant Meatbag Catapult]
+                    [2100] = 27969,  -- [Covenant Oil Catapult]
+                    [2200] = 44773,  -- [Covenant Scattershot Catapult]
+                },
+                TREBUCHET = {
+                    [3000] = 27115,  -- [Covenant Firepot Trebuchet]
+                    [3100] = 44771,  -- [Covenant Iceball Trebuchet]
+                    [3200] = 44772,  -- [Covenant Stone Trebuchet]
+                    [3300] = 64514,  -- [Covenant Cold Fire Trebuchet]
+                    [3400] = 64518,  -- [Covenant Cold Stone Trebuchet]
+                },
+                RAM = {
+                    [4000] = 27835,  -- [Covenant Battering Ram]
+                },
+                OIL = {
+                    [5000] = 30359,  -- [Flaming Oil]        -- same for all alliances!
+                },
+                GRAVEYARD = {
+                    [6000] = 29535,  -- [Covenant Forward Camp]
+                },
+            },
+        },
+        REPAIR = {
+            27962,  -- [Keep Door Woodwork Repair Kit]
+            27138,  -- [Keep Wall Masonry Repair Kit]
+            27112,  -- [Siege Repair Kit]
+        },
+        OTHER = {
+            141731, -- [Keep Recall Stone]
         }
     },
 

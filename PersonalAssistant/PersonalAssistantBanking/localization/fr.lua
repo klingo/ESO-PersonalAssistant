@@ -31,11 +31,11 @@ SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T, "Activer la mise en banque
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets utilitaires", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Autre", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK, "Quantité à conserver dans l'inventaire", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T, "Définit la quantité qui (basée sur l'opérateur mathématique) doit être conservé dans l'inventaire", 1)
-
 -- Generic definitions for any type --
 SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "Déposer/Retirer cette devise", 1) -- changed "les %s" because it wasn't working with "Or"
+
+SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK, "Quantité à conserver dans l'inventaire", 1)
+SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Définit la quantité qui (basée sur l'opérateur mathématique) doit être conservé dans l'inventaire", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Quantité minimum de %s à conserver sur ce personnage ; si nécessaire en retirant de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Quantité maximum de %s à conserver sur ce personnage ; tout surplus sera déposé en banque", 1)

@@ -24,7 +24,7 @@ PA.isBankClosed = true
 local showWelcomeMessage = true
 
 -- init default values
-local function initDefaults()
+local function _initDefaults()
     -- initialize the multi-profile structure
     PA.General_Defaults = {}
     -- -----------------------------------------------------
@@ -43,6 +43,21 @@ local function initDefaults()
     }
 end
 
+-- init player name and player alliance
+local function _initPlayerNameAndAlliance()
+    local playerName = GetUnitName("player")
+    local numCharacters = GetNumCharacters()
+    for index = 1, numCharacters do
+        local name, _, _, _, _, alliance, _, _ = GetCharacterInfo(index)
+        local nameFmt = zo_strformat(SI_UNIT_NAME, name)
+        if playerName == nameFmt then
+            PA.playerName = nameFmt
+            PA.alliance = alliance
+            break
+        end
+    end
+end
+
 
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
@@ -53,14 +68,14 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED)
 
-    -- initialize the default values
-    initDefaults()
+    -- initialize the default and player/alliance values
+    _initDefaults()
+    _initPlayerNameAndAlliance()
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, PA.General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.Profile_Defaults)
-
 
     -- create the options with LAM-2
     local PAMainMenu = PA.MainMenu
