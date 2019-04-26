@@ -29,16 +29,14 @@ local PABStrings = {
 
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
-    -- TODO: fix below message as it is wrong, you define a target value!
-    SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Individual Items",
+    SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define the amount of the different Individual Items you would like to keep in your inventory",
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC = "Other",
 
     SI_PA_MENU_BANKING_AVA_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for AvA Items"}),
     SI_PA_MENU_BANKING_AVA_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Alliance versus Alliance (AvA) Items?",
-    -- TODO: fix below message as it is wrong, you define a target value!
-    SI_PA_MENU_BANKING_AVA_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Alliance versus Alliance (AvA) Items",
+    SI_PA_MENU_BANKING_AVA_DESCRIPTION = "Define the amount of different Alliance versus Alliance (AvA) Items you would like to keep in your inventory",
 
-    SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Others",
+    SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Other",
 
     -- Generic definitions for any type --
     SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE = "Deposit/Withdraw %s",
@@ -116,14 +114,13 @@ local PABGenericStrings = {
     SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT),
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC),
 
-    -- TODO: translations!
-    SI_PA_MENU_BANKING_AVA_SIEGE_BALLISTA_HEADER = zo_strformat(GetString("SI_SIEGETYPE", SIEGE_TYPE_BALLISTA), 2),
-    SI_PA_MENU_BANKING_AVA_SIEGE_CATAPULT_HEADER = zo_strformat(GetString("SI_SIEGETYPE", SIEGE_TYPE_CATAPULT), 2),
-    SI_PA_MENU_BANKING_AVA_SIEGE_TREBUCHET_HEADER = zo_strformat(GetString("SI_SIEGETYPE", SIEGE_TYPE_TREBUCHET), 2),
-    SI_PA_MENU_BANKING_AVA_SIEGE_RAM_HEADER = zo_strformat(GetString("SI_SIEGETYPE", SIEGE_TYPE_RAM), 2),
-    SI_PA_MENU_BANKING_AVA_SIEGE_OIL_HEADER = zo_strformat(GetString("SI_SIEGETYPE", SIEGE_TYPE_OIL), 2),
-    SI_PA_MENU_BANKING_AVA_SIEGE_GRAVEYARD_HEADER = zo_strformat(GetString("SI_SIEGETYPE", SIEGE_TYPE_GRAVEYARD), 2),
-    SI_PA_MENU_BANKING_AVA_REPAIR_HEADER = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_AVA_REPAIR), 2),
+    SI_PA_MENU_BANKING_AVA_SIEGE_BALLISTA_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_BALLISTA),
+    SI_PA_MENU_BANKING_AVA_SIEGE_CATAPULT_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_CATAPULT),
+    SI_PA_MENU_BANKING_AVA_SIEGE_TREBUCHET_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_TREBUCHET),
+    SI_PA_MENU_BANKING_AVA_SIEGE_RAM_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_RAM),
+    SI_PA_MENU_BANKING_AVA_SIEGE_OIL_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_OIL),
+    SI_PA_MENU_BANKING_AVA_SIEGE_GRAVEYARD_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_GRAVEYARD),
+    SI_PA_MENU_BANKING_AVA_REPAIR_HEADER = GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_AVA_REPAIR),
 
 
     -- =================================================================================================================

@@ -25,8 +25,14 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T, "Changer tous les m
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets utilitaires"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets utilitaires ?", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets utilitaires", 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets utilitaires", 1) -- TODO: TAKIT
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Autre", 1)
+
+--SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, ""}), 1) -- TODO: TAKIT
+--SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "", 1) -- TODO: TAKIT
+--SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "", 1) -- TODO: TAKIT
+
+SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Autre", 1)
 
 -- Generic definitions for any type --
 SafeAddString(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, "Déposer/Retirer cette devise", 1) -- changed "les %s" because it wasn't working with "Or"
