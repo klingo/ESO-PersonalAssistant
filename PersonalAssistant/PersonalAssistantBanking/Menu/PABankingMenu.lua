@@ -578,7 +578,7 @@ local function _createPABCurrencyGoldSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_MONEY)
     PABCurrencyGoldSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getGoldTransactionSetting,
         setFunc = PABMenuFunctions.setGoldTransactionSetting,
         disabled = PABMenuFunctions.isGoldTransactionDisabled,
@@ -616,7 +616,7 @@ local function _createPABCurrencyAlliancePointsSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_ALLIANCE_POINTS)
     PABCurrencyAlliancePointsSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getAlliancePointsTransactionSetting,
         setFunc = PABMenuFunctions.setAlliancePointsTransactionSetting,
         disabled = PABMenuFunctions.isAlliancePointsTransactionDisabled,
@@ -654,7 +654,7 @@ local function _createPABCurrencyTelVarSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_TELVAR_STONES)
     PABCurrencyTelVarSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getTelVarTransactionSetting,
         setFunc = PABMenuFunctions.setTelVarTransactionSetting,
         disabled = PABMenuFunctions.isTelVarTransactionDisabled,
@@ -691,7 +691,7 @@ local function _createPABCurrencyWritVouchersSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_WRIT_VOUCHERS)
     PABCurrencyWritVouchersSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getWritVouchersTransactionSetting,
         setFunc = PABMenuFunctions.setWritVouchersTransactionSetting,
         disabled = PABMenuFunctions.isWritVouchersTransactionDisabled,

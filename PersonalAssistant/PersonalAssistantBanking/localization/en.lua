@@ -41,7 +41,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Others",
 
     -- Generic definitions for any type --
-    SI_PA_MENU_BANKING_ANY_TYPE_ENABLE = "Deposit/Withdraw %s",
+    SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE = "Deposit/Withdraw %s",
 
     SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK = "Amount to keep in backpack",
     SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T = "Define the amount which (based on the mathematical operator) shall be kept in the backpack",

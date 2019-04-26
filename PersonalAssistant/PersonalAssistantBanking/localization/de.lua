@@ -29,7 +29,7 @@ SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Definiere ein individu
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Anderes", 1)
 
 -- Generic definitions for any type --
-SafeAddString(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, "%s einlagern/entnehmen", 1)
+SafeAddString(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, "%s einlagern/entnehmen", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK, "Im Inventar zu behaltende Menge", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Definiere die Menge welche (basierend auf dem mathematischen Operator) im Inventar behalten werden soll", 1)
