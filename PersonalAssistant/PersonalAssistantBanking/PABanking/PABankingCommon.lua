@@ -154,9 +154,11 @@ end
 
 local function _isSameItem(itemDataA, itemDataB)
     if itemDataA.itemInstanceId == itemDataB.itemInstanceId then
-        local isItemAFromCrownStore = IsItemFromCrownStore(itemDataA.bagId, itemDataA.slotIndex)
-        local isItemBFromCrownStore = IsItemFromCrownStore(itemDataB.bagId, itemDataB.slotIndex)
-        return isItemAFromCrownStore == isItemBFromCrownStore
+        local itemLinkA = GetItemLink(itemDataA.bagId, itemDataA.slotIndex)
+        local itemLinkB = GetItemLink(itemDataB.bagId, itemDataB.slotIndex)
+        local boundStateItemA = select(21, ZO_LinkHandler_ParseLink(itemLinkA))
+        local boundStateItemB = select(21, ZO_LinkHandler_ParseLink(itemLinkB))
+        return boundStateItemA == boundStateItemB
     end
     return false
 end
