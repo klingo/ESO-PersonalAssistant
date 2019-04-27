@@ -25,12 +25,12 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T, "Changer tous les m
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets utilitaires"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets utilitaires ?", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets utilitaires", 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Définir la quantité d'Objets utilitaires qui doit être conservée dans l'inventaire", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Autre", 1)
 
---SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, ""}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "", 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "", 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets d'AcA"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets de Guerre d'Alliances ?", 1)
+SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "Définir la quantité d'Objets de Guerre d'Alliances (AcA) qui doit être conservée dans l'inventaire", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Autre", 1)
 
@@ -38,7 +38,7 @@ SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Autre", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, "Déposer/Retirer cette devise", 1) -- changed "les %s" because it wasn't working with "Or"
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK, "Quantité à conserver dans l'inventaire", 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Définit la quantité qui (basée sur l'opérateur mathématique) doit être conservé dans l'inventaire", 1)
+SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Définir la quantité qui (basée sur l'opérateur mathématique) doit être conservée dans l'inventaire", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Quantité minimum de %s à conserver sur ce personnage ; si nécessaire en retirant de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Quantité maximum de %s à conserver sur ce personnage ; tout surplus sera déposé en banque", 1)
