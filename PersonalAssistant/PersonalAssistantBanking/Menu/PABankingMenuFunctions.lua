@@ -287,6 +287,121 @@ local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
 end
 
 --------------------------------------------------------------------------
+-- PABanking   AvA.CrossAllianceItemIds         operator
+---------------------------------
+local function isAvACrossAllianceItemsDisabledOrAllOperatorNone(crossAllianceItemIdList)
+    if isDisabled({"AvA", "avaItemsEnabled"}) then return true end
+    -- if savedVarsArgs is not disabled, check the itemTypes
+    for crossAllianceItemId, _ in pairs(crossAllianceItemIdList) do
+        if PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].operator ~= PAC.OPERATOR.NONE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
+-- PABanking   AvA                  crossAllianceMathOperator
+---------------------------------
+local function getPABankingAvaCrossAllianceItemIdMathOperatorSetting(crossAllianceItemId)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    local value = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].operator
+    -- in case a new GENERIC individual item is added, return "-" by default
+    if value then return value else return tonumber(PAC.OPERATOR.NONE) end
+end
+
+local function setPABankingAvaCrossAllianceItemIdMathOperatorSetting(crossAllianceItemId, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].operator = value
+end
+
+--------------------------------------------------------------------------
+-- PABanking   AvA                  crossAllianceBackpackAmount
+---------------------------------
+local function getPABankingAvaCrossAllianceItemIdBackpackAmountSetting(crossAllianceItemId)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    local value = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount
+    -- in case a new GENERIC individual item is added, return "20" by default
+    if value then return value else return 20 end
+end
+
+local function setPABankingAvaCrossAllianceItemIdBackpackAmountSetting(crossAllianceItemId, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    local intValue = tonumber(value)
+    if intValue and intValue >= 0 then
+        PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount = intValue
+    end
+end
+
+--------------------------------------------------------------------------
+-- PABanking   AvA                  crossAllianceBackpackAmountDisabled
+---------------------------------
+local function isAvACrossAllianceItemDisabledOrOperatorNone(crossAllianceItemId)
+    if isDisabledPAGeneralNoProfileSelected() then return true end
+    if isDisabled({"AvA", "avaItemsEnabled"}) then return true end
+    if PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].operator ~= PAC.OPERATOR.NONE then return false end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
+-- PABanking   AvA.ItemIds          operator
+---------------------------------
+local function isAvAItemsDisabledOrAllOperatorNone(itemIdList)
+    if isDisabled({"AvA", "avaItemsEnabled"}) then return true end
+
+    -- if savedVarsArgs is not disabled, check the itemTypes
+    for _, itemId in pairs(itemIdList) do
+        if PAB.SavedVars.AvA.ItemIds[itemId].operator ~= PAC.OPERATOR.NONE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
+-- PABanking   AvA                  mathOperator
+---------------------------------
+local function getPABankingtAvAItemIdMathOperatorSetting(itemId)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    local value = PAB.SavedVars.AvA.ItemIds[itemId].operator
+    -- in case a new GENERIC individual item is added, return "-" by default
+    if value then return value else return tonumber(PAC.OPERATOR.NONE) end
+end
+
+local function setPABankingtAvAItemIdMathOperatorSetting(itemId, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.AvA.ItemIds[itemId].operator = value
+end
+
+--------------------------------------------------------------------------
+-- PABanking   AvA                  backpackAmount
+---------------------------------
+local function getPABankingtAvAItemIdBackpackAmountSetting(itemId)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    local value = PAB.SavedVars.AvA.ItemIds[itemId].backpackAmount
+    -- in case a new GENERIC individual item is added, return "20" by default
+    if value then return value else return 20 end
+end
+
+local function setPABankingtAvAItemIdBackpackAmountSetting(itemId, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    local intValue = tonumber(value)
+    if intValue and intValue >= 0 then
+        PAB.SavedVars.AvA.ItemIds[itemId].backpackAmount = intValue
+    end
+end
+
+--------------------------------------------------------------------------
+-- PABanking   AvA                  backpackAmountDisabled
+---------------------------------
+local function isAvAItemDisabledOrOperatorNone(itemId)
+    if isDisabledPAGeneralNoProfileSelected() then return true end
+    if isDisabled({"AvA", "avaItemsEnabled"}) then return true end
+    if PAB.SavedVars.AvA.ItemIds[itemId].operator ~= PAC.OPERATOR.NONE then return false end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
 -- PABanking   transactionDepositStacking
 ---------------------------------
 local function isPABankingTransactionDepositStackingDisabled()
@@ -430,6 +545,37 @@ local PABankingMenuFunctions = {
     setIndividualItemIdAmountSetting = setPABankingIndividualItemIdBackpackAmountSetting,
 
     isIndividualItemIdAmountDisabled = function(itemId) return isIndividualItemsDisabledOrItemIdOperatorNone(itemId) end,
+
+
+    -- ----------------------------------------------------------------------------------
+    -- ALLIANCE VERSUS ALLAINCE ITEMS
+    -- -----------------------------
+    getAvAItemsEnabledSetting = function() return getValue({"AvA", "avaItemsEnabled"}) end,
+    setAvAItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"AvA", "avaItemsEnabled"}) end,
+
+    isAvASiegeBallistaTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].BALLISTA) end,
+    isAvASiegeCatapultTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].CATAPULT) end,
+    isAvASiegeTrebuchetTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].TREBUCHET) end,
+    isAvASiegeRamTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].RAM) end,
+    isAvASiegeOilTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].OIL) end,
+    isAvASiegeGraveyardTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].GRAVEYARD) end,
+
+    isAvARepairTransactionMenuDisabled = function() return isAvAItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.REPAIR) end,
+    isAvAOtherTransactionMenuDisabled = function() return isAvAItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.OTHER) end,
+
+    getAvACrossAlianceItemIdMathOperatorSetting = getPABankingAvaCrossAllianceItemIdMathOperatorSetting,
+    setAvACrossAlianceItemIdMathOperatorSetting = setPABankingAvaCrossAllianceItemIdMathOperatorSetting,
+    getAvACrossAlianceItemIdAmountSetting = getPABankingAvaCrossAllianceItemIdBackpackAmountSetting,
+    setAvACrossAlianceItemIdAmountSetting = setPABankingAvaCrossAllianceItemIdBackpackAmountSetting,
+
+    isAvACrossAlianceItemIdAmountDisabled = function(crossAllianceItemId) return isAvACrossAllianceItemDisabledOrOperatorNone(crossAllianceItemId) end,
+
+    getAvAItemIdMathOperatorSetting = getPABankingtAvAItemIdMathOperatorSetting,
+    setAvAItemIdMathOperatorSetting = setPABankingtAvAItemIdMathOperatorSetting,
+    getAvAItemIdAmountSetting = getPABankingtAvAItemIdBackpackAmountSetting,
+    setAvAItemIdAmountSetting = setPABankingtAvAItemIdBackpackAmountSetting,
+
+    isAvAItemIdAmountDisabled = function(itemId) return isAvAItemDisabledOrOperatorNone(itemId) end,
 
 
     -- ----------------------------------------------------------------------------------

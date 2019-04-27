@@ -58,6 +58,16 @@ local PABIndividualSoulGemSubmenuTable = setmetatable({}, { __index = table })
 local PABIndividualRepairKitSubmenuTable = setmetatable({}, { __index = table })
 local PABIndividualGenericSubmenuTable = setmetatable({}, { __index = table })
 
+local PABAvASiegeBallistaSubmenuTable = setmetatable({}, { __index = table })
+local PABAvASiegeCatapultSubmenuTable = setmetatable({}, { __index = table })
+local PABAvASiegeTrebuchetSubmenuTable = setmetatable({}, { __index = table })
+local PABAvASiegeRamSubmenuTable = setmetatable({}, { __index = table })
+local PABAvASiegeOilSubmenuTable = setmetatable({}, { __index = table })
+local PABAvASiegeGraveyardSubmenuTable = setmetatable({}, { __index = table })
+
+local PABAvARepairSubmenuTable = setmetatable({}, { __index = table })
+local PABAvAOtherSubmenuTable = setmetatable({}, { __index = table })
+
 -- =================================================================================================================
 
 local function _createPABankingMenu()
@@ -430,6 +440,93 @@ local function _createPABankingMenu()
     })
 
     PABankingOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_BANKING_AVA_ENABLE),
+        tooltip = GetString(SI_PA_MENU_BANKING_AVA_ENABLE_T),
+        getFunc = PABMenuFunctions.getAvAItemsEnabledSetting,
+        setFunc = PABMenuFunctions.setAvAItemsEnabledSetting,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+        default = PABMenuDefaults.AvA.avaItemsEnabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_BANKING_AVA_DESCRIPTION)
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_SIEGE_BALLISTA_HEADER),
+        icon = PAC.ICONS.SIEGE.BALLISTA.PATH,
+        controls = PABAvASiegeBallistaSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvASiegeBallistaTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_SIEGE_CATAPULT_HEADER),
+        icon = PAC.ICONS.SIEGE.CATAPULT.PATH,
+        controls = PABAvASiegeCatapultSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvASiegeCatapultTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_SIEGE_TREBUCHET_HEADER),
+        icon = PAC.ICONS.SIEGE.TREBUCHET.PATH,
+        controls = PABAvASiegeTrebuchetSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvASiegeTrebuchetTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_SIEGE_RAM_HEADER),
+        icon = PAC.ICONS.SIEGE.RAM.PATH,
+        controls = PABAvASiegeRamSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvASiegeRamTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_SIEGE_OIL_HEADER),
+        icon = PAC.ICONS.SIEGE.OIL.PATH,
+        controls = PABAvASiegeOilSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvASiegeOilTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_SIEGE_GRAVEYARD_HEADER),
+        icon = PAC.ICONS.SIEGE.GRAVEYARD[PA.alliance].PATH,
+        controls = PABAvASiegeGraveyardSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvASiegeGraveyardTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_REPAIR_HEADER),
+        icon = PAC.ICONS.SIEGE.REPAIR.PATH,
+        controls = PABAvARepairSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvARepairTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER),
+        icon = PAC.ICONS.SIEGE.OTHER.PATH,
+        controls = PABAvAOtherSubmenuTable,
+        disabledLabel = PABMenuFunctions.isAvAOtherTransactionMenuDisabled,
+    })
+
+
+    -- ---------------------------------------------------------------------------------------------------------
+
+    PABankingOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PABankingOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING),
         tooltip = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T),
@@ -481,7 +578,7 @@ local function _createPABCurrencyGoldSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_MONEY)
     PABCurrencyGoldSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getGoldTransactionSetting,
         setFunc = PABMenuFunctions.setGoldTransactionSetting,
         disabled = PABMenuFunctions.isGoldTransactionDisabled,
@@ -519,7 +616,7 @@ local function _createPABCurrencyAlliancePointsSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_ALLIANCE_POINTS)
     PABCurrencyAlliancePointsSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getAlliancePointsTransactionSetting,
         setFunc = PABMenuFunctions.setAlliancePointsTransactionSetting,
         disabled = PABMenuFunctions.isAlliancePointsTransactionDisabled,
@@ -557,7 +654,7 @@ local function _createPABCurrencyTelVarSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_TELVAR_STONES)
     PABCurrencyTelVarSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getTelVarTransactionSetting,
         setFunc = PABMenuFunctions.setTelVarTransactionSetting,
         disabled = PABMenuFunctions.isTelVarTransactionDisabled,
@@ -594,7 +691,7 @@ local function _createPABCurrencyWritVouchersSubmenuTable()
     local _currencyName = GetCurrencyName(CURT_WRIT_VOUCHERS)
     PABCurrencyWritVouchersSubmenuTable:insert({
         type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_TYPE_ENABLE, _currencyName),
+        name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, _currencyName),
         getFunc = PABMenuFunctions.getWritVouchersTransactionSetting,
         setFunc = PABMenuFunctions.setWritVouchersTransactionSetting,
         disabled = PABMenuFunctions.isWritVouchersTransactionDisabled,
@@ -936,8 +1033,8 @@ local function _createPABIndividualLockpickSubmenuTable()
 
         PABIndividualLockpickSubmenuTable:insert({
             type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T),
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
@@ -968,8 +1065,8 @@ local function _createPABIndividualSoulGemSubmenuTable()
 
         PABIndividualSoulGemSubmenuTable:insert({
             type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T),
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
@@ -1000,8 +1097,8 @@ local function _createPABIndividualRepairKitSubmenuTable()
 
         PABIndividualRepairKitSubmenuTable:insert({
             type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T),
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
@@ -1032,13 +1129,269 @@ local function _createPABIndividualGenericSubmenuTable()
 
         PABIndividualGenericSubmenuTable:insert({
             type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T),
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
             default = PABMenuDefaults.Individual.ItemIds[itemId].backpackAmount,
+        })
+    end
+end
+
+-- =================================================================================================================
+
+local function _createPABAvASiegeBallistaSubmenuTable()
+    for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].BALLISTA) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvASiegeBallistaSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
+        })
+
+        PABAvASiegeBallistaSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAvASiegeCatapultSubmenuTable()
+    for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].CATAPULT) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvASiegeCatapultSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
+        })
+
+        PABAvASiegeCatapultSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAvASiegeTrebuchetSubmenuTable()
+    for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].TREBUCHET) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvASiegeTrebuchetSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
+        })
+
+        PABAvASiegeTrebuchetSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAvASiegeRamSubmenuTable()
+    for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].RAM) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvASiegeRamSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
+        })
+
+        PABAvASiegeRamSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAvASiegeOilSubmenuTable()
+    for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].OIL) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvASiegeOilSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
+        })
+
+        PABAvASiegeOilSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAvASiegeGraveyardSubmenuTable()
+    for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].GRAVEYARD) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvASiegeGraveyardSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
+        })
+
+        PABAvASiegeGraveyardSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAvARepairSubmenuTable()
+    for _, itemId in pairs(PAC.BANKING_AVA.REPAIR) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvARepairSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.ItemIds[itemId].operator,
+        })
+
+        PABAvARepairSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvAItemIdAmountSetting(itemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvAItemIdAmountSetting(itemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvAItemIdAmountDisabled(itemId) end,
+            default = PABMenuDefaults.AvA.ItemIds[itemId].backpackAmount,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAvAOtherSubmenuTable()
+    for _, itemId in pairs(PAC.BANKING_AVA.OTHER) do
+        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
+
+        PABAvAOtherSubmenuTable:insert({
+            type = "dropdown",
+            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
+            tooltip = GetString(SI_PA_REL_OPERATOR_T),
+            choices = PABMenuChoices.mathOperator,
+            choicesValues = PABMenuChoicesValues.mathOperator,
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
+            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            default = PABMenuDefaults.AvA.ItemIds[itemId].operator,
+        })
+
+        PABAvAOtherSubmenuTable:insert({
+            type = "editbox",
+            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
+            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            width = "half",
+            getFunc = function() return PABMenuFunctions.getAvAItemIdAmountSetting(itemId) end,
+            setFunc = function(value) PABMenuFunctions.setAvAItemIdAmountSetting(itemId, value) end,
+            disabled = function() return PABMenuFunctions.isAvAItemIdAmountDisabled(itemId) end,
+            default = PABMenuDefaults.AvA.ItemIds[itemId].backpackAmount,
         })
     end
 end
@@ -1079,6 +1432,16 @@ local function createOptions()
     _createPABIndividualSoulGemSubmenuTable()
     _createPABIndividualRepairKitSubmenuTable()
     _createPABIndividualGenericSubmenuTable()
+
+    _createPABAvASiegeBallistaSubmenuTable()
+    _createPABAvASiegeCatapultSubmenuTable()
+    _createPABAvASiegeTrebuchetSubmenuTable()
+    _createPABAvASiegeRamSubmenuTable()
+    _createPABAvASiegeOilSubmenuTable()
+    _createPABAvASiegeGraveyardSubmenuTable()
+
+    _createPABAvARepairSubmenuTable()
+    _createPABAvAOtherSubmenuTable()
 
     LAM2:RegisterAddonPanel("PersonalAssistantBankingAddonOptions", PABankingPanelData)
     LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)

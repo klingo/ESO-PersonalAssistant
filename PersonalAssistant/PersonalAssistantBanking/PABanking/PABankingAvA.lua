@@ -7,19 +7,18 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function depositOrWithdrawIndividualItems()
+local function depositOrWithdrawAvAItems()
 
-    PAHF.debugln("PA.Banking.depositOrWithdrawIndividualItems")
+    PAHF.debugln("PA.Banking.depositOrWithdrawAvAItems")
 
-    if PAB.SavedVars.Individual.individualItemsEnabled then
-
+    if PAB.SavedVars.AvA.avaItemsEnabled then
         -- check if bankTransfer is already blocked
         if PAB.isBankTransferBlocked then return end
         PAB.isBankTransferBlocked = true
 
-        -- preapre and fill the table with all individual items that needs to be transferred
+        -- prepare and fill the table with all ava items that needs to be transferred
         local individualItems = {}
-        local itemIdTable = PAB.SavedVars.Individual.ItemIds
+        local itemIdTable = PAB.SavedVars.AvA.ItemIds
         for itemId, moveConfig in pairs(itemIdTable) do
             local operator = moveConfig.operator
             if operator ~= PAC.OPERATOR.NONE then
@@ -27,6 +26,21 @@ local function depositOrWithdrawIndividualItems()
                     operator = operator,
                     targetBackpackStack = moveConfig.backpackAmount
                 }
+            end
+        end
+
+        -- then also check the crossAlliance ava items that need to be transferred
+        local PACAllianceSiegeTable = PAC.BANKING_AVA.SIEGE[PA.alliance]
+        for _, corssAlianceItemIdTable in pairs(PACAllianceSiegeTable) do
+            for crossAllianceItemId, itemId in pairs(corssAlianceItemIdTable) do
+                local moveConfig = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId]
+                local operator = moveConfig.operator
+                if operator ~= PAC.OPERATOR.NONE then
+                    individualItems[itemId] = {
+                        operator = operator,
+                        targetBackpackStack = moveConfig.backpackAmount
+                    }
+                end
             end
         end
 
@@ -49,4 +63,4 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
-PA.Banking.depositOrWithdrawIndividualItems = depositOrWithdrawIndividualItems
+PA.Banking.depositOrWithdrawAvAItems = depositOrWithdrawAvAItems
