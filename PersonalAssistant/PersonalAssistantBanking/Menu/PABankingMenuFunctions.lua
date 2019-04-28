@@ -170,6 +170,19 @@ local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.ItemTraitTypes      moveMode
+---------------------------------
+local function getPABankingAdvancedItemTraitTypeMoveSetting(itemTraitType)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    return PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType]
+end
+
+local function setPABankingAdvancedItemTraitTypeMoveSetting(itemTraitType, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] = value
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSpecializedMoveSetting
 ---------------------------------
 local function getPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType)
@@ -186,13 +199,11 @@ end
 --------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
-local function isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(...)
+local function isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(itemTypeList)
     if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
 
-    -- if savedVarsArgs is not disabled, check the itemTypes
-    local args = { ... }
-    for _, itemType in ipairs(args) do
-        if PAB.SavedVars.Advanced.ItemTypes[itemType] ~= PAC.MOVE.IGNORE then return false end
+    for _, itemType in ipairs(itemTypeList) do
+        if PAB.SavedVars.Advanced.ItemTypes[itemType] ~= PAC.OPERATOR.NONE then return false end
     end
     -- if there was no 'false' returned until here; then return true
     return true
@@ -201,13 +212,24 @@ end
 --------------------------------------------------------------------------
 -- PABanking   Advanced.SpecializedItemTypes         moveMode
 ---------------------------------
-local function isAdvancedItemsDisabledOrAllISpecializedtemTypesMoveModeIgnore(...)
+local function isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(specializedItemTypeList)
     if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
 
-    -- if savedVarsArgs is not disabled, check the itemTypes
-    local args = { ... }
-    for _, specializedItemType in ipairs(args) do
-        if PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] ~= PAC.MOVE.IGNORE then return false end
+    for _, specializedItemType in ipairs(specializedItemTypeList) do
+        if PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] ~= PAC.OPERATOR.NONE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
+-- PABanking   Advanced.ItemTraitTypes              moveMode
+---------------------------------
+local function isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(itemTraitTypeList)
+    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
+
+    for itemTraitType in pairs(itemTraitTypeList) do
+        if PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] ~= PAC.OPERATOR.NONE then return false end
     end
     -- if there was no 'false' returned until here; then return true
     return true
@@ -223,6 +245,9 @@ local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     end
     for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
         PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
+    end
+    for itemTraitType, _ in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
+        PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] = value
     end
     PERSONALASSISTANT_PAB_ADVANCED_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
@@ -513,19 +538,23 @@ local PABankingMenuFunctions = {
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
 
+    getAdvancedItemTraitTypeMoveSetting = getPABankingAdvancedItemTraitTypeMoveSetting,
+    setAdvancedItemTraitTypeMoveSetting = setPABankingAdvancedItemTraitTypeMoveSetting,
+
     isAdvancedItemsGlobalMoveModeDisabled = function() return isDisabled({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsGlobalMoveModeSetting = function(value) setPABankingAdvancedItemTypeMoveAllSettings(value) end,
 
     getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
     setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
 
-    isMotifTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_RACIAL_STYLE_MOTIF) end,
-    isRecipeTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_RECIPE) end,
-    isWritsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_MASTER_WRIT) end,
-    isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_GLYPH_ARMOR, ITEMTYPE_GLYPH_JEWELRY, ITEMTYPE_GLYPH_WEAPON) end,
-    isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_POTION, ITEMTYPE_POISON) end,
-    isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_FOOD, ITEMTYPE_DRINK, ITEMTYPE_FISH) end,
-    isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllISpecializedtemTypesMoveModeIgnore(SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP, SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT, SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT, SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT, SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT, SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT, SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT) end,
+    isMotifTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.MOTIF) end,
+    isRecipeTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.RECIPE) end,
+    isWritsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.WRITS) end,
+    isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.GLYPHS) end,
+    isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) end,
+    isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) end,
+    isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) end,
+    isIntricateItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) end,
 
 
     -- ----------------------------------------------------------------------------------

@@ -95,6 +95,12 @@ local PABankingMenuDefaults = {
             [SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT] = PAC.MOVE.IGNORE,
             [SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT] = PAC.MOVE.IGNORE,
         },
+
+        ItemTraitTypes = {
+            [ITEM_TRAIT_TYPE_WEAPON_INTRICATE] = PAC.MOVE.IGNORE,
+            [ITEM_TRAIT_TYPE_ARMOR_INTRICATE] = PAC.MOVE.IGNORE,
+            [ITEM_TRAIT_TYPE_JEWELRY_INTRICATE] = PAC.MOVE.IGNORE,
+        }
     },
 
     -- ---------------------------------------------
