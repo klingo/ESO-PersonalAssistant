@@ -63,11 +63,8 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
 end
 
 local function _isIntricateTraitType(itemLink)
-    local itemTraitType = GetItemLinkTraitType(itemLink)
-    if itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE then return true end
-    if itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE then return true end
-    if itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then return true end
-    return false
+    local itemTraitInformation = GetItemTraitInformationFromItemLink(itemLink)
+    return itemTraitInformation == ITEM_TRAIT_INFORMATION_INTRICATE
 end
 
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
