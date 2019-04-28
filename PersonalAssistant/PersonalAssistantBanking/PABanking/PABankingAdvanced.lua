@@ -51,8 +51,10 @@ local function depositOrWithdrawAdvancedItems()
         -- prepare the table with itemTypes to deposit and withdraw
         local depositItemTypes = setmetatable({}, { __index = table })
         local depositSpecializedItemTypes = setmetatable({}, { __index = table })
+        local depositTraitItemTypes = setmetatable({}, { __index = table })
         local withdrawItemTypes = setmetatable({}, { __index = table })
         local withdrawSpezializedItemTypes = setmetatable({}, { __index = table })
+        local withdrawTraitItemTypes = setmetatable({}, { __index = table })
 
         -- fill up the table(s)
         for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do
@@ -74,6 +76,13 @@ local function depositOrWithdrawAdvancedItems()
                 withdrawSpezializedItemTypes:insert(specializedItemType)
             end
         end
+        for traitItemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
+            if moveMode == PAC.MOVE.DEPOSIT then
+                depositTraitItemTypes:insert(traitItemType)
+            elseif moveMode == PAC.MOVE.WITHDRAW then
+                withdrawTraitItemTypes:insert(traitItemType)
+            end
+        end
 
         -- if some items were skipped because of LWC; display a message
         if _someItemskippedForLWC then
@@ -81,8 +90,8 @@ local function depositOrWithdrawAdvancedItems()
             _someItemskippedForLWC = false
         end
 
-        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes)
-        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawItemTypes, withdrawSpezializedItemTypes)
+        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes, depositTraitItemTypes)
+        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawItemTypes, withdrawSpezializedItemTypes, withdrawTraitItemTypes)
 
         local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
         local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)

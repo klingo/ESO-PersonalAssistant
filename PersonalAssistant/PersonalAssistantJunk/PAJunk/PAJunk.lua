@@ -56,18 +56,10 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
 
                 -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
                 if PA.Repair then
-                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
+                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
                 end
             end
         end)
-end
-
-local function _isIntricateTraitType(itemLink)
-    local itemTraitType = GetItemLinkTraitType(itemLink)
-    if itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE then return true end
-    if itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE then return true end
-    if itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then return true end
-    return false
 end
 
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
@@ -92,14 +84,8 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
         -- make sure an itemLink is present
         if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
 
-        -- and check if it is stolen
-        local itemStolen = IsItemLinkStolen(itemLink)
-        local intricateTrait = _isIntricateTraitType(itemLink)
-
         -- prepare additional icons if needed
-        local itemLinkExt = itemLink
-        if intricateTrait then itemLinkExt = table.concat({itemLinkExt, " ", PAC.ICONS.ITEMS.TRAITS.INTRICATE.SMALL}) end
-        if itemStolen then itemLinkExt = table.concat({itemLinkExt, " ", PAC.ICONS.ITEMS.STOLEN.SMALL}) end
+        local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
 
         -- print provided success message
         PAJ.println(successMessageKey, itemLinkExt)
@@ -129,7 +115,7 @@ local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
         if not hasSet or (hasSet and PAJunkSavedVarsGroup.autoMarkIncludingSets) then
             local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
             if not canBeResearched or (canBeResearched and PAJunkSavedVarsGroup.autoMarkUnknownTraits) then
-                local isIntricateTtrait = _isIntricateTraitType(itemLink)
+                local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
                 if not isIntricateTtrait or (isIntricateTtrait and PAJunkSavedVarsGroup.autoMarkIntricateTrait) then
                     return true
                 end
@@ -196,7 +182,7 @@ local function OnShopOpen()
             else
                 -- if there is no junk, immediately fire the callback event for PARepair (if PARepair is enabled)
                 if PA.Repair then
-                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE)
+                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
                 end
             end
         end

@@ -62,7 +62,7 @@ end
 -- The startIndex indicates from which item in the list the check for moving should be started
 -- If [toBeMovedAgainTable] is NOT nil, then not moved items will be added to that list and re-tried afterwards
 -- If [toBeMovedAgainTable] is nil, then failed moves will NOT be re-tried
-local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedAgainTable)
+local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedAgainTable)
     local fromBagItemData = toBeMovedItemsTable[startIndex]
     local targetBagId, firstEmptySlot = _findFirstEmptySlotAndTargetBagFromSourceBag(fromBagItemData.bagId)
     -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
@@ -98,21 +98,22 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
                             PAB.isBankTransferBlocked = false
                         else
                             -- item move has been verified
+                            local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
                             -- if there either was no original amount; or it is the same as the one to be moved, treat it as a complete move
                             if customStackToMoveOriginal == nil or customStackToMoveOriginal == customStackToMove then
-                                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLink, PAHF.getBagName(targetBagId))
+                                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, sourceStack, itemLinkExt, PAHF.getBagName(targetBagId))
                             else
-                                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLink, PAHF.getBagName(targetBagId))
+                                PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, sourceStack, customStackToMoveOriginal, itemLinkExt, PAHF.getBagName(targetBagId))
                             end
 
                             local newStartIndex = startIndex + 1
                             if newStartIndex <= #toBeMovedItemsTable then
-                                moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
+                                _moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
                             else
                                 -- loop completed; check if there are any items to be moved again (re-try)
                                 if toBeMovedAgainTable ~= nil and #toBeMovedAgainTable > 0 then
                                     -- if there are items left, try again
-                                    moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
+                                    _moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
                                 else
                                     -- nothing else that can be moved; done
                                     -- TODO: end message?
@@ -137,10 +138,10 @@ local function moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMovedA
             table.insert(toBeMovedAgainTable, fromBagItemData)
             local newStartIndex = startIndex + 1
             if newStartIndex <= #toBeMovedItemsTable then
-                moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
+                _moveSecureItemsFromTo(toBeMovedItemsTable, newStartIndex, toBeMovedAgainTable)
             else
                 -- loop completed; try again with the items added to the re-try list
-                moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
+                _moveSecureItemsFromTo(toBeMovedAgainTable, 1, nil)
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
@@ -154,9 +155,11 @@ end
 
 local function _isSameItem(itemDataA, itemDataB)
     if itemDataA.itemInstanceId == itemDataB.itemInstanceId then
-        local isItemAFromCrownStore = IsItemFromCrownStore(itemDataA.bagId, itemDataA.slotIndex)
-        local isItemBFromCrownStore = IsItemFromCrownStore(itemDataB.bagId, itemDataB.slotIndex)
-        return isItemAFromCrownStore == isItemBFromCrownStore
+        local itemLinkA = GetItemLink(itemDataA.bagId, itemDataA.slotIndex)
+        local itemLinkB = GetItemLink(itemDataB.bagId, itemDataB.slotIndex)
+        local boundStateItemA = select(21, ZO_LinkHandler_ParseLink(itemLinkA))
+        local boundStateItemB = select(21, ZO_LinkHandler_ParseLink(itemLinkB))
+        return boundStateItemA == boundStateItemB
     end
     return false
 end
@@ -165,7 +168,7 @@ end
 -- stacks). All items that either cannot be moved because there is no matching item in the target bag, or because the
 -- existing stacks have already been filled up; these will be added to the [notMovedItemsTable] table. Provided that
 -- [newStacksAllowed] is set to true; otherwise the table will be returned unchanged
-local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBagCache, newStacksAllowed, notMovedItemsTable, overruleStackToMove)
+local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBagCache, newStacksAllowed, notMovedItemsTable, overruleStackToMove)
     for _, fromBagItemData in pairs(fromBagCache) do
         local isItemMoved = false
         local hasNoStacksLeft = false
@@ -184,9 +187,10 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                 local targetFreeStacks = targetMaxStack - targetStack
                 if targetFreeStacks > 0 then
                     local moveableStack = stackToMove
+                    local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
                     if moveableStack <= targetFreeStacks then
                         -- enough space to move all
-                        PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
+                        PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, moveableStack, itemLinkExt, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, moveableStack)
                         isItemMoved = true
                         hasNoStacksLeft = true
@@ -194,7 +198,7 @@ local function stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBag
                         toBagCache[toBagCacheIndex].stackCount = targetStack + moveableStack
                     else
                         -- not enough space, only fill up stack possible
-                        PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, targetFreeStacks, moveableStack, itemLink, PAHF.getBagName(toBagItemData.bagId))
+                        PAB.println(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, targetFreeStacks, moveableStack, itemLinkExt, PAHF.getBagName(toBagItemData.bagId))
                         _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, toBagItemData.bagId, toBagItemData.slotIndex, targetFreeStacks)
                         -- cannot be set to [isItemMoved = true] because there is still a remaining stack that needs to be moved
                         -- reduce the remaining amount that needs to be moved
@@ -254,6 +258,79 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache)
+    -- prepare the table for the items that need a new stack created
+    local toBeMovedItemsTable = {}
+    local toBeMovedAgainTable = {}
+
+    -- loop through all enabled individual Items
+    for itemId, customItemData in pairs(individualItems) do
+        local operator = customItemData.operator
+        local targetBackpackStack = customItemData.targetBackpackStack
+        local savedBackpackStack = 0
+
+        -- and check for deposits (in reverse order, to start with incomplete stacks)
+        --        for _, itemData in pairs(backpackBagCache) do
+        for index = #backpackBagCache, 1, -1 do
+            local itemData = backpackBagCache[index]
+            local backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            if itemId == backpackItemId then
+                local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
+                if (operator == PAC.OPERATOR.LESSTHANOREQUAL or operator == PAC.OPERATOR.EQUAL) and ((savedBackpackStack + stack) > targetBackpackStack) then
+                    -- Deposit (full or partial)
+                    local moveableStack = savedBackpackStack + stack - targetBackpackStack
+                    savedBackpackStack = targetBackpackStack
+                    local singleItemBagCache = {}
+                    table.insert(singleItemBagCache, itemData)
+                    PAHF.debugln("Only deposit: "..tostring(moveableStack))
+                    _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, bankBagCache, true, toBeMovedItemsTable, moveableStack)
+                else
+                    -- No deposit needed (yet)
+                    savedBackpackStack = savedBackpackStack + stack
+                end
+            end
+        end
+
+        -- and withdrawals (in reverse order, to start with incomplete stacks)
+        --        for _, itemData in pairs(bankBagCache) do
+        for index = #bankBagCache, 1, -1 do
+            local itemData = bankBagCache[index]
+            local bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            if itemId == bankItemId then
+                local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
+                if operator == PAC.OPERATOR.GREATERTHANOREQUAL or operator == PAC.OPERATOR.EQUAL then
+                    if savedBackpackStack < targetBackpackStack then
+                        -- Withdrawal (full or partial)
+                        local moveableStack = targetBackpackStack - savedBackpackStack
+                        if moveableStack > stack then
+                            moveableStack = stack
+                        end
+                        savedBackpackStack = savedBackpackStack + moveableStack
+                        local singleItemBagCache = {}
+                        table.insert(singleItemBagCache, itemData)
+                        PAHF.debugln("Only withdraw: "..tostring(moveableStack))
+                        _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, backpackBagCache, true, toBeMovedItemsTable, moveableStack)
+                    else
+                        -- No withdrawal needed (anymore)
+                    end
+                end
+            end
+        end
+    end
+
+    -- after initial run-through, go though all not yet moved items and look for free slots for them
+    if #toBeMovedItemsTable > 0 then
+        _moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)
+    else
+        -- all stacking done; and no further items to be moved
+        -- TODO: end message?
+        PAHF.debugln("1) all done!")
+        PAB.isBankTransferBlocked = false
+        -- Execute the function queue
+        PAEM.executeNextFunctionInQueue(PAB.AddonName)
+    end
+end
+
 local function doGenericItemTransactions(depositFromBagCache, depositToBagCache, withdrawalFromBagCache, withdrawalToBagCache)
     -- prepare the table for the items that need a new stack created
     local toBeMovedItemsTable = {}
@@ -268,13 +345,13 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     local newWithdrawalStacksAllowed = (PAMF.PABanking.getTransactionWithdrawalStackingSetting() == PAC.STACKING.FULL)
 
     -- automatically fills up existing stacks; and if new stacks are needed (and allowed), these are added to the table
-    PAB.stackInTargetBagAndPopulateNotMovedItemsTable(depositFromBagCache, depositToBagCache, newDepositStacksAllowed, toBeMovedItemsTable)
-    PAB.stackInTargetBagAndPopulateNotMovedItemsTable(withdrawalFromBagCache, withdrawalToBagCache, newWithdrawalStacksAllowed, toBeMovedItemsTable)
+    _stackInTargetBagAndPopulateNotMovedItemsTable(depositFromBagCache, depositToBagCache, newDepositStacksAllowed, toBeMovedItemsTable)
+    _stackInTargetBagAndPopulateNotMovedItemsTable(withdrawalFromBagCache, withdrawalToBagCache, newWithdrawalStacksAllowed, toBeMovedItemsTable)
 
     -- after initial run-through, go though all not yet moved items and look for free slots for them
     if #toBeMovedItemsTable > 0 then
         -- trigger the recursive loop to move items
-        PAB.moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)
+        _moveSecureItemsFromTo(toBeMovedItemsTable, 1, toBeMovedAgainTable)
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
@@ -288,6 +365,5 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
-PA.Banking.moveSecureItemsFromTo = moveSecureItemsFromTo
-PA.Banking.stackInTargetBagAndPopulateNotMovedItemsTable = stackInTargetBagAndPopulateNotMovedItemsTable
+PA.Banking.doIndividualItemTransactions = doIndividualItemTransactions
 PA.Banking.doGenericItemTransactions = doGenericItemTransactions

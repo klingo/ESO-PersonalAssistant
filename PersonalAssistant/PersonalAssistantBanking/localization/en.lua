@@ -13,7 +13,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
 
-    SI_PA_MENU_BANKING_CRAFTING = "Crafting",
     SI_PA_MENU_BANKING_CRAFTING_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
     SI_PA_MENU_BANKING_CRAFTING_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
     SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
@@ -21,7 +20,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Change all above Crafting Item dropdowns to",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
-    SI_PA_MENU_BANKING_ADVANCED = "Special",
     SI_PA_MENU_BANKING_ADVANCED_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
@@ -29,17 +27,22 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Change all above Special Item dropdowns to",
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
-    SI_PA_MENU_BANKING_INDIVIDUAL = "Individual",
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
-    SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Individual Items",
+    SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define the amount of the different Individual Items you would like to keep in your inventory",
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC = "Other",
 
-    SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK = "Amount to keep in backpack",
-    SI_PA_MENU_BANKING_INDIVIDUAL_KEEPINBACKPACK_T = "Define the amount which (based on the mathematical operator) shall be kept in the backpack",
+    SI_PA_MENU_BANKING_AVA_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for AvA Items"}),
+    SI_PA_MENU_BANKING_AVA_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Alliance versus Alliance (AvA) Items?",
+    SI_PA_MENU_BANKING_AVA_DESCRIPTION = "Define the amount of different Alliance versus Alliance (AvA) Items you would like to keep in your inventory",
+
+    SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Other",
 
     -- Generic definitions for any type --
-    SI_PA_MENU_BANKING_ANY_TYPE_ENABLE = "Deposit/Withdraw %s",
+    SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE = "Deposit/Withdraw %s",
+
+    SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK = "Amount to keep in backpack",
+    SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T = "Define the amount which (based on the mathematical operator) shall be kept in the backpack",
 
     SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "Minimum amount of %s to always keep on the character; if necessary with additional withdrawals from the bank",
     SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "Maximum amount of %s to always keep on the character; everything above this amount is deposited to the bank",
@@ -105,11 +108,20 @@ local PABGenericStrings = {
     SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER = table.concat({zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_POTION), 2), " & ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_POISON), 2)}),
     SI_PA_MENU_BANKING_ADVANCED_FOOD_DRINKS_HEADER = table.concat({zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_FOOD), 2), " & ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_DRINK), 2)}),
     SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TROPHY), 2),
+    SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS_HEADER = GetString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS),
 
     SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_LOCKPICK), 2),
     SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2),
     SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT),
     SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC),
+
+    SI_PA_MENU_BANKING_AVA_SIEGE_BALLISTA_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_BALLISTA),
+    SI_PA_MENU_BANKING_AVA_SIEGE_CATAPULT_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_CATAPULT),
+    SI_PA_MENU_BANKING_AVA_SIEGE_TREBUCHET_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_TREBUCHET),
+    SI_PA_MENU_BANKING_AVA_SIEGE_RAM_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_RAM),
+    SI_PA_MENU_BANKING_AVA_SIEGE_OIL_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_OIL),
+    SI_PA_MENU_BANKING_AVA_SIEGE_GRAVEYARD_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_GRAVEYARD),
+    SI_PA_MENU_BANKING_AVA_REPAIR_HEADER = GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_AVA_REPAIR),
 
 
     -- =================================================================================================================

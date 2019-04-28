@@ -54,6 +54,32 @@ local function applyPatchIfNeeded()
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
     end
 
+    -- Upgrade to v2.1.0
+    if prevStoredSavedVarsVersion < 020100 then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
+        -- 1) initialize three new profiles with default values
+        local PAMenuDefaults = PA.MenuDefaults
+        for profileNo = 6, PAC.GENERAL.MAX_PROFILES do
+            if not istable(PASavedVars.General[profileNo]) then
+                PASavedVars.Banking[profileNo] = PAMenuDefaults.PABanking
+                PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk
+                PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot
+                PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair
+                PASavedVars.General[profileNo] = {
+                    name = PAHF.getDefaultProfileName(profileNo),
+                    welcome = true
+                }
+            end
+        end
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 2) initialize:    PABanking.Advanced.ItemTraitTypes
+            PASavedVars.Banking[profileNo].Advanced.ItemTraitTypes = PAMenuDefaults.PABanking.Advanced.ItemTraitTypes
+            -- 3) initialize:    PABanking.AvA
+            PASavedVars.Banking[profileNo].AvA = PA.MenuDefaults.PABanking.AvA
+        end
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
+    end
+
     -- in the end, update the savedVarsVersion
     PASavedVars.General.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
 end

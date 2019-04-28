@@ -70,6 +70,7 @@ local PAStrings = {
     SI_PA_ITEMTYPE29 = "<<1[Recipe/Recipes]>>",
     SI_PA_ITEMTYPE30 = "<<1[Poison/Poisons]>>",
     SI_PA_ITEMTYPE34 = "<<1[Collectible/Collectibles]>>",
+    SI_PA_ITEMTYPE47 = "<<1[AvA Repair/AvA Repairs]>>",
     SI_PA_ITEMTYPE60 = "<<1[Master Writ/Master Writs]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -77,6 +78,8 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_DONOTHING = "Do Nothing",
     SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
+
+    SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Intricate Items",
 
     SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT = "Repair Kits",
 
