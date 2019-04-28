@@ -6,14 +6,16 @@ After a two year long break from ESO, I finally managed to complete the major re
 
 
 [SIZE=3][COLOR=Yellow]PA [/COLOR][COLOR=White]General[/COLOR][/SIZE][LIST]
-[*]Up to five different account-wide profiles that can be renamed
+[*]Up to eight different account-wide profiles that can be renamed
 [*]Shortcut to travel to your home (if available)[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA B[/COLOR][COLOR=White]anking[/COLOR][/SIZE][LIST]
 [*]Currencies (gold, alliance points, ...) can be withdrawn from and deposited to your bank
 [*]Crafting materials can be withdrawn from and deposited to your bank (if you are not ESO Plus Subscriber)
 [*]Other selected items such as motives, recipes, writs, glyphs, trophies etc. can be withdrawn from and deposited to your bank
-[*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory[/LIST]
+[*]Select if items with [Intricate] trait should be transferred from/to the bank [COLOR=Orange]*NEW* (2.1.0)[/COLOR]
+[*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory
+[*]Be always ready for Cyrodiil and define how many the various AvA items to always keep in inventory [COLOR=Orange]*NEW* (2.1.0)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
 [*]Trash items can be marked as junk

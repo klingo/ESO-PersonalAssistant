@@ -1,3 +1,10 @@
+2.1.0   (April 28, 2019)
+- increased maximum number of profiles from 5 to 8 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/76"]#76[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/85"]#85[/URL])
+- added option in PABanking to transfer (your alliance's) AvA items with specific amounts ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/80"]#80[/URL])
+- added option in PABanking to transfer items with [Intricate] trait ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/82"]#82[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/84"]#84[/URL])
+- fixed a potential issue when stacking items bought from Crown Store with ones received from daily rewards or crates ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/79"]#79[/URL])
+- fixed an issue where PARepair did not repair items for gold anymore ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/83"]#83[/URL])
+
 2.0.4   (April 24, 2019)
 - fixed an issue from 2.0.3 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/74"]#74[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/75"]#75[/URL])
 
