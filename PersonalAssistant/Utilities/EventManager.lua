@@ -304,8 +304,8 @@ local function RefreshAllEventRegistrations()
             UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
             UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits-Reincarnate")
             UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, "RepairKits-Alive")
-            UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE)
-            UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen)
+            UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "OpenStore")
+            UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
         end
     end
 end
