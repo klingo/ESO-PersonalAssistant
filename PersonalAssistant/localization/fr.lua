@@ -75,6 +75,8 @@ SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Ne rien faire", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "Déposer en banque", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Prendre dans le sac", 1)
 
+--SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, table.concat({GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE), " Gegenstände"}), 1) -- TODO: TAKIT
+
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Nécessaires de réparation", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------

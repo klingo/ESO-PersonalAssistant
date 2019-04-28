@@ -75,6 +75,8 @@ SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Nichts machen", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "In Truhe einlagern", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Ins Inventar entnehmen", 1)
 
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, table.concat({GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE), " Gegenstände"}), 1)
+
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Reparaturmaterialien", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------

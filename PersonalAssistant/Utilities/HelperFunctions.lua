@@ -5,36 +5,37 @@ local PAC = PA.Constants
 -- =====================================================================================================================
 -- =====================================================================================================================
 
-local function _isNotStolenOrStolenAndAllowed(itemData, isStolenAllowed)
-    local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
-    return not isStolen or (isStolen and isStolenAllowed)
-end
-
-local function getCombinedItemTypeSpecializedComparator(itemTypeList, spevializedItemTypeList, includeStolenItems)
+local function getCombinedItemTypeSpecializedComparator(itemTypeList, specializedItemTypeList, itemTraitTypeList)
     return function(itemData)
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
-            if itemType == itemData.itemType and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
+            if itemType == itemData.itemType then return true end
         end
-        for _, specializedItemType in pairs(spevializedItemTypeList) do
-            if specializedItemType == itemData.specializedItemType and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
+        for _, specializedItemType in pairs(specializedItemTypeList) do
+            if specializedItemType == itemData.specializedItemType then return true end
+        end
+        for _, itemTraitType in pairs(itemTraitTypeList) do
+            if itemTraitType == GetItemTrait(itemData.bagId, itemData.slotIndex) then return true end
         end
         return false
     end
 end
 
-local function getItemTypeComparator(itemTypeList, includeStolenItems)
+local function getItemTypeComparator(itemTypeList)
     return function(itemData)
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
-            if itemType == itemData.itemType and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
+            if itemType == itemData.itemType then return true end
         end
         return false
     end
 end
 
-local function getItemIdComparator(itemIdList, includeStolenItems)
+local function getItemIdComparator(itemIdList)
     return function(itemData)
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         for itemId, _ in pairs(itemIdList) do
-            if itemId == GetItemId(itemData.bagId, itemData.slotIndex) and _isNotStolenOrStolenAndAllowed(itemData, includeStolenItems) then return true end
+            if itemId == GetItemId(itemData.bagId, itemData.slotIndex) then return true end
         end
         return false
     end

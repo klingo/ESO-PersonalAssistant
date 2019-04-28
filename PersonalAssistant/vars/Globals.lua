@@ -156,9 +156,6 @@ PersonalAssistant.Constants = {
             MOTIF = {
                 PATH = "/esoui/art/icons/quest_book_001.dds",
             },
-            ORNATE = { -- TODO: not used
-                PATH = "/esoui/art/inventory/inventory_trait_ornate_icon.dds",
-            },
             POISON = { -- TODO: not used
                 PATH = "/esoui/art/icons/crafting_poison_001_red_005.dds",
             },
@@ -191,6 +188,9 @@ PersonalAssistant.Constants = {
                 INTRICATE = {
                     PATH = "/esoui/art/inventory/inventory_trait_intricate_icon.dds",
                     SMALL = "|t16:16:/esoui/art/inventory/inventory_trait_intricate_icon.dds|t",
+                },
+                ORNATE = { -- TODO: not used
+                    PATH = "/esoui/art/inventory/inventory_trait_ornate_icon.dds",
                 },
             },
             TROPHY = {
@@ -324,7 +324,14 @@ PersonalAssistant.Constants = {
                 SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
                 SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
             },
-        }
+        },
+        TRAIT = {
+            INTRICATE = {
+                [ITEM_TRAIT_TYPE_WEAPON_INTRICATE] = ITEMFILTERTYPE_WEAPONS,
+                [ITEM_TRAIT_TYPE_ARMOR_INTRICATE] = ITEMFILTERTYPE_ARMOR,
+                [ITEM_TRAIT_TYPE_JEWELRY_INTRICATE] = ITEMFILTERTYPE_JEWELRY,
+            }
+        },
     },
 
     BANKING_INDIVIDUAL = {

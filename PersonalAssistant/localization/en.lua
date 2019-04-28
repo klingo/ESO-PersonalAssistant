@@ -79,6 +79,8 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
 
+    SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = table.concat({GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE), " Items"}),
+
     SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT = "Repair Kits",
 
     -- -----------------------------------------------------------------------------------------------------------------
