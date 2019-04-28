@@ -16,6 +16,15 @@
             <Action name="ACTIVATE_PROFILE_5">
                 <Down>PersonalAssistant.Bindings.loadProfile(5)</Down>
             </Action>
+            <Action name="ACTIVATE_PROFILE_6">
+                <Down>PersonalAssistant.Bindings.loadProfile(6)</Down>
+            </Action>
+            <Action name="ACTIVATE_PROFILE_7">
+                <Down>PersonalAssistant.Bindings.loadProfile(7)</Down>
+            </Action>
+            <Action name="ACTIVATE_PROFILE_8">
+                <Down>PersonalAssistant.Bindings.loadProfile(8)</Down>
+            </Action>
         </Category>
     </Layer>
 </Bindings>
