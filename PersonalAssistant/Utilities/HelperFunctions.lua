@@ -169,6 +169,25 @@ local function isAddonRunning(addonName)
     return false
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function isItemLinkIntricateTraitType(itemLink)
+    local itemTraitInformation = GetItemTraitInformationFromItemLink(itemLink)
+    return itemTraitInformation == ITEM_TRAIT_INFORMATION_INTRICATE
+end
+
+local function getIconExtendedItemLink(itemLink)
+    -- check if it is stolen or of type [Intricate]
+    local itemStolen = IsItemLinkStolen(itemLink)
+    local intricateTrait = isItemLinkIntricateTraitType(itemLink)
+
+    -- prepare additional icons if needed
+    local itemLinkExt = itemLink
+    if intricateTrait then itemLinkExt = table.concat({itemLinkExt, " ", PAC.ICONS.ITEMS.TRAITS.INTRICATE.SMALL}) end
+    if itemStolen then itemLinkExt = table.concat({itemLinkExt, " ", PAC.ICONS.ITEMS.STOLEN.SMALL}) end
+    return itemLinkExt
+end
+
 -- Export
 PA.HelperFunctions = {
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
@@ -188,5 +207,7 @@ PA.HelperFunctions = {
     debugln = debugln,
     debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
-    isAddonRunning = isAddonRunning
+    isAddonRunning = isAddonRunning,
+    isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,
+    getIconExtendedItemLink = getIconExtendedItemLink
 }
