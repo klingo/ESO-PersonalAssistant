@@ -142,6 +142,7 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                 for _, itemData in pairs(bagCache) do
                     if itemData.stolen and itemData.isJunk then
                         local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+                        PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d", totalSells, sellsUsed, resetTimeSeconds)
                         if sellsUsed == totalSells then
                             local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
                             if resetTimeHours >= 1 then
