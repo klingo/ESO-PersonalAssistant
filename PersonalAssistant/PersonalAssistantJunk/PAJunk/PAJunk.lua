@@ -9,12 +9,19 @@ local PAEM = PA.EventManager
 
 local _isMailboxOpen = false
 
+local SELL_FENCE_ITEMS_INTERVAL_MS = 50
+local SELL_FENCE_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellFence"
+
 local GET_MONEY_AND_USED_SLOTS_INTERVAL_MS = 100
 local GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS = 1000
 local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetMoneyAndUsedSlots"
 
 local function _getUniqueUpdateIdentifier()
     return CALL_LATER_FUNCTION_NAME
+end
+
+local function _getUniqueSellFenceUpdateIdentifier(bagId, slotIndex)
+    return table.concat({SELL_FENCE_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
 end
 
 local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
@@ -126,6 +133,71 @@ local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
     return false -- if unknown, return false
 end
 
+
+local function _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+    local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
+    if resetTimeHours >= 1 then
+        PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, resetTimeHours)
+    else
+        local resetTimeMinutes = PAHF.round(resetTimeSeconds / 60, 0)
+        PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
+    end
+end
+
+
+local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCountInBagBefore)
+    if not PA.isFenceClosed then
+        local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
+        -- Sell the (stolen) item which was marked as junk
+        local sellStartGameTime = GetGameTimeMilliseconds()
+        local itemDataToSell = bagCache[startIndex]
+        SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
+        -- ---------------------------------------------------------------------------------------------------------
+        -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
+        -- TODO: own function name
+        local identifier = _getUniqueSellFenceUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
+        EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
+            function()
+                -- check if the item is still in the bag
+                local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
+                local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+                -- TODO: PA.isFenceClosed
+                if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.isFenceClosed then
+                    PAHF.debugln('itemId <= 0 (was: %d) OR sellsUsed > sellsUsedBefore (was: %d > %d) OR PA.iseFenceClosed (was: %s)', itemId, sellsUsed, sellsUsedBefore, tostring(PA.isFenceClosed))
+                    EVENT_MANAGER:UnregisterForUpdate(identifier)
+                    -- if item is gone, limit reached, or fence closed stop the interval
+                    local sellFinishGameTime = GetGameTimeMilliseconds()
+                    PAHF.debugln('Fence item transaction took approx. %d ms', sellFinishGameTime - sellStartGameTime)
+                    PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d", totalSells, sellsUsed, resetTimeSeconds)
+                    -- check if the limit has been reached yet
+                    -- TODO: improve below logic (make more concise!)
+                    if PA.isFenceClosed then
+                        _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                    elseif sellsUsed == totalSells then
+                        -- limit reached! print a message and stop
+                        _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+                        -- after limit is reached, also give feedback about the changes
+                        _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                    else
+                        -- limit not yet reached, check if there are more items to be sold
+                        local newStartIndex = startIndex + 1
+                        if newStartIndex <= #bagCache then
+                            -- yes, continue loop
+                            _sellStolenJunkToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
+                        else
+                            -- no, finish loop; after everything is sold, give feedback about the changes
+                            _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                        end
+                    end
+                end
+            end)
+        -- ---------------------------------------------------------------------------------------------------------
+    else
+        -- TODO: handle isFenceClosed
+        _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
@@ -137,29 +209,20 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                 -- store current amount of money
                 local moneyBefore = GetCurrentMoney();
                 local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
-                -- get all items to loop through the stolen/junk ones
-                local bagCache = SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_BACKPACK)
-                for _, itemData in pairs(bagCache) do
-                    if itemData.stolen and itemData.isJunk then
-                        local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-                        PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d", totalSells, sellsUsed, resetTimeSeconds)
-                        if sellsUsed == totalSells then
-                            local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
-                            if resetTimeHours >= 1 then
-                                PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, resetTimeHours)
-                            else
-                                local resetTimeMinutes = PAHF.round(resetTimeSeconds / 60, 0)
-                                PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
-                            end
-                            break
-                        end
-                        -- Sell the (stolen) item which was marked as junk
-                        SellInventoryItem(itemData.bagId, itemData.slotIndex, itemData.stackCount)
+                -- check if limit already reached
+                local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+                if sellsUsed < totalSells then
+                    -- limit not yet reached; get all items to loop through the stolen/junk ones
+                    local stolenJunkComparator = PAHF.getStolenJunkComparator()
+                    local bagCache = SHARED_INVENTORY:GenerateFullSlotData(stolenJunkComparator, BAG_BACKPACK)
+                    if #bagCache > 0 then
+                        -- after sellink junk, give feedback about the changes
+                        _sellStolenJunkToFence(bagCache, 1, moneyBefore, itemCountInBagBefore)
                     end
+                else
+                    -- limit already reached when fence was opened; since nothing was sold no solJunkFeedback needed!
+                    _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
                 end
-
-                -- after calling SellAllJunk(), give feedback about the changes
-                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
             end
         end
     end
