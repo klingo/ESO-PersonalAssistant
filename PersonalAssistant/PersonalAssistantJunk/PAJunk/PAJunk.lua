@@ -158,14 +158,11 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
                 -- check if the item is still in the bag
                 local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
                 local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-                -- TODO: might not need all checks?
                 if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
-                    PAHF.debugln('itemId <= 0 (was: %d) OR sellsUsed > sellsUsedBefore (was: %d > %d) OR PA.iseFenceClosed (was: %s)', itemId, sellsUsed, sellsUsedBefore, tostring(PA.WindowStates.isFenceClosed))
                     -- if item is gone, limit reached, or fence closed stop the interval
                     EVENT_MANAGER:UnregisterForUpdate(identifier)
                     local sellFinishGameTime = GetGameTimeMilliseconds()
-                    PAHF.debugln('Fence item transaction took approx. %d ms', sellFinishGameTime - sellStartGameTime)
-                    PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d", totalSells, sellsUsed, resetTimeSeconds)
+                    PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
                     -- TODO: improve below logic (make more concise!)
                     if sellsUsed == totalSells then
                         -- limit reached! print a message and stop
