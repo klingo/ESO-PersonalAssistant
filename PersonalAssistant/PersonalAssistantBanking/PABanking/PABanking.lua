@@ -26,7 +26,7 @@ local function OnBankOpen(eventCode, bankBag)
 
     if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
-        PA.isBankClosed = false
+        PA.WindowStates.isBankClosed = false
 
         -- trigger the deposit and withdrawal of gold
         PAB.depositOrWithdrawCurrencies()
@@ -60,7 +60,7 @@ end
 
 local function OnBankClose()
     -- set the global variable to 'true' so the bankClosing can be detected
-    PA.isBankClosed = true
+    PA.WindowStates.isBankClosed = true
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

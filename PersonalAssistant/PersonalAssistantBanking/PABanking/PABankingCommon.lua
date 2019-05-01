@@ -68,7 +68,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
     -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
     local itemLink = PAHF.getFormattedItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex)
     if targetBagId ~= nil and firstEmptySlot ~= nil then
-        if not PA.isBankClosed then
+        if not PA.WindowStates.isBankClosed then
             local sourceStack, _ = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
             -- in case there was a custom amount to be moved defined; overwrite the stack size
             local customStackToMove = fromBagItemData.customStackToMove
@@ -84,14 +84,14 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                 function()
                     -- check if the item has already "arrived" at its target bag/slot
                     local itemId = GetItemId(targetBagId, firstEmptySlot)
-                    if itemId > 0 or PA.isBankClosed then
+                    if itemId > 0 or PA.WindowStates.isBankClosed then
                         -- TODO: also check itemId for verification?
                         -- if item has arrived or bank window is closed stop the interval; in first case proceed with the next item
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local moveFinishGameTime = GetGameTimeMilliseconds()
                         PAHF.debugln('Item transaction took approx. %d ms', moveFinishGameTime - moveStartGameTime)
                         -- check if the bank has been closed in the meanwhile
-                        if PA.isBankClosed then
+                        if PA.WindowStates.isBankClosed then
                             -- as per current observations, the transfer always finishes even if the bank has ben clsoed before verification
                             -- TODO: might need to be checked in more detail in future
                             -- if bank was closed, abort and dont continue

@@ -182,10 +182,12 @@ local function RefreshAllEventRegistrations()
                 -- Register PAJunk (for Merchants and Fences)
                 RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
                 RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
+                RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreAndFenceClose, "CloseStore")
             else
                 -- Or unregister if auto-sell is disabled
                 UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
                 UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
+                UnregisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, "CloseStore")
             end
 
             -- Register Mailbox Open check (to disable marking as junk)
@@ -196,6 +198,7 @@ local function RefreshAllEventRegistrations()
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
+            UnregisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, "CloseStore")
 
             -- Unregister PAJunk Mailbox Check
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")

@@ -7,9 +7,7 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local _isMailboxOpen = false
-
-local SELL_FENCE_ITEMS_INTERVAL_MS = 50
+local SELL_FENCE_ITEMS_INTERVAL_MS = 25
 local SELL_FENCE_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellFence"
 
 local GET_MONEY_AND_USED_SLOTS_INTERVAL_MS = 100
@@ -146,7 +144,7 @@ end
 
 
 local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCountInBagBefore)
-    if not PA.isFenceClosed then
+    if not PA.WindowStates.isFenceClosed then
         local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
         -- Sell the (stolen) item which was marked as junk
         local sellStartGameTime = GetGameTimeMilliseconds()
@@ -154,26 +152,22 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
         SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
         -- ---------------------------------------------------------------------------------------------------------
         -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
-        -- TODO: own function name
         local identifier = _getUniqueSellFenceUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
         EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
             function()
                 -- check if the item is still in the bag
                 local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
                 local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-                -- TODO: PA.isFenceClosed
-                if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.isFenceClosed then
-                    PAHF.debugln('itemId <= 0 (was: %d) OR sellsUsed > sellsUsedBefore (was: %d > %d) OR PA.iseFenceClosed (was: %s)', itemId, sellsUsed, sellsUsedBefore, tostring(PA.isFenceClosed))
-                    EVENT_MANAGER:UnregisterForUpdate(identifier)
+                -- TODO: might not need all checks?
+                if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
+                    PAHF.debugln('itemId <= 0 (was: %d) OR sellsUsed > sellsUsedBefore (was: %d > %d) OR PA.iseFenceClosed (was: %s)', itemId, sellsUsed, sellsUsedBefore, tostring(PA.WindowStates.isFenceClosed))
                     -- if item is gone, limit reached, or fence closed stop the interval
+                    EVENT_MANAGER:UnregisterForUpdate(identifier)
                     local sellFinishGameTime = GetGameTimeMilliseconds()
                     PAHF.debugln('Fence item transaction took approx. %d ms', sellFinishGameTime - sellStartGameTime)
                     PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d", totalSells, sellsUsed, resetTimeSeconds)
-                    -- check if the limit has been reached yet
                     -- TODO: improve below logic (make more concise!)
-                    if PA.isFenceClosed then
-                        _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
-                    elseif sellsUsed == totalSells then
+                    if sellsUsed == totalSells then
                         -- limit reached! print a message and stop
                         _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
                         -- after limit is reached, also give feedback about the changes
@@ -202,6 +196,8 @@ end
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
     if PAHF.hasActiveProfile() then
+        -- set the global variable to 'false'
+        PA.WindowStates.isFenceClosed = false
         -- check if auto-sell is enabled
         if allowSell and PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = false)
@@ -230,6 +226,8 @@ end
 
 local function OnShopOpen()
     if PAHF.hasActiveProfile() then
+        -- set the global variable to 'false'
+        PA.WindowStates.isStoreClosed = false
         -- check if auto-sell is enabled
         if PAJ.SavedVars.autoSellJunk then
             -- check if there is junk to sell (exclude stolen items = true)
@@ -254,20 +252,26 @@ local function OnShopOpen()
 end
 
 
+local function OnStoreAndFenceClose()
+    PA.WindowStates.isFenceClosed = true
+    PA.WindowStates.isStoreClosed = true
+end
+
+
 local function OnMailboxOpen()
-    _isMailboxOpen = true
+    PA.WindowStates.isMailboxClosed = false
 end
 
 
 local function OnMailboxClose()
-    _isMailboxOpen = false
+    PA.WindowStates.isMailboxClosed = true
 end
 
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAHF.hasActiveProfile() then
-        -- only proceed, if neither the crafting window nor the mailbox are NOT open (otherwise crafted/retrieved items could also be marked as junk)
-        if not ZO_CraftingUtils_IsCraftingWindowOpen() and not _isMailboxOpen then
+        -- only proceed, if neither the crafting window nor the mailbox are open (otherwise crafted/retrieved items could also be marked as junk)
+        if not ZO_CraftingUtils_IsCraftingWindowOpen() and PA.WindowStates.isMailboxClosed then
             local PAJunkSavedVars = PAJ.SavedVars
 
             -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
@@ -335,6 +339,7 @@ end
 PA.Junk = PA.Junk or {}
 PA.Junk.OnFenceOpen = OnFenceOpen
 PA.Junk.OnShopOpen = OnShopOpen
+PA.Junk.OnStoreAndFenceClose = OnStoreAndFenceClose
 PA.Junk.OnMailboxOpen = OnMailboxOpen
 PA.Junk.OnMailboxClose = OnMailboxClose
 PA.Junk.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
