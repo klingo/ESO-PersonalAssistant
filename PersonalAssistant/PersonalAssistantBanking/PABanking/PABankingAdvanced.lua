@@ -49,14 +49,35 @@ local function depositOrWithdrawAdvancedItems()
         end
 
         -- prepare the table with itemTypes to deposit and withdraw
+        local depositLearnableKnownItemTypes = setmetatable({}, { __index = table })
+        local depositLearnableUnknownItemTypes = setmetatable({}, { __index = table })
         local depositItemTypes = setmetatable({}, { __index = table })
         local depositSpecializedItemTypes = setmetatable({}, { __index = table })
         local depositTraitItemTypes = setmetatable({}, { __index = table })
+        local withdrawLearnableKnownItemTypes = setmetatable({}, { __index = table })
+        local withdrawLearnableUnknownItemTypes = setmetatable({}, { __index = table })
         local withdrawItemTypes = setmetatable({}, { __index = table })
         local withdrawSpezializedItemTypes = setmetatable({}, { __index = table })
         local withdrawTraitItemTypes = setmetatable({}, { __index = table })
 
         -- fill up the table(s)
+        for itemType, moveModeTbl in pairs(PAB.SavedVars.Advanced.LearnableItemTypes) do
+            for knownUnknown, moveMode in pairs(moveModeTbl) do
+                if moveMode == PAC.MOVE.DEPOSIT then
+                    if knownUnknown == "Known" then
+                        depositLearnableKnownItemTypes:insert(itemType)
+                    else
+                        depositLearnableUnknownItemTypes:insert(itemType)
+                    end
+                elseif moveMode == PAC.MOVE.WITHDRAW then
+                    if knownUnknown == "Known" then
+                        withdrawLearnableKnownItemTypes:insert(itemType)
+                    else
+                        withdrawLearnableUnknownItemTypes:insert(itemType)
+                    end
+                end
+            end
+        end
         for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do
             if moveMode == PAC.MOVE.DEPOSIT then
                 if _passesLazyWritCraftingCompatibilityCheck(itemType) then
@@ -90,8 +111,8 @@ local function depositOrWithdrawAdvancedItems()
             _someItemskippedForLWC = false
         end
 
-        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositItemTypes, depositSpecializedItemTypes, depositTraitItemTypes)
-        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawItemTypes, withdrawSpezializedItemTypes, withdrawTraitItemTypes)
+        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositLearnableKnownItemTypes, depositLearnableUnknownItemTypes, depositItemTypes, depositSpecializedItemTypes, depositTraitItemTypes)
+        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawLearnableKnownItemTypes, withdrawLearnableUnknownItemTypes, withdrawItemTypes, withdrawSpezializedItemTypes, withdrawTraitItemTypes)
 
         local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
         local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
