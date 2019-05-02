@@ -10,7 +10,7 @@ local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 local PABMenuDefaults = PA.MenuDefaults.PABanking
 local PABMenuFunctions = PA.MenuFunctions.PABanking
 
-local LAM2 = LibStub("LibAddonMenu-2.0")
+local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PABankingPanelData = {
     type = "panel",

@@ -9,7 +9,7 @@ local PAJMenuChoicesValues = PA.MenuChoices.choicesValues.PAJunk
 local PAJMenuDefaults = PA.MenuDefaults.PAJunk
 local PAJMenuFunctions = PA.MenuFunctions.PAJunk
 
-local LAM2 = LibStub("LibAddonMenu-2.0")
+local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PAJunkPanelData = {
     type = "panel",

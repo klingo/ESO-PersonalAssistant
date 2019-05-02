@@ -5,7 +5,7 @@ local PACAddon = PAC.ADDON
 local PARMenuFunctions = PA.MenuFunctions.PARepair
 local PARMenuDefaults = PA.MenuDefaults.PARepair
 
-local LAM2 = LibStub("LibAddonMenu-2.0")
+local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PARepairPanelData = {
     type = "panel",
