@@ -159,18 +159,18 @@ end
 --------------------------------------------------------------------------
 -- PABanking   Advanced.LearnableItemTypes      moveMode
 ---------------------------------
-local function getPABankingAdvancedLearnableItemTypeMoveSetting(itemType, known)
+local function getPABankingAdvancedLearnableItemTypeMoveSetting(itemType, isKnown)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    if known then
+    if isKnown then
         return PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known
     else
         return PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown
     end
 end
 
-local function setPABankingAdvancedLearnableItemTypeMoveSetting(itemType, value, known)
+local function setPABankingAdvancedLearnableItemTypeMoveSetting(itemType, value, isKnown)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    if known then
+    if isKnown then
         PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known = value
     else
         PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown = value
