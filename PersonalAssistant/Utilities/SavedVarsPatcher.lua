@@ -60,6 +60,28 @@ local function applyPatchIfNeeded()
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
     end
 
+    -- Upgrade to v2.2.0
+    if prevStoredSavedVarsVersion < 020200 then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020200]"}))
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate:      PABanking.Advanced.LearnableItemTypes
+            PASavedVars.Banking[profileNo].Advanced.LearnableItemTypes = {
+                [ITEMTYPE_RACIAL_STYLE_MOTIF] = {
+                    Known = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RACIAL_STYLE_MOTIF],
+                    Unknown = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RACIAL_STYLE_MOTIF],
+                },
+                [ITEMTYPE_RECIPE] = {
+                    Known = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RECIPE],
+                    Unknown = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RECIPE],
+                }
+            }
+            -- 2) get rid of:   PABanking.Advanced.ItemTypes
+            PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RACIAL_STYLE_MOTIF] = nil
+            PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RECIPE] = nil
+        end
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020200]"}))
+    end
+
     -- in the end, update the savedVarsVersion
     PASavedVars.General.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
 end

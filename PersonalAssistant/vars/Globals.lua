@@ -37,7 +37,7 @@ PersonalAssistant.Constants = {
                 LOOT = 1,
                 REPAIR = 1,
             },
-            MINOR = 020100,
+            MINOR = 020200,
         },
     },
 
