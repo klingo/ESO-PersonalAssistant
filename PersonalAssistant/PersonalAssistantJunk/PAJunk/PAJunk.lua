@@ -163,7 +163,6 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
                     EVENT_MANAGER:UnregisterForUpdate(identifier)
                     local sellFinishGameTime = GetGameTimeMilliseconds()
                     PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
-                    -- TODO: improve below logic (make more concise!)
                     if sellsUsed == totalSells then
                         -- limit reached! print a message and stop
                         _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
@@ -184,7 +183,7 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
             end)
         -- ---------------------------------------------------------------------------------------------------------
     else
-        -- TODO: handle isFenceClosed
+        -- if Fence has been closed, also display the feedback message
         _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     end
 end
