@@ -41,6 +41,14 @@ local function getItemIdComparator(itemIdList)
     end
 end
 
+local function getStolenJunkComparator()
+    return function(itemData)
+        local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
+        local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
+        return isStolen and isJunk
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function round(num, numDecimalPlaces)
@@ -193,6 +201,7 @@ PA.HelperFunctions = {
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
     getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,
+    getStolenJunkComparator = getStolenJunkComparator,
     round = round,
     roundDown = roundDown,
     isValueInTable = isValueInTable,

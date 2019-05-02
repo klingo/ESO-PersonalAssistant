@@ -16,8 +16,13 @@ PA.debug = false
 PA.AddonName = "PersonalAssistant"
 PA.activeProfile = nil -- init with nil, is populated during [initAddon]
 
--- PABanking
-PA.isBankClosed = true
+-- window states
+PA.WindowStates = {
+    isFenceClosed = true,
+    isStoreClosed = true,
+    isMailboxClosed = true,
+    isBankClosed = true,
+}
 
 -- whether welcome message should be shown, or was already shown
 local showWelcomeMessage = true
