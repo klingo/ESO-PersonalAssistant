@@ -952,7 +952,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
-            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, false) end,
             disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
