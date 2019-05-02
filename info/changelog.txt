@@ -1,3 +1,7 @@
+2.1.1   (May 02, 2019)
+- add support for LibAddonMenu-2.0 r28 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/95"]#95[/URL])
+- fixed an issue in PAJunk with checking the maximum number of sellable stolen goods ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/96"]#96[/URL])
+
 2.1.0   (April 28, 2019)
 - increased maximum number of profiles from 5 to 8 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/76"]#76[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/85"]#85[/URL])
 - added option in PABanking to transfer (your alliance's) AvA items with specific amounts ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/80"]#80[/URL])
@@ -19,7 +23,7 @@
 - fixed an issue with the keybindings to load a specific profile ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/70"]#70[/URL])
 
 2.0.2   (April 18, 2019)
-- add support for LibAddonMenu-2.0r27 (thanks sirinsidiator)
+- add support for LibAddonMenu-2.0 r27 (thanks sirinsidiator)
 - add "Fish" to the "Foods & Drinks" section ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/26"]#26[/URL])
 - add "Runebox Fragments" to > Special Items > Trophies ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/50"]#50[/URL])
 - add compatibility mode with LazyWritCrafter Addon ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/31"]#31[/URL])
