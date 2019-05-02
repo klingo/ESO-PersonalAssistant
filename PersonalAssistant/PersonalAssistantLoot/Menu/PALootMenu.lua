@@ -5,7 +5,7 @@ local PACAddon = PAC.ADDON
 local PALMenuFunctions = PA.MenuFunctions.PALoot
 local PALMenuDefaults = PA.MenuDefaults.PALoot
 
-local LAM2 = LibStub("LibAddonMenu-2.0")
+local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PALootPanelData = {
     type = "panel",

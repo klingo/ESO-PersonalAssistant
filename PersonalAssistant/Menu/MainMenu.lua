@@ -7,7 +7,7 @@ local PAMenuHelper = PA.MenuHelper
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
 
-local LAM2 = LibStub("LibAddonMenu-2.0")
+local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PAGeneralPanelData = {
     type = "panel",
