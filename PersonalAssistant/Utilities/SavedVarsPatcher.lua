@@ -15,26 +15,6 @@ local function applyPatchIfNeeded()
     local PASavedVars = PA.SavedVars
     local prevStoredSavedVarsVersion = tonumber(PASavedVars.General.savedVarsVersion)
 
-    -- Upgrade to v2.1.0
-    if prevStoredSavedVarsVersion < 020100 then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
-        -- 1) initialize three new profiles with default values
-        local PAMenuDefaults = PA.MenuDefaults
-        for profileNo = 6, PAC.GENERAL.MAX_PROFILES do
-            if not istable(PASavedVars.General[profileNo]) then
-                PASavedVars.Banking[profileNo] = PAMenuDefaults.PABanking
-                PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk
-                PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot
-                PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair
-                PASavedVars.General[profileNo] = {
-                    name = PAHF.getDefaultProfileName(profileNo),
-                    welcome = true
-                }
-            end
-        end
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
-    end
-
     -- Upgrade to v2.0.3
     if prevStoredSavedVarsVersion >= 020000 and prevStoredSavedVarsVersion < 020003 then
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
