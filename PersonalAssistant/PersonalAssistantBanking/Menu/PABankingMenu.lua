@@ -906,16 +906,27 @@ end
 -- =================================================================================================================
 
 local function _createPABAdvancedMotifSubmenuTable()
-    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.MOTIF) do
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) do
         PABAdvancedMotifSubmenuTable:insert({
             type = "dropdown",
-            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
+            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_KNOWN),")"}),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
-            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
-            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
+            getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
             disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
-            default = PABMenuDefaults.Advanced.ItemTypes[itemType],
+            default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Known,
+        })
+
+        PABAdvancedMotifSubmenuTable:insert({
+            type = "dropdown",
+            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_UNKNOWN),")"}),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, false) end,
+            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
     end
 end
@@ -923,16 +934,27 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABAdvancedRecipeSubmenuTable()
-    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.RECIPE) do
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) do
         PABAdvancedRecipeSubmenuTable:insert({
             type = "dropdown",
-            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
+            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_KNOWN),")"}),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
-            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
-            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
+            getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
             disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
-            default = PABMenuDefaults.Advanced.ItemTypes[itemType],
+            default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Known,
+        })
+
+        PABAdvancedRecipeSubmenuTable:insert({
+            type = "dropdown",
+            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_KNOWN),")"}),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
+            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
     end
 end

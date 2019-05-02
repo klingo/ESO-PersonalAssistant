@@ -72,9 +72,18 @@ local PABankingMenuDefaults = {
     Advanced = {
         advancedItemsEnabled = true,
 
+        LearnableItemTypes = {
+            [ITEMTYPE_RACIAL_STYLE_MOTIF] = {
+                Known = PAC.MOVE.IGNORE,
+                Unknown = PAC.MOVE.IGNORE,
+            },
+            [ITEMTYPE_RECIPE] = {
+                Known = PAC.MOVE.IGNORE,
+                Unknown = PAC.MOVE.IGNORE,
+            },
+        },
+
         ItemTypes = {
-            [ITEMTYPE_RACIAL_STYLE_MOTIF] = PAC.MOVE.IGNORE,
-            [ITEMTYPE_RECIPE] = PAC.MOVE.IGNORE,
             [ITEMTYPE_MASTER_WRIT] = PAC.MOVE.IGNORE,
             [ITEMTYPE_GLYPH_ARMOR] = PAC.MOVE.IGNORE,
             [ITEMTYPE_GLYPH_JEWELRY] = PAC.MOVE.IGNORE,

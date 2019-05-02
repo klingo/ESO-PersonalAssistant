@@ -83,6 +83,9 @@ local PAStrings = {
 
     SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT = "Repair Kits",
 
+    SI_PA_MENU_BANKING_LEARNABLE_ITEM_KNOWN = "Known",
+    SI_PA_MENU_BANKING_LEARNABLE_ITEM_UNKNOWN = "Unknown",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- Operators --
     SI_PA_REL_OPERATOR_T = "Select the Mathematical Operator for this item",

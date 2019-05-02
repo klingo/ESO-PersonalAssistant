@@ -157,6 +157,27 @@ local function isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(...)
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.LearnableItemTypes      moveMode
+---------------------------------
+local function getPABankingAdvancedLearnableItemTypeMoveSetting(itemType, known)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    if known then
+        return PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known
+    else
+        return PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown
+    end
+end
+
+local function setPABankingAdvancedLearnableItemTypeMoveSetting(itemType, value, known)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    if known then
+        PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known = value
+    else
+        PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown = value
+    end
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
@@ -534,6 +555,9 @@ local PABankingMenuFunctions = {
     -- -----------------------------
     getAdvancedItemsEnabledSetting = function() return getValue({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Advanced", "advancedItemsEnabled"}) end,
+
+    getAdvancedLearnableItemTypeMoveSetting = getPABankingAdvancedLearnableItemTypeMoveSetting,
+    setAdvancedLearnableItemTypeMoveSetting = setPABankingAdvancedLearnableItemTypeMoveSetting,
 
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,

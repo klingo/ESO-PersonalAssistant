@@ -288,13 +288,15 @@ PersonalAssistant.Constants = {
     },
 
     BANKING_ADVANCED = {
-        REGULAR = {
+        LEARNABLE = {
             MOTIF = {
                 ITEMTYPE_RACIAL_STYLE_MOTIF,                 -- 8
             },
             RECIPE = {
                 ITEMTYPE_RECIPE,                            -- 29
             },
+        },
+        REGULAR = {
             WRITS = {
                 ITEMTYPE_MASTER_WRIT,                        -- 60
             },
