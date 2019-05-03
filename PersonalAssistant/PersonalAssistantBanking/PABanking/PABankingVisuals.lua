@@ -69,6 +69,7 @@ local function _addItemKnownOrUnknownVisuals(control, bagId, slotIndex, itemLink
 
     -- check for inventory grid view and set the anchors accordingly
     local isGridViewEnabled = _isGridViewEnabled(control)
+    pabVisualControl:ClearAnchors()
     if isGridViewEnabled then
         pabVisualControl:SetAnchor(BOTTOMRIGHT, control, BOTTOMRIGHT, -4, -4)
     else
@@ -94,7 +95,6 @@ local function _addItemKnownOrUnknownVisuals(control, bagId, slotIndex, itemLink
             _setUnknownItemIcon(pabVisualControl)
         else
             _setKnownItemIcon(pabVisualControl)
-
         end
     end
 end
