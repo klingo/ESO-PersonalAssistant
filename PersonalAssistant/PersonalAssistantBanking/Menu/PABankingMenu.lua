@@ -909,7 +909,7 @@ local function _createPABAdvancedMotifSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) do
         PABAdvancedMotifSubmenuTable:insert({
             type = "dropdown",
-            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_KNOWN), ")"}),
+            name = GetString("SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
@@ -920,7 +920,7 @@ local function _createPABAdvancedMotifSubmenuTable()
 
         PABAdvancedMotifSubmenuTable:insert({
             type = "dropdown",
-            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_UNKNOWN), ")"}),
+            name = GetString("SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
@@ -937,7 +937,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) do
         PABAdvancedRecipeSubmenuTable:insert({
             type = "dropdown",
-            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_KNOWN), ")"}),
+            name = GetString("SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
@@ -948,7 +948,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
 
         PABAdvancedRecipeSubmenuTable:insert({
             type = "dropdown",
-            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)), " (", GetString(SI_PA_MENU_BANKING_LEARNABLE_ITEM_UNKNOWN), ")"}),
+            name = GetString("SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,

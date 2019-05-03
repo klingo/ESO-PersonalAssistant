@@ -23,6 +23,11 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: to be c
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE, "Ändere alle obigen Dropdown-Listen nach", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T, "Ändere alle obigen Speziellen Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'", 1)
 
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE8, "Bekannte Stile", 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE29, "Bekannte Rezepte", 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8, "Unbekannte Stile", 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, "Unbekannte Rezepte", 1)
+
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Einzelne Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Einzelnen Gegenständen?", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Definiere die Menge der einzelnen Gegenstände die im Inventar behalten werden sollen", 1)
