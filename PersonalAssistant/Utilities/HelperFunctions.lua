@@ -1,13 +1,35 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+-- ---------------------------------------------------------------------------------------------------------------------
 
--- =====================================================================================================================
--- =====================================================================================================================
+local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType, expectedIsKnown)
+    local itemType = GetItemType(bagId, slotIndex)
+    if itemType == expectedItemType then
+        local itemLink = GetItemLink(bagId, slotIndex)
+        if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+            local isBook = IsItemLinkBook(itemLink)
+            if isBook then
+                local isKnown = IsItemLinkBookKnown(itemLink)
+                if isKnown == expectedIsKnown then return true end
+            end
+        elseif itemType == ITEMTYPE_RECIPE then
+            local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
+            if isRecipeKnown == expectedIsKnown then return true end
+        end
+    end
+    return false
+end
 
-local function getCombinedItemTypeSpecializedComparator(itemTypeList, specializedItemTypeList, itemTraitTypeList)
+local function getCombinedItemTypeSpecializedComparator(knownLearnableItemTypeList, unknownLearnableItemTypeList, itemTypeList, specializedItemTypeList, itemTraitTypeList)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        for _, itemType in pairs(knownLearnableItemTypeList) do
+           if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, true) then return true end
+        end
+        for _, itemType in pairs(unknownLearnableItemTypeList) do
+            if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, false) then return true end
+        end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end

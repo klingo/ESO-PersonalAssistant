@@ -157,6 +157,27 @@ local function isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(...)
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.LearnableItemTypes      moveMode
+---------------------------------
+local function getPABankingAdvancedLearnableItemTypeMoveSetting(itemType, isKnown)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    if isKnown then
+        return PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known
+    else
+        return PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown
+    end
+end
+
+local function setPABankingAdvancedLearnableItemTypeMoveSetting(itemType, value, isKnown)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    if isKnown then
+        PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known = value
+    else
+        PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown = value
+    end
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
@@ -195,6 +216,19 @@ local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedIte
     PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
 end
 
+--------------------------------------------------------------------------
+-- PABanking   Advanced.LearnableItemTypes         moveMode
+---------------------------------
+local function isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(itemTypeList)
+    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
+
+    for _, itemType in ipairs(itemTypeList) do
+        if PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known ~= PAC.OPERATOR.NONE then return false end
+        if PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown ~= PAC.OPERATOR.NONE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
 
 --------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTypes         moveMode
@@ -240,6 +274,10 @@ end
 ---------------------------------
 local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     if isDisabledPAGeneralNoProfileSelected() then return end
+    for itemType, _ in pairs(PAB.SavedVars.Advanced.LearnableItemTypes) do
+        PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known = value
+        PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown = value
+    end
     for itemType, _ in pairs(PAB.SavedVars.Advanced.ItemTypes) do
         PAB.SavedVars.Advanced.ItemTypes[itemType] = value
     end
@@ -535,6 +573,9 @@ local PABankingMenuFunctions = {
     getAdvancedItemsEnabledSetting = function() return getValue({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Advanced", "advancedItemsEnabled"}) end,
 
+    getAdvancedLearnableItemTypeMoveSetting = getPABankingAdvancedLearnableItemTypeMoveSetting,
+    setAdvancedLearnableItemTypeMoveSetting = setPABankingAdvancedLearnableItemTypeMoveSetting,
+
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
 
@@ -547,8 +588,8 @@ local PABankingMenuFunctions = {
     getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
     setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
 
-    isMotifTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.MOTIF) end,
-    isRecipeTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.RECIPE) end,
+    isMotifTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) end,
+    isRecipeTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) end,
     isWritsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.WRITS) end,
     isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.GLYPHS) end,
     isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) end,

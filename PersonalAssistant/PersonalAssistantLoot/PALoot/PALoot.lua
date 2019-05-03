@@ -208,12 +208,12 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 if PALootSavedVars.LootMotifs.unknownMotifMsg then
                     local isBook = IsItemLinkBook(itemLink)
                     if isBook then
-                        local isKnown= IsItemLinkBookKnown(itemLink)
+                        local isKnown = IsItemLinkBookKnown(itemLink)
                         if not isKnown then
                             PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
                         else
                             -- Motif is already known; do nothing for now
-                            PAHF.debugln("known mnotif looted: %s", itemLink)
+                            PAHF.debugln("known motif looted: %s", itemLink)
                         end
                     end
                 end

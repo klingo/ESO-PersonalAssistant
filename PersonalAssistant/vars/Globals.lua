@@ -37,7 +37,7 @@ PersonalAssistant.Constants = {
                 LOOT = 1,
                 REPAIR = 1,
             },
-            MINOR = 020100,
+            MINOR = 020200,
         },
     },
 
@@ -288,13 +288,15 @@ PersonalAssistant.Constants = {
     },
 
     BANKING_ADVANCED = {
-        REGULAR = {
+        LEARNABLE = {
             MOTIF = {
                 ITEMTYPE_RACIAL_STYLE_MOTIF,                 -- 8
             },
             RECIPE = {
                 ITEMTYPE_RECIPE,                            -- 29
             },
+        },
+        REGULAR = {
             WRITS = {
                 ITEMTYPE_MASTER_WRIT,                        -- 60
             },

@@ -27,6 +27,11 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Change all above Special Item dropdowns to",
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
+    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE8 = "Known Motives",
+    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE29 = "Known Recipes",
+    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8 = "Unknown Motives",
+    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = "Unknown Recipes",
+
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
     SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define the amount of the different Individual Items you would like to keep in your inventory",

@@ -15,26 +15,6 @@ local function applyPatchIfNeeded()
     local PASavedVars = PA.SavedVars
     local prevStoredSavedVarsVersion = tonumber(PASavedVars.General.savedVarsVersion)
 
-    -- Upgrade to v2.1.0
-    if prevStoredSavedVarsVersion < 020100 then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
-        -- 1) initialize three new profiles with default values
-        local PAMenuDefaults = PA.MenuDefaults
-        for profileNo = 6, PAC.GENERAL.MAX_PROFILES do
-            if not istable(PASavedVars.General[profileNo]) then
-                PASavedVars.Banking[profileNo] = PAMenuDefaults.PABanking
-                PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk
-                PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot
-                PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair
-                PASavedVars.General[profileNo] = {
-                    name = PAHF.getDefaultProfileName(profileNo),
-                    welcome = true
-                }
-            end
-        end
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
-    end
-
     -- Upgrade to v2.0.3
     if prevStoredSavedVarsVersion >= 020000 and prevStoredSavedVarsVersion < 020003 then
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
@@ -78,6 +58,28 @@ local function applyPatchIfNeeded()
             PASavedVars.Banking[profileNo].AvA = PA.MenuDefaults.PABanking.AvA
         end
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
+    end
+
+    -- Upgrade to v2.2.0
+    if prevStoredSavedVarsVersion < 020200 then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020200]"}))
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate:      PABanking.Advanced.LearnableItemTypes
+            PASavedVars.Banking[profileNo].Advanced.LearnableItemTypes = {
+                [ITEMTYPE_RACIAL_STYLE_MOTIF] = {
+                    Known = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RACIAL_STYLE_MOTIF],
+                    Unknown = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RACIAL_STYLE_MOTIF],
+                },
+                [ITEMTYPE_RECIPE] = {
+                    Known = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RECIPE],
+                    Unknown = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RECIPE],
+                }
+            }
+            -- 2) get rid of:   PABanking.Advanced.ItemTypes
+            PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RACIAL_STYLE_MOTIF] = nil
+            PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RECIPE] = nil
+        end
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020200]"}))
     end
 
     -- in the end, update the savedVarsVersion
