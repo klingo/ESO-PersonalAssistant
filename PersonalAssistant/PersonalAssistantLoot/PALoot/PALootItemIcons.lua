@@ -141,6 +141,17 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function refreshScrollListVisible()
+    ZO_ScrollList_RefreshVisible(ZO_PlayerInventoryList)
+    ZO_ScrollList_RefreshVisible(ZO_PlayerBankBackpack)
+    ZO_ScrollList_RefreshVisible(ZO_HouseBankBackpack)
+    ZO_ScrollList_RefreshVisible(ZO_GuildBankBackpack)
+--    if ZO_TradingHouseSearch:IsAtTradingHouse() then
+--        ZO_ScrollList_RefreshVisible(TRADING_HOUSE.searchResultsList)
+--        ZO_ScrollList_RefreshVisible(TRADING_HOUSE.postedItemsList)
+--    end
+end
+
 local function initHooksOnBags()
     for _, v in pairs(PLAYER_INVENTORY.inventories) do
         local listView = v.listView
@@ -159,6 +170,7 @@ end
 -- Export
 PA.Loot = PA.Loot or {}
 PA.Loot.ItemVisuals = {
+    refreshScrollListVisible = refreshScrollListVisible,
     initHooksOnBags = initHooksOnBags
 }
 

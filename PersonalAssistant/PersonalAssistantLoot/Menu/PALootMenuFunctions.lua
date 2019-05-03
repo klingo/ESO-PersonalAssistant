@@ -68,7 +68,7 @@ local PALootMenuFunctions = {
 
     isItemIconsSizeDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsSizeSetting = function() return getValue({"ItemIcons", "iconSize"}) end,
-    setItemIconsSizeSetting = function(value) setValue(value, {"ItemIcons", "iconSize"}) end,
+    setItemIconsSizeSetting = function(value) setValue(value, {"ItemIcons", "iconSize"}) PA.Loot.ItemVisuals.refreshScrollListVisible() end,
 
     isItemIconsPositionDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsPositionSetting = function() return getValue({"ItemIcons", "iconPosition"}) end,
