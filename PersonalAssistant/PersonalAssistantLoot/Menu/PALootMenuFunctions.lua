@@ -70,6 +70,10 @@ local PALootMenuFunctions = {
     getItemIconsSizeSetting = function() return getValue({"ItemIcons", "iconSize"}) end,
     setItemIconsSizeSetting = function(value) setValue(value, {"ItemIcons", "iconSize"}) end,
 
+    isItemIconsPositionDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getItemIconsPositionSetting = function() return getValue({"ItemIcons", "iconPosition"}) end,
+    setItemIconsPositionSetting = function(value) setValue(value, {"ItemIcons", "iconPosition"}) end,
+
     -- ----------------------------------------------------------------------------------
 
     isSilentModeDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,

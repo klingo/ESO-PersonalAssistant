@@ -3,6 +3,8 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
 local PALMenuFunctions = PA.MenuFunctions.PALoot
+local PALMenuChoices = PA.MenuChoices.choices.PALoot
+local PALMenuChoicesValues = PA.MenuChoices.choicesValues.PALoot
 local PALMenuDefaults = PA.MenuDefaults.PALoot
 
 local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
@@ -117,14 +119,6 @@ local function _createPALootMenu()
 
     -- TODO: add new settings
 
-
-    -- TODO: add icon size setting
-
-    -- TODO: icon position override
-    -- if NO [ResearchAssistant], then defualt = TOPLEFT
-    -- elseif NO [ESOMRL], thend efault = BOTTOMLEFT
-    -- else BOTTOMRIGHT
-
     PALootOptionsTable:insert({
         type = "slider",
         name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE),
@@ -137,6 +131,21 @@ local function _createPALootMenu()
         disabled = PALMenuFunctions.isItemIconsSizeDisabled,
         default = PALMenuDefaults.ItemIcons.iconSize,
     })
+
+    -- only display if [InventoryGridView] is installed and active
+    if _G["InventoryGridView"] ~= nil then
+        PALootOptionsTable:insert({
+            type = "dropdown",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_POSITION),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_POSITION_T),
+            choices = PALMenuChoices.iconPosition,
+            choicesValues = PALMenuChoicesValues.iconPosition,
+            getFunc = PALMenuFunctions.getItemIconsPositionSetting,
+            setFunc = PALMenuFunctions.setItemIconsPositionSetting,
+            disabled = PALMenuFunctions.isItemIconsPositionDisabled,
+            default = PALMenuDefaults.ItemIcons.iconPosition,
+        })
+    end
 
     -- ---------------------------------------------------------------------------------------------------------
 

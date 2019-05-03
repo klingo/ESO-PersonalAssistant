@@ -34,7 +34,16 @@ local PAMenuChoices = {
             GetString(SI_PA_QUALITY_EPIC),
 --            GetString(SI_PA_QUALITY_LEGENDARY),
         }
-    }
+    },
+    PALoot = {
+        iconPosition = {
+            GetString(SI_PA_POSITION_AUTO),
+            GetString(SI_PA_POSITION_TOPLEFT),
+            GetString(SI_PA_POSITION_TOPRIGHT),
+            GetString(SI_PA_POSITION_BOTTOMLEFT),
+            GetString(SI_PA_POSITION_BOTTOMRIGHT),
+        }
+    },
 }
 
 local PAMenuChoicesValues = {
@@ -66,6 +75,20 @@ local PAMenuChoicesValues = {
             ITEM_QUALITY_ARCANE,        -- 3
             ITEM_QUALITY_ARTIFACT,      -- 4
 --            ITEM_QUALITY_LEGENDARY,     -- 5
+        }
+    },
+    PALoot = {
+        iconPosition = {
+            PAC.ICON_POSITION.AUTO,     -- -1 (automatic)
+            TOPLEFT,                    -- 3
+            TOPRIGHT,                   -- 9
+            BOTTOMLEFT,                 -- 6
+            BOTTOMRIGHT,                -- 12
+--            BOTTOM,                     -- 4
+--            TOP,                        -- 1
+--            LEFT,                       -- 2
+--            RIGHT,                      -- 8
+--            CENTER,                     -- 128
         }
     }
 }

@@ -23,6 +23,34 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function _getIargetIconPosition()
+    local selectedIconPosition = PA.Loot.SavedVars.ItemIcons.iconPosition
+    if selectedIconPosition == PAC.ICON_POSITION.AUTO then
+        if _G["ResearchAssistant"] == nil then
+            -- no [ResearchAssistant] found; position TOPLEFT
+            return TOPLEFT
+        elseif _G["ESOMRL"] == nil then
+            -- no [ESOMRL] found; position BOTTOMLEFT
+            return BOTTOMLEFT
+        else
+            -- both addons found; position BOTTOMRIGHT
+            return BOTTOMRIGHT
+        end
+    else
+        return selectedIconPosition
+    end
+end
+
+local function _getGridViewIconPositionAndOffset()
+    local selectedIconPosition = _getIargetIconPosition()
+    local offsetX, offsetY
+    if selectedIconPosition == TOPRIGHT or selectedIconPosition == BOTTOMRIGHT then offsetX = -4 else offsetX = 4 end
+    if selectedIconPosition == BOTTOMLEFT or selectedIconPosition == BOTTOMRIGHT then offsetY = -4 else offsetY = 4 end
+    return selectedIconPosition, offsetX, offsetY
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function _handleTooltips(control, tooltipText)
     -- enable tooltips on the control
     control:SetMouseEnabled(true)
@@ -82,7 +110,8 @@ local function _addItemKnownOrUnknownVisuals(control, bagId, slotIndex, itemLink
     local isGridViewEnabled = _isGridViewEnabled(control)
     itemIconControl:ClearAnchors()
     if isGridViewEnabled then
-        itemIconControl:SetAnchor(BOTTOMRIGHT, control, BOTTOMRIGHT, -4, -4)
+        local iconPosition, offsetX, offsetY = _getGridViewIconPositionAndOffset()
+        itemIconControl:SetAnchor(iconPosition, control, iconPosition, offsetX, offsetY)
     else
         local controlName = WINDOW_MANAGER:GetControlByName(control:GetName() .. 'Name')
         itemIconControl:SetAnchor(RIGHT, controlName, LEFT, -2, 0)

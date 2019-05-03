@@ -487,5 +487,9 @@ PersonalAssistant.Constants = {
 
     ITEM_QUALITY = {
         DISABLED = -1,
-    }
+    },
+
+    ICON_POSITION = {
+        AUTO = -1,
+    },
 }

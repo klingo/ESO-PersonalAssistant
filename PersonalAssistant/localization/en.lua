@@ -96,6 +96,14 @@ local PAStrings = {
     -- Stacking types --
     SI_PA_ST_MOVE_FULL = "Move everything", -- 0: Full deposit
     SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Only fill up existing stacks", -- 1: Fill existing stacks
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Icon Positions --
+    SI_PA_POSITION_AUTO = "Automatic",
+    SI_PA_POSITION_TOPLEFT = "Top Left",
+    SI_PA_POSITION_TOPRIGHT = "Top Right",
+    SI_PA_POSITION_BOTTOMLEFT = "Bottom Left",
+    SI_PA_POSITION_BOTTOMRIGHT = "Bottom Right",
 }
 
 for key, value in pairs(PAStrings) do
