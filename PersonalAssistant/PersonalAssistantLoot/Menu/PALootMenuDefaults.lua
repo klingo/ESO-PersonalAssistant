@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -23,6 +24,27 @@ local PALootMenuDefaults = {
 
     ItemIcons = {
         itemIconsEnabled = true,
+
+        Recipes = {
+            showKnownIcon = false,
+            showUnknownIcon = true,
+            showTooltip = true,
+        },
+
+        Motifs = {
+            showKnownIcon = false,
+            showUnknownIcon = true,
+            showTooltip = true,
+        },
+
+        ApparelWeapons = {
+            showKnownIcon = false,
+            showUnknownIcon = true,
+            showTooltip = true,
+        },
+
+        iconPosition = PAC.ICON_POSITION.AUTO,
+        iconSize = 16,
     },
 
     InventorySpace = {

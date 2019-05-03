@@ -64,7 +64,11 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
 
     getItemIconsEnabledSetting = function() return getValue({"ItemIcons", "itemIconsEnabled"}) end,
-    setItemIconsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"ItemIcons", "itemIconsEnabled"}) end,
+    setItemIconsEnabledSetting = function(value) setValue(value, {"ItemIcons", "itemIconsEnabled"}) end,
+
+    isItemIconsSizeDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getItemIconsSizeSetting = function() return getValue({"ItemIcons", "iconSize"}) end,
+    setItemIconsSizeSetting = function(value) setValue(value, {"ItemIcons", "iconSize"}) end,
 
     -- ----------------------------------------------------------------------------------
 

@@ -118,6 +118,26 @@ local function _createPALootMenu()
     -- TODO: add new settings
 
 
+    -- TODO: add icon size setting
+
+    -- TODO: icon position override
+    -- if NO [ResearchAssistant], then defualt = TOPLEFT
+    -- elseif NO [ESOMRL], thend efault = BOTTOMLEFT
+    -- else BOTTOMRIGHT
+
+    PALootOptionsTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE),
+        tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_T),
+        min = 8,
+        max = 64,
+        step = 1,
+        getFunc = PALMenuFunctions.getItemIconsSizeSetting,
+        setFunc = PALMenuFunctions.setItemIconsSizeSetting,
+        disabled = PALMenuFunctions.isItemIconsSizeDisabled,
+        default = PALMenuDefaults.ItemIcons.iconSize,
+    })
+
     -- ---------------------------------------------------------------------------------------------------------
 
     PALootOptionsTable:insert({

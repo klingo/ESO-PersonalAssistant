@@ -32,7 +32,8 @@ end
 
 local function _setItemIcon(control, icon, tooltipText, r, g, b, a)
     -- set the dimensions and the texture including provided rgba colors
-    control:SetDimensions(16, 16)
+    local iconSize = PA.Loot.SavedVars.ItemIcons.iconSize
+    control:SetDimensions(iconSize, iconSize)
     control:SetTextureCoords(0.2, 0.8, 0.2, 0.8)
     control:SetTexture(icon)
     control:SetColor(r, g, b, a)

@@ -33,6 +33,10 @@ local PALStrings = {
     -- PALoot Mark Items --
     SI_PA_MENU_LOOT_ICONS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Item Icons"}),
 
+    SI_PA_MENU_LOOT_ICONS_POSITION = "Icon Position",
+    SI_PA_MENU_LOOT_ICONS_SIZE = "Icon Size",
+    SI_PA_MENU_LOOT_ICONS_SIZE_T = "Define the size of the known/unknown icons",
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --
