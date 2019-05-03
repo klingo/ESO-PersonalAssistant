@@ -26,7 +26,6 @@ PABanking/PABankingCrafting.lua
 PABanking/PABankingAdvanced.lua
 PABanking/PABankingIndividual.lua
 PABanking/PABankingAvA.lua
-PABanking/PABankingVisuals.lua
 PABanking/PABanking.lua
 
 # Menu

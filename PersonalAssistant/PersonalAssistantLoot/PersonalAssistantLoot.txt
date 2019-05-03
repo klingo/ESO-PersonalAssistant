@@ -20,6 +20,7 @@ localization/$(language).lua
 PersonalAssistantLoot.lua
 
 # PALoot
+PALoot/PALootItemIcons.lua
 PALoot/PALoot.lua
 
 # Menu

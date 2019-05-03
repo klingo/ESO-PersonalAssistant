@@ -4,7 +4,7 @@ local PAC = PA.Constants
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local CONTROL_NAME = "PABVisual"
+local CONTROL_NAME = "PALItemVisuals"
 
 local function _isGridViewEnabled(control)
     -- check whether the inventory is displayed in a grid
@@ -44,12 +44,12 @@ local function _setUnknownItemIcon(control, tooltip)
 end
 
 local function _getOrCreateItemControl(parent)
-    local pabVisualControl = parent:GetNamedChild(CONTROL_NAME)
-    if not pabVisualControl then
-        pabVisualControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. CONTROL_NAME, parent, CT_TEXTURE)
-        pabVisualControl:SetDrawTier(DT_HIGH)
+    local itemIconControl = parent:GetNamedChild(CONTROL_NAME)
+    if not itemIconControl then
+        itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. CONTROL_NAME, parent, CT_TEXTURE)
+        itemIconControl:SetDrawTier(DT_HIGH)
     end
-    return pabVisualControl
+    return itemIconControl
 end
 
 local function _addItemKnownOrUnknownVisuals(control, bagId, slotIndex, itemLink)
@@ -57,51 +57,51 @@ local function _addItemKnownOrUnknownVisuals(control, bagId, slotIndex, itemLink
     local itemFilterType = GetItemFilterTypeInfo(bagId, slotIndex)
 
     -- get either the already existing item control, or create a new one
-    local pabVisualControl = _getOrCreateItemControl(control)
+    local itemIconControl = _getOrCreateItemControl(control)
 
     -- make sure the icon/control is hidded for non-recipes and non-motives
     if itemType ~= ITEMTYPE_RECIPE and itemType ~= ITEMTYPE_RACIAL_STYLE_MOTIF and
             itemFilterType ~= ITEMFILTERTYPE_ARMOR and itemFilterType ~= ITEMFILTERTYPE_WEAPONS and
             itemFilterType ~= ITEMFILTERTYPE_JEWELRY then
-        pabVisualControl:SetHidden(true)
+        itemIconControl:SetHidden(true)
         return
     end
 
     -- check for inventory grid view and set the anchors accordingly
     local isGridViewEnabled = _isGridViewEnabled(control)
-    pabVisualControl:ClearAnchors()
+    itemIconControl:ClearAnchors()
     if isGridViewEnabled then
-        pabVisualControl:SetAnchor(BOTTOMRIGHT, control, BOTTOMRIGHT, -4, -4)
+        itemIconControl:SetAnchor(BOTTOMRIGHT, control, BOTTOMRIGHT, -4, -4)
     else
         local controlName = WINDOW_MANAGER:GetControlByName(control:GetName() .. 'Name')
-        pabVisualControl:SetAnchor(RIGHT, controlName, LEFT, -2, 0)
+        itemIconControl:SetAnchor(RIGHT, controlName, LEFT, -2, 0)
     end
 
     -- now set the icons to the controls (depending on itemType and if known or not)
     if itemType == ITEMTYPE_RECIPE then
         if IsItemLinkRecipeKnown(itemLink) then
-            _setKnownItemIcon(pabVisualControl)
+            _setKnownItemIcon(itemIconControl)
         else
-            _setUnknownItemIcon(pabVisualControl)
+            _setUnknownItemIcon(itemIconControl)
         end
     elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
         if IsItemLinkBook(itemLink) and IsItemLinkBookKnown(itemLink) then
-            _setKnownItemIcon(pabVisualControl)
+            _setKnownItemIcon(itemIconControl)
         else
-            _setUnknownItemIcon(pabVisualControl)
+            _setUnknownItemIcon(itemIconControl)
         end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
         if CanItemLinkBeTraitResearched(itemLink) then
-            _setUnknownItemIcon(pabVisualControl)
+            _setUnknownItemIcon(itemIconControl)
         else
-            _setKnownItemIcon(pabVisualControl)
+            _setKnownItemIcon(itemIconControl)
         end
     end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function initVisualHooksOnBags()
+local function initHooksOnBags()
     for _, v in pairs(PLAYER_INVENTORY.inventories) do
         local listView = v.listView
         if listView and listView.dataTypes and listView.dataTypes[1] then
@@ -115,14 +115,11 @@ local function initVisualHooksOnBags()
     end
 end
 
--- TODO: do I need RefreshViews() ?
-
-
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
-PA.Banking = PA.Banking or {}
-PA.Banking.Visuals = {
-    initVisualHooksOnBags = initVisualHooksOnBags
+PA.Loot = PA.Loot or {}
+PA.Loot.ItemVisuals = {
+    initHooksOnBags = initHooksOnBags
 }
 
 
