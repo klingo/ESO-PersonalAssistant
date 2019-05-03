@@ -2,8 +2,9 @@ local PAC = PersonalAssistant.Constants
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- PALoot Menu --
+-- PALoot Loot Events --
 SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot peut vous informer sur des objets d'un intérêt particulier tels que des recettes inconnues, des motifs, des traits", 1)
+SafeAddString(SI_PA_MENU_LOOT_EVENTS_ENABLE, "Activer les événements de butin", 1)
 
 -- Loot Recipes
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Sur butin de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
@@ -25,6 +26,8 @@ SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Affiche un avertissement
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Seuil d' “espace faible”", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Si la place disponible restante dans l'inventaire est plus petite ou égale au seuil, un message sera affiché dans la fenêtre de chat", 1)
 
+-- PALoot Mark Items --
+
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --
@@ -43,4 +46,3 @@ SafeAddString(SI_PA_PATTERN_SOULGEM_COUNT, table.concat({PAC.COLORED_TEXTS.PAL, 
 -- == OTHER STRINGS FOR MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PALoot --
-SafeAddString(SI_PA_MENU_LOOT_ENABLE, "Activer les événements de butin", 1)

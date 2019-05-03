@@ -42,11 +42,11 @@ local function _createPALootMenu()
 
     PALootOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ENABLE),
-        getFunc = PALMenuFunctions.isEnabled,
-        setFunc = PALMenuFunctions.setIsEnabled,
+        name = GetString(SI_PA_MENU_LOOT_EVENTS_ENABLE),
+        getFunc = PALMenuFunctions.getLootEventsEnabledSetting,
+        setFunc = PALMenuFunctions.setLootEventsEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PALMenuDefaults.enabled,
+        default = PALMenuDefaults.LootEvents.lootEventsEnabled,
     })
 
     PALootOptionsTable:insert({
@@ -82,7 +82,7 @@ local function _createPALootMenu()
         getFunc = PALMenuFunctions.getLowInventorySpaceWarningSetting,
         setFunc = PALMenuFunctions.setLowInventorySpaceWarningSetting,
         disabled = PALMenuFunctions.isLowInventorySpaceWarningDisabled,
-        default = PALMenuDefaults.lowInventorySpaceWarning,
+        default = PALMenuDefaults.InventorySpace.lowInventorySpaceWarning,
     })
 
     PALootOptionsTable:insert({
@@ -90,13 +90,39 @@ local function _createPALootMenu()
         name = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD),
         tooltip = GetString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T),
         min = 0,
-        max = GetNumBagFreeSlots(BAG_BACKPACK) + GetNumBagUsedSlots(BAG_BACKPACK),
+        max = GetBagSize(BAG_BACKPACK),
         step = 1,
         width = "half",
         getFunc = PALMenuFunctions.getLowInventorySpaceThresholdSetting,
         setFunc = PALMenuFunctions.setLowInventorySpaceThresholdSetting,
         disabled = PALMenuFunctions.isLowInventorySpaceThresholdDisabled,
-        default = PALMenuDefaults.lowInventorySpaceThreshold,
+        default = PALMenuDefaults.InventorySpace.lowInventorySpaceThreshold,
+    })
+
+    -- ---------------------------------------------------------------------------------------------------------
+
+    PALootOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PALootOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_ENABLE),
+        getFunc = PALMenuFunctions.getItemIconsEnabledSetting,
+        setFunc = PALMenuFunctions.setItemIconsEnabledSetting,
+        disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PALMenuDefaults.ItemIcons.itemIconsEnabled,
+    })
+
+    -- TODO: add new settings
+
+
+    -- ---------------------------------------------------------------------------------------------------------
+
+    PALootOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
     })
 
     PALootOptionsTable:insert({
@@ -119,7 +145,7 @@ local function _createPALLootRecipesSubmenuTable()
         getFunc = PALMenuFunctions.getUnknownRecipeMsgSetting,
         setFunc = PALMenuFunctions.setUnknownRecipeMsgSetting,
         disabled = PALMenuFunctions.isUnknownRecipeMsgDisabled,
-        default = PALMenuDefaults.LootRecipes.unknownRecipeMsg,
+        default = PALMenuDefaults.LootEvents.LootRecipes.unknownRecipeMsg,
     })
 end
 
@@ -133,7 +159,7 @@ local function _createPALLootMotifsSubmenuTable()
         getFunc = PALMenuFunctions.getUnknownMotifMsgSetting,
         setFunc = PALMenuFunctions.setUnknownMotifMsgSetting,
         disabled = PALMenuFunctions.isUnknownMotifMsgDisabled,
-        default = PALMenuDefaults.LootMotifs.unknownMotifMsg,
+        default = PALMenuDefaults.LootEvents.LootMotifs.unknownMotifMsg,
     })
 end
 
@@ -147,7 +173,7 @@ local function _createPALLootApparelWeaponsSubmenuTable()
         getFunc = PALMenuFunctions.getUnknownTraitMsgSetting,
         setFunc = PALMenuFunctions.setUnknownTraitMsgSetting,
         disabled = PALMenuFunctions.isUnknownTraitMsgDisabled,
-        default = PALMenuDefaults.LootApparelWeapons.unknownTraitMsg,
+        default = PALMenuDefaults.LootEvents.LootApparelWeapons.unknownTraitMsg,
     })
 end
 

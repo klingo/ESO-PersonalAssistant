@@ -4,22 +4,31 @@ local PA = PersonalAssistant
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PALootMenuDefaults = {
-    enabled = true,
 
-    LootRecipes = {
-        unknownRecipeMsg = true
+    LootEvents = {
+        lootEventsEnabled = true,
+
+        LootRecipes = {
+            unknownRecipeMsg = true
+        },
+
+        LootMotifs = {
+            unknownMotifMsg = true,
+        },
+
+        LootApparelWeapons = {
+            unknownTraitMsg = true,
+        },
     },
 
-    LootMotifs = {
-        unknownMotifMsg = true,
+    ItemIcons = {
+        itemIconsEnabled = true,
     },
 
-    LootApparelWeapons = {
-        unknownTraitMsg = true,
+    InventorySpace = {
+        lowInventorySpaceWarning = true,
+        lowInventorySpaceThreshold = 10,
     },
-
-    lowInventorySpaceWarning = true,
-    lowInventorySpaceThreshold = 10,
 
     silentMode = false,
 }

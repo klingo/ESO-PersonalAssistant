@@ -212,7 +212,7 @@ local function RefreshAllEventRegistrations()
     if PAL then
         -- Check if the functionality is turned on within the addon
         local PALMenuFunctions = PAMenuFunctions.PALoot
-        if PALMenuFunctions.isEnabled() then
+        if PALMenuFunctions.getLootEventsEnabledSetting() then
             -- Register PALoot to check looted items
             RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate, "SingleSlotUpdate")
             RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")

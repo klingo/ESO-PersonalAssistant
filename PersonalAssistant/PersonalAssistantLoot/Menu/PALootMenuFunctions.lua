@@ -24,44 +24,51 @@ end
 -- =================================================================================================================
 
 local PALootMenuFunctions = {
-    isEnabled = function() return getValue({"enabled"}) end,
-    setIsEnabled = function(value) setValueAndRefreshEvents(value, {"enabled"}) end,
+    getLootEventsEnabledSetting = function() return getValue({"LootEvents", "lootEventsEnabled"}) end,
+    setLootEventsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"LootEvents", "lootEventsEnabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- RECIPES SETTINGS
     -- -----------------------------
-    isLootRecipesMenuDisabled = function() return isDisabled({"enabled"}, {"LootRecipes", "unknownRecipeMsg"}) end,
-    isUnknownRecipeMsgDisabled = function() return isDisabled({"enabled"}) end,
-    getUnknownRecipeMsgSetting = function() return getValue({"LootRecipes", "unknownRecipeMsg"}) end,
-    setUnknownRecipeMsgSetting = function(value) setValue(value, {"LootRecipes", "unknownRecipeMsg"}) end,
+    isLootRecipesMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}, {"LootEvents", "LootRecipes", "unknownRecipeMsg"}) end,
+    isUnknownRecipeMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getUnknownRecipeMsgSetting = function() return getValue({"LootEvents", "LootRecipes", "unknownRecipeMsg"}) end,
+    setUnknownRecipeMsgSetting = function(value) setValue(value, {"LootEvents", "LootRecipes", "unknownRecipeMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- MOTIFS SETTINGS
     -- -----------------------------
-    isLootMotifsMenuDisabled = function() return isDisabled({"enabled"}, {"LootMotifs", "unknownMotifMsg"}) end,
-    isUnknownMotifMsgDisabled = function() return isDisabled({"enabled"}) end,
-    getUnknownMotifMsgSetting = function() return getValue({"LootMotifs", "unknownMotifMsg"}) end,
-    setUnknownMotifMsgSetting = function(value) setValue(value, {"LootMotifs", "unknownMotifMsg"}) end,
+    isLootMotifsMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}, {"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
+    isUnknownMotifMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getUnknownMotifMsgSetting = function() return getValue({"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
+    setUnknownMotifMsgSetting = function(value) setValue(value, {"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS
     -- -----------------------------
-    isLootApparelWeaponsMenuDisabled = function() return isDisabled({"enabled"}, {"LootApparelWeapons", "unknownTraitMsg"}) end,
-    isUnknownTraitMsgDisabled = function() return isDisabled({"enabled"}) end,
-    getUnknownTraitMsgSetting = function() return getValue({"LootApparelWeapons", "unknownTraitMsg"}) end,
-    setUnknownTraitMsgSetting = function(value) setValue(value, {"LootApparelWeapons", "unknownTraitMsg"}) end,
+    isLootApparelWeaponsMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}, {"LootEvents", "LootApparelWeapons", "unknownTraitMsg"}) end,
+    isUnknownTraitMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getUnknownTraitMsgSetting = function() return getValue({"LootEvents", "LootApparelWeapons", "unknownTraitMsg"}) end,
+    setUnknownTraitMsgSetting = function(value) setValue(value, {"LootEvents", "LootApparelWeapons", "unknownTraitMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
 
-    isLowInventorySpaceWarningDisabled = function() return isDisabled({"enabled"}) end,
-    getLowInventorySpaceWarningSetting = function() return getValue({"lowInventorySpaceWarning"}) end,
-    setLowInventorySpaceWarningSetting = function(value) setValue(value, {"lowInventorySpaceWarning"}) end,
+    isLowInventorySpaceWarningDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getLowInventorySpaceWarningSetting = function() return getValue({"InventorySpace", "lowInventorySpaceWarning"}) end,
+    setLowInventorySpaceWarningSetting = function(value) setValue(value, {"InventorySpace", "lowInventorySpaceWarning"}) end,
 
-    isLowInventorySpaceThresholdDisabled = function() return isDisabled({"enabled"}, {"lowInventorySpaceWarning"}) end,
-    getLowInventorySpaceThresholdSetting = function() return getValue({"lowInventorySpaceThreshold"}) end,
-    setLowInventorySpaceThresholdSetting = function(value) setValue(value, {"lowInventorySpaceThreshold"}) end,
+    isLowInventorySpaceThresholdDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}, {"InventorySpace", "lowInventorySpaceWarning"}) end,
+    getLowInventorySpaceThresholdSetting = function() return getValue({"InventorySpace", "lowInventorySpaceThreshold"}) end,
+    setLowInventorySpaceThresholdSetting = function(value) setValue(value, {"InventorySpace", "lowInventorySpaceThreshold"}) end,
 
-    isSilentModeDisabled = function() return isDisabled({"enabled"}) end,
+    -- ----------------------------------------------------------------------------------
+
+    getItemIconsEnabledSetting = function() return getValue({"ItemIcons", "itemIconsEnabled"}) end,
+    setItemIconsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"ItemIcons", "itemIconsEnabled"}) end,
+
+    -- ----------------------------------------------------------------------------------
+
+    isSilentModeDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getSilentModeSetting = function() return getValue({"silentMode"}) end,
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }

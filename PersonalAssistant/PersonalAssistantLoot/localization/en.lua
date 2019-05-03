@@ -6,8 +6,10 @@ local PALStrings = {
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PALoot Menu --
+    -- PALoot Loot Events --
     SI_PA_MENU_LOOT_DESCRIPTION = "PALoot can inform you about items of special interest such as unknown recipes, motifs, or traits",
+    SI_PA_MENU_LOOT_EVENTS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Loot Events"}),
+
     -- Loot Recipes
     SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"Display message if a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
@@ -28,6 +30,9 @@ local PALStrings = {
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Inventory space threshold",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T = "If the remaining free inventory space is at or below this threshold, a message is displayed in the chat window",
 
+    -- PALoot Mark Items --
+    SI_PA_MENU_LOOT_ICONS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Item Icons"}),
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --
@@ -46,7 +51,6 @@ local PALStrings = {
     -- == OTHER STRINGS FOR MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
-    SI_PA_MENU_LOOT_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Loot Events"}),
 }
 
 for key, value in pairs(PALStrings) do

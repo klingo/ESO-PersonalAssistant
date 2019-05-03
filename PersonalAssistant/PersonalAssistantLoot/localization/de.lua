@@ -2,8 +2,10 @@ local PAC = PersonalAssistant.Constants
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- PALoot Menu --
+-- PALoot Loot Events --
 SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot kann dich über Gegenstände von speziellem Interesse wie unbekannte Rezepte, Stile oder Eigenschaften informieren", 1)
+SafeAddString(SI_PA_MENU_LOOT_EVENTS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Ereignisse beim Beute einsammeln"}), 1)
+
 -- Loot Recipes
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)}), 1)
@@ -24,6 +26,9 @@ SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Zeige eine Warnung im Ch
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Schwellenwert für Inventarplätze", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wenn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Warnung im Chat ausgegeben", 1)
 
+-- PALoot Mark Items --
+
+
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --
@@ -42,4 +47,3 @@ SafeAddString(SI_PA_PATTERN_SOULGEM_COUNT, table.concat({PAC.COLORED_TEXTS.PAL, 
 -- == OTHER STRINGS FOR MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PALoot --
-SafeAddString(SI_PA_MENU_LOOT_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Ereignisse beim Beute einsammeln"}), 1)

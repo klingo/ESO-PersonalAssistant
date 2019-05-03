@@ -34,7 +34,7 @@ PersonalAssistant.Constants = {
                 PROFILE = 1,
                 BANKING = 2,
                 JUNK = 2,
-                LOOT = 1,
+                LOOT = 2,
                 REPAIR = 1,
             },
             MINOR = 020200,

@@ -11,6 +11,18 @@ local function _isGridViewEnabled(control)
     return control.isGrid or (control:GetWidth() - control:GetHeight() < 5) or (InventoryGridView and InventoryGridView.settings.vars.isGrid)
 end
 
+local function _hasItemIconChecksPassed(itemType, itemFilterType)
+    if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled then
+        if itemType == ITEMTYPE_RECIPE or itemType == ITEMTYPE_RACIAL_STYLE_MOTIF or
+            itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
+            return true
+        end
+    end
+    return false
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function _handleTooltips(control, tooltipText)
     -- enable tooltips on the control
     control:SetMouseEnabled(true)
@@ -59,10 +71,8 @@ local function _addItemKnownOrUnknownVisuals(control, bagId, slotIndex, itemLink
     -- get either the already existing item control, or create a new one
     local itemIconControl = _getOrCreateItemControl(control)
 
-    -- make sure the icon/control is hidded for non-recipes and non-motives
-    if itemType ~= ITEMTYPE_RECIPE and itemType ~= ITEMTYPE_RACIAL_STYLE_MOTIF and
-            itemFilterType ~= ITEMFILTERTYPE_ARMOR and itemFilterType ~= ITEMFILTERTYPE_WEAPONS and
-            itemFilterType ~= ITEMFILTERTYPE_JEWELRY then
+    -- make sure the icon/control is hidded for non-recipes and non-motives (or if setting was disabled)
+    if not _hasItemIconChecksPassed(itemType, itemFilterType) then
         itemIconControl:SetHidden(true)
         return
     end
