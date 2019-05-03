@@ -8,7 +8,7 @@ local CONTROL_NAME = "PABVisual"
 
 local function _isGridViewEnabled(control)
     -- check whether the inventory is displayed in a grid
-    return control.isGrid or (control:GetWidth() - control:GetHeight() < 5)
+    return control.isGrid or (control:GetWidth() - control:GetHeight() < 5) or (InventoryGridView and InventoryGridView.settings.vars.isGrid)
 end
 
 local function _handleTooltips(control, tooltipText)
