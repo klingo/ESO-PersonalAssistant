@@ -146,15 +146,6 @@ local function _createPALootMenu()
         disabledLabel = PALMenuFunctions.isMarkApparelWeaponsMenuDisabled,
     })
 
-    PALootOptionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
-        getFunc = PALMenuFunctions.getItemIconsTooltipShownSetting,
-        setFunc = PALMenuFunctions.setItemIconsTooltipShownSetting,
-        disabled = PALMenuFunctions.isItemIconsTooltipShownDisabled,
-        default = PALMenuDefaults.ItemIcons.iconTooltipShown,
-    })
-
     -- only display if [InventoryGridView] is installed and active
     if _G["InventoryGridView"] ~= nil then
         PALootOptionsTable:insert({
@@ -210,6 +201,15 @@ local function _createPALootMenu()
             default = PALMenuDefaults.ItemIcons.iconSizeRow,
         })
     end
+
+    PALootOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
+        getFunc = PALMenuFunctions.getItemIconsTooltipShownSetting,
+        setFunc = PALMenuFunctions.setItemIconsTooltipShownSetting,
+        disabled = PALMenuFunctions.isItemIconsTooltipShownDisabled,
+        default = PALMenuDefaults.ItemIcons.iconTooltipShown,
+    })
 
     -- ---------------------------------------------------------------------------------------------------------
 
