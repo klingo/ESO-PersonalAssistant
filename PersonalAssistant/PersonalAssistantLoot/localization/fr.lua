@@ -27,6 +27,31 @@ SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Seuil d' “espace faibl
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Si la place disponible restante dans l'inventaire est plus petite ou égale au seuil, un message sera affiché dans la fenêtre de chat", 1)
 
 -- PALoot Mark Items --
+SafeAddString(SI_PA_MENU_LOOT_ICONS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Activer les marqueurs sur les objets"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP, "Afficher un pop-up sur l'icone", 1)
+
+-- Mark Recipes --
+SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER, table.concat({"Marquer les ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN, table.concat({"Afficher ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " pur les ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " inconnues"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN, table.concat({"Afficher ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " pour les ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " connues"}), 1)
+
+-- Mark Motifs --
+SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_HEADER, table.concat({"Marquer les ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN, table.concat({"Afficher ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " pour les ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2), " inconnus"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN, table.concat({"Afficher ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " pour les ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2), " connus"}), 1)
+
+-- Mark Equipment (Apparel, Weapons & Jewelries) --
+SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER, "Marquer les équipements", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN, table.concat({"Afficher ", PAC.ICONS.OTHERS.KNOWN.NORMAL," pour les traits inconnus"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN, table.concat({"Afficher ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " pour les traits connus"}), 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST, "Taille de l'icone (Vue classique)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Définir la taille de l'icone connu/inconnu quand l'affichage des objets est en vue classique", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID, "Taille de l'icone (Vue grille)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Définir la taille de l'icone connu/inconnu quand l'affichage des objets est en vue grille, grâce à l'extension [InventoryGridView]", 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION, "Position de l'icone", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_T, "Définir la position de l'icone connu/inconnu.\nEn 'automatique', PALoot vérifiera si les extensions [Research Assistant] et [ESO Master Recipe List] sont activés, et positionnera l'icone dans un coin libre.", 1)
 
 
 -- =================================================================================================================
@@ -46,3 +71,5 @@ SafeAddString(SI_PA_PATTERN_SOULGEM_COUNT, table.concat({PAC.COLORED_TEXTS.PAL, 
 -- == OTHER STRINGS FOR MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PALoot --
+SafeAddString(SI_PA_ITEM_KNOWN, "Déjà connu", 1)
+SafeAddString(SI_PA_ITEM_UNKNOWN, "Inconnu", 1)

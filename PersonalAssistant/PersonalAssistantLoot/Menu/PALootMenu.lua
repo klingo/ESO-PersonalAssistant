@@ -171,8 +171,8 @@ local function _createPALootMenu()
 
         PALootOptionsTable:insert({
             type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T),
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
             min = 8,
             max = 64,
             step = 1,
@@ -199,8 +199,8 @@ local function _createPALootMenu()
     else
         PALootOptionsTable:insert({
             type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T),
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
             min = 8,
             max = 64,
             step = 1,
