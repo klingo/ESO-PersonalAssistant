@@ -45,7 +45,7 @@ local function initAddon(_, addOnName)
     PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT, nil, Loot_Defaults)
 
     -- initialize Item Visuals on bags
-    PA.Loot.ItemVisuals.initHooksOnBags()
+    PA.Loot.ItemIcons.initHooksOnBags()
 
     -- create the options with LAM-2
     PA.Loot.createOptions()

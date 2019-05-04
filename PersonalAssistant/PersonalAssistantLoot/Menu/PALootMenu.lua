@@ -117,23 +117,38 @@ local function _createPALootMenu()
         default = PALMenuDefaults.ItemIcons.itemIconsEnabled,
     })
 
-    -- TODO: add new settings
+    -- TODO: add RECIPE submenu with [showKnownIcon], [showUnknownIcon], and [showTooltip]
+    -- TODO: add MOTIF submenu with [showKnownIcon], [showUnknownIcon], and [showTooltip]
+    -- TODO: add APPAREL_WEAPON submenu with [showKnownIcon], [showUnknownIcon], and [showTooltip]
 
     PALootOptionsTable:insert({
         type = "slider",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE),
-        tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_T),
+        name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW),
+        tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T),
         min = 8,
         max = 64,
         step = 1,
-        getFunc = PALMenuFunctions.getItemIconsSizeSetting,
-        setFunc = PALMenuFunctions.setItemIconsSizeSetting,
-        disabled = PALMenuFunctions.isItemIconsSizeDisabled,
-        default = PALMenuDefaults.ItemIcons.iconSize,
+        getFunc = PALMenuFunctions.getItemIconsSizeRowSetting,
+        setFunc = PALMenuFunctions.setItemIconsSizeRowSetting,
+        disabled = PALMenuFunctions.isItemIconsSizeRowDisabled,
+        default = PALMenuDefaults.ItemIcons.iconSizeRow,
     })
 
     -- only display if [InventoryGridView] is installed and active
     if _G["InventoryGridView"] ~= nil then
+        PALootOptionsTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            getFunc = PALMenuFunctions.getItemIconsSizeGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeGridSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeGridDisabled,
+            default = PALMenuDefaults.ItemIcons.iconSizeGrid,
+        })
+
         PALootOptionsTable:insert({
             type = "dropdown",
             name = GetString(SI_PA_MENU_LOOT_ICONS_POSITION),
@@ -143,7 +158,7 @@ local function _createPALootMenu()
             getFunc = PALMenuFunctions.getItemIconsPositionSetting,
             setFunc = PALMenuFunctions.setItemIconsPositionSetting,
             disabled = PALMenuFunctions.isItemIconsPositionDisabled,
-            default = PALMenuDefaults.ItemIcons.iconPosition,
+            default = PALMenuDefaults.ItemIcons.iconPositionGrid,
         })
     end
 

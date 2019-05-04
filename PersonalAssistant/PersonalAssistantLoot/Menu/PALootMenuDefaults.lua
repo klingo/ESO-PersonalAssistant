@@ -43,8 +43,9 @@ local PALootMenuDefaults = {
             showTooltip = true,
         },
 
-        iconPosition = PAC.ICON_POSITION.AUTO,
-        iconSize = 16,
+        iconSizeRow = 16,
+        iconSizeGrid = 16,
+        iconPositionGrid = PAC.ICON_POSITION.AUTO,
     },
 
     InventorySpace = {

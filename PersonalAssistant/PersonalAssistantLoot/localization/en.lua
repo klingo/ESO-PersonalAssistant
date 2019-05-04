@@ -33,8 +33,10 @@ local PALStrings = {
     -- PALoot Mark Items --
     SI_PA_MENU_LOOT_ICONS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Item Icons"}),
 
-    SI_PA_MENU_LOOT_ICONS_SIZE = "Icon Size",
-    SI_PA_MENU_LOOT_ICONS_SIZE_T = "Define the size of the known/unknown icons",
+    SI_PA_MENU_LOOT_ICONS_SIZE_ROW = "Icon Size (Row View)",
+    SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T = "Define the size of the known/unknown icons in places where items are displayed in a row view",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Icon Size (Grid View)",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Define the size of the known/unknown icons in places where items are displayed in a grid view with the addon [InventoryGridView]",
 
     SI_PA_MENU_LOOT_ICONS_POSITION = "Icon Position",
     SI_PA_MENU_LOOT_ICONS_POSITION_T = "Define the position of the known/unknown icons.\nWith 'Automatic' PALoot checks if the addons [Research Assistant] and [ESO Master Recipe List] are enabled and positions the icon in a not yet occupied corner",
