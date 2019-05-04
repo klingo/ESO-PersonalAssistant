@@ -28,24 +28,22 @@ local PALootMenuDefaults = {
         Recipes = {
             showKnownIcon = false,
             showUnknownIcon = true,
-            showTooltip = true,
         },
 
         Motifs = {
             showKnownIcon = false,
             showUnknownIcon = true,
-            showTooltip = true,
         },
 
         ApparelWeapons = {
             showKnownIcon = false,
             showUnknownIcon = true,
-            showTooltip = true,
         },
 
+        iconPositionGrid = PAC.ICON_POSITION.AUTO,
+        iconTooltipShown = true,
         iconSizeRow = 16,
         iconSizeGrid = 16,
-        iconPositionGrid = PAC.ICON_POSITION.AUTO,
     },
 
     InventorySpace = {

@@ -146,6 +146,15 @@ local function _createPALootMenu()
         disabledLabel = PALMenuFunctions.isMarkApparelWeaponsMenuDisabled,
     })
 
+    PALootOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
+        getFunc = PALMenuFunctions.getItemIconsTooltipShownSetting,
+        setFunc = PALMenuFunctions.setItemIconsTooltipShownSetting,
+        disabled = PALMenuFunctions.isItemIconsTooltipShownDisabled,
+        default = PALMenuDefaults.ItemIcons.iconTooltipShown,
+    })
+
     -- only display if [InventoryGridView] is installed and active
     if _G["InventoryGridView"] ~= nil then
         PALootOptionsTable:insert({
@@ -281,15 +290,6 @@ local function _createPALMarkRecipesSubmenuTable()
         disabled = PALMenuFunctions.isMarkKnownRecipesDisabled,
         default = PALMenuDefaults.ItemIcons.Recipes.showKnownIcon,
     })
-
-    PALMarkRecipesSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
-        getFunc = PALMenuFunctions.getShowRecipesTooltipSetting,
-        setFunc = PALMenuFunctions.setShowRecipesTooltipSetting,
-        disabled = PALMenuFunctions.isShowRecipesTooltipDisabled,
-        default = PALMenuDefaults.ItemIcons.Recipes.showTooltip,
-    })
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -312,15 +312,6 @@ local function _createPALMarkMotifsSubmenuTable()
         disabled = PALMenuFunctions.isMarkKnownMotifsDisabled,
         default = PALMenuDefaults.ItemIcons.Motifs.showKnownIcon,
     })
-
-    PALMarkMotifsSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
-        getFunc = PALMenuFunctions.getShowMotifsTooltipSetting,
-        setFunc = PALMenuFunctions.setShowMotifsTooltipSetting,
-        disabled = PALMenuFunctions.isShowMotifsTooltipDisabled,
-        default = PALMenuDefaults.ItemIcons.Motifs.showTooltip,
-    })
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -342,15 +333,6 @@ local function _createPALMarkApparelWeaponsSubmenuTable()
         setFunc = PALMenuFunctions.setMarkKnownApparelWeaponsSetting,
         disabled = PALMenuFunctions.isMarkKnownApparelWeaponsDisabled,
         default = PALMenuDefaults.ItemIcons.ApparelWeapons.showKnownIcon,
-    })
-
-    PALMarkApparelWeaponsSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
-        getFunc = PALMenuFunctions.getShowApparelWeaponsTooltipSetting,
-        setFunc = PALMenuFunctions.setShowApparelWeaponsTooltipSetting,
-        disabled = PALMenuFunctions.isShowApparelWeaponsTooltipDisabled,
-        default = PALMenuDefaults.ItemIcons.ApparelWeapons.showTooltip,
     })
 end
 

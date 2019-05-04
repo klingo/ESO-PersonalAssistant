@@ -82,10 +82,6 @@ local PALootMenuFunctions = {
     getMarkUnknownRecipesSetting = function() return getValue({"ItemIcons", "Recipes", "showUnknownIcon"})  end,
     setMarkUnknownRecipesSetting = function(value) setValue(value, {"ItemIcons", "Recipes", "showUnknownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
 
-    isShowRecipesTooltipDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "Recipes", "showKnownIcon"}, {"ItemIcons", "Recipes", "showUnknownIcon"}) end,
-    getShowRecipesTooltipSetting = function() return getValue({"ItemIcons", "Recipes", "showTooltip"}) end,
-    setShowRecipesTooltipSetting = function(value) setValue(value, {"ItemIcons", "Recipes", "showTooltip"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
-
     -- ----------------------------------------------------------------------------------
     -- MOTIFS SETTINGS
     -- -----------------------------
@@ -97,10 +93,6 @@ local PALootMenuFunctions = {
     isMarkUnknownMotifsDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getMarkUnknownMotifsSetting = function() return getValue({"ItemIcons", "Motifs", "showUnknownIcon"})  end,
     setMarkUnknownMotifsSetting = function(value) setValue(value, {"ItemIcons", "Motifs", "showUnknownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
-
-    isShowMotifsTooltipDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "Motifs", "showKnownIcon"}, {"ItemIcons", "Motifs", "showUnknownIcon"}) end,
-    getShowMotifsTooltipSetting = function() return getValue({"ItemIcons", "Motifs", "showTooltip"}) end,
-    setShowMotifsTooltipSetting = function(value) setValue(value, {"ItemIcons", "Motifs", "showTooltip"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
 
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS
@@ -114,11 +106,11 @@ local PALootMenuFunctions = {
     getMarkUnknownApparelWeaponsSetting = function() return getValue({"ItemIcons", "ApparelWeapons", "showUnknownIcon"})  end,
     setMarkUnknownApparelWeaponsSetting = function(value) setValue(value, {"ItemIcons", "ApparelWeapons", "showUnknownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
 
-    isShowApparelWeaponsTooltipDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "ApparelWeapons", "showKnownIcon"}, {"ItemIcons", "ApparelWeapons", "showUnknownIcon"}) end,
-    getShowApparelWeaponsTooltipSetting = function() return getValue({"ItemIcons", "ApparelWeapons", "showTooltip"}) end,
-    setShowApparelWeaponsTooltipSetting = function(value) setValue(value, {"ItemIcons", "ApparelWeapons", "showTooltip"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
-
     -- ----------------------------------------------------------------------------------
+
+    isItemIconsTooltipShownDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getItemIconsTooltipShownSetting = function() return getValue({"ItemIcons", "iconTooltipShown"}) end,
+    setItemIconsTooltipShownSetting = function(value) setValue(value, {"ItemIcons", "iconTooltipShown"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
 
     isItemIconsSizeRowDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsSizeRowSetting = function() return getValue({"ItemIcons", "iconSizeRow"}) end,
