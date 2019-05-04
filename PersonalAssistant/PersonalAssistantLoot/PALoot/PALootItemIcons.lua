@@ -89,19 +89,23 @@ local function _setItemIcon(itemIconControl, icon, iconSize, tooltipText, r, g, 
 end
 
 -- sets the "known" icon to the control, plus tooltip
-local function _setKnownItemIcon(itemIconControl, iconSize, tooltip)
+local function _setKnownItemIcon(itemIconControl, iconSize, showTooltip)
     local red = 0.79    -- 202 (approx)
     local green = 0.79  -- 255 (approx)
     local blue= 0.79    -- 202 (approx)
-    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.KNOWN.PATH, iconSize, "Already known", red, green, blue, 0.4)
+    local tooltipText
+    if showTooltip then tooltipText = GetString(SI_PA_ITEM_KNOWN) end
+    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.KNOWN.PATH, iconSize, tooltipText, red, green, blue, 0.4)
 end
 
 -- sets the "unknown" icon to the control, plus tooltip
-local function _setUnknownItemIcon(itemIconControl, iconSize, tooltip)
+local function _setUnknownItemIcon(itemIconControl, iconSize, showTooltip)
     local red = 0.4     -- 102
     local green = 1.0   -- 255
     local blue= 0.4     -- 102
-    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.UNKNOWN.PATH, iconSize, "Unknown", red, green, blue, 1)
+    local tooltipText
+    if showTooltip then tooltipText = GetString(SI_PA_ITEM_UNKNOWN) end
+    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.UNKNOWN.PATH, iconSize, tooltipText, red, green, blue, 1)
 end
 
 -- either returns the existing itemControl to be re-used, or creates a new one
@@ -123,8 +127,10 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     local itemIconControl = _getOrCreateItemControl(parentControl)
 
     -- make sure the icon/control is hidded for non-recipes and non-motives (or if setting was disabled)
+    itemIconControl:SetHidden(true)
+
+    -- then check if the pre-conditions are met, otherwise stop any forther processings
     if not _hasItemIconChecksPassed(itemType, itemFilterType) then
-        itemIconControl:SetHidden(true)
         return
     end
 
@@ -141,24 +147,36 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     -- then get the icon size
     local iconSize = _getTargetIconSize(parentControl, hookType)
 
+    -- and start checking the SavedVars settings
+    local PALootSavedVars = PA.Loot.SavedVars
+
     -- now set the icons to the controls (depending on itemType and if known or not)
     if itemType == ITEMTYPE_RECIPE then
+        local PARecipesSV = PALootSavedVars.ItemIcons.Recipes
         if IsItemLinkRecipeKnown(itemLink) then
-            _setKnownItemIcon(itemIconControl, iconSize)
-        else
-            _setUnknownItemIcon(itemIconControl, iconSize)
+            if PARecipesSV.showKnownIcon then
+                _setKnownItemIcon(itemIconControl, iconSize, PARecipesSV.showTooltip)
+            end
+        elseif PARecipesSV.showUnknownIcon then
+            _setUnknownItemIcon(itemIconControl, iconSize, PARecipesSV.showTooltip)
         end
     elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+        local PAMotifsSV = PALootSavedVars.ItemIcons.Motifs
         if IsItemLinkBook(itemLink) and IsItemLinkBookKnown(itemLink) then
-            _setKnownItemIcon(itemIconControl, iconSize)
-        else
-            _setUnknownItemIcon(itemIconControl, iconSize)
+            if PAMotifsSV.showKnownIcon then
+                _setKnownItemIcon(itemIconControl, iconSize, PAMotifsSV.showTooltip)
+            end
+        elseif PAMotifsSV.showUnknownIcon then
+            _setUnknownItemIcon(itemIconControl, iconSize, PAMotifsSV.showTooltip)
         end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
+        local PAApparelWeaponsSV = PALootSavedVars.ItemIcons.ApparelWeapons
         if CanItemLinkBeTraitResearched(itemLink) then
-            _setUnknownItemIcon(itemIconControl, iconSize)
-        else
-            _setKnownItemIcon(itemIconControl, iconSize)
+            if PAApparelWeaponsSV.showUnknownIcon then
+                _setUnknownItemIcon(itemIconControl, iconSize, PAApparelWeaponsSV.showTooltip)
+            end
+        elseif PAApparelWeaponsSV.showKnownIcon then
+            _setKnownItemIcon(itemIconControl, iconSize, PAApparelWeaponsSV.showTooltip)
         end
     end
 end

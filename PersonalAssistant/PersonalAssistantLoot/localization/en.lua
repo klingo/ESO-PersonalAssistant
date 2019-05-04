@@ -32,6 +32,22 @@ local PALStrings = {
 
     -- PALoot Mark Items --
     SI_PA_MENU_LOOT_ICONS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Item Icons"}),
+    SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP = "Display icon tooltip",
+
+    -- Mark Recipes --
+    SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER = table.concat({"Marking ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
+    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " for known ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
+    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " for unknown ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
+
+    -- Mark Motifs --
+    SI_PA_MENU_LOOT_ICONS_MOTIFS_HEADER = table.concat({"Marking ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
+    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " for known ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
+    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " for unknown ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
+
+    -- Mark Apparel & Weapons --
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = table.concat({"Marking ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.KNOWN.NORMAL," for known ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " for unknown ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
 
     SI_PA_MENU_LOOT_ICONS_SIZE_ROW = "Icon Size (Row View)",
     SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T = "Define the size of the known/unknown icons in places where items are displayed in a row view",
@@ -59,6 +75,8 @@ local PALStrings = {
     -- == OTHER STRINGS FOR MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
+    SI_PA_ITEM_KNOWN = "Already known",
+    SI_PA_ITEM_UNKNOWN = "Unknown",
 }
 
 for key, value in pairs(PALStrings) do

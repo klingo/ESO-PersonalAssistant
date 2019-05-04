@@ -29,6 +29,10 @@ local PALLootRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootMotifsSubmenuTable = setmetatable({}, { __index = table })
 local PALLootApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
 
+local PALMarkRecipesSubmenuTable = setmetatable({}, { __index = table })
+local PALMarkMotifsSubmenuTable = setmetatable({}, { __index = table })
+local PALMarkApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
+
 -- =================================================================================================================
 
 local function _createPALootMenu()
@@ -117,38 +121,33 @@ local function _createPALootMenu()
         default = PALMenuDefaults.ItemIcons.itemIconsEnabled,
     })
 
-    -- TODO: add RECIPE submenu with [showKnownIcon], [showUnknownIcon], and [showTooltip]
-    -- TODO: add MOTIF submenu with [showKnownIcon], [showUnknownIcon], and [showTooltip]
-    -- TODO: add APPAREL_WEAPON submenu with [showKnownIcon], [showUnknownIcon], and [showTooltip]
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER),
+        icon = PAC.ICONS.ITEMS.RECIPE.PATH,
+        controls = PALMarkRecipesSubmenuTable,
+        disabledLabel = PALMenuFunctions.isMarkRecipesMenuDisabled,
+    })
 
     PALootOptionsTable:insert({
-        type = "slider",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW),
-        tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T),
-        min = 8,
-        max = 64,
-        step = 1,
-        getFunc = PALMenuFunctions.getItemIconsSizeRowSetting,
-        setFunc = PALMenuFunctions.setItemIconsSizeRowSetting,
-        disabled = PALMenuFunctions.isItemIconsSizeRowDisabled,
-        default = PALMenuDefaults.ItemIcons.iconSizeRow,
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_MOTIFS_HEADER),
+        icon = PAC.ICONS.ITEMS.MOTIF.PATH,
+        controls = PALMarkMotifsSubmenuTable,
+        disabledLabel = PALMenuFunctions.isMarkMotifsMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.WEAPON.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PALMarkApparelWeaponsSubmenuTable,
+        disabledLabel = PALMenuFunctions.isMarkApparelWeaponsMenuDisabled,
     })
 
     -- only display if [InventoryGridView] is installed and active
     if _G["InventoryGridView"] ~= nil then
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T),
-            min = 8,
-            max = 64,
-            step = 1,
-            getFunc = PALMenuFunctions.getItemIconsSizeGridSetting,
-            setFunc = PALMenuFunctions.setItemIconsSizeGridSetting,
-            disabled = PALMenuFunctions.isItemIconsSizeGridDisabled,
-            default = PALMenuDefaults.ItemIcons.iconSizeGrid,
-        })
-
         PALootOptionsTable:insert({
             type = "dropdown",
             name = GetString(SI_PA_MENU_LOOT_ICONS_POSITION),
@@ -159,6 +158,47 @@ local function _createPALootMenu()
             setFunc = PALMenuFunctions.setItemIconsPositionSetting,
             disabled = PALMenuFunctions.isItemIconsPositionDisabled,
             default = PALMenuDefaults.ItemIcons.iconPositionGrid,
+        })
+
+        PALootOptionsTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSizeRowSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeRowSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeRowDisabled,
+            default = PALMenuDefaults.ItemIcons.iconSizeRow,
+        })
+
+        PALootOptionsTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSizeGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeGridSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeGridDisabled,
+            default = PALMenuDefaults.ItemIcons.iconSizeGrid,
+        })
+    else
+        PALootOptionsTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_ROW_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            getFunc = PALMenuFunctions.getItemIconsSizeRowSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeRowSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeRowDisabled,
+            default = PALMenuDefaults.ItemIcons.iconSizeRow,
         })
     end
 
@@ -223,12 +263,109 @@ end
 
 -- =================================================================================================================
 
+local function _createPALMarkRecipesSubmenuTable()
+    PALMarkRecipesSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN),
+        getFunc = PALMenuFunctions.getMarkUnknownRecipesSetting,
+        setFunc = PALMenuFunctions.setMarkUnknownRecipesSetting,
+        disabled = PALMenuFunctions.isMarkUnknownRecipesDisabled,
+        default = PALMenuDefaults.ItemIcons.Recipes.showUnknownIcon,
+    })
+
+    PALMarkRecipesSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN),
+        getFunc = PALMenuFunctions.getMarkKnownRecipesSetting,
+        setFunc = PALMenuFunctions.setMarkKnownRecipesSetting,
+        disabled = PALMenuFunctions.isMarkKnownRecipesDisabled,
+        default = PALMenuDefaults.ItemIcons.Recipes.showKnownIcon,
+    })
+
+    PALMarkRecipesSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
+        getFunc = PALMenuFunctions.getShowRecipesTooltipSetting,
+        setFunc = PALMenuFunctions.setShowRecipesTooltipSetting,
+        disabled = PALMenuFunctions.isShowRecipesTooltipDisabled,
+        default = PALMenuDefaults.ItemIcons.Recipes.showTooltip,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALMarkMotifsSubmenuTable()
+    PALMarkMotifsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN),
+        getFunc = PALMenuFunctions.getMarkUnknownMotifsSetting,
+        setFunc = PALMenuFunctions.setMarkUnknownMotifsSetting,
+        disabled = PALMenuFunctions.isMarkUnknownMotifsDisabled,
+        default = PALMenuDefaults.ItemIcons.Motifs.showUnknownIcon,
+    })
+
+    PALMarkMotifsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN),
+        getFunc = PALMenuFunctions.getMarkKnownMotifsSetting,
+        setFunc = PALMenuFunctions.setMarkKnownMotifsSetting,
+        disabled = PALMenuFunctions.isMarkKnownMotifsDisabled,
+        default = PALMenuDefaults.ItemIcons.Motifs.showKnownIcon,
+    })
+
+    PALMarkMotifsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
+        getFunc = PALMenuFunctions.getShowMotifsTooltipSetting,
+        setFunc = PALMenuFunctions.setShowMotifsTooltipSetting,
+        disabled = PALMenuFunctions.isShowMotifsTooltipDisabled,
+        default = PALMenuDefaults.ItemIcons.Motifs.showTooltip,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALMarkApparelWeaponsSubmenuTable()
+    PALMarkApparelWeaponsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN),
+        getFunc = PALMenuFunctions.getMarkUnknownApparelWeaponsSetting,
+        setFunc = PALMenuFunctions.setMarkUnknownApparelWeaponsSetting,
+        disabled = PALMenuFunctions.isMarkUnknownApparelWeaponsDisabled,
+        default = PALMenuDefaults.ItemIcons.ApparelWeapons.showUnknownIcon,
+    })
+
+    PALMarkApparelWeaponsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN),
+        getFunc = PALMenuFunctions.getMarkKnownApparelWeaponsSetting,
+        setFunc = PALMenuFunctions.setMarkKnownApparelWeaponsSetting,
+        disabled = PALMenuFunctions.isMarkKnownApparelWeaponsDisabled,
+        default = PALMenuDefaults.ItemIcons.ApparelWeapons.showKnownIcon,
+    })
+
+    PALMarkApparelWeaponsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP),
+        getFunc = PALMenuFunctions.getShowApparelWeaponsTooltipSetting,
+        setFunc = PALMenuFunctions.setShowApparelWeaponsTooltipSetting,
+        disabled = PALMenuFunctions.isShowApparelWeaponsTooltipDisabled,
+        default = PALMenuDefaults.ItemIcons.ApparelWeapons.showTooltip,
+    })
+end
+
+-- =================================================================================================================
+
 local function createOptions()
     _createPALootMenu()
 
     _createPALLootRecipesSubmenuTable()
     _createPALLootMotifsSubmenuTable()
     _createPALLootApparelWeaponsSubmenuTable()
+
+    _createPALMarkRecipesSubmenuTable()
+    _createPALMarkMotifsSubmenuTable()
+    _createPALMarkApparelWeaponsSubmenuTable()
 
     LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
     LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
