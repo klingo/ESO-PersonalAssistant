@@ -16,10 +16,10 @@ SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({"Beim ", zo_strformat
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
 
--- Loot Apparel & Weapons
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, table.concat({"Beim ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)), " einsammeln"}), 1)
+-- Loot Equipment (Apparel, Weapons & Jewelries)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, "Beim Ausrüstungsgegenstände einsammeln", 1)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "Informiere bei nicht analysierten Eigenschaften", 1)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " oder eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}), 1)
 
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Warne wenn Inventarplätze ausgehen", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen", 1)

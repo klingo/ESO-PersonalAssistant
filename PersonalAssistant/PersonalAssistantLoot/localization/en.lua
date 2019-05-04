@@ -20,10 +20,10 @@ local PALStrings = {
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"Display message if a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is looted that is not yet known by this character, a message is displayed in the chat"}),
 
-    -- Loot Apparel & Weapons
-    SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = table.concat({"When Looting ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " & ", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}),
+    -- Loot Equipment (Apparel, Weapons & Jewelries)
+    SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "When Looting Equipment",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "Display message if a Trait is not yet researched",
-    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Whenever an ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " or a ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " is looted that has a trait that is not yet research by this character, a message is displayed in the chat"}),
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Whenever an ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", a ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", or ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " is looted that has a trait that is not yet researched by this character, a message is displayed in the chat"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on inventory space",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Display a warning in the chat window if you are low on inventory space",

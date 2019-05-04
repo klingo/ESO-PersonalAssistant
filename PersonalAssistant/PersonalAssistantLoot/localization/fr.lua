@@ -16,10 +16,10 @@ SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({"Sur butin de ", zo_s
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Avertir si le ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " n'est pas connu"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
--- Loot Apparel & Weapons
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, table.concat({"Sur butin d'", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), " ou d'", zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))}), 1)
+-- Loot Equipment (Apparel, Weapons & Jewelries)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, "Sur butin d'équipements", 1)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "Avertir si le Trait n'est pas connu", 1)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " ou un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " ou un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1) -- TODO: Takit update with [ITEMFILTERTYPE_JEWELRY]
 
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Avertir si l'espace restant est faible", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Affiche un avertissement dans la fenêtre de chat s'il reste peu d'espace dans votre inventaire", 1)
