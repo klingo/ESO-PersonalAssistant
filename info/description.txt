@@ -13,9 +13,9 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Currencies (gold, alliance points, ...) can be withdrawn from and deposited to your bank
 [*]Crafting materials can be withdrawn from and deposited to your bank (if you are not ESO Plus Subscriber)
 [*]Other selected items such as motives, recipes, writs, glyphs, trophies etc. can be withdrawn from and deposited to your bank
-[*]Select if items with [Intricate] trait should be transferred from/to the bank [COLOR=Orange]*NEW* (2.1.0)[/COLOR]
+[*]Select if items with [Intricate] trait should be transferred from/to the bank[/COLOR]
 [*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory
-[*]Be always ready for Cyrodiil and define how many the various AvA items to always keep in inventory [COLOR=Orange]*NEW* (2.1.0)[/COLOR][/LIST]
+[*]Be always ready for Cyrodiil and define how many the various AvA items to always keep in inventory[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
 [*]Trash items can be marked as junk
@@ -29,7 +29,8 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Informs you when an unknown recipe is looted
 [*]Informs you when an unknown motif/page is looted
 [*]Informs you when an item with a not yet researched trait is looted
-[*]Informs you when you are running out of inventory space (threshold can be defined)[/LIST]
+[*]Informs you when you are running out of inventory space (threshold can be defined)
+[*]Visually indicates if a recipe, motif, trait, or style page is known to the current character [COLOR=Orange]*NEW* (2.2.0)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA R[/COLOR][COLOR=White]epair[/COLOR][/SIZE][LIST]
 [*]Repairs your items for you when you visit a merchant (threshold can be defined)
