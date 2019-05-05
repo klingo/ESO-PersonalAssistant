@@ -94,19 +94,19 @@ local function _setItemIcon(itemIconControl, icon, iconSize, tooltipText, r, g, 
 end
 
 -- sets the "known" icon to the control, plus tooltip
-local function _setKnownItemIcon(itemIconControl, iconSize)
+local function _setKnownItemIcon(itemIconControl, iconSize, tooltipText)
     local red = 0.79    -- 202 (approx)
     local green = 0.79  -- 255 (approx)
     local blue = 0.79    -- 202 (approx)
-    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.KNOWN.PATH, iconSize, GetString(SI_PA_ITEM_KNOWN), red, green, blue, 0.4)
+    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.KNOWN.PATH, iconSize, tooltipText, red, green, blue, 0.4)
 end
 
 -- sets the "unknown" icon to the control, plus tooltip
-local function _setUnknownItemIcon(itemIconControl, iconSize)
+local function _setUnknownItemIcon(itemIconControl, iconSize, tooltipText)
     local red = 0.4     -- 102
     local green = 1.0   -- 255
     local blue = 0.4     -- 102
-    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.UNKNOWN.PATH, iconSize, GetString(SI_PA_ITEM_UNKNOWN), red, green, blue, 1)
+    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.UNKNOWN.PATH, iconSize, tooltipText, red, green, blue, 1)
 end
 
 -- either returns the existing itemControl to be re-used, or creates a new one
@@ -156,28 +156,30 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         local PARecipesSV = PALootSavedVars.ItemIcons.Recipes
         if IsItemLinkRecipeKnown(itemLink) then
             if PARecipesSV.showKnownIcon then
-                _setKnownItemIcon(itemIconControl, iconSize)
+                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
             end
         elseif PARecipesSV.showUnknownIcon then
-            _setUnknownItemIcon(itemIconControl, iconSize)
+            _setUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
         end
     elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
         local PAMotifsSV = PALootSavedVars.ItemIcons.Motifs
         if IsItemLinkBook(itemLink) and IsItemLinkBookKnown(itemLink) then
             if PAMotifsSV.showKnownIcon then
-                _setKnownItemIcon(itemIconControl, iconSize)
+                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
             end
         elseif PAMotifsSV.showUnknownIcon then
-            _setUnknownItemIcon(itemIconControl, iconSize)
+            _setUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
         end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
         local PAApparelWeaponsSV = PALootSavedVars.ItemIcons.ApparelWeapons
+        local itemTraitType = GetItemLinkTraitType(itemLink)
+        local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
         if CanItemLinkBeTraitResearched(itemLink) then
             if PAApparelWeaponsSV.showUnknownIcon then
-                _setUnknownItemIcon(itemIconControl, iconSize)
+                _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
             end
         elseif PAApparelWeaponsSV.showKnownIcon then
-            _setKnownItemIcon(itemIconControl, iconSize)
+            _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         end
     end
 end
