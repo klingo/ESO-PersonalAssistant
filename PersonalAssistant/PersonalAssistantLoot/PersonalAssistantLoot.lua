@@ -46,6 +46,7 @@ local function initAddon(_, addOnName)
 
     -- initialize Item Visuals on bags
     PA.Loot.ItemIcons.initHooksOnBags()
+    PA.Loot.ItemIcons.initHooksOnCraftingStations()
 
     -- create the options with LAM-2
     PA.Loot.createOptions()

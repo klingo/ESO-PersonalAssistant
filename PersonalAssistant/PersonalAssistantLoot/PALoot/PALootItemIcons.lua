@@ -8,6 +8,7 @@ local CONTROL_NAME = "PALItemIcons"
 local HOOK_BAGS = 1
 local HOOK_TRADEHOUSE = 2
 local HOOK_STORE = 3
+local HOOK_CRAFTSTATION = 4
 
 -- based on the control and hookType, checks if the current control is displayed in gridView or not (i.e. in rowView)
 local function _isGridViewDisplay(control, hookType)
@@ -245,6 +246,38 @@ local function initHooksOnMerchantsAndBuyback()
     end)
 end
 
+local function initHooksOnCraftingStations()
+    ZO_PreHook(ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
+        local control = ...
+        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+            local bagId = control.dataEntry.data.bagId
+            local slotIndex = control.dataEntry.data.slotIndex
+            local itemLink = GetItemLink(bagId, slotIndex)
+            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+        end
+    end)
+
+    ZO_PreHook(ZO_SmithingTopLevelImprovementPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
+        local control = ...
+        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+            local bagId = control.dataEntry.data.bagId
+            local slotIndex = control.dataEntry.data.slotIndex
+            local itemLink = GetItemLink(bagId, slotIndex)
+            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+        end
+    end)
+
+    ZO_PreHook(ZO_SmithingTopLevelRefinementPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
+        local control = ...
+        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+            local bagId = control.dataEntry.data.bagId
+            local slotIndex = control.dataEntry.data.slotIndex
+            local itemLink = GetItemLink(bagId, slotIndex)
+            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+        end
+    end)
+end
+
 local function initKnown()
     -- TODO: really needed/wanted?
     -- TODO: InitKnown                  /   EVENT_RECIPE_LEARNED / EVENT_STYLE_LEARNED / EVENT_TRAIT_LEARNED
@@ -258,4 +291,5 @@ PA.Loot.ItemIcons = {
     initHooksOnBags = initHooksOnBags,
     initHooksOnTradeHouse = initHooksOnTradeHouse,
     initHooksOnMerchantsAndBuyback = initHooksOnMerchantsAndBuyback,
+    initHooksOnCraftingStations = initHooksOnCraftingStations,
 }
