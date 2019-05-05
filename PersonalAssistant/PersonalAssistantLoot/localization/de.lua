@@ -11,10 +11,12 @@ SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Beim ", zo_strforma
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)}), 1)
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " eingesammelt wird das von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
 
--- Loot Motifs
+-- Loot Motifs & Style Pages
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2), " einsammeln"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
 
 -- Loot Equipment (Apparel, Weapons & Jewelries)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, "Beim Ausrüstungsgegenstände einsammeln", 1)

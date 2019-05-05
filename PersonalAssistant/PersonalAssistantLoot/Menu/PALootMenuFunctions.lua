@@ -42,10 +42,13 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- MOTIFS SETTINGS
     -- -----------------------------
-    isLootMotifsMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}, {"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
+    isLootMotifsMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) or isDisabledAll({"LootEvents", "LootMotifs", "unknownMotifMsg"}, {"LootEvents", "LootMotifs", "unknownStylePageMsg"}) end,
     isUnknownMotifMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getUnknownMotifMsgSetting = function() return getValue({"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
     setUnknownMotifMsgSetting = function(value) setValue(value, {"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
+    isUnknownStylePageMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getUnknownStylePageMsgSetting = function() return getValue({"LootEvents", "LootMotifs", "unknownStylePageMsg"}) end,
+    setUnknownStylePageMsgSetting = function(value) setValue(value, {"LootEvents", "LootMotifs", "unknownStylePageMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS

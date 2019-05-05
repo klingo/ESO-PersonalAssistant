@@ -15,6 +15,7 @@ local PALootMenuDefaults = {
 
         LootMotifs = {
             unknownMotifMsg = true,
+            unknownStylePageMsg = true,
         },
 
         LootApparelWeapons = {

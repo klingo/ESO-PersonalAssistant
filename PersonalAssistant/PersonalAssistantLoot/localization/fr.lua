@@ -11,10 +11,12 @@ SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Sur butin de ", zo_
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Avertir si la ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), 1), " n'est pas connue"}), 1) -- zo_strformat needed to avoid "Recette^f"
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Quand une ", zo_strformat("<<1>>", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), 1), " du butin n'est pas encore connue par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
--- Loot Motifs
+-- Loot Motifs & Style Pages
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({"Sur butin de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Avertir si le ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " n'est pas connu"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG, table.concat({"Avertir si le ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " n'est pas connu"}), 1) -- TODO: Takit check
+SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
 -- Loot Equipment (Apparel, Weapons & Jewelries)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, "Sur butin d'équipements", 1)

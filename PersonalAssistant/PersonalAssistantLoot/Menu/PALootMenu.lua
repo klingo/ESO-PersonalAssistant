@@ -254,6 +254,16 @@ local function _createPALLootMotifsSubmenuTable()
         disabled = PALMenuFunctions.isUnknownMotifMsgDisabled,
         default = PALMenuDefaults.LootEvents.LootMotifs.unknownMotifMsg,
     })
+
+    PALLootMotifsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG),
+        tooltip = GetString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T),
+        getFunc = PALMenuFunctions.getUnknownStylePageMsgSetting,
+        setFunc = PALMenuFunctions.setUnknownStylePageMsgSetting,
+        disabled = PALMenuFunctions.isUnknownStylePageMsgDisabled,
+        default = PALMenuDefaults.LootEvents.LootMotifs.unknownStylePageMsg,
+    })
 end
 
 -- -----------------------------------------------------------------------------------------------------------------

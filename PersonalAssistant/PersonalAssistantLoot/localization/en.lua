@@ -15,10 +15,12 @@ local PALStrings = {
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"Display message if a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is looted that is not yet known by this character, a message is displayed in the chat"}),
 
-    -- Loot Motifs
+    -- Loot Motifs & Style Pages
     SI_PA_MENU_LOOT_MOTIFS_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"Display message if a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is looted that is not yet known by this character, a message is displayed in the chat"}),
+    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG = table.concat({"Display message if ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is unknown"}),
+    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is looted that is not yet known by this character, a message is displayed in the chat"}),
 
     -- Loot Equipment (Apparel, Weapons & Jewelries)
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "When Looting Equipment",

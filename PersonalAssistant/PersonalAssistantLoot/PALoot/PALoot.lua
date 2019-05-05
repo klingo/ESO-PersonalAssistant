@@ -187,7 +187,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
         -- check if addon is enabled
         if PALootSavedVars.LootEvents.lootEventsEnabled then
-            local itemType = GetItemType(bagId, slotIndex)
+            local itemType, specializedItemType = GetItemType(bagId, slotIndex)
             local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
             local itemFilterType = GetItemFilterTypeInfo(bagId, slotIndex)
 
@@ -230,6 +230,20 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     else
                         -- Trait already researched
                         PAHF.debugln("item with known trait looted: %s", itemLink)
+                    end
+                end
+
+            -- Style Pages
+            elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+                if PALootSavedVars.LootEvents.LootMotifs.unknownStylePageMsg then
+                    local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+                    local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+                    local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+                    if isValidForPlayer and not isUnlocked then
+                        PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+                    else
+                        -- Style Page already known; do nothing for know
+                        PAHF.debugln("known style page looted: %s", itemLink)
                     end
                 end
             end
