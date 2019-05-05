@@ -17,10 +17,11 @@ local function _isGridViewDisplay(control, hookType)
 end
 
 -- only if this function returns 'true' any icon controls shall be added
-local function _hasItemIconChecksPassed(itemType, itemFilterType)
+local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType)
     if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled then
         if itemType == ITEMTYPE_RECIPE or itemType == ITEMTYPE_RACIAL_STYLE_MOTIF or
-            itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
+            itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY or
+                specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
             return true
         end
     end
@@ -121,7 +122,7 @@ end
 
 -- adds known/unknown icons if the itemLink matches the criteria
 local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
-    local itemType = GetItemLinkItemType(itemLink)
+    local itemType, specializedItemType = GetItemLinkItemType(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
 
     -- get either the already existing item control, or create a new one
@@ -131,7 +132,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     itemIconControl:SetHidden(true)
 
     -- then check if the pre-conditions are met, otherwise stop any forther processings
-    if not _hasItemIconChecksPassed(itemType, itemFilterType) then
+    if not _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType) then
         return
     end
 
@@ -180,6 +181,19 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             end
         elseif PAApparelWeaponsSV.showKnownIcon then
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
+        end
+    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+        local PAMotifsSV = PALootSavedVars.ItemIcons.Motifs
+        local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+        local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+        local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+        local collectibleName = GetCollectibleName(containerCollectibleId)
+        if isValidForPlayer and not isUnlocked then
+            if PAMotifsSV.showUnknownIcon then
+                _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
+            end
+        elseif PAMotifsSV.showKnownIcon then
+            _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
     end
 end
