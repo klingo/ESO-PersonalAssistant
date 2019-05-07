@@ -44,9 +44,17 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Quality", PAC.COLORS.DEFAULT, ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Merchant", PAC.COLORS.DEFAULT, ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Treasure", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Manual", PAC.COLORS.DEFAULT, ")"}),
     SI_PA_CHAT_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAJunk --
+    SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Mark / Unmark as Junk"
 }
 
 for key, value in pairs(PAJStrings) do
