@@ -9,6 +9,7 @@ local HOOK_BAGS = 1
 local HOOK_TRADEHOUSE = 2
 local HOOK_STORE = 3
 local HOOK_CRAFTSTATION = 4
+local HOOK_LOOT = 5
 
 -- based on the control and hookType, checks if the current control is displayed in gridView or not (i.e. in rowView)
 local function _isGridViewDisplay(control, hookType)
@@ -294,6 +295,16 @@ local function initHooksOnCraftingStations()
     end)
 end
 
+local function initHooksOnLootWindow()
+    ZO_PreHook(ZO_LootAlphaContainerList.dataTypes[1], "setupCallback", function(...)
+        local control = ...
+        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.lootId then
+            local itemLink = GetLootItemLink(control.dataEntry.data.lootId)
+            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_LOOT)
+        end
+    end)
+end
+
 local function initKnown()
     -- TODO: really needed/wanted?
     -- TODO: InitKnown                  /   EVENT_RECIPE_LEARNED / EVENT_STYLE_LEARNED / EVENT_TRAIT_LEARNED
@@ -308,4 +319,5 @@ PA.Loot.ItemIcons = {
     initHooksOnTradeHouse = initHooksOnTradeHouse,
     initHooksOnMerchantsAndBuyback = initHooksOnMerchantsAndBuyback,
     initHooksOnCraftingStations = initHooksOnCraftingStations,
+    initHooksOnLootWindow = initHooksOnLootWindow,
 }
