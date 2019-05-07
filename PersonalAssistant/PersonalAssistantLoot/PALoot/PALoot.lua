@@ -186,14 +186,14 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
         local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
         -- check if addon is enabled
-        if PALootSavedVars.enabled then
-            local itemType = GetItemType(bagId, slotIndex)
+        if PALootSavedVars.LootEvents.lootEventsEnabled then
+            local itemType, specializedItemType = GetItemType(bagId, slotIndex)
             local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
             local itemFilterType = GetItemFilterTypeInfo(bagId, slotIndex)
 
             -- Recipes
             if itemType == ITEMTYPE_RECIPE then
-                if PALootSavedVars.LootRecipes.unknownRecipeMsg then
+                if PALootSavedVars.LootEvents.LootRecipes.unknownRecipeMsg then
                     local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
                     if not isRecipeKnown then
                         PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
@@ -205,7 +205,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Motifs
             elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-                if PALootSavedVars.LootMotifs.unknownMotifMsg then
+                if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
                     local isBook = IsItemLinkBook(itemLink)
                     if isBook then
                         local isKnown = IsItemLinkBookKnown(itemLink)
@@ -220,7 +220,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Apparel & Weapons
             elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS then
-                if PALootSavedVars.LootApparelWeapons.unknownTraitMsg then
+                if PALootSavedVars.LootEvents.LootApparelWeapons.unknownTraitMsg then
                     local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
     --                local isBeingResearched = isTraitBeingResearched(itemLink)
                     if canBeResearched then
@@ -232,13 +232,27 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAHF.debugln("item with known trait looted: %s", itemLink)
                     end
                 end
+
+            -- Style Pages
+            elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+                if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg then
+                    local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+                    local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+                    local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+                    if isValidForPlayer and not isUnlocked then
+                        PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+                    else
+                        -- Style Page already known; do nothing for know
+                        PAHF.debugln("known style page looted: %s", itemLink)
+                    end
+                end
             end
 
             -- after all itemTypes are checked, see how much space is left in bag (only if usedSlots has increased)
-            if usedSlots > _prevUsedSlots and PALootSavedVars.lowInventorySpaceWarning then
+            if usedSlots > _prevUsedSlots and PALootSavedVars.InventorySpace.lowInventorySpaceWarning then
                 local freeSlots = GetNumBagFreeSlots(BAG_BACKPACK)
                 local formatted = zo_strformat(GetString(SI_PA_PATTERN_INVENTORY_COUNT), freeSlots)
-                local lowInventorySpaceThreshold = PALootSavedVars.lowInventorySpaceThreshold
+                local lowInventorySpaceThreshold = PALootSavedVars.InventorySpace.lowInventorySpaceThreshold
 
                 if freeSlots == 0 then
                     -- if no free slots, have a orange-red message

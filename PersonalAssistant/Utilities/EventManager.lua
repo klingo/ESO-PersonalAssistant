@@ -212,7 +212,7 @@ local function RefreshAllEventRegistrations()
     if PAL then
         -- Check if the functionality is turned on within the addon
         local PALMenuFunctions = PAMenuFunctions.PALoot
-        if PALMenuFunctions.isEnabled() then
+        if PALMenuFunctions.getLootEventsEnabledSetting() then
             -- Register PALoot to check looted items
             RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate, "SingleSlotUpdate")
             RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
@@ -230,6 +230,15 @@ local function RefreshAllEventRegistrations()
             UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
             UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, "StackedAllItems")
             UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, "SellReceipt")
+        end
+
+        -- TODO: check for individual settings
+        if PALMenuFunctions.getItemIconsEnabledSetting() then
+            RegisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, PAL.ItemIcons.initHooksOnTradeHouse, "TradeHouseHook")
+            RegisterForEvent(PAL.AddonName, EVENT_OPEN_STORE, PAL.ItemIcons.initHooksOnMerchantsAndBuyback, "MerchantsAndBuybackHook")
+        else
+            UnregisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, "TradeHouseHook")
+            UnregisterForEvent(PAL.AddonName, EVENT_OPEN_STORE, "MerchantsAndBuybackHook")
         end
     end
 

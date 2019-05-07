@@ -89,6 +89,14 @@ SafeAddString(SI_PA_REL_GREATERTHAN, "grösser als (>)", 1)
 SafeAddString(SI_PA_REL_GREATERTHANEQUAL, "grösser/gleich als (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Icon Positions --
+SafeAddString(SI_PA_POSITION_AUTO, "Automatisch", 1)
+SafeAddString(SI_PA_POSITION_TOPLEFT, "Oben Links", 1)
+SafeAddString(SI_PA_POSITION_TOPRIGHT, "Oben Rechts", 1)
+SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Unten Link", 1)
+SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Verschiebe alles", 1)
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)

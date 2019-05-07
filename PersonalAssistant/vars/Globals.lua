@@ -34,7 +34,7 @@ PersonalAssistant.Constants = {
                 PROFILE = 1,
                 BANKING = 2,
                 JUNK = 2,
-                LOOT = 1,
+                LOOT = 2,
                 REPAIR = 1,
             },
             MINOR = 020200,
@@ -234,7 +234,17 @@ PersonalAssistant.Constants = {
         OTHERS = {
             HOME = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",
-                NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t"
+                NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t",
+            },
+            KNOWN = {
+                PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
+                NORMAL = string.format("|cCACACA%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
+                SMALL = string.format("|cCACACA%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
+            },
+            UNKNOWN = {
+                PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
+                NORMAL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
+                SMALL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
             }
         }
     },
@@ -477,5 +487,9 @@ PersonalAssistant.Constants = {
 
     ITEM_QUALITY = {
         DISABLED = -1,
-    }
+    },
+
+    ICON_POSITION = {
+        AUTO = -1,
+    },
 }

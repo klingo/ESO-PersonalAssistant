@@ -94,6 +94,14 @@ SafeAddString(SI_PA_ST_MOVE_FULL, "Tout déplacer", 1)
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles existantes", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Icon Positions --
+SafeAddString(SI_PA_POSITION_AUTO, "Automatique", 1)
+SafeAddString(SI_PA_POSITION_TOPLEFT, "Haut gauche", 1)
+SafeAddString(SI_PA_POSITION_TOPRIGHT, "Haut droite", 1)
+SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Bas gauche", 1)
+SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- PABanking - overriding the ItemFilterTypes because they are wrong in French --
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING, "Coûture", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING, "Enchantement", 1)

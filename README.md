@@ -30,6 +30,8 @@ tbd
 #### PersonalAssistant Loot
 ![alt text][pal-menu]
 
+![alt text][pal-inventory]
+
 tbd
 
 #### PersonalAssistant Repair
@@ -52,4 +54,5 @@ This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc
 [pab-menu]: ./info/images/PAB.png "PersonalAssistant Banking Menu"
 [paj-menu]: ./info/images/PAJ.png "PersonalAssistant Junk Menu"
 [pal-menu]: ./info/images/PAL.png "PersonalAssistant Loot Menu"
+[pal-inventory]: ./info/images/PAL_Inventory.png "PersonalAssistant Loot Inventory View"
 [par-menu]: ./info/images/PAR.png "PersonalAssistant Repair Menu"

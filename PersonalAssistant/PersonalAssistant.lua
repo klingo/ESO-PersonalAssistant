@@ -195,6 +195,20 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 
         local isItemFromCrownStore = IsItemFromCrownStore(bagId, slotIndex)
         d("isItemFromCrownStore="..tostring(isItemFromCrownStore))
+
+        local isContainer = IsItemLinkContainer(itemLink)
+        if isContainer then
+            local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+            local name, description, icon, deprecatedLockedIcon, unlocked, purchasable, isActive, categoryType, hint = GetCollectibleInfo(containerCollectibleId)
+            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            d("name="..tostring(name))
+            d("description="..tostring(description))
+            d("unlocked="..tostring(unlocked))
+            d("isActive="..tostring(isActive))
+            d("categoryType="..tostring(categoryType))
+            d("hint="..tostring(hint))
+            d("isValidForPlayer="..tostring(isValidForPlayer))
+        end
     end
 end
 
