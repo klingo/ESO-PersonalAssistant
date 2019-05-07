@@ -12,19 +12,19 @@ local PALStrings = {
 
     -- Loot Recipes
     SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
-    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"Display message if a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
+    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is looted that is not yet known by this character, a message is displayed in the chat"}),
 
     -- Loot Motifs & Style Pages
-    SI_PA_MENU_LOOT_MOTIFS_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
-    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"Display message if a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
+    SI_PA_MENU_LOOT_STYLES_HEADER = "When Looting Styles",
+    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is looted that is not yet known by this character, a message is displayed in the chat"}),
-    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG = table.concat({"Display message if ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is unknown"}),
+    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is unknown"}),
     SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is looted that is not yet known by this character, a message is displayed in the chat"}),
 
     -- Loot Equipment (Apparel, Weapons & Jewelries)
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "When Looting Equipment",
-    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "Display message if a Trait is not yet researched",
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "> a Trait is not yet researched",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Whenever an ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", a ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", or ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " is looted that has a trait that is not yet researched by this character, a message is displayed in the chat"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on inventory space",
@@ -38,18 +38,20 @@ local PALStrings = {
 
     -- Mark Recipes --
     SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER = table.concat({"Marking ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
-    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " for known ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
-    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " for unknown ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
+    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "when a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is already known"}),
+    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is still unknown"}),
 
-    -- Mark Motifs --
-    SI_PA_MENU_LOOT_ICONS_MOTIFS_HEADER = table.concat({"Marking ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
-    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " for known ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
-    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " for unknown ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}),
+    -- Mark Motifs and Style Page Containers --
+    SI_PA_MENU_LOOT_ICONS_STYLES_HEADER = "Marking Styles",
+    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "when a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is already known"}),
+    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is still unknown"}),
+    SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "when a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is already known"}),
+    SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is still unknown"}),
 
     -- Mark Equipment (Apparel, Weapons & Jewelries) --
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Marking Equipment",
-    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.KNOWN.NORMAL," for known Item Traits"}),
-    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({"Display ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " for unknown Item Traits"}),
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "when an Item Trait is already researched"}),
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when an Item Trait is still unknown"}),
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Size (List View)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Define the size of the known/unknown icons in places where items are displayed in a list view",
@@ -77,6 +79,8 @@ local PALStrings = {
     -- == OTHER STRINGS FOR MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
+    SI_PA_DISPLAY_A_MESSAGE_WHEN = "Display a message when . . .",
+    SI_PA_MARK_WITH = "Mark with . . .",
     SI_PA_ITEM_KNOWN = "Already known",
     SI_PA_ITEM_UNKNOWN = "Unknown",
 }

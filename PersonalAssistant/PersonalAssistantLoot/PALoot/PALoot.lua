@@ -205,7 +205,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Motifs
             elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-                if PALootSavedVars.LootEvents.LootMotifs.unknownMotifMsg then
+                if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
                     local isBook = IsItemLinkBook(itemLink)
                     if isBook then
                         local isKnown = IsItemLinkBookKnown(itemLink)
@@ -235,7 +235,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Style Pages
             elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
-                if PALootSavedVars.LootEvents.LootMotifs.unknownStylePageMsg then
+                if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg then
                     local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
                     local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
                     local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)

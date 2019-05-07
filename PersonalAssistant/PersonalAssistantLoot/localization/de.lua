@@ -8,19 +8,19 @@ SafeAddString(SI_PA_MENU_LOOT_EVENTS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE
 
 -- Loot Recipes
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"> ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " unbekannt ist"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " eingesammelt wird das von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
 
 -- Loot Motifs & Style Pages
-SafeAddString(SI_PA_MENU_LOOT_MOTIFS_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2), " einsammeln"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_STYLES_HEADER, "Beim Stile einsammeln", 1)
+SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"> ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " unbekannt ist"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG, table.concat({"Informiere bei unbekanntem ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG, table.concat({"> ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " unbekannt ist"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
 
 -- Loot Equipment (Apparel, Weapons & Jewelries)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, "Beim Ausrüstungsgegenstände einsammeln", 1)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "Informiere bei nicht analysierten Eigenschaften", 1)
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "> eine Eigenschaft noch nicht analysiert wurde", 1)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}), 1)
 
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Warne wenn Inventarplätze ausgehen", 1)
@@ -34,18 +34,20 @@ SafeAddString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP, "Zeige Icons Tooltips an",
 
 -- Mark Recipes --
 SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER, table.concat({"Markiere ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN, table.concat({"Zeige ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " bei bekannten ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN, table.concat({"Zeige ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " bei unbekannten ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " bereits bekannt ist"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " noch unbekannt ist"}), 1)
 
--- Mark Motifs --
-SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_HEADER, table.concat({"Markiere ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN, table.concat({"Zeige ", PAC.ICONS.OTHERS.KNOWN.NORMAL, " bei bekannten ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN, table.concat({"Zeige ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " bei unbekannten ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), 2)}), 1)
+-- Mark Motifs and Style Page Containers --
+SafeAddString(SI_PA_MENU_LOOT_ICONS_STYLES_HEADER, "Markiere Stile", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " bereits bekannt ist"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " noch unbekannt ist"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " unbekannt ist"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " bekannt ist"}), 1)
 
 -- Mark Equipment (Apparel, Weapons & Jewelries) --
 SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER, "Markiere Ausrüstungsgegenstände", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN, table.concat({"Zeige ", PAC.ICONS.OTHERS.KNOWN.NORMAL," bei bekannten Eigenschaften"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN, table.concat({"Zeige  ", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " bei unbekannten Eigenschaften"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn die Eigenschaften bereits analysiert ist"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}), 1)
 
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST, "Icon Grösse (Anzeige als Liste)", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden", 1)
@@ -73,5 +75,7 @@ SafeAddString(SI_PA_PATTERN_SOULGEM_COUNT, table.concat({PAC.COLORED_TEXTS.PAL, 
 -- == OTHER STRINGS FOR MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PALoot --
+SafeAddString(SI_PA_DISPLAY_A_MESSAGE_WHEN, "Zeige eine Meldung wenn . . .", 1)
+SafeAddString(SI_PA_MARK_WITH, "Markiere mit . . .", 1)
 SafeAddString(SI_PA_ITEM_KNOWN, "Bereits bekannt", 1)
 SafeAddString(SI_PA_ITEM_UNKNOWN, "Unbekannt", 1)

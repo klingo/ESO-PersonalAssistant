@@ -42,13 +42,13 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- MOTIFS SETTINGS
     -- -----------------------------
-    isLootMotifsMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) or isDisabledAll({"LootEvents", "LootMotifs", "unknownMotifMsg"}, {"LootEvents", "LootMotifs", "unknownStylePageMsg"}) end,
+    isLootStylesMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) or isDisabledAll({"LootEvents", "LootStyles", "unknownMotifMsg"}, {"LootEvents", "LootStyles", "unknownStylePageMsg"}) end,
     isUnknownMotifMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
-    getUnknownMotifMsgSetting = function() return getValue({"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
-    setUnknownMotifMsgSetting = function(value) setValue(value, {"LootEvents", "LootMotifs", "unknownMotifMsg"}) end,
+    getUnknownMotifMsgSetting = function() return getValue({"LootEvents", "LootStyles", "unknownMotifMsg"}) end,
+    setUnknownMotifMsgSetting = function(value) setValue(value, {"LootEvents", "LootStyles", "unknownMotifMsg"}) end,
     isUnknownStylePageMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
-    getUnknownStylePageMsgSetting = function() return getValue({"LootEvents", "LootMotifs", "unknownStylePageMsg"}) end,
-    setUnknownStylePageMsgSetting = function(value) setValue(value, {"LootEvents", "LootMotifs", "unknownStylePageMsg"}) end,
+    getUnknownStylePageMsgSetting = function() return getValue({"LootEvents", "LootStyles", "unknownStylePageMsg"}) end,
+    setUnknownStylePageMsgSetting = function(value) setValue(value, {"LootEvents", "LootStyles", "unknownStylePageMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS
@@ -86,9 +86,9 @@ local PALootMenuFunctions = {
     setMarkUnknownRecipesSetting = function(value) setValue(value, {"ItemIcons", "Recipes", "showUnknownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
 
     -- ----------------------------------------------------------------------------------
-    -- MOTIFS SETTINGS
+    -- MOTIFS AND STYLE PAGE CONTAINERS SETTINGS
     -- -----------------------------
-    isMarkMotifsMenuDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "Motifs", "showKnownIcon"}, {"ItemIcons", "Motifs", "showUnknownIcon"}) end,
+    isMarkMotifsMenuDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "Motifs", "showKnownIcon"}, {"ItemIcons", "Motifs", "showUnknownIcon"}, {"ItemIcons", "StylePageContainers", "showKnownIcon"}, {"ItemIcons", "StylePageContainers", "showUnknownIcon"}) end,
     isMarkKnownMotifsDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getMarkKnownMotifsSetting = function() return getValue({"ItemIcons", "Motifs", "showKnownIcon"}) end,
     setMarkKnownMotifsSetting = function(value) setValue(value, {"ItemIcons", "Motifs", "showKnownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
@@ -96,6 +96,15 @@ local PALootMenuFunctions = {
     isMarkUnknownMotifsDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getMarkUnknownMotifsSetting = function() return getValue({"ItemIcons", "Motifs", "showUnknownIcon"})  end,
     setMarkUnknownMotifsSetting = function(value) setValue(value, {"ItemIcons", "Motifs", "showUnknownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
+
+    isMarkKnownStylePageContainersDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getMarkKnownStylePageContainersSetting = function() return getValue({"ItemIcons", "StylePageContainers", "showKnownIcon"})  end,
+    setMarkKnownStylePageContainersSetting = function(value) setValue(value, {"ItemIcons", "StylePageContainers", "showKnownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
+
+    isMarkUnknownStylePageContainersDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getMarkUnknownStylePageContainersSetting = function() return getValue({"ItemIcons", "StylePageContainers", "showUnknownIcon"})  end,
+    setMarkUnknownStylePageContainersSetting = function(value) setValue(value, {"ItemIcons", "StylePageContainers", "showUnknownIcon"}) PA.Loot.ItemIcons.refreshScrollListVisible() end,
+
 
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS

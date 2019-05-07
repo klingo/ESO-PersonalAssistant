@@ -13,7 +13,7 @@ local PALootMenuDefaults = {
             unknownRecipeMsg = true
         },
 
-        LootMotifs = {
+        LootStyles = {
             unknownMotifMsg = true,
             unknownStylePageMsg = true,
         },
@@ -33,6 +33,11 @@ local PALootMenuDefaults = {
 
         Motifs = {
             showKnownIcon = false,
+            showUnknownIcon = true,
+        },
+
+        StylePageContainers = {
+            showKnownIcon = true,
             showUnknownIcon = true,
         },
 
