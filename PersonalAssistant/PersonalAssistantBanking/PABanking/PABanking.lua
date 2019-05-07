@@ -22,9 +22,8 @@ end
 
 local function OnBankOpen(eventCode, bankBag)
     -- immediately stop if not the actual BANK bag is opened (i.e. HOUSE_BANK)
-    if not bankBag == BAG_BANK then return end
-
-    if PAHF.hasActiveProfile() then
+    if IsHouseBankBag(bankBag) then return
+    elseif PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isBankClosed = false
 
@@ -55,6 +54,7 @@ local function OnBankOpen(eventCode, bankBag)
         PAHF.debugln("GetBagUseableSize(BAG_SUBSCRIBER_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_SUBSCRIBER_BANK), GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK), GetNumBagFreeSlots(BAG_SUBSCRIBER_BANK));
         PAHF.debugln("GetBagUseableSize(BAG_VIRTUAL) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_VIRTUAL), GetNumBagUsedSlots(BAG_VIRTUAL), GetNumBagFreeSlots(BAG_VIRTUAL));
         PAHF.debugln("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId());
+        PAHF.debugln("IsHouseBankBag() = %s", tostring(IsHouseBankBag(bankBag)));
     end
 end
 
