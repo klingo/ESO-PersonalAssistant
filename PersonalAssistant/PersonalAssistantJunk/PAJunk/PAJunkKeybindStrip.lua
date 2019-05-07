@@ -13,7 +13,7 @@ local PAJunkButtonGroup = {
     {
         name = "PAJunk_MarkUnmarkAsJunk",
         keybind = "PA_JUNK_TOGGLE_ITEM",
-        callback = function() d("callback") end,
+        callback = function() end, -- only called when directly clicked on keybind strip?
         visible = function() return _isVisible end,
         enabled = function() return _isEnabled end,
     },
