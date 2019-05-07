@@ -6,8 +6,8 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverIsJunk, _mouseOverCanBeMarkedAsJunk
-local _isEnabled = true
-local _isVisible = true
+local _isEnabled = false
+local _isVisible = false
 
 local PAJunkButtonGroup = {
     {
