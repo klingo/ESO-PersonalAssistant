@@ -219,7 +219,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 end
 
             -- Apparel & Weapons
-            elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS then
+            elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
                 if PALootSavedVars.LootEvents.LootApparelWeapons.unknownTraitMsg then
                     local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
     --                local isBeingResearched = isTraitBeingResearched(itemLink)
