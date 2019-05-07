@@ -183,16 +183,16 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         end
     elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
-        local PAMotifsSV = PALootSavedVars.ItemIcons.Motifs
+        local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
         local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
         local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
         local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
         local collectibleName = GetCollectibleName(containerCollectibleId)
         if isValidForPlayer and not isUnlocked then
-            if PAMotifsSV.showUnknownIcon then
+            if PAStylePageContainerSV.showUnknownIcon then
                 _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
             end
-        elseif PAMotifsSV.showKnownIcon then
+        elseif PAStylePageContainerSV.showKnownIcon then
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
     end
