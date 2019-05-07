@@ -32,7 +32,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- returns the selected iconPosition (if selected); or evaluates different addons and automatically choses the correct location
-local function _getIargetIconPosition()
+local function _getTargetGridIconPosition()
     local selectedIconPosition = PA.Loot.SavedVars.ItemIcons.iconPositionGrid
     if selectedIconPosition == PAC.ICON_POSITION.AUTO then
         if _G["ResearchAssistant"] == nil then
@@ -62,11 +62,17 @@ end
 
 -- returns the iconPosition and offsets for gridView
 local function _getGridViewIconPositionAndOffset()
-    local selectedIconPosition = _getIargetIconPosition()
+    local selectedIconPosition = _getTargetGridIconPosition()
     local offsetX, offsetY
     if selectedIconPosition == TOPRIGHT or selectedIconPosition == BOTTOMRIGHT then offsetX = -4 else offsetX = 4 end
     if selectedIconPosition == BOTTOMLEFT or selectedIconPosition == BOTTOMRIGHT then offsetY = -4 else offsetY = 4 end
     return selectedIconPosition, offsetX, offsetY
+end
+
+local function _getListViewIconPositionAndOffset(hookType)
+    local offsetX = -2
+    if hookType == HOOK_LOOT then offsetX = 0 end
+    return RIGHT, LEFT, offsetX, 0
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -144,7 +150,8 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         itemIconControl:SetAnchor(iconPosition, parentControl, iconPosition, offsetX, offsetY)
     else
         local controlName = WINDOW_MANAGER:GetControlByName(parentControl:GetName() .. 'Name')
-        itemIconControl:SetAnchor(RIGHT, controlName, LEFT, -2, 0)
+        local iconPositionSelf, iconPositionParent, offsetX, offsetY = _getListViewIconPositionAndOffset(hookType)
+        itemIconControl:SetAnchor(iconPositionSelf, controlName, iconPositionParent, offsetX, offsetY)
     end
 
     -- then get the icon size
