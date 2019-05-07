@@ -69,10 +69,8 @@ local function _getGridViewIconPositionAndOffset()
     return selectedIconPosition, offsetX, offsetY
 end
 
-local function _getListViewIconPositionAndOffset(hookType)
-    local offsetX = -2
-    if hookType == HOOK_LOOT then offsetX = 0 end
-    return RIGHT, LEFT, offsetX, 0
+local function _getListViewIconPositionAndOffset()
+    return LEFT, RIGHT, 0, 0
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -150,7 +148,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         itemIconControl:SetAnchor(iconPosition, parentControl, iconPosition, offsetX, offsetY)
     else
         local controlName = WINDOW_MANAGER:GetControlByName(parentControl:GetName() .. 'Name')
-        local iconPositionSelf, iconPositionParent, offsetX, offsetY = _getListViewIconPositionAndOffset(hookType)
+        local iconPositionSelf, iconPositionParent, offsetX, offsetY = _getListViewIconPositionAndOffset()
         itemIconControl:SetAnchor(iconPositionSelf, controlName, iconPositionParent, offsetX, offsetY)
     end
 
