@@ -232,7 +232,6 @@ local function RefreshAllEventRegistrations()
             UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, "SellReceipt")
         end
 
-        -- TODO: check for individual settings
         if PALMenuFunctions.getItemIconsEnabledSetting() then
             RegisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, PAL.ItemIcons.initHooksOnTradeHouse, "TradeHouseHook")
             RegisterForEvent(PAL.AddonName, EVENT_OPEN_STORE, PAL.ItemIcons.initHooksOnMerchantsAndBuyback, "MerchantsAndBuybackHook")
