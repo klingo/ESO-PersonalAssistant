@@ -85,6 +85,7 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
 
         -- It is considered safe to mark the item as junk now
         SetItemIsJunk(bagId, slotIndex, true)
+        PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
 
         -- make sure an itemLink is present
         if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
