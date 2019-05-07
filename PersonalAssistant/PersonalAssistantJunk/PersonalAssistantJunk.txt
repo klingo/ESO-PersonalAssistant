@@ -21,8 +21,12 @@ PersonalAssistantJunk.lua
 
 # PAJunk
 PAJunk/PAJunk.lua
+PAJunk/PAJunkKeybindStrip.lua
 
 # Menu
 Menu/PAJunkMenuDefaults.lua
 Menu/PAJunkMenuFunctions.lua
 Menu/PAJunkMenu.lua
+
+# Bindings
+bindings/Bindings.xml
