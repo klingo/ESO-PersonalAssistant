@@ -7,12 +7,27 @@ local PAHF = PA.HelperFunctions
 
 local _repairItemList
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- a comparator that returns all items that have durability, and that durability is below the provided threshold
+local function _getItemHasDurabilityBelowThresholdComparator(threshold)
+    return function(itemData)
+        local bagId = itemData.bagId
+        local slotIndex = itemData.slotIndex
+        -- does item have durability?
+        if DoesItemHaveDurability(bagId, slotIndex) then
+            local itemCondition = GetItemCondition(bagId, slotIndex)
+            -- is item durability below threshold?
+            if itemCondition <= threshold then
+                return true
+            end
+        end
+        return false
+    end
+end
 
 -- repair all items that are below the given threshold for the bag
-local function RepairItems(bagId, threshold)
-    -- TODO: add another SavedVars check?
-    local bagCache = SHARED_INVENTORY:GetOrCreateBagCache(bagId)
+local function _repairItems(bagId, threshold)
+    local durabilityAndThresholdComparator = _getItemHasDurabilityBelowThresholdComparator(threshold)
+    local bagCache = SHARED_INVENTORY:GenerateFullSlotData(durabilityAndThresholdComparator, bagId)
 
     if bagCache then
         local repairCost = 0
@@ -22,47 +37,41 @@ local function RepairItems(bagId, threshold)
         local currentMoney = GetCurrentMoney()
         _repairItemList = {}
 
-        local PARepairSavedVars = PAR.SavedVars -- TODO: remove if no saved vars check added
-
         -- loop through all items of the corresponding bagId
-        for slotIndex, data in pairs(bagCache) do
-            -- check first if the item has durability (and therefore is repairable)
-            if DoesItemHaveDurability(bagId, slotIndex) then
-                -- then compare it with the threshold
+        for _, itemData in pairs(bagCache) do
+            local slotIndex = itemData.slotIndex
+            -- [DoesItemHaveDurability] and ItemCondition check are not necessary anymore (already done by comparator)
+            -- get the repair cost for that item and repair if possible
+            local itemRepairCost = GetItemRepairCost(bagId, slotIndex)
+            if itemRepairCost > 0 then
                 local itemCondition = GetItemCondition(bagId, slotIndex)
-                if itemCondition <= threshold then
-                    local stackSize = GetSlotStackSize(bagId, slotIndex)
-                    -- get the repair cost for that item and repair if possible
-                    local itemRepairCost = GetItemRepairCost(bagId, slotIndex)
-                    if itemRepairCost > 0 then
-                        if itemRepairCost > currentMoney then
-                            -- even though not enough money available, continue as maybe a cheaper item still can be repaired
-                            notRepairedItemCount = notRepairedItemCount + stackSize
-                            notRepairedItemsCost = notRepairedItemsCost + itemRepairCost
-                            -- add the item to the list as NOT repaired
-                            table.insert(_repairItemList, {
-                                itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS),
-                                repairCost = itemRepairCost,
-                                itemCondition = itemCondition,
-                                repaired = false
-                            })
-                        else
-                            -- sum up the total repair costs
-                            repairCost = repairCost + itemRepairCost;
-                            repairedItemCount = repairedItemCount + stackSize
-                            RepairItem(bagId, slotIndex)
-                            -- currentMoney has to be manually calculated, as the "GetCurrentMoney()"
-                            -- does not yet reflect the just made repairs
-                            currentMoney = currentMoney - itemRepairCost
-                            -- add the item to the list as repaired
-                            table.insert(_repairItemList, {
-                                itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS),
-                                repairCost = itemRepairCost,
-                                itemCondition = itemCondition,
-                                repaired = true
-                            })
-                        end
-                    end
+                local stackSize = GetSlotStackSize(bagId, slotIndex)
+                if itemRepairCost > currentMoney then
+                    -- even though not enough money available, continue as maybe a cheaper item still can be repaired
+                    notRepairedItemCount = notRepairedItemCount + stackSize
+                    notRepairedItemsCost = notRepairedItemsCost + itemRepairCost
+                    -- add the item to the list as NOT repaired
+                    table.insert(_repairItemList, {
+                        itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS),
+                        repairCost = itemRepairCost,
+                        itemCondition = itemCondition,
+                        repaired = false
+                    })
+                else
+                    -- sum up the total repair costs
+                    repairCost = repairCost + itemRepairCost;
+                    repairedItemCount = repairedItemCount + stackSize
+                    RepairItem(bagId, slotIndex)
+                    -- currentMoney has to be manually calculated, as the "GetCurrentMoney()"
+                    -- does not yet reflect the just made repairs
+                    currentMoney = currentMoney - itemRepairCost
+                    -- add the item to the list as repaired
+                    table.insert(_repairItemList, {
+                        itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS),
+                        repairCost = itemRepairCost,
+                        itemCondition = itemCondition,
+                        repaired = true
+                    })
                 end
             end
         end
@@ -85,6 +94,7 @@ local function RepairItems(bagId, threshold)
     end
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnShopOpen()
     if PAHF.hasActiveProfile() then
@@ -97,11 +107,11 @@ local function OnShopOpen()
                 if GetRepairAllCost() > 0 then
                     -- check if equipped items shall be repaired
                     if PARepairSavedVars.RepairEquipped.repairWithGold then
-                        RepairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
+                        _repairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
                     end
                     -- check if backpack items shall be repaired
                     if PARepairSavedVars.RepairInventory.repairWithGold then
-                        RepairItems(BAG_BACKPACK, PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)
+                        _repairItems(BAG_BACKPACK, PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)
                     end
                 end
             end
