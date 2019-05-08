@@ -220,8 +220,8 @@ local function refreshScrollListVisible()
 end
 
 local function initHooksOnBags()
-    for _, v in pairs(PLAYER_INVENTORY.inventories) do
-        local listView = v.listView
+    for _, inventory in pairs(PLAYER_INVENTORY.inventories) do
+        local listView = inventory.listView
         if listView and listView.dataTypes and listView.dataTypes[1] then
             ZO_PreHook(listView.dataTypes[1], "setupCallback", function(control, slot)
                 local bagId = control.dataEntry.data.bagId
