@@ -106,7 +106,7 @@ end
 local function FireCallbacks(addonName, callbackName, paIdentifier)
     -- get the esoIdentifier
     local esoIdentifier = _getCallbackEsoIdentifier(addonName, callbackName, paIdentifier)
-    -- check fi the Callback is registered and if yes fire it
+    -- check if the Callback is registered and if yes fire it
     if _containsEventInSet(esoIdentifier) then
         CALLBACK_MANAGER:FireCallbacks(esoIdentifier)
     end
@@ -324,17 +324,18 @@ end
 
 
 --[[
-Each Sub-Addon write the SavedVars (for all profiles) in the first column, wheres this function references the currently
-selected profile in the second column whenever the profile is changed:
---------------------------------------------------------------------------------------------
-Sub-AddOn   | Cross-Profile SavedVars               | Curr-Profile SavedVars
---------------------------------------------------------------------------------------------
-PABanking   | PersonalAssistant.SavedVars.Banking   | PersonalAssistant.Banking.SavedVars
-PAJunk      | PersonalAssistant.SavedVars.Junk      | PersonalAssistant.Junk.SavedVars
-PALoot      | PersonalAssistant.SavedVars.Loot      | PersonalAssistant.Loot.SavedVars
-PAMail      | PersonalAssistant.SavedVars.Mail      | PersonalAssistant.Mail.SavedVars
-PARepair    | PersonalAssistant.SavedVars.Repair    | PersonalAssistant.Repair.SavedVars
---------------------------------------------------------------------------------------------
+Each Sub-Addon has multi-profile SavedVars that can be accessed as listed in the first column (Cross-Profile SavedVars),
+but in order to avoid reading the activeProfile all the time, below function makes a static reference in the second
+column (Curr-Profile SavedVars) that will always point to the Cross-Profile SavedVars of the active profile.
+|---------------------------------------------------------------------------------------------------------------|
+| Sub-AddOn   | Cross-Profile SavedVars                               | Curr-Profile SavedVars                  |
+|---------------------------------------------------------------------------------------------------------------|
+| PABanking   | PersonalAssistant.SavedVars.Banking[activeProfile]    | PersonalAssistant.Banking.SavedVars     |
+| PAJunk      | PersonalAssistant.SavedVars.Junk[activeProfile]       | PersonalAssistant.Junk.SavedVars        |
+| PALoot      | PersonalAssistant.SavedVars.Loot[activeProfile]       | PersonalAssistant.Loot.SavedVars        |
+| PAMail      | PersonalAssistant.SavedVars.Mail[activeProfile]       | PersonalAssistant.Mail.SavedVars        |
+| PARepair    | PersonalAssistant.SavedVars.Repair[activeProfile]     | PersonalAssistant.Repair.SavedVars      |
+|---------------------------------------------------------------------------------------------------------------|
 --]]
 local function RefreshAllSavedVarReferences(activeProfile)
     -- refreshes all profile specific SavedVars references, so the profile does not need to be read all the time
