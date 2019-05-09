@@ -234,10 +234,14 @@ local function RefreshAllEventRegistrations()
 
         if PALMenuFunctions.getItemIconsEnabledSetting() then
             RegisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, PAL.ItemIcons.initHooksOnTradeHouse, "TradeHouseHook")
-            RegisterForEvent(PAL.AddonName, EVENT_OPEN_STORE, PAL.ItemIcons.initHooksOnMerchantsAndBuyback, "MerchantsAndBuybackHook")
+
+            -- initialize Item Visuals on bags, crafting stations, and the loot window
+            PAL.ItemIcons.initHooksOnBags()
+            PAL.ItemIcons.initHooksOnCraftingStations()
+            PAL.ItemIcons.initHooksOnLootWindow()
+            PAL.ItemIcons.initHooksOnMerchantsAndBuyback()
         else
             UnregisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, "TradeHouseHook")
-            UnregisterForEvent(PAL.AddonName, EVENT_OPEN_STORE, "MerchantsAndBuybackHook")
         end
     end
 

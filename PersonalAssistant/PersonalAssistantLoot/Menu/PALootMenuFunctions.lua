@@ -76,7 +76,7 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
 
     getItemIconsEnabledSetting = function() return getValue({"ItemIcons", "itemIconsEnabled"}) end,
-    setItemIconsEnabledSetting = function(value) setValue(value, {"ItemIcons", "itemIconsEnabled"}) end,
+    setItemIconsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"ItemIcons", "itemIconsEnabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- RECIPES SETTINGS
