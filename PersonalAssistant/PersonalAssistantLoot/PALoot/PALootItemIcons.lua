@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -10,6 +11,11 @@ local HOOK_TRADEHOUSE = 2
 local HOOK_STORE = 3
 local HOOK_CRAFTSTATION = 4
 local HOOK_LOOT = 5
+
+local _hooksOnBagsInitialized = false
+local _hooksOnMerchantsAndBuybackInitialized = false
+local _hooksOnCraftingStationsInitialized = false
+local _hooksOnLootWindowInitialized = false
 
 -- based on the control and hookType, checks if the current control is displayed in gridView or not (i.e. in rowView)
 local function _isGridViewDisplay(control, hookType)
@@ -219,20 +225,27 @@ local function refreshScrollListVisible()
     end
 end
 
+-- this function only needs to be initialized ONCE
 local function initHooksOnBags()
-    for _, inventory in pairs(PLAYER_INVENTORY.inventories) do
-        local listView = inventory.listView
-        if listView and listView.dataTypes and listView.dataTypes[1] then
-            ZO_PreHook(listView.dataTypes[1], "setupCallback", function(control, slot)
-                local bagId = control.dataEntry.data.bagId
-                local slotIndex = control.dataEntry.data.slotIndex
-                local itemLink = GetItemLink(bagId, slotIndex)
-                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_BAGS)
-            end)
+    if not _hooksOnBagsInitialized then
+        _hooksOnBagsInitialized = true
+        for _, inventory in pairs(PLAYER_INVENTORY.inventories) do
+            local listView = inventory.listView
+            if listView and listView.dataTypes and listView.dataTypes[1] then
+                ZO_PreHook(listView.dataTypes[1], "setupCallback", function(control, slot)
+                    local bagId = control.dataEntry.data.bagId
+                    local slotIndex = control.dataEntry.data.slotIndex
+                    local itemLink = GetItemLink(bagId, slotIndex)
+                    _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_BAGS)
+                end)
+            end
         end
+    else
+        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnBags]")
     end
 end
 
+-- this function needs to be initialized everytime the TradeHouse is opened
 local function initHooksOnTradeHouse()
     ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
         local control = ...
@@ -251,63 +264,80 @@ local function initHooksOnTradeHouse()
 end
 
 local function initHooksOnMerchantsAndBuyback()
-    ZO_PreHook(ZO_BuyBackList.dataTypes[1], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
-            local itemLink = GetBuybackItemLink(control.dataEntry.data.slotIndex)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
-        end
-    end)
+    if not _hooksOnMerchantsAndBuybackInitialized then
+        _hooksOnMerchantsAndBuybackInitialized = true
+        ZO_PreHook(ZO_BuyBackList.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local itemLink = GetBuybackItemLink(control.dataEntry.data.slotIndex)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
+            end
+        end)
 
-    ZO_PreHook(ZO_StoreWindowList.dataTypes[1], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
-            local itemLink = GetStoreItemLink(control.dataEntry.data.slotIndex)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
-        end
-    end)
+        ZO_PreHook(ZO_StoreWindowList.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local itemLink = GetStoreItemLink(control.dataEntry.data.slotIndex)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
+            end
+        end)
+    else
+        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnMerchantsAndBuyback]")
+    end
 end
 
+-- this function only needs to be initialized ONCE
 local function initHooksOnCraftingStations()
-    ZO_PreHook(ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
-            local bagId = control.dataEntry.data.bagId
-            local slotIndex = control.dataEntry.data.slotIndex
-            local itemLink = GetItemLink(bagId, slotIndex)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
-        end
-    end)
+    if not _hooksOnCraftingStationsInitialized then
+        _hooksOnCraftingStationsInitialized = true
+        ZO_PreHook(ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local bagId = control.dataEntry.data.bagId
+                local slotIndex = control.dataEntry.data.slotIndex
+                local itemLink = GetItemLink(bagId, slotIndex)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+            end
+        end)
 
-    ZO_PreHook(ZO_SmithingTopLevelImprovementPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
-            local bagId = control.dataEntry.data.bagId
-            local slotIndex = control.dataEntry.data.slotIndex
-            local itemLink = GetItemLink(bagId, slotIndex)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
-        end
-    end)
+        ZO_PreHook(ZO_SmithingTopLevelImprovementPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local bagId = control.dataEntry.data.bagId
+                local slotIndex = control.dataEntry.data.slotIndex
+                local itemLink = GetItemLink(bagId, slotIndex)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+            end
+        end)
 
-    ZO_PreHook(ZO_SmithingTopLevelRefinementPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
-            local bagId = control.dataEntry.data.bagId
-            local slotIndex = control.dataEntry.data.slotIndex
-            local itemLink = GetItemLink(bagId, slotIndex)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
-        end
-    end)
+        ZO_PreHook(ZO_SmithingTopLevelRefinementPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local bagId = control.dataEntry.data.bagId
+                local slotIndex = control.dataEntry.data.slotIndex
+                local itemLink = GetItemLink(bagId, slotIndex)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+            end
+        end)
+    else
+        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnCraftingStations]")
+    end
 end
 
+-- this function only needs to be initialized ONCE
 local function initHooksOnLootWindow()
-    ZO_PreHook(ZO_LootAlphaContainerList.dataTypes[1], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.lootId then
-            local itemLink = GetLootItemLink(control.dataEntry.data.lootId)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_LOOT)
-        end
-    end)
+    if not _hooksOnLootWindowInitialized then
+        _hooksOnLootWindowInitialized= true
+        ZO_PreHook(ZO_LootAlphaContainerList.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.lootId then
+                local itemLink = GetLootItemLink(control.dataEntry.data.lootId)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_LOOT)
+            end
+        end)
+    else
+        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnLootWindow]")
+    end
 end
 
 local function initKnown()
