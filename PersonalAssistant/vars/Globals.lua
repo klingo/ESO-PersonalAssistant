@@ -290,7 +290,9 @@ PersonalAssistant.Constants = {
         },
         TRAITITEMS = {
             ITEMTYPE_ARMOR_TRAIT,
-            ITEMTYPE_WEAPON_TRAIT
+            ITEMTYPE_WEAPON_TRAIT,
+            ITEMTYPE_JEWELRY_RAW_TRAIT,
+            ITEMTYPE_JEWELRY_TRAIT,
         },
         FURNISHING = {
             ITEMTYPE_FURNISHING_MATERIAL

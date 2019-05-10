@@ -1,3 +1,6 @@
+2.2.1   (May xx, 2019)
+- add missing Jewelry Crafting Trait and Raw Trait items to PABanking
+
 2.2.0   (May 09, 2019)
 - add option to PABanking to distinguish between known and unknown recipes and motives ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
 - add visual known/unknown indicator for recipes, motives, traits and style pages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/104"]#104[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/109"]#109[/URL])
