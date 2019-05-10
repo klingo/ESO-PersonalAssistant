@@ -144,12 +144,10 @@ end
 --------------------------------------------------------------------------
 -- PABanking   Crafting.ItemTypes         moveMode
 ---------------------------------
-local function isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(...)
+local function isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(itemTypeList)
     if isDisabled({"Crafting", "craftingItemsEnabled"}) then return true end
 
-    -- if savedVarsArgs is not disabled, check the itemTypes
-    local args = { ... }
-    for _, itemType in ipairs(args) do
+    for _, itemType in ipairs(itemTypeList) do
         if PAB.SavedVars.Crafting.ItemTypes[itemType] ~= PAC.MOVE.IGNORE then return false end
     end
     -- if there was no 'false' returned until here; then return true
@@ -556,16 +554,16 @@ local PABankingMenuFunctions = {
     getCraftingItemTypeMoveSetting = getPABankingCraftingItemTypeMoveSetting,
     setCraftingItemTypeMoveSetting = setPABankingCraftingItemTypeMoveSetting,
 
-    isBlacksmithingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_BLACKSMITHING_RAW_MATERIAL, ITEMTYPE_BLACKSMITHING_MATERIAL, ITEMTYPE_BLACKSMITHING_BOOSTER) end,
-    isClothingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_CLOTHIER_RAW_MATERIAL, ITEMTYPE_CLOTHIER_MATERIAL, ITEMTYPE_CLOTHIER_BOOSTER) end,
-    isWoodworkingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_WOODWORKING_RAW_MATERIAL, ITEMTYPE_WOODWORKING_MATERIAL, ITEMTYPE_WOODWORKING_BOOSTER) end,
-    isJewelcraftingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL, ITEMTYPE_JEWELRYCRAFTING_MATERIAL, ITEMTYPE_JEWELRYCRAFTING_BOOSTER) end,
-    isAlchemyTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_REAGENT, ITEMTYPE_POISON_BASE, ITEMTYPE_POTION_BASE) end,
-    isEnchantingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_ENCHANTING_RUNE_ASPECT, ITEMTYPE_ENCHANTING_RUNE_ESSENCE, ITEMTYPE_ENCHANTING_RUNE_POTENCY) end,
-    isProvisioningTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_INGREDIENT, ITEMTYPE_LURE) end,
-    isStyleMaterialsTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_RAW_MATERIAL, ITEMTYPE_STYLE_MATERIAL) end,
-    isTraitItemsTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_ARMOR_TRAIT, ITEMTYPE_WEAPON_TRAIT) end,
-    isFurnishingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(ITEMTYPE_FURNISHING_MATERIAL) end,
+    isBlacksmithingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.BLACKSMITHING) end,
+    isClothingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.CLOTHING) end,
+    isWoodworkingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.WOODWORKING) end,
+    isJewelcraftingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.JEWELCRAFTING) end,
+    isAlchemyTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.ALCHEMY) end,
+    isEnchantingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.ENCHANTING) end,
+    isProvisioningTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.PROVISIONING) end,
+    isStyleMaterialsTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.STYLEMATERIALS) end,
+    isTraitItemsTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.TRAITITEMS) end,
+    isFurnishingTransactionMenuDisabled = function() return isCraftingItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING.FURNISHING) end,
 
     -- ----------------------------------------------------------------------------------
     -- ADVANCED ITEMS
