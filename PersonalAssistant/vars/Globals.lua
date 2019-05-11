@@ -474,14 +474,14 @@ PersonalAssistant.Constants = {
     JUNK = {
         TRASH_ITEMIDS = {
             NIBBLES_AND_BITS = {
-                54382,  -- Trash: Carapace
                 54381,  -- Trash: Foul Hide
-                -- Trash: Daedra Husks
+                54382,  -- Trash: Carapace
+                54383,  -- Trash: Daedra Husks
             },
             MORSELS_AND_PECKS = {
+                54384,  -- Trash: Ectoplasm
                 -- Trash: Elemental Essence
                 -- Trash: Supple Roots
-                -- Trash: Ectoplasm
             }
         },
     },

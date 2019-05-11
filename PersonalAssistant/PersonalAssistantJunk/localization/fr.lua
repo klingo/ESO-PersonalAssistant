@@ -9,24 +9,24 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, table.concat({PAC.COLORS.LIGHT_BL
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] comme rebuts ?"}), 1)
---SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] Gegenstände NICHT als Trödel wenn . . ."}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Petites bouchées")}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Plunder Gegenstände NICHT als Trödel markiert:\n[Carapace]\n[Peau Infâme]\n[***Daedra Husks***]"}), 1) -- TODO: itemnames -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Morceaux de choix")}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Plunder Gegenstände NICHT als Trödel markiert:\n[***Elemental Essence***]\n[***Supple Roots***]\n[***Ectoplasm***]"}), 1)-- TODO: itemnames -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] Gegenstände NICHT als Trödel wenn . . ."}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Petites bouchées")}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Plunder Gegenstände NICHT als Trödel markiert:\n[Carapace]\n[Peau Infâme]\n[Enveloppe de Daedra]"}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Morceaux de choix")}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Plunder Gegenstände NICHT als Trödel markiert:\n[***Elemental Essence***]\n[***Supple Roots***]\n[Ectoplasme]"}), 1)-- TODO: itemnames -- TODO: TAKIT
 
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Marquer automatiquement les objets avec l'indicateur [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] comme rebuts ?"}), 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] comme rebuts ?"}), 1)
---SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]Gegenstände NICHT als Trödel wenn . . ."}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Une affaire de loisirs")}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Jouets d'enfants]\n[Poupées]\n[Jeux]"}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Une histoire de respect")}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Ustensiles]\n[Récipients à boire]\n[Plats et moules]"}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Une affaire de tributs")}), 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]Gegenstände NICHT als Trödel wenn . . ."}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Une affaire de loisirs")}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Jouets d'enfants]\n[Poupées]\n[Jeux]"}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Une histoire de respect")}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Ustensiles]\n[Récipients à boire]\n[Plats et moules]"}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> benötigt für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Une affaire de tributs")}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1) -- TODO: TAKIT
 
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente automatique aux marchands et receleurs", 1)
 
