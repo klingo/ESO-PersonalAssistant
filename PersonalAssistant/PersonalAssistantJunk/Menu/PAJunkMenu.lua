@@ -142,6 +142,39 @@ local function _createPAJTrashSubMenu()
         default = PAJMenuDefaults.Trash.autoMarkTrash,
     })
 
+    PAJTrashSubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJTrashSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC),
+        disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
+    })
+
+    -- TODO: NIBBLES_AND_BITS
+    PAJTrashSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS),
+        tooltip = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T),
+        getFunc = PAJMenuFunctions.getExcludeNibblesAndBitsSetting,
+        setFunc = PAJMenuFunctions.setExcludeNibblesAndBitsSetting,
+        disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
+        default = PAJMenuDefaults.Trash.excludeNibblesAndBits,
+    })
+
+    -- TODO: MORSELS_AND_PECKS
+    PAJTrashSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS),
+        tooltip = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T),
+        getFunc = PAJMenuFunctions.getExcludeMorselsAndPecksSetting,
+        setFunc = PAJMenuFunctions.setExcludeMorselsAndPecksSetting,
+        disabled = PAJMenuFunctions.isExcludeMorselsAndPecksDisabled,
+        default = PAJMenuDefaults.Trash.excludeMorselsAndPecks,
+    })
+
     -- TODO: mark junk food
 end
 
@@ -170,6 +203,47 @@ local function _createPAJMiscellaneousSubMenu()
         setFunc = PAJMenuFunctions.setTreasureAutoMarkSetting,
         disabled = PAJMenuFunctions.isTreasureAutoMarkDisabled,
         default = PAJMenuDefaults.Miscellaneous.autoMarkTreasure,
+    })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_ITEMS_DESC),
+        disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
+    })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE),
+        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T),
+        getFunc = PAJMenuFunctions.getExcludeAMatterOfLeisureSetting,
+        setFunc = PAJMenuFunctions.setExcludeAMatterOfLeisureSetting,
+        disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
+        default = PAJMenuDefaults.Miscellaneous.excludeAMatterOfLeisure,
+    })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT),
+        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T),
+        getFunc = PAJMenuFunctions.getExcludeAMatterOfRespectSetting,
+        setFunc = PAJMenuFunctions.setExcludeAMatterOfRespectSetting,
+        disabled = PAJMenuFunctions.isExcludeAMatterOfRespectDisabled,
+        default = PAJMenuDefaults.Miscellaneous.excludeAMatterOfRespect,
+    })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES),
+        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T),
+        getFunc = PAJMenuFunctions.getExcludeAMatterOfTributesSetting,
+        setFunc = PAJMenuFunctions.setExcludeAMatterOfTributesSetting,
+        disabled = PAJMenuFunctions.isExcludeAMatterOfTributesDisabled,
+        default = PAJMenuDefaults.Miscellaneous.excludeAMatterOfTributes,
     })
 end
 

@@ -8,12 +8,17 @@ local PAJunkMenuDefaults = {
 
     Trash = {
         autoMarkTrash = true,
+        excludeNibblesAndBits = false,
+        excludeMorselsAndPecks = false,
     },
     Collectibles = {
         autoMarkSellToMerchant = true,
     },
     Miscellaneous = {
         autoMarkTreasure = false,
+        excludeAMatterOfLeisure = false,
+        excludeAMatterOfRespect = false,
+        excludeAMatterOfTributes = false,
     },
     Weapons = {
         autoMarkOrnate = false,

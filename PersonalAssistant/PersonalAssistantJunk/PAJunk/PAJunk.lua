@@ -7,6 +7,23 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local TREASURE_ITEM_TAGS = {
+    A_MATTER_OF_LEISURE = {
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_TOYS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_DOLLS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_GAMES),
+    },
+    A_MATTER_OF_RESPECT = {
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_UTENSILS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_DRINKWARE),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_DISHES_COOKWARE),
+    },
+    A_MATTER_OF_TRIBUTES = {
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING),
+    }
+}
+
 local SELL_FENCE_ITEMS_INTERVAL_MS = 25
 local SELL_FENCE_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellFence"
 
@@ -132,7 +149,6 @@ local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
     return false -- if unknown, return false
 end
 
-
 local function _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
     local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
     if resetTimeHours >= 1 then
@@ -142,7 +158,6 @@ local function _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
         PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
     end
 end
-
 
 local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCountInBagBefore)
     if not PA.WindowStates.isFenceClosed then
@@ -187,6 +202,56 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
         -- if Fence has been closed, also display the feedback message
         _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
     end
+end
+
+local function _isTrashItemNotQuestExcluded(bagId, slotIndex)
+    local PAJunkSavedVars = PAJ.SavedVars
+    local itemId = GetItemId(bagId, slotIndex)
+    -- check Quest: Nibbles and Bits
+    if PAJunkSavedVars.Trash.excludeNibblesAndBits then
+        for _, constItemId in pairs(PAC.JUNK.TRASH_ITEMIDS.NIBBLES_AND_BITS) do
+            if itemId == constItemId then return false end
+        end
+    end
+    -- check Quest: Morsels and Pecks
+    if PAJunkSavedVars.Trash.excludeMorselsAndPecks then
+        for _, constItemId in pairs(PAC.JUNK.TRASH_ITEMIDS.MORSELS_AND_PECKS) do
+            if itemId == constItemId then return false end
+        end
+    end
+    -- no match so far means that the trash items is NOT excluded
+    return true
+end
+
+local function _isTreasureItemNotQuestExcluded(itemLink)
+    local PAJunkSavedVars = PAJ.SavedVars
+    local numItemTags = GetItemLinkNumItemTags(itemLink)
+    for itemTagIndex = 1, numItemTags do
+        local itemTagDescription, itemTagCategory = GetItemLinkItemTagInfo(itemLink, itemTagIndex)
+        local itemTagDescriptionFmt = zo_strformat("<<1>>", itemTagDescription, 1)
+        if itemTagCategory == TAG_CATEGORY_TREASURE_TYPE then
+            -- check Quest: A Matter of Leisure
+            if PAJunkSavedVars.Miscellaneous.excludeAMatterOfLeisure then
+                for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_LEISURE) do
+                    if itemTagDescriptionFmt == itemTagKey then return false end
+                end
+            end
+            -- check Quest: A Matter of Respect
+            if PAJunkSavedVars.Miscellaneous.excludeAMatterOfRespect then
+                for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_RESPECT) do
+                    if itemTagDescriptionFmt == itemTagKey then return false end
+                end
+            end
+            -- check Quest: A Matter of Tributes
+            if PAJunkSavedVars.Miscellaneous.excludeAMatterOfTributes then
+                for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_TRIBUTES) do
+                    if itemTagDescriptionFmt == itemTagKey then return false end
+                end
+            end
+        end
+    end
+    -- no match so far means that the trash items is NOT excluded
+    return true
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -248,22 +313,18 @@ local function OnShopOpen()
     end
 end
 
-
 local function OnStoreAndFenceClose()
     PA.WindowStates.isFenceClosed = true
     PA.WindowStates.isStoreClosed = true
 end
 
-
 local function OnMailboxOpen()
     PA.WindowStates.isMailboxClosed = false
 end
 
-
 local function OnMailboxClose()
     PA.WindowStates.isMailboxClosed = true
 end
-
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAHF.hasActiveProfile() then
@@ -280,7 +341,11 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- first check for regular Trash
                 if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
                     if PAJunkSavedVars.Trash.autoMarkTrash then
-                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
+                        if _isTrashItemNotQuestExcluded(bagId, slotIndex) then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
+                        else
+                            PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
+                        end
                     end
 
                 -- then check if it is not a Set, or if it is that the corresponding setting is enabled
@@ -316,7 +381,11 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     end
                 elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
                     if PAJunkSavedVars.Miscellaneous.autoMarkTreasure then
-                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
+                        if _isTreasureItemNotQuestExcluded(itemLink) then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
+                        else
+                            PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
+                        end
                     end
                 else
                     local sellInformation = GetItemLinkSellInformation(itemLink)

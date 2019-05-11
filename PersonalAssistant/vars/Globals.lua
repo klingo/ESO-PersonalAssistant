@@ -46,6 +46,10 @@ PersonalAssistant.Constants = {
         NO_PROFILE_SELECTED_ID = 9
     },
 
+    COLOR = {
+        ORANGE = ZO_ColorDef:New("FFA500"),
+        YELLOW = ZO_ColorDef:New("FFD700"),
+    },
     COLORS = {
         DEFAULT = "|cFFFF00",
         WHITE = "|cFFFFFF",
@@ -465,6 +469,21 @@ PersonalAssistant.Constants = {
         OTHER = {
             141731, -- [Keep Recall Stone]
         }
+    },
+
+    JUNK = {
+        TRASH_ITEMIDS = {
+            NIBBLES_AND_BITS = {
+                54382,  -- Trash: Carapace
+                54381,  -- Trash: Foul Hide
+                -- Trash: Daedra Husks
+            },
+            MORSELS_AND_PECKS = {
+                -- Trash: Elemental Essence
+                -- Trash: Supple Roots
+                -- Trash: Ectoplasm
+            }
+        },
     },
 
     MOVE = {
