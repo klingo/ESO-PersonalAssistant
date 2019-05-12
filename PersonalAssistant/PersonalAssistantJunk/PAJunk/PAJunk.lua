@@ -165,39 +165,54 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
         -- Sell the (stolen) item which was marked as junk
         local sellStartGameTime = GetGameTimeMilliseconds()
         local itemDataToSell = bagCache[startIndex]
-        SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
-        -- ---------------------------------------------------------------------------------------------------------
-        -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
-        local identifier = _getUniqueSellFenceUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
-        EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
-            function()
-                -- check if the item is still in the bag
-                local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
-                local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-                if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
-                    -- if item is gone, limit reached, or fence closed stop the interval
-                    EVENT_MANAGER:UnregisterForUpdate(identifier)
-                    local sellFinishGameTime = GetGameTimeMilliseconds()
-                    PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
-                    if sellsUsed == totalSells then
-                        -- limit reached! print a message and stop
-                        _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
-                        -- after limit is reached, also give feedback about the changes
-                        _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
-                    else
-                        -- limit not yet reached, check if there are more items to be sold
-                        local newStartIndex = startIndex + 1
-                        if newStartIndex <= #bagCache then
-                            -- yes, continue loop
-                            _sellStolenJunkToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
-                        else
-                            -- no, finish loop; after everything is sold, give feedback about the changes
+        local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex)
+        local sellInformation = GetItemLinkSellInformation(itemLink)
+        -- check if item can be sold (i.e it is NOT cannot be sold)
+        if sellInformation ~= ITEM_SELL_INFORMATION_CANNOT_SELL then
+            SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
+            -- ---------------------------------------------------------------------------------------------------------
+            -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
+            local identifier = _getUniqueSellFenceUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
+            EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
+                function()
+                    -- check if the item is still in the bag
+                    local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
+                    local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+                    if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
+                        -- if item is gone, limit reached, or fence closed stop the interval
+                        EVENT_MANAGER:UnregisterForUpdate(identifier)
+                        local sellFinishGameTime = GetGameTimeMilliseconds()
+                        PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
+                        if sellsUsed == totalSells then
+                            -- limit reached! print a message and stop
+                            _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+                            -- after limit is reached, also give feedback about the changes
                             _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                        else
+                            -- limit not yet reached, check if there are more items to be sold
+                            local newStartIndex = startIndex + 1
+                            if newStartIndex <= #bagCache then
+                                -- yes, continue loop
+                                _sellStolenJunkToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
+                            else
+                                -- no, finish loop; after everything is sold, give feedback about the changes
+                                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                            end
                         end
                     end
-                end
-            end)
-        -- ---------------------------------------------------------------------------------------------------------
+                end)
+            -- ---------------------------------------------------------------------------------------------------------
+        else
+            -- if item cannot be sold; continue with the next (if there are more)
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #bagCache then
+                -- yes, continue loop
+                _sellStolenJunkToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
+            else
+                -- no, finish loop; after everything is sold, give feedback about the changes
+                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+            end
+        end
     else
         -- if Fence has been closed, also display the feedback message
         _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
