@@ -87,31 +87,35 @@ end
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- TODO: integrate FCOItemSaver?
+        -- then check if the item can be sold; if not don't mark it as junk (i.e. Kari's Hit List Relics)
+        local sellInformation = GetItemLinkSellInformation(itemLink)
+        if sellInformation ~= ITEM_SELL_INFORMATION_CANNOT_SELL then
+            -- TODO: integrate FCOItemSaver?
 
-        local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
---        d("playerLocked="..tostring(playerLocked))
+            local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
+    --        d("playerLocked="..tostring(playerLocked))
 
---        CanItemBePlayerLocked(number Bag bagId, number slotIndex)
---        Returns: boolean canBePlayerLocked
---
---        IsItemPlayerLocked(number Bag bagId, number slotIndex)
---        Returns: boolean playerLocked
---
---        SetItemIsPlayerLocked(number Bag bagId, number slotIndex, boolean playerLocked)
+    --        CanItemBePlayerLocked(number Bag bagId, number slotIndex)
+    --        Returns: boolean canBePlayerLocked
+    --
+    --        IsItemPlayerLocked(number Bag bagId, number slotIndex)
+    --        Returns: boolean playerLocked
+    --
+    --        SetItemIsPlayerLocked(number Bag bagId, number slotIndex, boolean playerLocked)
 
-        -- It is considered safe to mark the item as junk now
-        SetItemIsJunk(bagId, slotIndex, true)
-        PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+            -- It is considered safe to mark the item as junk now
+            SetItemIsJunk(bagId, slotIndex, true)
+            PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
 
-        -- make sure an itemLink is present
-        if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
+            -- make sure an itemLink is present
+            if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
 
-        -- prepare additional icons if needed
-        local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+            -- prepare additional icons if needed
+            local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
 
-        -- print provided success message
-        PAJ.println(successMessageKey, itemLinkExt)
+            -- print provided success message
+            PAJ.println(successMessageKey, itemLinkExt)
+        end
     else
         -- print failure message
         -- TODO: to be implemented
