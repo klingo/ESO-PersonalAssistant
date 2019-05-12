@@ -13,12 +13,24 @@ local PAJStrings = {
 
     SI_PA_MENU_JUNK_TRASH_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] items"}),
     SI_PA_MENU_JUNK_TRASH_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] as junk?"}),
+    SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC = table.concat({"Do NOT mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] items as junk if . . ."}),
+    SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("Nibbles and Bits"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following trash items will NOT be marked as Junk:\n[Carapace]\n[Foul Hide]\n[Daedra Husks]"}),
+    SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("Morsels and Pecks"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following trash items will NOT be marked as Junk:\n[Elemental Essence]\n[Supple Roots]\n[Ectoplasm]"}),
 
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] items"}),
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T = table.concat({"Automatically mark items with the indicator [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] as junk?"}),
 
     SI_PA_MENU_JUNK_TREASURES_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items"}),
     SI_PA_MENU_JUNK_TREASURES_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] as junk?"}),
+    SI_PA_MENU_JUNK_TREASURES_EXCLUDE_ITEMS_DESC = table.concat({"Do NOT mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items as junk if . . ."}),
+    SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Children's Toys]\n[Dolls]\n[Games]"}),
+    SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Respect"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Utensils]\n[Drinkware]\n[Dishes and Cookware]"}),
+    SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
 
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
 
@@ -54,7 +66,25 @@ local PAJStrings = {
     -- == KEY BINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
-    SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Mark / Unmark as Junk"
+    SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Mark / Unmark as Junk",
+
+
+    -- =================================================================================================================
+    -- == OTHER STRINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Quest: "A Matter of Leisure"
+    SI_PA_TREASURE_ITEM_TAG_DESC_TOYS = "Children's Toys",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DOLLS = "Dolls",
+    SI_PA_TREASURE_ITEM_TAG_DESC_GAMES = "Games",
+
+    -- Quest: "A Matter of Respect"
+    SI_PA_TREASURE_ITEM_TAG_DESC_UTENSILS = "Utensils",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DRINKWARE = "Drinkware",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DISHES_COOKWARE = "Dishes and Cookware",
+
+    -- Quest: "A Matter of Tributes"
+    SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Cosmetics",
+    SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Grooming Items",
 }
 
 for key, value in pairs(PAJStrings) do

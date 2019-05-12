@@ -209,6 +209,12 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
             d("hint="..tostring(hint))
             d("isValidForPlayer="..tostring(isValidForPlayer))
         end
+
+        local numItemTags = GetItemLinkNumItemTags(itemLink)
+        for itemTagIndex = 1, numItemTags do
+            local itemTagDescription, itemTagCategory = GetItemLinkItemTagInfo(itemLink, itemTagIndex)
+            d("itemTagDescription="..tostring(zo_strformat("<<1>>", itemTagDescription, 1)).."      itemTagCategory="..tostring(itemTagCategory))
+        end
     end
 end
 
