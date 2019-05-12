@@ -480,8 +480,8 @@ PersonalAssistant.Constants = {
             },
             MORSELS_AND_PECKS = {
                 54384,  -- Trash: Ectoplasm
-                -- Trash: Elemental Essence
-                -- Trash: Supple Roots
+                54385,  -- Trash: Elemental Essence
+                54388,  -- Trash: Supple Roots
             }
         },
     },
