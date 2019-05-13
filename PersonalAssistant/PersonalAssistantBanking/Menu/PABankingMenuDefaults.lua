@@ -146,16 +146,6 @@ local PABankingMenuDefaults = {
                 operator = PAC.OPERATOR.NONE,
                 backpackAmount = 100,
             },
-
-            -- [custom] itemIds to be entered here and following
-            --[[----------------------------------------------------------------------
-            [custom] = {
-                operator = PAC.OPERATOR.NONE,
-                backpackAmount = 100,
-            }
-            --]]----------------------------------------------------------------------
-            -- remember to also update Globals: BANKING_INDIVIDUAl.GENERIC
-
         },
     },
 

@@ -367,7 +367,7 @@ PersonalAssistant.Constants = {
         },
         GENERIC = {
             -- Generic container where any itemID can just be added and it will work out of the box
-            -- remember to also update PABankingMenuDefaults: Crafting.Individual.ItemIds (generic section)
+            -- See examples above with soul gems and repair kits
         }
     },
 
@@ -504,6 +504,10 @@ PersonalAssistant.Constants = {
         LESSTHANOREQUAL = 3,
 --        GREATERTHAN = 4,
         GREATERTHANOREQUAL = 5
+    },
+
+    BACKPACK_AMOUNT = {
+        DEFAULT = 100,
     },
 
     ITEM_QUALITY = {
