@@ -88,8 +88,8 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
         -- then check if the item can be sold; if not don't mark it as junk (i.e. Kari's Hit List Relics)
-        local sellInformation = GetItemLinkSellInformation(itemLink)
-        if sellInformation ~= ITEM_SELL_INFORMATION_CANNOT_SELL then
+        local sellPrice = GetItemSellValueWithBonuses(bagId, slotIndex)
+        if sellPrice > 0 then
             -- TODO: integrate FCOItemSaver?
 
             local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
@@ -169,10 +169,9 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
         -- Sell the (stolen) item which was marked as junk
         local sellStartGameTime = GetGameTimeMilliseconds()
         local itemDataToSell = bagCache[startIndex]
-        local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex)
-        local sellInformation = GetItemLinkSellInformation(itemLink)
-        -- check if item can be sold (i.e it is NOT cannot be sold)
-        if sellInformation ~= ITEM_SELL_INFORMATION_CANNOT_SELL then
+        local sellPrice = GetItemSellValueWithBonuses(itemDataToSell.bagId, itemDataToSell.slotIndex)
+        -- check if item can be sold (i.e it has a sell price)
+        if sellPrice > 0 then
             SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
             -- ---------------------------------------------------------------------------------------------------------
             -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
@@ -207,6 +206,9 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
                 end)
             -- ---------------------------------------------------------------------------------------------------------
         else
+            -- show message to player that Item cannot be sold because it's worthless
+            local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex, LINK_STYLE_BRACKETS)
+            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
             -- if item cannot be sold; continue with the next (if there are more)
             local newStartIndex = startIndex + 1
             if newStartIndex <= #bagCache then
