@@ -294,10 +294,10 @@ end
 ---------------------------------
 local function isIndividualItemsDisabledOrAllItemIdsOperatorNone(itemIdList)
     if isDisabled({"Individual", "individualItemsEnabled"}) then return true end
-
     -- if savedVarsArgs is not disabled, check the itemTypes
     for _, individualItemId in ipairs(itemIdList) do
-        if PAB.SavedVars.Individual.ItemIds[individualItemId].operator ~= PAC.OPERATOR.NONE then return false end
+        local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
+        if itemIdConfig and itemIdConfig.operator ~= PAC.OPERATOR.NONE then return false end
     end
     -- if there was no 'false' returned until here; then return true
     return true
@@ -308,14 +308,22 @@ end
 ---------------------------------
 local function getPABankingIndividualItemIdMathOperatorSetting(individualItemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    local value = PAB.SavedVars.Individual.ItemIds[individualItemId].operator
+    local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
     -- in case a new GENERIC individual item is added, return "-" by default
-    if value then return value else return tonumber(PAC.OPERATOR.NONE) end
+    if itemIdConfig then return itemIdConfig.operator else return tonumber(PAC.OPERATOR.NONE) end
 end
 
 local function setPABankingIndividualItemIdMathOperatorSetting(individualItemId, value)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    PAB.SavedVars.Individual.ItemIds[individualItemId].operator = value
+    if PAB.SavedVars.Individual.ItemIds[individualItemId] then
+        PAB.SavedVars.Individual.ItemIds[individualItemId].operator = value
+    else
+        -- table does not exist yet, initialize it with the given value and default backpackAmount
+        PAB.SavedVars.Individual.ItemIds[individualItemId] = {
+            operator = value,
+            backpackAmount = PAC.BACKPACK_AMOUNT.DEFAULT
+        }
+    end
 end
 
 --------------------------------------------------------------------------
@@ -323,9 +331,9 @@ end
 ---------------------------------
 local function getPABankingIndividualItemIdBackpackAmountSetting(individualItemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    local value = PAB.SavedVars.Individual.ItemIds[individualItemId].backpackAmount
-    -- in case a new GENERIC individual item is added, return "100" by default
-    if value then return value else return 100 end
+    local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
+    -- in case a new GENERIC individual item is added, return the default amount
+    if itemIdConfig then return itemIdConfig.backpackAmount else return tonumber(PAC.BACKPACK_AMOUNT.DEFAULT) end
 end
 
 local function setPABankingIndividualItemIdBackpackAmountSetting(individualItemId, value)
@@ -342,7 +350,8 @@ end
 local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
     if isDisabledPAGeneralNoProfileSelected() then return true end
     if isDisabled({"Individual", "individualItemsEnabled"}) then return true end
-    if PAB.SavedVars.Individual.ItemIds[individualItemId].operator ~= PAC.OPERATOR.NONE then return false end
+    local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
+    if itemIdConfig and itemIdConfig.operator ~= PAC.OPERATOR.NONE then return false end
     -- if there was no 'false' returned until here; then return true
     return true
 end

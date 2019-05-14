@@ -1173,7 +1173,7 @@ local function _createPABIndividualGenericSubmenuTable()
             getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
             disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].operator,
+            default = PAC.OPERATOR.NONE,
         })
 
         PABIndividualGenericSubmenuTable:insert({
@@ -1184,7 +1184,7 @@ local function _createPABIndividualGenericSubmenuTable()
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].backpackAmount,
+            default = PAC.BACKPACK_AMOUNT.DEFAULT,
         })
     end
 end
