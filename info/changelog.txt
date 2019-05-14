@@ -1,5 +1,8 @@
-2.2.1   (May xx, 2019)
-- add missing Jewelry Crafting Trait and Raw Trait items to PABanking
+2.2.1   (May 14, 2019)
+- add missing Jewelry Crafting Trait and Raw Trait items to PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/113"]#113[/URL])
+- add option to exclude items from being marked as junk that are needed for Clockwork City Daily Quests ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/115"]#115[/URL])
+- updated/simplified logic for adding custom GENERIC items in Globals.lua (no more defaults needed) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/120"]#120[/URL])
+- fixed an issue when attempting to sell zero-value items in PAJunk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/119"]#119[/URL])
 
 2.2.0   (May 09, 2019)
 - add option to PABanking to distinguish between known and unknown recipes and motives ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
