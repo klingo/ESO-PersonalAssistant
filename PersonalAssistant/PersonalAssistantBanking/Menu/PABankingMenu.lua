@@ -962,16 +962,16 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABAdvancedWritsSubmenuTable()
-    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.WRITS) do
+    for _, craftingType in pairs(PAC.BANKING_ADVANCED.MASTER_WRITS) do
         PABAdvancedWritsSubmenuTable:insert({
             type = "dropdown",
-            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
+            name = GetString("SI_PA_MASTERWRIT_CRAFTINGTYPE", craftingType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
-            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
-            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
+            getFunc = function() return PABMenuFunctions.getAdvancedMasterWritCraftingTypeMoveSetting(craftingType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedMasterWritCraftingTypeMoveSetting(craftingType, value) end,
             disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
-            default = PABMenuDefaults.Advanced.ItemTypes[itemType],
+            default = PABMenuDefaults.Advanced.MasterWritCraftingTypes[craftingType],
         })
     end
 end

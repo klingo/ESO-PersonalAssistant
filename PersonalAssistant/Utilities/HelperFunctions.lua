@@ -21,7 +21,26 @@ local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType,
     return false
 end
 
-local function getCombinedItemTypeSpecializedComparator(knownLearnableItemTypeList, unknownLearnableItemTypeList, itemTypeList, specializedItemTypeList, itemTraitTypeList)
+local _WRIT_ICON_TABLE_CRAFTING_TYPE = {
+    ["/esoui/art/icons/master_writ_blacksmithing.dds"] = CRAFTING_TYPE_BLACKSMITHING,
+    ["/esoui/art/icons/master_writ_clothier.dds"] = CRAFTING_TYPE_CLOTHIER,
+    ["/esoui/art/icons/master_writ_woodworking.dds"] = CRAFTING_TYPE_WOODWORKING,
+    ["/esoui/art/icons/master_writ_jewelry.dds"] = CRAFTING_TYPE_JEWELRYCRAFTING,
+    ["/esoui/art/icons/master_writ_alchemy.dds"] = CRAFTING_TYPE_ALCHEMY,
+    ["/esoui/art/icons/master_writ_enchanting.dds"] = CRAFTING_TYPE_ENCHANTING,
+    ["/esoui/art/icons/master_writ_provisioning.dds"] = CRAFTING_TYPE_PROVISIONING,
+}
+
+local function _getCraftingTypeFromWritItemLink(itemLink)
+    local itemType, specializedItemType = GetItemLinkItemType(itemLink)
+    if itemType == ITEMTYPE_MASTER_WRIT and specializedItemType == SPECIALIZED_ITEMTYPE_MASTER_WRIT then
+        local icon = GetItemLinkInfo(itemLink)
+        return _WRIT_ICON_TABLE_CRAFTING_TYPE[icon] or CRAFTING_TYPE_INVALID
+    end
+    return nil
+end
+
+local function getCombinedItemTypeSpecializedComparator(combinedLists, knownLearnableItemTypeList, unknownLearnableItemTypeList, itemTypeList, specializedItemTypeList, itemTraitTypeList)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(knownLearnableItemTypeList) do
@@ -29,6 +48,10 @@ local function getCombinedItemTypeSpecializedComparator(knownLearnableItemTypeLi
         end
         for _, itemType in pairs(unknownLearnableItemTypeList) do
             if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, false) then return true end
+        end
+        for _, craftingType in pairs(combinedLists.masterWritCraftingTypes) do
+            local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
+            if craftingType == _getCraftingTypeFromWritItemLink(itemLink) then return true end
         end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end

@@ -37,7 +37,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020201,
+            MINOR = 020202,
         },
     },
 
@@ -311,6 +311,16 @@ PersonalAssistant.Constants = {
             RECIPE = {
                 ITEMTYPE_RECIPE,                            -- 29
             },
+        },
+        MASTER_WRITS = {
+            CRAFTING_TYPE_BLACKSMITHING,                    -- 1
+            CRAFTING_TYPE_CLOTHIER,                         -- 2
+            CRAFTING_TYPE_ENCHANTING,                       -- 3
+            CRAFTING_TYPE_ALCHEMY,                          -- 4
+            CRAFTING_TYPE_PROVISIONING,                     -- 5
+            CRAFTING_TYPE_WOODWORKING,                      -- 6
+            CRAFTING_TYPE_JEWELRYCRAFTING,                  -- 7
+            CRAFTING_TYPE_INVALID,                          -- 0
         },
         REGULAR = {
             WRITS = {

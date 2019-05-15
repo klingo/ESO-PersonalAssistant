@@ -74,6 +74,17 @@ local PAStrings = {
     SI_PA_ITEMTYPE60 = "<<1[Master Writ/Master Writs]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- Master Writs based on CraftingType (Custom definition) --
+    SI_PA_MASTERWRIT_CRAFTINGTYPE0 = table.concat({"Other Writs (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}),
+    SI_PA_MASTERWRIT_CRAFTINGTYPE1 = "Sealed Blacksmithing Writ",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE2 = "Sealed Clothier Writ",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE3 = "Sealed Enchanting Writ",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE4 = "Sealed Alchemy Writ",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE5 = "Sealed Provisioning Writ",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE6 = "Sealed Woodworking Writ",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE7 = "Sealed Jewelry Crafter Writ",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
     SI_PA_BANKING_MOVE_MODE_DONOTHING = "Do Nothing",
     SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",

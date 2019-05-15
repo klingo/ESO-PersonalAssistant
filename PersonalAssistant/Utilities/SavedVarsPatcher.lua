@@ -82,6 +82,27 @@ local function applyPatchIfNeeded()
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020200]"}))
     end
 
+    -- Upgrade to v2.2.2
+    if prevStoredSavedVarsVersion < 020202 then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020202]"}))
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate       PABanking.Advanced.MasterWritCraftingTypes
+            local masterWritMoveSetting = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_MASTER_WRIT]
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID] = masterWritMoveSetting
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_BLACKSMITHING] = masterWritMoveSetting
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_CLOTHIER] = masterWritMoveSetting
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_ENCHANTING] = masterWritMoveSetting
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_ALCHEMY] = masterWritMoveSetting
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_PROVISIONING] = masterWritMoveSetting
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_WOODWORKING] = masterWritMoveSetting
+            PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_JEWELRYCRAFTING] = masterWritMoveSetting
+
+            -- 2) get rid of    PABanking.Advanced.ItemTypes[ITEMTYPE_MASTER_WRIT]
+            PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_MASTER_WRIT] = nil
+        end
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020202]"}))
+    end
+
     -- in the end, update the savedVarsVersion
     PASavedVars.General.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
 end
