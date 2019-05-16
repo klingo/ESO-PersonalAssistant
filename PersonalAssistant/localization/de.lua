@@ -70,6 +70,17 @@ SafeAddString(SI_PA_ITEMTYPE34, "<<1[Sammlung/Sammlungen]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE60, "<<1[Meisterschrieb/Meisterschriebe]>>", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Master Writs based on CraftingType (Custom definition) --
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE0, table.concat({"Andere Schriebe (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}), 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE1, "Versiegelter Schmiedeschrieb", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE2, "Versiegelter Schneiderschrieb", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE3, "Versiegelter Verzauberungsschrieb", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE4, "Versiegelter Alchemieschrieb", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE5, "Versiegelter Versorgerschrieb", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE6, "Versiegelter Schreinerschrieb", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE7, "Versiegelter Schmuckhandwerksschrieb", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
 SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Nichts machen", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "In Truhe einlagern", 1)

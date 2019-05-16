@@ -49,6 +49,12 @@ local function depositOrWithdrawAdvancedItems()
         end
 
         -- prepare the table with itemTypes to deposit and withdraw
+        local combinedDepositLists = {
+            masterWritCraftingTypes = setmetatable({}, { __index = table })
+        }
+        local combinedWithdrawLists = {
+            masterWritCraftingTypes = setmetatable({}, { __index = table })
+        }
         local depositLearnableKnownItemTypes = setmetatable({}, { __index = table })
         local depositLearnableUnknownItemTypes = setmetatable({}, { __index = table })
         local depositItemTypes = setmetatable({}, { __index = table })
@@ -76,6 +82,13 @@ local function depositOrWithdrawAdvancedItems()
                         withdrawLearnableUnknownItemTypes:insert(itemType)
                     end
                 end
+            end
+        end
+        for craftingType, moveMode in pairs(PAB.SavedVars.Advanced.MasterWritCraftingTypes) do
+            if moveMode == PAC.MOVE.DEPOSIT then
+                combinedDepositLists.masterWritCraftingTypes:insert(craftingType)
+            elseif moveMode == PAC.MOVE.WITHDRAW then
+                combinedWithdrawLists.masterWritCraftingTypes:insert(craftingType)
             end
         end
         for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do
@@ -111,8 +124,9 @@ local function depositOrWithdrawAdvancedItems()
             _someItemskippedForLWC = false
         end
 
-        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(depositLearnableKnownItemTypes, depositLearnableUnknownItemTypes, depositItemTypes, depositSpecializedItemTypes, depositTraitItemTypes)
-        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(withdrawLearnableKnownItemTypes, withdrawLearnableUnknownItemTypes, withdrawItemTypes, withdrawSpezializedItemTypes, withdrawTraitItemTypes)
+        -- TODO: refactor other lists into [combinedDepositLists] and [combinedWithdrawLists]
+        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedDepositLists, depositLearnableKnownItemTypes, depositLearnableUnknownItemTypes, depositItemTypes, depositSpecializedItemTypes, depositTraitItemTypes)
+        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedWithdrawLists, withdrawLearnableKnownItemTypes, withdrawLearnableUnknownItemTypes, withdrawItemTypes, withdrawSpezializedItemTypes, withdrawTraitItemTypes)
 
         local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
         local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)

@@ -153,7 +153,6 @@ local function _createPAJTrashSubMenu()
         disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
     })
 
-    -- TODO: NIBBLES_AND_BITS
     PAJTrashSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS),
@@ -164,7 +163,6 @@ local function _createPAJTrashSubMenu()
         default = PAJMenuDefaults.Trash.excludeNibblesAndBits,
     })
 
-    -- TODO: MORSELS_AND_PECKS
     PAJTrashSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS),

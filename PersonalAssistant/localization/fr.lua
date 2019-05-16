@@ -70,6 +70,17 @@ SafeAddString(SI_PA_ITEMTYPE34, "<<1[Objet de collection/Objets de collection]>>
 SafeAddString(SI_PA_ITEMTYPE60, "<<1[Commande de maître/Commandes de maître]>>", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Master Writs based on CraftingType (Custom definition) --
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE0, table.concat({"Autres commandes (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}), 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE1, "Commande de forge scellée", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE2, "Commande scellée de couture", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE3, "Commande d'enchantement scellée", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE4, "Commande scellée d'alchimie", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE5, "Commande scellée de cuisine", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE6, "Commande de travail du bois scellée", 1)
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE7, "Commande scellée de joaillier", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
 SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Ne rien faire", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "Déposer en banque", 1)
