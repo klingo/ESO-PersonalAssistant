@@ -155,11 +155,14 @@ end
 
 local function _isSameItem(itemDataA, itemDataB)
     if itemDataA.itemInstanceId == itemDataB.itemInstanceId then
-        local itemLinkA = GetItemLink(itemDataA.bagId, itemDataA.slotIndex)
-        local itemLinkB = GetItemLink(itemDataB.bagId, itemDataB.slotIndex)
-        local boundStateItemA = select(21, ZO_LinkHandler_ParseLink(itemLinkA))
-        local boundStateItemB = select(21, ZO_LinkHandler_ParseLink(itemLinkB))
-        return boundStateItemA == boundStateItemB
+--        local itemLinkA = GetItemLink(itemDataA.bagId, itemDataA.slotIndex)
+--        local itemLinkB = GetItemLink(itemDataB.bagId, itemDataB.slotIndex)
+--        local boundStateItemA = select(21, ZO_LinkHandler_ParseLink(itemLinkA))
+--        local boundStateItemB = select(21, ZO_LinkHandler_ParseLink(itemLinkB))
+        local fromCrownStoreItemA = IsItemFromCrownStore(itemDataA.bagId, itemDataA.slotIndex)
+        local fromCrownStoreItemB = IsItemFromCrownStore(itemDataB.bagId, itemDataB.slotIndex)
+--        return boundStateItemA == boundStateItemB and fromCrownStoreItemA == fromCrownStoreItemB
+        return fromCrownStoreItemA == fromCrownStoreItemB
     end
     return false
 end
@@ -224,6 +227,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                 for index, prevBagItemData in pairs(notMovedItemsTable) do
                     -- check if it is the same item and if there is some space left
                     if _isSameItem(prevBagItemData, fromBagItemData) and prevBagItemData.customStackToMove < sourceStackMaxSize then
+                        d("same item")
                         local prevSourceFreeStack = sourceStackMaxSize - prevBagItemData.customStackToMove
                         if prevSourceFreeStack >= stackToMove and fromBagItemData.stackCount >= stackToMove then
                             -- stack everything
@@ -241,6 +245,8 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- partial left to be moved
                             stackToMove = stackToMove - prevSourceFreeStack
                         end
+                    else
+                        d("different item")
                     end
                 end
             end
