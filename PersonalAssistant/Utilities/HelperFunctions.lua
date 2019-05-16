@@ -40,26 +40,26 @@ local function _getCraftingTypeFromWritItemLink(itemLink)
     return nil
 end
 
-local function getCombinedItemTypeSpecializedComparator(combinedLists, knownLearnableItemTypeList, unknownLearnableItemTypeList, itemTypeList, specializedItemTypeList, itemTraitTypeList)
+local function getCombinedItemTypeSpecializedComparator(combinedLists)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
-        for _, itemType in pairs(knownLearnableItemTypeList) do
+        for _, itemType in pairs(combinedLists.learnableKnownItemTypes) do
            if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, true) then return true end
         end
-        for _, itemType in pairs(unknownLearnableItemTypeList) do
+        for _, itemType in pairs(combinedLists.learnableUnknownItemTypes) do
             if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, false) then return true end
         end
         for _, craftingType in pairs(combinedLists.masterWritCraftingTypes) do
             local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
             if craftingType == _getCraftingTypeFromWritItemLink(itemLink) then return true end
         end
-        for _, itemType in pairs(itemTypeList) do
+        for _, itemType in pairs(combinedLists.itemTypes) do
             if itemType == itemData.itemType then return true end
         end
-        for _, specializedItemType in pairs(specializedItemTypeList) do
+        for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
             if specializedItemType == itemData.specializedItemType then return true end
         end
-        for _, itemTraitType in pairs(itemTraitTypeList) do
+        for _, itemTraitType in pairs(combinedLists.itemTraitTypes) do
             if itemTraitType == GetItemTrait(itemData.bagId, itemData.slotIndex) then return true end
         end
         return false
