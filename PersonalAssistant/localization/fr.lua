@@ -71,7 +71,7 @@ SafeAddString(SI_PA_ITEMTYPE60, "<<1[Commande de maître/Commandes de maître]>>
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Master Writs based on CraftingType (Custom definition) --
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE0, table.concat({"Autres commandes (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}), 1) -- TODO: takit
+SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE0, table.concat({"Autres commandes (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}), 1)
 SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE1, "Commande de forge scellée", 1)
 SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE2, "Commande scellée de couture", 1)
 SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE3, "Commande d'enchantement scellée", 1)
