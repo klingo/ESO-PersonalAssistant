@@ -107,7 +107,7 @@ local function depositOrWithdrawAdvancedItems()
             if moveMode == PAC.MOVE.DEPOSIT then
                 combinedDepositLists.specializedItemTypes:insert(specializedItemType)
             elseif moveMode == PAC.MOVE.WITHDRAW then
-                combinedWithdrawLists.spezializedItemTypes:insert(specializedItemType)
+                combinedWithdrawLists.specializedItemTypes:insert(specializedItemType)
             end
         end
         for itemTraitType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
