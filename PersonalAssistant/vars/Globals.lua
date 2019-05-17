@@ -236,6 +236,10 @@ PersonalAssistant.Constants = {
             }
         },
         OTHERS = {
+            HELP = {
+                PATH = "/esoui/art/help/help_tabicon_feedback_up.dds",
+                NORMAL = "|t32:32:/esoui/art/help/help_tabicon_feedback_up.dds|t",
+            },
             HOME = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",
                 NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t",

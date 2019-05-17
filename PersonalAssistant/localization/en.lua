@@ -30,6 +30,9 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
 
+    SI_PA_MENU_GENERAL_FIXME_REFRESH_ALL = table.concat({PAC.ICONS.OTHERS.HELP.NORMAL, " Refresh Addon Config"}),
+    SI_PA_MENU_GENERAL_FIXME_REFRESH_ALL_W = "If you experience issues that certain features are not working although the setting has been turned on, you can try to fix this by clicking on this button which will refresh/reload all of PersonalAssistant's configurations.",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",

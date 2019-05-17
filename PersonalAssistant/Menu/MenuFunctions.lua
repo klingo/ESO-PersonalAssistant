@@ -147,6 +147,18 @@ local function doPAGeneralTeleportToPrimaryHouse()
     end
 end
 
+
+--------------------------------------------------------------------------
+-- PAGeneral   refreshSavedVarRefsAndEventRegistrations
+---------------------------------
+local _alreadyRefreshed = false
+local function doRefreshSavedVarRefsAndEventRegistrations()
+    local activeProfile = getPAGeneralActiveProfile()
+    PAEM.RefreshAllSavedVarReferences(activeProfile)
+    PAEM.RefreshAllEventRegistrations()
+    _alreadyRefreshed = true
+end
+
 -- =====================================================================================================================
 
 -- Export
@@ -165,6 +177,9 @@ PA.MenuFunctions = {
 
         isTeleportToPrimaryHouseDisabled = function() return not CanLeaveCurrentLocationViaTeleport() end,
         teleportToPrimaryHouse = doPAGeneralTeleportToPrimaryHouse,
+
+        isRefreshSavedVarRefsAndEventRegistrationsDisabled = function() return _alreadyRefreshed end,
+        refreshSavedVarRefsAndEventRegistrations = doRefreshSavedVarRefsAndEventRegistrations,
     },
 }
 

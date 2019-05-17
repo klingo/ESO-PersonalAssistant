@@ -86,6 +86,24 @@ local function createPAGeneralMenu()
         })
     end
 
+    PAGeneralOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    -- TODO: make submenu here
+
+
+    PAGeneralOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_GENERAL_FIXME_REFRESH_ALL),
+        width = "half",
+        func = PAMenuFunctions.PAGeneral.refreshSavedVarRefsAndEventRegistrations,
+        disabled = PAMenuFunctions.PAGeneral.isRefreshSavedVarRefsAndEventRegistrationsDisabled,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_GENERAL_FIXME_REFRESH_ALL_W),
+    })
+
     -- register additional buttons to switch between languages (only for Addon author)
     if GetUnitName("player") == PACAddon.AUTHOR then
         PAGeneralOptionsTable:insert({
