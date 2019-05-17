@@ -13,25 +13,35 @@ local _someItemskippedForLWC = false
 local function _passesLazyWritCraftingCompatibilityCheck(itemType)
     if WritCreater and WritCreater:GetSettings().shouldGrab and PAB.SavedVars.lazyWritCraftingCompatiblity then
         -- 1
-        if _writTable[CRAFTING_TYPE_BLACKSMITHING] and (itemType == ITEMTYPE_BLACKSMITHING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+        if _writTable[CRAFTING_TYPE_BLACKSMITHING] and
+                (itemType == ITEMTYPE_BLACKSMITHING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
             return false
         -- 2
-        elseif _writTable[CRAFTING_TYPE_CLOTHIER] and (itemType == ITEMTYPE_CLOTHIER_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+        elseif _writTable[CRAFTING_TYPE_CLOTHIER] and
+                (itemType == ITEMTYPE_CLOTHIER_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
             return false
         -- 3
-        elseif _writTable[CRAFTING_TYPE_ENCHANTING] and (itemType == ITEMTYPE_ENCHANTING_RUNE_ASPECT or itemType == ITEMTYPE_ENCHANTING_RUNE_ESSENCE or itemType == ITEMTYPE_ENCHANTING_RUNE_POTENCY) then
+        elseif _writTable[CRAFTING_TYPE_ENCHANTING] and
+                (itemType == ITEMTYPE_ENCHANTING_RUNE_ASPECT or itemType == ITEMTYPE_ENCHANTING_RUNE_ESSENCE or
+                        itemType == ITEMTYPE_ENCHANTING_RUNE_POTENCY or itemType == ITEMTYPE_GLYPH_ARMOR or
+                        itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) then
             return false
         -- 4
-        elseif _writTable[CRAFTING_TYPE_ALCHEMY] and (itemType == ITEMTYPE_REAGENT or itemType == ITEMTYPE_POISON_BASE or itemType == ITEMTYPE_POTION_BASE) then
+        elseif _writTable[CRAFTING_TYPE_ALCHEMY] and
+                (itemType == ITEMTYPE_REAGENT or itemType == ITEMTYPE_POISON_BASE or itemType == ITEMTYPE_POTION_BASE or
+                        itemType == ITEMTYPE_POTION or itemType == ITEMTYPE_POISON) then
             return false
         -- 5
-        elseif _writTable[CRAFTING_TYPE_PROVISIONING] and itemType == ITEMTYPE_INGREDIENT then
+        elseif _writTable[CRAFTING_TYPE_PROVISIONING] and
+                (itemType == ITEMTYPE_INGREDIENT or itemType == ITEMTYPE_FOOD or itemType == ITEMTYPE_DRINK) then
             return false
         -- 6
-        elseif _writTable[CRAFTING_TYPE_WOODWORKING] and (itemType == ITEMTYPE_WOODWORKING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+        elseif _writTable[CRAFTING_TYPE_WOODWORKING] and
+                (itemType == ITEMTYPE_WOODWORKING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
             return false
         -- 7
-        elseif _writTable[CRAFTING_TYPE_JEWELRYCRAFTING] and (itemType == ITEMTYPE_JEWELRYCRAFTING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
+        elseif _writTable[CRAFTING_TYPE_JEWELRYCRAFTING] and
+                (itemType == ITEMTYPE_JEWELRYCRAFTING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
             return false
         end
     end
