@@ -1,3 +1,8 @@
+2.2.2   (May 17, 2019)
+- add option for every profession's Master Writs in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/125"]#125[/URL])
+- add additional items that are covered by the compatibility mode with LazyWritCrafter Addon ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/126"]#126[/URL])
+- fixed an issue with items from Crown Store and from Daily Rewards in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/127"]#127[/URL])
+
 2.2.1   (May 14, 2019)
 - add missing Jewelry Crafting Trait and Raw Trait items to PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/113"]#113[/URL])
 - add option to exclude items from being marked as junk that are needed for Clockwork City Daily Quests ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/115"]#115[/URL])
@@ -16,8 +21,8 @@
 
 2.1.0   (April 28, 2019)
 - increased maximum number of profiles from 5 to 8 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/76"]#76[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/85"]#85[/URL])
-- added option in PABanking to transfer (your alliance's) AvA items with specific amounts ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/80"]#80[/URL])
-- added option in PABanking to transfer items with [Intricate] trait ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/82"]#82[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/84"]#84[/URL])
+- add option in PABanking to transfer (your alliance's) AvA items with specific amounts ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/80"]#80[/URL])
+- add option in PABanking to transfer items with [Intricate] trait ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/82"]#82[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/84"]#84[/URL])
 - fixed a potential issue when stacking items bought from Crown Store with ones received from daily rewards or crates ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/79"]#79[/URL])
 - fixed an issue where PARepair did not repair items for gold anymore ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/83"]#83[/URL])
 
