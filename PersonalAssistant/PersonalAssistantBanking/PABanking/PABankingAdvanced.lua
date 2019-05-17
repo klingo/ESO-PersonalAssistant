@@ -50,36 +50,36 @@ local function depositOrWithdrawAdvancedItems()
 
         -- prepare the table with itemTypes to deposit and withdraw
         local combinedDepositLists = {
-            masterWritCraftingTypes = setmetatable({}, { __index = table })
+            learnableKnownItemTypes = setmetatable({}, { __index = table }),
+            learnableUnknownItemTypes = setmetatable({}, { __index = table }),
+            masterWritCraftingTypes = setmetatable({}, { __index = table }),
+            itemTypes = setmetatable({}, { __index = table }),
+            specializedItemTypes = setmetatable({}, { __index = table }),
+            itemTraitTypes = setmetatable({}, { __index = table }),
         }
         local combinedWithdrawLists = {
-            masterWritCraftingTypes = setmetatable({}, { __index = table })
+            learnableKnownItemTypes = setmetatable({}, { __index = table }),
+            learnableUnknownItemTypes = setmetatable({}, { __index = table }),
+            masterWritCraftingTypes = setmetatable({}, { __index = table }),
+            itemTypes = setmetatable({}, { __index = table }),
+            specializedItemTypes = setmetatable({}, { __index = table }),
+            itemTraitTypes = setmetatable({}, { __index = table }),
         }
-        local depositLearnableKnownItemTypes = setmetatable({}, { __index = table })
-        local depositLearnableUnknownItemTypes = setmetatable({}, { __index = table })
-        local depositItemTypes = setmetatable({}, { __index = table })
-        local depositSpecializedItemTypes = setmetatable({}, { __index = table })
-        local depositTraitItemTypes = setmetatable({}, { __index = table })
-        local withdrawLearnableKnownItemTypes = setmetatable({}, { __index = table })
-        local withdrawLearnableUnknownItemTypes = setmetatable({}, { __index = table })
-        local withdrawItemTypes = setmetatable({}, { __index = table })
-        local withdrawSpezializedItemTypes = setmetatable({}, { __index = table })
-        local withdrawTraitItemTypes = setmetatable({}, { __index = table })
 
         -- fill up the table(s)
         for itemType, moveModeTbl in pairs(PAB.SavedVars.Advanced.LearnableItemTypes) do
             for knownUnknown, moveMode in pairs(moveModeTbl) do
                 if moveMode == PAC.MOVE.DEPOSIT then
                     if knownUnknown == "Known" then
-                        depositLearnableKnownItemTypes:insert(itemType)
+                        combinedDepositLists.learnableKnownItemTypes:insert(itemType)
                     else
-                        depositLearnableUnknownItemTypes:insert(itemType)
+                        combinedDepositLists.learnableUnknownItemTypes:insert(itemType)
                     end
                 elseif moveMode == PAC.MOVE.WITHDRAW then
                     if knownUnknown == "Known" then
-                        withdrawLearnableKnownItemTypes:insert(itemType)
+                        combinedWithdrawLists.learnableKnownItemTypes:insert(itemType)
                     else
-                        withdrawLearnableUnknownItemTypes:insert(itemType)
+                        combinedWithdrawLists.learnableUnknownItemTypes:insert(itemType)
                     end
                 end
             end
@@ -94,27 +94,27 @@ local function depositOrWithdrawAdvancedItems()
         for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do
             if moveMode == PAC.MOVE.DEPOSIT then
                 if _passesLazyWritCraftingCompatibilityCheck(itemType) then
-                    depositItemTypes:insert(itemType)
+                    combinedDepositLists.itemTypes:insert(itemType)
                 else
                     _someItemskippedForLWC = true
                     PAHF.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
             elseif moveMode == PAC.MOVE.WITHDRAW then
-                withdrawItemTypes:insert(itemType)
+                combinedWithdrawLists.itemTypes:insert(itemType)
             end
         end
         for specializedItemType, moveMode in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
             if moveMode == PAC.MOVE.DEPOSIT then
-                depositSpecializedItemTypes:insert(specializedItemType)
+                combinedDepositLists.specializedItemTypes:insert(specializedItemType)
             elseif moveMode == PAC.MOVE.WITHDRAW then
-                withdrawSpezializedItemTypes:insert(specializedItemType)
+                combinedWithdrawLists.specializedItemTypes:insert(specializedItemType)
             end
         end
-        for traitItemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
+        for itemTraitType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
             if moveMode == PAC.MOVE.DEPOSIT then
-                depositTraitItemTypes:insert(traitItemType)
+                combinedDepositLists.itemTraitTypes:insert(itemTraitType)
             elseif moveMode == PAC.MOVE.WITHDRAW then
-                withdrawTraitItemTypes:insert(traitItemType)
+                combinedWithdrawLists.itemTraitTypes:insert(itemTraitType)
             end
         end
 
@@ -124,9 +124,8 @@ local function depositOrWithdrawAdvancedItems()
             _someItemskippedForLWC = false
         end
 
-        -- TODO: refactor other lists into [combinedDepositLists] and [combinedWithdrawLists]
-        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedDepositLists, depositLearnableKnownItemTypes, depositLearnableUnknownItemTypes, depositItemTypes, depositSpecializedItemTypes, depositTraitItemTypes)
-        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedWithdrawLists, withdrawLearnableKnownItemTypes, withdrawLearnableUnknownItemTypes, withdrawItemTypes, withdrawSpezializedItemTypes, withdrawTraitItemTypes)
+        local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedDepositLists)
+        local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedWithdrawLists)
 
         local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
         local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
