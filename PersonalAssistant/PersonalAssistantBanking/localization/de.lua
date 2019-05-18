@@ -42,8 +42,8 @@ SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Anderes", 1)
 -- Generic definitions for any type --
 SafeAddString(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, "%s einlagern/entnehmen", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK, "Im Inventar zu behaltende Menge", 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Definiere die Menge welche (basierend auf dem mathematischen Operator) im Inventar behalten werden soll", 1)
+SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK, "Zu behaltende Menge", 1)
+SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Definiere die Menge welche (basierend auf dem mathematischen Operator) im Inventar oder der Bank behalten werden soll", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Minimale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird fehlendes von der Truhe entnommen", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Maximale Menge an %s die immer im Inventar behalten werden soll; wenn notwendig wird alles darüber in die Truhe eingelagert", 1)
