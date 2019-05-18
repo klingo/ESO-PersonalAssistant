@@ -227,7 +227,6 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                 for index, prevBagItemData in pairs(notMovedItemsTable) do
                     -- check if it is the same item and if there is some space left
                     if _isSameItem(prevBagItemData, fromBagItemData) and prevBagItemData.customStackToMove < sourceStackMaxSize then
-                        d("same item")
                         local prevSourceFreeStack = sourceStackMaxSize - prevBagItemData.customStackToMove
                         if prevSourceFreeStack >= stackToMove and fromBagItemData.stackCount >= stackToMove then
                             -- stack everything
@@ -245,8 +244,6 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- partial left to be moved
                             stackToMove = stackToMove - prevSourceFreeStack
                         end
-                    else
-                        d("different item")
                     end
                 end
             end
