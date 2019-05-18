@@ -43,6 +43,7 @@ end
 local function getCombinedItemTypeSpecializedComparator(combinedLists)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
         for _, itemType in pairs(combinedLists.learnableKnownItemTypes) do
            if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, true) then return true end
         end
@@ -57,7 +58,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists)
             if itemType == itemData.itemType then return true end
         end
         for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
-            if specializedItemType == itemData.specializedItemType then return true end
+            if specializedItemType == itemData.specializedItemType and not IsItemLinkContainer(itemLink) then return true end
         end
         for _, itemTraitType in pairs(combinedLists.itemTraitTypes) do
             if itemTraitType == GetItemTrait(itemData.bagId, itemData.slotIndex) then return true end
