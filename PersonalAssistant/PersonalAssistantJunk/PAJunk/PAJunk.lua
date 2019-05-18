@@ -358,6 +358,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
                 local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                 local itemType, specializedItemType = GetItemType(bagId, slotIndex)
+                local itemQuality = GetItemQuality(bagId, slotIndex)
 
                 -- first check for regular Trash
                 if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
@@ -373,7 +374,6 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- also check if it does not have unknown traits, or if the corresponding setting is enabled
                 elseif _hasAdditionalApparelChecksPassed(itemLink, itemType) then
                     local itemTrait = GetItemTrait(bagId, slotIndex)
-                    local itemQuality = GetItemQuality(bagId, slotIndex)
                     -- check for the different itemTypes and itemTraits
                     if itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
                             itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
