@@ -37,7 +37,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020202,
+            MINOR = 020300,
         },
     },
 
@@ -509,11 +509,16 @@ PersonalAssistant.Constants = {
 
     OPERATOR = {
         NONE = 0,
-        EQUAL = 1,
---        LESSTHAN = 2,
-        LESSTHANOREQUAL = 3,
---        GREATERTHAN = 4,
-        GREATERTHANOREQUAL = 5
+        BACKPACK_EQUAL = 1,
+        BACKPACK_LESSTHAN = 2,
+        BACKPACK_LESSTHANOREQUAL = 3,
+        BACKPACK_GREATERTHAN = 4,
+        BACKPACK_GREATERTHANOREQUAL = 5,
+        BANK_EQUAL = 6,
+        BANK_LESSTHAN = 7,
+        BANK_LESSTHANOREQUAL = 8,
+        BANK_GREATERTHAN = 9,
+        BANK_GREATERTHANOREQUAL = 10,
     },
 
     BACKPACK_AMOUNT = {

@@ -25,7 +25,7 @@ local function depositOrWithdrawIndividualItems()
             if operator ~= PAC.OPERATOR.NONE then
                 individualItems[itemId] = {
                     operator = operator,
-                    targetBackpackStack = moveConfig.backpackAmount
+                    targetBagStack = moveConfig.bagAmount
                 }
             end
         end

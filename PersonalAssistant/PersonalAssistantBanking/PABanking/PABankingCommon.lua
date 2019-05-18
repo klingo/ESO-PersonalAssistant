@@ -259,6 +259,37 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
     end
 end
 
+local function _getBagCacheBasedOnItemOperator(backpackBagCache, bankBagCache, operator)
+    if operator >= PAC.OPERATOR.BANK_EQUAL then
+        -- operator 6 - 10 => rule set for the bank
+        return bankBagCache, backpackBagCache
+    else
+        -- operator 1 - 5 => rule set for the backpack
+        -- operator 0 => can be ignored since it must have been filtered out before!
+        return backpackBagCache, bankBagCache
+    end
+end
+
+local function _isOperatorSetoToEqualOrLess(operator)
+    if operator == PAC.OPERATOR.BACKPACK_EQUAL then return true end
+    if operator == PAC.OPERATOR.BACKPACK_LESSTHAN then return true end
+    if operator == PAC.OPERATOR.BACKPACK_LESSTHANOREQUAL then return true end
+    if operator == PAC.OPERATOR.BANK_EQUAL then return true end
+    if operator == PAC.OPERATOR.BANK_LESSTHAN then return true end
+    if operator == PAC.OPERATOR.BANK_LESSTHANOREQUAL then return true end
+    return false
+end
+
+local function _isOperatorSetToEqualOrGreater(operator)
+    if operator == PAC.OPERATOR.BACKPACK_EQUAL then return true end
+    if operator == PAC.OPERATOR.BACKPACK_GREATERTHAN then return true end
+    if operator == PAC.OPERATOR.BACKPACK_GREATERTHANOREQUAL then return true end
+    if operator == PAC.OPERATOR.BANK_EQUAL then return true end
+    if operator == PAC.OPERATOR.BANK_GREATERTHAN then return true end
+    if operator == PAC.OPERATOR.BANK_GREATERTHANOREQUAL then return true end
+    return false
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache)
@@ -269,53 +300,56 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
     -- loop through all enabled individual Items
     for itemId, customItemData in pairs(individualItems) do
         local operator = customItemData.operator
-        local targetBackpackStack = customItemData.targetBackpackStack
-        local savedBackpackStack = 0
+        local targetBagStack = customItemData.targetBagStack
+        local savedBagStack = 0
+
+        -- depending on the operator (rule set for bank, or rule set for backpack), the configured and other bagcache might need to be switched
+        local configuredBagCache, otherBagCache = _getBagCacheBasedOnItemOperator(backpackBagCache, bankBagCache, operator)
 
         -- and check for deposits (in reverse order, to start with incomplete stacks)
         --        for _, itemData in pairs(backpackBagCache) do
-        for index = #backpackBagCache, 1, -1 do
-            local itemData = backpackBagCache[index]
+        for index = #configuredBagCache, 1, -1 do
+            local itemData = configuredBagCache[index]
             local backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
             if itemId == backpackItemId then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
-                if (operator == PAC.OPERATOR.LESSTHANOREQUAL or operator == PAC.OPERATOR.EQUAL) and ((savedBackpackStack + stack) > targetBackpackStack) then
+                -- check if the limit is below what is currently in the backpack to see if deposit is needed
+                if (_isOperatorSetoToEqualOrLess(operator)) and ((savedBagStack + stack) > targetBagStack) then
                     -- Deposit (full or partial)
-                    local moveableStack = savedBackpackStack + stack - targetBackpackStack
-                    savedBackpackStack = targetBackpackStack
+                    local moveableStack = savedBagStack + stack - targetBagStack
+                    savedBagStack = targetBagStack
                     local singleItemBagCache = {}
                     table.insert(singleItemBagCache, itemData)
                     PAHF.debugln("Only deposit: "..tostring(moveableStack))
-                    _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, bankBagCache, true, toBeMovedItemsTable, moveableStack)
+                    _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, otherBagCache, true, toBeMovedItemsTable, moveableStack)
                 else
                     -- No deposit needed (yet)
-                    savedBackpackStack = savedBackpackStack + stack
+                    savedBagStack = savedBagStack + stack
                 end
             end
         end
 
         -- and withdrawals (in reverse order, to start with incomplete stacks)
         --        for _, itemData in pairs(bankBagCache) do
-        for index = #bankBagCache, 1, -1 do
-            local itemData = bankBagCache[index]
+        for index = #otherBagCache, 1, -1 do
+            local itemData = otherBagCache[index]
             local bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
             if itemId == bankItemId then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
-                if operator == PAC.OPERATOR.GREATERTHANOREQUAL or operator == PAC.OPERATOR.EQUAL then
-                    if savedBackpackStack < targetBackpackStack then
-                        -- Withdrawal (full or partial)
-                        local moveableStack = targetBackpackStack - savedBackpackStack
-                        if moveableStack > stack then
-                            moveableStack = stack
-                        end
-                        savedBackpackStack = savedBackpackStack + moveableStack
-                        local singleItemBagCache = {}
-                        table.insert(singleItemBagCache, itemData)
-                        PAHF.debugln("Only withdraw: "..tostring(moveableStack))
-                        _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, backpackBagCache, true, toBeMovedItemsTable, moveableStack)
-                    else
-                        -- No withdrawal needed (anymore)
+                -- check if the limit is above what is currently in the backpack to see if withdrawal is needed
+                if (_isOperatorSetToEqualOrGreater(operator)) and (savedBagStack < targetBagStack) then
+                    -- Withdrawal (full or partial)
+                    local moveableStack = targetBagStack - savedBagStack
+                    if moveableStack > stack then
+                        moveableStack = stack
                     end
+                    savedBagStack = savedBagStack + moveableStack
+                    local singleItemBagCache = {}
+                    table.insert(singleItemBagCache, itemData)
+                    PAHF.debugln("Only withdraw: "..tostring(moveableStack))
+                    _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, configuredBagCache, true, toBeMovedItemsTable, moveableStack)
+                else
+                    -- No withdrawal needed (anymore)
                 end
             end
         end

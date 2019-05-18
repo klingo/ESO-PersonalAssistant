@@ -46,8 +46,8 @@ local PABStrings = {
     -- Generic definitions for any type --
     SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE = "Deposit/Withdraw %s",
 
-    SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK = "Amount to keep in backpack",
-    SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T = "Define the amount which (based on the mathematical operator) shall be kept in the backpack",
+    SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK = "Amount to keep",
+    SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T = "Define the amount which (based on the mathematical operator) shall be kept in the bank or backpack",
 
     SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "Minimum amount of %s to always keep on the character; if necessary with additional withdrawals from the bank",
     SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "Maximum amount of %s to always keep on the character; everything above this amount is deposited to the bank",

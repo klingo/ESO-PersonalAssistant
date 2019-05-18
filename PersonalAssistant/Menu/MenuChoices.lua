@@ -17,11 +17,16 @@ local PAMenuChoices = {
         },
         mathOperator = {
             GetString(SI_PA_REL_NONE),
-            GetString(SI_PA_REL_EQUAL),
-            -- GetString(SI_PA_REL_LESSTHAN),
-            GetString(SI_PA_REL_LESSTHANEQUAL),
-            -- GetString(SI_PA_REL_GREATERTHAN),
-            GetString(SI_PA_REL_GREATERTHANEQUAL)
+            GetString(SI_PA_REL_BACKPACK_EQUAL),
+            -- GetString(SI_PA_REL_BACKPACK_LESSTHAN),
+            GetString(SI_PA_REL_BACKPACK_LESSTHANEQUAL),
+            -- GetString(SI_PA_REL_BACKPACK_GREATERTHAN),
+            GetString(SI_PA_REL_BACKPACK_GREATERTHANEQUAL),
+            GetString(SI_PA_REL_BANK_EQUAL),
+            -- GetString(SI_PA_REL_BANK_LESSTHAN),
+            GetString(SI_PA_REL_BANK_LESSTHANOREQUAL),
+            -- GetString(SI_PA_REL_BANK_GREATERTHAN),
+            GetString(SI_PA_REL_BANK_GREATERTHANOREQUAL),
         },
     },
     PAJunk = {
@@ -59,11 +64,16 @@ local PAMenuChoicesValues = {
         },
         mathOperator = {
             PAC.OPERATOR.NONE,
-            PAC.OPERATOR.EQUAL,
-            -- PAC.OPERATOR.LESSTHAN,
-            PAC.OPERATOR.LESSTHANOREQUAL,
-            -- PAC.OPERATOR.GREATERTHAN,
-            PAC.OPERATOR.GREATERTHANOREQUAL,
+            PAC.OPERATOR.BACKPACK_EQUAL,
+            -- PAC.OPERATOR.BACKPACK_LESSTHAN,
+            PAC.OPERATOR.BACKPACK_LESSTHANOREQUAL,
+            -- PAC.OPERATOR.BACKPACK_GREATERTHAN,
+            PAC.OPERATOR.BACKPACK_GREATERTHANOREQUAL,
+            PAC.OPERATOR.BANK_EQUAL,
+            -- PAC.OPERATOR.BANK_LESSTHAN,
+            PAC.OPERATOR.BANK_LESSTHANOREQUAL,
+            -- PAC.OPERATOR.BANK_GREATERTHAN,
+            PAC.OPERATOR.BANK_GREATERTHANOREQUAL,
         },
     },
     PAJunk = {
@@ -94,6 +104,21 @@ local PAMenuChoicesValues = {
 }
 
 local PAMenuChoicesTooltips = {
+    PABanking = {
+        mathOperator = {
+            GetString(SI_PA_REL_NONE),
+            GetString(SI_PA_REL_BACKPACK_EQUAL_T),
+            -- GetString(SI_PA_REL_BACKPACK_LESSTHAN_T),
+            GetString(SI_PA_REL_BACKPACK_LESSTHANOREQUAL_T),
+            -- GetString(SI_PA_REL_BACKPACK_GREATERTHAN_T),
+            GetString(SI_PA_REL_BACKPACK_GREATERTHANOREQUAL_T),
+            GetString(SI_PA_REL_BANK_EQUAL_T),
+            -- GetString(SI_PA_REL_BANK_LESSTHAN_T),
+            GetString(SI_PA_REL_BANK_LESSTHANOREQUAL_T),
+            -- GetString(SI_PA_REL_BANK_GREATERTHAN_T),
+            GetString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T),
+        }
+    }
 }
 
 -- Export

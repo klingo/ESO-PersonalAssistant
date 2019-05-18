@@ -347,34 +347,34 @@ local function setPABankingIndividualItemIdMathOperatorSetting(individualItemId,
     if PAB.SavedVars.Individual.ItemIds[individualItemId] then
         PAB.SavedVars.Individual.ItemIds[individualItemId].operator = value
     else
-        -- table does not exist yet, initialize it with the given value and default backpackAmount
+        -- table does not exist yet, initialize it with the given value and default bagAmount
         PAB.SavedVars.Individual.ItemIds[individualItemId] = {
             operator = value,
-            backpackAmount = PAC.BACKPACK_AMOUNT.DEFAULT
+            bagAmount = PAC.BACKPACK_AMOUNT.DEFAULT
         }
     end
 end
 
 --------------------------------------------------------------------------
--- PABanking   Individual         individualBackpackAmount
+-- PABanking   Individual         individualBagAmount
 ---------------------------------
-local function getPABankingIndividualItemIdBackpackAmountSetting(individualItemId)
+local function getPABankingIndividualItemIdBagAmountSetting(individualItemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
     local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
     -- in case a new GENERIC individual item is added, return the default amount
-    if itemIdConfig then return itemIdConfig.backpackAmount else return tonumber(PAC.BACKPACK_AMOUNT.DEFAULT) end
+    if itemIdConfig then return itemIdConfig.bagAmount else return tonumber(PAC.BACKPACK_AMOUNT.DEFAULT) end
 end
 
-local function setPABankingIndividualItemIdBackpackAmountSetting(individualItemId, value)
+local function setPABankingIndividualItemIdBagAmountSetting(individualItemId, value)
     if isDisabledPAGeneralNoProfileSelected() then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
-        PAB.SavedVars.Individual.ItemIds[individualItemId].backpackAmount = intValue
+        PAB.SavedVars.Individual.ItemIds[individualItemId].bagAmount = intValue
     end
 end
 
 --------------------------------------------------------------------------
--- PABanking   Individual         individualBackpackAmountDisabled
+-- PABanking   Individual         individualBagAmountDisabled
 ---------------------------------
 local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
     if isDisabledPAGeneralNoProfileSelected() then return true end
@@ -414,25 +414,25 @@ local function setPABankingAvaCrossAllianceItemIdMathOperatorSetting(crossAllian
 end
 
 --------------------------------------------------------------------------
--- PABanking   AvA                  crossAllianceBackpackAmount
+-- PABanking   AvA                  crossAllianceBagAmount
 ---------------------------------
-local function getPABankingAvaCrossAllianceItemIdBackpackAmountSetting(crossAllianceItemId)
+local function getPABankingAvaCrossAllianceItemIdBagAmountSetting(crossAllianceItemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    local value = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount
+    local value = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount
     -- in case a new GENERIC individual item is added, return "20" by default
     if value then return value else return 20 end
 end
 
-local function setPABankingAvaCrossAllianceItemIdBackpackAmountSetting(crossAllianceItemId, value)
+local function setPABankingAvaCrossAllianceItemIdBagAmountSetting(crossAllianceItemId, value)
     if isDisabledPAGeneralNoProfileSelected() then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
-        PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount = intValue
+        PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount = intValue
     end
 end
 
 --------------------------------------------------------------------------
--- PABanking   AvA                  crossAllianceBackpackAmountDisabled
+-- PABanking   AvA                  crossAllianceBagAmountDisabled
 ---------------------------------
 local function isAvACrossAllianceItemDisabledOrOperatorNone(crossAllianceItemId)
     if isDisabledPAGeneralNoProfileSelected() then return true end
@@ -472,25 +472,25 @@ local function setPABankingtAvAItemIdMathOperatorSetting(itemId, value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   AvA                  backpackAmount
+-- PABanking   AvA                  bagAmount
 ---------------------------------
-local function getPABankingtAvAItemIdBackpackAmountSetting(itemId)
+local function getPABankingtAvAItemIdBagAmountSetting(itemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
-    local value = PAB.SavedVars.AvA.ItemIds[itemId].backpackAmount
+    local value = PAB.SavedVars.AvA.ItemIds[itemId].bagAmount
     -- in case a new GENERIC individual item is added, return "20" by default
     if value then return value else return 20 end
 end
 
-local function setPABankingtAvAItemIdBackpackAmountSetting(itemId, value)
+local function setPABankingtAvAItemIdBagAmountSetting(itemId, value)
     if isDisabledPAGeneralNoProfileSelected() then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
-        PAB.SavedVars.AvA.ItemIds[itemId].backpackAmount = intValue
+        PAB.SavedVars.AvA.ItemIds[itemId].bagAmount = intValue
     end
 end
 
 --------------------------------------------------------------------------
--- PABanking   AvA                  backpackAmountDisabled
+-- PABanking   AvA                  bagAmountDisabled
 ---------------------------------
 local function isAvAItemDisabledOrOperatorNone(itemId)
     if isDisabledPAGeneralNoProfileSelected() then return true end
@@ -650,8 +650,8 @@ local PABankingMenuFunctions = {
 
     getIndividualItemIdMathOperatorSetting = getPABankingIndividualItemIdMathOperatorSetting,
     setIndividualItemIdMathOperatorSetting = setPABankingIndividualItemIdMathOperatorSetting,
-    getIndividualItemIdAmountSetting = getPABankingIndividualItemIdBackpackAmountSetting,
-    setIndividualItemIdAmountSetting = setPABankingIndividualItemIdBackpackAmountSetting,
+    getIndividualItemIdAmountSetting = getPABankingIndividualItemIdBagAmountSetting,
+    setIndividualItemIdAmountSetting = setPABankingIndividualItemIdBagAmountSetting,
 
     isIndividualItemIdAmountDisabled = function(itemId) return isIndividualItemsDisabledOrItemIdOperatorNone(itemId) end,
 
@@ -674,15 +674,15 @@ local PABankingMenuFunctions = {
 
     getAvACrossAlianceItemIdMathOperatorSetting = getPABankingAvaCrossAllianceItemIdMathOperatorSetting,
     setAvACrossAlianceItemIdMathOperatorSetting = setPABankingAvaCrossAllianceItemIdMathOperatorSetting,
-    getAvACrossAlianceItemIdAmountSetting = getPABankingAvaCrossAllianceItemIdBackpackAmountSetting,
-    setAvACrossAlianceItemIdAmountSetting = setPABankingAvaCrossAllianceItemIdBackpackAmountSetting,
+    getAvACrossAlianceItemIdAmountSetting = getPABankingAvaCrossAllianceItemIdBagAmountSetting,
+    setAvACrossAlianceItemIdAmountSetting = setPABankingAvaCrossAllianceItemIdBagAmountSetting,
 
     isAvACrossAlianceItemIdAmountDisabled = function(crossAllianceItemId) return isAvACrossAllianceItemDisabledOrOperatorNone(crossAllianceItemId) end,
 
     getAvAItemIdMathOperatorSetting = getPABankingtAvAItemIdMathOperatorSetting,
     setAvAItemIdMathOperatorSetting = setPABankingtAvAItemIdMathOperatorSetting,
-    getAvAItemIdAmountSetting = getPABankingtAvAItemIdBackpackAmountSetting,
-    setAvAItemIdAmountSetting = setPABankingtAvAItemIdBackpackAmountSetting,
+    getAvAItemIdAmountSetting = getPABankingtAvAItemIdBagAmountSetting,
+    setAvAItemIdAmountSetting = setPABankingtAvAItemIdBagAmountSetting,
 
     isAvAItemIdAmountDisabled = function(itemId) return isAvAItemDisabledOrOperatorNone(itemId) end,
 
