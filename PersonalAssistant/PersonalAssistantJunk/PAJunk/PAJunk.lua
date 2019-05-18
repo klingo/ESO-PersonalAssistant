@@ -408,6 +408,11 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
                         end
                     end
+                elseif (itemType == ITEMTYPE_GLYPH_ARMOR or itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) and
+                        PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                    if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold then
+                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                    end
                 else
                     local sellInformation = GetItemLinkSellInformation(itemLink)
                     if sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then

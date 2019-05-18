@@ -29,6 +29,18 @@ end
 -- =================================================================================================================
 
 --------------------------------------------------------------------------
+-- PAJunk   Miscellaneous
+---------------------------------
+local function isPAJunkMiscellaneousMenuDisabled()
+    if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if isDisabled({"Miscellaneous", "autoMarkTreasure"}) then
+        if tonumber(getValue({"Miscellaneous", "autoMarkGlyphQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
+    end
+    -- if no 'true' returned so far, return false now
+    return false
+end
+
+--------------------------------------------------------------------------
 -- PAJunk   Weapons
 ---------------------------------
 local function isPAJunkWeaponsMenuDisabled()
@@ -91,7 +103,7 @@ local PAJunkMenuFunctions = {
     getAutoMarkSellToMerchantSetting = function() return getValue({"Collectibles", "autoMarkSellToMerchant"}) end,
     setAutoMarkSellToMerchantSetting = function(value) setValue(value, {"Collectibles", "autoMarkSellToMerchant"}) end,
 
-    isMiscellaneousMenuDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}, {"Miscellaneous", "autoMarkTreasure"}) end,
+    isMiscellaneousMenuDisabled = isPAJunkMiscellaneousMenuDisabled,
     isTreasureAutoMarkDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getTreasureAutoMarkSetting = function() return getValue({"Miscellaneous", "autoMarkTreasure"}) end,
     setTreasureAutoMarkSetting = function(value) setValue(value, {"Miscellaneous", "autoMarkTreasure"}) end,
@@ -104,6 +116,9 @@ local PAJunkMenuFunctions = {
     isExcludeAMatterOfTributesDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}, {"Miscellaneous", "autoMarkTreasure"}) end,
     getExcludeAMatterOfTributesSetting = function() return getValue({"Miscellaneous", "excludeAMatterOfTributes"}) end,
     setExcludeAMatterOfTributesSetting = function(value) setValue(value, {"Miscellaneous", "excludeAMatterOfTributes"}) end,
+    isGlyphsAutoMarkQualityTresholdDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getGlyphsAutoMarkQualityTresholdSetting = function() return getValue({"Miscellaneous", "autoMarkGlyphQualityThreshold"}) end,
+    setGlyphsAutoMarkQualityTresholdSetting = function(value) setValue(value, {"Miscellaneous", "autoMarkGlyphQualityThreshold"}) end,
 
     isWeaponsMenuDisabled = isPAJunkWeaponsMenuDisabled,
     isWeaponsAutoMarkOrnateDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
