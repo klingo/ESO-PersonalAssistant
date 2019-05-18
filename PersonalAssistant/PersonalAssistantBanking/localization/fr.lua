@@ -42,8 +42,8 @@ SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Autre", 1)
 -- Generic definitions for any type --
 SafeAddString(SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE, "Déposer/Retirer cette devise", 1) -- changed "les %s" because it wasn't working with "Or"
 
-SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK, "Quantité à conserver dans l'inventaire", 1)
-SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Définir la quantité qui (basée sur l'opérateur mathématique) doit être conservée dans l'inventaire", 1)
+SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK, "Quantité à conserver", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T, "Définir la quantité qui (basée sur l'opérateur mathématique) doit être conservée dans l'inventaire ou la banque", 1) -- TODO: Takit
 
 SafeAddString(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, "Quantité minimum de %s à conserver sur ce personnage ; si nécessaire en retirant de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, "Quantité maximum de %s à conserver sur ce personnage ; tout surplus sera déposé en banque", 1)
