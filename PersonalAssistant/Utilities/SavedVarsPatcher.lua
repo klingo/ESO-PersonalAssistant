@@ -104,7 +104,7 @@ local function applyPatchIfNeeded()
     end
 
 
-    -- Upgrade to v2.2.2
+    -- Upgrade to v2.3.0
     if prevStoredSavedVarsVersion < 020300 then
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020300]"}))
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
