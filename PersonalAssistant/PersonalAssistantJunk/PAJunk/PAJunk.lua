@@ -122,35 +122,25 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     end
 end
 
-local function _hasAdditionalApparelChecksPassed(itemLink, itemType)
-    local savedVarsGroup
-    if itemType == ITEMTYPE_WEAPON then
-        savedVarsGroup = "Weapons"
-    elseif itemType == ITEMTYPE_ARMOR then
-        local itemEquipType = GetItemLinkEquipType(itemLink)
-        if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
-            savedVarsGroup = "Jewelry"
-        else
-            savedVarsGroup = "Armor"
-        end
-    end
-
-    if savedVarsGroup ~= nil then
-        local PAJunkSavedVars = PAJ.SavedVars
-        local PAJunkSavedVarsGroup = PAJunkSavedVars[savedVarsGroup]
-        local hasSet = GetItemLinkSetInfo(itemLink, false)
-        if not hasSet or (hasSet and PAJunkSavedVarsGroup.autoMarkIncludingSets) then
-            local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
-            if not canBeResearched or (canBeResearched and PAJunkSavedVarsGroup.autoMarkUnknownTraits) then
-                local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
-                if not isIntricateTtrait or (isIntricateTtrait and PAJunkSavedVarsGroup.autoMarkIntricateTrait) then
-                    return true
+local function _canWeaponArmorJewelryBeMarkedAsJunk(savedVarsGroup, itemLink, itemQuality)
+    if savedVarsGroup ~= nil and istable(savedVarsGroup) then
+        local qualityThreshold = savedVarsGroup.autoMarkQualityThreshold
+        if qualityThreshold ~= PAC.ITEM_QUALITY.DISABLED and itemQuality <= qualityThreshold then
+            -- quality threshold would be reached, check other includes now
+            local hasSet = GetItemLinkSetInfo(itemLink, false)
+            if not hasSet or (hasSet and savedVarsGroup.autoMarkIncludingSets) then
+                local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+                if not canBeResearched or (canBeResearched and savedVarsGroup.autoMarkUnknownTraits) then
+                    local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
+                    if not isIntricateTtrait or (isIntricateTtrait and savedVarsGroup.autoMarkIntricateTrait) then
+                        return true
+                    end
                 end
             end
         end
     end
-
-    return false -- if unknown, return false
+    -- if unknown or no match, return false
+    return false
 end
 
 local function _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
@@ -369,34 +359,33 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
                         end
                     end
-
-                -- then check if it is not a Set, or if it is that the corresponding setting is enabled
-                -- also check if it does not have unknown traits, or if the corresponding setting is enabled
-                elseif _hasAdditionalApparelChecksPassed(itemLink, itemType) then
+                -- check for weapons, aparrel and jewelry
+                elseif itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR then
                     local itemTrait = GetItemTrait(bagId, slotIndex)
-                    -- check for the different itemTypes and itemTraits
+                    -- then check if it has the [Ornate] trait and can be marked as junk or not
                     if itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
                             itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
                             itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
-
-                    elseif itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
-                        if itemQuality <= PAJunkSavedVars.Weapons.autoMarkQualityThreshold then
-                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
-                        end
-
-                    elseif itemType == ITEMTYPE_ARMOR then
-                        local itemEquipType = GetItemLinkEquipType(itemLink)
-                        if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
-                            -- Jewelry
-                            if PAJunkSavedVars.Jewelry.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED and itemQuality <= PAJunkSavedVars.Jewelry.autoMarkQualityThreshold then
+                    else
+                        -- if it is NOT with [Ornate] trait, check more detailed the individual equipTypes
+                        if itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                            -- handle WEAPONS
+                            if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Weapons, itemLink, itemQuality) then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
-
-                        else
-                            --Apparel
-                            if PAJunkSavedVars.Armor.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED and itemQuality <= PAJunkSavedVars.Armor.autoMarkQualityThreshold then
-                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                        elseif itemType == ITEMTYPE_ARMOR then
+                            local itemEquipType = GetItemLinkEquipType(itemLink)
+                            if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
+                                -- handle JEWELRY
+                                if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Jewelry, itemLink, itemQuality) then
+                                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                end
+                            else
+                                -- handle APPAREL
+                                if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Armor, itemLink, itemQuality) then
+                                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                end
                             end
                         end
                     end
