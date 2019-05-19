@@ -24,9 +24,6 @@ PA.WindowStates = {
     isBankClosed = true,
 }
 
--- whether welcome message should be shown, or was already shown
-local showWelcomeMessage = true
-
 -- init default values
 local function _initDefaults()
     -- initialize the multi-profile structure
@@ -99,25 +96,27 @@ end
 
 
 -- introduces the addon to the player
-local function introduction()
-    PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
-
+local function introduction(_, initial)
     if PA.activeProfile == nil then
         PAHF.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
-        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
-        PAEM.RefreshAllSavedVarReferences(PA.activeProfile)
-        -- then also all the events can be initialised
-        PAEM.RefreshAllEventRegistrations()
-        -- finally check for the welcome message
-        local PAGSavedVars = PA.General.SavedVars
-        if showWelcomeMessage and PAGSavedVars.welcome then
-            showWelcomeMessage = false
-            local currLanguage = GetCVar("language.2") or "en"
-            if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr" then
-                PAHF.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
-            else
-                PAHF.println(SI_PA_WELCOME_SUPPORT)
+        -- only unregister the event if an activeProfile has been selected; otherwise remind again
+        PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
+        -- only if upon initial login a profile was already selected, refresh all savedVars and EventRegs and display the welcome msg
+        if initial then
+            -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+            PAEM.RefreshAllSavedVarReferences(PA.activeProfile)
+            -- then also all the events can be initialised
+            PAEM.RefreshAllEventRegistrations()
+            -- finally check for the welcome message
+            local PAGSavedVars = PA.General.SavedVars
+            if PAGSavedVars.welcome then
+                local currLanguage = GetCVar("language.2") or "en"
+                if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr" then
+                    PAHF.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
+                else
+                    PAHF.println(SI_PA_WELCOME_SUPPORT)
+                end
             end
         end
     end
