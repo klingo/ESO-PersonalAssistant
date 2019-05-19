@@ -19,6 +19,7 @@ local PAJunkMenuDefaults = {
         excludeAMatterOfLeisure = false,
         excludeAMatterOfRespect = false,
         excludeAMatterOfTributes = false,
+        autoMarkGlyphQualityThreshold = -1
     },
     Weapons = {
         autoMarkOrnate = false,

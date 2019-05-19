@@ -144,7 +144,7 @@ local function _createPAJTrashSubMenu()
 
     PAJTrashSubMenu:insert({
         type = "divider",
-        alpha = 0.5,
+        alpha = 0.2,
     })
 
     PAJTrashSubMenu:insert({
@@ -205,7 +205,7 @@ local function _createPAJMiscellaneousSubMenu()
 
     PAJMiscellaneousSubMenu:insert({
         type = "divider",
-        alpha = 0.5,
+        alpha = 0.2,
     })
 
     PAJMiscellaneousSubMenu:insert({
@@ -242,6 +242,24 @@ local function _createPAJMiscellaneousSubMenu()
         setFunc = PAJMenuFunctions.setExcludeAMatterOfTributesSetting,
         disabled = PAJMenuFunctions.isExcludeAMatterOfTributesDisabled,
         default = PAJMenuDefaults.Miscellaneous.excludeAMatterOfTributes,
+    })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)),
+        choices = PAJMenuChoices.qualityLevel,
+        choicesValues = PAJMenuChoicesValues.qualityLevel,
+        --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
+        getFunc = PAJMenuFunctions.getGlyphsAutoMarkQualityTresholdSetting,
+        setFunc = PAJMenuFunctions.setGlyphsAutoMarkQualityTresholdSetting,
+        disabled = PAJMenuFunctions.isGlyphsAutoMarkQualityTresholdDisabled,
+        default = PAJMenuDefaults.Miscellaneous.autoMarkGlyphQualityThreshold,
     })
 end
 
