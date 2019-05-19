@@ -93,11 +93,29 @@ SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Nécessaires de réparat
 -- -----------------------------------------------------------------------------------------------------------------
 -- Operators --
 SafeAddString(SI_PA_REL_OPERATOR_T, "Sélectionner l'opérateur mathématique pour cet objet", 1)
-SafeAddString(SI_PA_REL_EQUAL, "égal (=)", 1)
-SafeAddString(SI_PA_REL_LESSTHAN, "inférieur à (<)", 1) -- not required so far
-SafeAddString(SI_PA_REL_LESSTHANEQUAL, "inférieur ou égal à (<=)", 1)
-SafeAddString(SI_PA_REL_GREATERTHAN, "supérieur à (>)", 1) -- not required so far
-SafeAddString(SI_PA_REL_GREATERTHANEQUAL, "supérieur ou égal à (>=)", 1)
+SafeAddString(SI_PA_REL_BACKPACK_EQUAL, "INVENTAIRE ==", 1)
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHAN, "INVENTAIRE <", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHANEQUAL, "INVENTAIRE <=", 1)
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHAN, "INVENTAIRE >", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHANEQUAL, "INVENTAIRE >=", 1)
+SafeAddString(SI_PA_REL_BANK_EQUAL, "BANQUE ==", 1)
+SafeAddString(SI_PA_REL_BANK_LESSTHAN, "BANQUE <", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_LESSTHANOREQUAL, "BANQUE <=", 1)
+SafeAddString(SI_PA_REL_BANK_GREATERTHAN, "BANQUE >", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL, "BANQUE >=", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Operator Tooltip --
+SafeAddString(SI_PA_REL_BACKPACK_EQUAL_T, "INVENTAIRE égal (=)", 1)
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHAN_T, "INVENTAIRE inférieur à (<)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHANOREQUAL_T, "INVENTAIRE inférieur ou égal à (<=)", 1)
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHAN_T, "INVENTAIRE supérieur à (>)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHANOREQUAL_T, "INVENTAIRE supérieur ou égal à (>=)", 1)
+SafeAddString(SI_PA_REL_BANK_EQUAL_T, "BANQUE égal (=)", 1)
+SafeAddString(SI_PA_REL_BANK_LESSTHAN_T, "BANQUE inférieur à (<)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_LESSTHANOREQUAL_T, "BANQUE inférieur ou égal à (<=)", 1)
+SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANQUE supérieur à (>)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANQUE supérieur ou égal à (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --

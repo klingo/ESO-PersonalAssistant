@@ -103,6 +103,41 @@ local function applyPatchIfNeeded()
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020202]"}))
     end
 
+
+    -- Upgrade to v2.2.2
+    if prevStoredSavedVarsVersion < 020300 then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020300]"}))
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate   PABanking.Individual.ItemIds
+            local oldItemIdConfigs = PASavedVars.Banking[profileNo].Individual.ItemIds
+            for itemId, moveConfig in pairs(oldItemIdConfigs) do
+                if istable(moveConfig) then
+                    PASavedVars.Banking[profileNo].Individual.ItemIds[itemId].bagAmount = moveConfig.backpackAmount
+                    PASavedVars.Banking[profileNo].Individual.ItemIds[itemId].backpackAmount = nil
+                end
+            end
+
+            -- 2) migrate   PABanking.AvA.CrossAllianceItemIds
+            local oldAvACrossAllianceItemIdConfigs = PASavedVars.Banking[profileNo].AvA.CrossAllianceItemIds
+            for itemId, moveConfig in pairs(oldAvACrossAllianceItemIdConfigs) do
+                if istable(moveConfig) then
+                    PASavedVars.Banking[profileNo].AvA.CrossAllianceItemIds[itemId].bagAmount = moveConfig.backpackAmount
+                    PASavedVars.Banking[profileNo].AvA.CrossAllianceItemIds[itemId].backpackAmount = nil
+                end
+            end
+
+            -- 3) migrate   PABanking.AvA.ItemIds
+            local oldAvAItemIdConfigs = PASavedVars.Banking[profileNo].AvA.ItemIds
+            for itemId, moveConfig in pairs(oldAvAItemIdConfigs) do
+                if istable(moveConfig) then
+                    PASavedVars.Banking[profileNo].AvA.ItemIds[itemId].bagAmount = moveConfig.backpackAmount
+                    PASavedVars.Banking[profileNo].AvA.ItemIds[itemId].backpackAmount = nil
+                end
+            end
+        end
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020300]"}))
+    end
+
     -- in the end, update the savedVarsVersion
     PASavedVars.General.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
 end

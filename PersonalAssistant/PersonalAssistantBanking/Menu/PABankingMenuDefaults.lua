@@ -132,29 +132,29 @@ local PABankingMenuDefaults = {
         ItemIds = {
             [30357] = {     -- [Lockpick]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 100,
+                bagAmount = 100,
             },
 
             [33265] = {     -- [Soul Gem (Empty)]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 100,
+                bagAmount = 100,
             },
             [33271] = {     -- [Soul Gem]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 100,
+                bagAmount = 100,
             },
             [61080] = {     -- [Crown Soul Gem]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 100,
+                bagAmount = 100,
             },
 
             [44879] = {     -- [Grand Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 100,
+                bagAmount = 100,
             },
             [61079] = {     -- [Crown Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 100,
+                bagAmount = 100,
             },
         },
     },
@@ -165,82 +165,82 @@ local PABankingMenuDefaults = {
         CrossAllianceItemIds = {
             [1000] = {     -- [<Alliance> Ballista]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [1100] = {     -- [<Alliance> Fire Ballista]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [1200] = {     -- [<Alliance> Lightning Ballista]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [1300] = {     -- [<Alliance> Cold Fire Ballista]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [2000] = {     -- [<Alliance> Meatbag Catapult]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [2100] = {     -- [<Alliance> Oil Catapult]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [2200] = {     -- [<Alliance> Scattershot Catapult]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [3000] = {     -- [<Alliance> Firepot Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [3100] = {     -- [<Alliance> Iceball Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [3200] = {     -- [<Alliance> Stone Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [3300] = {     -- [<Alliance> Cold Fire Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [3400] = {     -- [<Alliance> Cold Stone Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [4000] = {     -- [<Alliance> Battering Ram]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [5000] = {     -- [Flaming Oil]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [6000] = {     -- [<Alliance> Forward Camp]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
         },
 
         ItemIds = {
             [27962] = {     -- [Keep Door Woodwork Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [27138] = {     -- [Keep Wall Masonry Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [27112] = {     -- [Siege Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
             [141731] = {     -- [Keep Recall Stone]
                 operator = PAC.OPERATOR.NONE,
-                backpackAmount = 20,
+                bagAmount = 20,
             },
         },
     },

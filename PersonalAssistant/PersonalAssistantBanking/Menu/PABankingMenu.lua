@@ -7,6 +7,7 @@ local PAMenuHelper = PA.MenuHelper
 local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
 local PABMenuChoices = PA.MenuChoices.choices.PABanking
 local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
+local PABMenuChoiceTooltip = PA.MenuChoices.choicesTooltips.PABanking
 local PABMenuDefaults = PA.MenuDefaults.PABanking
 local PABMenuFunctions = PA.MenuFunctions.PABanking
 
@@ -1073,6 +1074,7 @@ local function _createPABIndividualLockpickSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
@@ -1088,7 +1090,7 @@ local function _createPABIndividualLockpickSubmenuTable()
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].backpackAmount,
+            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
         })
     end
 end
@@ -1105,6 +1107,7 @@ local function _createPABIndividualSoulGemSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
@@ -1120,7 +1123,7 @@ local function _createPABIndividualSoulGemSubmenuTable()
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].backpackAmount,
+            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
         })
     end
 end
@@ -1137,6 +1140,7 @@ local function _createPABIndividualRepairKitSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
@@ -1152,7 +1156,7 @@ local function _createPABIndividualRepairKitSubmenuTable()
             getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
             disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].backpackAmount,
+            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
         })
     end
 end
@@ -1169,6 +1173,7 @@ local function _createPABIndividualGenericSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
@@ -1201,6 +1206,7 @@ local function _createPABAvASiegeBallistaSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
@@ -1216,7 +1222,7 @@ local function _createPABAvASiegeBallistaSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
             disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
-            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount,
         })
     end
 end
@@ -1233,6 +1239,7 @@ local function _createPABAvASiegeCatapultSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
@@ -1248,7 +1255,7 @@ local function _createPABAvASiegeCatapultSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
             disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
-            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount,
         })
     end
 end
@@ -1265,6 +1272,7 @@ local function _createPABAvASiegeTrebuchetSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
@@ -1280,7 +1288,7 @@ local function _createPABAvASiegeTrebuchetSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
             disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
-            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount,
         })
     end
 end
@@ -1297,6 +1305,7 @@ local function _createPABAvASiegeRamSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
@@ -1312,7 +1321,7 @@ local function _createPABAvASiegeRamSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
             disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
-            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount,
         })
     end
 end
@@ -1329,6 +1338,7 @@ local function _createPABAvASiegeOilSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
@@ -1344,7 +1354,7 @@ local function _createPABAvASiegeOilSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
             disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
-            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount,
         })
     end
 end
@@ -1361,6 +1371,7 @@ local function _createPABAvASiegeGraveyardSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
@@ -1376,7 +1387,7 @@ local function _createPABAvASiegeGraveyardSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
             disabled = function() return PABMenuFunctions.isAvACrossAlianceItemIdAmountDisabled(crossAllianceItemId) end,
-            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].backpackAmount,
+            default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount,
         })
     end
 end
@@ -1393,6 +1404,7 @@ local function _createPABAvARepairSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
@@ -1408,7 +1420,7 @@ local function _createPABAvARepairSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvAItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdAmountSetting(itemId, value) end,
             disabled = function() return PABMenuFunctions.isAvAItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.AvA.ItemIds[itemId].backpackAmount,
+            default = PABMenuDefaults.AvA.ItemIds[itemId].bagAmount,
         })
     end
 end
@@ -1425,6 +1437,7 @@ local function _createPABAvAOtherSubmenuTable()
             tooltip = GetString(SI_PA_REL_OPERATOR_T),
             choices = PABMenuChoices.mathOperator,
             choicesValues = PABMenuChoicesValues.mathOperator,
+            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
@@ -1440,7 +1453,7 @@ local function _createPABAvAOtherSubmenuTable()
             getFunc = function() return PABMenuFunctions.getAvAItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdAmountSetting(itemId, value) end,
             disabled = function() return PABMenuFunctions.isAvAItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.AvA.ItemIds[itemId].backpackAmount,
+            default = PABMenuDefaults.AvA.ItemIds[itemId].bagAmount,
         })
     end
 end

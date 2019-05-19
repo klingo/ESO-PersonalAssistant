@@ -93,11 +93,29 @@ SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Reparaturmaterialien", 1
 -- -----------------------------------------------------------------------------------------------------------------
 -- Operators --
 SafeAddString(SI_PA_REL_OPERATOR_T, "Wähle den mathematischen Operator für diesen Gegenstand", 1)
-SafeAddString(SI_PA_REL_EQUAL, "gleich (=)", 1)
-SafeAddString(SI_PA_REL_LESSTHAN, "kleiner als (<)", 1)
-SafeAddString(SI_PA_REL_LESSTHANEQUAL, "kleiner/gleich als (<=)", 1)
-SafeAddString(SI_PA_REL_GREATERTHAN, "grösser als (>)", 1)
-SafeAddString(SI_PA_REL_GREATERTHANEQUAL, "grösser/gleich als (>=)", 1)
+SafeAddString(SI_PA_REL_BACKPACK_EQUAL, "INVENTAR ==", 1)
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHAN, "INVENTAR >", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHANEQUAL, "INVENTAR <=", 1)
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHAN, "INVENTAR >)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHANEQUAL, "INVENTAR >=", 1)
+SafeAddString(SI_PA_REL_BANK_EQUAL, "BANK ==", 1)
+SafeAddString(SI_PA_REL_BANK_LESSTHAN, "BANK <", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_LESSTHANOREQUAL, "BANK <=", 1)
+SafeAddString(SI_PA_REL_BANK_GREATERTHAN, "BANK >", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL, "BANK >=", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Operator Tooltip --
+SafeAddString(SI_PA_REL_BACKPACK_EQUAL_T, "INVENTAR gleich (=)", 1)
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHAN_T, "INVENTAR kleiner als (<)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_LESSTHANOREQUAL_T, "INVENTAR kleiner oder gleich als (<=)", 1)
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHAN_T, "INVENTAR grösser als (>)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BACKPACK_GREATERTHANOREQUAL_T, "INVENTAR grösser oder gleich als (>=)", 1)
+SafeAddString(SI_PA_REL_BANK_EQUAL_T, "BANK gleich (=)", 1)
+SafeAddString(SI_PA_REL_BANK_LESSTHAN_T, "BANK kleiner als (<)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_LESSTHANOREQUAL_T, "BANK kleiner oder gleich als (<=)", 1)
+SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANK grösser als (>)", 1) -- not used so far
+SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANK grösser oder gleich als (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --

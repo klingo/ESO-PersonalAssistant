@@ -97,11 +97,29 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Operators --
     SI_PA_REL_OPERATOR_T = "Select the Mathematical Operator for this item",
-    SI_PA_REL_EQUAL = "equals (=)",
-    SI_PA_REL_LESSTHAN = "less than (<)", -- not required so far
-    SI_PA_REL_LESSTHANEQUAL = "less than or equal to (<=)",
-    SI_PA_REL_GREATERTHAN = "greater than (>)", -- not required so far
-    SI_PA_REL_GREATERTHANEQUAL = "greater than or equal to (>=)",
+    SI_PA_REL_BACKPACK_EQUAL = "BACKPACK ==",
+    SI_PA_REL_BACKPACK_LESSTHAN = "BACKPACK <", -- not used so far
+    SI_PA_REL_BACKPACK_LESSTHANEQUAL = "BACKPACK <=",
+    SI_PA_REL_BACKPACK_GREATERTHAN = "BACKPACK >", -- not used so far
+    SI_PA_REL_BACKPACK_GREATERTHANEQUAL = "BACKPACK >=",
+    SI_PA_REL_BANK_EQUAL = "BANK ==",
+    SI_PA_REL_BANK_LESSTHAN = "BANK <", -- not used so far
+    SI_PA_REL_BANK_LESSTHANOREQUAL = "BANK <=",
+    SI_PA_REL_BANK_GREATERTHAN = "BANK >", -- not used so far
+    SI_PA_REL_BANK_GREATERTHANOREQUAL = "BANK >=",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Operator Tooltip --
+    SI_PA_REL_BACKPACK_EQUAL_T = "BACKPACK equals (==)",
+    SI_PA_REL_BACKPACK_LESSTHAN_T = "BACKPACK less than (<)", -- not used so far
+    SI_PA_REL_BACKPACK_LESSTHANOREQUAL_T = "BACKPACK less than or equal to (<=)",
+    SI_PA_REL_BACKPACK_GREATERTHAN_T = "BACKPACK greater than (>)", -- not used so far
+    SI_PA_REL_BACKPACK_GREATERTHANOREQUAL_T = "BACKPACK greater than or equal to (>=)",
+    SI_PA_REL_BANK_EQUAL_T = "BANK equals (==)",
+    SI_PA_REL_BANK_LESSTHAN_T = "BANK less than (<)", -- not used so far
+    SI_PA_REL_BANK_LESSTHANOREQUAL_T = "BANK less than or equal to (<=)",
+    SI_PA_REL_BANK_GREATERTHAN_T = "BANK greater than (>)", -- not used so far
+    SI_PA_REL_BANK_GREATERTHANOREQUAL_T = "BANK greater than or equal to (>=)",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Stacking types --
