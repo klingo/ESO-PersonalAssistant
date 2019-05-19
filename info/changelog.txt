@@ -1,3 +1,8 @@
+2.3.0   (May 19, 2019)
+- add option to automatically mark glyphs as junk based on quality level ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/130"]#130[/URL])
+- add additional options for individual items in PABanking to also define a target value in the bank ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/131"]#131[/URL])
+- fixed an issue with containers in PABanking and updated some logic for disabling settings ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/132"]#132[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/133"]#133[/URL])
+
 2.2.2   (May 17, 2019)
 - add option for every profession's Master Writs in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/125"]#125[/URL])
 - add additional items that are covered by the compatibility mode with LazyWritCrafter Addon ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/126"]#126[/URL])
