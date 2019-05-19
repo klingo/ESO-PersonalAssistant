@@ -13,9 +13,9 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Currencies (gold, alliance points, ...) can be withdrawn from and deposited to your bank
 [*]Crafting materials can be withdrawn from and deposited to your bank (if you are not ESO Plus Subscriber)
 [*]Other selected items such as motives, recipes, writs, glyphs, trophies etc. can be withdrawn from and deposited to your bank
-[*]Select if items with [Intricate] trait should be transferred from/to the bank[/COLOR]
+[*]Select if items with [Intricate] trait should be transferred from/to the bank
 [*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory or the bank [COLOR=Orange]*UPDATED* (2.3.0)[/COLOR]
-[*]Be always ready for Cyrodiil and define how many AvA items to keep in inventory[/COLOR][/LIST]
+[*]Be always ready for Cyrodiil and define how many AvA items to keep in inventory[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
 [*]Trash items can be marked as junk
