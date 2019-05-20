@@ -323,6 +323,12 @@ local function RefreshAllEventRegistrations()
             UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
         end
     end
+
+
+    -- Cross-Addon events and hooks
+    local PAItemContextMenu = PA.ItemContextMenu
+    -- Register Item Context Menu
+    PAItemContextMenu.initHooksOnInventoryContextMenu()
 end
 
 
