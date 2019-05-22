@@ -12,9 +12,6 @@
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## DependsOn: LibAddonMenu-2.0 LibCustomMenu
 
-# LibCustomMenu
-# libs/LibCustomMenu/LibCustomMenu.lua
-
 # Logger
 Utilities/Logger.lua
 

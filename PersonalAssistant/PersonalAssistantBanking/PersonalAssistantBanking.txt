@@ -12,6 +12,10 @@
 ## SavedVariables: PersonalAssistantBanking_SavedVariables
 ## DependsOn: PersonalAssistant
 
+# Custom XML UI Dialogs
+XML/PABankingAddCustomRuleUIDialog.xml
+XML/PABankingAddCustomRuleUIDialog.lua
+
 # Localization
 localization/en.lua
 localization/$(language).lua

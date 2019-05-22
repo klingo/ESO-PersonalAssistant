@@ -78,7 +78,7 @@ local function initHooksOnInventoryContextMenu()
                 -- TODO: if settings are turned ON, then
                 local slotType = ZO_InventorySlot_GetType(inventorySlot)
                 d("slotType=".._getSlotTypeName(slotType))
-                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_EQUIPMENT or slotType == SLOT_TYPE_BANK_ITEM or
+                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM or
                         slotType == SLOT_TYPE_GUILD_BANK_ITEM then
                     local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
                     local itemLink = GetItemLink(bagId, slotIndex)
@@ -94,14 +94,13 @@ local function initHooksOnInventoryContextMenu()
 
     --            SLOT_TYPE_TRADING_HOUSE_POST_ITEM
     --            SLOT_TYPE_REPAIR
-    --            SLOT_TYPE_CRAFTING_COMPONENT
+
     --            SLOT_TYPE_PENDING_CRAFTING_COMPONENT
     --            SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT
     --            SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING
 
     --            SLOT_TYPE_LAUNDER
     --            SLOT_TYPE_LIST_DIALOG_ITEM
-    --            SLOT_TYPE_LOOT
     --            SLOT_TYPE_MAIL_ATTACHMENT
     --            SLOT_TYPE_MAIL_QUEUED_ATTACHMENT
     --            SLOT_TYPE_MY_TRADE
@@ -117,6 +116,16 @@ local function initHooksOnInventoryContextMenu()
     --            SLOT_TYPE_STORE_BUY
     --            SLOT_TYPE_STORE_BUYBACK
     --            SLOT_TYPE_THEIR_TRADE
+
+
+
+                -- TODO: confirmed to be added to scope
+                -- SLOT_TYPE_CRAFTING_COMPONENT                 crafting components & items to be deconstructed & improvements
+
+                -- TODO: confirmed to be out of scope
+                -- SLOT_TYPE_EQUIPMENT                          worn equipment
+                -- SLOT_TYPE_LOOT                               loot window
+                -- SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT          trading house search results
             end
         )
     else
