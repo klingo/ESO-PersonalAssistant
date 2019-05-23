@@ -5,33 +5,43 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverIsJunk, _mouseOverCanBeMarkedAsJunk, _mouseOverCanBeDestroyed
+local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverIsJunk
 
-local keyBindSettings = {
-    markUnmarkAsJunk = {
-        isEnabled = false,
-        isVisible = false,
-    },
-    destroyItemNoWarning = {
-        isEnabled = false,
-        isVisible = false,
-    }
-}
+local function _isMarkUnmarkAsJunkVisible()
+    return _mouseOverBagId and _mouseOverSlotIndex -- TODO: and if savedVars is ON
+end
+
+local function _isMarkUnmarkAsJunkEnabled()
+    return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+end
+
+local function _isDestroyItemVisible()
+    return _mouseOverBagId and _mouseOverSlotIndex -- TODO: and if savedVars is ON
+end
+
+local function _isDestroyItemEnabled()
+    if GetItemQuality(_mouseOverBagId, _mouseOverSlotIndex) < ITEM_QUALITY_LEGENDARY then -- TODO: extract from savedvars
+        if not IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then
+            return true
+        end
+    end
+    return false
+end
 
 local PAJunkButtonGroup = {
     {
         name = "PAJunk_MarkUnmarkAsJunk",
         keybind = "PA_JUNK_TOGGLE_ITEM",
         callback = function() end, -- only called when directly clicked on keybind strip?
-        visible = function() return keyBindSettings.markUnmarkAsJunk.isVisible end,
-        enabled = function() return keyBindSettings.markUnmarkAsJunk.isEnabled end,
+        visible = function() return _isMarkUnmarkAsJunkVisible() end,
+        enabled = function() return _isMarkUnmarkAsJunkEnabled() end,
     },
     {
         name = GetString(SI_ITEM_ACTION_DESTROY),
         keybind = "PA_JUNK_DESTROY_ITEM",
         callback = function() end, -- only called when directly clicked on keybind strip?
-        visible = function() return keyBindSettings.destroyItemNoWarning.isVisible end,
-        enabled = function() return keyBindSettings.destroyItemNoWarning.isEnabled end,
+        visible = function() return _isDestroyItemVisible() end,
+        enabled = function() return _isDestroyItemEnabled() end,
     },
     alignment = KEYBIND_STRIP_ALIGN_RIGHT,
 }
@@ -44,49 +54,12 @@ local function _isBagIdInScope(bagId)
     -- TODO: add BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_THEN ?
 end
 
-local function _updateVisibleAndEnabledForKeybindStrip()
-    -- update button names if necessary
+local function _updateKeybindStripButtonNames()
     if _mouseOverIsJunk then
         PAJunkButtonGroup[1].name = GetString(SI_ITEM_ACTION_UNMARK_AS_JUNK)
     else
         PAJunkButtonGroup[1].name = GetString(SI_ITEM_ACTION_MARK_AS_JUNK)
     end
-    -- then update enabled state
-    if _mouseOverCanBeMarkedAsJunk then
-        keyBindSettings.markUnmarkAsJunk.isEnabled = true
-    end
-    if _mouseOverCanBeDestroyed then
-        keyBindSettings.destroyItemNoWarning.isEnabled = true
-    end
-    -- finally, display the buttons
-    for _, settingTbl in pairs(keyBindSettings) do
-        settingTbl.isVisible = true
-    end
-    -- and update the KeybindStrip
-    KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
-end
-
-local function _hideKeybindStrip()
-    -- set isVisible=false and isEnabled=false for all settings
-    for _, settingTbl in pairs(keyBindSettings) do
-        settingTbl.isVisible = false
-        settingTbl.isEnabled = false
-    end
-    -- and update the KeybindStrip
-    KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
-end
-
-local function _isItemAllowedToBeMarkedAsJunk(bagId, slotIndex)
-    return CanItemBeMarkedAsJunk(bagId, slotIndex)
-end
-
-local function _isItemAllowedToBeDestroyed(bagId, slotIndex)
-    if GetItemQuality(bagId, slotIndex) < ITEM_QUALITY_LEGENDARY then -- TODO: extract from savedvars
-       if not IsItemPlayerLocked(bagId, slotIndex) then
-           return true
-       end
-    end
-    return false
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -97,10 +70,9 @@ local function _onMouseEnter(itemControl)
     _mouseOverBagId  = itemData.bagId
     _mouseOverSlotIndex = itemData.slotIndex
     _mouseOverIsJunk = itemData.isJunk
-    _mouseOverCanBeMarkedAsJunk = _isItemAllowedToBeMarkedAsJunk(itemData.bagId, itemData.slotIndex)
-    _mouseOverCanBeDestroyed = _isItemAllowedToBeDestroyed(itemData.bagId, itemData.slotIndex)
     -- update/show the Keybind Strip
-    _updateVisibleAndEnabledForKeybindStrip()
+    _updateKeybindStripButtonNames()
+    KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
 end
 
 -- clear the stored itemData information on MouseExit
@@ -108,10 +80,8 @@ local function _onMouseExit()
     _mouseOverBagId = nil
     _mouseOverSlotIndex = nil
     _mouseOverIsJunk = nil
-    _mouseOverCanBeMarkedAsJunk = nil
-    _mouseOverCanBeDestroyed = nil
     -- update/hide the Keybind Strip
-    _hideKeybindStrip()
+    KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -134,7 +104,7 @@ local function initHooksOnInventoryItems()
 end
 
 local function toggleItemMarkedAsJunk()
-    if _mouseOverBagId and _mouseOverSlotIndex and _mouseOverCanBeMarkedAsJunk then
+    if _mouseOverBagId and _mouseOverSlotIndex then
         SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, not _mouseOverIsJunk)
         local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
         local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
@@ -148,7 +118,7 @@ local function toggleItemMarkedAsJunk()
 end
 
 local function destroyItemNoWarning()
-    if _mouseOverBagId and _mouseOverSlotIndex and _mouseOverCanBeDestroyed then
+    if _mouseOverBagId and _mouseOverSlotIndex then
         local itemSoundCategory = GetItemSoundCategory(_mouseOverBagId, _mouseOverSlotIndex)
         DestroyItem(_mouseOverBagId, _mouseOverSlotIndex)
         PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
