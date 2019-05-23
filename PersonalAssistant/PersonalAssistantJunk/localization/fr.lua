@@ -64,6 +64,7 @@ SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({PAC.COLORED_TE
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --
 SafeAddString(SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM, "Mettre aux / Sortir des rebuts", 1)
+SafeAddString(SI_BINDING_NAME_PA_JUNK_DESTROY_ITEM, "Détruire l'objet", 1)
 
 
 -- =================================================================================================================
