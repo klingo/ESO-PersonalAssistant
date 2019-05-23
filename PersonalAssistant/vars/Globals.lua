@@ -240,6 +240,11 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",
                 NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t",
             },
+            KEY = {
+                PATH = "/esoui/art/worldmap/map_indexicon_key_up.dds",
+                NORMAL = "|t32:32:/esoui/art/worldmap/map_indexicon_key_up.dds|t",
+
+            },
             KNOWN = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
                 NORMAL = string.format("|cCACACA%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),

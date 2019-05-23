@@ -48,6 +48,7 @@ local function initAddon(_, addOnName)
     PA.Junk.createOptions()
 
     -- then register inventory hooks
+    -- TODO: move to EventManager and only trigger when either one of the settings is turned on (also refresh event-regs then!)
     PA.Junk.KeybindStrip.initHooksOnInventoryItems()
 end
 

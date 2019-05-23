@@ -34,6 +34,8 @@ local PAJWeaponsSubMenu = setmetatable({}, { __index = table })
 local PAJArmorSubMenu = setmetatable({}, { __index = table })
 local PAJJewelrySubMenu = setmetatable({}, { __index = table })
 
+local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
+
 -- =================================================================================================================
 
 local function _createPAJunkMenu()
@@ -117,6 +119,20 @@ local function _createPAJunkMenu()
         setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
         disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
         default = PAJMenuDefaults.autoSellJunk,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER),
+        icon = PAC.ICONS.OTHERS.KEY.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PAJKeybindingsSubMenu,
+        disabledLabel = PAJMenuFunctions.isKeybindingsMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -452,6 +468,39 @@ local function _createPAJJewelrySubMenu()
     })
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAJKeybindingsSubMenu()
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK),
+        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_T), -- TODO: needed?
+        getFunc = PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting,
+        setFunc = PAJMenuFunctions.setKeybindingMarkUnmarkAsJunkSetting,
+        disabled = PAJMenuFunctions.isKeybindingMarkUnmarkAsJunkDisabled,
+        default = PAJMenuDefaults.KeyBindings.showMarkUnmarkAsJunkKeybind,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM),
+        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_T), -- TODO: needed?
+        getFunc = PAJMenuFunctions.getKeybindingDestroyItemSetting,
+        setFunc = PAJMenuFunctions.setKeybindingDestroyItemSetting,
+        disabled = PAJMenuFunctions.isKeybindingDestroyItemDisabled,
+        default = PAJMenuDefaults.KeyBindings.showDestroyItemKeybind,
+    })
+
+    -- Exceptions:
+        -- Item Quality Level
+        -- Unknown Recipes/Motifs/Styles
+end
+
 -- =================================================================================================================
 
 local function createOptions()
@@ -463,6 +512,8 @@ local function createOptions()
     _createPAJWeaponsSubMenu()
     _createPAJArmorSubMenu()
     _createPAJJewelrySubMenu()
+
+    _createPAJKeybindingsSubMenu()
 
     LAM2:RegisterAddonPanel("PersonalAssistantJunkAddonOptions", PAJunkPanelData)
     LAM2:RegisterOptionControls("PersonalAssistantJunkAddonOptions", PAJunkOptionsTable)

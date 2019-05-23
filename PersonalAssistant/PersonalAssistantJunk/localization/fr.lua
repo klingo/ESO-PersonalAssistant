@@ -30,6 +30,10 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.co
 
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente automatique aux marchands et receleurs", 1)
 
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Keybindings", 1) -- TODO: TAKIT
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Show \"Mark / Unmark as Junk\" Keybinding", 1) -- TODO: TAKIT
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM, "Show \"Destroy Item\" Keybinding", 1) -- TODO: TAKIT
+
 -- General texts used across: Weapons, Armor, Jewelry
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, "Marquer les %s de qualité inférieure ou égale à", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, "Marquer automatiquement comme rebuts les %s de qualité inférieure ou égale à celle sélectionnée", 1)

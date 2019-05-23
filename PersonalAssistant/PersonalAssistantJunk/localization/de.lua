@@ -30,6 +30,10 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.co
 
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
 
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Keybindings", 1) -- TODO: ME
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Show \"Mark / Unmark as Junk\" Keybinding", 1) -- TODO: ME
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM, "Show \"Destroy Item\" Keybinding", 1) -- TODO: ME
+
 -- General texts used across: Weapons, Armor, Jewelry
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, "Markiere %s mit Qualität tiefer oder gleich", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, "Automatisch %s als Trödel markieren wenn deren Qualität genau auf oder unter der ausgewählten Qualität liegt", 1)

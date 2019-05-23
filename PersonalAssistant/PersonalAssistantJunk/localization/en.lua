@@ -34,6 +34,10 @@ local PAJStrings = {
 
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
 
+    SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK = "Show \"Mark / Unmark as Junk\" Keybinding",
+    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM = "Show \"Destroy Item\" Keybinding",
+
     -- General texts used across: Weapons, Armor, Jewelry
     SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD = "Auto-Mark %s with quality at or below",
     SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T = "Automatically mark %s as Junk if they are of the selected quality or lower",

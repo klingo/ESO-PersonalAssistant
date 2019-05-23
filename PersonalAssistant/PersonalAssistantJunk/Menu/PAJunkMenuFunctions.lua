@@ -201,6 +201,14 @@ local PAJunkMenuFunctions = {
     getJewelryIncludeUnknownTraitsSetting = function() return getValue({"Jewelry", "autoMarkUnknownTraits"}) end,
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
 
+    isKeybindingsMenuDisabled = function() return isDisabledAll({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}, {"KeyBindings", "showDestroyItemKeybind"}) end,
+    isKeybindingMarkUnmarkAsJunkDisabled = false, -- TODO: todo
+    getKeybindingMarkUnmarkAsJunkSetting = function() return getValue({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
+    setKeybindingMarkUnmarkAsJunkSetting = function(value) setValue(value, {"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
+    isKeybindingDestroyItemDisabled = false, -- TODO: todo
+    getKeybindingDestroyItemSetting = function() return getValue({"KeyBindings", "showDestroyItemKeybind"}) end,
+    setKeybindingDestroyItemSetting = function(value) setValue(value, {"KeyBindings", "showDestroyItemKeybind"}) end,
+
     -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK
     -- -----------------------------

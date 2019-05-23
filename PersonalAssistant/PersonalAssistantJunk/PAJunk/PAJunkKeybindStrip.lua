@@ -8,18 +8,26 @@ local PAHF = PA.HelperFunctions
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverIsJunk
 
 local function _isMarkUnmarkAsJunkVisible()
-    return _mouseOverBagId and _mouseOverSlotIndex -- TODO: and if savedVars is ON
+    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
+        return _mouseOverBagId and _mouseOverSlotIndex
+    end
+    return false
 end
 
 local function _isMarkUnmarkAsJunkEnabled()
+    -- SavedVars does not need to be checked here, because it is already check in the "Visible()" function
     return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
 end
 
 local function _isDestroyItemVisible()
-    return _mouseOverBagId and _mouseOverSlotIndex -- TODO: and if savedVars is ON
+    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showDestroyItemKeybind then
+        return _mouseOverBagId and _mouseOverSlotIndex
+    end
+    return false
 end
 
 local function _isDestroyItemEnabled()
+    -- SavedVars does not need to be checked here, because it is already check in the "Visible()" function
     if GetItemQuality(_mouseOverBagId, _mouseOverSlotIndex) < ITEM_QUALITY_LEGENDARY then -- TODO: extract from savedvars
         if not IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then
             return true
@@ -27,6 +35,8 @@ local function _isDestroyItemEnabled()
     end
     return false
 end
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local PAJunkButtonGroup = {
     {
@@ -104,24 +114,28 @@ local function initHooksOnInventoryItems()
 end
 
 local function toggleItemMarkedAsJunk()
-    if _mouseOverBagId and _mouseOverSlotIndex then
-        SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, not _mouseOverIsJunk)
-        local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
-        local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-        if not _mouseOverIsJunk then
-            PAJ.println(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, itemLinkExt)
-            PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
-        else
-            PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
+        if _mouseOverBagId and _mouseOverSlotIndex then
+            SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, not _mouseOverIsJunk)
+            local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
+            local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+            if not _mouseOverIsJunk then
+                PAJ.println(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, itemLinkExt)
+                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+            else
+                PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+            end
         end
-    end
+        end
 end
 
 local function destroyItemNoWarning()
-    if _mouseOverBagId and _mouseOverSlotIndex then
-        local itemSoundCategory = GetItemSoundCategory(_mouseOverBagId, _mouseOverSlotIndex)
-        DestroyItem(_mouseOverBagId, _mouseOverSlotIndex)
-        PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showDestroyItemKeybind then
+        if _mouseOverBagId and _mouseOverSlotIndex then
+            local itemSoundCategory = GetItemSoundCategory(_mouseOverBagId, _mouseOverSlotIndex)
+            DestroyItem(_mouseOverBagId, _mouseOverSlotIndex)
+            PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+        end
     end
 end
 
