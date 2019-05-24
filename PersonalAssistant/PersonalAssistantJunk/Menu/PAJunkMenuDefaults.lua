@@ -49,7 +49,7 @@ local PAJunkMenuDefaults = {
         showMarkUnmarkAsJunkKeybind = true,
         showDestroyItemKeybind = false,
         destroyItemQualityThreshold = ITEM_QUALITY_LEGENDARY,
-        destroyUnknownItems = false
+        destroyExcludeUnknownItems = false,
     },
 
     silentMode = false,

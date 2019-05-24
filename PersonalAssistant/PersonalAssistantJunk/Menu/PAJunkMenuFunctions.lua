@@ -208,6 +208,13 @@ local PAJunkMenuFunctions = {
     isKeybindingDestroyItemDisabled = false, -- TODO: todo
     getKeybindingDestroyItemSetting = function() return getValue({"KeyBindings", "showDestroyItemKeybind"}) end,
     setKeybindingDestroyItemSetting = function(value) setValue(value, {"KeyBindings", "showDestroyItemKeybind"}) end,
+    isDestroyItemQualityThresholdDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
+    getDestroyItemQualityThresholdSetting = function() return getValue({"KeyBindings", "destroyItemQualityThreshold"}) end,
+    setDestroyItemQualityThresholdSetting = function(value) setValue(value, {"KeyBindings", "destroyItemQualityThreshold"}) end,
+
+    isDestroyExcludeUnknownItemsDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
+    getDestroyExcludeUnknownItemsSetting = function() return getValue({"KeyBindings", "destroyExcludeUnknownItems"}) end,
+    setDestroyExcludeUnknownItemsSetting = function(value) setValue(value, {"KeyBindings", "destroyExcludeUnknownItems"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK

@@ -37,6 +37,10 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK = "Show \"Mark / Unmark as Junk\" Keybinding",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM = "Show \"Destroy Item\" Keybinding",
+    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W = "WARNING: Please be aware that using this keybinding, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
+    SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION = "Disable the  \"Destroy Item\" Keybinding if the item . . .",
+    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD = "> is of the selected quality or higher",
+    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN = "> can be learned/researched and is unknown",
 
     -- General texts used across: Weapons, Armor, Jewelry
     SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD = "Auto-Mark %s with quality at or below",
@@ -61,6 +65,7 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Merchant", PAC.COLORS.DEFAULT, ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Treasure", PAC.COLORS.DEFAULT, ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Manual", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLORED_TEXTS.PAJ, PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
     SI_PA_CHAT_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),

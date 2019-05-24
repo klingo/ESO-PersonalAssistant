@@ -474,7 +474,7 @@ local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK),
-        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_T), -- TODO: needed?
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_T),
         getFunc = PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting,
         setFunc = PAJMenuFunctions.setKeybindingMarkUnmarkAsJunkSetting,
         disabled = PAJMenuFunctions.isKeybindingMarkUnmarkAsJunkDisabled,
@@ -489,16 +489,42 @@ local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM),
-        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_T), -- TODO: needed?
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_T),
+        warning = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W),
         getFunc = PAJMenuFunctions.getKeybindingDestroyItemSetting,
         setFunc = PAJMenuFunctions.setKeybindingDestroyItemSetting,
         disabled = PAJMenuFunctions.isKeybindingDestroyItemDisabled,
         default = PAJMenuDefaults.KeyBindings.showDestroyItemKeybind,
     })
 
-    -- Exceptions:
-        -- Item Quality Level
-        -- Unknown Recipes/Motifs/Styles
+    PAJKeybindingsSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION),
+        disabled = PAJMenuFunctions.isDestroyItemQualityThresholdDisabled,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD),
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD_T),
+        choices = PAJMenuChoices.qualityLevelReverse,
+        choicesValues = PAJMenuChoicesValues.qualityLevelReverse,
+        --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
+        getFunc = PAJMenuFunctions.getDestroyItemQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyItemQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyItemQualityThresholdDisabled,
+        default = PAJMenuDefaults.KeyBindings.destroyItemQualityThreshold,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN),
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN_T),
+        getFunc = PAJMenuFunctions.getDestroyExcludeUnknownItemsSetting,
+        setFunc = PAJMenuFunctions.setDestroyExcludeUnknownItemsSetting,
+        disabled = PAJMenuFunctions.isDestroyExcludeUnknownItemsDisabled,
+        default = PAJMenuDefaults.KeyBindings.destroyExcludeUnknownItems,
+    })
 end
 
 -- =================================================================================================================

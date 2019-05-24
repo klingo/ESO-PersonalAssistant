@@ -5,7 +5,7 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverIsJunk
+local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJunk
 
 local function _isMarkUnmarkAsJunkVisible()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
@@ -28,12 +28,35 @@ end
 
 local function _isDestroyItemEnabled()
     -- SavedVars does not need to be checked here, because it is already check in the "Visible()" function
-    if GetItemQuality(_mouseOverBagId, _mouseOverSlotIndex) < ITEM_QUALITY_LEGENDARY then -- TODO: extract from savedvars
-        if not IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then
-            return true
+    if IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then return false end
+    if GetItemQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PA.Junk.SavedVars.KeyBindings.destroyItemQualityThreshold then return false end
+
+    if PA.Junk.SavedVars.KeyBindings.destroyExcludeUnknownItems then
+        local itemType, specializedItemType = GetItemType(_mouseOverBagId, _mouseOverSlotIndex)
+        local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
+        if itemType == ITEMTYPE_RECIPE then
+            -- check for unknown recipes
+            if not IsItemLinkRecipeKnown(itemLink) then return false end
+        elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+            -- check for unknown motifs
+            if IsItemLinkBook(itemLink) and not IsItemLinkBookKnown(itemLink) then return false end
+        elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+            -- check for unknown style page containers
+            local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+            if isValidForPlayer and not isUnlocked then return false end
+        else
+            -- check for unknown traits
+            local itemFilterType = GetItemFilterTypeInfo(_mouseOverBagId, _mouseOverSlotIndex)
+            if itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
+                if CanItemLinkBeTraitResearched(itemLink) then return false end
+            end
         end
     end
-    return false
+
+    -- if there was no reason to NOT have it enabled, return true
+    return true
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -79,6 +102,7 @@ local function _onMouseEnter(itemControl)
     local itemData = itemControl.dataEntry.data
     _mouseOverBagId  = itemData.bagId
     _mouseOverSlotIndex = itemData.slotIndex
+    _mouseOverStackCount = itemData.stackCount
     _mouseOverIsJunk = itemData.isJunk
     -- update/show the Keybind Strip
     _updateKeybindStripButtonNames()
@@ -89,6 +113,7 @@ end
 local function _onMouseExit()
     _mouseOverBagId = nil
     _mouseOverSlotIndex = nil
+    _mouseOverStackCount = nil
     _mouseOverIsJunk = nil
     -- update/hide the Keybind Strip
     KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
@@ -116,9 +141,12 @@ end
 local function toggleItemMarkedAsJunk()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
-            SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, not _mouseOverIsJunk)
+            -- get item information
             local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
             local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+            -- execute main action
+            SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, not _mouseOverIsJunk)
+            -- inform player
             if not _mouseOverIsJunk then
                 PAJ.println(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, itemLinkExt)
                 PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
@@ -132,9 +160,17 @@ end
 local function destroyItemNoWarning()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showDestroyItemKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
-            local itemSoundCategory = GetItemSoundCategory(_mouseOverBagId, _mouseOverSlotIndex)
-            DestroyItem(_mouseOverBagId, _mouseOverSlotIndex)
-            PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+            if _isDestroyItemEnabled() then
+                -- get item information
+                local itemSoundCategory = GetItemSoundCategory(_mouseOverBagId, _mouseOverSlotIndex)
+                local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                -- execute main action
+                DestroyItem(_mouseOverBagId, _mouseOverSlotIndex)
+                -- inform player
+                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, _mouseOverStackCount, itemLinkExt)
+            end
         end
     end
 end

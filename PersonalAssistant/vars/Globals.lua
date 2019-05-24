@@ -49,6 +49,7 @@ PersonalAssistant.Constants = {
     COLOR = {
         ORANGE = ZO_ColorDef:New("FFA500"),
         YELLOW = ZO_ColorDef:New("FFD700"),
+        ORANGE_RED = ZO_ColorDef:New("FF7400"),
     },
     COLORS = {
         DEFAULT = "|cFFFF00",
@@ -532,6 +533,7 @@ PersonalAssistant.Constants = {
 
     ITEM_QUALITY = {
         DISABLED = -1,
+        DISABLED_REVERSE = 99,
     },
 
     ICON_POSITION = {
