@@ -7,17 +7,51 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function applyPatchIfNeeded()
-    -- first unregister the event again
-    PAEM.UnregisterForEvent(PACAddon.NAME_RAW.GENERAL, EVENT_PLAYER_ACTIVATED, "SavedVarsPatcher")
-
-    -- then get stored savedVarsVersion for comparison
+local function _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAJ, patchPAL, patchPAR)
     local PASavedVars = PA.SavedVars
-    local prevStoredSavedVarsVersion = tonumber(PASavedVars.General.savedVarsVersion)
+    if patchPAG and tonumber(PASavedVars.General.savedVarsVersion) < savedVarsVersion then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAGeneral from [", tostring(PASavedVars.General.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PASavedVars.General.savedVarsVersion = savedVarsVersion
+    end
+    if patchPAB and tonumber(PASavedVars.Banking.savedVarsVersion) < savedVarsVersion then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PABanking from [", tostring(PASavedVars.Banking.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PASavedVars.Banking.savedVarsVersion = savedVarsVersion
+    end
+    if patchPAJ and tonumber(PASavedVars.Junk.savedVarsVersion) < savedVarsVersion then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAJunk from [", tostring(PASavedVars.Junk.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PASavedVars.Junk.savedVarsVersion = savedVarsVersion
+    end
+    if patchPAL and tonumber(PASavedVars.Loot.savedVarsVersion) < savedVarsVersion then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PALoot from [", tostring(PASavedVars.Loot.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PASavedVars.Loot.savedVarsVersion = savedVarsVersion
+    end
+    if patchPAR and tonumber(PASavedVars.Repair.savedVarsVersion) < savedVarsVersion then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PARepair from [", tostring(PASavedVars.Repair.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PASavedVars.Repair.savedVarsVersion = savedVarsVersion
+    end
+end
 
-    -- Upgrade to v2.0.3
-    if prevStoredSavedVarsVersion >= 020000 and prevStoredSavedVarsVersion < 020003 then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
+local function _getActiveAddonSavedVarsVersion()
+    local PASavedVars = PA.SavedVars
+    local PAGversion, PABversion, PAJversion, PALversion, PARversion
+    if PASavedVars.General then PAGversion = tonumber(PASavedVars.General.savedVarsVersion) end
+    if PASavedVars.Banking then PABversion = tonumber(PASavedVars.Banking.savedVarsVersion) end
+    if PASavedVars.Junk then PAJversion = tonumber(PASavedVars.Junk.savedVarsVersion) end
+    if PASavedVars.Loot then PALversion = tonumber(PASavedVars.Loot.savedVarsVersion) end
+    if PASavedVars.Repair then PARversion = tonumber(PASavedVars.Repair.savedVarsVersion) end
+    return PAGversion, PABversion, PAJversion, PALversion, PARversion
+end
+
+local function _getIsPatchNeededInfo(targetSVV)
+    local PAGv, PABv, PAJv, PALv, PARv = _getActiveAddonSavedVarsVersion()
+    return targetSVV, (PAGv and PAGv < targetSVV), (PABv and PABv < targetSVV), (PAJv and PAJv < targetSVV), (PALv and PALv < targetSVV), (PARv and PARv < targetSVV)
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function _applyPatch_2_0_3(savedVarsVersion, _, patchPAB, _, _, _)
+    if patchPAB then
+        local PASavedVars = PA.SavedVars
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
             -- 1) get rid of:   PABanking.transactionInterval
             PASavedVars.Banking[profileNo].transactionInterval = nil
@@ -31,38 +65,46 @@ local function applyPatchIfNeeded()
                 end
             end
         end
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020003]"}))
+        _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false)
     end
+end
 
-    -- Upgrade to v2.1.0
-    if prevStoredSavedVarsVersion < 020100 then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
+
+local function _applyPatch_2_1_0(savedVarsVersion, patchPAG, patchPAB, patchPAJ, patchPAL, patchPAR)
+    if patchPAG or patchPAB or patchPAJ or patchPAL or patchPAR then
+        local PASavedVars = PA.SavedVars
         -- 1) initialize three new profiles with default values
         local PAMenuDefaults = PA.MenuDefaults
         for profileNo = 6, PAC.GENERAL.MAX_PROFILES do
             if not istable(PASavedVars.General[profileNo]) then
-                PASavedVars.Banking[profileNo] = PAMenuDefaults.PABanking
-                PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk
-                PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot
-                PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair
-                PASavedVars.General[profileNo] = {
-                    name = PAHF.getDefaultProfileName(profileNo),
-                    welcome = true
-                }
+                if patchPAB then PASavedVars.Banking[profileNo] = PAMenuDefaults.PABanking end
+                if patchPAJ then PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk end
+                if patchPAL then PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot end
+                if patchPAR then PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair end
+                if patchPAG then
+                    PASavedVars.General[profileNo] = {
+                        name = PAHF.getDefaultProfileName(profileNo),
+                        welcome = true
+                    }
+                end
             end
         end
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-            -- 2) initialize:    PABanking.Advanced.ItemTraitTypes
-            PASavedVars.Banking[profileNo].Advanced.ItemTraitTypes = PAMenuDefaults.PABanking.Advanced.ItemTraitTypes
-            -- 3) initialize:    PABanking.AvA
-            PASavedVars.Banking[profileNo].AvA = PA.MenuDefaults.PABanking.AvA
+        if patchPAB then
+            for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+                -- 2) initialize:    PABanking.Advanced.ItemTraitTypes
+                PASavedVars.Banking[profileNo].Advanced.ItemTraitTypes = PAMenuDefaults.PABanking.Advanced.ItemTraitTypes
+                -- 3) initialize:    PABanking.AvA
+                PASavedVars.Banking[profileNo].AvA = PA.MenuDefaults.PABanking.AvA
+            end
         end
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020100]"}))
+        _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAJ, patchPAL, patchPAR)
     end
+end
 
-    -- Upgrade to v2.2.0
-    if prevStoredSavedVarsVersion < 020200 then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020200]"}))
+
+local function _applyPatch_2_2_0(savedVarsVersion, _, patchPAB, _, _, _)
+    if patchPAB then
+        local PASavedVars = PA.SavedVars
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
             -- 1) migrate:      PABanking.Advanced.LearnableItemTypes
             PASavedVars.Banking[profileNo].Advanced.LearnableItemTypes = {
@@ -79,12 +121,14 @@ local function applyPatchIfNeeded()
             PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RACIAL_STYLE_MOTIF] = nil
             PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_RECIPE] = nil
         end
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020200]"}))
+        _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false)
     end
+end
 
-    -- Upgrade to v2.2.2
-    if prevStoredSavedVarsVersion < 020202 then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020202]"}))
+
+local function _applyPatch_2_2_2(savedVarsVersion, _, patchPAB, _, _, _)
+    if patchPAB then
+        local PASavedVars = PA.SavedVars
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
             -- 1) migrate       PABanking.Advanced.MasterWritCraftingTypes
             local masterWritMoveSetting = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_MASTER_WRIT]
@@ -100,13 +144,14 @@ local function applyPatchIfNeeded()
             -- 2) get rid of    PABanking.Advanced.ItemTypes[ITEMTYPE_MASTER_WRIT]
             PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_MASTER_WRIT] = nil
         end
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020202]"}))
+        _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false)
     end
+end
 
 
-    -- Upgrade to v2.2.2
-    if prevStoredSavedVarsVersion < 020300 then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - START Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020300]"}))
+local function _applyPatch_2_3_0(savedVarsVersion, _, patchPAB, _, _, _)
+    if patchPAB then
+        local PASavedVars = PA.SavedVars
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
             -- 1) migrate   PABanking.Individual.ItemIds
             local oldItemIdConfigs = PASavedVars.Banking[profileNo].Individual.ItemIds
@@ -135,11 +180,32 @@ local function applyPatchIfNeeded()
                 end
             end
         end
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - FINISH Upgrading SavedVarsVersion from [", tostring(prevStoredSavedVarsVersion), "] to [020300]"}))
+        _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false)
     end
+end
 
-    -- in the end, update the savedVarsVersion
-    PASavedVars.General.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function applyPatchIfNeeded()
+    -- first unregister the event again
+    PAEM.UnregisterForEvent(PACAddon.NAME_RAW.GENERAL, EVENT_PLAYER_ACTIVATED, "SavedVarsPatcher")
+
+    -- Patch 2.0.3      April 24, 2019
+    _applyPatch_2_0_3(_getIsPatchNeededInfo(020003))
+
+    -- Patch 2.1.0      April 28, 2019
+    _applyPatch_2_1_0(_getIsPatchNeededInfo(020100))
+
+    -- Patch 2.2.0      May 09, 2019
+    _applyPatch_2_2_0(_getIsPatchNeededInfo(020200))
+
+    -- Patch 2.2.2      May 17, 2019
+    _applyPatch_2_2_2(_getIsPatchNeededInfo(020202))
+
+    -- Patch 2.3.0      May 19, 2019
+    _applyPatch_2_3_0(_getIsPatchNeededInfo(020300))
+
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
