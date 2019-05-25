@@ -30,13 +30,13 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.co
 
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente automatique aux marchands et receleurs", 1)
 
---SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Keybindings", 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Show \"Mark / Unmark as Junk\" Keybinding", 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM, "Show \"Destroy Item\" Keybinding", 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W, "WARNING: Please be aware that using this keybinding, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!", 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION, "Disable the  \"Destroy Item\" Keybinding if the item . . .", 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD, "> is of the selected quality or higher", 1) -- TODO: TAKIT
---SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN, "> can be learned/researched and is unknown", 1) -- TODO: TAKIT
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Afficher la commande \"Mettre aux / Sortir des rebuts\"", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM, "Afficher la commande \"Détruire l'objet\"", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W, "ATTENTION: Soyez conscient en utilisant cette commande, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION, "Désactiver la commande  \"Détruire l'objet\" si l'objet . . .", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD, "> est de qualité supérieure ou égale à", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN, "> peut-être appris/recherché et est inconnu", 1)
 
 -- General texts used across: Weapons, Armor, Jewelry
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, "Marquer les %s de qualité inférieure ou égale à", 1)
@@ -61,7 +61,7 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({PAC.COLORED_
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({PAC.COLORED_TEXTS.PAJ, "%s mis aux rebuts (", PAC.COLORS.ORANGE, "Marchand", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({PAC.COLORED_TEXTS.PAJ, "%s mis aux rebuts (", PAC.COLORS.ORANGE, "Trésor", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({PAC.COLORED_TEXTS.PAJ, "%s mis aux rebuts (", PAC.COLORS.ORANGE, "Manuel", PAC.COLORS.DEFAULT, ")"}), 1)
---SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLORED_TEXTS.PAJ, "Destroyed %d x %s"}), 1) -- TODO: TAKIT
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLORED_TEXTS.PAJ, "Détruit %d x %s"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, table.concat({PAC.COLORED_TEXTS.PAJ, "Vente des objets aux rebuts pour ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d heures"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d minutes"}), 1)
