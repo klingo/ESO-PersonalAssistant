@@ -30,6 +30,14 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.co
 
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
 
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Tastenkürzel", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Tastenkürzel \"Als Trödel de- / markieren\" anzeigen", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM, "Tastenkürzel \"Gegenstand zerstören\" anzeigen", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W, "ACHTUNG: Bitte beachte dass bei Verwendung von diesem Tastenkürzel KEINE Sicherheitsfrage kommt ob der Gegenstand wirklich zerstört werden soll.\nEr wird einfach direkt zerstört!\nUnwiderruflich!\nNutzung erfolgt auf eigenes Risiko!", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION, "Deaktiviere den \"Gegenstand zerstören\" Tastenkürzel wenn der Gegenstand . . .", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD, "> von der ausgewählten oder höheren Qualität ist", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN, "> gelernt/analysiert werden kann und unbekannt ist", 1)
+
 -- General texts used across: Weapons, Armor, Jewelry
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, "Markiere %s mit Qualität tiefer oder gleich", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, "Automatisch %s als Trödel markieren wenn deren Qualität genau auf oder unter der ausgewählten Qualität liegt", 1)
@@ -53,6 +61,7 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({PAC.COLORED_
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({PAC.COLORED_TEXTS.PAJ, "%s als Trödel markiert (", PAC.COLORS.ORANGE, "Händler", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({PAC.COLORED_TEXTS.PAJ, "%s als Trödel markiert (", PAC.COLORS.ORANGE, "Beute", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({PAC.COLORED_TEXTS.PAJ, "%s als Trödel markiert (", PAC.COLORS.ORANGE, "Manuell", PAC.COLORS.DEFAULT, ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLORED_TEXTS.PAJ, "Zerstört %d x %s"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, table.concat({PAC.COLORED_TEXTS.PAJ, "Trödel verkauft für ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Stunden"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Minuten"}), 1)
@@ -64,6 +73,7 @@ SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({PAC.COLORED_TE
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --
 SafeAddString(SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM, "Als Trödel de- / markieren", 1)
+SafeAddString(SI_BINDING_NAME_PA_JUNK_DESTROY_ITEM, "Gegenstand zerstören", 1)
 
 
 -- =================================================================================================================

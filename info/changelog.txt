@@ -1,3 +1,6 @@
+2.3.1   (May 25, 2019)
+- improved patching logic for changes in the SavedVars ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/137"]#137[/URL])
+
 2.3.0   (May 19, 2019)
 - add option to automatically mark glyphs as junk based on quality level ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/130"]#130[/URL])
 - add additional options for individual items in PABanking to also define a target value in the bank ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/131"]#131[/URL])

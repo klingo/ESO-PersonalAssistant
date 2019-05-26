@@ -37,7 +37,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020300,
+            MINOR = 020301,
         },
     },
 
@@ -49,6 +49,7 @@ PersonalAssistant.Constants = {
     COLOR = {
         ORANGE = ZO_ColorDef:New("FFA500"),
         YELLOW = ZO_ColorDef:New("FFD700"),
+        ORANGE_RED = ZO_ColorDef:New("FF7400"),
     },
     COLORS = {
         DEFAULT = "|cFFFF00",
@@ -239,6 +240,11 @@ PersonalAssistant.Constants = {
             HOME = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",
                 NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t",
+            },
+            KEY = {
+                PATH = "/esoui/art/worldmap/map_indexicon_key_up.dds",
+                NORMAL = "|t32:32:/esoui/art/worldmap/map_indexicon_key_up.dds|t",
+
             },
             KNOWN = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
@@ -527,6 +533,7 @@ PersonalAssistant.Constants = {
 
     ITEM_QUALITY = {
         DISABLED = -1,
+        DISABLED_REVERSE = 99,
     },
 
     ICON_POSITION = {

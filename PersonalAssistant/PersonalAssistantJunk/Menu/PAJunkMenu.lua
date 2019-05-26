@@ -34,6 +34,8 @@ local PAJWeaponsSubMenu = setmetatable({}, { __index = table })
 local PAJArmorSubMenu = setmetatable({}, { __index = table })
 local PAJJewelrySubMenu = setmetatable({}, { __index = table })
 
+local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
+
 -- =================================================================================================================
 
 local function _createPAJunkMenu()
@@ -117,6 +119,20 @@ local function _createPAJunkMenu()
         setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
         disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
         default = PAJMenuDefaults.autoSellJunk,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER),
+        icon = PAC.ICONS.OTHERS.KEY.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PAJKeybindingsSubMenu,
+        disabledLabel = PAJMenuFunctions.isKeybindingsMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -452,6 +468,65 @@ local function _createPAJJewelrySubMenu()
     })
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAJKeybindingsSubMenu()
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK),
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_T),
+        getFunc = PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting,
+        setFunc = PAJMenuFunctions.setKeybindingMarkUnmarkAsJunkSetting,
+        disabled = PAJMenuFunctions.isKeybindingMarkUnmarkAsJunkDisabled,
+        default = PAJMenuDefaults.KeyBindings.showMarkUnmarkAsJunkKeybind,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM),
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_T),
+        warning = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W),
+        getFunc = PAJMenuFunctions.getKeybindingDestroyItemSetting,
+        setFunc = PAJMenuFunctions.setKeybindingDestroyItemSetting,
+        disabled = PAJMenuFunctions.isKeybindingDestroyItemDisabled,
+        default = PAJMenuDefaults.KeyBindings.showDestroyItemKeybind,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION),
+        disabled = PAJMenuFunctions.isDestroyItemQualityThresholdDisabled,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD),
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD_T),
+        choices = PAJMenuChoices.qualityLevelReverse,
+        choicesValues = PAJMenuChoicesValues.qualityLevelReverse,
+        --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
+        getFunc = PAJMenuFunctions.getDestroyItemQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyItemQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyItemQualityThresholdDisabled,
+        default = PAJMenuDefaults.KeyBindings.destroyItemQualityThreshold,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN),
+--        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN_T),
+        getFunc = PAJMenuFunctions.getDestroyExcludeUnknownItemsSetting,
+        setFunc = PAJMenuFunctions.setDestroyExcludeUnknownItemsSetting,
+        disabled = PAJMenuFunctions.isDestroyExcludeUnknownItemsDisabled,
+        default = PAJMenuDefaults.KeyBindings.destroyExcludeUnknownItems,
+    })
+end
+
 -- =================================================================================================================
 
 local function createOptions()
@@ -463,6 +538,8 @@ local function createOptions()
     _createPAJWeaponsSubMenu()
     _createPAJArmorSubMenu()
     _createPAJJewelrySubMenu()
+
+    _createPAJKeybindingsSubMenu()
 
     LAM2:RegisterAddonPanel("PersonalAssistantJunkAddonOptions", PAJunkPanelData)
     LAM2:RegisterOptionControls("PersonalAssistantJunkAddonOptions", PAJunkOptionsTable)

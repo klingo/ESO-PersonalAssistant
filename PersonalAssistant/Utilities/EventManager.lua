@@ -204,6 +204,11 @@ local function RefreshAllEventRegistrations()
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
         end
+
+        if PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting() or PAJMenuFunctions.getKeybindingDestroyItemSetting() then
+            -- initialize enabled/visible hooks on inventory items
+            PAJ.KeybindStrip.initHooksOnInventoryItems()
+        end
     end
 
 
