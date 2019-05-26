@@ -6,6 +6,7 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJunk
+local _hooksOnInventoryItemsInitialized = false
 
 local function _isMarkUnmarkAsJunkVisible()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
@@ -123,19 +124,24 @@ end
 
 -- initialises the "OnMouseEnter" and "OnMouseExit" hooks, as well as adds creates Keybind Strip Button
 local function initHooksOnInventoryItems()
-    ZO_PreHook("ZO_InventorySlot_OnMouseEnter", function(inventorySlot)
-        if inventorySlot.slotControlType == "listSlot" and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
-            _onMouseEnter(inventorySlot)
-        end
-    end)
+    if not _hooksOnInventoryItemsInitialized then
+        _hooksOnInventoryItemsInitialized = true
+        ZO_PreHook("ZO_InventorySlot_OnMouseEnter", function(inventorySlot)
+            if inventorySlot.slotControlType == "listSlot" and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
+                _onMouseEnter(inventorySlot)
+            end
+        end)
 
-    ZO_PreHook("ZO_InventorySlot_OnMouseExit", function(inventorySlot)
-        if inventorySlot.slotControlType == "listSlot" and inventorySlot.dataEntry and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
-            _onMouseExit(inventorySlot)
-        end
-    end)
+        ZO_PreHook("ZO_InventorySlot_OnMouseExit", function(inventorySlot)
+            if inventorySlot.slotControlType == "listSlot" and inventorySlot.dataEntry and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
+                _onMouseExit(inventorySlot)
+            end
+        end)
 
-    KEYBIND_STRIP:AddKeybindButtonGroup(PAJunkButtonGroup)
+        KEYBIND_STRIP:AddKeybindButtonGroup(PAJunkButtonGroup)
+    else
+        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnInventoryItems]")
+    end
 end
 
 local function toggleItemMarkedAsJunk()

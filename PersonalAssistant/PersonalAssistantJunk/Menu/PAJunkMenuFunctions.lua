@@ -201,17 +201,22 @@ local PAJunkMenuFunctions = {
     getJewelryIncludeUnknownTraitsSetting = function() return getValue({"Jewelry", "autoMarkUnknownTraits"}) end,
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
 
+    -- ----------------------------------------------------------------------------------
+    -- KEYBINDINGS
+    -- -----------------------------
     isKeybindingsMenuDisabled = function() return isDisabledAll({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}, {"KeyBindings", "showDestroyItemKeybind"}) end,
-    isKeybindingMarkUnmarkAsJunkDisabled = false, -- TODO: todo
+
+
+    isKeybindingMarkUnmarkAsJunkDisabled = false,
     getKeybindingMarkUnmarkAsJunkSetting = function() return getValue({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
-    setKeybindingMarkUnmarkAsJunkSetting = function(value) setValue(value, {"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
-    isKeybindingDestroyItemDisabled = false, -- TODO: todo
+    setKeybindingMarkUnmarkAsJunkSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
+
+    isKeybindingDestroyItemDisabled = false,
     getKeybindingDestroyItemSetting = function() return getValue({"KeyBindings", "showDestroyItemKeybind"}) end,
-    setKeybindingDestroyItemSetting = function(value) setValue(value, {"KeyBindings", "showDestroyItemKeybind"}) end,
+    setKeybindingDestroyItemSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showDestroyItemKeybind"}) end,
     isDestroyItemQualityThresholdDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
     getDestroyItemQualityThresholdSetting = function() return getValue({"KeyBindings", "destroyItemQualityThreshold"}) end,
     setDestroyItemQualityThresholdSetting = function(value) setValue(value, {"KeyBindings", "destroyItemQualityThreshold"}) end,
-
     isDestroyExcludeUnknownItemsDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
     getDestroyExcludeUnknownItemsSetting = function() return getValue({"KeyBindings", "destroyExcludeUnknownItems"}) end,
     setDestroyExcludeUnknownItemsSetting = function(value) setValue(value, {"KeyBindings", "destroyExcludeUnknownItems"}) end,
