@@ -48,9 +48,6 @@ local function initAddon(_, addOnName)
 
     -- create the options with LAM-2
     PA.Junk.createOptions()
-
-    -- then register inventory hooks
-    PA.Junk.KeybindStrip.initHooksOnInventoryItems()
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)

@@ -45,6 +45,13 @@ local PAJunkMenuDefaults = {
 
     autoSellJunk = true,
 
+    KeyBindings = {
+        showMarkUnmarkAsJunkKeybind = true,
+        showDestroyItemKeybind = false,
+        destroyItemQualityThreshold = ITEM_QUALITY_LEGENDARY,
+        destroyExcludeUnknownItems = false,
+    },
+
     silentMode = false,
 }
 

@@ -202,6 +202,26 @@ local PAJunkMenuFunctions = {
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
 
     -- ----------------------------------------------------------------------------------
+    -- KEYBINDINGS
+    -- -----------------------------
+    isKeybindingsMenuDisabled = function() return isDisabledAll({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}, {"KeyBindings", "showDestroyItemKeybind"}) end,
+
+
+    isKeybindingMarkUnmarkAsJunkDisabled = false,
+    getKeybindingMarkUnmarkAsJunkSetting = function() return getValue({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
+    setKeybindingMarkUnmarkAsJunkSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
+
+    isKeybindingDestroyItemDisabled = false,
+    getKeybindingDestroyItemSetting = function() return getValue({"KeyBindings", "showDestroyItemKeybind"}) end,
+    setKeybindingDestroyItemSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showDestroyItemKeybind"}) end,
+    isDestroyItemQualityThresholdDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
+    getDestroyItemQualityThresholdSetting = function() return getValue({"KeyBindings", "destroyItemQualityThreshold"}) end,
+    setDestroyItemQualityThresholdSetting = function(value) setValue(value, {"KeyBindings", "destroyItemQualityThreshold"}) end,
+    isDestroyExcludeUnknownItemsDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
+    getDestroyExcludeUnknownItemsSetting = function() return getValue({"KeyBindings", "destroyExcludeUnknownItems"}) end,
+    setDestroyExcludeUnknownItemsSetting = function(value) setValue(value, {"KeyBindings", "destroyExcludeUnknownItems"}) end,
+
+    -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK
     -- -----------------------------
     isAutoSellJunkDisabled = function() return isDisabled() end, -- currently always enabled
