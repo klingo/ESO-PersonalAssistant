@@ -181,6 +181,11 @@ local PAGenericStrings = {
     -- Operators --
     SI_PA_REL_OPERATOR = "> %s",
     SI_PA_REL_NONE = "-",
+    SI_PA_REL_EQUAL = "==",
+    SI_PA_REL_LESSTHAN = "<", -- not used so far
+    SI_PA_REL_LESSTHANOREQUAL = "<=",
+    SI_PA_REL_GREATERTHAN = ">", -- not used so far
+    SI_PA_REL_GREATERTHANOREQUAL = ">=",
 }
 
 for key, value in pairs(PAGenericStrings) do

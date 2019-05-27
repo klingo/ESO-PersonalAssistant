@@ -1,16 +1,15 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="500" y="400" />
+            <Dimensions x="700" y="200" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
                 <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
-                <Button name="$(parent)CloseXButton" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="CENTER">
-                    <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-20" offsetY="20" />
-                    <Dimensions x="48" y="48" />
-                    <Textures normal="/esoui/art/hud/radialicon_cancel_up.dds" mouseOver="/esoui/art/hud/radialicon_cancel_over.dds" />
+                <Button name="$(parent)Close" inherits="ZO_CloseButton">
+                    <Anchor point="TOPRIGHT" offsetX="-10" offsetY="10" />
+                    <Dimensions x="24" y="24" />
                     <OnClicked>
                         PABankingAddCustomRuleWindow:SetHidden(true)
                     </OnClicked>
@@ -20,55 +19,56 @@
                     <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
                 </Label>
 
-                <Label name="$(parent)Description" font="ZoFontGame" text="Some Test Label">
+                <Label name="$(parent)DescriptionLabel" font="ZoFontGame" text="Add custom rule">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10"/>
                 </Label>
 
                 <Control name="$(parent)BagDropdown" inherits="ZO_ComboBox">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)Description" relativePoint="BOTTOMLEFT" offsetY="10"/>
-                    <Dimensions x="100"/>
-                    <OnInitialized>
-                        ZO_ComboBox:New(self)
-                    </OnInitialized>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)DescriptionLabel" relativePoint="BOTTOMLEFT" offsetY="10"/>
+                    <Dimensions x="140" y="30"/>
                 </Control>
 
                 <Control name="$(parent)MathOperatorDropdown" inherits="ZO_ComboBox">
                     <Anchor point="LEFT" relativeTo="$(parent)BagDropdown" relativePoint="RIGHT" offsetX="10"/>
-                    <Dimensions x="100"/>
-                    <OnInitialized>
-                        ZO_ComboBox:New(self)
-                    </OnInitialized>
+                    <Dimensions x="80" y="30"/>
                 </Control>
 
                 <Backdrop name="$(parent)AmountEditBg" inherits="ZO_EditBackdrop">
                     <Anchor point="LEFT" relativeTo="$(parent)MathOperatorDropdown" relativePoint="RIGHT" offsetX="10"/>
-                    <Dimensions x="100"/>
+                    <Dimensions x="60"/>
                     <Controls>
-                        <EditBox name="$(parent)AmountEdit" inherits="ZO_DefaultEditForBackdrop ZO_EditDefaultText">
+                        <EditBox name="$(parent)AmountEdit" inherits="ZO_DefaultEditForBackdrop ZO_EditDefaultText" maxInputCharacters="4" textType="NUMERIC">
                         </EditBox>
                     </Controls>
                 </Backdrop>
 
-                <Label name="$(parent)IconX" font="ZoFontGame" text="x">
+                <Label name="$(parent)MultiplicationLabel" font="ZoFontGame" text="x">
                     <Anchor point="LEFT" relativeTo="$(parent)AmountEditBg" relativePoint="RIGHT" offsetX="10"/>
                 </Label>
 
-
-                <Control name="$(parent)Item" mouseEnabled="true">
-                    <Anchor point="LEFT" relativeTo="$(parent)IconX" relativePoint="RIGHT" offsetX="10"/>
-                    <Dimensions x="64" y="64"/>
+                <Control name="$(parent)ItemControl">
+                    <Anchor point="LEFT" relativeTo="$(parent)MultiplicationLabel" relativePoint="RIGHT" offsetX="10"/>
+                    <Dimensions x="48" y="48"/>
                     <Controls>
-                        <Texture name="$(parent)ItemIcon" mouseEnabled="true">
+                        <Texture name="$(parent)ItemTexture">
                             <Anchor point="TOPLEFT" relativePoint="TOPLEFT" />
                             <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" />
                         </Texture>
+                        <Label name="$(parent)ItemLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT" text="Item Name" linkEnabled="true" mouseEnabled="true" wrapMode="1">
+                            <Anchor point="LEFT" relativeTo="$(parent)ItemTexture" relativePoint="RIGHT" offsetX="5"/>
+                            <Dimensions x="280" y="30" />
+                            <OnLinkMouseUp>
+                                ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
+                            </OnLinkMouseUp>
+                        </Label>
                     </Controls>
                 </Control>
 
                 <Button name="$(parent)_ButtonPostCombatStatic" inherits="ZO_DefaultButton">
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
                     <Controls>
-                        <Label name="$(parent)TextAgain" font="ZoFontGame" text="Some Test Button">
+                        <Label name="$(parent)TextAgain" font="ZoFontGame" text="Add new rule" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                            <Dimensions x="160" y="30" />
                             <Anchor point="CENTER" />
                         </Label>
                     </Controls>

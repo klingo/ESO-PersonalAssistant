@@ -12,9 +12,6 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
 
     -- TODO: check settings and prepare entrylist
     zo_callLater(function()
---        AddCustomMenuItem("Custom Menu Item", function() d("test") end)
---        ShowMenu(inventorySlot)
-
         local entries = {
             {
                 label = "Mark as permanent junk",
@@ -33,25 +30,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
 --                disabled = function(rootMenu, childControl) return true end,
             }
         }
-        --    ClearMenu()
         AddCustomSubMenuItem("PA Banking", entries)
-
-
---        ZO_CreateStringId("SI_BINDING_NAME_SHOW_POPUP", "Show in Popup")
---        local function AddItem(inventorySlot, slotActions)
---            local valid = ZO_Inventory_GetBagAndIndex(inventorySlot)
---            if not valid then return end
---            slotActions:AddCustomSlotAction(SI_BINDING_NAME_SHOW_POPUP, function()
---                local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
---                local itemLink = GetItemLink(bagId, slotIndex)
---                ZO_PopupTooltip_SetLink(itemLink)
---            end , "")
---        end
---
---        LCM:RegisterContextMenu(AddItem, LCM.CATEGORY_PRIMARY)
---
-
-
     end, 50)
 end
 
@@ -102,7 +81,6 @@ local function initHooksOnInventoryContextMenu()
                 if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM or slotType == SLOT_TYPE_GUILD_BANK_ITEM then
                     local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
                     local itemLink = GetItemLink(bagId, slotIndex)
-                    d(itemLink)
                     _addDynamicContextMenuEntries(itemLink, inventorySlot)
                 end
 
