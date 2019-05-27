@@ -19,18 +19,39 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
             {
                 label = "Mark as permanent junk",
                 callback = function() d("Test 1") end,
+                disabled = function(rootMenu, childControl) return true end,
             },
             {
                 label = "-",
             },
             {
                 label = "Add custom banking rule",
-                callback = function() d("Test 2") end,
-                disabled = function(rootMenu, childControl) return true end,
+                callback = function()
+                    PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                    PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
+                end,
+--                disabled = function(rootMenu, childControl) return true end,
             }
         }
         --    ClearMenu()
         AddCustomSubMenuItem("PA Banking", entries)
+
+
+--        ZO_CreateStringId("SI_BINDING_NAME_SHOW_POPUP", "Show in Popup")
+--        local function AddItem(inventorySlot, slotActions)
+--            local valid = ZO_Inventory_GetBagAndIndex(inventorySlot)
+--            if not valid then return end
+--            slotActions:AddCustomSlotAction(SI_BINDING_NAME_SHOW_POPUP, function()
+--                local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
+--                local itemLink = GetItemLink(bagId, slotIndex)
+--                ZO_PopupTooltip_SetLink(itemLink)
+--            end , "")
+--        end
+--
+--        LCM:RegisterContextMenu(AddItem, LCM.CATEGORY_PRIMARY)
+--
+
+
     end, 50)
 end
 
@@ -78,10 +99,10 @@ local function initHooksOnInventoryContextMenu()
                 -- TODO: if settings are turned ON, then
                 local slotType = ZO_InventorySlot_GetType(inventorySlot)
                 d("slotType=".._getSlotTypeName(slotType))
-                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM or
-                        slotType == SLOT_TYPE_GUILD_BANK_ITEM then
+                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM or slotType == SLOT_TYPE_GUILD_BANK_ITEM then
                     local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
                     local itemLink = GetItemLink(bagId, slotIndex)
+                    d(itemLink)
                     _addDynamicContextMenuEntries(itemLink, inventorySlot)
                 end
 

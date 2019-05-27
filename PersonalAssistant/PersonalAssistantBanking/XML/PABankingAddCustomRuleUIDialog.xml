@@ -58,18 +58,11 @@
                     <Anchor point="LEFT" relativeTo="$(parent)IconX" relativePoint="RIGHT" offsetX="10"/>
                     <Dimensions x="64" y="64"/>
                     <Controls>
-                        <Texture name="$(parent)ItemIcon" textureFile="esoui/art/icons/ava_siege_weapon_001.dds" mouseEnabled="true">
+                        <Texture name="$(parent)ItemIcon" mouseEnabled="true">
                             <Anchor point="TOPLEFT" relativePoint="TOPLEFT" />
                             <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" />
                         </Texture>
                     </Controls>
-                    <OnMouseEnter>
-                        <!--MasterMerchant:HeaderToolTip(self, GetString(SK_ITEM_TOOLTIP))-->
-                        PersonalAssistant.CustomDialogs.showTooltip(self)
-                    </OnMouseEnter>
-                    <OnMouseExit>
-                        ClearTooltip(InformationTooltip)
-                    </OnMouseExit>
                 </Control>
 
                 <Button name="$(parent)_ButtonPostCombatStatic" inherits="ZO_DefaultButton">
