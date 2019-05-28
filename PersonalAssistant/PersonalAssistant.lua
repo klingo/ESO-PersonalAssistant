@@ -94,6 +94,7 @@ local function initAddon(_, addOnName)
         SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
         SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
         SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+        SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showDebugInformationWindow() end
 --    end
 end
 

@@ -1,0 +1,33 @@
+<GuiXml>
+    <Controls>
+        <TopLevelControl name="PADebugWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
+            <Dimensions x="600" y="1000" />
+            <Anchor point="CENTER" offsetY="-100"/>
+            <Controls>
+
+                <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
+
+                <Button name="$(parent)Close" inherits="ZO_CloseButton">
+                    <Anchor point="TOPRIGHT" offsetX="-10" offsetY="10" />
+                    <Dimensions x="24" y="24" />
+                    <OnClicked>
+                        PADebugWindow:SetHidden(true)
+                    </OnClicked>
+                </Button>
+
+                <Label name="$(parent)Header" font="ZoFontAnnounceMedium" text="|cFFD700P|rersonal|cFFD700A|rssistant: Debug Window">
+                    <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+                </Label>
+
+                <Backdrop name="$(parent)DebugBg" inherits="ZO_MultiLineEditBackdrop_Keyboard">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10" />
+                    <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="-10" />
+                    <Controls>
+                        <EditBox name="$(parent)DebugEdit" inherits="ZO_DefaultEditMultiLineForBackdrop" maxInputCharacters="9999" editEnabled="false"/>
+                    </Controls>
+                </Backdrop>
+
+            </Controls>
+        </TopLevelControl>
+    </Controls>
+</GuiXml>

@@ -30,6 +30,10 @@ Utilities/HelperFunctions.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
 
+# Debug Window
+Utilities/XML/DebugWindow.lua
+Utilities/XML/DebugWindow.xml
+
 # Settings
 Menu/MenuDefaults.lua
 Menu/MenuFunctions.lua
