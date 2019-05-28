@@ -188,7 +188,12 @@ end
 -- the same like println, except that it only prints it if debug is on
 local function debugln(key, ...)
     if PA.debug then
-        println(key, ...)
+        local textKey = GetString(key)
+        if textKey ~= nil and textKey ~= "" then
+            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(textKey, ...))
+        else
+            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(key, ...))
+        end
     end
 end
 

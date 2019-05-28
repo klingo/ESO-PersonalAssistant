@@ -222,8 +222,14 @@ end
 function PA.toggleDebug(newStatus)
     PA.debug = newStatus
     if newStatus then
-        PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
+        PA.DebugWindow.showDebugOutputWindow()
+        if GetUnitName("player") == PACAddon.AUTHOR then
+            PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
+        end
     else
-        PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+        PA.DebugWindow.hideDebugOutputWindow()
+        if GetUnitName("player") == PACAddon.AUTHOR then
+            PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+        end
     end
 end

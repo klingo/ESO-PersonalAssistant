@@ -4,7 +4,6 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-
 local function showDebugInformationWindow()
     local window = PADebugWindow
 
@@ -30,11 +29,11 @@ local function showDebugInformationWindow()
     debugEditControl:InsertLine("HasActiveProfile="..tostring(PAHF.hasActiveProfile()))
 
     -- Enabled addons
-    debugEditControl:InsertLine("PABanking="..tostring(PA.Banking ~= nil))
-    debugEditControl:InsertLine("PAJunk="..tostring(PA.Junk ~= nil))
-    debugEditControl:InsertLine("PALoot="..tostring(PA.Loot ~= nil))
-    debugEditControl:InsertLine("PAMail="..tostring(PA.Mail ~= nil))
-    debugEditControl:InsertLine("PARepair="..tostring(PA.Repair ~= nil))
+    debugEditControl:InsertLine("PA.Banking="..tostring(PA.Banking ~= nil))
+    debugEditControl:InsertLine("PA.Junk="..tostring(PA.Junk ~= nil))
+    debugEditControl:InsertLine("PA.Loot="..tostring(PA.Loot ~= nil))
+    debugEditControl:InsertLine("PA.Mail="..tostring(PA.Mail ~= nil))
+    debugEditControl:InsertLine("PA.Repair="..tostring(PA.Repair ~= nil))
     debugEditControl:InsertBreak()
 
     -- SavedVars
@@ -57,14 +56,59 @@ local function showDebugInformationWindow()
     debugEditControl:InsertLine("autoRepairEnabled="..tostring(PARepairSavedVars.autoRepairEnabled))
     debugEditControl:InsertLine(table.concat({"RepairEquipped.repairWithGold=", tostring(PARepairSavedVars.RepairEquipped.repairWithGold), " - ", tostring(PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)}))
     debugEditControl:InsertLine(table.concat({"RepairInventory.repairWithGold=", tostring(PARepairSavedVars.RepairInventory.repairWithGold), " - ", tostring(PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)}))
+    local PARMenuFunctions = PA.MenuFunctions.PARepair
+    debugEditControl:InsertLine("PARMenuFunctions="..tostring(istable(PARMenuFunctions)))
+    debugEditControl:InsertLine("getAutoRepairEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairEnabledSetting()))
+    debugEditControl:InsertLine("getRepairWithGoldSetting="..tostring(PARMenuFunctions.getRepairWithGoldSetting()))
+    debugEditControl:InsertLine("getRepairInventoryWithGoldSetting="..tostring(PARMenuFunctions.getRepairInventoryWithGoldSetting()))
+    debugEditControl:InsertBreak()
+
+    local PAJMenuFunctions = PA.MenuFunctions.PAJunk
+    debugEditControl:InsertLine("PAJMenuFunctions="..tostring(istable(PAJMenuFunctions)))
+    debugEditControl:InsertLine("getAutoSellJunkSetting="..tostring(PAJMenuFunctions and PAJMenuFunctions.getAutoSellJunkSetting()))
 
     -- show the window
     window:SetHidden(false)
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local debugOutputEditControl
+
+local function printToDebugOutputWindow(text)
+    debugOutputEditControl:InsertLine(GetTimeString().." | "..text)
+end
+
+local function showDebugOutputWindow()
+    local window = PADebugOutputWindow
+
+    local debugBgControl = window:GetNamedChild("DebugBg")
+    if not debugOutputEditControl then debugOutputEditControl = debugBgControl:GetNamedChild("DebugEdit") end
+
+    function debugOutputEditControl:InsertLine(text)
+        debugOutputEditControl:InsertText("\n"..text)
+    end
+    function debugOutputEditControl:InsertBreak()
+        debugOutputEditControl:InsertText("\n---------------------------------------------------------------------------")
+    end
+
+    -- First reset and header
+    debugOutputEditControl:SetText("PersonalAssistant Debug Output - "..os.date())
+    debugOutputEditControl:InsertBreak()
+
+    window:SetHidden(false)
+end
+
+local function hideDebugOutputWindow()
+    local window = PADebugOutputWindow
+    window:SetHidden(true)
+end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.DebugWindow = {
-    showDebugInformationWindow = showDebugInformationWindow
+    printToDebugOutputWindow = printToDebugOutputWindow,
+    showDebugInformationWindow = showDebugInformationWindow,
+    showDebugOutputWindow = showDebugOutputWindow,
+    hideDebugOutputWindow = hideDebugOutputWindow
 }
