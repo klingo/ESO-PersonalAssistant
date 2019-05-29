@@ -1,3 +1,7 @@
+2.3.2   (May 30, 2019)
+- add keybinding shortcut to directly destroy items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/139"]#139[/URL])
+- add additional debugging capabilities ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/140"]#140[/URL])
+
 2.3.1   (May 25, 2019)
 - improved patching logic for changes in the SavedVars ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/137"]#137[/URL])
 

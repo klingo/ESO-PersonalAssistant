@@ -14,7 +14,7 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Crafting materials can be withdrawn from and deposited to your bank (if you are not ESO Plus Subscriber)
 [*]Other selected items such as motives, recipes, writs, glyphs, trophies etc. can be withdrawn from and deposited to your bank
 [*]Select if items with [Intricate] trait should be transferred from/to the bank
-[*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory or the bank [COLOR=Orange]*UPDATED* (2.3.0)[/COLOR]
+[*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory or the bank
 [*]Be always ready for Cyrodiil and define how many AvA items to keep in inventory[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
@@ -22,9 +22,9 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Items with the "sell to merchant" information can be marked as junk
 [*]Treasures (such as the ones found when stealing) can be marked as junk
 [*]Items with [Ornate] trait can be marked as junk
-[*]Weapons, Armor, Jewelries, or Glyphs below a certain quality level can be marked as junk (quality threshold can be defined) [COLOR=Orange]*UPDATED* (2.3.0)[/COLOR]
+[*]Weapons, Armor, Jewelries, or Glyphs below a certain quality level can be marked as junk (quality threshold can be defined)
 [*]Junk can be sold at merchants and fences
-[*]Use a keybinding shortcut to mark items as junk much easier[/LIST]
+[*]Save time and use keybinding shortcuts to mark items as junk or directly destroy them [COLOR=Orange]*UPDATED* (2.3.2)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA L[/COLOR][COLOR=White]oot[/COLOR][/SIZE][LIST]
 [*]Informs you when an unknown recipe is looted
