@@ -118,8 +118,7 @@ local function showDebugOutputWindow()
         _debugOutputWindow.timeline:PlayFromStart()
     end
 
-    -- clear the bufferControl and then init it with some text
-    _bufferDebugOutputControl:Clear()
+    -- init the bufferControl with some text and the current os-date/time
     _bufferDebugOutputControl:AddMessage("PersonalAssistant Debug Output - "..os.date(), 1, 1/255*140, 0)
 
     _debugOutputWindow:SetHidden(false)
