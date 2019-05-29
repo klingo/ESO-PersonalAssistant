@@ -4,8 +4,10 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local _debugOutputWindow = PADebugOutputWindow
 local _debugWindow = PADebugWindow
+
+local _debugOutputWindow = PADebugOutputWindow
+local _debugOutputWindowTimeline
 local _bufferDebugOutputControl
 local _sliderDebugOutputControl
 
@@ -108,6 +110,13 @@ end
 local function showDebugOutputWindow()
     if not _bufferDebugOutputControl then _bufferDebugOutputControl = _debugOutputWindow:GetNamedChild("Buffer") end
     if not _sliderDebugOutputControl then _sliderDebugOutputControl = _debugOutputWindow:GetNamedChild("Slider") end
+    if not _debugOutputWindow.timeline then
+        _debugOutputWindow.timeline = ANIMATION_MANAGER:CreateTimeline()
+        _debugOutputWindow.animation = _debugOutputWindow.timeline:InsertAnimation(ANIMATION_ALPHA, _debugOutputWindow, 3000) -- fade delay
+        _debugOutputWindow.animation:SetAlphaValues(1, 0)
+        _debugOutputWindow.animation:SetDuration(500) -- duration
+        _debugOutputWindow.timeline:PlayFromStart()
+    end
 
     -- clear the bufferControl and then init it with some text
     _bufferDebugOutputControl:Clear()

@@ -34,7 +34,7 @@
         <TopLevelControl name="PADebugOutputWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true" resizeHandleSize="1">
             <Dimensions x="600" y="500" />
             <DimensionConstraints minX="500" minY="180" />
-            <Anchor point="TOPLEFT" offsetY="40"/>
+            <Anchor point="TOPLEFT" offsetY="60"/>
             <Controls>
 
                 <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
@@ -55,6 +55,7 @@
                     <DimensionConstraints minX="440" minY="120" />
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10" />
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-10" />
+                    <LineFade fadeBegin="30" fadeDuration="2" />
                     <OnLinkMouseUp>
                         ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
                     </OnLinkMouseUp>
@@ -70,6 +71,14 @@
                             sliderControl:SetValue(numHistoryLines - scrollPosition)
                         end
                     </OnMouseWheel>
+                    <OnMouseEnter>
+                        -- ScriptArguments: local self = ..
+                        PADebugOutputWindow.timeline:Stop()
+                        PADebugOutputWindow:SetAlpha(1)
+                    </OnMouseEnter>
+                    <OnMouseExit>
+                        PADebugOutputWindow.timeline:PlayFromStart()
+                    </OnMouseExit>
                 </TextBuffer>
 
                 <Slider name="$(parent)Slider" mouseEnabled="true" step="1" hidden="true">
@@ -89,6 +98,17 @@
                 </Slider>
 
             </Controls>
+            <OnResizeStop>
+                local bufferControl = self:GetNamedChild("Buffer")
+                local numHistoryLines = bufferControl:GetNumHistoryLines()
+                local numVisibleLines = bufferControl:GetNumVisibleLines()
+                local sliderControl = self:GetNamedChild("Slider")
+                if numHistoryLines > numVisibleLines then
+                    sliderControl:SetHidden(false)
+                else
+                    sliderControl:SetHidden(true)
+                end
+            </OnResizeStop>
         </TopLevelControl>
     </Controls>
 </GuiXml>
