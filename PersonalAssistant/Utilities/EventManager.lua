@@ -143,6 +143,10 @@ local function listAllEventsInSet()
     d("----------------------------------------------------")
 end
 
+local function getAllReventsInSet()
+    return _registeredIdentifierSet
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function RefreshAllEventRegistrations()
@@ -363,6 +367,7 @@ end
 -- Export
 PA.EventManager = {
     listAllEventsInSet = listAllEventsInSet,
+    getAllReventsInSet = getAllReventsInSet,
     addFunctionToQueue = addFunctionToQueue,
     executeNextFunctionInQueue = executeNextFunctionInQueue,
     RegisterForEvent = RegisterForEvent,
