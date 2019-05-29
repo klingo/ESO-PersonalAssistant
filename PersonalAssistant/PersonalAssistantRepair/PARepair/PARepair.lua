@@ -97,6 +97,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnShopOpen()
+    PAHF.debugln("PARepair.OnShopOpen")
     if PAHF.hasActiveProfile() then
         -- check if store can repair
         if CanStoreRepair() then
