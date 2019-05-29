@@ -185,7 +185,7 @@ local function println(text, ...)
     end
 end
 
--- the same like println, except that it only prints it if debug is on
+-- write the provided key/text into the debug Output window (WHITE font)
 local function debugln(key, ...)
     if PA.debug then
         local textKey = GetString(key)

@@ -2,6 +2,7 @@
     <Controls>
         <TopLevelControl name="PADebugWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true" resizeHandleSize="10">
             <Dimensions x="600" y="800" />
+            <DimensionConstraints minX="500" minY="150" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
@@ -31,8 +32,9 @@
         </TopLevelControl>
 
         <TopLevelControl name="PADebugOutputWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true" resizeHandleSize="1">
-            <Dimensions x="600" y="800" />
-            <Anchor point="TOPLEFT"/>
+            <Dimensions x="600" y="500" />
+            <DimensionConstraints minX="500" minY="180" />
+            <Anchor point="TOPLEFT" offsetY="40"/>
             <Controls>
 
                 <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
@@ -41,7 +43,7 @@
                     <Anchor point="TOPRIGHT" offsetX="-10" offsetY="10" />
                     <Dimensions x="24" y="24" />
                     <OnClicked>
-                        PADebugOutputWindow:SetHidden(true)
+                        PersonalAssistant.DebugWindow.hideDebugOutputWindow()
                     </OnClicked>
                 </Button>
 
@@ -49,13 +51,42 @@
                     <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
                 </Label>
 
-                <Backdrop name="$(parent)DebugBg" inherits="ZO_MultiLineEditBackdrop_Keyboard">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10" />
-                    <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="-10" />
-                    <Controls>
-                        <EditBox name="$(parent)DebugEdit" inherits="ZO_DefaultEditMultiLineForBackdrop" maxInputCharacters="99999" editEnabled="false"/>
-                    </Controls>
-                </Backdrop>
+                <TextBuffer name="$(parent)Buffer" font="ZoFontChat" maxHistoryLines="200" mouseEnabled="true" linkEnabled="true">
+                    <DimensionConstraints minX="440" minY="120" />
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10" />
+                    <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-10" />
+                    <OnLinkMouseUp>
+                        ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
+                    </OnLinkMouseUp>
+                    <OnMouseWheel>
+                        -- ScriptArguments: local self, delta, ctrl, alt, shift, command = ...
+                        local numHistoryLines = self:GetNumHistoryLines()
+                        local numVisibleLines = self:GetNumVisibleLines()
+                        if numHistoryLines > numVisibleLines then
+                            local linesToScroll = 1
+                            local scrollPosition = self:GetScrollPosition() + delta * linesToScroll
+                            local sliderControl = self:GetParent():GetNamedChild("Slider")
+                            self:SetScrollPosition(scrollPosition)
+                            sliderControl:SetValue(numHistoryLines - scrollPosition)
+                        end
+                    </OnMouseWheel>
+                </TextBuffer>
+
+                <Slider name="$(parent)Slider" mouseEnabled="true" step="1" hidden="true">
+                    <Dimensions x="20" y="40" />
+                    <Anchor point="TOPRIGHT" offsetX="-20" offsetY="40" />
+                    <Anchor point="BOTTOMRIGHT" offsetX="-5" offsetY="-10" />
+                    <ThumbTexture textureFile="/esoui/art/miscellaneous/scrollbox_elevator.dds" disabledTextureFile="/esoui/art/miscellaneous/scrollbox_elevator.dds" highlightedTextureFile="/esoui/art/miscellaneous/scrollbox_elevator.dds" thumbWidth="16" thumbHeight="24" left="0" top="0" bottom="1" right="1" />
+                    <OnValueChanged>
+                        -- ScriptArguments: local self, value, eventReason = ...
+                        if eventReason == EVENT_REASON_HARDWARE then
+                            local sliderValue = self:GetValue()
+                            local bufferControl = self:GetParent():GetNamedChild("Buffer")
+                            local numHistoryLines = bufferControl:GetNumHistoryLines()
+                            bufferControl:SetScrollPosition(numHistoryLines - sliderValue)
+                        end
+                    </OnValueChanged>
+                </Slider>
 
             </Controls>
         </TopLevelControl>

@@ -4,10 +4,37 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function showDebugInformationWindow()
-    local window = PADebugWindow
+local _debugOutputWindow = PADebugOutputWindow
+local _debugWindow = PADebugWindow
+local _bufferDebugOutputControl
+local _sliderDebugOutputControl
 
-    local debugBgControl = window:GetNamedChild("DebugBg")
+local function _adjustSlider(sliderControl, bufferControl)
+    local numHistoryLines = bufferControl:GetNumHistoryLines()
+    local numVisibleLines = bufferControl:GetNumVisibleLines()
+    local _, sliderMax = sliderControl:GetMinMax()
+    local sliderValue = sliderControl:GetValue()
+
+    -- update the maxValue of the slider to the number of total history lines
+    sliderControl:SetMinMax(0, numHistoryLines)
+
+    -- if slider was already at the max (i.e. at the bottom), keep it there
+    if sliderValue == sliderMax then
+        sliderControl:SetValue(numHistoryLines)
+    end
+
+    -- hide slider if all lines are visible
+    if numHistoryLines > numVisibleLines then
+        sliderControl:SetHidden(false)
+    else
+        sliderControl:SetHidden(true)
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function showStaticDebugInformationWindow()
+    local debugBgControl = _debugWindow:GetNamedChild("DebugBg")
     local debugEditControl = debugBgControl:GetNamedChild("DebugEdit")
 
     function debugEditControl:InsertLine(text)
@@ -68,47 +95,37 @@ local function showDebugInformationWindow()
     debugEditControl:InsertLine("getAutoSellJunkSetting="..tostring(PAJMenuFunctions and PAJMenuFunctions.getAutoSellJunkSetting()))
 
     -- show the window
-    window:SetHidden(false)
+    _debugWindow:SetHidden(false)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local debugOutputEditControl
-
 local function printToDebugOutputWindow(text)
-    debugOutputEditControl:InsertLine(GetTimeString().." | "..text)
+    _bufferDebugOutputControl:AddMessage(text, 1, 1, 1)
+    _adjustSlider(_sliderDebugOutputControl, _bufferDebugOutputControl)
 end
 
 local function showDebugOutputWindow()
-    local window = PADebugOutputWindow
+    if not _bufferDebugOutputControl then _bufferDebugOutputControl = _debugOutputWindow:GetNamedChild("Buffer") end
+    if not _sliderDebugOutputControl then _sliderDebugOutputControl = _debugOutputWindow:GetNamedChild("Slider") end
 
-    local debugBgControl = window:GetNamedChild("DebugBg")
-    if not debugOutputEditControl then debugOutputEditControl = debugBgControl:GetNamedChild("DebugEdit") end
+    -- clear the bufferControl and then init it with some text
+    _bufferDebugOutputControl:Clear()
+    _bufferDebugOutputControl:AddMessage("PersonalAssistant Debug Output - "..os.date(), 1, 1/255*140, 0)
 
-    function debugOutputEditControl:InsertLine(text)
-        debugOutputEditControl:InsertText("\n"..text)
-    end
-    function debugOutputEditControl:InsertBreak()
-        debugOutputEditControl:InsertText("\n---------------------------------------------------------------------------")
-    end
-
-    -- First reset and header
-    debugOutputEditControl:SetText("PersonalAssistant Debug Output - "..os.date())
-    debugOutputEditControl:InsertBreak()
-
-    window:SetHidden(false)
+    _debugOutputWindow:SetHidden(false)
 end
 
 local function hideDebugOutputWindow()
-    local window = PADebugOutputWindow
-    window:SetHidden(true)
+    _debugOutputWindow:SetHidden(true)
+    PA.toggleDebug(false)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.DebugWindow = {
+    showStaticDebugInformationWindow = showStaticDebugInformationWindow,
     printToDebugOutputWindow = printToDebugOutputWindow,
-    showDebugInformationWindow = showDebugInformationWindow,
     showDebugOutputWindow = showDebugOutputWindow,
     hideDebugOutputWindow = hideDebugOutputWindow
 }

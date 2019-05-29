@@ -31,8 +31,8 @@ Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
 
 # Debug Window
-Utilities/XML/DebugWindow.lua
 Utilities/XML/DebugWindow.xml
+Utilities/XML/DebugWindow.lua
 
 # Settings
 Menu/MenuDefaults.lua
