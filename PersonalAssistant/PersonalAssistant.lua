@@ -220,16 +220,18 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 end
 
 function PA.toggleDebug(newStatus)
-    PA.debug = newStatus
-    if newStatus then
-        PA.DebugWindow.showDebugOutputWindow()
-        if GetUnitName("player") == PACAddon.AUTHOR then
-            PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
-        end
-    else
-        PA.DebugWindow.hideDebugOutputWindow()
-        if GetUnitName("player") == PACAddon.AUTHOR then
-            PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+    if PA.debug ~= newStatus then
+        PA.debug = newStatus
+        if newStatus then
+            PA.DebugWindow.showDebugOutputWindow()
+            if GetUnitName("player") == PACAddon.AUTHOR then
+                PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
+            end
+        else
+            PA.DebugWindow.hideDebugOutputWindow()
+            if GetUnitName("player") == PACAddon.AUTHOR then
+                PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+            end
         end
     end
 end
