@@ -89,7 +89,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                         -- if item has arrived or bank window is closed stop the interval; in first case proceed with the next item
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local moveFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debugln('Item transaction took approx. %d ms', moveFinishGameTime - moveStartGameTime)
+                        PAB.debugln('Item transaction took approx. %d ms', moveFinishGameTime - moveStartGameTime)
                         -- check if the bank has been closed in the meanwhile
                         if PA.WindowStates.isBankClosed then
                             -- as per current observations, the transfer always finishes even if the bank has ben clsoed before verification
@@ -117,7 +117,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                                 else
                                     -- nothing else that can be moved; done
                                     -- TODO: end message?
-                                    PAHF.debugln("2) all done!")
+                                    PAB.debugln("2) all done!")
                                     PAB.isBankTransferBlocked = false
                                     -- Execute the function queue
                                     PAEM.executeNextFunctionInQueue(PAB.AddonName)
@@ -180,7 +180,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
         local itemLink = GetItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex, LINK_STYLE_BRACKETS)
         local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
         local stackToMove = overruleStackToMove or sourceStack
-        PAHF.debugln("try to move %d x %s", stackToMove, itemLink)
+        PAB.debugln("try to move %d x %s", stackToMove, itemLink)
 
         for toBagCacheIndex, toBagItemData in pairs(toBagCache) do
             if _isSameItem(fromBagItemData, toBagItemData) then
@@ -252,7 +252,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
             if stackToMove and stackToMove > 0 then
                 fromBagItemData.customStackToMove = stackToMove
                 fromBagItemData.customStackToMoveOriginal = sourceStack
-                PAHF.debugln("not moved: %d / %d x %s (need new stack)", stackToMove, sourceStack, itemLink)
+                PAB.debugln("not moved: %d / %d x %s (need new stack)", stackToMove, sourceStack, itemLink)
                 table.insert(notMovedItemsTable, fromBagItemData)
             end
         end
@@ -320,7 +320,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
                     savedBagStack = targetBagStack
                     local singleItemBagCache = {}
                     table.insert(singleItemBagCache, itemData)
-                    PAHF.debugln("Only deposit: "..tostring(moveableStack))
+                    PAB.debugln("Only deposit: "..tostring(moveableStack))
                     _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, otherBagCache, true, toBeMovedItemsTable, moveableStack)
                 else
                     -- No deposit needed (yet)
@@ -346,7 +346,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
                     savedBagStack = savedBagStack + moveableStack
                     local singleItemBagCache = {}
                     table.insert(singleItemBagCache, itemData)
-                    PAHF.debugln("Only withdraw: "..tostring(moveableStack))
+                    PAB.debugln("Only withdraw: "..tostring(moveableStack))
                     _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, configuredBagCache, true, toBeMovedItemsTable, moveableStack)
                 else
                     -- No withdrawal needed (anymore)
@@ -361,7 +361,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
-        PAHF.debugln("1) all done!")
+        PAB.debugln("1) all done!")
         PAB.isBankTransferBlocked = false
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
@@ -373,8 +373,8 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     local toBeMovedItemsTable = {}
     local toBeMovedAgainTable = {}
 
-    PAHF.debugln("#toDepositBagCache = "..tostring(#depositFromBagCache))
-    PAHF.debugln("#toWithdrawBagCache = "..tostring(#withdrawalFromBagCache))
+    PAB.debugln("#toDepositBagCache = "..tostring(#depositFromBagCache))
+    PAB.debugln("#toWithdrawBagCache = "..tostring(#withdrawalFromBagCache))
 
     -- update the StacksAllowed options from the SavedVars
     -- TODO: Challenge this, as it does not make sense for Glyphs and Treasure Maps
@@ -392,7 +392,7 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
-        PAHF.debugln("1) all done!")
+        PAB.debugln("1) all done!")
         PAB.isBankTransferBlocked = false
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)

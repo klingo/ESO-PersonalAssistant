@@ -199,7 +199,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
                     else
                         -- Recipe is already known; do nothing for now
-                        PAHF.debugln("known recipe looted: %s", itemLink)
+                        PAL.debugln("known recipe looted: %s", itemLink)
                     end
                 end
 
@@ -213,7 +213,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
                         else
                             -- Motif is already known; do nothing for now
-                            PAHF.debugln("known motif looted: %s", itemLink)
+                            PAL.debugln("known motif looted: %s", itemLink)
                         end
                     end
                 end
@@ -229,7 +229,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAL.println(SI_PA_CHAT_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
                     else
                         -- Trait already researched
-                        PAHF.debugln("item with known trait looted: %s", itemLink)
+                        PAL.debugln("item with known trait looted: %s", itemLink)
                     end
                 end
 
@@ -243,7 +243,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
                     else
                         -- Style Page already known; do nothing for know
-                        PAHF.debugln("known style page looted: %s", itemLink)
+                        PAL.debugln("known style page looted: %s", itemLink)
                     end
                 end
             end
@@ -289,7 +289,7 @@ local function UpdateNumBagUsedSlots(eventCode)
             local passedGameTime = GetGameTimeMilliseconds() - startGameTime
             if nowUsedSlots ~= beforeUsedSlots or passedGameTime > GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS then
                 EVENT_MANAGER:UnregisterForUpdate(identifier)
-                PAHF.debugln('UpdateNumBagUsedSlots took approx. %d ms (%d -> %d)', passedGameTime, _prevUsedSlots, nowUsedSlots)
+                PAL.debugln('UpdateNumBagUsedSlots took approx. %d ms (%d -> %d)', passedGameTime, _prevUsedSlots, nowUsedSlots)
                 _prevUsedSlots = nowUsedSlots
             end
         end)

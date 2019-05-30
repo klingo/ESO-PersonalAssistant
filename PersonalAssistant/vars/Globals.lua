@@ -73,6 +73,16 @@ PersonalAssistant.Constants = {
         PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk: ", "|r"}),
     },
 
+    COLORED_TEXTS_DEBUG = {
+        PA = table.concat({"|cFFFFFF", "PA", "|r", ": "}),
+        PAG = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "G", "|r", ": "}),
+        PAB = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "B", "|r", ": "}),
+        PAR = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "R", "|r", ": "}),
+        PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r", ": "}),
+        PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r", ": "}),
+        PAJ = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "J", "|r", ": "}),
+    },
+
     ICONS = {
         TEXTURE_COORDS = {
             MEDIUM = {0.125, 0.875, 0.125, 0.875},

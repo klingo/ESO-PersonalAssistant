@@ -58,7 +58,7 @@ end
 
 local function depositOrWithdrawCraftingItems()
 
-    PAHF.debugln("PA.Banking.depositOrWithdrawCraftingItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawCraftingItems")
 
     if PAB.SavedVars.Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
         -- check if bankTransfer is already blocked
@@ -81,7 +81,7 @@ local function depositOrWithdrawCraftingItems()
                     depositItemTypes:insert(itemType)
                 else
                     _someItemskippedForLWC = true
-                    PAHF.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
+                    PAB.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 withdrawItemTypes:insert(itemType)
