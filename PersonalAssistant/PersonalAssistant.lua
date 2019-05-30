@@ -94,6 +94,7 @@ local function initAddon(_, addOnName)
         SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
         SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
         SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+        SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showStaticDebugInformationWindow() end
 --    end
 end
 
@@ -219,10 +220,18 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 end
 
 function PA.toggleDebug(newStatus)
-    PA.debug = newStatus
-    if newStatus then
-        PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
-    else
-        PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+    if PA.debug ~= newStatus then
+        PA.debug = newStatus
+        if newStatus then
+            PA.DebugWindow.showDebugOutputWindow()
+            if GetUnitName("player") == PACAddon.AUTHOR then
+                PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
+            end
+        else
+            PA.DebugWindow.hideDebugOutputWindow()
+            if GetUnitName("player") == PACAddon.AUTHOR then
+                PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+            end
+        end
     end
 end

@@ -4,6 +4,9 @@
             <Action name="PA_JUNK_TOGGLE_ITEM">
                 <Down>PersonalAssistant.Junk.KeybindStrip.toggleItemMarkedAsJunk()</Down>
             </Action>
+            <Action name="PA_JUNK_DESTROY_ITEM">
+                <Down>PersonalAssistant.Junk.KeybindStrip.destroyItemNoWarning()</Down>
+            </Action>
         </Category>
     </Layer>
 </Bindings>

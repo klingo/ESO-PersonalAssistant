@@ -38,6 +38,15 @@ local PAMenuChoices = {
             GetString(SI_PA_QUALITY_SUPERIOR),
             GetString(SI_PA_QUALITY_EPIC),
 --            GetString(SI_PA_QUALITY_LEGENDARY),
+        },
+        qualityLevelReverse = {
+            GetString(SI_PA_QUALITY_DISABLED),
+            GetString(SI_PA_QUALITY_LEGENDARY),
+            GetString(SI_PA_QUALITY_EPIC),
+            GetString(SI_PA_QUALITY_SUPERIOR),
+            GetString(SI_PA_QUALITY_FINE),
+            GetString(SI_PA_QUALITY_NORMAL),
+            GetString(SI_PA_QUALITY_TRASH),
         }
     },
     PALoot = {
@@ -85,6 +94,15 @@ local PAMenuChoicesValues = {
             ITEM_QUALITY_ARCANE,        -- 3
             ITEM_QUALITY_ARTIFACT,      -- 4
 --            ITEM_QUALITY_LEGENDARY,     -- 5
+        },
+        qualityLevelReverse = {
+            PAC.ITEM_QUALITY.DISABLED_REVERSE,  -- 99 (disabled)
+            ITEM_QUALITY_LEGENDARY,     -- 5
+            ITEM_QUALITY_ARTIFACT,      -- 4
+            ITEM_QUALITY_ARCANE,        -- 3
+            ITEM_QUALITY_MAGIC,         -- 2
+            ITEM_QUALITY_NORMAL,        -- 1
+            ITEM_QUALITY_TRASH,         -- 0
         }
     },
     PALoot = {

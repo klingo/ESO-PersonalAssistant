@@ -143,6 +143,10 @@ local function listAllEventsInSet()
     d("----------------------------------------------------")
 end
 
+local function getAllReventsInSet()
+    return _registeredIdentifierSet
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function RefreshAllEventRegistrations()
@@ -203,6 +207,11 @@ local function RefreshAllEventRegistrations()
             -- Unregister PAJunk Mailbox Check
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
+        end
+
+        if PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting() or PAJMenuFunctions.getKeybindingDestroyItemSetting() then
+            -- initialize enabled/visible hooks on inventory items
+            PAJ.KeybindStrip.initHooksOnInventoryItems()
         end
     end
 
@@ -275,7 +284,7 @@ local function RefreshAllEventRegistrations()
             -- Register for GoldRepair
             if PARMenuFunctions.getRepairWithGoldSetting() or PARMenuFunctions.getRepairInventoryWithGoldSetting() then
                 -- check if AutoSellJunk is also enabled
-                if PAMenuFunctions.PAJunk and PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
+                if PA.Junk and PAMenuFunctions.PAJunk and PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
                     -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
                     RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
                 else
@@ -358,6 +367,7 @@ end
 -- Export
 PA.EventManager = {
     listAllEventsInSet = listAllEventsInSet,
+    getAllReventsInSet = getAllReventsInSet,
     addFunctionToQueue = addFunctionToQueue,
     executeNextFunctionInQueue = executeNextFunctionInQueue,
     RegisterForEvent = RegisterForEvent,
