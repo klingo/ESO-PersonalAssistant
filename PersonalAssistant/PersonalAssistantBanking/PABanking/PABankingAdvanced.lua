@@ -36,7 +36,7 @@ end
 
 local function depositOrWithdrawAdvancedItems()
 
-    PAHF.debugln("PA.Banking.depositOrWithdrawAdvancedItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawAdvancedItems")
 
     if PAB.SavedVars.Advanced.advancedItemsEnabled then
         -- check if bankTransfer is already blocked
@@ -97,7 +97,7 @@ local function depositOrWithdrawAdvancedItems()
                     combinedDepositLists.itemTypes:insert(itemType)
                 else
                     _someItemskippedForLWC = true
-                    PAHF.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
+                    PAB.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 combinedWithdrawLists.itemTypes:insert(itemType)

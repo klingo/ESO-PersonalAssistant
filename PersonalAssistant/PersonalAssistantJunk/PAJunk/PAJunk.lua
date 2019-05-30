@@ -56,7 +56,7 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
 
             if moneyDiff > 0 or itemCountInBagDiff > 0 or passedGameTime > GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS then
                 EVENT_MANAGER:UnregisterForUpdate(identifier)
-                PAHF.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
+                PAJ.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
 
                 if itemCountInBagDiff > 0 then
                     -- at lesat one item was sold (although it might have been worthless)
@@ -85,6 +85,7 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
 end
 
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
+    PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
         -- then check if the item can be sold; if not don't mark it as junk (i.e. Kari's Hit List Relics)
@@ -349,6 +350,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                 local itemType, specializedItemType = GetItemType(bagId, slotIndex)
                 local itemQuality = GetItemQuality(bagId, slotIndex)
+
+                PAJ.debugln("OnInventorySingleSlotUpdate - Check if to be junked: %s", itemLink)
 
                 -- first check for regular Trash
                 if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then

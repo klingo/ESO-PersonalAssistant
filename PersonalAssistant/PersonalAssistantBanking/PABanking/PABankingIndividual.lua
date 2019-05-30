@@ -9,7 +9,7 @@ local PAEM = PA.EventManager
 
 local function depositOrWithdrawIndividualItems()
 
-    PAHF.debugln("PA.Banking.depositOrWithdrawIndividualItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawIndividualItems")
 
     if PAB.SavedVars.Individual.individualItemsEnabled then
 
@@ -35,8 +35,8 @@ local function depositOrWithdrawIndividualItems()
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
-        PAHF.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
-        PAHF.debugln("#bankBagCache = "..tostring(#bankBagCache))
+        PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+        PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
 
         -- trigger the individual itemTransactions
         PAB.doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache)

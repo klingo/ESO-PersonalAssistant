@@ -73,7 +73,7 @@ end
 
 local function depositOrWithdrawCurrencies()
 
-    PAHF.debugln("PA.Banking.depositOrWithdrawCurrencies")
+    PAB.debugln("PA.Banking.depositOrWithdrawCurrencies")
 
     if PAB.SavedVars.Currencies.currenciesEnabled then
         local currencies = {

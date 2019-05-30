@@ -127,7 +127,7 @@ local function initHooksOnInventoryItems()
     if not _hooksOnInventoryItemsInitialized then
         _hooksOnInventoryItemsInitialized = true
         ZO_PreHook("ZO_InventorySlot_OnMouseEnter", function(inventorySlot)
-            if inventorySlot.slotControlType == "listSlot" and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
+            if inventorySlot.slotControlType == "listSlot" and inventorySlot.dataEntry and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
                 _onMouseEnter(inventorySlot)
             end
         end)

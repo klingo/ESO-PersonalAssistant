@@ -40,7 +40,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
             if hasDurability then
                 local itemCondition = GetItemCondition(bagId, slotIndex)
                 local repairKitThreshold = PARepairSavedVars.RepairEquipped.repairWithRepairKitThreshold
-                PAHF.debugln("%s is at %d/%d", GetItemName(bagId, slotIndex), itemCondition, 100)
+                PAR.debugln("%s is at %d/%d", GetItemName(bagId, slotIndex), itemCondition, 100)
                 -- check if it is below and would need to be repaired
                 if itemCondition <= repairKitThreshold then
                     local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
@@ -49,7 +49,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
                         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 
                         -- some debug information
-                        PAHF.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
+                        PAR.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
 
                         -- actually repair the item
                         RepairItemWithRepairKit(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
@@ -87,7 +87,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
             end
         end
     else
-        PAHF.debugln("RepairEquippedItemWithRepairKit.isPlayerDeadOrReincarnating (caught!)")
+        PAR.debugln("RepairEquippedItemWithRepairKit.isPlayerDeadOrReincarnating (caught!)")
     end
 end
 

@@ -9,7 +9,7 @@ local PAEM = PA.EventManager
 
 local function depositOrWithdrawAvAItems()
 
-    PAHF.debugln("PA.Banking.depositOrWithdrawAvAItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawAvAItems")
 
     if PAB.SavedVars.AvA.avaItemsEnabled then
         -- check if bankTransfer is already blocked
@@ -49,8 +49,8 @@ local function depositOrWithdrawAvAItems()
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
-        PAHF.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
-        PAHF.debugln("#bankBagCache = "..tostring(#bankBagCache))
+        PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+        PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
 
         -- trigger the individual itemTransactions
         PAB.doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache)

@@ -20,6 +20,12 @@ local function println(text, ...)
     end
 end
 
+-- wrapper method that prefixes the addon shortname
+local function debugln(text, ...)
+    local addonText = PAC.COLORED_TEXTS_DEBUG.PAJ .. text
+    PAHF.debugln(addonText, ...)
+end
+
 -- init default values
 local function initDefaults()
     local PAMenuDefaults = PA.MenuDefaults
@@ -57,5 +63,6 @@ PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 -- Export
 PA.Junk = {
     AddonName = AddonName,
-    println = println
+    println = println,
+    debugln = debugln
 }
