@@ -5,7 +5,8 @@ local PACAddon = PAC.ADDON
 local PARMenuFunctions = PA.MenuFunctions.PARepair
 local PARMenuDefaults = PA.MenuDefaults.PARepair
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PARepairPanelData = {
     type = "panel",
@@ -264,8 +265,8 @@ local function createOptions()
     _createPARRepairKitSubmenuTable()
     _createPARRechargeSubmenuTable()
 
-    LAM2:RegisterAddonPanel("PersonalAssistantRepairAddonOptions", PARepairPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantRepairAddonOptions", PARepairOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantRepairAddonOptions", PARepairPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantRepairAddonOptions", PARepairOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

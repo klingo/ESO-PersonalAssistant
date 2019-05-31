@@ -7,7 +7,8 @@ local PAMenuHelper = PA.MenuHelper
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PAGeneralPanelData = {
     type = "panel",
@@ -118,15 +119,15 @@ end
 
 local function createOptions()
     -- first check for the latest version of the LAM2-submenu widget that is needed for disabledLabel
-    local lamSubmenuVersion = LAM2.widgets.submenu or 0
+    local lamSubmenuVersion = PA.LAM2.widgets.submenu or 0
     if lamSubmenuVersion < 13 then
         zo_callLater(function() PAHF.println(SI_PA_LAM_OUTDATED) end, 5000)
     end
 
     -- Create and register the General Menu
     createPAGeneralMenu()
-    LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", PAGeneralOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", PAGeneralOptionsTable)
 end
 
 -- Export

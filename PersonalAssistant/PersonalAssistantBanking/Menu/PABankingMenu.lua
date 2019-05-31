@@ -11,7 +11,8 @@ local PABMenuChoiceTooltip = PA.MenuChoices.choicesTooltips.PABanking
 local PABMenuDefaults = PA.MenuDefaults.PABanking
 local PABMenuFunctions = PA.MenuFunctions.PABanking
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PABankingPanelData = {
     type = "panel",
@@ -1507,8 +1508,8 @@ local function createOptions()
     _createPABAvARepairSubmenuTable()
     _createPABAvAOtherSubmenuTable()
 
-    LAM2:RegisterAddonPanel("PersonalAssistantBankingAddonOptions", PABankingPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantBankingAddonOptions", PABankingPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

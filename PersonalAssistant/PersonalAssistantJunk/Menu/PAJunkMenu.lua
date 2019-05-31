@@ -9,7 +9,8 @@ local PAJMenuChoicesValues = PA.MenuChoices.choicesValues.PAJunk
 local PAJMenuDefaults = PA.MenuDefaults.PAJunk
 local PAJMenuFunctions = PA.MenuFunctions.PAJunk
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PAJunkPanelData = {
     type = "panel",
@@ -541,8 +542,8 @@ local function createOptions()
 
     _createPAJKeybindingsSubMenu()
 
-    LAM2:RegisterAddonPanel("PersonalAssistantJunkAddonOptions", PAJunkPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantJunkAddonOptions", PAJunkOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantJunkAddonOptions", PAJunkPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantJunkAddonOptions", PAJunkOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

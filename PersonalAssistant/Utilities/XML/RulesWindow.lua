@@ -114,8 +114,9 @@ local function _createTabsForScene()
 end
 
 local function _initLibMainMenu()
-    local LMM2 = LibMainMenu2 or LibStub("LibMainMenu-2.0")
-    LMM2:Init()
+    -- Create the LibMainMenu object
+    PA.LMM2 = PA.LMM2 or LibMainMenu2 or LibStub("LibMainMenu-2.0")
+    PA.LMM2:Init()
 
     -- Add to main menu
     local categoryLayoutInfo =
@@ -137,7 +138,7 @@ local function _initLibMainMenu()
         disabled = "esoui/art/inventory/inventory_tabicon_crafting_disabled.dds",
     }
 
-    LMM2:AddMenuItem(_RulesWindowDescriptor, _RulesWindowSceneName, categoryLayoutInfo, nil)
+    PA.LMM2:AddMenuItem(_RulesWindowDescriptor, _RulesWindowSceneName, categoryLayoutInfo, nil)
 
     -- TODO: restore selection or descriptor
     local PABModeMenuBarControl = PersonalAssistantRulesWindow:GetNamedChild("ModeMenuBar")

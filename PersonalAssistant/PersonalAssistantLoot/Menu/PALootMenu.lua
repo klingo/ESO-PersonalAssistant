@@ -7,7 +7,8 @@ local PALMenuChoices = PA.MenuChoices.choices.PALoot
 local PALMenuChoicesValues = PA.MenuChoices.choicesValues.PALoot
 local PALMenuDefaults = PA.MenuDefaults.PALoot
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PALootPanelData = {
     type = "panel",
@@ -418,8 +419,8 @@ local function createOptions()
     _createPALMarkMotifsSubmenuTable()
     _createPALMarkApparelWeaponsSubmenuTable()
 
-    LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
