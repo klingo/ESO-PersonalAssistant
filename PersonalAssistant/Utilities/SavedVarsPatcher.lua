@@ -189,7 +189,7 @@ end
 
 local function applyPatchIfNeeded()
     -- first unregister the event again
-    PAEM.UnregisterForEvent(PACAddon.NAME_RAW.GENERAL, EVENT_PLAYER_ACTIVATED, "SavedVarsPatcher")
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "SavedVarsPatcher")
 
     -- Patch 2.0.3      April 24, 2019
     _applyPatch_2_0_3(_getIsPatchNeededInfo(020003))

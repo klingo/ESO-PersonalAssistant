@@ -71,7 +71,7 @@ local function initAddon(_, addOnName)
     end
 
     -- addon load started - unregister event
-    PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED)
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, "AddonInit")
 
     -- initialize the default and player/alliance values
     _initDefaults()
@@ -104,7 +104,7 @@ end
 
 -- introduces the addon to the player
 local function introduction()
-    PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "Introduction")
 
     if PA.activeProfile == nil then
         PAHF.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
@@ -127,9 +127,9 @@ local function introduction()
     end
 end
 
-PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon)
-PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction)
-PAEM.RegisterForEvent(PACAddon.NAME_RAW.GENERAL, EVENT_PLAYER_ACTIVATED, PASVP.applyPatchIfNeeded, "SavedVarsPatcher")
+PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction, "Introduction")
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PASVP.applyPatchIfNeeded, "SavedVarsPatcher")
 
 -- =====================================================================================================================
 -- Dev-Debug --
