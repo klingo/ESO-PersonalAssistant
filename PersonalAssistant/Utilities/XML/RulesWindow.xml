@@ -1,0 +1,66 @@
+<GuiXml>
+    <Controls>
+        <TopLevelControl name="PersonalAssistantRulesWindow" inherits="ZO_RightPanelFootPrint" hidden="true">
+            <Dimensions x="612" y="588" />
+            <Controls>
+
+                <Control name="$(parent)ModeMenu" inherits="ZO_SceneMenu">
+                    <Anchor point="TOPRIGHT" relativeTo="ZO_SharedRightPanelBackground" offsetX="-40"/>
+                    <Dimensions x="550"/>
+                </Control>
+
+                <Control name="$(parent)BankingRules">
+                    <Anchor point="TOPLEFT" />
+                    <Anchor point="BOTTOMRIGHT" />
+                    <Controls>
+                        <Label name="$(parent)Header" font="ZoFontAnnounceMedium" text="PABanking Rules are here">
+                            <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+                        </Label>
+
+                        <Button name="$(parent)_ButtonPostCombatStatic" inherits="ZO_DefaultButton">
+                            <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
+                            <OnMouseDown>
+                                    d("BANKING mouse down")
+                            </OnMouseDown>
+                            <Controls>
+                                <Label name="$(parent)TextAgain" font="ZoFontGame" text="Add new rule BANK" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                                    <Dimensions x="160" y="30" />
+                                    <Anchor point="CENTER" />
+                                </Label>
+                            </Controls>
+                        </Button>
+                    </Controls>
+                </Control>
+
+                <Control name="$(parent)JunkRules" hidden="true">
+                    <Anchor point="TOPLEFT" />
+                    <Anchor point="BOTTOMRIGHT" />
+                    <Controls>
+                        <Label name="$(parent)Header" font="ZoFontAnnounceMedium" text="PAJunk Rules are here">
+                            <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+                            <OnMouseDown>
+                                d("JUNK mouse enter")
+                            </OnMouseDown>
+                        </Label>
+
+                        <Button name="$(parent)_ButtonPostCombatStatic" inherits="ZO_DefaultButton">
+                            <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
+                            <OnMouseDown>
+                                    d("JUNK mouse down")
+                            </OnMouseDown>
+                            <Controls>
+                                <Label name="$(parent)TextAgain" font="ZoFontGame" text="Add new rule JUNK" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                                    <Dimensions x="160" y="30" />
+                                    <Anchor point="CENTER" />
+                                </Label>
+                            </Controls>
+                        </Button>
+
+
+                    </Controls>
+                </Control>
+
+            </Controls>
+        </TopLevelControl>
+    </Controls>
+</GuiXml>

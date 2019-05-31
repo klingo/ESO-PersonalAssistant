@@ -82,12 +82,15 @@ local function initAddon(_, addOnName)
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, PA.General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.Profile_Defaults)
 
+    -- get the active Profile
+    PA.activeProfile = PASavedVars.Profile.activeProfile
+
     -- create the options with LAM-2
     local PAMainMenu = PA.MainMenu
     PAMainMenu.createOptions()
 
-    -- get the active Profile
-    PA.activeProfile = PASavedVars.Profile.activeProfile
+    -- create the main menu entry with LMM-2
+    PA.CustomDialogs.initRulesMainMenu()
 
     -- register additional slash-commands (only for Addon author)
 --    if GetUnitName("player") == PACAddon.AUTHOR then
@@ -95,10 +98,6 @@ local function initAddon(_, addOnName)
         SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
         SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
         SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showStaticDebugInformationWindow() end
-        SLASH_COMMANDS["/patest"] = function()
-            PA.CustomDialogs.initAddCustomRuleUIDIalog()
-            PA.CustomDialogs.showAddCustomRuleUIDialog()
-        end
 --    end
 end
 
