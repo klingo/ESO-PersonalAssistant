@@ -9,7 +9,7 @@
                     <Dimensions x="550"/>
                 </Control>
 
-                <Control name="$(parent)BankingRules">
+                <Control name="$(parent)BankingRulesTab">
                     <Anchor point="TOPLEFT" />
                     <Anchor point="BOTTOMRIGHT" />
                     <Controls>
@@ -32,7 +32,7 @@
                     </Controls>
                 </Control>
 
-                <Control name="$(parent)JunkRules" hidden="true">
+                <Control name="$(parent)JunkRulesTab" hidden="true">
                     <Anchor point="TOPLEFT" />
                     <Anchor point="BOTTOMRIGHT" />
                     <Controls>

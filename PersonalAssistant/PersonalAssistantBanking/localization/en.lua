@@ -67,6 +67,13 @@ local PABStrings = {
 
 
     -- =================================================================================================================
+    -- == MAIN MENU TEXTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_PA_MAINMENU_BANKING_HEADER = "Banking Rules",
+
+
+    -- =================================================================================================================
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
@@ -83,16 +90,6 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
     SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = table.concat({PAC.COLORED_TEXTS.PAB, "Some items were NOT deposited to avoid potential interferences with Dolgubon's Lazy Writ Crafter"}),
-
-
-    -- =================================================================================================================
-    -- == KEY BINDINGS == --
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PAJunk --
-    SI_BINDING_NAME_PA_RULES_MENU = "PersonalAssistant Rules",
-    SI_BINDING_NAME_PA_BANKING_RULES_MENU = "PA Banking Rules",
-    -- TODO: move to PAJunk and make work without it!
-    SI_BINDING_NAME_PA_JUNK_RULES_MENU = "PA Junk Rules",
 }
 
 for key, value in pairs(PABStrings) do

@@ -6,22 +6,31 @@ local PA = PersonalAssistant
 local _RulesWindowSceneName = "PersonalAssistantRulesWindowScene"
 local _RulesWindowSceneGroupName = "PersonalAssistantRuleWindowSceneGroup"
 local _RulesWindowDescriptor = "PersonalAssistantRules"
-local _RulesWindowBankingDescriptor = "PersonalAssistantBankingRules"
-local _RulesWindowJunkDescriptor = "PersonalAssistantJunkRules"
+local _RulesWindowBankingTabDescriptor = "PersonalAssistantBankingRules"
+local _RulesWindowJunkTabDescriptor = "PersonalAssistantJunkRules"
 
-local BankingRulesControl = PersonalAssistantRulesWindow:GetNamedChild("BankingRules")
-local JunkRulesControl = PersonalAssistantRulesWindow:GetNamedChild("JunkRules")
+local window = PersonalAssistantRulesWindow
+local BankingRulesTabControl = window:GetNamedChild("BankingRulesTab")
+local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
+
+-- store tha last shown tab (for current game session only)
+local _lastShownRulesTabDescriptor
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _usePABankingRulesWindow()
-    BankingRulesControl:SetHidden(false)
-    JunkRulesControl:SetHidden(true)
+local function _showPABankingRulesTab()
+    BankingRulesTabControl:SetHidden(false)
+    JunkRulesTabControl:SetHidden(true)
 end
 
-local function _usePAJunkRulesWindow()
-    BankingRulesControl:SetHidden(true)
-    JunkRulesControl:SetHidden(false)
+local function _showPAJunkRulesTab()
+    BankingRulesTabControl:SetHidden(true)
+    JunkRulesTabControl:SetHidden(false)
+end
+
+local function _getDefaultRulesTabDescriptor()
+    if PA.Banking then return _RulesWindowBankingTabDescriptor end
+    if PA.Junk then return _RulesWindowJunkTabDescriptor end
 end
 
 local function _createRulesWindowScene()
@@ -43,12 +52,11 @@ local function _createRulesWindowScene()
     PA_RULES_SCENE:AddFragment(TITLE_FRAGMENT)
 
     -- Set Title
-    ZO_CreateStringId("SI_PA_BANKING_MAIN_MENU_TITLE", "PersonalAssistant") -- TODO: extract - main title across all tabs
-    local TITLE_FRAGMENT = ZO_SetTitleFragment:New(SI_PA_BANKING_MAIN_MENU_TITLE)
+    local TITLE_FRAGMENT = ZO_SetTitleFragment:New(SI_PA_MAINMENU_RULES_HEADER)
     PA_RULES_SCENE:AddFragment(TITLE_FRAGMENT)
 
     -- Add the XML to the scene
-    local PA_RULES_FRAGMENT = ZO_FadeSceneFragment:New(PersonalAssistantRulesWindow, false, 0)
+    local PA_RULES_FRAGMENT = ZO_FadeSceneFragment:New(window, false, 0)
     PA_RULES_FRAGMENT:RegisterCallback("StateChange", function(oldState, newState)
         if newState == SCENE_FRAGMENT_SHOWING then
             d("SCENE_FRAGMENT_SHOWING")
@@ -58,6 +66,7 @@ local function _createRulesWindowScene()
             d("SCENE_FRAGMENT_HIDING")
         elseif newState == SCENE_FRAGMENT_HIDDEN then
             d("SCENE_FRAGMENT_HIDDEN")
+            ClearMenu()
         end
     end )
     PA_RULES_SCENE:AddFragment(PA_RULES_FRAGMENT)
@@ -67,50 +76,47 @@ local function _createTabsForScene()
     -- Register Scenes and the group name
     SCENE_MANAGER:AddSceneGroup(_RulesWindowSceneGroupName, ZO_SceneGroup:New(_RulesWindowSceneName))
 
-    local PABModeMenuBarControl = PersonalAssistantRulesWindow:GetNamedChild("ModeMenuBar")
-    local PABModeMenuBarLabelControl = PABModeMenuBarControl:GetNamedChild("Label")
+    local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
+    local RulesModeMenuBarLabel = RulesModeMenuBar:GetNamedChild("Label")
 
-    local function initPABankingRulesScene()
+    -- if PABanking is enabled, add the corresponding tab
+    if PA.Banking then
         local creationData = {
-            activeTabText = SI_BINDING_NAME_PA_BANKING_RULES_MENU,
-            categoryName = SI_BINDING_NAME_PA_BANKING_RULES_MENU,
-            descriptor = _RulesWindowBankingDescriptor,
+            activeTabText = SI_PA_MAINMENU_BANKING_HEADER,
+            categoryName = SI_PA_MAINMENU_BANKING_HEADER,
+            descriptor = _RulesWindowBankingTabDescriptor,
             normal = "esoui/art/inventory/inventory_tabicon_crafting_up.dds",
             pressed = "esoui/art/inventory/inventory_tabicon_crafting_down.dds",
             highlight = "esoui/art/inventory/inventory_tabicon_crafting_over.dds",
             disabled = "esoui/art/inventory/inventory_tabicon_crafting_disabled.dds",
             callback = function()
-                -- TODO: save selection
-                d("callback: PA Banking Rules")
-                _usePABankingRulesWindow()
-                PABModeMenuBarLabelControl:SetText(GetString(SI_BINDING_NAME_PA_BANKING_RULES_MENU))
+                _showPABankingRulesTab()
+                RulesModeMenuBarLabel:SetText(GetString(SI_PA_MAINMENU_BANKING_HEADER))
+                _lastShownRulesTabDescriptor = _RulesWindowBankingTabDescriptor
             end,
         }
-        ZO_MenuBar_AddButton(PABModeMenuBarControl, creationData)
+        ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
     end
 
-    local function initPAJunkRulesScene()
+    -- if PAJunk is enabled, add the corresponding tab
+    if PA.Junk then
         local creationData = {
-            activeTabText = SI_BINDING_NAME_PA_JUNK_RULES_MENU,
-            categoryName = SI_BINDING_NAME_PA_JUNK_RULES_MENU,
-            descriptor = _RulesWindowJunkDescriptor,
+            activeTabText = SI_PA_MAINMENU_JUNK_HEADER,
+            categoryName = SI_PA_MAINMENU_JUNK_HEADER,
+            descriptor = _RulesWindowJunkTabDescriptor,
             normal = "esoui/art/inventory/inventory_tabicon_junk_up.dds",
             pressed = "esoui/art/inventory/inventory_tabicon_junk_down.dds",
             highlight = "esoui/art/inventory/inventory_tabicon_junk_over.dds",
             disabled = "esoui/art/inventory/inventory_tabicon_junk_disabled.dds",
             callback = function()
-                -- TODO: save selection
-                d("callback: PA Junk Rules")
-                _usePAJunkRulesWindow()
-                PABModeMenuBarLabelControl:SetText(GetString(SI_BINDING_NAME_PA_JUNK_RULES_MENU))
+                _showPAJunkRulesTab()
+                RulesModeMenuBarLabel:SetText(GetString(SI_PA_MAINMENU_JUNK_HEADER))
+                _lastShownRulesTabDescriptor = _RulesWindowJunkTabDescriptor
             end,
         }
 
-        ZO_MenuBar_AddButton(PABModeMenuBarControl, creationData)
+        ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
     end
-
-    initPABankingRulesScene()
-    initPAJunkRulesScene()
 end
 
 local function _initLibMainMenu()
@@ -122,7 +128,7 @@ local function _initLibMainMenu()
     local categoryLayoutInfo =
     {
         binding = "PA_RULES_MENU",
-        categoryName = SI_BINDING_NAME_PA_RULES_MENU,
+        categoryName = SI_BINDING_NAME_PA_RULES_MAIN_MENU,
         callback = function(buttonData)
             if not SCENE_MANAGER:IsShowing(_RulesWindowSceneName) then
                 SCENE_MANAGER:Show(_RulesWindowSceneName)
@@ -140,26 +146,30 @@ local function _initLibMainMenu()
 
     PA.LMM2:AddMenuItem(_RulesWindowDescriptor, _RulesWindowSceneName, categoryLayoutInfo, nil)
 
-    -- TODO: restore selection or descriptor
-    local PABModeMenuBarControl = PersonalAssistantRulesWindow:GetNamedChild("ModeMenuBar")
-    ZO_MenuBar_SelectDescriptor(PABModeMenuBarControl, _RulesWindowBankingDescriptor)
-    --    ZO_MenuBar_SelectDescriptor(modeMenuBarControl, playerSettings.lastUsedTab or PotMaker.descriptorPotion)
+    local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
+    ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _lastShownRulesTabDescriptor or _getDefaultRulesTabDescriptor())
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function initRulesMainMenu()
-    -- Create the Main Scene
-    _createRulesWindowScene()
+    -- at least either PABanking or PAJunk must be acttive to create the MainMenu entry
+    if PA.Banking or PA.Junk then
+        -- Create the Main Scene
+        _createRulesWindowScene()
 
-    -- Create tabs for the scenes
-    _createTabsForScene()
+        -- Create tabs for the scenes
+        _createTabsForScene()
 
-    -- Init LibMainMenu
-    _initLibMainMenu()
+        -- Init LibMainMenu
+        _initLibMainMenu()
 
-    -- hide the "duplicate" divider
-    PersonalAssistantRulesWindow:GetNamedChild("ModeMenuDivider"):SetHidden(true)
+        -- hide the "duplicate" divider from the ModeMenu
+        local RulesModeMenuDivider = window:GetNamedChild("ModeMenuDivider")
+        RulesModeMenuDivider:SetHidden(true)
+    else
+        PA.debugln("Neither PABanking nor PAJunk is active; don't display MainMenu entry")
+    end
 end
 
 
