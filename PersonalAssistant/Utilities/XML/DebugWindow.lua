@@ -7,7 +7,6 @@ local PAHF = PA.HelperFunctions
 local _debugWindow = PADebugWindow
 
 local _debugOutputWindow = PADebugOutputWindow
-local _debugOutputWindowTimeline
 local _bufferDebugOutputControl
 local _sliderDebugOutputControl
 
@@ -102,26 +101,43 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local _initDone = false
+local _preInitTextQueue = {}
+
 local function printToDebugOutputWindow(text)
-    _bufferDebugOutputControl:AddMessage(text, 1, 1, 1)
-    _adjustSlider(_sliderDebugOutputControl, _bufferDebugOutputControl)
+    if _bufferDebugOutputControl then
+        _bufferDebugOutputControl:AddMessage(text, 1, 1, 1)
+        _adjustSlider(_sliderDebugOutputControl, _bufferDebugOutputControl)
+    else
+        -- if buffer, for whatever reason is not initialized yet, add text to queue
+        table.insert(_preInitTextQueue, text)
+    end
 end
 
-local function showDebugOutputWindow()
-    if not _bufferDebugOutputControl then _bufferDebugOutputControl = _debugOutputWindow:GetNamedChild("Buffer") end
-    if not _sliderDebugOutputControl then _sliderDebugOutputControl = _debugOutputWindow:GetNamedChild("Slider") end
-    if not _debugOutputWindow.timeline then
+local function _initDebugOutputWindow()
+    if not _initDone then
+        _initDone = true
+        _bufferDebugOutputControl = _debugOutputWindow:GetNamedChild("Buffer")
+        _sliderDebugOutputControl = _debugOutputWindow:GetNamedChild("Slider")
         _debugOutputWindow.timeline = ANIMATION_MANAGER:CreateTimeline()
         _debugOutputWindow.animation = _debugOutputWindow.timeline:InsertAnimation(ANIMATION_ALPHA, _debugOutputWindow, 3000) -- fade delay
         _debugOutputWindow.animation:SetAlphaValues(1, 0)
         _debugOutputWindow.animation:SetDuration(500) -- duration
         _debugOutputWindow.timeline:PlayFromStart()
     end
+end
 
-    -- init the bufferControl with some text and the current os-date/time
-    _bufferDebugOutputControl:AddMessage("PersonalAssistant Debug Output - "..os.date(), 1, 1/255*140, 0)
-
+local function showDebugOutputWindow()
+    _initDebugOutputWindow()
     _debugOutputWindow:SetHidden(false)
+    -- init the bufferControl with some text and the current os-date/time
+    printToDebugOutputWindow(table.concat({"|cFFA500", "PersonalAssistant Debug Output - ", os.date(), "|r"}))
+
+    -- empty the queue if something was added
+    while #_preInitTextQueue > 0 do
+        local text = table.remove(_preInitTextQueue)
+        printToDebugOutputWindow(text)
+    end
 end
 
 local function hideDebugOutputWindow()

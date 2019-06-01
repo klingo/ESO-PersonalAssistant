@@ -9,9 +9,6 @@ local PASVP = PA.SavedVarsPatcher
 -- =====================================================================================================================
 -- =====================================================================================================================
 
--- to enable certain debug statements (ingame: /padebugon & /padebugoff)
-PA.debug = false
-
 -- other settings
 PA.AddonName = "PersonalAssistant"
 PA.activeProfile = nil -- init with nil, is populated during [initAddon]
@@ -45,6 +42,7 @@ local function _initDefaults()
 
     PA.Profile_Defaults = {
         activeProfile = nil,
+        debug = false,
     }
 end
 
@@ -82,8 +80,9 @@ local function initAddon(_, addOnName)
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, PA.General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.Profile_Defaults)
 
-    -- get the active Profile
+    -- get the active Profile and the debug setting
     PA.activeProfile = PASavedVars.Profile.activeProfile
+    PA.debug = PASavedVars.Profile.debug
 
     -- create the options with LAM-2
     local PAMainMenu = PA.MainMenu
@@ -106,6 +105,11 @@ end
 local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "Introduction")
 
+    -- display debug window on login (if turned on)
+    if PA.debug then
+        PA.DebugWindow.showDebugOutputWindow()
+    end
+
     if PA.activeProfile == nil then
         PAHF.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
@@ -125,6 +129,12 @@ local function introduction()
             end
         end
     end
+end
+
+-- wrapper method that prefixes the addon shortname
+function PA.debugln(text, ...)
+    local addonText = PAC.COLORED_TEXTS_DEBUG.PAG .. text
+    PAHF.debugln(addonText, ...)
 end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
@@ -223,8 +233,8 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 end
 
 function PA.toggleDebug(newStatus)
-    if PA.debug ~= newStatus then
-        PA.debug = newStatus
+    if PA.SavedVars.Profile.debug ~= newStatus then
+        PA.SavedVars.Profile.debug = newStatus
         if newStatus then
             PA.DebugWindow.showDebugOutputWindow()
             if GetUnitName("player") == PACAddon.AUTHOR then
