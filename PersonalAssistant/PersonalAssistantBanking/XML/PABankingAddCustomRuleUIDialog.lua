@@ -7,7 +7,7 @@ local PAHF = PA.HelperFunctions
 
 local window = PABankingAddCustomRuleWindow
 
-local OPERATOR_EQUALS = 0
+local OPERATOR_EQUALS = 1
 local OPERATOR_LESSTHANOREQUAL = 3
 local OPERATOR_GREATERTHANOREQUAL = 5
 
