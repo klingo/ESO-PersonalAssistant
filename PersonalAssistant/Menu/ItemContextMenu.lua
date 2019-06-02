@@ -4,27 +4,17 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local LCM = LibCustomMenu or LibStub("LibCustomMenu")
 local _hooksOnInventoryContextMenuInitialized = false
 
 local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
 
     local function addPABankingMenuEntries()
-        -- TODO: check settings and prepare entrylist
         zo_callLater(function()
             local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
             local itemId = GetItemLinkItemId(itemLink)
             local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
 
             local entries = {
-                {
-                    label = "Mark as permanent junk",  -- TODO: Add localization!
-                    callback = function() d("Test 1") end,
-                    disabled = function(rootMenu, childControl) return true end,
-                },
-                {
-                    label = "-",
-                },
                 {
                     label = "Add custom banking rule",  -- TODO: Add localization!
                     callback = function()
@@ -40,14 +30,42 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
                         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomItemIds[itemId])
                     end,
                     disabled = function() return not isRuleExisting end,
+                },
+                {
+                    label = "Delete custom banking rule",  -- TODO: Add localization!
+                    callback = function()
+                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                        PA.CustomDialogs.deletePABCustomRule(itemLink)
+                    end,
+                    disabled = function() return not isRuleExisting end,
                 }
             }
             AddCustomSubMenuItem("PA Banking", entries) -- TODO: Add localization!
         end, 50)
     end
 
-    if PA.Banking then
+    local function addPAJunkMenuEntries()
+        zo_callLater(function()
+            local entries = {
+                {
+                    label = "Mark as permanent junk",  -- TODO: Add localization!
+                    callback = function() d("Test 1") end,
+                    disabled = function(rootMenu, childControl) return true end,
+                },
+                {
+                    label = "-",
+                },
+            }
+            AddCustomSubMenuItem("PA Junk", entries) -- TODO: Add localization!
+        end, 50)
+    end
+
+    if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
         addPABankingMenuEntries()
+    end
+
+    if PA.Junk then
+        addPAJunkMenuEntries()
     end
 end
 

@@ -154,6 +154,20 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
     window:SetHidden(false)
 end
 
+local function deletePABCustomRule(itemLink)
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    local itemId = GetItemLinkItemId(itemLink)
+    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+        -- is in table, delete rule
+        PABCustomItemIds[itemId] = nil
+        -- TODO: confirmation message
+        df("RULE deleted for %s", itemLink)
+    else
+        -- TODO: error, rule not existing
+        d("ERROR; rule not existing, cannot be deleted")
+    end
+end
+
 local function addCustomRuleClicked(isUpdate)
     local amountEditBgControl = window:GetNamedChild("AmountEditBg")
     local amountEditControl = amountEditBgControl:GetNamedChild("AmountEdit")
@@ -169,6 +183,7 @@ local function addCustomRuleClicked(isUpdate)
         PABCustomItemIds[itemId] = {
             operator = bankingOperator,
             bagAmount = targetAmount,
+            itemLink = _selectedItemLink,
         }
         -- TODO: success message?
         df("RULE added/updated for %s", _selectedItemLink)
@@ -184,4 +199,5 @@ end
 PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.initPABAddCustomRuleUIDialog = initPABAddCustomRuleUIDialog
 PA.CustomDialogs.showPABAddCustomRuleUIDIalog = showPABAddCustomRuleUIDIalog
+PA.CustomDialogs.deletePABCustomRule = deletePABCustomRule
 PA.CustomDialogs.addCustomRuleClicked = addCustomRuleClicked

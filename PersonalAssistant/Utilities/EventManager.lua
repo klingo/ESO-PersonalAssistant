@@ -337,7 +337,12 @@ local function RefreshAllEventRegistrations()
     -- Cross-Addon events and hooks
     local PAItemContextMenu = PA.ItemContextMenu
     -- Register Item Context Menu
-    PAItemContextMenu.initHooksOnInventoryContextMenu()
+    local LCM = LibCustomMenu or LibStub("LibCustomMenu")
+    if LCM then
+        PAItemContextMenu.initHooksOnInventoryContextMenu()
+    else
+        PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
+    end
 end
 
 
