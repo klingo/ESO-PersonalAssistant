@@ -17,7 +17,7 @@ local function depositOrWithdrawIndividualItems()
         if PAB.isBankTransferBlocked then return end
         PAB.isBankTransferBlocked = true
 
-        -- preapre and fill the table with all individual items that needs to be transferred
+        -- prepare and fill the table with all individual items that needs to be transferred
         local individualItems = {}
         local itemIdTable = PAB.SavedVars.Individual.ItemIds
         for itemId, moveConfig in pairs(itemIdTable) do

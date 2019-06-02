@@ -229,6 +229,13 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
             local itemTagDescription, itemTagCategory = GetItemLinkItemTagInfo(itemLink, itemTagIndex)
             d("itemTagDescription="..tostring(zo_strformat("<<1>>", itemTagDescription, 1)).."      itemTagCategory="..tostring(itemTagCategory))
         end
+
+        local boundState = select(21, ZO_LinkHandler_ParseLink(itemLink))
+        local isBound = IsItemLinkBound(itemLink)
+        local isBOPAndTradeable = IsItemBoPAndTradeable(bagId, slotIndex)
+        d("boundState="..tostring(boundState))
+        d("isBound="..tostring(isBound))
+        d("isBOPAndTradeable="..tostring(isBOPAndTradeable))
     end
 end
 

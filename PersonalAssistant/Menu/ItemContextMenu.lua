@@ -13,7 +13,6 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
             local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
             local itemId = GetItemLinkItemId(itemLink)
             local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
-
             local entries = {
                 {
                     label = "Add custom banking rule",  -- TODO: Add localization!
@@ -21,6 +20,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
                     end,
+                    -- TODO: add logic to also check other itemTypes that are already covered!
                     disabled = function() return isRuleExisting end,
                 },
                 {
