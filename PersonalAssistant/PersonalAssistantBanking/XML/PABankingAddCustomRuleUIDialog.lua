@@ -182,7 +182,7 @@ local function addCustomRuleClicked(isUpdate)
     if isUpdate or not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
         PABCustomItemIds[itemId] = {
             operator = bankingOperator,
-            bagAmount = targetAmount,
+            bagAmount = tonumber(targetAmount),
             itemLink = _selectedItemLink,
         }
         -- TODO: success message?
