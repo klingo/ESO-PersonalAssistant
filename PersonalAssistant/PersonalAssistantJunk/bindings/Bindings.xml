@@ -1,6 +1,6 @@
 <Bindings>
     <Layer name="SI_KEYBINDINGS_LAYER_USER_INTERFACE_SHORTCUTS" allowFallthrough="false">
-        <Category name="Personal Assistant |cFFD700Junk|r">
+        <Category name="SI_KEYBINDINGS_CATEGORY_PA_JUNK">
             <Action name="PA_JUNK_TOGGLE_ITEM">
                 <Down>PersonalAssistant.Junk.KeybindStrip.toggleItemMarkedAsJunk()</Down>
             </Action>

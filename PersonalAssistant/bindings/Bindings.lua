@@ -24,5 +24,5 @@ PA.Bindings = {
 }
 
 for i = 1, PAC.GENERAL.MAX_PROFILES do
-    ZO_CreateStringId(table.concat({"SI_BINDING_NAME_ACTIVATE_PROFILE_", tostring(i)}), table.concat({GetString(SI_PA_KB_LOAD_PROFILE), " ", tostring(i)}))
+    ZO_CreateStringId(table.concat({"SI_BINDING_NAME_PA_ACTIVATE_PROFILE_", tostring(i)}), table.concat({GetString(SI_KEYBINDINGS_PA_LOAD_PROFILE), " ", tostring(i)}))
 end
