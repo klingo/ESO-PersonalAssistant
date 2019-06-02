@@ -26,7 +26,6 @@ local PABankingMenuDefaults = {
     },
 
     -- ---------------------------------------------
-
     Crafting = {
         craftingItemsEnabled = true,
 
@@ -125,7 +124,6 @@ local PABankingMenuDefaults = {
     },
 
     -- ---------------------------------------------
-
     Individual = {
         individualItemsEnabled = true,
 
@@ -159,6 +157,7 @@ local PABankingMenuDefaults = {
         },
     },
 
+    -- ---------------------------------------------
     AvA = {
         avaItemsEnabled = false,
 
@@ -246,7 +245,15 @@ local PABankingMenuDefaults = {
     },
 
     -- ---------------------------------------------
+    Custom = {
+        customItemsEnabled = true,
 
+        ItemIds = {
+
+        }
+    },
+
+    -- ---------------------------------------------
     lazyWritCraftingCompatiblity = true,
 
     transactionDepositStacking = PAC.STACKING.FULL,

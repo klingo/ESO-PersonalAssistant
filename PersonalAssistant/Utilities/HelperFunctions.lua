@@ -121,6 +121,15 @@ local function isValueInTable(table, value)
     return false
 end
 
+local function isKeyInTable(table, key)
+    for k in pairs(table) do
+        if k == key then
+            return true
+        end
+    end
+    return false
+end
+
 local function isPlayerDead()
     return IsUnitDead("player")
 end
@@ -256,6 +265,7 @@ PA.HelperFunctions = {
     round = round,
     roundDown = roundDown,
     isValueInTable = isValueInTable,
+    isKeyInTable = isKeyInTable,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,

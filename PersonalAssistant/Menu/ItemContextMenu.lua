@@ -7,31 +7,48 @@ local PAHF = PA.HelperFunctions
 local LCM = LibCustomMenu or LibStub("LibCustomMenu")
 local _hooksOnInventoryContextMenuInitialized = false
 
-
 local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
 
-    -- TODO: check settings and prepare entrylist
-    zo_callLater(function()
-        local entries = {
-            {
-                label = "Mark as permanent junk",
-                callback = function() d("Test 1") end,
-                disabled = function(rootMenu, childControl) return true end,
-            },
-            {
-                label = "-",
-            },
-            {
-                label = "Add custom banking rule",
-                callback = function()
-                    PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                    PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
-                end,
---                disabled = function(rootMenu, childControl) return true end,
+    local function addPABankingMenuEntries()
+        -- TODO: check settings and prepare entrylist
+        zo_callLater(function()
+            local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+            local itemId = GetItemLinkItemId(itemLink)
+            local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
+
+            local entries = {
+                {
+                    label = "Mark as permanent junk",  -- TODO: Add localization!
+                    callback = function() d("Test 1") end,
+                    disabled = function(rootMenu, childControl) return true end,
+                },
+                {
+                    label = "-",
+                },
+                {
+                    label = "Add custom banking rule",  -- TODO: Add localization!
+                    callback = function()
+                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
+                    end,
+                    disabled = function() return isRuleExisting end,
+                },
+                {
+                    label = "Edit custom banking rule",  -- TODO: Add localization!
+                    callback = function()
+                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomItemIds[itemId])
+                    end,
+                    disabled = function() return not isRuleExisting end,
+                }
             }
-        }
-        AddCustomSubMenuItem("PA Banking", entries)
-    end, 50)
+            AddCustomSubMenuItem("PA Banking", entries) -- TODO: Add localization!
+        end, 50)
+    end
+
+    if PA.Banking then
+        addPABankingMenuEntries()
+    end
 end
 
 local function _getSlotTypeName(slotType)

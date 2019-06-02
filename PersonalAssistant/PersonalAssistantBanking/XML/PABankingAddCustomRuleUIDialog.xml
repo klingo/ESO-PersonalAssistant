@@ -1,7 +1,7 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="700" y="200" />
+            <Dimensions x="700" y="180" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
@@ -38,6 +38,15 @@
                     <Dimensions x="60"/>
                     <Controls>
                         <EditBox name="$(parent)AmountEdit" inherits="ZO_DefaultEditForBackdrop ZO_EditDefaultText" maxInputCharacters="4" textType="NUMERIC">
+                            <OnTextChanged>
+                                local addRuleButtonControl = self:GetParent():GetParent():GetNamedChild("AddRuleButton")
+                                local text = self:GetText()
+                                if text and string.len(text) > 0 then
+                                    addRuleButtonControl:SetState(BSTATE_NORMAL, false)
+                                else
+                                    addRuleButtonControl:SetState(BSTATE_DISABLED, true)
+                                end
+                            </OnTextChanged>
                         </EditBox>
                     </Controls>
                 </Backdrop>
@@ -64,14 +73,32 @@
                     </Controls>
                 </Control>
 
-                <Button name="$(parent)_ButtonPostCombatStatic" inherits="ZO_DefaultButton">
+                <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
                     <Controls>
-                        <Label name="$(parent)TextAgain" font="ZoFontGame" text="Add new rule" verticalAlignment="CENTER" horizontalAlignment="CENTER">
-                            <Dimensions x="160" y="30" />
+                        <Label name="$(parent)AddRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                            <Dimensions y="30" />
                             <Anchor point="CENTER" />
                         </Label>
                     </Controls>
+                    <OnClicked>
+                        --  ScriptArguments: local self, button, ctrl, alt, shift, command = ...
+                        PersonalAssistant.CustomDialogs.addCustomRuleClicked()
+                    </OnClicked>
+                </Button>
+
+                <Button name="$(parent)UpdateRuleButton" inherits="ZO_DefaultButton" hidden="true">
+                    <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
+                    <Controls>
+                        <Label name="$(parent)UpdateRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                            <Dimensions y="30" />
+                            <Anchor point="CENTER" />
+                        </Label>
+                    </Controls>
+                    <OnClicked>
+                        --  ScriptArguments: local self, button, ctrl, alt, shift, command = ...
+                        PersonalAssistant.CustomDialogs.addCustomRuleClicked(true)
+                    </OnClicked>
                 </Button>
 
             </Controls>
