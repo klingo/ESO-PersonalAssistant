@@ -5,30 +5,44 @@
             <Controls>
 
                 <Control name="$(parent)ModeMenu" inherits="ZO_SceneMenu">
-                    <Anchor point="TOPRIGHT" relativeTo="ZO_SharedRightPanelBackground" offsetX="-40"/>
-                    <Dimensions x="550"/>
+                    <Anchor point="TOPRIGHT" relativeTo="ZO_SharedRightBackground" offsetX="-40"/>
+                    <Anchor point="TOPLEFT" relativeTo="ZO_SharedRightBackground"/>
+                    <Dimensions y="50"/>
                 </Control>
 
                 <Control name="$(parent)BankingRulesTab">
-                    <Anchor point="TOPLEFT" />
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ModeMenu" relativePoint="BOTTOMLEFT" />
                     <Anchor point="BOTTOMRIGHT" />
                     <Controls>
-                        <Label name="$(parent)Header" font="ZoFontAnnounceMedium" text="PABanking Rules are here">
-                            <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
-                        </Label>
 
-                        <Button name="$(parent)_ButtonPostCombatStatic" inherits="ZO_DefaultButton">
-                            <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
-                            <OnMouseDown>
-                                    d("BANKING mouse down")
-                            </OnMouseDown>
+                        <Control name="$(parent)Headers">
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="TOPRIGHT" />
+                            <Dimensions y="32" />
                             <Controls>
-                                <Label name="$(parent)TextAgain" font="ZoFontGame" text="Add new rule BANK" verticalAlignment="CENTER" horizontalAlignment="CENTER">
-                                    <Dimensions x="160" y="30" />
-                                    <Anchor point="CENTER" />
-                                </Label>
+                                <Control name="$(parent)BagName" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="TOPLEFT" offsetX="40" />
+                                    <Dimensions x="140" y="32" />
+                                </Control>
+                                <Control name="$(parent)MathOperator" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="100" y="32" />
+                                </Control>
+                                <Control name="$(parent)BagAmount" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="100" y="32" />
+                                </Control>
+                                <Control name="$(parent)ItemName" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="LEFT" relativeTo="$(parent)BagAmount" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions y="32" />
+                                </Control>
+                                <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="TOPRIGHT" offsetX="-10" />
+                                    <Dimensions x="160" y="32" />
+                                </Control>
                             </Controls>
-                        </Button>
+                        </Control>
+
                     </Controls>
                 </Control>
 
@@ -62,5 +76,42 @@
 
             </Controls>
         </TopLevelControl>
+
+         <!-- Full-size Banking Rule Row (virtual) -->
+        <Control name="PersonalAssistantBankingRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
+            <Dimensions x="612" y="36" />
+            <Controls>
+                <Texture name="$(parent)BG" inherits="ZO_ThinListBgStrip">
+                    <AnchorFill />
+                </Texture>
+
+                <Label name="$(parent)BagName" font="ZoFontGame" inheritAlpha="true" color="FFFFFF" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" />
+                    <Dimensions x="140" y="36" />
+                </Label>
+                <Label name="$(parent)MathOperator" font="ZoFontGame" inheritAlpha="true" color="FFFFFF" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="15" />
+                    <Dimensions x="100" y="36" />
+                </Label>
+                <Label name="$(parent)BagAmount" font="ZoFontGame" inheritAlpha="true" color="FFFFFF" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="100" y="36" />
+                </Label>
+                <Texture name="$(parent)ItemIcon" alpha="1">
+                    <Anchor point="LEFT" relativeTo="$(parent)BagAmount" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="32" y="36" />
+                    <TextureCoords left="0" right="1" top="0" bottom="1" />
+                </Texture>
+                <Label name="$(parent)ItemName" font="ZoFontGame" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemIcon" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="200" y="36" />
+                    <OnLinkMouseUp>
+                        ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
+                    </OnLinkMouseUp>
+                </Label>
+                <!-- TODO: Add Action Buttons -->
+            </Controls>
+        </Control>
+
     </Controls>
 </GuiXml>
