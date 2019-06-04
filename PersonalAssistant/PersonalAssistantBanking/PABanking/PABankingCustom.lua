@@ -22,15 +22,11 @@ local function depositOrWithdrawCustomItems()
         local itemIdTable = PAB.SavedVars.Custom.ItemIds
         for itemId, moveConfig in pairs(itemIdTable) do
             local operator = moveConfig.operator
-            d("operator ("..tostring(operator)..") ~= PAC.OPERATOR.NONE ("..tostring(PAC.OPERATOR.NONE)..")")
             if operator ~= PAC.OPERATOR.NONE then
-                d("add entry")
                 customItems[itemId] = {
                     operator = operator,
                     targetBagStack = moveConfig.bagAmount
                 }
-            else
-                d("skip entry")
             end
         end
 
