@@ -240,6 +240,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 end
 
 function PA.toggleDebug(newStatus)
+    -- check is needed to avoid endless loop (i.e. ESO crash)
     if PA.SavedVars.Profile.debug ~= newStatus then
         PA.SavedVars.Profile.debug = newStatus
         if newStatus then

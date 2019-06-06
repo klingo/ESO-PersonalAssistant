@@ -69,6 +69,7 @@ local function _createRulesWindowScene()
         elseif newState == SCENE_FRAGMENT_HIDDEN then
             d("SCENE_FRAGMENT_HIDDEN")
             ClearMenu()
+            ClearTooltip(ItemTooltip)
         end
     end )
     PA_RULES_SCENE:AddFragment(PA_RULES_FRAGMENT)
@@ -155,29 +156,21 @@ end
 
 -- --------------------------------------------------------------
 
-function PABankingRulesList:InitHeaders()
-    -- Initialise the headers
-    local headers = BankingRulesTabControl:GetNamedChild("Headers")
-    -- TODO: add localization
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), "Location", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), "Operator", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), "Amount", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), "Item", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), "Actions", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-end
-
-
--- --------------------------------------------------------------
-
-
 local TYPE_ACTIVE_RULE = 1
 
 function PABankingRulesList:InitScrollList()
-    local function onMouseEnter(rowControl)
---        HideRowHighlight(rowControl, false)
+    local function onRowMouseEnter(rowControl)
+--        hideRowHighlight(rowControl, false)
     end
-    local function onMouseExit(rowControl)
---        HideRowHighlight(rowControl, true)
+    local function onRowMouseExit(rowControl)
+--        hideRowHighlight(rowControl, true)
+    end
+    local function onItemNameMouseEnter(rowControl)
+        InitializeTooltip(ItemTooltip, rowControl)
+        ItemTooltip:SetLink(rowControl:GetText())
+    end
+    local function onItemNameMouseExit(rowControl)
+        ClearTooltip(ItemTooltip)
     end
 
     local function setupDataRow(rowControl, rowData, scrollList)
@@ -194,10 +187,12 @@ function PABankingRulesList:InitScrollList()
         itemIconControl:SetTexture(rowData.itemIcon)
 
         local itemNameControl = rowControl:GetNamedChild("ItemName")
-        itemNameControl:SetText(rowData.itemLink) -- TODO: make it a proper itemlink
+        itemNameControl:SetText(rowData.itemLink)
+        itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
+        itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
 
-        rowControl:SetHandler("OnMouseEnter", onMouseEnter)
-        rowControl:SetHandler("OnMouseExit", onMouseExit)
+        rowControl:SetHandler("OnMouseEnter", onRowMouseEnter)
+        rowControl:SetHandler("OnMouseExit", onRowMouseExit)
     end
 
     ZO_ScrollList_AddDataType(self.RecentScrollList, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, setupDataRow)
@@ -222,6 +217,17 @@ function PABankingRulesList:UpdateScrollList()
     end
 
     ZO_ScrollList_Commit(scrollList)
+end
+
+function PABankingRulesList:InitHeaders()
+    -- Initialise the headers
+    local headers = BankingRulesTabControl:GetNamedChild("Headers")
+    -- TODO: add localization
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), "Location", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), "Operator", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), "Amount", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), "Item", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), "Actions", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
 end
 
 function PABankingRulesList:SetupControls()
