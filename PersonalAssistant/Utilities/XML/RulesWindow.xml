@@ -77,13 +77,17 @@
             </Controls>
         </TopLevelControl>
 
+
+
+
+
          <!-- Full-size Banking Rule Row (virtual) -->
         <Control name="PersonalAssistantBankingRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
             <Dimensions x="612" y="36" />
             <Controls>
-                <Texture name="$(parent)BG" inherits="ZO_ThinListBgStrip">
-                    <AnchorFill />
-                </Texture>
+                <!--<Texture name="$(parent)BG" inherits="ZO_ThinListBgStrip">-->
+                    <!--<AnchorFill />-->
+                <!--</Texture>-->
 
                 <Label name="$(parent)BagName" font="ZoFontGame" inheritAlpha="true" color="FFFFFF" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="LEFT" />
@@ -102,9 +106,9 @@
                     <Dimensions x="32" y="36" />
                     <TextureCoords left="0" right="1" top="0" bottom="1" />
                 </Texture>
-                <Label name="$(parent)ItemName" font="ZoFontGame" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true">
+                <Label name="$(parent)ItemName" font="ZoFontGame" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true" wrapMode="1">
                     <Anchor point="LEFT" relativeTo="$(parent)ItemIcon" relativePoint="RIGHT" offsetX="5" />
-                    <Dimensions x="200" y="36" />
+                    <Dimensions x="300" y="36" />
                     <OnLinkMouseUp>
                         ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
                     </OnLinkMouseUp>

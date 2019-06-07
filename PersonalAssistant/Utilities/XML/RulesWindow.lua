@@ -158,6 +158,28 @@ end
 
 local TYPE_ACTIVE_RULE = 1
 
+
+function PABankingRulesList:UpdateScrollList()
+    local scrollList = self.RecentScrollList
+    local dataList = ZO_ScrollList_GetDataList(scrollList)
+
+    ZO_ScrollList_Clear(scrollList)
+
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    for _, moveConfig in pairs(PABCustomItemIds) do
+        local rowData = {
+            bagName = "BACKPACK", -- TODO
+            mathOperator = "==", -- TODO
+            bagAmount = moveConfig.bagAmount,
+            itemIcon = GetItemLinkInfo(moveConfig.itemLink),
+            itemLink = moveConfig.itemLink,
+        }
+        dataList[#dataList + 1] = ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1) -- TODO: "1" needed at end?
+    end
+
+    ZO_ScrollList_Commit(scrollList)
+end
+
 function PABankingRulesList:InitScrollList()
     local function onRowMouseEnter(rowControl)
 --        hideRowHighlight(rowControl, false)
@@ -195,28 +217,20 @@ function PABankingRulesList:InitScrollList()
         rowControl:SetHandler("OnMouseExit", onRowMouseExit)
     end
 
+--    ZO_SortFilterList.InitializeSortFilterList(self, BankingRulesTabControl)
+--    self:SetAlternateRowBackgrounds(true)
+--    self:SetAutomaticallyColorRows(true)
+--    self:SetEmptyText("No custom rules defined") -- TODO: add localization
+
+--    local list = ZO_SortFilterList:New(BankingRulesTabControl, PersonalAssistantRulesWindowBankingRulesTabList)
+--    list:SetAlternateRowBackgrounds(true)
+--    list:SetAutomaticallyColorRows(false)
+--    list:SetEmptyText("No custom rules defined") -- TODO: add localization
+
     ZO_ScrollList_AddDataType(self.RecentScrollList, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, setupDataRow)
-end
 
-function PABankingRulesList:UpdateScrollList()
-    local scrollList = self.RecentScrollList
-    local dataList = ZO_ScrollList_GetDataList(scrollList)
-
-    ZO_ScrollList_Clear(scrollList)
-
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-    for _, moveConfig in pairs(PABCustomItemIds) do
-        local rowData = {
-            bagName = "BACKPACK", -- TODO
-            mathOperator = "==", -- TODO
-            bagAmount = moveConfig.bagAmount,
-            itemIcon = GetItemLinkInfo(moveConfig.itemLink),
-            itemLink = moveConfig.itemLink,
-        }
-        dataList[#dataList + 1] = ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1) -- TODO: "1" needed at end?
-    end
-
-    ZO_ScrollList_Commit(scrollList)
+    -- does this even work?
+    ZO_ScrollList_EnableHighlight(self.RecentScrollList, "ZO_ThinListHighlight")
 end
 
 function PABankingRulesList:InitHeaders()
@@ -238,24 +252,20 @@ function PABankingRulesList:SetupControls()
         end
     end
 
-    PABankingRulesList:InitHeaders()
     local headersControl = BankingRulesTabControl:GetNamedChild("Headers")
 
     self.RecentScrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)List", BankingRulesTabControl, "ZO_ScrollList")
     self.RecentScrollList:SetAnchor(TOPLEFT, headersControl, BOTTOMLEFT, 40, 0)
     self.RecentScrollList:SetAnchor(BOTTOMRIGHT, BankingRulesTabControl, BOTTOMRIGHT, 0, 0)
 
-    self:InitScrollList()
-
     self.rulesScene = SCENE_MANAGER:GetScene(_RulesWindowSceneName)
     self.rulesScene:RegisterCallback("StateChange", RulesStateChange)
 end
 
-function PABankingRulesList:InitSettings() end
-
 function PABankingRulesList:Initialize()
     self:SetupControls()
-    self:InitSettings()
+    self:InitScrollList()
+    self:InitHeaders()
 end
 
 -- --------------------------------------------------------------
