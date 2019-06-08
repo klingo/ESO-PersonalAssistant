@@ -2,8 +2,11 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
+local PAEM = PA.EventManager
 
 local PABankingRulesList = ZO_SortFilterList:Subclass()
+PA.BankingRulesList = nil
+local TYPE_ACTIVE_RULE = 1
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -19,8 +22,6 @@ local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
 
 -- store tha last shown tab (for current game session only)
 local _lastShownRulesTabDescriptor
-
--- ---------------------------------------------------------------------------------------------------------------------
 
 local function getBagNameAndOperatorTextFromOperatorId(operatorId)
     local operator = operatorId
@@ -172,185 +173,114 @@ end
 
 -- --------------------------------------------------------------
 
-local TYPE_ACTIVE_RULE = 1
+PABankingRulesList.SORT_KEYS = {
+    ["itemName"] = {},
+    ["bagName"] = {tiebreaker="itemName"},
+    ["mathOperator"] = {tiebreaker="itemName"},
+    ["bagAmount"] = {tiebreaker="itemName"},
+}
 
 
-function PABankingRulesList:UpdateScrollList()
-    local scrollList = self.RecentScrollList
-    local dataList = ZO_ScrollList_GetDataList(scrollList)
+function PABankingRulesList:New()
+    local rules = ZO_SortFilterList.New(self, BankingRulesTabControl)
+    return rules
+end
 
-    ZO_ScrollList_Clear(scrollList)
+function PABankingRulesList:Initialize(control)
+    ZO_SortFilterList.Initialize(self, control)
 
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    self.sortHeaderGroup:SelectHeaderByKey("item")
+    ZO_SortHeader_OnMouseExit(BankingRulesTabControl:GetNamedChild("Headers"):GetNamedChild("ItemName"))
+
+    ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, function(control, data) self:SetupUnitRow(control, data) end)
+    ZO_ScrollList_EnableHighlight(self.list, "ZO_ThinListHighlight")
+    self.sortFunction = function(listEntry1, listEntry2) return ZO_TableOrderingFunction(listEntry1.data, listEntry2.data, self.currentSortKey, PABankingRulesList.SORT_KEYS, self.currentSortOrder) end
+    self:RefreshData()
+end
+
+function PABankingRulesList:FilterScrollList()
+    local scrollData = ZO_ScrollList_GetDataList(self.list)
+    ZO_ClearNumericallyIndexedTable(scrollData)
+
+--    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+    local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
+
     for _, moveConfig in pairs(PABCustomItemIds) do
         local bagName, operatorText = getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
-        d("bagName="..tostring(bagName))
-        d("operatorText="..tostring(operatorText))
         local rowData = {
             bagName = bagName,
             mathOperator = operatorText,
             bagAmount = moveConfig.bagAmount,
             itemIcon = GetItemLinkInfo(moveConfig.itemLink),
             itemLink = moveConfig.itemLink,
+            itemName = GetItemLinkName(moveConfig.itemLink)
         }
-        dataList[#dataList + 1] = ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1) -- TODO: "1" is to define a category per dataEntry (can be hidden)
+        scrollData[#scrollData + 1] = ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1) -- TODO: "1" is to define a category per dataEntry (can be hidden)
     end
-
-    ZO_ScrollList_Commit(scrollList)
 end
 
-function PABankingRulesList:InitScrollList()
-    local function onRowMouseEnter(rowControl)
---        hideRowHighlight(rowControl, false)
-    end
-    local function onRowMouseExit(rowControl)
---        hideRowHighlight(rowControl, true)
-    end
-    local function onItemNameMouseEnter(rowControl)
-        InitializeTooltip(ItemTooltip, rowControl)
-        ItemTooltip:SetLink(rowControl:GetText())
-    end
-    local function onItemNameMouseExit(rowControl)
-        ClearTooltip(ItemTooltip)
-    end
+function PABankingRulesList:SortScrollList()
+    local scrollData = ZO_ScrollList_GetDataList(self.list)
+    -- TODO: fix sortFunction
+    table.sort(scrollData, self.sortFunction)
+end
 
-    local function setupDataRow(rowControl, rowData, scrollList)
-        local bagNameControl = rowControl:GetNamedChild("BagName")
-        bagNameControl:SetText(rowData.bagName)
+function PABankingRulesList:SetupUnitRow(rowControl, rowData)
+    rowControl.data = rowData
 
-        local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
-        mathOperatorControl:SetText(rowData.mathOperator)
+    local bagNameControl = rowControl:GetNamedChild("BagName")
+    bagNameControl:SetText(rowData.bagName)
 
-        local bagAmountControl = rowControl:GetNamedChild("BagAmount")
-        bagAmountControl:SetText(rowData.bagAmount)
+    local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
+    mathOperatorControl:SetText(rowData.mathOperator)
 
-        local itemIconControl = rowControl:GetNamedChild("ItemIcon")
-        itemIconControl:SetTexture(rowData.itemIcon)
+    local bagAmountControl = rowControl:GetNamedChild("BagAmount")
+    bagAmountControl:SetText(rowData.bagAmount)
 
-        local itemNameControl = rowControl:GetNamedChild("ItemName")
-        itemNameControl:SetText(rowData.itemLink)
-        itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
-        itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
+    local itemIconControl = rowControl:GetNamedChild("ItemIcon")
+    itemIconControl:SetTexture(rowData.itemIcon)
 
-        rowControl:SetHandler("OnMouseEnter", onRowMouseEnter)
-        rowControl:SetHandler("OnMouseExit", onRowMouseExit)
-    end
+    local itemNameControl = rowControl:GetNamedChild("ItemName")
+    itemNameControl:SetText(rowData.itemLink)
+--    itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
+--    itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
 
---    ZO_SortFilterList.InitializeSortFilterList(self, BankingRulesTabControl)
---    self:SetAlternateRowBackgrounds(true)
---    self:SetAutomaticallyColorRows(true)
---    self:SetEmptyText("No custom rules defined") -- TODO: add localization
+--    rowControl:SetHandler("OnMouseEnter", onRowMouseEnter)
+--    rowControl:SetHandler("OnMouseExit", onRowMouseExit)
 
---    local list = ZO_SortFilterList:New(BankingRulesTabControl, PersonalAssistantRulesWindowBankingRulesTabList)
---    list:SetAlternateRowBackgrounds(true)
---    list:SetAutomaticallyColorRows(false)
---    list:SetEmptyText("No custom rules defined") -- TODO: add localization
-
-    ZO_ScrollList_AddDataType(self.RecentScrollList, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, setupDataRow)
-
-    -- does this even work?
-    ZO_ScrollList_EnableHighlight(self.RecentScrollList, "ZO_ThinListHighlight")
+    ZO_SortFilterList.SetupRow(self, rowControl, rowData)
 end
 
 function PABankingRulesList:InitHeaders()
     -- Initialise the headers
     local headers = BankingRulesTabControl:GetNamedChild("Headers")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), "bagName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), "bagAmount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), "itemName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
 end
 
-function PABankingRulesList:SetupControls()
-    local function RulesStateChange(oldState, newState)
-        if newState == SCENE_FRAGMENT_SHOWING then
-            d("UpdateScrollList()")
-            self:UpdateScrollList()
-        end
-    end
-
-    local headersControl = BankingRulesTabControl:GetNamedChild("Headers")
-
-    self.RecentScrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)List", BankingRulesTabControl, "ZO_ScrollList")
-    self.RecentScrollList:SetAnchor(TOPLEFT, headersControl, BOTTOMLEFT, 40, 0)
-    self.RecentScrollList:SetAnchor(BOTTOMRIGHT, BankingRulesTabControl, BOTTOMRIGHT, 0, 0)
-
-    self.rulesScene = SCENE_MANAGER:GetScene(_RulesWindowSceneName)
-    self.rulesScene:RegisterCallback("StateChange", RulesStateChange)
-end
-
-function PABankingRulesList:Initialize()
-    self:SetupControls()
-    self:InitScrollList()
-    self:InitHeaders()
-end
-
--- --------------------------------------------------------------
-
-local function _initPABankingRulesTab()
-    -- Initialise the headers
-    local headers = BankingRulesTabControl:GetNamedChild("Headers")
-    -- TODO: add localization
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), "BagName", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), "MathOperator", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), "BagAmount", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), "ItemName", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), "Actions", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-
-    -- Then initialise the sortable list
-    local list = ZO_SortFilterList:New(BankingRulesTabControl, PersonalAssistantRulesWindowBankingRulesTabList)
-    list:SetAlternateRowBackgrounds(true)
-    list:SetAutomaticallyColorRows(false)
-    list:SetEmptyText("No custom rules defined") -- TODO: add localization
-
-    local function EnterRow(control)
-        -- TODO: Todo
-    end
-
-    local function ExitRow(control)
-        -- TODO: Todo
-    end
-
-    local ACTIVE_RULE = 1
-    ZO_ScrollList_AddDataType(list.list, ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, function(control, data)
-        list:SetupRow(control, data)
-        control:SetHandler("OnMouseEnter", EnterRow)
-        control:SetHandler("OnMouseExit", ExitRow)
-
-        local bagNameControl = control:GetNamedChild("BagName")
-        bagNameControl:SetText("Test BagName")
-
-        local mathOperatorControl = control:GetNamedChild("MathOperator")
-        mathOperatorControl:SetText("==")
-
-        local bagAmountControl = control:GetNamedChild("BagAmount")
-        bagAmountControl:SetText("100")
-
-        local itemIconControl = control:GetNamedChild("ItemIcon")
-        itemIconControl:SetTexture("EsoUI/Art/Miscellaneous/wait_icon.dds")
-
-        local itemNameControl = control:GetNamedChild("ItemName")
-        itemNameControl:SetText("Super Duper Item Name")
-    end)
-    ZO_ScrollList_EnableHighlight(list.list, "ZO_ThinListHighlight")
-
-    -- populate the SrollList's rows
-    function list.FilterScollList(list)
-        local scrollData = ZO_ScrollList_GetDataList(list.list)
-        ZO_ClearNumericallyIndexedTable(scrollData)
-
-        -- TODO: add DATA
-        local dataEntry = {
-
-        }
-        table.insert(scrollData, ZO_ScrollList_CreateDataEntry(ACTIVE_RULE, dataEntry))
-    end
-
-
+function PABankingRulesList:Refresh()
+    self:RefreshData()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
+
+local baseInitDone = false
+
+local function initPABankingRulesList()
+--    PAEM.UnregisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingRulesList, "InitPABankingRulesList")
+    if PA.Banking then
+        if not baseInitDone then
+            baseInitDone = true
+            PABankingRulesList:InitHeaders()
+            PA.BankingRulesList = PABankingRulesList:New()
+        end
+        PA.BankingRulesList:Refresh()
+    end
+end
 
 local function initRulesMainMenu()
     -- at least either PABanking or PAJunk must be acttive to create the MainMenu entry
@@ -364,11 +294,6 @@ local function initRulesMainMenu()
         -- Init LibMainMenu
         _initLibMainMenu()
 
-        if PA.Banking then
---            _initPABankingRulesTab()
-            PABankingRulesList:Initialize()
-        end
-
         -- hide the "duplicate" divider from the ModeMenu
         local RulesModeMenuDivider = window:GetNamedChild("ModeMenuDivider")
         RulesModeMenuDivider:SetHidden(true)
@@ -377,8 +302,10 @@ local function initRulesMainMenu()
     end
 end
 
-
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
+
+-- create the main menu entry with LMM-2
+PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingRulesList, "InitPABankingRulesList")

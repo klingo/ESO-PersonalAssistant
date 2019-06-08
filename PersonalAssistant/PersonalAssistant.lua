@@ -88,7 +88,7 @@ local function initAddon(_, addOnName)
     local PAMainMenu = PA.MainMenu
     PAMainMenu.createOptions()
 
-    -- create the main menu entry with LMM-2
+    -- init the overall Rules Main Menu
     PA.CustomDialogs.initRulesMainMenu()
 
     -- register additional slash-commands (only for Addon author)

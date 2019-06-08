@@ -372,6 +372,9 @@ local function RefreshAllSavedVarReferences(activeProfile)
     if PA.Loot then PA.Loot.SavedVars = PASavedVars.Loot[activeProfile] end
     if PA.Mail then PA.Mail.SavedVars = PASavedVars.Mail[activeProfile] end
     if PA.Repair then PA.Repair.SavedVars = PASavedVars.Repair[activeProfile] end
+
+    -- also refresh the PABankingRulesList with the new profile
+    FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -385,6 +388,8 @@ PA.EventManager = {
     RegisterFilterForEvent = RegisterFilterForEvent,
     UnregisterForEvent = UnregisterForEvent,
     FireCallbacks = FireCallbacks,
+    RegisterForCallback = RegisterForCallback,
+    UnregisterForCallback = UnregisterForCallback,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
     RefreshAllSavedVarReferences = RefreshAllSavedVarReferences,
 }
