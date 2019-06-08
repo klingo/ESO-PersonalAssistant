@@ -10,8 +10,9 @@ local PAStrings = {
 
     SI_PA_LAM_OUTDATED = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
 
-    -- Key Bindings
-    SI_PA_KB_LOAD_PROFILE = "Activate profile",
+    -- Key Bindings --
+    SI_KEYBINDINGS_CATEGORY_PA_PROFILES = "|cFFD700P|rersonal|cFFD700A|rssistant Profiles",
+    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
 
 
     -- =================================================================================================================
@@ -199,6 +200,13 @@ local PAGenericStrings = {
     SI_PA_REL_LESSTHANOREQUAL = "<=",
     SI_PA_REL_GREATERTHAN = ">", -- not used so far
     SI_PA_REL_GREATERTHANOREQUAL = ">=",
+
+
+    -- =================================================================================================================
+    -- == KEYBINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_KEYBINDINGS_LAYER_PERSONALASSISTANT = "PersonalAssistant",
+    SI_KEYBINDINGS_CATEGORY_PA_JUNK = "|cFFD700P|rersonal|cFFD700A|rssistant Junk",
 }
 
 for key, value in pairs(PAGenericStrings) do
