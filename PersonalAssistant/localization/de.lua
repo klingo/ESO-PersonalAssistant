@@ -8,7 +8,8 @@ SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORED_TEX
 SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.ORANGE_RED, " benötigt eine aktuellere Version von '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' als derzeit installiert ist. Bitte die neuste Version von ", PAC.COLORS.WHITE, "http://esoui.com", PAC.COLORS.ORANGE_RED, " herunterladen und diese verwenden"}), 1)
 
 -- Key Bindings
-SafeAddString(SI_PA_KB_LOAD_PROFILE, "Aktiviere Profil", 1)
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profile", 1)
+SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Aktiviere Profil", 1)
 
 
 -- =================================================================================================================
