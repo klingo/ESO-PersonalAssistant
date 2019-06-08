@@ -247,20 +247,23 @@ end
 
 -- this function needs to be initialized everytime the TradeHouse is opened
 local function initHooksOnTradeHouse()
-    ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
-            local itemLink = GetTradingHouseSearchResultItemLink(control.dataEntry.data.slotIndex)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
-        end
-    end)
-    ZO_PreHook(TRADING_HOUSE.postedItemsList.dataTypes[2], "setupCallback", function(...)
-        local control = ...
-        if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
-            local itemLink = GetTradingHouseListingItemLink(control.dataEntry.data.slotIndex)
-            _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
-        end
-    end)
+    local isGamepadModeActive = GetSetting_Bool(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_GAMEPAD_PREFERRED)
+    if not isGamepadModeActive then
+        ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local itemLink = GetTradingHouseSearchResultItemLink(control.dataEntry.data.slotIndex)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
+            end
+        end)
+        ZO_PreHook(TRADING_HOUSE.postedItemsList.dataTypes[2], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local itemLink = GetTradingHouseListingItemLink(control.dataEntry.data.slotIndex)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
+            end
+        end)
+    end
 end
 
 local function initHooksOnMerchantsAndBuyback()
