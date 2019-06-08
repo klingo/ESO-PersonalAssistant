@@ -119,6 +119,11 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANK grösser als (>)", 1) -- not u
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANK grösser oder gleich als (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Stacking types --
+SafeAddString(SI_PA_ST_MOVE_FULL, "Verschiebe alles", 1)
+SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --
 SafeAddString(SI_PA_POSITION_AUTO, "Automatisch", 1)
 SafeAddString(SI_PA_POSITION_TOPLEFT, "Oben Links", 1)
@@ -126,7 +131,20 @@ SafeAddString(SI_PA_POSITION_TOPRIGHT, "Oben Rechts", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Unten Link", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
 
+
+-- =================================================================================================================
+-- == CUSTOM SUB MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
--- Stacking types --
-SafeAddString(SI_PA_ST_MOVE_FULL, "Verschiebe alles", 1)
-SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)
+--SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Add custom banking rule", 1) -- TODO: Takit
+--SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Edit custom banking rule", 1) -- TODO: Takit
+--SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Delete custom banking rule", 1) -- TODO: Takit
+--SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Add new rule", 1) -- TODO: Takit
+--SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Update rule", 1) -- TODO: Takit
+
+--SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Mark as permanent junk", 1) -- TODO: Takit
+
+
+-- =================================================================================================================
+-- == KEY BINDINGS == --
+-- -----------------------------------------------------------------------------------------------------------------
+--SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Rules", 1) -- TODO: Takit

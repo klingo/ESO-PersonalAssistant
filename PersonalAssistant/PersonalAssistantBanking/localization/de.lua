@@ -63,6 +63,19 @@ SafeAddString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T, "Sollen automatisch alle Gegen
 
 
 -- =================================================================================================================
+-- == MAIN MENU TEXTS == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- PABanking --
+--SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Banking Rules", 1) -- TODO:
+
+--SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Location", 1) -- TODO:
+--SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Operator", 1) -- TODO:
+--SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Amount", 1) -- TODO:
+--SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Item", 1) -- TODO:
+--SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Actions", 1) -- TODO:
+
+
+-- =================================================================================================================
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --

@@ -1,5 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 
 local PABankingRulesList = ZO_SortFilterList:Subclass()
 
@@ -17,6 +19,20 @@ local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
 
 -- store tha last shown tab (for current game session only)
 local _lastShownRulesTabDescriptor
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function getBagNameAndOperatorTextFromOperatorId(operatorId)
+    local operator = operatorId
+    local bagName = PAHF.getBagName(BAG_BACKPACK)
+    if operatorId >= PAC.OPERATOR.BANK_EQUAL then
+        -- BAG = Bank
+        bagName = PAHF.getBagName(BAG_BANK)
+        operator = operatorId - 5
+    end
+    local operatorText = GetString("SI_PA_REL_OPERATOR", operator)
+    return bagName, operatorText
+end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -167,14 +183,17 @@ function PABankingRulesList:UpdateScrollList()
 
     local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
     for _, moveConfig in pairs(PABCustomItemIds) do
+        local bagName, operatorText = getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
+        d("bagName="..tostring(bagName))
+        d("operatorText="..tostring(operatorText))
         local rowData = {
-            bagName = "BACKPACK", -- TODO
-            mathOperator = "==", -- TODO
+            bagName = bagName,
+            mathOperator = operatorText,
             bagAmount = moveConfig.bagAmount,
             itemIcon = GetItemLinkInfo(moveConfig.itemLink),
             itemLink = moveConfig.itemLink,
         }
-        dataList[#dataList + 1] = ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1) -- TODO: "1" needed at end?
+        dataList[#dataList + 1] = ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1) -- TODO: "1" is to define a category per dataEntry (can be hidden)
     end
 
     ZO_ScrollList_Commit(scrollList)
@@ -236,12 +255,11 @@ end
 function PABankingRulesList:InitHeaders()
     -- Initialise the headers
     local headers = BankingRulesTabControl:GetNamedChild("Headers")
-    -- TODO: add localization
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), "Location", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), "Operator", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), "Amount", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), "Item", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), "Actions", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
 end
 
 function PABankingRulesList:SetupControls()

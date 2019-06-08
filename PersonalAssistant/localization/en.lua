@@ -39,13 +39,6 @@ local PAStrings = {
 
 
     -- =================================================================================================================
-    -- == MAIN MENU TEXTS == --
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PABanking --
-    SI_PA_MAINMENU_RULES_HEADER = "PersonalAssistant",
-
-
-    -- =================================================================================================================
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral --
@@ -144,6 +137,18 @@ local PAStrings = {
 
 
     -- =================================================================================================================
+    -- == CUSTOM SUB MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_SUBMENU_PAB_ADD_RULE = "Add custom banking rule",
+    SI_PA_SUBMENU_PAB_EDIT_RULE = "Edit custom banking rule",
+    SI_PA_SUBMENU_PAB_DELETE_RULE = "Delete custom banking rule",
+    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Add new rule",
+    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Update rule",
+
+    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Mark as permanent junk",
+
+
+    -- =================================================================================================================
     -- == KEY BINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Rules",
@@ -195,11 +200,27 @@ local PAGenericStrings = {
     -- Operators --
     SI_PA_REL_OPERATOR = "> %s",
     SI_PA_REL_NONE = "-",
-    SI_PA_REL_EQUAL = "==",
-    SI_PA_REL_LESSTHAN = "<", -- not used so far
-    SI_PA_REL_LESSTHANOREQUAL = "<=",
-    SI_PA_REL_GREATERTHAN = ">", -- not used so far
-    SI_PA_REL_GREATERTHANOREQUAL = ">=",
+
+    SI_PA_REL_OPERATOR0 = "-",
+    SI_PA_REL_OPERATOR1 = "==",
+    SI_PA_REL_OPERATOR2 = "<", -- not used so far
+    SI_PA_REL_OPERATOR3 = "<=",
+    SI_PA_REL_OPERATOR4 = ">", -- not used so far
+    SI_PA_REL_OPERATOR5 = ">=",
+
+
+    -- =================================================================================================================
+    -- == MAIN MENU TEXTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_PA_MAINMENU_RULES_HEADER = "PersonalAssistant",
+
+
+    -- =================================================================================================================
+    -- == CUSTOM SUB MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_SUBMENU_PAB = "PA Banking",
+    SI_PA_SUBMENU_PAJ = "PA Junk",
 
 
     -- =================================================================================================================

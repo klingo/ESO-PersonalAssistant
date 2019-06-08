@@ -22,13 +22,13 @@ local DropdownRefs = {
         _selectedBag = BAG_BACKPACK
     end ),
 
-    itemEntryEquals = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_EQUAL), function()
+    itemEntryEquals = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_OPERATOR1), function()
         _selectedMathOperator = OPERATOR_EQUALS
     end ),
-    itemEntryLessThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_LESSTHANOREQUAL), function()
+    itemEntryLessThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_OPERATOR3), function()
         _selectedMathOperator = OPERATOR_LESSTHANOREQUAL
     end ),
-    itemEntryGreaterThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_GREATERTHANOREQUAL), function()
+    itemEntryGreaterThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_OPERATOR5), function()
         _selectedMathOperator = OPERATOR_GREATERTHANOREQUAL
     end ),
 }
@@ -74,7 +74,7 @@ local function initPABAddCustomRuleUIDialog()
 
         -- initialize the description label
         local descriptionLabelControl = window:GetNamedChild("DescriptionLabel")
-        descriptionLabelControl:SetText("Add a custom banking rule") -- TODO: Add localization
+        descriptionLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE))
 
         -- initialize the dropdown for the bag selection (BANK vs BACKPACK)
         local bagDropdownControl = window:GetNamedChild("BagDropdown")
@@ -98,11 +98,11 @@ local function initPABAddCustomRuleUIDialog()
         -- initialize the localized buttons
         local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
         local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
-        addRuleLabelControl:SetText("Add new rule") -- TODO: Add localization
+        addRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
 
         local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
         local updateRuleLabelControl = updateRuleButtonControl:GetNamedChild("UpdateRuleLabel")
-        updateRuleLabelControl:SetText("Update rule") -- TODO: Add localization
+        updateRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
         -- TODO: new button for DELETE RULE
     end
 end

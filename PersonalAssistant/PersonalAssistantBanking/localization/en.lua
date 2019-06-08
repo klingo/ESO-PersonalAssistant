@@ -72,6 +72,12 @@ local PABStrings = {
     -- PABanking --
     SI_PA_MAINMENU_BANKING_HEADER = "Banking Rules",
 
+    SI_PA_MAINMENU_BANKING_HEADER_BAG = "Location",
+    SI_PA_MAINMENU_BANKING_HEADER_OPERATOR = "Operator",
+    SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Amount",
+    SI_PA_MAINMENU_BANKING_HEADER_ITEM = "Item",
+    SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Actions",
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

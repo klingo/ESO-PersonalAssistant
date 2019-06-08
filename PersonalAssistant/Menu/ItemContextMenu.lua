@@ -15,7 +15,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
             local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
             local entries = {
                 {
-                    label = "Add custom banking rule",  -- TODO: Add localization!
+                    label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
                     callback = function()
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
@@ -24,7 +24,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
                     disabled = function() return isRuleExisting end,
                 },
                 {
-                    label = "Edit custom banking rule",  -- TODO: Add localization!
+                    label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
                     callback = function()
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomItemIds[itemId])
@@ -32,7 +32,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
                     disabled = function() return not isRuleExisting end,
                 },
                 {
-                    label = "Delete custom banking rule",  -- TODO: Add localization!
+                    label = GetString(SI_PA_SUBMENU_PAB_DELETE_RULE),
                     callback = function()
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.deletePABCustomRule(itemLink)
@@ -40,7 +40,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
                     disabled = function() return not isRuleExisting end,
                 }
             }
-            AddCustomSubMenuItem("PA Banking", entries) -- TODO: Add localization!
+            AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAB), entries)
         end, 50)
     end
 
@@ -48,7 +48,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
         zo_callLater(function()
             local entries = {
                 {
-                    label = "Mark as permanent junk",  -- TODO: Add localization!
+                    label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
                     callback = function() d("Test 1") end,
                     disabled = function(rootMenu, childControl) return true end,
                 },
@@ -56,7 +56,7 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
                     label = "-",
                 },
             }
-            AddCustomSubMenuItem("PA Junk", entries) -- TODO: Add localization!
+            AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAJ), entries)
         end, 50)
     end
 
@@ -72,20 +72,20 @@ end
 local function _getSlotTypeName(slotType)
     if slotType == SLOT_TYPE_ITEM then return "SLOT_TYPE_ITEM" end
     if slotType == SLOT_TYPE_CRAFT_BAG_ITEM then return "SLOT_TYPE_CRAFT_BAG_ITEM" end
-    if slotType == SLOT_TYPE_EQUIPMENT then return "SLOT_TYPE_EQUIPMENT" end
+--    if slotType == SLOT_TYPE_EQUIPMENT then return "SLOT_TYPE_EQUIPMENT" end
     if slotType == SLOT_TYPE_BANK_ITEM then return "SLOT_TYPE_BANK_ITEM" end
     if slotType == SLOT_TYPE_GUILD_BANK_ITEM then return "SLOT_TYPE_GUILD_BANK_ITEM" end
-    if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
+--    if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then return "SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_POST_ITEM then return "SLOT_TYPE_TRADING_HOUSE_POST_ITEM" end
     if slotType == SLOT_TYPE_REPAIR then return "SLOT_TYPE_REPAIR" end
-    if slotType == SLOT_TYPE_CRAFTING_COMPONENT then return "SLOT_TYPE_CRAFTING_COMPONENT" end
+--    if slotType == SLOT_TYPE_CRAFTING_COMPONENT then return "SLOT_TYPE_CRAFTING_COMPONENT" end
     if slotType == SLOT_TYPE_PENDING_CRAFTING_COMPONENT then return "SLOT_TYPE_PENDING_CRAFTING_COMPONENT" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then return "SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING" end
     if slotType == SLOT_TYPE_LAUNDER then return "SLOT_TYPE_LAUNDER" end
     if slotType == SLOT_TYPE_LIST_DIALOG_ITEM then return "SLOT_TYPE_LIST_DIALOG_ITEM" end
-    if slotType == SLOT_TYPE_LOOT then return "SLOT_TYPE_LOOT" end
+--    if slotType == SLOT_TYPE_LOOT then return "SLOT_TYPE_LOOT" end
     if slotType == SLOT_TYPE_MAIL_ATTACHMENT then return "SLOT_TYPE_MAIL_ATTACHMENT" end
     if slotType == SLOT_TYPE_MAIL_QUEUED_ATTACHMENT then return "SLOT_TYPE_MAIL_QUEUED_ATTACHMENT" end
     if slotType == SLOT_TYPE_MY_TRADE then return "SLOT_TYPE_MY_TRADE" end
