@@ -1,3 +1,7 @@
+2.3.4   (June 08, 2019)
+- slightly restructured keybinding settings ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/146"]#146[/URL])
+- fixed an issue with PALoot when opening a Guild Store on Gamepad mode ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/147"]#147[/URL])
+
 2.3.3   (May 30, 2019)
 - fixed an issue with PAJunk when trading with other players ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/141"]#141[/URL])
 
