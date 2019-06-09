@@ -135,16 +135,18 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
 -- =================================================================================================================
 -- == CUSTOM SUB MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
---SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Add custom banking rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Edit custom banking rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Delete custom banking rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Add new rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Update rule", 1) -- TODO: Takit
+--SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Add custom banking rule", 1) -- TODO: Me
+--SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Edit custom banking rule", 1) -- TODO: Me
+--SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Delete custom banking rule", 1) -- TODO: Me
+--SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Add new rule", 1) -- TODO: Me
+--SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Update rule", 1) -- TODO: Me
+--SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Delete rule", 1) -- TODO: Me
+--SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "No banking rules defined yet", 1) -- TODO: Me
 
---SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Mark as permanent junk", 1) -- TODO: Takit
+--SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Mark as permanent junk", 1) -- TODO: Me
 
 
 -- =================================================================================================================
 -- == KEY BINDINGS == --
 -- -----------------------------------------------------------------------------------------------------------------
---SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Rules", 1) -- TODO: Takit
+--SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Rules", 1) -- TODO: Me

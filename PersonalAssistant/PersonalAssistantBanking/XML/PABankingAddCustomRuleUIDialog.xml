@@ -81,10 +81,6 @@
                             <Anchor point="CENTER" />
                         </Label>
                     </Controls>
-                    <OnClicked>
-                        --  ScriptArguments: local self, button, ctrl, alt, shift, command = ...
-                        PersonalAssistant.CustomDialogs.addCustomRuleClicked()
-                    </OnClicked>
                 </Button>
 
                 <Button name="$(parent)UpdateRuleButton" inherits="ZO_DefaultButton" hidden="true">
@@ -95,10 +91,16 @@
                             <Anchor point="CENTER" />
                         </Label>
                     </Controls>
-                    <OnClicked>
-                        --  ScriptArguments: local self, button, ctrl, alt, shift, command = ...
-                        PersonalAssistant.CustomDialogs.addCustomRuleClicked(true)
-                    </OnClicked>
+                </Button>
+
+                <Button name="$(parent)DeleteRuleButton" inherits="ZO_DefaultButton" hidden="true">
+                    <Anchor point="RIGHT" relativeTo="$(parent)UpdateRuleButton" relativePoint="LEFT" offsetX="-5" />
+                    <Controls>
+                        <Label name="$(parent)DeleteRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                            <Dimensions y="30" />
+                            <Anchor point="CENTER" />
+                        </Label>
+                    </Controls>
                 </Button>
 
             </Controls>
@@ -106,62 +108,3 @@
         </TopLevelControl>
     </Controls>
 </GuiXml>
-
-
-<!--<GuiXml>-->
-    <!--<Controls>-->
-        <!--<TopLevelControl name="PABankingAddCustomRuleUIDialogXML" inherits="ZO_CustomDialogBase">-->
-            <!--<Dimensions x="300" y="200" />-->
-            <!--<Anchor point="CENTER" offsetY="-100" />-->
-            <!--<OnInitialized>-->
-
-            <!--</OnInitialized>-->
-            <!--<Controls>-->
-
-                <!--https://wiki.esoui.com/SimpleNotebookTutorial/part6-->
-
-                <!--<EditBox name="$(parent)Edit" inherits="ZO_DefaultEditMultiLineForBackdrop ZO_EditDefaultText" maxInputCharacters="3">-->
-                    <!--&lt;!&ndash;<Dimensions x="200" />&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Anchor point="LEFT" relativeTo="$(parent)Label" relativePoint="RIGHT" offsetX="0" offsetY="0"/>&ndash;&gt;-->
-                    <!--<OnInitialized>-->
-
-                    <!--</OnInitialized>-->
-                <!--</EditBox>-->
-
-                <!--<Label name="$(parent)Label" inherits="ZO_DialogContentAnchors" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL"-->
-                       <!--font="ZoFontGame" text="SI_PA_PLEASE_SELECT_PROFILE">-->
-                    <!--<Dimensions x="100"/>-->
-                    <!--<Anchor point="TOPLEFT" relativeTo="$(parent)Edit" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>-->
-                <!--</Label>-->
-
-
-                <!--&lt;!&ndash;<Control name="$(parent)Content" inherits="ZO_DialogContentAnchors">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Controls>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<Label name="$(parent)Text" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_SELECTED" horizontalAlignment="LEFT" text="xxx">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"/>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</Label>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</Controls>&ndash;&gt;-->
-                <!--&lt;!&ndash;</Control>&ndash;&gt;-->
-
-                <!--<Control name="$(parent)Cancel" inherits="ZO_CustomDialogButton" />-->
-
-                <!--<Control name="$(parent)Accept" inherits="ZO_CustomDialogButton" />-->
-
-
-
-                <!--&lt;!&ndash;<Button name="$(parent)Button" hidden="false">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Dimensions x="52" y="52"/>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-7" offsetY="-6"/>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Textures&ndash;&gt;-->
-                            <!--&lt;!&ndash;normal="/esoui/art/treeicons/provisioner_indexicon_stew_up.dds"&ndash;&gt;-->
-                            <!--&lt;!&ndash;pressed="/esoui/art/treeicons/provisioner_indexicon_stew_over.dds"&ndash;&gt;-->
-                            <!--&lt;!&ndash;mouseOver="/esoui/art/treeicons/provisioner_indexicon_stew_down.dds"&ndash;&gt;-->
-                            <!--&lt;!&ndash;disabled="/esoui/art/treeicons/provisioner_indexicon_stew_over.dds"&ndash;&gt;-->
-                    <!--&lt;!&ndash;/>&ndash;&gt;-->
-                <!--&lt;!&ndash;</Button>&ndash;&gt;-->
-
-
-        <!--</Controls>-->
-        <!--</TopLevelControl>-->
-    <!--</Controls>-->
-<!--</GuiXml>-->

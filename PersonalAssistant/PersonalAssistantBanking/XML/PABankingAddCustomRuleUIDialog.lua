@@ -61,6 +61,53 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function addCustomRuleClicked(isUpdate)
+    local amountEditBgControl = window:GetNamedChild("AmountEditBg")
+    local amountEditControl = amountEditBgControl:GetNamedChild("AmountEdit")
+
+    local bankingOperator = _getBankingOperator()
+    local targetAmount = amountEditControl:GetText()
+    local itemId = GetItemLinkItemId(_selectedItemLink)
+
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+
+    -- only add the entry if it is an UPDATE case, or if it does not exist yet
+    if isUpdate or not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+        PABCustomItemIds[itemId] = {
+            operator = bankingOperator,
+            bagAmount = tonumber(targetAmount),
+            itemLink = _selectedItemLink,
+        }
+        -- TODO: success message?
+        df("RULE added/updated for %s", _selectedItemLink)
+        window:SetHidden(true)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+    else
+        -- TODO: error, rule already existing
+        d("ERROR; rule already existing")
+    end
+end
+
+local function deletePABCustomRule(itemLink)
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    local itemId = GetItemLinkItemId(itemLink)
+    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+        -- is in table, delete rule
+        PABCustomItemIds[itemId] = nil
+        -- TODO: confirmation message
+        df("RULE deleted for %s", itemLink)
+        window:SetHidden(true)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+    else
+        -- TODO: error, rule not existing
+        d("ERROR; rule not existing, cannot be deleted")
+    end
+end
+
 local function initPABAddCustomRuleUIDialog()
     if not _initDone then
         _initDone = true
@@ -82,7 +129,7 @@ local function initPABAddCustomRuleUIDialog()
         bagDropdownControl.m_comboBox:AddItem(DropdownRefs.itemEntryBackpack)
         -- define the default entry
         function bagDropdownControl:SelectDefault()
-            bagDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemEntryBank)
+            bagDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemEntryBackpack)
         end
 
         -- initialize the dropdown for the mathematical operator
@@ -97,13 +144,22 @@ local function initPABAddCustomRuleUIDialog()
 
         -- initialize the localized buttons
         local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
-        local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
-        addRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
+        addRuleButtonControl:GetNamedChild("AddRuleLabel"):SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
+        addRuleButtonControl:SetHandler("OnClicked", function()
+            addCustomRuleClicked(false)
+        end)
 
         local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
-        local updateRuleLabelControl = updateRuleButtonControl:GetNamedChild("UpdateRuleLabel")
-        updateRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
-        -- TODO: new button for DELETE RULE
+        updateRuleButtonControl:GetNamedChild("UpdateRuleLabel"):SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
+        updateRuleButtonControl:SetHandler("OnClicked", function()
+            addCustomRuleClicked(true)
+        end)
+
+        local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
+        deleteRuleButtonControl:GetNamedChild("DeleteRuleLabel"):SetText(GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        deleteRuleButtonControl:SetHandler("OnClicked", function()
+            deletePABCustomRule(itemLabelControl:GetText())
+        end)
     end
 end
 
@@ -127,6 +183,7 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
     local amountEditControl = amountEditBgControl:GetNamedChild("AmountEdit")
     local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
     local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
+    local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
 
     if existingRuleValues then
         -- initialise with existing values
@@ -134,17 +191,19 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
         bagDropdownControl.m_comboBox:SelectItem(bagEntry)
         mathOperatorDropdownControl.m_comboBox:SelectItem(mathOperatorEntry)
         amountEditControl:SetText(existingRuleValues.bagAmount)
-        -- show UPDATE button, hide ADD button
+        -- show UPDATE/DELETE buttons, hide ADD button
         addRuleButtonControl:SetHidden(true)
         updateRuleButtonControl:SetHidden(false)
+        deleteRuleButtonControl:SetHidden(false)
     else
         -- otherwise initialise default values
         bagDropdownControl:SelectDefault()
         mathOperatorDropdownControl:SelectDefault()
         amountEditControl:SetText(PAC.BACKPACK_AMOUNT.DEFAULT)
-        -- show ADD button, hide UPDATE button
+        -- show ADD button, hide UPDATE/DELETE buttons
         addRuleButtonControl:SetHidden(false)
         updateRuleButtonControl:SetHidden(true)
+        deleteRuleButtonControl:SetHidden(true)
     end
 
     -- keep a reference to the itemLink
@@ -152,46 +211,6 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
 
     -- finally, show window
     window:SetHidden(false)
-end
-
-local function deletePABCustomRule(itemLink)
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-    local itemId = GetItemLinkItemId(itemLink)
-    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
-        -- is in table, delete rule
-        PABCustomItemIds[itemId] = nil
-        -- TODO: confirmation message
-        df("RULE deleted for %s", itemLink)
-    else
-        -- TODO: error, rule not existing
-        d("ERROR; rule not existing, cannot be deleted")
-    end
-end
-
-local function addCustomRuleClicked(isUpdate)
-    local amountEditBgControl = window:GetNamedChild("AmountEditBg")
-    local amountEditControl = amountEditBgControl:GetNamedChild("AmountEdit")
-
-    local bankingOperator = _getBankingOperator()
-    local targetAmount = amountEditControl:GetText()
-    local itemId = GetItemLinkItemId(_selectedItemLink)
-
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-
-    -- only add the entry if it is an UPDATE case, or if it does not exist yet
-    if isUpdate or not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
-        PABCustomItemIds[itemId] = {
-            operator = bankingOperator,
-            bagAmount = tonumber(targetAmount),
-            itemLink = _selectedItemLink,
-        }
-        -- TODO: success message?
-        df("RULE added/updated for %s", _selectedItemLink)
-        window:SetHidden(true)
-    else
-        -- TODO: error, rule already existing
-        d("ERROR; rule already existing")
-    end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

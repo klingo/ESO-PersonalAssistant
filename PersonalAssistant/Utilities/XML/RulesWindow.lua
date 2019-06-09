@@ -180,7 +180,6 @@ PABankingRulesList.SORT_KEYS = {
     ["bagAmount"] = {tiebreaker="itemName"},
 }
 
-
 function PABankingRulesList:New()
     local rules = ZO_SortFilterList.New(self, BankingRulesTabControl)
     return rules
@@ -189,10 +188,12 @@ end
 function PABankingRulesList:Initialize(control)
     ZO_SortFilterList.Initialize(self, control)
 
+    self:SetEmptyText(GetString(SI_PA_SUBMENU_PAB_NO_RULES))
+
     self.sortHeaderGroup:SelectHeaderByKey("item")
     ZO_SortHeader_OnMouseExit(BankingRulesTabControl:GetNamedChild("Headers"):GetNamedChild("ItemName"))
 
-    ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, function(control, data) self:SetupUnitRow(control, data) end)
+    ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, function(control, data) self:SetupRuleRow(control, data) end)
     ZO_ScrollList_EnableHighlight(self.list, "ZO_ThinListHighlight")
     self.sortFunction = function(listEntry1, listEntry2) return ZO_TableOrderingFunction(listEntry1.data, listEntry2.data, self.currentSortKey, PABankingRulesList.SORT_KEYS, self.currentSortOrder) end
     self:RefreshData()
@@ -202,7 +203,6 @@ function PABankingRulesList:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
 
---    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
     -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
     local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
 
@@ -210,7 +210,8 @@ function PABankingRulesList:FilterScrollList()
         local bagName, operatorText = getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
         local rowData = {
             bagName = bagName,
-            mathOperator = operatorText,
+            operator = moveConfig.operator, -- required to edit the rule
+            mathOperator = operatorText, -- required to display the rule
             bagAmount = moveConfig.bagAmount,
             itemIcon = GetItemLinkInfo(moveConfig.itemLink),
             itemLink = moveConfig.itemLink,
@@ -222,15 +223,61 @@ end
 
 function PABankingRulesList:SortScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
-    -- TODO: fix sortFunction
     table.sort(scrollData, self.sortFunction)
 end
 
-function PABankingRulesList:SetupUnitRow(rowControl, rowData)
+function PABankingRulesList:SetupRuleRow(rowControl, rowData)
+    local function onRowMouseEnter(rowControl)
+        PA.BankingRulesList:Row_OnMouseEnter(rowControl)
+        local delButtonControl = rowControl:GetNamedChild("DelButton")
+        local editButtonControl = rowControl:GetNamedChild("EditButton")
+        delButtonControl:SetHidden(false)
+        editButtonControl:SetHidden(false)
+    end
+    local function onRowMouseExit(rowControl)
+        PA.BankingRulesList:Row_OnMouseExit(rowControl)
+        local delButtonControl = rowControl:GetNamedChild("DelButton")
+        local editButtonControl = rowControl:GetNamedChild("EditButton")
+        delButtonControl:SetHidden(true)
+        editButtonControl:SetHidden(true)
+    end
+    local function onItemNameMouseEnter(itemNameControl)
+        InitializeTooltip(ItemTooltip, itemNameControl)
+        ItemTooltip:SetLink(itemNameControl:GetText())
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(itemNameControl:GetParent())
+    end
+    local function onItemNameMouseExit(itemNameControl)
+        ClearTooltip(ItemTooltip)
+        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
+        onRowMouseExit(itemNameControl:GetParent())
+    end
+    local function onDeleteButtonMouseEnter(deleteButtonControl)
+        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(deleteButtonControl:GetParent())
+    end
+    local function onDeleteButtonMouseExit(deleteButtonControl)
+        ZO_Tooltips_HideTextTooltip()
+        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
+        onRowMouseExit(deleteButtonControl:GetParent())
+    end
+    local function onEditButtonMouseEnter(editButtonControl)
+        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(editButtonControl:GetParent())
+    end
+    local function onEditButtonMouseExit(editButtonControl)
+        ZO_Tooltips_HideTextTooltip()
+        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
+        onRowMouseExit(editButtonControl:GetParent())
+    end
+
+    -- store the rowData on the control so it can be accessed from the sortFunction
     rowControl.data = rowData
 
     local bagNameControl = rowControl:GetNamedChild("BagName")
-    bagNameControl:SetText(rowData.bagName)
+    bagNameControl:SetText(LocaleAwareToUpper(rowData.bagName))
 
     local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
     mathOperatorControl:SetText(rowData.mathOperator)
@@ -243,11 +290,31 @@ function PABankingRulesList:SetupUnitRow(rowControl, rowData)
 
     local itemNameControl = rowControl:GetNamedChild("ItemName")
     itemNameControl:SetText(rowData.itemLink)
---    itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
---    itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
+    itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
+    itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
 
---    rowControl:SetHandler("OnMouseEnter", onRowMouseEnter)
---    rowControl:SetHandler("OnMouseExit", onRowMouseExit)
+    -- Setup the DELETE button per row
+    local delButtonControl = rowControl:GetNamedChild("DelButton")
+    delButtonControl:SetHandler("OnMouseEnter", onDeleteButtonMouseEnter)
+    delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
+    delButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.deletePABCustomRule(rowControl.data.itemLink)
+    end)
+
+    -- Setup the EDIT button per row
+    local editButtonControl = rowControl:GetNamedChild("EditButton")
+    editButtonControl:SetHandler("OnMouseEnter", onEditButtonMouseEnter)
+    editButtonControl:SetHandler("OnMouseExit", onEditButtonMouseExit)
+    editButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.initPABAddCustomRuleUIDialog() -- make sure it has been initialized
+        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(rowControl.data.itemLink, rowData)
+    end)
+
+    -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control
+    rowControl:SetHandler("OnMouseEnter", onRowMouseEnter)
+    rowControl:SetHandler("OnMouseExit", onRowMouseExit)
 
     ZO_SortFilterList.SetupRow(self, rowControl, rowData)
 end
@@ -259,7 +326,7 @@ function PABankingRulesList:InitHeaders()
     ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), "bagAmount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), "itemName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
 end
 
 function PABankingRulesList:Refresh()

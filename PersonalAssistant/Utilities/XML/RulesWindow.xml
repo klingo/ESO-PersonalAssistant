@@ -22,7 +22,7 @@
                             <Controls>
                                 <Control name="$(parent)BagName" inherits="ZO_SortHeader">
                                     <Anchor point="TOPLEFT" offsetX="40" />
-                                    <Dimensions x="140" y="32" />
+                                    <Dimensions x="120" y="32" />
                                 </Control>
                                 <Control name="$(parent)MathOperator" inherits="ZO_SortHeader">
                                     <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="10" />
@@ -37,7 +37,7 @@
                                     <Dimensions x="200" y="32" />
                                 </Control>
                                 <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
-                                    <Anchor point="TOPRIGHT" offsetX="-10" />
+                                    <Anchor point="TOPRIGHT" offsetX="-60" />
                                     <Dimensions x="160" y="32" />
                                 </Control>
                             </Controls>
@@ -82,26 +82,20 @@
         </TopLevelControl>
 
 
-
-
-
          <!-- Full-size Banking Rule Row (virtual) -->
-        <Control name="PersonalAssistantBankingRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
+        <Button name="PersonalAssistantBankingRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
             <Dimensions x="612" y="36" />
             <Controls>
-                <!--<Texture name="$(parent)BG" inherits="ZO_ThinListBgStrip">-->
-                    <!--<AnchorFill />-->
-                <!--</Texture>-->
 
-                <Label name="$(parent)BagName" font="ZoFontGame" inheritAlpha="true" color="FFFFFF" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                <Label name="$(parent)BagName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="LEFT" />
-                    <Dimensions x="140" y="36" />
+                    <Dimensions x="120" y="36" />
                 </Label>
-                <Label name="$(parent)MathOperator" font="ZoFontGame" inheritAlpha="true" color="FFFFFF" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                <Label name="$(parent)MathOperator" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="15" />
                     <Dimensions x="100" y="36" />
                 </Label>
-                <Label name="$(parent)BagAmount" font="ZoFontGame" inheritAlpha="true" color="FFFFFF" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                <Label name="$(parent)BagAmount" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="5" />
                     <Dimensions x="100" y="36" />
                 </Label>
@@ -110,16 +104,30 @@
                     <Dimensions x="32" y="36" />
                     <TextureCoords left="0" right="1" top="0" bottom="1" />
                 </Texture>
-                <Label name="$(parent)ItemName" font="ZoFontGame" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true" wrapMode="1">
+                <Label name="$(parent)ItemName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true" wrapMode="1">
                     <Anchor point="LEFT" relativeTo="$(parent)ItemIcon" relativePoint="RIGHT" offsetX="5" />
                     <Dimensions x="300" y="36" />
                     <OnLinkMouseUp>
                         ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
                     </OnLinkMouseUp>
                 </Label>
-                <!-- TODO: Add Action Buttons -->
+                <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
+                    <Anchor point="RIGHT" offsetX="-40" />
+                    <Dimensions x="24" y="24" />
+                </Button>
+                <Button name="$(parent)EditButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)DelButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                        normal="/esoui/art/help/help_tabicon_feedback_up.dds"
+                        pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
+                        mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds"
+                        disabled="/esoui/art/help/help_tabicon_feedback_down.dds"
+                    />
+                </Button>
+
             </Controls>
-        </Control>
+        </Button>
 
     </Controls>
 </GuiXml>
