@@ -9,7 +9,6 @@
                     <Anchor point="TOPLEFT" relativeTo="ZO_SharedRightBackground"/>
                     <Dimensions y="50"/>
                 </Control>
-
                 <Control name="$(parent)BankingRulesTab">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ModeMenu" relativePoint="BOTTOMLEFT" />
                     <Anchor point="BOTTOMRIGHT" />

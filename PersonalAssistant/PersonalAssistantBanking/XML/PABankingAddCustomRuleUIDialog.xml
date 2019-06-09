@@ -1,12 +1,11 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="700" y="180" />
+            <Dimensions x="700" y="200" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
                 <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
-
                 <Button name="$(parent)Close" inherits="ZO_CloseButton">
                     <Anchor point="TOPRIGHT" offsetX="-10" offsetY="10" />
                     <Dimensions x="24" y="24" />
@@ -14,25 +13,17 @@
                         PABankingAddCustomRuleWindow:SetHidden(true)
                     </OnClicked>
                 </Button>
-
                 <Label name="$(parent)Header" font="ZoFontAnnounceMedium" text="|cFFD700PA B|r|cFFFFFFanking|r: Add custom rule">
                     <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
                 </Label>
-
-                <Label name="$(parent)DescriptionLabel" font="ZoFontGame" text="Add custom rule">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10"/>
-                </Label>
-
                 <Control name="$(parent)BagDropdown" inherits="ZO_ComboBox">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)DescriptionLabel" relativePoint="BOTTOMLEFT" offsetY="10"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10"/>
                     <Dimensions x="140" y="30"/>
                 </Control>
-
                 <Control name="$(parent)MathOperatorDropdown" inherits="ZO_ComboBox">
                     <Anchor point="LEFT" relativeTo="$(parent)BagDropdown" relativePoint="RIGHT" offsetX="10"/>
                     <Dimensions x="80" y="30"/>
                 </Control>
-
                 <Backdrop name="$(parent)AmountEditBg" inherits="ZO_EditBackdrop">
                     <Anchor point="LEFT" relativeTo="$(parent)MathOperatorDropdown" relativePoint="RIGHT" offsetX="10"/>
                     <Dimensions x="60"/>
@@ -50,11 +41,9 @@
                         </EditBox>
                     </Controls>
                 </Backdrop>
-
                 <Label name="$(parent)MultiplicationLabel" font="ZoFontGame" text="x">
                     <Anchor point="LEFT" relativeTo="$(parent)AmountEditBg" relativePoint="RIGHT" offsetX="10"/>
                 </Label>
-
                 <Control name="$(parent)ItemControl">
                     <Anchor point="LEFT" relativeTo="$(parent)MultiplicationLabel" relativePoint="RIGHT" offsetX="10"/>
                     <Dimensions x="48" y="48"/>
@@ -63,7 +52,7 @@
                             <Anchor point="TOPLEFT" relativePoint="TOPLEFT" />
                             <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" />
                         </Texture>
-                        <Label name="$(parent)ItemLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT" text="Item Name" linkEnabled="true" mouseEnabled="true" wrapMode="1">
+                        <Label name="$(parent)ItemLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true" wrapMode="1">
                             <Anchor point="LEFT" relativeTo="$(parent)ItemTexture" relativePoint="RIGHT" offsetX="5"/>
                             <Dimensions x="280" y="30" />
                             <OnLinkMouseUp>
@@ -72,7 +61,10 @@
                         </Label>
                     </Controls>
                 </Control>
-
+                <Label name="$(parent)DisclaimerLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)BagDropdown" relativePoint="BOTTOMLEFT" offsetY="15"/>
+                    <Dimensions x="660" y="48"/>
+                </Label>
                 <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
                     <Controls>
@@ -82,7 +74,6 @@
                         </Label>
                     </Controls>
                 </Button>
-
                 <Button name="$(parent)UpdateRuleButton" inherits="ZO_DefaultButton" hidden="true">
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
                     <Controls>
@@ -92,7 +83,6 @@
                         </Label>
                     </Controls>
                 </Button>
-
                 <Button name="$(parent)DeleteRuleButton" inherits="ZO_DefaultButton" hidden="true">
                     <Anchor point="RIGHT" relativeTo="$(parent)UpdateRuleButton" relativePoint="LEFT" offsetX="-5" />
                     <Controls>
@@ -104,7 +94,6 @@
                 </Button>
 
             </Controls>
-
         </TopLevelControl>
     </Controls>
 </GuiXml>

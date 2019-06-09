@@ -248,7 +248,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         editButtonControl:SetHidden(true)
     end
     local function onItemNameMouseEnter(itemNameControl)
-        InitializeTooltip(ItemTooltip, itemNameControl)
+        InitializeTooltip(ItemTooltip, itemNameControl, TOPRIGHT, -40, 0, TOPLEFT)
         ItemTooltip:SetLink(itemNameControl:GetText())
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(itemNameControl:GetParent())

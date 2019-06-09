@@ -119,9 +119,9 @@ local function initPABAddCustomRuleUIDialog()
             ClearTooltip(ItemTooltip)
         end)
 
-        -- initialize the description label
-        local descriptionLabelControl = window:GetNamedChild("DescriptionLabel")
-        descriptionLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE))
+        -- initialize the disclaimer label
+        local disclaimerLabelControl = window:GetNamedChild("DisclaimerLabel")
+        disclaimerLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_DISCLAIMER))
 
         -- initialize the dropdown for the bag selection (BANK vs BACKPACK)
         local bagDropdownControl = window:GetNamedChild("BagDropdown")
