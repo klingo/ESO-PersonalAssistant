@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -59,9 +60,7 @@ local function _getDropdownValuesFromBankingOperator(bankingOperator)
     end
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
-
-local function addCustomRuleClicked(isUpdate)
+local function _addCustomRuleClicked(isUpdate)
     local amountEditBgControl = window:GetNamedChild("AmountEditBg")
     local amountEditControl = amountEditBgControl:GetNamedChild("AmountEdit")
 
@@ -70,7 +69,6 @@ local function addCustomRuleClicked(isUpdate)
     local itemId = GetItemLinkItemId(_selectedItemLink)
 
     local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-
     -- only add the entry if it is an UPDATE case, or if it does not exist yet
     if isUpdate or not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
         PABCustomItemIds[itemId] = {
@@ -78,17 +76,21 @@ local function addCustomRuleClicked(isUpdate)
             bagAmount = tonumber(targetAmount),
             itemLink = _selectedItemLink,
         }
-        -- TODO: success message?
-        df("RULE added/updated for %s", _selectedItemLink)
+        if isUpdate then
+            PA.Banking.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
+        else
+            PA.Banking.println(SI_PA_CHAT_BANKING_RULES_ADDED, _selectedItemLink:gsub("%|H0", "|H1"))
+        end
         window:SetHidden(true)
 
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        -- TODO: error, rule already existing
-        d("ERROR; rule already existing")
+        PAB.debugln("ERROR; PAB already existing and this was NOT an update")
     end
 end
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function deletePABCustomRule(itemLink)
     local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
@@ -96,15 +98,13 @@ local function deletePABCustomRule(itemLink)
     if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
         -- is in table, delete rule
         PABCustomItemIds[itemId] = nil
-        -- TODO: confirmation message
-        df("RULE deleted for %s", itemLink)
+        PAB.println(SI_PA_CHAT_BANKING_RULES_DELETED, itemLink:gsub("%|H0", "|H1"))
         window:SetHidden(true)
 
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        -- TODO: error, rule not existing
-        d("ERROR; rule not existing, cannot be deleted")
+        PAB.debugln("ERROR; PAB rule not existing, cannot be deleted")
     end
 end
 
@@ -146,13 +146,13 @@ local function initPABAddCustomRuleUIDialog()
         local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
         addRuleButtonControl:GetNamedChild("AddRuleLabel"):SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
         addRuleButtonControl:SetHandler("OnClicked", function()
-            addCustomRuleClicked(false)
+            _addCustomRuleClicked(false)
         end)
 
         local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
         updateRuleButtonControl:GetNamedChild("UpdateRuleLabel"):SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
         updateRuleButtonControl:SetHandler("OnClicked", function()
-            addCustomRuleClicked(true)
+            _addCustomRuleClicked(true)
         end)
 
         local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
@@ -219,4 +219,3 @@ PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.initPABAddCustomRuleUIDialog = initPABAddCustomRuleUIDialog
 PA.CustomDialogs.showPABAddCustomRuleUIDIalog = showPABAddCustomRuleUIDIalog
 PA.CustomDialogs.deletePABCustomRule = deletePABCustomRule
-PA.CustomDialogs.addCustomRuleClicked = addCustomRuleClicked

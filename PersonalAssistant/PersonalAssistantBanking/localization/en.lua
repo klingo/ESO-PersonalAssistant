@@ -96,6 +96,10 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
     SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = table.concat({PAC.COLORED_TEXTS.PAB, "Some items were NOT deposited to avoid potential interferences with Dolgubon's Lazy Writ Crafter"}),
+
+    SI_PA_CHAT_BANKING_RULES_ADDED = table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_UPDATED = table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}),
 }
 
 for key, value in pairs(PABStrings) do

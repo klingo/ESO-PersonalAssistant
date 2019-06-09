@@ -35,8 +35,9 @@ local function getBagNameAndOperatorTextFromOperatorId(operatorId)
     return bagName, operatorText
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
-
+-- =================================================================================================================
+-- == GENERAL MAIN MENU SETUP == --
+-- -----------------------------------------------------------------------------------------------------------------
 local function _showPABankingRulesTab()
     BankingRulesTabControl:SetHidden(false)
     JunkRulesTabControl:SetHidden(true)
@@ -171,8 +172,9 @@ local function _initLibMainMenu()
 end
 
 
--- --------------------------------------------------------------
-
+-- =================================================================================================================
+-- == PA BANKING RULES LIST == --
+-- -----------------------------------------------------------------------------------------------------------------
 PABankingRulesList.SORT_KEYS = {
     ["itemName"] = {},
     ["bagName"] = {tiebreaker="itemName"},
@@ -186,26 +188,28 @@ function PABankingRulesList:New()
 end
 
 function PABankingRulesList:Initialize(control)
+    -- initialize the SortFilterList
     ZO_SortFilterList.Initialize(self, control)
-
+    -- set a text that is displayed when there are no entries
     self:SetEmptyText(GetString(SI_PA_SUBMENU_PAB_NO_RULES))
-
+    -- default sorting key
     self.sortHeaderGroup:SelectHeaderByKey("item")
     ZO_SortHeader_OnMouseExit(BankingRulesTabControl:GetNamedChild("Headers"):GetNamedChild("ItemName"))
-
+    -- define the datatype for this list and enable the highlighting
     ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, function(control, data) self:SetupRuleRow(control, data) end)
     ZO_ScrollList_EnableHighlight(self.list, "ZO_ThinListHighlight")
+    -- set up sorting function and refresh all data
     self.sortFunction = function(listEntry1, listEntry2) return ZO_TableOrderingFunction(listEntry1.data, listEntry2.data, self.currentSortKey, PABankingRulesList.SORT_KEYS, self.currentSortOrder) end
     self:RefreshData()
 end
 
 function PABankingRulesList:FilterScrollList()
+    -- get the data of the scrollist and index it
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
-
     -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
     local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
-
+    -- populate the table that is used as source for the list
     for _, moveConfig in pairs(PABCustomItemIds) do
         local bagName, operatorText = getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
         local rowData = {
@@ -217,11 +221,13 @@ function PABankingRulesList:FilterScrollList()
             itemLink = moveConfig.itemLink,
             itemName = GetItemLinkName(moveConfig.itemLink)
         }
-        scrollData[#scrollData + 1] = ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1) -- TODO: "1" is to define a category per dataEntry (can be hidden)
+        -- "1" is to define a category per dataEntry (can be individually hidden)
+        table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
     end
 end
 
 function PABankingRulesList:SortScrollList()
+    -- get all data and sort it
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     table.sort(scrollData, self.sortFunction)
 end
@@ -276,6 +282,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     -- store the rowData on the control so it can be accessed from the sortFunction
     rowControl.data = rowData
 
+    -- populate all data to the individual fields per row
     local bagNameControl = rowControl:GetNamedChild("BagName")
     bagNameControl:SetText(LocaleAwareToUpper(rowData.bagName))
 
@@ -354,20 +361,23 @@ local function initRulesMainMenu()
     if PA.Banking or PA.Junk then
         -- Create the Main Scene
         _createRulesWindowScene()
-
         -- Create tabs for the scenes
         _createTabsForScene()
-
         -- Init LibMainMenu
         _initLibMainMenu()
-
         -- hide the "duplicate" divider from the ModeMenu
-        local RulesModeMenuDivider = window:GetNamedChild("ModeMenuDivider")
-        RulesModeMenuDivider:SetHidden(true)
+        window:GetNamedChild("ModeMenuDivider"):SetHidden(true)
     else
         PA.debugln("Neither PABanking nor PAJunk is active; don't display MainMenu entry")
     end
 end
+
+
+-- =================================================================================================================
+-- == PA JUNK RULES LIST == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- TODO: to be implemented
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
