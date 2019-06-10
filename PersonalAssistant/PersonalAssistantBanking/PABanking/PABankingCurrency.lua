@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

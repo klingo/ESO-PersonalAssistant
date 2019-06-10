@@ -52,6 +52,19 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Wenn AUSgescha
 
 
 -- =================================================================================================================
+-- == MAIN MENU TEXTS == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- PAJunk --
+--SafeAddString(SI_PA_MAINMENU_JUNK_HEADER, "Junk Rules", 1) -- TODO: Me
+
+--SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Item", 1) -- TODO: Me
+--SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Junk Count", 1) -- TODO: Me
+--SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Last junk", 1) -- TODO: Me
+--SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Rule added", 1) -- TODO: Me
+--SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Actions", 1) -- TODO: Me
+
+
+-- =================================================================================================================
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --
@@ -61,11 +74,15 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({PAC.COLORED_
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({PAC.COLORED_TEXTS.PAJ, "%s als Trödel markiert (", PAC.COLORS.ORANGE, "Händler", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({PAC.COLORED_TEXTS.PAJ, "%s als Trödel markiert (", PAC.COLORS.ORANGE, "Beute", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({PAC.COLORED_TEXTS.PAJ, "%s als Trödel markiert (", PAC.COLORS.ORANGE, "Manuell", PAC.COLORS.DEFAULT, ")"}), 1)
+--SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Perm-Rule", PAC.COLORS.DEFAULT, ")"}), 1) -- TODO: Me
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLORED_TEXTS.PAJ, "Zerstört %d x %s"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, table.concat({PAC.COLORED_TEXTS.PAJ, "Trödel verkauft für ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Stunden"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Minuten"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({PAC.COLORED_TEXTS.PAJ, "Kann %s nicht verkaufen. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
+
+--SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({PAC.COLORED_TEXTS.PAB, "%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}), 1) -- TODO: Me
+--SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({PAC.COLORED_TEXTS.PAB, "%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}), 1) -- TODO: Me
 
 
 -- =================================================================================================================

@@ -6,12 +6,13 @@ local PAHF = PA.HelperFunctions
 
 local _hooksOnInventoryContextMenuInitialized = false
 
-local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
+local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
+    local itemId = GetItemLinkItemId(itemLink)
 
-    local function addPABankingMenuEntries()
+    -- Add PABanking context menu entries
+    if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
         zo_callLater(function()
             local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-            local itemId = GetItemLinkItemId(itemLink)
             local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
             local entries = {
                 {
@@ -44,34 +45,36 @@ local function _addDynamicContextMenuEntries(itemLink, inventorySlot)
         end, 50)
     end
 
-    local function addPAJunkMenuEntries()
+    -- Add PAJunk context menu entries
+    if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled then
         zo_callLater(function()
+            local PAJCustomItemIds = PA.Junk.SavedVars.Custom.ItemIds
+            local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
+            local isRuleExisting = PAHF.isKeyInTable(PAJCustomItemIds, itemId)
             local entries = {
                 {
                     label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
-                    callback = function() d("Test 1") end,
-                    disabled = function(rootMenu, childControl) return true end,
+                    callback = function()
+                        PA.Junk.addItemToPermanentJunk(itemLink, bagId, slotIndex)
+                    end,
+                    disabled = function() return not canBeMarkedAsJunk or isRuleExisting end,
                 },
                 {
-                    label = "-",
-                },
+                    label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
+                    callback = function()
+                        PA.Junk.removeItemFromPermanentJunk(itemLink)
+                    end,
+                    disabled = function() return not isRuleExisting end,
+                }
             }
             AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAJ), entries)
         end, 50)
     end
-
-    if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
-        addPABankingMenuEntries()
-    end
-
-    if PA.Junk then
-        addPAJunkMenuEntries()
-    end
 end
 
 local function _getSlotTypeName(slotType)
-    if slotType == SLOT_TYPE_ITEM then return "SLOT_TYPE_ITEM" end
-    if slotType == SLOT_TYPE_CRAFT_BAG_ITEM then return "SLOT_TYPE_CRAFT_BAG_ITEM" end
+--    if slotType == SLOT_TYPE_ITEM then return "SLOT_TYPE_ITEM" end
+--    if slotType == SLOT_TYPE_CRAFT_BAG_ITEM then return "SLOT_TYPE_CRAFT_BAG_ITEM" end
 --    if slotType == SLOT_TYPE_EQUIPMENT then return "SLOT_TYPE_EQUIPMENT" end
     if slotType == SLOT_TYPE_BANK_ITEM then return "SLOT_TYPE_BANK_ITEM" end
     if slotType == SLOT_TYPE_GUILD_BANK_ITEM then return "SLOT_TYPE_GUILD_BANK_ITEM" end
@@ -116,7 +119,7 @@ local function initHooksOnInventoryContextMenu()
                 if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM or slotType == SLOT_TYPE_GUILD_BANK_ITEM then
                     local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
                     local itemLink = GetItemLink(bagId, slotIndex)
-                    _addDynamicContextMenuEntries(itemLink, inventorySlot)
+                    _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                 end
 
     --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then
@@ -154,11 +157,13 @@ local function initHooksOnInventoryContextMenu()
 
 
                 -- TODO: confirmed to be added to scope
+                -- SLOT_TYPE_ITEM                               inventory/backpack
                 -- SLOT_TYPE_CRAFTING_COMPONENT                 crafting components & items to be deconstructed & improvements
 
                 -- TODO: confirmed to be out of scope
                 -- SLOT_TYPE_EQUIPMENT                          worn equipment
                 -- SLOT_TYPE_LOOT                               loot window
+                -- SLOT_TYPE_CRAFT_BAG_ITEM                     craft bag
                 -- SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT          trading house search results
             end
         )

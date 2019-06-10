@@ -4,8 +4,6 @@ local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 
-local PABankingRulesList = ZO_SortFilterList:Subclass()
-PA.BankingRulesList = nil
 local TYPE_ACTIVE_RULE = 1
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -82,6 +80,9 @@ local function _createRulesWindowScene()
             d("SCENE_FRAGMENT_SHOWING")
         elseif newState == SCENE_FRAGMENT_SHOWN then
             d("SCENE_FRAGMENT_SHOWN")
+            -- refresh the JunkRulesList with latest data
+            if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
+--            if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
         elseif newState == SCENE_FRAGMENT_HIDING then
             d("SCENE_FRAGMENT_HIDING")
         elseif newState == SCENE_FRAGMENT_HIDDEN then
@@ -171,10 +172,29 @@ local function _initLibMainMenu()
     ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _lastShownRulesTabDescriptor or _getDefaultRulesTabDescriptor())
 end
 
+local function initRulesMainMenu()
+    -- at least either PABanking or PAJunk must be acttive to create the MainMenu entry
+    if PA.Banking or PA.Junk then
+        -- Create the Main Scene
+        _createRulesWindowScene()
+        -- Create tabs for the scenes
+        _createTabsForScene()
+        -- Init LibMainMenu
+        _initLibMainMenu()
+        -- hide the "duplicate" divider from the ModeMenu
+        window:GetNamedChild("ModeMenuDivider"):SetHidden(true)
+    else
+        PA.debugln("Neither PABanking nor PAJunk is active; don't display MainMenu entry")
+    end
+end
+
 
 -- =================================================================================================================
 -- == PA BANKING RULES LIST == --
 -- -----------------------------------------------------------------------------------------------------------------
+local PABankingRulesList = ZO_SortFilterList:Subclass()
+PA.BankingRulesList = nil
+
 PABankingRulesList.SORT_KEYS = {
     ["itemName"] = {},
     ["bagName"] = {tiebreaker="itemName"},
@@ -193,7 +213,7 @@ function PABankingRulesList:Initialize(control)
     -- set a text that is displayed when there are no entries
     self:SetEmptyText(GetString(SI_PA_SUBMENU_PAB_NO_RULES))
     -- default sorting key
-    self.sortHeaderGroup:SelectHeaderByKey("item")
+    self.sortHeaderGroup:SelectHeaderByKey("itemName")
     ZO_SortHeader_OnMouseExit(BankingRulesTabControl:GetNamedChild("Headers"):GetNamedChild("ItemName"))
     -- define the datatype for this list and enable the highlighting
     ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantBankingRuleListRowTemplate", 36, function(control, data) self:SetupRuleRow(control, data) end)
@@ -306,7 +326,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
     delButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
-        PA.CustomDialogs.deletePABCustomRule(rowControl.data.itemLink)
+        PA.CustomDialogs.deletePABCustomRule(rowControl.data.itemLink) -- TODO: move this to PABanking somewhere
     end)
 
     -- Setup the EDIT button per row
@@ -329,10 +349,10 @@ end
 function PABankingRulesList:InitHeaders()
     -- Initialise the headers
     local headers = BankingRulesTabControl:GetNamedChild("Headers")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), "itemName", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), "bagName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), "bagAmount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), "itemName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
 end
 
@@ -342,13 +362,12 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local baseInitDone = false
+local bankingBaseInitDone = false
 
 local function initPABankingRulesList()
---    PAEM.UnregisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingRulesList, "InitPABankingRulesList")
     if PA.Banking then
-        if not baseInitDone then
-            baseInitDone = true
+        if not bankingBaseInitDone then
+            bankingBaseInitDone = true
             PABankingRulesList:InitHeaders()
             PA.BankingRulesList = PABankingRulesList:New()
         end
@@ -356,28 +375,175 @@ local function initPABankingRulesList()
     end
 end
 
-local function initRulesMainMenu()
-    -- at least either PABanking or PAJunk must be acttive to create the MainMenu entry
-    if PA.Banking or PA.Junk then
-        -- Create the Main Scene
-        _createRulesWindowScene()
-        -- Create tabs for the scenes
-        _createTabsForScene()
-        -- Init LibMainMenu
-        _initLibMainMenu()
-        -- hide the "duplicate" divider from the ModeMenu
-        window:GetNamedChild("ModeMenuDivider"):SetHidden(true)
-    else
-        PA.debugln("Neither PABanking nor PAJunk is active; don't display MainMenu entry")
-    end
-end
-
 
 -- =================================================================================================================
 -- == PA JUNK RULES LIST == --
 -- -----------------------------------------------------------------------------------------------------------------
--- TODO: to be implemented
+local PAJunkRulesList = ZO_SortFilterList:Subclass()
+PA.JunkRulesList = nil
 
+PAJunkRulesList.SORT_KEYS = {
+    ["itemName"] = {},
+    ["junkCount"] = {tiebreaker="itemName"},
+    ["ruleAdded"] = {tiebreaker="itemName"},
+    ["lastJunk"] = {tiebreaker="itemName"}
+}
+
+function PAJunkRulesList:New()
+    local rules = ZO_SortFilterList.New(self, JunkRulesTabControl)
+    return rules
+end
+
+function PAJunkRulesList:Initialize(control)
+    -- initialize the SortFilterList
+    ZO_SortFilterList.Initialize(self, control)
+    -- set a text that is displayed when there are no entries
+    self:SetEmptyText(GetString(SI_PA_SUBMENU_PAJ_NO_RULES))
+    -- default sorting key
+    self.sortHeaderGroup:SelectHeaderByKey("itemName")
+    ZO_SortHeader_OnMouseExit(JunkRulesTabControl:GetNamedChild("Headers"):GetNamedChild("ItemName"))
+    -- define the datatype for this list and enable the highlighting
+    ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantJunkRuleListRowTemplate", 36, function(control, data) self:SetupRuleRow(control, data) end)
+    ZO_ScrollList_EnableHighlight(self.list, "ZO_ThinListHighlight")
+    -- set up sorting function and refresh all data
+    self.sortFunction = function(listEntry1, listEntry2) return ZO_TableOrderingFunction(listEntry1.data, listEntry2.data, self.currentSortKey, PAJunkRulesList.SORT_KEYS, self.currentSortOrder) end
+    self:RefreshData()
+end
+
+function PAJunkRulesList:FilterScrollList()
+    -- get the data of the scrollist and index it
+    local scrollData = ZO_ScrollList_GetDataList(self.list)
+    ZO_ClearNumericallyIndexedTable(scrollData)
+    -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+    local PAJCustomItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.ItemIds
+    -- populate the table that is used as source for the list
+    for _, junkConfig in pairs(PAJCustomItemIds) do
+        local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
+        local timeSinceLastJunk = "N/A"
+        if junkConfig.lastJunk then
+            timeSinceLastJunk = FormatTimeSeconds(GetTimeStamp() - tonumber(junkConfig.lastJunk), TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING)
+        end
+        local rowData = {
+            itemIcon = GetItemLinkInfo(junkConfig.itemLink),
+            itemLink = junkConfig.itemLink,
+            itemName = GetItemLinkName(junkConfig.itemLink),
+            junkCount = junkConfig.junkCount,
+            ruleAdded = junkConfig.ruleAdded,
+            ruleAddedFmt = FormatTimeSeconds(timeSinceRuleAdded, TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING),
+            lastJunk = junkConfig.lastJunk or 0,
+            lastJunkFmt = timeSinceLastJunk,
+        }
+        -- "1" is to define a category per dataEntry (can be individually hidden)
+        table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
+    end
+end
+
+function PAJunkRulesList:SortScrollList()
+    -- get all data and sort it
+    local scrollData = ZO_ScrollList_GetDataList(self.list)
+    table.sort(scrollData, self.sortFunction)
+end
+
+function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
+    local function onRowMouseEnter(rowControl)
+        PA.JunkRulesList:Row_OnMouseEnter(rowControl)
+        local delButtonControl = rowControl:GetNamedChild("DelButton")
+        delButtonControl:SetHidden(false)
+    end
+    local function onRowMouseExit(rowControl)
+        PA.JunkRulesList:Row_OnMouseExit(rowControl)
+        local delButtonControl = rowControl:GetNamedChild("DelButton")
+        delButtonControl:SetHidden(true)
+    end
+    local function onItemNameMouseEnter(itemNameControl)
+        InitializeTooltip(ItemTooltip, itemNameControl, TOPRIGHT, -40, 0, TOPLEFT)
+        ItemTooltip:SetLink(itemNameControl:GetText())
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(itemNameControl:GetParent())
+    end
+    local function onItemNameMouseExit(itemNameControl)
+        ClearTooltip(ItemTooltip)
+        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
+        onRowMouseExit(itemNameControl:GetParent())
+    end
+    local function onDeleteButtonMouseEnter(deleteButtonControl)
+        -- TODO: change key
+        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(deleteButtonControl:GetParent())
+    end
+    local function onDeleteButtonMouseExit(deleteButtonControl)
+        ZO_Tooltips_HideTextTooltip()
+        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
+        onRowMouseExit(deleteButtonControl:GetParent())
+    end
+
+    -- store the rowData on the control so it can be accessed from the sortFunction
+    rowControl.data = rowData
+
+    -- populate all data to the individual fields per row
+    local itemIconControl = rowControl:GetNamedChild("ItemIcon")
+    itemIconControl:SetTexture(rowData.itemIcon)
+
+    local itemNameControl = rowControl:GetNamedChild("ItemName")
+    itemNameControl:SetText(rowData.itemLink)
+    itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
+    itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
+
+    local junkCountControl = rowControl:GetNamedChild("JunkCount")
+    junkCountControl:SetText(rowData.junkCount) -- TODO: formatting!
+
+    local lastJunkControl = rowControl:GetNamedChild("LastJunk")
+    lastJunkControl:SetText(rowData.lastJunkFmt)
+
+    local ruleAddedControl = rowControl:GetNamedChild("RuleAdded")
+    ruleAddedControl:SetText(rowData.ruleAddedFmt)
+
+    -- Setup the DELETE button per row
+    local delButtonControl = rowControl:GetNamedChild("DelButton")
+    delButtonControl:SetHandler("OnMouseEnter", onDeleteButtonMouseEnter)
+    delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
+    delButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.Junk.removeItemFromPermanentJunk(rowControl.data.itemLink)
+    end)
+
+    -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control
+    rowControl:SetHandler("OnMouseEnter", onRowMouseEnter)
+    rowControl:SetHandler("OnMouseExit", onRowMouseExit)
+
+    ZO_SortFilterList.SetupRow(self, rowControl, rowData)
+end
+
+
+function PAJunkRulesList:InitHeaders()
+    -- Initialise the headers
+    local headers = JunkRulesTabControl:GetNamedChild("Headers")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_JUNK_HEADER_ITEM), "itemName", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("JunkCount"), GetString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT), "junkCount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("LastJunk"), GetString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK), "lastJunk", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleAdded"), GetString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED), "ruleAdded", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
+end
+
+function PAJunkRulesList:Refresh()
+    self:RefreshData()
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local junkBaseInitDone = false
+
+local function initPAJunkRulesList()
+    if PA.Junk then
+        if not junkBaseInitDone then
+            junkBaseInitDone = true
+            PAJunkRulesList:InitHeaders()
+            PA.JunkRulesList = PAJunkRulesList:New()
+        end
+        PA.JunkRulesList:Refresh()
+    end
+end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
@@ -386,3 +552,4 @@ PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
 
 -- create the main menu entry with LMM-2
 PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingRulesList, "InitPABankingRulesList")
+PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPAJunkRulesList, "InitPAJunkRulesList")

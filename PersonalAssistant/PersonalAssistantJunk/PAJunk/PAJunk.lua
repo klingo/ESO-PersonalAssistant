@@ -116,10 +116,14 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
 
             -- print provided success message
             PAJ.println(successMessageKey, itemLinkExt)
+
+            return true -- marking junk was successful
         end
     else
         -- print failure message
         -- TODO: to be implemented
+
+        return false -- was not marked as junk
     end
 end
 
@@ -348,8 +352,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
                 local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
+                local itemId = GetItemId(bagId, slotIndex)
                 local itemType, specializedItemType = GetItemType(bagId, slotIndex)
                 local itemQuality = GetItemQuality(bagId, slotIndex)
+                local sellInformation = GetItemLinkSellInformation(itemLink)
 
                 PAJ.debugln("OnInventorySingleSlotUpdate - Check if to be junked: %s", itemLink)
 
@@ -405,12 +411,20 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                     end
+                elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
+                    if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
+                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                    end
                 else
-                    local sellInformation = GetItemLinkSellInformation(itemLink)
-                    if sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
-                        if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
-                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
-                        end
+                    -- Lastly, check the custom rules
+                    if PAJunkSavedVars.Custom.customItemsEnabled then
+                       if PAHF.isKeyInTable(PAJunkSavedVars.Custom.ItemIds, itemId) then
+                           local hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, itemLink)
+                           if hasBeenMarked then
+                               PAJunkSavedVars.Custom.ItemIds[itemId].junkCount = PAJunkSavedVars.Custom.ItemIds[itemId].junkCount + stackCountChange
+                               PAJunkSavedVars.Custom.ItemIds[itemId].lastJunk = GetTimeStamp()
+                           end
+                       end
                     end
                 end
             end

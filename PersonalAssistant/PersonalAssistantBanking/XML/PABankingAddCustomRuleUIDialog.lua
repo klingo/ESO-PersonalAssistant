@@ -86,7 +86,7 @@ local function _addCustomRuleClicked(isUpdate)
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        PAB.debugln("ERROR; PAB already existing and this was NOT an update")
+        PAB.debugln("ERROR; PAB rule already existing and this was NOT an update")
     end
 end
 

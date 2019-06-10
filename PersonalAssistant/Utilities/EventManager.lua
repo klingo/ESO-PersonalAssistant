@@ -373,8 +373,9 @@ local function RefreshAllSavedVarReferences(activeProfile)
     if PA.Mail then PA.Mail.SavedVars = PASavedVars.Mail[activeProfile] end
     if PA.Repair then PA.Repair.SavedVars = PASavedVars.Repair[activeProfile] end
 
-    -- also refresh the PABankingRulesList with the new profile
+    -- also refresh the PABankingRulesList and PAJunkRulesList with the new profile
     FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
+    FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPAJunkRulesList")
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

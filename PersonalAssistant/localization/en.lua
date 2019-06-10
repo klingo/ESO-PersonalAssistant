@@ -149,7 +149,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, Individual, and AvA Items) have been executed first.",
 
     SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Mark as permanent junk",
-
+    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",
+    SI_PA_SUBMENU_PAJ_NO_RULES = "No junk rules defined yet",
 
     -- =================================================================================================================
     -- == KEY BINDINGS == --

@@ -42,6 +42,11 @@ local PAJunkMenuDefaults = {
         autoMarkIntricateTrait = false,
         autoMarkUnknownTraits = false,
     },
+    Custom = {
+        customItemsEnabled = true,
+        ItemIds = {
+        }
+    },
 
     autoSellJunk = true,
 
