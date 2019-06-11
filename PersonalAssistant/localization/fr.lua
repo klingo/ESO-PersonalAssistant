@@ -7,10 +7,6 @@ SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORED_TEX
 
 SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.ORANGE_RED, " nécessite une version plus récente de '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' que celle qui est installée actuellement. Merci de télécharger et faire la mise à jour vers la dernière version sur ", PAC.COLORS.WHITE, "http://esoui.com"}), 1)
 
--- Key Bindings --
-SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profils", 1)
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)
-
 
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
@@ -152,7 +148,13 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
 -- =================================================================================================================
 -- == KEY BINDINGS == --
 -- -----------------------------------------------------------------------------------------------------------------
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profils", 1)
+--SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssistant Menu", 1) -- TODO: Takit
+
 --SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Rules", 1) -- TODO: Takit
+--SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Toggle Banking/Junk Rules Menu", 1) -- TODO: Takit
+
+SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)
 
 
 -- =================================================================================================================

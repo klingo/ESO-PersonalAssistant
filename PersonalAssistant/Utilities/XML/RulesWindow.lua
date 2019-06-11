@@ -21,7 +21,7 @@ local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
 -- store tha last shown tab (for current game session only)
 local _lastShownRulesTabDescriptor
 
-local function getBagNameAndOperatorTextFromOperatorId(operatorId)
+local function _getBagNameAndOperatorTextFromOperatorId(operatorId)
     local operator = operatorId
     local bagName = PAHF.getBagName(BAG_BACKPACK)
     if operatorId >= PAC.OPERATOR.BANK_EQUAL then
@@ -36,6 +36,12 @@ end
 -- =================================================================================================================
 -- == GENERAL MAIN MENU SETUP == --
 -- -----------------------------------------------------------------------------------------------------------------
+local function togglePARulesMenu()
+    if PA.LMM2 then
+        PA.LMM2:SelectMenuItem("PersonalAssistantRules")
+    end
+end
+
 local function _showPABankingRulesTab()
     BankingRulesTabControl:SetHidden(false)
     JunkRulesTabControl:SetHidden(true)
@@ -60,7 +66,6 @@ local function _createRulesWindowScene()
     PA_RULES_SCENE:AddFragmentGroup(FRAGMENT_GROUP.FRAME_TARGET_STANDARD_RIGHT_PANEL)
 
     -- Background Right, it will set ZO_RightPanelFootPrint and its stuff
-    -- PABANKING_SCENE:AddFragment(RIGHT_PANEL_BG_FRAGMENT)
     PA_RULES_SCENE:AddFragment(RIGHT_BG_FRAGMENT)
 
     -- The sound to be played when opening the panel
@@ -144,7 +149,7 @@ local function _initLibMainMenu()
     -- Add to main menu
     local categoryLayoutInfo =
     {
-        binding = "PA_RULES_MENU",
+        binding = "PA_RULES_TOGGLE_WINDOW",
         categoryName = SI_BINDING_NAME_PA_RULES_MAIN_MENU,
         callback = function(buttonData)
             if not SCENE_MANAGER:IsShowing(_RulesWindowSceneName) then
@@ -226,7 +231,7 @@ function PABankingRulesList:FilterScrollList()
     local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
     -- populate the table that is used as source for the list
     for _, moveConfig in pairs(PABCustomItemIds) do
-        local bagName, operatorText = getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
+        local bagName, operatorText = _getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
         local rowData = {
             bagName = bagName,
             operator = moveConfig.operator, -- required to edit the rule
@@ -543,6 +548,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
+PA.CustomDialogs.togglePARulesMenu = togglePARulesMenu
 PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
 
 -- create the main menu entry with LMM-2

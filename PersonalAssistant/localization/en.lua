@@ -10,10 +10,6 @@ local PAStrings = {
 
     SI_PA_LAM_OUTDATED = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
 
-    -- Key Bindings --
-    SI_KEYBINDINGS_CATEGORY_PA_PROFILES = "|cFFD700P|rersonal|cFFD700A|rssistant Profiles",
-    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
-
 
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
@@ -152,10 +148,17 @@ local PAStrings = {
     SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",
     SI_PA_SUBMENU_PAJ_NO_RULES = "No junk rules defined yet",
 
+
     -- =================================================================================================================
     -- == KEY BINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
+    SI_KEYBINDINGS_CATEGORY_PA_PROFILES = "|cFFD700P|rersonal|cFFD700A|rssistant Profiles",
+    SI_KEYBINDINGS_CATEGORY_PA_MENU = "|cFFD700P|rersonal|cFFD700A|rssistant Menu",
+
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Rules",
+    SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Toggle Banking/Junk Rules Menu",
+
+    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
 }
 
 for key, value in pairs(PAStrings) do
