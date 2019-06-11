@@ -63,6 +63,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Si désactivé
 --SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Rule added", 1) -- TODO: Takit
 --SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Actions", 1) -- TODO: Takit
 
+--SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "never", 1) -- TODO: Takit
+
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --

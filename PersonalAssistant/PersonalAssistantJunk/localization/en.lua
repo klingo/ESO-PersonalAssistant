@@ -67,6 +67,8 @@ local PAJStrings = {
     SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED = "Rule added",
     SI_PA_MAINMENU_JUNK_HEADER_ACTIONS = "Actions",
 
+    SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED = "never",
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

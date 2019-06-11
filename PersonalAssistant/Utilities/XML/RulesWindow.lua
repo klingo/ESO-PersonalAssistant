@@ -77,16 +77,11 @@ local function _createRulesWindowScene()
     local PA_RULES_FRAGMENT = ZO_FadeSceneFragment:New(window, false, 0)
     PA_RULES_FRAGMENT:RegisterCallback("StateChange", function(oldState, newState)
         if newState == SCENE_FRAGMENT_SHOWING then
-            d("SCENE_FRAGMENT_SHOWING")
         elseif newState == SCENE_FRAGMENT_SHOWN then
-            d("SCENE_FRAGMENT_SHOWN")
             -- refresh the JunkRulesList with latest data
             if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
---            if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
         elseif newState == SCENE_FRAGMENT_HIDING then
-            d("SCENE_FRAGMENT_HIDING")
         elseif newState == SCENE_FRAGMENT_HIDDEN then
-            d("SCENE_FRAGMENT_HIDDEN")
             ClearMenu()
             ClearTooltip(ItemTooltip)
         end
@@ -419,7 +414,7 @@ function PAJunkRulesList:FilterScrollList()
     -- populate the table that is used as source for the list
     for _, junkConfig in pairs(PAJCustomItemIds) do
         local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
-        local timeSinceLastJunk = "N/A"
+        local timeSinceLastJunk = GetString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED)
         if junkConfig.lastJunk then
             timeSinceLastJunk = FormatTimeSeconds(GetTimeStamp() - tonumber(junkConfig.lastJunk), TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING)
         end
