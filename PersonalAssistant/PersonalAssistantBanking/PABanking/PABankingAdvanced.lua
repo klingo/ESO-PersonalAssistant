@@ -8,10 +8,9 @@ local PAEM = PA.EventManager
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _writTable
-local _someItemskippedForLWC = false
 
 local function _passesLazyWritCraftingCompatibilityCheck(itemType)
-    if WritCreater and WritCreater:GetSettings().shouldGrab and PAB.SavedVars.lazyWritCraftingCompatiblity then
+    if PAB.hasLazyWritCrafterAndShouldGrabEnabled() then
         -- 3
         if _writTable[CRAFTING_TYPE_ENCHANTING] and (itemType == ITEMTYPE_GLYPH_ARMOR or itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) then
             return false
@@ -96,7 +95,7 @@ local function depositOrWithdrawAdvancedItems()
                 if _passesLazyWritCraftingCompatibilityCheck(itemType) then
                     combinedDepositLists.itemTypes:insert(itemType)
                 else
-                    _someItemskippedForLWC = true
+                    PAB.hasSomeItemskippedForLWC = true
                     PAB.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
             elseif moveMode == PAC.MOVE.WITHDRAW then
@@ -116,12 +115,6 @@ local function depositOrWithdrawAdvancedItems()
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 combinedWithdrawLists.itemTraitTypes:insert(itemTraitType)
             end
-        end
-
-        -- if some items were skipped because of LWC; display a message
-        if _someItemskippedForLWC then
-            PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
-            _someItemskippedForLWC = false
         end
 
         local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedDepositLists)

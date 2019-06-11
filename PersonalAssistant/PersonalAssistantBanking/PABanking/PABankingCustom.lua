@@ -38,8 +38,18 @@ local function depositOrWithdrawCustomItems()
         PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
         PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
 
-        -- trigger the individual itemTransactions
-        PAB.doIndividualItemTransactions(customItems, backpackBagCache, bankBagCache)
+        -- if there is at least one item to be deposited or withdrawn (and if LWC is one), just assume that it has to be blocked
+        if PAB.hasLazyWritCrafterAndShouldGrabEnabled() and (#backpackBagCache > 0 or #bankBagCache > 0) then
+            -- note down that potentially items were skipped
+            PAB.hasSomeItemskippedForLWC = true
+            -- unblock the banking transactions
+            PAB.isBankTransferBlocked = false
+            -- and continue with the next function in queue
+            PAEM.executeNextFunctionInQueue(PAB.AddonName)
+        else
+            -- trigger the individual itemTransactions
+            PAB.doIndividualItemTransactions(customItems, backpackBagCache, bankBagCache)
+        end
     else
         -- else, continue with the next function in queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)

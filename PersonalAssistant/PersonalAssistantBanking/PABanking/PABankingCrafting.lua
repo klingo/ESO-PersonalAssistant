@@ -8,10 +8,9 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _writTable
-local _someItemskippedForLWC = false
 
 local function _passesLazyWritCraftingCompatibilityCheck(itemType)
-    if WritCreater and WritCreater:GetSettings().shouldGrab and PAB.SavedVars.lazyWritCraftingCompatiblity then
+    if PAB.hasLazyWritCrafterAndShouldGrabEnabled() then
         -- 1
         if _writTable[CRAFTING_TYPE_BLACKSMITHING] and
                 (itemType == ITEMTYPE_BLACKSMITHING_MATERIAL or itemType == ITEMTYPE_STYLE_MATERIAL) then
@@ -80,18 +79,12 @@ local function depositOrWithdrawCraftingItems()
                 if _passesLazyWritCraftingCompatibilityCheck(itemType) then
                     depositItemTypes:insert(itemType)
                 else
-                    _someItemskippedForLWC = true
+                    PAB.hasSomeItemskippedForLWC = true
                     PAB.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 withdrawItemTypes:insert(itemType)
             end
-        end
-
-        -- if some items were skipped because of LWC; display a message
-        if _someItemskippedForLWC then
-            PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
-            _someItemskippedForLWC = false
         end
 
         local depositComparator = PAHF.getItemTypeComparator(depositItemTypes)

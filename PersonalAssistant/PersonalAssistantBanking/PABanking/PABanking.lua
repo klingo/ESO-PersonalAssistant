@@ -20,6 +20,23 @@ local function _stackBags()
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
+local function _printLWCMessageIfItemsSkipped()
+    if PAB.hasSomeItemskippedForLWC then
+        -- if some items were skipped because of LWC; display a message
+        PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
+    end
+    -- thencontinue with the next function in queue
+    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+end
+
+local function hasLazyWritCrafterAndShouldGrabEnabled()
+    if WritCreater then
+        local _, hasAny = WritCreater.writSearch()
+        return hasAny and WritCreater:GetSettings().shouldGrab and PAB.SavedVars.lazyWritCraftingCompatiblity
+    end
+    return false
+end
+
 local function OnBankOpen(eventCode, bankBag)
     -- immediately stop if not the actual BANK bag is opened (i.e. HOUSE_BANK)
     if IsHouseBankBag(bankBag) then return
@@ -27,12 +44,16 @@ local function OnBankOpen(eventCode, bankBag)
         -- set the global variable to 'false'
         PA.WindowStates.isBankClosed = false
 
+        -- start with that no items were skipped for LazyWritCrafter
+        PAB.hasSomeItemskippedForLWC = false
+
         -- trigger the deposit and withdrawal of gold
         PAB.depositOrWithdrawCurrencies()
 
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
+        PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawAvAItems, PAB.AddonName, 100)
@@ -67,5 +88,6 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
+PA.Banking.hasLazyWritCrafterAndShouldGrabEnabled = hasLazyWritCrafterAndShouldGrabEnabled
 PA.Banking.OnBankOpen = OnBankOpen
 PA.Banking.OnBankClose = OnBankClose
