@@ -81,7 +81,7 @@ local function _getSlotTypeName(slotType)
 --    if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then return "SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_POST_ITEM then return "SLOT_TYPE_TRADING_HOUSE_POST_ITEM" end
-    if slotType == SLOT_TYPE_REPAIR then return "SLOT_TYPE_REPAIR" end
+--    if slotType == SLOT_TYPE_REPAIR then return "SLOT_TYPE_REPAIR" end
 --    if slotType == SLOT_TYPE_CRAFTING_COMPONENT then return "SLOT_TYPE_CRAFTING_COMPONENT" end
     if slotType == SLOT_TYPE_PENDING_CRAFTING_COMPONENT then return "SLOT_TYPE_PENDING_CRAFTING_COMPONENT" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
@@ -95,14 +95,14 @@ local function _getSlotTypeName(slotType)
     if slotType == SLOT_TYPE_PENDING_CHARGE then return "SLOT_TYPE_PENDING_CHARGE" end
     if slotType == SLOT_TYPE_PENDING_REPAIR then return "SLOT_TYPE_PENDING_REPAIR" end
     if slotType == SLOT_TYPE_PENDING_RETRAIT_ITEM then return "SLOT_TYPE_PENDING_RETRAIT_ITEM" end
-    if slotType == SLOT_TYPE_QUEST_ITEM then return "SLOT_TYPE_QUEST_ITEM" end
+--    if slotType == SLOT_TYPE_QUEST_ITEM then return "SLOT_TYPE_QUEST_ITEM" end
     if slotType == SLOT_TYPE_SMITHING_BOOSTER then return "SLOT_TYPE_SMITHING_BOOSTER" end
     if slotType == SLOT_TYPE_SMITHING_BOOSTER then return "SLOT_TYPE_SMITHING_BOOSTER" end
     if slotType == SLOT_TYPE_SMITHING_STYLE then return "SLOT_TYPE_SMITHING_STYLE" end
     if slotType == SLOT_TYPE_SMITHING_TRAIT then return "SLOT_TYPE_SMITHING_TRAIT" end
     if slotType == SLOT_TYPE_STACK_SPLIT then return "SLOT_TYPE_STACK_SPLIT" end
-    if slotType == SLOT_TYPE_STORE_BUY then return "SLOT_TYPE_STORE_BUY" end
-    if slotType == SLOT_TYPE_STORE_BUYBACK then return "SLOT_TYPE_STORE_BUYBACK" end
+--    if slotType == SLOT_TYPE_STORE_BUY then return "SLOT_TYPE_STORE_BUY" end
+--    if slotType == SLOT_TYPE_STORE_BUYBACK then return "SLOT_TYPE_STORE_BUYBACK" end
     if slotType == SLOT_TYPE_THEIR_TRADE then return "SLOT_TYPE_THEIR_TRADE" end
 
     return tostring(slotType)
@@ -116,7 +116,7 @@ local function initHooksOnInventoryContextMenu()
                 -- TODO: if settings are turned ON, then
                 local slotType = ZO_InventorySlot_GetType(inventorySlot)
                 d("slotType=".._getSlotTypeName(slotType))
-                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM or slotType == SLOT_TYPE_GUILD_BANK_ITEM then
+                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
                     local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
                     local itemLink = GetItemLink(bagId, slotIndex)
                     _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
@@ -165,6 +165,10 @@ local function initHooksOnInventoryContextMenu()
                 -- SLOT_TYPE_LOOT                               loot window
                 -- SLOT_TYPE_CRAFT_BAG_ITEM                     craft bag
                 -- SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT          trading house search results
+                -- SLOT_TYPE_STORE_BUY                          buying from store
+                -- SLOT_TYPE_STORE_BUYBACK                      buyback from store
+                -- SLOT_TYPE_REPAIR                             repair in store
+                -- SLOT_TYPE_QUEST_ITEM                         quest items
             end
         )
     else
