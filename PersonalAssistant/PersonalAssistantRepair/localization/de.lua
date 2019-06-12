@@ -17,8 +17,8 @@ SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "Wenn ein Händler besu
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY, "Haltbarkeitsschwelle in %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Repariere Ausrüstung im Inventar nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 
-SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({"Reparatur mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT)}), 1)
-SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), "?"}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({"Reparatur mit ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), "?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T, "Unterwegs werden getragenen Ausrüstungen automatisch repariert wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY, "Schwellenwert der Haltbarkeit in %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T, "Repariere getragene Gegenstände nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
@@ -27,9 +27,9 @@ SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T, "Repariere getragene Geg
 --SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY, "tbd", 1)
 --SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T, "tbd", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING, "Warne wenn Reparaturmat. ausgehen", 1)
-SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T, table.concat({"Zeige eine Warnung im Chatfenster an wenn dir die ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " ausgehen. Wenn du keine mehr hast wird maximal alle 10 Minuten eine Warnung angezeigt."}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T, table.concat({"Zeige eine Warnung im Chatfenster an wenn dir die ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), " ausgehen. Wenn du keine mehr hast wird maximal alle 10 Minuten eine Warnung angezeigt."}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD, "Schwellenwert für Reparaturmat.", 1)
-SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T, table.concat({"Wenn die Anzahl verbleibender ", GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT), " auf oder unter diesen Schwellenwert fällt, ird eine Meldung im Chat ausgegeben"}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T, table.concat({"Wenn die Anzahl verbleibender ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), " auf oder unter diesen Schwellenwert fällt, ird eine Meldung im Chat ausgegeben"}), 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_HEADER, table.concat({"Waffen mit ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "n aufladen"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE, table.concat({"Getragene Waffen mit ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "n aufladen?"}), 1)

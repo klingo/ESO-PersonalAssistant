@@ -124,40 +124,6 @@ local PABankingMenuDefaults = {
     },
 
     -- ---------------------------------------------
-    Individual = {
-        individualItemsEnabled = true,
-
-        ItemIds = {
-            [30357] = {     -- [Lockpick]
-                operator = PAC.OPERATOR.NONE,
-                bagAmount = 100,
-            },
-
-            [33265] = {     -- [Soul Gem (Empty)]
-                operator = PAC.OPERATOR.NONE,
-                bagAmount = 100,
-            },
-            [33271] = {     -- [Soul Gem]
-                operator = PAC.OPERATOR.NONE,
-                bagAmount = 100,
-            },
-            [61080] = {     -- [Crown Soul Gem]
-                operator = PAC.OPERATOR.NONE,
-                bagAmount = 100,
-            },
-
-            [44879] = {     -- [Grand Repair Kit]
-                operator = PAC.OPERATOR.NONE,
-                bagAmount = 100,
-            },
-            [61079] = {     -- [Crown Repair Kit]
-                operator = PAC.OPERATOR.NONE,
-                bagAmount = 100,
-            },
-        },
-    },
-
-    -- ---------------------------------------------
     AvA = {
         avaItemsEnabled = false,
 

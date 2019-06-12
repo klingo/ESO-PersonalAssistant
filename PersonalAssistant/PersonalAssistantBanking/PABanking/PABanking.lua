@@ -58,7 +58,6 @@ local function OnBankOpen(eventCode, bankBag)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawAvAItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedItems, PAB.AddonName, 100)
-        PAEM.addFunctionToQueue(PAB.depositOrWithdrawIndividualItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCraftingItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
 

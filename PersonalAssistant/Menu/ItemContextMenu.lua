@@ -22,6 +22,10 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
                     end,
                     -- TODO: add logic to also check other itemTypes that are already covered!
+                    -- TODO: Crafting Materials & AvA items?
+                    -- TODO: Master Writs
+                    -- TODO: Motifs
+                    -- TODO: Recipes
                     disabled = function() return isRuleExisting end,
                 },
                 {

@@ -91,13 +91,14 @@ local function initAddon(_, addOnName)
     -- init the overall Rules Main Menu
     PA.CustomDialogs.initRulesMainMenu()
 
-    -- register additional slash-commands (only for Addon author)
---    if GetUnitName("player") == PACAddon.AUTHOR then
-        SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
-        SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
-        SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
-        SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showStaticDebugInformationWindow() end
---    end
+    -- register additional slash-commands for the custom rules
+    SLASH_COMMANDS["/parules"] = function() PA.CustomDialogs.togglePARulesMenu() end
+
+    -- register additional slash-commands for debugging
+    SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
+    SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
+    SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+    SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showStaticDebugInformationWindow() end
 end
 
 

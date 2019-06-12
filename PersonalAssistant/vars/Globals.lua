@@ -162,7 +162,7 @@ PersonalAssistant.Constants = {
             GLYPH_ARMOR_HEALTH = {
                 PATH = "/esoui/art/icons/enchantment_armor_healthboost.dds",
             },
-            LOCKPICK = {
+            LOCKPICK = { -- TODO: not used
                 PATH = "/esoui/art/icons/lockpick.dds",
             },
             MASTER_WRIT = {
@@ -376,25 +376,6 @@ PersonalAssistant.Constants = {
                 [ITEM_TRAIT_TYPE_JEWELRY_INTRICATE] = ITEMFILTERTYPE_JEWELRY,
             }
         },
-    },
-
-    BANKING_INDIVIDUAL = {
-        LOCKPICK = {
-            30357,  -- [Lockpick]
-        },
-        SOUL_GEM = {
-            33265,  -- [Soul Gem (Empty)]
-            33271,  -- [Soul Gem]
-            61080,  -- [Crown Soul Gem]
-        },
-        REPAIR_KIT = {
-            44879,  -- [Grand Repair Kit]
-            61079,  -- [Crown Repair Kit]
-        },
-        GENERIC = {
-            -- Generic container where any itemID can just be added and it will work out of the box
-            -- See examples above with soul gems and repair kits
-        }
     },
 
     BANKING_AVA = {

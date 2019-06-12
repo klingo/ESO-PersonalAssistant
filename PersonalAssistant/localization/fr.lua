@@ -85,7 +85,7 @@ SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Prendre dans le sac", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, "Objets complexes", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Nécessaires de réparation", 1)
+SafeAddString(SI_PA_MENU_BANKING_REPAIRKIT, "Nécessaires de réparation", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Operators --
@@ -138,7 +138,7 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
 --SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Update rule", 1) -- TODO: Takit
 --SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Delete rule", 1) -- TODO: Takit
 --SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "No banking rules defined yet", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, Individual, and AvA Items) have been executed first.", 1) -- TODO: Takit
+--SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.", 1) -- TODO: Takit
 
 --SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Mark as permanent junk", 1) -- TODO: Takit
 --SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Unmark as permanent junk", 1) -- TODO: Takit

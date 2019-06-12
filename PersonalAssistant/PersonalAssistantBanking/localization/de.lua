@@ -29,9 +29,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8, table.concat({PAC.I
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Rezepte"}), 1)
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Einzelne Gegenstände"}), 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Einzelnen Gegenständen?", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION, "Definiere die Menge der einzelnen Gegenstände die im Inventar behalten werden sollen", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC, "Anderes", 1)
+--SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the main menu, or with ", PAC.COLOR.YELLOW:Colorize("/parules")}), 1) -- TODO: Me
 
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für AvA Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Allianz versus Alliance (AvA) Gegenständen?", 1)

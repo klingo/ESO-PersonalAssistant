@@ -185,6 +185,69 @@ local function _applyPatch_2_3_0(savedVarsVersion, _, patchPAB, _, _, _)
 end
 
 
+local function _applyPatch_2_4_0(savedVarsVersion, _, patchPAB, _, _, _)
+    if patchPAB then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate   PABanking.Individual.ItemIds
+            local oldItemIdConfigs = PASavedVars.Banking[profileNo].Individual.ItemIds
+            for itemId, moveConfig in pairs(oldItemIdConfigs) do
+                if istable(moveConfig) then
+                    -- only migrate if the item had a rule defined (and if e.g. generics had a bagAmount)
+                    if moveConfig.operator ~= PAC.OPERATOR.NONE and moveConfig.bagAmount then
+                        PASavedVars.Banking[profileNo].Custom.ItemIds[itemId] = {
+                            bagAmount = moveConfig.bagAmount,
+                            itemLink = table.concat({"|H0:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"}),
+                            operator = moveConfig.operator,
+                        }
+                    end
+                end
+            end
+
+--            -- 2) migrate   PABanking.AvA.CrossAllianceItemIds
+--            local oldAvACrossAllianceItemIdConfigs = PASavedVars.Banking[profileNo].AvA.CrossAllianceItemIds
+--            for itemId, moveConfig in pairs(oldAvACrossAllianceItemIdConfigs) do
+--                if istable(moveConfig) then
+--                    -- only migrate if the item had a rule defined
+--                    if moveConfig.operator ~= PAC.OPERATOR.NONE then
+--                        PASavedVars.Banking[profileNo].Custom.ItemIds[itemId] = {
+--                            bagAmount = moveConfig.bagAmount,
+--                            itemLink = table.concat({"|H0:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"}),
+--                            operator = moveConfig.operator,
+--                        }
+--                    end
+--                end
+--            end
+--
+--            -- 3) migrate   PABanking.AvA.ItemIds
+--            local oldAvAItemIdConfigs = PASavedVars.Banking[profileNo].AvA.ItemIds
+--            for itemId, moveConfig in pairs(oldAvAItemIdConfigs) do
+--                if istable(moveConfig) then
+--                    -- only migrate if the item had a rule defined
+--                    if moveConfig.operator ~= PAC.OPERATOR.NONE then
+--                        PASavedVars.Banking[profileNo].Custom.ItemIds[itemId] = {
+--                            bagAmount = moveConfig.bagAmount,
+--                            itemLink = table.concat({"|H0:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"}),
+--                            operator = moveConfig.operator,
+--                        }
+--                    end
+--                end
+--            end
+
+            -- 4) get rid of    PABanking.Individual
+            PASavedVars.Banking[profileNo].Individual = nil
+
+--            -- 5) get rid of    PABanking.AvA
+--            PASavedVars.Banking[profileNo].AvA = nil
+
+            -- 6) if enabled, refresh the list
+            if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false)
+    end
+end
+
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -206,6 +269,8 @@ local function applyPatchIfNeeded()
     -- Patch 2.3.0      May 19, 2019
     _applyPatch_2_3_0(_getIsPatchNeededInfo(020300))
 
+    -- Patch 2.4.0      tbd -- TODO: add date
+    _applyPatch_2_4_0(_getIsPatchNeededInfo(020400))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

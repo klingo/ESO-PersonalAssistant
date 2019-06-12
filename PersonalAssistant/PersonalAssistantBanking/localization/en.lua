@@ -33,9 +33,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Recipes"}),
 
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
-    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Individual Items?",
-    SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION = "Define the amount of the different Individual Items you would like to keep in your inventory",
-    SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC = "Other",
+    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the main menu, or with ", PAC.COLOR.YELLOW:Colorize("/parules")}),
 
     SI_PA_MENU_BANKING_AVA_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for AvA Items"}),
     SI_PA_MENU_BANKING_AVA_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Alliance versus Alliance (AvA) Items?",
@@ -131,11 +129,6 @@ local PABGenericStrings = {
     SI_PA_MENU_BANKING_ADVANCED_FOOD_DRINKS_HEADER = table.concat({zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_FOOD), 2), " & ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_DRINK), 2)}),
     SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TROPHY), 2),
     SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS_HEADER = GetString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS),
-
-    SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_LOCKPICK), 2),
-    SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2),
-    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT),
-    SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC),
 
     SI_PA_MENU_BANKING_AVA_SIEGE_BALLISTA_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_BALLISTA),
     SI_PA_MENU_BANKING_AVA_SIEGE_CATAPULT_HEADER = GetString("SI_SIEGETYPE", SIEGE_TYPE_CATAPULT),

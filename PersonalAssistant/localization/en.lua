@@ -89,7 +89,7 @@ local PAStrings = {
 
     SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Intricate Items",
 
-    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT = "Repair Kits",
+    SI_PA_MENU_BANKING_REPAIRKIT = "Repair Kits",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Operators --
@@ -142,7 +142,7 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Update rule",
     SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Delete rule",
     SI_PA_SUBMENU_PAB_NO_RULES = "No banking rules defined yet",
-    SI_PA_SUBMENU_PAB_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, Individual, and AvA Items) have been executed first.",
+    SI_PA_SUBMENU_PAB_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.",
 
     SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Mark as permanent junk",
     SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",

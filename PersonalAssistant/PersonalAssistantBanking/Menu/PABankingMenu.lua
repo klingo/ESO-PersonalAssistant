@@ -57,11 +57,6 @@ local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAdvancedIntricateItemsSubmenuTable = setmetatable({}, { __index = table })
 
-local PABIndividualLockpickSubmenuTable = setmetatable({}, { __index = table })
-local PABIndividualSoulGemSubmenuTable = setmetatable({}, { __index = table })
-local PABIndividualRepairKitSubmenuTable = setmetatable({}, { __index = table })
-local PABIndividualGenericSubmenuTable = setmetatable({}, { __index = table })
-
 local PABAvASiegeBallistaSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeCatapultSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeTrebuchetSubmenuTable = setmetatable({}, { __index = table })
@@ -396,53 +391,16 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE),
-        tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T),
-        getFunc = PABMenuFunctions.getIndividualItemsEnabledSetting,
-        setFunc = PABMenuFunctions.setIndividualItemsEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
-        default = PABMenuDefaults.Individual.individualItemsEnabled,
+        getFunc = function() return false end,
+        setFunc = function(value) end,
+        disabled = true,
+        default = false,
     })
 
     PABankingOptionsTable:insert({
         type = "description",
-        text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION)
+        text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION)
     })
-
-    PABankingOptionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER),
-        icon = PAC.ICONS.ITEMS.LOCKPICK.PATH,
-        controls = PABIndividualLockpickSubmenuTable,
-        disabledLabel = PABMenuFunctions.isLockpickTransactionMenuDisabled,
-    })
-
-    PABankingOptionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER),
-        icon = PAC.ICONS.ITEMS.SOULGEM.PATH,
-        controls = PABIndividualSoulGemSubmenuTable,
-        disabledLabel = PABMenuFunctions.isSoulGemTransactionMenuDisabled,
-    })
-
-    PABankingOptionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER),
-        icon = PAC.ICONS.ITEMS.REPAIRKIT.PATH,
-        controls = PABIndividualRepairKitSubmenuTable,
-        disabledLabel = PABMenuFunctions.isRepairKitTransactionMenuDisabled,
-    })
-
-    -- check if there are any generic items added; if not skip the menu
-    if #PAC.BANKING_INDIVIDUAL.GENERIC > 0 then
-        PABankingOptionsTable:insert({
-            type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER),
-            icon = PAC.ICONS.ITEMS.GENERIC_HELP.PATH,
-            controls = PABIndividualGenericSubmenuTable,
-            disabledLabel = PABMenuFunctions.isGenericTransactionMenuDisabled,
-        })
-    end
-
 
     -- ---------------------------------------------------------------------------------------------------------
 
@@ -1065,138 +1023,6 @@ end
 
 -- =================================================================================================================
 
-local function _createPABIndividualLockpickSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.LOCKPICK) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualLockpickSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].operator,
-        })
-
-        PABIndividualLockpickSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
-        })
-    end
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
-local function _createPABIndividualSoulGemSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.SOUL_GEM) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualSoulGemSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].operator,
-        })
-
-        PABIndividualSoulGemSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
-        })
-    end
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
-local function _createPABIndividualRepairKitSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.REPAIR_KIT) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualRepairKitSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].operator,
-        })
-
-        PABIndividualRepairKitSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
-        })
-    end
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
-local function _createPABIndividualGenericSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.GENERIC) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualGenericSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PAC.OPERATOR.NONE,
-        })
-
-        PABIndividualGenericSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PAC.BACKPACK_AMOUNT.DEFAULT,
-        })
-    end
-end
-
--- =================================================================================================================
-
 local function _createPABAvASiegeBallistaSubmenuTable()
     for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].BALLISTA) do
         local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
@@ -1492,11 +1318,6 @@ local function createOptions()
     _createPABAdvancedTrophiesSubmenuTable()
 
     _createPABAdvancedIntricateItemsSubmenuTable()
-
-    _createPABIndividualLockpickSubmenuTable()
-    _createPABIndividualSoulGemSubmenuTable()
-    _createPABIndividualRepairKitSubmenuTable()
-    _createPABIndividualGenericSubmenuTable()
 
     _createPABAvASiegeBallistaSubmenuTable()
     _createPABAvASiegeCatapultSubmenuTable()
