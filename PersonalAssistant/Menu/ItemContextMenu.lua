@@ -6,12 +6,26 @@ local PAHF = PA.HelperFunctions
 
 local _hooksOnInventoryContextMenuInitialized = false
 
+local function _isBankingRuleNotAllowed(itemLink, bagId, slotIndex)
+    local itemType = GetItemType(bagId, slotIndex)
+    if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then return true end
+    if itemType == ITEMTYPE_RECIPE then return true end
+    if itemType == ITEMTYPE_MASTER_WRIT then return true end
+    if itemType == ITEMTYPE_AVA_REPAIR then return true end
+    -- TODO: add logic to also check other itemTypes that are already covered!
+    -- TODO: Crafting Materials
+    return false
+end
+
 local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
     local itemId = GetItemLinkItemId(itemLink)
 
     -- Add PABanking context menu entries
     if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
         zo_callLater(function()
+            -- first make some checks whether banking rules are even allowed for this item
+            if _isBankingRuleNotAllowed(itemLink, bagId, slotIndex) then return end
+
             local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
             local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
             local entries = {
@@ -21,11 +35,6 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
                     end,
-                    -- TODO: add logic to also check other itemTypes that are already covered!
-                    -- TODO: Crafting Materials & AvA items?
-                    -- TODO: Master Writs
-                    -- TODO: Motifs
-                    -- TODO: Recipes
                     disabled = function() return isRuleExisting end,
                 },
                 {
