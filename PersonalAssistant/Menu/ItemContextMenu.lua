@@ -12,8 +12,7 @@ local function _isBankingRuleNotAllowed(itemLink, bagId, slotIndex)
     if itemType == ITEMTYPE_RECIPE then return true end
     if itemType == ITEMTYPE_MASTER_WRIT then return true end
     if itemType == ITEMTYPE_AVA_REPAIR then return true end
-    -- TODO: add logic to also check other itemTypes that are already covered!
-    -- TODO: Crafting Materials
+    -- TODO: add logic to also check other itemTypes that are already covered! --> Crafting Materials?
     return false
 end
 
