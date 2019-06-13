@@ -419,8 +419,8 @@ end
 local function getPABankingAvaCrossAllianceItemIdBagAmountSetting(crossAllianceItemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
     local value = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount
-    -- in case a new GENERIC individual item is added, return "20" by default
-    if value then return value else return 20 end
+    -- in case a new GENERIC individual item is added, return the default value
+    if value then return value else return PAC.BACKPACK_AMOUNT.DEFAULT end
 end
 
 local function setPABankingAvaCrossAllianceItemIdBagAmountSetting(crossAllianceItemId, value)
@@ -477,8 +477,8 @@ end
 local function getPABankingtAvAItemIdBagAmountSetting(itemId)
     if isDisabledPAGeneralNoProfileSelected() then return end
     local value = PAB.SavedVars.AvA.ItemIds[itemId].bagAmount
-    -- in case a new GENERIC individual item is added, return "20" by default
-    if value then return value else return 20 end
+    -- in case a new GENERIC individual item is added, return the default value
+    if value then return value else return PAC.BACKPACK_AMOUNT.DEFAULT end
 end
 
 local function setPABankingtAvAItemIdBagAmountSetting(itemId, value)
