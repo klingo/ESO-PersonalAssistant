@@ -1,5 +1,5 @@
 <Bindings>
-    <Layer name="SI_KEYBINDINGS_LAYER_PERSONALASSISTANT">
+    <Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
         <Category name="SI_KEYBINDINGS_CATEGORY_PA_PROFILES">
             <Action name="PA_ACTIVATE_PROFILE_1">
                 <Down>PersonalAssistant.Bindings.loadProfile(1)</Down>
