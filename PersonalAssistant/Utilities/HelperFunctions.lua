@@ -182,7 +182,7 @@ local function println(prefix, text, ...)
     if textKey ~= nil and textKey ~= "" then
         CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(textKey, ...)}))
     else
-        CHAT_SYSTEM:AddMessage(table.conat({prefix, getFormattedText(text, ...)}))
+        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(text, ...)}))
     end
 end
 
