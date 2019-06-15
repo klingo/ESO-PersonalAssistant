@@ -16,7 +16,7 @@ local Repair_Defaults = {}
 -- only prints out PARepair texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Repair.SavedVars.silentMode then
-        PAHF.println(text, ...)
+        PAHF.println(PAC.COLORED_TEXTS.PAR, text, ...)
     end
 end
 
