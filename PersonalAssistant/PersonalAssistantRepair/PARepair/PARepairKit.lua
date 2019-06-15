@@ -56,7 +56,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
                         totalRepairKitCount = totalRepairKitCount - 1
                         --PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
 
-                        PAR.println(GetString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED), itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
+                        PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
                     end
 
                     -- check remaining repair kits

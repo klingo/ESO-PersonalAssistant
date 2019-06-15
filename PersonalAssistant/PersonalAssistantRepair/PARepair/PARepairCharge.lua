@@ -77,7 +77,7 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                     local chargePerc = PAHF.round(100 / maxCharges * charges, 2)
 
                     -- show output to chat
-                    PAR.println(GetString(SI_PA_CHAT_REPAIR_CHARGE_WEAPON), itemLink, chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    PAR.println(SI_PA_CHAT_REPAIR_CHARGE_WEAPON, itemLink, chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
                 end
 
                 -- check remaining soul gems
