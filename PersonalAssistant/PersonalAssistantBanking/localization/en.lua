@@ -70,19 +70,19 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
-    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s withdrawn"}),
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn (Bank is empty)"}),
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s withdrawn (Not enough space on character)"}),
+    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%d %s withdrawn",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%d / %d %s withdrawn (Bank is empty)",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%d / %d %s withdrawn (Not enough space on character)",
 
-    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d %s deposited"}),
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited (Character is empty)"}),
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s deposited (Not enough space in bank)"}),
+    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = "%d %s deposited",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = "%d / %d %s deposited (Character is empty)",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%d / %d %s deposited (Not enough space in bank)",
 
-    SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s moved to %s"}),
-    SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s moved to %s"}),
-    SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Not enough space!"}),
-    SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = table.concat({PAC.COLORED_TEXTS.PAB, "Could not move %s to %s. Window was closed!"}),
-    SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = table.concat({PAC.COLORED_TEXTS.PAB, "Some items were NOT deposited to avoid potential interferences with Dolgubon's Lazy Writ Crafter"}),
+    SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s moved to %s",
+    SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = "%d/%d x %s moved to %s",
+    SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = "Could not move %s to %s. Not enough space!",
+    SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = "Could not move %s to %s. Window was closed!",
+    SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = "Some items were NOT deposited to avoid potential interferences with Dolgubon's Lazy Writ Crafter",
 }
 
 for key, value in pairs(PABStrings) do

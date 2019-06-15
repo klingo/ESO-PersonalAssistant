@@ -12,7 +12,7 @@ local function loadProfile(profileNo)
         if activeProfile ~= profileNo then
             PAMF.PAGeneral.setActiveProfile(profileNo)
             -- then inform player
-            PAHF.println(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, PA.SavedVars.General[PA.activeProfile].name)
+            PA.println(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, PA.SavedVars.General[PA.activeProfile].name)
         end
     end
 end

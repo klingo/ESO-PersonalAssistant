@@ -120,7 +120,7 @@ local function createOptions()
     -- first check for the latest version of the LAM2-submenu widget that is needed for disabledLabel
     local lamSubmenuVersion = LAM2.widgets.submenu or 0
     if lamSubmenuVersion < 13 then
-        zo_callLater(function() PAHF.println(SI_PA_LAM_OUTDATED) end, 5000)
+        zo_callLater(function() PA.println(SI_PA_LAM_OUTDATED) end, 5000)
     end
 
     -- Create and register the General Menu

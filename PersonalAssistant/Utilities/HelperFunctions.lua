@@ -176,12 +176,13 @@ local function getFormattedKey(key, ...)
 end
 
 -- currently supports one text and n arguments
-local function println(text, ...)
+local function println(prefix, text, ...)
     local textKey = GetString(text)
+    local prefix = prefix or ""
     if textKey ~= nil and textKey ~= "" then
-        CHAT_SYSTEM:AddMessage(getFormattedText(textKey, ...))
+        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(textKey, ...)}))
     else
-        CHAT_SYSTEM:AddMessage(getFormattedText(text, ...))
+        CHAT_SYSTEM:AddMessage(table.conat({prefix, getFormattedText(text, ...)}))
     end
 end
 
