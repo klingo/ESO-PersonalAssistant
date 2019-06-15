@@ -201,7 +201,7 @@ end
 -- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
 local function debuglnAuthor(key, ...)
     if GetUnitName("player") == PAC.ADDON.AUTHOR then
-        println(key, ...)
+        println("", key, ...)
     end
 end
 
