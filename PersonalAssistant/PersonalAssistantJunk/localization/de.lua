@@ -83,8 +83,8 @@ SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STO
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Minuten"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Kann %s nicht verkaufen. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
 
---SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({PAC.COLORED_TEXTS.PAB, "%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}), 1) -- TODO: Me
---SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({PAC.COLORED_TEXTS.PAB, "%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}), 1) -- TODO: Me
+--SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}), 1) -- TODO: Me
+--SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}), 1) -- TODO: Me
 
 
 -- =================================================================================================================

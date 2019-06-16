@@ -91,9 +91,9 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, "Impossible de dép
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, "Impossible de déplacer %s vers %s. La fenêtre a été fermée !", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Certains matériaux n'ont PAS été déposés pour éviter de potentielles interférences avec Dolgubon's Lazy Writ Crafter", 1)
 
---SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), 1) -- TODO: Takit
---SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), 1) -- TODO: Takit
---SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), 1) -- TODO: Takit
+--SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), 1) -- TODO: Takit
+--SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), 1) -- TODO: Takit
+--SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), 1) -- TODO: Takit
 
 
 -- =================================================================================================================

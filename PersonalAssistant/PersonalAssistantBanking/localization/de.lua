@@ -91,6 +91,6 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, "%s konnte nicht in
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, "%s konnte nicht in %s verschoben werden. Fenster wurde geschlossen!", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Manche Gegenstände wurden NICHT eingelagert um potentielle Überlagerungen mit Dolgubon's Lazy Writ Crafter zu vermeiden", 1)
 
---SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), 1) -- TODO: Me
---SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), 1) -- TODO: Me
---SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), 1) -- TODO: Me
+--SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), 1) -- TODO: Me
+--SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), 1) -- TODO: Me
+--SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), 1) -- TODO: Me
