@@ -24,6 +24,11 @@ PA.WindowStates = {
 -- whether welcome message should be shown, or was already shown
 local showWelcomeMessage = true
 
+-- only prints out PAJunk texts if silentMode is disabled
+local function println(text, ...)
+    PAHF.println(PAC.COLORED_TEXTS.PA, text, ...)
+end
+
 -- init default values
 local function _initDefaults()
     -- initialize the multi-profile structure
@@ -112,7 +117,7 @@ local function introduction()
     end
 
     if PA.activeProfile == nil then
-        PAHF.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
+        PA.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
         -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
         PAEM.RefreshAllSavedVarReferences(PA.activeProfile)
@@ -124,9 +129,9 @@ local function introduction()
             showWelcomeMessage = false
             local currLanguage = GetCVar("language.2") or "en"
             if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr" then
-                PAHF.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
+                PA.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
-                PAHF.println(SI_PA_WELCOME_SUPPORT)
+                PA.println(SI_PA_WELCOME_SUPPORT)
             end
         end
     end
@@ -164,7 +169,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         elseif bagId == BAG_WORN then bagName = "BAG_WORN"
         elseif bagId == BAG_SUBSCRIBER_BANK then bagName = "BAG_SUBSCRIBER_BANK" end
 
-        PAHF.println("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, strSpecializedItemType, icon, bagName)
+        PAHF.println("", "itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, strSpecializedItemType, icon, bagName)
 
         local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
         local isBeingResearched = PA.Loot.isTraitBeingResearched(itemLink)
@@ -257,3 +262,8 @@ function PA.toggleDebug(newStatus)
         end
     end
 end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+-- Export
+PA.println = println

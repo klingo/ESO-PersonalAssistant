@@ -4,11 +4,11 @@ local PAStrings = {
     -- Language specific texts that need to be translated --
 
     -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " at your service!"}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
+    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)"}),
+    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " at your service!"}),
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
 
-    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
+    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
 
 
     -- =================================================================================================================
@@ -38,7 +38,7 @@ local PAStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral --
-    SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE = table.concat({PAC.COLORED_TEXTS.PA, PAC.COLORS.DEFAULT, " active profile: ", PAC.COLORS.ORANGE_RED, "%s"}),
+    SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE = table.concat({PAC.COLORS.DEFAULT, " active profile: ", PAC.COLORS.ORANGE_RED, "%s"}),
 
 
     -- =================================================================================================================
@@ -233,7 +233,6 @@ local PAGenericStrings = {
     -- =================================================================================================================
     -- == KEYBINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_KEYBINDINGS_LAYER_PERSONALASSISTANT = "PersonalAssistant",
     SI_KEYBINDINGS_CATEGORY_PA_JUNK = "|cFFD700P|rersonal|cFFD700A|rssistant Junk",
 }
 

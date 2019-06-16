@@ -74,21 +74,21 @@ local PAJStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
-    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Quality", PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Merchant", PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Treasure", PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Manual", PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT = table.concat({PAC.COLORED_TEXTS.PAJ, "Moved %s to junk (", PAC.COLORS.ORANGE, "Perm-Rule", PAC.COLORS.DEFAULT, ")"}),
-    SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLORED_TEXTS.PAJ, PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
-    SI_PA_CHAT_JUNK_SOLD_JUNK_INFO = table.concat({PAC.COLORED_TEXTS.PAJ, "Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
-    SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({PAC.COLORED_TEXTS.PAJ, GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),
-    SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS = table.concat({PAC.COLORED_TEXTS.PAJ, "Cannot sell %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH = table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, "Quality", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT = table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, "Merchant", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, "Treasure", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, "Manual", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT = table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, "Perm-Rule", PAC.COLORS.DEFAULT, ")"}),
+    SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
+    SI_PA_CHAT_JUNK_SOLD_JUNK_INFO = table.concat({"Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
+    SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),
+    SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS = table.concat({"Cannot sell %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}),
 
-    SI_PA_CHAT_JUNK_RULES_ADDED = table.concat({PAC.COLORED_TEXTS.PAB, "%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
-    SI_PA_CHAT_JUNK_RULES_DELETED = table.concat({PAC.COLORED_TEXTS.PAB, "%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),
+    SI_PA_CHAT_JUNK_RULES_ADDED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
+    SI_PA_CHAT_JUNK_RULES_DELETED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),
 
 
     -- =================================================================================================================

@@ -202,12 +202,13 @@ local function getFormattedKey(key, ...)
 end
 
 -- currently supports one text and n arguments
-local function println(text, ...)
+local function println(prefix, text, ...)
     local textKey = GetString(text)
+    local prefix = prefix or ""
     if textKey ~= nil and textKey ~= "" then
-        CHAT_SYSTEM:AddMessage(getFormattedText(textKey, ...))
+        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(textKey, ...)}))
     else
-        CHAT_SYSTEM:AddMessage(getFormattedText(text, ...))
+        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(text, ...)}))
     end
 end
 
@@ -226,7 +227,7 @@ end
 -- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
 local function debuglnAuthor(key, ...)
     if GetUnitName("player") == PAC.ADDON.AUTHOR then
-        println(key, ...)
+        println("", key, ...)
     end
 end
 

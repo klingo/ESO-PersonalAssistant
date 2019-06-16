@@ -45,10 +45,10 @@ SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T, table.concat({"Wen
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PARepair --
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_FULL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_FULL, table.concat({"Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, table.concat({"Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
 
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, table.concat({"Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, table.concat({"Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
 
-SafeAddString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, table.concat({PAC.COLORED_TEXTS.PAR, "Repariere %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " mit %s"}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, table.concat({"Repariere %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " mit %s"}), 1)

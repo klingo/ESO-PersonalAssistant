@@ -16,7 +16,7 @@ local Junk_Defaults = {}
 -- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Junk.SavedVars.silentMode then
-        PAHF.println(text, ...)
+        PAHF.println(PAC.COLORED_TEXTS.PAJ, text, ...)
     end
 end
 

@@ -16,7 +16,7 @@ local Loot_Defaults = {}
 -- only prints out PALoot texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Loot.SavedVars.silentMode then
-        PAHF.println(text, ...)
+        PAHF.println(PAC.COLORED_TEXTS.PAL, text, ...)
     end
 end
 

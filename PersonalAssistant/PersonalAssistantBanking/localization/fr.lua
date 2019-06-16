@@ -77,19 +77,19 @@ SafeAddString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T, "Empiler automatiquement tous 
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, table.concat({PAC.COLORED_TEXTS.PAB, "%d %s retirés"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s retirés (La banque est vide)"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s retirés (Pas assez d'espace sur le personnage)"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, "%d %s retirés", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, "%d / %d %s retirés (La banque est vide)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, "%d / %d %s retirés (Pas assez d'espace sur le personnage)", 1)
 
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, table.concat({PAC.COLORED_TEXTS.PAB, "%d %s déposés"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s déposés (Plus rien sur le personnage)"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, table.concat({PAC.COLORED_TEXTS.PAB, "%d / %d %s déposés (Pas assez d'espace en banque)"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, "%d %s déposés", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, "%d / %d %s déposés (Plus rien sur le personnage)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, "%d / %d %s déposés (Pas assez d'espace en banque)", 1)
 
-SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, table.concat({PAC.COLORED_TEXTS.PAB, "%d x %s déplacés vers %s"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, table.concat({PAC.COLORED_TEXTS.PAB, "%d/%d x %s déplacés vers %s"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, table.concat({PAC.COLORED_TEXTS.PAB, "Impossible de déplacer %s vers %s. Pas assez d'espace !"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, table.concat({PAC.COLORED_TEXTS.PAB, "Impossible de déplacer %s vers %s. La fenêtre a été fermée !"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, table.concat({PAC.COLORED_TEXTS.PAB, "Certains matériaux n'ont PAS été déposés pour éviter de potentielles interférences avec Dolgubon's Lazy Writ Crafter"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, "%d x %s déplacés vers %s", 1)
+SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, "%d/%d x %s déplacés vers %s", 1)
+SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, "Impossible de déplacer %s vers %s. Pas assez d'espace !", 1)
+SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, "Impossible de déplacer %s vers %s. La fenêtre a été fermée !", 1)
+SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Certains matériaux n'ont PAS été déposés pour éviter de potentielles interférences avec Dolgubon's Lazy Writ Crafter", 1)
 
 --SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), 1) -- TODO: Takit
 --SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({PAC.COLORED_TEXTS.PAB, "Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), 1) -- TODO: Takit

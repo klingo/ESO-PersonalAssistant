@@ -16,7 +16,7 @@ local Banking_Defaults = {}
 -- only prints out PABanking texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Banking.SavedVars.silentMode then
-        PAHF.println(text, ...)
+        PAHF.println(PAC.COLORED_TEXTS.PAB, text, ...)
     end
 end
 
