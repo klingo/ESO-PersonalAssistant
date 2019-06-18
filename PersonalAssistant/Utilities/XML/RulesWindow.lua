@@ -227,22 +227,25 @@ function PABankingRulesList:FilterScrollList()
     -- get the data of the scrollist and index it
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
-    -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-    local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
-    -- populate the table that is used as source for the list
-    for _, moveConfig in pairs(PABCustomItemIds) do
-        local bagName, operatorText = _getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
-        local rowData = {
-            bagName = bagName,
-            operator = moveConfig.operator, -- required to edit the rule
-            mathOperator = operatorText, -- required to display the rule
-            bagAmount = moveConfig.bagAmount,
-            itemIcon = GetItemLinkInfo(moveConfig.itemLink),
-            itemLink = moveConfig.itemLink,
-            itemName = GetItemLinkName(moveConfig.itemLink)
-        }
-        -- "1" is to define a category per dataEntry (can be individually hidden)
-        table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
+    -- only proceed if player has selected an active profile
+    if PAHF.hasActiveProfile() then
+        -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+        local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
+        -- populate the table that is used as source for the list
+        for _, moveConfig in pairs(PABCustomItemIds) do
+            local bagName, operatorText = _getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
+            local rowData = {
+                bagName = bagName,
+                operator = moveConfig.operator, -- required to edit the rule
+                mathOperator = operatorText, -- required to display the rule
+                bagAmount = moveConfig.bagAmount,
+                itemIcon = GetItemLinkInfo(moveConfig.itemLink),
+                itemLink = moveConfig.itemLink,
+                itemName = GetItemLinkName(moveConfig.itemLink)
+            }
+            -- "1" is to define a category per dataEntry (can be individually hidden)
+            table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
+        end
     end
 end
 
@@ -414,27 +417,30 @@ function PAJunkRulesList:FilterScrollList()
     -- get the data of the scrollist and index it
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
-    -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-    local PAJCustomItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.ItemIds
-    -- populate the table that is used as source for the list
-    for _, junkConfig in pairs(PAJCustomItemIds) do
-        local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
-        local timeSinceLastJunk = GetString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED)
-        if junkConfig.lastJunk then
-            timeSinceLastJunk = FormatTimeSeconds(GetTimeStamp() - tonumber(junkConfig.lastJunk), TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING)
+    -- only proceed if player has selected an active profile
+    if PAHF.hasActiveProfile() then
+        -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+        local PAJCustomItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.ItemIds
+        -- populate the table that is used as source for the list
+        for _, junkConfig in pairs(PAJCustomItemIds) do
+            local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
+            local timeSinceLastJunk = GetString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED)
+            if junkConfig.lastJunk then
+                timeSinceLastJunk = FormatTimeSeconds(GetTimeStamp() - tonumber(junkConfig.lastJunk), TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING)
+            end
+            local rowData = {
+                itemIcon = GetItemLinkInfo(junkConfig.itemLink),
+                itemLink = junkConfig.itemLink,
+                itemName = GetItemLinkName(junkConfig.itemLink),
+                junkCount = junkConfig.junkCount,
+                ruleAdded = junkConfig.ruleAdded,
+                ruleAddedFmt = FormatTimeSeconds(timeSinceRuleAdded, TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING),
+                lastJunk = junkConfig.lastJunk or 0,
+                lastJunkFmt = timeSinceLastJunk,
+            }
+            -- "1" is to define a category per dataEntry (can be individually hidden)
+            table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
         end
-        local rowData = {
-            itemIcon = GetItemLinkInfo(junkConfig.itemLink),
-            itemLink = junkConfig.itemLink,
-            itemName = GetItemLinkName(junkConfig.itemLink),
-            junkCount = junkConfig.junkCount,
-            ruleAdded = junkConfig.ruleAdded,
-            ruleAddedFmt = FormatTimeSeconds(timeSinceRuleAdded, TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING),
-            lastJunk = junkConfig.lastJunk or 0,
-            lastJunkFmt = timeSinceLastJunk,
-        }
-        -- "1" is to define a category per dataEntry (can be individually hidden)
-        table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
     end
 end
 
