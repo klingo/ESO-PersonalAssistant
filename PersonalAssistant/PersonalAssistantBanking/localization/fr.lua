@@ -37,7 +37,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 -- Individual Items --
 --SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, PAC.COLOR.YELLOW:Colorize("Objets utilitaires"), 1) -- TODO: Takit
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets utilitaires"}), 1)
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Takit
+--SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Takit
 
 -- AvA Items --
 --SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, PAC.COLOR.YELLOW:Colorize("Objets d'AcA"), 1) -- TODO: Takit

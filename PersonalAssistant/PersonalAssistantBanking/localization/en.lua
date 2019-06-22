@@ -41,7 +41,7 @@ local PABStrings = {
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = PAC.COLOR.YELLOW:Colorize("Individual Items"),
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
-    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
 
     -- AvA Items --
     SI_PA_MENU_BANKING_AVA_HEADER = PAC.COLOR.YELLOW:Colorize("AvA Items"),
