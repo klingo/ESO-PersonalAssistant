@@ -9,11 +9,13 @@ local PABStrings = {
     -- PABanking Menu --
     SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting- and other Items between your character's backpack and the bank",
 
+    -- Currencies --
     SI_PA_MENU_BANKING_CURRENCY_HEADER = PAC.COLOR.YELLOW:Colorize(GetString(SI_INVENTORY_CURRENCIES)),
     SI_PA_MENU_BANKING_CURRENCY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for ", GetString(SI_INVENTORY_CURRENCIES)}),
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
 
+    -- Crafting Items --
     SI_PA_MENU_BANKING_CRAFTING_HEADER = PAC.COLOR.YELLOW:Colorize("Crafting Items"),
     SI_PA_MENU_BANKING_CRAFTING_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
     SI_PA_MENU_BANKING_CRAFTING_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
@@ -22,6 +24,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Change all above Crafting Item dropdowns to",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
+    -- Advanced Items --
     SI_PA_MENU_BANKING_ADVANCED_HEADER = PAC.COLOR.YELLOW:Colorize("Special Items"),
     SI_PA_MENU_BANKING_ADVANCED_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
@@ -35,17 +38,19 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Motives"}),
     SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Recipes"}),
 
+    -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = PAC.COLOR.YELLOW:Colorize("Individual Items"),
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
     SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
 
-    SI_PA_MENU_BANKING_AVA_HEADER = PAC.COLOR.YELLOW:Colorize("AvA Items"), -- TODO: localize!
+    -- AvA Items --
+    SI_PA_MENU_BANKING_AVA_HEADER = PAC.COLOR.YELLOW:Colorize("AvA Items"),
     SI_PA_MENU_BANKING_AVA_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for AvA Items"}),
     SI_PA_MENU_BANKING_AVA_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Alliance versus Alliance (AvA) Items?",
     SI_PA_MENU_BANKING_AVA_DESCRIPTION = "Define the amount of different Alliance versus Alliance (AvA) Items you would like to keep in your inventory",
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Other",
 
-    SI_PA_MENU_BANKING_OTHER_HEADER = PAC.COLOR.YELLOW:Colorize("Other Settings"), -- TODO: localize!
+    -- Other Settings --
     SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY = "Compatibility with Dolgubon's Lazy Writ Crafter",
     SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY_T = "When you have active Writ Crafting quests and 'Withdraw writ items' is enabled in Dolgubon's Lazy Writ Crafter, then for these items the 'Deposit to Bank' setting is ignored. This is to avoid having withdrawn items immediately re-deposited",
 
@@ -119,8 +124,6 @@ local PABGenericStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking Menu --
-    SI_PA_MENU_BANKING_HEADER = PAC.COLORED_TEXTS.PAB,
-
     SI_PA_MENU_BANKING_CURRENCY_GOLD_HEADER = GetCurrencyName(CURT_MONEY),
     SI_PA_MENU_BANKING_CURRENCY_ALLIANCE_HEADER = GetCurrencyName(CURT_ALLIANCE_POINTS),
     SI_PA_MENU_BANKING_CURRENCY_TELVAR_HEADER = GetCurrencyName(CURT_TELVAR_STONES),

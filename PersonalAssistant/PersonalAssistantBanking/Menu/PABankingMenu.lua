@@ -479,7 +479,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_BANKING_OTHER_HEADER)
+        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
     })
 
     -- check if player has the addon [Dolgubon's Lazy Writ Crafter]

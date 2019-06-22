@@ -26,6 +26,8 @@ SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Ge
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
+SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, PAC.COLOR.YELLOW:Colorize("Andere Einstellungen"), 1)
+
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Ruhemodus (Deaktiviert ALLE Meldungen)", 1)
 
 SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Noch nicht implementiert!"}), 1)

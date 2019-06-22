@@ -29,6 +29,8 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
+    SI_PA_MENU_OTHER_SETTINGS_HEADER = PAC.COLOR.YELLOW:Colorize("Other Settings"),
+
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
 
     SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
