@@ -36,7 +36,7 @@ local PAJStrings = {
 
     -- Custom Items --
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = PAC.COLOR.YELLOW:Colorize("Custom Items"),
-
+    SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({"You can permanently mark any item as junk by right-clicking on it and selecting \"PA Junk\" in the context menu.\nAll active rules can be found via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), ", or by clicking on this button:"}),
 
     -- Other Settings --
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",

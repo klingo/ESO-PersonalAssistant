@@ -119,6 +119,18 @@ local function _createPAJunkMenu()
     })
 
     PAJunkOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION)
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MAINMENU_JUNK_HEADER),
+        func = PA.CustomDialogs.showPAJunkRulesMenu,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+    })
+
+    PAJunkOptionsTable:insert({
         type = "header",
         name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
     })

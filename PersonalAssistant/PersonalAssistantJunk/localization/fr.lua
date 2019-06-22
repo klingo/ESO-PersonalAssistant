@@ -32,7 +32,7 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.co
 
 -- Custom Items --
 --SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, PAC.COLOR.YELLOW:Colorize("Custom Items"), 1) -- TODO: Takit
-
+--SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({"You can permanently mark any item as junk by right-clicking on it and selecting \"PA Junk\" in the context menu.\nAll active rules can be found via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), ", or by clicking on this button:"}), 1) -- TODO: Takit
 
 -- Other Settings --
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente automatique aux marchands et receleurs", 1)

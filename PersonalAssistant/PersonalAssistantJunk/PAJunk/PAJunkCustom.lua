@@ -5,6 +5,12 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function getNonStolenItemLink(itemLink)
+    -- if itemLink is NOT stolen, directly return it
+    if not IsItemLinkStolen(itemLink) then return itemLink end
+    -- TODO: if it is stolen, remove the stolen information
+end
+
 local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
     PAJ.debugln("PA.Junk.addItemToPermanentJunk")
 
