@@ -2,8 +2,10 @@ local PAC = PersonalAssistant.Constants
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- PALoot Loot Events --
 SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot peut vous informer sur des objets d'un intérêt particulier tels que des recettes inconnues, des motifs, des traits", 1)
+
+-- PALoot Loot Events --
+--SafeAddString(SI_PA_MENU_LOOT_EVENTS_HEADER, PAC.COLOR.YELLOW:Colorize("Événements de butin"), 1) -- TODO: Takit
 SafeAddString(SI_PA_MENU_LOOT_EVENTS_ENABLE, "Activer les événements de butin", 1)
 
 -- Loot Recipes
@@ -29,6 +31,7 @@ SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Seuil d' “espace faibl
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Si la place disponible restante dans l'inventaire est plus petite ou égale au seuil, un message sera affiché dans la fenêtre de chat", 1)
 
 -- PALoot Mark Items --
+--SafeAddString(SI_PA_MENU_LOOT_EVENTS_HEADER, PAC.COLOR.YELLOW:Colorize("Item Icons"), 1) -- TODO: Takit
 SafeAddString(SI_PA_MENU_LOOT_ICONS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Activer les marqueurs sur les objets"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP, "Afficher un pop-up sur l'icone", 1)
 

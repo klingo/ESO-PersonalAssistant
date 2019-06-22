@@ -38,13 +38,13 @@ local PALMarkApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
 
 local function _createPALootMenu()
     PALootOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_LOOT_HEADER)
+        type = "description",
+        text = GetString(SI_PA_MENU_LOOT_DESCRIPTION),
     })
 
     PALootOptionsTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_LOOT_DESCRIPTION),
+        type = "header",
+        name = GetString(SI_PA_MENU_LOOT_EVENTS_HEADER)
     })
 
     PALootOptionsTable:insert({
@@ -109,8 +109,8 @@ local function _createPALootMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PALootOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_HEADER)
     })
 
     PALootOptionsTable:insert({
@@ -215,8 +215,8 @@ local function _createPALootMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PALootOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
     })
 
     PALootOptionsTable:insert({
