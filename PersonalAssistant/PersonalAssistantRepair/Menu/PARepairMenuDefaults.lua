@@ -5,6 +5,7 @@ local PA = PersonalAssistant
 
 local PARepairMenuDefaults = {
     autoRepairEnabled = true,
+    autoRepairInventoryEnabled = false,
 
     -- ---------------------------------------------
 
@@ -25,7 +26,7 @@ local PARepairMenuDefaults = {
     -- ---------------------------------------------
 
     RepairInventory = {
-        repairWithGold = false,
+        repairWithGold = true,
         repairWithGoldDurabilityThreshold = 75,
     },
 

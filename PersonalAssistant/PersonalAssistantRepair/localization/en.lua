@@ -9,6 +9,8 @@ local PARStrings = {
     -- PARepair Menu --
     SI_PA_MENU_REPAIR_DESCRIPTION = "PARepair repairs your armor and recharges your weapons for you, be it at a merchant or out on the field",
 
+    -- Equipped Items --
+    SI_PA_MENU_REPAIR_EQUIPPED_HEADER = PAC.COLOR.YELLOW:Colorize("Equipped Items"),
     SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Equipped Items"}),
 
     SI_PA_MENU_REPAIR_GOLD_HEADER = table.concat({"Repair with ", GetCurrencyName(CURT_MONEY)}),
@@ -16,10 +18,6 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_GOLD_ENABLE_T = "When visiting a merchant, all equipped items that are at or below the defined threshold will automatically be repaired",
     SI_PA_MENU_REPAIR_GOLD_DURABILITY = "Durability threshold in %",
     SI_PA_MENU_REPAIR_GOLD_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold",
-    SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE = table.concat({"Repair inventory Items with ", GetCurrencyName(CURT_MONEY), "?"}),
-    SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T = "When visiting a merchant, all items in the inventory that are at or below the defined threshold will automatically be repaired",
-    SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY = "Durability threshold in %",
-    SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T = "Repair items in the inventory only if they are at or below the defined durability threshold",
 
     SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({"Repair with ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({"Repair equipped Items with ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), "?"}),
@@ -44,6 +42,15 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), ". If you have none left, it will warn you once every 10 minutes at most."}),
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD = table.concat({GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM), " threshold"}),
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T = table.concat({"If the remaining amount of ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), " is below this threshold, a message is displayed in the chat window"}),
+
+    -- Inventory Items --
+    SI_PA_MENU_REPAIR_INVENTORY_HEADER = PAC.COLOR.YELLOW:Colorize("Inventory Items"),
+    SI_PA_MENU_REPAIR_INVENTORY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Inventory Items"}),
+
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE = table.concat({"Repair inventory Items with ", GetCurrencyName(CURT_MONEY), "?"}),
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T = "When visiting a merchant, all items in the inventory that are at or below the defined threshold will automatically be repaired",
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY = "Durability threshold in %",
+    SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T = "Repair items in the inventory only if they are at or below the defined durability threshold",
 
 
     -- =================================================================================================================
@@ -78,7 +85,6 @@ local PARGenericStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair Menu --
-    SI_PA_MENU_REPAIR_HEADER = PAC.COLORED_TEXTS.PAR,
 
 
     -- =================================================================================================================

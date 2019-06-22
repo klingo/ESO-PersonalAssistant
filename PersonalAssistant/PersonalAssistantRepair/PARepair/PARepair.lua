@@ -99,22 +99,16 @@ end
 local function OnShopOpen()
     PAR.debugln("PARepair.OnShopOpen")
     if PAHF.hasActiveProfile() then
-        -- check if store can repair
-        if CanStoreRepair() then
+        -- check if store can repair and if there is something to repair
+        if CanStoreRepair() and GetRepairAllCost() > 0 then
             local PARepairSavedVars = PAR.SavedVars
-            -- check if addon is enabled
-            if PARepairSavedVars.autoRepairEnabled then
-                -- early check if there is something to repair
-                if GetRepairAllCost() > 0 then
-                    -- check if equipped items shall be repaired
-                    if PARepairSavedVars.RepairEquipped.repairWithGold then
-                        _repairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
-                    end
-                    -- check if backpack items shall be repaired
-                    if PARepairSavedVars.RepairInventory.repairWithGold then
-                        _repairItems(BAG_BACKPACK, PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)
-                    end
-                end
+            -- check if equipped items shall be repaired
+            if PARepairSavedVars.autoRepairEnabled and PARepairSavedVars.RepairEquipped.repairWithGold then
+                _repairItems(BAG_WORN, PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)
+            end
+            -- check if backpack items shall be repaired
+            if PARepairSavedVars.autoRepairInventoryEnabled and PARepairSavedVars.RepairInventory.repairWithGold then
+                _repairItems(BAG_BACKPACK, PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)
             end
         end
     end

@@ -5,6 +5,8 @@ local PAC = PersonalAssistant.Constants
 -- PARepair Menu --
 SafeAddString(SI_PA_MENU_REPAIR_DESCRIPTION, "PARepair repariert deine getragene Ausrüstung und lädt Waffen für dich wieder auf, sei es beim Händler oder unterwegs.", 1)
 
+-- Equipped Items --
+SafeAddString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER, PAC.COLOR.YELLOW:Colorize("Getragene Ausrüstung"), 1)
 SafeAddString(SI_PA_MENU_REPAIR_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Automatische Reparatur getragener Ausrüstung"}), 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({"Reparatur mit ", GetCurrencyName(CURT_MONEY)}), 1)
@@ -12,10 +14,6 @@ SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Repariere Ausrüstun
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T, "Wenn ein Händler besucht wird, werden getragene Ausrüstungen automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY, "Haltbarkeitsschwelle in %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T, "Repariere getragene Ausrüstung nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
-SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE, table.concat({"Repariere Inventar mit ", GetCurrencyName(CURT_MONEY), "?"}), 1)
-SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "Wenn ein Händler besucht wird, werden Ausrüstungen im Inventar automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
-SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY, "Haltbarkeitsschwelle in %", 1)
-SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Repariere Ausrüstung im Inventar nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_HEADER, table.concat({"Reparatur mit ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), "?"}), 1)
@@ -40,6 +38,16 @@ SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING, table.concat({"Warne w
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T, table.concat({"Zeige eine Warnung im Chatfenster an wenn dir die ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), " ausgehen. Wenn du keine mehr hast wird maximal alle 10 Minuten eine Warnung angezeigt."}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD, table.concat({"Schwellenwert für ", GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T, table.concat({"Wenn die Anzahl verbleibender ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), " auf oder unter diesen Schwellenwert fällt, wird eine Meldung im Chat ausgegeben"}), 1)
+
+-- Inventory Items --
+SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_HEADER, PAC.COLOR.YELLOW:Colorize("Inventar Ausrüstung"), 1)
+SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Automatische Reparatur von Ausrüstung im Inventar"}), 1)
+
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE, table.concat({"Repariere Inventar mit ", GetCurrencyName(CURT_MONEY), "?"}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "Wenn ein Händler besucht wird, werden Ausrüstungen im Inventar automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY, "Haltbarkeitsschwelle in %", 1)
+SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Repariere Ausrüstung im Inventar nur wenn deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)
+
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --

@@ -24,28 +24,30 @@ local PARepairPanelData = {
 
 local PARepairOptionsTable = setmetatable({}, { __index = table })
 
-local PARGoldSubmenuTable = setmetatable({}, { __index = table })
+local PARGoldEquippedSubmenuTable = setmetatable({}, { __index = table })
 local PARRepairKitSubmenuTable = setmetatable({}, { __index = table })
 local PARRechargeSubmenuTable = setmetatable({}, { __index = table })
+
+local PARGoldInventorySubmenuTable = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
 
 local function _createPARepairMenu()
-    PARepairOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_REPAIR_HEADER)
-    })
-
     PARepairOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_REPAIR_DESCRIPTION),
     })
 
     PARepairOptionsTable:insert({
+        type = "header",
+        name = GetString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER)
+    })
+
+    PARepairOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_ENABLE),
-        getFunc = PARMenuFunctions.getAutoRepairEnabledSetting,
-        setFunc = PARMenuFunctions.setAutoRepairEnabledSetting,
+        getFunc = PARMenuFunctions.getAutoRepairEquippedEnabledSetting,
+        setFunc = PARMenuFunctions.setAutoRepairEquippedEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
         default = PARMenuDefaults.autoRepairEnabled,
     })
@@ -54,8 +56,8 @@ local function _createPARepairMenu()
         type = "submenu",
         name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
         icon = ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture,
-        controls = PARGoldSubmenuTable,
-        disabledLabel = PARMenuFunctions.isRepairWithGoldMenuDisabled,
+        controls = PARGoldEquippedSubmenuTable,
+        disabledLabel = PARMenuFunctions.isRepairEquippedWithGoldMenuDisabled,
     })
 
     PARepairOptionsTable:insert({
@@ -74,6 +76,37 @@ local function _createPARepairMenu()
         disabledLabel = PARMenuFunctions.isRechargeWithSoulGemMenuDisabled,
     })
 
+    -- ---------------------------------------------------------------------------------------------------------
+
+    PARepairOptionsTable:insert({
+        type = "header",
+        name = GetString(SI_PA_MENU_REPAIR_INVENTORY_HEADER)
+    })
+
+    PARepairOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE),
+        getFunc = PARMenuFunctions.getAutoRepairInventoryEnabledSetting,
+        setFunc = PARMenuFunctions.setAutoRepairInventoryEnabledSetting,
+        disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
+        default = PARMenuDefaults.autoRepairInventoryEnabled,
+    })
+
+    PARepairOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_HEADER),
+        icon = ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture,
+        controls = PARGoldInventorySubmenuTable,
+        disabledLabel = PARMenuFunctions.isRepairInventoryWithGoldMenuDisabled,
+    })
+
+    -- ---------------------------------------------------------------------------------------------------------
+
+    PARepairOptionsTable:insert({
+        type = "header",
+        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
+    })
+
     PARepairOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
@@ -87,50 +120,27 @@ end
 -- =================================================================================================================
 
 local function _createPARGoldSubmenuTable()
-    PARGoldSubmenuTable:insert({
+    PARGoldEquippedSubmenuTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_REPAIR_GOLD_ENABLE),
         tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_ENABLE_T),
-        getFunc = PARMenuFunctions.getRepairWithGoldSetting,
-        setFunc = PARMenuFunctions.setRepairWithGoldSetting,
-        disabled = PARMenuFunctions.isRepairWithGoldDisabled,
+        getFunc = PARMenuFunctions.getRepairEquippedWithGoldSetting,
+        setFunc = PARMenuFunctions.setRepairEquippedWithGoldSetting,
+        disabled = PARMenuFunctions.isRepairEquippedWithGoldDisabled,
         default = PARMenuDefaults.RepairEquipped.repairWithGold,
     })
 
-    PARGoldSubmenuTable:insert({
+    PARGoldEquippedSubmenuTable:insert({
         type = "slider",
         name = GetString(SI_PA_MENU_REPAIR_GOLD_DURABILITY),
         tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_DURABILITY_T),
         min = 0,
         max = 99,
         step = 1,
-        getFunc = PARMenuFunctions.getRepairWithGoldDurabilityThresholdSetting,
-        setFunc = PARMenuFunctions.setRepairWithGoldDurabilityThresholdSetting,
-        disabled = PARMenuFunctions.isRepairWithGoldDurabilityThresholdDisabled,
+        getFunc = PARMenuFunctions.getRepairEquippedWithGoldDurabilityThresholdSetting,
+        setFunc = PARMenuFunctions.setRepairEquippedWithGoldDurabilityThresholdSetting,
+        disabled = PARMenuFunctions.isRepairEquippedWithGoldDurabilityThresholdDisabled,
         default = PARMenuDefaults.RepairEquipped.repairWithGoldDurabilityThreshold,
-    })
-
-    PARGoldSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE),
-        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T),
-        getFunc = PARMenuFunctions.getRepairInventoryWithGoldSetting,
-        setFunc = PARMenuFunctions.setRepairInventoryWithGoldSetting,
-        disabled = PARMenuFunctions.isRepairInventoryWithGoldDisabled,
-        default = PARMenuDefaults.RepairInventory.repairWithGold,
-    })
-
-    PARGoldSubmenuTable:insert({
-        type = "slider",
-        name = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY),
-        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T),
-        min = 0,
-        max = 99,
-        step = 1,
-        getFunc = PARMenuFunctions.getRepairInventoryWithGoldDurabilityThresholdSetting,
-        setFunc = PARMenuFunctions.setRepairInventoryWithGoldDurabilityThresholdSetting,
-        disabled = PARMenuFunctions.isRepairInventoryWithGoldDurabilityThresholdDisabled,
-        default = PARMenuDefaults.RepairInventory.repairWithGoldDurabilityThreshold,
     })
 end
 
@@ -256,6 +266,33 @@ local function _createPARRechargeSubmenuTable()
     })
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPARGoldInventorySubmenuTable()
+    PARGoldInventorySubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE),
+        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T),
+        getFunc = PARMenuFunctions.getRepairInventoryWithGoldSetting,
+        setFunc = PARMenuFunctions.setRepairInventoryWithGoldSetting,
+        disabled = PARMenuFunctions.isRepairInventoryWithGoldDisabled,
+        default = PARMenuDefaults.RepairInventory.repairWithGold,
+    })
+
+    PARGoldInventorySubmenuTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY),
+        tooltip = GetString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T),
+        min = 0,
+        max = 99,
+        step = 1,
+        getFunc = PARMenuFunctions.getRepairInventoryWithGoldDurabilityThresholdSetting,
+        setFunc = PARMenuFunctions.setRepairInventoryWithGoldDurabilityThresholdSetting,
+        disabled = PARMenuFunctions.isRepairInventoryWithGoldDurabilityThresholdDisabled,
+        default = PARMenuDefaults.RepairInventory.repairWithGoldDurabilityThreshold,
+    })
+end
+
 -- =================================================================================================================
 
 local function createOptions()
@@ -264,6 +301,8 @@ local function createOptions()
     _createPARGoldSubmenuTable()
     _createPARRepairKitSubmenuTable()
     _createPARRechargeSubmenuTable()
+
+    _createPARGoldInventorySubmenuTable()
 
     PA.LAM2:RegisterAddonPanel("PersonalAssistantRepairAddonOptions", PARepairPanelData)
     PA.LAM2:RegisterOptionControls("PersonalAssistantRepairAddonOptions", PARepairOptionsTable)

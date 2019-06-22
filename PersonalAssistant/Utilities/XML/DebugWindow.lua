@@ -86,8 +86,9 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertLine(table.concat({"RepairInventory.repairWithGold=", tostring(PARepairSavedVars.RepairInventory.repairWithGold), " - ", tostring(PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)}))
     local PARMenuFunctions = PA.MenuFunctions.PARepair
     debugEditControl:InsertLine("PARMenuFunctions="..tostring(istable(PARMenuFunctions)))
-    debugEditControl:InsertLine("getAutoRepairEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairEnabledSetting()))
-    debugEditControl:InsertLine("getRepairWithGoldSetting="..tostring(PARMenuFunctions.getRepairWithGoldSetting()))
+    debugEditControl:InsertLine("getAutoRepairEquippedEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairEquippedEnabledSetting()))
+    debugEditControl:InsertLine("getRepairEquippedWithGoldSetting="..tostring(PARMenuFunctions.getRepairEquippedWithGoldSetting()))
+    debugEditControl:InsertLine("getAutoRepairInventoryEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairInventoryEnabledSetting()))
     debugEditControl:InsertLine("getRepairInventoryWithGoldSetting="..tostring(PARMenuFunctions.getRepairInventoryWithGoldSetting()))
     debugEditControl:InsertBreak()
 
