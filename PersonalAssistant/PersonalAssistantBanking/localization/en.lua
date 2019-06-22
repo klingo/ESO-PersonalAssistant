@@ -9,10 +9,12 @@ local PABStrings = {
     -- PABanking Menu --
     SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting- and other Items between your character's backpack and the bank",
 
+    SI_PA_MENU_BANKING_CURRENCY_HEADER = PAC.COLOR.YELLOW:Colorize(GetString(SI_INVENTORY_CURRENCIES)),
     SI_PA_MENU_BANKING_CURRENCY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for ", GetString(SI_INVENTORY_CURRENCIES)}),
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
 
+    SI_PA_MENU_BANKING_CRAFTING_HEADER = PAC.COLOR.YELLOW:Colorize("Crafting Items"),
     SI_PA_MENU_BANKING_CRAFTING_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
     SI_PA_MENU_BANKING_CRAFTING_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
     SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
@@ -20,6 +22,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Change all above Crafting Item dropdowns to",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
+    SI_PA_MENU_BANKING_ADVANCED_HEADER = PAC.COLOR.YELLOW:Colorize("Special Items"),
     SI_PA_MENU_BANKING_ADVANCED_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
@@ -32,14 +35,27 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Motives"}),
     SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Recipes"}),
 
+    SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = PAC.COLOR.YELLOW:Colorize("Individual Items"),
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
     SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
 
+    SI_PA_MENU_BANKING_AVA_HEADER = PAC.COLOR.YELLOW:Colorize("AvA Items"), -- TODO: localize!
     SI_PA_MENU_BANKING_AVA_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for AvA Items"}),
     SI_PA_MENU_BANKING_AVA_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Alliance versus Alliance (AvA) Items?",
     SI_PA_MENU_BANKING_AVA_DESCRIPTION = "Define the amount of different Alliance versus Alliance (AvA) Items you would like to keep in your inventory",
-
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Other",
+
+    SI_PA_MENU_BANKING_OTHER_HEADER = PAC.COLOR.YELLOW:Colorize("Other Settings"), -- TODO: localize!
+    SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY = "Compatibility with Dolgubon's Lazy Writ Crafter",
+    SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY_T = "When you have active Writ Crafting quests and 'Withdraw writ items' is enabled in Dolgubon's Lazy Writ Crafter, then for these items the 'Deposit to Bank' setting is ignored. This is to avoid having withdrawn items immediately re-deposited",
+
+    SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Stacking rule when depositing",
+    SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed",
+    SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",
+    SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed",
+
+    SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS = "Auto-Stack all items when opening the bank",
+    SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T = "Automatically stack all items in the bank and in the backpack when accessing the bank? Helps to keep everything better organized",
 
     -- Generic definitions for any type --
     SI_PA_MENU_BANKING_ANY_CURRENCY_ENABLE = "Deposit/Withdraw %s",
@@ -51,17 +67,6 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "Maximum amount of %s to always keep on the character; everything above this amount is deposited to the bank",
 
     SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W = "This cannot be undone; all individually selected values will be lost",
-
-    SI_PA_MENU_BANKING_LWC_COMPATIBILTY = "Compatibility with Dolgubon's Lazy Writ Crafter",
-    SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T = "When you have active Writ Crafting quests and 'Withdraw writ items' is enabled in Dolgubon's Lazy Writ Crafter, then for these items the 'Deposit to Bank' setting is ignored. This is to avoid having withdrawn items immediately re-deposited",
-
-    SI_PA_MENU_BANKING_DEPOSIT_STACKING = "Stacking rule when depositing",
-    SI_PA_MENU_BANKING_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed",
-    SI_PA_MENU_BANKING_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",
-    SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed",
-
-    SI_PA_MENU_BANKING_AUTOSTACKBAGS = "Auto-Stack all items when opening the bank",
-    SI_PA_MENU_BANKING_AUTOSTACKBAGS_T = "Automatically stack all items in the bank and in the backpack when accessing the bank? Helps to keep everything better organized",
 
 
     -- =================================================================================================================

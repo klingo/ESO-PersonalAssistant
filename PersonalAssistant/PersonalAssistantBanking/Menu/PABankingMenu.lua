@@ -71,13 +71,13 @@ local PABAvAOtherSubmenuTable = setmetatable({}, { __index = table })
 
 local function _createPABankingMenu()
     PABankingOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_BANKING_HEADER)
+        type = "description",
+        text = GetString(SI_PA_MENU_BANKING_DESCRIPTION),
     })
 
     PABankingOptionsTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_BANKING_DESCRIPTION),
+        type = "header",
+        name = GetString(SI_PA_MENU_BANKING_CURRENCY_HEADER)
     })
 
     PABankingOptionsTable:insert({
@@ -128,30 +128,9 @@ local function _createPABankingMenu()
     -- -----------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_HEADER)
     })
-
-
-    -- check if player has the addon [Dolgubon's Lazy Writ Crafter]
-    if WritCreater then
-        -- if yes, add additional option
-        PABankingOptionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY),
-            tooltip = GetString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T),
-            getFunc = PABMenuFunctions.getLazyWritCraftingCompatiblitySetting,
-            setFunc = PABMenuFunctions.setLazyWritCraftingCompatiblitySetting,
-            disabled = PAGMenuFunctions.isNoProfileSelected,
-            default = PABMenuDefaults.lazyWritCraftingCompatiblity,
-        })
-
-        PABankingOptionsTable:insert({
-            type = "divider",
-            alpha = 0.5,
-        })
-    end
-
 
     if IsESOPlusSubscriber() then
         -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
@@ -286,8 +265,8 @@ local function _createPABankingMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_HEADER)
     })
 
     PABankingOptionsTable:insert({
@@ -384,8 +363,8 @@ local function _createPABankingMenu()
     -- -----------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER)
     })
 
     PABankingOptionsTable:insert({
@@ -412,8 +391,8 @@ local function _createPABankingMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_BANKING_AVA_HEADER)
     })
 
     PABankingOptionsTable:insert({
@@ -499,14 +478,28 @@ local function _createPABankingMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_BANKING_OTHER_HEADER)
     })
+
+    -- check if player has the addon [Dolgubon's Lazy Writ Crafter]
+    if WritCreater then
+        -- if yes, add additional option
+        PABankingOptionsTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY),
+            tooltip = GetString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY_T),
+            getFunc = PABMenuFunctions.getLazyWritCraftingCompatiblitySetting,
+            setFunc = PABMenuFunctions.setLazyWritCraftingCompatiblitySetting,
+            disabled = PAGMenuFunctions.isNoProfileSelected,
+            default = PABMenuDefaults.lazyWritCraftingCompatiblity,
+        })
+    end
 
     PABankingOptionsTable:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING),
-        tooltip = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T),
+        name = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING),
+        tooltip = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T),
         choices = PABMenuChoices.stackingType,
         choicesValues = PABMenuChoicesValues.stackingType,
         width = "half",
@@ -518,8 +511,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING),
-        tooltip = GetString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T),
+        name = GetString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING),
+        tooltip = GetString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T),
         choices = PABMenuChoices.stackingType,
         choicesValues = PABMenuChoicesValues.stackingType,
         width = "half",
@@ -531,8 +524,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS),
-        tooltip = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T),
+        name = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS),
+        tooltip = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T),
         getFunc = PABMenuFunctions.getAutoStackBagsSetting,
         setFunc = PABMenuFunctions.setAutoStackBagsSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
