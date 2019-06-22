@@ -249,15 +249,16 @@ function PA.toggleDebug(newStatus)
     -- check is needed to avoid endless loop (i.e. ESO crash)
     if PA.SavedVars.Profile.debug ~= newStatus then
         PA.SavedVars.Profile.debug = newStatus
+        PA.debug = newStatus
         if newStatus then
             PA.DebugWindow.showDebugOutputWindow()
             if GetUnitName("player") == PACAddon.AUTHOR then
-                PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
+                PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup, "CursorPickup")
             end
         else
             PA.DebugWindow.hideDebugOutputWindow()
             if GetUnitName("player") == PACAddon.AUTHOR then
-                PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+                PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, "CursorPickup")
             end
         end
     end
