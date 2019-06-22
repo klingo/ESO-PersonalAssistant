@@ -5,6 +5,8 @@ local PAC = PersonalAssistant.Constants
 -- PAJunk Menu --
 SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk kann Gegenstände als Trödel markieren wenn unten auswählbare Bedingungen eintreffen; ausser wenn es gerade hergestellt oder aus aus einer Nachricht entnommen wurde", 1)
 
+-- Standard Items --
+SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, PAC.COLOR.YELLOW:Colorize("Standard Gegenstände"), 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere das Markieren als Trödel"}), 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] Gegenstände"}), 1)
@@ -28,6 +30,11 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.con
 SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Tributs"), " benötigt"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Körperpflegegegenstände]"}), 1)
 
+-- Custom Items --
+SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, PAC.COLOR.YELLOW:Colorize("Benutzerdefinierte Gegenstände"), 1)
+
+
+-- Other Settings --
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Tastenkürzel", 1)

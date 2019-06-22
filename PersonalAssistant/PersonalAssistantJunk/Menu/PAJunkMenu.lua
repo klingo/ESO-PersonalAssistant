@@ -41,13 +41,13 @@ local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
 local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_JUNK_HEADER)
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_DESCRIPTION),
     })
 
     PAJunkOptionsTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_JUNK_DESCRIPTION),
+        type = "header",
+        name = GetString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER)
     })
 
     PAJunkOptionsTable:insert({
@@ -114,17 +114,13 @@ local function _createPAJunkMenu()
     })
 
     PAJunkOptionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
-        getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
-        setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
-        disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
-        default = PAJMenuDefaults.autoSellJunk,
+        type = "header",
+        name = GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER)
     })
 
     PAJunkOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
     })
 
     PAJunkOptionsTable:insert({
@@ -134,6 +130,15 @@ local function _createPAJunkMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJKeybindingsSubMenu,
         disabledLabel = PAJMenuFunctions.isKeybindingsMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
+        getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
+        setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
+        disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
+        default = PAJMenuDefaults.autoSellJunk,
     })
 
     PAJunkOptionsTable:insert({

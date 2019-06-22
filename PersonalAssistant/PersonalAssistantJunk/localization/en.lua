@@ -9,6 +9,8 @@ local PAJStrings = {
     -- PAJunk Menu --
     SI_PA_MENU_JUNK_DESCRIPTION = "PAJunk can mark items as junk if they match any of the selectable conditions; except if it just was crafted or retrieved from mail",
 
+    -- Standard Items --
+    SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER = PAC.COLOR.YELLOW:Colorize("Standard Items"),
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk"}),
 
     SI_PA_MENU_JUNK_TRASH_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] items"}),
@@ -32,6 +34,11 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes"), " Daily Quest"}),
     SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
 
+    -- Custom Items --
+    SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = PAC.COLOR.YELLOW:Colorize("Custom Items"),
+
+
+    -- Other Settings --
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
 
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
@@ -131,8 +138,6 @@ local PAJGenericStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk Menu --
-    SI_PA_MENU_JUNK_HEADER = PAC.COLORED_TEXTS.PAJ,
-
     SI_PA_MENU_JUNK_TRASH_HEADER = GetString("SI_ITEMTYPE", ITEMTYPE_TRASH),
     SI_PA_MENU_JUNK_COLLECTIBLES_HEADER = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COLLECTIBLE)),
     SI_PA_MENU_JUNK_MISCELLANEOUS_HEADER = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_MISCELLANEOUS),
