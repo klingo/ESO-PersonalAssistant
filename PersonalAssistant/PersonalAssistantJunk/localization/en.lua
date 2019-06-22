@@ -76,6 +76,9 @@ local PAJStrings = {
 
     SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED = "never",
 
+    SI_PA_MAINMENU_JUNK_FOOTER_HELP = "How to create new rules?", -- TODO: localize
+    SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP = table.concat({"In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > ", GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK)}), -- TODO: localize
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

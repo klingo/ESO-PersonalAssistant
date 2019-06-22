@@ -72,6 +72,9 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Wenn AUSgescha
 
 --SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "never", 1) -- TODO: Me
 
+--SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_HELP, "How to create new rules?", 1) -- TODO: Me
+--SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP, table.concat({"In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > ", GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK)}), 1) -- TODO: Me
+
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --

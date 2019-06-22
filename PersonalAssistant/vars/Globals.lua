@@ -260,7 +260,6 @@ PersonalAssistant.Constants = {
             KEY = {
                 PATH = "/esoui/art/worldmap/map_indexicon_key_up.dds",
                 NORMAL = "|t32:32:/esoui/art/worldmap/map_indexicon_key_up.dds|t",
-
             },
             KNOWN = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",

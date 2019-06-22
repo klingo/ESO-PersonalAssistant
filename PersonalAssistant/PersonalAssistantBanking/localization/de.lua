@@ -82,6 +82,9 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Dies kann nicht rÃ¼ckgÃ
 --SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Item", 1) -- TODO: Me
 --SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Actions", 1) -- TODO: Me
 
+--SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_HELP, "How to create new rules?", 1) -- TODO: Me
+--SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP, table.concat({"In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}), 1) -- TODO: Me
+
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --

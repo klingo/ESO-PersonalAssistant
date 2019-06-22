@@ -372,6 +372,22 @@ function PABankingRulesList:InitHeaders()
     ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
 end
 
+function PABankingRulesList:InitFooters()
+    local helpLabelControl = BankingRulesTabControl:GetNamedChild("HelpLabel")
+    helpLabelControl:SetText(GetString(SI_PA_MAINMENU_BANKING_FOOTER_HELP))
+    helpLabelControl:SetDimensions(helpLabelControl:GetTextDimensions())
+    helpLabelControl:SetHandler("OnMouseEnter", function(self)
+        ZO_Tooltips_ShowTextTooltip(self, TOP, GetString(SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP))
+        local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_HIGHLIGHT)
+        self:SetColor(r, g, b, 1)
+    end)
+    helpLabelControl:SetHandler("OnMouseExit", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_CONTRAST)
+        self:SetColor(r, g, b, 1)
+    end)
+end
+
 function PABankingRulesList:Refresh()
     self:RefreshData()
 end
@@ -385,6 +401,7 @@ local function initPABankingRulesList()
         if not bankingBaseInitDone then
             bankingBaseInitDone = true
             PABankingRulesList:InitHeaders()
+            PABankingRulesList:InitFooters()
             PA.BankingRulesList = PABankingRulesList:New()
         end
         PA.BankingRulesList:Refresh()
@@ -545,6 +562,22 @@ function PAJunkRulesList:InitHeaders()
     ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
 end
 
+function PAJunkRulesList:InitFooters()
+    local helpLabelControl = JunkRulesTabControl:GetNamedChild("HelpLabel")
+    helpLabelControl:SetText(GetString(SI_PA_MAINMENU_JUNK_FOOTER_HELP))
+    helpLabelControl:SetDimensions(helpLabelControl:GetTextDimensions())
+    helpLabelControl:SetHandler("OnMouseEnter", function(self)
+        ZO_Tooltips_ShowTextTooltip(self, TOP, GetString(SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP))
+        local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_HIGHLIGHT)
+        self:SetColor(r, g, b, 1)
+    end)
+    helpLabelControl:SetHandler("OnMouseExit", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_CONTRAST)
+        self:SetColor(r, g, b, 1)
+    end)
+end
+
 function PAJunkRulesList:Refresh()
     self:RefreshData()
 end
@@ -558,6 +591,7 @@ local function initPAJunkRulesList()
         if not junkBaseInitDone then
             junkBaseInitDone = true
             PAJunkRulesList:InitHeaders()
+            PAJunkRulesList:InitFooters()
             PA.JunkRulesList = PAJunkRulesList:New()
         end
         PA.JunkRulesList:Refresh()
