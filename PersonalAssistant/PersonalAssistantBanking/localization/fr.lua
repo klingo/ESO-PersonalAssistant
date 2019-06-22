@@ -29,7 +29,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8, table.concat({PAC.I
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Recettes inconnues"}), 1)
 
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets utilitaires"}), 1)
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the main menu, or with ", PAC.COLOR.YELLOW:Colorize("/parules")}), 1) -- TODO: Takit
+--SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Takit
 
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets d'AcA"}), 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets de Guerre d'Alliances ?", 1)

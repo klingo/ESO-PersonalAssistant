@@ -38,9 +38,22 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 local function togglePARulesMenu()
     if PA.LMM2 then
-        PA.LMM2:SelectMenuItem("PersonalAssistantRules")
+        PA.LMM2:SelectMenuItem(_RulesWindowDescriptor)
     end
 end
+
+local function showPABankingRulesMenu()
+    togglePARulesMenu()
+    local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
+    ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowBankingTabDescriptor)
+end
+
+local function showPAJunkRulesMenu()
+    togglePARulesMenu()
+    local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
+    ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowJunkTabDescriptor)
+end
+
 
 local function _showPABankingRulesTab()
     BankingRulesTabControl:SetHidden(false)
@@ -555,6 +568,8 @@ end
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.togglePARulesMenu = togglePARulesMenu
+PA.CustomDialogs.showPABankingRulesMenu = showPABankingRulesMenu
+PA.CustomDialogs.showPAJunkRulesMenu = showPAJunkRulesMenu
 PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
 
 -- create the main menu entry with LMM-2

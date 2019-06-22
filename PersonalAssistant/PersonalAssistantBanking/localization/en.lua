@@ -33,7 +33,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Recipes"}),
 
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
-    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the main menu, or with ", PAC.COLOR.YELLOW:Colorize("/parules")}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there.\nYou can find them via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
 
     SI_PA_MENU_BANKING_AVA_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for AvA Items"}),
     SI_PA_MENU_BANKING_AVA_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Alliance versus Alliance (AvA) Items?",

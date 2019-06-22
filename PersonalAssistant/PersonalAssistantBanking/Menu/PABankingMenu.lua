@@ -402,6 +402,13 @@ local function _createPABankingMenu()
         text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION)
     })
 
+    PABankingOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MAINMENU_BANKING_HEADER),
+        func = PA.CustomDialogs.showPABankingRulesMenu,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+    })
+
     -- ---------------------------------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
