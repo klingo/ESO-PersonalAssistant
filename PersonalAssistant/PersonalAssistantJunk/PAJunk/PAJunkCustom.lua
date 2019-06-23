@@ -8,7 +8,11 @@ local PAHF = PA.HelperFunctions
 local function getNonStolenItemLink(itemLink)
     -- if itemLink is NOT stolen, directly return it
     if not IsItemLinkStolen(itemLink) then return itemLink end
-    -- TODO: if it is stolen, remove the stolen information
+    -- if it is stolen, remove first the stolen information
+    local itemLinkMod = string.gsub(itemLink, "1(:%d+:%d+|h|h)$", "0%1")
+    -- then also remove the red border
+    local itemLinkMod = string.gsub(itemLinkMod, "%d+(:%d+:%d+:%d+:%d+:%d+:%d+|h|h)$", "0%1")
+    return itemLinkMod
 end
 
 local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
@@ -19,12 +23,13 @@ local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
         local itemId = GetItemLinkItemId(itemLink)
         -- only add the entry if it is an UPDATE case, or if it does not exist yet
         if not PAHF.isKeyInTable(PAJCustomItemIds, itemId) then
+            local localItemLink = getNonStolenItemLink(itemLink)
             PAJCustomItemIds[itemId] = {
-                itemLink = itemLink,
+                itemLink = localItemLink,
                 junkCount = 0,
                 ruleAdded = GetTimeStamp()
             }
-            PA.Junk.println(SI_PA_CHAT_JUNK_RULES_ADDED, itemLink:gsub("%|H0", "|H1"))
+            PA.Junk.println(SI_PA_CHAT_JUNK_RULES_ADDED, localItemLink:gsub("%|H0", "|H1"))
 
             -- Also directly mark the item as junk (if possible)
             if CanItemBeMarkedAsJunk(bagId, slotIndex) then
