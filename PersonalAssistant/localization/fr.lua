@@ -26,7 +26,7 @@ SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actue
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
---SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, PAC.COLOR.YELLOW:Colorize("Other Settings"), 1) -- TODO: Takit
+--SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Other Settings", 1) -- TODO: Takit
 
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Mode silencieux (Ne RIEN afficher dans le chat)", 1)
 

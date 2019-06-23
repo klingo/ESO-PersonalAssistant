@@ -53,9 +53,10 @@ PersonalAssistant.Constants = {
     },
 
     COLOR = {
+        LIGHT_BLUE = ZO_ColorDef:New("B0B0FF"),
         ORANGE = ZO_ColorDef:New("FFA500"),
-        YELLOW = ZO_ColorDef:New("FFD700"),
         ORANGE_RED = ZO_ColorDef:New("FF7400"),
+        YELLOW = ZO_ColorDef:New("FFD700"),
     },
     COLORS = {
         DEFAULT = "|cFFFF00",

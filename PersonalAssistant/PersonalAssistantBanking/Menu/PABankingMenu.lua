@@ -77,12 +77,12 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_BANKING_CURRENCY_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_CURRENCY_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CURRENCY_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CURRENCY_ENABLE)),
         getFunc = PABMenuFunctions.getCurrenciesEnabledSetting,
         setFunc = PABMenuFunctions.setCurrenciesEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -129,7 +129,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_BANKING_CRAFTING_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_CRAFTING_HEADER))
     })
 
     if IsESOPlusSubscriber() then
@@ -138,14 +138,14 @@ local function _createPABankingMenu()
 
         PABankingOptionsTable:insert({
             type = "description",
-            text = GetString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC)
+            text = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC))
         })
 
     else
         -- Regular player without ESO Plus Subscription
         PABankingOptionsTable:insert({
             type = "checkbox",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE),
+            name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE)),
             tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T),
             getFunc = PABMenuFunctions.getCraftingItemsEnabledSetting,
             setFunc = PABMenuFunctions.setCraftingItemsEnabledSetting,
@@ -266,12 +266,12 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_ADVANCED_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE)),
         tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T),
         getFunc = PABMenuFunctions.getAdvancedItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAdvancedItemsEnabledSetting,
@@ -364,12 +364,12 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE)),
         getFunc = function() return false end,
         setFunc = function(value) end,
         disabled = true,
@@ -392,12 +392,12 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_BANKING_AVA_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_AVA_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_AVA_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_AVA_ENABLE)),
         tooltip = GetString(SI_PA_MENU_BANKING_AVA_ENABLE_T),
         getFunc = PABMenuFunctions.getAvAItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAvAItemsEnabledSetting,
@@ -479,7 +479,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
     -- check if player has the addon [Dolgubon's Lazy Writ Crafter]

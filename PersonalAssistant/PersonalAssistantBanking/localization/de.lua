@@ -6,23 +6,23 @@ local PAC = PersonalAssistant.Constants
 SafeAddString(SI_PA_MENU_BANKING_DESCRIPTION, "PABanking kann Währungen, Handwerks- und andere Gegenstände für dich zwischen deinem Inventar und der Truhe hin und her schieben", 1)
 
 -- Currencies --
-SafeAddString(SI_PA_MENU_BANKING_CURRENCY_HEADER, PAC.COLOR.YELLOW:Colorize(GetString(SI_INVENTORY_CURRENCIES)), 1)
-SafeAddString(SI_PA_MENU_BANKING_CURRENCY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für ", GetString(SI_INVENTORY_CURRENCIES)}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CURRENCY_HEADER, GetString(SI_INVENTORY_CURRENCIES), 1)
+SafeAddString(SI_PA_MENU_BANKING_CURRENCY_ENABLE, table.concat({"Aktiviere Transaktionen für ", GetString(SI_INVENTORY_CURRENCIES)}), 1)
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimal im Inventar behalten", 1)
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximal im Inventar behalten", 1)
 
 -- Crafting Items --
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, PAC.COLOR.YELLOW:Colorize("Handwerks Gegenstände"), 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Handwerks Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, "Objets d'artisanat", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, "Aktiviere Transaktionen für Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Handwerks Gegenstände?", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für Handwerks Gegenstände", 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "Als ESO Plus-Mitglied ist das Einlagern/Entnehmen von Handwerksmaterialien nicht relevant da alle davon in unbeschränkter Menge im Handwerksbeutel verstaut werden können."}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, "Als ESO Plus-Mitglied ist das Einlagern/Entnehmen von Handwerksmaterialien nicht relevant da alle davon in unbeschränkter Menge im Handwerksbeutel verstaut werden können.", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE, "Ändere alle obigen Dropdown-Listen nach", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T, "Ändere alle obigen Handwerks Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'", 1)
 
 -- Advanced Items --
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, PAC.COLOR.YELLOW:Colorize("Spezielle Gegenstände"), 1)
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Spezielle Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, "Spezielle Gegenstände", 1)
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, "Aktiviere Transaktionen für Spezielle Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Speziellen Gegenständen?", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für spezielle Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1) -- TODO: to be checked why this is not replacing the English text
@@ -35,13 +35,13 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8, table.concat({PAC.I
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Rezepte"}), 1)
 
 -- Individual Items --
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, PAC.COLOR.YELLOW:Colorize("Einzelne Gegenstände"), 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für Einzelne Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Einzelne Gegenstände", 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Aktiviere Transaktionen für Einzelne Gegenstände", 1)
 --SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Me
 
 -- AvA Items --
-SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, PAC.COLOR.YELLOW:Colorize("AvA Gegenstände"), 1)
-SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Transaktionen für AvA Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "AvA Gegenstände", 1)
+SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, "Aktiviere Transaktionen für AvA Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Allianz versus Alliance (AvA) Gegenständen?", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "Definiere die Menge der Allianz versus Alliance (AvA) Gegenstände die im Inventar behalten werden sollen", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Anderes", 1)

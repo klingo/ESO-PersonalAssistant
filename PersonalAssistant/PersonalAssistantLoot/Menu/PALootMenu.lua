@@ -44,12 +44,12 @@ local function _createPALootMenu()
 
     PALootOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_LOOT_EVENTS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_LOOT_EVENTS_HEADER))
     })
 
     PALootOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_EVENTS_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_LOOT_EVENTS_ENABLE)),
         getFunc = PALMenuFunctions.getLootEventsEnabledSetting,
         setFunc = PALMenuFunctions.setLootEventsEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
@@ -110,12 +110,12 @@ local function _createPALootMenu()
 
     PALootOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_LOOT_ICONS_HEADER))
     })
 
     PALootOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_LOOT_ICONS_ENABLE)),
         getFunc = PALMenuFunctions.getItemIconsEnabledSetting,
         setFunc = PALMenuFunctions.setItemIconsEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
@@ -216,7 +216,7 @@ local function _createPALootMenu()
 
     PALootOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
     PALootOptionsTable:insert({

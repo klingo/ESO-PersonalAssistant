@@ -6,8 +6,8 @@ local PAC = PersonalAssistant.Constants
 SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk kann Gegenstände als Trödel markieren wenn unten auswählbare Bedingungen eintreffen; ausser wenn es gerade hergestellt oder aus aus einer Nachricht entnommen wurde", 1)
 
 -- Standard Items --
-SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, PAC.COLOR.YELLOW:Colorize("Standard Gegenstände"), 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere das Markieren als Trödel"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Standard Gegenstände", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Aktiviere das Markieren als Trödel", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Automatisch Gegenstände vom Typ [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] als Trödel markieren?"}), 1)
@@ -31,7 +31,7 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.conc
 SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Körperpflegegegenstände]"}), 1)
 
 -- Custom Items --
-SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, PAC.COLOR.YELLOW:Colorize("Benutzerdefinierte Gegenstände"), 1)
+SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Benutzerdefinierte Gegenstände", 1)
 --SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({"You can permanently mark any item as junk by right-clicking on it and selecting \"PA Junk\" in the context menu.\nAll active rules can be found via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), ", or by clicking on this button:"}), 1) -- TODO: Me
 
 -- Other Settings --

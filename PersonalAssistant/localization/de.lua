@@ -26,7 +26,7 @@ SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Ge
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
-SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, PAC.COLOR.YELLOW:Colorize("Andere Einstellungen"), 1)
+SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Andere Einstellungen", 1)
 
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Ruhemodus (Deaktiviert ALLE Meldungen)", 1)
 
@@ -151,7 +151,7 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
 -- == KEY BINDINGS == --
 -- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profile", 1)
---SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssistant Menu", 1) -- TODO: Me
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssistant Menu", 1)
 
 --SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Rules", 1) -- TODO: Me
 --SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Toggle Banking/Junk Rules Menu", 1) -- TODO: Me

@@ -40,12 +40,12 @@ local function _createPARepairMenu()
 
     PARepairOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER))
     })
 
     PARepairOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_REPAIR_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_REPAIR_ENABLE)),
         getFunc = PARMenuFunctions.getAutoRepairEquippedEnabledSetting,
         setFunc = PARMenuFunctions.setAutoRepairEquippedEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
@@ -80,12 +80,12 @@ local function _createPARepairMenu()
 
     PARepairOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_REPAIR_INVENTORY_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_REPAIR_INVENTORY_HEADER))
     })
 
     PARepairOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE)),
         getFunc = PARMenuFunctions.getAutoRepairInventoryEnabledSetting,
         setFunc = PARMenuFunctions.setAutoRepairInventoryEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
@@ -104,7 +104,7 @@ local function _createPARepairMenu()
 
     PARepairOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
     PARepairOptionsTable:insert({
@@ -178,7 +178,7 @@ local function _createPARRepairKitSubmenuTable()
     --
     --    PARRepairKitSubmenuTable:insert({
     --        type = "checkbox",
-    --        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE),
+    --        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE)),
     --        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T),
     --        width = "half",
     --        getFunc = PARMenuFunctions.getRepairWithCrownRepairKitSetting,

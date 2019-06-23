@@ -6,8 +6,8 @@ local PAC = PersonalAssistant.Constants
 SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk peut marquer des objets comme rebuts s'ils remplissent l'une des conditions possible ; exceptés s'ils ont été fait en artisanat ou récupérés du courrier", 1)
 
 -- Standard Items --
---SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, PAC.COLOR.YELLOW:Colorize("Standard Items"), 1) -- TODO: Takit
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Marquer automatiquement comme rebuts"}), 1)
+--SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Standard Items", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Marquer automatiquement comme rebuts", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] comme rebuts ?"}), 1)
@@ -31,7 +31,7 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.conc
 SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1)
 
 -- Custom Items --
---SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, PAC.COLOR.YELLOW:Colorize("Custom Items"), 1) -- TODO: Takit
+--SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Custom Items", 1) -- TODO: Takit
 --SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({"You can permanently mark any item as junk by right-clicking on it and selecting \"PA Junk\" in the context menu.\nAll active rules can be found via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), ", or by clicking on this button:"}), 1) -- TODO: Takit
 
 -- Other Settings --

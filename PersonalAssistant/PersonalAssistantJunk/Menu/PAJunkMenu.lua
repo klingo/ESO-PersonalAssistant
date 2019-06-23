@@ -47,12 +47,12 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER))
     })
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE)),
         getFunc = PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting,
         setFunc = PAJMenuFunctions.setAutoMarkAsJunkEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -115,7 +115,7 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER))
     })
 
     PAJunkOptionsTable:insert({
@@ -132,7 +132,7 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "header",
-        name = GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER)
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
     PAJunkOptionsTable:insert({

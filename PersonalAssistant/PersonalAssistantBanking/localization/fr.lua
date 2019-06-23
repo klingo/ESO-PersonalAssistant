@@ -6,23 +6,23 @@ local PAC = PersonalAssistant.Constants
 SafeAddString(SI_PA_MENU_BANKING_DESCRIPTION, "PABanking peut déplacer les devises, les matériaux d'artisanat, et d'autres objets entre l'inventaire et la banque", 1)
 
 -- Currencies --
-SafeAddString(SI_PA_MENU_BANKING_CURRENCY_HEADER, PAC.COLOR.YELLOW:Colorize(GetString(SI_INVENTORY_CURRENCIES)), 1)
-SafeAddString(SI_PA_MENU_BANKING_CURRENCY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des ", GetString(SI_INVENTORY_CURRENCIES)}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CURRENCY_HEADER, GetString(SI_INVENTORY_CURRENCIES), 1)
+SafeAddString(SI_PA_MENU_BANKING_CURRENCY_ENABLE, table.concat({"Dépot/Retrait automatique des ", GetString(SI_INVENTORY_CURRENCIES)}), 1)
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimum à garder sur soi", 1)
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximum à garder sur soi", 1)
 
 -- Crafting Items --
---SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, PAC.COLOR.YELLOW:Colorize("Objets d'artisanat"), 1) -- TODO: Takit
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets d'artisanat"}), 1)
+--SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, "Objets d'artisanat", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, "Dépot/Retrait automatique des objets d'artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets d'Artisanat ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les matériaux d'artisanat", 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, table.concat({PAC.COLORS.LIGHT_BLUE, "En tant que membre ESO Plus, the dépot/retrait de matériaux d'artisanat n'est pas utile puisqu'ils peuvent être tous transportés dans le sac d'artisanat"}), 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC, "En tant que membre ESO Plus, the dépot/retrait de matériaux d'artisanat n'est pas utile puisqu'ils peuvent être tous transportés dans le sac d'artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE, "Changer tous les menus des objets d'artisanat en :", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets d'artisanat précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1)
 
 -- Advanced Items --
---SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, PAC.COLOR.YELLOW:Colorize("Objets spéciaux"), 1) -- TODO: Takit
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets spéciaux"}), 1)
+--SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, "Objets spéciaux", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, "Dépot/Retrait automatique des objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets spéciaux ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1) -- TODO: to be checked why this is not replacing the English text
@@ -35,13 +35,13 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8, table.concat({PAC.I
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Recettes inconnues"}), 1)
 
 -- Individual Items --
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, PAC.COLOR.YELLOW:Colorize("Objets utilitaires"), 1) -- TODO: Takit
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets utilitaires"}), 1)
+--SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Objets utilitaires", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Dépot/Retrait automatique des objets utilitaires", 1)
 --SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Takit
 
 -- AvA Items --
---SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, PAC.COLOR.YELLOW:Colorize("Objets d'AcA"), 1) -- TODO: Takit
-SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Dépot/Retrait automatique des objets d'AcA"}), 1)
+--SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "Objets d'AcA", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, "Dépot/Retrait automatique des objets d'AcA", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets de Guerre d'Alliances ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "Définir la quantité d'Objets de Guerre d'Alliances (AcA) qui doit être conservée dans l'inventaire", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Autre", 1)

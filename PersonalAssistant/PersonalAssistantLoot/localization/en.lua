@@ -9,8 +9,8 @@ local PALStrings = {
     SI_PA_MENU_LOOT_DESCRIPTION = "PALoot can inform you about items of special interest such as unknown recipes, motifs, or traits",
 
     -- PALoot Loot Events --
-    SI_PA_MENU_LOOT_EVENTS_HEADER = PAC.COLOR.YELLOW:Colorize("Loot Events"),
-    SI_PA_MENU_LOOT_EVENTS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Loot Events"}),
+    SI_PA_MENU_LOOT_EVENTS_HEADER = "Loot Events",
+    SI_PA_MENU_LOOT_EVENTS_ENABLE = "Enable Loot Events",
 
     -- Loot Recipes
     SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
@@ -35,8 +35,8 @@ local PALStrings = {
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T = "If the remaining free inventory space is at or below this threshold, a message is displayed in the chat window",
 
     -- PALoot Mark Items --
-    SI_PA_MENU_LOOT_ICONS_HEADER = PAC.COLOR.YELLOW:Colorize("Item Icons"),
-    SI_PA_MENU_LOOT_ICONS_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Item Icons"}),
+    SI_PA_MENU_LOOT_ICONS_HEADER = "Item Icons",
+    SI_PA_MENU_LOOT_ICONS_ENABLE = "Enable Item Icons",
     SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP = "Display icon tooltip",
 
     -- Mark Recipes --

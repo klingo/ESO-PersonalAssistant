@@ -6,8 +6,8 @@ local PAC = PersonalAssistant.Constants
 SafeAddString(SI_PA_MENU_REPAIR_DESCRIPTION, "PARepair répare votre armure et recharge vos armes pour vous, à un marchand ou sur le champ de bataille", 1)
 
 -- Equipped Items --
---SafeAddString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER, PAC.COLOR.YELLOW:Colorize("Objets équipés"), 1) -- TODO: Takit
-SafeAddString(SI_PA_MENU_REPAIR_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Activer la réparation auto pour les objets équipés"}), 1)
+--SafeAddString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER, "Objets équipés", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_REPAIR_ENABLE, "Activer la réparation auto pour les objets équipés", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({"Réparer avec de l'", GetCurrencyName(CURT_MONEY)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Réparer les objets équipés avec de l'or ?"}), 1)
@@ -40,8 +40,8 @@ SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD, "    Seuil de “qua
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T, table.concat({"Si la quantité restante de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), " est en dessous du seuil, un message sera affiché dans la fenêtre de chat"}), 1)
 
 -- Inventory Items --
---SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_HEADER, PAC.COLOR.YELLOW:Colorize("Inventory Items"), 1) -- TODO: Takit
---SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Inventory Items"}), 1) -- TODO: Takit
+--SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_HEADER, "Inventory Items", 1) -- TODO: Takit
+--SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE, "Enable Auto Repair for Inventory Items", 1) -- TODO: Takit
 
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE, "Réparer les objets dans l'inventaire avec de l'or ?", 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "En visitant un marchand, tous les objets dans l'inventaire en dessous du seuil de durabilité défini seront automatiquement réparés", 1)

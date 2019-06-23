@@ -10,23 +10,23 @@ local PABStrings = {
     SI_PA_MENU_BANKING_DESCRIPTION = "PABanking can move Currencies, Crafting- and other Items between your character's backpack and the bank",
 
     -- Currencies --
-    SI_PA_MENU_BANKING_CURRENCY_HEADER = PAC.COLOR.YELLOW:Colorize(GetString(SI_INVENTORY_CURRENCIES)),
-    SI_PA_MENU_BANKING_CURRENCY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for ", GetString(SI_INVENTORY_CURRENCIES)}),
+    SI_PA_MENU_BANKING_CURRENCY_HEADER = GetString(SI_INVENTORY_CURRENCIES),
+    SI_PA_MENU_BANKING_CURRENCY_ENABLE = table.concat({"Enable Auto Banking for ", GetString(SI_INVENTORY_CURRENCIES)}),
     SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP = "Mininum to keep on character",
     SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP = "Maximum to keep on character",
 
     -- Crafting Items --
-    SI_PA_MENU_BANKING_CRAFTING_HEADER = PAC.COLOR.YELLOW:Colorize("Crafting Items"),
-    SI_PA_MENU_BANKING_CRAFTING_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Crafting Items"}),
+    SI_PA_MENU_BANKING_CRAFTING_HEADER = "Crafting Items",
+    SI_PA_MENU_BANKING_CRAFTING_ENABLE = "Enable Auto Banking for Crafting Items",
     SI_PA_MENU_BANKING_CRAFTING_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Crafting Items?",
     SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Crafting Items",
-    SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC = table.concat({PAC.COLORS.LIGHT_BLUE, "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag"}),
+    SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC = "As an ESO Plus Member, the deposit/withdrawal of Crafting Materials is not relevant since all of them can be carried with an infinite amount in the Craft Bag",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Change all above Crafting Item dropdowns to",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Change all above Crafting Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
     -- Advanced Items --
-    SI_PA_MENU_BANKING_ADVANCED_HEADER = PAC.COLOR.YELLOW:Colorize("Special Items"),
-    SI_PA_MENU_BANKING_ADVANCED_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Special Items"}),
+    SI_PA_MENU_BANKING_ADVANCED_HEADER = "Special Items",
+    SI_PA_MENU_BANKING_ADVANCED_ENABLE = "Enable Auto Banking for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
@@ -39,13 +39,13 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Recipes"}),
 
     -- Individual Items --
-    SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = PAC.COLOR.YELLOW:Colorize("Individual Items"),
-    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for Individual Items"}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Individual Items",
+    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = "Enable Auto Banking for Individual Items",
     SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
 
     -- AvA Items --
-    SI_PA_MENU_BANKING_AVA_HEADER = PAC.COLOR.YELLOW:Colorize("AvA Items"),
-    SI_PA_MENU_BANKING_AVA_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Banking for AvA Items"}),
+    SI_PA_MENU_BANKING_AVA_HEADER = "AvA Items",
+    SI_PA_MENU_BANKING_AVA_ENABLE = "Enable Auto Banking for AvA Items",
     SI_PA_MENU_BANKING_AVA_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Alliance versus Alliance (AvA) Items?",
     SI_PA_MENU_BANKING_AVA_DESCRIPTION = "Define the amount of different Alliance versus Alliance (AvA) Items you would like to keep in your inventory",
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Other",
@@ -86,8 +86,8 @@ local PABStrings = {
     SI_PA_MAINMENU_BANKING_HEADER_ITEM = "Item",
     SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Actions",
 
-    SI_PA_MAINMENU_BANKING_FOOTER_HELP = "How to create new rules?", -- TODO: localize
-    SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP = table.concat({"In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}), -- TODO: localize
+    SI_PA_MAINMENU_BANKING_FOOTER_HELP = "How to create new rules?",
+    SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP = table.concat({"In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}),
 
 
     -- =================================================================================================================

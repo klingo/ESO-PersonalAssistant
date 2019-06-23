@@ -10,8 +10,8 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_DESCRIPTION = "PARepair repairs your armor and recharges your weapons for you, be it at a merchant or out on the field",
 
     -- Equipped Items --
-    SI_PA_MENU_REPAIR_EQUIPPED_HEADER = PAC.COLOR.YELLOW:Colorize("Equipped Items"),
-    SI_PA_MENU_REPAIR_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Equipped Items"}),
+    SI_PA_MENU_REPAIR_EQUIPPED_HEADER = "Equipped Items",
+    SI_PA_MENU_REPAIR_ENABLE = "Enable Auto Repair for Equipped Items",
 
     SI_PA_MENU_REPAIR_GOLD_HEADER = table.concat({"Repair with ", GetCurrencyName(CURT_MONEY)}),
     SI_PA_MENU_REPAIR_GOLD_ENABLE = table.concat({"Repair equipped Items with ", GetCurrencyName(CURT_MONEY), "?"}),
@@ -24,7 +24,7 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "When out on the field, all equipped items that are at or below the defined threshold will automatically be repaired",
     SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY = "Durability threshold in %",
     SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold",
---    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Use Crown ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), "?"}),
+--    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE = table.concat({"Use Crown ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), "?"}),
 --    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T = "???",
 --    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY = "Avg. durability threshold in %",
 --    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T = "Repair ALL equipped items only if they are on average at or below the defined durability threshold",
@@ -44,8 +44,8 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T = table.concat({"If the remaining amount of ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), " is below this threshold, a message is displayed in the chat window"}),
 
     -- Inventory Items --
-    SI_PA_MENU_REPAIR_INVENTORY_HEADER = PAC.COLOR.YELLOW:Colorize("Inventory Items"),
-    SI_PA_MENU_REPAIR_INVENTORY_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto Repair for Inventory Items"}),
+    SI_PA_MENU_REPAIR_INVENTORY_HEADER = "Inventory Items",
+    SI_PA_MENU_REPAIR_INVENTORY_ENABLE = "Enable Auto Repair for Inventory Items",
 
     SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE = table.concat({"Repair inventory Items with ", GetCurrencyName(CURT_MONEY), "?"}),
     SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T = "When visiting a merchant, all items in the inventory that are at or below the defined threshold will automatically be repaired",

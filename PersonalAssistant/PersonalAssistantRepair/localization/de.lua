@@ -6,8 +6,8 @@ local PAC = PersonalAssistant.Constants
 SafeAddString(SI_PA_MENU_REPAIR_DESCRIPTION, "PARepair repariert deine getragene Ausrüstung und lädt Waffen für dich wieder auf, sei es beim Händler oder unterwegs.", 1)
 
 -- Equipped Items --
-SafeAddString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER, PAC.COLOR.YELLOW:Colorize("Getragene Ausrüstung"), 1)
-SafeAddString(SI_PA_MENU_REPAIR_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Automatische Reparatur getragener Ausrüstung"}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_EQUIPPED_HEADER, "Getragene Ausrüstung", 1)
+SafeAddString(SI_PA_MENU_REPAIR_ENABLE, "Automatische Reparatur getragener Ausrüstung", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_HEADER, table.concat({"Reparatur mit ", GetCurrencyName(CURT_MONEY)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_ENABLE, table.concat({"Repariere Ausrüstung mit ", GetCurrencyName(CURT_MONEY), "?"}), 1)
@@ -40,8 +40,8 @@ SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD, table.concat({"Schwe
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD_T, table.concat({"Wenn die Anzahl verbleibender ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), " auf oder unter diesen Schwellenwert fällt, wird eine Meldung im Chat ausgegeben"}), 1)
 
 -- Inventory Items --
-SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_HEADER, PAC.COLOR.YELLOW:Colorize("Inventar Ausrüstung"), 1)
-SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Automatische Reparatur von Ausrüstung im Inventar"}), 1)
+SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_HEADER, "Inventar Ausrüstung", 1)
+SafeAddString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE, "Automatische Reparatur von Ausrüstung im Inventar", 1)
 
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE, table.concat({"Repariere Inventar mit ", GetCurrencyName(CURT_MONEY), "?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_ENABLE_T, "Wenn ein Händler besucht wird, werden Ausrüstungen im Inventar automatisch repariert sofern deren Haltbarkeit genau auf oder unter dem definierten Schwellenwert liegt", 1)

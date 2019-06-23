@@ -10,8 +10,8 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_DESCRIPTION = "PAJunk can mark items as junk if they match any of the selectable conditions; except if it just was crafted or retrieved from mail",
 
     -- Standard Items --
-    SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER = PAC.COLOR.YELLOW:Colorize("Standard Items"),
-    SI_PA_MENU_JUNK_AUTOMARK_ENABLE = table.concat({PAC.COLORS.LIGHT_BLUE, "Enable Auto-Marking of Items as Junk"}),
+    SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER = "Standard Items",
+    SI_PA_MENU_JUNK_AUTOMARK_ENABLE = "Enable Auto-Marking of Items as Junk",
 
     SI_PA_MENU_JUNK_TRASH_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] items"}),
     SI_PA_MENU_JUNK_TRASH_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] as junk?"}),
@@ -35,7 +35,7 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
 
     -- Custom Items --
-    SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = PAC.COLOR.YELLOW:Colorize("Custom Items"),
+    SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Custom Items",
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({"You can permanently mark any item as junk by right-clicking on it and selecting \"PA Junk\" in the context menu.\nAll active rules can be found via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), ", or by clicking on this button:"}),
 
     -- Other Settings --
@@ -76,8 +76,8 @@ local PAJStrings = {
 
     SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED = "never",
 
-    SI_PA_MAINMENU_JUNK_FOOTER_HELP = "How to create new rules?", -- TODO: localize
-    SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP = table.concat({"In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > ", GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK)}), -- TODO: localize
+    SI_PA_MAINMENU_JUNK_FOOTER_HELP = "How to create new rules?",
+    SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP = table.concat({"In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > ", GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK)}),
 
 
     -- =================================================================================================================
