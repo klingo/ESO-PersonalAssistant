@@ -12,7 +12,7 @@ SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimal im Inventar behalt
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximal im Inventar behalten", 1)
 
 -- Crafting Items --
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, "Objets d'artisanat", 1)
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, "Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, "Aktiviere Transaktionen für Handwerks Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T, "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Handwerks Gegenstände?", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für Handwerks Gegenstände", 1)
@@ -74,15 +74,15 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Dies kann nicht rückg�
 -- == MAIN MENU TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Banking Rules", 1) -- TODO: Me
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Banking Regeln", 1)
 
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Location", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Operator", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Amount", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Item", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Actions", 1) -- TODO: Me
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Ort", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Operator", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Anzahl", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Gegenstand", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Aktionen", 1)
 
---SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_HELP, "How to create new rules?", 1) -- TODO: Me
+SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_HELP, "Wie neue Regeln erstellen?", 1)
 --SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP, table.concat({"In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}), 1) -- TODO: Me
 
 
@@ -104,6 +104,6 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, "%s konnte nicht in
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, "%s konnte nicht in %s verschoben werden. Fenster wurde geschlossen!", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Manche Gegenstände wurden NICHT eingelagert um potentielle Überlagerungen mit Dolgubon's Lazy Writ Crafter zu vermeiden", 1)
 
---SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), 1) -- TODO: Me
---SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), 1) -- TODO: Me
---SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), 1) -- TODO: Me
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("hinzugefügt"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("angepasst"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("gelöscht"), "!"}), 1)

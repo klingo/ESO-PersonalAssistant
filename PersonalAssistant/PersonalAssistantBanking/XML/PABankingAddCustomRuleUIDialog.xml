@@ -13,7 +13,7 @@
                         PABankingAddCustomRuleWindow:SetHidden(true)
                     </OnClicked>
                 </Button>
-                <Label name="$(parent)Header" font="ZoFontAnnounceMedium" text="|cFFD700PA B|r|cFFFFFFanking|r: Add custom rule">
+                <Label name="$(parent)Header" font="ZoFontAnnounceMedium">
                     <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
                 </Label>
                 <Control name="$(parent)BagDropdown" inherits="ZO_ComboBox">
@@ -63,7 +63,7 @@
                 </Control>
                 <Label name="$(parent)DisclaimerLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)BagDropdown" relativePoint="BOTTOMLEFT" offsetY="15"/>
-                    <Dimensions x="660" y="48"/>
+                    <Dimensions x="660"/>
                 </Label>
                 <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>

@@ -137,12 +137,12 @@ local PAStrings = {
     -- =================================================================================================================
     -- == CUSTOM SUB MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_SUBMENU_PAB_ADD_RULE = "Add custom banking rule",
-    SI_PA_SUBMENU_PAB_EDIT_RULE = "Edit custom banking rule",
-    SI_PA_SUBMENU_PAB_DELETE_RULE = "Delete custom banking rule",
-    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Add new rule",
-    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Update rule",
-    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Delete rule",
+    SI_PA_SUBMENU_PAB_ADD_RULE = "Add new rule",
+    SI_PA_SUBMENU_PAB_EDIT_RULE = "Modify rule",
+    SI_PA_SUBMENU_PAB_DELETE_RULE = "Delete rule",
+    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Add",
+    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Save",
+    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Delete",
     SI_PA_SUBMENU_PAB_NO_RULES = "No banking rules defined yet",
     SI_PA_SUBMENU_PAB_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.",
 

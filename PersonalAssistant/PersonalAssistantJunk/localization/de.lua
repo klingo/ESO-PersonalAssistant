@@ -62,17 +62,17 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Wenn AUSgescha
 -- == MAIN MENU TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER, "Junk Rules", 1) -- TODO: Me
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER, "Trödel Regeln", 1)
 
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Item", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Junk Count", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Last junk", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Rule added", 1) -- TODO: Me
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Actions", 1) -- TODO: Me
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Gegenstand", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Anzahl", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Letzter Trödel", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Regel erstellt", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Aktionen", 1)
 
---SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "never", 1) -- TODO: Me
+SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "niemals", 1)
 
---SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_HELP, "How to create new rules?", 1) -- TODO: Me
+SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_HELP, "Wie neue Regeln erstellen?", 1)
 --SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP, table.concat({"In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > ", GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK)}), 1) -- TODO: Me
 
 

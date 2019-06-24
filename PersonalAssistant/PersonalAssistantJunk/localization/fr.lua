@@ -6,7 +6,7 @@ local PAC = PersonalAssistant.Constants
 SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk peut marquer des objets comme rebuts s'ils remplissent l'une des conditions possible ; exceptés s'ils ont été fait en artisanat ou récupérés du courrier", 1)
 
 -- Standard Items --
---SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Standard Items", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Objets standards", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Marquer automatiquement comme rebuts", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "]"}), 1)
@@ -31,7 +31,7 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.conc
 SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1)
 
 -- Custom Items --
---SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Custom Items", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Objets personnalisés", 1)
 --SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({"You can permanently mark any item as junk by right-clicking on it and selecting \"PA Junk\" in the context menu.\nAll active rules can be found via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), ", or by clicking on this button:"}), 1) -- TODO: Takit
 
 -- Other Settings --
@@ -62,18 +62,18 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Si désactivé
 -- == MAIN MENU TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER, "Junk Rules", 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER, "Règles de mise aux rebuts", 1)
 
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Item", 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Objet", 1)
 --SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Junk Count", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Last junk", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Rule added", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Actions", 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Dernière mise aux rebuts", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Règle ajoutée", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Actions", 1)
 
---SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "never", 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "jamais", 1)
 
---SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_HELP, "How to create new rules?", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP, table.concat({"In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > ", GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK)}), 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_HELP, "Comment créer de nouvelles règles?", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_FOOTER_TOOLTIP, table.concat({"Pour créer une nouvelle règle de mise aux rebuts, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Junk >", GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK)}), 1)
 
 
 -- =================================================================================================================
@@ -86,15 +86,15 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({"%s mis aux 
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({"%s mis aux rebuts (", PAC.COLORS.ORANGE, "Marchand", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({"%s mis aux rebuts (", PAC.COLORS.ORANGE, "Trésor", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"%s mis aux rebuts (", PAC.COLORS.ORANGE, "Manuel", PAC.COLORS.DEFAULT, ")"}), 1)
---SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"Moved %s to junk (", PAC.COLORS.ORANGE, "Perm-Rule", PAC.COLORS.DEFAULT, ")"}), 1) -- TODO: Takit
+SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"MMis aux rebuts (", PAC.COLORS.ORANGE, "Perm-Rule", PAC.COLORS.DEFAULT, ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, table.concat({"Vente des objets aux rebuts pour ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d heures"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d minutes"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Impossible de vendre %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
 
---SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}), 1) -- TODO: Takit
---SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}), 1) -- TODO: Takit
+SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({"%s a été ", PAC.COLOR.ORANGE:Colorize("ajouté"), " à la liste des rebuts permanents!"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({"%s a été ", PAC.COLOR.ORANGE:Colorize("retiré"), " de la liste des rebuts permanents!"}), 1)
 
 
 -- =================================================================================================================

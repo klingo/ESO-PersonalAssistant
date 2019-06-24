@@ -26,7 +26,7 @@ SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actue
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
---SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Other Settings", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Autres paramètres", 1)
 
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Mode silencieux (Ne RIEN afficher dans le chat)", 1)
 
@@ -139,22 +139,22 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
 --SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Add new rule", 1) -- TODO: Takit
 --SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Update rule", 1) -- TODO: Takit
 --SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Delete rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "No banking rules defined yet", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.", 1) -- TODO: Takit
+SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "Aucune règle de mise en banque définie", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA) auront été exécutées.", 1)
 
---SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Mark as permanent junk", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Unmark as permanent junk", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "No junk rules defined yet", 1) -- TODO: Takit
+SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Marquer en tant que rebut permanent", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Démarquer en tant que rebut permanent", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "Aucune règle de mise aux rebuts définie", 1)
 
 
 -- =================================================================================================================
 -- == KEY BINDINGS == --
 -- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profils", 1)
---SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssistant Menu", 1) -- TODO: Takit
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "Menu de |cFFD700P|rersonal|cFFD700A|rssistant", 1)
 
---SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Rules", 1) -- TODO: Takit
---SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Toggle Banking/Junk Rules Menu", 1) -- TODO: Takit
+SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "Règles de PersonalAssitant", 1)
+SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Afficher/Cacher le menu des règles de mise en banque et aux rebuts", 1)
 
 SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)
 

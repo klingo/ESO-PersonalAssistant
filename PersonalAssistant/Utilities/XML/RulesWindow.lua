@@ -295,7 +295,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         onRowMouseExit(itemNameControl:GetParent())
     end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
-        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(deleteButtonControl:GetParent())
     end
@@ -305,7 +305,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         onRowMouseExit(deleteButtonControl:GetParent())
     end
     local function onEditButtonMouseEnter(editButtonControl)
-        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
+        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(editButtonControl:GetParent())
     end

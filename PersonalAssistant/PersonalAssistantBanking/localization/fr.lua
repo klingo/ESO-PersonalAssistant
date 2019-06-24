@@ -12,7 +12,7 @@ SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP, "Minimum à garder sur soi"
 SafeAddString(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP, "Maximum à garder sur soi", 1)
 
 -- Crafting Items --
---SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, "Objets d'artisanat", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_CRAFTING_HEADER, "Objets d'artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE, "Dépot/Retrait automatique des objets d'artisanat", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets d'Artisanat ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les matériaux d'artisanat", 1)
@@ -21,7 +21,7 @@ SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE, "Changer tous les men
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets d'artisanat précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1)
 
 -- Advanced Items --
---SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, "Objets spéciaux", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, "Objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, "Dépot/Retrait automatique des objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets spéciaux ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets spéciaux", 1)
@@ -35,12 +35,12 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8, table.concat({PAC.I
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Recettes inconnues"}), 1)
 
 -- Individual Items --
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Objets utilitaires", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Objets utilitaires", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Dépot/Retrait automatique des objets utilitaires", 1)
 --SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Takit
 
 -- AvA Items --
---SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "Objets d'AcA", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "Objets d'AcA", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE, "Dépot/Retrait automatique des objets d'AcA", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets de Guerre d'Alliances ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "Définir la quantité d'Objets de Guerre d'Alliances (AcA) qui doit être conservée dans l'inventaire", 1)
@@ -74,16 +74,16 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Ceci ne peut pas être 
 -- == MAIN MENU TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Banking Rules", 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Règles de mise en banque", 1)
 
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Location", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Operator", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Amount", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Item", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Actions", 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Localisation", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Opérateur", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Quantité", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Objet", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Actions", 1)
 
---SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_HELP, "How to create new rules?", 1) -- TODO: Takit
---SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP, table.concat({"In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}), 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_HELP, "Comment créer de nouvelles règles?", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP, table.concat({"Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Banking >", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}), 1)
 
 
 -- =================================================================================================================
@@ -104,9 +104,9 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, "Impossible de dép
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, "Impossible de déplacer %s vers %s. La fenêtre a été fermée !", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Certains matériaux n'ont PAS été déposés pour éviter de potentielles interférences avec Dolgubon's Lazy Writ Crafter", 1)
 
---SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), 1) -- TODO: Takit
---SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), 1) -- TODO: Takit
---SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), 1) -- TODO: Takit
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("ajoutée"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("modifiée"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("supprimée"), "!"}), 1)
 
 
 -- =================================================================================================================

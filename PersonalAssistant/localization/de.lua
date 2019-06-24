@@ -26,7 +26,7 @@ SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Ge
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
-SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Andere Einstellungen", 1)
+SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Weitere Einstellungen", 1)
 
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Ruhemodus (Deaktiviert ALLE Meldungen)", 1)
 
@@ -133,18 +133,18 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
 -- =================================================================================================================
 -- == CUSTOM SUB MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
---SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Add custom banking rule", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Edit custom banking rule", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Delete custom banking rule", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Add new rule", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Update rule", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Delete rule", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "No banking rules defined yet", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.", 1) -- TODO: Me
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Neue Regel hinzufügen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Regel bearbeiten", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Regel löschen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Hinzufügen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Speichern", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Löschen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "Noch keine Banking Regeln definiert", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Anmerkung: Diese benutzerdefinierten Regeln werden erst berücksichtigt, wenn alle anderen automatischen Banking Regeln (Handwerks, Spezielle, und AvA Gegenstände) ausgeführt wurden.", 1)
 
---SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Mark as permanent junk", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Unmark as permanent junk", 1) -- TODO: Me
---SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "No junk rules defined yet", 1) -- TODO: Me
+SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Als permanenten Trödel markieren", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Als permanenten Trödel demarkieren", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "Noch keine Regeln für Trödel definiert", 1)
 
 
 -- =================================================================================================================
@@ -153,7 +153,7 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
 SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profile", 1)
 SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssistant Menu", 1)
 
---SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Rules", 1) -- TODO: Me
---SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Toggle Banking/Junk Rules Menu", 1) -- TODO: Me
+SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Regeln", 1)
+SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Banking/Trödel Regelmenü ein-/ausblenden", 1)
 
 SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Aktiviere Profil", 1)
