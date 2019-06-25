@@ -24,8 +24,8 @@ SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
 
---SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Banking > Ajouter une règle personnalisée", 1) -- TODO: Takit
---SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle de mise aux rebuts, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Junk > Marquer en tant que rebut permanent", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Banking > Ajouter une règle personnalisée", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle de mise aux rebuts, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Junk > Marquer en tant que rebut permanent", 1)
 --SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, "You can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:", 1) -- TODO: Takit
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Comment créer de nouvelles règles?", 1)
 

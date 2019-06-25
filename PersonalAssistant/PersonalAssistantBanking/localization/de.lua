@@ -37,7 +37,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Einzelne Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Aktiviere Transaktionen für Einzelne Gegenstände", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Mit der Einführung der benutzerdefinierten Banking Regeln wurden die \"Individuellen\" Einstellungen dorthin migriert. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Mit der Einführung der benutzerdefinierten Banking Regeln wurden die \"Individuellen\" Einstellungen dorthin migriert. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
 SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "AvA Gegenstände", 1)
