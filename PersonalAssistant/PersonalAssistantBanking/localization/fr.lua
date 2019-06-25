@@ -37,7 +37,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Objets utilitaires", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Dépot/Retrait automatique des objets utilitaires", 1)
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Takit
+--SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Avec la mise en place des règles de mise en banque personnalisées, les paramètres des “Objets utilitaires” ont été migrés vers ce nouveau système."}), 1) -- TODO: Takit
 
 -- AvA Items --
 SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "Objets d'AcA", 1)
@@ -81,9 +81,6 @@ SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Opérateur", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Quantité", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Objet", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Actions", 1)
-
-SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_HELP, "Comment créer de nouvelles règles?", 1)
-SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP, table.concat({"Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Banking >", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}), 1)
 
 
 -- =================================================================================================================

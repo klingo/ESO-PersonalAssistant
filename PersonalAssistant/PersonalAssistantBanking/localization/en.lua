@@ -41,7 +41,7 @@ local PABStrings = {
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Individual Items",
     SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = "Enable Auto Banking for Individual Items",
-    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
+    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
     SI_PA_MENU_BANKING_AVA_HEADER = "AvA Items",
@@ -85,9 +85,6 @@ local PABStrings = {
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Amount",
     SI_PA_MAINMENU_BANKING_HEADER_ITEM = "Item",
     SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Actions",
-
-    SI_PA_MAINMENU_BANKING_FOOTER_HELP = "How to create new rules?",
-    SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP = table.concat({"In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}),
 
 
     -- =================================================================================================================

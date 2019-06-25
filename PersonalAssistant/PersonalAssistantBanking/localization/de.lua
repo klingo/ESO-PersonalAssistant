@@ -37,7 +37,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Einzelne Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Aktiviere Transaktionen für Einzelne Gegenstände", 1)
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. In order to create a new banking rule, right-click on an item and select \"PA Banking\".\nYou can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}), 1) -- TODO: Me
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Mit der Einführung der benutzerdefinierten Banking Regeln wurden die \"Individuellen\" Einstellungen dorthin migriert. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
 SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "AvA Gegenstände", 1)
@@ -81,9 +81,6 @@ SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Operator", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Anzahl", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Gegenstand", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Aktionen", 1)
-
-SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_HELP, "Wie neue Regeln erstellen?", 1)
---SafeAddString(SI_PA_MAINMENU_BANKING_FOOTER_TOOLTIP, table.concat({"In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}), 1) -- TODO: Me
 
 
 -- =================================================================================================================

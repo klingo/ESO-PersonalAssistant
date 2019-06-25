@@ -24,6 +24,11 @@ SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
 
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Um eine neue Regel für das Einlagern und Entnehmen zu erstellen, einfach per Rechtsklick auf einem Gegenstand im Inventar oder der Bank im Kontextmenü folgendes auswählen:\n> PA Banking > Neue Regel hinzufügen", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Um eine neue Regel für permanenten Trödel zu erstellen, einfach per Rechtsklick auf einem Gegenstand im Inventar oder der Bank im Kontextmenü folgendes auswählen:\n> PA Junk > Als permanenten Trödel markieren", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, table.concat({"Alle aktiven Regeln können entweder via dem Icon im oberen Hauptmenü (das mit der [Alt] Taste geöffnet wird) gefunden werden, mit ", PAC.COLOR.YELLOW:Colorize("/parules"), " oder anhand dieses Buttons:"}), 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Wie neue Regeln erstellen?", 1)
+
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
 SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Weitere Einstellungen", 1)

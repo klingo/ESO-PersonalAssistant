@@ -27,6 +27,11 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
 
+    SI_PA_MENU_RULES_HOW_TO_ADD_PAB = "In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > Add new rule",
+    SI_PA_MENU_RULES_HOW_TO_ADD_PAJ = "In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > Mark as permanent junk",
+    SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"You can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
+    SI_PA_MENU_RULES_HOW_TO_CREATE = "How to create new rules?",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
     SI_PA_MENU_OTHER_SETTINGS_HEADER = "Other Settings",
