@@ -24,9 +24,9 @@ SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
 
-SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Banking > Ajouter une règle personnalisée", 1)
-SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle de mise aux rebuts, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel:\n> PA Junk > Marquer en tant que rebut permanent", 1)
---SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, "You can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Banking > Ajouter une nouvelle règle", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle de mise aux rebuts permanente, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Junk > Marquer en tant que rebut permanent", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, "Toutes les règles actives peuvent être retrouvées en cliquant sur l'icône qui se trouve dans le menu principal, en tapant ", PAC.COLOR.YELLOW:Colorize("/parules"), " ou en cliquant sur ce bouton :", 1)
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Comment créer de nouvelles règles?", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -138,17 +138,17 @@ SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
 -- =================================================================================================================
 -- == CUSTOM SUB MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
---SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Add custom banking rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Edit custom banking rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Delete custom banking rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Add new rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Update rule", 1) -- TODO: Takit
---SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Delete rule", 1) -- TODO: Takit
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Ajouter une nouvelle règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Éditer une règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Supprimer une règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Ajouter", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Sauvegarder", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Supprimer", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "Aucune règle de mise en banque définie", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA) auront été exécutées.", 1)
 
 SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Marquer en tant que rebut permanent", 1)
-SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Démarquer en tant que rebut permanent", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Ne plus marquer en tant que rebut permanent", 1)
 SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "Aucune règle de mise aux rebuts définie", 1)
 
 
@@ -158,7 +158,7 @@ SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "Aucune règle de mise aux rebuts déf
 SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profils", 1)
 SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "Menu de |cFFD700P|rersonal|cFFD700A|rssistant", 1)
 
-SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "Règles de PersonalAssitant", 1)
+SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "Règles de PersonalAssistant", 1)
 SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Afficher/Cacher le menu des règles de mise en banque et aux rebuts", 1)
 
 SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)

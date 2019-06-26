@@ -65,12 +65,12 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Si désactivé
 SafeAddString(SI_PA_MAINMENU_JUNK_HEADER, "Règles de mise aux rebuts", 1)
 
 SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Objet", 1)
---SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Junk Count", 1) -- TODO: Takit
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Nombre de fois", 1)
 SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Dernière mise aux rebuts", 1)
 SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Règle ajoutée", 1)
 SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Actions", 1)
 
-SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "jamais", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "Jamais", 1)
 
 
 -- =================================================================================================================

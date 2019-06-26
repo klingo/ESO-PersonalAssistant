@@ -37,7 +37,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Objets utilitaires", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Dépot/Retrait automatique des objets utilitaires", 1)
---SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Avec la mise en place des règles de mise en banque personnalisées, les paramètres des “Objets utilitaires” ont été migrés vers ce nouveau système."}), 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Avec la mise en place des règles de mise en banque personnalisées, les anciens paramètres pour les “Objets utilitaires” ont été migrés vers ce nouveau système. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
 SafeAddString(SI_PA_MENU_BANKING_AVA_HEADER, "Objets d'AcA", 1)
@@ -76,7 +76,7 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Ceci ne peut pas être 
 -- PABanking --
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Règles de mise en banque", 1)
 
-SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Localisation", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Emplacement", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Opérateur", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Quantité", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Objet", 1)
@@ -101,9 +101,9 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, "Impossible de dép
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, "Impossible de déplacer %s vers %s. La fenêtre a été fermée !", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Certains matériaux n'ont PAS été déposés pour éviter de potentielles interférences avec Dolgubon's Lazy Writ Crafter", 1)
 
-SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("ajoutée"), "!"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("modifiée"), "!"}), 1)
-SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("supprimée"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("ajoutée"), " !"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("modifiée"), " !"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("supprimée"), " !"}), 1)
 
 
 -- =================================================================================================================
