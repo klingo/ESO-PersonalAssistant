@@ -145,7 +145,7 @@ SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Ajouter", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Sauvegarder", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Supprimer", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "Aucune règle de mise en banque définie", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA) auront été exécutées.", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).", 1)
 
 SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Marquer en tant que rebut permanent", 1)
 SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Ne plus marquer en tant que rebut permanent", 1)

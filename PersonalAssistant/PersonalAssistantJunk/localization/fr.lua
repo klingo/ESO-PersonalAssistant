@@ -64,11 +64,11 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Si désactivé
 -- PAJunk --
 SafeAddString(SI_PA_MAINMENU_JUNK_HEADER, "Règles de mise aux rebuts", 1)
 
-SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Objet", 1)
-SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Nombre de fois", 1)
-SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Dernière mise aux rebuts", 1)
-SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Règle ajoutée", 1)
-SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Actions", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ITEM, "Objet ciblé par la règle", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT, "Nb. d'usages", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK, "Dernier usage", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED, "Créée depuis", 1)
+SafeAddString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS, "Gérer", 1)
 
 SafeAddString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED, "Jamais", 1)
 
@@ -83,7 +83,7 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({"%s mis aux 
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Marchand"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Trésor"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Manuel"), ")"}), 1)
-SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Perm-Rule"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Rebut permanent"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, table.concat({"Vente des objets aux rebuts pour ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d heures"}), 1)
