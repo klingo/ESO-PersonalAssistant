@@ -15,6 +15,7 @@ local PAStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral Menu --
+    SI_PA_MENU_PROFILE_HEADER = "Profiles",
     SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant is a collection of various features that have the goal to make playing ESO more convenient for you",
 
     SI_PA_PLEASE_SELECT_PROFILE = "<Please select Profile>",
@@ -177,13 +178,6 @@ end
 local PAGenericStrings = {
     -- =================================================================================================================
     -- Language independent texts (do not need to be translated/copied to other languages --
-
-    -- =================================================================================================================
-    -- == MENU/PANEL TEXTS == --
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PAGeneral Menu --
-    SI_PA_MENU_GENERAL_HEADER = PAC.COLORED_TEXTS.PAG,
-
 
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --

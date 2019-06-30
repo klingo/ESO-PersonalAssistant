@@ -12,6 +12,7 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " nécess
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral Menu --
+SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable", 1)
 
 SafeAddString(SI_PA_PLEASE_SELECT_PROFILE, "<Sélectionner un profil>", 1)

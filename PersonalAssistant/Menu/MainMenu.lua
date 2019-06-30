@@ -30,13 +30,13 @@ local PAGeneralOptionsTable = setmetatable({}, { __index = table })
 
 local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_GENERAL_HEADER)
+        type = "description",
+        text = GetString(SI_PA_MENU_GENERAL_DESCRIPTION),
     })
 
     PAGeneralOptionsTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_GENERAL_DESCRIPTION),
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_PROFILE_HEADER))
     })
 
     PAGeneralOptionsTable:insert({
