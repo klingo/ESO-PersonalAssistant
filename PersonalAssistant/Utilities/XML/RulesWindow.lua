@@ -342,7 +342,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
     delButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
-        PA.CustomDialogs.deletePABCustomRule(rowControl.data.itemLink) -- TODO: move this to PABanking somewhere
+        PA.CustomDialogs.deletePABCustomRule(rowControl.data.itemLink)
     end)
 
     -- Setup the EDIT button per row
@@ -503,7 +503,6 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
         onRowMouseExit(itemNameControl:GetParent())
     end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
-        -- TODO: change key
         ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(deleteButtonControl:GetParent())

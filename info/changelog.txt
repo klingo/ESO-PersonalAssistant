@@ -1,3 +1,6 @@
+2.4.0   (June 30, 2019)
+- add possibility to create custom rules for Banking and to mark items as permanent Junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/154"]#154[/URL])
+
 2.3.5   (June 16, 2019)
 - some minor code refactoring ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/150"]#150[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/152"]#152[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/153"]#153[/URL])
 - fixed an issue with the profile switching keybindings ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/151"]#151[/URL])

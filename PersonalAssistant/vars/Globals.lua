@@ -29,8 +29,8 @@ PersonalAssistant.Constants = {
         FEEDBACK = "https://www.esoui.com/downloads/info381-PersonalAssistant.html#comments",
         KEYWORDS = {
             GENERAL = "general, profile, house",
-            BANKING = "banking, deposit, withdraw, currency, currencies, bank",
-            JUNK = "junk, mark, fence, sell",
+            BANKING = "banking, deposit, withdraw, currency, currencies, bank, rules",
+            JUNK = "junk, mark, fence, sell, rules",
             LOOT = "loot, unknown, recipe, motif, trait",
             REPAIR = "repair, repairkit, recharge, soulgem",
         },

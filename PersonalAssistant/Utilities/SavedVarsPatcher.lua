@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 
@@ -269,7 +268,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.3.0      May 19, 2019
     _applyPatch_2_3_0(_getIsPatchNeededInfo(020300))
 
-    -- Patch 2.4.0      tbd -- TODO: add date
+    -- Patch 2.4.0      June 30, 2019
     _applyPatch_2_4_0(_getIsPatchNeededInfo(020400))
 end
 
