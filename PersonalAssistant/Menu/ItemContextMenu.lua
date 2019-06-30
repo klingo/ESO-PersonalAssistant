@@ -84,7 +84,7 @@ local function _getSlotTypeName(slotType)
 --    if slotType == SLOT_TYPE_ITEM then return "SLOT_TYPE_ITEM" end
 --    if slotType == SLOT_TYPE_CRAFT_BAG_ITEM then return "SLOT_TYPE_CRAFT_BAG_ITEM" end
 --    if slotType == SLOT_TYPE_EQUIPMENT then return "SLOT_TYPE_EQUIPMENT" end
-    if slotType == SLOT_TYPE_BANK_ITEM then return "SLOT_TYPE_BANK_ITEM" end
+--    if slotType == SLOT_TYPE_BANK_ITEM then return "SLOT_TYPE_BANK_ITEM" end
     if slotType == SLOT_TYPE_GUILD_BANK_ITEM then return "SLOT_TYPE_GUILD_BANK_ITEM" end
 --    if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then return "SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING" end
@@ -117,11 +117,10 @@ local function _getSlotTypeName(slotType)
 end
 
 local function initHooksOnInventoryContextMenu()
-    if not _hooksOnInventoryContextMenuInitialized then
+    if not _hooksOnInventoryContextMenuInitialized and (PA.Banking or PA.Junk) then
         _hooksOnInventoryContextMenuInitialized = true
         ZO_PreHook('ZO_InventorySlot_ShowContextMenu',
             function(inventorySlot)
-                -- TODO: if settings are turned ON, then
                 local slotType = ZO_InventorySlot_GetType(inventorySlot)
                 d("slotType=".._getSlotTypeName(slotType))
                 if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
@@ -169,6 +168,7 @@ local function initHooksOnInventoryContextMenu()
 
                 -- TODO: confirmed to be added to scope
                 -- SLOT_TYPE_ITEM                               inventory/backpack
+                -- SLOT_TYPE_BANK_ITEM                          bank
                 -- SLOT_TYPE_CRAFTING_COMPONENT                 crafting components & items to be deconstructed & improvements
 
                 -- TODO: confirmed to be out of scope
