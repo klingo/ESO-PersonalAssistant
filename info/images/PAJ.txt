@@ -1,2 +1,2 @@
-caption: PA Junk (2.3.2)
-display order: 2
+caption: PA Junk (2.4.0)
+display order: 7

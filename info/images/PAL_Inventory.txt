@@ -1,2 +1,2 @@
 caption: PA Loot Inventory View (2.2.0)
-display order: 4
+display order: 3
