@@ -7,15 +7,12 @@ SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFA
 
 SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " nécessite une version plus récente de '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' que celle qui est installée actuellement. Merci de télécharger et faire la mise à jour vers la dernière version sur ", PAC.COLORS.WHITE, "http://esoui.com"}), 1)
 
--- Key Bindings --
-SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profils", 1)
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)
-
 
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral Menu --
+SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable", 1)
 
 SafeAddString(SI_PA_PLEASE_SELECT_PROFILE, "<Sélectionner un profil>", 1)
@@ -28,8 +25,15 @@ SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
 
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Banking > Ajouter une nouvelle règle", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle de mise aux rebuts permanente, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Junk > Marquer en tant que rebut permanent", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, "Toutes les règles actives peuvent être retrouvées en cliquant sur l'icône qui se trouve dans le menu principal, en tapant ", PAC.COLOR.YELLOW:Colorize("/parules"), " ou en cliquant sur ce bouton :", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Comment créer de nouvelles règles?", 1)
+
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
+SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Autres paramètres", 1)
+
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Mode silencieux (Ne RIEN afficher dans le chat)", 1)
 
 SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, "Pas encore implémenté !", 1)
@@ -89,7 +93,7 @@ SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Prendre dans le sac", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, "Objets complexes", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Nécessaires de réparation", 1)
+SafeAddString(SI_PA_MENU_BANKING_REPAIRKIT, "Nécessaires de réparation", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Operators --
@@ -131,8 +135,39 @@ SafeAddString(SI_PA_POSITION_TOPRIGHT, "Haut droite", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Bas gauche", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
 
+
+-- =================================================================================================================
+-- == CUSTOM SUB MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
--- PABanking - overriding the ItemFilterTypes because they are wrong in French --
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Ajouter une nouvelle règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Éditer une règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Supprimer une règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Ajouter", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Sauvegarder", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Supprimer", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "Aucune règle de mise en banque définie", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).", 1)
+
+SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Marquer en tant que rebut permanent", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Ne plus marquer en tant que rebut permanent", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "Aucune règle de mise aux rebuts définie", 1)
+
+
+-- =================================================================================================================
+-- == KEY BINDINGS == --
+-- -----------------------------------------------------------------------------------------------------------------
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profils", 1)
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "Menu de |cFFD700P|rersonal|cFFD700A|rssistant", 1)
+
+SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "Règles de PersonalAssistant", 1)
+SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Afficher/Cacher le menu des règles de mise en banque et aux rebuts", 1)
+
+SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)
+
+
+-- =================================================================================================================
+-- Overriding the ItemFilterTypes because they are wrong in French --
+-- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING, "Coûture", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING, "Enchantement", 1)
 SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING, "Ameublement", 1)

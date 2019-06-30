@@ -24,11 +24,15 @@ PABanking/PABankingCommon.lua
 PABanking/PABankingCurrency.lua
 PABanking/PABankingCrafting.lua
 PABanking/PABankingAdvanced.lua
-PABanking/PABankingIndividual.lua
 PABanking/PABankingAvA.lua
+PABanking/PABankingCustom.lua
 PABanking/PABanking.lua
 
 # Menu
 Menu/PABankingMenuDefaults.lua
 Menu/PABankingMenuFunctions.lua
 Menu/PABankingMenu.lua
+
+# Custom XML UI Dialogs
+XML/PABankingAddCustomRuleUIDialog.xml
+XML/PABankingAddCustomRuleUIDialog.lua

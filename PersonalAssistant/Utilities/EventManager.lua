@@ -158,7 +158,7 @@ local function RefreshAllEventRegistrations()
         -- Check if the functionality is turned on within the addon
         local PABMenuFunctions = PAMenuFunctions.PABanking
         if PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
-                or PABMenuFunctions.getAdvancedItemsEnabledSetting() or PABMenuFunctions.getIndividualItemsEnabledSetting() then
+                or PABMenuFunctions.getAdvancedItemsEnabledSetting() then
             -- Register PABanking
             RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen, "OpenBank")
             RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose, "CloseBank")
@@ -280,9 +280,9 @@ local function RefreshAllEventRegistrations()
         -- Check if the functionality is turned on within the addon
         local PARMenuFunctions = PAMenuFunctions.PARepair
         -- Check if the functionality is turned on within the addon
-        if PARMenuFunctions.getAutoRepairEnabledSetting() then
+        if PARMenuFunctions.getAutoRepairEquippedEnabledSetting() or PARMenuFunctions.getAutoRepairInventoryEnabledSetting() then
             -- Register for GoldRepair
-            if PARMenuFunctions.getRepairWithGoldSetting() or PARMenuFunctions.getRepairInventoryWithGoldSetting() then
+            if PARMenuFunctions.getRepairEquippedWithGoldSetting() or PARMenuFunctions.getRepairInventoryWithGoldSetting() then
                 -- check if AutoSellJunk is also enabled
                 if PA.Junk and PAMenuFunctions.PAJunk and PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
                     -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
@@ -332,6 +332,17 @@ local function RefreshAllEventRegistrations()
             UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
         end
     end
+
+
+    -- Cross-Addon events and hooks
+    local PAItemContextMenu = PA.ItemContextMenu
+    -- Register Item Context Menu
+    local LCM = LibCustomMenu or LibStub("LibCustomMenu")
+    if LCM then
+        PAItemContextMenu.initHooksOnInventoryContextMenu()
+    else
+        PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
+    end
 end
 
 
@@ -361,6 +372,10 @@ local function RefreshAllSavedVarReferences(activeProfile)
     if PA.Loot then PA.Loot.SavedVars = PASavedVars.Loot[activeProfile] end
     if PA.Mail then PA.Mail.SavedVars = PASavedVars.Mail[activeProfile] end
     if PA.Repair then PA.Repair.SavedVars = PASavedVars.Repair[activeProfile] end
+
+    -- also refresh the PABankingRulesList and PAJunkRulesList with the new profile
+    FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
+    FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPAJunkRulesList")
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -374,6 +389,8 @@ PA.EventManager = {
     RegisterFilterForEvent = RegisterFilterForEvent,
     UnregisterForEvent = UnregisterForEvent,
     FireCallbacks = FireCallbacks,
+    RegisterForCallback = RegisterForCallback,
+    UnregisterForCallback = UnregisterForCallback,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
     RefreshAllSavedVarReferences = RefreshAllSavedVarReferences,
 }

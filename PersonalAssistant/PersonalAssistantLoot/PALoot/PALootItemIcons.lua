@@ -330,7 +330,7 @@ end
 -- this function only needs to be initialized ONCE
 local function initHooksOnLootWindow()
     if not _hooksOnLootWindowInitialized then
-        _hooksOnLootWindowInitialized= true
+        _hooksOnLootWindowInitialized = true
         ZO_PreHook(ZO_LootAlphaContainerList.dataTypes[1], "setupCallback", function(...)
             local control = ...
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.lootId then

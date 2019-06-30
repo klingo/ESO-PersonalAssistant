@@ -15,7 +15,13 @@ PersonalAssistant.Constants = {
             LOOT = "PersonalAssistant Loot",
             REPAIR = "PersonalAssistant Repair",
         },
-        NAME_DISPLAY = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
+        NAME_DISPLAY = {
+            GENERAL = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
+            BANKING = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "B", "|r", "|cFFFFFF", "anking", "|r"}),
+            JUNK = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "J", "|r", "|cFFFFFF", "unk", "|r"}),
+            LOOT = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "L", "|r", "|cFFFFFF", "oot", "|r"}),
+            REPAIR = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "R", "|r", "|cFFFFFF", "epair", "|r"}),
+        },
         AUTHOR = "Klingo",
         VERSION_RAW = "{BUILD_NUMBER}",
         VERSION_DISPLAY = "{VERSION_NUMBER}",
@@ -37,7 +43,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020305, -- update this every release!
+            MINOR = 020400, -- update this every release!
         },
     },
 
@@ -47,9 +53,10 @@ PersonalAssistant.Constants = {
     },
 
     COLOR = {
+        LIGHT_BLUE = ZO_ColorDef:New("B0B0FF"),
         ORANGE = ZO_ColorDef:New("FFA500"),
-        YELLOW = ZO_ColorDef:New("FFD700"),
         ORANGE_RED = ZO_ColorDef:New("FF7400"),
+        YELLOW = ZO_ColorDef:New("FFD700"),
     },
     COLORS = {
         DEFAULT = "|cFFFF00",
@@ -71,6 +78,16 @@ PersonalAssistant.Constants = {
         PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot: ", "|r"}),
         PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail: ", "|r"}),
         PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk: ", "|r"}),
+    },
+
+    COLORED_TEXTS_DEBUG = {
+        PA = table.concat({"|cFFFFFF", "PA", "|r", ": "}),
+        PAG = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "G", "|r", ": "}),
+        PAB = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "B", "|r", ": "}),
+        PAR = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "R", "|r", ": "}),
+        PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r", ": "}),
+        PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r", ": "}),
+        PAJ = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "J", "|r", ": "}),
     },
 
     ICONS = {
@@ -152,7 +169,7 @@ PersonalAssistant.Constants = {
             GLYPH_ARMOR_HEALTH = {
                 PATH = "/esoui/art/icons/enchantment_armor_healthboost.dds",
             },
-            LOCKPICK = {
+            LOCKPICK = { -- TODO: not used
                 PATH = "/esoui/art/icons/lockpick.dds",
             },
             MASTER_WRIT = {
@@ -244,7 +261,6 @@ PersonalAssistant.Constants = {
             KEY = {
                 PATH = "/esoui/art/worldmap/map_indexicon_key_up.dds",
                 NORMAL = "|t32:32:/esoui/art/worldmap/map_indexicon_key_up.dds|t",
-
             },
             KNOWN = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
@@ -366,25 +382,6 @@ PersonalAssistant.Constants = {
                 [ITEM_TRAIT_TYPE_JEWELRY_INTRICATE] = ITEMFILTERTYPE_JEWELRY,
             }
         },
-    },
-
-    BANKING_INDIVIDUAL = {
-        LOCKPICK = {
-            30357,  -- [Lockpick]
-        },
-        SOUL_GEM = {
-            33265,  -- [Soul Gem (Empty)]
-            33271,  -- [Soul Gem]
-            61080,  -- [Crown Soul Gem]
-        },
-        REPAIR_KIT = {
-            44879,  -- [Grand Repair Kit]
-            61079,  -- [Crown Repair Kit]
-        },
-        GENERIC = {
-            -- Generic container where any itemID can just be added and it will work out of the box
-            -- See examples above with soul gems and repair kits
-        }
     },
 
     BANKING_AVA = {

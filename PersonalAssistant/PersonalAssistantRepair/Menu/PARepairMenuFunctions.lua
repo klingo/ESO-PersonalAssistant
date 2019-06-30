@@ -28,32 +28,23 @@ end
 -- =================================================================================================================
 
 local PARepairMenuFunctions = {
-    getAutoRepairEnabledSetting = function() return getValue({"autoRepairEnabled"}) end,
-    setAutoRepairEnabledSetting = function(value) setValueAndRefreshEvents(value, {"autoRepairEnabled"}) end,
-
     -- -----------------------------------------------------------------------------------
-    -- REPAIR WITH GOLD
+    -- REPAIR EQUIPPED
     -- -----------------------------
-    isRepairWithGoldMenuDisabled = function() return isDisabled({"autoRepairEnabled"}) or isDisabledAll({"RepairEquipped", "repairWithGold"}, {"RepairInventory", "repairWithGold"}) end,
-    isRepairWithGoldDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
-    getRepairWithGoldSetting = function() return getValue({"RepairEquipped", "repairWithGold"}) end,
-    setRepairWithGoldSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "repairWithGold"}) end,
+    getAutoRepairEquippedEnabledSetting = function() return getValue({"autoRepairEnabled"}) end,
+    setAutoRepairEquippedEnabledSetting = function(value) setValueAndRefreshEvents(value, {"autoRepairEnabled"}) end,
 
-    isRepairWithGoldDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
-    getRepairWithGoldDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
-    setRepairWithGoldDurabilityThresholdSetting = function(value) setValue(value, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
+    -- Repair with Gold --
+    isRepairEquippedWithGoldMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
+    isRepairEquippedWithGoldDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
+    getRepairEquippedWithGoldSetting = function() return getValue({"RepairEquipped", "repairWithGold"}) end,
+    setRepairEquippedWithGoldSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "repairWithGold"}) end,
 
-    isRepairInventoryWithGoldDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
-    getRepairInventoryWithGoldSetting = function() return getValue({"RepairInventory", "repairWithGold"}) end,
-    setRepairInventoryWithGoldSetting = function(value) setValueAndRefreshEvents(value, {"RepairInventory", "repairWithGold"}) end,
+    isRepairEquippedWithGoldDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithGold"}) end,
+    getRepairEquippedWithGoldDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
+    setRepairEquippedWithGoldDurabilityThresholdSetting = function(value) setValue(value, {"RepairEquipped", "repairWithGoldDurabilityThreshold"}) end,
 
-    isRepairInventoryWithGoldDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairInventory", "repairWithGold"}) end,
-    getRepairInventoryWithGoldDurabilityThresholdSetting = function() return getValue({"RepairInventory", "repairWithGoldDurabilityThreshold"}) end,
-    setRepairInventoryWithGoldDurabilityThresholdSetting = function(value) setValue(value, {"RepairInventory", "repairWithGoldDurabilityThreshold"}) end,
-
-    -- -----------------------------------------------------------------------------------
-    -- REPAIR WITH REPAIR KITS
-    -- -----------------------------
+    -- Repair with Repair Kits --
     isRepairWithRepairKitMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
     isRepairWithRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
     getRepairWithRepairKitSetting = function() return getValue({"RepairEquipped", "repairWithRepairKit"}) end,
@@ -79,9 +70,7 @@ local PARepairMenuFunctions = {
     getLowRepairKitThresholdSetting = function() return getValue({"RepairEquipped", "lowRepairKitThreshold"}) end,
     setLowRepairKitThresholdSetting = function(value) setValue(value, {"RepairEquipped", "lowRepairKitThreshold"}) end,
 
-    -- -----------------------------------------------------------------------------------
-    -- RECHARGE WITH SOUL GEMS
-    -- -----------------------------
+    -- Recharge with Soul Gems --
     isRechargeWithSoulGemMenuDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
     isRechargeWithSoulGemDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
     getRechargeWithSoulGemSetting = function() return getValue({"RechargeWeapons", "useSoulGems"}) end,
@@ -94,6 +83,24 @@ local PARepairMenuFunctions = {
     isLowSoulGemThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}, {"RechargeWeapons", "lowSoulGemWarning"}) end,
     getLowSoulGemThresholdSetting = function() return getValue({"RechargeWeapons", "lowSoulGemThreshold"}) end,
     setLowSoulGemThresholdSetting = function(value) setValue(value, {"RechargeWeapons", "lowSoulGemThreshold"}) end,
+
+
+    -- -----------------------------------------------------------------------------------
+    -- REPAIR INVENTORY
+    -- -----------------------------
+    getAutoRepairInventoryEnabledSetting = function() return getValue({"autoRepairInventoryEnabled"}) end,
+    setAutoRepairInventoryEnabledSetting = function(value) setValueAndRefreshEvents(value, {"autoRepairInventoryEnabled"}) end,
+
+    -- Repair with Gold --
+    isRepairInventoryWithGoldMenuDisabled = function() return isDisabled({"autoRepairInventoryEnabled"}, {"RepairInventory", "repairWithGold"}) end,
+    isRepairInventoryWithGoldDisabled = function() return isDisabled({"autoRepairInventoryEnabled"}) end,
+    getRepairInventoryWithGoldSetting = function() return getValue({"RepairInventory", "repairWithGold"}) end,
+    setRepairInventoryWithGoldSetting = function(value) setValueAndRefreshEvents(value, {"RepairInventory", "repairWithGold"}) end,
+
+    isRepairInventoryWithGoldDurabilityThresholdDisabled = function() return isDisabled({"autoRepairInventoryEnabled"}, {"RepairInventory", "repairWithGold"}) end,
+    getRepairInventoryWithGoldDurabilityThresholdSetting = function() return getValue({"RepairInventory", "repairWithGoldDurabilityThreshold"}) end,
+    setRepairInventoryWithGoldDurabilityThresholdSetting = function(value) setValue(value, {"RepairInventory", "repairWithGoldDurabilityThreshold"}) end,
+
 
     -- -----------------------------------------------------------------------------------
     -- SILENT MODE

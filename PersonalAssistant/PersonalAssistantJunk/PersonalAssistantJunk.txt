@@ -21,6 +21,7 @@ PersonalAssistantJunk.lua
 
 # PAJunk
 PAJunk/PAJunk.lua
+PAJunk/PAJunkCustom.lua
 PAJunk/PAJunkKeybindStrip.lua
 
 # Menu

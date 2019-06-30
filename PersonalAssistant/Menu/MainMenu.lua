@@ -7,12 +7,13 @@ local PAMenuHelper = PA.MenuHelper
 local PAMenuFunctions = PA.MenuFunctions
 local PAMenuDefaults = PA.MenuDefaults
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PAGeneralPanelData = {
     type = "panel",
     name = PACAddon.NAME_RAW.GENERAL,
-    displayName = PACAddon.NAME_DISPLAY,
+    displayName = PACAddon.NAME_DISPLAY.GENERAL,
     author = PACAddon.AUTHOR,
     version = PACAddon.VERSION_DISPLAY,
     website = PACAddon.WEBSITE,
@@ -29,13 +30,13 @@ local PAGeneralOptionsTable = setmetatable({}, { __index = table })
 
 local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_GENERAL_HEADER)
+        type = "description",
+        text = GetString(SI_PA_MENU_GENERAL_DESCRIPTION),
     })
 
     PAGeneralOptionsTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_GENERAL_DESCRIPTION),
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_PROFILE_HEADER))
     })
 
     PAGeneralOptionsTable:insert({
@@ -118,15 +119,15 @@ end
 
 local function createOptions()
     -- first check for the latest version of the LAM2-submenu widget that is needed for disabledLabel
-    local lamSubmenuVersion = LAM2.widgets.submenu or 0
+    local lamSubmenuVersion = PA.LAM2.widgets.submenu or 0
     if lamSubmenuVersion < 13 then
         zo_callLater(function() PA.println(SI_PA_LAM_OUTDATED) end, 5000)
     end
 
     -- Create and register the General Menu
     createPAGeneralMenu()
-    LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", PAGeneralOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", PAGeneralOptionsTable)
 end
 
 -- Export

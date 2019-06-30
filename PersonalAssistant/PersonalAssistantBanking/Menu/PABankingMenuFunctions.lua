@@ -319,73 +319,6 @@ local function setPABankingAdvancedItemTypeMoveAllSettings(value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Individual.ItemIds         operator
----------------------------------
-local function isIndividualItemsDisabledOrAllItemIdsOperatorNone(itemIdList)
-    if isDisabled({"Individual", "individualItemsEnabled"}) then return true end
-    -- if savedVarsArgs is not disabled, check the itemTypes
-    for _, individualItemId in ipairs(itemIdList) do
-        local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
-        if itemIdConfig and itemIdConfig.operator ~= PAC.OPERATOR.NONE then return false end
-    end
-    -- if there was no 'false' returned until here; then return true
-    return true
-end
-
---------------------------------------------------------------------------
--- PABanking   Individual         individualMathOperator
----------------------------------
-local function getPABankingIndividualItemIdMathOperatorSetting(individualItemId)
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
-    -- in case a new GENERIC individual item is added, return "-" by default
-    if itemIdConfig then return itemIdConfig.operator else return tonumber(PAC.OPERATOR.NONE) end
-end
-
-local function setPABankingIndividualItemIdMathOperatorSetting(individualItemId, value)
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    if PAB.SavedVars.Individual.ItemIds[individualItemId] then
-        PAB.SavedVars.Individual.ItemIds[individualItemId].operator = value
-    else
-        -- table does not exist yet, initialize it with the given value and default bagAmount
-        PAB.SavedVars.Individual.ItemIds[individualItemId] = {
-            operator = value,
-            bagAmount = PAC.BACKPACK_AMOUNT.DEFAULT
-        }
-    end
-end
-
---------------------------------------------------------------------------
--- PABanking   Individual         individualBagAmount
----------------------------------
-local function getPABankingIndividualItemIdBagAmountSetting(individualItemId)
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
-    -- in case a new GENERIC individual item is added, return the default amount
-    if itemIdConfig then return itemIdConfig.bagAmount else return tonumber(PAC.BACKPACK_AMOUNT.DEFAULT) end
-end
-
-local function setPABankingIndividualItemIdBagAmountSetting(individualItemId, value)
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    local intValue = tonumber(value)
-    if intValue and intValue >= 0 then
-        PAB.SavedVars.Individual.ItemIds[individualItemId].bagAmount = intValue
-    end
-end
-
---------------------------------------------------------------------------
--- PABanking   Individual         individualBagAmountDisabled
----------------------------------
-local function isIndividualItemsDisabledOrItemIdOperatorNone(individualItemId)
-    if isDisabledPAGeneralNoProfileSelected() then return true end
-    if isDisabled({"Individual", "individualItemsEnabled"}) then return true end
-    local itemIdConfig = PAB.SavedVars.Individual.ItemIds[individualItemId]
-    if itemIdConfig and itemIdConfig.operator ~= PAC.OPERATOR.NONE then return false end
-    -- if there was no 'false' returned until here; then return true
-    return true
-end
-
---------------------------------------------------------------------------
 -- PABanking   AvA.CrossAllianceItemIds         operator
 ---------------------------------
 local function isAvACrossAllianceItemsDisabledOrAllOperatorNone(crossAllianceItemIdList)
@@ -506,7 +439,6 @@ end
 local function isPABankingTransactionDepositStackingDisabled()
     if not isDisabled({"Crafting", "craftingItemsEnabled"}) then return false end
     if not isDisabled({"Advanced", "advancedItemsEnabled"}) then return false end
-    if not isDisabled({"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 
@@ -516,7 +448,6 @@ end
 local function isPABankingTransactionWithdrawalStackingDisabled()
     if not isDisabled({"Crafting", "craftingItemsEnabled"}) then return false end
     if not isDisabled({"Advanced", "advancedItemsEnabled"}) then return false end
-    if not isDisabled({"Individual", "individualItemsEnabled"}) then return false end
     return true
 end
 
@@ -635,25 +566,6 @@ local PABankingMenuFunctions = {
     isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) end,
     isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) end,
     isIntricateItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) end,
-
-
-    -- ----------------------------------------------------------------------------------
-    -- INDIVIDUAL ITEMS
-    -- -----------------------------
-    getIndividualItemsEnabledSetting = function() return getValue({"Individual", "individualItemsEnabled"}) end,
-    setIndividualItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Individual", "individualItemsEnabled"}) end,
-
-    isLockpickTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.LOCKPICK) end,
-    isSoulGemTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.SOUL_GEM) end,
-    isRepairKitTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.REPAIR_KIT) end,
-    isGenericTransactionMenuDisabled = function() return isIndividualItemsDisabledOrAllItemIdsOperatorNone(PAC.BANKING_INDIVIDUAL.GENERIC) end,
-
-    getIndividualItemIdMathOperatorSetting = getPABankingIndividualItemIdMathOperatorSetting,
-    setIndividualItemIdMathOperatorSetting = setPABankingIndividualItemIdMathOperatorSetting,
-    getIndividualItemIdAmountSetting = getPABankingIndividualItemIdBagAmountSetting,
-    setIndividualItemIdAmountSetting = setPABankingIndividualItemIdBagAmountSetting,
-
-    isIndividualItemIdAmountDisabled = function(itemId) return isIndividualItemsDisabledOrItemIdOperatorNone(itemId) end,
 
 
     -- ----------------------------------------------------------------------------------

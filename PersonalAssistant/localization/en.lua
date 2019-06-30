@@ -10,15 +10,12 @@ local PAStrings = {
 
     SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
 
-    -- Key Bindings --
-    SI_KEYBINDINGS_CATEGORY_PA_PROFILES = "|cFFD700P|rersonal|cFFD700A|rssistant Profiles",
-    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
-
 
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral Menu --
+    SI_PA_MENU_PROFILE_HEADER = "Profiles",
     SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant is a collection of various features that have the goal to make playing ESO more convenient for you",
 
     SI_PA_PLEASE_SELECT_PROFILE = "<Please select Profile>",
@@ -31,8 +28,15 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
 
+    SI_PA_MENU_RULES_HOW_TO_ADD_PAB = "In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > Add new rule",
+    SI_PA_MENU_RULES_HOW_TO_ADD_PAJ = "In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > Mark as permanent junk",
+    SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"You can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
+    SI_PA_MENU_RULES_HOW_TO_CREATE = "How to create new rules?",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
+    SI_PA_MENU_OTHER_SETTINGS_HEADER = "Other Settings",
+
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
 
     SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
@@ -93,7 +97,7 @@ local PAStrings = {
 
     SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Intricate Items",
 
-    SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT = "Repair Kits",
+    SI_PA_MENU_BANKING_REPAIRKIT = "Repair Kits",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Operators --
@@ -134,6 +138,35 @@ local PAStrings = {
     SI_PA_POSITION_TOPRIGHT = "Top Right",
     SI_PA_POSITION_BOTTOMLEFT = "Bottom Left",
     SI_PA_POSITION_BOTTOMRIGHT = "Bottom Right",
+
+
+    -- =================================================================================================================
+    -- == CUSTOM SUB MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_SUBMENU_PAB_ADD_RULE = "Add new rule",
+    SI_PA_SUBMENU_PAB_EDIT_RULE = "Modify rule",
+    SI_PA_SUBMENU_PAB_DELETE_RULE = "Delete rule",
+    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Add",
+    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Save",
+    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Delete",
+    SI_PA_SUBMENU_PAB_NO_RULES = "No banking rules defined yet",
+    SI_PA_SUBMENU_PAB_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.",
+
+    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Mark as permanent junk",
+    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",
+    SI_PA_SUBMENU_PAJ_NO_RULES = "No junk rules defined yet",
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_KEYBINDINGS_CATEGORY_PA_PROFILES = "|cFFD700P|rersonal|cFFD700A|rssistant Profiles",
+    SI_KEYBINDINGS_CATEGORY_PA_MENU = "|cFFD700P|rersonal|cFFD700A|rssistant Menu",
+
+    SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Rules",
+    SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Toggle Banking/Junk Rules Menu",
+
+    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
 }
 
 for key, value in pairs(PAStrings) do
@@ -145,13 +178,6 @@ end
 local PAGenericStrings = {
     -- =================================================================================================================
     -- Language independent texts (do not need to be translated/copied to other languages --
-
-    -- =================================================================================================================
-    -- == MENU/PANEL TEXTS == --
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PAGeneral Menu --
-    SI_PA_MENU_GENERAL_HEADER = PAC.COLORED_TEXTS.PAG,
-
 
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
@@ -182,6 +208,27 @@ local PAGenericStrings = {
     -- Operators --
     SI_PA_REL_OPERATOR = "> %s",
     SI_PA_REL_NONE = "-",
+
+    SI_PA_REL_OPERATOR0 = "-",
+    SI_PA_REL_OPERATOR1 = "==",
+    SI_PA_REL_OPERATOR2 = "<", -- not used so far
+    SI_PA_REL_OPERATOR3 = "<=",
+    SI_PA_REL_OPERATOR4 = ">", -- not used so far
+    SI_PA_REL_OPERATOR5 = ">=",
+
+
+    -- =================================================================================================================
+    -- == MAIN MENU TEXTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_PA_MAINMENU_RULES_HEADER = "PersonalAssistant",
+
+
+    -- =================================================================================================================
+    -- == CUSTOM SUB MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_SUBMENU_PAB = "PA Banking",
+    SI_PA_SUBMENU_PAJ = "PA Junk",
 
 
     -- =================================================================================================================

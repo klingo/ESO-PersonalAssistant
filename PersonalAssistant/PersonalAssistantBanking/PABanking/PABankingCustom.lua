@@ -7,53 +7,49 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function depositOrWithdrawAvAItems()
+local function depositOrWithdrawCustomItems()
 
-    PAB.debugln("PA.Banking.depositOrWithdrawAvAItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawCustomItems")
 
-    if PAB.SavedVars.AvA.avaItemsEnabled then
+    if PAB.SavedVars.Custom.customItemsEnabled then
+
         -- check if bankTransfer is already blocked
         if PAB.isBankTransferBlocked then return end
         PAB.isBankTransferBlocked = true
 
-        -- prepare and fill the table with all ava items that needs to be transferred
-        local individualItems = {}
-        local itemIdTable = PAB.SavedVars.AvA.ItemIds
+        -- prepare and fill the table with all custom items that needs to be transferred
+        local customItems = {}
+        local itemIdTable = PAB.SavedVars.Custom.ItemIds
         for itemId, moveConfig in pairs(itemIdTable) do
             local operator = moveConfig.operator
             if operator ~= PAC.OPERATOR.NONE then
-                individualItems[itemId] = {
+                customItems[itemId] = {
                     operator = operator,
                     targetBagStack = moveConfig.bagAmount
                 }
             end
         end
 
-        -- then also check the crossAlliance ava items that need to be transferred
-        local PACAllianceSiegeTable = PAC.BANKING_AVA.SIEGE[PA.alliance]
-        for _, corssAlianceItemIdTable in pairs(PACAllianceSiegeTable) do
-            for crossAllianceItemId, itemId in pairs(corssAlianceItemIdTable) do
-                local moveConfig = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId]
-                local operator = moveConfig.operator
-                if operator ~= PAC.OPERATOR.NONE then
-                    individualItems[itemId] = {
-                        operator = operator,
-                        targetBagStack = moveConfig.bagAmount
-                    }
-                end
-            end
-        end
-
         -- then get the matching data from the backpack and bank
-        local itemIdComparator = PAHF.getItemIdComparator(individualItems)
+        local itemIdComparator = PAHF.getItemIdComparator(customItems)
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
         PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
         PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
 
-        -- trigger the individual itemTransactions
-        PAB.doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache)
+        -- if there is at least one item to be deposited or withdrawn (and if LWC is one), just assume that it has to be blocked
+        if PAB.hasLazyWritCrafterAndShouldGrabEnabled() and (#backpackBagCache > 0 or #bankBagCache > 0) then
+            -- note down that potentially items were skipped
+            PAB.hasSomeItemskippedForLWC = true
+            -- unblock the banking transactions
+            PAB.isBankTransferBlocked = false
+            -- and continue with the next function in queue
+            PAEM.executeNextFunctionInQueue(PAB.AddonName)
+        else
+            -- trigger the individual itemTransactions
+            PAB.doIndividualItemTransactions(customItems, backpackBagCache, bankBagCache)
+        end
     else
         -- else, continue with the next function in queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
@@ -63,4 +59,4 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
-PA.Banking.depositOrWithdrawAvAItems = depositOrWithdrawAvAItems
+PA.Banking.depositOrWithdrawCustomItems = depositOrWithdrawCustomItems

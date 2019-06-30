@@ -2,9 +2,11 @@ local PAC = PersonalAssistant.Constants
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- PALoot Loot Events --
 SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot kann dich über Gegenstände von speziellem Interesse wie unbekannte Rezepte, Stile oder Eigenschaften informieren", 1)
-SafeAddString(SI_PA_MENU_LOOT_EVENTS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Ereignisse beim Beute einsammeln"}), 1)
+
+-- PALoot Loot Events --
+SafeAddString(SI_PA_MENU_LOOT_EVENTS_HEADER, "Beute einsammeln", 1)
+SafeAddString(SI_PA_MENU_LOOT_EVENTS_ENABLE, "Aktiviere Ereignisse beim Beute einsammeln", 1)
 
 -- Loot Recipes
 SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}), 1)
@@ -29,7 +31,8 @@ SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Schwellenwert für Inven
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wenn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Warnung im Chat ausgegeben", 1)
 
 -- PALoot Mark Items --
-SafeAddString(SI_PA_MENU_LOOT_ICONS_ENABLE, table.concat({PAC.COLORS.LIGHT_BLUE, "Aktiviere Icons bei Gegenständen"}), 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_HEADER, "Gegenstands Icons", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_ENABLE, "Aktiviere Icons bei Gegenständen", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP, "Zeige Icons Tooltips an", 1)
 
 -- Mark Recipes --

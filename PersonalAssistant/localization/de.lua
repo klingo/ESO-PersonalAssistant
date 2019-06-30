@@ -7,15 +7,12 @@ SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFA
 
 SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " benötigt eine aktuellere Version von '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' als derzeit installiert ist. Bitte die neuste Version von ", PAC.COLORS.WHITE, "http://esoui.com", PAC.COLORS.ORANGE_RED, " herunterladen und diese verwenden"}), 1)
 
--- Key Bindings
-SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profile", 1)
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Aktiviere Profil", 1)
-
 
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral Menu --
+SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "Profile", 1)
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant ist eine Sammlung diverser Funktionalitäten mit dem Ziel um deine Zeit in ESO noch angenehmenr zu machen", 1)
 
 SafeAddString(SI_PA_PLEASE_SELECT_PROFILE, "<Bitte Profil wählen>", 1)
@@ -28,8 +25,15 @@ SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
 
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Um eine neue Regel für das Einlagern und Entnehmen zu erstellen, einfach per Rechtsklick auf einem Gegenstand im Inventar oder der Bank im Kontextmenü folgendes auswählen:\n> PA Banking > Neue Regel hinzufügen", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Um eine neue Regel für permanenten Trödel zu erstellen, einfach per Rechtsklick auf einem Gegenstand im Inventar oder der Bank im Kontextmenü folgendes auswählen:\n> PA Junk > Als permanenten Trödel markieren", 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, table.concat({"Alle aktiven Regeln können entweder via dem Icon im oberen Hauptmenü (das mit der [Alt] Taste geöffnet wird) gefunden werden, mit ", PAC.COLOR.YELLOW:Colorize("/parules"), " oder anhand dieses Buttons:"}), 1)
+SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Wie neue Regeln erstellen?", 1)
+
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
+SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Weitere Einstellungen", 1)
+
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Ruhemodus (Deaktiviert ALLE Meldungen)", 1)
 
 SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Noch nicht implementiert!"}), 1)
@@ -89,7 +93,7 @@ SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Ins Inventar entnehmen", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, "Intrikate Gegenstände", 1)
 
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT, "Reparaturmaterialien", 1)
+SafeAddString(SI_PA_MENU_BANKING_REPAIRKIT, "Reparaturmaterialien", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Operators --
@@ -119,6 +123,11 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANK grösser als (>)", 1) -- not u
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANK grösser oder gleich als (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Stacking types --
+SafeAddString(SI_PA_ST_MOVE_FULL, "Verschiebe alles", 1)
+SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --
 SafeAddString(SI_PA_POSITION_AUTO, "Automatisch", 1)
 SafeAddString(SI_PA_POSITION_TOPLEFT, "Oben Links", 1)
@@ -126,7 +135,31 @@ SafeAddString(SI_PA_POSITION_TOPRIGHT, "Oben Rechts", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Unten Link", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
 
+
+-- =================================================================================================================
+-- == CUSTOM SUB MENU == --
 -- -----------------------------------------------------------------------------------------------------------------
--- Stacking types --
-SafeAddString(SI_PA_ST_MOVE_FULL, "Verschiebe alles", 1)
-SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Neue Regel hinzufügen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Regel bearbeiten", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Regel löschen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Hinzufügen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Speichern", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Löschen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "Noch keine Banking Regeln definiert", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Anmerkung: Diese benutzerdefinierten Regeln werden erst berücksichtigt, wenn alle anderen automatischen Banking Regeln (Handwerks, Spezielle, und AvA Gegenstände) ausgeführt wurden.", 1)
+
+SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Als permanenten Trödel markieren", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Als permanenten Trödel demarkieren", 1)
+SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "Noch keine Regeln für Trödel definiert", 1)
+
+
+-- =================================================================================================================
+-- == KEY BINDINGS == --
+-- -----------------------------------------------------------------------------------------------------------------
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profile", 1)
+SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssistant Menu", 1)
+
+SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Regeln", 1)
+SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Banking/Trödel Regelmenü ein-/ausblenden", 1)
+
+SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Aktiviere Profil", 1)

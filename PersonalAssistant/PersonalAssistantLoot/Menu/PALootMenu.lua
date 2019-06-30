@@ -7,12 +7,13 @@ local PALMenuChoices = PA.MenuChoices.choices.PALoot
 local PALMenuChoicesValues = PA.MenuChoices.choicesValues.PALoot
 local PALMenuDefaults = PA.MenuDefaults.PALoot
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PALootPanelData = {
     type = "panel",
     name = PACAddon.NAME_RAW.LOOT,
-    displayName = PACAddon.NAME_DISPLAY,
+    displayName = PACAddon.NAME_DISPLAY.LOOT,
     author = PACAddon.AUTHOR,
     version = PACAddon.VERSION_DISPLAY,
     website = PACAddon.WEBSITE,
@@ -37,18 +38,18 @@ local PALMarkApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
 
 local function _createPALootMenu()
     PALootOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_LOOT_HEADER)
-    })
-
-    PALootOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_LOOT_DESCRIPTION),
     })
 
     PALootOptionsTable:insert({
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_LOOT_EVENTS_HEADER))
+    })
+
+    PALootOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_EVENTS_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_LOOT_EVENTS_ENABLE)),
         getFunc = PALMenuFunctions.getLootEventsEnabledSetting,
         setFunc = PALMenuFunctions.setLootEventsEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
@@ -108,13 +109,13 @@ local function _createPALootMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PALootOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_LOOT_ICONS_HEADER))
     })
 
     PALootOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_LOOT_ICONS_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_LOOT_ICONS_ENABLE)),
         getFunc = PALMenuFunctions.getItemIconsEnabledSetting,
         setFunc = PALMenuFunctions.setItemIconsEnabledSetting,
         disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
@@ -214,8 +215,8 @@ local function _createPALootMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PALootOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
     PALootOptionsTable:insert({
@@ -418,8 +419,8 @@ local function createOptions()
     _createPALMarkMotifsSubmenuTable()
     _createPALMarkApparelWeaponsSubmenuTable()
 
-    LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

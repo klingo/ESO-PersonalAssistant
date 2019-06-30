@@ -67,7 +67,7 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                     end
 
                     -- some debug information
-                    PAHF.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), gemTable[#gemTable].itemName, chargeableAmount, charges, maxCharges)
+                    PAR.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), gemTable[#gemTable].itemName, chargeableAmount, charges, maxCharges)
 
                     -- actually charge the item
                     ChargeItemWithSoulGem(bagId, slotIndex, gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex)

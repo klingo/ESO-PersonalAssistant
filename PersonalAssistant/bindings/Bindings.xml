@@ -1,5 +1,5 @@
 <Bindings>
-    <Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
+    <Layer name="SI_KEYBINDINGS_LAYER_GENERAL" allowFallthrough="false">
         <Category name="SI_KEYBINDINGS_CATEGORY_PA_PROFILES">
             <Action name="PA_ACTIVATE_PROFILE_1">
                 <Down>PersonalAssistant.Bindings.loadProfile(1)</Down>
@@ -24,6 +24,11 @@
             </Action>
             <Action name="PA_ACTIVATE_PROFILE_8">
                 <Down>PersonalAssistant.Bindings.loadProfile(8)</Down>
+            </Action>
+        </Category>
+        <Category name="SI_KEYBINDINGS_CATEGORY_PA_MENU">
+            <Action name="PA_RULES_TOGGLE_WINDOW">
+                <Down>PersonalAssistant.CustomDialogs.togglePARulesMenu()</Down>
             </Action>
         </Category>
     </Layer>

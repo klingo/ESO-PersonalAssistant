@@ -1,0 +1,196 @@
+<GuiXml>
+    <Controls>
+        <TopLevelControl name="PersonalAssistantRulesWindow" inherits="ZO_RightPanelFootPrint" hidden="true">
+            <Dimensions x="612" y="588" />
+            <Controls>
+
+                <Control name="$(parent)ModeMenu" inherits="ZO_SceneMenu">
+                    <Anchor point="TOPRIGHT" relativeTo="ZO_SharedRightBackground" offsetX="-40"/>
+                    <Anchor point="TOPLEFT" relativeTo="ZO_SharedRightBackground"/>
+                    <Dimensions y="50"/>
+                </Control>
+                <Control name="$(parent)BankingRulesTab">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ModeMenu" relativePoint="BOTTOMLEFT" />
+                    <Anchor point="BOTTOMRIGHT" />
+                    <Controls>
+
+                        <Control name="$(parent)Headers">
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="TOPRIGHT" />
+                            <Dimensions y="36" />
+                            <Controls>
+                                <Control name="$(parent)ItemName" inherits="ZO_SortHeader">
+                                    <Anchor point="TOPLEFT" offsetX="40" />
+                                    <Dimensions x="350" y="32" />
+                                </Control>
+                                <Control name="$(parent)BagName" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)ItemName" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="120" y="32" />
+                                </Control>
+                                <Control name="$(parent)MathOperator" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="100" y="32" />
+                                </Control>
+                                <Control name="$(parent)BagAmount" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="100" y="32" />
+                                </Control>
+                                <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="TOPRIGHT" offsetX="-60" />
+                                    <Dimensions x="160" y="32" />
+                                </Control>
+                            </Controls>
+                        </Control>
+                        <Control name="$(parent)List" inherits="ZO_ScrollList">
+                            <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetX="40" />
+                            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="60" />
+                        </Control>
+                        <Texture name="$(parent)HelpIcon"  textureFile="/esoui/art/help/help_tabicon_tutorial_up.dds">
+                            <Anchor point="TOPLEFT" relativeTo="$(parent)List" relativePoint="BOTTOMLEFT" offsetY="5" />
+                            <Dimensions x="36" y="36" />
+                        </Texture>
+                        <Label name="$(parent)HelpLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST" mouseEnabled="true">
+                            <Anchor point="LEFT" relativeTo="$(parent)HelpIcon" relativePoint="RIGHT" offsetX="-3"/>
+                        </Label>
+
+                    </Controls>
+                </Control>
+
+                <Control name="$(parent)JunkRulesTab" hidden="true">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ModeMenu" relativePoint="BOTTOMLEFT" />
+                    <Anchor point="BOTTOMRIGHT" />
+                    <Controls>
+
+                        <Control name="$(parent)Headers">
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="TOPRIGHT" />
+                            <Dimensions y="36" />
+                            <Controls>
+                                <Control name="$(parent)ItemName" inherits="ZO_SortHeader">
+                                    <Anchor point="TOPLEFT" offsetX="40" />
+                                    <Dimensions x="350" y="32" />
+                                </Control>
+                                <Control name="$(parent)JunkCount" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)ItemName" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="120" y="32" />
+                                </Control>
+                                <Control name="$(parent)LastJunk" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)JunkCount" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="140" y="32" />
+                                </Control>
+                                <Control name="$(parent)RuleAdded" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)LastJunk" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="140" y="32" />
+                                </Control>
+                                <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="TOPRIGHT" offsetX="-60" />
+                                    <Dimensions x="160" y="32" />
+                                </Control>
+                            </Controls>
+                        </Control>
+                        <Control name="$(parent)List" inherits="ZO_ScrollList">
+                            <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetX="40" />
+                            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="60" />
+                        </Control>
+                        <Texture name="$(parent)HelpIcon"  textureFile="/esoui/art/help/help_tabicon_tutorial_up.dds">
+                            <Anchor point="TOPLEFT" relativeTo="$(parent)List" relativePoint="BOTTOMLEFT" offsetY="5" />
+                            <Dimensions x="36" y="36" />
+                        </Texture>
+                        <Label name="$(parent)HelpLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST" mouseEnabled="true">
+                            <Anchor point="LEFT" relativeTo="$(parent)HelpIcon" relativePoint="RIGHT" offsetX="-3"/>
+                        </Label>
+
+                    </Controls>
+                </Control>
+
+            </Controls>
+        </TopLevelControl>
+
+
+         <!-- Full-size Banking Rule Row (virtual) -->
+        <Button name="PersonalAssistantBankingRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
+            <Dimensions x="612" y="36" />
+            <Controls>
+
+                <Texture name="$(parent)ItemIcon" alpha="1">
+                    <Anchor point="LEFT" />
+                    <Dimensions x="32" y="36" />
+                    <TextureCoords left="0" right="1" top="0" bottom="1" />
+                </Texture>
+                <Label name="$(parent)ItemName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true" wrapMode="1">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemIcon" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="320" y="36" />
+                    <OnLinkMouseUp>
+                        ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
+                    </OnLinkMouseUp>
+                </Label>
+                <Label name="$(parent)BagName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemName" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="120" y="36" />
+                </Label>
+                <Label name="$(parent)MathOperator" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="15" />
+                    <Dimensions x="100" y="36" />
+                </Label>
+                <Label name="$(parent)BagAmount" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="100" y="36" />
+                </Label>
+                <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
+                    <Anchor point="RIGHT" offsetX="-40" />
+                    <Dimensions x="24" y="24" />
+                </Button>
+                <Button name="$(parent)EditButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)DelButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                        normal="/esoui/art/help/help_tabicon_feedback_up.dds"
+                        pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
+                        mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds"
+                        disabled="/esoui/art/help/help_tabicon_feedback_down.dds"
+                    />
+                </Button>
+
+            </Controls>
+        </Button>
+
+
+        <!-- Full-size Junk Rule Row (virtual) -->
+        <Button name="PersonalAssistantJunkRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
+            <Dimensions x="612" y="36" />
+            <Controls>
+
+                <Texture name="$(parent)ItemIcon" alpha="1">
+                    <Anchor point="LEFT" />
+                    <Dimensions x="32" y="36" />
+                    <TextureCoords left="0" right="1" top="0" bottom="1" />
+                </Texture>
+                <Label name="$(parent)ItemName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true" wrapMode="1">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemIcon" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="320" y="36" />
+                    <OnLinkMouseUp>
+                        ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
+                    </OnLinkMouseUp>
+                </Label>
+                <Label name="$(parent)JunkCount" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemName" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="120" y="36" />
+                </Label>
+                <Label name="$(parent)LastJunk" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)JunkCount" relativePoint="RIGHT" offsetX="10" />
+                    <Dimensions x="140" y="36" />
+                </Label>
+                <Label name="$(parent)RuleAdded" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)LastJunk" relativePoint="RIGHT" offsetX="10" />
+                    <Dimensions x="140" y="36" />
+                </Label>
+                <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
+                    <Anchor point="RIGHT" offsetX="-40" />
+                    <Dimensions x="24" y="24" />
+                </Button>
+
+            </Controls>
+        </Button>
+
+    </Controls>
+</GuiXml>

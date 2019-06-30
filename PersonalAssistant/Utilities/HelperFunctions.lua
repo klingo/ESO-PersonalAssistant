@@ -3,44 +3,49 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType, expectedIsKnown)
-    local itemType = GetItemType(bagId, slotIndex)
-    if itemType == expectedItemType then
-        local itemLink = GetItemLink(bagId, slotIndex)
-        if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-            local isBook = IsItemLinkBook(itemLink)
-            if isBook then
-                local isKnown = IsItemLinkBookKnown(itemLink)
-                if isKnown == expectedIsKnown then return true end
-            end
-        elseif itemType == ITEMTYPE_RECIPE then
-            local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
-            if isRecipeKnown == expectedIsKnown then return true end
-        end
-    end
-    return false
-end
 
-local _WRIT_ICON_TABLE_CRAFTING_TYPE = {
-    ["/esoui/art/icons/master_writ_blacksmithing.dds"] = CRAFTING_TYPE_BLACKSMITHING,
-    ["/esoui/art/icons/master_writ_clothier.dds"] = CRAFTING_TYPE_CLOTHIER,
-    ["/esoui/art/icons/master_writ_woodworking.dds"] = CRAFTING_TYPE_WOODWORKING,
-    ["/esoui/art/icons/master_writ_jewelry.dds"] = CRAFTING_TYPE_JEWELRYCRAFTING,
-    ["/esoui/art/icons/master_writ_alchemy.dds"] = CRAFTING_TYPE_ALCHEMY,
-    ["/esoui/art/icons/master_writ_enchanting.dds"] = CRAFTING_TYPE_ENCHANTING,
-    ["/esoui/art/icons/master_writ_provisioning.dds"] = CRAFTING_TYPE_PROVISIONING,
-}
-
-local function _getCraftingTypeFromWritItemLink(itemLink)
-    local itemType, specializedItemType = GetItemLinkItemType(itemLink)
-    if itemType == ITEMTYPE_MASTER_WRIT and specializedItemType == SPECIALIZED_ITEMTYPE_MASTER_WRIT then
-        local icon = GetItemLinkInfo(itemLink)
-        return _WRIT_ICON_TABLE_CRAFTING_TYPE[icon] or CRAFTING_TYPE_INVALID
-    end
-    return nil
-end
+-- =================================================================================================================
+-- == COMPARATORS == --
+-- -----------------------------------------------------------------------------------------------------------------
 
 local function getCombinedItemTypeSpecializedComparator(combinedLists)
+    local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType, expectedIsKnown)
+        local itemType = GetItemType(bagId, slotIndex)
+        if itemType == expectedItemType then
+            local itemLink = GetItemLink(bagId, slotIndex)
+            if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+                local isBook = IsItemLinkBook(itemLink)
+                if isBook then
+                    local isKnown = IsItemLinkBookKnown(itemLink)
+                    if isKnown == expectedIsKnown then return true end
+                end
+            elseif itemType == ITEMTYPE_RECIPE then
+                local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
+                if isRecipeKnown == expectedIsKnown then return true end
+            end
+        end
+        return false
+    end
+
+    local _WRIT_ICON_TABLE_CRAFTING_TYPE = {
+        ["/esoui/art/icons/master_writ_blacksmithing.dds"] = CRAFTING_TYPE_BLACKSMITHING,
+        ["/esoui/art/icons/master_writ_clothier.dds"] = CRAFTING_TYPE_CLOTHIER,
+        ["/esoui/art/icons/master_writ_woodworking.dds"] = CRAFTING_TYPE_WOODWORKING,
+        ["/esoui/art/icons/master_writ_jewelry.dds"] = CRAFTING_TYPE_JEWELRYCRAFTING,
+        ["/esoui/art/icons/master_writ_alchemy.dds"] = CRAFTING_TYPE_ALCHEMY,
+        ["/esoui/art/icons/master_writ_enchanting.dds"] = CRAFTING_TYPE_ENCHANTING,
+        ["/esoui/art/icons/master_writ_provisioning.dds"] = CRAFTING_TYPE_PROVISIONING,
+    }
+
+    local function _getCraftingTypeFromWritItemLink(itemLink)
+        local itemType, specializedItemType = GetItemLinkItemType(itemLink)
+        if itemType == ITEMTYPE_MASTER_WRIT and specializedItemType == SPECIALIZED_ITEMTYPE_MASTER_WRIT then
+            local icon = GetItemLinkInfo(itemLink)
+            return _WRIT_ICON_TABLE_CRAFTING_TYPE[icon] or CRAFTING_TYPE_INVALID
+        end
+        return nil
+    end
+
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
@@ -95,7 +100,10 @@ local function getStolenJunkComparator()
     end
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+
+-- =================================================================================================================
+-- == MATH / TABLE FUNCTIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
 
 local function round(num, numDecimalPlaces)
     local mult = 10 ^ (numDecimalPlaces or 0)
@@ -121,6 +129,20 @@ local function isValueInTable(table, value)
     return false
 end
 
+local function isKeyInTable(table, key)
+    for k in pairs(table) do
+        if k == key then
+            return true
+        end
+    end
+    return false
+end
+
+
+-- =================================================================================================================
+-- == PLAYER STATES == --
+-- -----------------------------------------------------------------------------------------------------------------
+
 local function isPlayerDead()
     return IsUnitDead("player")
 end
@@ -129,6 +151,10 @@ local function isPlayerDeadOrReincarnating()
    return IsUnitDeadOrReincarnating("player")
 end
 
+
+-- =================================================================================================================
+-- == TEXT / NUMBER TRANSFORMATIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
 -- returns a noun for the bagId
 local function getBagName(bagId)
     if bagId == BAG_WORN then
@@ -144,16 +170,16 @@ local function getBagName(bagId)
     end
 end
 
-local function hasActiveProfile()
-    local PAMenuFunctions = PA.MenuFunctions
-    return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
-end
+
+-- =================================================================================================================
+-- == TEXT FORMATTING AND OUTPUT == --
+-- -----------------------------------------------------------------------------------------------------------------
 
 -- returns a fixed/formatted ItemLink
 -- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
 local function getFormattedItemLink(bagId, slotIndex)
     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-    if itemLink == "" then return end
+    if itemLink == "" then return "[unknown]" end
     local itemName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemName(bagId, slotIndex))
     local itemData = itemLink:match("|H.-:(.-)|h")
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
@@ -205,7 +231,15 @@ local function debuglnAuthor(key, ...)
     end
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+
+-- =================================================================================================================
+-- == PROFILES == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function hasActiveProfile()
+    local PAMenuFunctions = PA.MenuFunctions
+    return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
+end
 
 -- returns the default profile name of the provided profile number
 local function getDefaultProfileName(profileNo)
@@ -229,7 +263,10 @@ local function isAddonRunning(addonName)
     return false
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+
+-- =================================================================================================================
+-- == ITEM LINKS == --
+-- -----------------------------------------------------------------------------------------------------------------
 
 local function isItemLinkIntricateTraitType(itemLink)
     local itemTraitInformation = GetItemTraitInformationFromItemLink(itemLink)
@@ -257,6 +294,7 @@ PA.HelperFunctions = {
     round = round,
     roundDown = roundDown,
     isValueInTable = isValueInTable,
+    isKeyInTable = isKeyInTable,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,

@@ -10,10 +10,7 @@
 ## Author: Klingo
 ## APIVersion: 100027
 ## SavedVariables: PersonalAssistant_SavedVariables
-## DependsOn: LibAddonMenu-2.0
-
-# LibCustomMenu
-# libs/LibCustomMenu/LibCustomMenu.lua
+## DependsOn: LibAddonMenu-2.0 LibMainMenu-2.0 LibCustomMenu
 
 # Logger
 Utilities/Logger.lua
@@ -34,12 +31,17 @@ Utilities/SavedVarsPatcher.lua
 Utilities/XML/DebugWindow.xml
 Utilities/XML/DebugWindow.lua
 
+# Rules Window
+Utilities/XML/RulesWindow.xml
+Utilities/XML/RulesWindow.lua
+
 # Settings
 Menu/MenuDefaults.lua
 Menu/MenuFunctions.lua
 Menu/MenuHelper.lua
 Menu/MenuChoices.lua
 Menu/MainMenu.lua
+Menu/ItemContextMenu.lua
 
 # Main
 PersonalAssistant.lua

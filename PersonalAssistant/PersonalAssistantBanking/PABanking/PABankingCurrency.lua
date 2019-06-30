@@ -2,7 +2,6 @@
 local PA = PersonalAssistant
 local PAB = PA.Banking
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -73,7 +72,7 @@ end
 
 local function depositOrWithdrawCurrencies()
 
-    PAHF.debugln("PA.Banking.depositOrWithdrawCurrencies")
+    PAB.debugln("PA.Banking.depositOrWithdrawCurrencies")
 
     if PAB.SavedVars.Currencies.currenciesEnabled then
         local currencies = {

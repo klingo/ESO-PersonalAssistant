@@ -9,12 +9,13 @@ local PAJMenuChoicesValues = PA.MenuChoices.choicesValues.PAJunk
 local PAJMenuDefaults = PA.MenuDefaults.PAJunk
 local PAJMenuFunctions = PA.MenuFunctions.PAJunk
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PAJunkPanelData = {
     type = "panel",
     name = PACAddon.NAME_RAW.JUNK,
-    displayName = PACAddon.NAME_DISPLAY,
+    displayName = PACAddon.NAME_DISPLAY.JUNK,
     author = PACAddon.AUTHOR,
     version = PACAddon.VERSION_DISPLAY,
     website = PACAddon.WEBSITE,
@@ -40,18 +41,18 @@ local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
 local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_JUNK_HEADER)
-    })
-
-    PAJunkOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_JUNK_DESCRIPTION),
     })
 
     PAJunkOptionsTable:insert({
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER))
+    })
+
+    PAJunkOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE)),
         getFunc = PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting,
         setFunc = PAJMenuFunctions.setAutoMarkAsJunkEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -113,17 +114,25 @@ local function _createPAJunkMenu()
     })
 
     PAJunkOptionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
-        getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
-        setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
-        disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
-        default = PAJMenuDefaults.autoSellJunk,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER))
     })
 
     PAJunkOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION)
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MAINMENU_JUNK_HEADER),
+        func = PA.CustomDialogs.showPAJunkRulesMenu,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
     PAJunkOptionsTable:insert({
@@ -133,6 +142,15 @@ local function _createPAJunkMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJKeybindingsSubMenu,
         disabledLabel = PAJMenuFunctions.isKeybindingsMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
+        getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
+        setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
+        disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
+        default = PAJMenuDefaults.autoSellJunk,
     })
 
     PAJunkOptionsTable:insert({
@@ -541,8 +559,8 @@ local function createOptions()
 
     _createPAJKeybindingsSubMenu()
 
-    LAM2:RegisterAddonPanel("PersonalAssistantJunkAddonOptions", PAJunkPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantJunkAddonOptions", PAJunkOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantJunkAddonOptions", PAJunkPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantJunkAddonOptions", PAJunkOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

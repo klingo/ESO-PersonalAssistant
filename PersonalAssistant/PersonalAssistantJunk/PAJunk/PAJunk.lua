@@ -56,7 +56,7 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
 
             if moneyDiff > 0 or itemCountInBagDiff > 0 or passedGameTime > GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS then
                 EVENT_MANAGER:UnregisterForUpdate(identifier)
-                PAHF.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
+                PAJ.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
 
                 if itemCountInBagDiff > 0 then
                     -- at lesat one item was sold (although it might have been worthless)
@@ -85,6 +85,7 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
 end
 
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
+    PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
         -- then check if the item can be sold; if not don't mark it as junk (i.e. Kari's Hit List Relics)
@@ -115,10 +116,14 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
 
             -- print provided success message
             PAJ.println(successMessageKey, itemLinkExt)
+
+            return true -- marking junk was successful
         end
     else
         -- print failure message
         -- TODO: to be implemented
+
+        return false -- was not marked as junk
     end
 end
 
@@ -347,8 +352,12 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
                 local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
+                local itemId = GetItemId(bagId, slotIndex)
                 local itemType, specializedItemType = GetItemType(bagId, slotIndex)
                 local itemQuality = GetItemQuality(bagId, slotIndex)
+                local sellInformation = GetItemLinkSellInformation(itemLink)
+
+                PAJ.debugln("OnInventorySingleSlotUpdate - Check if to be junked: %s", itemLink)
 
                 -- first check for regular Trash
                 if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
@@ -402,12 +411,20 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                     end
+                elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
+                    if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
+                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                    end
                 else
-                    local sellInformation = GetItemLinkSellInformation(itemLink)
-                    if sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
-                        if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
-                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
-                        end
+                    -- Lastly, check the custom rules
+                    if PAJunkSavedVars.Custom.customItemsEnabled then
+                       if PAHF.isKeyInTable(PAJunkSavedVars.Custom.ItemIds, itemId) then
+                           local hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, itemLink)
+                           if hasBeenMarked then
+                               PAJunkSavedVars.Custom.ItemIds[itemId].junkCount = PAJunkSavedVars.Custom.ItemIds[itemId].junkCount + stackCountChange
+                               PAJunkSavedVars.Custom.ItemIds[itemId].lastJunk = GetTimeStamp()
+                           end
+                       end
                     end
                 end
             end

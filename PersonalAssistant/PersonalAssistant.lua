@@ -9,9 +9,6 @@ local PASVP = PA.SavedVarsPatcher
 -- =====================================================================================================================
 -- =====================================================================================================================
 
--- to enable certain debug statements (ingame: /padebugon & /padebugoff)
-PA.debug = false
-
 -- other settings
 PA.AddonName = "PersonalAssistant"
 PA.activeProfile = nil -- init with nil, is populated during [initAddon]
@@ -50,6 +47,7 @@ local function _initDefaults()
 
     PA.Profile_Defaults = {
         activeProfile = nil,
+        debug = false,
     }
 end
 
@@ -76,7 +74,7 @@ local function initAddon(_, addOnName)
     end
 
     -- addon load started - unregister event
-    PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED)
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, "AddonInit")
 
     -- initialize the default and player/alliance values
     _initDefaults()
@@ -87,26 +85,36 @@ local function initAddon(_, addOnName)
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, PA.General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.Profile_Defaults)
 
+    -- get the active Profile and the debug setting
+    PA.activeProfile = PASavedVars.Profile.activeProfile
+    PA.debug = PASavedVars.Profile.debug
+
     -- create the options with LAM-2
     local PAMainMenu = PA.MainMenu
     PAMainMenu.createOptions()
 
-    -- get the active Profile
-    PA.activeProfile = PASavedVars.Profile.activeProfile
+    -- init the overall Rules Main Menu
+    PA.CustomDialogs.initRulesMainMenu()
 
-    -- register additional slash-commands (only for Addon author)
---    if GetUnitName("player") == PACAddon.AUTHOR then
-        SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
-        SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
-        SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
-        SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showStaticDebugInformationWindow() end
---    end
+    -- register additional slash-commands for the custom rules
+    SLASH_COMMANDS["/parules"] = function() PA.CustomDialogs.togglePARulesMenu() end
+
+    -- register additional slash-commands for debugging
+    SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
+    SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
+    SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+    SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showStaticDebugInformationWindow() end
 end
 
 
 -- introduces the addon to the player
 local function introduction()
-    PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED)
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "Introduction")
+
+    -- display debug window on login (if turned on)
+    if PA.debug then
+        PA.DebugWindow.showDebugOutputWindow()
+    end
 
     if PA.activeProfile == nil then
         PA.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
@@ -129,9 +137,15 @@ local function introduction()
     end
 end
 
-PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon)
-PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction)
-PAEM.RegisterForEvent(PACAddon.NAME_RAW.GENERAL, EVENT_PLAYER_ACTIVATED, PASVP.applyPatchIfNeeded, "SavedVarsPatcher")
+-- wrapper method that prefixes the addon shortname
+function PA.debugln(text, ...)
+    local addonText = PAC.COLORED_TEXTS_DEBUG.PAG .. text
+    PAHF.debugln(addonText, ...)
+end
+
+PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction, "Introduction")
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PASVP.applyPatchIfNeeded, "SavedVarsPatcher")
 
 -- =====================================================================================================================
 -- Dev-Debug --
@@ -221,21 +235,30 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
             local itemTagDescription, itemTagCategory = GetItemLinkItemTagInfo(itemLink, itemTagIndex)
             d("itemTagDescription="..tostring(zo_strformat("<<1>>", itemTagDescription, 1)).."      itemTagCategory="..tostring(itemTagCategory))
         end
+
+        local boundState = select(21, ZO_LinkHandler_ParseLink(itemLink))
+        local isBound = IsItemLinkBound(itemLink)
+        local isBOPAndTradeable = IsItemBoPAndTradeable(bagId, slotIndex)
+        d("boundState="..tostring(boundState))
+        d("isBound="..tostring(isBound))
+        d("isBOPAndTradeable="..tostring(isBOPAndTradeable))
     end
 end
 
 function PA.toggleDebug(newStatus)
-    if PA.debug ~= newStatus then
+    -- check is needed to avoid endless loop (i.e. ESO crash)
+    if PA.SavedVars.Profile.debug ~= newStatus then
+        PA.SavedVars.Profile.debug = newStatus
         PA.debug = newStatus
         if newStatus then
             PA.DebugWindow.showDebugOutputWindow()
             if GetUnitName("player") == PACAddon.AUTHOR then
-                PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup)
+                PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup, "CursorPickup")
             end
         else
             PA.DebugWindow.hideDebugOutputWindow()
             if GetUnitName("player") == PACAddon.AUTHOR then
-                PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP)
+                PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, "CursorPickup")
             end
         end
     end

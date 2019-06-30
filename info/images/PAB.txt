@@ -1,2 +1,2 @@
-caption: PA Banking (2.1.0)
-display order: 1
+caption: PA Banking (2.4.0)
+display order: 6

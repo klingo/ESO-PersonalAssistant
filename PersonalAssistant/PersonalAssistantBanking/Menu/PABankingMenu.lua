@@ -11,12 +11,13 @@ local PABMenuChoiceTooltip = PA.MenuChoices.choicesTooltips.PABanking
 local PABMenuDefaults = PA.MenuDefaults.PABanking
 local PABMenuFunctions = PA.MenuFunctions.PABanking
 
-local LAM2 = LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+-- Create the LibAddonMenu2 object
+PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
 
 local PABankingPanelData = {
     type = "panel",
     name = PACAddon.NAME_RAW.BANKING,
-    displayName = PACAddon.NAME_DISPLAY,
+    displayName = PACAddon.NAME_DISPLAY.BANKING,
     author = PACAddon.AUTHOR,
     version = PACAddon.VERSION_DISPLAY,
     website = PACAddon.WEBSITE,
@@ -56,11 +57,6 @@ local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAdvancedIntricateItemsSubmenuTable = setmetatable({}, { __index = table })
 
-local PABIndividualLockpickSubmenuTable = setmetatable({}, { __index = table })
-local PABIndividualSoulGemSubmenuTable = setmetatable({}, { __index = table })
-local PABIndividualRepairKitSubmenuTable = setmetatable({}, { __index = table })
-local PABIndividualGenericSubmenuTable = setmetatable({}, { __index = table })
-
 local PABAvASiegeBallistaSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeCatapultSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeTrebuchetSubmenuTable = setmetatable({}, { __index = table })
@@ -75,18 +71,18 @@ local PABAvAOtherSubmenuTable = setmetatable({}, { __index = table })
 
 local function _createPABankingMenu()
     PABankingOptionsTable:insert({
-        type = "header",
-        name = GetString(SI_PA_MENU_BANKING_HEADER)
-    })
-
-    PABankingOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_BANKING_DESCRIPTION),
     })
 
     PABankingOptionsTable:insert({
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_CURRENCY_HEADER))
+    })
+
+    PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_CURRENCY_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CURRENCY_ENABLE)),
         getFunc = PABMenuFunctions.getCurrenciesEnabledSetting,
         setFunc = PABMenuFunctions.setCurrenciesEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -132,30 +128,9 @@ local function _createPABankingMenu()
     -- -----------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_CRAFTING_HEADER))
     })
-
-
-    -- check if player has the addon [Dolgubon's Lazy Writ Crafter]
-    if WritCreater then
-        -- if yes, add additional option
-        PABankingOptionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY),
-            tooltip = GetString(SI_PA_MENU_BANKING_LWC_COMPATIBILTY_T),
-            getFunc = PABMenuFunctions.getLazyWritCraftingCompatiblitySetting,
-            setFunc = PABMenuFunctions.setLazyWritCraftingCompatiblitySetting,
-            disabled = PAGMenuFunctions.isNoProfileSelected,
-            default = PABMenuDefaults.lazyWritCraftingCompatiblity,
-        })
-
-        PABankingOptionsTable:insert({
-            type = "divider",
-            alpha = 0.5,
-        })
-    end
-
 
     if IsESOPlusSubscriber() then
         -- In case of ESO Plus Subscription, only show a remark that Crafting Material Banking
@@ -163,14 +138,14 @@ local function _createPABankingMenu()
 
         PABankingOptionsTable:insert({
             type = "description",
-            text = GetString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC)
+            text = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CRAFTING_ESOPLUS_DESC))
         })
 
     else
         -- Regular player without ESO Plus Subscription
         PABankingOptionsTable:insert({
             type = "checkbox",
-            name = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE),
+            name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE)),
             tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T),
             getFunc = PABMenuFunctions.getCraftingItemsEnabledSetting,
             setFunc = PABMenuFunctions.setCraftingItemsEnabledSetting,
@@ -290,13 +265,13 @@ local function _createPABankingMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_ADVANCED_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE)),
         tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T),
         getFunc = PABMenuFunctions.getAdvancedItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAdvancedItemsEnabledSetting,
@@ -388,71 +363,41 @@ local function _createPABankingMenu()
     -- -----------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE),
-        tooltip = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE_T),
-        getFunc = PABMenuFunctions.getIndividualItemsEnabledSetting,
-        setFunc = PABMenuFunctions.setIndividualItemsEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
-        default = PABMenuDefaults.Individual.individualItemsEnabled,
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE)),
+        getFunc = function() return false end,
+        setFunc = function(value) end,
+        disabled = true,
+        default = false,
     })
 
     PABankingOptionsTable:insert({
         type = "description",
-        text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DESCRIPTION)
+        text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION)
     })
 
     PABankingOptionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_LOCKPICK_HEADER),
-        icon = PAC.ICONS.ITEMS.LOCKPICK.PATH,
-        controls = PABIndividualLockpickSubmenuTable,
-        disabledLabel = PABMenuFunctions.isLockpickTransactionMenuDisabled,
+        type = "button",
+        name = GetString(SI_PA_MAINMENU_BANKING_HEADER),
+        func = PA.CustomDialogs.showPABankingRulesMenu,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
     })
-
-    PABankingOptionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_SOULGEM_HEADER),
-        icon = PAC.ICONS.ITEMS.SOULGEM.PATH,
-        controls = PABIndividualSoulGemSubmenuTable,
-        disabledLabel = PABMenuFunctions.isSoulGemTransactionMenuDisabled,
-    })
-
-    PABankingOptionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_REPAIRKIT_HEADER),
-        icon = PAC.ICONS.ITEMS.REPAIRKIT.PATH,
-        controls = PABIndividualRepairKitSubmenuTable,
-        disabledLabel = PABMenuFunctions.isRepairKitTransactionMenuDisabled,
-    })
-
-    -- check if there are any generic items added; if not skip the menu
-    if #PAC.BANKING_INDIVIDUAL.GENERIC > 0 then
-        PABankingOptionsTable:insert({
-            type = "submenu",
-            name = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_GENERIC_HEADER),
-            icon = PAC.ICONS.ITEMS.GENERIC_HELP.PATH,
-            controls = PABIndividualGenericSubmenuTable,
-            disabledLabel = PABMenuFunctions.isGenericTransactionMenuDisabled,
-        })
-    end
-
 
     -- ---------------------------------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_AVA_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_AVA_ENABLE),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_AVA_ENABLE)),
         tooltip = GetString(SI_PA_MENU_BANKING_AVA_ENABLE_T),
         getFunc = PABMenuFunctions.getAvAItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAvAItemsEnabledSetting,
@@ -533,14 +478,28 @@ local function _createPABankingMenu()
     -- ---------------------------------------------------------------------------------------------------------
 
     PABankingOptionsTable:insert({
-        type = "divider",
-        alpha = 0.5,
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
+
+    -- check if player has the addon [Dolgubon's Lazy Writ Crafter]
+    if WritCreater then
+        -- if yes, add additional option
+        PABankingOptionsTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY),
+            tooltip = GetString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY_T),
+            getFunc = PABMenuFunctions.getLazyWritCraftingCompatiblitySetting,
+            setFunc = PABMenuFunctions.setLazyWritCraftingCompatiblitySetting,
+            disabled = PAGMenuFunctions.isNoProfileSelected,
+            default = PABMenuDefaults.lazyWritCraftingCompatiblity,
+        })
+    end
 
     PABankingOptionsTable:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING),
-        tooltip = GetString(SI_PA_MENU_BANKING_DEPOSIT_STACKING_T),
+        name = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING),
+        tooltip = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T),
         choices = PABMenuChoices.stackingType,
         choicesValues = PABMenuChoicesValues.stackingType,
         width = "half",
@@ -552,8 +511,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING),
-        tooltip = GetString(SI_PA_MENU_BANKING_WITHDRAWAL_STACKING_T),
+        name = GetString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING),
+        tooltip = GetString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T),
         choices = PABMenuChoices.stackingType,
         choicesValues = PABMenuChoicesValues.stackingType,
         width = "half",
@@ -565,8 +524,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS),
-        tooltip = GetString(SI_PA_MENU_BANKING_AUTOSTACKBAGS_T),
+        name = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS),
+        tooltip = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T),
         getFunc = PABMenuFunctions.getAutoStackBagsSetting,
         setFunc = PABMenuFunctions.setAutoStackBagsSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -1064,138 +1023,6 @@ end
 
 -- =================================================================================================================
 
-local function _createPABIndividualLockpickSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.LOCKPICK) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualLockpickSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].operator,
-        })
-
-        PABIndividualLockpickSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
-        })
-    end
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
-local function _createPABIndividualSoulGemSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.SOUL_GEM) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualSoulGemSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].operator,
-        })
-
-        PABIndividualSoulGemSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
-        })
-    end
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
-local function _createPABIndividualRepairKitSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.REPAIR_KIT) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualRepairKitSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].operator,
-        })
-
-        PABIndividualRepairKitSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PABMenuDefaults.Individual.ItemIds[itemId].bagAmount,
-        })
-    end
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
-local function _createPABIndividualGenericSubmenuTable()
-    for _, itemId in pairs(PAC.BANKING_INDIVIDUAL.GENERIC) do
-        local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
-
-        PABIndividualGenericSubmenuTable:insert({
-            type = "dropdown",
-            name = function() return PAHF.getFormattedKey(SI_PA_REL_OPERATOR, itemLink) end,
-            tooltip = GetString(SI_PA_REL_OPERATOR_T),
-            choices = PABMenuChoices.mathOperator,
-            choicesValues = PABMenuChoicesValues.mathOperator,
-            choicesTooltips = PABMenuChoiceTooltip.mathOperator,
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdMathOperatorSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getIndividualItemsEnabledSetting() end,
-            default = PAC.OPERATOR.NONE,
-        })
-
-        PABIndividualGenericSubmenuTable:insert({
-            type = "editbox",
-            name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
-            tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
-            width = "half",
-            getFunc = function() return PABMenuFunctions.getIndividualItemIdAmountSetting(itemId) end,
-            setFunc = function(value) PABMenuFunctions.setIndividualItemIdAmountSetting(itemId, value) end,
-            disabled = function() return PABMenuFunctions.isIndividualItemIdAmountDisabled(itemId) end,
-            default = PAC.BACKPACK_AMOUNT.DEFAULT,
-        })
-    end
-end
-
--- =================================================================================================================
-
 local function _createPABAvASiegeBallistaSubmenuTable()
     for crossAllianceItemId, itemId in pairs(PAC.BANKING_AVA.SIEGE[PA.alliance].BALLISTA) do
         local itemLink = table.concat({"|H1:item:", itemId, ":1:1:0:0:0:0:0:0:0:0:0:0:0:0:36:0:0:0:0:0|h|h"})
@@ -1492,11 +1319,6 @@ local function createOptions()
 
     _createPABAdvancedIntricateItemsSubmenuTable()
 
-    _createPABIndividualLockpickSubmenuTable()
-    _createPABIndividualSoulGemSubmenuTable()
-    _createPABIndividualRepairKitSubmenuTable()
-    _createPABIndividualGenericSubmenuTable()
-
     _createPABAvASiegeBallistaSubmenuTable()
     _createPABAvASiegeCatapultSubmenuTable()
     _createPABAvASiegeTrebuchetSubmenuTable()
@@ -1507,8 +1329,8 @@ local function createOptions()
     _createPABAvARepairSubmenuTable()
     _createPABAvAOtherSubmenuTable()
 
-    LAM2:RegisterAddonPanel("PersonalAssistantBankingAddonOptions", PABankingPanelData)
-    LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantBankingAddonOptions", PABankingPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
