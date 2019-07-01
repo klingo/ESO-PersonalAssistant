@@ -122,7 +122,6 @@ local function initHooksOnInventoryContextMenu()
         ZO_PreHook('ZO_InventorySlot_ShowContextMenu',
             function(inventorySlot)
                 local slotType = ZO_InventorySlot_GetType(inventorySlot)
-                d("slotType=".._getSlotTypeName(slotType))
                 if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
                     local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
                     local itemLink = GetItemLink(bagId, slotIndex)
