@@ -1,3 +1,6 @@
+2.4.1   (July 01, 2019)
+- fixed an issue where a debug statement was left in the code ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/155"]#155[/URL])
+
 2.4.0   (June 30, 2019)
 - add possibility to create custom rules for Banking and to mark items as permanent Junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/154"]#154[/URL])
 
