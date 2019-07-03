@@ -33,6 +33,7 @@ Utilities/XML/DebugWindow.lua
 
 # Rules Window
 Utilities/XML/RulesWindow.xml
+Utilities/XML/RulesWindowTemplates.xml
 Utilities/XML/RulesWindow.lua
 
 # Settings
