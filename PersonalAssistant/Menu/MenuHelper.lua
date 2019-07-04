@@ -13,7 +13,7 @@ local function getProfileList()
     end
 
     if PASavedVars.Profile.activeProfile == nil then
-        profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_PLEASE_SELECT_PROFILE)
+        profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
     end
 
     return profiles

@@ -2,10 +2,9 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
-local PAHF = PA.HelperFunctions
 local PAMenuHelper = PA.MenuHelper
-local PAMenuFunctions = PA.MenuFunctions
-local PAMenuDefaults = PA.MenuDefaults
+local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
+local PAGMenuDefaults = PA.MenuDefaults.PAGeneral
 
 -- Create the LibAddonMenu2 object
 PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
@@ -41,47 +40,76 @@ local function createPAGeneralMenu()
 
     PAGeneralOptionsTable:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE),
-        tooltip = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T),
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_ACTIVE_T),
         choices = PAMenuHelper.getProfileList(),
         choicesValues = PAMenuHelper.getProfileListValues(),
         width = "half",
-        getFunc = PAMenuFunctions.PAGeneral.getActiveProfile,
-        setFunc = PAMenuFunctions.PAGeneral.setActiveProfile,
+        getFunc = PAGMenuFunctions.getActiveProfile,
+        setFunc = PAGMenuFunctions.setActiveProfile,
         reference = "PERSONALASSISTANT_PROFILEDROPDOWN",
     })
 
     PAGeneralOptionsTable:insert({
         type = "editbox",
-        name = GetString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME),
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
         width = "half",
-        getFunc = PAMenuFunctions.PAGeneral.getActiveProfileRename,
-        setFunc = PAMenuFunctions.PAGeneral.setActiveProfileRename,
-        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
+        getFunc = PAGMenuFunctions.getActiveProfileRename,
+        setFunc = PAGMenuFunctions.setActiveProfileRename,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+    })
+
+    -- check if FCO ItemSaver is enabled
+    if FCOIS then
+        PAGeneralOptionsTable:insert({
+            type = "header",
+            name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATIONS_HEADER))
+        })
+
+        -- TODO: Implement FOICS settings
+
+        PAGeneralOptionsTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_INTEGRATIONS_FCOIS_ENABLE),
+            getFunc = PAGMenuFunctions.getFCOISIntegrationSetting,
+            setFunc = PAGMenuFunctions.setFCOISIntegrationSetting,
+            disabled = PAGMenuFunctions.isNoProfileSelected,
+            default = PAGMenuDefaults.Integrations.fcoisEnabled,
+        })
+
+        -- TODO: Add description ?
+
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = GetString(SI_PA_MAINMENU_FCOIS_HEADER),
+            func = PA.CustomDialogs.showPAFCOISRulesMenu,
+            disabled = PAGMenuFunctions.isFCOISRulesDisabled,
+        })
+    end
+
+
+    PAGeneralOptionsTable:insert({
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
     PAGeneralOptionsTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME),
-        getFunc = PAMenuFunctions.PAGeneral.getWelcomeMessageSetting,
-        setFunc = PAMenuFunctions.PAGeneral.setWelcomeMessageSetting,
-        disabled = PAMenuFunctions.PAGeneral.isNoProfileSelected,
-        default = PAMenuDefaults.PAGeneral.welcomeMessage,
+        getFunc = PAGMenuFunctions.getWelcomeMessageSetting,
+        setFunc = PAGMenuFunctions.setWelcomeMessageSetting,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+        default = PAGMenuDefaults.welcomeMessage,
     })
 
     local houseId = GetHousingPrimaryHouse()
     if houseId then
         PAGeneralOptionsTable:insert({
-            type = "divider",
-            alpha = 0.5,
-        })
-
-        PAGeneralOptionsTable:insert({
             type = "button",
             name = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE),
             width = "half",
-            func = PAMenuFunctions.PAGeneral.teleportToPrimaryHouse,
-            disabled = PAMenuFunctions.PAGeneral.isTeleportToPrimaryHouseDisabled,
+            func = PAGMenuFunctions.teleportToPrimaryHouse,
+            disabled = PAGMenuFunctions.isTeleportToPrimaryHouseDisabled,
             isDangerous = true,
             warning = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W),
         })

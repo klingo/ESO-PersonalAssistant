@@ -105,6 +105,19 @@ local function isDisabledAllV2(savedVarsTable, ...)
     return true
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function getValue(...)
+    return getValueV2(PA.SavedVars.General[PA.activeProfile], ...)
+end
+
+local function setValue(value, ...)
+    setValueV2(PA.SavedVars.General[PA.activeProfile], value, ...)
+end
+
+local function isDisabled(...)
+    return isDisabledV2(PA.SavedVars.General[PA.activeProfile], ...)
+end
 
 --------------------------------------------------------------------------
 -- PAGeneral   activeProfileRename
@@ -156,9 +169,13 @@ PA.MenuFunctions = {
 
         getActiveProfile = getPAGeneralActiveProfile,
         setActiveProfile = setPAGeneralActiveProfile,
-
         getActiveProfileRename = getPAGeneralActiveProfileRename,
         setActiveProfileRename = setPAGeneralActiveProfileRename,
+
+        isFCOISIntegrationDisabled = function() return isDisabled({"Integrations", "fcoisEnabled"}) end,
+        getFCOISIntegrationSetting = function() return getValue({"Integrations", "fcoisEnabled"}) end,
+        setFCOISIntegrationSetting = function(value) setValue(value, {"Integrations", "fcoisEnabled"}) end,
+        isFCOISRulesDisabled = function() return isDisabled({"Integrations", "fcoisEnabled"}) end,
 
         getWelcomeMessageSetting = getPAGeneralWelcomeMessage,
         setWelcomeMessageSetting = setPAGeneralWelcomeMessage,

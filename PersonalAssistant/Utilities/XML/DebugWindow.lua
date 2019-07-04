@@ -57,6 +57,7 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertLine("HasActiveProfile="..tostring(PAHF.hasActiveProfile()))
 
     -- Enabled addons
+    debugEditControl:InsertLine("PA.General="..tostring(PA.General ~= nil))
     debugEditControl:InsertLine("PA.Banking="..tostring(PA.Banking ~= nil))
     debugEditControl:InsertLine("PA.Junk="..tostring(PA.Junk ~= nil))
     debugEditControl:InsertLine("PA.Loot="..tostring(PA.Loot ~= nil))
@@ -65,6 +66,7 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertBreak()
 
     -- SavedVars
+    debugEditControl:InsertLine(table.concat({"PAGeneral.SavedVars=", tostring(PA.General and istable(PA.General.SavedVars)), " - ", PA.SavedVars.General and PA.SavedVars.General.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PABanking.SavedVars=", tostring(PA.Banking and istable(PA.Banking.SavedVars)), " - ", PA.SavedVars.Banking and PA.SavedVars.Banking.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PAJunk.SavedVars=", tostring(PA.Junk and istable(PA.Junk.SavedVars)), " - ", PA.SavedVars.Junk and PA.SavedVars.Junk.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PALoot.SavedVars=", tostring(PA.Loot and istable(PA.Loot.SavedVars)), " - ", PA.SavedVars.Loot and PA.SavedVars.Loot.savedVarsVersion}))

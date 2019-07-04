@@ -11,12 +11,15 @@ local TYPE_ACTIVE_RULE = 1
 local _RulesWindowSceneName = "PersonalAssistantRulesWindowScene"
 local _RulesWindowSceneGroupName = "PersonalAssistantRuleWindowSceneGroup"
 local _RulesWindowDescriptor = "PersonalAssistantRules"
+
 local _RulesWindowBankingTabDescriptor = "PersonalAssistantBankingRules"
 local _RulesWindowJunkTabDescriptor = "PersonalAssistantJunkRules"
+local _RulesWindowFCOISTabDescriptor = "PersonalAssistantFCOISRules"
 
 local window = PersonalAssistantRulesWindow
 local BankingRulesTabControl = window:GetNamedChild("BankingRulesTab")
 local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
+local FCOISRulesTabControl = window:GetNamedChild("FCOISRulesTab")
 
 -- store tha last shown tab (for current game session only)
 local _lastShownRulesTabDescriptor
@@ -54,20 +57,34 @@ local function showPAJunkRulesMenu()
     ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowJunkTabDescriptor)
 end
 
+local function showPAFCOISRulesMenu()
+    togglePARulesMenu()
+    local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
+    ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowFCOISTabDescriptor)
+end
 
 local function _showPABankingRulesTab()
     BankingRulesTabControl:SetHidden(false)
     JunkRulesTabControl:SetHidden(true)
+    FCOISRulesTabControl:SetHidden(true)
 end
 
 local function _showPAJunkRulesTab()
     BankingRulesTabControl:SetHidden(true)
     JunkRulesTabControl:SetHidden(false)
+    FCOISRulesTabControl:SetHidden(true)
+end
+
+local function _showPAFCOISRulesTab()
+    BankingRulesTabControl:SetHidden(true)
+    JunkRulesTabControl:SetHidden(true)
+    FCOISRulesTabControl:SetHidden(false)
 end
 
 local function _getDefaultRulesTabDescriptor()
     if PA.Banking then return _RulesWindowBankingTabDescriptor end
     if PA.Junk then return _RulesWindowJunkTabDescriptor end
+    if FCOIS and FCOIS.addonVars.gPlayerActivated then return _RulesWindowFCOISTabDescriptor end
 end
 
 local function _createRulesWindowScene()
@@ -149,7 +166,24 @@ local function _createTabsForScene()
                 _lastShownRulesTabDescriptor = _RulesWindowJunkTabDescriptor
             end,
         }
+        ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
+    end
 
+    -- if FCOIS is enabled, add the corresponding tab
+    if FCOIS then
+        local creationData = {
+            activeTabText = SI_PA_MAINMENU_FCOIS_HEADER,
+            categoryName = SI_PA_MAINMENU_FCOIS_HEADER,
+            descriptor = _RulesWindowFCOISTabDescriptor,
+            normal = "esoui/art/charactercreate/rotate_right_up.dds",
+            pressed = "esoui/art/charactercreate/rotate_right_down.dds",
+            highlight = "esoui/art/charactercreate/rotate_right_over.dds",
+            callback = function()
+                _showPAFCOISRulesTab()
+                RulesModeMenuBarLabel:SetText(GetString(SI_PA_MAINMENU_FCOIS_HEADER))
+                _lastShownRulesTabDescriptor = _RulesWindowFCOISTabDescriptor
+            end,
+        }
         ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
     end
 end
@@ -603,6 +637,7 @@ PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.togglePARulesMenu = togglePARulesMenu
 PA.CustomDialogs.showPABankingRulesMenu = showPABankingRulesMenu
 PA.CustomDialogs.showPAJunkRulesMenu = showPAJunkRulesMenu
+PA.CustomDialogs.showPAFCOISRulesMenu = showPAFCOISRulesMenu
 PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
 
 -- create the main menu entry with LMM-2

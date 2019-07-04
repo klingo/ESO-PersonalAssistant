@@ -5,6 +5,10 @@ local PA = PersonalAssistant
 
 local PAGeneralMenuDefaults = {
     welcomeMessage = true,
+
+    Integrations = {
+        fcoisEnabled = true,
+    },
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------
