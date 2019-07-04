@@ -376,6 +376,7 @@ local function RefreshAllSavedVarReferences(activeProfile)
     -- also refresh the PABankingRulesList and PAJunkRulesList with the new profile
     FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
     FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPAJunkRulesList")
+    FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPAFCOISRulesList")
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

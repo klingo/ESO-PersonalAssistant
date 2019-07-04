@@ -167,6 +167,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",
     SI_PA_SUBMENU_PAJ_NO_RULES = "No junk rules defined yet",
 
+    SI_PA_SUBMENU_FCOIS_NO_RULES = "No FCO ItemSaver rules defined yet",
+
 
     -- =================================================================================================================
     -- == KEY BINDINGS == --
