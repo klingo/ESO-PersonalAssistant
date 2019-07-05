@@ -351,15 +351,16 @@ end
 Each Sub-Addon has multi-profile SavedVars that can be accessed as listed in the first column (Cross-Profile SavedVars),
 but in order to avoid reading the activeProfile all the time, below function makes a static reference in the second
 column (Curr-Profile SavedVars) that will always point to the Cross-Profile SavedVars of the active profile.
-|---------------------------------------------------------------------------------------------------------------|
-| Sub-AddOn   | Cross-Profile SavedVars                               | Curr-Profile SavedVars                  |
-|---------------------------------------------------------------------------------------------------------------|
-| PABanking   | PersonalAssistant.SavedVars.Banking[activeProfile]    | PersonalAssistant.Banking.SavedVars     |
-| PAJunk      | PersonalAssistant.SavedVars.Junk[activeProfile]       | PersonalAssistant.Junk.SavedVars        |
-| PALoot      | PersonalAssistant.SavedVars.Loot[activeProfile]       | PersonalAssistant.Loot.SavedVars        |
-| PAMail      | PersonalAssistant.SavedVars.Mail[activeProfile]       | PersonalAssistant.Mail.SavedVars        |
-| PARepair    | PersonalAssistant.SavedVars.Repair[activeProfile]     | PersonalAssistant.Repair.SavedVars      |
-|---------------------------------------------------------------------------------------------------------------|
+|------------------------------------------------------------------------------------------------------------------|
+| Sub-AddOn     | Cross-Profile SavedVars                                | Curr-Profile SavedVars                  |
+|------------------------------------------------------------------------------------------------------------------|
+| PABanking     | PersonalAssistant.SavedVars.Banking[activeProfile]     | PersonalAssistant.Banking.SavedVars     |
+| PAIntegration | PersonalAssistant.SavedVars.Integration[activeProfile] | PersonalAssistant.Integration.SavedVars |
+| PAJunk        | PersonalAssistant.SavedVars.Junk[activeProfile]        | PersonalAssistant.Junk.SavedVars        |
+| PALoot        | PersonalAssistant.SavedVars.Loot[activeProfile]        | PersonalAssistant.Loot.SavedVars        |
+| PAMail        | PersonalAssistant.SavedVars.Mail[activeProfile]        | PersonalAssistant.Mail.SavedVars        |
+| PARepair      | PersonalAssistant.SavedVars.Repair[activeProfile]      | PersonalAssistant.Repair.SavedVars      |
+|------------------------------------------------------------------------------------------------------------------|
 --]]
 local function RefreshAllSavedVarReferences(activeProfile)
     -- refreshes all profile specific SavedVars references, so the profile does not need to be read all the time
@@ -368,6 +369,7 @@ local function RefreshAllSavedVarReferences(activeProfile)
     PA.General.SavedVars = PASavedVars.General[activeProfile]
 
     if PA.Banking then PA.Banking.SavedVars = PASavedVars.Banking[activeProfile] end
+    if PA.Integration then PA.Integration.SavedVars = PASavedVars.Integration[activeProfile] end
     if PA.Junk then PA.Junk.SavedVars = PASavedVars.Junk[activeProfile] end
     if PA.Loot then PA.Loot.SavedVars = PASavedVars.Loot[activeProfile] end
     if PA.Mail then PA.Mail.SavedVars = PASavedVars.Mail[activeProfile] end

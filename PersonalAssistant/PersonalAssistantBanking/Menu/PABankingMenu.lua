@@ -482,20 +482,6 @@ local function _createPABankingMenu()
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 
-    -- check if player has the addon [Dolgubon's Lazy Writ Crafter]
-    if WritCreater then
-        -- if yes, add additional option
-        PABankingOptionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY),
-            tooltip = GetString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY_T),
-            getFunc = PABMenuFunctions.getLazyWritCraftingCompatiblitySetting,
-            setFunc = PABMenuFunctions.setLazyWritCraftingCompatiblitySetting,
-            disabled = PAGMenuFunctions.isNoProfileSelected,
-            default = PABMenuDefaults.lazyWritCraftingCompatiblity,
-        })
-    end
-
     PABankingOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING),

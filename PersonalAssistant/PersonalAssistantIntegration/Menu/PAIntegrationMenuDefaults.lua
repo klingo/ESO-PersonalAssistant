@@ -1,14 +1,20 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local PAGeneralMenuDefaults = {
-    welcomeMessage = true,
-    name = nil,
+local PAIntegrationMenuDefaults = {
+    LazyWritCrafter = {
+        compatibility = true,
+    },
+    FCOItemSaver = {
+
+    },
 }
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.MenuDefaults = PA.MenuDefaults or {}
-PA.MenuDefaults.PAGeneral = PAGeneralMenuDefaults
+PA.MenuDefaults.PAIntegration = PAIntegrationMenuDefaults

@@ -600,12 +600,6 @@ local PABankingMenuFunctions = {
 
 
     -- ----------------------------------------------------------------------------------
-    -- DOLGUBON'S LAZY WRIT CRAFTER
-    -- -----------------------------
-    getLazyWritCraftingCompatiblitySetting = function() return getValue({"lazyWritCraftingCompatiblity"}) end,
-    setLazyWritCraftingCompatiblitySetting = function(value) setValue(value, {"lazyWritCraftingCompatiblity"}) end,
-
-    -- ----------------------------------------------------------------------------------
     -- TRANSACTION SETTINGS
     -- -----------------------------
     isTransactionDepositStackingDisabled = isPABankingTransactionDepositStackingDisabled,

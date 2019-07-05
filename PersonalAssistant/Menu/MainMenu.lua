@@ -60,32 +60,32 @@ local function createPAGeneralMenu()
     })
 
     -- check if FCO ItemSaver is enabled
-    if FCOIS then
-        PAGeneralOptionsTable:insert({
-            type = "header",
-            name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATIONS_HEADER))
-        })
-
-        -- TODO: Implement FOICS settings
-
-        PAGeneralOptionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_INTEGRATIONS_FCOIS_ENABLE),
-            getFunc = PAGMenuFunctions.getFCOISIntegrationSetting,
-            setFunc = PAGMenuFunctions.setFCOISIntegrationSetting,
-            disabled = PAGMenuFunctions.isNoProfileSelected,
-            default = PAGMenuDefaults.Integrations.fcoisEnabled,
-        })
-
-        -- TODO: Add description ?
-
-        PAGeneralOptionsTable:insert({
-            type = "button",
-            name = GetString(SI_PA_MAINMENU_FCOIS_HEADER),
-            func = PA.CustomDialogs.showPAFCOISRulesMenu,
-            disabled = PAGMenuFunctions.isFCOISRulesDisabled,
-        })
-    end
+--    if FCOIS then
+--        PAGeneralOptionsTable:insert({
+--            type = "header",
+--            name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATIONS_HEADER))
+--        })
+--
+--        -- TODO: Implement FOICS settings
+--
+--        PAGeneralOptionsTable:insert({
+--            type = "checkbox",
+--            name = GetString(SI_PA_MENU_INTEGRATIONS_FCOIS_ENABLE),
+--            getFunc = PAGMenuFunctions.getFCOISIntegrationSetting,
+--            setFunc = PAGMenuFunctions.setFCOISIntegrationSetting,
+--            disabled = PAGMenuFunctions.isNoProfileSelected,
+--            default = PAGMenuDefaults.Integrations.fcoisEnabled,
+--        })
+--
+--        -- TODO: Add description ?
+--
+--        PAGeneralOptionsTable:insert({
+--            type = "button",
+--            name = GetString(SI_PA_MAINMENU_FCOIS_HEADER),
+--            func = PA.CustomDialogs.showPAFCOISRulesMenu,
+--            disabled = PAGMenuFunctions.isFCOISRulesDisabled,
+--        })
+--    end
 
 
     PAGeneralOptionsTable:insert({
