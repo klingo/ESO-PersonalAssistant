@@ -14,12 +14,10 @@ local _RulesWindowDescriptor = "PersonalAssistantRules"
 
 local _RulesWindowBankingTabDescriptor = "PersonalAssistantBankingRules"
 local _RulesWindowJunkTabDescriptor = "PersonalAssistantJunkRules"
-local _RulesWindowFCOISTabDescriptor = "PersonalAssistantFCOISRules"
 
 local window = PersonalAssistantRulesWindow
 local BankingRulesTabControl = window:GetNamedChild("BankingRulesTab")
 local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
-local FCOISRulesTabControl = window:GetNamedChild("FCOISRulesTab")
 
 -- store tha last shown tab (for current game session only)
 local _lastShownRulesTabDescriptor
@@ -57,34 +55,19 @@ local function showPAJunkRulesMenu()
     ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowJunkTabDescriptor)
 end
 
-local function showPAFCOISRulesMenu()
-    togglePARulesMenu()
-    local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
-    ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowFCOISTabDescriptor)
-end
-
 local function _showPABankingRulesTab()
     BankingRulesTabControl:SetHidden(false)
     JunkRulesTabControl:SetHidden(true)
-    FCOISRulesTabControl:SetHidden(true)
 end
 
 local function _showPAJunkRulesTab()
     BankingRulesTabControl:SetHidden(true)
     JunkRulesTabControl:SetHidden(false)
-    FCOISRulesTabControl:SetHidden(true)
-end
-
-local function _showPAFCOISRulesTab()
-    BankingRulesTabControl:SetHidden(true)
-    JunkRulesTabControl:SetHidden(true)
-    FCOISRulesTabControl:SetHidden(false)
 end
 
 local function _getDefaultRulesTabDescriptor()
     if PA.Banking then return _RulesWindowBankingTabDescriptor end
     if PA.Junk then return _RulesWindowJunkTabDescriptor end
-    if FCOIS and FCOIS.addonVars.gPlayerActivated then return _RulesWindowFCOISTabDescriptor end
 end
 
 local function _createRulesWindowScene()
@@ -164,24 +147,6 @@ local function _createTabsForScene()
                 _showPAJunkRulesTab()
                 RulesModeMenuBarLabel:SetText(GetString(SI_PA_MAINMENU_JUNK_HEADER))
                 _lastShownRulesTabDescriptor = _RulesWindowJunkTabDescriptor
-            end,
-        }
-        ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
-    end
-
-    -- if FCOIS is enabled, add the corresponding tab
-    if FCOIS then
-        local creationData = {
-            activeTabText = SI_PA_MAINMENU_FCOIS_HEADER,
-            categoryName = SI_PA_MAINMENU_FCOIS_HEADER,
-            descriptor = _RulesWindowFCOISTabDescriptor,
-            normal = "esoui/art/charactercreate/rotate_right_up.dds",
-            pressed = "esoui/art/charactercreate/rotate_right_down.dds",
-            highlight = "esoui/art/charactercreate/rotate_right_over.dds",
-            callback = function()
-                _showPAFCOISRulesTab()
-                RulesModeMenuBarLabel:SetText(GetString(SI_PA_MAINMENU_FCOIS_HEADER))
-                _lastShownRulesTabDescriptor = _RulesWindowFCOISTabDescriptor
             end,
         }
         ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
@@ -631,93 +596,6 @@ local function initPAJunkRulesList()
     end
 end
 
--- =================================================================================================================
--- == PA FCO ITEMSAVER RULES LIST == --
--- -----------------------------------------------------------------------------------------------------------------
-local PAFCOISRulesList = ZO_SortFilterList:Subclass()
-PA.FCOISRulesList = nil
-
-PAFCOISRulesList.SORT_KEYS = {
-    ["fcoisFlag"] = {},
-}
-
-function PAFCOISRulesList:New()
-    local rules = ZO_SortFilterList.New(self, FCOISRulesTabControl)
-    return rules
-end
-
-function PAFCOISRulesList:Initialize(control)
-    -- initialize the SortFilterList
-    ZO_SortFilterList.Initialize(self, control)
-    -- set a text that is displayed when there are no entries
-    self:SetEmptyText(GetString(SI_PA_SUBMENU_FCOIS_NO_RULES))
-    -- default sorting key
-    self.sortHeaderGroup:SelectHeaderByKey("fcoisFlag")
-    ZO_SortHeader_OnMouseExit(FCOISRulesTabControl:GetNamedChild("Headers"):GetNamedChild("FCOISFlag"))
-    -- define the datatype for this list and enable the highlighting
-    ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantFCOISRuleListRowTemplate", 72, function(control, data) self:SetupRuleRow(control, data) end)
-    ZO_ScrollList_EnableHighlight(self.list, "ZO_ThinListHighlight")
-    -- set up sorting function and refresh all data
-    self.sortFunction = function(listEntry1, listEntry2) return ZO_TableOrderingFunction(listEntry1.data, listEntry2.data, self.currentSortKey, PAFCOISRulesList.SORT_KEYS, self.currentSortOrder) end
-    self:RefreshData()
-end
-
-function PAFCOISRulesList:FilterScrollList()
-    -- get the data of the scrollist and index it
-    local scrollData = ZO_ScrollList_GetDataList(self.list)
-    ZO_ClearNumericallyIndexedTable(scrollData)
-    -- only proceed if player has selected an active profile
-    if PAHF.hasActiveProfile() then
-        -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        -- TODO: to be implemented
-    end
-end
-
-function PAFCOISRulesList:SortScrollList()
-    -- get all data and sort it
-    local scrollData = ZO_ScrollList_GetDataList(self.list)
-    table.sort(scrollData, self.sortFunction)
-end
-
-function PAFCOISRulesList:SetupRuleRow(rowControl, rowData)
-    -- store the rowData on the control so it can be accessed from the sortFunction
-    rowControl.data = rowData
-
-    -- populate all data to the individual fields per row
-
-    ZO_SortFilterList.SetupRow(self, rowControl, rowData)
-end
-
-function PAFCOISRulesList:InitHeaders()
-    -- Initialise the headers
-    local headers = FCOISRulesTabControl:GetNamedChild("Headers")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("FCOISFlag"), "test-header", "fcoisFlag", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), "bagName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), "bagAmount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
-end
-
-function PAFCOISRulesList:Refresh()
-    self:RefreshData()
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
-
-local fcoisBaseInitDone = false
-
-local function initPAFCOISRulesList()
-    if FCOIS then
-        if not fcoisBaseInitDone then
-            fcoisBaseInitDone = true
-            PAFCOISRulesList:InitHeaders()
---            PAFCOISRulesList:InitFooters()
-            PA.FCOISRulesList = PAFCOISRulesList:New()
-        end
-        PA.FCOISRulesList:Refresh()
-    end
-end
-
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
@@ -725,10 +603,8 @@ PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.togglePARulesMenu = togglePARulesMenu
 PA.CustomDialogs.showPABankingRulesMenu = showPABankingRulesMenu
 PA.CustomDialogs.showPAJunkRulesMenu = showPAJunkRulesMenu
-PA.CustomDialogs.showPAFCOISRulesMenu = showPAFCOISRulesMenu
 PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
 
 -- create the main menu entry with LMM-2
 PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingRulesList, "InitPABankingRulesList")
 PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPAJunkRulesList, "InitPAJunkRulesList")
-PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPAFCOISRulesList, "InitPAFCOISRulesList")

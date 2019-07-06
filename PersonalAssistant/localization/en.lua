@@ -23,10 +23,6 @@ local PAStrings = {
     SI_PA_MENU_PROFILE_ACTIVE_T = "Select the active profile for PersonalAssistant. It will automatically load all settings stored under that profile and changes are stored in the same place.",
     SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Rename active profile",
 
-    -- Integrations --
-    SI_PA_MENU_INTEGRATIONS_HEADER = "Integrations",
-    SI_PA_MENU_INTEGRATIONS_FCOIS_ENABLE = "Enable FCO ItemSaver integration",
-
     -- General --
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
@@ -47,11 +43,6 @@ local PAStrings = {
 
     SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
 
-
-    -- =================================================================================================================
-    -- == MAIN MENU TEXTS == --
-    -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_MAINMENU_FCOIS_HEADER = "FCO ItemSaver Rules",
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --
@@ -166,8 +157,6 @@ local PAStrings = {
     SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Mark as permanent junk",
     SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",
     SI_PA_SUBMENU_PAJ_NO_RULES = "No junk rules defined yet",
-
-    SI_PA_SUBMENU_FCOIS_NO_RULES = "No FCO ItemSaver rules defined yet",
 
 
     -- =================================================================================================================

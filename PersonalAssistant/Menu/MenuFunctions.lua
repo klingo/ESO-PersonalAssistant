@@ -172,11 +172,6 @@ PA.MenuFunctions = {
         getActiveProfileRename = getPAGeneralActiveProfileRename,
         setActiveProfileRename = setPAGeneralActiveProfileRename,
 
-        isFCOISIntegrationDisabled = function() return isDisabled({"Integrations", "fcoisEnabled"}) end,
-        getFCOISIntegrationSetting = function() return getValue({"Integrations", "fcoisEnabled"}) end,
-        setFCOISIntegrationSetting = function(value) setValue(value, {"Integrations", "fcoisEnabled"}) end,
-        isFCOISRulesDisabled = function() return isDisabled({"Integrations", "fcoisEnabled"}) end,
-
         getWelcomeMessageSetting = getPAGeneralWelcomeMessage,
         setWelcomeMessageSetting = setPAGeneralWelcomeMessage,
 

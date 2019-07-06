@@ -85,19 +85,5 @@
             </Controls>
         </Button>
 
-        <!-- Full-size FCOIS Rule Row (virtual) -->
-        <Button name="PersonalAssistantFCOISRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
-            <Dimensions x="612" y="72" />
-            <Controls>
-
-                <Texture name="$(parent)FCOISFlag" alpha="1">
-                    <Anchor point="LEFT" />
-                    <Dimensions x="64" y="72" />
-                    <TextureCoords left="0" right="1" top="0" bottom="1" />
-                </Texture>
-
-            </Controls>
-        </Button>
-
     </Controls>
 </GuiXml>
