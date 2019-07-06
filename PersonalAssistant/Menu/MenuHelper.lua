@@ -41,11 +41,17 @@ local function reloadProfileList()
     PERSONALASSISTANT_PROFILEDROPDOWN:UpdateValue()
 end
 
+local function getTextIfRequiredAddonNotRunning(textKeyIfNotRunning, addonTableToCheck)
+    if istable(addonTableToCheck) then return nil end
+    return GetString(textKeyIfNotRunning)
+end
+
 -- --------------------------------------------------------------------------------------------------------
 
 -- Export
 PA.MenuHelper = {
     getProfileList = getProfileList,
     getProfileListValues = getProfileListValues,
-    reloadProfileList = reloadProfileList
+    reloadProfileList = reloadProfileList,
+    getTextIfRequiredAddonNotRunning = getTextIfRequiredAddonNotRunning,
 }

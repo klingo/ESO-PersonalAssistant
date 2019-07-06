@@ -9,7 +9,27 @@ local PAIntegrationMenuDefaults = {
         compatibility = true,
     },
     FCOItemSaver = {
+        Locked = {
 
+        },
+        Research = {
+
+        },
+        Sell = {
+            autoSellMarked = false,
+        },
+        Deconstruction = {
+
+        },
+        Improvement = {
+
+        },
+        SellGuildStore = {
+
+        },
+        Intricate = {
+
+        },
     },
 }
 

@@ -326,6 +326,9 @@ local function OnShopOpen()
                 end
             end
         end
+
+        -- check if FCOIS is running and trigger its integration functions
+        if FCOIS then PA.Libs.FCOItemSaver.sellMarkedItemsAtMerchantIfPossible() end
     end
 end
 

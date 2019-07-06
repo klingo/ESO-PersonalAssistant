@@ -259,6 +259,26 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/icons/ava_siege_weapon_005.dds",
             }
         },
+        FCOIS = {
+            DECONSTRUCTION = {
+                PATH = "/esoui/art/crafting/enchantment_tabicon_deconstruction_disabled.dds",
+            },
+            IMPROVEMENT = {
+                PATH = "/esoui/art/crafting/smithing_tabicon_improve_disabled.dds",
+            },
+            INTRICATE = {
+                PATH = "/esoui/art/progression/progression_indexicon_guilds_up.dds",
+            },
+            LOCKED = {
+                PATH = "/esoui/art/campaign/campaignbrowser_fullpop.dds",
+            },
+            RESEARCH = {
+                PATH = "/esoui/art/crafting/smithing_tabicon_research_disabled.dds",
+            },
+            SELL = {
+                PATH = "/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds",
+            },
+        },
         OTHERS = {
             HOME = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",

@@ -44,6 +44,34 @@ local PAIntegrationMenuFunctions = {
     isLazyWritCrafterCompatibilityDisabled = isPAIntegrationLazyWritCrafterCompatibilityDisabled,
     getLazyWritCrafterCompatibilitySetting = function() return getValue({"LazyWritCrafter", "compatibility"}) end,
     setLazyWritCrafterCompatibilitySetting = function(value) setValue(value, {"LazyWritCrafter", "compatibility"}) end,
+
+
+    -- ----------------------------------------------------------------------------------
+    -- FCO ITEMSAVER
+    -- ----------------------------
+    isFCOISLockedMenuDisabled = function() return true end, -- TODO: to be implemented
+
+
+    isFCOISResearchMenuDisabled = function() return false end, -- TODO: to be implemented
+
+
+    isFCOISSellMenuDisabled = function() return isDisabled({"FCOItemSaver", "Sell", "autoSellMarked"}) end,
+    isFCOISSellAutoSellMarkedDisabled = function() return not istable(PA.Junk) end,
+    getFCOISSellAutoSellMarkedSetting = function() return getValue({"FCOItemSaver", "Sell", "autoSellMarked"}) end,
+    setFCOISSellAutoSellMarkedSetting = function(value) setValue(value, {"FCOItemSaver", "Sell", "autoSellMarked"}) end,
+
+    isFCOISDeconstructionMenuDisabled = function() return true end, -- TODO: to be implemented
+
+
+    isFCOISImprovementMenuDisabled = function() return true end, -- TODO: to be implemented
+
+
+    isFCOISSellGuildStoreMenuDisabled = function() return true end, -- TODO: to be implemented
+
+
+    isFCOISIntricateMenuDisabled = function() return true end, -- TODO: to be implemented
+
+
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

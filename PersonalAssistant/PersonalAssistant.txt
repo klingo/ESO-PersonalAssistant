@@ -48,7 +48,7 @@ Menu/ItemContextMenu.lua
 PersonalAssistant.lua
 
 # Integrations
-# libs/Integrations/ItemSaver.lua
+libs/Integrations/FCOItemSaver.lua
 
 # Bindings
 bindings/Bindings.lua
