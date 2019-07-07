@@ -39,7 +39,7 @@ local function _getUniqueSellFenceUpdateIdentifier(bagId, slotIndex)
     return table.concat({SELL_FENCE_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
 end
 
-local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+local function _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
     -- before starting make sure any already registered UpdateEvent is unregistered to not run them in parallel
     local identifier = _getUniqueUpdateIdentifier()
     EVENT_MANAGER:UnregisterForUpdate(identifier)
@@ -91,20 +91,7 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
         -- then check if the item can be sold; if not don't mark it as junk (i.e. Kari's Hit List Relics)
         local sellPrice = GetItemSellValueWithBonuses(bagId, slotIndex)
         if sellPrice > 0 then
-            -- TODO: integrate FCOItemSaver?
-
-            local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
-    --        d("playerLocked="..tostring(playerLocked))
-
-    --        CanItemBePlayerLocked(number Bag bagId, number slotIndex)
-    --        Returns: boolean canBePlayerLocked
-    --
-    --        IsItemPlayerLocked(number Bag bagId, number slotIndex)
-    --        Returns: boolean playerLocked
-    --
-    --        SetItemIsPlayerLocked(number Bag bagId, number slotIndex, boolean playerLocked)
-
-            -- It is considered safe to mark the item as junk now
+            -- It is considered safe to mark the item as junk
             SetItemIsJunk(bagId, slotIndex, true)
             PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
 
@@ -158,7 +145,9 @@ local function _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
     end
 end
 
-local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCountInBagBefore)
+-- TODO: replace moneyBefore with totalSellValue?
+-- TODO: replace itemCountInBagBefore with totalSoldItemCount?
+local function _sellStolenItemToFence(bagCache, startIndex, moneyBefore, itemCountInBagBefore)
     if not PA.WindowStates.isFenceClosed then
         local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
         -- Sell the (stolen) item which was marked as junk
@@ -185,16 +174,16 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
                             -- limit reached! print a message and stop
                             _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
                             -- after limit is reached, also give feedback about the changes
-                            _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                            _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
                         else
                             -- limit not yet reached, check if there are more items to be sold
                             local newStartIndex = startIndex + 1
                             if newStartIndex <= #bagCache then
                                 -- yes, continue loop
-                                _sellStolenJunkToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
+                                _sellStolenItemToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
                             else
                                 -- no, finish loop; after everything is sold, give feedback about the changes
-                                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                                _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
                             end
                         end
                     end
@@ -208,15 +197,15 @@ local function _sellStolenJunkToFence(bagCache, startIndex, moneyBefore, itemCou
             local newStartIndex = startIndex + 1
             if newStartIndex <= #bagCache then
                 -- yes, continue loop
-                _sellStolenJunkToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
+                _sellStolenItemToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
             else
                 -- no, finish loop; after everything is sold, give feedback about the changes
-                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
             end
         end
     else
         -- if Fence has been closed, also display the feedback message
-        _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+        _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
     end
 end
 
@@ -270,6 +259,25 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
     return true
 end
 
+local function _OnFenceOpenInternal(dynamicComparator)
+    -- store current amount of money
+    local moneyBefore = GetCurrentMoney();
+    local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
+    -- check if limit already reached
+    local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+    if sellsUsed < totalSells then
+        -- limit not yet reached; get all items to loop through the stolen/junk ones
+        local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
+        if #bagCache > 0 then
+            -- after sellink junk, give feedback about the changes
+            _sellStolenItemToFence(bagCache, 1, moneyBefore, itemCountInBagBefore)
+        end
+    else
+        -- limit already reached when fence was opened; since nothing was sold no soldJunkFeedback needed!
+        _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
@@ -277,31 +285,38 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
         -- set the global variable to 'false'
         PA.WindowStates.isFenceClosed = false
         -- check if auto-sell is enabled
-        if allowSell and PAJ.SavedVars.autoSellJunk then
-            -- check if there is junk to sell (exclude stolen items = false)
-            if HasAnyJunk(BAG_BACKPACK) then
-                -- store current amount of money
-                local moneyBefore = GetCurrentMoney();
-                local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
-                -- check if limit already reached
-                local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-                if sellsUsed < totalSells then
-                    -- limit not yet reached; get all items to loop through the stolen/junk ones
-                    local stolenJunkComparator = PAHF.getStolenJunkComparator()
-                    local bagCache = SHARED_INVENTORY:GenerateFullSlotData(stolenJunkComparator, BAG_BACKPACK)
-                    if #bagCache > 0 then
-                        -- after sellink junk, give feedback about the changes
-                        _sellStolenJunkToFence(bagCache, 1, moneyBefore, itemCountInBagBefore)
-                    end
+        if allowSell then
+            local PAI = PA.Integration
+            if PAI and FCOIS then
+                -- both FCOIS and PAIntegration are enabled, take the extended logic
+                local PAFCOISLib = PA.Libs.FCOItemSaver
+                local autoSellJunk = PAJ.SavedVars.autoSellJunk
+                local autoSellMarked = PAI.SavedVars.FCOItemSaver.Sell.autoSellMarked
+                -- check if stolen junk should be sold
+                if autoSellJunk then
+                    -- check for stolen junk AND FCOIS markings
+                    local stolenJunkIncludingFCOISComparator = PAFCOISLib.getStolenJunkIncludingFCOISComparator(autoSellMarked)
+                    _OnFenceOpenInternal(stolenJunkIncludingFCOISComparator)
                 else
-                    -- limit already reached when fence was opened; since nothing was sold no solJunkFeedback needed!
-                    _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+                    -- check only for FCOIS markings
+                    local stolenFCOISComparator = PAFCOISLib.getStolenFCOISComparator(autoSellMarked)
+                    _OnFenceOpenInternal(stolenFCOISComparator)
+                end
+            else
+               -- either FCOIS or PAIntegration is NOT enabled, take the default logic
+                if PAJ.SavedVars.autoSellJunk then
+                    -- check if there is junk to sell (exclude stolen items = false) - or if FCOIS and PAI are enabled
+                    if HasAnyJunk(BAG_BACKPACK) then
+                        local stolenJunkComparator = PAHF.getStolenJunkComparator()
+                        _OnFenceOpenInternal(stolenJunkComparator)
+                    end
                 end
             end
         end
     end
 end
 
+-- TODO: to be extended with FCOIS logic
 local function OnShopOpen()
     if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
@@ -313,12 +328,10 @@ local function OnShopOpen()
                 -- store current amount of money
                 local moneyBefore = GetCurrentMoney();
                 local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
-
                 -- Sell all items marked as junk
                 SellAllJunk()
-
                 -- after calling SellAllJunk(), give feedback about the changes
-                _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
+                _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
             else
                 -- if there is no junk, immediately fire the callback event for PARepair (if PARepair is enabled)
                 if PA.Repair then
@@ -326,9 +339,6 @@ local function OnShopOpen()
                 end
             end
         end
-
-        -- check if FCOIS is running and trigger its integration functions
-        if FCOIS then PA.Libs.FCOItemSaver.sellMarkedItemsAtMerchantIfPossible() end
     end
 end
 
