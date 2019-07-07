@@ -34,6 +34,7 @@ local PAIStrings = {
     SI_PA_MENU_INTEGRATION_PAB_REQUIRED = "Requires PABanking to be enabled",
     SI_PA_MENU_INTEGRATION_PAJ_REQUIRED = "Requires PAJunk to be enabled",
 
+    SI_PA_MENU_INTEGRATION_MORE_TO_COME = "More FCO ItemSaver integrations will come with future updates",
 }
 
 for key, value in pairs(PAIStrings) do

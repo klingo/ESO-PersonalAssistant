@@ -148,6 +148,11 @@ local function _createPAIntegrationMenu()
 --            controls = PAIFCOISIntricateSubmenuTable,
 --            disabledLabel = PAIMenuFunctions.isFCOISIntricateMenuDisabled,
 --        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "description",
+            text = GetString(SI_PA_MENU_INTEGRATION_MORE_TO_COME),
+        })
     end
 end
 
