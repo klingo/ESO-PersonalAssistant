@@ -181,8 +181,8 @@ local function RefreshAllEventRegistrations()
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
 
-            -- Register PAJunk for selling
-            if PAJMenuFunctions.getAutoSellJunkSetting() then
+            -- Register PAJunk for selling (also in case FCOIS and PAI are enabled)
+            if PAJMenuFunctions.getAutoSellJunkSetting() or (PA.Integration and FCOIS) then
                 -- Register PAJunk (for Merchants and Fences)
                 RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
                 RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")

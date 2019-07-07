@@ -94,7 +94,7 @@ end
 local function _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
     if totalSellCount > 0 then
         -- at least one item was sold (although it might have been worthless(?))
-        if moneyDiff > 0 then
+        if totalSellPrice > 0 then
             -- some valuable items were sold
             PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPrice)
         else
@@ -415,11 +415,13 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
 end
 
 local function OnShopOpen()
+    PAJ.debugln("PAJunk.OnShopOpen")
     if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isStoreClosed = false
         local PAI = PA.Integration
         if PAI and FCOIS then
+            PAJ.debugln("OnShopOpen with PAIntegration and FCOIS")
             -- both FCOIS and PAIntegration are enabled, take the extended logic
             local PAFCOISLib = PA.Libs.FCOItemSaver
             local autoSellJunk = PAJ.SavedVars.autoSellJunk
@@ -435,6 +437,7 @@ local function OnShopOpen()
                 _OnShopOpenInternal(sellFCOISComparator)
             end
         else
+            PAJ.debugln("OnShopOpen withOUT PAIntegration and FCOIS")
             -- either FCOIS or PAIntegration is NOT enabled, take the default logic
             if PAJ.SavedVars.autoSellJunk then
                 -- check if there is junk to sell (exclude stolen items = true)

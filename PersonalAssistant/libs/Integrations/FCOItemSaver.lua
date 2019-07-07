@@ -15,16 +15,16 @@ local function _getDynamicSellJunkIncludingFCOISComparator(autoSellMarked, mustB
         if (mustBeStolen and not isStolen) or (not mustBeStolen and isStolen) then return false end
 
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
-        -- if FCOIS is NOT running, then just return true if the item is stolen and it is junk (or false if not junk)
-        if not FCOIS then return isStolen and isJunk end
+        -- if FCOIS is NOT running, then just return true if the item is junk (or false if not junk)
+        if not FCOIS then return isJunk end
 
         -- if FCOIS is running, start checking for the FCOIS flags
         local isMarkedAsLocked = FCOIS.IsMarked(itemData.bagId, itemData.slotIndex, FCOIS_CON_ICON_LOCK)
         local isVendorSellLocked = FCOIS.IsVendorSellLocked(itemData.bagId, itemData.slotIndex)
         -- if it is locked by FCOIS, immediately return false as it should not be sold
         if isMarkedAsLocked or isVendorSellLocked then return false end
-        -- item is NOT locked by FCOIS, and if it is stolen junk return true (default PA behaviour with FCOIS locks)
-        if isStolen and isJunk then return true end
+        -- item is NOT locked by FCOIS, if it is junk return true (default PA behaviour with FCOIS locks)
+        if isJunk then return true end
 
         -- check if marked items should be sold or not
         if autoSellMarked then
@@ -69,7 +69,7 @@ local function getSellStolenFCOISComparator(autoSellMarked)
     return _getDynamicSellFCOISComparator(autoSellMarked, true) -- mustBeStolen = true
 end
 
-local function getSellJunkIncludingFCOISComparator()
+local function getSellJunkIncludingFCOISComparator(autoSellMarked)
     return _getDynamicSellJunkIncludingFCOISComparator(autoSellMarked, false) -- mustBeStolen = false
 end
 
