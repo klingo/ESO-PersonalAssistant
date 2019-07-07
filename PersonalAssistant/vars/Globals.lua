@@ -281,6 +281,9 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds",
                 LARGE = ZO_ColorDef:New(1, 1, 0, 1):Colorize(zo_iconFormatInheritColor("/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds", 48, 48)),
             },
+            SELL_AT_GUILDSTORE = {
+                LARGE = ZO_ColorDef:New(1, 1, 0, 1):Colorize(zo_iconFormatInheritColor(ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture, 32, 32)),
+            }
         },
         OTHERS = {
             HOME = {

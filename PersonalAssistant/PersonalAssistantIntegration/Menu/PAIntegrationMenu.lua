@@ -134,8 +134,7 @@ local function _createPAIntegrationMenu()
 --
 --        PAIntegrationOptionsTable:insert({
 --            type = "submenu",
---            name = FCOIS_LOCALIZATION["options_icon11_tooltip_text"],
---            icon = ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture,
+--            name = table.concat({"  ", PAC.ICONS.FCOIS.SELL_AT_GUILDSTORE.LARGE, " ", FCOIS_LOCALIZATION["options_icon11_tooltip_text"]}),
 --            controls = PAIFCOISSellGuildStoreSubmenuTable,
 --            disabledLabel = PAIMenuFunctions.isFCOISSellGuildStoreMenuDisabled,
 --        })
