@@ -357,6 +357,7 @@ local function _OnFenceOpenInternal(dynamicComparator)
     if sellsUsed < totalSells then
         -- limit not yet reached; get all items to loop through the stolen/junk ones
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
+        PAJ.debugln("_OnFenceOpenInternal.#bagCache = " .. tostring(#bagCache))
         if #bagCache > 0 then
             -- after sellink junk, give feedback about the changes
             _sellStolenItemToFence(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
@@ -370,7 +371,7 @@ end
 local function _OnShopOpenInternal(dynamicComparator)
     -- get all items that can be sold
     local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
-    d("#bagCache = "..tostring(#bagCache))
+    PAJ.debugln("_OnShopOpenInternal.#bagCache = " .. tostring(#bagCache))
     if #bagCache > 0 then
         _sellItemToMerchant(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
     end
