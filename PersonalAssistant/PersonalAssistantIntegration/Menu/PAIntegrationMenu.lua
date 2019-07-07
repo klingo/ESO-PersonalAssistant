@@ -43,6 +43,20 @@ local function _createPAIntegrationMenu()
     })
 
     -- -----------------------------------------------------------------------------------------------------------------
+    if not WritCreater and not FCOIS then
+        -- inform player that there ar eno integrations available
+        PAIntegrationOptionsTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "description",
+            text = PAC.COLOR.ORANGE:Colorize(GetString(SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE)),
+        })
+    end
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- check if player has the addon [Dolgubon's Lazy Writ Crafter]
     if WritCreater then
         PAIntegrationOptionsTable:insert({
