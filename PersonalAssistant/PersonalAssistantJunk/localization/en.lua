@@ -89,6 +89,7 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Manual"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Perm-Rule"), ")"}),
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
+    SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = table.concat({"Sold items for ", PAC.COLOR.GREEN:Colorize("%d "), PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_CHAT_JUNK_SOLD_JUNK_INFO = table.concat({"Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),

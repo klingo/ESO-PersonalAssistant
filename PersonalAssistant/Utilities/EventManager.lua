@@ -170,23 +170,6 @@ local function RefreshAllEventRegistrations()
     end
 
 
-    -- Check if the Addon 'PAIntegration' is even enabled
-    local PAI = PA.Integration
-    if PAI then
-        -- Check if the functionality is turned on within the addon
-        local PAIMenuFunctions = PAMenuFunctions.PAIntegration
-        if PAIMenuFunctions.getFCOISSellAutoSellMarkedSetting() then
-            -- Register PAIntegration (for Merchants and Fences)
-            RegisterForEvent(PAI.AddonName, EVENT_OPEN_STORE, PA.Libs.FCOItemSaver.OnShopOpen, "FCOISOpenStore")
-            RegisterForEvent(PAI.AddonName, EVENT_CLOSE_STORE, PA.Libs.FCOItemSaver.OnStoreAndFenceClose, "FCOISCloseStore")
-        else
-            -- Or unregister if auto-sell is disabled
-            UnregisterForEvent(PAI.AddonName, EVENT_OPEN_STORE, "FCOISOpenStore")
-            UnregisterForEvent(PAI.AddonName, EVENT_CLOSE_STORE, "FCOISCloseStore")
-        end
-    end
-
-
     -- Check if the Addon 'PAJunk' is even enabled
     local PAJ = PA.Junk
     if PAJ then

@@ -27,6 +27,9 @@ local TREASURE_ITEM_TAGS = {
 local SELL_FENCE_ITEMS_INTERVAL_MS = 25
 local SELL_FENCE_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellFence"
 
+local SELL_MERCHANT_ITEMS_INTERVAL_MS = 25
+local SELL_MERCHANT_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellMerchant"
+
 local GET_MONEY_AND_USED_SLOTS_INTERVAL_MS = 100
 local GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS = 1000
 local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetMoneyAndUsedSlots"
@@ -39,7 +42,11 @@ local function _getUniqueSellFenceUpdateIdentifier(bagId, slotIndex)
     return table.concat({SELL_FENCE_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
 end
 
-local function _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
+local function _getUniqueSellMerchantUpdateIdentifier(bagId, slotIndex)
+    return table.concat({SELL_MERCHANT_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
+end
+
+local function _giveDelayedDiffSoldItemsFeedback(moneyBefore, itemCountInBagBefore)
     -- before starting make sure any already registered UpdateEvent is unregistered to not run them in parallel
     local identifier = _getUniqueUpdateIdentifier()
     EVENT_MANAGER:UnregisterForUpdate(identifier)
@@ -59,13 +66,13 @@ local function _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
                 PAJ.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
 
                 if itemCountInBagDiff > 0 then
-                    -- at lesat one item was sold (although it might have been worthless)
+                    -- at least one item was sold (although it might have been worthless(?))
                     if moneyDiff > 0 then
-                        -- some valuable junk was sold
-                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
+                        -- some valuable items were sold
+                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiff)
                     else
-                        -- only worthless junk was sold
-                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, moneyDiff)
+                        -- only worthless items were sold
+                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiff)
                     end
                 else
                     -- no item was sold
@@ -83,6 +90,33 @@ local function _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
             end
         end)
 end
+
+local function _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+    if totalSellCount > 0 then
+        -- at least one item was sold (although it might have been worthless(?))
+        if moneyDiff > 0 then
+            -- some valuable items were sold
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPrice)
+        else
+            -- only worthless items were sold
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPrice)
+        end
+    else
+        -- no item was sold
+        if totalSellPrice > 0 then
+            -- no item was sold, but money appeared out of nowhere
+            -- should not happen :D
+            PAJ.println(PAC.COLORED_TEXTS.PAJ .. "It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
+        end
+    end
+
+    -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
+    if PA.Repair then
+        PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
     PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
@@ -145,70 +179,6 @@ local function _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
     end
 end
 
--- TODO: replace moneyBefore with totalSellValue?
--- TODO: replace itemCountInBagBefore with totalSoldItemCount?
-local function _sellStolenItemToFence(bagCache, startIndex, moneyBefore, itemCountInBagBefore)
-    if not PA.WindowStates.isFenceClosed then
-        local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
-        -- Sell the (stolen) item which was marked as junk
-        local sellStartGameTime = GetGameTimeMilliseconds()
-        local itemDataToSell = bagCache[startIndex]
-        local sellPrice = GetItemSellValueWithBonuses(itemDataToSell.bagId, itemDataToSell.slotIndex)
-        -- check if item can be sold (i.e it has a sell price)
-        if sellPrice > 0 then
-            SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
-            -- ---------------------------------------------------------------------------------------------------------
-            -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
-            local identifier = _getUniqueSellFenceUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
-            EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
-                function()
-                    -- check if the item is still in the bag
-                    local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
-                    local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-                    if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
-                        -- if item is gone, limit reached, or fence closed stop the interval
-                        EVENT_MANAGER:UnregisterForUpdate(identifier)
-                        local sellFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
-                        if sellsUsed == totalSells then
-                            -- limit reached! print a message and stop
-                            _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
-                            -- after limit is reached, also give feedback about the changes
-                            _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
-                        else
-                            -- limit not yet reached, check if there are more items to be sold
-                            local newStartIndex = startIndex + 1
-                            if newStartIndex <= #bagCache then
-                                -- yes, continue loop
-                                _sellStolenItemToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
-                            else
-                                -- no, finish loop; after everything is sold, give feedback about the changes
-                                _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
-                            end
-                        end
-                    end
-                end)
-            -- ---------------------------------------------------------------------------------------------------------
-        else
-            -- show message to player that Item cannot be sold because it's worthless
-            local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex, LINK_STYLE_BRACKETS)
-            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
-            -- if item cannot be sold; continue with the next (if there are more)
-            local newStartIndex = startIndex + 1
-            if newStartIndex <= #bagCache then
-                -- yes, continue loop
-                _sellStolenItemToFence(bagCache, newStartIndex, moneyBefore, itemCountInBagBefore)
-            else
-                -- no, finish loop; after everything is sold, give feedback about the changes
-                _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
-            end
-        end
-    else
-        -- if Fence has been closed, also display the feedback message
-        _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
-    end
-end
-
 local function _isTrashItemNotQuestExcluded(bagId, slotIndex)
     local PAJunkSavedVars = PAJ.SavedVars
     local itemId = GetItemId(bagId, slotIndex)
@@ -259,10 +229,129 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
     return true
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, totalSellCount)
+    if not PA.WindowStates.isFenceClosed then
+        local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
+        -- Sell the (stolen) item which was marked as junk
+        local sellStartGameTime = GetGameTimeMilliseconds()
+        local itemDataToSell = bagCache[startIndex]
+        local sellPrice = GetItemSellValueWithBonuses(itemDataToSell.bagId, itemDataToSell.slotIndex)
+        -- check if item can be sold (i.e it has a sell price)
+        if sellPrice > 0 then
+            SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
+            -- ---------------------------------------------------------------------------------------------------------
+            -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
+            local identifier = _getUniqueSellFenceUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
+            EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
+                function()
+                    -- check if the item is still in the bag
+                    local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
+                    local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+                    if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
+                        -- if item is gone, limit reached, or fence closed stop the interval
+                        EVENT_MANAGER:UnregisterForUpdate(identifier)
+                        local sellFinishGameTime = GetGameTimeMilliseconds()
+                        PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
+                        totalSellPrice = totalSellPrice + sellPrice
+                        totalSellCount = totalSellCount + 1
+                        if sellsUsed == totalSells then
+                            -- limit reached! print a message and stop
+                            _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+                            -- after limit is reached, also give feedback about the changes
+                            _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                        else
+                            -- limit not yet reached, check if there are more items to be sold
+                            local newStartIndex = startIndex + 1
+                            if newStartIndex <= #bagCache then
+                                -- yes, continue loop
+                                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+                            else
+                                -- no, finish loop; after everything is sold, give feedback about the changes
+                                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                            end
+                        end
+                    end
+                end)
+            -- ---------------------------------------------------------------------------------------------------------
+        else
+            -- show message to player that Item cannot be sold because it's worthless
+            local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex, LINK_STYLE_BRACKETS)
+            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
+            -- if item cannot be sold; continue with the next (if there are more)
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #bagCache then
+                -- yes, continue loop
+                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+            else
+                -- no, finish loop; after everything is sold, give feedback about the changes
+                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+            end
+        end
+    else
+        -- if Fence has been closed, also display the feedback message
+        _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+    end
+end
+
+local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSellCount)
+    if not PA.WindowStates.isStoreClosed then
+        local sellStartGameTime = GetGameTimeMilliseconds()
+        local itemDataToSell = bagCache[startIndex]
+        local _, _, sellPrice = GetItemInfo(itemDataToSell.bagId, itemDataToSell.slotIndex)
+        -- check if item can be sold (i.e it has a sell price)
+        if sellPrice > 0 then
+            SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
+            -- ---------------------------------------------------------------------------------------------------------
+            -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until merchant is closed!)
+            local identifier = _getUniqueSellMerchantUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
+            EVENT_MANAGER:RegisterForUpdate(identifier, SELL_MERCHANT_ITEMS_INTERVAL_MS,
+                function()
+                    -- check if the item is still in the bag
+                    local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
+                    if itemId <= 0 or PA.WindowStates.isStoreClosed then
+                        -- if item is gone, or merchant closed stop the interval
+                        EVENT_MANAGER:UnregisterForUpdate(identifier)
+                        local sellFinishGameTime = GetGameTimeMilliseconds()
+                        PAHF.debuglnAuthor("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
+                        totalSellPrice = totalSellPrice + sellPrice
+                        totalSellCount = totalSellCount + 1
+                        -- check if there are more items to be sold
+                        local newStartIndex = startIndex + 1
+                        if newStartIndex <= #bagCache then
+                            -- yes, continue loop
+                            _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+                        else
+                            -- no, finish loop; after everything is sold, give feedback about the changes
+                            _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                        end
+                    end
+                end)
+            -- ---------------------------------------------------------------------------------------------------------
+        else
+            -- show message to player that Item cannot be sold because it's worthless
+            local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex, LINK_STYLE_BRACKETS)
+            PA.Junk.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
+            -- if item cannot be sold; continue with the next (if there are more)
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #bagCache then
+                -- yes, continue loop
+                _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+            else
+                -- no, finish loop; after everything is sold, give feedback about the changes
+                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+            end
+        end
+    else
+        -- if Merchant has been closed, also display the feedback message
+        _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function _OnFenceOpenInternal(dynamicComparator)
-    -- store current amount of money
-    local moneyBefore = GetCurrentMoney();
-    local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
     -- check if limit already reached
     local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
     if sellsUsed < totalSells then
@@ -270,11 +359,20 @@ local function _OnFenceOpenInternal(dynamicComparator)
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
         if #bagCache > 0 then
             -- after sellink junk, give feedback about the changes
-            _sellStolenItemToFence(bagCache, 1, moneyBefore, itemCountInBagBefore)
+            _sellStolenItemToFence(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
         end
     else
         -- limit already reached when fence was opened; since nothing was sold no soldJunkFeedback needed!
         _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+    end
+end
+
+local function _OnShopOpenInternal(dynamicComparator)
+    -- get all items that can be sold
+    local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
+    d("#bagCache = "..tostring(#bagCache))
+    if #bagCache > 0 then
+        _sellItemToMerchant(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
     end
 end
 
@@ -295,12 +393,12 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                 -- check if stolen junk should be sold
                 if autoSellJunk then
                     -- check for stolen junk AND FCOIS markings
-                    local stolenJunkIncludingFCOISComparator = PAFCOISLib.getStolenJunkIncludingFCOISComparator(autoSellMarked)
-                    _OnFenceOpenInternal(stolenJunkIncludingFCOISComparator)
+                    local sellStolenJunkIncludingFCOISComparator = PAFCOISLib.getSellStolenJunkIncludingFCOISComparator(autoSellMarked)
+                    _OnFenceOpenInternal(sellStolenJunkIncludingFCOISComparator)
                 else
                     -- check only for FCOIS markings
-                    local stolenFCOISComparator = PAFCOISLib.getStolenFCOISComparator(autoSellMarked)
-                    _OnFenceOpenInternal(stolenFCOISComparator)
+                    local sellStolenFCOISComparator = PAFCOISLib.getSellStolenFCOISComparator(autoSellMarked)
+                    _OnFenceOpenInternal(sellStolenFCOISComparator)
                 end
             else
                -- either FCOIS or PAIntegration is NOT enabled, take the default logic
@@ -316,26 +414,43 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
     end
 end
 
--- TODO: to be extended with FCOIS logic
 local function OnShopOpen()
     if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isStoreClosed = false
-        -- check if auto-sell is enabled
-        if PAJ.SavedVars.autoSellJunk then
-            -- check if there is junk to sell (exclude stolen items = true)
-            if HasAnyJunk(BAG_BACKPACK, true) then
-                -- store current amount of money
-                local moneyBefore = GetCurrentMoney();
-                local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
-                -- Sell all items marked as junk
-                SellAllJunk()
-                -- after calling SellAllJunk(), give feedback about the changes
-                _giveSoldStolenItemsFeedback(moneyBefore, itemCountInBagBefore)
+        local PAI = PA.Integration
+        if PAI and FCOIS then
+            -- both FCOIS and PAIntegration are enabled, take the extended logic
+            local PAFCOISLib = PA.Libs.FCOItemSaver
+            local autoSellJunk = PAJ.SavedVars.autoSellJunk
+            local autoSellMarked = PAI.SavedVars.FCOItemSaver.Sell.autoSellMarked
+            -- check if junk should be sold
+            if autoSellJunk then
+                -- checkf for junk AND FCOIS markings
+                local sellStolenJunkIncludingFCOISComparator = PAFCOISLib.getSellJunkIncludingFCOISComparator(autoSellMarked)
+                _OnShopOpenInternal(sellStolenJunkIncludingFCOISComparator)
             else
-                -- if there is no junk, immediately fire the callback event for PARepair (if PARepair is enabled)
-                if PA.Repair then
-                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
+                -- check only for FCOIS markings
+                local sellFCOISComparator = PAFCOISLib.getSellFCOISComparator(autoSellMarked)
+                _OnShopOpenInternal(sellFCOISComparator)
+            end
+        else
+            -- either FCOIS or PAIntegration is NOT enabled, take the default logic
+            if PAJ.SavedVars.autoSellJunk then
+                -- check if there is junk to sell (exclude stolen items = true)
+                if HasAnyJunk(BAG_BACKPACK, true) then
+                    -- store current amount of money
+                    local moneyBefore = GetCurrentMoney();
+                    local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
+                    -- Sell all items marked as junk
+                    SellAllJunk()
+                    -- after calling SellAllJunk(), give feedback about the changes
+                    _giveDelayedDiffSoldItemsFeedback(moneyBefore, itemCountInBagBefore)
+                else
+                    -- if there is no junk, immediately fire the callback event for PARepair (if PARepair is enabled)
+                    if PA.Repair then
+                        PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
+                    end
                 end
             end
         end
