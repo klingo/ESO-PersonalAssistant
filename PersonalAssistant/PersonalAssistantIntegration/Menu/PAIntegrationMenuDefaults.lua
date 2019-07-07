@@ -10,7 +10,7 @@ local PAIntegrationMenuDefaults = {
     },
     FCOItemSaver = {
         Locked = {
-
+            preventAutoSell = false,
         },
         Research = {
 

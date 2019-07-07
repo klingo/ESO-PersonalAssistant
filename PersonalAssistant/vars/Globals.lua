@@ -272,12 +272,14 @@ PersonalAssistant.Constants = {
             },
             LOCKED = {
                 PATH = "/esoui/art/campaign/campaignbrowser_fullpop.dds",
+                LARGE = ZO_ColorDef:New(1, 0, 0, 1):Colorize(zo_iconFormatInheritColor("/esoui/art/campaign/campaignbrowser_fullpop.dds", 48, 48)),
             },
             RESEARCH = {
                 PATH = "/esoui/art/crafting/smithing_tabicon_research_disabled.dds",
             },
             SELL = {
                 PATH = "/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds",
+                LARGE = ZO_ColorDef:New(1, 1, 0, 1):Colorize(zo_iconFormatInheritColor("/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds", 48, 48)),
             },
         },
         OTHERS = {

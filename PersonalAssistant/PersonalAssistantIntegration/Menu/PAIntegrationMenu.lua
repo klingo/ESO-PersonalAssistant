@@ -2,12 +2,7 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
-local PAHF = PA.HelperFunctions
 local PAMH = PA.MenuHelper
-local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
-local PAIMenuChoices = PA.MenuChoices.choices.PAIntegration
-local PAIMenuChoicesValues = PA.MenuChoices.choicesValues.PAIntegration
-local PAIMenuChoiceTooltip = PA.MenuChoices.choicesTooltips.PAIntegration
 local PAIMenuDefaults = PA.MenuDefaults.PAIntegration
 local PAIMenuFunctions = PA.MenuFunctions.PAIntegration
 
@@ -68,6 +63,7 @@ local function _createPAIntegrationMenu()
             type = "checkbox",
             name = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY),
             tooltip = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T),
+            warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking),
             getFunc = PAIMenuFunctions.getLazyWritCrafterCompatibilitySetting,
             setFunc = PAIMenuFunctions.setLazyWritCrafterCompatibilitySetting,
             disabled = PAIMenuFunctions.isLazyWritCrafterCompatibilityDisabled,
@@ -86,78 +82,87 @@ local function _createPAIntegrationMenu()
             name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATION_FCOIS_HEADER))
         })
 
-        -- TODO: add note/disclaimer
-
-        -- TODO: add description how the submenus work
+        -- has a dependency to PAJunk
+        if not PA.Junk then
+            -- inform player about missing dependency
+            PAIntegrationOptionsTable:insert({
+                type = "description",
+                text = GetString(SI_PA_MENU_INTEGRATION_FCOIS_PRECONDITION),
+            })
+        end
 
         PAIntegrationOptionsTable:insert({
             type = "submenu",
-            name = FCOIS_LOCALIZATION["options_icon1_tooltip_text"],
-            icon = PAC.ICONS.FCOIS.LOCKED.PATH,
-            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
+            name = table.concat({PAC.ICONS.FCOIS.LOCKED.LARGE, FCOIS_LOCALIZATION["options_icon1_tooltip_text"]}),
             controls = PAIFCOISLockedSubmenuTable,
             disabledLabel = PAIMenuFunctions.isFCOISLockedMenuDisabled,
         })
 
-        PAIntegrationOptionsTable:insert({
-            type = "submenu",
-            name = FCOIS_LOCALIZATION["options_icon3_tooltip_text"],
-            icon = PAC.ICONS.FCOIS.RESEARCH.PATH,
-            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
-            controls = PAIFCOISResearchSubmenuTable,
-            disabledLabel = PAIMenuFunctions.isFCOISResearchMenuDisabled,
-        })
+--        PAIntegrationOptionsTable:insert({
+--            type = "submenu",
+--            name = FCOIS_LOCALIZATION["options_icon3_tooltip_text"],
+--            icon = PAC.ICONS.FCOIS.RESEARCH.PATH,
+--            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
+--            controls = PAIFCOISResearchSubmenuTable,
+--            disabledLabel = PAIMenuFunctions.isFCOISResearchMenuDisabled,
+--        })
 
         PAIntegrationOptionsTable:insert({
             type = "submenu",
-            name = FCOIS_LOCALIZATION["options_icon5_tooltip_text"],
-            icon = PAC.ICONS.FCOIS.SELL.PATH,
-            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
+            name = table.concat({PAC.ICONS.FCOIS.SELL.LARGE, FCOIS_LOCALIZATION["options_icon5_tooltip_text"]}),
             controls = PAIFCOISSellSubmenuTable,
             disabledLabel = PAIMenuFunctions.isFCOISSellMenuDisabled,
         })
 
-        PAIntegrationOptionsTable:insert({
-            type = "submenu",
-            name = FCOIS_LOCALIZATION["options_icon9_tooltip_text"],
-            icon = PAC.ICONS.FCOIS.DECONSTRUCTION.PATH,
-            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
-            controls = PAIFCOISDeconstructionSubmenuTable,
-            disabledLabel = PAIMenuFunctions.isFCOISDeconstructionMenuDisabled,
-        })
-
-        PAIntegrationOptionsTable:insert({
-            type = "submenu",
-            name = FCOIS_LOCALIZATION["options_icon10_tooltip_text"],
-            icon = PAC.ICONS.FCOIS.IMPROVEMENT.PATH,
-            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
-            controls = PAIFCOISImprovementSubmenuTable,
-            disabledLabel = PAIMenuFunctions.isFCOISImprovementMenuDisabled,
-        })
-
-        PAIntegrationOptionsTable:insert({
-            type = "submenu",
-            name = FCOIS_LOCALIZATION["options_icon11_tooltip_text"],
-            icon = ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture,
-            controls = PAIFCOISSellGuildStoreSubmenuTable,
-            disabledLabel = PAIMenuFunctions.isFCOISSellGuildStoreMenuDisabled,
-        })
-
-        PAIntegrationOptionsTable:insert({
-            type = "submenu",
-            name = FCOIS_LOCALIZATION["options_icon12_tooltip_text"],
-            icon = PAC.ICONS.FCOIS.INTRICATE.PATH,
-            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
-            controls = PAIFCOISIntricateSubmenuTable,
-            disabledLabel = PAIMenuFunctions.isFCOISIntricateMenuDisabled,
-        })
+--        PAIntegrationOptionsTable:insert({
+--            type = "submenu",
+--            name = FCOIS_LOCALIZATION["options_icon9_tooltip_text"],
+--            icon = PAC.ICONS.FCOIS.DECONSTRUCTION.PATH,
+--            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
+--            controls = PAIFCOISDeconstructionSubmenuTable,
+--            disabledLabel = PAIMenuFunctions.isFCOISDeconstructionMenuDisabled,
+--        })
+--
+--        PAIntegrationOptionsTable:insert({
+--            type = "submenu",
+--            name = FCOIS_LOCALIZATION["options_icon10_tooltip_text"],
+--            icon = PAC.ICONS.FCOIS.IMPROVEMENT.PATH,
+--            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
+--            controls = PAIFCOISImprovementSubmenuTable,
+--            disabledLabel = PAIMenuFunctions.isFCOISImprovementMenuDisabled,
+--        })
+--
+--        PAIntegrationOptionsTable:insert({
+--            type = "submenu",
+--            name = FCOIS_LOCALIZATION["options_icon11_tooltip_text"],
+--            icon = ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture,
+--            controls = PAIFCOISSellGuildStoreSubmenuTable,
+--            disabledLabel = PAIMenuFunctions.isFCOISSellGuildStoreMenuDisabled,
+--        })
+--
+--        PAIntegrationOptionsTable:insert({
+--            type = "submenu",
+--            name = FCOIS_LOCALIZATION["options_icon12_tooltip_text"],
+--            icon = PAC.ICONS.FCOIS.INTRICATE.PATH,
+--            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
+--            controls = PAIFCOISIntricateSubmenuTable,
+--            disabledLabel = PAIMenuFunctions.isFCOISIntricateMenuDisabled,
+--        })
     end
 end
 
 -- =================================================================================================================
 
 local function _createPAIFCOISLockedSubmenuTable()
-
+    PAIFCOISLockedSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING),
+        warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
+        getFunc = PAIMenuFunctions.getFCOISLockedPreventAutoSellSetting,
+        setFunc = PAIMenuFunctions.setFCOISLockedPreventAutoSellSetting,
+        disabled = PAIMenuFunctions.isFCOISLockedPreventAutoSellDisabled,
+        default = PAIMenuDefaults.FCOItemSaver.Locked.preventAutoSell,
+    })
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -169,9 +174,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAIFCOISSellSubmenuTable()
-
-    -- CHECKBOX -> auto sell at merchant and fences (treat the same way like Junk --> PAJunk required)
-
     PAIFCOISSellSubmenuTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED),
