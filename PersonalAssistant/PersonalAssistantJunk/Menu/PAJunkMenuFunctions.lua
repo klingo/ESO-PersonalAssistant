@@ -206,12 +206,11 @@ local PAJunkMenuFunctions = {
     -- -----------------------------
     isKeybindingsMenuDisabled = function() return isDisabledAll({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}, {"KeyBindings", "showDestroyItemKeybind"}) end,
 
-
-    isKeybindingMarkUnmarkAsJunkDisabled = false,
+    isKeybindingMarkUnmarkAsJunkDisabled = function() return isDisabled() end, -- currently always enabled
     getKeybindingMarkUnmarkAsJunkSetting = function() return getValue({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
     setKeybindingMarkUnmarkAsJunkSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
 
-    isKeybindingDestroyItemDisabled = false,
+    isKeybindingDestroyItemDisabled = function() return isDisabled() end, -- currently always enabled
     getKeybindingDestroyItemSetting = function() return getValue({"KeyBindings", "showDestroyItemKeybind"}) end,
     setKeybindingDestroyItemSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showDestroyItemKeybind"}) end,
     isDestroyItemQualityThresholdDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
