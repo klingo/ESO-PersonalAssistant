@@ -149,6 +149,17 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function _hasAnyPAJunkIntegrationsTurnedOn()
+    local PAI = PA.Integration
+    if PAI and FCOIS then
+        local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
+        return PAIFCOISSavedVars.Sell.autoSellMarked or PAIFCOISSavedVars.Locked.preventAutoSell
+    end
+    return false
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function RefreshAllEventRegistrations()
     local PAMenuFunctions = PA.MenuFunctions
 
@@ -181,32 +192,29 @@ local function RefreshAllEventRegistrations()
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
 
-            -- Register PAJunk for selling (also in case FCOIS and PAI are enabled)
-            if PAJMenuFunctions.getAutoSellJunkSetting() or (PA.Integration and FCOIS) then
-                -- Register PAJunk (for Merchants and Fences)
-                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
-                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
-                RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreAndFenceClose, "CloseStore")
-            else
-                -- Or unregister if auto-sell is disabled
-                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
-                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
-                UnregisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, "CloseStore")
-            end
-
-            -- Register Mailbox Open check (to disable marking as junk)
+            -- Register Mailbox Open Check (to disable marking as junk)
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen, "OpenMailbox")
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose, "CloseMailbox")
         else
-            -- Unregister PAJunk completely
+            -- Unregister PAJunk AutoMarking
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
+
+            -- Unregister PAJunk Mailbox Open Check
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
+        end
+
+        -- Register PAJunk for selling (also in case PAJunk related integrations are turned on)
+        if PAJMenuFunctions.getAutoSellJunkSetting() or _hasAnyPAJunkIntegrationsTurnedOn() then
+            -- Register PAJunk (for Merchants and Fences)
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
+            RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreAndFenceClose, "CloseStore")
+        else
+            -- Unregister Auto-Sell for Merchants and Fences
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
             UnregisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, "CloseStore")
-
-            -- Unregister PAJunk Mailbox Check
-            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
-            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
         end
 
         if PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting() or PAJMenuFunctions.getKeybindingDestroyItemSetting() then

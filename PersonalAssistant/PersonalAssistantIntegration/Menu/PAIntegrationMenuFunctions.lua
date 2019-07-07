@@ -15,6 +15,10 @@ local function setValue(value, ...)
     PAMF.setValue(PAI.SavedVars, value, ...)
 end
 
+local function setValueAndRefreshEvents(value, ...)
+    PAMF.setValueAndRefreshEvents(PAI.SavedVars, value, ...)
+end
+
 local function isDisabled(...)
     return PAMF.isDisabled(PAI.SavedVars, ...)
 end
@@ -85,7 +89,7 @@ local PAIntegrationMenuFunctions = {
     isFCOISLockedMenuDisabled = isPAIntegrationFCOISLockedMenuDisabled,
     isFCOISLockedPreventAutoSellDisabled = isPAIntegrationFCOISLockedPreventAutoSellDisabled,
     getFCOISLockedPreventAutoSellSetting = function() return getValue({"FCOItemSaver", "Locked", "preventAutoSell"}) end,
-    setFCOISLockedPreventAutoSellSetting = function(value) setValue(value, {"FCOItemSaver", "Locked", "preventAutoSell"}) end,
+    setFCOISLockedPreventAutoSellSetting = function(value) setValueAndRefreshEvents(value, {"FCOItemSaver", "Locked", "preventAutoSell"}) end,
 
     isFCOISResearchMenuDisabled = function() return false end, -- TODO: to be implemented
 
@@ -93,7 +97,7 @@ local PAIntegrationMenuFunctions = {
     isFCOISSellMenuDisabled = isPAIntegrationFCOISSellMenuDisabled,
     isFCOISSellAutoSellMarkedDisabled = isPAIntegrationFCOISSellAutoSellMarkedDisabled,
     getFCOISSellAutoSellMarkedSetting = function() return getValue({"FCOItemSaver", "Sell", "autoSellMarked"}) end,
-    setFCOISSellAutoSellMarkedSetting = function(value) setValue(value, {"FCOItemSaver", "Sell", "autoSellMarked"}) end,
+    setFCOISSellAutoSellMarkedSetting = function(value) setValueAndRefreshEvents(value, {"FCOItemSaver", "Sell", "autoSellMarked"}) end,
 
     isFCOISDeconstructionMenuDisabled = function() return true end, -- TODO: to be implemented
 
