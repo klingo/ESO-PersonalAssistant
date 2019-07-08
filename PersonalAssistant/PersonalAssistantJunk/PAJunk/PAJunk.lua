@@ -88,23 +88,10 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- then check if the item can be sold; if not don't mark it as junk (i.e. Kari's Hit List Relics)
-        local sellPrice = GetItemSellValueWithBonuses(bagId, slotIndex)
-        if sellPrice > 0 then
-            -- TODO: integrate FCOItemSaver?
-
-            local playerLocked = IsItemPlayerLocked(bagId, slotIndex)
-    --        d("playerLocked="..tostring(playerLocked))
-
-    --        CanItemBePlayerLocked(number Bag bagId, number slotIndex)
-    --        Returns: boolean canBePlayerLocked
-    --
-    --        IsItemPlayerLocked(number Bag bagId, number slotIndex)
-    --        Returns: boolean playerLocked
-    --
-    --        SetItemIsPlayerLocked(number Bag bagId, number slotIndex, boolean playerLocked)
-
-            -- It is considered safe to mark the item as junk now
+        -- then check if the item is Bound; if yes don't mark it as junk (i.e. Kari's Hit List Relics)
+        local isBound = IsItemLinkBound(itemLink)
+        if not isBound then
+            -- It is considered safe to mark the item as junk
             SetItemIsJunk(bagId, slotIndex, true)
             PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
 
