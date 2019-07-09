@@ -35,7 +35,7 @@ SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Objets personnalisés", 1)
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- Other Settings --
-SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente automatique aux marchands et receleurs", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente/Recel auto. des rebuts aux marchands", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Afficher la commande \"Mettre aux / Sortir des rebuts\"", 1)

@@ -15,8 +15,8 @@ SafeAddString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T, "Si vous avez des comm
 -- FCO ItemSaver --
 SafeAddString(SI_PA_MENU_INTEGRATION_FCOIS_PRECONDITION, "Note: Pour utiliser les options ci-dessous, il est nécessaire d'activer PAJunk.", 1)
 
-SafeAddString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING, "Empêcher la vente automatique des objets verrouillés", 1)
---SafeAddString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED, "tbd", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING, "Empêcher la vente auto. des objets verrouillés", 1)
+SafeAddString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED, "Vente/Recel auto. des marqués aux marchands", 1)
 
 
 -- =================================================================================================================
