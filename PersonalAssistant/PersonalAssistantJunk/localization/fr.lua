@@ -38,9 +38,11 @@ SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente automatique aux marchands et receleurs", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)
-SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Afficher la commande \"Mettre aux / Sortir des rebuts\"", 1)
-SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM, "Afficher la commande \"Détruire l'objet\"", 1)
-SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W, "ATTENTION: Soyez conscient en utilisant cette commande, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "tbd", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW, "Afficher la commande \"Mettre aux / Sortir des rebuts\"", 1)
+--SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE, "tbd", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE_W, "ATTENTION: Soyez conscient en utilisant cette commande, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_SHOW, "Afficher la commande \"Détruire l'objet\"", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION, "Désactiver la commande  \"Détruire l'objet\" si l'objet . . .", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD, "> est de qualité supérieure ou égale à", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN, "> peut-être appris/recherché et est inconnu", 1)
