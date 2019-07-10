@@ -94,8 +94,12 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Treasure"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Manual"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Perm-Rule"), ")"}),
+
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
     SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Worthless"), ")"}),
+    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.RED:Colorize("ON")}),
+    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.GREEN:Colorize("OFF")}),
+
     SI_PA_CHAT_JUNK_SOLD_JUNK_INFO = table.concat({"Sold junk items for ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),
