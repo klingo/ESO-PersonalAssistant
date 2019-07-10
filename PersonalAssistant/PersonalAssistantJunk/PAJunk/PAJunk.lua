@@ -84,6 +84,25 @@ local function _giveSoldJunkFeedback(moneyBefore, itemCountInBagBefore)
         end)
 end
 
+local function _isWorthlessAndShouldBeDestroyed(bagId, slotIndex)
+    local PAJunkSavedVars = PAJ.SavedVars
+    -- first check if the setting to destroy worhtless items is turned on
+    if PAJunkSavedVars.AutoDestroy.destroyWorthlessJunk then
+        -- then check if the item is stolen
+        local isStolen = IsItemStolen(bagId, slotIndex)
+        if isStolen then
+            -- if stolen, get the sell price incl. haggling bonus
+            local sellPriceStolen = GetItemSellValueWithBonuses(bagId, slotIndex)
+            if sellPriceStolen == 0 then return true end
+        else
+            -- if not stolen, just get the regular sell price
+            local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
+            if sellPrice == 0 then return true end
+        end
+    end
+    return false
+end
+
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
     PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
@@ -91,20 +110,34 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
         -- then check if the item is Bound; if yes don't mark it as junk (i.e. Kari's Hit List Relics)
         local isBound = IsItemLinkBound(itemLink)
         if not isBound then
-            -- It is considered safe to mark the item as junk
-            SetItemIsJunk(bagId, slotIndex, true)
-            PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+            -- It is considered safe to mark the item as junk (or to be destroyed?)
+            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
+                -- Item should be DESTROYED
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed")
+                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
+                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                local _, stackCount = GetItemInfo(bagId, slotIndex)
+                -- execute main action
+                DestroyItem(bagId, slotIndex)
+                -- inform player
+                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
 
-            -- make sure an itemLink is present
-            if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
+            else
+                -- Item should be marked as JUNK
+                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed")
+                SetItemIsJunk(bagId, slotIndex, true)
+                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+                -- make sure an itemLink is present
+                if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
+                -- prepare additional icons if needed
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                -- print provided success message
+                PAJ.println(successMessageKey, itemLinkExt)
+            end
 
-            -- prepare additional icons if needed
-            local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-
-            -- print provided success message
-            PAJ.println(successMessageKey, itemLinkExt)
-
-            return true -- marking junk was successful
+            return true -- marking/destroying junk was successful
         end
     else
         -- print failure message
