@@ -33,6 +33,8 @@ local PAStrings = {
     SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"You can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
     SI_PA_MENU_RULES_HOW_TO_CREATE = "How to create new rules?",
 
+    SI_PA_MENU_DANGEROUS_SETTING = "WARNING: Dangerous setting ahead! Use at own risk!",
+
     -- -----------------------------------------------------------------------------------------------------------------
     -- Generic Menu --
     SI_PA_MENU_OTHER_SETTINGS_HEADER = "Other Settings",

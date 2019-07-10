@@ -132,6 +132,27 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER))
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "description",
+        text = PAC.COLOR.RED:Colorize(GetString(SI_PA_MENU_DANGEROUS_SETTING))
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T),
+        warning = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W),
+        getFunc = PAJMenuFunctions.getAutoDestroyWorthlessJunkSetting,
+        setFunc = PAJMenuFunctions.setAutoDestroyWorthlessJunkSetting,
+        disabled = PAJMenuFunctions.isAutoDestroyWorthlessJunkDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyWorthlessJunk,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "header",
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })
 

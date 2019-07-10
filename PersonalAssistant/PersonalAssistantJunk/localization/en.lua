@@ -38,6 +38,12 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Custom Items",
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
+    -- Auto-Destroy --
+    SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Auto-Destroy Junk",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Enable Auto-Destroy of worthles Junk items",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "When looting a worthless item (sell value = 0g) that would automatically be marked as junk, with this setting turned ON it will be destroyed instead. This cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "WARNING: Please be aware that using this setting, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
+
     -- Other Settings --
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
 

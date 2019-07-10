@@ -202,16 +202,22 @@ local PAJunkMenuFunctions = {
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
 
     -- ----------------------------------------------------------------------------------
+    -- AUTO-DESTROY JUNK
+    -- -----------------------------
+    isAutoDestroyWorthlessJunkDisabled = function() return isDisabled() end, -- currently always enabled
+    getAutoDestroyWorthlessJunkSetting = function() return getValue({"AutoDestroy", "destroyWorthlessJunk"}) end,
+    setAutoDestroyWorthlessJunkSetting = function(value) setValue(value, {"AutoDestroy", "destroyWorthlessJunk"}) end,
+
+    -- ----------------------------------------------------------------------------------
     -- KEYBINDINGS
     -- -----------------------------
     isKeybindingsMenuDisabled = function() return isDisabledAll({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}, {"KeyBindings", "showDestroyItemKeybind"}) end,
 
-
-    isKeybindingMarkUnmarkAsJunkDisabled = false,
+    isKeybindingMarkUnmarkAsJunkDisabled = function() return isDisabled() end, -- currently always enabled
     getKeybindingMarkUnmarkAsJunkSetting = function() return getValue({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
     setKeybindingMarkUnmarkAsJunkSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
 
-    isKeybindingDestroyItemDisabled = false,
+    isKeybindingDestroyItemDisabled = function() return isDisabled() end, -- currently always enabled
     getKeybindingDestroyItemSetting = function() return getValue({"KeyBindings", "showDestroyItemKeybind"}) end,
     setKeybindingDestroyItemSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "showDestroyItemKeybind"}) end,
     isDestroyItemQualityThresholdDisabled = function() return isDisabled({"KeyBindings", "showDestroyItemKeybind"}) end,
