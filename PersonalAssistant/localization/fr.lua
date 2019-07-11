@@ -30,6 +30,8 @@ SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle 
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, "Toutes les règles actives peuvent être retrouvées en cliquant sur l'icône qui se trouve dans le menu principal, en tapant ", PAC.COLOR.YELLOW:Colorize("/parules"), " ou en cliquant sur ce bouton :", 1)
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Comment créer de nouvelles règles?", 1)
 
+SafeAddString(SI_PA_MENU_DANGEROUS_SETTING, "ATTENTION : Paramètres dangereux ! Utilisez à vos risques et périls !", 1)
+
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
 SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Autres paramètres", 1)

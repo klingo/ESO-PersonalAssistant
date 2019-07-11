@@ -34,6 +34,12 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.co
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Benutzerdefinierte Gegenstände", 1)
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
+-- Auto-Destroy --
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER, "Trödel direkt zerstören", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK, "Aktiviere das direkte zerstören von wertlosem Trödel", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T, "Wenn ein wertloser Gegenstand (Verkaufswert = 0g) eingesammelt wird der automatisch als Trödel markiert würde, dann wird wenn EINgeschaltet dieser Gegenstand stattdessen zerstört. Einmal zerstört kann der Gegenstand nicht zurückgeholt werden!", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ACHTUNG: Bitte beachte dass bei Verwendung von dieser Einstellung KEINE Sicherheitsfrage kommt ob der Gegenstand wirklich zerstört werden soll.\nEr wird einfach direkt zerstört!\nUnwiderruflich!\nNutzung erfolgt auf eigenes Risiko!", 1)
+
 -- Other Settings --
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
 
@@ -84,7 +90,12 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({"%s als Tr�
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Beute"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Manuell"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Perm-Regel"), ")"}), 1)
+
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Wertlos"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON, table.concat({"Direktes Zerstören von wertlosem Trödel wurde ", PAC.COLOR.RED:Colorize("EIN"), "geschalten"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"Direktes Zerstören von wertlosem Trödel wurde ", PAC.COLOR.RED:Colorize("AUS"), "geschalten"}), 1)
+
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_JUNK_INFO, table.concat({"Trödel verkauft für ", PAC.COLORS.GREEN, "%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Stunden"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Minuten"}), 1)
