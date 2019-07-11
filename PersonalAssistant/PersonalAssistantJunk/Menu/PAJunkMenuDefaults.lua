@@ -47,6 +47,9 @@ local PAJunkMenuDefaults = {
         ItemIds = {
         }
     },
+    AutoDestroy = {
+        destroyWorthlessJunk = false
+    },
 
     autoSellJunk = true,
 

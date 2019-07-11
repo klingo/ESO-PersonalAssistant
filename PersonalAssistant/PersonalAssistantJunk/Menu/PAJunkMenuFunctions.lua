@@ -106,6 +106,18 @@ local function isPAJunkJewelryIncludesDisabled()
     return false
 end
 
+--------------------------------------------------------------------------
+-- PAJunk   AutoDestroy     destroyWorthlessJunk
+---------------------------------
+local function setPAJunkAutoDestroyWorthlessJunkSetting(value)
+    setValue(value, {"AutoDestroy", "destroyWorthlessJunk"})
+    if tostring(value) == "true" then
+        PAJ.println(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON)
+    else
+        PAJ.println(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF)
+    end
+end
+
 -- =================================================================================================================
 
 local PAJunkMenuFunctions = {
@@ -200,6 +212,13 @@ local PAJunkMenuFunctions = {
     isJewelryIncludeUnknownTraitsDisabled = isPAJunkJewelryIncludesDisabled,
     getJewelryIncludeUnknownTraitsSetting = function() return getValue({"Jewelry", "autoMarkUnknownTraits"}) end,
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
+
+    -- ----------------------------------------------------------------------------------
+    -- AUTO-DESTROY JUNK
+    -- -----------------------------
+    isAutoDestroyWorthlessJunkDisabled = function() return isDisabled() end, -- currently always enabled
+    getAutoDestroyWorthlessJunkSetting = function() return getValue({"AutoDestroy", "destroyWorthlessJunk"}) end,
+    setAutoDestroyWorthlessJunkSetting = setPAJunkAutoDestroyWorthlessJunkSetting,
 
     -- ----------------------------------------------------------------------------------
     -- KEYBINDINGS
