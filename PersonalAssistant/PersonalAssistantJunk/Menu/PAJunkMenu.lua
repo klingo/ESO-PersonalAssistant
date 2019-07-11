@@ -491,11 +491,19 @@ end
 local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK),
---        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_T),
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE),
         getFunc = PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting,
         setFunc = PAJMenuFunctions.setKeybindingMarkUnmarkAsJunkSetting,
         disabled = PAJMenuFunctions.isKeybindingMarkUnmarkAsJunkDisabled,
+        default = PAJMenuDefaults.KeyBindings.enableMarkUnmarkAsJunkKeybind,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW),
+        getFunc = PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkShownSetting,
+        setFunc = PAJMenuFunctions.setKeybindingMarkUnmarkAsJunkShownSetting,
+        disabled = PAJMenuFunctions.isKeybindingMarkUnmarkAsJunkShownDisabled,
         default = PAJMenuDefaults.KeyBindings.showMarkUnmarkAsJunkKeybind,
     })
 
@@ -506,12 +514,20 @@ local function _createPAJKeybindingsSubMenu()
 
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM),
---        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_T),
-        warning = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W),
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE),
+        warning = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE_W),
         getFunc = PAJMenuFunctions.getKeybindingDestroyItemSetting,
         setFunc = PAJMenuFunctions.setKeybindingDestroyItemSetting,
         disabled = PAJMenuFunctions.isKeybindingDestroyItemDisabled,
+        default = PAJMenuDefaults.KeyBindings.enableDestroyItemKeybind,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_SHOW),
+        getFunc = PAJMenuFunctions.getKeybindingDestroyItemShownSetting,
+        setFunc = PAJMenuFunctions.setKeybindingDestroyItemShownSetting,
+        disabled = PAJMenuFunctions.isKeybindingDestroyItemShownDisabled,
         default = PAJMenuDefaults.KeyBindings.showDestroyItemKeybind,
     })
 
@@ -524,7 +540,6 @@ local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD),
---        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD_T),
         choices = PAJMenuChoices.qualityLevelReverse,
         choicesValues = PAJMenuChoicesValues.qualityLevelReverse,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
@@ -537,7 +552,6 @@ local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN),
---        tooltip = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN_T),
         getFunc = PAJMenuFunctions.getDestroyExcludeUnknownItemsSetting,
         setFunc = PAJMenuFunctions.setDestroyExcludeUnknownItemsSetting,
         disabled = PAJMenuFunctions.isDestroyExcludeUnknownItemsDisabled,

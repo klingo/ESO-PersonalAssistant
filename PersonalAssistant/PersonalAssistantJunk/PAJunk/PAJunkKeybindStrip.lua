@@ -16,7 +16,8 @@ local function _isMarkUnmarkAsJunkVisible()
 end
 
 local function _isMarkUnmarkAsJunkEnabled()
-    -- SavedVars does not need to be checked here, because it is already check in the "Visible()" function
+    if not PA.Junk.SavedVars or not PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsJunkKeybind then return false end
+
     return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
 end
 
@@ -28,7 +29,8 @@ local function _isDestroyItemVisible()
 end
 
 local function _isDestroyItemEnabled()
-    -- SavedVars does not need to be checked here, because it is already check in the "Visible()" function
+    if not PA.Junk.SavedVars or not PA.Junk.SavedVars.KeyBindings.enableDestroyItemKeybind then return false end
+
     if IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then return false end
     if GetItemQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PA.Junk.SavedVars.KeyBindings.destroyItemQualityThreshold then return false end
 
@@ -145,7 +147,7 @@ local function initHooksOnInventoryItems()
 end
 
 local function toggleItemMarkedAsJunk()
-    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
+    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsJunkKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
             -- get item information
             local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
@@ -160,11 +162,11 @@ local function toggleItemMarkedAsJunk()
                 PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
             end
         end
-        end
+    end
 end
 
 local function destroyItemNoWarning()
-    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showDestroyItemKeybind then
+    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.enableDestroyItemKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
             if _isDestroyItemEnabled() then
                 -- get item information
