@@ -105,7 +105,7 @@ local PARepairMenuFunctions = {
     -- -----------------------------------------------------------------------------------
     -- SILENT MODE
     -- -----------------------------
-    isSilentModeDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
+    isSilentModeDisabled = function() return isDisabledAll({"autoRepairEnabled"}, {"autoRepairInventoryEnabled"}) end,
     getSilentModeSetting = function() return getValue({"silentMode"}) end,
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 

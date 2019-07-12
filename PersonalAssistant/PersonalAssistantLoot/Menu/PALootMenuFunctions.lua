@@ -143,7 +143,7 @@ local PALootMenuFunctions = {
 
     -- ----------------------------------------------------------------------------------
 
-    isSilentModeDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    isSilentModeDisabled = function() return isDisabledAll({"LootEvents", "lootEventsEnabled"}, {"ItemIcons", "itemIconsEnabled"}) end,
     getSilentModeSetting = function() return getValue({"silentMode"}) end,
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }

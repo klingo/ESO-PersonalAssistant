@@ -6,6 +6,8 @@ local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local isDisabledPAGeneralNoProfileSelected = PAMF.isDisabledPAGeneralNoProfileSelected
+
 local function getValue(...)
     return PAMF.getValue(PAJ.SavedVars, ...)
 end
@@ -110,6 +112,7 @@ end
 -- PAJunk   AutoDestroy     destroyWorthlessJunk
 ---------------------------------
 local function setPAJunkAutoDestroyWorthlessJunkSetting(value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
     setValue(value, {"AutoDestroy", "destroyWorthlessJunk"})
     if tostring(value) == "true" then
         PAJ.println(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON)

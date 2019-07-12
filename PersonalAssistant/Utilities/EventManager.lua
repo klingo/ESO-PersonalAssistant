@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -150,10 +151,12 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _hasAnyPAJunkIntegrationsTurnedOn()
-    local PAI = PA.Integration
-    if PAI and FCOIS then
-        local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
-        return PAIFCOISSavedVars.Sell.autoSellMarked or PAIFCOISSavedVars.Locked.preventAutoSell
+    if PAHF.hasActiveProfile() then
+        local PAI = PA.Integration
+        if PAI and FCOIS then
+            local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
+            return PAIFCOISSavedVars.Sell.autoSellMarked or PAIFCOISSavedVars.Locked.preventAutoSell
+        end
     end
     return false
 end
