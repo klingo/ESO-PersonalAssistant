@@ -11,20 +11,24 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " nécess
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- PAGeneral Menu --
-SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable", 1)
 
-SafeAddString(SI_PA_PLEASE_SELECT_PROFILE, "<Sélectionner un profil>", 1)
+-- Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
+SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Sélectionner un profil>", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Profil actif", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Selectionner le profil actif pour PersonalAssistant. Il chargera automatiquement tous les paramètres stockés sous ce profil, et enregistrera les changements au même endroit.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Renommer le profil actif", 1)
 
-SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE, "Profil actif", 1)
-SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T, "Selectionner le profil actif pour PersonalAssistant. Il chargera automatiquement tous les paramètres stockés sous ce profil, et enregistrera les changements au même endroit.", 1)
-SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME, "Renommer le profil actif", 1)
+-- Integrations --
+
+-- General --
 SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 1)
-
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
 
+-- -----------------------------------------------------------------------------------------------------------------
+-- Rules Menu --
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Banking > Ajouter une nouvelle règle", 1)
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle de mise aux rebuts permanente, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Junk > Marquer en tant que rebut permanent", 1)
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, "Toutes les règles actives peuvent être retrouvées en cliquant sur l'icône qui se trouve dans le menu principal, en tapant ", PAC.COLOR.YELLOW:Colorize("/parules"), " ou en cliquant sur ce bouton :", 1)

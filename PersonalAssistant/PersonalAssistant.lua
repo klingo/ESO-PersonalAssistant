@@ -24,6 +24,14 @@ PA.WindowStates = {
 -- whether welcome message should be shown, or was already shown
 local showWelcomeMessage = true
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+-- Local constants --
+local General_Defaults = {}
+local Profile_Defaults = {}
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 -- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
     PAHF.println(PAC.COLORED_TEXTS.PA, text, ...)
@@ -31,21 +39,16 @@ end
 
 -- init default values
 local function _initDefaults()
-    -- initialize the multi-profile structure
-    PA.General_Defaults = {}
-    -- -----------------------------------------------------
-    -- default values for Addon
-    PA.General_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
+    local PAMenuDefaults = PA.MenuDefaults
+    -- default values for PAGeneral
+    General_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        -- -----------------------------------------------------
-        -- default values for PAGeneral
-        PA.General_Defaults[profileNo] = {
-            name = PAHF.getDefaultProfileName(profileNo),
-            welcome = true
-        }
+        -- get default values from PAMenuDefaults
+        General_Defaults[profileNo] = PAMenuDefaults.PAGeneral
+        General_Defaults[profileNo].name = PAHF.getDefaultProfileName(profileNo)
     end
 
-    PA.Profile_Defaults = {
+    Profile_Defaults = {
         activeProfile = nil,
         debug = false,
     }
@@ -82,8 +85,8 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
-    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, PA.General_Defaults)
-    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.Profile_Defaults)
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, General_Defaults)
+    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, Profile_Defaults)
 
     -- get the active Profile and the debug setting
     PA.activeProfile = PASavedVars.Profile.activeProfile

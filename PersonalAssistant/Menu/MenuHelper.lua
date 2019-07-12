@@ -13,7 +13,7 @@ local function getProfileList()
     end
 
     if PASavedVars.Profile.activeProfile == nil then
-        profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_PLEASE_SELECT_PROFILE)
+        profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
     end
 
     return profiles
@@ -41,11 +41,17 @@ local function reloadProfileList()
     PERSONALASSISTANT_PROFILEDROPDOWN:UpdateValue()
 end
 
+local function getTextIfRequiredAddonNotRunning(textKeyIfNotRunning, addonTableToCheck)
+    if istable(addonTableToCheck) then return nil end
+    return GetString(textKeyIfNotRunning)
+end
+
 -- --------------------------------------------------------------------------------------------------------
 
 -- Export
 PA.MenuHelper = {
     getProfileList = getProfileList,
     getProfileListValues = getProfileListValues,
-    reloadProfileList = reloadProfileList
+    reloadProfileList = reloadProfileList,
+    getTextIfRequiredAddonNotRunning = getTextIfRequiredAddonNotRunning,
 }

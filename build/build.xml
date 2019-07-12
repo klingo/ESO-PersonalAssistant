@@ -100,7 +100,6 @@
 
         <copy todir="${tempdir}/${ant.project.name}">
             <fileset dir="${srcdir}">
-                <!--<exclude name="libs/Integrations/ItemSaver.lua"/>-->
                 <!--<exclude name="libs/LibCustomMenu/LibCustomMenu.lua"/>-->
                 <exclude name="libs/"/>
             </fileset>
@@ -129,7 +128,6 @@
 
 
         <!--<replace file="${tempdir}/${ant.project.name}/${ant.project.name}.txt" token="libs/LibCustomMenu/LibCustomMenu.lua" value="" encoding="UTF-8" />-->
-        <!--<replace file="${tempdir}/${ant.project.name}/${ant.project.name}.txt" token="libs/Integrations/ItemSaver.lua" value="" encoding="UTF-8" />-->
 
         <zip destfile="${targetdir}/${ant.project.name}-${releaseVersionDisplay}.${releaseVersionRaw}.zip">
             <fileset dir="${tempdir}" />

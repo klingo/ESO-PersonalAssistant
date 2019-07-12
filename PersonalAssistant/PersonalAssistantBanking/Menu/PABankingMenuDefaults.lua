@@ -218,8 +218,6 @@ local PABankingMenuDefaults = {
     },
 
     -- ---------------------------------------------
-    lazyWritCraftingCompatiblity = true,
-
     transactionDepositStacking = PAC.STACKING.FULL,
     transactionWithdrawalStacking = PAC.STACKING.FULL,
     autoStackBags = true,

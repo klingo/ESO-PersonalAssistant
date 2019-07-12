@@ -11,20 +11,25 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " benöti
 -- =================================================================================================================
 -- == MENU/PANEL TEXTS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- PAGeneral Menu --
-SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "Profile", 1)
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant ist eine Sammlung diverser Funktionalitäten mit dem Ziel um deine Zeit in ESO noch angenehmenr zu machen", 1)
 
-SafeAddString(SI_PA_PLEASE_SELECT_PROFILE, "<Bitte Profil wählen>", 1)
+-- Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profile", 1)
+SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Bitte Profil wählen>", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Profil aktivieren", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Das aktuelle Profil für PersonalAssistant auswählen. Es werden automatisch alle Einstellungen von diesem Profil geladen und am gleichen Ort auch wieder abgespeichert.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Aktuelles Profil umbenennen", 1)
 
-SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE, "Profil aktivieren", 1)
-SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T, "Das aktuelle Profil für PersonalAssistant auswählen. Es werden automatisch alle Einstellungen von diesem Profil geladen und am gleichen Ort auch wieder abgespeichert.", 1)
-SafeAddString(SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME, "Aktuelles Profil umbenennen", 1)
+-- Integrations --
+
+-- General --
 SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
 
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
 
+-- -----------------------------------------------------------------------------------------------------------------
+-- Rules Menu --
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Um eine neue Regel für das Einlagern und Entnehmen zu erstellen, einfach per Rechtsklick auf einem Gegenstand im Inventar oder der Bank im Kontextmenü folgendes auswählen:\n> PA Banking > Neue Regel hinzufügen", 1)
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Um eine neue Regel für permanenten Trödel zu erstellen, einfach per Rechtsklick auf einem Gegenstand im Inventar oder der Bank im Kontextmenü folgendes auswählen:\n> PA Junk > Als permanenten Trödel markieren", 1)
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, table.concat({"Alle aktiven Regeln können entweder via dem Icon im oberen Hauptmenü (das mit der [Alt] Taste geöffnet wird) gefunden werden, mit ", PAC.COLOR.YELLOW:Colorize("/parules"), " oder anhand dieses Buttons:"}), 1)

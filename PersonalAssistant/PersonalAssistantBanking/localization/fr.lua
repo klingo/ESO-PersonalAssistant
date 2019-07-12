@@ -47,9 +47,6 @@ SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "Définir la quantité d'Objet
 SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Autre", 1)
 
 -- Other Settings --
-SafeAddString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY, "Compatibilité avec Dolgubon's Lazy Writ Crafter", 1)
-SafeAddString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY_T, "Si vous avez des commandes d'artisanat en cours et que 'Prendre les matériaux de commande' est activé dans Dolgubon's Lazy Writ Crafter, alors ces objets ne seront pas déposés même si vous avez choisi 'Déposer en banque'. Ceci est pour éviter de remettre directement en banque les objets qui viennent d'être retirés.", 1)
-
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING, "Règle d'empilement à la dépose", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Définir si tous les objets doivent être déposés, ou seulement quand il y a des piles existantes à compléter", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Règle d'empilement au retrait", 1)
