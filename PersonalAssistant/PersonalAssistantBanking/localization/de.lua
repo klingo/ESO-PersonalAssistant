@@ -47,9 +47,6 @@ SafeAddString(SI_PA_MENU_BANKING_AVA_DESCRIPTION, "Definiere die Menge der Allia
 SafeAddString(SI_PA_MENU_BANKING_AVA_OTHER_HEADER, "Anderes", 1)
 
 -- Other Settings --
-SafeAddString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY, "Kompatibilität mit Dolgubon's Lazy Writ Crafter", 1)
-SafeAddString(SI_PA_MENU_BANKING_OTHER_LWC_COMPATIBILTY_T, "Wenn du aktive Schrieb Quests hast und 'Gegenstände entnehmen' in Dolgubon's Lazy Writ Crafter aktiviert ist, dann wird für diese Gegenstände  die 'In Truhe einlagern' Einstellung ignoriert. Dadurch sollen eben entnommene Gegenstände nicht wieder direkt eingelagert werden", 1)
-
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING, "Regel fürs Stapeln beim Einlagern", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Definiere ob alle Gegenstände in die Truhe eingelagert werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Regel fürs Stapeln beim Entnehmen", 1)

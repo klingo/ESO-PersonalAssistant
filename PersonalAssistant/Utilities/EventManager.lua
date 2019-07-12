@@ -149,6 +149,17 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function _hasAnyPAJunkIntegrationsTurnedOn()
+    local PAI = PA.Integration
+    if PAI and FCOIS then
+        local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
+        return PAIFCOISSavedVars.Sell.autoSellMarked or PAIFCOISSavedVars.Locked.preventAutoSell
+    end
+    return false
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function RefreshAllEventRegistrations()
     local PAMenuFunctions = PA.MenuFunctions
 
@@ -181,32 +192,29 @@ local function RefreshAllEventRegistrations()
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
             RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
 
-            -- Register PAJunk for selling
-            if PAJMenuFunctions.getAutoSellJunkSetting() then
-                -- Register PAJunk (for Merchants and Fences)
-                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
-                RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
-                RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreAndFenceClose, "CloseStore")
-            else
-                -- Or unregister if auto-sell is disabled
-                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
-                UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
-                UnregisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, "CloseStore")
-            end
-
-            -- Register Mailbox Open check (to disable marking as junk)
+            -- Register Mailbox Open Check (to disable marking as junk)
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen, "OpenMailbox")
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose, "CloseMailbox")
         else
-            -- Unregister PAJunk completely
+            -- Unregister PAJunk AutoMarking
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
+
+            -- Unregister PAJunk Mailbox Open Check
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
+        end
+
+        -- Register PAJunk for selling (also in case PAJunk related integrations are turned on)
+        if PAJMenuFunctions.getAutoSellJunkSetting() or _hasAnyPAJunkIntegrationsTurnedOn() then
+            -- Register PAJunk (for Merchants and Fences)
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
+            RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreAndFenceClose, "CloseStore")
+        else
+            -- Unregister Auto-Sell for Merchants and Fences
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
             UnregisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, "CloseStore")
-
-            -- Unregister PAJunk Mailbox Check
-            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
-            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
         end
 
         if PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting() or PAJMenuFunctions.getKeybindingDestroyItemSetting() then
@@ -351,15 +359,16 @@ end
 Each Sub-Addon has multi-profile SavedVars that can be accessed as listed in the first column (Cross-Profile SavedVars),
 but in order to avoid reading the activeProfile all the time, below function makes a static reference in the second
 column (Curr-Profile SavedVars) that will always point to the Cross-Profile SavedVars of the active profile.
-|---------------------------------------------------------------------------------------------------------------|
-| Sub-AddOn   | Cross-Profile SavedVars                               | Curr-Profile SavedVars                  |
-|---------------------------------------------------------------------------------------------------------------|
-| PABanking   | PersonalAssistant.SavedVars.Banking[activeProfile]    | PersonalAssistant.Banking.SavedVars     |
-| PAJunk      | PersonalAssistant.SavedVars.Junk[activeProfile]       | PersonalAssistant.Junk.SavedVars        |
-| PALoot      | PersonalAssistant.SavedVars.Loot[activeProfile]       | PersonalAssistant.Loot.SavedVars        |
-| PAMail      | PersonalAssistant.SavedVars.Mail[activeProfile]       | PersonalAssistant.Mail.SavedVars        |
-| PARepair    | PersonalAssistant.SavedVars.Repair[activeProfile]     | PersonalAssistant.Repair.SavedVars      |
-|---------------------------------------------------------------------------------------------------------------|
+|------------------------------------------------------------------------------------------------------------------|
+| Sub-AddOn     | Cross-Profile SavedVars                                | Curr-Profile SavedVars                  |
+|------------------------------------------------------------------------------------------------------------------|
+| PABanking     | PersonalAssistant.SavedVars.Banking[activeProfile]     | PersonalAssistant.Banking.SavedVars     |
+| PAIntegration | PersonalAssistant.SavedVars.Integration[activeProfile] | PersonalAssistant.Integration.SavedVars |
+| PAJunk        | PersonalAssistant.SavedVars.Junk[activeProfile]        | PersonalAssistant.Junk.SavedVars        |
+| PALoot        | PersonalAssistant.SavedVars.Loot[activeProfile]        | PersonalAssistant.Loot.SavedVars        |
+| PAMail        | PersonalAssistant.SavedVars.Mail[activeProfile]        | PersonalAssistant.Mail.SavedVars        |
+| PARepair      | PersonalAssistant.SavedVars.Repair[activeProfile]      | PersonalAssistant.Repair.SavedVars      |
+|------------------------------------------------------------------------------------------------------------------|
 --]]
 local function RefreshAllSavedVarReferences(activeProfile)
     -- refreshes all profile specific SavedVars references, so the profile does not need to be read all the time
@@ -368,6 +377,7 @@ local function RefreshAllSavedVarReferences(activeProfile)
     PA.General.SavedVars = PASavedVars.General[activeProfile]
 
     if PA.Banking then PA.Banking.SavedVars = PASavedVars.Banking[activeProfile] end
+    if PA.Integration then PA.Integration.SavedVars = PASavedVars.Integration[activeProfile] end
     if PA.Junk then PA.Junk.SavedVars = PASavedVars.Junk[activeProfile] end
     if PA.Loot then PA.Loot.SavedVars = PASavedVars.Loot[activeProfile] end
     if PA.Mail then PA.Mail.SavedVars = PASavedVars.Mail[activeProfile] end

@@ -14,20 +14,22 @@ local PAStrings = {
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PAGeneral Menu --
-    SI_PA_MENU_PROFILE_HEADER = "Profiles",
     SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant is a collection of various features that have the goal to make playing ESO more convenient for you",
 
-    SI_PA_PLEASE_SELECT_PROFILE = "<Please select Profile>",
+    -- Profiles --
+    SI_PA_MENU_PROFILE_HEADER = "Profiles",
+    SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Please select Profile>",
+    SI_PA_MENU_PROFILE_ACTIVE = "Active profile",
+    SI_PA_MENU_PROFILE_ACTIVE_T = "Select the active profile for PersonalAssistant. It will automatically load all settings stored under that profile and changes are stored in the same place.",
+    SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Rename active profile",
 
-    SI_PA_MENU_GENERAL_ACTIVE_PROFILE = "Active profile",
-    SI_PA_MENU_GENERAL_ACTIVE_PROFILE_T = "Select the active profile for PersonalAssistant. It will automatically load all settings stored under that profile and changes are stored in the same place.",
-    SI_PA_MENU_GENERAL_ACTIVE_PROFILE_RENAME = "Rename active profile",
+    -- General --
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
-
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Rules Menu --
     SI_PA_MENU_RULES_HOW_TO_ADD_PAB = "In order to create a new rule for depositing and withdrawing items, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Banking > Add new rule",
     SI_PA_MENU_RULES_HOW_TO_ADD_PAJ = "In order to create a new rule for permanently marking an item as junk, simply right-click on an item in your inventory or bank and select in the context-menu:\n> PA Junk > Mark as permanent junk",
     SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"You can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),

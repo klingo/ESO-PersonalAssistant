@@ -11,6 +11,7 @@ PersonalAssistant.Constants = {
         NAME_RAW = {
             GENERAL = "PersonalAssistant",
             BANKING = "PersonalAssistant Banking",
+            INTEGRATION = "PersonalAssistant Integration",
             JUNK = "PersonalAssistant Junk",
             LOOT = "PersonalAssistant Loot",
             REPAIR = "PersonalAssistant Repair",
@@ -18,6 +19,7 @@ PersonalAssistant.Constants = {
         NAME_DISPLAY = {
             GENERAL = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
             BANKING = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "B", "|r", "|cFFFFFF", "anking", "|r"}),
+            INTEGRATION = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "I", "|r", "|cFFFFFF", "ntegration", "|r"}),
             JUNK = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "J", "|r", "|cFFFFFF", "unk", "|r"}),
             LOOT = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "L", "|r", "|cFFFFFF", "oot", "|r"}),
             REPAIR = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "R", "|r", "|cFFFFFF", "epair", "|r"}),
@@ -30,6 +32,7 @@ PersonalAssistant.Constants = {
         KEYWORDS = {
             GENERAL = "general, profile, house",
             BANKING = "banking, deposit, withdraw, currency, currencies, bank, rules",
+            INTEGRATION = "integration, compatibility, support",
             JUNK = "junk, mark, fence, sell, rules",
             LOOT = "loot, unknown, recipe, motif, trait",
             REPAIR = "repair, repairkit, recharge, soulgem",
@@ -39,6 +42,7 @@ PersonalAssistant.Constants = {
                 GENERAL = 1,
                 PROFILE = 1,
                 BANKING = 2,
+                INTEGRATION = 1,
                 JUNK = 2,
                 LOOT = 2,
                 REPAIR = 1,
@@ -76,6 +80,7 @@ PersonalAssistant.Constants = {
         PA = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
         PAG = table.concat({"|cFFD700", "PA G", "|r", "|cFFFFFF", "eneral: ", "|r"}),
         PAB = table.concat({"|cFFD700", "PA B", "|r", "|cFFFFFF", "anking: ", "|r"}),
+        PAI = table.concat({"|cFFD700", "PA I", "|r", "|cFFFFFF", "ntegration: ", "|r"}),
         PAR = table.concat({"|cFFD700", "PA R", "|r", "|cFFFFFF", "epair: ", "|r"}),
         PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot: ", "|r"}),
         PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail: ", "|r"}),
@@ -86,6 +91,7 @@ PersonalAssistant.Constants = {
         PA = table.concat({"|cFFFFFF", "PA", "|r", ": "}),
         PAG = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "G", "|r", ": "}),
         PAB = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "B", "|r", ": "}),
+        PAI = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "I", "|r", ": "}),
         PAR = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "R", "|r", ": "}),
         PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r", ": "}),
         PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r", ": "}),
@@ -253,6 +259,31 @@ PersonalAssistant.Constants = {
             },
             TREBUCHET = {
                 PATH = "/esoui/art/icons/ava_siege_weapon_005.dds",
+            }
+        },
+        FCOIS = {
+            DECONSTRUCTION = {
+                PATH = "/esoui/art/crafting/enchantment_tabicon_deconstruction_disabled.dds",
+            },
+            IMPROVEMENT = {
+                PATH = "/esoui/art/crafting/smithing_tabicon_improve_disabled.dds",
+            },
+            INTRICATE = {
+                PATH = "/esoui/art/progression/progression_indexicon_guilds_up.dds",
+            },
+            LOCKED = {
+                PATH = "/esoui/art/campaign/campaignbrowser_fullpop.dds",
+                LARGE = ZO_ColorDef:New(1, 0, 0, 1):Colorize(zo_iconFormatInheritColor("/esoui/art/campaign/campaignbrowser_fullpop.dds", 48, 48)),
+            },
+            RESEARCH = {
+                PATH = "/esoui/art/crafting/smithing_tabicon_research_disabled.dds",
+            },
+            SELL = {
+                PATH = "/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds",
+                LARGE = ZO_ColorDef:New(1, 1, 0, 1):Colorize(zo_iconFormatInheritColor("/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds", 48, 48)),
+            },
+            SELL_AT_GUILDSTORE = {
+                LARGE = ZO_ColorDef:New(1, 1, 0, 1):Colorize(zo_iconFormatInheritColor(ZO_CURRENCIES_DATA[CURT_MONEY].keyboardTexture, 32, 32)),
             }
         },
         OTHERS = {

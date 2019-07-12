@@ -5,6 +5,7 @@ local PA = PersonalAssistant
 
 local PAGeneralMenuDefaults = {
     welcomeMessage = true,
+    name = nil,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

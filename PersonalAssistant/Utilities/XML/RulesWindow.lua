@@ -11,6 +11,7 @@ local TYPE_ACTIVE_RULE = 1
 local _RulesWindowSceneName = "PersonalAssistantRulesWindowScene"
 local _RulesWindowSceneGroupName = "PersonalAssistantRuleWindowSceneGroup"
 local _RulesWindowDescriptor = "PersonalAssistantRules"
+
 local _RulesWindowBankingTabDescriptor = "PersonalAssistantBankingRules"
 local _RulesWindowJunkTabDescriptor = "PersonalAssistantJunkRules"
 
@@ -53,7 +54,6 @@ local function showPAJunkRulesMenu()
     local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
     ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowJunkTabDescriptor)
 end
-
 
 local function _showPABankingRulesTab()
     BankingRulesTabControl:SetHidden(false)
@@ -149,7 +149,6 @@ local function _createTabsForScene()
                 _lastShownRulesTabDescriptor = _RulesWindowJunkTabDescriptor
             end,
         }
-
         ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
     end
 end
@@ -596,6 +595,7 @@ local function initPAJunkRulesList()
         PA.JunkRulesList:Refresh()
     end
 end
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export

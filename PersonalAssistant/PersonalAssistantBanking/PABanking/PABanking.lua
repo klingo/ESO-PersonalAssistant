@@ -29,10 +29,11 @@ local function _printLWCMessageIfItemsSkipped()
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
+-- TODO: rename to specify that this triggers the compatibility?
 local function hasLazyWritCrafterAndShouldGrabEnabled()
-    if WritCreater then
+    if WritCreater and PA.Integration then
         local _, hasAny = WritCreater.writSearch()
-        return hasAny and WritCreater:GetSettings().shouldGrab and PAB.SavedVars.lazyWritCraftingCompatiblity
+        return hasAny and WritCreater:GetSettings().shouldGrab and PA.Integration.SavedVars.LazyWritCrafter.compatibility
     end
     return false
 end
