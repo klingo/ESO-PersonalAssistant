@@ -118,27 +118,60 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function _isWorthlessAndShouldBeDestroyed(bagId, slotIndex)
+    local PAJunkSavedVars = PAJ.SavedVars
+    -- first check if the setting to destroy worhtless items is turned on
+    if PAJunkSavedVars.AutoDestroy.destroyWorthlessJunk then
+        -- then check if the item is stolen
+        local isStolen = IsItemStolen(bagId, slotIndex)
+        if isStolen then
+            -- if stolen, get the sell price incl. haggling bonus
+            local sellPriceStolen = GetItemSellValueWithBonuses(bagId, slotIndex)
+            if sellPriceStolen == 0 then return true end
+        else
+            -- if not stolen, just get the regular sell price
+            local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
+            if sellPrice == 0 then return true end
+        end
+    end
+    return false
+end
+
 local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
     PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- then check if the item can be sold; if not don't mark it as junk (i.e. Kari's Hit List Relics)
-        local sellPrice = GetItemSellValueWithBonuses(bagId, slotIndex)
-        if sellPrice > 0 then
-            -- It is considered safe to mark the item as junk
-            SetItemIsJunk(bagId, slotIndex, true)
-            PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+        -- then check if the item is Bound; if yes don't mark it as junk (i.e. Kari's Hit List Relics)
+        local isBound = IsItemLinkBound(itemLink)
+        if not isBound then
+            -- It is considered safe to mark the item as junk (or to be destroyed?)
+            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
+                -- Item should be DESTROYED
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed")
+                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
+                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                local _, stackCount = GetItemInfo(bagId, slotIndex)
+                -- execute main action
+                DestroyItem(bagId, slotIndex)
+                -- inform player
+                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
 
-            -- make sure an itemLink is present
-            if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
+            else
+                -- Item should be marked as JUNK
+                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed")
+                SetItemIsJunk(bagId, slotIndex, true)
+                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+                -- make sure an itemLink is present
+                if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
+                -- prepare additional icons if needed
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                -- print provided success message
+                PAJ.println(successMessageKey, itemLinkExt)
+            end
 
-            -- prepare additional icons if needed
-            local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-
-            -- print provided success message
-            PAJ.println(successMessageKey, itemLinkExt)
-
-            return true -- marking junk was successful
+            return true -- marking/destroying junk was successful
         end
     else
         -- print failure message
@@ -237,9 +270,9 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
         -- Sell the (stolen) item which was marked as junk
         local sellStartGameTime = GetGameTimeMilliseconds()
         local itemDataToSell = bagCache[startIndex]
-        local sellPrice = GetItemSellValueWithBonuses(itemDataToSell.bagId, itemDataToSell.slotIndex)
-        -- check if item can be sold (i.e it has a sell price)
-        if sellPrice > 0 then
+        local isBound = IsItemBound(itemDataToSell.bagId, itemDataToSell.slotIndex)
+        -- check if item can be sold (i.e it is not bound)
+        if not isBound then
             SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
             -- ---------------------------------------------------------------------------------------------------------
             -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
@@ -276,9 +309,9 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                 end)
             -- ---------------------------------------------------------------------------------------------------------
         else
-            -- show message to player that Item cannot be sold because it's worthless
-            local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex, LINK_STYLE_BRACKETS)
-            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
+            -- show message to player that Item cannot be sold because reasons ;)
+--            local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex, LINK_STYLE_BRACKETS)
+--            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
             -- if item cannot be sold; continue with the next (if there are more)
             local newStartIndex = startIndex + 1
             if newStartIndex <= #bagCache then

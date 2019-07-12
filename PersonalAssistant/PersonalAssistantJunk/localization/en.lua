@@ -38,13 +38,21 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Custom Items",
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
+    -- Auto-Destroy --
+    SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Auto-Destroy Junk",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Enable Auto-Destroy of worthles Junk items",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "When looting a worthless item (sell value = 0g) that would automatically be marked as junk, with this setting turned ON it will be destroyed instead. This cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "WARNING: Please be aware that using this setting, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
+
     -- Other Settings --
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
 
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
-    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK = "Show \"Mark / Unmark as Junk\" Keybinding",
-    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM = "Show \"Destroy Item\" Keybinding",
-    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W = "WARNING: Please be aware that using this keybinding, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Enable \"Mark / Unmark as Junk\" Keybinding",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW = "Show \"Mark / Unmark as Junk\" Keybinding",
+    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE = "Enable \"Destroy Item\" Keybinding",
+    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE_W = "WARNING: Please be aware that using this keybinding, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
+    SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_SHOW = "Show \"Destroy Item\" Keybinding",
     SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION = "Disable the  \"Destroy Item\" Keybinding if the item . . .",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD = "> is of the selected quality or higher",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN = "> can be learned/researched and is unknown",
@@ -88,11 +96,16 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Treasure"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Manual"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Perm-Rule"), ")"}),
+
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
+    SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Worthless"), ")"}),
+    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.RED:Colorize("ON")}),
+    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.GREEN:Colorize("OFF")}),
+
     SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = table.concat({"Sold items for ", PAC.COLOR.GREEN:Colorize("%d "), PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),
-    SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS = table.concat({"Cannot sell %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}),
+--    SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS = table.concat({"Cannot sell %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}),
 
     SI_PA_CHAT_JUNK_RULES_ADDED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
     SI_PA_CHAT_JUNK_RULES_DELETED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),

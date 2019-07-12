@@ -236,6 +236,19 @@ local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, _,  _, _, _)
 end
 
 
+local function _applyPatch_2_4_2(savedVarsVersion, _, _, patchPAJ, _, _)
+   if patchPAJ then
+       local PASavedVars = PA.SavedVars
+       for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+           -- 1) migrate:      PAJunk.KeyBindings.showMarkUnmarkAsJunkKeybind
+           PASavedVars.Junk[profileNo].KeyBindings.enableMarkUnmarkAsJunkKeybind = PASavedVars.Junk[profileNo].KeyBindings.showMarkUnmarkAsJunkKeybind
+           -- 2) migrate:      PAJunk.KeyBindings.showDestroyItemKeybind
+           PASavedVars.Junk[profileNo].KeyBindings.enableDestroyItemKeybind = PASavedVars.Junk[profileNo].KeyBindings.showDestroyItemKeybind
+       end
+       _updateSavedVarsVersion(savedVarsVersion, false, false, patchPAJ, false, false)
+   end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -260,7 +273,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.4.0      June 30, 2019
     _applyPatch_2_4_0(_getIsPatchNeededInfo(020400))
 
-    -- Patch 2.4.2      ?? -- TODO: update date
+    -- Patch 2.4.2      xxxx -- TODO: set date
     _applyPatch_2_4_2(_getIsPatchNeededInfo(020402))
 end
 

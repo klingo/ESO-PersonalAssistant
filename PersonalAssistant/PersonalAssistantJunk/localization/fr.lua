@@ -34,13 +34,21 @@ SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.co
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Objets personnalisés", 1)
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
+-- Auto-Destroy --
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER, "Détruire automatiquement les rebuts", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK, "Détruire automatiquement les rebuts sans valeur", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T, "Lors du butin, si un objet est mis aux rebuts et n'a aucune valeur (revente pour 0 pièce), il sera détruit si cette option est activée. Ceci ne peut être annulé !", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ATTENTION: Soyez conscient en utilisant cette option, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
+
 -- Other Settings --
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente/Recel auto. des rebuts aux marchands", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)
-SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK, "Afficher la commande \"Mettre aux / Sortir des rebuts\"", 1)
-SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM, "Afficher la commande \"Détruire l'objet\"", 1)
-SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_W, "ATTENTION: Soyez conscient en utilisant cette commande, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "Activer la commande \"Mettre aux / Sortir des rebuts\"", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW, "Afficher la commande \"Mettre aux / Sortir des rebuts\"", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE, "Activer la commande \"Détruire l'objet\"", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE_W, "ATTENTION: Soyez conscient en utilisant cette commande, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
+SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_SHOW, "Afficher la commande \"Détruire l'objet\"", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_EXCLUDE_DESCRIPTION, "Désactiver la commande  \"Détruire l'objet\" si l'objet . . .", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD, "> est de qualité supérieure ou égale à", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN, "> peut-être appris/recherché et est inconnu", 1)
@@ -84,11 +92,16 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({"%s mis aux
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Trésor"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Manuel"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Rebut permanent"), ")"}), 1)
+
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Sans valeur"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON, table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.RED:Colorize("OUI")}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.GREEN:Colorize("NON")}), 1)
+
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, table.concat({"Objets vendus pour ", PAC.COLOR.GREEN:Colorize("%d "), PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d heures"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d minutes"}), 1)
-SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Impossible de vendre %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
+--SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Impossible de vendre %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
 
 SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({"%s a été ", PAC.COLOR.ORANGE:Colorize("ajouté"), " à la liste des rebuts permanents!"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({"%s a été ", PAC.COLOR.ORANGE:Colorize("retiré"), " de la liste des rebuts permanents!"}), 1)

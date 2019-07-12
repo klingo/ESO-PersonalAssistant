@@ -35,6 +35,8 @@ SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Um eine neue Regel für permanen
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, table.concat({"Alle aktiven Regeln können entweder via dem Icon im oberen Hauptmenü (das mit der [Alt] Taste geöffnet wird) gefunden werden, mit ", PAC.COLOR.YELLOW:Colorize("/parules"), " oder anhand dieses Buttons:"}), 1)
 SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Wie neue Regeln erstellen?", 1)
 
+SafeAddString(SI_PA_MENU_DANGEROUS_SETTING, "ACHTUNG: Riskante Einstellung! Verwendung auf eigenes Risiko!", 1)
+
 -- -----------------------------------------------------------------------------------------------------------------
 -- Generic Menu --
 SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Weitere Einstellungen", 1)
