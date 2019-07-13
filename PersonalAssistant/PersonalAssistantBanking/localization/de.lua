@@ -84,13 +84,13 @@ SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Aktionen", 1)
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, "%d %s entnommen", 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, "%d / %d %s entnommen (Truhe ist leer)", 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, "%d / %d %s entnommen (Nicht genug Platz im Inventar)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, "%s entnommen", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, "%s / %s entnommen (Truhe ist leer)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, "%s / %s entnommen (Nicht genug Platz im Inventar)", 1)
 
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, "%d %s eingelagert", 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, "%d / %d %s eingelagert (Inventar ist leer)", 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, "%d / %d %s eingelagert (Nicht genug Platz in Truhe)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, "%s eingelagert", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, "%s / %s eingelagert (Inventar ist leer)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, "%s / %s eingelagert (Nicht genug Platz in Truhe)", 1)
 
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, "%d x %s in %s verschoben", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, "%d/%d x %s in %s verschoben", 1)

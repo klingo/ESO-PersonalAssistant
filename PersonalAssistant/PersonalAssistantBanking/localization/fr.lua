@@ -84,13 +84,13 @@ SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Gérer", 1)
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, "%d %s retirés", 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, "%d / %d %s retirés (La banque est vide)", 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, "%d / %d %s retirés (Pas assez d'espace sur le personnage)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, "%s retirés", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, "%s / %s retirés (La banque est vide)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, "%s / %s retirés (Pas assez d'espace sur le personnage)", 1)
 
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, "%d %s déposés", 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, "%d / %d %s déposés (Plus rien sur le personnage)", 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, "%d / %d %s déposés (Pas assez d'espace en banque)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, "%s déposés", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, "%s / %s déposés (Plus rien sur le personnage)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, "%s / %s déposés (Pas assez d'espace en banque)", 1)
 
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, "%d x %s déplacés vers %s", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, "%d/%d x %s déplacés vers %s", 1)

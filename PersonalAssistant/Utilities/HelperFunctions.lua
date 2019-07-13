@@ -175,6 +175,38 @@ end
 -- == TEXT FORMATTING AND OUTPUT == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+--- Formats the provided currency amount with an icon based on the type
+-- @param currencyAmount the amount that should be formatted (can be negative)
+-- @param currencyType the type of currency (default = CURT_MONEY)
+-- @param noColor if set to true the amount-text will not be colored (default = false)
+-- @return the formatted text with currency icon
+local function getFormattedCurrency(currencyAmount, currencyType, noColor)
+    local currencyType = currencyType or CURT_MONEY
+    local noColor = noColor or false
+    local formatType = ZO_CURRENCY_FORMAT_AMOUNT_ICON
+    local extraOptions = {}
+    if currencyAmount < 0 then
+        -- negative amount
+        if not noColor then formatType = ZO_CURRENCY_FORMAT_ERROR_AMOUNT_ICON end
+        currencyAmount = currencyAmount * -1 -- need to make it a positive number again
+    else
+        -- positive amount
+        if not noColor then extraOptions = { color = PAC.COLOR.GREEN } end
+    end
+    return zo_strformat(SI_NUMBER_FORMAT, ZO_Currency_FormatKeyboard(currencyType, currencyAmount, formatType, extraOptions))
+end
+
+--- Formats the provided currency amount without icon based on the type
+-- @param currencyAmount the amount that should be formatted
+-- @param currencyType the type of currency (defualt = CURT_MONEY)
+-- @return the formattext text without currency icon
+local function getFormattedCurrencySimple(currencyAmount, currencyType)
+    local currencyType = currencyType or CURT_MONEY
+    local noColor = noColor or false
+    if currencyAmount < 0 then currencyAmount = currencyAmount * -1 end  -- need to make it a positive number again
+    return PAC.COLOR.CURRENCIES[currencyType]:Colorize(zo_strformat(SI_NUMBER_FORMAT, ZO_LocalizeDecimalNumber(currencyAmount)))
+end
+
 -- returns a fixed/formatted ItemLink
 -- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
 local function getFormattedItemLink(bagId, slotIndex)
@@ -299,6 +331,8 @@ PA.HelperFunctions = {
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,
     hasActiveProfile = hasActiveProfile,
+    getFormattedCurrency = getFormattedCurrency,
+    getFormattedCurrencySimple = getFormattedCurrencySimple,
     getFormattedItemLink = getFormattedItemLink,
     getFormattedText = getFormattedText,
     getFormattedKey = getFormattedKey,
