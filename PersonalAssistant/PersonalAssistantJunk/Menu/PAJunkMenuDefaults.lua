@@ -42,6 +42,11 @@ local PAJunkMenuDefaults = {
         autoMarkIntricateTrait = false,
         autoMarkUnknownTraits = false,
     },
+    Stolen = {
+        autoMarkTraitItems = false,
+        autoMarkStyleMaterials = false,
+        autoMarkIngredients = false,
+    },
     Custom = {
         customItemsEnabled = true,
         ItemIds = {

@@ -535,6 +535,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 local itemType, specializedItemType = GetItemType(bagId, slotIndex)
                 local itemQuality = GetItemQuality(bagId, slotIndex)
                 local sellInformation = GetItemLinkSellInformation(itemLink)
+                local isStolen = IsItemStolen(bagId, slotIndex)
 
                 PAJ.debugln("OnInventorySingleSlotUpdate - Check if to be junked: %s", itemLink)
 
@@ -594,6 +595,13 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
                         _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
                     end
+                elseif isStolen and (itemType == ITEMTYPE_ARMOR_TRAIT or itemType == ITEMTYPE_WEAPON_TRAIT or itemType == ITEMTYPE_JEWELRY_RAW_TRAIT or itemType ==ITEMTYPE_JEWELRY_TRAIT)
+                        and PAJunkSavedVars.Stolen.autoMarkTraitItems then
+                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink)
+                elseif isStolen and itemType == ITEMTYPE_STYLE_MATERIAL and PAJunkSavedVars.Stolen.autoMarkStyleMaterials then
+                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink)
+                elseif isStolen and itemType == ITEMTYPE_INGREDIENT and PAJunkSavedVars.Stolen.autoMarkIngredients then
+                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink)
                 else
                     -- Lastly, check the custom rules
                     if PAJunkSavedVars.Custom.customItemsEnabled then

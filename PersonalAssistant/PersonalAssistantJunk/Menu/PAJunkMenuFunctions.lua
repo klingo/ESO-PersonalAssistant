@@ -109,6 +109,16 @@ local function isPAJunkJewelryIncludesDisabled()
 end
 
 --------------------------------------------------------------------------
+-- PAJunk   Stolen
+---------------------------------
+local function isPAJunkStolenMenuDisabled()
+    if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if isDisabledAll({"Stolen", "autoMarkTraitItems"}, {"Stolen", "autoMarkStyleMaterials"}, {"Stolen", "autoMarkIngredients"}) then return true end
+    -- if no 'true' returned so far, return false now
+    return false
+end
+
+--------------------------------------------------------------------------
 -- PAJunk   AutoDestroy     destroyWorthlessJunk
 ---------------------------------
 local function setPAJunkAutoDestroyWorthlessJunkSetting(value)
@@ -215,6 +225,17 @@ local PAJunkMenuFunctions = {
     isJewelryIncludeUnknownTraitsDisabled = isPAJunkJewelryIncludesDisabled,
     getJewelryIncludeUnknownTraitsSetting = function() return getValue({"Jewelry", "autoMarkUnknownTraits"}) end,
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
+
+    isStolenMenuDisabled = isPAJunkStolenMenuDisabled,
+    isStolenAutoMarkTraitItemsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenAutoMarkTraitItemsSetting = function() return getValue({"Stolen", "autoMarkTraitItems"}) end,
+    setStolenAutoMarkTraitItemsSetting = function(value) setValue(value, {"Stolen", "autoMarkTraitItems"}) end,
+    isStolenAutoMarkStyleMaterialsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenAutoMarkStyleMaterialsSetting = function() return getValue({"Stolen", "autoMarkStyleMaterials"}) end,
+    setStolenAutoMarkStyleMaterialsSetting = function(value) setValue(value, {"Stolen", "autoMarkStyleMaterials"}) end,
+    isStolenAutoMarkIngredientsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenAutoMarkIngredientsSetting = function() return getValue({"Stolen", "autoMarkIngredients"}) end,
+    setStolenAutoMarkIngredientsSetting = function(value) setValue(value, {"Stolen", "autoMarkIngredients"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- AUTO-DESTROY JUNK

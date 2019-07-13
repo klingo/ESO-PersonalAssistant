@@ -34,6 +34,12 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes"), " Daily Quest"}),
     SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
 
+    -- Stolen Items --
+    SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Stolen",
+    SI_PA_MENU_JUNK_AUTOMARK_STOLEN_TRAIT_ITEMS = table.concat({"Auto-Mark stolen [", GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS), "] as junk"}),
+    SI_PA_MENU_JUNK_AUTOMARK_STOLEN_STYLE_MATERIALS = table.concat({"Auto-Mark stolen [", GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS), "] as junk"}),
+    SI_PA_MENU_JUNK_AUTOMARK_STOLEN_INGREDIENTS = table.concat({"Auto-Mark stolen [", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_INGREDIENT), 2), "] as junk"}),
+
     -- Custom Items --
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Custom Items",
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
@@ -95,6 +101,7 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Merchant"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Treasure"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Manual"), ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Stolen"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Perm-Rule"), ")"}),
 
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),

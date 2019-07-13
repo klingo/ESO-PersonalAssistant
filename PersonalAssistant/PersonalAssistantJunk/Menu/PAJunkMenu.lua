@@ -34,6 +34,7 @@ local PAJMiscellaneousSubMenu = setmetatable({}, { __index = table })
 local PAJWeaponsSubMenu = setmetatable({}, { __index = table })
 local PAJArmorSubMenu = setmetatable({}, { __index = table })
 local PAJJewelrySubMenu = setmetatable({}, { __index = table })
+local PAJStolenSubMenu = setmetatable({}, { __index = table })
 
 local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
@@ -111,6 +112,14 @@ local function _createPAJunkMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJJewelrySubMenu,
         disabledLabel = PAJMenuFunctions.isJewelryMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER),
+        icon = PAC.ICONS.ITEMS.STOLEN.PATH,
+        controls = PAJStolenSubMenu,
+        disabledLabel = PAJMenuFunctions.isStolenMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -509,6 +518,37 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
+local function _createPAJStolenSubMenu()
+    PAJStolenSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_TRAIT_ITEMS),
+        getFunc = PAJMenuFunctions.getStolenAutoMarkTraitItemsSetting,
+        setFunc = PAJMenuFunctions.setStolenAutoMarkTraitItemsSetting,
+        disabled = PAJMenuFunctions.isStolenAutoMarkTraitItemsDisabled,
+        default = PAJMenuDefaults.Stolen.autoMarkTraitItems,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_STYLE_MATERIALS),
+        getFunc = PAJMenuFunctions.getStolenAutoMarkStyleMaterialsSetting,
+        setFunc = PAJMenuFunctions.setStolenAutoMarkStyleMaterialsSetting,
+        disabled = PAJMenuFunctions.isStolenAutoMarkStyleMaterialsDisabled,
+        default = PAJMenuDefaults.Stolen.autoMarkStyleMaterials,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_INGREDIENTS),
+        getFunc = PAJMenuFunctions.getStolenAutoMarkIngredientsSetting,
+        setFunc = PAJMenuFunctions.setStolenAutoMarkIngredientsSetting,
+        disabled = PAJMenuFunctions.isStolenAutoMarkIngredientsDisabled,
+        default = PAJMenuDefaults.Stolen.autoMarkIngredients,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
 local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
@@ -591,6 +631,7 @@ local function createOptions()
     _createPAJWeaponsSubMenu()
     _createPAJArmorSubMenu()
     _createPAJJewelrySubMenu()
+    _createPAJStolenSubMenu()
 
     _createPAJKeybindingsSubMenu()
 

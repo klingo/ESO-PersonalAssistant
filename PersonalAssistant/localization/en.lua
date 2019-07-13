@@ -73,6 +73,7 @@ local PAStrings = {
     SI_PA_ITEMTYPE5 = "<<1[Trophy/Trophies]>>",
     SI_PA_ITEMTYPE7 = "<<1[Potion/Potions]>>",
     SI_PA_ITEMTYPE8 = "<<1[Motif/Motives]>>",
+    SI_PA_ITEMTYPE10 = "<<1[Ingredient/Ingredients]>>",
     SI_PA_ITEMTYPE12 = "<<1[Drink/Drinks]>>",
     SI_PA_ITEMTYPE19 = "<<1[Soul Gem/Soul Gems]>>",
     SI_PA_ITEMTYPE22 = "<<1[Lockpick/Lockpicks]>>",
