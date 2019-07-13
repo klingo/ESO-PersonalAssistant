@@ -1,3 +1,9 @@
+2.4.2   (July 13, 2019)
+- add option to hide the destroy/mark-as-junk keybinding buttons in inventory/bank view  ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/161"]#161[/URL])
+- add option to directly destroy items with no sell value instead of marking them as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/162"]#162[/URL])
+- add limited support for FCO ItemSaver regarding "Marked for selling" and "Locked" marks ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/163"]#163[/URL])
+- add support for Scalebreaker (APIVersion 100028) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/164"]#164[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/165"]#165[/URL])
+
 2.4.1   (July 01, 2019)
 - fixed an issue where a debug statement was left in the code ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/155"]#155[/URL])
 

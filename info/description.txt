@@ -12,11 +12,14 @@ After a two year long break from ESO, I finally managed to complete the major re
 [SIZE=3][COLOR=Yellow]PA B[/COLOR][COLOR=White]anking[/COLOR][/SIZE][LIST]
 [*]Currencies (gold, alliance points, ...) can be withdrawn from and deposited to your bank
 [*]Crafting materials can be withdrawn from and deposited to your bank (if you are not ESO Plus Subscriber)
-[*]Create your own custom rules and decide how many of each item to keep in bank or inventory [COLOR=Orange]*NEW* (2.4.0)[/COLOR]
+[*]Create your own custom rules and decide how many of each item to keep in bank or inventory
 [*]Other selected items such as motives, recipes, writs, glyphs, trophies etc. can be withdrawn from and deposited to your bank
 [*]Select if items with [Intricate] trait should be transferred from/to the bank
 [*]Define a specific amount of lockpicks, repair kits or soul gems to always keep in inventory or the bank
 [*]Be always ready for Cyrodiil and define how many AvA items to keep in inventory[/LIST]
+
+[SIZE=3][COLOR=Yellow]PA I[/COLOR][COLOR=White]ntegration[/COLOR][/SIZE][LIST]
+[*]Limited support for FCO ItemSaver regarding "Marked for selling" and "Locked" marks [COLOR=Orange]*NEW* (2.4.2)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
 [*]Trash items can be marked as junk
@@ -26,7 +29,8 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Weapons, Armor, Jewelries, or Glyphs below a certain quality level can be marked as junk (quality threshold can be defined)
 [*]Junk can be sold at merchants and fences
 [*]Save time and use keybinding shortcuts to mark items as junk or directly destroy them
-[*]Mark any item as permanent junk so you never have to deal with it again [COLOR=Orange]*NEW* (2.4.0)[/COLOR][/LIST]
+[*]Mark any item as permanent junk so you never have to deal with it again
+[*]Items with no sell value can also be destroyed instead of marked as junk [COLOR=Orange]*NEW* (2.4.2)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA L[/COLOR][COLOR=White]oot[/COLOR][/SIZE][LIST]
 [*]Informs you when an unknown recipe is looted
