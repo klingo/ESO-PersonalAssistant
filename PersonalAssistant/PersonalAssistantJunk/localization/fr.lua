@@ -98,7 +98,7 @@ SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, table.concat({PAC.COLOR.ORANG
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON, table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.RED:Colorize("OUI")}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.GREEN:Colorize("NON")}), 1)
 
-SafeAddString(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, table.concat({"Objets vendus pour ", PAC.COLOR.GREEN:Colorize("%d "), PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, "Objets vendus pour %s", 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d heures"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d minutes"}), 1)
 --SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Impossible de vendre %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)

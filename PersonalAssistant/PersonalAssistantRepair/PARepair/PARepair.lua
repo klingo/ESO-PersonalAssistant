@@ -77,18 +77,20 @@ local function _repairItems(bagId, threshold)
         end
 
         -- show output to chat
+        local repairCostFmt = PAHF.getFormattedCurrency(repairCost * -1) -- to be converted to a negative amount
         if notRepairedItemCount > 0 then
             local missingGold = notRepairedItemsCost - currentMoney
+            local missingGoldFmt = PAHF.getFormattedCurrency(missingGold, CURT_MONEY, true)
             if bagId == BAG_BACKPACK then
-                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, repairCost, missingGold)
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, repairCostFmt, missingGoldFmt)
             else
-                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, repairCost, missingGold)
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, repairCostFmt, missingGoldFmt)
             end
         elseif repairedItemCount > 0 then
             if bagId == BAG_BACKPACK then
-                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, repairCost)
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, repairCostFmt)
             else
-                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_FULL, repairCost)
+                PAR.println(SI_PA_CHAT_REPAIR_SUMMARY_FULL, repairCostFmt)
             end
         end
     end

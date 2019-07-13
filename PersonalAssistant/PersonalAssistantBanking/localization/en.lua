@@ -88,13 +88,13 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
-    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%d %s withdrawn",
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%d / %d %s withdrawn (Bank is empty)",
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%d / %d %s withdrawn (Not enough space on character)",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s withdrawn",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s withdrawn (Bank is empty)",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%s / %s withdrawn (Not enough space on character)",
 
-    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = "%d %s deposited",
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = "%d / %d %s deposited (Character is empty)",
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%d / %d %s deposited (Not enough space in bank)",
+    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = "%s deposited",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = "%s / %s deposited (Character is empty)",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%s / %s deposited (Not enough space in bank)",
 
     SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s moved to %s",
     SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = "%d/%d x %s moved to %s",

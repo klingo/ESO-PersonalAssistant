@@ -102,7 +102,7 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.RED:Colorize("ON")}),
     SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.GREEN:Colorize("OFF")}),
 
-    SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = table.concat({"Sold items for ", PAC.COLOR.GREEN:Colorize("%d "), PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
+    SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = "Sold items for %s",
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
     SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d minutes"}),
 --    SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS = table.concat({"Cannot sell %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}),

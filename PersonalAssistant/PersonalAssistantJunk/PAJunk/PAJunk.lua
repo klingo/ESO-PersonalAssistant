@@ -67,12 +67,13 @@ local function _giveDelayedDiffSoldItemsFeedback(moneyBefore, itemCountInBagBefo
 
                 if itemCountInBagDiff > 0 then
                     -- at least one item was sold (although it might have been worthless(?))
+                    local moneyDiffFmt = PAHF.getFormattedCurrency(moneyDiff)
                     if moneyDiff > 0 then
                         -- some valuable items were sold
-                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiff)
+                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiffFmt)
                     else
                         -- only worthless items were sold
-                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiff)
+                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiffFmt)
                     end
                 else
                     -- no item was sold
@@ -94,12 +95,13 @@ end
 local function _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
     if totalSellCount > 0 then
         -- at least one item was sold (although it might have been worthless(?))
+        local totalSellPriceFmt = PAHF.getFormattedCurrency(totalSellPrice)
         if totalSellPrice > 0 then
             -- some valuable items were sold
-            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPrice)
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPriceFmt)
         else
             -- only worthless items were sold
-            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPrice)
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPriceFmt)
         end
     else
         -- no item was sold
