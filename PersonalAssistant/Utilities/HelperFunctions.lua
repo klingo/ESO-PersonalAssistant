@@ -175,6 +175,22 @@ end
 -- == TEXT FORMATTING AND OUTPUT == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+--- Formats the provided currency amount (and type)
+-- @param currencyAmount the amount that should be formatted (can be negative)
+-- @param currencyType the type of currency (default = CURT_MONEY)
+-- @return the formatted text with currency icon
+local function getFormattedCurrency(currencyAmount, currencyType)
+    local formatType = ZO_CURRENCY_FORMAT_AMOUNT_ICON
+    local currencyType = currencyType or CURT_MONEY
+    local extraOptions = { color = PAC.COLOR.GREEN }
+    if currencyAmount < 0 then
+        formatType = ZO_CURRENCY_FORMAT_ERROR_AMOUNT_ICON
+        currencyAmount = currencyAmount * -1
+        extraOptions = {} -- reset the extra options for negative amounts
+    end
+    return zo_strformat(SI_NUMBER_FORMAT, ZO_Currency_FormatKeyboard(currencyType, currencyAmount, formatType, extraOptions))
+end
+
 -- returns a fixed/formatted ItemLink
 -- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
 local function getFormattedItemLink(bagId, slotIndex)
@@ -299,6 +315,7 @@ PA.HelperFunctions = {
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,
     hasActiveProfile = hasActiveProfile,
+    getFormattedCurrency = getFormattedCurrency,
     getFormattedItemLink = getFormattedItemLink,
     getFormattedText = getFormattedText,
     getFormattedKey = getFormattedKey,
