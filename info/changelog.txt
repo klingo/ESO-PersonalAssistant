@@ -1,4 +1,5 @@
 2.4.3   (July 14, 2019)
+- improved currency formatting in chat messages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/166"]#166[/URL])
 - fixed an issue where treasure items no longer were marked as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/167"]#167[/URL])
 - fixed an issue with the new addon integration library ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/168"]#168[/URL])
 
