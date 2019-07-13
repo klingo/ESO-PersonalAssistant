@@ -1,3 +1,7 @@
+2.4.3   (July 14, 2019)
+- fixed an issue where treasure items no longer were marked as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/167"]#167[/URL])
+- fixed an issue with the new addon integration library ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/168"]#168[/URL])
+
 2.4.2   (July 13, 2019)
 - add option to hide the destroy/mark-as-junk keybinding buttons in inventory/bank view  ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/161"]#161[/URL])
 - add option to directly destroy items with no sell value instead of marking them as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/162"]#162[/URL])
