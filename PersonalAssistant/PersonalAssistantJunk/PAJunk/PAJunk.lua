@@ -143,9 +143,13 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- then check if the item is Bound; if yes don't mark it as junk (i.e. Kari's Hit List Relics)
-        local isBound = IsItemLinkBound(itemLink)
-        if not isBound then
+        -- then check if the item can NOT be sold or if it is unique; if yes then don't mark it as junk
+        local sellInformation = GetItemLinkSellInformation(itemLink)
+        local isUnique = IsItemLinkUnique(itemLink)
+        if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL or isUnique then
+            PAJ.debugln("NOT CanItemBeMarkedAsJunk isUnique="..tostring(isUnique).. " | sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
+            return false
+        else
             -- It is considered safe to mark the item as junk (or to be destroyed?)
             if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
                 -- Item should be DESTROYED
