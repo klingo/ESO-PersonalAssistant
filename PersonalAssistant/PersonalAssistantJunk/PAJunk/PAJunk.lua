@@ -335,21 +335,49 @@ end
 
 local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, totalSellCount)
     if not PA.WindowStates.isFenceClosed then
-        local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
-        -- Sell the (stolen) item which was marked as junk
         local sellStartGameTime = GetGameTimeMilliseconds()
         local itemDataToSell = bagCache[startIndex]
-        local sellPriceStolen = GetItemSellValueWithBonuses(itemDataToSell.bagId, itemDataToSell.slotIndex)
-        -- check if item can be sold (i.e it has a sell value at the Fence)
-        if sellPriceStolen > 0 then
-            SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
+        local bagId = itemDataToSell.bagId
+        local slotIndex = itemDataToSell.slotIndex
+        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+        local sellPriceStolen = GetItemSellValueWithBonuses(bagId, slotIndex)
+        local sellInformation = GetItemLinkSellInformation(itemLink)
+        if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL then
+            -- show message to player that Item cannot be sold because ESO says so
+            PAJ.println(SI_PA_CHAT_JUNK_CANNOT_SELL_ITEM, itemLink)
+            -- if item cannot be sold; continue with the next (if there are more)
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #bagCache then
+                -- yes, continue loop
+                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+            else
+                -- no, finish loop; after everything is sold, give feedback about the changes
+                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+            end
+        elseif sellPriceStolen <= 0 then
+            -- show message to player that Item cannot be sold because a Fence does not accept zero-value items
+            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
+            -- if item cannot be sold; continue with the next (if there are more)
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #bagCache then
+                -- yes, continue loop
+                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+            else
+                -- no, finish loop; after everything is sold, give feedback about the changes
+                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+            end
+        else
+            -- item can be sold to the Fence; continue
+            local stackCount = itemDataToSell.stackCount
+            local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
+            SellInventoryItem(bagId, slotIndex, stackCount)
             -- ---------------------------------------------------------------------------------------------------------
             -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
-            local identifier = _getUniqueSellFenceUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
+            local identifier = _getUniqueSellFenceUpdateIdentifier(bagId, slotIndex)
             EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
                 function()
                     -- check if the item is still in the bag
-                    local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
+                    local itemId = GetItemId(bagId, slotIndex)
                     local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
                     if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
                         -- if item is gone, limit reached, or fence closed stop the interval
@@ -377,19 +405,6 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                     end
                 end)
             -- ---------------------------------------------------------------------------------------------------------
-        else
-            -- show message to player that Item cannot be sold because reasons ;)
-            local itemLink = GetItemLink(itemDataToSell.bagId, itemDataToSell.slotIndex, LINK_STYLE_BRACKETS)
-            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
-            -- if item cannot be sold; continue with the next (if there are more)
-            local newStartIndex = startIndex + 1
-            if newStartIndex <= #bagCache then
-                -- yes, continue loop
-                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
-            else
-                -- no, finish loop; after everything is sold, give feedback about the changes
-                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
-            end
         end
     else
         -- if Fence has been closed, also display the feedback message
@@ -401,34 +416,53 @@ local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSe
     if not PA.WindowStates.isStoreClosed then
         local sellStartGameTime = GetGameTimeMilliseconds()
         local itemDataToSell = bagCache[startIndex]
-        local _, _, sellPrice = GetItemInfo(itemDataToSell.bagId, itemDataToSell.slotIndex)
-        SellInventoryItem(itemDataToSell.bagId, itemDataToSell.slotIndex, itemDataToSell.stackCount)
-        -- ---------------------------------------------------------------------------------------------------------
-        -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until merchant is closed!)
-        local identifier = _getUniqueSellMerchantUpdateIdentifier(itemDataToSell.bagId, itemDataToSell.slotIndex)
-        EVENT_MANAGER:RegisterForUpdate(identifier, SELL_MERCHANT_ITEMS_INTERVAL_MS,
-            function()
-                -- check if the item is still in the bag
-                local itemId = GetItemId(itemDataToSell.bagId, itemDataToSell.slotIndex)
-                if itemId <= 0 or PA.WindowStates.isStoreClosed then
-                    -- if item is gone, or merchant closed stop the interval
-                    EVENT_MANAGER:UnregisterForUpdate(identifier)
-                    local sellFinishGameTime = GetGameTimeMilliseconds()
-                    PAHF.debuglnAuthor("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
-                    totalSellPrice = totalSellPrice + sellPrice
-                    totalSellCount = totalSellCount + 1
-                    -- check if there are more items to be sold
-                    local newStartIndex = startIndex + 1
-                    if newStartIndex <= #bagCache then
-                        -- yes, continue loop
-                        _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
-                    else
-                        -- no, finish loop; after everything is sold, give feedback about the changes
-                        _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
-                    end
-                end
-            end)
+        local bagId = itemDataToSell.bagId
+        local slotIndex = itemDataToSell.slotIndex
+        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+        local sellInformation = GetItemLinkSellInformation(itemLink)
+        if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL then
+            -- show message to player that Item cannot be sold because ESO says so
+            PAJ.println(SI_PA_CHAT_JUNK_CANNOT_SELL_ITEM, itemLink)
+            -- if item cannot be sold; continue with the next (if there are more)
+            local newStartIndex = startIndex + 1
+            if newStartIndex <= #bagCache then
+                -- yes, continue loop
+                _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+            else
+                -- no, finish loop; after everything is sold, give feedback about the changes
+                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+            end
+        else
+            local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
+            local stackCount = itemDataToSell.stackCount
+            SellInventoryItem(bagId, slotIndex, stackCount)
             -- ---------------------------------------------------------------------------------------------------------
+            -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until merchant is closed!)
+            local identifier = _getUniqueSellMerchantUpdateIdentifier(bagId, slotIndex)
+            EVENT_MANAGER:RegisterForUpdate(identifier, SELL_MERCHANT_ITEMS_INTERVAL_MS,
+                function()
+                    -- check if the item is still in the bag
+                    local itemId = GetItemId(bagId, slotIndex)
+                    if itemId <= 0 or PA.WindowStates.isStoreClosed then
+                        -- if item is gone, or merchant closed stop the interval
+                        EVENT_MANAGER:UnregisterForUpdate(identifier)
+                        local sellFinishGameTime = GetGameTimeMilliseconds()
+                        PAHF.debuglnAuthor("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
+                        totalSellPrice = totalSellPrice + sellPrice
+                        totalSellCount = totalSellCount + 1
+                        -- check if there are more items to be sold
+                        local newStartIndex = startIndex + 1
+                        if newStartIndex <= #bagCache then
+                            -- yes, continue loop
+                            _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
+                        else
+                            -- no, finish loop; after everything is sold, give feedback about the changes
+                            _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                        end
+                    end
+                end)
+            -- ---------------------------------------------------------------------------------------------------------
+        end
     else
         -- if Merchant has been closed, also display the feedback message
         _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
