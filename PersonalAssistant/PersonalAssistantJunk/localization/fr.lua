@@ -102,6 +102,7 @@ SafeAddString(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, "Objets vendus pour %s", 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d heures"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d minutes"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Impossible de vendre %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_CANNOT_SELL_ITEM, "Impossible de vendre %s", 1)
 
 SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({"%s a été ", PAC.COLOR.ORANGE:Colorize("ajouté"), " à la liste des rebuts permanents!"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({"%s a été ", PAC.COLOR.ORANGE:Colorize("retiré"), " de la liste des rebuts permanents!"}), 1)
