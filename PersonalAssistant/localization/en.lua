@@ -144,6 +144,14 @@ local PAStrings = {
     SI_PA_POSITION_BOTTOMLEFT = "Bottom Left",
     SI_PA_POSITION_BOTTOMRIGHT = "Bottom Right",
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAJunk --
+    SI_PA_ITEM_ACTION_NOTHING = "Do Nothing",
+    SI_PA_ITEM_ACTION_LAUNDER = "Launder at Fence", -- not used so far
+    SI_PA_ITEM_ACTION_MARK_AS_JUNK = "Mark as Junk",
+    SI_PA_ITEM_ACTION_DESTROY_WORTHLESS = "Destroy if worthless",
+    SI_PA_ITEM_ACTION_DESTROY_ALWAYS = "Destroy always",
+
 
     -- =================================================================================================================
     -- == CUSTOM SUB MENU == --

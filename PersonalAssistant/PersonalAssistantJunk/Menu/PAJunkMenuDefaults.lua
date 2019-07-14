@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -15,10 +16,6 @@ local PAJunkMenuDefaults = {
         autoMarkSellToMerchant = true,
     },
     Miscellaneous = {
-        autoMarkTreasure = false,
-        excludeAMatterOfLeisure = false,
-        excludeAMatterOfRespect = false,
-        excludeAMatterOfTributes = false,
         autoMarkGlyphQualityThreshold = -1
     },
     Weapons = {
@@ -43,9 +40,12 @@ local PAJunkMenuDefaults = {
         autoMarkUnknownTraits = false,
     },
     Stolen = {
-        autoMarkTraitItems = false,
-        autoMarkStyleMaterials = false,
-        autoMarkIngredients = false,
+        styleMaterialAction = PAC.ITEM_ACTION.NOTHING,
+        ingredientAction = PAC.ITEM_ACTION.NOTHING,
+        treasureAction = PAC.ITEM_ACTION.NOTHING,
+        excludeAMatterOfLeisure = false,
+        excludeAMatterOfRespect = false,
+        excludeAMatterOfTributes = false,
     },
     Custom = {
         customItemsEnabled = true,

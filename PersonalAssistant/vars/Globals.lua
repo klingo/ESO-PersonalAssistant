@@ -293,6 +293,9 @@ PersonalAssistant.Constants = {
             }
         },
         OTHERS = {
+            FENCE = {
+                PATH = "/esoui/art/vendor/vendor_tabicon_fence_up.dds",
+            },
             HOME = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",
                 NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t",
@@ -570,6 +573,16 @@ PersonalAssistant.Constants = {
     ITEM_QUALITY = {
         DISABLED = -1,
         DISABLED_REVERSE = 99,
+    },
+
+    ITEM_ACTION = {
+        NOTHING = 0,
+        DEPOSIT = 1, -- not used so far - might replace "MOVE" later on?
+        WITHDRAW = 2, -- not used so far - might replace "MOVE" later on?
+        LAUNDER = 5, -- not used so far
+        MARK_AS_JUNK = 6,
+        DESTROY_WORTHLESS = 8,
+        DESTROY_ALWAYS = 9,
     },
 
     ICON_POSITION = {

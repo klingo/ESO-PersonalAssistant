@@ -35,9 +35,7 @@ end
 ---------------------------------
 local function isPAJunkMiscellaneousMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabled({"Miscellaneous", "autoMarkTreasure"}) then
-        if tonumber(getValue({"Miscellaneous", "autoMarkGlyphQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
-    end
+    if tonumber(getValue({"Miscellaneous", "autoMarkGlyphQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
     -- if no 'true' returned so far, return false now
     return false
 end
@@ -113,7 +111,19 @@ end
 ---------------------------------
 local function isPAJunkStolenMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Stolen", "autoMarkTraitItems"}, {"Stolen", "autoMarkStyleMaterials"}, {"Stolen", "autoMarkIngredients"}) then return true end
+    if not (tonumber(getValue({"Stolen", "styleMaterialAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
+    if not (tonumber(getValue({"Stolen", "ingredientAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
+    if not (tonumber(getValue({"Stolen", "treasureAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
+    -- if no 'false' returned so far, return true now
+    return true
+end
+
+--------------------------------------------------------------------------
+-- PAJunk   Stolen      excludeAMatterOfLeisure/excludeAMatterOfRespect/excludeAMatterOfTributes
+---------------------------------
+local function isPAJunkStolenTreasureExcludeQuestsDisabled()
+    if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if tonumber(getValue({"Stolen", "treasureAction"})) == PAC.ITEM_ACTION.NOTHING then return true end
     -- if no 'true' returned so far, return false now
     return false
 end
@@ -159,18 +169,6 @@ local PAJunkMenuFunctions = {
     setAutoMarkSellToMerchantSetting = function(value) setValue(value, {"Collectibles", "autoMarkSellToMerchant"}) end,
 
     isMiscellaneousMenuDisabled = isPAJunkMiscellaneousMenuDisabled,
-    isTreasureAutoMarkDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
-    getTreasureAutoMarkSetting = function() return getValue({"Miscellaneous", "autoMarkTreasure"}) end,
-    setTreasureAutoMarkSetting = function(value) setValue(value, {"Miscellaneous", "autoMarkTreasure"}) end,
-    isExcludeAMatterOfLeisureDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}, {"Miscellaneous", "autoMarkTreasure"}) end,
-    getExcludeAMatterOfLeisureSetting = function() return getValue({"Miscellaneous", "excludeAMatterOfLeisure"}) end,
-    setExcludeAMatterOfLeisureSetting = function(value) setValue(value, {"Miscellaneous", "excludeAMatterOfLeisure"}) end,
-    isExcludeAMatterOfRespectDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}, {"Miscellaneous", "autoMarkTreasure"}) end,
-    getExcludeAMatterOfRespectSetting = function() return getValue({"Miscellaneous", "excludeAMatterOfRespect"}) end,
-    setExcludeAMatterOfRespectSetting = function(value) setValue(value, {"Miscellaneous", "excludeAMatterOfRespect"}) end,
-    isExcludeAMatterOfTributesDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}, {"Miscellaneous", "autoMarkTreasure"}) end,
-    getExcludeAMatterOfTributesSetting = function() return getValue({"Miscellaneous", "excludeAMatterOfTributes"}) end,
-    setExcludeAMatterOfTributesSetting = function(value) setValue(value, {"Miscellaneous", "excludeAMatterOfTributes"}) end,
     isGlyphsAutoMarkQualityTresholdDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getGlyphsAutoMarkQualityTresholdSetting = function() return getValue({"Miscellaneous", "autoMarkGlyphQualityThreshold"}) end,
     setGlyphsAutoMarkQualityTresholdSetting = function(value) setValue(value, {"Miscellaneous", "autoMarkGlyphQualityThreshold"}) end,
@@ -227,15 +225,24 @@ local PAJunkMenuFunctions = {
     setJewelryIncludeUnknownTraitsSetting = function(value) setValue(value, {"Jewelry", "autoMarkUnknownTraits"}) end,
 
     isStolenMenuDisabled = isPAJunkStolenMenuDisabled,
-    isStolenAutoMarkTraitItemsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
-    getStolenAutoMarkTraitItemsSetting = function() return getValue({"Stolen", "autoMarkTraitItems"}) end,
-    setStolenAutoMarkTraitItemsSetting = function(value) setValue(value, {"Stolen", "autoMarkTraitItems"}) end,
-    isStolenAutoMarkStyleMaterialsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
-    getStolenAutoMarkStyleMaterialsSetting = function() return getValue({"Stolen", "autoMarkStyleMaterials"}) end,
-    setStolenAutoMarkStyleMaterialsSetting = function(value) setValue(value, {"Stolen", "autoMarkStyleMaterials"}) end,
-    isStolenAutoMarkIngredientsDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
-    getStolenAutoMarkIngredientsSetting = function() return getValue({"Stolen", "autoMarkIngredients"}) end,
-    setStolenAutoMarkIngredientsSetting = function(value) setValue(value, {"Stolen", "autoMarkIngredients"}) end,
+    isStolenStyleMaterialActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenStyleMaterialActionSetting = function() return getValue({"Stolen", "styleMaterialAction"}) end,
+    setStolenStyleMaterialActionSetting = function(value) setValue(value, {"Stolen", "styleMaterialAction"}) end,
+    isStolenIngredientActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenIngredientActionSetting = function() return getValue({"Stolen", "ingredientAction"}) end,
+    setStolenIngredientActionSetting = function(value) setValue(value, {"Stolen", "ingredientAction"}) end,
+    isStolenTreasureActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenTreasureActionSetting = function() return getValue({"Stolen", "treasureAction"}) end,
+    setStolenTreasureActionSetting = function(value) setValue(value, {"Stolen", "treasureAction"}) end,
+    isExcludeAMatterOfLeisureDisabled = isPAJunkStolenTreasureExcludeQuestsDisabled,
+    getExcludeAMatterOfLeisureSetting = function() return getValue({"Stolen", "excludeAMatterOfLeisure"}) end,
+    setExcludeAMatterOfLeisureSetting = function(value) setValue(value, {"Stolen", "excludeAMatterOfLeisure"}) end,
+    isExcludeAMatterOfRespectDisabled = isPAJunkStolenTreasureExcludeQuestsDisabled,
+    getExcludeAMatterOfRespectSetting = function() return getValue({"Stolen", "excludeAMatterOfRespect"}) end,
+    setExcludeAMatterOfRespectSetting = function(value) setValue(value, {"Stolen", "excludeAMatterOfRespect"}) end,
+    isExcludeAMatterOfTributesDisabled = isPAJunkStolenTreasureExcludeQuestsDisabled,
+    getExcludeAMatterOfTributesSetting = function() return getValue({"Stolen", "excludeAMatterOfTributes"}) end,
+    setExcludeAMatterOfTributesSetting = function(value) setValue(value, {"Stolen", "excludeAMatterOfTributes"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- AUTO-DESTROY JUNK
