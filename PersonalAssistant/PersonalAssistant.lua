@@ -131,7 +131,7 @@ local function introduction()
         if showWelcomeMessage and PAGSavedVars.welcome then
             showWelcomeMessage = false
             local currLanguage = GetCVar("language.2") or "en"
-            if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr" then
+            if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then
                 PA.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
                 PA.println(SI_PA_WELCOME_SUPPORT)
