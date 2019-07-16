@@ -464,9 +464,57 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAJStolenSubMenu()
+    local _weaponItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))
+    local _armorItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR))
+    local _jewelryItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))
+    local _styleMaterials = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS)
+    local _traitItems = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS)
+    local _lures = GetString("SI_ITEMTYPE", ITEMTYPE_LURE)
+    local _ingredients = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_INGREDIENT), 2)
+    local _foods = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_FOOD), 2)
+    local _drinks = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_DRINK), 2)
+
     PAJStolenSubMenu:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_STYLE_MATERIALS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _weaponItemType),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenWeaponActionSetting,
+        setFunc = PAJMenuFunctions.setStolenWeaponActionSetting,
+        disabled = PAJMenuFunctions.isStolenWeaponActionDisabled,
+        default = PAJMenuDefaults.Stolen.Weapons.action,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _armorItemType),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenArmorActionSetting,
+        setFunc = PAJMenuFunctions.setStolenArmorActionSetting,
+        disabled = PAJMenuFunctions.isStolenArmorActionDisabled,
+        default = PAJMenuDefaults.Stolen.Armor.action,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _jewelryItemType),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenJewelryActionSetting,
+        setFunc = PAJMenuFunctions.setStolenJewelryActionSetting,
+        disabled = PAJMenuFunctions.isStolenJewelryActionDisabled,
+        default = PAJMenuDefaults.Stolen.Jewelry.action,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _styleMaterials),
         choices = PAJMenuChoices.itemAction,
         choicesValues = PAJMenuChoicesValues.itemAction,
         getFunc = PAJMenuFunctions.getStolenStyleMaterialActionSetting,
@@ -477,7 +525,34 @@ local function _createPAJStolenSubMenu()
 
     PAJStolenSubMenu:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_INGREDIENTS),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _traitItems),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenTraitItemActionSetting,
+        setFunc = PAJMenuFunctions.setStolenTraitItemActionSetting,
+        disabled = PAJMenuFunctions.isStolenTraitItemActionDisabled,
+        default = PAJMenuDefaults.Stolen.traitItemAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _lures),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenLureActionSetting,
+        setFunc = PAJMenuFunctions.setStolenLureActionSetting,
+        disabled = PAJMenuFunctions.isStolenLureActionDisabled,
+        default = PAJMenuDefaults.Stolen.lureAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _ingredients),
         choices = PAJMenuChoices.itemAction,
         choicesValues = PAJMenuChoicesValues.itemAction,
         getFunc = PAJMenuFunctions.getStolenIngredientActionSetting,
@@ -488,18 +563,40 @@ local function _createPAJStolenSubMenu()
 
     PAJStolenSubMenu:insert({
         type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _foods),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenFoodActionSetting,
+        setFunc = PAJMenuFunctions.setStolenFoodActionSetting,
+        disabled = PAJMenuFunctions.isStolenFoodActionDisabled,
+        default = PAJMenuDefaults.Stolen.foodAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _drinks),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenDrinkActionSetting,
+        setFunc = PAJMenuFunctions.setStolenDrinkActionSetting,
+        disabled = PAJMenuFunctions.isStolenDrinkActionDisabled,
+        default = PAJMenuDefaults.Stolen.drinkAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
         name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES),
         choices = PAJMenuChoices.itemAction,
         choicesValues = PAJMenuChoicesValues.itemAction,
         getFunc = PAJMenuFunctions.getStolenTreasureActionSetting,
         setFunc = PAJMenuFunctions.setStolenTreasureActionSetting,
         disabled = PAJMenuFunctions.isStolenTreasureActionDisabled,
-        default = PAJMenuDefaults.Stolen.treasureAction,
-    })
-
-    PAJStolenSubMenu:insert({
-        type = "divider",
-        alpha = 0.2,
+        default = PAJMenuDefaults.Stolen.Treasure.action,
     })
 
     PAJStolenSubMenu:insert({
@@ -515,7 +612,7 @@ local function _createPAJStolenSubMenu()
         getFunc = PAJMenuFunctions.getExcludeAMatterOfLeisureSetting,
         setFunc = PAJMenuFunctions.setExcludeAMatterOfLeisureSetting,
         disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
-        default = PAJMenuDefaults.Stolen.excludeAMatterOfLeisure,
+        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfLeisure,
     })
 
     PAJStolenSubMenu:insert({
@@ -525,7 +622,7 @@ local function _createPAJStolenSubMenu()
         getFunc = PAJMenuFunctions.getExcludeAMatterOfRespectSetting,
         setFunc = PAJMenuFunctions.setExcludeAMatterOfRespectSetting,
         disabled = PAJMenuFunctions.isExcludeAMatterOfRespectDisabled,
-        default = PAJMenuDefaults.Stolen.excludeAMatterOfRespect,
+        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfRespect,
     })
 
     PAJStolenSubMenu:insert({
@@ -535,7 +632,7 @@ local function _createPAJStolenSubMenu()
         getFunc = PAJMenuFunctions.getExcludeAMatterOfTributesSetting,
         setFunc = PAJMenuFunctions.setExcludeAMatterOfTributesSetting,
         disabled = PAJMenuFunctions.isExcludeAMatterOfTributesDisabled,
-        default = PAJMenuDefaults.Stolen.excludeAMatterOfTributes,
+        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfTributes,
     })
 end
 

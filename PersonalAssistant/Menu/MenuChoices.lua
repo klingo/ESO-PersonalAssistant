@@ -51,7 +51,7 @@ local PAMenuChoices = {
         itemAction = {
             GetString(SI_PA_ITEM_ACTION_NOTHING),
             GetString(SI_PA_ITEM_ACTION_MARK_AS_JUNK),
-            PAC.COLOR.ORANGE_RED:Colorize(GetString(SI_PA_ITEM_ACTION_DESTROY_WORTHLESS)),
+            PAC.COLOR.ORANGE_RED:Colorize(GetString(SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS)),
             PAC.COLOR.RED:Colorize(GetString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS)),
         },
     },
@@ -111,10 +111,10 @@ local PAMenuChoicesValues = {
             ITEM_QUALITY_TRASH,         -- 0
         },
         itemAction = {
-            PAC.ITEM_ACTION.NOTHING,            -- 0
-            PAC.ITEM_ACTION.MARK_AS_JUNK,       -- 6
-            PAC.ITEM_ACTION.DESTROY_WORTHLESS,  -- 8
-            PAC.ITEM_ACTION.DESTROY_ALWAYS,     -- 9
+            PAC.ITEM_ACTION.NOTHING,                -- 0
+            PAC.ITEM_ACTION.MARK_AS_JUNK,           -- 6
+            PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS, -- 8
+            PAC.ITEM_ACTION.DESTROY_ALWAYS,         -- 9
         },
     },
     PALoot = {

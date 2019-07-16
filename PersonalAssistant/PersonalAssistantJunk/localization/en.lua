@@ -25,9 +25,8 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T = table.concat({"Automatically mark items with the indicator [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] as junk?"}),
 
     -- Stolen Items --
-    SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Stolen",
-    SI_PA_MENU_JUNK_ACTION_STOLEN_STYLE_MATERIALS = table.concat({"When stealing [", GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS), "]"}),
-    SI_PA_MENU_JUNK_ACTION_STOLEN_INGREDIENTS = table.concat({"When stealing [", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_INGREDIENT), 2), "]"}),
+    SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Stolen Items",
+    SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "When stealing [%s]",
     SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES = table.concat({"When stealing [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items"}),
     SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC = table.concat({"Do NOT destroy or mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items as junk if . . ."}),
     SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure"), " Daily Quest"}),

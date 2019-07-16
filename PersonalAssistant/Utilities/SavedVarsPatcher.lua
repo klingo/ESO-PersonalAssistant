@@ -252,17 +252,17 @@ local function _applyPatch_2_4_4(savedVarsVersion, _, _, patchPAJ, _, _, _)
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
             -- 1) migrate:      PAJunk.Miscellaneous.autoMarkTreasure
             if PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure then
-                PASavedVars.Junk[profileNo].Stolen.treasureAction = PAC.ITEM_ACTION.MARK_AS_JUNK
+                PASavedVars.Junk[profileNo].Stolen.Treasure.action = PAC.ITEM_ACTION.MARK_AS_JUNK
             end
 
             -- 2) migrate:      PAJunk.Miscellaneous.excludeAMatterOfLeisure
-            PASavedVars.Junk[profileNo].Stolen.excludeAMatterOfLeisure = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfLeisure
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfLeisure = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfLeisure
 
             -- 3) migrate:      PAJunk.Miscellaneous.excludeAMatterOfRespect
-            PASavedVars.Junk[profileNo].Stolen.excludeAMatterOfRespect = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfRespect
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfRespect = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfRespect
 
             -- 4) migrate:      PAJunk.Miscellaneous.excludeAMatterOfTributes
-            PASavedVars.Junk[profileNo].Stolen.excludeAMatterOfTributes = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfTributes
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfTributes = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfTributes
 
             -- 5) cleanup everything
             PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure = nil

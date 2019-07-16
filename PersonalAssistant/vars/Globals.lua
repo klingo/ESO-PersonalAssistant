@@ -581,7 +581,7 @@ PersonalAssistant.Constants = {
         WITHDRAW = 2, -- not used so far - might replace "MOVE" later on?
         LAUNDER = 5, -- not used so far
         MARK_AS_JUNK = 6,
-        DESTROY_WORTHLESS = 8,
+        JUNK_DESTROY_WORTHLESS = 8,
         DESTROY_ALWAYS = 9,
     },
 

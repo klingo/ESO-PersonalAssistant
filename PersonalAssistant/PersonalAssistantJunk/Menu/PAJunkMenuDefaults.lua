@@ -40,12 +40,27 @@ local PAJunkMenuDefaults = {
         autoMarkUnknownTraits = false,
     },
     Stolen = {
+        Weapons = {
+            action = PAC.ITEM_ACTION.NOTHING,
+        },
+        Armor = {
+            action = PAC.ITEM_ACTION.NOTHING,
+        },
+        Jewelry = {
+            action = PAC.ITEM_ACTION.NOTHING,
+        },
         styleMaterialAction = PAC.ITEM_ACTION.NOTHING,
+        traitItemAction = PAC.ITEM_ACTION.NOTHING,
+        lureAction = PAC.ITEM_ACTION.NOTHING,
         ingredientAction = PAC.ITEM_ACTION.NOTHING,
-        treasureAction = PAC.ITEM_ACTION.NOTHING,
-        excludeAMatterOfLeisure = false,
-        excludeAMatterOfRespect = false,
-        excludeAMatterOfTributes = false,
+        foodAction = PAC.ITEM_ACTION.NOTHING,
+        drinkAction = PAC.ITEM_ACTION.NOTHING,
+        Treasure = {
+            action = PAC.ITEM_ACTION.NOTHING,
+            excludeAMatterOfLeisure = false,
+            excludeAMatterOfRespect = false,
+            excludeAMatterOfTributes = false,
+        },
     },
     Custom = {
         customItemsEnabled = true,
