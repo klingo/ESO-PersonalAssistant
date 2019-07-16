@@ -69,16 +69,19 @@ SafeAddString(SI_PA_NS_BAG_UNKNOWN, "Unbekannt", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- ItemTypes (Custom Singluar/Plural definition) --
-SafeAddString(SI_PA_ITEMTYPE4, "<<1[Nahrung/Nahrungen]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE4, "<<1[Gericht/Gerichte]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE5, "<<1[Trophäe/Trophäen]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE7, "<<1[Trank/Tränke]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE8, "<<1[Stil/Stile]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE10, "<<1[Zutat/Zutaten]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE12, "<<1[Getränk/Getränke]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE16, "<<1[Köder/Köder]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE19, "<<1[Seelenstein/Seelensteine]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE22, "<<1[Dietrich/Dietriche]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Rezept/Rezepte]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Gift/Gifte]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Sammlung/Sammlungen]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE56, "<<1[Beute/Beuten]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE60, "<<1[Meisterschrieb/Meisterschriebe]>>", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -142,6 +145,13 @@ SafeAddString(SI_PA_POSITION_TOPRIGHT, "Oben Rechts", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Unten Link", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
 
+-- -----------------------------------------------------------------------------------------------------------------
+-- PAJunk --
+SafeAddString(SI_PA_ITEM_ACTION_NOTHING, "Nichts machen", 1)
+SafeAddString(SI_PA_ITEM_ACTION_LAUNDER, "Beim Hehler schieben", 1)
+SafeAddString(SI_PA_ITEM_ACTION_MARK_AS_JUNK, "Als Trödel markieren", 1)
+SafeAddString(SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS, "Trödel oder zerstören wenn wertlos", 1)
+SafeAddString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS, "Immer zerstören", 1)
 
 -- =================================================================================================================
 -- == CUSTOM SUB MENU == --

@@ -34,6 +34,7 @@ local PAJMiscellaneousSubMenu = setmetatable({}, { __index = table })
 local PAJWeaponsSubMenu = setmetatable({}, { __index = table })
 local PAJArmorSubMenu = setmetatable({}, { __index = table })
 local PAJJewelrySubMenu = setmetatable({}, { __index = table })
+local PAJStolenSubMenu = setmetatable({}, { __index = table })
 
 local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
@@ -111,6 +112,15 @@ local function _createPAJunkMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJJewelrySubMenu,
         disabledLabel = PAJMenuFunctions.isJewelryMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER),
+        icon = PAC.ICONS.OTHERS.FENCE.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PAJStolenSubMenu,
+        disabledLabel = PAJMenuFunctions.isStolenMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -248,62 +258,6 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAJMiscellaneousSubMenu()
-    PAJMiscellaneousSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK),
-        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK_T),
-        getFunc = PAJMenuFunctions.getTreasureAutoMarkSetting,
-        setFunc = PAJMenuFunctions.setTreasureAutoMarkSetting,
-        disabled = PAJMenuFunctions.isTreasureAutoMarkDisabled,
-        default = PAJMenuDefaults.Miscellaneous.autoMarkTreasure,
-    })
-
-    PAJMiscellaneousSubMenu:insert({
-        type = "divider",
-        alpha = 0.2,
-    })
-
-    PAJMiscellaneousSubMenu:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_ITEMS_DESC),
-        disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
-    })
-
-    PAJMiscellaneousSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE),
-        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T),
-        getFunc = PAJMenuFunctions.getExcludeAMatterOfLeisureSetting,
-        setFunc = PAJMenuFunctions.setExcludeAMatterOfLeisureSetting,
-        disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
-        default = PAJMenuDefaults.Miscellaneous.excludeAMatterOfLeisure,
-    })
-
-    PAJMiscellaneousSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT),
-        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T),
-        getFunc = PAJMenuFunctions.getExcludeAMatterOfRespectSetting,
-        setFunc = PAJMenuFunctions.setExcludeAMatterOfRespectSetting,
-        disabled = PAJMenuFunctions.isExcludeAMatterOfRespectDisabled,
-        default = PAJMenuDefaults.Miscellaneous.excludeAMatterOfRespect,
-    })
-
-    PAJMiscellaneousSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES),
-        tooltip = GetString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T),
-        getFunc = PAJMenuFunctions.getExcludeAMatterOfTributesSetting,
-        setFunc = PAJMenuFunctions.setExcludeAMatterOfTributesSetting,
-        disabled = PAJMenuFunctions.isExcludeAMatterOfTributesDisabled,
-        default = PAJMenuDefaults.Miscellaneous.excludeAMatterOfTributes,
-    })
-
-    PAJMiscellaneousSubMenu:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
-
     PAJMiscellaneousSubMenu:insert({
         type = "dropdown",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)),
@@ -509,6 +463,182 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
+local function _createPAJStolenSubMenu()
+    local _weaponItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))
+    local _armorItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR))
+    local _jewelryItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))
+    local _styleMaterials = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS)
+    local _traitItems = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS)
+    local _lures = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_LURE), 2)
+    local _ingredients = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_INGREDIENT), 2)
+    local _foods = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_FOOD), 2)
+    local _drinks = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_DRINK), 2)
+    local _treasures = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TREASURE), 2)
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _weaponItemType),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenWeaponActionSetting,
+        setFunc = PAJMenuFunctions.setStolenWeaponActionSetting,
+        disabled = PAJMenuFunctions.isStolenWeaponActionDisabled,
+        default = PAJMenuDefaults.Stolen.Weapons.action,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _armorItemType),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenArmorActionSetting,
+        setFunc = PAJMenuFunctions.setStolenArmorActionSetting,
+        disabled = PAJMenuFunctions.isStolenArmorActionDisabled,
+        default = PAJMenuDefaults.Stolen.Armor.action,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _jewelryItemType),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenJewelryActionSetting,
+        setFunc = PAJMenuFunctions.setStolenJewelryActionSetting,
+        disabled = PAJMenuFunctions.isStolenJewelryActionDisabled,
+        default = PAJMenuDefaults.Stolen.Jewelry.action,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _styleMaterials),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenStyleMaterialActionSetting,
+        setFunc = PAJMenuFunctions.setStolenStyleMaterialActionSetting,
+        disabled = PAJMenuFunctions.isStolenStyleMaterialActionDisabled,
+        default = PAJMenuDefaults.Stolen.styleMaterialAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _traitItems),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenTraitItemActionSetting,
+        setFunc = PAJMenuFunctions.setStolenTraitItemActionSetting,
+        disabled = PAJMenuFunctions.isStolenTraitItemActionDisabled,
+        default = PAJMenuDefaults.Stolen.traitItemAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _lures),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenLureActionSetting,
+        setFunc = PAJMenuFunctions.setStolenLureActionSetting,
+        disabled = PAJMenuFunctions.isStolenLureActionDisabled,
+        default = PAJMenuDefaults.Stolen.lureAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _ingredients),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenIngredientActionSetting,
+        setFunc = PAJMenuFunctions.setStolenIngredientActionSetting,
+        disabled = PAJMenuFunctions.isStolenIngredientActionDisabled,
+        default = PAJMenuDefaults.Stolen.ingredientAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _foods),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenFoodActionSetting,
+        setFunc = PAJMenuFunctions.setStolenFoodActionSetting,
+        disabled = PAJMenuFunctions.isStolenFoodActionDisabled,
+        default = PAJMenuDefaults.Stolen.foodAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _drinks),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenDrinkActionSetting,
+        setFunc = PAJMenuFunctions.setStolenDrinkActionSetting,
+        disabled = PAJMenuFunctions.isStolenDrinkActionDisabled,
+        default = PAJMenuDefaults.Stolen.drinkAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _treasures),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenTreasureActionSetting,
+        setFunc = PAJMenuFunctions.setStolenTreasureActionSetting,
+        disabled = PAJMenuFunctions.isStolenTreasureActionDisabled,
+        default = PAJMenuDefaults.Stolen.Treasure.action,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC),
+        disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE),
+        tooltip = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T),
+        getFunc = PAJMenuFunctions.getExcludeAMatterOfLeisureSetting,
+        setFunc = PAJMenuFunctions.setExcludeAMatterOfLeisureSetting,
+        disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
+        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfLeisure,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT),
+        tooltip = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T),
+        getFunc = PAJMenuFunctions.getExcludeAMatterOfRespectSetting,
+        setFunc = PAJMenuFunctions.setExcludeAMatterOfRespectSetting,
+        disabled = PAJMenuFunctions.isExcludeAMatterOfRespectDisabled,
+        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfRespect,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES),
+        tooltip = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T),
+        getFunc = PAJMenuFunctions.getExcludeAMatterOfTributesSetting,
+        setFunc = PAJMenuFunctions.setExcludeAMatterOfTributesSetting,
+        disabled = PAJMenuFunctions.isExcludeAMatterOfTributesDisabled,
+        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfTributes,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
 local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
@@ -591,6 +721,7 @@ local function createOptions()
     _createPAJWeaponsSubMenu()
     _createPAJArmorSubMenu()
     _createPAJJewelrySubMenu()
+    _createPAJStolenSubMenu()
 
     _createPAJKeybindingsSubMenu()
 
