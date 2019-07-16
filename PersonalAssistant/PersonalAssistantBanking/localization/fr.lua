@@ -25,7 +25,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, "Objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, "Dépot/Retrait automatique des objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets spéciaux ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets spéciaux", 1)
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1) -- TODO: to be checked why this is not replacing the English text
+
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE, "Changer tous les menus des objets spéciaux en :", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets spéciaux précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1)
 

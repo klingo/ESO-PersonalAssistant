@@ -99,6 +99,7 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
 
+    SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
     SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Intricate Items",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Repair Kits",
