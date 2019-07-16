@@ -25,6 +25,9 @@ SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Benutzerdefinierte Gegenstä
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- Stolen Items --
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER, "Gestohlene Gegenstände", 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "Wenn [%s] gestohlen werden", 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"[", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] NICHT zerstören oder als Trödel markieren wenn . . ."}), 1)
 SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage der Muße"), " benötigt"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kinderspielzeug]\n[Puppen]\n[Spiele]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Respekts"), " benötigt"}), 1)
@@ -89,9 +92,11 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({"%s als Trö
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Händler"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Beute"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Manuell"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Gestohlen"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"%s als Trödel markiert (", PAC.COLOR.ORANGE:Colorize("Perm-Regel"), ")"}), 1)
 
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_ALWAYS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Immer"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Wertlos"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON, table.concat({"Direktes Zerstören von wertlosem Trödel wurde ", PAC.COLOR.RED:Colorize("EIN"), "geschalten"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"Direktes Zerstören von wertlosem Trödel wurde ", PAC.COLOR.GREEN:Colorize("AUS"), "geschalten"}), 1)

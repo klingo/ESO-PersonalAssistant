@@ -75,12 +75,14 @@ local PAStrings = {
     SI_PA_ITEMTYPE8 = "<<1[Motif/Motives]>>",
     SI_PA_ITEMTYPE10 = "<<1[Ingredient/Ingredients]>>",
     SI_PA_ITEMTYPE12 = "<<1[Drink/Drinks]>>",
+    SI_PA_ITEMTYPE16 = "<<1[Lure/Lures]>>",
     SI_PA_ITEMTYPE19 = "<<1[Soul Gem/Soul Gems]>>",
     SI_PA_ITEMTYPE22 = "<<1[Lockpick/Lockpicks]>>",
     SI_PA_ITEMTYPE29 = "<<1[Recipe/Recipes]>>",
     SI_PA_ITEMTYPE30 = "<<1[Poison/Poisons]>>",
     SI_PA_ITEMTYPE34 = "<<1[Collectible/Collectibles]>>",
     SI_PA_ITEMTYPE47 = "<<1[AvA Repair/AvA Repairs]>>",
+    SI_PA_ITEMTYPE56 = "<<1[Treasure/Treasures]>>",
     SI_PA_ITEMTYPE60 = "<<1[Master Writ/Master Writs]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------

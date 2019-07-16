@@ -469,10 +469,11 @@ local function _createPAJStolenSubMenu()
     local _jewelryItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))
     local _styleMaterials = GetString(SI_PA_MENU_BANKING_CRAFTING_STYLEMATERIALS)
     local _traitItems = GetString(SI_PA_MENU_BANKING_CRAFTING_TRAITITEMS)
-    local _lures = GetString("SI_ITEMTYPE", ITEMTYPE_LURE)
+    local _lures = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_LURE), 2)
     local _ingredients = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_INGREDIENT), 2)
     local _foods = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_FOOD), 2)
     local _drinks = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_DRINK), 2)
+    local _treasures = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TREASURE), 2)
 
     PAJStolenSubMenu:insert({
         type = "dropdown",
@@ -590,7 +591,7 @@ local function _createPAJStolenSubMenu()
 
     PAJStolenSubMenu:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _treasures),
         choices = PAJMenuChoices.itemAction,
         choicesValues = PAJMenuChoicesValues.itemAction,
         getFunc = PAJMenuFunctions.getStolenTreasureActionSetting,
