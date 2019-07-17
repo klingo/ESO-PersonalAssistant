@@ -25,15 +25,16 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({P
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Автоматически помечать предмет с типом [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] как хлам."}), 1)
 
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_AUTOMARK_T, table.concat({"Автоматически помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] как хлам."}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"НЕ помечать [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] как хлам если . . ."}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Детские игрушки]\n[Куклы]\n[Игры]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Respect")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Аксессуар]\n[Посуда]\n[Кухонные принадлежности]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Товары для ухода]"}), 1)
+-- Stolen Items --
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER, "Украденные вещи", 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "%s", 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"НЕ уничтожать и НЕ помечать [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] как хлам если . . ."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Детские игрушки]\n[Куклы]\n[Игры]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Respect")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Аксессуар]\n[Посуда]\n[Кухонные принадлежности]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Товары для ухода]"}), 1)
 
 -- Custom Items --
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Настраиваемые предметы", 1)
@@ -95,10 +96,12 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, table.concat({"Отправ
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Качество"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Продажа"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Сокровище"), ")"}), 1)
-SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Вручную"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Ручное"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Краденое"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Постоянная пометка"), ")"}), 1)
 
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_ALWAYS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Перманентно"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Мусор"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON, table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}), 1)
@@ -106,7 +109,8 @@ SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"Автома
 SafeAddString(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, "Продано предметов на %s", 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Пожалуйста, подождите ~%d часов"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Пожалуйста, подождите ~%d минут"}), 1)
---    SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Невозможно продать %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, table.concat({"Невозможно продать %s. ", GetString("SI_STOREFAILURE", STORE_FAILURE_WORTHLESS_TO_FENCE)}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_CANNOT_SELL_ITEM, "Невозможно продать %s", 1)
 
 SafeAddString(SI_PA_CHAT_JUNK_RULES_ADDED, table.concat({"Предмет %s был ", PAC.COLOR.ORANGE:Colorize("добавлен"), " в настраиваемый список хлама!"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_RULES_DELETED, table.concat({"Предмет %s был ", PAC.COLOR.ORANGE:Colorize("удален"), " из настраиваемого списка хлама!"}), 1)
@@ -141,6 +145,6 @@ SafeAddString(SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING, "Товары для ухо
 -- PAJunk Menu --
 -- Fix wrong endings of headers and fix unused collectibles translation
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_HEADER, zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_COLLECTIBLE), 2), 1)
-SafeAddString(SI_PA_MENU_JUNK_WEAPONS_HEADER, zo_strformat(GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), 2), 1)
-SafeAddString(SI_PA_MENU_JUNK_ARMOR_HEADER, zo_strformat(GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR),2 ), 1)
-SafeAddString(SI_PA_MENU_JUNK_JEWELRY_HEADER, zo_strformat(GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), 2), 1)
+SafeAddString(SI_PA_MENU_JUNK_WEAPONS_HEADER, zo_strformat(GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), 1), 1)
+SafeAddString(SI_PA_MENU_JUNK_ARMOR_HEADER, zo_strformat(GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR),1 ), 1)
+SafeAddString(SI_PA_MENU_JUNK_JEWELRY_HEADER, zo_strformat(GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), 1), 1)

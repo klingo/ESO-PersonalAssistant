@@ -72,13 +72,16 @@ SafeAddString(SI_PA_ITEMTYPE4, "<<1[Еда/Еда]>>", 1) -- ITEMTYPE_FOOD
 SafeAddString(SI_PA_ITEMTYPE5, "<<1[Трофей/Трофеи]>>", 1) -- ITEMTYPE_TROPHY
 SafeAddString(SI_PA_ITEMTYPE7, "<<1[Зелье/Зелья]>>", 1) -- ITEMTYPE_POTION
 SafeAddString(SI_PA_ITEMTYPE8, "<<1[Мотив/Мотивы]>>", 1) -- ITEMTYPE_RACIAL_STYLE_MOTIF
+SafeAddString(SI_PA_ITEMTYPE10, "<<1[Ингридиент/Ингредиенты]>>", 1) -- ITEMTYPE_INGREDIENT
 SafeAddString(SI_PA_ITEMTYPE12, "<<1[Напиток/Напитки]>>", 1) -- ITEMTYPE_DRINK
+SafeAddString(SI_PA_ITEMTYPE16, "<<1[Наживка/Наживка]>>", 1) -- ITEMTYPE_LURE
 SafeAddString(SI_PA_ITEMTYPE22, "<<1[Отмычка/Отмычки]>>", 1) -- todo: unused
 SafeAddString(SI_PA_ITEMTYPE19, "<<1[Камень душ/Камни душ]>>", 1) -- ITEMTYPE_SOUL_GEM
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Рецепт/Рецепты]>>", 1) -- ITEMTYPE_RECIPE
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Яд/Яды]>>", 1) -- ITEMTYPE_POISON
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Коллекционный предмет/Коллекционные предметы]>>", 1) -- ITEMTYPE_COLLECTIBLE
 SafeAddString(SI_PA_ITEMTYPE47, "<<1[Ремонтный набор войны альянсов/Ремонтные наборы войны альянсов]>>", 1) -- todo: unused
+SafeAddString(SI_PA_ITEMTYPE56, "<<1[Сокровище/Сокровища]>>", 1) -- ITEMTYPE_TREASURE
 SafeAddString(SI_PA_ITEMTYPE60, "<<1[Мастерский заказ/Мастерские заказы]>>", 1) -- ITEMTYPE_MASTER_WRIT
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -142,6 +145,14 @@ SafeAddString(SI_PA_POSITION_TOPLEFT, "Вверху слева", 1)
 SafeAddString(SI_PA_POSITION_TOPRIGHT, "Вверху справа", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Внизу слева", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Внизу справа", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- PAJunk --
+SafeAddString(SI_PA_ITEM_ACTION_NOTHING, "Ничего не делать", 1)
+SafeAddString(SI_PA_ITEM_ACTION_LAUNDER, "Отмывать у скупщика", 1) -- not used so far
+SafeAddString(SI_PA_ITEM_ACTION_MARK_AS_JUNK, "Пометить как хлам", 1)
+SafeAddString(SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS, "В хлам или уничтожить, если цена 0з", 1)
+SafeAddString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS, "Всегда уничтожать", 1)
 
 
 -- =================================================================================================================
