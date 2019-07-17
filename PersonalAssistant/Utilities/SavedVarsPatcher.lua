@@ -245,6 +245,35 @@ local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, patchPAJ,  _, _,
     end
 end
 
+
+local function _applyPatch_2_4_4(savedVarsVersion, _, _, _, patchPAJ, _, _)
+    if patchPAJ then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate:      PAJunk.Miscellaneous.autoMarkTreasure
+            if PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure then
+                PASavedVars.Junk[profileNo].Stolen.Treasure.action = PAC.ITEM_ACTION.MARK_AS_JUNK
+            end
+
+            -- 2) migrate:      PAJunk.Miscellaneous.excludeAMatterOfLeisure
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfLeisure = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfLeisure
+
+            -- 3) migrate:      PAJunk.Miscellaneous.excludeAMatterOfRespect
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfRespect = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfRespect
+
+            -- 4) migrate:      PAJunk.Miscellaneous.excludeAMatterOfTributes
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfTributes = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfTributes
+
+            -- 5) cleanup everything
+            PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure = nil
+            PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfLeisure = nil
+            PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfRespect = nil
+            PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfTributes = nil
+        end
+        _updateSavedVarsVersion(savedVarsVersion, false, false, false, patchPAJ, false, false)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -271,6 +300,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.2      July 13, 2019
     _applyPatch_2_4_2(_getIsPatchNeededInfo(020402))
+
+    -- Patch 2.4.4      July 16, 2019
+    _applyPatch_2_4_4(_getIsPatchNeededInfo(020404))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

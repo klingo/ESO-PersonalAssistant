@@ -1,4 +1,13 @@
+2.4.5   (July 17, 2019)
+- fixed an issue that occurred when updating PA to version 2.4.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/173"]#173[/URL])
+
+2.4.4   (July 16, 2019)
+- fixed an issue when trying to sell items at a Fence ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/169"]#169[/URL])
+- fixed an issue where a wrong inventory-full error message was displayed in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/171"]#171[/URL])
+- revamped the PAJunk settings regarding stolen items, it is much more granular now ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/172"]#172[/URL])
+
 2.4.3   (July 14, 2019)
+- improved currency formatting in chat messages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/166"]#166[/URL])
 - fixed an issue where treasure items no longer were marked as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/167"]#167[/URL])
 - fixed an issue with the new addon integration library ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/168"]#168[/URL])
 
