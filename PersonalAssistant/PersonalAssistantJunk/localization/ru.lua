@@ -101,7 +101,7 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, table.concat({"Отправ
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Постоянная пометка"), ")"}), 1)
 
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s"}), 1)
-SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_ALWAYS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Перманентно"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_ALWAYS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Постоянная пометка"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Мусор"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON, table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}), 1)
