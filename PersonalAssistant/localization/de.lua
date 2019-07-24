@@ -24,7 +24,6 @@ SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Aktuelles Profil umbenennen", 1
 
 -- General --
 SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
-
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
 
@@ -152,6 +151,7 @@ SafeAddString(SI_PA_ITEM_ACTION_LAUNDER, "Beim Hehler schieben", 1)
 SafeAddString(SI_PA_ITEM_ACTION_MARK_AS_JUNK, "Als Trödel markieren", 1)
 SafeAddString(SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS, "Trödel oder zerstören wenn wertlos", 1)
 SafeAddString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS, "Immer zerstören", 1)
+
 
 -- =================================================================================================================
 -- == CUSTOM SUB MENU == --
