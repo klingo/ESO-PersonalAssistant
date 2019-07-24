@@ -297,13 +297,13 @@ local function _isTrashItemNotQuestExcluded(bagId, slotIndex)
     local PAJunkSavedVars = PAJ.SavedVars
     local itemId = GetItemId(bagId, slotIndex)
     -- check Quest: Nibbles and Bits
-    if PAJunkSavedVars.Trash.excludeNibblesAndBits then
+    if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeNibblesAndBits then
         for _, constItemId in pairs(PAC.JUNK.TRASH_ITEMIDS.NIBBLES_AND_BITS) do
             if itemId == constItemId then return false end
         end
     end
     -- check Quest: Morsels and Pecks
-    if PAJunkSavedVars.Trash.excludeMorselsAndPecks then
+    if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeMorselsAndPecks then
         for _, constItemId in pairs(PAC.JUNK.TRASH_ITEMIDS.MORSELS_AND_PECKS) do
             if itemId == constItemId then return false end
         end
@@ -320,19 +320,19 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
         local itemTagDescriptionFmt = zo_strformat("<<1>>", itemTagDescription, 1)
         if itemTagCategory == TAG_CATEGORY_TREASURE_TYPE then
             -- check Quest: A Matter of Leisure
-            if PAJunkSavedVars.Stolen.Treasure.excludeAMatterOfLeisure then
+            if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfLeisure then
                 for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_LEISURE) do
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
             end
             -- check Quest: A Matter of Respect
-            if PAJunkSavedVars.Stolen.Treasure.excludeAMatterOfRespect then
+            if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfRespect then
                 for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_RESPECT) do
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
             end
             -- check Quest: A Matter of Tributes
-            if PAJunkSavedVars.Stolen.Treasure.excludeAMatterOfTributes then
+            if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfTributes then
                 for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_TRIBUTES) do
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
@@ -738,6 +738,12 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
                         if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
                             _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                        end
+                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
+                        if PAJunkSavedVars.Miscellaneous.autoMarkTreasure and _isTreasureItemNotQuestExcluded(itemLink) then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
+                        else
+                            PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
                         end
                     end
                 end

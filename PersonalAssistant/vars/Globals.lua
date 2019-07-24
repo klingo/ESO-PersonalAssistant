@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020405, -- update this every release!
+            MINOR = 020406, -- update this every release!
         },
     },
 
@@ -293,6 +293,9 @@ PersonalAssistant.Constants = {
             }
         },
         OTHERS = {
+            CLOCKWORK_CITY = {
+                PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
+            },
             FENCE = {
                 PATH = "/esoui/art/vendor/vendor_tabicon_fence_up.dds",
             },
