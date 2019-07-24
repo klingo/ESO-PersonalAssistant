@@ -1,3 +1,9 @@
+2.4.6   (July 25, 2019)
+- add option to allow items from Mailbox to be marked as Junk as well ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/182"]#182[/URL])
+- updated PAJunk logic regarding Treasure items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/180"]#180[/URL])
+- fixed an issue in PABanking where Character Bound items were tried to be moved to the Bank ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/181"]#181[/URL])
+- fixed some other minor issues ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/179"]#179[/URL])
+
 2.4.5   (July 17, 2019)
 - fixed an issue that occurred when updating PA to version 2.4.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/173"]#173[/URL])
 
