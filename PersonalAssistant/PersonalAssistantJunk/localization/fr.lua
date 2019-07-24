@@ -20,17 +20,24 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({P
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Marquer automatiquement les objets avec l'indicateur [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] comme rebuts ?"}), 1)
 
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] comme rebuts ?"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de loisirs")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Jouets d'enfants]\n[Poupées]\n[Jeux]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une histoire de respect")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Ustensiles]\n[Récipients à boire]\n[Plats et moules]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de tributs")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1)
+
+-- Stolen Items --
+
+-- Quest Items --
+SafeAddString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER, "Protection des objets de quête", 1)
+SafeAddString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER, "La Cité mécanique", 1)
+
 -- Custom Items --
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Objets personnalisés", 1)
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
-
--- Stolen Items --
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de loisirs")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Jouets d'enfants]\n[Poupées]\n[Jeux]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une histoire de respect")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Ustensiles]\n[Récipients à boire]\n[Plats et moules]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de tributs")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1)
 
 -- Auto-Destroy --
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER, "Détruire automatiquement les rebuts", 1)

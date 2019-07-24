@@ -24,16 +24,23 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] items"}),
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T = table.concat({"Automatically mark items with the indicator [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] as junk?"}),
 
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] as junk?"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC = table.concat({"Do NOT destroy or mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items as junk if . . ."}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Children's Toys]\n[Dolls]\n[Games]"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Respect"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Utensils]\n[Drinkware]\n[Dishes and Cookware]"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Stolen Items",
     SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "When stealing [%s]",
-    SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC = table.concat({"Do NOT destroy or mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items as junk if . . ."}),
-    SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure"), " Daily Quest"}),
-    SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Children's Toys]\n[Dolls]\n[Games]"}),
-    SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Respect"), " Daily Quest"}),
-    SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Utensils]\n[Drinkware]\n[Dishes and Cookware]"}),
-    SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes"), " Daily Quest"}),
-    SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
+
+    -- Quest Items --
+    SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Protecting Quest Items",
+    SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Clockwork City",
 
     -- Custom Items --
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Custom Items",

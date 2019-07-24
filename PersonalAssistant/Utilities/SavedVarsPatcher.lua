@@ -274,6 +274,39 @@ local function _applyPatch_2_4_4(savedVarsVersion, _, _, _, patchPAJ, _, _)
     end
 end
 
+
+local function _applyPatch_2_4_6(savedVarsVersion, _, _, _, patchPAJ, _, _)
+    if patchPAJ then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate:      PASavedVars.Junk[profileNo].Stolen.Treasure.action
+            PASavedVars.Junk[profileNo].Stolen.treasureAction = PASavedVars.Junk[profileNo].Stolen.Treasure.action
+            PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure = (PASavedVars.Junk[profileNo].Stolen.Treasure.action == PAC.ITEM_ACTION.MARK_AS_JUNK)
+
+            -- 2) migrate:      PAJunk.Trash.excludeNibblesAndBits
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeNibblesAndBits = PASavedVars.Junk[profileNo].Trash.excludeNibblesAndBits
+
+            -- 3) migrate:      PAJunk.Trash.excludeMorselsAndPecks
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeMorselsAndPecks = PASavedVars.Junk[profileNo].Trash.excludeMorselsAndPecks
+
+            -- 4) migrate:      PAJunk.Stolen.Treasure.excludeAMatterOfLeisure
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeAMatterOfLeisure = PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfLeisure
+
+            -- 5) migrate:      PAJunk.Stolen.Treasure.excludeAMatterOfRespect
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeAMatterOfRespect = PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfRespect
+
+            -- 6) migrate:      PAJunk.Stolen.Treasure.excludeAMatterOfTributes
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeAMatterOfTributes = PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfTributes
+
+            -- 7) cleanup everything
+            PASavedVars.Junk[profileNo].Trash.excludeNibblesAndBits = nil
+            PASavedVars.Junk[profileNo].Trash.excludeMorselsAndPecks = nil
+            PASavedVars.Junk[profileNo].Stolen.Treasure = nil
+        end
+        _updateSavedVarsVersion(savedVarsVersion, false, false, false, patchPAJ, false, false)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -303,6 +336,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.4      July 16, 2019
     _applyPatch_2_4_4(_getIsPatchNeededInfo(020404))
+
+    -- Patch 2.4.6      July xx, 2019 TODO: to be updated!!!
+    _applyPatch_2_4_6(_getIsPatchNeededInfo(020406))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
