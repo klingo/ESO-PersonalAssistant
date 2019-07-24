@@ -219,7 +219,7 @@ local function _applyPatch_2_4_0(savedVarsVersion, _, patchPAB, _, _, _, _)
 end
 
 
-local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, patchPAJ,  _, _, _)
+local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, _, patchPAJ,  _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
