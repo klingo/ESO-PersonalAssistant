@@ -327,6 +327,13 @@ local PAJunkMenuFunctions = {
     setDestroyExcludeUnknownItemsSetting = function(value) setValue(value, {"KeyBindings", "destroyExcludeUnknownItems"}) end,
 
     -- ----------------------------------------------------------------------------------
+    -- MAILBOX ITEMS
+    -- -----------------------------
+    isMailboxItemsIgnoredDisabled = isPAJunkStolenMenuDisabled,
+    getMailboxItemsIgnoredSetting = function() return getValue({"ignoreMailboxItems"}) end,
+    setMailboxItemsIgnoredSetting = function(value) setValue(value, {"ignoreMailboxItems"}) end,
+
+    -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK
     -- -----------------------------
     isAutoSellJunkDisabled = function() return isDisabled() end, -- currently always enabled

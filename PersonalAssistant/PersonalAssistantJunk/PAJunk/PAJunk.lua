@@ -196,7 +196,6 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     end
 end
 
-
 local function _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
     PAJ.debugln("Mark Item As Junk")
     SetItemIsJunk(bagId, slotIndex, true)
@@ -621,9 +620,9 @@ end
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAHF.hasActiveProfile() then
         -- only proceed, if neither the crafting window nor the mailbox are open (otherwise crafted/retrieved items could also be marked as junk)
-        if not ZO_CraftingUtils_IsCraftingWindowOpen() and PA.WindowStates.isMailboxClosed then
-            local PAJunkSavedVars = PAJ.SavedVars
-
+        -- unless the mailbox setting is overriden
+        local PAJunkSavedVars = PAJ.SavedVars
+        if not ZO_CraftingUtils_IsCraftingWindowOpen() and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
             -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
             if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType

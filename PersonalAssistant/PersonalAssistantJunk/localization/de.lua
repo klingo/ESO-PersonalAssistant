@@ -49,6 +49,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T, "Wenn ein wertloser Gegenstan
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ACHTUNG: Bitte beachte dass bei Verwendung von dieser Einstellung KEINE Sicherheitsfrage kommt ob der Gegenstand wirklich zerstört werden soll.\nEr wird einfach direkt zerstört!\nUnwiderruflich!\nNutzung erfolgt auf eigenes Risiko!", 1)
 
 -- Other Settings --
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Aus Nachrichten nie als Trödel markieren", 1)
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Aus Nachrichten entnommene Gegenstände sollen nie als Trödel markiert werden", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Tastenkürzel", 1)

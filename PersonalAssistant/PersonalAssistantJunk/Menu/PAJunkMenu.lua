@@ -193,6 +193,16 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_MAILBOX_IGNORE),
+        tooltip = GetString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T),
+        getFunc = PAJMenuFunctions.getMailboxItemsIgnoredSetting,
+        setFunc = PAJMenuFunctions.setMailboxItemsIgnoredSetting,
+        disabled = PAJMenuFunctions.isMailboxItemsIgnoredDisabled,
+        default = PAJMenuDefaults.ignoreMailboxItems,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
         getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
         setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
