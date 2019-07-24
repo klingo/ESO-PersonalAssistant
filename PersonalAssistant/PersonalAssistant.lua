@@ -241,10 +241,14 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 
         local boundState = select(21, ZO_LinkHandler_ParseLink(itemLink))
         local isBound = IsItemLinkBound(itemLink)
+        local bindType = GetItemBindType(bagId, slotIndex)
         local isBOPAndTradeable = IsItemBoPAndTradeable(bagId, slotIndex)
+        local isCharacterBound = isBound and bindType == BIND_TYPE_ON_PICKUP_BACKPACK
         d("boundState="..tostring(boundState))
         d("isBound="..tostring(isBound))
+        d("bindType="..tostring(bindType))
         d("isBOPAndTradeable="..tostring(isBOPAndTradeable))
+        d("isCharacterBound="..tostring(isCharacterBound))
 
         local isStolen = IsItemStolen(bagId, slotIndex)
         if isStolen then
