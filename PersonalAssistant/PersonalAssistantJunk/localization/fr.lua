@@ -49,6 +49,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T, "Lors du butin, si un objet e
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ATTENTION: Soyez conscient en utilisant cette option, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
 
 -- Other Settings --
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Ne pas mettre aux rebuts si reçu par courrier", 1)
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Ne jamais mettre aux rebuts des objets reçus du courrier", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente/Recel auto. des rebuts aux marchands", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)

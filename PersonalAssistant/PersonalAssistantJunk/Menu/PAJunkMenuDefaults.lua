@@ -74,6 +74,7 @@ local PAJunkMenuDefaults = {
         },
     },
 
+    ignoreMailboxItems = true,
     autoSellJunk = true,
 
     KeyBindings = {

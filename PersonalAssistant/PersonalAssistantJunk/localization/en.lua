@@ -53,6 +53,8 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "WARNING: Please be aware that using this setting, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
 
     -- Other Settings --
+    SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Never mark items received from Mailbox as Junk",
+    SI_PA_MENU_JUNK_MAILBOX_IGNORE_T = "Items that are received from Mailbox should never be marked as Junk",
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
 
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
