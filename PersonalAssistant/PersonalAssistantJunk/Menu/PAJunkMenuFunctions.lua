@@ -112,10 +112,10 @@ end
 -- PAJunk   QuestProtection         ClockworkCity
 ---------------------------------
 local function isPAJunkClockworkCityMenuDisabled()
-    -- TODO: extend logic to also disable when the individual settings are turned off - IMPORTANT
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Trash", "autoMarkTrash"}, {"Miscellaneous", "autoMarkTreasure"}) then
-        if tonumber(getValue({"Stolen", "treasureAction"})) == PAC.ITEM_ACTION.NOTHING then return true end
+    if (isDisabled({"Trash", "autoMarkTrash"}) or isDisabledAll({"QuestProtection", "ClockworkCity", "excludeNibblesAndBits"}, {"QuestProtection", "ClockworkCity", "excludeMorselsAndPecks"})) and
+            ((isDisabled({"Miscellaneous", "autoMarkTreasure"}) and tonumber(getValue({"Stolen", "treasureAction"})) == PAC.ITEM_ACTION.NOTHING) or isDisabledAll({"QuestProtection", "ClockworkCity", "excludeAMatterOfLeisure"}, {"QuestProtection", "ClockworkCity", "excludeAMatterOfRespect"}, {"QuestProtection", "ClockworkCity", "excludeAMatterOfTributes"})) then
+        return true
     end
     -- if no 'true' returned so far, return false now
     return false
