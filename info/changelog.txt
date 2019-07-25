@@ -1,3 +1,6 @@
+2.4.7   (July 25, 2019)
+- fixed an issue when looting stolen Treasure items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/183"]#183[/URL])
+
 2.4.6   (July 25, 2019)
 - add option to allow items from Mailbox to be marked as Junk as well ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/182"]#182[/URL])
 - updated PAJunk logic regarding Treasure items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/180"]#180[/URL])
