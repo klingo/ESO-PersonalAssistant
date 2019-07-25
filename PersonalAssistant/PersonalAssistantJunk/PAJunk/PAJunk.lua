@@ -678,8 +678,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     elseif itemType == ITEMTYPE_DRINK and not (PAJunkSavedVars.Stolen.drinkAction == PAC.ITEM_ACTION.NOTHING) then
                         local drinkAction = PAJunkSavedVars.Stolen.drinkAction
                         _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, drinkAction)
-                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and not (PAJunkSavedVars.Stolen.Treasure.action == PAC.ITEM_ACTION.NOTHING) then
-                        local treasureAction = PAJunkSavedVars.Stolen.Treasure.action
+                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and not (PAJunkSavedVars.Stolen.treasureAction == PAC.ITEM_ACTION.NOTHING) then
+                        local treasureAction = PAJunkSavedVars.Stolen.treasureAction
                         if _isTreasureItemNotQuestExcluded(itemLink) then
                             _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink, treasureAction)
                         else
