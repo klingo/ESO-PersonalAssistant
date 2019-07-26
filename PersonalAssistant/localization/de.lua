@@ -100,6 +100,7 @@ SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Nichts machen", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "In Truhe einlagern", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Ins Inventar entnehmen", 1)
 
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphen", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, "Intrikate Gegenstände", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_REPAIRKIT, "Reparaturmaterialien", 1)

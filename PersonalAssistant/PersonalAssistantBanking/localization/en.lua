@@ -29,7 +29,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_ENABLE = "Enable Auto Banking for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
-    SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
+
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Change all above Special Item dropdowns to",
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
