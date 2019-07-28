@@ -1,4 +1,5 @@
-[IMG]https://cdn.countryflags.com/download/united-states-of-america/flag-png-3d-round-icon-32.png[/IMG][IMG]https://cdn.countryflags.com/download/germany/flag-png-3d-round-icon-32.png[/IMG][IMG]https://cdn.countryflags.com/download/france/flag-png-3d-round-icon-32.png[/IMG][IMG]https://cdn.countryflags.com/download/russia/flag-png-3d-round-icon-32.png[/IMG]
+[IMG]https://klingonium.com/files/esoui/flags/united-states-of-america-flag-round-xs-32.png[/IMG] [IMG]https://klingonium.com/files/esoui/flags/germany-flag-round-xs-32.png[/IMG] [IMG]https://klingonium.com/files/esoui/flags/france-flag-round-xs-32.png[/IMG] [IMG]https://klingonium.com/files/esoui/flags/russia-flag-round-xs-32.png[/IMG]
+
 
 [B][SIZE=4][COLOR=Yellow]P[/COLOR][COLOR=White]ersonal[/COLOR][COLOR=Yellow]A[/COLOR][COLOR=White]ssistant[/COLOR] [COLOR=Yellow]V2[/COLOR][/SIZE][/B]
 
