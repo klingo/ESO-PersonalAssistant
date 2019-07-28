@@ -22,6 +22,7 @@ local PAJunkMenuDefaults = {
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Armor = {
@@ -29,6 +30,7 @@ local PAJunkMenuDefaults = {
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Jewelry = {
@@ -36,6 +38,7 @@ local PAJunkMenuDefaults = {
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Stolen = {
