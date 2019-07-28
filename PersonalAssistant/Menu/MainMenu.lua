@@ -111,6 +111,14 @@ local function createPAGeneralMenu()
             isDangerous = true,
             warning = "The Game language will be changed to French!",
         })
+
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = "Russian",
+            func = function() SetCVar("language.2", "ru") end,
+            isDangerous = true,
+            warning = "The Game language will be changed to Russian! (inofficial)",
+        })
     end
 end
 
