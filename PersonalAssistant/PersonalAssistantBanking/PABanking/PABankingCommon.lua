@@ -377,7 +377,7 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     PAB.debugln("#toWithdrawBagCache = "..tostring(#withdrawalFromBagCache))
 
     -- update the StacksAllowed options from the SavedVars
-    -- TODO: Challenge this, as it does not make sense for Glyphs and Treasure Maps
+    -- OPTIMIZE: Challenge this, as it does not make sense for Glyphs and Treasure Maps
     local newDepositStacksAllowed = (PAMF.PABanking.getTransactionDepositStackingSetting() == PAC.STACKING.FULL)
     local newWithdrawalStacksAllowed = (PAMF.PABanking.getTransactionWithdrawalStackingSetting() == PAC.STACKING.FULL)
 

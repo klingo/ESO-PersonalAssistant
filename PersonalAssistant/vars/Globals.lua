@@ -74,9 +74,9 @@ PersonalAssistant.Constants = {
         DEFAULT = "|cFFFF00",
         WHITE = "|cFFFFFF",
         LIGHT_BLUE = "|cB0B0FF",
-        GOLD = "|cC5C29E", -- TODO: not used
+        GOLD = "|cC5C29E", -- NOTE: not used
         GREEN = "|c00FF00",
-        YELLOW = "|cFFD700", -- TODO: not used
+        YELLOW = "|cFFD700", -- NOTE: not used
         ORANGE_RED = "|cFF7400",
         ORANGE = "|cFFA500",
         RED = "|cFF0000",
@@ -183,7 +183,7 @@ PersonalAssistant.Constants = {
             GLYPH_ARMOR_HEALTH = {
                 PATH = "/esoui/art/icons/enchantment_armor_healthboost.dds",
             },
-            LOCKPICK = { -- TODO: not used
+            LOCKPICK = { -- NOTE: not used
                 PATH = "/esoui/art/icons/lockpick.dds",
             },
             MASTER_WRIT = {
@@ -192,7 +192,7 @@ PersonalAssistant.Constants = {
             MOTIF = {
                 PATH = "/esoui/art/icons/quest_book_001.dds",
             },
-            POISON = { -- TODO: not used
+            POISON = { -- NOTE: not used
                 PATH = "/esoui/art/icons/crafting_poison_001_red_005.dds",
             },
             POTION = {
@@ -204,16 +204,16 @@ PersonalAssistant.Constants = {
             REPAIRKIT = {
                 PATH = "/esoui/art/icons/quest_crate_001.dds",
             },
-            REPAIRKIT_CROWN = { -- TODO: not used
+            REPAIRKIT_CROWN = { -- NOTE: not used
                 PATH = "/esoui/art/icons/store_repairkit_002.dds",
             },
             SOULGEM = {
                 PATH = "/esoui/art/icons/soulgem_006_filled.dds",
             },
-            SOULGEM_CROWN = { -- TODO: not used
+            SOULGEM_CROWN = { -- NOTE: not used
                 PATH = "/esoui/art/icons/store_soulgem_001.dds",
             },
-            SOULGEM_EMPTY = { -- TODO: not used
+            SOULGEM_EMPTY = { -- NOTE: not used
                 PATH = "/esoui/art/icons/soulgem_006_empty.dds",
             },
             STOLEN = {
@@ -225,7 +225,7 @@ PersonalAssistant.Constants = {
                     PATH = "/esoui/art/inventory/inventory_trait_intricate_icon.dds",
                     SMALL = "|t16:16:/esoui/art/inventory/inventory_trait_intricate_icon.dds|t",
                 },
-                ORNATE = { -- TODO: not used
+                ORNATE = { -- NOTE: not used
                     PATH = "/esoui/art/inventory/inventory_trait_ornate_icon.dds",
                 },
             },
