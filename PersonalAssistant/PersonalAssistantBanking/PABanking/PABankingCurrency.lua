@@ -36,7 +36,7 @@ end
 
 
 local function depositCurrency(ccyAmountToDeposit, currencyType)
-    local ccyAmountOnCharacter = GetCurrencyAmount(currencyType, CURRENCY_LOCATION_CHARACTER) -- TODO: really needed?
+    local ccyAmountOnCharacter = GetCurrencyAmount(currencyType, CURRENCY_LOCATION_CHARACTER) -- REVIEW: really needed?
     local maxCcyTransfer = GetMaxCurrencyTransfer(currencyType, CURRENCY_LOCATION_CHARACTER, CURRENCY_LOCATION_BANK)
     local originalCcyAmountToDepositFmt = PAHF.getFormattedCurrency(ccyAmountToDeposit, currencyType, true)
 

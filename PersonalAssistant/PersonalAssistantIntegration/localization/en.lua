@@ -6,7 +6,7 @@ local PAIStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAIntegration Menu --
-    SI_PA_MENU_INTEGRATION_DESCRIPTION = "PAIntegration can integrate functionality of PersonalAssistant addons with other third-party addons such as Dolgubon's Lazy Writ Crafter or FCO ItemSaver", -- TODO
+    SI_PA_MENU_INTEGRATION_DESCRIPTION = "PAIntegration can integrate functionality of PersonalAssistant addons with other third-party addons such as Dolgubon's Lazy Writ Crafter or FCO ItemSaver",
     SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE = "You currently do not have any addons installed/enabled that are supported by PAIntegration",
 
     -- Dolgubon's Lazy Writ Crafter --
