@@ -268,11 +268,17 @@ local function _canWeaponArmorJewelryBeMarkedAsJunk(savedVarsGroup, itemLink, it
             -- quality threshold would be reached, check other includes now
             local hasSet = GetItemLinkSetInfo(itemLink, false)
             if not hasSet or (hasSet and savedVarsGroup.autoMarkIncludingSets) then
-                local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
-                if (not canBeResearched and savedVarsGroup.autoMarkKnownTraits) or (canBeResearched and savedVarsGroup.autoMarkUnknownTraits) then
-                    local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
-                    if not isIntricateTtrait or (isIntricateTtrait and savedVarsGroup.autoMarkIntricateTrait) then
-                        return true
+                local itemTraitType = GetItemLinkTraitType(itemLink)
+                if itemTraitType == ITEM_TRAIT_TYPE_NONE then
+                    -- if the item has passed the quality-check and the set-check, and has no traits then it can be marked as junk
+                    return true
+                else
+                    local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+                    if (not canBeResearched and savedVarsGroup.autoMarkKnownTraits) or (canBeResearched and savedVarsGroup.autoMarkUnknownTraits) then
+                        local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
+                        if not isIntricateTtrait or (isIntricateTtrait and savedVarsGroup.autoMarkIntricateTrait) then
+                            return true
+                        end
                     end
                 end
             end
