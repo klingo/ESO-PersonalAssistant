@@ -325,7 +325,8 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     mathOperatorControl:SetText(rowData.mathOperator)
 
     local bagAmountControl = rowControl:GetNamedChild("BagAmount")
-    bagAmountControl:SetText(rowData.bagAmount)
+    local bagAmountFmt = zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(rowData.bagAmount))
+    bagAmountControl:SetText(bagAmountFmt)
 
     local itemIconControl = rowControl:GetNamedChild("ItemIcon")
     itemIconControl:SetTexture(rowData.itemIcon)
@@ -525,7 +526,8 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
 
     local junkCountControl = rowControl:GetNamedChild("JunkCount")
-    junkCountControl:SetText(rowData.junkCount) -- TODO: formatting!
+    local junkCountFmt = zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(rowData.junkCount))
+    junkCountControl:SetText(junkCountFmt)
 
     local lastJunkControl = rowControl:GetNamedChild("LastJunk")
     lastJunkControl:SetText(rowData.lastJunkFmt)
