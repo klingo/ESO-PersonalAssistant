@@ -239,7 +239,7 @@ local function RefreshAllEventRegistrations()
             RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
 
             -- needed in order to track stacking the backpack
-            -- TODO: why is this triggered when selling Junk?!
+            -- REVIEW: why is this triggered when selling Junk?!
             RegisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, PAL.UpdateNumBagUsedSlots, "StackedAllItems")
             RegisterFilterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "StackedAllItems")
 

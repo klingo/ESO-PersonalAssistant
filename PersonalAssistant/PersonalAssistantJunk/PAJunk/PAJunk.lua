@@ -196,7 +196,6 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
     end
 end
 
-
 local function _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
     PAJ.debugln("Mark Item As Junk")
     SetItemIsJunk(bagId, slotIndex, true)
@@ -269,11 +268,17 @@ local function _canWeaponArmorJewelryBeMarkedAsJunk(savedVarsGroup, itemLink, it
             -- quality threshold would be reached, check other includes now
             local hasSet = GetItemLinkSetInfo(itemLink, false)
             if not hasSet or (hasSet and savedVarsGroup.autoMarkIncludingSets) then
-                local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
-                if not canBeResearched or (canBeResearched and savedVarsGroup.autoMarkUnknownTraits) then
-                    local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
-                    if not isIntricateTtrait or (isIntricateTtrait and savedVarsGroup.autoMarkIntricateTrait) then
-                        return true
+                local itemTraitType = GetItemLinkTraitType(itemLink)
+                if itemTraitType == ITEM_TRAIT_TYPE_NONE then
+                    -- if the item has passed the quality-check and the set-check, and has no traits then it can be marked as junk
+                    return true
+                else
+                    local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+                    if (not canBeResearched and savedVarsGroup.autoMarkKnownTraits) or (canBeResearched and savedVarsGroup.autoMarkUnknownTraits) then
+                        local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
+                        if not isIntricateTtrait or (isIntricateTtrait and savedVarsGroup.autoMarkIntricateTrait) then
+                            return true
+                        end
                     end
                 end
             end
@@ -297,13 +302,13 @@ local function _isTrashItemNotQuestExcluded(bagId, slotIndex)
     local PAJunkSavedVars = PAJ.SavedVars
     local itemId = GetItemId(bagId, slotIndex)
     -- check Quest: Nibbles and Bits
-    if PAJunkSavedVars.Trash.excludeNibblesAndBits then
+    if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeNibblesAndBits then
         for _, constItemId in pairs(PAC.JUNK.TRASH_ITEMIDS.NIBBLES_AND_BITS) do
             if itemId == constItemId then return false end
         end
     end
     -- check Quest: Morsels and Pecks
-    if PAJunkSavedVars.Trash.excludeMorselsAndPecks then
+    if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeMorselsAndPecks then
         for _, constItemId in pairs(PAC.JUNK.TRASH_ITEMIDS.MORSELS_AND_PECKS) do
             if itemId == constItemId then return false end
         end
@@ -320,19 +325,19 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
         local itemTagDescriptionFmt = zo_strformat("<<1>>", itemTagDescription, 1)
         if itemTagCategory == TAG_CATEGORY_TREASURE_TYPE then
             -- check Quest: A Matter of Leisure
-            if PAJunkSavedVars.Stolen.Treasure.excludeAMatterOfLeisure then
+            if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfLeisure then
                 for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_LEISURE) do
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
             end
             -- check Quest: A Matter of Respect
-            if PAJunkSavedVars.Stolen.Treasure.excludeAMatterOfRespect then
+            if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfRespect then
                 for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_RESPECT) do
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
             end
             -- check Quest: A Matter of Tributes
-            if PAJunkSavedVars.Stolen.Treasure.excludeAMatterOfTributes then
+            if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfTributes then
                 for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_TRIBUTES) do
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
@@ -621,9 +626,9 @@ end
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAHF.hasActiveProfile() then
         -- only proceed, if neither the crafting window nor the mailbox are open (otherwise crafted/retrieved items could also be marked as junk)
-        if not ZO_CraftingUtils_IsCraftingWindowOpen() and PA.WindowStates.isMailboxClosed then
-            local PAJunkSavedVars = PAJ.SavedVars
-
+        -- unless the mailbox setting is overriden
+        local PAJunkSavedVars = PAJ.SavedVars
+        if not ZO_CraftingUtils_IsCraftingWindowOpen() and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
             -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
             if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
@@ -679,8 +684,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     elseif itemType == ITEMTYPE_DRINK and not (PAJunkSavedVars.Stolen.drinkAction == PAC.ITEM_ACTION.NOTHING) then
                         local drinkAction = PAJunkSavedVars.Stolen.drinkAction
                         _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, drinkAction)
-                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and not (PAJunkSavedVars.Stolen.Treasure.action == PAC.ITEM_ACTION.NOTHING) then
-                        local treasureAction = PAJunkSavedVars.Stolen.Treasure.action
+                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and not (PAJunkSavedVars.Stolen.treasureAction == PAC.ITEM_ACTION.NOTHING) then
+                        local treasureAction = PAJunkSavedVars.Stolen.treasureAction
                         if _isTreasureItemNotQuestExcluded(itemLink) then
                             _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink, treasureAction)
                         else
@@ -738,6 +743,12 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
                         if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
                             _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                        end
+                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
+                        if PAJunkSavedVars.Miscellaneous.autoMarkTreasure and _isTreasureItemNotQuestExcluded(itemLink) then
+                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
+                        else
+                            PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
                         end
                     end
                 end

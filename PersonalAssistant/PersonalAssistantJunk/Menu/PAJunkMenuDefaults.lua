@@ -9,20 +9,20 @@ local PAJunkMenuDefaults = {
 
     Trash = {
         autoMarkTrash = true,
-        excludeNibblesAndBits = false,
-        excludeMorselsAndPecks = false,
     },
     Collectibles = {
         autoMarkSellToMerchant = true,
     },
     Miscellaneous = {
-        autoMarkGlyphQualityThreshold = -1
+        autoMarkGlyphQualityThreshold = -1,
+        autoMarkTreasure = false,
     },
     Weapons = {
         autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Armor = {
@@ -30,6 +30,7 @@ local PAJunkMenuDefaults = {
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Jewelry = {
@@ -37,6 +38,7 @@ local PAJunkMenuDefaults = {
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Stolen = {
@@ -55,12 +57,7 @@ local PAJunkMenuDefaults = {
         ingredientAction = PAC.ITEM_ACTION.NOTHING,
         foodAction = PAC.ITEM_ACTION.NOTHING,
         drinkAction = PAC.ITEM_ACTION.NOTHING,
-        Treasure = {
-            action = PAC.ITEM_ACTION.NOTHING,
-            excludeAMatterOfLeisure = false,
-            excludeAMatterOfRespect = false,
-            excludeAMatterOfTributes = false,
-        },
+        treasureAction = PAC.ITEM_ACTION.NOTHING,
     },
     Custom = {
         customItemsEnabled = true,
@@ -70,7 +67,17 @@ local PAJunkMenuDefaults = {
     AutoDestroy = {
         destroyWorthlessJunk = false
     },
+    QuestProtection = {
+        ClockworkCity = {
+            excludeNibblesAndBits = false,
+            excludeMorselsAndPecks = false,
+            excludeAMatterOfLeisure = false,
+            excludeAMatterOfRespect = false,
+            excludeAMatterOfTributes = false,
+        },
+    },
 
+    ignoreMailboxItems = true,
     autoSellJunk = true,
 
     KeyBindings = {

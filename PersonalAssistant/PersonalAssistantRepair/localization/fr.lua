@@ -20,10 +20,10 @@ SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE, table.concat({"Réparer les ob
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T, "Sur le champ de bataille, tous les objets équipés en dessous du seuil de durabilité défini seront automatiquement réparés", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY, "Seuil de durabilité en %", 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T, "Réparer les objets équipés seulement s'ils sont en-dessous du seuil de durabilité", 1)
---SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE, "tbd", 1) -- TODO: not yet used ingame
---SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T, "tbd", 1) -- TODO: not yet used ingame
---SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY, "tbd", 1) -- TODO: not yet used ingame
---SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T, "tbd", 1) -- TODO: not yet used ingame
+--SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE, "tbd", 1) -- NOTE: not yet used ingame
+--SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T, "tbd", 1) -- NOTE: not yet used ingame
+--SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY, "tbd", 1) -- NOTE: not yet used ingame
+--SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T, "tbd", 1) -- NOTE: not yet used ingame
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING, "Avertir sur quantité restante faible", 1)-- table.concat({"Avertir quand il reste peu de ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}), 1) -- It was too long
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T, table.concat({"Afficher un avertissement dans la fenêtre de chat s'il vous reste peu de ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), ". Si vous n'en avez plus du tout, un rappel sera affiché au maximum toutes les 10 minutes."}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD, "    Seuil de “quantité faible”", 1) -- spaces in the beginning are needed as otherwise the options are too close to each other
@@ -32,8 +32,8 @@ SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T, table.concat({"Si
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_HEADER, table.concat({"Recharger les armes avec des ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE, table.concat({"Recharger les armes avec des pierres d'âme ?"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T, "Re-Charge les armes équipées quand elles sont complétement déchargées. Cela utilisera d'abord des pierres d'âmes à couronne, puis ensuite des pierres d'âmes.", 1)
---SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE, "tbd", 1) -- TODO: not yet used ingame
---SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T, "tbd", 1) -- TODO: not yet used ingame
+--SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE, "tbd", 1) -- NOTE: not yet used ingame
+--SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T, "tbd", 1) -- NOTE: not yet used ingame
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING, "Avertir si la quantité restante est faible", 1) -- table.concat({"Avertir quand peu de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T, table.concat({"Afficher un avertissement dans la fenêtre de chat s'il vous reste peu de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), ". Si vous n'en avez plus du tout, un rappel sera affiché au maximum toutes les 10 minutes."}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD, "    Seuil de “quantité faible”", 1) -- spaces in the beginning are needed as otherwise the options are too close to each other

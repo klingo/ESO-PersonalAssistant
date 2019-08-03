@@ -1,3 +1,6 @@
+[IMG]https://klingonium.com/files/esoui/flags/united-states-of-america-flag-round-xs-32.png[/IMG] [IMG]https://klingonium.com/files/esoui/flags/germany-flag-round-xs-32.png[/IMG] [IMG]https://klingonium.com/files/esoui/flags/france-flag-round-xs-32.png[/IMG] [IMG]https://klingonium.com/files/esoui/flags/russia-flag-round-xs-32.png[/IMG]
+
+
 [B][SIZE=4][COLOR=Yellow]P[/COLOR][COLOR=White]ersonal[/COLOR][COLOR=Yellow]A[/COLOR][COLOR=White]ssistant[/COLOR] [COLOR=Yellow]V2[/COLOR][/SIZE][/B]
 
 [SIZE=2]There are already many addons out there that support Auto-Repair or Auto-Gold-Deposit functionalities, but none of them had the features I'd like to have seen. Because of that, PersonalAssistant was born.
@@ -19,7 +22,7 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Be always ready for Cyrodiil and define how many AvA items to keep in inventory[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA I[/COLOR][COLOR=White]ntegration[/COLOR][/SIZE][LIST]
-[*]Limited support for FCO ItemSaver regarding "Marked for selling" and "Locked" marks [COLOR=Orange]*NEW* (2.4.2)[/COLOR][/LIST]
+[*]Limited support for FCO ItemSaver regarding "Marked for selling" and "Locked" marks[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
 [*]Trash items can be marked as junk
@@ -30,7 +33,7 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Junk can be sold at merchants and fences
 [*]Save time and use keybinding shortcuts to mark items as junk or directly destroy them
 [*]Mark any item as permanent junk so you never have to deal with it again
-[*]Items with no sell value can also be destroyed instead of marked as junk [COLOR=Orange]*NEW* (2.4.2)[/COLOR][/LIST]
+[*]Items with no sell value can also be destroyed instead of marked as junk[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA L[/COLOR][COLOR=White]oot[/COLOR][/SIZE][LIST]
 [*]Informs you when an unknown recipe is looted
@@ -46,13 +49,14 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Informs you when you are running out of soul gems, or repair kits (thresholds can be defined)[/LIST]
 
 [SIZE=3]Dependencies[/SIZE]
+
 [SIZE=2]Please make sure to also install the following required libraries in order to use PersonalAssistant:[/SIZE][LIST]
 [*] [URL="http://www.esoui.com/downloads/info7-LibAddonMenu.html"]LibAddonMenu[/URL] - For the AddOn settings menu
 [*] [URL="https://www.esoui.com/downloads/info2118-LibMainMenu-2.0.html"]LibMainMenu-2.0[/URL] - For the Rules Main Menu
 [*] [URL="https://www.esoui.com/downloads/info1146-LibCustomMenu.html"]LibCustomMenu[/URL] - For the right-click context menu entries[/LIST]
 
 [SIZE=3]Credits[/SIZE][LIST]
-[*] Special thanks to [URL="http://www.esoui.com/forums/member.php?u=10379"]NTak[/URL] for the French translation!
+[*] Special thanks to [URL="http://www.esoui.com/forums/member.php?u=10379"]NTak[/URL] for the French, and to [URL="https://github.com/Nesferatum"]Nesferatum[/URL] for the Russian translations!
 [*] A big thank you also to [URL="https://www.esoui.com/forums/member.php?u=11671"]ziggr[/URL] for the excellent [URL="https://github.com/ziggr/ESO-ScrollListExample"]ESO-ScrollListExample[/URL] that helped me a lot[/LIST]
 
 [SIZE=3]Issues? Requests?[/SIZE][LIST]

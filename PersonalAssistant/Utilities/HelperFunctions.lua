@@ -8,6 +8,15 @@ local PAC = PA.Constants
 -- == COMPARATORS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+local function _isItemCharacterBound(bagId, slotIndex)
+    local isBound = IsItemBound(bagId, slotIndex)
+    if isBound then
+        local bindType = GetItemBindType(bagId, slotIndex)
+        return bindType == BIND_TYPE_ON_PICKUP_BACKPACK
+    end
+    return false
+end
+
 local function getCombinedItemTypeSpecializedComparator(combinedLists)
     local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType, expectedIsKnown)
         local itemType = GetItemType(bagId, slotIndex)
@@ -48,6 +57,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists)
 
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
         for _, itemType in pairs(combinedLists.learnableKnownItemTypes) do
            if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, true) then return true end
@@ -75,6 +85,7 @@ end
 local function getItemTypeComparator(itemTypeList)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
@@ -85,6 +96,7 @@ end
 local function getItemIdComparator(itemIdList)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for itemId, _ in pairs(itemIdList) do
             if itemId == GetItemId(itemData.bagId, itemData.slotIndex) then return true end
         end
@@ -94,6 +106,7 @@ end
 
 local function getStolenJunkComparator()
     return function(itemData)
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
         return isStolen and isJunk
@@ -300,6 +313,15 @@ end
 -- == ITEM LINKS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+local function isItemLinkCharacterBound(itemLink)
+    local isBound = IsItemLinkBound(itemLink)
+    if isBound then
+        local bindType = GetItemLinkBindType(itemLink)
+        return bindType == BIND_TYPE_ON_PICKUP_BACKPACK
+    end
+    return false
+end
+
 local function isItemLinkIntricateTraitType(itemLink)
     local itemTraitInformation = GetItemTraitInformationFromItemLink(itemLink)
     return itemTraitInformation == ITEM_TRAIT_INFORMATION_INTRICATE
@@ -341,6 +363,7 @@ PA.HelperFunctions = {
     debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
     isAddonRunning = isAddonRunning,
+    isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,
     getIconExtendedItemLink = getIconExtendedItemLink
 }

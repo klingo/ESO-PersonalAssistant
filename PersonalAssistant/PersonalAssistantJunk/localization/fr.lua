@@ -15,22 +15,32 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC, table.concat({"Ne PAS ma
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Petites bouchées")}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets camelote suivants ne seront PAS marqués comme rebuts:\n[Carapace]\n[Peau Infâme]\n[Enveloppe de Daedra]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Morceaux de choix")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets camelote suivants ne seront PAS marqués comme rebuts:\n[Essence Élémentaire]\n[***Supple Roots***]\n[Ectoplasme]"}), 1)-- TODO: itemnames
+SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets camelote suivants ne seront PAS marqués comme rebuts:\n[Essence Élémentaire]\n[Racine Souple]\n[Ectoplasme]"}), 1)
 
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Marquer automatiquement les objets avec l'indicateur [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] comme rebuts ?"}), 1)
 
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] comme rebuts ?"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"Ne PAS détruire ou marquer comme rebuts les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] si nécessaire . . ."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de loisirs")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Jouets d'enfants]\n[Poupées]\n[Jeux]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une histoire de respect")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Ustensiles]\n[Récipients à boire]\n[Plats et moules]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de tributs")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1)
+
+-- Stolen Items --
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER, "Objets volés", 1)
+SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "Sur vol d'objets de type [%s]", 1)
+
+-- Quest Items --
+SafeAddString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER, "Protection des objets de quête", 1)
+SafeAddString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER, "La Cité mécanique", 1)
+
 -- Custom Items --
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Objets personnalisés", 1)
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
-
--- Stolen Items --
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de loisirs")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Jouets d'enfants]\n[Poupées]\n[Jeux]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une histoire de respect")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Ustensiles]\n[Récipients à boire]\n[Plats et moules]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de tributs")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}), 1)
 
 -- Auto-Destroy --
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER, "Détruire automatiquement les rebuts", 1)
@@ -39,6 +49,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T, "Lors du butin, si un objet e
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ATTENTION: Soyez conscient en utilisant cette option, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !", 1)
 
 -- Other Settings --
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Ne pas mettre aux rebuts si reçu par courrier", 1)
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Ne jamais mettre aux rebuts des objets reçus du courrier", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente/Recel auto. des rebuts aux marchands", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)
@@ -60,6 +72,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, "Marquer même les %s d'un 
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, "Si désactivé, seuls les objets %s qui ne font PAS partie d'un ensemble seront marqués comme rebuts", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, table.concat({"Marquer même les %s [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, table.concat({"Si désactivé, les %s [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE), "] ne seront PAS marqués comme rebuts (indépendamment de leur qualité)."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS, "Marquer même les %s avec un trait connu", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS_T, "Si désactivé, seuls les objets %s sans traits ou au traits inconnus seront marqués comme rebuts", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, "Marquer même les %s avec un trait inconnu", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Si désactivé, seuls les objets %s sans traits ou au traits connus seront marqués comme rebuts", 1)
 
@@ -89,9 +103,11 @@ SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, table.concat({"%s mis aux 
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Marchand"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Trésor"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Manuel"), ")"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Volé"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, table.concat({"%s mis aux rebuts (", PAC.COLOR.ORANGE:Colorize("Rebut permanent"), ")"}), 1)
 
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s"}), 1)
+SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_ALWAYS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Toujours"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Sans valeur"), ")"}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON, table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.RED:Colorize("OUI")}), 1)
 SafeAddString(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF, table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.GREEN:Colorize("NON")}), 1)

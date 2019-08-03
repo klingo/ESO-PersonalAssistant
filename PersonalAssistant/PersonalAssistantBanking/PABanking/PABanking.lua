@@ -29,7 +29,7 @@ local function _printLWCMessageIfItemsSkipped()
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
--- TODO: rename to specify that this triggers the compatibility?
+-- OPTIMIZE: rename to specify that this triggers the compatibility?
 local function hasLazyWritCrafterAndShouldGrabEnabled()
     if WritCreater and PA.Integration then
         local _, hasAny = WritCreater.writSearch()

@@ -36,6 +36,8 @@ local PAJArmorSubMenu = setmetatable({}, { __index = table })
 local PAJJewelrySubMenu = setmetatable({}, { __index = table })
 local PAJStolenSubMenu = setmetatable({}, { __index = table })
 
+local PAJClockworkCityQuestsSubMenu = setmetatable({}, { __index = table })
+
 local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
@@ -125,6 +127,20 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER))
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER),
+        icon = PAC.ICONS.OTHERS.CLOCKWORK_CITY.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PAJClockworkCityQuestsSubMenu,
+        disabledLabel = PAJMenuFunctions.isClockworkCityMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "header",
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER))
     })
 
@@ -177,6 +193,16 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_MAILBOX_IGNORE),
+        tooltip = GetString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T),
+        getFunc = PAJMenuFunctions.getMailboxItemsIgnoredSetting,
+        setFunc = PAJMenuFunctions.setMailboxItemsIgnoredSetting,
+        disabled = PAJMenuFunctions.isMailboxItemsIgnoredDisabled,
+        default = PAJMenuDefaults.ignoreMailboxItems,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
         getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
         setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
@@ -207,37 +233,6 @@ local function _createPAJTrashSubMenu()
         default = PAJMenuDefaults.Trash.autoMarkTrash,
     })
 
-    PAJTrashSubMenu:insert({
-        type = "divider",
-        alpha = 0.2,
-    })
-
-    PAJTrashSubMenu:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC),
-        disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
-    })
-
-    PAJTrashSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS),
-        tooltip = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T),
-        getFunc = PAJMenuFunctions.getExcludeNibblesAndBitsSetting,
-        setFunc = PAJMenuFunctions.setExcludeNibblesAndBitsSetting,
-        disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
-        default = PAJMenuDefaults.Trash.excludeNibblesAndBits,
-    })
-
-    PAJTrashSubMenu:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS),
-        tooltip = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T),
-        getFunc = PAJMenuFunctions.getExcludeMorselsAndPecksSetting,
-        setFunc = PAJMenuFunctions.setExcludeMorselsAndPecksSetting,
-        disabled = PAJMenuFunctions.isExcludeMorselsAndPecksDisabled,
-        default = PAJMenuDefaults.Trash.excludeMorselsAndPecks,
-    })
-
     -- TODO: mark junk food
 end
 
@@ -258,6 +253,16 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAJMiscellaneousSubMenu()
+    PAJMiscellaneousSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK),
+        tooltip = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T),
+        getFunc = PAJMenuFunctions.getAutoMarkTreasuresSetting,
+        setFunc = PAJMenuFunctions.setAutoMarkTreasuresSetting,
+        disabled = PAJMenuFunctions.isAutoMarkTreasuresDisabled,
+        default = PAJMenuDefaults.Miscellaneous.autoMarkTreasure,
+    })
+
     PAJMiscellaneousSubMenu:insert({
         type = "dropdown",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)),
@@ -326,6 +331,16 @@ local function _createPAJWeaponsSubMenu()
 
     PAJWeaponsSubMenu:insert({
         type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS_T, _typeName),
+        getFunc = PAJMenuFunctions.getWeaponsIncludeKnownTraitsSetting,
+        setFunc = PAJMenuFunctions.setWeaponsIncludeKnownTraitsSetting,
+        disabled = PAJMenuFunctions.isWeaponsIncludeKnownTraitsDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkKnownTraits,
+    })
+
+    PAJWeaponsSubMenu:insert({
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         getFunc = PAJMenuFunctions.getWeaponsIncludeUnknownTraitsSetting,
@@ -389,6 +404,16 @@ local function _createPAJArmorSubMenu()
 
     PAJArmorSubMenu:insert({
         type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS_T, _typeName),
+        getFunc = PAJMenuFunctions.getArmorIncludeKnownTraitsSetting,
+        setFunc = PAJMenuFunctions.setArmorIncludeKnownTraitsSetting,
+        disabled = PAJMenuFunctions.isArmorIncludeKnownTraitsDisabled,
+        default = PAJMenuDefaults.Armor.autoMarkKnownTraits,
+    })
+
+    PAJArmorSubMenu:insert({
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, _typeName),
         getFunc = PAJMenuFunctions.getArmorIncludeUnknownTraitsSetting,
@@ -448,6 +473,16 @@ local function _createPAJJewelrySubMenu()
         setFunc = PAJMenuFunctions.setJewelryIncludeIntricateTraitSetting,
         disabled = PAJMenuFunctions.isJewelryIncludeIntricateTraitDisabled,
         default = PAJMenuDefaults.Jewelry.autoMarkIntricateTrait,
+    })
+
+    PAJJewelrySubMenu:insert({
+        type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS_T, _typeName),
+        getFunc = PAJMenuFunctions.getJewelryIncludeKnownTraitsSetting,
+        setFunc = PAJMenuFunctions.setJewelryIncludeKnownTraitsSetting,
+        disabled = PAJMenuFunctions.isJewelryIncludeKnownTraitsDisabled,
+        default = PAJMenuDefaults.Jewelry.autoMarkKnownTraits,
     })
 
     PAJJewelrySubMenu:insert({
@@ -597,43 +632,78 @@ local function _createPAJStolenSubMenu()
         getFunc = PAJMenuFunctions.getStolenTreasureActionSetting,
         setFunc = PAJMenuFunctions.setStolenTreasureActionSetting,
         disabled = PAJMenuFunctions.isStolenTreasureActionDisabled,
-        default = PAJMenuDefaults.Stolen.Treasure.action,
+        default = PAJMenuDefaults.Stolen.treasureAction,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAJClockworkCityQuestsSubMenu()
+    PAJClockworkCityQuestsSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC),
+        disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
     })
 
-    PAJStolenSubMenu:insert({
+    PAJClockworkCityQuestsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS),
+        tooltip = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T),
+        getFunc = PAJMenuFunctions.getExcludeNibblesAndBitsSetting,
+        setFunc = PAJMenuFunctions.setExcludeNibblesAndBitsSetting,
+        disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
+        default = PAJMenuDefaults.QuestProtection.ClockworkCity.excludeNibblesAndBits,
+    })
+
+    PAJClockworkCityQuestsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS),
+        tooltip = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T),
+        getFunc = PAJMenuFunctions.getExcludeMorselsAndPecksSetting,
+        setFunc = PAJMenuFunctions.setExcludeMorselsAndPecksSetting,
+        disabled = PAJMenuFunctions.isExcludeMorselsAndPecksDisabled,
+        default = PAJMenuDefaults.QuestProtection.ClockworkCity.excludeMorselsAndPecks,
+    })
+
+    PAJClockworkCityQuestsSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJClockworkCityQuestsSubMenu:insert({
         type = "description",
-        text = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC),
+        text = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC),
         disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
     })
 
-    PAJStolenSubMenu:insert({
+    PAJClockworkCityQuestsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE),
-        tooltip = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T),
+        name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE),
+        tooltip = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T),
         getFunc = PAJMenuFunctions.getExcludeAMatterOfLeisureSetting,
         setFunc = PAJMenuFunctions.setExcludeAMatterOfLeisureSetting,
         disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
-        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfLeisure,
+        default = PAJMenuDefaults.QuestProtection.ClockworkCity.excludeAMatterOfLeisure,
     })
 
-    PAJStolenSubMenu:insert({
+    PAJClockworkCityQuestsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT),
-        tooltip = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T),
+        name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT),
+        tooltip = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T),
         getFunc = PAJMenuFunctions.getExcludeAMatterOfRespectSetting,
         setFunc = PAJMenuFunctions.setExcludeAMatterOfRespectSetting,
         disabled = PAJMenuFunctions.isExcludeAMatterOfRespectDisabled,
-        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfRespect,
+        default = PAJMenuDefaults.QuestProtection.ClockworkCity.excludeAMatterOfRespect,
     })
 
-    PAJStolenSubMenu:insert({
+    PAJClockworkCityQuestsSubMenu:insert({
         type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES),
-        tooltip = GetString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T),
+        name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES),
+        tooltip = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T),
         getFunc = PAJMenuFunctions.getExcludeAMatterOfTributesSetting,
         setFunc = PAJMenuFunctions.setExcludeAMatterOfTributesSetting,
         disabled = PAJMenuFunctions.isExcludeAMatterOfTributesDisabled,
-        default = PAJMenuDefaults.Stolen.Treasure.excludeAMatterOfTributes,
+        default = PAJMenuDefaults.QuestProtection.ClockworkCity.excludeAMatterOfTributes,
     })
 end
 
@@ -722,6 +792,8 @@ local function createOptions()
     _createPAJArmorSubMenu()
     _createPAJJewelrySubMenu()
     _createPAJStolenSubMenu()
+
+    _createPAJClockworkCityQuestsSubMenu()
 
     _createPAJKeybindingsSubMenu()
 

@@ -15,25 +15,32 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC, table.concat({"Markiere 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Stückchen und Häppchen"), " benötigt"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Plunder Gegenstände NICHT als Trödel markiert:\n[Panzer]\n[Verdorbenes Fell]\n[Daedrafetzen]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Bröckchen und Bisschen"), " benötigt"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Plunder Gegenstände NICHT als Trödel markiert:\n[Elementare Essenz]\n[***Supple Roots***]\n[Ektoplasma]"}), 1)-- TODO: itemnames
+SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Plunder Gegenstände NICHT als Trödel markiert:\n[Elementare Essenz]\n[Biegsame Wurzel]\n[Ektoplasma]"}), 1)
 
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Automatisch Gegenstände mit der Indikation [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] als Trödel markieren?"}), 1)
 
--- Custom Items --
-SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Benutzerdefinierte Gegenstände", 1)
-SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] Gegenstände"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T, table.concat({"Automatisch Gegenstände vom Typ [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] als Trödel markieren?"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"[", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] NICHT zerstören oder als Trödel markieren wenn . . ."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage der Muße"), " benötigt"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kinderspielzeug]\n[Puppen]\n[Spiele]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Respekts"), " benötigt"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Utensilien]\n[Trinkgefäße]\n[Teller und Kochgeschirr]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Tributs"), " benötigt"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Körperpflegegegenstände]"}), 1)
 
 -- Stolen Items --
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER, "Gestohlene Gegenstände", 1)
 SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "Wenn [%s] gestohlen werden", 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"[", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] NICHT zerstören oder als Trödel markieren wenn . . ."}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage der Muße"), " benötigt"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kinderspielzeug]\n[Puppen]\n[Spiele]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Respekts"), " benötigt"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Utensilien]\n[Trinkgefäße]\n[Teller und Kochgeschirr]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Tributs"), " benötigt"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Körperpflegegegenstände]"}), 1)
+
+-- Quest Items --
+SafeAddString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER, "Zu schützende Quest Gegenstände", 1)
+SafeAddString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER, "Die Stadt der Uhrwerke", 1)
+
+-- Custom Items --
+SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Benutzerdefinierte Gegenstände", 1)
+SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION, table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- Auto-Destroy --
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER, "Trödel direkt zerstören", 1)
@@ -42,6 +49,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T, "Wenn ein wertloser Gegenstan
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ACHTUNG: Bitte beachte dass bei Verwendung von dieser Einstellung KEINE Sicherheitsfrage kommt ob der Gegenstand wirklich zerstört werden soll.\nEr wird einfach direkt zerstört!\nUnwiderruflich!\nNutzung erfolgt auf eigenes Risiko!", 1)
 
 -- Other Settings --
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Aus Nachrichten nie als Trödel markieren", 1)
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Aus Nachrichten entnommene Gegenstände sollen nie als Trödel markiert werden", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Tastenkürzel", 1)
@@ -63,6 +72,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, "Markiere auch %s von einem
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, "Wenn AUSgeschaltet, dann werden nur %s die NICHT zu einem Set gehören als Trödel markiert", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, table.concat({"Markiere auch %s mit Eigenschaft [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"]"}),1 )
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, table.concat({"Wenn AUSgeschaltet, dann werden %s mit der Eigenschaft [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"] NICHT als Trödel markiert (unabhängig von der Qualität)"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS, "Markiere %s mit bekannten Eigenschaften", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS_T, "Wenn AUSgeschaltet, dann werden nur %s ohne Eigenschaften oder mit noch nicht analysierten Eigenschaften als Trödel markiert", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, "Markiere %s mit unbekannten Eigenschaften", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Wenn AUSgeschaltet, dann werden nur %s ohne Eigenschaften oder mit bereits analysierten Eigenschaften als Trödel markiert", 1)
 
