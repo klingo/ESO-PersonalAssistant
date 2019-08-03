@@ -75,13 +75,14 @@ local PABStrings = {
     -- == MAIN MENU TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
-    SI_PA_MAINMENU_BANKING_HEADER = "Banking Rules",
-
+    SI_PA_MAINMENU_BANKING_HEADER = "Simple Banking Rules",
     SI_PA_MAINMENU_BANKING_HEADER_BAG = "Location",
     SI_PA_MAINMENU_BANKING_HEADER_OPERATOR = "Operator",
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Amount",
     SI_PA_MAINMENU_BANKING_HEADER_ITEM = "Item",
     SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Actions",
+
+    SI_PA_MAINMENU_BANKING_ADVANCED_HEADER = "Advanced Banking Rules",
 
 
     -- =================================================================================================================

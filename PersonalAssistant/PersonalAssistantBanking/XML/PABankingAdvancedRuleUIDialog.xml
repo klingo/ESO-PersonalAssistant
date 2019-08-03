@@ -1,0 +1,42 @@
+<GuiXml>
+    <Controls>
+        <TopLevelControl name="PABankingAddCustomAdvancedRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
+            <Dimensions x="700" y="600" />
+            <Anchor point="CENTER" offsetY="-100"/>
+            <Controls>
+
+                <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
+                <Button name="$(parent)Close" inherits="ZO_CloseButton">
+                    <Anchor point="TOPRIGHT" offsetX="-10" offsetY="10" />
+                    <Dimensions x="24" y="24" />
+                    <OnClicked>
+                        PABankingAddCustomAdvancedRuleWindow:SetHidden(true)
+                    </OnClicked>
+                </Button>
+                <Label name="$(parent)Header" font="ZoFontAnnounceMedium">
+                    <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+                </Label>
+                <Label name="$(parent)ItemGroupLabel" font="ZoFontGame" text="x">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10"/>
+                    <Dimensions x="200" y="30"/>
+                </Label>
+                <Control name="$(parent)ItemGroupDropdown" inherits="ZO_ComboBox">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="RIGHT" offsetX="10"/>
+                    <Dimensions x="180" y="30"/>
+                </Control>
+
+
+                <!--TODO: design a shifterbox!-->
+
+                <!--1. Armor/Weapon/Jewelry selection-->
+                <!--2. Quality-->
+                <!--3. EquipType (optional)-->
+                <!--4. TraitType-->
+                <!--5. TraitKnown-->
+                <!--6. Set-->
+                <!--7. Crafted-->
+
+            </Controls>
+        </TopLevelControl>
+    </Controls>
+</GuiXml>

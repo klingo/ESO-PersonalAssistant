@@ -72,7 +72,6 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Ceci ne peut pas être 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Règles de mise en banque", 1)
-
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Emplacement", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Opérateur", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Quantité", 1)

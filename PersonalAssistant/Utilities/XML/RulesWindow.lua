@@ -13,10 +13,12 @@ local _RulesWindowSceneGroupName = "PersonalAssistantRuleWindowSceneGroup"
 local _RulesWindowDescriptor = "PersonalAssistantRules"
 
 local _RulesWindowBankingTabDescriptor = "PersonalAssistantBankingRules"
+local _RulesWindowBankingAdvancedTabDescriptor = "PersonalAssistantBankingAdvancedRules"
 local _RulesWindowJunkTabDescriptor = "PersonalAssistantJunkRules"
 
 local window = PersonalAssistantRulesWindow
 local BankingRulesTabControl = window:GetNamedChild("BankingRulesTab")
+local BankingAdvancedRulesTabControl = window:GetNamedChild("BankingAdvancedRulesTab")
 local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
 
 -- store tha last shown tab (for current game session only)
@@ -49,6 +51,12 @@ local function showPABankingRulesMenu()
     ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowBankingTabDescriptor)
 end
 
+local function showPABankingAdvancedRulesMenu()
+    togglePARulesMenu()
+    local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
+    ZO_MenuBar_SelectDescriptor(RulesModeMenuBar, _RulesWindowBankingAdvancedTabDescriptor)
+end
+
 local function showPAJunkRulesMenu()
     togglePARulesMenu()
     local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
@@ -56,11 +64,19 @@ local function showPAJunkRulesMenu()
 end
 
 local function _showPABankingRulesTab()
+    BankingAdvancedRulesTabControl:SetHidden(true)
     BankingRulesTabControl:SetHidden(false)
     JunkRulesTabControl:SetHidden(true)
 end
 
+local function _showPABankingAdvancedRulesTab()
+    BankingAdvancedRulesTabControl:SetHidden(false)
+    BankingRulesTabControl:SetHidden(true)
+    JunkRulesTabControl:SetHidden(true)
+end
+
 local function _showPAJunkRulesTab()
+    BankingAdvancedRulesTabControl:SetHidden(true)
     BankingRulesTabControl:SetHidden(true)
     JunkRulesTabControl:SetHidden(false)
 end
@@ -114,7 +130,7 @@ local function _createTabsForScene()
     local RulesModeMenuBar = window:GetNamedChild("ModeMenuBar")
     local RulesModeMenuBarLabel = RulesModeMenuBar:GetNamedChild("Label")
 
-    -- if PABanking is enabled, add the corresponding tab
+    -- if PABanking is enabled, add the corresponding tabs
     if PA.Banking then
         local creationData = {
             activeTabText = SI_PA_MAINMENU_BANKING_HEADER,
@@ -131,6 +147,22 @@ local function _createTabsForScene()
             end,
         }
         ZO_MenuBar_AddButton(RulesModeMenuBar, creationData)
+
+        local creationDataAdvanced = {
+            activeTabText = SI_PA_MAINMENU_BANKING_ADVANCED_HEADER,
+            categoryName = SI_PA_MAINMENU_BANKING_ADVANCED_HEADER,
+            descriptor = _RulesWindowBankingAdvancedTabDescriptor,
+            normal = "esoui/art/treeicons/tutorial_idexicon_magicweaponsarmor_up.dds",
+            pressed = "esoui/art/treeicons/tutorial_idexicon_magicweaponsarmor_down.dds",
+            highlight = "esoui/art/treeicons/tutorial_idexicon_magicweaponsarmor_over.dds",
+            disabled = "esoui/art/treeicons/tutorial_idexicon_magicweaponsarmor_disabled.dds",
+            callback = function()
+                _showPABankingAdvancedRulesTab()
+                RulesModeMenuBarLabel:SetText(GetString(SI_PA_MAINMENU_BANKING_ADVANCED_HEADER))
+                _lastShownRulesTabDescriptor = _RulesWindowBankingAdvancedTabDescriptor
+            end,
+        }
+        ZO_MenuBar_AddButton(RulesModeMenuBar, creationDataAdvanced)
     end
 
     -- if PAJunk is enabled, add the corresponding tab
@@ -409,6 +441,77 @@ end
 
 
 -- =================================================================================================================
+-- == PA BANKING ADVANCED RULES LIST == --
+-- -----------------------------------------------------------------------------------------------------------------
+local PABankingAdvancedRulesList = ZO_SortFilterList:Subclass()
+PA.BankingAdvancedRulesList = nil
+
+PABankingAdvancedRulesList.SORT_KEYS = {
+--    ["itemName"] = {},
+--    ["bagName"] = {tiebreaker="itemName"},
+--    ["mathOperator"] = {tiebreaker="itemName"},
+--    ["bagAmount"] = {tiebreaker="itemName"},
+}
+
+function PABankingAdvancedRulesList:New()
+    local rules = ZO_SortFilterList.New(self, BankingAdvancedRulesTabControl)
+    return rules
+end
+
+
+
+
+-- TODO: To be implemented!
+
+
+function PABankingAdvancedRulesList:InitHeaders()
+    -- Initialise the headers
+    local headers = JunkRulesTabControl:GetNamedChild("Headers")
+
+    -- TODO: To be implemented!
+
+--    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_JUNK_HEADER_ITEM), "itemName", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
+--    ZO_SortHeader_Initialize(headers:GetNamedChild("JunkCount"), GetString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT), "junkCount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+--    ZO_SortHeader_Initialize(headers:GetNamedChild("LastJunk"), GetString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK), "lastJunk", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+--    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleAdded"), GetString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED), "ruleAdded", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+--    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
+end
+
+function PABankingAdvancedRulesList:InitFooters()
+    d("InitFooters")
+    local addRuleButtonControl = BankingAdvancedRulesTabControl:GetNamedChild("AddRuleButton")
+    local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
+    addRuleLabelControl:SetText("Add new rule") -- TODO: extract
+    addRuleLabelControl:SetDimensions(addRuleLabelControl:GetTextDimensions())
+    addRuleButtonControl:SetHandler("OnClicked", function()
+        PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog() -- make sure it has been initialized
+        PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog()
+    end)
+end
+
+function PABankingAdvancedRulesList:Refresh()
+    self:RefreshData()
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local bankingAdvancedBaseInitDone = false
+
+local function initPABankingAdvancedRulesList()
+    d("initPABankingAdvancedRulesList")
+    if PA.Banking then
+        if not bankingAdvancedBaseInitDone then
+            bankingAdvancedBaseInitDone = true
+            PABankingAdvancedRulesList:InitHeaders()
+            PABankingAdvancedRulesList:InitFooters()
+            PA.BankingAdvancedRulesList = PABankingAdvancedRulesList:New()
+        end
+        PA.BankingAdvancedRulesList:Refresh()
+    end
+end
+
+
+-- =================================================================================================================
 -- == PA JUNK RULES LIST == --
 -- -----------------------------------------------------------------------------------------------------------------
 local PAJunkRulesList = ZO_SortFilterList:Subclass()
@@ -602,9 +705,11 @@ end
 PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.togglePARulesMenu = togglePARulesMenu
 PA.CustomDialogs.showPABankingRulesMenu = showPABankingRulesMenu
+PA.CustomDialogs.showPABankingAdvancedRulesMenu = showPABankingAdvancedRulesMenu
 PA.CustomDialogs.showPAJunkRulesMenu = showPAJunkRulesMenu
 PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
 
--- create the main menu entry with LMM-2
+-- register the callback to initialize the different tabs for the Rules Window
 PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingRulesList, "InitPABankingRulesList")
+PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingAdvancedRulesList, "initPABankingAdvancedRulesList")
 PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPAJunkRulesList, "InitPAJunkRulesList")

@@ -55,8 +55,9 @@ local function initAddon(_, addOnName)
     -- create the options with LAM-2
     PA.Banking.createOptions()
 
-    -- Then fire the callback to initially set up the PABankingRules for the current profile
+    -- Then fire the callbacks to initially set up the PABankingRules for the current profile
     PAEM.FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
+    PAEM.FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "initPABankingAdvancedRulesList")
 end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)

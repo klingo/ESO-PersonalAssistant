@@ -10,7 +10,7 @@
 ## Author: Klingo
 ## APIVersion: 100027 100028
 ## SavedVariables: PersonalAssistantBanking_SavedVariables
-## DependsOn: PersonalAssistant
+## DependsOn: PersonalAssistant LibShifterBox
 
 # Localization
 localization/en.lua
@@ -36,3 +36,5 @@ Menu/PABankingMenu.lua
 # Custom XML UI Dialogs
 XML/PABankingAddCustomRuleUIDialog.xml
 XML/PABankingAddCustomRuleUIDialog.lua
+XML/PABankingAdvancedRuleUIDialog.xml
+XML/PABankingAdvancedRuleUIDialog.lua

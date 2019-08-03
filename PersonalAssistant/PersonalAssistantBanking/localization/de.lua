@@ -72,7 +72,6 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Dies kann nicht r√ºckg√
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Banking Regeln", 1)
-
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Ort", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Operator", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Anzahl", 1)

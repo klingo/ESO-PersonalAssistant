@@ -27,13 +27,15 @@ Utilities/HelperFunctions.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
 
+# UI Templates
+Utilities/XML/RulesWindowTemplates.xml
+
 # Debug Window
 Utilities/XML/DebugWindow.xml
 Utilities/XML/DebugWindow.lua
 
 # Rules Window
 Utilities/XML/RulesWindow.xml
-Utilities/XML/RulesWindowTemplates.xml
 Utilities/XML/RulesWindow.lua
 
 # Settings
