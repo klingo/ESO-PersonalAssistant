@@ -32,7 +32,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                 label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
                 callback = function()
                     PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                    PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
+                    PA.CustomDialogs.showPABAddCustomRuleUIDialog(itemLink)
                 end,
                 disabled = function() return isRuleExisting end,
             },
@@ -40,7 +40,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                 label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
                 callback = function()
                     PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                    PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomItemIds[itemId])
+                    PA.CustomDialogs.showPABAddCustomRuleUIDialog(itemLink, PABCustomItemIds[itemId])
                 end,
                 disabled = function() return not isRuleExisting end,
             },

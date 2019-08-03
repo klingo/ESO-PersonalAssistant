@@ -351,7 +351,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     editButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
         PA.CustomDialogs.initPABAddCustomRuleUIDialog() -- make sure it has been initialized
-        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(rowControl.data.itemLink, rowData)
+        PA.CustomDialogs.showPABAddCustomRuleUIDialog(rowControl.data.itemLink, rowData)
     end)
 
     -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control

@@ -170,7 +170,7 @@ local function initPABAddCustomRuleUIDialog()
     end
 end
 
-local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
+local function showPABAddCustomRuleUIDialog(itemLink, existingRuleValues)
     local itemControl = window:GetNamedChild("ItemControl")
     local itemIconControl = itemControl:GetNamedChild("ItemTexture")
     local itemLabelControl = itemControl:GetNamedChild("ItemLabel")
@@ -226,6 +226,6 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
-PA.CustomDialogs.initPABAddCustomRuleUIDialog = initPABAddCustomRuleUIDialog
-PA.CustomDialogs.showPABAddCustomRuleUIDIalog = showPABAddCustomRuleUIDIalog
 PA.CustomDialogs.deletePABCustomRule = deletePABCustomRule
+PA.CustomDialogs.initPABAddCustomRuleUIDialog = initPABAddCustomRuleUIDialog
+PA.CustomDialogs.showPABAddCustomRuleUIDialog = showPABAddCustomRuleUIDialog
