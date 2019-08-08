@@ -21,20 +21,26 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_NIBBLES_AND_BITS_T, table.concat({PA
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS, table.concat({"> он нужен для дейлика ", PAC.COLOR.YELLOW:Colorize("Morsels and Pecks")}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Сущность элементаля]\n[Гибкие корни]\n[Эктоплазма]"}), 1)
 
-
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Автоматически помечать предмет с типом [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] как хлам."}), 1)
+
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T, table.concat({"Автоматически помечать предмет с типом [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] как хлам"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"НЕ уничтожать и НЕ помечать [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] как хлам если . . ."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Детские игрушки]\n[Куклы]\n[Игры]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Respect")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Аксессуар]\n[Посуда]\n[Кухонные принадлежности]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Товары для ухода]"}), 1)
 
 -- Stolen Items --
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER, "Украденные вещи", 1)
 SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "%s", 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_ITEMS_DESC, table.concat({"НЕ уничтожать и НЕ помечать [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] как хлам если . . ."}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Leisure")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_LEISURE_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Детские игрушки]\n[Куклы]\n[Игры]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Respect")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Аксессуар]\n[Посуда]\n[Кухонные принадлежности]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES, table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes")}), 1)
-SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T, table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Товары для ухода]"}), 1)
+
+-- Quest Items --
+SafeAddString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER, "Защита квестовых предметов", 1)
+SafeAddString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER, "Заводной город", 1)
 
 -- Custom Items --
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Настраиваемые предметы", 1)
@@ -47,7 +53,10 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T, "При добыче бесп
 SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ВНИМАНИЕ: Обратите внимание, что при использовании этой настройки, никакого сообщения для подтверждения действия не будет!\nПросто будет уничтожен!\nНасовсем!\nИспользуйте на свой страх и риск!", 1)
 
 -- Other Settings --
-SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Продажа хлама у торговцев и скупщиков краденного", 1)
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Никогда не помечать полученное по почте как хлам", 1)
+SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Предметы полученные по почте никогда не будут помечены как хлам", 1)
+
+SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Авто-продажа у торговцев и скупщиков краденного", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Сочетания клавиш", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "Включить сочетание \"Хлам/Не хлам\"", 1)
@@ -60,14 +69,16 @@ SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_QUALITY_THRESHOLD, "> по к�
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_UNKNOWN, "> может быть изучен/исследован и неизвестен", 1)
 
 -- General texts used across: Weapons, Armor, Jewelry
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, "Помечать экипировку такого качества и ниже", 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, "Автоматически помечать как хлам, если экипировка указанного качества или ниже", 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE, table.concat({"Помечать экипировку с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "]"}), 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T, table.concat({"Автоматически помечать экипировку с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] (повышенная цена продажи) как хлам."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, "Помечать предметы такого качества и ниже", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, "Автоматически помечать как хлам, если предмет указанного качества или ниже", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE, table.concat({"Помечать предметы с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "]"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T, table.concat({"Автоматически помечать предметы с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] (повышенная цена продажи) как хлам."}), 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, "Помечать части сетов", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, "Если ВЫКЛЮЧЕНО, то только предметы не являющиеся частью сета могут быть помечены как хлам", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, table.concat({"Помечать экипировку с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, table.concat({"Если ВЫКЛЮЧЕНО, то экипировка с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"] не может быть помечена как хлам (независимо от качества)"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS, "Помечать экипировку с исследованной особенностью", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS_T, "Если ВЫКЛЮЧЕНО, то только экипировка без особенности или с неисследованной особенностью может быть помечена как хлам.", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS, "Помечать экипировку с неисследованной особенностью", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS_T, "Если ВЫКЛЮЧЕНО, то только экипировка без особенности или с исследованной особенностью может быть помечена как хлам.", 1)
 
