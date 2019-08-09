@@ -75,8 +75,8 @@ SafeAddString(SI_PA_ITEMTYPE8, "<<1[Мотив/Мотивы]>>", 1) -- ITEMTYPE_
 SafeAddString(SI_PA_ITEMTYPE10, "<<1[Ингридиент/Ингредиенты]>>", 1) -- ITEMTYPE_INGREDIENT
 SafeAddString(SI_PA_ITEMTYPE12, "<<1[Напиток/Напитки]>>", 1) -- ITEMTYPE_DRINK
 SafeAddString(SI_PA_ITEMTYPE16, "<<1[Наживка/Наживка]>>", 1) -- ITEMTYPE_LURE
-SafeAddString(SI_PA_ITEMTYPE22, "<<1[Отмычка/Отмычки]>>", 1) -- NOTE: unused
 SafeAddString(SI_PA_ITEMTYPE19, "<<1[Камень душ/Камни душ]>>", 1) -- ITEMTYPE_SOUL_GEM
+SafeAddString(SI_PA_ITEMTYPE22, "<<1[Отмычка/Отмычки]>>", 1) -- NOTE: unused
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Рецепт/Рецепты]>>", 1) -- ITEMTYPE_RECIPE
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Яд/Яды]>>", 1) -- ITEMTYPE_POISON
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Коллекционный предмет/Коллекционные предметы]>>", 1) -- ITEMTYPE_COLLECTIBLE
