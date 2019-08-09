@@ -307,6 +307,18 @@ local function _applyPatch_2_4_6(savedVarsVersion, _, _, _, patchPAJ, _, _)
     end
 end
 
+
+local function _applyPatch_2_4_9(savedVarsVersion, patchPAG, _, _, _, _, _)
+    if patchPAG then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) get rid of    PAGeneral.welcome
+            PASavedVars.General[profileNo].welcome = nil
+        end
+        _updateSavedVarsVersion(savedVarsVersion, patchPAG, false, false, false, false, false)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -339,6 +351,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.6      July 25, 2019
     _applyPatch_2_4_6(_getIsPatchNeededInfo(020406))
+
+    -- Patch 2.4.9      August xx TODO: fix date
+    _applyPatch_2_4_9(_getIsPatchNeededInfo(020409))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
