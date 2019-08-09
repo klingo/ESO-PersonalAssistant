@@ -1,3 +1,8 @@
+2.4.9   (August 09, 2019)
+- updated Russian translations from Nesferatum to 2.4.8 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/190"]#190[/URL])
+- fixed an issue with the initialisation of the profile names ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/193"]#193[/URL])
+- fixed an issue with the welcome message setting ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/194"]#194[/URL])
+
 2.4.8   (July 28, 2019)
 - added new option for PAJunk to exclude items with known traits ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/185"]#185[/URL])
 - added Russian translations from Nesferatum ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/174"]#174[/URL])

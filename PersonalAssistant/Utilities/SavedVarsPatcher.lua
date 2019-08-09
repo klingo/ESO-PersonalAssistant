@@ -352,7 +352,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.4.6      July 25, 2019
     _applyPatch_2_4_6(_getIsPatchNeededInfo(020406))
 
-    -- Patch 2.4.9      August xx TODO: fix date
+    -- Patch 2.4.9      August 09, 2019
     _applyPatch_2_4_9(_getIsPatchNeededInfo(020409))
 end
 
