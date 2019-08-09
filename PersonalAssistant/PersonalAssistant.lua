@@ -139,7 +139,7 @@ local function introduction()
         PAEM.RefreshAllEventRegistrations()
         -- finally check for the welcome message
         local PAGSavedVars = PA.General.SavedVars
-        if showWelcomeMessage and PAGSavedVars.welcome then
+        if showWelcomeMessage and PAGSavedVars.welcomeMessage then
             showWelcomeMessage = false
             local currLanguage = GetCVar("language.2") or "en"
             if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then

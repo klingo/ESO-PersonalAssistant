@@ -108,47 +108,28 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function getValue(...)
-    return getValueV2(PA.SavedVars.General[PA.activeProfile], ...)
+    return getValueV2(PA.General.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    setValueV2(PA.SavedVars.General[PA.activeProfile], value, ...)
+    setValueV2(PA.General.SavedVars, value, ...)
 end
 
 local function isDisabled(...)
-    return isDisabledV2(PA.SavedVars.General[PA.activeProfile], ...)
+    return isDisabledV2(PA.General.SavedVars, ...)
 end
 
 --------------------------------------------------------------------------
 -- PAGeneral   activeProfileRename
 ---------------------------------
-local function getPAGeneralActiveProfileRename()
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    return PA.SavedVars.General[PA.activeProfile].name
-end
-
 local function setPAGeneralActiveProfileRename(profileName)
     if profileName ~= nil and profileName ~= "" then
-        local PAMenuHelper = PA.MenuHelper
-        PA.SavedVars.General[PA.activeProfile].name = profileName
+        setValue(profileName, {"name"})
         -- when profile was changed, reload the profile list
+        local PAMenuHelper = PA.MenuHelper
         PAMenuHelper.reloadProfileList()
     end
 end
-
---------------------------------------------------------------------------
--- PAGeneral   welcomeMessage
----------------------------------
-local function getPAGeneralWelcomeMessage()
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    return PA.SavedVars.General[PA.activeProfile].welcome
-end
-
-local function setPAGeneralWelcomeMessage(value)
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    PA.SavedVars.General[PA.activeProfile].welcome = value
-end
-
 
 --------------------------------------------------------------------------
 -- PAGeneral   teleportToPrimaryHouse
@@ -169,11 +150,11 @@ PA.MenuFunctions = {
 
         getActiveProfile = getPAGeneralActiveProfile,
         setActiveProfile = setPAGeneralActiveProfile,
-        getActiveProfileRename = getPAGeneralActiveProfileRename,
+        getActiveProfileRename = function() return getValue({"name"}) end,
         setActiveProfileRename = setPAGeneralActiveProfileRename,
 
-        getWelcomeMessageSetting = getPAGeneralWelcomeMessage,
-        setWelcomeMessageSetting = setPAGeneralWelcomeMessage,
+        getWelcomeMessageSetting = function() return getValue({"welcomeMessage"}) end,
+        setWelcomeMessageSetting = function(value) setValue(value, {"welcomeMessage"}) end,
 
         isTeleportToPrimaryHouseDisabled = function() return not CanLeaveCurrentLocationViaTeleport() end,
         teleportToPrimaryHouse = doPAGeneralTeleportToPrimaryHouse,
