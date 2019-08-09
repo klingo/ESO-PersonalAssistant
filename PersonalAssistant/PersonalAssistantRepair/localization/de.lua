@@ -53,10 +53,10 @@ SafeAddString(SI_PA_MENU_REPAIR_GOLD_INVENTORY_DURABILITY_T, "Repariere Ausrüst
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PARepair --
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_FULL, table.concat({"Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, table.concat({"Repariere getragene Ausrüstung für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_FULL, "Repariere getragene Ausrüstung für %s", 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL, "Repariere getragene Ausrüstung für %s (%s fehlend)", 1)
 
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, table.concat({"Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}), 1)
-SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, table.concat({"Repariere Ausrüstung im Inventar für ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " fehlend)"}), 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL, "Repariere Ausrüstung im Inventar für %s", 1)
+SafeAddString(SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL, "Repariere Ausrüstung im Inventar für %s (%s fehlend)", 1)
 
 SafeAddString(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, table.concat({"Repariere %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " mit %s"}), 1)

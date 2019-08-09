@@ -1,2 +1,2 @@
-caption: Chat Outputs (2.4.0)
+caption: Chat Outputs (2.4.3)
 display order: 0

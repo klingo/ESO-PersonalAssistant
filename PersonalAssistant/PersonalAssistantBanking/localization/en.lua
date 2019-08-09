@@ -29,7 +29,7 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ADVANCED_ENABLE = "Enable Auto Banking for Special Items",
     SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Enable Auto Bank Deposit and Withdrawal for the different Special Items?",
     SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Define an individual behaviour (deposit, withdraw, or do nothing) for Special Items",
-    SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
+
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Change all above Special Item dropdowns to",
     SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Change all above Special Item dropdown values to 'Deposit to Bank', 'Withdraw to Backpack, or to 'Do Nothing'",
 
@@ -88,13 +88,13 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
-    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%d %s withdrawn",
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%d / %d %s withdrawn (Bank is empty)",
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%d / %d %s withdrawn (Not enough space on character)",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s withdrawn",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s withdrawn (Bank is empty)",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%s / %s withdrawn (Not enough space on character)",
 
-    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = "%d %s deposited",
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = "%d / %d %s deposited (Character is empty)",
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%d / %d %s deposited (Not enough space in bank)",
+    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = "%s deposited",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = "%s / %s deposited (Character is empty)",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%s / %s deposited (Not enough space in bank)",
 
     SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s moved to %s",
     SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = "%d/%d x %s moved to %s",

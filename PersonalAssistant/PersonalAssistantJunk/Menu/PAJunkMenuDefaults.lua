@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -8,24 +9,20 @@ local PAJunkMenuDefaults = {
 
     Trash = {
         autoMarkTrash = true,
-        excludeNibblesAndBits = false,
-        excludeMorselsAndPecks = false,
     },
     Collectibles = {
         autoMarkSellToMerchant = true,
     },
     Miscellaneous = {
+        autoMarkGlyphQualityThreshold = -1,
         autoMarkTreasure = false,
-        excludeAMatterOfLeisure = false,
-        excludeAMatterOfRespect = false,
-        excludeAMatterOfTributes = false,
-        autoMarkGlyphQualityThreshold = -1
     },
     Weapons = {
         autoMarkOrnate = false,
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Armor = {
@@ -33,6 +30,7 @@ local PAJunkMenuDefaults = {
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
     },
     Jewelry = {
@@ -40,7 +38,26 @@ local PAJunkMenuDefaults = {
         autoMarkQualityThreshold = -1,
         autoMarkIncludingSets = false,
         autoMarkIntricateTrait = false,
+        autoMarkKnownTraits = true,
         autoMarkUnknownTraits = false,
+    },
+    Stolen = {
+        Weapons = {
+            action = PAC.ITEM_ACTION.NOTHING,
+        },
+        Armor = {
+            action = PAC.ITEM_ACTION.NOTHING,
+        },
+        Jewelry = {
+            action = PAC.ITEM_ACTION.NOTHING,
+        },
+        styleMaterialAction = PAC.ITEM_ACTION.NOTHING,
+        traitItemAction = PAC.ITEM_ACTION.NOTHING,
+        lureAction = PAC.ITEM_ACTION.NOTHING,
+        ingredientAction = PAC.ITEM_ACTION.NOTHING,
+        foodAction = PAC.ITEM_ACTION.NOTHING,
+        drinkAction = PAC.ITEM_ACTION.NOTHING,
+        treasureAction = PAC.ITEM_ACTION.NOTHING,
     },
     Custom = {
         customItemsEnabled = true,
@@ -50,7 +67,17 @@ local PAJunkMenuDefaults = {
     AutoDestroy = {
         destroyWorthlessJunk = false
     },
+    QuestProtection = {
+        ClockworkCity = {
+            excludeNibblesAndBits = false,
+            excludeMorselsAndPecks = false,
+            excludeAMatterOfLeisure = false,
+            excludeAMatterOfRespect = false,
+            excludeAMatterOfTributes = false,
+        },
+    },
 
+    ignoreMailboxItems = true,
     autoSellJunk = true,
 
     KeyBindings = {

@@ -219,7 +219,7 @@ local function _applyPatch_2_4_0(savedVarsVersion, _, patchPAB, _, _, _, _)
 end
 
 
-local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, _,  _, _, _)
+local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, _, patchPAJ,  _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
@@ -233,20 +233,90 @@ local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, _,  _, _, _)
         end
         _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false, false)
     end
+    if patchPAJ then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate:      PAJunk.KeyBindings.showMarkUnmarkAsJunkKeybind
+            PASavedVars.Junk[profileNo].KeyBindings.enableMarkUnmarkAsJunkKeybind = PASavedVars.Junk[profileNo].KeyBindings.showMarkUnmarkAsJunkKeybind
+            -- 2) migrate:      PAJunk.KeyBindings.showDestroyItemKeybind
+            PASavedVars.Junk[profileNo].KeyBindings.enableDestroyItemKeybind = PASavedVars.Junk[profileNo].KeyBindings.showDestroyItemKeybind
+        end
+        _updateSavedVarsVersion(savedVarsVersion, false, false, false, patchPAJ, false, false)
+    end
 end
 
 
-local function _applyPatch_2_4_2(savedVarsVersion, _, _, patchPAJ, _, _)
-   if patchPAJ then
-       local PASavedVars = PA.SavedVars
-       for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-           -- 1) migrate:      PAJunk.KeyBindings.showMarkUnmarkAsJunkKeybind
-           PASavedVars.Junk[profileNo].KeyBindings.enableMarkUnmarkAsJunkKeybind = PASavedVars.Junk[profileNo].KeyBindings.showMarkUnmarkAsJunkKeybind
-           -- 2) migrate:      PAJunk.KeyBindings.showDestroyItemKeybind
-           PASavedVars.Junk[profileNo].KeyBindings.enableDestroyItemKeybind = PASavedVars.Junk[profileNo].KeyBindings.showDestroyItemKeybind
-       end
-       _updateSavedVarsVersion(savedVarsVersion, false, false, patchPAJ, false, false)
-   end
+local function _applyPatch_2_4_4(savedVarsVersion, _, _, _, patchPAJ, _, _)
+    if patchPAJ then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate:      PAJunk.Miscellaneous.autoMarkTreasure
+            if PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure then
+                PASavedVars.Junk[profileNo].Stolen.Treasure.action = PAC.ITEM_ACTION.MARK_AS_JUNK
+            end
+
+            -- 2) migrate:      PAJunk.Miscellaneous.excludeAMatterOfLeisure
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfLeisure = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfLeisure
+
+            -- 3) migrate:      PAJunk.Miscellaneous.excludeAMatterOfRespect
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfRespect = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfRespect
+
+            -- 4) migrate:      PAJunk.Miscellaneous.excludeAMatterOfTributes
+            PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfTributes = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfTributes
+
+            -- 5) cleanup everything
+            PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure = nil
+            PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfLeisure = nil
+            PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfRespect = nil
+            PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfTributes = nil
+        end
+        _updateSavedVarsVersion(savedVarsVersion, false, false, false, patchPAJ, false, false)
+    end
+end
+
+
+local function _applyPatch_2_4_6(savedVarsVersion, _, _, _, patchPAJ, _, _)
+    if patchPAJ then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) migrate:      PASavedVars.Junk[profileNo].Stolen.Treasure.action
+            PASavedVars.Junk[profileNo].Stolen.treasureAction = PASavedVars.Junk[profileNo].Stolen.Treasure.action
+            PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure = (PASavedVars.Junk[profileNo].Stolen.Treasure.action == PAC.ITEM_ACTION.MARK_AS_JUNK)
+
+            -- 2) migrate:      PAJunk.Trash.excludeNibblesAndBits
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeNibblesAndBits = PASavedVars.Junk[profileNo].Trash.excludeNibblesAndBits
+
+            -- 3) migrate:      PAJunk.Trash.excludeMorselsAndPecks
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeMorselsAndPecks = PASavedVars.Junk[profileNo].Trash.excludeMorselsAndPecks
+
+            -- 4) migrate:      PAJunk.Stolen.Treasure.excludeAMatterOfLeisure
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeAMatterOfLeisure = PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfLeisure
+
+            -- 5) migrate:      PAJunk.Stolen.Treasure.excludeAMatterOfRespect
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeAMatterOfRespect = PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfRespect
+
+            -- 6) migrate:      PAJunk.Stolen.Treasure.excludeAMatterOfTributes
+            PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeAMatterOfTributes = PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfTributes
+
+            -- 7) cleanup everything
+            PASavedVars.Junk[profileNo].Trash.excludeNibblesAndBits = nil
+            PASavedVars.Junk[profileNo].Trash.excludeMorselsAndPecks = nil
+            PASavedVars.Junk[profileNo].Stolen.Treasure = nil
+        end
+        _updateSavedVarsVersion(savedVarsVersion, false, false, false, patchPAJ, false, false)
+    end
+end
+
+
+local function _applyPatch_2_4_9(savedVarsVersion, patchPAG, _, _, _, _, _)
+    if patchPAG then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) get rid of    PAGeneral.welcome
+            PASavedVars.General[profileNo].welcome = nil
+        end
+        _updateSavedVarsVersion(savedVarsVersion, patchPAG, false, false, false, false, false)
+    end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -273,8 +343,17 @@ local function applyPatchIfNeeded()
     -- Patch 2.4.0      June 30, 2019
     _applyPatch_2_4_0(_getIsPatchNeededInfo(020400))
 
-    -- Patch 2.4.2      xxxx -- TODO: set date
+    -- Patch 2.4.2      July 13, 2019
     _applyPatch_2_4_2(_getIsPatchNeededInfo(020402))
+
+    -- Patch 2.4.4      July 16, 2019
+    _applyPatch_2_4_4(_getIsPatchNeededInfo(020404))
+
+    -- Patch 2.4.6      July 25, 2019
+    _applyPatch_2_4_6(_getIsPatchNeededInfo(020406))
+
+    -- Patch 2.4.9      August 09, 2019
+    _applyPatch_2_4_9(_getIsPatchNeededInfo(020409))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

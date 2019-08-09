@@ -129,7 +129,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             -- ---------------------------------------------------------------------------------------------------------
         else
             -- abort; dont continue
-            PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, itemLink, PAHF.getBagName(BAG_BANK))
+            PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, itemLink, PAHF.getBagName(targetBagId))
             PAB.isBankTransferBlocked = false
         end
     else
@@ -145,7 +145,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             end
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
-            PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, itemLink, PAHF.getBagName(BAG_BANK))
+            PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, itemLink, PAHF.getBagName(targetBagId))
             PAB.isBankTransferBlocked = false
             -- Execute the function queue
             PAEM.executeNextFunctionInQueue(PAB.AddonName)
@@ -377,7 +377,7 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     PAB.debugln("#toWithdrawBagCache = "..tostring(#withdrawalFromBagCache))
 
     -- update the StacksAllowed options from the SavedVars
-    -- TODO: Challenge this, as it does not make sense for Glyphs and Treasure Maps
+    -- OPTIMIZE: Challenge this, as it does not make sense for Glyphs and Treasure Maps
     local newDepositStacksAllowed = (PAMF.PABanking.getTransactionDepositStackingSetting() == PAC.STACKING.FULL)
     local newWithdrawalStacksAllowed = (PAMF.PABanking.getTransactionWithdrawalStackingSetting() == PAC.STACKING.FULL)
 

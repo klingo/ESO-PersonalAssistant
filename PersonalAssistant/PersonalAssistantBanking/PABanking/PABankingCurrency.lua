@@ -1,30 +1,33 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAB = PA.Banking
-local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function withdrawCurrency(ccyAmountToWithdraw, currencyType)
     local ccyAmountOnBank = GetCurrencyAmount(currencyType, CURRENCY_LOCATION_BANK)
     local maxCcyTransfer = GetMaxCurrencyTransfer(currencyType, CURRENCY_LOCATION_BANK, CURRENCY_LOCATION_CHARACTER)
-    local originalCcyAmountToWithdraw = ccyAmountToWithdraw
+    local originalCcyAmountToWithdrawFmt = PAHF.getFormattedCurrency(ccyAmountToWithdraw, currencyType, true)
 
     -- check if all requested amount can be transfered; if not calculate the valid amount
     if ccyAmountOnBank >= ccyAmountToWithdraw then
         -- enough currency in SOURCE
         if maxCcyTransfer >= ccyAmountToWithdraw then
             -- enough space in TARGET --> FULL
-            PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, ccyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            local ccyAmountToWithdrawFmt = PAHF.getFormattedCurrency(ccyAmountToWithdraw, currencyType, true)
+            PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, ccyAmountToWithdrawFmt)
         else
             -- not enough space in TARGET --> PARTIAL (limited by TARGET)
             ccyAmountToWithdraw = maxCcyTransfer
-            PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            local amountToWithdrawFmt = PAHF.getFormattedCurrencySimple(ccyAmountToWithdraw, currencyType)
+            PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, amountToWithdrawFmt, originalCcyAmountToWithdrawFmt)
         end
     else
         -- not enough currency in SOURCE --> PARTIAL (limited by SOURCE)
         ccyAmountToWithdraw = ccyAmountOnBank
-        PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, ccyAmountToWithdraw, originalCcyAmountToWithdraw, PAC.ICONS.CURRENCY[currencyType].SMALL)
+        local amountToWithdrawFmt = PAHF.getFormattedCurrencySimple(ccyAmountToWithdraw, currencyType)
+        PAB.println(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, amountToWithdrawFmt, originalCcyAmountToWithdrawFmt)
     end
 
     -- actual WITHDRAWAL
@@ -33,26 +36,28 @@ end
 
 
 local function depositCurrency(ccyAmountToDeposit, currencyType)
-    local ccyAmountOnCharacter = GetCurrencyAmount(currencyType, CURRENCY_LOCATION_CHARACTER) -- TODO: really needed?
+    local ccyAmountOnCharacter = GetCurrencyAmount(currencyType, CURRENCY_LOCATION_CHARACTER) -- REVIEW: really needed?
     local maxCcyTransfer = GetMaxCurrencyTransfer(currencyType, CURRENCY_LOCATION_CHARACTER, CURRENCY_LOCATION_BANK)
-    local originalCcyAmountToDeposit = ccyAmountToDeposit
+    local originalCcyAmountToDepositFmt = PAHF.getFormattedCurrency(ccyAmountToDeposit, currencyType, true)
 
     if ccyAmountOnCharacter >= ccyAmountToDeposit then
         -- enough currency in SOURCE
         if maxCcyTransfer >= ccyAmountToDeposit then
             -- enough space in TARGET --> FULL
-            PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, ccyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            local ccyAmountToDepositFmt = PAHF.getFormattedCurrency(ccyAmountToDeposit, currencyType, true)
+            PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, ccyAmountToDepositFmt)
         else
             -- not enough space in TARGET --> PARTIAL (limited by TARGET)
             ccyAmountToDeposit = maxCcyTransfer
-            PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
+            local amountToDepositFmt = PAHF.getFormattedCurrencySimple(ccyAmountToDeposit, currencyType)
+            PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, amountToDepositFmt, originalCcyAmountToDepositFmt)
         end
     else
         -- not enough currency in SOURCE --> PARTIAL (limited by SOURCE)
         ccyAmountToDeposit = ccyAmountOnCharacter
-        PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, ccyAmountToDeposit, originalCcyAmountToDeposit, PAC.ICONS.CURRENCY[currencyType].SMALL)
+        local amountToDepositFmt = PAHF.getFormattedCurrencySimple(ccyAmountToDeposit, currencyType)
+        PAB.println(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, amountToDepositFmt, originalCcyAmountToDepositFmt)
     end
-
 
     -- actual DEPOSIT
     TransferCurrency(currencyType, ccyAmountToDeposit, CURRENCY_LOCATION_CHARACTER, CURRENCY_LOCATION_BANK)

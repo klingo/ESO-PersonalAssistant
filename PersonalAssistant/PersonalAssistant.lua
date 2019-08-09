@@ -45,13 +45,21 @@ local function _initDefaults()
     for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
         -- get default values from PAMenuDefaults
         General_Defaults[profileNo] = PAMenuDefaults.PAGeneral
-        General_Defaults[profileNo].name = PAHF.getDefaultProfileName(profileNo)
     end
 
     Profile_Defaults = {
         activeProfile = nil,
         debug = false,
     }
+end
+
+-- init default profile names
+local function _initDefaultProfileNames(savedVarsTable)
+    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        if savedVarsTable[profileNo].name == nil then
+            savedVarsTable[profileNo].name = PAHF.getDefaultProfileName(profileNo)
+        end
+    end
 end
 
 -- init player name and player alliance
@@ -87,6 +95,9 @@ local function initAddon(_, addOnName)
     local PASavedVars = PA.SavedVars
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, Profile_Defaults)
+
+    -- after SavedVariables have been initialized, set the default profile names if not yet set
+    _initDefaultProfileNames(PASavedVars.General)
 
     -- get the active Profile and the debug setting
     PA.activeProfile = PASavedVars.Profile.activeProfile
@@ -128,10 +139,10 @@ local function introduction()
         PAEM.RefreshAllEventRegistrations()
         -- finally check for the welcome message
         local PAGSavedVars = PA.General.SavedVars
-        if showWelcomeMessage and PAGSavedVars.welcome then
+        if showWelcomeMessage and PAGSavedVars.welcomeMessage then
             showWelcomeMessage = false
             local currLanguage = GetCVar("language.2") or "en"
-            if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr" then
+            if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then
                 PA.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
                 PA.println(SI_PA_WELCOME_SUPPORT)
@@ -241,10 +252,23 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 
         local boundState = select(21, ZO_LinkHandler_ParseLink(itemLink))
         local isBound = IsItemLinkBound(itemLink)
+        local bindType = GetItemBindType(bagId, slotIndex)
         local isBOPAndTradeable = IsItemBoPAndTradeable(bagId, slotIndex)
+        local isCharacterBound = isBound and bindType == BIND_TYPE_ON_PICKUP_BACKPACK
         d("boundState="..tostring(boundState))
         d("isBound="..tostring(isBound))
+        d("bindType="..tostring(bindType))
         d("isBOPAndTradeable="..tostring(isBOPAndTradeable))
+        d("isCharacterBound="..tostring(isCharacterBound))
+
+        local isStolen = IsItemStolen(bagId, slotIndex)
+        if isStolen then
+            local sellPriceStolen = GetItemSellValueWithBonuses(bagId, slotIndex)
+            d("sellPriceStolen="..tostring(sellPriceStolen))
+        else
+            local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
+            d("sellPrice="..tostring(sellPrice))
+        end
     end
 end
 

@@ -57,11 +57,11 @@ local PARStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PARepair --
-    SI_PA_CHAT_REPAIR_SUMMARY_FULL = table.concat({"Repaired equipped items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL = table.concat({"Repaired equipped items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
+    SI_PA_CHAT_REPAIR_SUMMARY_FULL = "Repaired equipped items for %s",
+    SI_PA_CHAT_REPAIR_SUMMARY_PARTIAL = "Repaired equipped items for %s (%s missing)",
 
-    SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL = table.concat({"Repaired inventory items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL}),
-    SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL = table.concat({"Repaired inventory items for ", PAC.COLORS.RED, "- %d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, PAC.COLORS.DEFAULT, " (%d ", PAC.ICONS.CURRENCY[CURT_MONEY].SMALL, " missing)"}),
+    SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_FULL = "Repaired inventory items for %s",
+    SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL = "Repaired inventory items for %s (%s missing)",
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({"Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
 

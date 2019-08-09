@@ -103,7 +103,7 @@
         <copy todir="${tempdir}/${ant.project.name}">
             <fileset dir="${srcdir}">
                 <!--<exclude name="libs/LibCustomMenu/LibCustomMenu.lua"/>-->
-                <exclude name="libs/"/>
+                <!--<exclude name="libs/"/>-->
             </fileset>
         </copy>
 

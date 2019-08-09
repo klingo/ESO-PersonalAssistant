@@ -22,6 +22,11 @@ tbd
 
 tbd
 
+#### PersonalAssistant Integration
+![alt text][pai-menu]
+
+tbd
+
 #### PersonalAssistant Junk
 ![alt text][paj-menu]
 
@@ -52,6 +57,7 @@ This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc
 
 [pag-menu]: ./info/images/PAG.png "PersonalAssistant General Menu"
 [pab-menu]: ./info/images/PAB.png "PersonalAssistant Banking Menu"
+[pai-menu]: ./info/images/PAI.png "PersonalAssistant Integration Menu"
 [paj-menu]: ./info/images/PAJ.png "PersonalAssistant Junk Menu"
 [pal-menu]: ./info/images/PAL.png "PersonalAssistant Loot Menu"
 [pal-inventory]: ./info/images/PAL_Inventory.png "PersonalAssistant Loot Inventory View"

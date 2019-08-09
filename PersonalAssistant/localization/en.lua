@@ -73,13 +73,16 @@ local PAStrings = {
     SI_PA_ITEMTYPE5 = "<<1[Trophy/Trophies]>>",
     SI_PA_ITEMTYPE7 = "<<1[Potion/Potions]>>",
     SI_PA_ITEMTYPE8 = "<<1[Motif/Motives]>>",
+    SI_PA_ITEMTYPE10 = "<<1[Ingredient/Ingredients]>>",
     SI_PA_ITEMTYPE12 = "<<1[Drink/Drinks]>>",
+    SI_PA_ITEMTYPE16 = "<<1[Lure/Lures]>>",
     SI_PA_ITEMTYPE19 = "<<1[Soul Gem/Soul Gems]>>",
     SI_PA_ITEMTYPE22 = "<<1[Lockpick/Lockpicks]>>",
     SI_PA_ITEMTYPE29 = "<<1[Recipe/Recipes]>>",
     SI_PA_ITEMTYPE30 = "<<1[Poison/Poisons]>>",
     SI_PA_ITEMTYPE34 = "<<1[Collectible/Collectibles]>>",
     SI_PA_ITEMTYPE47 = "<<1[AvA Repair/AvA Repairs]>>",
+    SI_PA_ITEMTYPE56 = "<<1[Treasure/Treasures]>>",
     SI_PA_ITEMTYPE60 = "<<1[Master Writ/Master Writs]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -99,6 +102,7 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBANK = "Deposit to Bank",
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Withdraw to Backpack",
 
+    SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
     SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Intricate Items",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Repair Kits",
@@ -142,6 +146,14 @@ local PAStrings = {
     SI_PA_POSITION_TOPRIGHT = "Top Right",
     SI_PA_POSITION_BOTTOMLEFT = "Bottom Left",
     SI_PA_POSITION_BOTTOMRIGHT = "Bottom Right",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAJunk --
+    SI_PA_ITEM_ACTION_NOTHING = "Do Nothing",
+    SI_PA_ITEM_ACTION_LAUNDER = "Launder at Fence", -- not used so far
+    SI_PA_ITEM_ACTION_MARK_AS_JUNK = "Mark as Junk",
+    SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS = "Junk or Destroy if worthless",
+    SI_PA_ITEM_ACTION_DESTROY_ALWAYS = "Destroy always",
 
 
     -- =================================================================================================================

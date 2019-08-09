@@ -42,7 +42,7 @@ SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Autres paramètres", 1)
 
 SafeAddString(SI_PA_MENU_SILENT_MODE, "Mode silencieux (Ne RIEN afficher dans le chat)", 1)
 
-SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, "Pas encore implémenté !", 1)
+SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Pas encore implémenté !"}), 1)
 
 
 -- =================================================================================================================
@@ -72,12 +72,15 @@ SafeAddString(SI_PA_ITEMTYPE4, "<<1[Nourriture/Nourriture]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE5, "<<1[Trophées/Trophées]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE7, "<<1[Potion/Potions]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE8, "<<1[Motif/Motifs]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE10, "<<1[Ingrédient/Ingrédients]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE12, "<<1[Boisson/Boissons]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE16, "<<1[Appât/Appâts]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE19, "<<1[Pierre d'Âme/Pierres d'Âme]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE22, "<<1[Crochetage/Crochetages]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Recette/Recettes]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Poison/Poisons]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Objet de collection/Objets de collection]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE56, "<<1[Trésor/Trésors]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE60, "<<1[Commande de maître/Commandes de maître]>>", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -97,6 +100,7 @@ SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Ne rien faire", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "Déposer en banque", 1)
 SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Prendre dans le sac", 1)
 
+SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, "Objets complexes", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_REPAIRKIT, "Nécessaires de réparation", 1)
@@ -140,6 +144,14 @@ SafeAddString(SI_PA_POSITION_TOPLEFT, "Haut gauche", 1)
 SafeAddString(SI_PA_POSITION_TOPRIGHT, "Haut droite", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Bas gauche", 1)
 SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- PAJunk --
+SafeAddString(SI_PA_ITEM_ACTION_NOTHING, "Ne rien faire", 1)
+SafeAddString(SI_PA_ITEM_ACTION_LAUNDER, "Blanchir", 1)
+SafeAddString(SI_PA_ITEM_ACTION_MARK_AS_JUNK, "Mettre aux rebuts", 1)
+SafeAddString(SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS, "Rebuts ou Détruire si sans valeur", 1)
+SafeAddString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS, "Toujours détruire", 1)
 
 
 -- =================================================================================================================

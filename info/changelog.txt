@@ -1,3 +1,42 @@
+2.4.9   (August 09, 2019)
+- updated Russian translations from Nesferatum to 2.4.8 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/190"]#190[/URL])
+- fixed an issue with the initialisation of the profile names ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/193"]#193[/URL])
+- fixed an issue with the welcome message setting ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/194"]#194[/URL])
+
+2.4.8   (July 28, 2019)
+- added new option for PAJunk to exclude items with known traits ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/185"]#185[/URL])
+- added Russian translations from Nesferatum ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/174"]#174[/URL])
+- added missing translations for Supple Roots, and other minor changes ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/186"]#186[/URL])
+- fixed a wrong German translation in PALoot ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/184"]#184[/URL])
+
+2.4.7   (July 25, 2019)
+- fixed an issue when looting stolen Treasure items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/183"]#183[/URL])
+
+2.4.6   (July 25, 2019)
+- add option to allow items from Mailbox to be marked as Junk as well ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/182"]#182[/URL])
+- updated PAJunk logic regarding Treasure items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/180"]#180[/URL])
+- fixed an issue in PABanking where Character Bound items were tried to be moved to the Bank ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/181"]#181[/URL])
+- fixed some other minor issues ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/179"]#179[/URL])
+
+2.4.5   (July 17, 2019)
+- fixed an issue that occurred when updating PA to version 2.4.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/173"]#173[/URL])
+
+2.4.4   (July 16, 2019)
+- fixed an issue when trying to sell items at a Fence ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/169"]#169[/URL])
+- fixed an issue where a wrong inventory-full error message was displayed in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/171"]#171[/URL])
+- revamped the PAJunk settings regarding stolen items, it is much more granular now ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/172"]#172[/URL])
+
+2.4.3   (July 14, 2019)
+- improved currency formatting in chat messages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/166"]#166[/URL])
+- fixed an issue where treasure items no longer were marked as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/167"]#167[/URL])
+- fixed an issue with the new addon integration library ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/168"]#168[/URL])
+
+2.4.2   (July 13, 2019)
+- add option to hide the destroy/mark-as-junk keybinding buttons in inventory/bank view  ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/161"]#161[/URL])
+- add option to directly destroy items with no sell value instead of marking them as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/162"]#162[/URL])
+- add limited support for FCO ItemSaver regarding "Marked for selling" and "Locked" marks ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/163"]#163[/URL])
+- add support for Scalebreaker (APIVersion 100028) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/164"]#164[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/165"]#165[/URL])
+
 2.4.1   (July 01, 2019)
 - fixed an issue where a debug statement was left in the code ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/155"]#155[/URL])
 

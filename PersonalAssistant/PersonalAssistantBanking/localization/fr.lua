@@ -25,7 +25,7 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_HEADER, "Objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE, "Dépot/Retrait automatique des objets spéciaux", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T, "Activer la mise en banque ou le retrait automatique pour les objets spéciaux ?", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION, "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets spéciaux", 1)
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1) -- TODO: to be checked why this is not replacing the English text
+
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE, "Changer tous les menus des objets spéciaux en :", 1)
 SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T, "Changer tous les menus des objets spéciaux précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'", 1)
 
@@ -84,13 +84,13 @@ SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Gérer", 1)
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PABanking --
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, "%d %s retirés", 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, "%d / %d %s retirés (La banque est vide)", 1)
-SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, "%d / %d %s retirés (Pas assez d'espace sur le personnage)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE, "%s retirés", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE, "%s / %s retirés (La banque est vide)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET, "%s / %s retirés (Pas assez d'espace sur le personnage)", 1)
 
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, "%d %s déposés", 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, "%d / %d %s déposés (Plus rien sur le personnage)", 1)
-SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, "%d / %d %s déposés (Pas assez d'espace en banque)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE, "%s déposés", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE, "%s / %s déposés (Plus rien sur le personnage)", 1)
+SafeAddString(SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET, "%s / %s déposés (Pas assez d'espace en banque)", 1)
 
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE, "%d x %s déplacés vers %s", 1)
 SafeAddString(SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL, "%d/%d x %s déplacés vers %s", 1)
