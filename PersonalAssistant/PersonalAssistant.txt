@@ -10,7 +10,7 @@
 ## Author: Klingo
 ## APIVersion: 100027 100028
 ## SavedVariables: PersonalAssistant_SavedVariables
-## DependsOn: LibAddonMenu-2.0>=29 LibMainMenu-2.0>=420 LibCustomMenu>=670
+## DependsOn: LibAddonMenu-2.0>=29 LibMainMenu-2.0>=430 LibCustomMenu>=680
 
 # Logger
 Utilities/Logger.lua
