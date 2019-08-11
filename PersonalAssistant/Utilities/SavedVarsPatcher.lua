@@ -250,6 +250,9 @@ local function _applyPatch_2_4_4(savedVarsVersion, _, _, _, patchPAJ, _, _)
     if patchPAJ then
         local PASavedVars = PA.SavedVars
         for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 0) bug-fix:      PAJunk.Stolen
+            if not PASavedVars.Junk[profileNo].Stolen.Treasure then PASavedVars.Junk[profileNo].Stolen.Treasure = {} end
+
             -- 1) migrate:      PAJunk.Miscellaneous.autoMarkTreasure
             if PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure then
                 PASavedVars.Junk[profileNo].Stolen.Treasure.action = PAC.ITEM_ACTION.MARK_AS_JUNK
