@@ -1,7 +1,7 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomAdvancedRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="700" y="600" />
+            <Dimensions x="900" y="800" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
@@ -16,14 +16,95 @@
                 <Label name="$(parent)Header" font="ZoFontAnnounceMedium">
                     <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
                 </Label>
-                <Label name="$(parent)ItemGroupLabel" font="ZoFontGame" text="x">
+
+                <!-- ====== LEFT COLUMN ====== -->
+
+                <Label name="$(parent)ItemGroupLabel" font="ZoFontGameBold">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10"/>
-                    <Dimensions x="200" y="30"/>
+                    <Dimensions x="300" y="30"/>
                 </Label>
                 <Control name="$(parent)ItemGroupDropdown" inherits="ZO_ComboBox">
-                    <Anchor point="LEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="RIGHT" offsetX="10"/>
-                    <Dimensions x="180" y="30"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetX="40" offsetY="0"/>
+                    <Dimensions x="340" y="30"/>
                 </Control>
+
+                <Label name="$(parent)ItemQualityLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
+
+                <Label name="$(parent)ItemLevelLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="BOTTOMLEFT" offsetY="260"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
+                <Backdrop name="$(parent)ItemLevelFromBg" inherits="ZO_EditBackdrop">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemLevelLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
+                    <Dimensions x="50"/>
+                    <Controls>
+                        <EditBox name="$(parent)Edit" inherits="ZO_DefaultEditForBackdrop ZO_EditDefaultText" maxInputCharacters="3" textType="NUMERIC">
+                        </EditBox>
+                    </Controls>
+                </Backdrop>
+                <Button name="$(parent)ItemLevelFromButton" inherits="ZO_DefaultButton">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemLevelFromBg" relativePoint="RIGHT" offsetX="5"/>
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/lfg/lfg_normaldungeon_up.dds"
+                            pressed="/esoui/art/lfg/lfg_normaldungeon_down.dds"
+                            mouseOver="/esoui/art/lfg/lfg_normaldungeon_over.dds"
+                            disabled="/esoui/art/lfg/lfg_normaldungeon_disabled.dds"
+                    />
+                </Button>
+                <Label name="$(parent)ItemLevelDashLabel" font="ZoFontGameBold" text="–" horizontalAlignment="CENTER">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemLevelFromButton" relativePoint="RIGHT" />
+                    <Dimensions x="20" y="30"/>
+                </Label>
+                <Backdrop name="$(parent)ItemLevelToBg" inherits="ZO_EditBackdrop">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemLevelDashLabel" relativePoint="RIGHT" offsetX="15"/>
+                    <Dimensions x="50"/>
+                    <Controls>
+                        <EditBox name="$(parent)Edit" inherits="ZO_DefaultEditForBackdrop ZO_EditDefaultText" maxInputCharacters="3" textType="NUMERIC">
+                        </EditBox>
+                    </Controls>
+                </Backdrop>
+                <Button name="$(parent)ItemLevelToButton" inherits="ZO_DefaultButton">
+                    <Anchor point="LEFT" relativeTo="$(parent)ItemLevelToBg" relativePoint="RIGHT" offsetX="5"/>
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/lfg/lfg_championdungeon_up.dds"
+                            pressed="/esoui/art/lfg/lfg_championdungeon_down.dds"
+                            mouseOver="/esoui/art/lfg/lfg_championdungeon_over.dds"
+                            disabled="/esoui/art/lfg/lfg_championdungeon_disabled.dds"
+                    />
+                </Button>
+
+                <Label name="$(parent)ItemSetLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemLevelLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
+
+                <Label name="$(parent)ItemCraftedLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemSetLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
+
+
+                <!-- ====== RIGHT COLUMN ====== -->
+
+                <Label name="$(parent)ItemTypeLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="TOPRIGHT" offsetX="140"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
+
+                <Label name="$(parent)ItemTraitLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTypeLabel" relativePoint="BOTTOMLEFT" offsetY="260"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
+
+                <Label name="$(parent)ItemTraitTypeLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTraitLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
 
 
                 <!--TODO: design a shifterbox!-->
