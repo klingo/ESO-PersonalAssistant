@@ -52,6 +52,8 @@ SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Definiere ob alle Ge
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Regel fürs Stapeln beim Entnehmen", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T, "Definiere ob alle Gegenstände ins Inventar entnommen werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 
+SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Verschiebe keine als Trödel markierte Gegenstände", 1)
+
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS, "Automatisch alle Gegenstände stapeln", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T, "Sollen automatisch alle Gegenstände im Inventar und in der Truhe gestapelt werden wenn die Truhe geöffnet wird? Ist hilfreich um alles besser organisiert zu halten", 1)
 

@@ -17,7 +17,7 @@ local function _isItemCharacterBound(bagId, slotIndex)
     return false
 end
 
-local function getCombinedItemTypeSpecializedComparator(combinedLists)
+local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk)
     local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType, expectedIsKnown)
         local itemType = GetItemType(bagId, slotIndex)
         if itemType == expectedItemType then
@@ -57,6 +57,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists)
 
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
         for _, itemType in pairs(combinedLists.learnableKnownItemTypes) do
@@ -82,10 +83,11 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists)
     end
 end
 
-local function getItemTypeComparator(itemTypeList)
+local function getItemTypeComparator(itemTypeList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
-        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
+            if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
@@ -93,9 +95,10 @@ local function getItemTypeComparator(itemTypeList)
     end
 end
 
-local function getItemIdComparator(itemIdList)
+local function getItemIdComparator(itemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for itemId, _ in pairs(itemIdList) do
             if itemId == GetItemId(itemData.bagId, itemData.slotIndex) then return true end

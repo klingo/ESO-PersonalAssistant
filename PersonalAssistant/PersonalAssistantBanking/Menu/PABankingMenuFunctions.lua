@@ -610,6 +610,9 @@ local PABankingMenuFunctions = {
     getTransactionWithdrawalStackingSetting = function() return getValue({"transactionWithdrawalStacking"}) end,
     setTransactionWithdrawalStackingSetting = function(value) setValue(value, {"transactionWithdrawalStacking"}) end,
 
+    getExcludeJunkSetting = function() return getValue({"excludeJunk"}) end,
+    setExcludeJunkSetting = function(value) setValue(value, {"excludeJunk"}) end,
+
     getAutoStackBagsSetting = function() return getValue({"autoStackBags"}) end,
     setAutoStackBagsSetting = function(value) setValue(value, {"autoStackBags"}) end,
 

@@ -220,6 +220,7 @@ local PABankingMenuDefaults = {
     -- ---------------------------------------------
     transactionDepositStacking = PAC.STACKING.FULL,
     transactionWithdrawalStacking = PAC.STACKING.FULL,
+    excludeJunk = true,
     autoStackBags = true,
 
     -- ---------------------------------------------
