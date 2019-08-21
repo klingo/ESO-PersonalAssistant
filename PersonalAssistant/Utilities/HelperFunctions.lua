@@ -188,6 +188,34 @@ end
 -- == TEXT FORMATTING AND OUTPUT == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+-- based on: https://esodata.uesp.net/100028/src/libraries/globals/localization.lua.html#202
+--- Formats the provided arguments in a licalized, "or"-separated list
+-- @param argumentTable the ordered table of strings
+-- @eturn the localized list with "or"-separated entries
+local function getCommaSeparatedOrList(argumentTable)
+    if argumentTable ~= nil and #argumentTable > 0 then
+        local numArguments = #argumentTable
+        -- If there's only one item in the list, the string is just the first item
+        if numArguments == 1 then
+            return argumentTable[1]
+        else
+            -- loop through the first through the second to last element adding commas in between
+            -- don't add the last since we will use a different separator for it
+            local listString = table.concat(argumentTable, GetString(SI_LIST_COMMA_SEPARATOR), 1, numArguments - 1)
+            -- add the last element of the array to the list using the ", or" separator
+            local finalSeparator = SI_PA_LIST_COMMA_OR_SEPARATOR
+            -- if there are only two items in the list, we want to use "or" without a comma
+            if numArguments == 2 then
+                finalSeparator = SI_PA_LIST_OR_SEPARATOR
+            end
+            listString = string.format('%s%s%s', listString, GetString(finalSeparator), argumentTable[numArguments])
+            return listString
+        end
+    else
+        return ""
+    end
+end
+
 --- Formats the provided currency amount with an icon based on the type
 -- @param currencyAmount the amount that should be formatted (can be negative)
 -- @param currencyType the type of currency (default = CURT_MONEY)
@@ -353,6 +381,7 @@ PA.HelperFunctions = {
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,
     hasActiveProfile = hasActiveProfile,
+    getCommaSeparatedOrList = getCommaSeparatedOrList,
     getFormattedCurrency = getFormattedCurrency,
     getFormattedCurrencySimple = getFormattedCurrencySimple,
     getFormattedItemLink = getFormattedItemLink,

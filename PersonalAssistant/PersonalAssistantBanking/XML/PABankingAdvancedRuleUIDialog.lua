@@ -12,57 +12,222 @@ local window = PABankingAddCustomAdvancedRuleWindow
 local LEVEL_NORMAL = 0
 local LEVEL_CHAMPION = 1
 
+local SET_NO_SET = 0
+local SET_IS_SET = 1
+local SET_ANY = 2
+
+local CRAFTED_NOT_CRAFTED = 0
+local CRAFTED_IS_CRAFTED = 1
+local CRAFTED_ANY = 2
+
+local TRAIT_UNKNOWN = 0
+local TRAIT_KNOWN = 1
+local TRAIT_ANY = 2
+local TRAIT_SELECTED = 3
+
+
 local _selectedItemGroup
 local _selectedLevelFromType
 local _selectedLevelToType
+local _selectedSet
+local _selectedCrafted
+local _selectedTrait
 
-local _itemSubGroupsShifterBox
+local _itemTypesShifterBox
 local _itemQualitiesShifterBox
 local _traitTypesShifterBox
 
 local _initDone = false
 
-local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory)
+local function _getRuleSummary()
+    local function _getTraitText()
+        local traitText = ""
+        if _selectedTrait == TRAIT_KNOWN then
+            traitText = "with [known] traits" -- TODO: extract
+        elseif _selectedTrait == TRAIT_UNKNOWN then
+            traitText = "with [unknown] traits"  -- TODO: extract
+        elseif _selectedTrait == TRAIT_SELECTED then
+            local notSelectedTraitTypes = _traitTypesShifterBox:GetLeftListEntries()
+            local notSelectedCount = 0
+            for _ in pairs(notSelectedTraitTypes) do notSelectedCount = notSelectedCount + 1 end
+            local selectedTraitTypes = _traitTypesShifterBox:GetRightListEntries()
+            local selectedCount = 0
+            local traitTypes = {}
+            for _, value in pairs(selectedTraitTypes) do
+                selectedCount = selectedCount + 1
+                table.insert(traitTypes, value)
+            end
+            if selectedCount == 0 then
+                traitText = "with [no] traits"  -- TODO: extract
+            elseif notSelectedCount == 0 then
+                traitText = "with [any] trait"  -- TODO: extract
+            else
+                traitText = "with ["..PAHF.getCommaSeparatedOrList(traitTypes).."] trait"  -- TODO: extract
+            end
+        end
+        return traitText
+    end
+
+
+
+    -- TODO: come up with a logic for the rule summary :D
+
+
+    return table.concat({_getTraitText()})
+
+    -- SIMPLE:
+    -- ANY weapons
+    -- ANY apparels
+
+    -- [Non-Crafted] [Non-Set] [Weapons] [of Normal, Fine, or Superior Quality] [with known Traits]
+    -- [Crafted] [Set] [Light and Heavy Apparels] [of Epic or Legendary Quality] [with unknown Traits]
+    -- [Non-Set] [Ring Jewelries] [of Legendary Quality] [with Arcane, Bloodthristy, or Healthy Trait]
+end
+
+local function _updateRuleSummary()
+    d("_updateRuleSummary")
+    local ruleSummary = _getRuleSummary()
+    d("ruleSummary = "..tostring(ruleSummary))
+    local ruleSummaryEditControl = window:GetNamedChild("RuleSummaryBg"):GetNamedChild("Edit")
+    _G["tata"] = ruleSummaryEditControl
+    ruleSummaryEditControl:SetText("ruleSummary:"..tostring(ruleSummary))
+end
+
+local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory, enabled)
     if selectCategory then shifterBox:ShowOnlyCategory(selectCategory) end
     shifterBox:MoveAllEntriesToLeftList()
-    shifterBox:SetEnabled(true)
+    shifterBox:SetEnabled(enabled)
 end
 
 local DropdownRefs = {
-    anyPleaseSelect = ZO_ComboBox:CreateItemEntry("<Please Select>", function() -- TODO: extract
+    itemGroupPleaseSelect = ZO_ComboBox:CreateItemEntry("<Please Select>", function() -- TODO: extract
         _selectedItemGroup = nil
-        _itemSubGroupsShifterBox:SetEnabled(false)
+        _itemTypesShifterBox:SetEnabled(false)
         _traitTypesShifterBox:SetEnabled(false)
+        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
+        itemTraitDropdownControl.m_comboBox:SetEnabled(false)
     end ),
-
     itemGroupWeapons = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)), function()
         _selectedItemGroup = ITEMFILTERTYPE_WEAPONS
-        _resetShifterBoxAndResetToLeft(_itemSubGroupsShifterBox, ITEMFILTERTYPE_WEAPONS)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_WEAPONS)
+        _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_WEAPONS, true)
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_WEAPONS, _selectedTrait == 3)
+        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
+        itemTraitDropdownControl.m_comboBox:SetEnabled(true)
+        _updateRuleSummary()
     end ),
     itemGroupArmor = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), function()
         _selectedItemGroup = ITEMFILTERTYPE_ARMOR
-        _resetShifterBoxAndResetToLeft(_itemSubGroupsShifterBox, ITEMFILTERTYPE_ARMOR)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_ARMOR)
+        _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_ARMOR, true)
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_ARMOR, _selectedTrait == 3)
+        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
+        itemTraitDropdownControl.m_comboBox:SetEnabled(true)
+        _updateRuleSummary()
     end ),
     itemGroupJewelry = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY)), function()
         _selectedItemGroup = ITEMFILTERTYPE_JEWELRY
-        _resetShifterBoxAndResetToLeft(_itemSubGroupsShifterBox, ITEMFILTERTYPE_JEWELRY)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_JEWELRY)
+        _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_JEWELRY, true)
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_JEWELRY, _selectedTrait == 3)
+        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
+        itemTraitDropdownControl.m_comboBox:SetEnabled(true)
+        _updateRuleSummary()
+    end ),
+
+    setBoth = ZO_ComboBox:CreateItemEntry("Any items (Set and NON-Set)", function() -- TODO: extract
+        _selectedSet = SET_ANY
+        _updateRuleSummary()
+    end ),
+    setYes = ZO_ComboBox:CreateItemEntry("Only items part of a Set", function() -- TODO: extract
+        _selectedSet = SET_IS_SET
+        _updateRuleSummary()
+    end ),
+    setNo = ZO_ComboBox:CreateItemEntry("Only items NOT part of a Set", function() -- TODO: extract
+        _selectedSet = SET_NO_SET
+        _updateRuleSummary()
+    end ),
+
+    craftedBoth = ZO_ComboBox:CreateItemEntry("Any items (crafted and NON-crafted)", function() -- TODO: extract
+        _selectedCrafted = CRAFTED_ANY
+        _updateRuleSummary()
+    end ),
+    craftedYes = ZO_ComboBox:CreateItemEntry("Only crafted items", function() -- TODO: extract
+        _selectedCrafted = CRAFTED_IS_CRAFTED
+        _updateRuleSummary()
+    end ),
+    craftedNo = ZO_ComboBox:CreateItemEntry("Only NON-crafted items", function() -- TODO: extract
+        _selectedCrafted = CRAFTED_NOT_CRAFTED
+        _updateRuleSummary()
+    end ),
+
+    traitSelected = ZO_ComboBox:CreateItemEntry("Only selected traits", function() -- TODO: extract
+        _selectedTrait = TRAIT_SELECTED
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _selectedItemGroup, true)
+        _updateRuleSummary()
+    end ),
+    traitBoth = ZO_ComboBox:CreateItemEntry("Any items (known and unknown traits)", function() -- TODO: extract
+        _selectedTrait = TRAIT_ANY
+        _traitTypesShifterBox:SetEnabled(false)
+        _updateRuleSummary()
+    end ),
+    traitKnown = ZO_ComboBox:CreateItemEntry("Only items with known traits", function() -- TODO: extract
+        _selectedTrait = TRAIT_KNOWN
+        _traitTypesShifterBox:SetEnabled(false)
+        _updateRuleSummary()
+    end ),
+    traitUnknown = ZO_ComboBox:CreateItemEntry("Only items with UNknown traits", function() -- TODO: extract
+        _selectedTrait = TRAIT_UNKNOWN
+        _traitTypesShifterBox:SetEnabled(false)
+        _updateRuleSummary()
     end ),
 }
 
-local function _createAndReturnItemSubGroupsShifterBox()
+local function _createAndReturnItemQualitiesShifterBox()
     -- TODO: extract labels
-    local itemSubGroupsShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemSubGroups", window, "Available", "Selected", { emptyListText = "None" })
-    local armorSubGroupData = {
+    local shifterBoxSettings = {
+        sortBy = "key",
+        leftList = {
+            title = "Available",
+            emptyListText = "None",
+        },
+        rightList = {
+            title = "Selected",
+            emptyListText = "None",
+        }
+    }
+    local itemQualitiesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemQualities", window, shifterBoxSettings)
+    local listData = {
+        [ITEM_QUALITY_TRASH] = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
+        [ITEM_QUALITY_NORMAL] = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
+        [ITEM_QUALITY_MAGIC] = GetItemQualityColor(ITEM_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_MAGIC)),
+        [ITEM_QUALITY_ARCANE] = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
+        [ITEM_QUALITY_ARTIFACT] = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
+        [ITEM_QUALITY_LEGENDARY] = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
+    }
+    itemQualitiesShifterBox:AddEntriesToLeftList(listData)
+    _G["patest"] = itemQualitiesShifterBox
+    return itemQualitiesShifterBox
+end
+
+local function _createAndReturnItemTypesShifterBox()
+    -- TODO: extract labels
+    local shifterBoxSettings = {
+        leftList = {
+            title = "Available",
+            emptyListText = "None"
+        },
+        rightList = {
+            title = "Selected",
+            emptyListText = "None"
+        }
+    }
+    local itemTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemTypes", window, shifterBoxSettings)
+    local armorTypeData = {
         [ITEMFILTERTYPE_ARMOR..ARMORTYPE_LIGHT] = GetString("SI_ARMORTYPE", ARMORTYPE_LIGHT),
         [ITEMFILTERTYPE_ARMOR..ARMORTYPE_MEDIUM] = GetString("SI_ARMORTYPE", ARMORTYPE_MEDIUM),
         [ITEMFILTERTYPE_ARMOR..ARMORTYPE_HEAVY] = GetString("SI_ARMORTYPE", ARMORTYPE_HEAVY),
     }
-    itemSubGroupsShifterBox:AddEntriesToLeftList(armorSubGroupData, false, ITEMFILTERTYPE_ARMOR)
+    itemTypesShifterBox:AddEntriesToLeftList(armorTypeData, false, ITEMFILTERTYPE_ARMOR)
     local twoHandedPrefix = table.concat({GetString("SI_WEAPONCONFIGTYPE", WEAPON_CONFIG_TYPE_TWO_HANDED), " "})
-    local weaponSubGroupData = {
+    local weaponTypeData = {
         [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_AXE] = GetString("SI_WEAPONTYPE", WEAPONTYPE_AXE),
         [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_BOW] = GetString("SI_WEAPONTYPE", WEAPONTYPE_BOW),
         [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_DAGGER] = GetString("SI_WEAPONTYPE", WEAPONTYPE_DAGGER),
@@ -77,33 +242,28 @@ local function _createAndReturnItemSubGroupsShifterBox()
         [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_TWO_HANDED_HAMMER] = twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_HAMMER),
         [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_TWO_HANDED_SWORD] = twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_SWORD),
     }
-    itemSubGroupsShifterBox:AddEntriesToLeftList(weaponSubGroupData, false, ITEMFILTERTYPE_WEAPONS)
-    local jewelrySubGroupData = {
+    itemTypesShifterBox:AddEntriesToLeftList(weaponTypeData, false, ITEMFILTERTYPE_WEAPONS)
+    local jewelryTypeData = {
         [ITEMFILTERTYPE_JEWELRY..EQUIP_TYPE_NECK] = GetString("SI_EQUIPTYPE", EQUIP_TYPE_NECK),
         [ITEMFILTERTYPE_JEWELRY..EQUIP_TYPE_RING] = GetString("SI_EQUIPTYPE", EQUIP_TYPE_RING),
     }
-    itemSubGroupsShifterBox:AddEntriesToLeftList(jewelrySubGroupData, false, ITEMFILTERTYPE_JEWELRY)
-    return itemSubGroupsShifterBox
-end
-
-local function _createAndReturnItemQualitiesShifterBox()
-    -- TODO: extract labels
-    local itemQualitiesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemQualities", window, "Available", "Selected", { sortBy = "key", emptyListText = "None" })
-    local listData = {
-        [ITEM_QUALITY_TRASH] = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
-        [ITEM_QUALITY_NORMAL] = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
-        [ITEM_QUALITY_MAGIC] = GetItemQualityColor(ITEM_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_MAGIC)),
-        [ITEM_QUALITY_ARCANE] = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
-        [ITEM_QUALITY_ARTIFACT] = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
-        [ITEM_QUALITY_LEGENDARY] = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
-    }
-    itemQualitiesShifterBox:AddEntriesToLeftList(listData)
-    return itemQualitiesShifterBox
+    itemTypesShifterBox:AddEntriesToLeftList(jewelryTypeData, false, ITEMFILTERTYPE_JEWELRY)
+    return itemTypesShifterBox
 end
 
 local function _createAndReturnTraitTypesShifterBox()
     -- TODO: extract labels
-    local traitTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "TraitTypes", window, "Available", "Selected", { emptyListText = "None" })
+    local shifterBoxSettings = {
+        leftList = {
+            title = "Available",
+            emptyListText = "None"
+        },
+        rightList = {
+            title = "Selected",
+            emptyListText = "None"
+        }
+    }
+    local traitTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "TraitTypes", window, shifterBoxSettings)
     local armorTraitData = {
         [ITEM_TRAIT_TYPE_ARMOR_DIVINES] = GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_DIVINES),
         [ITEM_TRAIT_TYPE_ARMOR_IMPENETRABLE] = GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_IMPENETRABLE),
@@ -146,7 +306,7 @@ local function _createAndReturnTraitTypesShifterBox()
         [ITEM_TRAIT_TYPE_WEAPON_TRAINING] = GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_WEAPON_TRAINING),
     }
     traitTypesShifterBox:AddEntriesToLeftList(weaponTraitData, false, ITEMFILTERTYPE_WEAPONS)
-    traitTypesShifterBox:AddEntryToLeftList(ITEM_TRAIT_TYPE_NONE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_NONE))
+--    traitTypesShifterBox:AddEntryToLeftList(ITEM_TRAIT_TYPE_NONE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_NONE))
     return traitTypesShifterBox
 end
 
@@ -179,13 +339,13 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         local itemGroupLabelControl = window:GetNamedChild("ItemGroupLabel")
         itemGroupLabelControl:SetText("Item Group") -- TODO: extract
         local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
-        itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.anyPleaseSelect)
+        itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupPleaseSelect)
         itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupWeapons)
         itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupArmor)
         itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupJewelry)
         -- define the default entry
         function itemGroupDropdownControl:SelectDefault()
-            itemGroupDropdownControl.m_comboBox:SelectItem(DropdownRefs.anyPleaseSelect)
+            itemGroupDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemGroupPleaseSelect)
         end
 
         -- initialize the Quality shifterBox
@@ -198,9 +358,9 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         -- initialize the ItemType dropdown
         local itemTypeLabelControl = window:GetNamedChild("ItemTypeLabel")
         itemTypeLabelControl:SetText("Item Types") -- TODO: extract
-        _itemSubGroupsShifterBox = _createAndReturnItemSubGroupsShifterBox()
-        _itemSubGroupsShifterBox:SetAnchor(TOPLEFT, itemTypeLabelControl, BOTTOMLEFT, 40, -5)
-        _itemSubGroupsShifterBox:SetDimensions(340, 200)
+        _itemTypesShifterBox = _createAndReturnItemTypesShifterBox()
+        _itemTypesShifterBox:SetAnchor(TOPLEFT, itemTypeLabelControl, BOTTOMLEFT, 40, -5)
+        _itemTypesShifterBox:SetDimensions(340, 200)
 
         -- initialize the Level Range / Champion Point Range
         local itemLevelLabelControl = window:GetNamedChild("ItemLevelLabel")
@@ -302,17 +462,40 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the Set dropdown
         local itemSetLabelControl = window:GetNamedChild("ItemSetLabel")
-        itemSetLabelControl:SetText("Set") -- TODO: extract
+        itemSetLabelControl:SetText("Set Items") -- TODO: extract
+        local itemSetDropdownControl = window:GetNamedChild("ItemSetDropdown")
+        itemSetDropdownControl.m_comboBox:AddItem(DropdownRefs.setBoth)
+        itemSetDropdownControl.m_comboBox:AddItem(DropdownRefs.setYes)
+        itemSetDropdownControl.m_comboBox:AddItem(DropdownRefs.setNo)
+        -- define the default entry
+        function itemSetDropdownControl:SelectDefault()
+            itemSetDropdownControl.m_comboBox:SelectItem(DropdownRefs.setBoth)
+        end
 
         -- initialize the Crafted dropdown
-        local itemCrafterLabelControl = window:GetNamedChild("ItemCraftedLabel")
-        itemCrafterLabelControl:SetText("Crafted") -- TODO: extract
-
-
+        local itemCraftedLabelControl = window:GetNamedChild("ItemCraftedLabel")
+        itemCraftedLabelControl:SetText("Crafted") -- TODO: extract
+        local itemCraftedDropdownControl = window:GetNamedChild("ItemCraftedDropdown")
+        itemCraftedDropdownControl.m_comboBox:AddItem(DropdownRefs.craftedBoth)
+        itemCraftedDropdownControl.m_comboBox:AddItem(DropdownRefs.craftedYes)
+        itemCraftedDropdownControl.m_comboBox:AddItem(DropdownRefs.craftedNo)
+        -- define the default entry
+        function itemCraftedDropdownControl:SelectDefault()
+            itemCraftedDropdownControl.m_comboBox:SelectItem(DropdownRefs.craftedBoth)
+        end
 
         -- initialize the ItemTrait dropdown
         local itemCrafterLabelControl = window:GetNamedChild("ItemTraitLabel")
         itemCrafterLabelControl:SetText("Item Traits") -- TODO: extract
+        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
+        itemTraitDropdownControl.m_comboBox:AddItem(DropdownRefs.traitBoth)
+        itemTraitDropdownControl.m_comboBox:AddItem(DropdownRefs.traitKnown)
+        itemTraitDropdownControl.m_comboBox:AddItem(DropdownRefs.traitUnknown)
+        itemTraitDropdownControl.m_comboBox:AddItem(DropdownRefs.traitSelected)
+        -- define the default entry
+        function itemTraitDropdownControl:SelectDefault()
+            itemTraitDropdownControl.m_comboBox:SelectItem(DropdownRefs.traitBoth)
+        end
 
         -- initialize the TraitType shifterBox
         local itemTraitTypeLabelControl = window:GetNamedChild("ItemTraitTypeLabel")
@@ -321,17 +504,25 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _traitTypesShifterBox:SetAnchor(TOPLEFT, itemTraitTypeLabelControl, BOTTOMLEFT, 40, -5)
         _traitTypesShifterBox:SetDimensions(340, 200)
 
-
-        _G["patest"] = _traitTypesShifterBox
-        _G["tata"] = window
-
+        -- initialize the RuleSummary
+        local ruleSummaryLabelControl = window:GetNamedChild("RuleSummaryLabel")
+        ruleSummaryLabelControl:SetText("Rule Summary") -- TODO: extract
     end
 end
 
 local function showPABAddCustomAdvancedRuleUIDialog()
-    -- init ItemGrooup dropdown
+    -- init ItemGroup dropdown
     local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
     itemGroupDropdownControl:SelectDefault()
+    -- init Set dropdown
+    local itemSetDropdownControl = window:GetNamedChild("ItemSetDropdown")
+    itemSetDropdownControl:SelectDefault()
+    -- init Crafted dropdown
+    local itemCraftedDropdownControl = window:GetNamedChild("ItemCraftedDropdown")
+    itemCraftedDropdownControl:SelectDefault()
+    -- init ItemTrait dropdown
+    local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
+    itemTraitDropdownControl:SelectDefault()
 
     _selectedLevelFromType = LEVEL_NORMAL
     _selectedLevelToType = LEVEL_CHAMPION
@@ -351,3 +542,5 @@ PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule
 PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog = initPABAddCustomAdvancedRuleUIDialog
 PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog = showPABAddCustomAdvancedRuleUIDialog
+
+PA.GET = _getRuleSummary

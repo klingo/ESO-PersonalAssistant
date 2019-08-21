@@ -1,7 +1,7 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomAdvancedRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="900" y="800" />
+            <Dimensions x="860" y="800" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
@@ -24,17 +24,17 @@
                     <Dimensions x="300" y="30"/>
                 </Label>
                 <Control name="$(parent)ItemGroupDropdown" inherits="ZO_ComboBox">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetX="40" offsetY="0"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
                     <Dimensions x="340" y="30"/>
                 </Control>
 
                 <Label name="$(parent)ItemQualityLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
 
                 <Label name="$(parent)ItemLevelLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="BOTTOMLEFT" offsetY="260"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="BOTTOMLEFT" offsetY="250"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
                 <Backdrop name="$(parent)ItemLevelFromBg" inherits="ZO_EditBackdrop">
@@ -79,14 +79,34 @@
                 </Button>
 
                 <Label name="$(parent)ItemSetLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemLevelLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemLevelLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
+                <Control name="$(parent)ItemSetDropdown" inherits="ZO_ComboBox">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemSetLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
+                    <Dimensions x="340" y="30"/>
+                </Control>
 
                 <Label name="$(parent)ItemCraftedLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemSetLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemSetLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
+                <Control name="$(parent)ItemCraftedDropdown" inherits="ZO_ComboBox">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemCraftedLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
+                    <Dimensions x="340" y="30"/>
+                </Control>
+
+                <Label name="$(parent)RuleSummaryLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemCraftedLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
+                    <Dimensions x="300" y="30"/>
+                </Label>
+                <Backdrop name="$(parent)RuleSummaryBg" inherits="ZO_MultiLineEditBackdrop_Keyboard">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)RuleSummaryLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
+                    <Dimensions x="340" y="60"/>
+                    <Controls>
+                        <EditBox name="$(parent)Edit" inherits="ZO_DefaultEditMultiLineForBackdrop" maxInputCharacters="9999" editEnabled="false" />
+                    </Controls>
+                </Backdrop>
 
 
                 <!-- ====== RIGHT COLUMN ====== -->
@@ -97,12 +117,16 @@
                 </Label>
 
                 <Label name="$(parent)ItemTraitLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTypeLabel" relativePoint="BOTTOMLEFT" offsetY="260"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTypeLabel" relativePoint="BOTTOMLEFT" offsetY="250"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
+                <Control name="$(parent)ItemTraitDropdown" inherits="ZO_ComboBox">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTraitLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
+                    <Dimensions x="340" y="30"/>
+                </Control>
 
                 <Label name="$(parent)ItemTraitTypeLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTraitLabel" relativePoint="BOTTOMLEFT" offsetY="60"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTraitLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
 

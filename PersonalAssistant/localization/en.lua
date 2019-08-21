@@ -183,6 +183,13 @@ local PAStrings = {
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Toggle Banking/Junk Rules Menu",
 
     SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
+
+
+    -- =================================================================================================================
+    -- == OTHER STRINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_LIST_COMMA_OR_SEPARATOR = ", or ",
+    SI_PA_LIST_OR_SEPARATOR = " or ",
 }
 
 for key, value in pairs(PAStrings) do
