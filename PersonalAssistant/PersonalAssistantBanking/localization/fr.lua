@@ -52,7 +52,7 @@ SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Définir si tous les
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Règle d'empilement au retrait", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T, "Définir si tous les objets doivent être retirés, ou seulement quand il y a des piles existantes à compléter", 1)
 
---SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Verschiebe keine Gegenstände die als Trödel markiert sind", 1) -- TODO: Takit
+SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Ne pas déplacer les objets marqués comme rebuts", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS, "Empiler les objets à l'ouverture de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T, "Empiler automatiquement tous les objets dans la banque et l'inventaire à l'ouverture de la banque ? Cela permet une meilleure organisation", 1)
