@@ -510,6 +510,15 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_BANKING_EXCLUDE_JUNK),
+        getFunc = PABMenuFunctions.getExcludeJunkSetting,
+        setFunc = PABMenuFunctions.setExcludeJunkSetting,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+        default = PABMenuDefaults.excludeJunk,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS),
         tooltip = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T),
         getFunc = PABMenuFunctions.getAutoStackBagsSetting,
