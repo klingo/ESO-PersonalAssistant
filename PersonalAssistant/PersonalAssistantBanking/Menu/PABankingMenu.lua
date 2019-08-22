@@ -52,10 +52,9 @@ local PABAdvancedWritsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedGlyphsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedLiquidsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFoodDrinksSubmenuTable = setmetatable({}, { __index = table })
-
 local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
-
 local PABAdvancedIntricateItemsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedFurnishingsSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAvASiegeBallistaSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeCatapultSubmenuTable = setmetatable({}, { __index = table })
@@ -345,6 +344,15 @@ local function _createPABankingMenu()
         icon = PAC.ICONS.ITEMS.TRAITS.INTRICATE.PATH,
         controls = PABAdvancedIntricateItemsSubmenuTable,
         disabledLabel = PABMenuFunctions.isIntricateItemsTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING),
+        icon = PAC.ICONS.CRAFTBAG.FURNISHING.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PABAdvancedFurnishingsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isFurnishingItemsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -1016,6 +1024,23 @@ local function _createPABAdvancedIntricateItemsSubmenuTable()
     end
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAdvancedFurnishingsSubmenuTable()
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.FURNISHINGS) do
+        PABAdvancedFurnishingsSubmenuTable:insert({
+            type = "dropdown",
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMTYPE", itemType)),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
+            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            default = PABMenuDefaults.Advanced.ItemTypes[itemType],
+        })
+    end
+end
+
 -- =================================================================================================================
 
 local function _createPABAvASiegeBallistaSubmenuTable()
@@ -1309,10 +1334,9 @@ local function createOptions()
     _createPABAdvancedGlyphsSubmenuTable()
     _createPABAdvancedLiquidsSubmenuTable()
     _createPABAdvancedFoodDrinksSubmenuTable()
-
     _createPABAdvancedTrophiesSubmenuTable()
-
     _createPABAdvancedIntricateItemsSubmenuTable()
+    _createPABAdvancedFurnishingsSubmenuTable()
 
     _createPABAvASiegeBallistaSubmenuTable()
     _createPABAvASiegeCatapultSubmenuTable()

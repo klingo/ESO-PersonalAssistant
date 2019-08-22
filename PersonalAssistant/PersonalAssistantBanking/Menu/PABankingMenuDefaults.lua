@@ -105,6 +105,7 @@ local PABankingMenuDefaults = {
             [ITEMTYPE_FOOD] = PAC.MOVE.IGNORE,
             [ITEMTYPE_DRINK] = PAC.MOVE.IGNORE,
             [ITEMTYPE_FISH] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_FURNISHING] = PAC.MOVE.IGNORE,
         },
 
         SpecializedItemTypes = {
