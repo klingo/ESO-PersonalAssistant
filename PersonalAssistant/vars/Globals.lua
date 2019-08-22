@@ -408,6 +408,9 @@ PersonalAssistant.Constants = {
                 ITEMTYPE_DRINK,                             -- 12
                 ITEMTYPE_FISH,                              -- 54
             },
+            FURNISHINGS = {
+                ITEMTYPE_FURNISHING,                        -- 61
+            }
         },
         SPECIALIZED = {
             TROPHIES = {
