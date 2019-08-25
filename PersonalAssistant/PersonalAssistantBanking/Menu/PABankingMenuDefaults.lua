@@ -211,6 +211,13 @@ local PABankingMenuDefaults = {
     },
 
     -- ---------------------------------------------
+    AdvancedRules = {
+        advancedRulesEnabled = true,
+        Rules = {
+        },
+    },
+
+    -- ---------------------------------------------
     Custom = {
         customItemsEnabled = true,
         ItemIds = {

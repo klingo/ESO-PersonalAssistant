@@ -26,6 +26,7 @@ local TRAIT_ANY = 2
 local TRAIT_SELECTED = 3
 
 -- selected values on the UI
+local _loadedRuleId
 local _selectedItemGroup
 local _selectedLevelFrom = 1 -- init value
 local _selectedLevelFromType = LEVEL_NORMAL -- init value
@@ -103,7 +104,7 @@ local function _getRuleSummary()
         if _selectedLevelFrom == _selectedLevelTo and _selectedLevelFromType == _selectedLevelToType then
             -- from and to are the same
             return table.concat({"and [", _getSimpleLevelText(_selectedLevelFromType, _selectedLevelFrom), "]"})  -- TODO: extract
-        elseif _selectedLevelFrom == "1" and _selectedLevelFromType == LEVEL_NORMAL and _selectedLevelTo == "160" and _selectedLevelToType == LEVEL_CHAMPION then
+        elseif _selectedLevelFrom == 1 and _selectedLevelFromType == LEVEL_NORMAL and _selectedLevelTo == 160 and _selectedLevelToType == LEVEL_CHAMPION then
             -- from and to cover the full level-range
             return nil
         else
@@ -237,37 +238,49 @@ local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory, enable
     shifterBox:SetEnabled(enabled)
 end
 
+local function _setAllFieldsEnabled(enabled)
+    _resetShifterBoxAndResetToLeft(_itemQualitiesShifterBox, nil, enabled)
+    _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, _selectedItemGroup, enabled)
+    _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _selectedItemGroup, _selectedTraitSetting == TRAIT_SELECTED)
+
+    local itemLevelFromButtonControl = window:GetNamedChild("ItemLevelFromButton")
+    itemLevelFromButtonControl:SetEnabled(enabled)
+    local itemLevelFromEditControl = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
+    itemLevelFromEditControl:SetEditEnabled(enabled)
+    local itemLevelToButtonControl = window:GetNamedChild("ItemLevelToButton")
+    itemLevelToButtonControl:SetEnabled(enabled)
+    local itemLevelToEditControl = window:GetNamedChild("ItemLevelToBg"):GetNamedChild("Edit")
+    itemLevelToEditControl:SetEditEnabled(enabled)
+    local itemSetDropdownControl = window:GetNamedChild("ItemSetDropdown")
+    itemSetDropdownControl.m_comboBox:SetEnabled(enabled)
+    local itemCraftedDropdownControl = window:GetNamedChild("ItemCraftedDropdown")
+    itemCraftedDropdownControl.m_comboBox:SetEnabled(enabled)
+    local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
+    itemTraitDropdownControl.m_comboBox:SetEnabled(enabled)
+    local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
+    addRuleButtonControl:SetEnabled(enabled)
+end
+
 -- TODO: to be improved! use callback values to simplify the entries
 local DropdownRefs = {
     itemGroupPleaseSelect = ZO_ComboBox:CreateItemEntry("<Please Select>", function(_, entryText, entry) -- TODO: extract
         _selectedItemGroup = nil
-        _itemTypesShifterBox:SetEnabled(false)
-        _traitTypesShifterBox:SetEnabled(false)
-        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
-        itemTraitDropdownControl.m_comboBox:SetEnabled(false)
+        _setAllFieldsEnabled(false)
+        _updateRuleSummary()
     end ),
     itemGroupWeapons = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)), function()
         _selectedItemGroup = ITEMFILTERTYPE_WEAPONS
-        _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_WEAPONS, true)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_WEAPONS, _selectedTraitSetting == TRAIT_SELECTED)
-        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
-        itemTraitDropdownControl.m_comboBox:SetEnabled(true)
+        _setAllFieldsEnabled(true)
         _updateRuleSummary()
     end ),
     itemGroupArmor = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), function()
         _selectedItemGroup = ITEMFILTERTYPE_ARMOR
-        _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_ARMOR, true)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_ARMOR, _selectedTraitSetting == TRAIT_SELECTED)
-        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
-        itemTraitDropdownControl.m_comboBox:SetEnabled(true)
+        _setAllFieldsEnabled(true)
         _updateRuleSummary()
     end ),
     itemGroupJewelry = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY)), function()
         _selectedItemGroup = ITEMFILTERTYPE_JEWELRY
-        _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_JEWELRY, true)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_JEWELRY, _selectedTraitSetting == TRAIT_SELECTED)
-        local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
-        itemTraitDropdownControl.m_comboBox:SetEnabled(true)
+        _setAllFieldsEnabled(true)
         _updateRuleSummary()
     end ),
 
@@ -449,7 +462,13 @@ local function _createAndReturnTraitTypesShifterBox()
     return traitTypesShifterBox
 end
 
-local function _setButtonTextures(control, textureTemplate)
+local function _setButtonTextures(control, buttonType)
+    local textureTemplate
+    if buttonType == LEVEL_NORMAL then
+        textureTemplate = "/esoui/art/lfg/lfg_normaldungeon_%s.dds"
+    elseif buttonType == LEVEL_CHAMPION then
+        textureTemplate = "/esoui/art/lfg/lfg_championdungeon_%s.dds"
+    end
     control:SetNormalTexture(textureTemplate:format("up"))
     control:SetPressedTexture(textureTemplate:format("down"))
     control:SetMouseOverTexture(textureTemplate:format("over"))
@@ -501,10 +520,47 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function deletePABCustomAdvancedRule()
+local function _addCustomAdvancedRuleClicked(isUpdate)
+    df("_addCustomAdvancedRuleClicked(%s)", tostring(isUpdate))
 
-    -- TODO: add code
+    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+    -- only add the entry if it is an UPDTE case, or if it does not exist yet
+    if isUpdate or not PAHF.isKeyInTable(PABAdvancedRules, _loadedRuleId) then
+        local ruleSettingsTable = _getRuleSettingsTable()
+        if isUpdate then
+            PABAdvancedRules[_loadedRuleId] = ruleSettingsTable
+            -- TODO: chat message
+            df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), _loadedRuleId)
+        else
+            table.insert(PABAdvancedRules, ruleSettingsTable)
+            -- TODO: chat message
+            df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), #PABAdvancedRules)
+        end
+        window:SetHidden(true)
 
+        -- refresh the list (if it was initialized)
+        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB advanced rule already existing and this was NOT an update")
+    end
+end
+
+local function deletePABCustomAdvancedRule(ruleId)
+    df("deletePABCustomAdvancedRule(%d)", ruleId)
+
+    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+    if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
+        -- is in table, delete rule
+        table.remove(PABAdvancedRules, ruleId)
+        -- TODO: chat message
+        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), ruleId)
+        window:SetHidden(true)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB adavanced rule not existing, cannot be deleted")
+    end
 end
 
 local function initPABAddCustomAdvancedRuleUIDialog()
@@ -551,22 +607,18 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         local itemLevelToEdit = window:GetNamedChild("ItemLevelToBg"):GetNamedChild("Edit")
         local itemLevelToButton = window:GetNamedChild("ItemLevelToButton")
 
-        -- set default values
-        itemLevelFromEdit:SetText("1")
-        itemLevelToEdit:SetText("160")
-
         -- set editbox onfocuslost handlers
         itemLevelFromEdit:SetHandler("OnFocusLost", function(self)
             local value = tonumber(self:GetText())
             if type(value) == "number" then
                 if value < 1 then
-                    self:SetText("1")
+                    self:SetText(1)
                 elseif value > 50 and _selectedLevelFromType == LEVEL_NORMAL then
-                    self:SetText("50")
-                    if _selectedLevelToType == LEVEL_NORMAL then itemLevelToEdit:SetText("50") end
+                    self:SetText(50)
+                    if _selectedLevelToType == LEVEL_NORMAL then itemLevelToEdit:SetText(50) end
                 elseif value > 160 then
-                    self:SetText("160")
-                    if _selectedLevelToType == LEVEL_CHAMPION then itemLevelToEdit:SetText("160") end
+                    self:SetText(160)
+                    if _selectedLevelToType == LEVEL_CHAMPION then itemLevelToEdit:SetText(160) end
                 else
                     -- value is in valid range - check if it clashes other value
                     local otherValue = tonumber(itemLevelToEdit:GetText())
@@ -584,12 +636,14 @@ local function initPABAddCustomAdvancedRuleUIDialog()
             local value = tonumber(self:GetText())
             if type(value) == "number" then
                 if value < 1 then
-                    self:SetText("1")
-                    if _selectedLevelFromType == _selectedLevelToType then itemLevelFromEdit:SetText("1") end
+                    self:SetText(1)
+                    if _selectedLevelFromType == _selectedLevelToType then
+                        itemLevelFromEdit:SetText(1)
+                    end
                 elseif value > 50 and _selectedLevelToType == LEVEL_NORMAL then
-                    self:SetText("50")
+                    self:SetText(50)
                 elseif value > 160 then
-                    self:SetText("160")
+                    self:SetText(160)
                 else
                     -- value is in valid range - check if it clashes other value
                     local otherValue = tonumber(itemLevelFromEdit:GetText())
@@ -610,20 +664,20 @@ local function initPABAddCustomAdvancedRuleUIDialog()
             if _selectedLevelFromType == LEVEL_NORMAL then
                 -- switch FROM to CHAMPION
                 _selectedLevelFromType = LEVEL_CHAMPION
-                _setButtonTextures(self, "/esoui/art/lfg/lfg_championdungeon_%s.dds")
-                itemLevelFromEdit:SetText("1")
+                _setButtonTextures(self, _selectedLevelFromType)
+                itemLevelFromEdit:SetText(1)
 
                 -- check if other is NOT champion
                 if _selectedLevelToType ~= LEVEL_CHAMPION then
                     _selectedLevelToType = LEVEL_CHAMPION
-                    _setButtonTextures(itemLevelToButton, "/esoui/art/lfg/lfg_championdungeon_%s.dds")
-                    itemLevelToEdit:SetText("1")
+                    _setButtonTextures(itemLevelToButton, _selectedLevelToType)
+                    itemLevelToEdit:SetText(1)
                 end
             else
                 -- switch FROM to NORMAL
                 _selectedLevelFromType = LEVEL_NORMAL
-                _setButtonTextures(self, "/esoui/art/lfg/lfg_normaldungeon_%s.dds")
-                itemLevelFromEdit:SetText("50")
+                _setButtonTextures(self, _selectedLevelFromType)
+                itemLevelFromEdit:SetText(50)
             end
             -- then update the ruleSummary
             _updateRuleSummary()
@@ -631,18 +685,18 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         itemLevelToButton:SetHandler("OnClicked", function(self)
             if _selectedLevelToType == LEVEL_NORMAL then
                 _selectedLevelToType = LEVEL_CHAMPION
-                _setButtonTextures(self, "/esoui/art/lfg/lfg_championdungeon_%s.dds")
-                itemLevelToEdit:SetText("1")
+                _setButtonTextures(self, _selectedLevelToType)
+                itemLevelToEdit:SetText(1)
             else
                 _selectedLevelToType = LEVEL_NORMAL
-                _setButtonTextures(self, "/esoui/art/lfg/lfg_normaldungeon_%s.dds")
-                itemLevelToEdit:SetText("50")
+                _setButtonTextures(self, _selectedLevelToType)
+                itemLevelToEdit:SetText(50)
 
                 -- check if other is NOT normal
                 if _selectedLevelFromType ~= LEVEL_NORMAL then
                     _selectedLevelFromType = LEVEL_NORMAL
-                    _setButtonTextures(itemLevelFromButton, "/esoui/art/lfg/lfg_normaldungeon_%s.dds")
-                    itemLevelFromEdit:SetText("50")
+                    _setButtonTextures(itemLevelFromButton, _selectedLevelFromType)
+                    itemLevelFromEdit:SetText(50)
                 end
             end
             -- then update the ruleSummary
@@ -707,8 +761,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         addRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
         addRuleLabelControl:SetDimensions(addRuleLabelControl:GetTextDimensions())
         addRuleButtonControl:SetHandler("OnClicked", function()
---            _addCustomRuleClicked(false)
-            d("_addCustomRuleClicked")
+            _addCustomAdvancedRuleClicked(false)
         end)
 
         local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
@@ -716,8 +769,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         updateRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
         updateRuleLabelControl:SetDimensions(updateRuleLabelControl:GetTextDimensions())
         updateRuleButtonControl:SetHandler("OnClicked", function()
---            _addCustomRuleClicked(true)
-            d("_addCustomRuleClicked")
+            _addCustomAdvancedRuleClicked(true)
         end)
 
         local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
@@ -725,15 +777,18 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         deleteRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
         deleteRuleLabelControl:SetDimensions(deleteRuleLabelControl:GetTextDimensions())
         deleteRuleButtonControl:SetHandler("OnClicked", function()
---            deletePABCustomRule(itemLabelControl:GetText())
-            d("deletePABCustomRule")
+            deletePABCustomAdvancedRule(_loadedRuleId)
         end)
     end
 end
 
-local function showPABAddCustomAdvancedRuleUIDialog(existingRuleTable)
+local function showPABAddCustomAdvancedRuleUIDialog(existingRuleTable, existingRuleId)
     local headerControl = window:GetNamedChild("Header")
     local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
+    local itemLevelFromEdit = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
+    local itemLevelFromButton = window:GetNamedChild("ItemLevelFromButton")
+    local itemLevelToEdit = window:GetNamedChild("ItemLevelToBg"):GetNamedChild("Edit")
+    local itemLevelToButton = window:GetNamedChild("ItemLevelToButton")
     local itemSetDropdownControl = window:GetNamedChild("ItemSetDropdown")
     local itemCraftedDropdownControl = window:GetNamedChild("ItemCraftedDropdown")
     local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
@@ -741,10 +796,11 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleTable)
     local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
     local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
 
+    _loadedRuleId = existingRuleId -- can be nil
+
     if existingRuleTable then
         -- init with existing values
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Modify advanced rule"})) -- TODO: extract
-
 
         -- TODO: add code
         -- show UPDATE/DELETE buttons, hide ADD button
@@ -754,16 +810,16 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleTable)
     else
         -- reset to default values
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Add new advanced rule"})) -- TODO: extract
-
         itemGroupDropdownControl:SelectDefault()
         itemSetDropdownControl:SelectDefault()
         itemCraftedDropdownControl:SelectDefault()
         itemTraitDropdownControl:SelectDefault()
-
+        itemLevelFromEdit:SetText(1)
         _selectedLevelFromType = LEVEL_NORMAL
+        _setButtonTextures(itemLevelFromButton, _selectedLevelFromType)
+        itemLevelToEdit:SetText(160)
         _selectedLevelToType = LEVEL_CHAMPION
-
-        -- TODO: add code
+        _setButtonTextures(itemLevelToButton, _selectedLevelToType)
 
         -- show ADD button, hide UPDATE/DELETE buttons
         addRuleButtonControl:SetHidden(false)
