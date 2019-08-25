@@ -8,7 +8,7 @@ local PAHF = PA.HelperFunctions
 
 local window = PABankingAddCustomAdvancedRuleWindow
 
-
+-- constants for the UI
 local LEVEL_NORMAL = 0
 local LEVEL_CHAMPION = 1
 
@@ -25,28 +25,118 @@ local TRAIT_KNOWN = 1
 local TRAIT_ANY = 2
 local TRAIT_SELECTED = 3
 
-
+-- selected values on the UI
 local _selectedItemGroup
-local _selectedLevelFromType
-local _selectedLevelToType
-local _selectedSet
-local _selectedCrafted
-local _selectedTrait
+local _selectedLevelFrom = 1 -- init value
+local _selectedLevelFromType = LEVEL_NORMAL -- init value
+local _selectedLevelTo = 160 -- init value
+local _selectedLevelToType = LEVEL_CHAMPION -- init value
+local _selectedSetSetting
+local _selectedCraftedSetting
+local _selectedTraitSetting
+local _selectedQualities
+local _selectedTraits
+local _selectedItemTypes
 
+-- shifterBox references
 local _itemTypesShifterBox
 local _itemQualitiesShifterBox
 local _traitTypesShifterBox
 
+-- init setting
 local _initDone = false
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function _getRuleSummary()
+    local function _getItemTypeText()
+        local notSelectedItemTypes = _itemTypesShifterBox:GetLeftListEntries()
+        local notSelectedCount = 0
+        for _ in pairs(notSelectedItemTypes) do notSelectedCount = notSelectedCount + 1 end
+        local selectedItemTypes = _itemTypesShifterBox:GetRightListEntries()
+        local selectedCount = 0
+        local itemTypes = {}
+        for _, value in pairs(selectedItemTypes) do
+            selectedCount = selectedCount + 1
+            table.insert(itemTypes, value)
+        end
+        local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
+        local selectedItemTextControl = itemGroupDropdownControl:GetNamedChild("SelectedItemText")
+        local itemGroup = selectedItemTextControl:GetText()
+        if selectedCount == 0 or notSelectedCount == 0 then
+            return "["..itemGroup.."]"  -- TODO: extract
+        else
+            return "["..PAHF.getCommaSeparatedOrList(itemTypes).." "..itemGroup.."]"  -- TODO: extract
+        end
+    end
+
+    local function _getQualityText()
+        local notSelectedQualities = _itemQualitiesShifterBox:GetLeftListEntries()
+        local notSelectedCount = 0
+        for _ in pairs(notSelectedQualities) do notSelectedCount = notSelectedCount + 1 end
+        local selectedQualities = _itemQualitiesShifterBox:GetRightListEntries()
+        local selectedCount = 0
+        local qualities = {}
+        for key, value in PAHF.orderedPairs(selectedQualities) do
+            selectedCount = selectedCount + 1
+            table.insert(qualities, value)
+        end
+        if selectedCount == 0 or notSelectedCount == 0 then
+            return nil
+        else
+            return "of ["..PAHF.getCommaSeparatedOrList(qualities).."] quality"  -- TODO: extract
+        end
+    end
+
+    local function _getLevelText()
+        local function _getSimpleLevelText(levelType, level)
+            if levelType == LEVEL_NORMAL then
+                return "Level "..level  -- TODO: extract
+            else
+                return "CP "..level  -- TODO: extract
+            end
+        end
+        local itemLevelFromEdit = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
+        local itemLevelToEdit = window:GetNamedChild("ItemLevelToBg"):GetNamedChild("Edit")
+        _selectedLevelFrom = tonumber(itemLevelFromEdit:GetText())
+        _selectedLevelTo = tonumber(itemLevelToEdit:GetText())
+        if _selectedLevelFrom == _selectedLevelTo and _selectedLevelFromType == _selectedLevelToType then
+            -- from and to are the same
+            return table.concat({"and [", _getSimpleLevelText(_selectedLevelFromType, _selectedLevelFrom), "]"})  -- TODO: extract
+        elseif _selectedLevelFrom == "1" and _selectedLevelFromType == LEVEL_NORMAL and _selectedLevelTo == "160" and _selectedLevelToType == LEVEL_CHAMPION then
+            -- from and to cover the full level-range
+            return nil
+        else
+            local fromText = _getSimpleLevelText(_selectedLevelFromType, _selectedLevelFrom)
+            local toText = _getSimpleLevelText(_selectedLevelToType, _selectedLevelTo)
+            return table.concat({"between [", fromText, "] and [", toText, "]"})  -- TODO: extract
+        end
+    end
+
+    local function _getSetText()
+        if _selectedSetSetting == SET_IS_SET then
+            return "[Set]"  -- TODO: extract
+        elseif _selectedSetSetting == SET_NO_SET then
+            return "[Non-Set]"  -- TODO: extract
+        end
+        return nil
+    end
+
+    local function _getCraftedText()
+        if _selectedCraftedSetting == CRAFTED_IS_CRAFTED then
+            return "[Crafted]"  -- TODO: extract
+        elseif _selectedCraftedSetting == CRAFTED_NOT_CRAFTED then
+            return "[Non-Crafted]"  -- TODO: extract
+        end
+        return nil
+    end
+
     local function _getTraitText()
-        local traitText = ""
-        if _selectedTrait == TRAIT_KNOWN then
-            traitText = "with [known] traits" -- TODO: extract
-        elseif _selectedTrait == TRAIT_UNKNOWN then
-            traitText = "with [unknown] traits"  -- TODO: extract
-        elseif _selectedTrait == TRAIT_SELECTED then
+        if _selectedTraitSetting == TRAIT_KNOWN then
+            return "with [known] traits" -- TODO: extract
+        elseif _selectedTraitSetting == TRAIT_UNKNOWN then
+            return "with [unknown] traits"  -- TODO: extract
+        elseif _selectedTraitSetting == TRAIT_SELECTED then
             local notSelectedTraitTypes = _traitTypesShifterBox:GetLeftListEntries()
             local notSelectedCount = 0
             for _ in pairs(notSelectedTraitTypes) do notSelectedCount = notSelectedCount + 1 end
@@ -58,39 +148,87 @@ local function _getRuleSummary()
                 table.insert(traitTypes, value)
             end
             if selectedCount == 0 then
-                traitText = "with [no] traits"  -- TODO: extract
+                return "with [no] traits"  -- TODO: extract
             elseif notSelectedCount == 0 then
-                traitText = "with [any] trait"  -- TODO: extract
+                return nil
             else
-                traitText = "with ["..PAHF.getCommaSeparatedOrList(traitTypes).."] trait"  -- TODO: extract
+                return "with ["..PAHF.getCommaSeparatedOrList(traitTypes).."] trait"  -- TODO: extract
             end
         end
-        return traitText
     end
 
+    local function _getFormattedSummaryText()
+        if _selectedItemGroup == nil then
+            return "Please select an [Item Group] first..."   -- TODO: extract
+        else
+            local function _appendText(master, addedText)
+                if addedText ~= nil then
+                    return master.." "..addedText
+                end
+                return master
+            end
+            local craftedText = _getCraftedText()
+            local setText = _getSetText()
+            local itemTypeText = _getItemTypeText()
+            local qualityText = _getQualityText()
+            local levelText = _getLevelText()
+            local traitText = _getTraitText()
+            local summaryText = "Any"   -- TODO: extract
+            summaryText = _appendText(summaryText, craftedText)
+            summaryText = _appendText(summaryText, setText)
+            summaryText = _appendText(summaryText, itemTypeText)
+            summaryText = _appendText(summaryText, qualityText)
+            summaryText = _appendText(summaryText, levelText)
+            summaryText = _appendText(summaryText, traitText)
+            return summaryText
+        end
+    end
+
+    return _getFormattedSummaryText()
 
 
     -- TODO: come up with a logic for the rule summary :D
-
-
-    return table.concat({_getTraitText()})
 
     -- SIMPLE:
     -- ANY weapons
     -- ANY apparels
 
     -- [Non-Crafted] [Non-Set] [Weapons] [of Normal, Fine, or Superior Quality] [with known Traits]
-    -- [Crafted] [Set] [Light and Heavy Apparels] [of Epic or Legendary Quality] [with unknown Traits]
+    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] [with unknown Traits]
     -- [Non-Set] [Ring Jewelries] [of Legendary Quality] [with Arcane, Bloodthristy, or Healthy Trait]
+
+    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] and between [Level 5] and [CP 160] [with unknown Traits]
+    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] and between [CP 150] and [CP 160] [with unknown Traits]
+    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] and [CP 160] [with unknown Traits]
+
+end
+
+local function _getRuleSettingsTable()
+    return {
+        group = _selectedItemGroup,
+        qualities = _selectedQualities,
+        levelFrom = {
+            type = _selectedLevelFromType,
+            value = _selectedLevelFrom,
+        },
+        levelTo = {
+            type = _selectedLevelToType,
+            value = _selectedLevelTo,
+        },
+        set = _selectedSetSetting,
+        crafted = _selectedCraftedSetting,
+        types = _selectedItemTypes,
+        traits = {
+            type = _selectedTraitSetting,
+            values = _selectedTraits,
+        }
+    }
 end
 
 local function _updateRuleSummary()
-    d("_updateRuleSummary")
     local ruleSummary = _getRuleSummary()
-    d("ruleSummary = "..tostring(ruleSummary))
-    local ruleSummaryEditControl = window:GetNamedChild("RuleSummaryBg"):GetNamedChild("Edit")
-    _G["tata"] = ruleSummaryEditControl
-    ruleSummaryEditControl:SetText("ruleSummary:"..tostring(ruleSummary))
+    local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
+    ruleSummaryTextControl:SetText(ruleSummary)
 end
 
 local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory, enabled)
@@ -99,8 +237,9 @@ local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory, enable
     shifterBox:SetEnabled(enabled)
 end
 
+-- TODO: to be improved! use callback values to simplify the entries
 local DropdownRefs = {
-    itemGroupPleaseSelect = ZO_ComboBox:CreateItemEntry("<Please Select>", function() -- TODO: extract
+    itemGroupPleaseSelect = ZO_ComboBox:CreateItemEntry("<Please Select>", function(_, entryText, entry) -- TODO: extract
         _selectedItemGroup = nil
         _itemTypesShifterBox:SetEnabled(false)
         _traitTypesShifterBox:SetEnabled(false)
@@ -110,7 +249,7 @@ local DropdownRefs = {
     itemGroupWeapons = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)), function()
         _selectedItemGroup = ITEMFILTERTYPE_WEAPONS
         _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_WEAPONS, true)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_WEAPONS, _selectedTrait == 3)
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_WEAPONS, _selectedTraitSetting == TRAIT_SELECTED)
         local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
         itemTraitDropdownControl.m_comboBox:SetEnabled(true)
         _updateRuleSummary()
@@ -118,7 +257,7 @@ local DropdownRefs = {
     itemGroupArmor = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR)), function()
         _selectedItemGroup = ITEMFILTERTYPE_ARMOR
         _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_ARMOR, true)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_ARMOR, _selectedTrait == 3)
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_ARMOR, _selectedTraitSetting == TRAIT_SELECTED)
         local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
         itemTraitDropdownControl.m_comboBox:SetEnabled(true)
         _updateRuleSummary()
@@ -126,55 +265,55 @@ local DropdownRefs = {
     itemGroupJewelry = ZO_ComboBox:CreateItemEntry(zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY)), function()
         _selectedItemGroup = ITEMFILTERTYPE_JEWELRY
         _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, ITEMFILTERTYPE_JEWELRY, true)
-        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_JEWELRY, _selectedTrait == 3)
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, ITEMFILTERTYPE_JEWELRY, _selectedTraitSetting == TRAIT_SELECTED)
         local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
         itemTraitDropdownControl.m_comboBox:SetEnabled(true)
         _updateRuleSummary()
     end ),
 
     setBoth = ZO_ComboBox:CreateItemEntry("Any items (Set and NON-Set)", function() -- TODO: extract
-        _selectedSet = SET_ANY
+        _selectedSetSetting = SET_ANY
         _updateRuleSummary()
     end ),
     setYes = ZO_ComboBox:CreateItemEntry("Only items part of a Set", function() -- TODO: extract
-        _selectedSet = SET_IS_SET
+        _selectedSetSetting = SET_IS_SET
         _updateRuleSummary()
     end ),
     setNo = ZO_ComboBox:CreateItemEntry("Only items NOT part of a Set", function() -- TODO: extract
-        _selectedSet = SET_NO_SET
+        _selectedSetSetting = SET_NO_SET
         _updateRuleSummary()
     end ),
 
     craftedBoth = ZO_ComboBox:CreateItemEntry("Any items (crafted and NON-crafted)", function() -- TODO: extract
-        _selectedCrafted = CRAFTED_ANY
+        _selectedCraftedSetting = CRAFTED_ANY
         _updateRuleSummary()
     end ),
     craftedYes = ZO_ComboBox:CreateItemEntry("Only crafted items", function() -- TODO: extract
-        _selectedCrafted = CRAFTED_IS_CRAFTED
+        _selectedCraftedSetting = CRAFTED_IS_CRAFTED
         _updateRuleSummary()
     end ),
     craftedNo = ZO_ComboBox:CreateItemEntry("Only NON-crafted items", function() -- TODO: extract
-        _selectedCrafted = CRAFTED_NOT_CRAFTED
+        _selectedCraftedSetting = CRAFTED_NOT_CRAFTED
         _updateRuleSummary()
     end ),
 
     traitSelected = ZO_ComboBox:CreateItemEntry("Only selected traits", function() -- TODO: extract
-        _selectedTrait = TRAIT_SELECTED
+        _selectedTraitSetting = TRAIT_SELECTED
         _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _selectedItemGroup, true)
         _updateRuleSummary()
     end ),
     traitBoth = ZO_ComboBox:CreateItemEntry("Any items (known and unknown traits)", function() -- TODO: extract
-        _selectedTrait = TRAIT_ANY
+        _selectedTraitSetting = TRAIT_ANY
         _traitTypesShifterBox:SetEnabled(false)
         _updateRuleSummary()
     end ),
     traitKnown = ZO_ComboBox:CreateItemEntry("Only items with known traits", function() -- TODO: extract
-        _selectedTrait = TRAIT_KNOWN
+        _selectedTraitSetting = TRAIT_KNOWN
         _traitTypesShifterBox:SetEnabled(false)
         _updateRuleSummary()
     end ),
     traitUnknown = ZO_ComboBox:CreateItemEntry("Only items with UNknown traits", function() -- TODO: extract
-        _selectedTrait = TRAIT_UNKNOWN
+        _selectedTraitSetting = TRAIT_UNKNOWN
         _traitTypesShifterBox:SetEnabled(false)
         _updateRuleSummary()
     end ),
@@ -190,7 +329,7 @@ local function _createAndReturnItemQualitiesShifterBox()
         },
         rightList = {
             title = "Selected",
-            emptyListText = "None",
+            emptyListText = "Any Quality",
         }
     }
     local itemQualitiesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemQualities", window, shifterBoxSettings)
@@ -216,7 +355,7 @@ local function _createAndReturnItemTypesShifterBox()
         },
         rightList = {
             title = "Selected",
-            emptyListText = "None"
+            emptyListText = "Any Item Type"
         }
     }
     local itemTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemTypes", window, shifterBoxSettings)
@@ -260,7 +399,7 @@ local function _createAndReturnTraitTypesShifterBox()
         },
         rightList = {
             title = "Selected",
-            emptyListText = "None"
+            emptyListText = "No Traits"
         }
     }
     local traitTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "TraitTypes", window, shifterBoxSettings)
@@ -317,6 +456,49 @@ local function _setButtonTextures(control, textureTemplate)
     control:SetDisabledTexture(textureTemplate:format("disabled"))
 end
 
+local function _onQualityEntryMoved(_, key, _, _, isDestListLeftList)
+    local numKey = tonumber(key)
+    if isDestListLeftList then
+        -- moved to left - remove from list
+        PAHF.removeValueFromIndexedTable(_selectedQualities, numKey)
+        if #_selectedQualities == 0 then _selectedQualities = nil end
+    else
+        -- moved to right - add to list
+        if _selectedQualities == nil then _selectedQualities = {} end
+        table.insert(_selectedQualities, numKey)
+    end
+    _updateRuleSummary()
+end
+
+local function _onTraitEntryMoved(_, key, _, _, isDestListLeftList)
+    local numKey = tonumber(key)
+    if isDestListLeftList then
+        -- moved to left - remove from list
+        PAHF.removeValueFromIndexedTable(_selectedTraits, numKey)
+        if #_selectedTraits == 0 then _selectedTraits = nil end
+    else
+        -- moved to right - add to list
+        if _selectedTraits == nil then _selectedTraits = {} end
+        table.insert(_selectedTraits, numKey)
+    end
+    _updateRuleSummary()
+end
+
+local function _onItemTypeEntryMoved(_, key, _, _, isDestListLeftList)
+    local numKey = tonumber(key)
+    if isDestListLeftList then
+        -- moved to left - remove from list
+        PAHF.removeValueFromIndexedTable(_selectedItemTypes, numKey)
+        if #_selectedItemTypes == 0 then _selectedItemTypes = nil end
+    else
+        -- moved to right - add to list
+        if _selectedItemTypes == nil then _selectedItemTypes = {} end
+        table.insert(_selectedItemTypes, numKey)
+    end
+    _updateRuleSummary()
+end
+
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function deletePABCustomAdvancedRule()
@@ -354,6 +536,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _itemQualitiesShifterBox = _createAndReturnItemQualitiesShifterBox()
         _itemQualitiesShifterBox:SetAnchor(TOPLEFT, itemQualityLabelControl, BOTTOMLEFT, 40, -5)
         _itemQualitiesShifterBox:SetDimensions(340, 200)
+        _itemQualitiesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _onQualityEntryMoved)
 
         -- initialize the ItemType dropdown
         local itemTypeLabelControl = window:GetNamedChild("ItemTypeLabel")
@@ -361,6 +544,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _itemTypesShifterBox = _createAndReturnItemTypesShifterBox()
         _itemTypesShifterBox:SetAnchor(TOPLEFT, itemTypeLabelControl, BOTTOMLEFT, 40, -5)
         _itemTypesShifterBox:SetDimensions(340, 200)
+        _itemTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _onItemTypeEntryMoved)
 
         -- initialize the Level Range / Champion Point Range
         local itemLevelLabelControl = window:GetNamedChild("ItemLevelLabel")
@@ -395,6 +579,8 @@ local function initPABAddCustomAdvancedRuleUIDialog()
                         end
                     end
                 end
+                -- then update the ruleSummary
+                _updateRuleSummary()
             end
         end)
         itemLevelToEdit:SetHandler("OnFocusLost", function(self)
@@ -416,6 +602,8 @@ local function initPABAddCustomAdvancedRuleUIDialog()
                         end
                     end
                 end
+                -- then update the ruleSummary
+                _updateRuleSummary()
             end
         end)
 
@@ -440,6 +628,8 @@ local function initPABAddCustomAdvancedRuleUIDialog()
                 _setButtonTextures(self, "/esoui/art/lfg/lfg_normaldungeon_%s.dds")
                 itemLevelFromEdit:SetText("50")
             end
+            -- then update the ruleSummary
+            _updateRuleSummary()
         end)
         itemLevelToButton:SetHandler("OnClicked", function(self)
             if _selectedLevelToType == LEVEL_NORMAL then
@@ -458,6 +648,8 @@ local function initPABAddCustomAdvancedRuleUIDialog()
                     itemLevelFromEdit:SetText("50")
                 end
             end
+            -- then update the ruleSummary
+            _updateRuleSummary()
         end)
 
         -- initialize the Set dropdown
@@ -503,10 +695,14 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _traitTypesShifterBox = _createAndReturnTraitTypesShifterBox()
         _traitTypesShifterBox:SetAnchor(TOPLEFT, itemTraitTypeLabelControl, BOTTOMLEFT, 40, -5)
         _traitTypesShifterBox:SetDimensions(340, 200)
+        _traitTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _onTraitEntryMoved)
 
         -- initialize the RuleSummary
         local ruleSummaryLabelControl = window:GetNamedChild("RuleSummaryLabel")
         ruleSummaryLabelControl:SetText("Rule Summary") -- TODO: extract
+        local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
+        local customFont = string.format("$(%s)|$(KB_%s)|%s", "MEDIUM_FONT", 14, "soft-shadow-thin")
+        ruleSummaryTextControl:SetFont(customFont)
     end
 end
 

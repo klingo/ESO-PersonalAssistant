@@ -133,8 +133,8 @@ local function roundDown(num)
     end
 end
 
-local function isValueInTable(table, value)
-    for _, v in pairs(table) do
+local function isValueInTable(t, value)
+    for _, v in pairs(t) do
         if v == value then
             return true
         end
@@ -142,13 +142,73 @@ local function isValueInTable(table, value)
     return false
 end
 
-local function isKeyInTable(table, key)
-    for k in pairs(table) do
+local function isKeyInTable(t, key)
+    for k in pairs(t) do
         if k == key then
             return true
         end
     end
     return false
+end
+
+local function removeValueFromIndexedTable(t, value)
+    for k, v in ipairs(t) do
+        if v == value then
+            table.remove(t, k)
+            return
+        end
+    end
+end
+
+-- Source: http://lua-users.org/wiki/SortedIteration
+--- Equivalent of the pairs() function o tables. Allows to iterate in order
+local function orderedPairs(t)
+    local function cmp_multitype(op1, op2)
+        local type1, type2 = type(op1), type(op2)
+        if type1 ~= type2 then --cmp by type
+            return type1 < type2
+        elseif type1 == "number" or type1 == "string" then --type2 is equal to type1
+            return op1 < op2 --comp by default
+        elseif type1 == "boolean" then
+            return op1 == true
+        else
+            return tostring(op1) < tostring(op2) --cmp by address
+        end
+    end
+    local function __genOrderedIndex(t)
+        local orderedIndex = {}
+        for key in pairs(t) do
+            table.insert(orderedIndex, key)
+        end
+        table.sort(orderedIndex, cmp_multitype)
+        return orderedIndex
+    end
+    local function orderedNext(t, state)
+        -- Equivalent of the next function, but returns the keys in the alphabetic
+        -- order. We use a temporary ordered key table that is stored in the
+        -- table being iterated.
+        local key
+        --print("orderedNext: state = "..tostring(state) )
+        if state == nil then
+            -- the first time, generate the index
+            t.__orderedIndex = __genOrderedIndex(t)
+            key = t.__orderedIndex[1]
+        else
+            -- fetch the next value
+            for i = 1,table.getn(t.__orderedIndex) do
+                if t.__orderedIndex[i] == state then
+                    key = t.__orderedIndex[i+1]
+                end
+            end
+        end
+        if key then
+            return key, t[key]
+        end
+        -- no more value to return, cleanup
+        t.__orderedIndex = nil
+        return
+    end
+    return orderedNext, t, nil
 end
 
 
@@ -377,6 +437,8 @@ PA.HelperFunctions = {
     roundDown = roundDown,
     isValueInTable = isValueInTable,
     isKeyInTable = isKeyInTable,
+    removeValueFromIndexedTable = removeValueFromIndexedTable,
+    orderedPairs = orderedPairs,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,

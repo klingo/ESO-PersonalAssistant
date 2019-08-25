@@ -100,13 +100,10 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemCraftedLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
-                <Backdrop name="$(parent)RuleSummaryBg" inherits="ZO_MultiLineEditBackdrop_Keyboard">
+                <Label name="$(parent)RuleSummaryText">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)RuleSummaryLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
-                    <Dimensions x="340" y="60"/>
-                    <Controls>
-                        <EditBox name="$(parent)Edit" inherits="ZO_DefaultEditMultiLineForBackdrop" maxInputCharacters="9999" editEnabled="false" />
-                    </Controls>
-                </Backdrop>
+                    <Dimensions x="380" y="120"/>
+                </Label>
 
 
                 <!-- ====== RIGHT COLUMN ====== -->
