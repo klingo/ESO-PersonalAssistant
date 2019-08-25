@@ -1,7 +1,7 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomAdvancedRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="860" y="800" />
+            <Dimensions x="850" y="840" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
@@ -126,6 +126,38 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTraitLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
+
+<!--                <Label name="$(parent)DisclaimerLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST">-->
+<!--                    <Anchor point="TOPLEFT" relativeTo="$(parent)BagDropdown" relativePoint="BOTTOMLEFT" offsetY="15"/>-->
+<!--                    <Dimensions x="660"/>-->
+<!--                </Label>-->
+                <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
+                    <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
+                    <Controls>
+                        <Label name="$(parent)AddRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                            <Dimensions y="30" />
+                            <Anchor point="CENTER" />
+                        </Label>
+                    </Controls>
+                </Button>
+                <Button name="$(parent)UpdateRuleButton" inherits="ZO_DefaultButton" hidden="true">
+                    <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>
+                    <Controls>
+                        <Label name="$(parent)UpdateRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                            <Dimensions y="30" />
+                            <Anchor point="CENTER" />
+                        </Label>
+                    </Controls>
+                </Button>
+                <Button name="$(parent)DeleteRuleButton" inherits="ZO_DefaultButton" hidden="true">
+                    <Anchor point="RIGHT" relativeTo="$(parent)UpdateRuleButton" relativePoint="LEFT" offsetX="-5" />
+                    <Controls>
+                        <Label name="$(parent)DeleteRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
+                            <Dimensions y="30" />
+                            <Anchor point="CENTER" />
+                        </Label>
+                    </Controls>
+                </Button>
 
 
                 <!--TODO: design a shifterbox!-->

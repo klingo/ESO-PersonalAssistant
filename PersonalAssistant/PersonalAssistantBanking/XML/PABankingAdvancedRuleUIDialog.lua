@@ -514,9 +514,6 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         -- Get the ShifterBox Library
         PA.LibShifterBox = PA.LibShifterBox or LibShifterBox
 
-        local headerControl = window:GetNamedChild("Header")
-        headerControl:SetText("Add new advanced rule") -- TODO: extract
-
         -- initialize the ItemGroup dropdown
         local itemGroupLabelControl = window:GetNamedChild("ItemGroupLabel")
         itemGroupLabelControl:SetText("Item Group") -- TODO: extract
@@ -703,30 +700,76 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
         local customFont = string.format("$(%s)|$(KB_%s)|%s", "MEDIUM_FONT", 14, "soft-shadow-thin")
         ruleSummaryTextControl:SetFont(customFont)
+
+        -- initialize the localized buttons
+        local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
+        local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
+        addRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
+        addRuleLabelControl:SetDimensions(addRuleLabelControl:GetTextDimensions())
+        addRuleButtonControl:SetHandler("OnClicked", function()
+--            _addCustomRuleClicked(false)
+            d("_addCustomRuleClicked")
+        end)
+
+        local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
+        local updateRuleLabelControl = updateRuleButtonControl:GetNamedChild("UpdateRuleLabel")
+        updateRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
+        updateRuleLabelControl:SetDimensions(updateRuleLabelControl:GetTextDimensions())
+        updateRuleButtonControl:SetHandler("OnClicked", function()
+--            _addCustomRuleClicked(true)
+            d("_addCustomRuleClicked")
+        end)
+
+        local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
+        local deleteRuleLabelControl = deleteRuleButtonControl:GetNamedChild("DeleteRuleLabel")
+        deleteRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        deleteRuleLabelControl:SetDimensions(deleteRuleLabelControl:GetTextDimensions())
+        deleteRuleButtonControl:SetHandler("OnClicked", function()
+--            deletePABCustomRule(itemLabelControl:GetText())
+            d("deletePABCustomRule")
+        end)
     end
 end
 
-local function showPABAddCustomAdvancedRuleUIDialog()
-    -- init ItemGroup dropdown
+local function showPABAddCustomAdvancedRuleUIDialog(existingRuleTable)
+    local headerControl = window:GetNamedChild("Header")
     local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
-    itemGroupDropdownControl:SelectDefault()
-    -- init Set dropdown
     local itemSetDropdownControl = window:GetNamedChild("ItemSetDropdown")
-    itemSetDropdownControl:SelectDefault()
-    -- init Crafted dropdown
     local itemCraftedDropdownControl = window:GetNamedChild("ItemCraftedDropdown")
-    itemCraftedDropdownControl:SelectDefault()
-    -- init ItemTrait dropdown
     local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
-    itemTraitDropdownControl:SelectDefault()
+    local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
+    local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
+    local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
 
-    _selectedLevelFromType = LEVEL_NORMAL
-    _selectedLevelToType = LEVEL_CHAMPION
-
-    -- TODO: add code
-
+    if existingRuleTable then
+        -- init with existing values
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Modify advanced rule"})) -- TODO: extract
 
 
+        -- TODO: add code
+        -- show UPDATE/DELETE buttons, hide ADD button
+        addRuleButtonControl:SetHidden(true)
+        updateRuleButtonControl:SetHidden(false)
+        deleteRuleButtonControl:SetHidden(false)
+    else
+        -- reset to default values
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Add new advanced rule"})) -- TODO: extract
+
+        itemGroupDropdownControl:SelectDefault()
+        itemSetDropdownControl:SelectDefault()
+        itemCraftedDropdownControl:SelectDefault()
+        itemTraitDropdownControl:SelectDefault()
+
+        _selectedLevelFromType = LEVEL_NORMAL
+        _selectedLevelToType = LEVEL_CHAMPION
+
+        -- TODO: add code
+
+        -- show ADD button, hide UPDATE/DELETE buttons
+        addRuleButtonControl:SetHidden(false)
+        updateRuleButtonControl:SetHidden(true)
+        deleteRuleButtonControl:SetHidden(true)
+    end
 
     -- finally, show window
     window:SetHidden(false)
