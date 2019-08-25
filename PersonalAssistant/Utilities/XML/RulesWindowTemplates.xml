@@ -48,6 +48,37 @@
             </Controls>
         </Button>
 
+        <!-- Full-size Banking Rule Row (virtual) -->
+        <Button name="PersonalAssistantBankingAdvancedRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
+            <Dimensions x="800" y="96" />
+            <Controls>
+
+                <Label name="$(parent)RuleId" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" />
+                    <Dimensions x="30" y="96" />
+                </Label>
+                <Label name="$(parent)RuleSummary" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="750" y="96" />
+                </Label>
+                <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
+                    <Anchor point="RIGHT" offsetX="-40" />
+                    <Dimensions x="24" y="24" />
+                </Button>
+                <Button name="$(parent)EditButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)DelButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/help/help_tabicon_feedback_up.dds"
+                            pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
+                            mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds"
+                            disabled="/esoui/art/help/help_tabicon_feedback_down.dds"
+                    />
+                </Button>
+
+            </Controls>
+        </Button>
+
         <!-- Full-size Junk Rule Row (virtual) -->
         <Button name="PersonalAssistantJunkRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
             <Dimensions x="612" y="36" />

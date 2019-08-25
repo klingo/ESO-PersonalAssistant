@@ -25,6 +25,10 @@ local TRAIT_KNOWN = 1
 local TRAIT_ANY = 2
 local TRAIT_SELECTED = 3
 
+local ITEM_SEPARATOR = ","
+local SETTING_SEPARATOR = "/"
+local GROUP_SEPARATOR = "|"
+
 -- selected values on the UI
 local _loadedRuleId
 local _selectedItemGroup
@@ -39,153 +43,270 @@ local _selectedQualities
 local _selectedTraits
 local _selectedItemTypes
 
+local _selectedQualitiesCount
+local _notSelectedQualitiesCount
+local _selectedItemTypesCount
+local _notSelectedItemTypesCount
+local _selectedTraitsCount
+local _notSelectedTraitsCount
+
 -- shifterBox references
-local _itemTypesShifterBox
 local _itemQualitiesShifterBox
+local _itemTypesShifterBox
 local _traitTypesShifterBox
+
+-- others
+local _twoHandedPrefix = table.concat({GetString("SI_WEAPONCONFIGTYPE", WEAPON_CONFIG_TYPE_TWO_HANDED), " "})
 
 -- init setting
 local _initDone = false
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _getRuleSummary()
-    local function _getItemTypeText()
-        local notSelectedItemTypes = _itemTypesShifterBox:GetLeftListEntries()
-        local notSelectedCount = 0
-        for _ in pairs(notSelectedItemTypes) do notSelectedCount = notSelectedCount + 1 end
+local function _getLocalizedItemTypes(itemTypes)
+    local localizedItemTypes = {}
+    for _, value in ipairs(itemTypes) do
+        local itemTypeConfig = PAHF.split(value, "_", 2)
+        local itemFilterType = tonumber(itemTypeConfig[1])
+        local itemType = tonumber(itemTypeConfig[2])
+        local itemTypeString
+        if itemFilterType == ITEMFILTERTYPE_ARMOR then
+            itemTypeString = GetString("SI_ARMORTYPE", itemType)
+        elseif itemFilterType == ITEMFILTERTYPE_WEAPONS then
+            itemTypeString = GetString("SI_WEAPONTYPE", itemType)
+            if itemType == WEAPONTYPE_TWO_HANDED_AXE or itemType == WEAPONTYPE_TWO_HANDED_HAMMER or itemType == WEAPONTYPE_TWO_HANDED_SWORD then
+                itemTypeString = _twoHandedPrefix..itemTypeString
+            end
+        elseif itemFilterType == ITEMFILTERTYPE_JEWELRY then
+            itemTypeString = GetString("SI_EQUIPTYPE", itemType)
+        end
+        table.insert(localizedItemTypes, itemTypeString)
+    end
+    return localizedItemTypes
+end
+
+local function _getLocalizedQualities(qualities)
+    local localizedQualities = {}
+    for _, value in ipairs(qualities) do
+        local quality =  tonumber(value)
+        table.insert(localizedQualities, GetItemQualityColor(quality):Colorize(GetString("SI_ITEMQUALITY", quality)))
+    end
+    return localizedQualities
+end
+
+local function _getLocalizedTraitTypes(traitTypes)
+    local localizedTraitTypes = {}
+    for _, value in ipairs(traitTypes) do
+        local traitType =  tonumber(value)
+        table.insert(localizedTraitTypes, GetString("SI_ITEMTRAITTYPE", traitType))
+    end
+    return localizedTraitTypes
+end
+
+local function _updateLocalRuleValues()
+    local function _updateItemType()
         local selectedItemTypes = _itemTypesShifterBox:GetRightListEntries()
-        local selectedCount = 0
-        local itemTypes = {}
-        for _, value in pairs(selectedItemTypes) do
-            selectedCount = selectedCount + 1
-            table.insert(itemTypes, value)
-        end
-        local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
-        local selectedItemTextControl = itemGroupDropdownControl:GetNamedChild("SelectedItemText")
-        local itemGroup = selectedItemTextControl:GetText()
-        if selectedCount == 0 or notSelectedCount == 0 then
-            return "["..itemGroup.."]"  -- TODO: extract
-        else
-            return "["..PAHF.getCommaSeparatedOrList(itemTypes).." "..itemGroup.."]"  -- TODO: extract
-        end
-    end
-
-    local function _getQualityText()
-        local notSelectedQualities = _itemQualitiesShifterBox:GetLeftListEntries()
-        local notSelectedCount = 0
-        for _ in pairs(notSelectedQualities) do notSelectedCount = notSelectedCount + 1 end
-        local selectedQualities = _itemQualitiesShifterBox:GetRightListEntries()
-        local selectedCount = 0
-        local qualities = {}
-        for key, value in PAHF.orderedPairs(selectedQualities) do
-            selectedCount = selectedCount + 1
-            table.insert(qualities, value)
-        end
-        if selectedCount == 0 or notSelectedCount == 0 then
-            return nil
-        else
-            return "of ["..PAHF.getCommaSeparatedOrList(qualities).."] quality"  -- TODO: extract
-        end
-    end
-
-    local function _getLevelText()
-        local function _getSimpleLevelText(levelType, level)
-            if levelType == LEVEL_NORMAL then
-                return "Level "..level  -- TODO: extract
+        local notSelectedItemTypes = _itemTypesShifterBox:GetLeftListEntries()
+        _selectedItemTypesCount = 0
+        _notSelectedItemTypesCount = 0
+        _selectedItemTypes = nil
+        for _ in pairs(notSelectedItemTypes) do _notSelectedItemTypesCount = _notSelectedItemTypesCount + 1 end
+        for key, value in PAHF.orderedPairs(selectedItemTypes) do
+            _selectedItemTypesCount = _selectedItemTypesCount + 1
+            if _selectedItemTypes == nil then
+                _selectedItemTypes = key
             else
-                return "CP "..level  -- TODO: extract
+                _selectedItemTypes = table.concat({_selectedItemTypes, ITEM_SEPARATOR, key})
             end
         end
+    end
+
+    local function _updateQuality()
+        local selectedQualities = _itemQualitiesShifterBox:GetRightListEntries()
+        local notSelectedQualities = _itemQualitiesShifterBox:GetLeftListEntries()
+        _selectedQualitiesCount = 0
+        _notSelectedQualitiesCount = 0
+        _selectedQualities = nil
+        for _ in pairs(notSelectedQualities) do _notSelectedQualitiesCount = _notSelectedQualitiesCount + 1 end
+        for key, value in PAHF.orderedPairs(selectedQualities) do
+            _selectedQualitiesCount = _selectedQualitiesCount + 1
+            if _selectedQualities == nil then
+                _selectedQualities = key
+            else
+                _selectedQualities = table.concat({_selectedQualities, ITEM_SEPARATOR, key})
+            end
+        end
+    end
+
+    local function _updateTraits()
+        local selectedTraitTypes = _traitTypesShifterBox:GetRightListEntries()
+        local notSelectedTraitTypes = _traitTypesShifterBox:GetLeftListEntries()
+        _selectedTraitsCount = 0
+        _notSelectedTraitsCount = 0
+        _selectedTraits = nil
+        for _ in pairs(notSelectedTraitTypes) do _notSelectedTraitsCount = _notSelectedTraitsCount + 1 end
+        for key, value in PAHF.orderedPairs(selectedTraitTypes) do
+            _selectedTraitsCount = _selectedTraitsCount + 1
+            if _selectedTraits == nil then
+                _selectedTraits = key
+            else
+                _selectedTraits = table.concat({_selectedTraits, ITEM_SEPARATOR, key})
+            end
+        end
+    end
+
+    local function _updateLevel()
         local itemLevelFromEdit = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
         local itemLevelToEdit = window:GetNamedChild("ItemLevelToBg"):GetNamedChild("Edit")
         _selectedLevelFrom = tonumber(itemLevelFromEdit:GetText())
         _selectedLevelTo = tonumber(itemLevelToEdit:GetText())
-        if _selectedLevelFrom == _selectedLevelTo and _selectedLevelFromType == _selectedLevelToType then
+    end
+
+    _updateItemType()
+    _updateQuality()
+    _updateTraits()
+    _updateLevel()
+end
+
+local function getRuleSummaryFromRawSettings(ruleSettingsRaw)
+    local function _getItemTypeText(itemGroup, itemTypes, selectedCount, unselectedCount)
+        local itemGroupString = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemGroup))
+        if selectedCount == 0 or unselectedCount == 0 then
+            return table.concat({"[", itemGroupString, "]"})
+        else
+            local itemTypesString = _getLocalizedItemTypes(itemTypes)
+            return table.concat({"[", PAHF.getCommaSeparatedOrList(itemTypesString), " ", itemGroupString, "]"})
+        end
+    end
+
+    local function _getQualityText(qualities, selectedCount, unselectedCount)
+        if selectedCount == 0 or unselectedCount == 0 then
+            return nil
+        else
+            local qualitiesString = _getLocalizedQualities(qualities)
+            return table.concat({"of [", PAHF.getCommaSeparatedOrList(qualitiesString), "] quality"})  -- TODO: extract
+        end
+    end
+
+    local function _getLevelText(levelFrom, levelFromType, levelTo, levelToType)
+        local function _getSimpleLevelText(levelType, level)
+            if levelType == LEVEL_NORMAL then
+                return table.concat({"Level ", level})  -- TODO: extract
+            else
+                return table.concat({"CP ", level})  -- TODO: extract
+            end
+        end
+        if levelFrom == levelTo and levelFromType == levelToType then
             -- from and to are the same
-            return table.concat({"and [", _getSimpleLevelText(_selectedLevelFromType, _selectedLevelFrom), "]"})  -- TODO: extract
-        elseif _selectedLevelFrom == 1 and _selectedLevelFromType == LEVEL_NORMAL and _selectedLevelTo == 160 and _selectedLevelToType == LEVEL_CHAMPION then
+            return table.concat({"and [", _getSimpleLevelText(levelFromType, levelFrom), "]"})  -- TODO: extract
+        elseif levelFrom == 1 and levelFromType == LEVEL_NORMAL and levelTo == 160 and levelToType == LEVEL_CHAMPION then
             -- from and to cover the full level-range
             return nil
         else
-            local fromText = _getSimpleLevelText(_selectedLevelFromType, _selectedLevelFrom)
-            local toText = _getSimpleLevelText(_selectedLevelToType, _selectedLevelTo)
+            local fromText = _getSimpleLevelText(levelFromType, levelFrom)
+            local toText = _getSimpleLevelText(levelToType, levelTo)
             return table.concat({"between [", fromText, "] and [", toText, "]"})  -- TODO: extract
         end
     end
 
-    local function _getSetText()
-        if _selectedSetSetting == SET_IS_SET then
+    local function _getSetText(setSetting)
+        if setSetting == SET_IS_SET then
             return "[Set]"  -- TODO: extract
-        elseif _selectedSetSetting == SET_NO_SET then
+        elseif setSetting == SET_NO_SET then
             return "[Non-Set]"  -- TODO: extract
         end
         return nil
     end
 
-    local function _getCraftedText()
-        if _selectedCraftedSetting == CRAFTED_IS_CRAFTED then
+    local function _getCraftedText(craftedSetting)
+        if craftedSetting == CRAFTED_IS_CRAFTED then
             return "[Crafted]"  -- TODO: extract
-        elseif _selectedCraftedSetting == CRAFTED_NOT_CRAFTED then
+        elseif craftedSetting == CRAFTED_NOT_CRAFTED then
             return "[Non-Crafted]"  -- TODO: extract
         end
         return nil
     end
 
-    local function _getTraitText()
-        if _selectedTraitSetting == TRAIT_KNOWN then
+    local function _getTraitText(traitSetting, traitTypes, selectedCount, unselectedCount)
+        if traitSetting == TRAIT_KNOWN then
             return "with [known] traits" -- TODO: extract
-        elseif _selectedTraitSetting == TRAIT_UNKNOWN then
+        elseif traitSetting == TRAIT_UNKNOWN then
             return "with [unknown] traits"  -- TODO: extract
-        elseif _selectedTraitSetting == TRAIT_SELECTED then
-            local notSelectedTraitTypes = _traitTypesShifterBox:GetLeftListEntries()
-            local notSelectedCount = 0
-            for _ in pairs(notSelectedTraitTypes) do notSelectedCount = notSelectedCount + 1 end
-            local selectedTraitTypes = _traitTypesShifterBox:GetRightListEntries()
-            local selectedCount = 0
-            local traitTypes = {}
-            for _, value in pairs(selectedTraitTypes) do
-                selectedCount = selectedCount + 1
-                table.insert(traitTypes, value)
-            end
+        elseif traitSetting == TRAIT_SELECTED then
             if selectedCount == 0 then
                 return "with [no] traits"  -- TODO: extract
-            elseif notSelectedCount == 0 then
+            elseif unselectedCount == 0 then
                 return nil
             else
-                return "with ["..PAHF.getCommaSeparatedOrList(traitTypes).."] trait"  -- TODO: extract
+                local traitTypesString = _getLocalizedTraitTypes(traitTypes)
+                return table.concat({"with [", PAHF.getCommaSeparatedOrList(traitTypesString), "] trait"})  -- TODO: extract
             end
         end
     end
 
-    local function _getFormattedSummaryText()
-        if _selectedItemGroup == nil then
-            return "Please select an [Item Group] first..."   -- TODO: extract
-        else
-            local function _appendText(master, addedText)
-                if addedText ~= nil then
-                    return master.." "..addedText
-                end
-                return master
+    -- the the splitted main groups
+    local mainGroupsSplit = PAHF.split(ruleSettingsRaw, GROUP_SEPARATOR, 8)
+    _G["tata"] = mainGroupsSplit
+
+    -- GROUP: 1
+    local itemGroup = mainGroupsSplit[1]
+
+    if itemGroup == nil or itemGroup == "" then
+        return "Please select an [Item Group] first..."   -- TODO: extract
+    else
+        local function _appendText(master, addedText)
+            if addedText ~= nil then
+                return table.concat({master, " ", addedText})
             end
-            local craftedText = _getCraftedText()
-            local setText = _getSetText()
-            local itemTypeText = _getItemTypeText()
-            local qualityText = _getQualityText()
-            local levelText = _getLevelText()
-            local traitText = _getTraitText()
-            local summaryText = "Any"   -- TODO: extract
-            summaryText = _appendText(summaryText, craftedText)
-            summaryText = _appendText(summaryText, setText)
-            summaryText = _appendText(summaryText, itemTypeText)
-            summaryText = _appendText(summaryText, qualityText)
-            summaryText = _appendText(summaryText, levelText)
-            summaryText = _appendText(summaryText, traitText)
-            return summaryText
+            return master
         end
+
+        -- GROUP: 2
+        local qualitiesSplit = PAHF.split(mainGroupsSplit[2], SETTING_SEPARATOR, 3)
+        local selectedQualities = PAHF.split(qualitiesSplit[1], ITEM_SEPARATOR)
+        local selectedQualitiesCount = tonumber(qualitiesSplit[2])
+        local notSelectedQualitiesCount = tonumber(qualitiesSplit[3])
+        -- GROUP: 3
+        local levelFromSplit = PAHF.split(mainGroupsSplit[3], SETTING_SEPARATOR, 2)
+        local levelFromType = tonumber(levelFromSplit[1])
+        local levelFrom = tonumber(levelFromSplit[2])
+        -- GROUP: 4
+        local levelToSplit = PAHF.split(mainGroupsSplit[4], SETTING_SEPARATOR, 2)
+        local levelToType = tonumber(levelToSplit[1])
+        local levelTo = tonumber(levelToSplit[2])
+        -- GROUP: 5
+        local setSetting = tonumber(mainGroupsSplit[5])
+        -- GROUP: 6
+        local craftedSetting = tonumber(mainGroupsSplit[6])
+        -- GROUP: 7
+        local itemTypesSplit = PAHF.split(mainGroupsSplit[7], SETTING_SEPARATOR, 3)
+        local selectedItemTypes = PAHF.split(itemTypesSplit[1], ITEM_SEPARATOR)
+        local selectedItemTypesCount = tonumber(itemTypesSplit[2])
+        local notSelectedItemTypesCount = tonumber(itemTypesSplit[3])
+        -- GROUP: 8
+        local traitTypesSplit = PAHF.split(mainGroupsSplit[8], SETTING_SEPARATOR, 4)
+        local traitSetting = tonumber(traitTypesSplit[1])
+        local selectedTraitTypes = PAHF.split(traitTypesSplit[2], ITEM_SEPARATOR)
+        local selectedTraitTypesCount = tonumber(traitTypesSplit[3])
+        local notSelectedTraitTypesCount = tonumber(traitTypesSplit[4])
+
+        -- get the combined texts
+        local craftedText = _getCraftedText(craftedSetting)
+        local setText = _getSetText(setSetting)
+        local itemTypeText = _getItemTypeText(itemGroup, selectedItemTypes, selectedItemTypesCount, notSelectedItemTypesCount)
+        local qualityText = _getQualityText(selectedQualities, selectedQualitiesCount, notSelectedQualitiesCount)
+        local levelText = _getLevelText(levelFrom, levelFromType, levelTo, levelToType)
+        local traitText = _getTraitText(traitSetting, selectedTraitTypes, selectedTraitTypesCount, notSelectedTraitTypesCount)
+        local summaryText = "Any"   -- TODO: extract
+        summaryText = _appendText(summaryText, craftedText)
+        summaryText = _appendText(summaryText, setText)
+        summaryText = _appendText(summaryText, itemTypeText)
+        summaryText = _appendText(summaryText, qualityText)
+        summaryText = _appendText(summaryText, levelText)
+        summaryText = _appendText(summaryText, traitText)
+        return summaryText
     end
 
-    return _getFormattedSummaryText()
 
 
     -- TODO: come up with a logic for the rule summary :D
@@ -204,30 +325,40 @@ local function _getRuleSummary()
 
 end
 
-local function _getRuleSettingsTable()
-    return {
-        group = _selectedItemGroup,
-        qualities = _selectedQualities,
-        levelFrom = {
-            type = _selectedLevelFromType,
-            value = _selectedLevelFrom,
-        },
-        levelTo = {
-            type = _selectedLevelToType,
-            value = _selectedLevelTo,
-        },
-        set = _selectedSetSetting,
-        crafted = _selectedCraftedSetting,
-        types = _selectedItemTypes,
-        traits = {
-            type = _selectedTraitSetting,
-            values = _selectedTraits,
-        }
-    }
+local function _getRuleSettingsRaw()
+    return table.concat({
+        -- GROUP: 1
+        _selectedItemGroup, GROUP_SEPARATOR,
+        -- GROUP: 2
+        _selectedQualities, SETTING_SEPARATOR,
+        _selectedQualitiesCount, SETTING_SEPARATOR,
+        _notSelectedQualitiesCount, GROUP_SEPARATOR,
+        -- GROUP: 3
+        _selectedLevelFromType, SETTING_SEPARATOR,
+        _selectedLevelFrom, GROUP_SEPARATOR,
+        -- GROUP: 4
+        _selectedLevelToType, SETTING_SEPARATOR,
+        _selectedLevelTo, GROUP_SEPARATOR,
+        -- GROUP: 5
+        _selectedSetSetting, GROUP_SEPARATOR,
+        -- GROUP: 6
+        _selectedCraftedSetting, GROUP_SEPARATOR,
+        -- GROUP: 7
+        _selectedItemTypes, SETTING_SEPARATOR,
+        _selectedItemTypesCount, SETTING_SEPARATOR,
+        _notSelectedItemTypesCount, GROUP_SEPARATOR,
+        -- GROUP: 8
+        _selectedTraitSetting, SETTING_SEPARATOR,
+        _selectedTraits, SETTING_SEPARATOR,
+        _selectedTraitsCount, SETTING_SEPARATOR,
+        _notSelectedTraitsCount
+    })
 end
 
 local function _updateRuleSummary()
-    local ruleSummary = _getRuleSummary()
+    _updateLocalRuleValues()
+    local ruleSettingsRaw = _getRuleSettingsRaw()
+    local ruleSummary = getRuleSummaryFromRawSettings(ruleSettingsRaw)
     local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
     ruleSummaryTextControl:SetText(ruleSummary)
 end
@@ -373,31 +504,30 @@ local function _createAndReturnItemTypesShifterBox()
     }
     local itemTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemTypes", window, shifterBoxSettings)
     local armorTypeData = {
-        [ITEMFILTERTYPE_ARMOR..ARMORTYPE_LIGHT] = GetString("SI_ARMORTYPE", ARMORTYPE_LIGHT),
-        [ITEMFILTERTYPE_ARMOR..ARMORTYPE_MEDIUM] = GetString("SI_ARMORTYPE", ARMORTYPE_MEDIUM),
-        [ITEMFILTERTYPE_ARMOR..ARMORTYPE_HEAVY] = GetString("SI_ARMORTYPE", ARMORTYPE_HEAVY),
+        [ITEMFILTERTYPE_ARMOR.."_"..ARMORTYPE_LIGHT] = GetString("SI_ARMORTYPE", ARMORTYPE_LIGHT),
+        [ITEMFILTERTYPE_ARMOR.."_"..ARMORTYPE_MEDIUM] = GetString("SI_ARMORTYPE", ARMORTYPE_MEDIUM),
+        [ITEMFILTERTYPE_ARMOR.."_"..ARMORTYPE_HEAVY] = GetString("SI_ARMORTYPE", ARMORTYPE_HEAVY),
     }
     itemTypesShifterBox:AddEntriesToLeftList(armorTypeData, false, ITEMFILTERTYPE_ARMOR)
-    local twoHandedPrefix = table.concat({GetString("SI_WEAPONCONFIGTYPE", WEAPON_CONFIG_TYPE_TWO_HANDED), " "})
     local weaponTypeData = {
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_AXE] = GetString("SI_WEAPONTYPE", WEAPONTYPE_AXE),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_BOW] = GetString("SI_WEAPONTYPE", WEAPONTYPE_BOW),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_DAGGER] = GetString("SI_WEAPONTYPE", WEAPONTYPE_DAGGER),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_FIRE_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_FIRE_STAFF),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_FROST_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_FROST_STAFF),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_HAMMER] = GetString("SI_WEAPONTYPE", WEAPONTYPE_HAMMER),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_HEALING_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_HEALING_STAFF),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_LIGHTNING_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_LIGHTNING_STAFF),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_SHIELD] = GetString("SI_WEAPONTYPE", WEAPONTYPE_SHIELD),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_SWORD] = GetString("SI_WEAPONTYPE", WEAPONTYPE_SWORD),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_TWO_HANDED_AXE] = twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_AXE),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_TWO_HANDED_HAMMER] = twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_HAMMER),
-        [ITEMFILTERTYPE_WEAPONS..WEAPONTYPE_TWO_HANDED_SWORD] = twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_SWORD),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_AXE] = GetString("SI_WEAPONTYPE", WEAPONTYPE_AXE),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_BOW] = GetString("SI_WEAPONTYPE", WEAPONTYPE_BOW),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_DAGGER] = GetString("SI_WEAPONTYPE", WEAPONTYPE_DAGGER),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_FIRE_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_FIRE_STAFF),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_FROST_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_FROST_STAFF),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_HAMMER] = GetString("SI_WEAPONTYPE", WEAPONTYPE_HAMMER),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_HEALING_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_HEALING_STAFF),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_LIGHTNING_STAFF] = GetString("SI_WEAPONTYPE", WEAPONTYPE_LIGHTNING_STAFF),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_SHIELD] = GetString("SI_WEAPONTYPE", WEAPONTYPE_SHIELD),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_SWORD] = GetString("SI_WEAPONTYPE", WEAPONTYPE_SWORD),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_TWO_HANDED_AXE] = _twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_AXE),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_TWO_HANDED_HAMMER] = _twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_HAMMER),
+        [ITEMFILTERTYPE_WEAPONS.."_"..WEAPONTYPE_TWO_HANDED_SWORD] = _twoHandedPrefix..GetString("SI_WEAPONTYPE", WEAPONTYPE_TWO_HANDED_SWORD),
     }
     itemTypesShifterBox:AddEntriesToLeftList(weaponTypeData, false, ITEMFILTERTYPE_WEAPONS)
     local jewelryTypeData = {
-        [ITEMFILTERTYPE_JEWELRY..EQUIP_TYPE_NECK] = GetString("SI_EQUIPTYPE", EQUIP_TYPE_NECK),
-        [ITEMFILTERTYPE_JEWELRY..EQUIP_TYPE_RING] = GetString("SI_EQUIPTYPE", EQUIP_TYPE_RING),
+        [ITEMFILTERTYPE_JEWELRY.."_"..EQUIP_TYPE_NECK] = GetString("SI_EQUIPTYPE", EQUIP_TYPE_NECK),
+        [ITEMFILTERTYPE_JEWELRY.."_"..EQUIP_TYPE_RING] = GetString("SI_EQUIPTYPE", EQUIP_TYPE_RING),
     }
     itemTypesShifterBox:AddEntriesToLeftList(jewelryTypeData, false, ITEMFILTERTYPE_JEWELRY)
     return itemTypesShifterBox
@@ -475,49 +605,6 @@ local function _setButtonTextures(control, buttonType)
     control:SetDisabledTexture(textureTemplate:format("disabled"))
 end
 
-local function _onQualityEntryMoved(_, key, _, _, isDestListLeftList)
-    local numKey = tonumber(key)
-    if isDestListLeftList then
-        -- moved to left - remove from list
-        PAHF.removeValueFromIndexedTable(_selectedQualities, numKey)
-        if #_selectedQualities == 0 then _selectedQualities = nil end
-    else
-        -- moved to right - add to list
-        if _selectedQualities == nil then _selectedQualities = {} end
-        table.insert(_selectedQualities, numKey)
-    end
-    _updateRuleSummary()
-end
-
-local function _onTraitEntryMoved(_, key, _, _, isDestListLeftList)
-    local numKey = tonumber(key)
-    if isDestListLeftList then
-        -- moved to left - remove from list
-        PAHF.removeValueFromIndexedTable(_selectedTraits, numKey)
-        if #_selectedTraits == 0 then _selectedTraits = nil end
-    else
-        -- moved to right - add to list
-        if _selectedTraits == nil then _selectedTraits = {} end
-        table.insert(_selectedTraits, numKey)
-    end
-    _updateRuleSummary()
-end
-
-local function _onItemTypeEntryMoved(_, key, _, _, isDestListLeftList)
-    local numKey = tonumber(key)
-    if isDestListLeftList then
-        -- moved to left - remove from list
-        PAHF.removeValueFromIndexedTable(_selectedItemTypes, numKey)
-        if #_selectedItemTypes == 0 then _selectedItemTypes = nil end
-    else
-        -- moved to right - add to list
-        if _selectedItemTypes == nil then _selectedItemTypes = {} end
-        table.insert(_selectedItemTypes, numKey)
-    end
-    _updateRuleSummary()
-end
-
-
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _addCustomAdvancedRuleClicked(isUpdate)
@@ -526,7 +613,7 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
     local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
     -- only add the entry if it is an UPDTE case, or if it does not exist yet
     if isUpdate or not PAHF.isKeyInTable(PABAdvancedRules, _loadedRuleId) then
-        local ruleSettingsTable = _getRuleSettingsTable()
+        local ruleSettingsTable = _getRuleSettingsRaw()
         if isUpdate then
             PABAdvancedRules[_loadedRuleId] = ruleSettingsTable
             -- TODO: chat message
@@ -589,7 +676,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _itemQualitiesShifterBox = _createAndReturnItemQualitiesShifterBox()
         _itemQualitiesShifterBox:SetAnchor(TOPLEFT, itemQualityLabelControl, BOTTOMLEFT, 40, -5)
         _itemQualitiesShifterBox:SetDimensions(340, 200)
-        _itemQualitiesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _onQualityEntryMoved)
+        _itemQualitiesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _updateRuleSummary)
 
         -- initialize the ItemType dropdown
         local itemTypeLabelControl = window:GetNamedChild("ItemTypeLabel")
@@ -597,7 +684,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _itemTypesShifterBox = _createAndReturnItemTypesShifterBox()
         _itemTypesShifterBox:SetAnchor(TOPLEFT, itemTypeLabelControl, BOTTOMLEFT, 40, -5)
         _itemTypesShifterBox:SetDimensions(340, 200)
-        _itemTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _onItemTypeEntryMoved)
+        _itemTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _updateRuleSummary)
 
         -- initialize the Level Range / Champion Point Range
         local itemLevelLabelControl = window:GetNamedChild("ItemLevelLabel")
@@ -746,7 +833,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _traitTypesShifterBox = _createAndReturnTraitTypesShifterBox()
         _traitTypesShifterBox:SetAnchor(TOPLEFT, itemTraitTypeLabelControl, BOTTOMLEFT, 40, -5)
         _traitTypesShifterBox:SetDimensions(340, 200)
-        _traitTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _onTraitEntryMoved)
+        _traitTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _updateRuleSummary)
 
         -- initialize the RuleSummary
         local ruleSummaryLabelControl = window:GetNamedChild("RuleSummaryLabel")
@@ -782,7 +869,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
     end
 end
 
-local function showPABAddCustomAdvancedRuleUIDialog(existingRuleTable, existingRuleId)
+local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
     local headerControl = window:GetNamedChild("Header")
     local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
     local itemLevelFromEdit = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
@@ -798,7 +885,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleTable, existingR
 
     _loadedRuleId = existingRuleId -- can be nil
 
-    if existingRuleTable then
+    if existingRuleId then
         -- init with existing values
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Modify advanced rule"})) -- TODO: extract
 
@@ -837,5 +924,4 @@ PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule
 PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog = initPABAddCustomAdvancedRuleUIDialog
 PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog = showPABAddCustomAdvancedRuleUIDialog
-
-PA.GET = _getRuleSummary
+PA.CustomDialogs.getPABRuleSummaryFromRawSettings = getRuleSummaryFromRawSettings

@@ -67,7 +67,19 @@
                             <Anchor point="TOPRIGHT" />
                             <Dimensions y="36" />
                             <Controls>
+                                <Control name="$(parent)RuleId" inherits="ZO_SortHeader">
+                                    <Anchor point="TOPLEFT" offsetX="40" />
+                                    <Dimensions x="30" y="32" />
+                                </Control>
+                                <Control name="$(parent)RuleSummary" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="750" y="32" />
+                                </Control>
                                 <!--TODO: to be added-->
+                                <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
+                                    <Anchor point="TOPRIGHT" offsetX="-60" />
+                                    <Dimensions x="160" y="32" />
+                                </Control>
                             </Controls>
                         </Control>
                         <Control name="$(parent)List" inherits="ZO_ScrollList">

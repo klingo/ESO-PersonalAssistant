@@ -447,10 +447,7 @@ local PABankingAdvancedRulesList = ZO_SortFilterList:Subclass()
 PA.BankingAdvancedRulesList = nil
 
 PABankingAdvancedRulesList.SORT_KEYS = {
---    ["itemName"] = {},
---    ["bagName"] = {tiebreaker="itemName"},
---    ["mathOperator"] = {tiebreaker="itemName"},
---    ["bagAmount"] = {tiebreaker="itemName"},
+    ["ruleId"] = {}
 }
 
 function PABankingAdvancedRulesList:New()
@@ -458,23 +455,127 @@ function PABankingAdvancedRulesList:New()
     return rules
 end
 
+function PABankingAdvancedRulesList:Initialize(control)
+    -- initialize the SortFilterList
+    ZO_SortFilterList.Initialize(self, control)
+    -- set a text that is displayed when there are no entries
+    self:SetEmptyText("No advanced banking rules defined yet") -- TODO: extract
+    -- default sorting key
+    self.sortHeaderGroup:SelectHeaderByKey("ruleId")
+    ZO_SortHeader_OnMouseExit(BankingAdvancedRulesTabControl:GetNamedChild("Headers"):GetNamedChild("RuleId"))
+    -- define the datatype for this list and enable the highlighting
+    ZO_ScrollList_AddDataType(self.list, TYPE_ACTIVE_RULE, "PersonalAssistantBankingAdvancedRuleListRowTemplate", 96, function(control, data) self:SetupRuleRow(control, data) end)
+    ZO_ScrollList_EnableHighlight(self.list, "ZO_ThinListHighlight")
+    -- set up sorting function and refresh all data
+    self.sortFunction = function(listEntry1, listEntry2) return ZO_TableOrderingFunction(listEntry1.data, listEntry2.data, self.currentSortKey, PABankingAdvancedRulesList.SORT_KEYS, self.currentSortOrder) end
+    self:RefreshData()
+end
+
+function PABankingAdvancedRulesList:FilterScrollList()
+    -- get the data of the scrollist and index it
+    local scrollData = ZO_ScrollList_GetDataList(self.list)
+    ZO_ClearNumericallyIndexedTable(scrollData)
+    -- only proceed if player has selected an active profile
+    if PAHF.hasActiveProfile() then
+        -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+        local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
+        -- populate the table that is used as source for the list
+        for ruleId, ruleSettingRaw in pairs(PABAdvancedRules) do
+            local rowData = {
+                ruleId = ruleId,
+                ruleSummary = PA.CustomDialogs.getPABRuleSummaryFromRawSettings(ruleSettingRaw)
+            }
+            -- "1" is to define a category per dataEntry (can be individually hidden)
+            table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
+        end
+    end
+end
+
+function PABankingAdvancedRulesList:SortScrollList()
+    -- get all data and sort it
+    local scrollData = ZO_ScrollList_GetDataList(self.list)
+    table.sort(scrollData, self.sortFunction)
+end
 
 
+function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
+    local function onRowMouseEnter(rowControl)
+        PA.BankingAdvancedRulesList:Row_OnMouseEnter(rowControl)
+        local delButtonControl = rowControl:GetNamedChild("DelButton")
+        local editButtonControl = rowControl:GetNamedChild("EditButton")
+        delButtonControl:SetHidden(false)
+        editButtonControl:SetHidden(false)
+    end
+    local function onRowMouseExit(rowControl)
+        PA.BankingAdvancedRulesList:Row_OnMouseExit(rowControl)
+        local delButtonControl = rowControl:GetNamedChild("DelButton")
+        local editButtonControl = rowControl:GetNamedChild("EditButton")
+        delButtonControl:SetHidden(true)
+        editButtonControl:SetHidden(true)
+    end
+    local function onDeleteButtonMouseEnter(deleteButtonControl)
+        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the ruleSummary
+        onRowMouseEnter(deleteButtonControl:GetParent())
+    end
+    local function onDeleteButtonMouseExit(deleteButtonControl)
+        ZO_Tooltips_HideTextTooltip()
+        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the ruleSummary
+        onRowMouseExit(deleteButtonControl:GetParent())
+    end
+    local function onEditButtonMouseEnter(editButtonControl)
+        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the ruleSummary
+        onRowMouseEnter(editButtonControl:GetParent())
+    end
+    local function onEditButtonMouseExit(editButtonControl)
+        ZO_Tooltips_HideTextTooltip()
+        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the ruleSummary
+        onRowMouseExit(editButtonControl:GetParent())
+    end
 
--- TODO: To be implemented!
+    -- store the rowData on the control so it can be accessed from the sortFunction
+    rowControl.data = rowData
 
+    -- populate all data to the individual fields per row
+    local ruleIdControl = rowControl:GetNamedChild("RuleId")
+    ruleIdControl:SetText(rowData.ruleId) -- TODO: formatting!
+
+    local ruleSummaryControl = rowControl:GetNamedChild("RuleSummary")
+    ruleSummaryControl:SetText(rowData.ruleSummary)
+
+    -- Setup the DELETE button per row
+    local delButtonControl = rowControl:GetNamedChild("DelButton")
+    delButtonControl:SetHandler("OnMouseEnter", onDeleteButtonMouseEnter)
+    delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
+    delButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.deletePABCustomAdvancedRule(rowControl.data.ruleId)
+    end)
+
+    -- Setup the EDIT button per row
+    local editButtonControl = rowControl:GetNamedChild("EditButton")
+    editButtonControl:SetHandler("OnMouseEnter", onEditButtonMouseEnter)
+    editButtonControl:SetHandler("OnMouseExit", onEditButtonMouseExit)
+    editButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog() -- make sure it has been initialized
+        PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog(rowControl.data.ruleId)
+    end)
+
+    -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control
+    rowControl:SetHandler("OnMouseEnter", onRowMouseEnter)
+    rowControl:SetHandler("OnMouseExit", onRowMouseExit)
+
+    ZO_SortFilterList.SetupRow(self, rowControl, rowData)
+end
 
 function PABankingAdvancedRulesList:InitHeaders()
     -- Initialise the headers
-    local headers = JunkRulesTabControl:GetNamedChild("Headers")
-
-    -- TODO: To be implemented!
-
---    ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_JUNK_HEADER_ITEM), "itemName", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("JunkCount"), GetString(SI_PA_MAINMENU_JUNK_HEADER_JUNK_COUNT), "junkCount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("LastJunk"), GetString(SI_PA_MAINMENU_JUNK_HEADER_LAST_JUNK), "lastJunk", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleAdded"), GetString(SI_PA_MAINMENU_JUNK_HEADER_RULE_ADDED), "ruleAdded", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
---    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_JUNK_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
+    local headers = BankingAdvancedRulesTabControl:GetNamedChild("Headers")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleId"), "#", "ruleId", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
+    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleSummary"), "Rule Summary", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
+    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), "Actions", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader") -- TODO: extract
 end
 
 function PABankingAdvancedRulesList:InitFooters()

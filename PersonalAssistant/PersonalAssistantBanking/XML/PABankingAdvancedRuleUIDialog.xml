@@ -102,7 +102,7 @@
                 </Label>
                 <Label name="$(parent)RuleSummaryText">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)RuleSummaryLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
-                    <Dimensions x="380" y="120"/>
+                    <Dimensions x="380" y="150"/>
                 </Label>
 
 
@@ -158,17 +158,6 @@
                         </Label>
                     </Controls>
                 </Button>
-
-
-                <!--TODO: design a shifterbox!-->
-
-                <!--1. Armor/Weapon/Jewelry selection-->
-                <!--2. Quality-->
-                <!--3. EquipType (optional)-->
-                <!--4. TraitType-->
-                <!--5. TraitKnown-->
-                <!--6. Set-->
-                <!--7. Crafted-->
 
             </Controls>
         </TopLevelControl>
