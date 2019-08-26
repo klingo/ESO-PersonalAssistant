@@ -23,37 +23,37 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
     -- Add PABanking context menu entries
     if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
         -- first make some checks whether banking rules are even allowed for this item
-        if _isBankingRuleNotAllowed(itemLink, bagId, slotIndex) then return end
-
-        local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-        local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
-        local entries = {
-            {
-                label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
-                callback = function()
-                    PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                    PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
-                end,
-                disabled = function() return isRuleExisting end,
-            },
-            {
-                label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
-                callback = function()
-                    PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                    PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomItemIds[itemId])
-                end,
-                disabled = function() return not isRuleExisting end,
-            },
-            {
-                label = GetString(SI_PA_SUBMENU_PAB_DELETE_RULE),
-                callback = function()
-                    PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                    PA.CustomDialogs.deletePABCustomRule(itemLink)
-                end,
-                disabled = function() return not isRuleExisting end,
+        if not _isBankingRuleNotAllowed(itemLink, bagId, slotIndex) then
+            local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+            local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
+            local entries = {
+                {
+                    label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
+                    callback = function()
+                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
+                    end,
+                    disabled = function() return isRuleExisting end,
+                },
+                {
+                    label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
+                    callback = function()
+                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomItemIds[itemId])
+                    end,
+                    disabled = function() return not isRuleExisting end,
+                },
+                {
+                    label = GetString(SI_PA_SUBMENU_PAB_DELETE_RULE),
+                    callback = function()
+                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                        PA.CustomDialogs.deletePABCustomRule(itemLink)
+                    end,
+                    disabled = function() return not isRuleExisting end,
+                }
             }
-        }
-        AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAB), entries)
+            AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAB), entries)
+        end
     end
 
     -- Add PAJunk context menu entries
