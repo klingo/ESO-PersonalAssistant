@@ -27,7 +27,7 @@ local TRAIT_SELECTED = 3
 
 local ITEM_SEPARATOR = ","
 local SETTING_SEPARATOR = "/"
-local GROUP_SEPARATOR = "|"
+local GROUP_SEPARATOR = "\\"
 
 -- selected values on the UI
 local _loadedRuleId
@@ -60,6 +60,7 @@ local _twoHandedPrefix = table.concat({GetString("SI_WEAPONCONFIGTYPE", WEAPON_C
 
 -- init setting
 local _initDone = false
+local _loadingInProgress = false
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -168,6 +169,94 @@ local function _updateLocalRuleValues()
     _updateLevel()
 end
 
+local function _convertLocalSettingsToRawSettings()
+    return table.concat({
+        -- GROUP: 1
+        _selectedItemGroup, GROUP_SEPARATOR,
+        -- GROUP: 2
+        _selectedQualities, SETTING_SEPARATOR,
+        _selectedQualitiesCount, SETTING_SEPARATOR,
+        _notSelectedQualitiesCount, GROUP_SEPARATOR,
+        -- GROUP: 3
+        _selectedLevelFromType, SETTING_SEPARATOR,
+        _selectedLevelFrom, GROUP_SEPARATOR,
+        -- GROUP: 4
+        _selectedLevelToType, SETTING_SEPARATOR,
+        _selectedLevelTo, GROUP_SEPARATOR,
+        -- GROUP: 5
+        _selectedSetSetting, GROUP_SEPARATOR,
+        -- GROUP: 6
+        _selectedCraftedSetting, GROUP_SEPARATOR,
+        -- GROUP: 7
+        _selectedItemTypes, SETTING_SEPARATOR,
+        _selectedItemTypesCount, SETTING_SEPARATOR,
+        _notSelectedItemTypesCount, GROUP_SEPARATOR,
+        -- GROUP: 8
+        _selectedTraitSetting, SETTING_SEPARATOR,
+        _selectedTraits, SETTING_SEPARATOR,
+        _selectedTraitsCount, SETTING_SEPARATOR,
+        _notSelectedTraitsCount
+    })
+end
+
+local function _convertRawSettingsToLocalSettings(ruleSettingsRaw, returnAdditionalData)
+    -- the the splitted main groups
+    local mainGroupsSplit = PAHF.split(ruleSettingsRaw, GROUP_SEPARATOR, 8)
+
+    -- GROUP: 1
+    local itemGroup = mainGroupsSplit[1]
+
+    if itemGroup == nil or itemGroup == "" then
+        return itemGroup
+    else
+        -- GROUP: 1
+        itemGroup = tonumber(itemGroup)
+        -- GROUP: 2
+        local qualitiesSplit = PAHF.split(mainGroupsSplit[2], SETTING_SEPARATOR, 3)
+        local selectedQualities = PAHF.split(qualitiesSplit[1], ITEM_SEPARATOR)
+        for key, value in pairs(selectedQualities) do
+            selectedQualities[key] = tonumber(value) -- make sure its a number and not a string
+        end
+        local selectedQualitiesCount = tonumber(qualitiesSplit[2])
+        local notSelectedQualitiesCount = tonumber(qualitiesSplit[3])
+        -- GROUP: 3
+        local levelFromSplit = PAHF.split(mainGroupsSplit[3], SETTING_SEPARATOR, 2)
+        local levelFromType = tonumber(levelFromSplit[1])
+        local levelFrom = tonumber(levelFromSplit[2])
+        -- GROUP: 4
+        local levelToSplit = PAHF.split(mainGroupsSplit[4], SETTING_SEPARATOR, 2)
+        local levelToType = tonumber(levelToSplit[1])
+        local levelTo = tonumber(levelToSplit[2])
+        -- GROUP: 5
+        local setSetting = tonumber(mainGroupsSplit[5])
+        -- GROUP: 6
+        local craftedSetting = tonumber(mainGroupsSplit[6])
+        -- GROUP: 7
+        local itemTypesSplit = PAHF.split(mainGroupsSplit[7], SETTING_SEPARATOR, 3)
+        local selectedItemTypes = PAHF.split(itemTypesSplit[1], ITEM_SEPARATOR)
+        local selectedItemTypesCount = tonumber(itemTypesSplit[2])
+        local notSelectedItemTypesCount = tonumber(itemTypesSplit[3])
+        -- GROUP: 8
+        local traitTypesSplit = PAHF.split(mainGroupsSplit[8], SETTING_SEPARATOR, 4)
+        local traitSetting = tonumber(traitTypesSplit[1])
+        local selectedTraitTypes = PAHF.split(traitTypesSplit[2], ITEM_SEPARATOR)
+        for key, value in pairs(selectedTraitTypes) do
+            selectedTraitTypes[key] = tonumber(value) -- make sure its a number and not a string
+        end
+        local selectedTraitTypesCount = tonumber(traitTypesSplit[3])
+        local notSelectedTraitTypesCount = tonumber(traitTypesSplit[4])
+
+        if returnAdditionalData then
+            return itemGroup, selectedQualities, selectedQualitiesCount, notSelectedQualitiesCount, levelFromType,
+            levelFrom, levelToType, levelTo, setSetting, craftedSetting, selectedItemTypes, selectedItemTypesCount,
+            notSelectedItemTypesCount, traitSetting, selectedTraitTypes, selectedTraitTypesCount, notSelectedTraitTypesCount
+        else
+            return itemGroup, selectedQualities, levelFromType, levelFrom, levelToType, levelTo, setSetting,
+            craftedSetting, selectedItemTypes, traitSetting, selectedTraitTypes
+        end
+    end
+end
+
 local function getRuleSummaryFromRawSettings(ruleSettingsRaw)
     local function _getItemTypeText(itemGroup, itemTypes, selectedCount, unselectedCount)
         local itemGroupString = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemGroup))
@@ -244,12 +333,10 @@ local function getRuleSummaryFromRawSettings(ruleSettingsRaw)
         end
     end
 
-    -- the the splitted main groups
-    local mainGroupsSplit = PAHF.split(ruleSettingsRaw, GROUP_SEPARATOR, 8)
-    _G["tata"] = mainGroupsSplit
-
-    -- GROUP: 1
-    local itemGroup = mainGroupsSplit[1]
+    local itemGroup, selectedQualities, selectedQualitiesCount, notSelectedQualitiesCount, levelFromType,
+        levelFrom, levelToType, levelTo, setSetting, craftedSetting, selectedItemTypes, selectedItemTypesCount,
+        notSelectedItemTypesCount, traitSetting, selectedTraitTypes, selectedTraitTypesCount,
+        notSelectedTraitTypesCount = _convertRawSettingsToLocalSettings(ruleSettingsRaw, true)
 
     if itemGroup == nil or itemGroup == "" then
         return "Please select an [Item Group] first..."   -- TODO: extract
@@ -260,35 +347,6 @@ local function getRuleSummaryFromRawSettings(ruleSettingsRaw)
             end
             return master
         end
-
-        -- GROUP: 2
-        local qualitiesSplit = PAHF.split(mainGroupsSplit[2], SETTING_SEPARATOR, 3)
-        local selectedQualities = PAHF.split(qualitiesSplit[1], ITEM_SEPARATOR)
-        local selectedQualitiesCount = tonumber(qualitiesSplit[2])
-        local notSelectedQualitiesCount = tonumber(qualitiesSplit[3])
-        -- GROUP: 3
-        local levelFromSplit = PAHF.split(mainGroupsSplit[3], SETTING_SEPARATOR, 2)
-        local levelFromType = tonumber(levelFromSplit[1])
-        local levelFrom = tonumber(levelFromSplit[2])
-        -- GROUP: 4
-        local levelToSplit = PAHF.split(mainGroupsSplit[4], SETTING_SEPARATOR, 2)
-        local levelToType = tonumber(levelToSplit[1])
-        local levelTo = tonumber(levelToSplit[2])
-        -- GROUP: 5
-        local setSetting = tonumber(mainGroupsSplit[5])
-        -- GROUP: 6
-        local craftedSetting = tonumber(mainGroupsSplit[6])
-        -- GROUP: 7
-        local itemTypesSplit = PAHF.split(mainGroupsSplit[7], SETTING_SEPARATOR, 3)
-        local selectedItemTypes = PAHF.split(itemTypesSplit[1], ITEM_SEPARATOR)
-        local selectedItemTypesCount = tonumber(itemTypesSplit[2])
-        local notSelectedItemTypesCount = tonumber(itemTypesSplit[3])
-        -- GROUP: 8
-        local traitTypesSplit = PAHF.split(mainGroupsSplit[8], SETTING_SEPARATOR, 4)
-        local traitSetting = tonumber(traitTypesSplit[1])
-        local selectedTraitTypes = PAHF.split(traitTypesSplit[2], ITEM_SEPARATOR)
-        local selectedTraitTypesCount = tonumber(traitTypesSplit[3])
-        local notSelectedTraitTypesCount = tonumber(traitTypesSplit[4])
 
         -- get the combined texts
         local craftedText = _getCraftedText(craftedSetting)
@@ -325,47 +383,23 @@ local function getRuleSummaryFromRawSettings(ruleSettingsRaw)
 
 end
 
-local function _getRuleSettingsRaw()
-    return table.concat({
-        -- GROUP: 1
-        _selectedItemGroup, GROUP_SEPARATOR,
-        -- GROUP: 2
-        _selectedQualities, SETTING_SEPARATOR,
-        _selectedQualitiesCount, SETTING_SEPARATOR,
-        _notSelectedQualitiesCount, GROUP_SEPARATOR,
-        -- GROUP: 3
-        _selectedLevelFromType, SETTING_SEPARATOR,
-        _selectedLevelFrom, GROUP_SEPARATOR,
-        -- GROUP: 4
-        _selectedLevelToType, SETTING_SEPARATOR,
-        _selectedLevelTo, GROUP_SEPARATOR,
-        -- GROUP: 5
-        _selectedSetSetting, GROUP_SEPARATOR,
-        -- GROUP: 6
-        _selectedCraftedSetting, GROUP_SEPARATOR,
-        -- GROUP: 7
-        _selectedItemTypes, SETTING_SEPARATOR,
-        _selectedItemTypesCount, SETTING_SEPARATOR,
-        _notSelectedItemTypesCount, GROUP_SEPARATOR,
-        -- GROUP: 8
-        _selectedTraitSetting, SETTING_SEPARATOR,
-        _selectedTraits, SETTING_SEPARATOR,
-        _selectedTraitsCount, SETTING_SEPARATOR,
-        _notSelectedTraitsCount
-    })
-end
-
-local function _updateRuleSummary()
-    _updateLocalRuleValues()
-    local ruleSettingsRaw = _getRuleSettingsRaw()
+local function _updateRuleSummary(ruleSettingsRaw)
+    if ruleSettingsRaw == nil then
+        _updateLocalRuleValues()
+        ruleSettingsRaw = _convertLocalSettingsToRawSettings()
+    end
     local ruleSummary = getRuleSummaryFromRawSettings(ruleSettingsRaw)
     local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
     ruleSummaryTextControl:SetText(ruleSummary)
 end
 
-local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory, enabled)
+local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory, enabled, keysToRightList)
     if selectCategory then shifterBox:ShowOnlyCategory(selectCategory) end
     shifterBox:MoveAllEntriesToLeftList()
+    if keysToRightList ~= nil then
+        d(keysToRightList)
+        shifterBox:MoveEntriesToRightList(keysToRightList)
+    end
     shifterBox:SetEnabled(enabled)
 end
 
@@ -486,7 +520,6 @@ local function _createAndReturnItemQualitiesShifterBox()
         [ITEM_QUALITY_LEGENDARY] = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
     }
     itemQualitiesShifterBox:AddEntriesToLeftList(listData)
-    _G["patest"] = itemQualitiesShifterBox
     return itemQualitiesShifterBox
 end
 
@@ -608,18 +641,18 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _addCustomAdvancedRuleClicked(isUpdate)
-    df("_addCustomAdvancedRuleClicked(%s)", tostring(isUpdate))
-
     local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
     -- only add the entry if it is an UPDTE case, or if it does not exist yet
     if isUpdate or not PAHF.isKeyInTable(PABAdvancedRules, _loadedRuleId) then
-        local ruleSettingsTable = _getRuleSettingsRaw()
+        _updateLocalRuleValues() -- in case there were no changes done
+        local ruleSettingsRaw = _convertLocalSettingsToRawSettings()
         if isUpdate then
-            PABAdvancedRules[_loadedRuleId] = ruleSettingsTable
+            df("SAVE: %s", ruleSettingsRaw)
+            PABAdvancedRules[_loadedRuleId] = ruleSettingsRaw
             -- TODO: chat message
             df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), _loadedRuleId)
         else
-            table.insert(PABAdvancedRules, ruleSettingsTable)
+            table.insert(PABAdvancedRules, ruleSettingsRaw)
             -- TODO: chat message
             df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), #PABAdvancedRules)
         end
@@ -633,8 +666,6 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
 end
 
 local function deletePABCustomAdvancedRule(ruleId)
-    df("deletePABCustomAdvancedRule(%d)", ruleId)
-
     local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
     if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
         -- is in table, delete rule
@@ -666,8 +697,19 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupArmor)
         itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupJewelry)
         -- define the default entry
-        function itemGroupDropdownControl:SelectDefault()
-            itemGroupDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemGroupPleaseSelect)
+        function itemGroupDropdownControl:SelectDefault(ignoreCallback)
+            itemGroupDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemGroupPleaseSelect, ignoreCallback)
+        end
+        function itemGroupDropdownControl:SelectByKey(itemGroup)
+            if itemGroup == ITEMFILTERTYPE_WEAPONS then
+                itemGroupDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemGroupWeapons, true)
+            elseif itemGroup == ITEMFILTERTYPE_ARMOR then
+                itemGroupDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemGroupArmor, true)
+            elseif itemGroup == ITEMFILTERTYPE_JEWELRY then
+                itemGroupDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemGroupJewelry, true)
+            else
+                self:SelectDefault(true)
+            end
         end
 
         -- initialize the Quality shifterBox
@@ -676,7 +718,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _itemQualitiesShifterBox = _createAndReturnItemQualitiesShifterBox()
         _itemQualitiesShifterBox:SetAnchor(TOPLEFT, itemQualityLabelControl, BOTTOMLEFT, 40, -5)
         _itemQualitiesShifterBox:SetDimensions(340, 200)
-        _itemQualitiesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _updateRuleSummary)
+        _itemQualitiesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, function() if not _loadingInProgress then _updateRuleSummary() end end)
 
         -- initialize the ItemType dropdown
         local itemTypeLabelControl = window:GetNamedChild("ItemTypeLabel")
@@ -684,7 +726,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _itemTypesShifterBox = _createAndReturnItemTypesShifterBox()
         _itemTypesShifterBox:SetAnchor(TOPLEFT, itemTypeLabelControl, BOTTOMLEFT, 40, -5)
         _itemTypesShifterBox:SetDimensions(340, 200)
-        _itemTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _updateRuleSummary)
+        _itemTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, function() if not _loadingInProgress then _updateRuleSummary() end end)
 
         -- initialize the Level Range / Champion Point Range
         local itemLevelLabelControl = window:GetNamedChild("ItemLevelLabel")
@@ -801,6 +843,15 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         function itemSetDropdownControl:SelectDefault()
             itemSetDropdownControl.m_comboBox:SelectItem(DropdownRefs.setBoth)
         end
+        function itemSetDropdownControl:SelectByKey(setSetting)
+            if setSetting == SET_IS_SET then
+                itemSetDropdownControl.m_comboBox:SelectItem(DropdownRefs.setYes, true)
+            elseif setSetting == SET_NO_SET then
+                itemSetDropdownControl.m_comboBox:SelectItem(DropdownRefs.setNo, true)
+            else
+                self:SelectDefault(true)
+            end
+        end
 
         -- initialize the Crafted dropdown
         local itemCraftedLabelControl = window:GetNamedChild("ItemCraftedLabel")
@@ -812,6 +863,15 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         -- define the default entry
         function itemCraftedDropdownControl:SelectDefault()
             itemCraftedDropdownControl.m_comboBox:SelectItem(DropdownRefs.craftedBoth)
+        end
+        function itemCraftedDropdownControl:SelectByKey(craftedSetting)
+            if craftedSetting == CRAFTED_IS_CRAFTED then
+                itemCraftedDropdownControl.m_comboBox:SelectItem(DropdownRefs.craftedYes, true)
+            elseif craftedSetting == CRAFTED_NOT_CRAFTED then
+                itemCraftedDropdownControl.m_comboBox:SelectItem(DropdownRefs.craftedNo, true)
+            else
+                self:SelectDefault(true)
+            end
         end
 
         -- initialize the ItemTrait dropdown
@@ -826,6 +886,17 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         function itemTraitDropdownControl:SelectDefault()
             itemTraitDropdownControl.m_comboBox:SelectItem(DropdownRefs.traitBoth)
         end
+        function itemTraitDropdownControl:SelectByKey(traitSetting)
+            if traitSetting == TRAIT_KNOWN then
+                itemTraitDropdownControl.m_comboBox:SelectItem(DropdownRefs.traitKnown, true)
+            elseif traitSetting == TRAIT_UNKNOWN then
+                itemTraitDropdownControl.m_comboBox:SelectItem(DropdownRefs.traitUnknown, true)
+            elseif traitSetting == TRAIT_SELECTED then
+                itemTraitDropdownControl.m_comboBox:SelectItem(DropdownRefs.traitSelected, true)
+            else
+                self:SelectDefault(true)
+            end
+        end
 
         -- initialize the TraitType shifterBox
         local itemTraitTypeLabelControl = window:GetNamedChild("ItemTraitTypeLabel")
@@ -833,7 +904,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         _traitTypesShifterBox = _createAndReturnTraitTypesShifterBox()
         _traitTypesShifterBox:SetAnchor(TOPLEFT, itemTraitTypeLabelControl, BOTTOMLEFT, 40, -5)
         _traitTypesShifterBox:SetDimensions(340, 200)
-        _traitTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, _updateRuleSummary)
+        _traitTypesShifterBox:RegisterCallback(PA.LibShifterBox.EVENT_ENTRY_MOVED, function() if not _loadingInProgress then _updateRuleSummary() end end)
 
         -- initialize the RuleSummary
         local ruleSummaryLabelControl = window:GetNamedChild("RuleSummaryLabel")
@@ -870,6 +941,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 end
 
 local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
+    _loadingInProgress = true
     local headerControl = window:GetNamedChild("Header")
     local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
     local itemLevelFromEdit = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
@@ -888,8 +960,35 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
     if existingRuleId then
         -- init with existing values
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Modify advanced rule"})) -- TODO: extract
+        -- get rule settings
+        local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
+        local ruleSettingRaw = PABAdvancedRules[existingRuleId]
 
-        -- TODO: add code
+        df("LOAD: %s", ruleSettingRaw)
+
+        _selectedItemGroup, _selectedQualities, _selectedQualitiesCount, _notSelectedQualitiesCount, _selectedLevelFromType,
+        _selectedLevelFrom, _selectedLevelToType, _selectedLevelTo, _selectedSetSetting, _selectedCraftedSetting,
+        _selectedItemTypes, _selectedItemTypesCount, _notSelectedItemTypesCount, _selectedTraitSetting, _selectedTraits,
+        _selectedTraitsCount, _notSelectedTraitsCount = _convertRawSettingsToLocalSettings(ruleSettingRaw, true)
+
+        -- load values on UI
+        itemGroupDropdownControl:SelectByKey(_selectedItemGroup)
+        d("111")
+        _resetShifterBoxAndResetToLeft(_itemQualitiesShifterBox, nil, true, _selectedQualities)
+        itemLevelFromEdit:SetText(_selectedLevelFrom)
+        _setButtonTextures(itemLevelFromButton, _selectedLevelFromType)
+        itemLevelToEdit:SetText(_selectedLevelTo)
+        _setButtonTextures(itemLevelToButton, _selectedLevelToType)
+        itemSetDropdownControl:SelectByKey(_selectedSetSetting)
+        itemCraftedDropdownControl:SelectByKey(_selectedCraftedSetting)
+        d("222")
+        _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, _selectedItemGroup, true, _selectedItemTypes)
+        itemTraitDropdownControl:SelectByKey(_selectedTraitSetting)
+        d("333")
+        _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _selectedItemGroup, _selectedTraitSetting == TRAIT_SELECTED, _selectedTraits)
+
+        _updateRuleSummary(ruleSettingRaw)
+
         -- show UPDATE/DELETE buttons, hide ADD button
         addRuleButtonControl:SetHidden(true)
         updateRuleButtonControl:SetHidden(false)
@@ -916,6 +1015,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
 
     -- finally, show window
     window:SetHidden(false)
+    _loadingInProgress = false
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -925,3 +1025,7 @@ PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule
 PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog = initPABAddCustomAdvancedRuleUIDialog
 PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog = showPABAddCustomAdvancedRuleUIDialog
 PA.CustomDialogs.getPABRuleSummaryFromRawSettings = getRuleSummaryFromRawSettings
+
+
+-- TODO: Edit reset top dropdown does not disable save button
+-- TODO: Edit save without change does not work
