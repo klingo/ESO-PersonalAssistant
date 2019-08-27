@@ -56,6 +56,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed",
 
+    SI_PA_MENU_BANKING_EXCLUDE_JUNK = "Do not move items that are marked as junk",
+
     SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS = "Auto-Stack all items when opening the bank",
     SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T = "Automatically stack all items in the bank and in the backpack when accessing the bank? Helps to keep everything better organized",
 

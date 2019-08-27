@@ -44,6 +44,7 @@ local PABankingMenuDefaults = {
 
             [ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL] = PAC.MOVE.IGNORE,
             [ITEMTYPE_JEWELRYCRAFTING_MATERIAL] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_JEWELRYCRAFTING_RAW_BOOSTER] = PAC.MOVE.IGNORE,
             [ITEMTYPE_JEWELRYCRAFTING_BOOSTER] = PAC.MOVE.IGNORE,
 
             [ITEMTYPE_REAGENT] = PAC.MOVE.IGNORE,
@@ -104,6 +105,7 @@ local PABankingMenuDefaults = {
             [ITEMTYPE_FOOD] = PAC.MOVE.IGNORE,
             [ITEMTYPE_DRINK] = PAC.MOVE.IGNORE,
             [ITEMTYPE_FISH] = PAC.MOVE.IGNORE,
+            [ITEMTYPE_FURNISHING] = PAC.MOVE.IGNORE,
         },
 
         SpecializedItemTypes = {
@@ -220,6 +222,7 @@ local PABankingMenuDefaults = {
     -- ---------------------------------------------
     transactionDepositStacking = PAC.STACKING.FULL,
     transactionWithdrawalStacking = PAC.STACKING.FULL,
+    excludeJunk = true,
     autoStackBags = true,
 
     -- ---------------------------------------------

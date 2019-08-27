@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020409, -- update this every release!
+            MINOR = 020411, -- update this every release!
         },
     },
 
@@ -339,6 +339,7 @@ PersonalAssistant.Constants = {
         JEWELCRAFTING = {
             ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL,
             ITEMTYPE_JEWELRYCRAFTING_MATERIAL,
+            ITEMTYPE_JEWELRYCRAFTING_RAW_BOOSTER,
             ITEMTYPE_JEWELRYCRAFTING_BOOSTER
         },
         ALCHEMY = {
@@ -407,6 +408,9 @@ PersonalAssistant.Constants = {
                 ITEMTYPE_DRINK,                             -- 12
                 ITEMTYPE_FISH,                              -- 54
             },
+            FURNISHINGS = {
+                ITEMTYPE_FURNISHING,                        -- 61
+            }
         },
         SPECIALIZED = {
             TROPHIES = {

@@ -1,3 +1,13 @@
+2.4.11  (August 26, 2019)
+- added missing jewelcrafting raw boosters to PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/199"]#199[/URL])
+- added option to not deposit/withdraw any junk items - enabled by default ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/201"]#201[/URL])
+- added furnishing to PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/202"]#202[/URL])
+- fixed an issue where the "Mark as permanent junk" menu was not displayed for some item types ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/203"]#203[/URL])
+
+2.4.10  (August 16, 2019)
+- added minimum required version to dependency libraries ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/196"]#196[/URL])
+- fixed another issue related to PA version 2.4.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/195"]#195[/URL])
+
 2.4.9   (August 09, 2019)
 - updated Russian translations from Nesferatum to 2.4.8 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/190"]#190[/URL])
 - fixed an issue with the initialisation of the profile names ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/193"]#193[/URL])
