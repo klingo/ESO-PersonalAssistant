@@ -1,5 +1,5 @@
-2.4.12  ()
-- add support for Dragonhold (APIVersion 100029)
+2.4.12  (December 17, 2019)
+- add support for Dragonhold (APIVersion 100029) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/208"]#208[/URL])
 
 2.4.11  (August 26, 2019)
 - added missing jewelcrafting raw boosters to PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/199"]#199[/URL])
