@@ -40,7 +40,6 @@ local PABStrings = {
 
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Individual Items",
-    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = "Enable Auto Banking for Individual Items",
     SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
