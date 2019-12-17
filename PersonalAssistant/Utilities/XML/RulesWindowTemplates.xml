@@ -38,10 +38,10 @@
                     <Anchor point="RIGHT" relativeTo="$(parent)DelButton" relativePoint="LEFT" offsetX="-5" />
                     <Dimensions x="36" y="36" />
                     <Textures
-                            normal="/esoui/art/help/help_tabicon_feedback_up.dds"
-                            pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
-                            mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds"
-                            disabled="/esoui/art/help/help_tabicon_feedback_down.dds"
+                            normal="/esoui/art/buttons/edit_up.dds"
+                            pressed="/esoui/art/buttons/edit_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_over.dds"
+                            disabled="/esoui/art/buttons/edit_disabled.dds"
                     />
                 </Button>
 
