@@ -76,7 +76,9 @@ local function _getGridViewIconPositionAndOffset()
 end
 
 local function _getListViewIconPositionAndOffset()
-    return LEFT, RIGHT, 0, 0
+    local offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetList
+    local offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetList
+    return LEFT, RIGHT, offsetX, offsetY
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

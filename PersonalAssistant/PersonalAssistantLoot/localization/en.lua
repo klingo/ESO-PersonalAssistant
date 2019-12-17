@@ -64,6 +64,12 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_POSITION = "Icon Position",
     SI_PA_MENU_LOOT_ICONS_POSITION_T = "Define the position of the known/unknown icons.\nWith 'Automatic' PALoot checks if the addons [Research Assistant] and [ESO Master Recipe List] are enabled and positions the icon in a not yet occupied corner",
 
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST = "Icon X Offset (List View)",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST = "Icon Y Offset (List View)",
+
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID = "Icon X Offset (Grid View)",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID = "Icon Y Offset (Grid View)",
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

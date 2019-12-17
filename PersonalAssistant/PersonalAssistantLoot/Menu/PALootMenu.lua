@@ -189,6 +189,7 @@ local function _createPALootMenu()
             default = PALMenuDefaults.ItemIcons.iconSizeGrid,
         })
     else
+        -- regular list-view of items
         PALootOptionsTable:insert({
             type = "slider",
             name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
@@ -200,6 +201,32 @@ local function _createPALootMenu()
             setFunc = PALMenuFunctions.setItemIconsSizeRowSetting,
             disabled = PALMenuFunctions.isItemIconsSizeRowDisabled,
             default = PALMenuDefaults.ItemIcons.iconSizeRow,
+        })
+
+        PALootOptionsTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            min = -380,
+            max = 150,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsXOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsXOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsXOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconXOffsetList,
+        })
+
+        PALootOptionsTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            min = -20,
+            max = 20,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsYOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsYOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsYOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconYOffsetList,
         })
     end
 

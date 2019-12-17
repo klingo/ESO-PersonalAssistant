@@ -124,14 +124,21 @@ local PALootMenuFunctions = {
     setMarkUnknownApparelWeaponsSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "ApparelWeapons", "showUnknownIcon"}) end,
 
     -- ----------------------------------------------------------------------------------
+    -- ITEM ICONS SETTINGS
+    -- -----------------------------
+    isItemIconsSizeListDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getItemIconsSizeListSetting = function() return getValue({"ItemIcons", "iconSizeRow"}) end,
+    setItemIconsSizeListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconSizeRow"}) end,
 
-    isItemIconsTooltipShownDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
-    getItemIconsTooltipShownSetting = function() return getValue({"ItemIcons", "iconTooltipShown"}) end,
-    setItemIconsTooltipShownSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconTooltipShown"}) end,
+    isItemIconsXOffsetListDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getItemIconsXOffsetListSetting = function() return getValue({"ItemIcons", "iconXOffsetList"}) end,
+    setItemIconsXOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconXOffsetList"}) end,
 
-    isItemIconsSizeRowDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
-    getItemIconsSizeRowSetting = function() return getValue({"ItemIcons", "iconSizeRow"}) end,
-    setItemIconsSizeRowSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconSizeRow"}) end,
+    isItemIconsYOffsetListDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getItemIconsYOffsetListSetting = function() return getValue({"ItemIcons", "iconYOffsetList"}) end,
+    setItemIconsYOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconYOffsetList"}) end,
+
+    -- ----------------------------------------------------------------------------------
 
     isItemIconsSizeGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsSizeGridSetting = function() return getValue({"ItemIcons", "iconSizeGrid"}) end,
@@ -140,6 +147,12 @@ local PALootMenuFunctions = {
     isItemIconsPositionDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsPositionSetting = function() return getValue({"ItemIcons", "iconPositionGrid"}) end,
     setItemIconsPositionSetting = function(value) setValue(value, {"ItemIcons", "iconPositionGrid"}) end,
+
+    -- ----------------------------------------------------------------------------------
+
+    isItemIconsTooltipShownDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getItemIconsTooltipShownSetting = function() return getValue({"ItemIcons", "iconTooltipShown"}) end,
+    setItemIconsTooltipShownSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconTooltipShown"}) end,
 
     -- ----------------------------------------------------------------------------------
 
