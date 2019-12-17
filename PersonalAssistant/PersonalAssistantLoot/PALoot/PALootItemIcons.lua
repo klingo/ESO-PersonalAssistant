@@ -70,13 +70,22 @@ end
 local function _getGridViewIconPositionAndOffset()
     local selectedIconPosition = _getTargetGridIconPosition()
     local offsetX, offsetY
-    if selectedIconPosition == TOPRIGHT or selectedIconPosition == BOTTOMRIGHT then offsetX = -4 else offsetX = 4 end
-    if selectedIconPosition == BOTTOMLEFT or selectedIconPosition == BOTTOMRIGHT then offsetY = -4 else offsetY = 4 end
+    if selectedIconPosition == CENTER then
+        -- apply user defined offsets if CENTER (i.e. Manual)
+        offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetGrid
+        offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetGrid
+    else
+        -- apply internal offsets if any other location (i.e. Automatic)
+        if selectedIconPosition == TOPRIGHT or selectedIconPosition == BOTTOMRIGHT then offsetX = -4 else offsetX = 4 end
+        if selectedIconPosition == BOTTOMLEFT or selectedIconPosition == BOTTOMRIGHT then offsetY = -4 else offsetY = 4 end
+    end
     return selectedIconPosition, offsetX, offsetY
 end
 
 local function _getListViewIconPositionAndOffset()
-    return LEFT, RIGHT, 0, 0
+    local offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetList
+    local offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetList
+    return LEFT, RIGHT, offsetX, offsetY
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

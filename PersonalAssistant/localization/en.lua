@@ -142,10 +142,7 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Icon Positions --
     SI_PA_POSITION_AUTO = "Automatic",
-    SI_PA_POSITION_TOPLEFT = "Top Left",
-    SI_PA_POSITION_TOPRIGHT = "Top Right",
-    SI_PA_POSITION_BOTTOMLEFT = "Bottom Left",
-    SI_PA_POSITION_BOTTOMRIGHT = "Bottom Right",
+    SI_PA_POSITION_MANUAL = "Manual",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --

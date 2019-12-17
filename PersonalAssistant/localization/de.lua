@@ -140,10 +140,7 @@ SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)
 -- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --
 SafeAddString(SI_PA_POSITION_AUTO, "Automatisch", 1)
-SafeAddString(SI_PA_POSITION_TOPLEFT, "Oben Links", 1)
-SafeAddString(SI_PA_POSITION_TOPRIGHT, "Oben Rechts", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Unten Link", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
+SafeAddString(SI_PA_POSITION_MANUAL, "Manuell", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --

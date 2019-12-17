@@ -61,8 +61,8 @@ SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Задает размер из
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID, "Размер иконки (В виде сетки)", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Задает размер известных/неизвестных значков там, где предметы отображаются аддоном в виде сетки [InventoryGridView]", 1)
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION, "Положение иконки", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_T, "Задает положение известных/неизвестных значков.\nPALoot «автоматически» определяет, включены ли дополнения [Research Assistant] или [ESO Master Recipe List], и помещает значок в еще не занятый угол", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID, "Положение иконки (В виде сетки)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T, "Задает положение известных/неизвестных значков.\nPALoot «автоматически» определяет, включены ли дополнения [Research Assistant] или [ESO Master Recipe List], и помещает значок в еще не занятый угол", 1)
 
 
 -- =================================================================================================================

@@ -57,8 +57,8 @@ SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Définir la taille de l'icone 
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID, "Taille de l'icone (Vue grille)", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Définir la taille de l'icone connu/inconnu quand l'affichage des objets est en vue grille, grâce à l'extension [InventoryGridView]", 1)
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION, "Position de l'icone", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_T, "Définir la position de l'icone connu/inconnu.\nEn 'automatique', PALoot vérifiera si les extensions [Research Assistant] et [ESO Master Recipe List] sont activés, et positionnera l'icone dans un coin libre.", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID, "Position de l'icone (Vue grille)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T, "Définir la position de l'icone connu/inconnu.\nEn 'automatique', PALoot vérifiera si les extensions [Research Assistant] et [ESO Master Recipe List] sont activés, et positionnera l'icone dans un coin libre.", 1)
 
 
 -- =================================================================================================================
