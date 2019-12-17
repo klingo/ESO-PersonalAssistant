@@ -206,6 +206,7 @@ local function _createPALootMenu()
         PALootOptionsTable:insert({
             type = "slider",
             name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
             min = -380,
             max = 150,
             step = 1,
@@ -219,6 +220,7 @@ local function _createPALootMenu()
         PALootOptionsTable:insert({
             type = "slider",
             name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
             min = -20,
             max = 20,
             step = 1,
