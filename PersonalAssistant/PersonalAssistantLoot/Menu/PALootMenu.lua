@@ -169,9 +169,9 @@ local function _createPALootMenu()
             max = 64,
             step = 1,
             width = "half",
-            getFunc = PALMenuFunctions.getItemIconsSizeRowSetting,
-            setFunc = PALMenuFunctions.setItemIconsSizeRowSetting,
-            disabled = PALMenuFunctions.isItemIconsSizeRowDisabled,
+            getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
             default = PALMenuDefaults.ItemIcons.iconSizeRow,
         })
 
@@ -197,9 +197,9 @@ local function _createPALootMenu()
             min = 8,
             max = 64,
             step = 1,
-            getFunc = PALMenuFunctions.getItemIconsSizeRowSetting,
-            setFunc = PALMenuFunctions.setItemIconsSizeRowSetting,
-            disabled = PALMenuFunctions.isItemIconsSizeRowDisabled,
+            getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
             default = PALMenuDefaults.ItemIcons.iconSizeRow,
         })
 
