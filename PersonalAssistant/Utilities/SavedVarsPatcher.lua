@@ -322,6 +322,34 @@ local function _applyPatch_2_4_9(savedVarsVersion, patchPAG, _, _, _, _, _)
     end
 end
 
+
+local function _applyPatch_2_4_13(savedVarsVersion, _, _, _, _, patchPAL, _)
+   if patchPAL then
+       local PASavedVars = PA.SavedVars
+       for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+           -- 1) patch      PALoot.ItemIcons.iconPositionGrid
+           local iconPositionGrid = PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid
+           if iconPositionGrid ~= PAC.ICON_POSITION.AUTO then
+               PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid = CENTER
+                if iconPositionGrid == TOPLEFT then
+                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = -20 -- left
+                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = 20 -- top
+                elseif iconPositionGrid == TOPRIGHT then
+                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = 20 -- right
+                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = 20 -- top
+                elseif iconPositionGrid == BOTTOMLEFT then
+                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = -20 -- left
+                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = -20 -- bottom
+                elseif iconPositionGrid == BOTTOMRIGHT then
+                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = 20 -- right
+                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = -20 -- bottom
+                end
+           end
+       end
+       _updateSavedVarsVersion(savedVarsVersion, false, false, false, false, patchPAL, false)
+   end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -357,6 +385,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.9      August 09, 2019
     _applyPatch_2_4_9(_getIsPatchNeededInfo(020409))
+
+    -- Patch 2.4.13
+    _applyPatch_2_4_13(_getIsPatchNeededInfo(020413))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

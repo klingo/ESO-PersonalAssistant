@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 local PAL = PA.Loot
 local PAMF = PA.MenuFunctions
 
@@ -147,6 +148,14 @@ local PALootMenuFunctions = {
     isItemIconsPositionDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsPositionSetting = function() return getValue({"ItemIcons", "iconPositionGrid"}) end,
     setItemIconsPositionSetting = function(value) setValue(value, {"ItemIcons", "iconPositionGrid"}) end,
+
+    isItemIconsXOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or getValue({"ItemIcons", "iconPositionGrid"}) == PAC.ICON_POSITION.AUTO end,
+    getItemIconsXOffsetGridSetting = function() return getValue({"ItemIcons", "iconXOffsetGrid"}) end,
+    setItemIconsXOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconXOffsetGrid"}) end,
+
+    isItemIconsYOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or getValue({"ItemIcons", "iconPositionGrid"}) == PAC.ICON_POSITION.AUTO  end, -- TODO: check for "Automatic" Position
+    getItemIconsYOffsetGridSetting = function() return getValue({"ItemIcons", "iconYOffsetGrid"}) end,
+    setItemIconsYOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconYOffsetGrid"}) end,
 
     -- ----------------------------------------------------------------------------------
 
