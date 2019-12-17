@@ -44,6 +44,26 @@
                             disabled="/esoui/art/buttons/edit_disabled.dds"
                     />
                 </Button>
+                <Button name="$(parent)EnableButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)EditButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/buttons/edit_save_up.dds"
+                            pressed="/esoui/art/buttons/edit_save_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_save_over.dds"
+                            disabled="/esoui/art/buttons/edit_save_disabled.dds"
+                    />
+                </Button>
+                <Button name="$(parent)DisableButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)EditButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/buttons/edit_cancel_up.dds"
+                            pressed="/esoui/art/buttons/edit_cancel_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_cancel_over.dds"
+                            disabled="/esoui/art/buttons/edit_cancel_disabled.dds"
+                    />
+                </Button>
 
             </Controls>
         </Button>

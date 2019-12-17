@@ -253,7 +253,8 @@ function PABankingRulesList:FilterScrollList()
                 bagAmount = moveConfig.bagAmount,
                 itemIcon = GetItemLinkInfo(moveConfig.itemLink),
                 itemLink = moveConfig.itemLink,
-                itemName = GetItemLinkName(moveConfig.itemLink)
+                itemName = GetItemLinkName(moveConfig.itemLink),
+                ruleEnabled = moveConfig.ruleEnabled -- required to enable/disable the rule
             }
             -- "1" is to define a category per dataEntry (can be individually hidden)
             table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
@@ -272,15 +273,26 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         PA.BankingRulesList:Row_OnMouseEnter(rowControl)
         local delButtonControl = rowControl:GetNamedChild("DelButton")
         local editButtonControl = rowControl:GetNamedChild("EditButton")
+        local enableButtonControl = rowControl:GetNamedChild("EnableButton")
+        local disableButtonControl = rowControl:GetNamedChild("DisableButton")
         delButtonControl:SetHidden(false)
         editButtonControl:SetHidden(false)
+        if rowData.ruleEnabled then
+            disableButtonControl:SetHidden(false)
+        else
+            enableButtonControl:SetHidden(false)
+        end
     end
     local function onRowMouseExit(rowControl)
         PA.BankingRulesList:Row_OnMouseExit(rowControl)
         local delButtonControl = rowControl:GetNamedChild("DelButton")
         local editButtonControl = rowControl:GetNamedChild("EditButton")
+        local enableButtonControl = rowControl:GetNamedChild("EnableButton")
+        local disableButtonControl = rowControl:GetNamedChild("DisableButton")
         delButtonControl:SetHidden(true)
         editButtonControl:SetHidden(true)
+        enableButtonControl:SetHidden(true)
+        disableButtonControl:SetHidden(true)
     end
     local function onItemNameMouseEnter(itemNameControl)
         InitializeTooltip(ItemTooltip, itemNameControl, TOPRIGHT, -40, 0, TOPLEFT)
@@ -288,30 +300,31 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(itemNameControl:GetParent())
     end
-    local function onItemNameMouseExit(itemNameControl)
-        ClearTooltip(ItemTooltip)
-        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
-        onRowMouseExit(itemNameControl:GetParent())
-    end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
         ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(deleteButtonControl:GetParent())
-    end
-    local function onDeleteButtonMouseExit(deleteButtonControl)
-        ZO_Tooltips_HideTextTooltip()
-        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
-        onRowMouseExit(deleteButtonControl:GetParent())
     end
     local function onEditButtonMouseEnter(editButtonControl)
         ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(editButtonControl:GetParent())
     end
-    local function onEditButtonMouseExit(editButtonControl)
+    local function onEnableButtonMouseEnter(enableButtonControl)
+        ZO_Tooltips_ShowTextTooltip(enableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_ENABLE_RULE))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(enableButtonControl:GetParent())
+    end
+    local function onDisableButtonMouseEnter(disableButtonControl)
+        ZO_Tooltips_ShowTextTooltip(disableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DISABLE_RULE))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(disableButtonControl:GetParent())
+    end
+    local function onGenericControlMouseExit(control)
         ZO_Tooltips_HideTextTooltip()
+        ClearTooltip(ItemTooltip)
         -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
-        onRowMouseExit(editButtonControl:GetParent())
+        onRowMouseExit(control:GetParent())
     end
 
     -- store the rowData on the control so it can be accessed from the sortFunction
@@ -333,12 +346,34 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     local itemNameControl = rowControl:GetNamedChild("ItemName")
     itemNameControl:SetText(rowData.itemLink)
     itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
-    itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
+    itemNameControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+
+    -- set row text color depending on ruleEnabled state
+    -- TODO: figure out why this is not working
+    if rowData.ruleEnabled then
+--        bagNameControl:SetColor(ZO_DEFAULT_ENABLED_COLOR:UnpackRGBA())
+--        mathOperatorControl:SetColor(ZO_DEFAULT_ENABLED_COLOR:UnpackRGBA())
+--        bagAmountControl:SetColor(ZO_DEFAULT_ENABLED_COLOR:UnpackRGBA())
+        bagNameControl:SetDesaturation(0)
+        mathOperatorControl:SetDesaturation(0)
+        bagAmountControl:SetDesaturation(0)
+        itemIconControl:SetDesaturation(0)
+        itemNameControl:SetDesaturation(0)
+    else
+--        bagNameControl:SetColor(ZO_DEFAULT_DISABLED_COLOR:UnpackRGBA())
+--        mathOperatorControl:SetColor(ZO_DEFAULT_DISABLED_COLOR:UnpackRGBA())
+--        bagAmountControl:SetColor(ZO_DEFAULT_DISABLED_COLOR:UnpackRGBA())
+        bagNameControl:SetDesaturation(1)
+        mathOperatorControl:SetDesaturation(1)
+        bagAmountControl:SetDesaturation(1)
+        itemIconControl:SetDesaturation(1)
+        itemNameControl:SetDesaturation(1)
+    end
 
     -- Setup the DELETE button per row
     local delButtonControl = rowControl:GetNamedChild("DelButton")
     delButtonControl:SetHandler("OnMouseEnter", onDeleteButtonMouseEnter)
-    delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
+    delButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
     delButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
         PA.CustomDialogs.deletePABCustomRule(rowControl.data.itemLink)
@@ -347,11 +382,29 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     -- Setup the EDIT button per row
     local editButtonControl = rowControl:GetNamedChild("EditButton")
     editButtonControl:SetHandler("OnMouseEnter", onEditButtonMouseEnter)
-    editButtonControl:SetHandler("OnMouseExit", onEditButtonMouseExit)
+    editButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
     editButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
         PA.CustomDialogs.initPABAddCustomRuleUIDialog() -- make sure it has been initialized
         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(rowControl.data.itemLink, rowData)
+    end)
+
+    -- Setup the ENABLE button per row
+    local enableButtonControl = rowControl:GetNamedChild("EnableButton")
+    enableButtonControl:SetHandler("OnMouseEnter", onEnableButtonMouseEnter)
+    enableButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    enableButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.enablePABCustomRule(rowControl.data.itemLink)
+    end)
+
+    -- Setup the DISABLE button per row
+    local disableButtonControl = rowControl:GetNamedChild("DisableButton")
+    disableButtonControl:SetHandler("OnMouseEnter", onDisableButtonMouseEnter)
+    disableButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    disableButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.disablePABCustomRule(rowControl.data.itemLink)
     end)
 
     -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control
