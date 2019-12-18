@@ -1,4 +1,4 @@
-2.4.13
+2.4.13  (December 18, 2019)
 - add option to define X-/Y-axis offsets for the PALoot Item Icons ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/212"]#212[/URL])
 - removed obselete toggle for PABanking Individual Items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/211"]#211[/URL])
 - fixed an issue where duplicate unique (but theoretically stackable) items were attempted to be deposited ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/214"]#214[/URL])
