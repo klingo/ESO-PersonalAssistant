@@ -1,5 +1,7 @@
 2.4.13
-- removed obselete toggle for PABanking Individual Items
+- add option to define X-/Y-axis offsets for the PALoot Item Icons ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/212"]#212[/URL])
+- removed obselete toggle for PABanking Individual Items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/211"]#211[/URL])
+- fixed an issue where duplicate unique (but theoretically stackable) items were attempted to be deposited ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/214"]#214[/URL])
 
 2.4.12  (December 17, 2019)
 - add support for Dragonhold (APIVersion 100029) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/208"]#208[/URL])
