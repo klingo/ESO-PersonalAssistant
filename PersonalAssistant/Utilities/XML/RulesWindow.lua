@@ -561,18 +561,29 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     itemIconControl:SetTexture(rowData.itemIcon)
 
     local itemNameControl = rowControl:GetNamedChild("ItemName")
-    itemNameControl:SetText(rowData.itemLink)
     itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
     itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
+    itemNameControl.itemLink = rowData.itemLink
 
     local junkCountControl = rowControl:GetNamedChild("JunkCount")
-    junkCountControl:SetText(rowData.junkCount) -- TODO: formatting!
-
     local lastJunkControl = rowControl:GetNamedChild("LastJunk")
-    lastJunkControl:SetText(rowData.lastJunkFmt)
-
     local ruleAddedControl = rowControl:GetNamedChild("RuleAdded")
-    ruleAddedControl:SetText(rowData.ruleAddedFmt)
+
+    -- set row text color depending on ruleEnabled state
+    -- TODO: to be implemented (rule enabled/disabled)
+    if true then
+        junkCountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.junkCount)) -- TODO: formatting?!
+        lastJunkControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.lastJunkFmt))
+        ruleAddedControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.ruleAddedFmt))
+        itemIconControl:SetDesaturation(0)
+        itemNameControl:SetText(rowData.itemLink)
+    else
+        junkCountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.junkCount)) -- TODO: formatting?!
+        lastJunkControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.lastJunkFmt))
+        ruleAddedControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.ruleAddedFmt))
+        itemIconControl:SetDesaturation(1)
+        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.itemName))
+    end
 
     -- Setup the DELETE button per row
     local delButtonControl = rowControl:GetNamedChild("DelButton")
