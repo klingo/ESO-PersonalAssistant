@@ -355,7 +355,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         mathOperatorControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.mathOperator))
         bagAmountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.bagAmount))
         itemIconControl:SetDesaturation(1)
-        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.itemName))
+        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.itemName)))
     end
 
     -- Setup the DELETE button per row
@@ -582,7 +582,7 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
         lastJunkControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.lastJunkFmt))
         ruleAddedControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.ruleAddedFmt))
         itemIconControl:SetDesaturation(1)
-        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.itemName))
+        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.itemName)))
     end
 
     -- Setup the DELETE button per row
