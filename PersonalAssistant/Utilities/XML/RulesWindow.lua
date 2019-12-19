@@ -296,7 +296,7 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     end
     local function onItemNameMouseEnter(itemNameControl)
         InitializeTooltip(ItemTooltip, itemNameControl, TOPRIGHT, -40, 0, TOPLEFT)
-        ItemTooltip:SetLink(itemNameControl:GetText())
+        ItemTooltip:SetLink(itemNameControl.itemLink)
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(itemNameControl:GetParent())
     end
@@ -331,43 +331,31 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     rowControl.data = rowData
 
     -- populate all data to the individual fields per row
-    local bagNameControl = rowControl:GetNamedChild("BagName")
-    bagNameControl:SetText(LocaleAwareToUpper(rowData.bagName))
-
-    local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
-    mathOperatorControl:SetText(rowData.mathOperator)
-
-    local bagAmountControl = rowControl:GetNamedChild("BagAmount")
-    bagAmountControl:SetText(rowData.bagAmount)
-
     local itemIconControl = rowControl:GetNamedChild("ItemIcon")
     itemIconControl:SetTexture(rowData.itemIcon)
 
     local itemNameControl = rowControl:GetNamedChild("ItemName")
-    itemNameControl:SetText(rowData.itemLink)
     itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
     itemNameControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    itemNameControl.itemLink = rowData.itemLink
+
+    local bagNameControl = rowControl:GetNamedChild("BagName")
+    local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
+    local bagAmountControl = rowControl:GetNamedChild("BagAmount")
 
     -- set row text color depending on ruleEnabled state
-    -- TODO: figure out why this is not working
     if rowData.ruleEnabled then
---        bagNameControl:SetColor(ZO_DEFAULT_ENABLED_COLOR:UnpackRGBA())
---        mathOperatorControl:SetColor(ZO_DEFAULT_ENABLED_COLOR:UnpackRGBA())
---        bagAmountControl:SetColor(ZO_DEFAULT_ENABLED_COLOR:UnpackRGBA())
-        bagNameControl:SetDesaturation(0)
-        mathOperatorControl:SetDesaturation(0)
-        bagAmountControl:SetDesaturation(0)
+        bagNameControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
+        mathOperatorControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.mathOperator))
+        bagAmountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.bagAmount))
         itemIconControl:SetDesaturation(0)
-        itemNameControl:SetDesaturation(0)
+        itemNameControl:SetText(rowData.itemLink)
     else
---        bagNameControl:SetColor(ZO_DEFAULT_DISABLED_COLOR:UnpackRGBA())
---        mathOperatorControl:SetColor(ZO_DEFAULT_DISABLED_COLOR:UnpackRGBA())
---        bagAmountControl:SetColor(ZO_DEFAULT_DISABLED_COLOR:UnpackRGBA())
-        bagNameControl:SetDesaturation(1)
-        mathOperatorControl:SetDesaturation(1)
-        bagAmountControl:SetDesaturation(1)
+        bagNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
+        mathOperatorControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.mathOperator))
+        bagAmountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.bagAmount))
         itemIconControl:SetDesaturation(1)
-        itemNameControl:SetDesaturation(1)
+        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.itemName))
     end
 
     -- Setup the DELETE button per row
