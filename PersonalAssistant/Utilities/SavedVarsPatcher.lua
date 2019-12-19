@@ -412,7 +412,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.4.13     December 18, 2019
     _applyPatch_2_4_13(_getIsPatchNeededInfo(020413))
 
-    -- Patch 2.4.14
+    -- Patch 2.4.14     December 19, 2019
     _applyPatch_2_4_14(_getIsPatchNeededInfo(020414))
 end
 
