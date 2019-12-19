@@ -188,7 +188,13 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                 local _, targetMaxStack = GetSlotStackSize(toBagItemData.bagId, toBagItemData.slotIndex)
                 local targetStack = toBagItemData.stackCount -- cannot use [GetSlotStackSize] becuase it does not reflect changes after the bagCache is created
                 local targetFreeStacks = targetMaxStack - targetStack
-                if targetFreeStacks > 0 then
+                if IsItemLinkUnique(itemLink) then
+                    -- match was found, but since it is unique prevent any further move-attempts by skipping it
+                    PAB.debugln("%s is uniqe and cannot be stacked - skip it!", itemLink)
+                    skipItem = true
+                    break
+                elseif targetFreeStacks > 0 then
+                    -- match was found, and item is not unique, check if there are free stacks
                     local moveableStack = stackToMove
                     local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
                     if moveableStack <= targetFreeStacks then
@@ -209,10 +215,6 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                         -- update the stackCount in the bagCache manually (since we don't want to completely re-generate it)
                         toBagCache[toBagCacheIndex].stackCount = targetStack + targetFreeStacks
                     end
-                elseif IsItemLinkUnique(itemLink) then
-                    -- match was found, but since it is unique prevent any further move-attempts by skipping it
-                    skipItem = true
-                    break
                 end
             end
             -- stop loop if item was already moved and no stacks to be moved are left

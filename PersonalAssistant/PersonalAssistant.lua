@@ -64,17 +64,8 @@ end
 
 -- init player name and player alliance
 local function _initPlayerNameAndAlliance()
-    local playerName = GetUnitName("player")
-    local numCharacters = GetNumCharacters()
-    for index = 1, numCharacters do
-        local name, _, _, _, _, alliance, _, _ = GetCharacterInfo(index)
-        local nameFmt = zo_strformat(SI_UNIT_NAME, name)
-        if playerName == nameFmt then
-            PA.playerName = nameFmt
-            PA.alliance = alliance
-            break
-        end
-    end
+    PA.alliance = GetUnitAlliance("player")
+    PA.playerName = GetUnitName("player")
 end
 
 
