@@ -108,6 +108,36 @@ local function deletePABCustomRule(itemLink)
     end
 end
 
+local function enablePABCustomRule(itemLink)
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    local itemId = GetItemLinkItemId(itemLink)
+    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+        -- is in table, enable rule
+        PABCustomItemIds[itemId].ruleEnabled = true
+        PAB.println(SI_PA_CHAT_BANKING_RULES_ENABLED, itemLink:gsub("%|H0", "|H1"))
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB rule not existing, cannot be enabled")
+    end
+end
+
+local function disablePABCustomRule(itemLink)
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    local itemId = GetItemLinkItemId(itemLink)
+    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+        -- is in table, disable rule
+        PABCustomItemIds[itemId].ruleEnabled = false
+        PAB.println(SI_PA_CHAT_BANKING_RULES_DISABLED, itemLink:gsub("%|H0", "|H1"))
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB rule not existing, cannot be disabled")
+    end
+end
+
 local function initPABAddCustomRuleUIDialog()
     if not _initDone then
         _initDone = true
@@ -228,4 +258,6 @@ end
 PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.initPABAddCustomRuleUIDialog = initPABAddCustomRuleUIDialog
 PA.CustomDialogs.showPABAddCustomRuleUIDIalog = showPABAddCustomRuleUIDIalog
+PA.CustomDialogs.enablePABCustomRule = enablePABCustomRule
+PA.CustomDialogs.disablePABCustomRule = disablePABCustomRule
 PA.CustomDialogs.deletePABCustomRule = deletePABCustomRule

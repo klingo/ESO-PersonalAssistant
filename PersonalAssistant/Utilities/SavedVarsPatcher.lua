@@ -350,6 +350,29 @@ local function _applyPatch_2_4_13(savedVarsVersion, _, _, _, _, patchPAL, _)
    end
 end
 
+
+-- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _applyPatch_2_4_14(savedVarsVersion, _, patchPAB, _, _, _, _)
+    if patchPAB then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+            -- 1) patch      PABanking.Custom.ItemIds.ruleEnabled
+            local customItemIds = PASavedVars.Banking[profileNo].Custom.ItemIds
+
+            for itemId, _ in pairs(customItemIds) do
+                if PASavedVars.Banking[profileNo].Custom.ItemIds[itemId].ruleEnabled == nil then
+                    PASavedVars.Banking[profileNo].Custom.ItemIds[itemId].ruleEnabled = true
+                end
+            end
+        end
+
+        -- also refresh the PABankingRulesList with the updated values
+        PAEM.FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
+--        _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+        _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false, false)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -386,8 +409,11 @@ local function applyPatchIfNeeded()
     -- Patch 2.4.9      August 09, 2019
     _applyPatch_2_4_9(_getIsPatchNeededInfo(020409))
 
-    -- Patch 2.4.13
+    -- Patch 2.4.13     December 18, 2019
     _applyPatch_2_4_13(_getIsPatchNeededInfo(020413))
+
+    -- Patch 2.4.14
+    _applyPatch_2_4_14(_getIsPatchNeededInfo(020414))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

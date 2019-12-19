@@ -106,6 +106,8 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_ADDED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}),
     SI_PA_CHAT_BANKING_RULES_UPDATED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}),
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}),
 }
 
 for key, value in pairs(PABStrings) do
