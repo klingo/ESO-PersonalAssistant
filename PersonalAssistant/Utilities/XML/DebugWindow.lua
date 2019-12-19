@@ -76,6 +76,15 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertLine(table.concat({"PARepair.SavedVars=", tostring(PA.Repair and istable(PA.Repair.SavedVars)), " - ", PA.SavedVars.Repair and PA.SavedVars.Repair.savedVarsVersion}))
     debugEditControl:InsertBreak()
 
+    -- Global values
+    debugEditControl:InsertLine("PA.playerName="..tostring(PA.playerName))
+    debugEditControl:InsertLine("PA.alliance="..tostring(PA.alliance))
+    debugEditControl:InsertLine("ALLIANCE_ALDMERI_DOMINION="..tostring(PA.alliance == ALLIANCE_ALDMERI_DOMINION))
+    debugEditControl:InsertLine("ALLIANCE_EBONHEART_PACT="..tostring(PA.alliance == ALLIANCE_EBONHEART_PACT))
+    debugEditControl:InsertLine("ALLIANCE_DAGGERFALL_COVENANT="..tostring(PA.alliance == ALLIANCE_DAGGERFALL_COVENANT))
+    debugEditControl:InsertLine("ALLIANCE_NONE="..tostring(PA.alliance == ALLIANCE_NONE))
+    debugEditControl:InsertBreak()
+
     -- Registered Events
     local registeredEventsSet = PA.EventManager.getAllReventsInSet()
     for key, value in pairs(registeredEventsSet) do
