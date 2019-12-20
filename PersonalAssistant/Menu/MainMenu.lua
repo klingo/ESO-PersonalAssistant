@@ -137,7 +137,7 @@ local function createOptions()
     PA.LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", PAGeneralOptionsTable)
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
 -- Export
-PA.MainMenu = {
-    createOptions = createOptions
-}
+PA.General = PA.General or {}
+PA.General.createOptions = createOptions

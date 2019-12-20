@@ -95,8 +95,8 @@ local function initAddon(_, addOnName)
     PA.debug = PASavedVars.Profile.debug
 
     -- create the options with LAM-2
-    local PAMainMenu = PA.MainMenu
-    PAMainMenu.createOptions()
+    local PAGeneral = PA.General
+    PAGeneral.createOptions()
 
     -- init the overall Rules Main Menu
     PA.CustomDialogs.initRulesMainMenu()
