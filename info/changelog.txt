@@ -1,6 +1,7 @@
 2.4.15
 - added missing [Bridge and Milegate Repair Kit] to AVA Items in PABanking
 - fixed an issue where new Banking Rules where created in disabled state
+- fixed an issue where modifying disabled Banking Rules made them enabled again
 - fixed a LAM-2 related issue when no profile was selected
 
 2.4.14  (December 19, 2019)
