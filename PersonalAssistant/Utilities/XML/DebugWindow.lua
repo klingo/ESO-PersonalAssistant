@@ -53,8 +53,8 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertBreak()
 
     -- Active profile
-    debugEditControl:InsertLine("ActiveProfile="..tostring(PA.activeProfile))
-    debugEditControl:InsertLine("HasActiveProfile="..tostring(PAHF.hasActiveProfile()))
+    debugEditControl:InsertLine("PA.activeProfile="..tostring(PA.activeProfile))
+    debugEditControl:InsertLine("PAHF.hasActiveProfile="..tostring(PAHF.hasActiveProfile()))
 
     -- Enabled addons
     debugEditControl:InsertLine("PA.General="..tostring(PA.General ~= nil))
@@ -94,15 +94,17 @@ local function showStaticDebugInformationWindow()
 
     -- PARepair
     local PARepairSavedVars = PA.Repair.SavedVars
-    debugEditControl:InsertLine("autoRepairEnabled="..tostring(PARepairSavedVars.autoRepairEnabled))
-    debugEditControl:InsertLine(table.concat({"RepairEquipped.repairWithGold=", tostring(PARepairSavedVars.RepairEquipped.repairWithGold), " - ", tostring(PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)}))
-    debugEditControl:InsertLine(table.concat({"RepairInventory.repairWithGold=", tostring(PARepairSavedVars.RepairInventory.repairWithGold), " - ", tostring(PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)}))
+    if PARepairSavedVars ~= nil then
+        debugEditControl:InsertLine("autoRepairEnabled="..tostring(PARepairSavedVars.autoRepairEnabled))
+        debugEditControl:InsertLine(table.concat({"RepairEquipped.repairWithGold=", tostring(PARepairSavedVars.RepairEquipped.repairWithGold), " - ", tostring(PARepairSavedVars.RepairEquipped.repairWithGoldDurabilityThreshold)}))
+        debugEditControl:InsertLine(table.concat({"RepairInventory.repairWithGold=", tostring(PARepairSavedVars.RepairInventory.repairWithGold), " - ", tostring(PARepairSavedVars.RepairInventory.repairWithGoldDurabilityThreshold)}))
+    end
     local PARMenuFunctions = PA.MenuFunctions.PARepair
     debugEditControl:InsertLine("PARMenuFunctions="..tostring(istable(PARMenuFunctions)))
-    debugEditControl:InsertLine("getAutoRepairEquippedEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairEquippedEnabledSetting()))
-    debugEditControl:InsertLine("getRepairEquippedWithGoldSetting="..tostring(PARMenuFunctions.getRepairEquippedWithGoldSetting()))
-    debugEditControl:InsertLine("getAutoRepairInventoryEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairInventoryEnabledSetting()))
-    debugEditControl:InsertLine("getRepairInventoryWithGoldSetting="..tostring(PARMenuFunctions.getRepairInventoryWithGoldSetting()))
+    debugEditControl:InsertLine("getAutoRepairEquippedEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairEquippedEnabledSetting() or ""))
+    debugEditControl:InsertLine("getRepairEquippedWithGoldSetting="..tostring(PARMenuFunctions.getRepairEquippedWithGoldSetting() or ""))
+    debugEditControl:InsertLine("getAutoRepairInventoryEnabledSetting="..tostring(PARMenuFunctions.getAutoRepairInventoryEnabledSetting() or ""))
+    debugEditControl:InsertLine("getRepairInventoryWithGoldSetting="..tostring(PARMenuFunctions.getRepairInventoryWithGoldSetting() or ""))
     debugEditControl:InsertBreak()
 
     local PAJMenuFunctions = PA.MenuFunctions.PAJunk
