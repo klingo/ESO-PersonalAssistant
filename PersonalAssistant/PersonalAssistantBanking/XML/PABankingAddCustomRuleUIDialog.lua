@@ -75,6 +75,7 @@ local function _addCustomRuleClicked(isUpdate)
             operator = bankingOperator,
             bagAmount = tonumber(targetAmount),
             itemLink = _selectedItemLink,
+            ruleEnabled = true,
         }
         if isUpdate then
             PA.Banking.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
