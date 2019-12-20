@@ -33,7 +33,7 @@ SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wenn die verbleibenden
 -- PALoot Mark Items --
 SafeAddString(SI_PA_MENU_LOOT_ICONS_HEADER, "Gegenstands Icons", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_ENABLE, "Aktiviere Icons bei Gegenständen", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP, "Zeige Icons Tooltips an", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP, "Zeige Icon Tooltips an", 1)
 
 -- Mark Recipes --
 SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER, table.concat({"Markiere ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
@@ -52,13 +52,23 @@ SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER, "Markiere Ausrüstung
 SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn die Eigenschaften bereits analysiert ist"}), 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}), 1)
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST, "Icon Grösse (Anzeige als Liste)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST, "Icon Grösse (Listenanzeige)", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID, "Icon Grösse (Anzeige als Gitter)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID, "Icon Grösse (Gitteranzeige)", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände durch das Addon [Inventory Grid View] in einem Gitter angezeigt werden", 1)
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION, "Icon Positionierung", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_T, "Definiere die Position des bekannt/unbekannt Icons.\nMit 'Automatisch' prüft PALoot ob die Addons [Research Assistant] und [ESO Master Recipe List] aktiviert sind und positioniert das Icon in einer noch nicht belegten Ecke", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID, "Icon Positionierung (Gitteranzeige)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T, "Definiere die Position des bekannt/unbekannt Icons.\nMit 'Automatisch' prüft PALoot ob die Addons [Research Assistant] und [ESO Master Recipe List] aktiviert sind und positioniert das Icon in einer noch nicht belegten Ecke", 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST, "Icon versetzt X-Achse (Listenanzeige)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T, "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Listenanzeige", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST, "Icon versetzt Y-Achse (Listenanzeige)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T, "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Listenanzeige", 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID, "Icon versetzt X-Achse (Gitteranzeige)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T, "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID, "Icon versetzt Y-Achse (Gitteranzeige)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T, "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist", 1)
 
 
 -- =================================================================================================================

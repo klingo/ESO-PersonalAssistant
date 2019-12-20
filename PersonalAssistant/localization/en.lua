@@ -142,10 +142,7 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Icon Positions --
     SI_PA_POSITION_AUTO = "Automatic",
-    SI_PA_POSITION_TOPLEFT = "Top Left",
-    SI_PA_POSITION_TOPRIGHT = "Top Right",
-    SI_PA_POSITION_BOTTOMLEFT = "Bottom Left",
-    SI_PA_POSITION_BOTTOMRIGHT = "Bottom Right",
+    SI_PA_POSITION_MANUAL = "Manual",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
@@ -162,6 +159,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_ADD_RULE = "Add new rule",
     SI_PA_SUBMENU_PAB_EDIT_RULE = "Modify rule",
     SI_PA_SUBMENU_PAB_DELETE_RULE = "Delete rule",
+    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Enable rule",
+    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Disable rule",
     SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Add",
     SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Save",
     SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Delete",

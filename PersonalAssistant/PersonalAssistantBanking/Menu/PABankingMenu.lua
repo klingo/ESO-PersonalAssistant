@@ -376,15 +376,6 @@ local function _createPABankingMenu()
     })
 
     PABankingOptionsTable:insert({
-        type = "checkbox",
-        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE)),
-        getFunc = function() return false end,
-        setFunc = function(value) end,
-        disabled = true,
-        default = false,
-    })
-
-    PABankingOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION)
     })

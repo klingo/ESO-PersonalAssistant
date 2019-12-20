@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020411, -- update this every release!
+            MINOR = 020415, -- update this every release!
         },
     },
 
@@ -527,6 +527,7 @@ PersonalAssistant.Constants = {
             27962,  -- [Keep Door Woodwork Repair Kit]
             27138,  -- [Keep Wall Masonry Repair Kit]
             27112,  -- [Siege Repair Kit]
+            142133, -- [Bridge and Milegate Repair Kit]
         },
         OTHER = {
             141731, -- [Keep Recall Stone]

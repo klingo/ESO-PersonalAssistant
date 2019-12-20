@@ -141,10 +141,7 @@ SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Заполнить толь
 -- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --
 SafeAddString(SI_PA_POSITION_AUTO, "Автоматически", 1)
-SafeAddString(SI_PA_POSITION_TOPLEFT, "Вверху слева", 1)
-SafeAddString(SI_PA_POSITION_TOPRIGHT, "Вверху справа", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Внизу слева", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Внизу справа", 1)
+
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --

@@ -132,82 +132,86 @@ local PABankingMenuDefaults = {
         CrossAllianceItemIds = {
             [1000] = {     -- [<Alliance> Ballista]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [1100] = {     -- [<Alliance> Fire Ballista]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [1200] = {     -- [<Alliance> Lightning Ballista]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [1300] = {     -- [<Alliance> Cold Fire Ballista]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [2000] = {     -- [<Alliance> Meatbag Catapult]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [2100] = {     -- [<Alliance> Oil Catapult]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [2200] = {     -- [<Alliance> Scattershot Catapult]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [3000] = {     -- [<Alliance> Firepot Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [3100] = {     -- [<Alliance> Iceball Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [3200] = {     -- [<Alliance> Stone Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [3300] = {     -- [<Alliance> Cold Fire Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [3400] = {     -- [<Alliance> Cold Stone Trebuchet]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [4000] = {     -- [<Alliance> Battering Ram]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [5000] = {     -- [Flaming Oil]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [6000] = {     -- [<Alliance> Forward Camp]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
         },
 
         ItemIds = {
             [27962] = {     -- [Keep Door Woodwork Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [27138] = {     -- [Keep Wall Masonry Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
             [27112] = {     -- [Siege Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
+            },
+            [142133] = {    -- [Bridge and Milegate Repair Kit]
+                operator = PAC.OPERATOR.NONE,
+                bagAmount = 0,
             },
             [141731] = {     -- [Keep Recall Stone]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 20,
+                bagAmount = 0,
             },
         },
     },
