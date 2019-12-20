@@ -527,6 +527,7 @@ PersonalAssistant.Constants = {
             27962,  -- [Keep Door Woodwork Repair Kit]
             27138,  -- [Keep Wall Masonry Repair Kit]
             27112,  -- [Siege Repair Kit]
+            142133, -- [Bridge and Milegate Repair Kit]
         },
         OTHER = {
             141731, -- [Keep Recall Stone]

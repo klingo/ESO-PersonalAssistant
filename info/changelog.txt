@@ -1,4 +1,5 @@
 2.4.15
+- added missing [Bridge and Milegate Repair Kit] to AVA Items in PABanking
 - fixed an issue where new Banking Rules where created in disabled state
 
 2.4.14  (December 19, 2019)
