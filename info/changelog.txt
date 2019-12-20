@@ -1,3 +1,6 @@
+2.4.15
+- added missing [Bridge and Milegate Repair Kit] to AVA Items in PABanking
+
 2.4.14  (December 19, 2019)
 - add option to enable and disable custom Banking Rules ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/216"]#216[/URL])
 - fixed a rare issue where the PABanking menu was not displayed ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/215"]#215[/URL])

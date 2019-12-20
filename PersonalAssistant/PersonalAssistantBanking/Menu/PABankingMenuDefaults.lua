@@ -205,6 +205,10 @@ local PABankingMenuDefaults = {
                 operator = PAC.OPERATOR.NONE,
                 bagAmount = 20,
             },
+            [142133] = {    -- [Bridge and Milegate Repair Kit]
+                operator = PAC.OPERATOR.NONE,
+                bagAmount = 20,
+            },
             [141731] = {     -- [Keep Recall Stone]
                 operator = PAC.OPERATOR.NONE,
                 bagAmount = 20,
