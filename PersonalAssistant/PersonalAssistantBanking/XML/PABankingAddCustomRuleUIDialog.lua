@@ -70,25 +70,27 @@ local function _addCustomRuleClicked(isUpdate)
 
     local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
     -- only add the entry if it is an UPDATE case, or if it does not exist yet
-    if isUpdate or not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+    if not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
         PABCustomItemIds[itemId] = {
             operator = bankingOperator,
             bagAmount = tonumber(targetAmount),
             itemLink = _selectedItemLink,
             ruleEnabled = true,
         }
-        if isUpdate then
-            PA.Banking.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
-        else
-            PA.Banking.println(SI_PA_CHAT_BANKING_RULES_ADDED, _selectedItemLink:gsub("%|H0", "|H1"))
-        end
-        window:SetHidden(true)
-
-        -- refresh the list (if it was initialized)
-        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+        PAB.println(SI_PA_CHAT_BANKING_RULES_ADDED, _selectedItemLink:gsub("%|H0", "|H1"))
+    elseif isUpdate then
+        PABCustomItemIds[itemId].operator = bankingOperator
+        PABCustomItemIds[itemId].bagAmount = tonumber(targetAmount)
+        PABCustomItemIds[itemId].itemLink = _selectedItemLink
+        PAB.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
     else
         PAB.debugln("ERROR; PAB rule already existing and this was NOT an update")
     end
+
+    window:SetHidden(true)
+
+    -- refresh the list (if it was initialized)
+    if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
