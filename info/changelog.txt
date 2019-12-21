@@ -1,3 +1,6 @@
+2.4.16
+- added support for the three rare fishes of the New Life Festival in PAJunk
+
 2.4.15 (December 20, 2019)
 - added missing [Bridge and Milegate Repair Kit] to AVA Items in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/218"]#218[/URL])
 - fixed an issue where new Banking Rules where created in disabled state ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/217"]#217[/URL])
