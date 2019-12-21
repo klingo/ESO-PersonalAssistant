@@ -107,7 +107,7 @@ local function deletePABCustomRule(itemLink)
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        PAB.debugln("ERROR; PAB rule not existing, cannot be deleted")
+        PAB.debugln("ERROR; PAB simple rule not existing, cannot be deleted")
     end
 end
 
@@ -122,7 +122,7 @@ local function enablePABCustomRule(itemLink)
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        PAB.debugln("ERROR; PAB rule not existing, cannot be enabled")
+        PAB.debugln("ERROR; PAB simple rule not existing, cannot be enabled")
     end
 end
 
@@ -137,7 +137,7 @@ local function disablePABCustomRule(itemLink)
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        PAB.debugln("ERROR; PAB rule not existing, cannot be disabled")
+        PAB.debugln("ERROR; PAB simple rule not existing, cannot be disabled")
     end
 end
 
