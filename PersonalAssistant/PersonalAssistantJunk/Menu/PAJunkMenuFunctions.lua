@@ -134,6 +134,30 @@ local function isPAJunkExcludeAMatterOfXYZDisabled()
 end
 
 --------------------------------------------------------------------------
+-- PAJunk   QuestProtection         NewLifeFestival
+---------------------------------
+local function isPAJunkNewLifeFestivalMenuDisabled()
+    if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if (isDisabled({"Collectibles", "autoMarkSellToMerchant"}) or isDisabledAll({"QuestProtection", "NewLifeFestival", "excludeRareFish"})) then
+        return true
+    end
+    -- if no 'true' returned so far, return false now
+    return false
+end
+
+--------------------------------------------------------------------------
+-- PAJunk   QuestProtection.NewLifeFestival         excludeRareFish
+---------------------------------
+local function isPAJunkNewLifeFestivalExcludeDisabled()
+    if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if isDisabled({"Collectibles", "autoMarkSellToMerchant"}) then
+        return true
+    end
+    -- if no 'true' returned so far, return false now
+    return false
+end
+
+--------------------------------------------------------------------------
 -- PAJunk   Stolen
 ---------------------------------
 local function isPAJunkStolenMenuDisabled()
@@ -270,6 +294,11 @@ local PAJunkMenuFunctions = {
     isExcludeAMatterOfTributesDisabled = isPAJunkExcludeAMatterOfXYZDisabled,
     getExcludeAMatterOfTributesSetting = function() return getValue({"QuestProtection", "ClockworkCity", "excludeAMatterOfTributes"}) end,
     setExcludeAMatterOfTributesSetting = function(value) setValue(value, {"QuestProtection", "ClockworkCity", "excludeAMatterOfTributes"}) end,
+
+    isNewLifeFestivalMenuDisabled = isPAJunkNewLifeFestivalMenuDisabled,
+    isExcludeRareFishDisabled = isPAJunkNewLifeFestivalExcludeDisabled,
+    getExcludeRareFishSetting = function() return getValue({"QuestProtection", "NewLifeFestival", "excludeRareFish"}) end,
+    setExcludeRareFishSetting = function(value) setValue(value, {"QuestProtection", "NewLifeFestival", "excludeRareFish"}) end,
 
     isStolenMenuDisabled = isPAJunkStolenMenuDisabled,
     isStolenWeaponActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,

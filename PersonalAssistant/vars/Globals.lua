@@ -296,6 +296,9 @@ PersonalAssistant.Constants = {
             CLOCKWORK_CITY = {
                 PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
             },
+            EVENTS = {
+                PATH = "/esoui/art/treeicons/achievements_indexicon_events_up.dds"
+            },
             FENCE = {
                 PATH = "/esoui/art/vendor/vendor_tabicon_fence_up.dds",
             },
