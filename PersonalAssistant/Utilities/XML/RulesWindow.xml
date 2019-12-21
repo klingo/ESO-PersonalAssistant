@@ -73,9 +73,8 @@
                                 </Control>
                                 <Control name="$(parent)RuleSummary" inherits="ZO_SortHeader" mouseEnabled="false">
                                     <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="10" />
-                                    <Dimensions x="750" y="32" />
+                                    <Dimensions x="720" y="32" />
                                 </Control>
-                                <!--TODO: to be added-->
                                 <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
                                     <Anchor point="TOPRIGHT" offsetX="-60" />
                                     <Dimensions x="160" y="32" />

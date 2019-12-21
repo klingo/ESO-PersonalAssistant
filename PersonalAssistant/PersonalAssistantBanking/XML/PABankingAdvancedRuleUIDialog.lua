@@ -86,11 +86,15 @@ local function _getLocalizedItemTypes(itemTypes)
     return localizedItemTypes
 end
 
-local function _getLocalizedQualities(qualities)
+local function _getLocalizedQualities(qualities, isRawText)
     local localizedQualities = {}
     for _, value in ipairs(qualities) do
         local quality =  tonumber(value)
-        table.insert(localizedQualities, GetItemQualityColor(quality):Colorize(GetString("SI_ITEMQUALITY", quality)))
+        if isRawText then
+            table.insert(localizedQualities, GetString("SI_ITEMQUALITY", quality))
+        else
+            table.insert(localizedQualities, GetItemQualityColor(quality):Colorize(GetString("SI_ITEMQUALITY", quality)))
+        end
     end
     return localizedQualities
 end
@@ -257,7 +261,7 @@ local function _convertRawSettingsToLocalSettings(ruleSettingsRaw, returnAdditio
     end
 end
 
-local function getRuleSummaryFromRawSettings(ruleSettingsRaw)
+local function getRuleSummaryFromRawSettings(ruleSettingsRaw, isRawText)
     local function _getItemTypeText(itemGroup, itemTypes, selectedCount, unselectedCount)
         local itemGroupString = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemGroup))
         if selectedCount == 0 or unselectedCount == 0 then
@@ -272,7 +276,7 @@ local function getRuleSummaryFromRawSettings(ruleSettingsRaw)
         if selectedCount == 0 or unselectedCount == 0 then
             return nil
         else
-            local qualitiesString = _getLocalizedQualities(qualities)
+            local qualitiesString = _getLocalizedQualities(qualities, isRawText)
             return table.concat({"of [", PAHF.getCommaSeparatedOrList(qualitiesString), "] quality"})  -- TODO: extract
         end
     end
@@ -648,11 +652,14 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
         local ruleSettingsRaw = _convertLocalSettingsToRawSettings()
         if isUpdate then
             df("SAVE: %s", ruleSettingsRaw)
-            PABAdvancedRules[_loadedRuleId] = ruleSettingsRaw
+            PABAdvancedRules[_loadedRuleId].ruleRaw = ruleSettingsRaw
             -- TODO: chat message
             df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), _loadedRuleId)
         else
-            table.insert(PABAdvancedRules, ruleSettingsRaw)
+            table.insert(PABAdvancedRules, {
+                ruleRaw = ruleSettingsRaw,
+                ruleEnabled = true,
+            })
             -- TODO: chat message
             df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), #PABAdvancedRules)
         end
@@ -662,22 +669,6 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
         if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
     else
         PAB.debugln("ERROR; PAB advanced rule already existing and this was NOT an update")
-    end
-end
-
-local function deletePABCustomAdvancedRule(ruleId)
-    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
-    if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
-        -- is in table, delete rule
-        table.remove(PABAdvancedRules, ruleId)
-        -- TODO: chat message
-        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), ruleId)
-        window:SetHidden(true)
-
-        -- refresh the list (if it was initialized)
-        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
-    else
-        PAB.debugln("ERROR; PAB adavanced rule not existing, cannot be deleted")
     end
 end
 
@@ -962,7 +953,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Modify advanced rule"})) -- TODO: extract
         -- get rule settings
         local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
-        local ruleSettingRaw = PABAdvancedRules[existingRuleId]
+        local ruleSettingRaw = PABAdvancedRules[existingRuleId].ruleRaw
 
         df("LOAD: %s", ruleSettingRaw)
 
@@ -1018,14 +1009,61 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
     _loadingInProgress = false
 end
 
+local function deletePABCustomAdvancedRule(ruleId)
+    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+    if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
+        -- is in table, delete rule
+        table.remove(PABAdvancedRules, ruleId)
+        -- TODO: chat message
+        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), ruleId)
+        window:SetHidden(true)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB adavanced rule not existing, cannot be deleted")
+    end
+end
+
+local function enablePABCustomAdvancedRule(existingRuleId)
+    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+    if PAHF.isKeyInTable(PABAdvancedRules, existingRuleId) then
+        -- is in table, enable rule
+        PABAdvancedRules[existingRuleId].ruleEnabled = true
+        -- TODO: chat message
+        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}), existingRuleId)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB advanced rule not existing, cannot be enabled")
+    end
+end
+
+local function disablePABCustomAdvancedRule(existingRuleId)
+    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+    if PAHF.isKeyInTable(PABAdvancedRules, existingRuleId) then
+        -- is in table, disable rule
+        PABAdvancedRules[existingRuleId].ruleEnabled = false
+        -- TODO: chat message
+        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}), existingRuleId)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB advanced rule not existing, cannot be disabled")
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
-PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule
+PA.CustomDialogs.getPABRuleSummaryFromRawSettings = getRuleSummaryFromRawSettings
 PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog = initPABAddCustomAdvancedRuleUIDialog
 PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog = showPABAddCustomAdvancedRuleUIDialog
-PA.CustomDialogs.getPABRuleSummaryFromRawSettings = getRuleSummaryFromRawSettings
-
+PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule
+PA.CustomDialogs.enablePABCustomAdvancedRule = enablePABCustomAdvancedRule
+PA.CustomDialogs.disablePABCustomAdvancedRule = disablePABCustomAdvancedRule
 
 -- TODO: Edit reset top dropdown does not disable save button
 -- TODO: Edit save without change does not work

@@ -68,7 +68,7 @@
             </Controls>
         </Button>
 
-        <!-- Full-size Banking Rule Row (virtual) -->
+        <!-- Full-size Advanced Banking Rule Row (virtual) -->
         <Button name="PersonalAssistantBankingAdvancedRuleListRowTemplate" verticalAlignment="CENTER" horizontalAlignment="LEFT" virtual="true">
             <Dimensions x="800" y="96" />
             <Controls>
@@ -79,7 +79,7 @@
                 </Label>
                 <Label name="$(parent)RuleSummary" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="5" />
-                    <Dimensions x="750" y="96" />
+                    <Dimensions x="720" y="96" />
                 </Label>
                 <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
                     <Anchor point="RIGHT" offsetX="-40" />
@@ -93,6 +93,26 @@
                             pressed="/esoui/art/buttons/edit_down.dds"
                             mouseOver="/esoui/art/buttons/edit_over.dds"
                             disabled="/esoui/art/buttons/edit_disabled.dds"
+                    />
+                </Button>
+                <Button name="$(parent)EnableButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)EditButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/buttons/edit_save_up.dds"
+                            pressed="/esoui/art/buttons/edit_save_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_save_over.dds"
+                            disabled="/esoui/art/buttons/edit_save_disabled.dds"
+                    />
+                </Button>
+                <Button name="$(parent)DisableButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)EditButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/buttons/edit_cancel_up.dds"
+                            pressed="/esoui/art/buttons/edit_cancel_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_cancel_over.dds"
+                            disabled="/esoui/art/buttons/edit_cancel_disabled.dds"
                     />
                 </Button>
 
