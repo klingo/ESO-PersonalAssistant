@@ -260,7 +260,7 @@ end
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.initPABAddCustomRuleUIDialog = initPABAddCustomRuleUIDialog
-PA.CustomDialogs.showPABAddCustomRuleUIDIalog = showPABAddCustomRuleUIDIalog
+PA.CustomDialogs.showPABAddCustomRuleUIDialog = showPABAddCustomRuleUIDialog
 PA.CustomDialogs.enablePABCustomRule = enablePABCustomRule
 PA.CustomDialogs.disablePABCustomRule = disablePABCustomRule
 PA.CustomDialogs.deletePABCustomRule = deletePABCustomRule
