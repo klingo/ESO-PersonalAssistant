@@ -140,10 +140,7 @@ SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles exis
 -- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --
 SafeAddString(SI_PA_POSITION_AUTO, "Automatique", 1)
-SafeAddString(SI_PA_POSITION_TOPLEFT, "Haut gauche", 1)
-SafeAddString(SI_PA_POSITION_TOPRIGHT, "Haut droite", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Bas gauche", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Bas droite", 1)
+SafeAddString(SI_PA_POSITION_MANUAL, "Manuel", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --

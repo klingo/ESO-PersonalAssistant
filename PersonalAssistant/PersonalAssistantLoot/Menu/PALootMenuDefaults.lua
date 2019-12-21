@@ -50,6 +50,10 @@ local PALootMenuDefaults = {
         iconTooltipShown = true,
         iconSizeRow = 16,
         iconSizeGrid = 16,
+        iconXOffsetList = 0,
+        iconYOffsetList = 0,
+        iconXOffsetGrid = 0,
+        iconYOffsetGrid = 0,
     },
 
     InventorySpace = {

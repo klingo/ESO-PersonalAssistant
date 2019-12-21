@@ -40,7 +40,6 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Настраиваемые предметы", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Включить перемещение", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"С введением настраиваемых банковских правил, \"Настраиваемые предметы\" были перенесены туда. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
@@ -55,6 +54,8 @@ SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING, "Правила объ�
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Определяет будут ли все выбранные предметы перемещены в банк или только лишь дополнены имеющиеся там стеки", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Правила объединения при изъятии", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T, "Определяет будут ли все выбранные предметы перемещены в инвентарь или только лишь дополнены имеющиеся там стеки", 1)
+
+SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Не перемещать предметы помеченные как хлам", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS, "Складывать все предметы в стеки при открытии банка", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T, "Автоматически складывать все предметы в стеки в банке и инвентаре при открытии банка. Помогает эффективнее использовать место", 1)

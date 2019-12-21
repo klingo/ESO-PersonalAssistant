@@ -76,6 +76,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             if customStackToMove ~= nil then sourceStack = customStackToMove end
             -- request the move of the item
             local moveStartGameTime = GetGameTimeMilliseconds()
+            PAB.debugln("request to move %d x %s into new stack", sourceStack, itemLink)
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
             -- ---------------------------------------------------------------------------------------------------------
             -- Now "wait" until the item move has been complete/confirmed (or until bank is closed!)
@@ -188,7 +189,13 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                 local _, targetMaxStack = GetSlotStackSize(toBagItemData.bagId, toBagItemData.slotIndex)
                 local targetStack = toBagItemData.stackCount -- cannot use [GetSlotStackSize] becuase it does not reflect changes after the bagCache is created
                 local targetFreeStacks = targetMaxStack - targetStack
-                if targetFreeStacks > 0 then
+                if IsItemLinkUnique(itemLink) then
+                    -- match was found, but since it is unique prevent any further move-attempts by skipping it
+                    PAB.debugln("%s is uniqe and cannot be stacked - skip it!", itemLink)
+                    skipItem = true
+                    break
+                elseif targetFreeStacks > 0 then
+                    -- match was found, and item is not unique, check if there are free stacks
                     local moveableStack = stackToMove
                     local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
                     if moveableStack <= targetFreeStacks then
@@ -209,10 +216,6 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                         -- update the stackCount in the bagCache manually (since we don't want to completely re-generate it)
                         toBagCache[toBagCacheIndex].stackCount = targetStack + targetFreeStacks
                     end
-                elseif IsItemLinkUnique(itemLink) then
-                    -- match was found, but since it is unique prevent any further move-attempts by skipping it
-                    skipItem = true
-                    break
                 end
             end
             -- stop loop if item was already moved and no stacks to be moved are left
@@ -232,6 +235,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- stack everything
                             notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + stackToMove
                             notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
+                            PAB.debugln("try to fully stack %d x %s", stackToMove, itemLink)
                             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, stackToMove)
                             -- nothing left to be moved
                             stackToMove = 0
@@ -240,6 +244,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- stack only partial
                             notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + prevSourceFreeStack
                             notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
+                            PAB.debugln("try to partially stack %d x %s", prevSourceFreeStack, itemLink)
                             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, prevSourceFreeStack)
                             -- partial left to be moved
                             stackToMove = stackToMove - prevSourceFreeStack

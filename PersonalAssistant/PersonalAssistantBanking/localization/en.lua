@@ -40,7 +40,6 @@ local PABStrings = {
 
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Individual Items",
-    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = "Enable Auto Banking for Individual Items",
     SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
@@ -55,6 +54,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T = "Define whether all Items shall be withdrawn, or only when there are existing stacks that can be completed",
+
+    SI_PA_MENU_BANKING_EXCLUDE_JUNK = "Do not move items that are marked as junk",
 
     SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS = "Auto-Stack all items when opening the bank",
     SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T = "Automatically stack all items in the bank and in the backpack when accessing the bank? Helps to keep everything better organized",
@@ -106,6 +107,8 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_ADDED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}),
     SI_PA_CHAT_BANKING_RULES_UPDATED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}),
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}),
 }
 
 for key, value in pairs(PABStrings) do

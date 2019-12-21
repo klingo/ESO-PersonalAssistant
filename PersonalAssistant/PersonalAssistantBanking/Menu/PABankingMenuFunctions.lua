@@ -566,6 +566,7 @@ local PABankingMenuFunctions = {
     isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) end,
     isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) end,
     isIntricateItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) end,
+    isFurnishingItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FURNISHINGS) end,
 
 
     -- ----------------------------------------------------------------------------------
@@ -609,6 +610,9 @@ local PABankingMenuFunctions = {
     isTransactionWithdrawalStackingDisabled = isPABankingTransactionWithdrawalStackingDisabled,
     getTransactionWithdrawalStackingSetting = function() return getValue({"transactionWithdrawalStacking"}) end,
     setTransactionWithdrawalStackingSetting = function(value) setValue(value, {"transactionWithdrawalStacking"}) end,
+
+    getExcludeJunkSetting = function() return getValue({"excludeJunk"}) end,
+    setExcludeJunkSetting = function(value) setValue(value, {"excludeJunk"}) end,
 
     getAutoStackBagsSetting = function() return getValue({"autoStackBags"}) end,
     setAutoStackBagsSetting = function(value) setValue(value, {"autoStackBags"}) end,

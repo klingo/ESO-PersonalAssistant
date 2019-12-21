@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020409, -- update this every release!
+            MINOR = 020416, -- update this every release!
         },
     },
 
@@ -296,6 +296,9 @@ PersonalAssistant.Constants = {
             CLOCKWORK_CITY = {
                 PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
             },
+            EVENTS = {
+                PATH = "/esoui/art/treeicons/achievements_indexicon_events_up.dds"
+            },
             FENCE = {
                 PATH = "/esoui/art/vendor/vendor_tabicon_fence_up.dds",
             },
@@ -339,6 +342,7 @@ PersonalAssistant.Constants = {
         JEWELCRAFTING = {
             ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL,
             ITEMTYPE_JEWELRYCRAFTING_MATERIAL,
+            ITEMTYPE_JEWELRYCRAFTING_RAW_BOOSTER,
             ITEMTYPE_JEWELRYCRAFTING_BOOSTER
         },
         ALCHEMY = {
@@ -407,6 +411,9 @@ PersonalAssistant.Constants = {
                 ITEMTYPE_DRINK,                             -- 12
                 ITEMTYPE_FISH,                              -- 54
             },
+            FURNISHINGS = {
+                ITEMTYPE_FURNISHING,                        -- 61
+            }
         },
         SPECIALIZED = {
             TROPHIES = {
@@ -523,6 +530,7 @@ PersonalAssistant.Constants = {
             27962,  -- [Keep Door Woodwork Repair Kit]
             27138,  -- [Keep Wall Masonry Repair Kit]
             27112,  -- [Siege Repair Kit]
+            142133, -- [Bridge and Milegate Repair Kit]
         },
         OTHER = {
             141731, -- [Keep Recall Stone]

@@ -37,6 +37,7 @@ local PAJJewelrySubMenu = setmetatable({}, { __index = table })
 local PAJStolenSubMenu = setmetatable({}, { __index = table })
 
 local PAJClockworkCityQuestsSubMenu = setmetatable({}, { __index = table })
+local PAJNewLifeFestivalSubMenu = setmetatable({}, { __index = table })
 
 local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
@@ -137,6 +138,15 @@ local function _createPAJunkMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJClockworkCityQuestsSubMenu,
         disabledLabel = PAJMenuFunctions.isClockworkCityMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER),
+        icon = PAC.ICONS.OTHERS.EVENTS.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PAJNewLifeFestivalSubMenu,
+        disabledLabel = PAJMenuFunctions.isNewLifeFestivalMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -709,6 +719,26 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
+local function _createPAJNewLifeFestivalSubMenu()
+    PAJNewLifeFestivalSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_ITEMS_DESC),
+        disabled = PAJMenuFunctions.isNewLifeFestivalMenuDisabled,
+    })
+
+    PAJNewLifeFestivalSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH),
+        tooltip = GetString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH_T),
+        getFunc = PAJMenuFunctions.getExcludeRareFishSetting,
+        setFunc = PAJMenuFunctions.setExcludeRareFishSetting,
+        disabled = PAJMenuFunctions.isExcludeRareFishDisabled,
+        default = PAJMenuDefaults.QuestProtection.NewLifeFestival.excludeRareFish,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
 local function _createPAJKeybindingsSubMenu()
     PAJKeybindingsSubMenu:insert({
         type = "checkbox",
@@ -794,6 +824,7 @@ local function createOptions()
     _createPAJStolenSubMenu()
 
     _createPAJClockworkCityQuestsSubMenu()
+    _createPAJNewLifeFestivalSubMenu()
 
     _createPAJKeybindingsSubMenu()
 

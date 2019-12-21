@@ -36,7 +36,6 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Einzelne Gegenstände", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Aktiviere Transaktionen für Einzelne Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Mit der Einführung der benutzerdefinierten Banking Regeln wurden die \"Individuellen\" Einstellungen dorthin migriert. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
@@ -51,6 +50,8 @@ SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING, "Regel fürs Stapeln be
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Definiere ob alle Gegenstände in die Truhe eingelagert werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Regel fürs Stapeln beim Entnehmen", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T, "Definiere ob alle Gegenstände ins Inventar entnommen werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
+
+SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Verschiebe keine als Trödel markierte Gegenstände", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS, "Automatisch alle Gegenstände stapeln", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T, "Sollen automatisch alle Gegenstände im Inventar und in der Truhe gestapelt werden wenn die Truhe geöffnet wird? Ist hilfreich um alles besser organisiert zu halten", 1)
@@ -100,3 +101,5 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Manche Gegenstände wurden 
 SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("hinzugefügt"), "!"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("angepasst"), "!"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("gelöscht"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ENABLED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("aktiviert"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DISABLED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("deaktiviert"), "!"}), 1)

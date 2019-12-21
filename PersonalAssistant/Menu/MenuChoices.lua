@@ -58,10 +58,7 @@ local PAMenuChoices = {
     PALoot = {
         iconPosition = {
             GetString(SI_PA_POSITION_AUTO),
-            GetString(SI_PA_POSITION_TOPLEFT),
-            GetString(SI_PA_POSITION_TOPRIGHT),
-            GetString(SI_PA_POSITION_BOTTOMLEFT),
-            GetString(SI_PA_POSITION_BOTTOMRIGHT),
+            GetString(SI_PA_POSITION_MANUAL),
         }
     },
 }
@@ -120,15 +117,15 @@ local PAMenuChoicesValues = {
     PALoot = {
         iconPosition = {
             PAC.ICON_POSITION.AUTO,     -- -1 (automatic)
-            TOPLEFT,                    -- 3
-            TOPRIGHT,                   -- 9
-            BOTTOMLEFT,                 -- 6
-            BOTTOMRIGHT,                -- 12
+--            TOPLEFT,                    -- 3
+--            TOPRIGHT,                   -- 9
+--            BOTTOMLEFT,                 -- 6
+--            BOTTOMRIGHT,                -- 12
 --            BOTTOM,                     -- 4
 --            TOP,                        -- 1
 --            LEFT,                       -- 2
 --            RIGHT,                      -- 8
---            CENTER,                     -- 128
+            CENTER,                     -- 128 (manual)
         }
     }
 }

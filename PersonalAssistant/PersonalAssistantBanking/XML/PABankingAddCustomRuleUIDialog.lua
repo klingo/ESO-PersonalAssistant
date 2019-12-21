@@ -70,24 +70,27 @@ local function _addCustomRuleClicked(isUpdate)
 
     local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
     -- only add the entry if it is an UPDATE case, or if it does not exist yet
-    if isUpdate or not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+    if not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
         PABCustomItemIds[itemId] = {
             operator = bankingOperator,
             bagAmount = tonumber(targetAmount),
             itemLink = _selectedItemLink,
+            ruleEnabled = true,
         }
-        if isUpdate then
-            PA.Banking.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
-        else
-            PA.Banking.println(SI_PA_CHAT_BANKING_RULES_ADDED, _selectedItemLink:gsub("%|H0", "|H1"))
-        end
-        window:SetHidden(true)
-
-        -- refresh the list (if it was initialized)
-        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+        PAB.println(SI_PA_CHAT_BANKING_RULES_ADDED, _selectedItemLink:gsub("%|H0", "|H1"))
+    elseif isUpdate then
+        PABCustomItemIds[itemId].operator = bankingOperator
+        PABCustomItemIds[itemId].bagAmount = tonumber(targetAmount)
+        PABCustomItemIds[itemId].itemLink = _selectedItemLink
+        PAB.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
     else
         PAB.debugln("ERROR; PAB rule already existing and this was NOT an update")
     end
+
+    window:SetHidden(true)
+
+    -- refresh the list (if it was initialized)
+    if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -105,6 +108,36 @@ local function deletePABCustomRule(itemLink)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
         PAB.debugln("ERROR; PAB rule not existing, cannot be deleted")
+    end
+end
+
+local function enablePABCustomRule(itemLink)
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    local itemId = GetItemLinkItemId(itemLink)
+    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+        -- is in table, enable rule
+        PABCustomItemIds[itemId].ruleEnabled = true
+        PAB.println(SI_PA_CHAT_BANKING_RULES_ENABLED, itemLink:gsub("%|H0", "|H1"))
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB rule not existing, cannot be enabled")
+    end
+end
+
+local function disablePABCustomRule(itemLink)
+    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    local itemId = GetItemLinkItemId(itemLink)
+    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+        -- is in table, disable rule
+        PABCustomItemIds[itemId].ruleEnabled = false
+        PAB.println(SI_PA_CHAT_BANKING_RULES_DISABLED, itemLink:gsub("%|H0", "|H1"))
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB rule not existing, cannot be disabled")
     end
 end
 
@@ -226,6 +259,8 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
-PA.CustomDialogs.deletePABCustomRule = deletePABCustomRule
 PA.CustomDialogs.initPABAddCustomRuleUIDialog = initPABAddCustomRuleUIDialog
-PA.CustomDialogs.showPABAddCustomRuleUIDialog = showPABAddCustomRuleUIDialog
+PA.CustomDialogs.showPABAddCustomRuleUIDIalog = showPABAddCustomRuleUIDIalog
+PA.CustomDialogs.enablePABCustomRule = enablePABCustomRule
+PA.CustomDialogs.disablePABCustomRule = disablePABCustomRule
+PA.CustomDialogs.deletePABCustomRule = deletePABCustomRule

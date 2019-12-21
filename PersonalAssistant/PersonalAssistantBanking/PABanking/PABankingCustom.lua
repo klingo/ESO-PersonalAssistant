@@ -22,7 +22,8 @@ local function depositOrWithdrawCustomItems()
         local itemIdTable = PAB.SavedVars.Custom.ItemIds
         for itemId, moveConfig in pairs(itemIdTable) do
             local operator = moveConfig.operator
-            if operator ~= PAC.OPERATOR.NONE then
+            local ruleEnabled = moveConfig.ruleEnabled
+            if ruleEnabled and operator ~= PAC.OPERATOR.NONE then
                 customItems[itemId] = {
                     operator = operator,
                     targetBagStack = moveConfig.bagAmount
@@ -31,7 +32,8 @@ local function depositOrWithdrawCustomItems()
         end
 
         -- then get the matching data from the backpack and bank
-        local itemIdComparator = PAHF.getItemIdComparator(customItems)
+        local excludeJunk = PAB.SavedVars.excludeJunk
+        local itemIdComparator = PAHF.getItemIdComparator(customItems, excludeJunk)
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
