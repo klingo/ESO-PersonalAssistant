@@ -406,7 +406,7 @@ end
 local function _setAllFieldsEnabled(enabled)
     _resetShifterBoxAndResetToLeft(_itemQualitiesShifterBox, nil, enabled)
     _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, _selectedItemGroup, enabled)
-    _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _selectedItemGroup, _selectedTraitSetting == TRAIT_SELECTED)
+    _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _selectedItemGroup, enabled and _selectedTraitSetting == TRAIT_SELECTED)
 
     local itemLevelFromButtonControl = window:GetNamedChild("ItemLevelFromButton")
     itemLevelFromButtonControl:SetEnabled(enabled)
