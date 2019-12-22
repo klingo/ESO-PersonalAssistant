@@ -102,6 +102,8 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Certains matériaux n'ont P
 SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("ajoutée"), " !"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("modifiée"), " !"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("supprimée"), " !"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ENABLED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("activée"), " !"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DISABLED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("désactivée"), " !"}), 1)
 
 
 -- =================================================================================================================
