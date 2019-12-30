@@ -1,3 +1,6 @@
+2.4.17
+- added support to display known/unknown icons for Runeboxes
+
 2.4.16 (December 21, 2019)
 - added support for the rare fishes of the New Life Festival in PAJunk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/222"]#222[/URL])
 
