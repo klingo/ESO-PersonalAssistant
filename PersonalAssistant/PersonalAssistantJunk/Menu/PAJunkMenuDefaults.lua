@@ -75,6 +75,9 @@ local PAJunkMenuDefaults = {
             excludeAMatterOfRespect = false,
             excludeAMatterOfTributes = false,
         },
+        NewLifeFestival = {
+            excludeRareFish = true,
+        }
     },
 
     ignoreMailboxItems = true,
