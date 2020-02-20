@@ -52,8 +52,8 @@ After a two year long break from ESO, I finally managed to complete the major re
 
 [SIZE=2]Please make sure to also install the following required libraries in order to use PersonalAssistant:[/SIZE][LIST]
 [*] [URL="http://www.esoui.com/downloads/info7-LibAddonMenu.html"]LibAddonMenu[/URL] (2.0 r30 or newer) - For the AddOn settings menu
-[*] [URL="https://www.esoui.com/downloads/info2118-LibMainMenu-2.0.html"]LibMainMenu-2.0[/URL] (4.3.1 or newer) - For the Rules Main Menu
-[*] [URL="https://www.esoui.com/downloads/info1146-LibCustomMenu.html"]LibCustomMenu[/URL] (6.8.1 or newer) - For the right-click context menu entries[/LIST]
+[*] [URL="https://www.esoui.com/downloads/info2118-LibMainMenu-2.0.html"]LibMainMenu-2.0[/URL] (4.3.2 or newer) - For the Rules Main Menu
+[*] [URL="https://www.esoui.com/downloads/info1146-LibCustomMenu.html"]LibCustomMenu[/URL] (6.8.2 or newer) - For the right-click context menu entries[/LIST]
 
 [SIZE=3]Credits[/SIZE][LIST]
 [*] Special thanks to [URL="http://www.esoui.com/forums/member.php?u=10379"]NTak[/URL] for the French, and to [URL="https://github.com/Nesferatum"]Nesferatum[/URL] for the Russian translations!
