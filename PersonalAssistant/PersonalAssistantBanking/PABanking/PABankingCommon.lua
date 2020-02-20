@@ -76,6 +76,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             if customStackToMove ~= nil then sourceStack = customStackToMove end
             -- request the move of the item
             local moveStartGameTime = GetGameTimeMilliseconds()
+            PAB.debugln("request to move %d x %s into new stack", sourceStack, itemLink)
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
             -- ---------------------------------------------------------------------------------------------------------
             -- Now "wait" until the item move has been complete/confirmed (or until bank is closed!)
@@ -234,6 +235,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- stack everything
                             notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + stackToMove
                             notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
+                            PAB.debugln("try to fully stack %d x %s", stackToMove, itemLink)
                             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, stackToMove)
                             -- nothing left to be moved
                             stackToMove = 0
@@ -242,6 +244,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- stack only partial
                             notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + prevSourceFreeStack
                             notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
+                            PAB.debugln("try to partially stack %d x %s", prevSourceFreeStack, itemLink)
                             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, prevSourceFreeStack)
                             -- partial left to be moved
                             stackToMove = stackToMove - prevSourceFreeStack

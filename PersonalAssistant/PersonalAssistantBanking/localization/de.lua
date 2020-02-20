@@ -102,3 +102,5 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Manche Gegenstände wurden 
 SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("hinzugefügt"), "!"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("angepasst"), "!"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("gelöscht"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ENABLED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("aktiviert"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DISABLED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("deaktiviert"), "!"}), 1)

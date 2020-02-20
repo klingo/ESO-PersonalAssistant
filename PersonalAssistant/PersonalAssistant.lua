@@ -64,17 +64,8 @@ end
 
 -- init player name and player alliance
 local function _initPlayerNameAndAlliance()
-    local playerName = GetUnitName("player")
-    local numCharacters = GetNumCharacters()
-    for index = 1, numCharacters do
-        local name, _, _, _, _, alliance, _, _ = GetCharacterInfo(index)
-        local nameFmt = zo_strformat(SI_UNIT_NAME, name)
-        if playerName == nameFmt then
-            PA.playerName = nameFmt
-            PA.alliance = alliance
-            break
-        end
-    end
+    PA.alliance = GetUnitAlliance("player")
+    PA.playerName = GetUnitName("player")
 end
 
 
@@ -104,8 +95,8 @@ local function initAddon(_, addOnName)
     PA.debug = PASavedVars.Profile.debug
 
     -- create the options with LAM-2
-    local PAMainMenu = PA.MainMenu
-    PAMainMenu.createOptions()
+    local PAGeneral = PA.General
+    PAGeneral.createOptions()
 
     -- init the overall Rules Main Menu
     PA.CustomDialogs.initRulesMainMenu()
@@ -235,6 +226,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local name, description, icon, deprecatedLockedIcon, unlocked, purchasable, isActive, categoryType, hint = GetCollectibleInfo(containerCollectibleId)
             local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            local isUsable = IsCollectibleUsable(containerCollectibleId)
             d("name="..tostring(name))
             d("description="..tostring(description))
             d("unlocked="..tostring(unlocked))
@@ -242,6 +234,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
             d("categoryType="..tostring(categoryType))
             d("hint="..tostring(hint))
             d("isValidForPlayer="..tostring(isValidForPlayer))
+            d("isUsable="..tostring(isUsable))
         end
 
         local numItemTags = GetItemLinkNumItemTags(itemLink)

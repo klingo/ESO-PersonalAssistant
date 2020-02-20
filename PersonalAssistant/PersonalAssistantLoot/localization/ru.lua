@@ -57,12 +57,22 @@ SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN, table.concat({">"
 SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "если Особенность еще не изучена"}), 1)
 
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST, "Размер иконки (В виде списка)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Задает размер известных/неизвестных значков там, где предметы отображаются в виде списка", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Задает размер значка известен/неизвестен там, где предметы отображаются в виде списка", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID, "Размер иконки (В виде сетки)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Задает размер известных/неизвестных значков там, где предметы отображаются аддоном в виде сетки [InventoryGridView]", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Задает размер значка известен/неизвестен там, где предметы отображаются аддоном в виде сетки [InventoryGridView]", 1)
 
 SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID, "Положение иконки (В виде сетки)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T, "Задает положение известных/неизвестных значков.\nPALoot «автоматически» определяет, включены ли дополнения [Research Assistant] или [ESO Master Recipe List], и помещает значок в еще не занятый угол", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T, "Задает положение значка известен/неизвестен.\nPALoot «автоматически» определяет, включены ли дополнения [Research Assistant] или [ESO Master Recipe List], и помещает значок в еще не занятый угол", 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST, "Смещение иконки по X (В виде списка)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T, "Задает горизонтальное смещение значка известен/неизвестен там, где предметы отображаются в виде списка", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST, "Смещение иконки по Y (В виде списка)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T, "Задает вертикальное смещение значка известен/неизвестен там, где предметы отображаются в виде списка", 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID, "Смещение иконки по X (В виде сетки)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T, "Задает горизонтальное смещение значка известен/неизвестен там, где предметы отображаются аддоном в виде сетки [InventoryGridView]\n\nИграет роль только если для позиции иконки выбран ручной режим", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID, "Смещение иконки по Y (В виде сетки)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T, "Задает вертикальное смещение значка известен/неизвестен там, где предметы отображаются аддоном в виде сетки [InventoryGridView]\n\nИграет роль только если для позиции иконки выбран ручной режим", 1)
 
 
 -- =================================================================================================================
