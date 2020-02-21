@@ -30,7 +30,7 @@ local function _getBagNameAndOperatorTextFromOperatorId(operatorId)
         bagName = PAHF.getBagName(BAG_BANK)
         operator = operatorId - 5
     end
-    local operatorText = GetString("SI_PA_REL_OPERATOR", operator)
+    local operatorText = GetString("SI_PA_REL_TEXT_OPERATOR", operator)
     return bagName, operatorText
 end
 

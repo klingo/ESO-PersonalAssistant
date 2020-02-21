@@ -122,6 +122,15 @@ local PAStrings = {
     SI_PA_REL_BANK_GREATERTHANOREQUAL = "BANK >=",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- Text Operators --
+    SI_PA_REL_TEXT_OPERATOR0 = "-",
+    SI_PA_REL_TEXT_OPERATOR1 = "has exactly",
+    SI_PA_REL_TEXT_OPERATOR2 = "has less than", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR3 = "hast at most",
+    SI_PA_REL_TEXT_OPERATOR4 = "has more than", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR5 = "hast at least",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Operator Tooltip --
     SI_PA_REL_BACKPACK_EQUAL_T = "BACKPACK equals (==)",
     SI_PA_REL_BACKPACK_LESSTHAN_T = "BACKPACK less than (<)", -- not used so far

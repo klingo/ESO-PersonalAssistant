@@ -1,7 +1,7 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="700" y="200" />
+            <Dimensions x="760" y="380" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
@@ -22,7 +22,7 @@
                 </Control>
                 <Control name="$(parent)MathOperatorDropdown" inherits="ZO_ComboBox">
                     <Anchor point="LEFT" relativeTo="$(parent)BagDropdown" relativePoint="RIGHT" offsetX="10"/>
-                    <Dimensions x="80" y="30"/>
+                    <Dimensions x="140" y="30"/>
                 </Control>
                 <Backdrop name="$(parent)AmountEditBg" inherits="ZO_EditBackdrop">
                     <Anchor point="LEFT" relativeTo="$(parent)MathOperatorDropdown" relativePoint="RIGHT" offsetX="10"/>
@@ -61,9 +61,13 @@
                         </Label>
                     </Controls>
                 </Control>
+                <Label name="$(parent)DescriptionLabel" font="ZoFontGame">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)BagDropdown" relativePoint="BOTTOMLEFT" offsetY="20"/>
+                    <Dimensions x="700"/>
+                </Label>
                 <Label name="$(parent)DisclaimerLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)BagDropdown" relativePoint="BOTTOMLEFT" offsetY="15"/>
-                    <Dimensions x="660"/>
+                    <Anchor point="BOTTOMLEFT" offsetX="10" offsetY="-60"/>
+                    <Dimensions x="700"/>
                 </Label>
                 <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20"/>

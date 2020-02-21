@@ -12,25 +12,79 @@ local OPERATOR_EQUALS = 1
 local OPERATOR_LESSTHANOREQUAL = 3
 local OPERATOR_GREATERTHANOREQUAL = 5
 
+local MAXIMUM_AMOUNT = 10000
+
 local _initDone = false
-local _selectedBag, _selectedMathOperator, _selectedItemLink
+local _selectedBag, _selectedMathOperator, _selectedItemLink, _selectedAmount
+
+local function _updateDescription()
+    local bagName = PAHF.getBagName(_selectedBag)
+    local descriptionLabelControl = window:GetNamedChild("DescriptionLabel")
+
+    if _selectedMathOperator == OPERATOR_EQUALS then
+        local displayText = table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_PRE, bagName, _selectedAmount), "\n\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION), "\n"})
+        if _selectedAmount == 0 then
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_NOTHING, _selectedAmount, bagName), "\n"});
+        else
+            if _selectedAmount == 1 then
+                displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_DEPOSIT, 0, bagName, bagName, _selectedAmount), "\n"});
+            else
+                displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_DEPOSIT, 0, _selectedAmount - 1, bagName, bagName, _selectedAmount), "\n"});
+            end
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_NOTHING, _selectedAmount, bagName), "\n"});
+        end
+        displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_WITHDRAW, _selectedAmount + 1, MAXIMUM_AMOUNT, bagName, bagName, _selectedAmount)});
+        descriptionLabelControl:SetText(displayText)
+    elseif _selectedMathOperator == OPERATOR_LESSTHANOREQUAL then
+        local displayText = table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_LESSTHANOREQUAL_PRE, bagName, _selectedAmount), "\n\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION), "\n"})
+        if _selectedAmount == 0 then
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_NOTHING, _selectedAmount, bagName), "\n"});
+        else
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, 0, _selectedAmount, bagName), "\n"});
+        end
+        displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_DEPOSIT, _selectedAmount + 1, MAXIMUM_AMOUNT, bagName, bagName, _selectedAmount)});
+        descriptionLabelControl:SetText(displayText)
+    elseif _selectedMathOperator == OPERATOR_GREATERTHANOREQUAL then
+        local displayText = table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_GREATERTHANOREQUAL_PRE, bagName, _selectedAmount), "\n\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION), "\n"})
+        if _selectedAmount == 0 then
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, 0, MAXIMUM_AMOUNT, bagName)});
+        elseif _selectedAmount == 1 then
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_DEPOSIT, 0, bagName, bagName, _selectedAmount), "\n"});
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, _selectedAmount, MAXIMUM_AMOUNT, bagName)});
+        else
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_DEPOSIT, 0, _selectedAmount - 1, bagName, bagName, _selectedAmount), "\n"});
+            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, _selectedAmount, MAXIMUM_AMOUNT, bagName)});
+        end
+        descriptionLabelControl:SetText(displayText)    end
+end
+
 
 local DropdownRefs = {
     itemEntryBank = ZO_ComboBox:CreateItemEntry(LocaleAwareToUpper(GetString(SI_PA_NS_BAG_BANK)), function()
         _selectedBag = BAG_BANK
+        -- update the description label
+        _updateDescription();
     end ),
     itemEntryBackpack = ZO_ComboBox:CreateItemEntry(LocaleAwareToUpper(GetString(SI_PA_NS_BAG_BACKPACK)), function()
         _selectedBag = BAG_BACKPACK
+        -- update the description label
+        _updateDescription();
     end ),
 
-    itemEntryEquals = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_OPERATOR1), function()
+    itemEntryEquals = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_TEXT_OPERATOR1), function()
         _selectedMathOperator = OPERATOR_EQUALS
+        -- update the description label
+        _updateDescription();
     end ),
-    itemEntryLessThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_OPERATOR3), function()
+    itemEntryLessThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_TEXT_OPERATOR3), function()
         _selectedMathOperator = OPERATOR_LESSTHANOREQUAL
+        -- update the description label
+        _updateDescription();
     end ),
-    itemEntryGreaterThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_OPERATOR5), function()
+    itemEntryGreaterThanOrEqual = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_REL_TEXT_OPERATOR5), function()
         _selectedMathOperator = OPERATOR_GREATERTHANOREQUAL
+        -- update the description label
+        _updateDescription();
     end ),
 }
 
@@ -157,6 +211,16 @@ local function initPABAddCustomRuleUIDialog()
         disclaimerLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_DISCLAIMER))
         disclaimerLabelControl:SetDimensions(disclaimerLabelControl:GetTextDimensions())
 
+        -- initialize the amount field
+        local amountEditControl = window:GetNamedChild("AmountEditBg"):GetNamedChild("AmountEdit")
+        amountEditControl:SetHandler("OnFocusLost", function(self)
+            local value = tonumber(self:GetText())
+            if type(value) == "number" then
+                _selectedAmount = value
+                _updateDescription();
+            end
+        end)
+
         -- initialize the dropdown for the bag selection (BANK vs BACKPACK)
         local bagDropdownControl = window:GetNamedChild("BagDropdown")
         bagDropdownControl.m_comboBox:AddItem(DropdownRefs.itemEntryBank)
@@ -230,6 +294,7 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE)}))
         -- initialise with existing values
         local bagEntry, mathOperatorEntry = _getDropdownValuesFromBankingOperator(existingRuleValues.operator)
+        _selectedAmount = existingRuleValues.bagAmount
         bagDropdownControl.m_comboBox:SelectItem(bagEntry)
         mathOperatorDropdownControl.m_comboBox:SelectItem(mathOperatorEntry)
         amountEditControl:SetText(existingRuleValues.bagAmount)
@@ -240,6 +305,7 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
     else
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}))
         -- otherwise initialise default values
+        _selectedAmount = PAC.BACKPACK_AMOUNT.DEFAULT
         bagDropdownControl:SelectDefault()
         mathOperatorDropdownControl:SelectDefault()
         amountEditControl:SetText(PAC.BACKPACK_AMOUNT.DEFAULT)
