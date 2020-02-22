@@ -56,7 +56,7 @@ end
 local function _applyPatch_2_0_3(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 5 do
             -- 1) get rid of:   PABanking.transactionInterval
             PASavedVars.Banking[profileNo].transactionInterval = nil
             -- 2) get rid of:   PABanking.Crafting.TransactionSettings
@@ -79,7 +79,7 @@ local function _applyPatch_2_1_0(savedVarsVersion, patchPAG, patchPAB, _, patchP
         local PASavedVars = PA.SavedVars
         -- 1) initialize three new profiles with default values
         local PAMenuDefaults = PA.MenuDefaults
-        for profileNo = 6, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 6, 8 do
             if not istable(PASavedVars.General[profileNo]) then
                 if patchPAB then PASavedVars.Banking[profileNo] = PAMenuDefaults.PABanking end
                 if patchPAJ then PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk end
@@ -109,7 +109,7 @@ end
 local function _applyPatch_2_2_0(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) migrate:      PABanking.Advanced.LearnableItemTypes
             PASavedVars.Banking[profileNo].Advanced.LearnableItemTypes = {
                 [ITEMTYPE_RACIAL_STYLE_MOTIF] = {
@@ -133,7 +133,7 @@ end
 local function _applyPatch_2_2_2(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) migrate       PABanking.Advanced.MasterWritCraftingTypes
             local masterWritMoveSetting = PASavedVars.Banking[profileNo].Advanced.ItemTypes[ITEMTYPE_MASTER_WRIT]
             PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID] = masterWritMoveSetting
@@ -156,7 +156,7 @@ end
 local function _applyPatch_2_3_0(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) migrate   PABanking.Individual.ItemIds
             local oldItemIdConfigs = PASavedVars.Banking[profileNo].Individual.ItemIds
             for itemId, moveConfig in pairs(oldItemIdConfigs) do
@@ -192,7 +192,7 @@ end
 local function _applyPatch_2_4_0(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) migrate   PABanking.Individual.ItemIds
             local oldItemIdConfigs = PASavedVars.Banking[profileNo].Individual.ItemIds
             for itemId, moveConfig in pairs(oldItemIdConfigs) do
@@ -222,7 +222,7 @@ end
 local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, _, patchPAJ,  _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) migrate   PABanking.lazyWritCraftingCompatiblity (if PAIntegration is enabled)
             if PA.Integration then
                 PASavedVars.Integration[profileNo].LazyWritCrafter.compatibility = PASavedVars.Banking[profileNo].lazyWritCraftingCompatiblity
@@ -235,7 +235,7 @@ local function _applyPatch_2_4_2(savedVarsVersion, _, patchPAB, _, patchPAJ,  _,
     end
     if patchPAJ then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) migrate:      PAJunk.KeyBindings.showMarkUnmarkAsJunkKeybind
             PASavedVars.Junk[profileNo].KeyBindings.enableMarkUnmarkAsJunkKeybind = PASavedVars.Junk[profileNo].KeyBindings.showMarkUnmarkAsJunkKeybind
             -- 2) migrate:      PAJunk.KeyBindings.showDestroyItemKeybind
@@ -249,7 +249,7 @@ end
 local function _applyPatch_2_4_4(savedVarsVersion, _, _, _, patchPAJ, _, _)
     if patchPAJ then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 0) bug-fix:      PAJunk.Stolen
             if not PASavedVars.Junk[profileNo].Stolen.Treasure then PASavedVars.Junk[profileNo].Stolen.Treasure = {} end
 
@@ -281,7 +281,7 @@ end
 local function _applyPatch_2_4_6(savedVarsVersion, _, _, _, patchPAJ, _, _)
     if patchPAJ then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) migrate:      PASavedVars.Junk[profileNo].Stolen.Treasure.action
             PASavedVars.Junk[profileNo].Stolen.treasureAction = PASavedVars.Junk[profileNo].Stolen.Treasure.action
             PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure = (PASavedVars.Junk[profileNo].Stolen.Treasure.action == PAC.ITEM_ACTION.MARK_AS_JUNK)
@@ -314,7 +314,7 @@ end
 local function _applyPatch_2_4_9(savedVarsVersion, patchPAG, _, _, _, _, _)
     if patchPAG then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) get rid of    PAGeneral.welcome
             PASavedVars.General[profileNo].welcome = nil
         end
@@ -326,7 +326,7 @@ end
 local function _applyPatch_2_4_13(savedVarsVersion, _, _, _, _, patchPAL, _)
    if patchPAL then
        local PASavedVars = PA.SavedVars
-       for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+       for profileNo = 1, 8 do
            -- 1) patch      PALoot.ItemIcons.iconPositionGrid
            local iconPositionGrid = PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid
            if iconPositionGrid ~= PAC.ICON_POSITION.AUTO then
@@ -355,7 +355,7 @@ end
 local function _applyPatch_2_4_14(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
-        for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+        for profileNo = 1, 8 do
             -- 1) patch      PABanking.Custom.ItemIds.ruleEnabled
             local customItemIds = PASavedVars.Banking[profileNo].Custom.ItemIds
 
@@ -370,6 +370,31 @@ local function _applyPatch_2_4_14(savedVarsVersion, _, patchPAB, _, _, _, _)
         PAEM.FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
 --        _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
         _updateSavedVarsVersion(savedVarsVersion, false, patchPAB, false, false, false, false)
+    end
+end
+
+
+local function _applyPatch_2_4_18(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+    if patchPAG or patchPAB or patchPAI or patchPAJ or patchPAL or patchPAR then
+        local PASavedVars = PA.SavedVars
+        -- 1) initialize two new profiles with default values
+        local PAMenuDefaults = PA.MenuDefaults
+        for profileNo = 9, 10 do
+            if not istable(PASavedVars.General[profileNo]) then
+                if patchPAB then PASavedVars.Banking[profileNo] = PAMenuDefaults.PABanking end
+                if patchPAI then PASavedVars.Integration[profileNo] = PAMenuDefaults.PAIntegration end
+                if patchPAJ then PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk end
+                if patchPAL then PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot end
+                if patchPAR then PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair end
+                if patchPAG then
+                    PASavedVars.General[profileNo] = {
+                        name = PAHF.getDefaultProfileName(profileNo),
+                        welcome = true
+                    }
+                end
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
     end
 end
 
@@ -414,6 +439,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.14     December 19, 2019
     _applyPatch_2_4_14(_getIsPatchNeededInfo(020414))
+
+    -- Patch 2.4.18     ???
+    _applyPatch_2_4_18(_getIsPatchNeededInfo(020418))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
