@@ -6,6 +6,21 @@ PersonalAssistant, an Add-on for '[The Elder Scrolls Online](https://www.eldersc
 ## Download
 You can always download the latest version here: http://www.esoui.com/downloads/info381-PersonalAssistant.html
 
+***
+
+## Roadmap
+
+At the current time I do not have much time fo ESO, respectively my priorities lie elsewhere. Nonetheless, every now and then I find some time again to work on this addon.
+
+On a higher level, this is the rough roadmap for PersonalAssistant:
+
+| Release | Focus | Content                                                                                                     |
+|---------|------------|-------------------------------------------------------------------------------------------------------------|
+| 2.5.x   | PAGeneral  | - Refactoring profile management                                                                              |
+| 2.6.x   | PABanking  | - Advanced transfer rules<br>- Additional FCOIS support<br>- Manual transfer button                               |
+| 2.7.x   | PALoot     | - Track known recipes, traits and motifs across all characters<br>- Notify about group loots<br>- Auto-Laundering |
+| 2.8.x   | PAWorker   | - Auto-Deconstruct Items                                                                                      |                                                                       |
+ (subject to change)
 
 ***
 
