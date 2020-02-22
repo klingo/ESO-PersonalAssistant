@@ -156,13 +156,28 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
         local sellInformation = GetItemLinkSellInformation(itemLink)
         local isUnique = IsItemLinkUnique(itemLink)
         if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL or isUnique then
-            PAJ.debugln("NOT CanItemBeMarkedAsJunk isUnique="..tostring(isUnique).. " | sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
-            return false
+            -- does not make sense to mark item as junks since it cannot be sold or is unique
+            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
+                -- Item should be DESTROYED
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (1)")
+                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
+                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                local _, stackCount = GetItemInfo(bagId, slotIndex)
+                -- execute main action
+                DestroyItem(bagId, slotIndex)
+                -- inform player
+                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
+                return true -- marking/destroying junk was successful
+            end
+            PAJ.debugln("NOT CanItemBeMarkedAsJunk/IsWorthlessAndShouldBeDestroyed isUnique="..tostring(isUnique).. " | sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
+            return false -- was not marked as junk
         else
             -- It is considered safe to mark the item as junk (or to be destroyed?)
             if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
                 -- Item should be DESTROYED
-                PAJ.debugln("_isWorthlessAndShouldBeDestroyed")
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (2)")
                 local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
                 local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                 local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
@@ -175,7 +190,7 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
 
             else
                 -- Item should be marked as JUNK
-                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed")
+                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed (3)")
                 SetItemIsJunk(bagId, slotIndex, true)
                 PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
                 -- make sure an itemLink is present
@@ -639,7 +654,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
         local PAJunkSavedVars = PAJ.SavedVars
         if not ZO_CraftingUtils_IsCraftingWindowOpen() and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
             -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
-            if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
+--            if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
+            if PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
                 local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                 local itemType, specializedItemType = GetItemType(bagId, slotIndex)
