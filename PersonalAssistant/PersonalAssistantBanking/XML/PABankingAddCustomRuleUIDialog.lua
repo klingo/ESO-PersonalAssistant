@@ -18,44 +18,126 @@ local _initDone = false
 local _selectedBag, _selectedMathOperator, _selectedItemLink, _selectedAmount
 
 local function _updateDescription()
-    local bagName = PAHF.getBagName(_selectedBag)
     local descriptionLabelControl = window:GetNamedChild("DescriptionLabel")
+    local bagName = PAHF.getBagName(_selectedBag)
+
+    local function _getExactlyPreAndExplanationText()
+        if _selectedBag == BAG_BANK then
+            return table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE, bagName, _selectedAmount), "\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION)})
+        elseif _selectedBag == BAG_BACKPACK then
+            return table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE, bagName, _selectedAmount), "\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION)})
+        else
+           return ""
+        end
+    end
+
+    local function _getLessThanOrEqualPreAndExplanationText()
+        if _selectedBag == BAG_BANK then
+            return table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE, bagName, _selectedAmount), "\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION)})
+        elseif _selectedBag == BAG_BACKPACK then
+            return table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE, bagName, _selectedAmount), "\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION)})
+        else
+            return ""
+        end
+    end
+
+    local function _getGreaterThanOrEqualPreAndExplanationText()
+        if _selectedBag == BAG_BANK then
+            return table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE, bagName, _selectedAmount), "\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION)})
+        elseif _selectedBag == BAG_BACKPACK then
+            return table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE, bagName, _selectedAmount), "\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION)})
+        else
+            return ""
+        end
+    end
+
+    local function _getExactlyNothingText()
+        if _selectedBag == BAG_BANK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING, _selectedAmount, bagName)
+        elseif _selectedBag == BAG_BACKPACK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING, _selectedAmount, bagName)
+        else
+            return ""
+        end
+    end
+
+    local function _getExactlyDepositText()
+        if _selectedBag == BAG_BANK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT, 0, bagName, bagName, _selectedAmount)
+        elseif _selectedBag == BAG_BACKPACK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT, 0, bagName, bagName, _selectedAmount)
+        else
+            return ""
+        end
+    end
+
+    local function _getFromToDepositText(fromVal, toVal)
+        if _selectedBag == BAG_BANK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT, fromVal, toVal, bagName, bagName, _selectedAmount)
+        elseif _selectedBag == BAG_BACKPACK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT, fromVal, toVal, bagName, bagName, _selectedAmount)
+        else
+            return ""
+        end
+    end
+
+    local function _getFromToWithdrawText(fromVal, toVal)
+        if _selectedBag == BAG_BANK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW, fromVal, toVal, bagName, bagName, _selectedAmount)
+        elseif _selectedBag == BAG_BACKPACK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW, fromVal, toVal, bagName, bagName, _selectedAmount)
+        else
+            return ""
+        end
+    end
+
+    local function _getFromToNothingText(fromVal, toVal)
+        if _selectedBag == BAG_BANK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING, fromVal, toVal, bagName)
+        elseif _selectedBag == BAG_BACKPACK then
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING, fromVal, toVal, bagName)
+        else
+            return ""
+        end
+    end
+
 
     if _selectedMathOperator == OPERATOR_EQUALS then
-        local displayText = table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_PRE, bagName, _selectedAmount), "\n\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION), "\n"})
+        local displayText = table.concat({_getExactlyPreAndExplanationText(), "\n"})
         if _selectedAmount == 0 then
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_NOTHING, _selectedAmount, bagName), "\n"});
+            displayText = table.concat({displayText, _getExactlyNothingText(), "\n"});
         else
             if _selectedAmount == 1 then
-                displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_DEPOSIT, 0, bagName, bagName, _selectedAmount), "\n"});
+                displayText = table.concat({displayText, _getExactlyDepositText(), "\n"});
             else
-                displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_DEPOSIT, 0, _selectedAmount - 1, bagName, bagName, _selectedAmount), "\n"});
+                displayText = table.concat({displayText, _getFromToDepositText(0, _selectedAmount - 1), "\n"});
             end
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_NOTHING, _selectedAmount, bagName), "\n"});
+            displayText = table.concat({displayText, _getExactlyNothingText(), "\n"});
         end
-        displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_WITHDRAW, _selectedAmount + 1, MAXIMUM_AMOUNT, bagName, bagName, _selectedAmount)});
+        displayText = table.concat({displayText, _getFromToWithdrawText(_selectedAmount + 1, MAXIMUM_AMOUNT)});
         descriptionLabelControl:SetText(displayText)
     elseif _selectedMathOperator == OPERATOR_LESSTHANOREQUAL then
-        local displayText = table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_LESSTHANOREQUAL_PRE, bagName, _selectedAmount), "\n\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION), "\n"})
+        local displayText = table.concat({_getLessThanOrEqualPreAndExplanationText(), "\n"})
         if _selectedAmount == 0 then
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_NOTHING, _selectedAmount, bagName), "\n"});
+            displayText = table.concat({displayText, _getExactlyNothingText(), "\n"});
         else
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, 0, _selectedAmount, bagName), "\n"});
+            displayText = table.concat({displayText, _getFromToNothingText(0, _selectedAmount), "\n"});
         end
-        displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_DEPOSIT, _selectedAmount + 1, MAXIMUM_AMOUNT, bagName, bagName, _selectedAmount)});
+        displayText = table.concat({displayText, _getFromToDepositText(_selectedAmount + 1, MAXIMUM_AMOUNT)});
         descriptionLabelControl:SetText(displayText)
     elseif _selectedMathOperator == OPERATOR_GREATERTHANOREQUAL then
-        local displayText = table.concat({PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_GREATERTHANOREQUAL_PRE, bagName, _selectedAmount), "\n\n", GetString(SI_PA_DIALOG_BANKING_EXPLANATION), "\n"})
+        local displayText = table.concat({_getGreaterThanOrEqualPreAndExplanationText(), "\n"})
         if _selectedAmount == 0 then
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, 0, MAXIMUM_AMOUNT, bagName)});
+            displayText = table.concat({displayText, _getFromToNothingText(0, MAXIMUM_AMOUNT)});
         elseif _selectedAmount == 1 then
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_EXACTLY_DEPOSIT, 0, bagName, bagName, _selectedAmount), "\n"});
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, _selectedAmount, MAXIMUM_AMOUNT, bagName)});
+            displayText = table.concat({displayText, _getExactlyDepositText(), "\n"});
+            displayText = table.concat({displayText, _getFromToNothingText(_selectedAmount, MAXIMUM_AMOUNT)});
         else
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_DEPOSIT, 0, _selectedAmount - 1, bagName, bagName, _selectedAmount), "\n"});
-            displayText = table.concat({displayText, PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_FROM_TO_NOTHING, _selectedAmount, MAXIMUM_AMOUNT, bagName)});
+            displayText = table.concat({displayText, _getFromToDepositText(0, _selectedAmount - 1), "\n"});
+            displayText = table.concat({displayText, _getFromToNothingText(_selectedAmount, MAXIMUM_AMOUNT)});
         end
-        descriptionLabelControl:SetText(displayText)    end
+        descriptionLabelControl:SetText(displayText)
+    end
 end
 
 
