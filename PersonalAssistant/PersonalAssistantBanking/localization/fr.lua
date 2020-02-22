@@ -75,7 +75,7 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Ceci ne peut pas être 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Règles de mise en banque", 1)
 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Emplacement", 1)
-SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Opérateur", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_RULE, "Règle", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Quantité", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Objet ciblé par la règle", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Gérer", 1)
