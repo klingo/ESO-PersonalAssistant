@@ -348,9 +348,9 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
     return true
 end
 
-local function _isSellToMerchantItemNotQuestExcluded(specializedItemType)
+local function _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink)
     local PAJunkSavedVars = PAJ.SavedVars
-    if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH and PAJunkSavedVars.QuestProtection.NewLifeFestival.excludeRareFish then
+    if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH and PAJunkSavedVars.QuestProtection.NewLifeFestival.excludeRareFish and not IsItemLinkBound(itemLink) then
         return false
     end
     -- no match so far means that the SellToMerchant item is NOT excluded
@@ -751,7 +751,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         end
                     elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
                         if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
-                            if _isSellToMerchantItemNotQuestExcluded(specializedItemType) then
+                            if _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink) then
                                 _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
                             else
                                 PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
