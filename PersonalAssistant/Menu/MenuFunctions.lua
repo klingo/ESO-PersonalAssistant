@@ -162,19 +162,24 @@ local function createPAGeneralNewProfile()
     PASavedVars.General[newProfileNo].name = newProfileName
 
     if PA.Banking then
-        PASavedVars.Banking[newProfileNo] = PAMenuDefaults.PABanking
+        PASavedVars.Banking[newProfileNo] = {}
+        ZO_DeepTableCopy(PAMenuDefaults.PABanking, PASavedVars.Banking[newProfileNo])
     end
     if PA.Integration then
-        PASavedVars.Integration[newProfileNo] = PAMenuDefaults.PAIntegration
+        PASavedVars.Integration[newProfileNo] = {}
+        ZO_DeepTableCopy(PAMenuDefaults.PAIntegration, PASavedVars.Integration[newProfileNo])
     end
     if PA.Junk then
-        PASavedVars.Junk[newProfileNo] = PAMenuDefaults.PAJunk
+        PASavedVars.Junk[newProfileNo] = {}
+        ZO_DeepTableCopy(PAMenuDefaults.PAJunk, PASavedVars.Junk[newProfileNo])
     end
     if PA.Loot then
-        PASavedVars.Loot[newProfileNo] = PAMenuDefaults.PALoot
+        PASavedVars.Loot[newProfileNo] = {}
+        ZO_DeepTableCopy(PAMenuDefaults.PALoot, PASavedVars.Loot[newProfileNo])
     end
     if PA.Repair then
-        PASavedVars.Repair[newProfileNo] = PAMenuDefaults.PARepair
+        PASavedVars.Repair[newProfileNo] = {}
+        ZO_DeepTableCopy(PAMenuDefaults.PARepair, PASavedVars.Repair[newProfileNo])
     end
 
     -- inform player
