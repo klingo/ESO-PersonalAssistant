@@ -53,7 +53,7 @@ PersonalAssistant.Constants = {
 
     GENERAL = {
         MAX_PROFILES = 10,
-        NO_PROFILE_SELECTED_ID = 11
+        NO_PROFILE_SELECTED_ID = 0
     },
 
     COLOR = {

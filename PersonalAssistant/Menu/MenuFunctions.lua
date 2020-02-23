@@ -12,10 +12,14 @@ local PAEM = PA.EventManager
 ---------------------------------
 local function getPAGeneralActiveProfile()
     local activeProfile = PA.SavedVars.Profile.activeProfile
-    if activeProfile == nil then
-        return PAC.GENERAL.NO_PROFILE_SELECTED_ID
-    else
+    if (istable(PA.SavedVars.General[activeProfile])) then
+        -- activeProfile is valid, return it
         return activeProfile
+    else
+        -- activeProfile is NOT valid, user must select a new one
+        -- TODO: inform user
+        d("activeProfile is NOT valid, user must select a new one")
+        return PAC.GENERAL.NO_PROFILE_SELECTED_ID
     end
 end
 
@@ -23,13 +27,13 @@ local function setPAGeneralActiveProfile(profileNo)
     if profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         local PASavedVars = PA.SavedVars
         local PAMenuHelper = PA.MenuHelper
-        -- get the previously active prefoile first
+        -- get the previously active profile first
         local prevProfile = PASavedVars.Profile.activeProfile
         -- then save the new one
         PASavedVars.Profile.activeProfile = profileNo
         PA.activeProfile = profileNo
         -- if the previous profile was the "no profile selected" one, refresh the dropdown values
-        if prevProfile == nil then
+        if prevProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
             PAMenuHelper.reloadProfileList()
         end
         -- refresh the profiles to be copy/deleted
@@ -45,7 +49,7 @@ local function setPAGeneralActiveProfile(profileNo)
 end
 
 local function isDisabledPAGeneralNoProfileSelected()
-    return (PA.activeProfile == nil)
+    return (PA.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID)
 end
 
 local function isDisabledPAGeneralNoCopyProfileSelected()

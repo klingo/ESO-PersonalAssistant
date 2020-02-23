@@ -81,7 +81,7 @@ local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
-        disabled = PAGMenuFunctions.hasOnlyOneProfile,
+        disabled = function() return PAGMenuFunctions.hasOnlyOneProfile() or PAGMenuFunctions.isNoProfileSelected() end,
     })
 
     PAGeneralOptionsTable:insert({
@@ -93,11 +93,10 @@ local function createPAGeneralMenu()
         width = "half",
         getFunc = function() return PA.selectedCopyProfile end,
         setFunc = function(value) PA.selectedCopyProfile = value end,
-        disabled = PAGMenuFunctions.hasOnlyOneProfile,
+        disabled = function() return PAGMenuFunctions.hasOnlyOneProfile() or PAGMenuFunctions.isNoProfileSelected() end,
         reference = "PERSONALASSISTANT_PROFILEDROPDOWN_COPY",
     })
 
-    -- TODO: copy button inactive when nothing selected
     PAGeneralOptionsTable:insert({
         type = "button",
         name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),

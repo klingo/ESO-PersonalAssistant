@@ -67,6 +67,13 @@ local function _initDefaultProfile(savedVars)
     end
 end
 
+local function _fixActiveProfile()
+    local activeProfile = PA.MenuFunctions.PAGeneral.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        PA.SavedVars.Profile.activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID
+    end
+end
+
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= PA.AddonName then
@@ -88,8 +95,11 @@ local function initAddon(_, addOnName)
     -- init a default profile if none exist
     _initDefaultProfile(PASavedVars.General)
 
+    -- fix the active profile in case an invalid one is selected (because it was delelted from another character)
+    _fixActiveProfile()
+
     -- get the active Profile and the debug setting
-    PA.activeProfile = PASavedVars.Profile.activeProfile
+    PA.activeProfile = PA.MenuFunctions.PAGeneral.getActiveProfile()
     PA.debug = PASavedVars.Profile.debug
 
     -- create the options with LAM-2
@@ -119,7 +129,7 @@ local function introduction()
         PA.DebugWindow.showDebugOutputWindow()
     end
 
-    if PA.activeProfile == nil then
+    if PA.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         PA.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
         -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded

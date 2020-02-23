@@ -14,8 +14,8 @@ local function getProfileList()
         end
     end
 
-    if PASavedVars.Profile.activeProfile == nil then
-        profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
+    if PASavedVars.Profile.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        table.insert(profiles, GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT))
     end
 
     return profiles
@@ -31,8 +31,8 @@ local function getProfileListValues()
         end
     end
 
-    if PASavedVars.Profile.activeProfile == nil then
-        profileValues[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = PAC.GENERAL.NO_PROFILE_SELECTED_ID
+    if PASavedVars.Profile.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        table.insert(profileValues, PAC.GENERAL.NO_PROFILE_SELECTED_ID)
     end
 
     return profileValues
