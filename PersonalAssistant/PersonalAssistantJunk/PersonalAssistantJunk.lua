@@ -28,12 +28,22 @@ end
 
 -- init default values
 local function initDefaults()
-    local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PAJunk
+    -- GLOBAL default values for PAJunk
     Junk_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        -- get default values from PAMenuDefaults
-        Junk_Defaults[profileNo] = PAMenuDefaults.PAJunk
+end
+
+-- sync the PAJunk profiles with the ones from PAGeneral
+local function syncProfiles()
+    local PASavedVars = PA.SavedVars
+    for profileNo = 1, PASavedVars.General.profileCounter do
+        if istable(PASavedVars.General[profileNo]) and not istable(PASavedVars.Junk[profileNo]) then
+            -- PAGeneral has a profile, but PAJunk does not - create it!
+            PASavedVars.Junk[profileNo] = {}
+            ZO_DeepTableCopy(PA.MenuDefaults.PAJunk, PASavedVars.Junk[profileNo])
+        elseif istable(PASavedVars.Junk[profileNo]) and not istable(PASavedVars.General[profileNo]) then
+            -- PAJunk has a profile, but PAGeneral does not - delete it!
+            PASavedVars.Junk[profileNo] = nil
+        end
     end
 end
 
@@ -51,6 +61,9 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Junk_Defaults)
+
+    -- sync profiles between PAGeneral and PAJunk
+    syncProfiles()
 
     -- create the options with LAM-2
     PA.Junk.createOptions()
