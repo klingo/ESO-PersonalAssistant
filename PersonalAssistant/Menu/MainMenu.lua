@@ -87,7 +87,6 @@ local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
-        tooltip = GetString(SI_PA_MENU_PROFILE_COPY_FROM_T),
         choices = PAMenuHelper.getInactiveProfileList(),
         choicesValues = PAMenuHelper.getInactiveProfileListValues(),
         width = "half",
@@ -121,7 +120,6 @@ local function createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_PROFILE_DELETE),
-        tooltip = GetString(SI_PA_MENU_PROFILE_DELETE_T),
         choices = PAMenuHelper.getInactiveProfileList(),
         choicesValues = PAMenuHelper.getInactiveProfileListValues(),
         width = "half",

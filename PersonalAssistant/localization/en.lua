@@ -24,20 +24,21 @@ local PAStrings = {
     SI_PA_MENU_PROFILE_ACTIVE_T = "Select the active profile for PersonalAssistant. It will automatically load all settings stored under that profile and changes are stored in the same place.",
     SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Rename active profile",
 
+    -- Create Profiles --
     SI_PA_MENU_PROFILE_CREATE_NEW = "Create new profile",
     SI_PA_MENU_PROFILE_CREATE_NEW_DESC = table.concat({"Note: You can have a maximum of ", PAC.GENERAL.MAX_PROFILES, " profiles."}),
 
+    -- Copy Profiles --
     SI_PA_MENU_PROFILE_COPY_FROM_DESC = "Copy the settings from one existing profile into the currently active profile.",
-    SI_PA_MENU_PROFILE_COPY_FROM = "Copy From profile",
-    SI_PA_MENU_PROFILE_COPY_FROM_T = "tbd",
-    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM = "Confirm Copy",
+    SI_PA_MENU_PROFILE_COPY_FROM = "Copy from profile",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM = "Confirm copy",
     SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W = "This will replace the settings of the active profile with the settings from the selected profile. Are you sure you want to do that? \n\nNote: Only settings from enabled PersonalAssistant modules will be copied",
 
+    -- Delete Profiles --
     SI_PA_MENU_PROFILE_DELETE_DESC = "Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file.",
     SI_PA_MENU_PROFILE_DELETE = "Delete a profile",
-    SI_PA_MENU_PROFILE_DELETE_T = "tbd",
-    SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirm Deletion",
-    SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "This will delete the selected profile. Are you sure you want to do that?",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirm deletion",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "This will delete the selected profile for all characters. Are you sure you want to do that?",
 
     -- General --
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",

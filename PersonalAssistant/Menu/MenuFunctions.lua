@@ -17,8 +17,6 @@ local function getPAGeneralActiveProfile()
         return activeProfile
     else
         -- activeProfile is NOT valid, user must select a new one
-        -- TODO: inform user
-        d("activeProfile is NOT valid, user must select a new one")
         return PAC.GENERAL.NO_PROFILE_SELECTED_ID
     end
 end
