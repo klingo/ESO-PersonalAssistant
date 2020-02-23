@@ -46,9 +46,6 @@ local function _initDefaults()
         savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR,
         profileCounter = 1
     }
-    General_Defaults[1] = PA.MenuDefaults.PAGeneral
-    General_Defaults[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
-
     -- LOCAL default values for PAProfile
     Profile_Defaults = {
         activeProfile = 1,
@@ -62,6 +59,13 @@ local function _initPlayerNameAndAlliance()
     PA.playerName = GetUnitName("player")
 end
 
+-- create a default profile if none exist yet
+local function _initDefaultProfile(savedVars)
+    if savedVars.profileCounter <= 1 then
+        savedVars[1] = PA.MenuDefaults.PAGeneral
+        savedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
+    end
+end
 
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
@@ -80,6 +84,9 @@ local function initAddon(_, addOnName)
     local PASavedVars = PA.SavedVars
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, Profile_Defaults)
+
+    -- init a default profile if none exist
+    _initDefaultProfile(PASavedVars.General)
 
     -- get the active Profile and the debug setting
     PA.activeProfile = PASavedVars.Profile.activeProfile
