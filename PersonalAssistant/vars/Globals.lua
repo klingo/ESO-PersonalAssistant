@@ -62,6 +62,7 @@ PersonalAssistant.Constants = {
         ORANGE = ZO_ColorDef:New("FFA500"),
         ORANGE_RED = ZO_ColorDef:New("FF7400"),
         RED = ZO_ColorDef:New("FF0000"),
+        WHITE = ZO_ColorDef:New("FFFFFF"),
         YELLOW = ZO_ColorDef:New("FFD700"),
         CURRENCIES = {
             [CURT_MONEY] = ZO_ColorDef:New(GetCurrencyKeyboardColor(CURT_MONEY)),

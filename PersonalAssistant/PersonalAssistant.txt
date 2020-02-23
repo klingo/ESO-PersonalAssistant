@@ -38,8 +38,8 @@ Utilities/XML/RulesWindow.lua
 
 # Settings
 Menu/MenuDefaults.lua
-Menu/MenuFunctions.lua
 Menu/MenuHelper.lua
+Menu/MenuFunctions.lua
 Menu/MenuChoices.lua
 Menu/MainMenu.lua
 Menu/ItemContextMenu.lua

@@ -60,6 +60,89 @@ local function createPAGeneralMenu()
     })
 
     PAGeneralOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_CREATE_NEW),
+        width = "half",
+        func = PAGMenuFunctions.createNewProfile,
+        disabled = PAGMenuFunctions.hasMaxProfileCountReached
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
+        disabled = function() return not PAGMenuFunctions.hasMaxProfileCountReached() end
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
+        disabled = PAGMenuFunctions.hasOnlyOneProfile,
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
+        tooltip = GetString(SI_PA_MENU_PROFILE_COPY_FROM_T),
+        choices = PAMenuHelper.getInactiveProfileList(),
+        choicesValues = PAMenuHelper.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.selectedCopyProfile end,
+        setFunc = function(value) PA.selectedCopyProfile = value end,
+        disabled = PAGMenuFunctions.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_PROFILEDROPDOWN_COPY",
+    })
+
+    -- TODO: copy button inactive when nothing selected
+    PAGeneralOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),
+        width = "half",
+        func = PAGMenuFunctions.copySelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W),
+        disabled = PAGMenuFunctions.isNoCopyProfileSelected,
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_DELETE_DESC),
+        disabled = PAGMenuFunctions.hasOnlyOneProfile,
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_DELETE_T),
+        choices = PAMenuHelper.getInactiveProfileList(),
+        choicesValues = PAMenuHelper.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.selectedDeleteProfile end,
+        setFunc = function(value) PA.selectedDeleteProfile = value end,
+        disabled = PAGMenuFunctions.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_PROFILEDROPDOWN_DELETE",
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM),
+        width = "half",
+        func = PAGMenuFunctions.deleteSelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W),
+        disabled = PAGMenuFunctions.isNoDeleteProfileSelected,
+    })
+
+    PAGeneralOptionsTable:insert({
         type = "header",
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })

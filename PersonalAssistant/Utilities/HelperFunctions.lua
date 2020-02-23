@@ -291,11 +291,7 @@ end
 
 -- returns the default profile name of the provided profile number
 local function getDefaultProfileName(profileNo)
-    if profileNo <= PAC.GENERAL.MAX_PROFILES then
-        return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
-    else
-        return GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
-    end
+    return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
 end
 
 -- Source: https://wiki.esoui.com/IsAddonRunning

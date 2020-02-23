@@ -19,9 +19,25 @@ local PAStrings = {
     -- Profiles --
     SI_PA_MENU_PROFILE_HEADER = "Profiles",
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Please select Profile>",
+    SI_PA_MENU_PROFILE_DEFAULT = "Default profile",
     SI_PA_MENU_PROFILE_ACTIVE = "Active profile",
     SI_PA_MENU_PROFILE_ACTIVE_T = "Select the active profile for PersonalAssistant. It will automatically load all settings stored under that profile and changes are stored in the same place.",
     SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Rename active profile",
+
+    SI_PA_MENU_PROFILE_CREATE_NEW = "Create new profile",
+    SI_PA_MENU_PROFILE_CREATE_NEW_DESC = table.concat({"Note: You can have a maximum of ", PAC.GENERAL.MAX_PROFILES, " profiles."}),
+
+    SI_PA_MENU_PROFILE_COPY_FROM_DESC = "Copy the settings from one existing profile into the currently active profile.",
+    SI_PA_MENU_PROFILE_COPY_FROM = "Copy From profile",
+    SI_PA_MENU_PROFILE_COPY_FROM_T = "tbd",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM = "Confirm Copy",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W = "This will replace the settings of the active profile with the settings from the selected profile. Are you sure you want to do that? \n\nNote: Only settings from enabled PersonalAssistant modules will be copied",
+
+    SI_PA_MENU_PROFILE_DELETE_DESC = "Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file.",
+    SI_PA_MENU_PROFILE_DELETE = "Delete a profile",
+    SI_PA_MENU_PROFILE_DELETE_T = "tbd",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirm Deletion",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "This will delete the selected profile. Are you sure you want to do that?",
 
     -- General --
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
@@ -50,7 +66,10 @@ local PAStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral --
-    SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE = table.concat({PAC.COLORS.DEFAULT, " active profile: ", PAC.COLORS.ORANGE_RED, "%s"}),
+    SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE = table.concat({PAC.COLORS.DEFAULT, " active profile: ", PAC.COLORS.WHITE, "%s"}),
+    SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED = table.concat({" new profile ", PAC.COLOR.WHITE:Colorize("%s"), " created and activated!"}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" settings of profile ", PAC.COLOR.WHITE:Colorize("%s"), " have been ", PAC.COLOR.ORANGE_RED:Colorize("copied"), " to active profile ", PAC.COLOR.WHITE:Colorize("%s")}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" selected profile ", PAC.COLOR.WHITE:Colorize("%s"), " has been ", PAC.COLOR.ORANGE_RED:Colorize("deleted!")}),
 
 
     -- =================================================================================================================
