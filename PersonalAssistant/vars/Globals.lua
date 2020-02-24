@@ -47,13 +47,13 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020417, -- update this every release!
+            MINOR = 020418, -- update this every release!
         },
     },
 
     GENERAL = {
-        MAX_PROFILES = 8,
-        NO_PROFILE_SELECTED_ID = 9
+        MAX_PROFILES = 10,
+        NO_PROFILE_SELECTED_ID = 11
     },
 
     COLOR = {

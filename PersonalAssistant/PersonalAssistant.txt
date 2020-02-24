@@ -8,9 +8,9 @@
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {BUILD_NUMBER}
 ## Author: Klingo
-## APIVersion: 100029
+## APIVersion: 100030
 ## SavedVariables: PersonalAssistant_SavedVariables
-## DependsOn: LibAddonMenu-2.0>=29 LibMainMenu-2.0>=430 LibCustomMenu>=680
+## DependsOn: LibAddonMenu-2.0>=30 LibMainMenu-2.0>=432 LibCustomMenu>=682
 
 # Logger
 Utilities/Logger.lua
