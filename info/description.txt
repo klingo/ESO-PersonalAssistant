@@ -9,7 +9,7 @@ After a two year long break from ESO, I finally managed to complete the major re
 
 
 [SIZE=3][COLOR=Yellow]PA [/COLOR][COLOR=White]General[/COLOR][/SIZE][LIST]
-[*]Up to eight different account-wide profiles that can be renamed
+[*]Up to ten different account-wide profiles that can be renamed
 [*]Shortcut to travel to your home (if available)[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA B[/COLOR][COLOR=White]anking[/COLOR][/SIZE][LIST]
