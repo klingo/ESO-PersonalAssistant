@@ -92,7 +92,7 @@ SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING, "> %d dans votre %s => 
 SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT, "> %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
 SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING, "> %d - %d dans votre %s => rien n'arrive.", 1)
 SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT, "> %d - %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
-SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW, "> %d - %d dans votre %s => des %s sont retirés du %s jusqu'à ce qu'il en reste %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW, "> %d - %d dans votre %s => des objets sont retirés du %s jusqu'à ce qu'il en reste %d.", 1)
 
 SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE, "Le %s doit contenir exactement %d pièces de l'objet", 1)
 SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE, "Le %s doit avoir au maximum %d pièces de l'objet", 1)
@@ -101,7 +101,7 @@ SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING, "> %d dans votre %s
 SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT, "> %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
 SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING, "> %d - %d dans votre %s => rien n'arrive.", 1)
 SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT, "> %d - %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
-SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW, "> %d - %d dans votre %s => des %s sont retirés du %s jusqu'à ce qu'il en reste %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW, "> %d - %d dans votre %s => des objets sont retirés du %s jusqu'à ce qu'il en reste %d.", 1)
 
 SafeAddString(SI_PA_DIALOG_BANKING_EXPLANATION, "Cela signifie, que si vous avez . . .", 1)
 
