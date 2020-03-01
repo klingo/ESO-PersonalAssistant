@@ -16,11 +16,26 @@ SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant est un ensemble
 -- Profiles --
 SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
 SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Sélectionner un profil>", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DEFAULT, "Profil par défaut", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Profil actif", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Selectionner le profil actif pour PersonalAssistant. Il chargera automatiquement tous les paramètres stockés sous ce profil, et enregistrera les changements au même endroit.", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Renommer le profil actif", 1)
 
--- Integrations --
+-- Create Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW, "Créer un nouveau profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC, table.concat({"Note : Vous pouvez avoir un maximum de ", PAC.GENERAL.MAX_PROFILES, " profils."}), 1)
+
+-- Copy Profiles --
+--SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_DESC, "Kopiere die Einstellungen von einem bestehenden Profil in das derzeit aktive Profil.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM, "Copier depuis profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM, "Confirmer la copie", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W, "Cela remplacera les paramètres du profil actif par ceux du profil sélectionné. Êtes-vous sûr de vouloir continuer ? \n\nNote : Seulement les paramètres des modules actifs de PersonalAssitant seront copiés.", 1)
+
+-- Delete Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_DESC, "Supprimer les profils existants et inutilisés de la base de données pour sauver de l'espace, et nettoyer le fichier SavedVariables.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE, "Supprimer un profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM, "Confirmer la suppression", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W, "Cela supprimera le profil sélectionné pour tous les personnages. Êtes-vous sûr de vouloir continuer ?", 1)
 
 -- General --
 SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 1)
@@ -50,6 +65,9 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Pas
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
 SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " profil actif: ", PAC.COLORS.ORANGE_RED, "%s"}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" nouveau profil ", PAC.COLOR.WHITE:Colorize("%s"), " créé et activé !"}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("copié"), " vers le profil ", PAC.COLOR.WHITE:Colorize("%s")}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("supprimé !")}), 1)
 
 
 -- =================================================================================================================
