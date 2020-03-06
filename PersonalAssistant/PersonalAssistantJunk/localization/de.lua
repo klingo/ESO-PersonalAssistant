@@ -8,6 +8,7 @@ SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk kann Gegenstände als Trödel
 -- Standard Items --
 SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Standard Gegenstände", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Aktiviere das Markieren als Trödel", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T, "Betrifft nur 'Standard Gegenstände'. Benutzerdefinierte Regeln zum Markieren als Trödel sind davon nicht betroffen und müssen individuell deaktiviert werden wenn diese nicht mehr ausgeführt werden sollen.", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Automatisch Gegenstände vom Typ [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] als Trödel markieren?"}), 1)
