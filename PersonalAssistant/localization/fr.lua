@@ -26,7 +26,7 @@ SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW, "Créer un nouveau profil", 1)
 SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC, table.concat({"Note : Vous pouvez avoir un maximum de ", PAC.GENERAL.MAX_PROFILES, " profils."}), 1)
 
 -- Copy Profiles --
---SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_DESC, "Kopiere die Einstellungen von einem bestehenden Profil in das derzeit aktive Profil.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_DESC, "Copier les paramètres depuis un profil existant vers le profil courant.", 1)
 SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM, "Copier depuis profil", 1)
 SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM, "Confirmer la copie", 1)
 SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W, "Cela remplacera les paramètres du profil actif par ceux du profil sélectionné. Êtes-vous sûr de vouloir continuer ? \n\nNote : Seulement les paramètres des modules actifs de PersonalAssitant seront copiés.", 1)
