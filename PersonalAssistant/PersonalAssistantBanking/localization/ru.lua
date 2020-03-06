@@ -79,7 +79,7 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Не может быт�
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Банковские правила", 1)
 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Расположение", 1)
-SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Оператор", 1)
+--SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_RULE, "", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Количество", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Предмет", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Действия", 1)

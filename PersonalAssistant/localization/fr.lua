@@ -133,6 +133,15 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANQUE supérieur à (>)", 1) -- no
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANQUE supérieur ou égal à (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Text Operators --
+SafeAddString(SI_PA_REL_TEXT_OPERATOR0, "-", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR1, "a exactement", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR2, "a moins que", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR3, "a au plus", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR4, "a plus que", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR5, "a au moins", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Tout déplacer", 1)
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles existantes", 1)

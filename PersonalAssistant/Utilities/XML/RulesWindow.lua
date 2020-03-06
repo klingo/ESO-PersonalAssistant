@@ -30,7 +30,7 @@ local function _getBagNameAndOperatorTextFromOperatorId(operatorId)
         bagName = PAHF.getBagName(BAG_BANK)
         operator = operatorId - 5
     end
-    local operatorText = GetString("SI_PA_REL_OPERATOR", operator)
+    local operatorText = GetString("SI_PA_REL_TEXT_OPERATOR", operator)
     return bagName, operatorText
 end
 
@@ -407,7 +407,7 @@ function PABankingRulesList:InitHeaders()
     local headers = BankingRulesTabControl:GetNamedChild("Headers")
     ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), "itemName", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), "bagName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_RULE), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), "bagAmount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
 end
