@@ -151,6 +151,15 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANK grösser als (>)", 1) -- not u
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANK grösser oder gleich als (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Text Operators --
+SafeAddString(SI_PA_REL_TEXT_OPERATOR0, "-", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR1, "hat genau", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR2, "hat weniger als", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR3, "hat höchstens", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR4, "hat mehr als", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR5, "hat mindestens", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Verschiebe alles", 1)
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)

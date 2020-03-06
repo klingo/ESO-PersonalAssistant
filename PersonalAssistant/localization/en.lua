@@ -155,6 +155,15 @@ local PAStrings = {
     SI_PA_REL_BANK_GREATERTHANOREQUAL_T = "BANK greater than or equal to (>=)",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- Text Operators --
+    SI_PA_REL_TEXT_OPERATOR0 = "-",
+    SI_PA_REL_TEXT_OPERATOR1 = "has exactly",
+    SI_PA_REL_TEXT_OPERATOR2 = "has less than", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR3 = "hast at most",
+    SI_PA_REL_TEXT_OPERATOR4 = "has more than", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR5 = "hast at least",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Stacking types --
     SI_PA_ST_MOVE_FULL = "Move everything", -- 0: Full deposit
     SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Only fill up existing stacks", -- 1: Fill existing stacks

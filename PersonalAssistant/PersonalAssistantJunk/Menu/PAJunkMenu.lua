@@ -57,6 +57,7 @@ local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
         type = "checkbox",
         name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE)),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T),
         getFunc = PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting,
         setFunc = PAJMenuFunctions.setAutoMarkAsJunkEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
