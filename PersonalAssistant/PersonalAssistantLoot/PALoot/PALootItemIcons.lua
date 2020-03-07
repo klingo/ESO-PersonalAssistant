@@ -256,8 +256,10 @@ end
 
 -- this function needs to be initialized everytime the TradeHouse is opened
 local function initHooksOnTradeHouse()
-    local isGamepadModeActive = GetSetting_Bool(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_GAMEPAD_PREFERRED)
-    if not isGamepadModeActive then
+    local gamepadModeSetting = GetSetting(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_INPUT_PREFERRED_MODE)
+    local isAlwaysKeyboardMode = (gamepadModeSetting == tostring(INPUT_PREFERRED_MODE_ALWAYS_KEYBOARD))
+    PAHF.debugln("initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
+    if isAlwaysKeyboardMode then
         ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
             local control = ...
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
