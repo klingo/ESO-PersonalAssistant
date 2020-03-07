@@ -3,6 +3,44 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
+-- =================================================================================================================
+-- == ITEM IDENTIFIERS == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- All credits go to sirinsidiator for below ItemIdentifier code from AGS!
+
+local _hasItemTypeDifferentQualities = {
+    [ITEMTYPE_GLYPH_ARMOR] = true,
+    [ITEMTYPE_GLYPH_JEWELRY] = true,
+    [ITEMTYPE_GLYPH_WEAPON] = true,
+    [ITEMTYPE_DRINK] = true,
+    [ITEMTYPE_FOOD] = true,
+}
+
+-- itemId is basically what tells us that two items are the same thing,
+-- but some types need additional data to determine if they are of the same strength (and value).
+local function getPAItemLinkIdentifier(itemLink)
+    local itemType = GetItemLinkItemType(itemLink)
+    local data = {zo_strsplit(":", itemLink:match("|H(.-)|h.-|h"))}
+    local itemId = GetItemLinkItemId(itemLink)
+    local level = GetItemLinkRequiredLevel(itemLink)
+    local cp = GetItemLinkRequiredChampionPoints(itemLink)
+    if(itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR) then
+        local trait = GetItemLinkTraitInfo(itemLink)
+        return string.format("%s,%s,%d,%d,%d", itemId, data[4], trait, level, cp)
+    elseif(itemType == ITEMTYPE_POISON or itemType == ITEMTYPE_POTION) then
+        return string.format("%s,%d,%d,%s", itemId, level, cp, data[23])
+    elseif(_hasItemTypeDifferentQualities[itemType]) then
+        return string.format("%s,%s", itemId, data[4])
+    else
+        return tostring(itemId)
+    end
+end
+
+local function getPAItemIdentifier(bagId, slotIndex)
+    local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+    return getPAItemLinkIdentifier(itemLink)
+end
+
 
 -- =================================================================================================================
 -- == COMPARATORS == --
@@ -102,6 +140,18 @@ local function getItemIdComparator(itemIdList, excludeJunk)
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for itemId, _ in pairs(itemIdList) do
             if itemId == GetItemId(itemData.bagId, itemData.slotIndex) then return true end
+        end
+        return false
+    end
+end
+
+local function getPAItemIdComparator(paItemIdList, excludeJunk)
+    return function(itemData)
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        for paItemId, _ in pairs(paItemIdList) do
+            if paItemId == getPAItemIdentifier(itemData.bagId, itemData.slotIndex) then return true end
         end
         return false
     end
@@ -344,9 +394,12 @@ end
 
 -- Export
 PA.HelperFunctions = {
+    getPAItemLinkIdentifier = getPAItemLinkIdentifier,
+    getPAItemIdentifier = getPAItemIdentifier,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
     getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,
+    getPAItemIdComparator = getPAItemIdComparator,
     getStolenJunkComparator = getStolenJunkComparator,
     round = round,
     roundDown = roundDown,

@@ -398,6 +398,35 @@ local function _applyPatch_2_4_18(savedVarsVersion, patchPAG, patchPAB, patchPAI
     end
 end
 
+
+local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _, _)
+    if patchPAB or patchPAJ then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, 8 do
+            -- 1) migrate   PABanking.Custom.ItemIds
+            local oldItemIdConfigs = PASavedVars.Banking[profileNo].Custom.ItemIds
+            for itemId, moveConfig in pairs(oldItemIdConfigs) do
+                if istable(moveConfig) then
+                    local paItemId = PAHF.getPAItemLinkIdentifier(moveConfig.itemLink)
+                    PASavedVars.Banking[profileNo].Custom.PAItemIds[paItemId] = moveConfig
+                end
+            end
+            PASavedVars.Banking[profileNo].Custom.ItemIds = nil
+
+            -- 2) migrate   PAJunk.Custom.ItemIds
+            local oldItemIdConfigs = PASavedVars.Junk[profileNo].Custom.ItemIds
+            for itemId, moveConfig in pairs(oldItemIdConfigs) do
+                if istable(moveConfig) then
+                    local paItemId = PAHF.getPAItemLinkIdentifier(moveConfig.itemLink)
+                    PASavedVars.Junk[profileNo].Custom.PAItemIds[paItemId] = moveConfig
+                end
+            end
+            PASavedVars.Junk[profileNo].Custom.ItemIds = nil
+        end
+        _updateSavedVarsVersion(savedVarsVersion, _, patchPAB, _, patchPAJ, _, _)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -442,6 +471,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.18     February 24, 2020
     _applyPatch_2_4_18(_getIsPatchNeededInfo(020418))
+
+    -- Patch 2.4.19     ???
+    _applyPatch_2_4_19(_getIsPatchNeededInfo(020419))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

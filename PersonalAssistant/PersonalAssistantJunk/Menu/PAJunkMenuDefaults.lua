@@ -61,7 +61,7 @@ local PAJunkMenuDefaults = {
     },
     Custom = {
         customItemsEnabled = true,
-        ItemIds = {
+        PAItemIds = {
         }
     },
     AutoDestroy = {

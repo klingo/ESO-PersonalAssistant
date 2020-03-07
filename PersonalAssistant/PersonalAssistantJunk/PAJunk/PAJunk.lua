@@ -655,10 +655,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
         if not ZO_CraftingUtils_IsCraftingWindowOpen() and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
             -- check if the updated happened in the backpack and if the item is new
             if isNewItem and bagId == BAG_BACKPACK then
+                -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
+                local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                 -- check if auto-marking is enabled for standard items
                 if PAJunkSavedVars.autoMarkAsJunkEnabled then
-                    -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
-                    local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                     local itemType, specializedItemType = GetItemType(bagId, slotIndex)
                     local isStolen = IsItemStolen(bagId, slotIndex)
 
@@ -787,12 +787,12 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- -----------------------------------------------------------------------------------------------------
                 -- any custom rules are always checked at the end
                 if PAJunkSavedVars.Custom.customItemsEnabled then
-                    local itemId = GetItemId(bagId, slotIndex)
-                    if PAHF.isKeyInTable(PAJunkSavedVars.Custom.ItemIds, itemId) then
+                    local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
+                    if PAHF.isKeyInTable(PAJunkSavedVars.Custom.PAItemIds, paItemId) then
                         local hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, itemLink)
                         if hasBeenMarked then
-                            PAJunkSavedVars.Custom.ItemIds[itemId].junkCount = PAJunkSavedVars.Custom.ItemIds[itemId].junkCount + stackCountChange
-                            PAJunkSavedVars.Custom.ItemIds[itemId].lastJunk = GetTimeStamp()
+                            PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount = PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount + stackCountChange
+                            PAJunkSavedVars.Custom.PAItemIds[paItemId].lastJunk = GetTimeStamp()
                         end
                     end
                 end

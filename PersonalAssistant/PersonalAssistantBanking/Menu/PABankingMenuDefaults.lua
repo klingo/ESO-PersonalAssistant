@@ -219,7 +219,7 @@ local PABankingMenuDefaults = {
     -- ---------------------------------------------
     Custom = {
         customItemsEnabled = true,
-        ItemIds = {
+        PAItemIds = {
         }
     },
 
