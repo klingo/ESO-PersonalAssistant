@@ -8,6 +8,7 @@ SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk peut marquer des objets comme
 -- Standard Items --
 SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Objets standards", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Marquer automatiquement comme rebuts", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T, "Appliquer seulement aux “Objets standard”. Les règles de mise aux rebuts personnalisées ne sont pas impactées par cette option et doivent être désactivées individuellement si elles ne doivent plus être exécutées.", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] comme rebuts ?"}), 1)
