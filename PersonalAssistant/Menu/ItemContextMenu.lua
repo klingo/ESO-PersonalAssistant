@@ -117,65 +117,50 @@ local function _getSlotTypeName(slotType)
     return tostring(slotType)
 end
 
-local function initHooksOnInventoryContextMenu()
+local function initHooksOnInventoryContextMenu(LCM)
     if PAHF.hasActiveProfile() then
         if not _hooksOnInventoryContextMenuInitialized and (PA.Banking or PA.Junk) then
             _hooksOnInventoryContextMenuInitialized = true
-            SecurePostHook(ZO_InventorySlot, "ShowContextMenu", function(inventorySlot)
-                local slotType = ZO_InventorySlot_GetType(inventorySlot)
-                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
-                    local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
-                    local itemLink = GetItemLink(bagId, slotIndex)
-                    _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
-                    ShowMenu()
-                end
+            LCM:RegisterContextMenu(function(inventorySlot, slotActions)
+                    local slotType = ZO_InventorySlot_GetType(inventorySlot)
+                    if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
+                        local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
+                        local itemLink = GetItemLink(bagId, slotIndex)
+                        _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
+                        ShowMenu()
+                    end
 
+                    --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then
+                    --                link = GetTradingHouseSearchResultItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
+                    --            end
+                    --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then
+                    --                link = GetTradingHouseListingItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
+                    --            end
 
---            ZO_PreHook('ZO_InventorySlot_ShowContextMenu',
---                function(inventorySlot)
---                    local slotType = ZO_InventorySlot_GetType(inventorySlot)
---                    if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
---                        local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
---                        local itemLink = GetItemLink(bagId, slotIndex)
---                        zo_callLater(function()
---                            _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
---                            ShowMenu()
---                        end, 50)
---                    end
+                    --            SLOT_TYPE_TRADING_HOUSE_POST_ITEM
+                    --            SLOT_TYPE_REPAIR
 
-        --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then
-        --                link = GetTradingHouseSearchResultItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
-        --            end
-        --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then
-        --                link = GetTradingHouseListingItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
-        --            end
+                    --            SLOT_TYPE_PENDING_CRAFTING_COMPONENT
+                    --            SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT
+                    --            SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING
 
-        --            SLOT_TYPE_TRADING_HOUSE_POST_ITEM
-        --            SLOT_TYPE_REPAIR
-
-        --            SLOT_TYPE_PENDING_CRAFTING_COMPONENT
-        --            SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT
-        --            SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING
-
-        --            SLOT_TYPE_LAUNDER
-        --            SLOT_TYPE_LIST_DIALOG_ITEM
-        --            SLOT_TYPE_MAIL_ATTACHMENT
-        --            SLOT_TYPE_MAIL_QUEUED_ATTACHMENT
-        --            SLOT_TYPE_MY_TRADE
-        --            SLOT_TYPE_PENDING_CHARGE
-        --            SLOT_TYPE_PENDING_REPAIR
-        --            SLOT_TYPE_PENDING_RETRAIT_ITEM
-        --            SLOT_TYPE_QUEST_ITEM
-        --            SLOT_TYPE_SMITHING_BOOSTER
-        --            SLOT_TYPE_SMITHING_MATERIAL
-        --            SLOT_TYPE_SMITHING_STYLE
-        --            SLOT_TYPE_SMITHING_TRAIT
-        --            SLOT_TYPE_STACK_SPLIT
-        --            SLOT_TYPE_STORE_BUY
-        --            SLOT_TYPE_STORE_BUYBACK
-        --            SLOT_TYPE_THEIR_TRADE
-
-
+                    --            SLOT_TYPE_LAUNDER
+                    --            SLOT_TYPE_LIST_DIALOG_ITEM
+                    --            SLOT_TYPE_MAIL_ATTACHMENT
+                    --            SLOT_TYPE_MAIL_QUEUED_ATTACHMENT
+                    --            SLOT_TYPE_MY_TRADE
+                    --            SLOT_TYPE_PENDING_CHARGE
+                    --            SLOT_TYPE_PENDING_REPAIR
+                    --            SLOT_TYPE_PENDING_RETRAIT_ITEM
+                    --            SLOT_TYPE_QUEST_ITEM
+                    --            SLOT_TYPE_SMITHING_BOOSTER
+                    --            SLOT_TYPE_SMITHING_MATERIAL
+                    --            SLOT_TYPE_SMITHING_STYLE
+                    --            SLOT_TYPE_SMITHING_TRAIT
+                    --            SLOT_TYPE_STACK_SPLIT
+                    --            SLOT_TYPE_STORE_BUY
+                    --            SLOT_TYPE_STORE_BUYBACK
+                    --            SLOT_TYPE_THEIR_TRADE
 
                     -- TODO: confirmed to be added to scope
                     -- SLOT_TYPE_ITEM                               inventory/backpack
