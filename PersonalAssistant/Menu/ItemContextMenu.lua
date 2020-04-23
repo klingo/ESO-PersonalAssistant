@@ -121,17 +121,27 @@ local function initHooksOnInventoryContextMenu()
     if PAHF.hasActiveProfile() then
         if not _hooksOnInventoryContextMenuInitialized and (PA.Banking or PA.Junk) then
             _hooksOnInventoryContextMenuInitialized = true
-            ZO_PreHook('ZO_InventorySlot_ShowContextMenu',
-                function(inventorySlot)
-                    local slotType = ZO_InventorySlot_GetType(inventorySlot)
-                    if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
-                        local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
-                        local itemLink = GetItemLink(bagId, slotIndex)
-                        zo_callLater(function()
-                            _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
-                            ShowMenu()
-                        end, 50)
-                    end
+            SecurePostHook(ZO_InventorySlot, "ShowContextMenu", function(inventorySlot)
+                local slotType = ZO_InventorySlot_GetType(inventorySlot)
+                if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
+                    local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
+                    local itemLink = GetItemLink(bagId, slotIndex)
+                    _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
+                    ShowMenu()
+                end
+
+
+--            ZO_PreHook('ZO_InventorySlot_ShowContextMenu',
+--                function(inventorySlot)
+--                    local slotType = ZO_InventorySlot_GetType(inventorySlot)
+--                    if slotType == SLOT_TYPE_ITEM or slotType == SLOT_TYPE_BANK_ITEM then
+--                        local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(inventorySlot)
+--                        local itemLink = GetItemLink(bagId, slotIndex)
+--                        zo_callLater(function()
+--                            _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
+--                            ShowMenu()
+--                        end, 50)
+--                    end
 
         --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then
         --                link = GetTradingHouseSearchResultItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
