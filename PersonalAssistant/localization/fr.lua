@@ -133,6 +133,15 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANQUE supérieur à (>)", 1) -- no
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANQUE supérieur ou égal à (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Text Operators --
+SafeAddString(SI_PA_REL_TEXT_OPERATOR0, "-", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR1, "a exactement", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR2, "a moins que", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR3, "a au plus", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR4, "a plus que", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR5, "a au moins", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Tout déplacer", 1)
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles existantes", 1)
@@ -157,6 +166,8 @@ SafeAddString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS, "Toujours détruire", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Ajouter une nouvelle règle", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Éditer une règle", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Supprimer une règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_ENABLE_RULE, "Activer la règle", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DISABLE_RULE, "Désactiver la règle", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Ajouter", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Sauvegarder", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Supprimer", 1)

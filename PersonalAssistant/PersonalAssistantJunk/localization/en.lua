@@ -12,6 +12,7 @@ local PAJStrings = {
     -- Standard Items --
     SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER = "Standard Items",
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE = "Enable Auto-Marking of Items as Junk",
+    SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T = "Only applicable to 'Standard Items'. Custom Junk Rules are not impacted by this toggle and need to be deactivated individually if they should not be executed anymore.",
 
     SI_PA_MENU_JUNK_TRASH_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] items"}),
     SI_PA_MENU_JUNK_TRASH_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] as junk?"}),

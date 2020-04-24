@@ -23,7 +23,7 @@ SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T, table.concat({"Quand un 
 -- Loot Equipment (Apparel, Weapons & Jewelries)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, "Sur butin d'équipements", 1)
 SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "> un trait n'a pas encore été recherché", 1)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), " ou un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), " du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1) -- TODO: Takit update with [ITEMFILTERTYPE_JEWELRY]
+SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Quand un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)," ou un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY)," du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}), 1)
 
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Avertir si l'espace restant est faible", 1)
 SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Affiche un avertissement dans la fenêtre de chat s'il reste peu d'espace dans votre inventaire", 1)
@@ -59,6 +59,16 @@ SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Définir la taille de l'icone 
 
 SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID, "Position de l'icone (Vue grille)", 1)
 SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T, "Définir la position de l'icone connu/inconnu.\nEn 'automatique', PALoot vérifiera si les extensions [Research Assistant] et [ESO Master Recipe List] sont activés, et positionnera l'icone dans un coin libre.", 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST, "Décalage de l'icône en X (Vue liste)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T, "Définir le décalage horizontal pour l'icone connu/inconnu en mode de vue \"liste\"", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST, "Décalage de l'icône en Y (Vue liste)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T, "Définir le décalage vertical pour l'icone connu/inconnu en mode de vue \"liste\"", 1)
+
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID, "Décalage de l'icône en X (Vue grille)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T, "Définir le décalage horizontal pour l'icone connu/inconnu en mode de vue \"grille\" avec l'addon [InventoryGridView]\n\nNe fonctionne qu'en choisissant le mode de position de l'icone en \"manuel\"", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID, "Décalage de l'icône en Y (Vue grille)", 1)
+SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T, "Définir le décalage vertical pour l'icone connu/inconnu en mode de vue \"grille\" avec l'addon [InventoryGridView]\n\nNe fonctionne qu'en choisissant le mode de position de l'icone en \"manuel\"", 1)
 
 
 -- =================================================================================================================

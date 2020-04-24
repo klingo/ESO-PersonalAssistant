@@ -79,11 +79,34 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Не может быт�
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Банковские правила", 1)
 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Расположение", 1)
-SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Оператор", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_RULE, "Правило", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Количество", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Предмет", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Действия", 1)
 
+-- =================================================================================================================
+-- == OTHER STRINGS FOR MENU == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- PABanking Add Custom Rule Description --
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE, "%s должен содержать ровно %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE, "%s должен содержать не более (максимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE, "%s должен содержать не менее (минимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING, "> %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT, "> %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING, "> %d - %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT, "> %d - %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW, "> %d - %d в %s => перемещать предметы из %s пока там их не останется %d.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE, "%s должен содержать ровно %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE, "%s должен содержать не более (максимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE, "%s должен содержать не менее (минимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING, "> %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT, "> %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING, "> %d - %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT, "> %d - %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW, "> %d - %d в %s => перемещать предметы из %s пока там их не останется %d.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_EXPLANATION, "Это значит, если есть . . .", 1)
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --

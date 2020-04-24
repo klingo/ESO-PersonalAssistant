@@ -350,7 +350,7 @@ local function RefreshAllEventRegistrations()
     -- Register Item Context Menu
     local LCM = LibCustomMenu or LibStub("LibCustomMenu")
     if LCM then
-        PAItemContextMenu.initHooksOnInventoryContextMenu()
+        PAItemContextMenu.initHooksOnInventoryContextMenu(LCM)
     else
         PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
     end

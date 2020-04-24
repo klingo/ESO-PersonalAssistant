@@ -12,6 +12,7 @@ SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk может помечать �
 -- Standard Items --
 SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Обычные предметы", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Включить пометку предметов как хлам", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T, "Применимо только к «Стандартным предметам». Правила из настраиваемого списка хлама не затрагиваются этим переключателем и должны быть деактивированы по отдельности, если они больше не должны выполняться.", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Автоматически помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] как хлам."}), 1)
@@ -23,6 +24,9 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({P
 
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Автоматически помечать предмет с типом [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] как хлам."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_ITEMS_DESC, table.concat({"Не помечать предмет с пометкой [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] как хлам если . . ."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH, table.concat({"> [", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH), "] нужна для ежедневного квеста", PAC.COLOR.YELLOW:Colorize("Пир рыбьего блага")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH_T, table.concat({PAC.COLOR.YELLOW:Colorize("Временные рамки: "), PAC.COLOR.ORANGE:Colorize("Фестиваль Новой Жизни"), ", который проводится зимой\nЕсли ВКЛЮЧЕНО, любая [", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH),"] НЕ БУДЕТ помечена как хлам"}), 1)
 
 SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T, table.concat({"Автоматически помечать предмет с типом [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] как хлам"}), 1)
@@ -41,6 +45,7 @@ SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "%s", 1)
 -- Quest Items --
 SafeAddString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER, "Защита квестовых предметов", 1)
 SafeAddString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER, "Заводной город", 1)
+SafeAddString(SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER, "Фестиваль Новой Жизни", 1)
 
 -- Custom Items --
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Настраиваемые предметы", 1)

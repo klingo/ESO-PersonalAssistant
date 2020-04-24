@@ -20,21 +20,21 @@
                             <Anchor point="TOPRIGHT" />
                             <Dimensions y="36" />
                             <Controls>
-                                <Control name="$(parent)ItemName" inherits="ZO_SortHeader">
-                                    <Anchor point="TOPLEFT" offsetX="40" />
-                                    <Dimensions x="350" y="32" />
-                                </Control>
                                 <Control name="$(parent)BagName" inherits="ZO_SortHeader">
-                                    <Anchor point="LEFT" relativeTo="$(parent)ItemName" relativePoint="RIGHT" offsetX="10" />
+                                    <Anchor point="TOPLEFT" offsetX="40" />
                                     <Dimensions x="120" y="32" />
                                 </Control>
                                 <Control name="$(parent)MathOperator" inherits="ZO_SortHeader">
                                     <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="10" />
-                                    <Dimensions x="100" y="32" />
+                                    <Dimensions x="140" y="32" />
                                 </Control>
                                 <Control name="$(parent)BagAmount" inherits="ZO_SortHeader">
                                     <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="10" />
                                     <Dimensions x="100" y="32" />
+                                </Control>
+                                <Control name="$(parent)ItemName" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)BagAmount" relativePoint="RIGHT" offsetX="10" />
+                                    <Dimensions x="310" y="32" />
                                 </Control>
                                 <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
                                     <Anchor point="TOPRIGHT" offsetX="-60" />

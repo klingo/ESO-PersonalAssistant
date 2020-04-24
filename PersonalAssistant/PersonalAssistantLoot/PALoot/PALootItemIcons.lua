@@ -28,7 +28,7 @@ local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilte
     if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled then
         if itemType == ITEMTYPE_RECIPE or itemType == ITEMTYPE_RACIAL_STYLE_MOTIF or
             itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY or
-                specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+                specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
             return true
         end
     end
@@ -203,7 +203,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         elseif PAApparelWeaponsSV.showKnownIcon then
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         end
-    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
         local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
         local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
         local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
@@ -256,8 +256,10 @@ end
 
 -- this function needs to be initialized everytime the TradeHouse is opened
 local function initHooksOnTradeHouse()
-    local isGamepadModeActive = GetSetting_Bool(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_GAMEPAD_PREFERRED)
-    if not isGamepadModeActive then
+    local gamepadModeSetting = GetSetting(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_INPUT_PREFERRED_MODE)
+    local isAlwaysKeyboardMode = (gamepadModeSetting == tostring(INPUT_PREFERRED_MODE_ALWAYS_KEYBOARD))
+    PAHF.debugln("initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
+    if isAlwaysKeyboardMode then
         ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
             local control = ...
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then

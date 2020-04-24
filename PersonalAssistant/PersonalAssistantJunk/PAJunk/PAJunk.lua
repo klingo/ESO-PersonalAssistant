@@ -156,13 +156,28 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
         local sellInformation = GetItemLinkSellInformation(itemLink)
         local isUnique = IsItemLinkUnique(itemLink)
         if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL or isUnique then
-            PAJ.debugln("NOT CanItemBeMarkedAsJunk isUnique="..tostring(isUnique).. " | sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
-            return false
+            -- does not make sense to mark item as junks since it cannot be sold or is unique
+            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
+                -- Item should be DESTROYED
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (1)")
+                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
+                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                local _, stackCount = GetItemInfo(bagId, slotIndex)
+                -- execute main action
+                DestroyItem(bagId, slotIndex)
+                -- inform player
+                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
+                return true -- marking/destroying junk was successful
+            end
+            PAJ.debugln("NOT CanItemBeMarkedAsJunk/IsWorthlessAndShouldBeDestroyed isUnique="..tostring(isUnique).. " | sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
+            return false -- was not marked as junk
         else
             -- It is considered safe to mark the item as junk (or to be destroyed?)
             if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
                 -- Item should be DESTROYED
-                PAJ.debugln("_isWorthlessAndShouldBeDestroyed")
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (2)")
                 local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
                 local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                 local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
@@ -175,7 +190,7 @@ local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLi
 
             else
                 -- Item should be marked as JUNK
-                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed")
+                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed (3)")
                 SetItemIsJunk(bagId, slotIndex, true)
                 PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
                 -- make sure an itemLink is present
@@ -348,9 +363,9 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
     return true
 end
 
-local function _isSellToMerchantItemNotQuestExcluded(specializedItemType)
+local function _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink)
     local PAJunkSavedVars = PAJ.SavedVars
-    if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH and PAJunkSavedVars.QuestProtection.NewLifeFestival.excludeRareFish then
+    if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH and PAJunkSavedVars.QuestProtection.NewLifeFestival.excludeRareFish and not IsItemLinkBound(itemLink) then
         return false
     end
     -- no match so far means that the SellToMerchant item is NOT excluded
@@ -638,133 +653,137 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
         -- unless the mailbox setting is overriden
         local PAJunkSavedVars = PAJ.SavedVars
         if not ZO_CraftingUtils_IsCraftingWindowOpen() and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
-            -- check if auto-marking is enabled and if the updated happened in the backpack and if the item is new
-            if isNewItem and PAJunkSavedVars.autoMarkAsJunkEnabled and bagId == BAG_BACKPACK then
+            -- check if the updated happened in the backpack and if the item is new
+            if isNewItem and bagId == BAG_BACKPACK then
                 -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
                 local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
-                local itemType, specializedItemType = GetItemType(bagId, slotIndex)
-                local isStolen = IsItemStolen(bagId, slotIndex)
+                -- check if auto-marking is enabled for standard items
+                if PAJunkSavedVars.autoMarkAsJunkEnabled then
+                    local itemType, specializedItemType = GetItemType(bagId, slotIndex)
+                    local isStolen = IsItemStolen(bagId, slotIndex)
 
-                PAJ.debugln("OnInventorySingleSlotUpdate - Check if to be junked: %s", itemLink)
+                    PAJ.debugln("OnInventorySingleSlotUpdate - Check if to be junked: %s", itemLink)
 
-                if isStolen then
-                    -- -------------------------------------------------------------------------------------------------
-                    -- all rules for stolen items
-                    if itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR then
-                        -- heck the individual equipTypes
-                        if itemType == ITEMTYPE_WEAPON then
-                            -- handle WEAPONS
-                            local weaponAction = PAJunkSavedVars.Stolen.Weapons.action
-                            if weaponAction ~= PAC.ITEM_ACTION.NOTHING then
-                                _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, weaponAction)
-                            end
-                        elseif itemType == ITEMTYPE_ARMOR then
-                            local itemEquipType = GetItemLinkEquipType(itemLink)
-                            if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
-                                -- handle JEWELRY
-                                local jewelryAction = PAJunkSavedVars.Stolen.Jewelry.action
-                                if jewelryAction ~= PAC.ITEM_ACTION.NOTHING then
-                                    _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, jewelryAction)
-                                end
-                            else
-                                -- handle APPAREL
-                                local armorAction = PAJunkSavedVars.Stolen.Armor.action
-                                if armorAction ~= PAC.ITEM_ACTION.NOTHING then
-                                    _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, armorAction)
-                                end
-                            end
-                        end
-                    elseif itemType == ITEMTYPE_STYLE_MATERIAL and not (PAJunkSavedVars.Stolen.styleMaterialAction == PAC.ITEM_ACTION.NOTHING) then
-                        local styleMaterialAction = PAJunkSavedVars.Stolen.styleMaterialAction
-                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, styleMaterialAction)
-                    elseif (itemType == ITEMTYPE_ARMOR_TRAIT or itemType == ITEMTYPE_WEAPON_TRAIT or itemType == ITEMTYPE_JEWELRY_RAW_TRAIT or itemType == ITEMTYPE_JEWELRY_TRAIT)
-                            and not (PAJunkSavedVars.Stolen.traitItemAction == PAC.ITEM_ACTION.NOTHING) then
-                        local traitItemAction = PAJunkSavedVars.Stolen.traitItemAction
-                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, traitItemAction)
-                    elseif itemType == ITEMTYPE_LURE and not (PAJunkSavedVars.Stolen.lureAction == PAC.ITEM_ACTION.NOTHING) then
-                        local lureAction = PAJunkSavedVars.Stolen.lureAction
-                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, lureAction)
-                    elseif itemType == ITEMTYPE_INGREDIENT and not (PAJunkSavedVars.Stolen.ingredientAction == PAC.ITEM_ACTION.NOTHING) then
-                        local ingredientAction = PAJunkSavedVars.Stolen.ingredientAction
-                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, ingredientAction)
-                    elseif itemType == ITEMTYPE_FOOD and not (PAJunkSavedVars.Stolen.foodAction == PAC.ITEM_ACTION.NOTHING) then
-                        local foodAction = PAJunkSavedVars.Stolen.foodAction
-                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, foodAction)
-                    elseif itemType == ITEMTYPE_DRINK and not (PAJunkSavedVars.Stolen.drinkAction == PAC.ITEM_ACTION.NOTHING) then
-                        local drinkAction = PAJunkSavedVars.Stolen.drinkAction
-                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, drinkAction)
-                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and not (PAJunkSavedVars.Stolen.treasureAction == PAC.ITEM_ACTION.NOTHING) then
-                        local treasureAction = PAJunkSavedVars.Stolen.treasureAction
-                        if _isTreasureItemNotQuestExcluded(itemLink) then
-                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink, treasureAction)
-                        else
-                            PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
-                        end
-                    end
-                else
-                    -- -------------------------------------------------------------------------------------------------
-                    -- all rules for NOT stolen items
-                    local sellInformation = GetItemLinkSellInformation(itemLink)
-                    local itemQuality = GetItemQuality(bagId, slotIndex)
-
-                    if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
-                        if PAJunkSavedVars.Trash.autoMarkTrash then
-                            if _isTrashItemNotQuestExcluded(bagId, slotIndex) then
-                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
-                            else
-                                PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
-                            end
-                        end
-                    elseif itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR then
-                        local itemTrait = GetItemTrait(bagId, slotIndex)
-                        -- check if it has the [Ornate] trait and can be marked as junk or not
-                        if itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
-                                itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
-                                itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate then
-                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
-                        else
-                            -- if it is NOT with [Ornate] trait, check more detailed the individual equipTypes
-                            if itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                    if isStolen then
+                        -- -------------------------------------------------------------------------------------------------
+                        -- all rules for stolen items
+                        if itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR then
+                            -- heck the individual equipTypes
+                            if itemType == ITEMTYPE_WEAPON then
                                 -- handle WEAPONS
-                                if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Weapons, itemLink, itemQuality) then
-                                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                local weaponAction = PAJunkSavedVars.Stolen.Weapons.action
+                                if weaponAction ~= PAC.ITEM_ACTION.NOTHING then
+                                    _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, weaponAction)
                                 end
                             elseif itemType == ITEMTYPE_ARMOR then
                                 local itemEquipType = GetItemLinkEquipType(itemLink)
                                 if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
                                     -- handle JEWELRY
-                                    if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Jewelry, itemLink, itemQuality) then
-                                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                    local jewelryAction = PAJunkSavedVars.Stolen.Jewelry.action
+                                    if jewelryAction ~= PAC.ITEM_ACTION.NOTHING then
+                                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, jewelryAction)
                                     end
                                 else
                                     -- handle APPAREL
-                                    if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Armor, itemLink, itemQuality) then
-                                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                    local armorAction = PAJunkSavedVars.Stolen.Armor.action
+                                    if armorAction ~= PAC.ITEM_ACTION.NOTHING then
+                                        _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, armorAction)
                                     end
                                 end
                             end
-                        end
-                    elseif (itemType == ITEMTYPE_GLYPH_ARMOR or itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) and
-                            PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
-                        if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold then
-                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
-                        end
-                    elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
-                        if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
-                            if _isSellToMerchantItemNotQuestExcluded(specializedItemType) then
-                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                        elseif itemType == ITEMTYPE_STYLE_MATERIAL and not (PAJunkSavedVars.Stolen.styleMaterialAction == PAC.ITEM_ACTION.NOTHING) then
+                            local styleMaterialAction = PAJunkSavedVars.Stolen.styleMaterialAction
+                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, styleMaterialAction)
+                        elseif (itemType == ITEMTYPE_ARMOR_TRAIT or itemType == ITEMTYPE_WEAPON_TRAIT or itemType == ITEMTYPE_JEWELRY_RAW_TRAIT or itemType == ITEMTYPE_JEWELRY_TRAIT)
+                                and not (PAJunkSavedVars.Stolen.traitItemAction == PAC.ITEM_ACTION.NOTHING) then
+                            local traitItemAction = PAJunkSavedVars.Stolen.traitItemAction
+                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, traitItemAction)
+                        elseif itemType == ITEMTYPE_LURE and not (PAJunkSavedVars.Stolen.lureAction == PAC.ITEM_ACTION.NOTHING) then
+                            local lureAction = PAJunkSavedVars.Stolen.lureAction
+                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, lureAction)
+                        elseif itemType == ITEMTYPE_INGREDIENT and not (PAJunkSavedVars.Stolen.ingredientAction == PAC.ITEM_ACTION.NOTHING) then
+                            local ingredientAction = PAJunkSavedVars.Stolen.ingredientAction
+                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, ingredientAction)
+                        elseif itemType == ITEMTYPE_FOOD and not (PAJunkSavedVars.Stolen.foodAction == PAC.ITEM_ACTION.NOTHING) then
+                            local foodAction = PAJunkSavedVars.Stolen.foodAction
+                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, foodAction)
+                        elseif itemType == ITEMTYPE_DRINK and not (PAJunkSavedVars.Stolen.drinkAction == PAC.ITEM_ACTION.NOTHING) then
+                            local drinkAction = PAJunkSavedVars.Stolen.drinkAction
+                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, drinkAction)
+                        elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and not (PAJunkSavedVars.Stolen.treasureAction == PAC.ITEM_ACTION.NOTHING) then
+                            local treasureAction = PAJunkSavedVars.Stolen.treasureAction
+                            if _isTreasureItemNotQuestExcluded(itemLink) then
+                                _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink, treasureAction)
                             else
-                                PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
+                                PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
                             end
                         end
-                    elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
-                        if PAJunkSavedVars.Miscellaneous.autoMarkTreasure and _isTreasureItemNotQuestExcluded(itemLink) then
-                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
-                        else
-                            PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
+                    else
+                        -- -------------------------------------------------------------------------------------------------
+                        -- all rules for NOT stolen items
+                        local sellInformation = GetItemLinkSellInformation(itemLink)
+                        local itemQuality = GetItemQuality(bagId, slotIndex)
+
+                        if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
+                            if PAJunkSavedVars.Trash.autoMarkTrash then
+                                if _isTrashItemNotQuestExcluded(bagId, slotIndex) then
+                                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
+                                else
+                                    PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
+                                end
+                            end
+                        elseif itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR then
+                            local itemTrait = GetItemTrait(bagId, slotIndex)
+                            -- check if it has the [Ornate] trait and can be marked as junk or not
+                            if itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
+                                    itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
+                                    itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate then
+                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
+                            else
+                                -- if it is NOT with [Ornate] trait, check more detailed the individual equipTypes
+                                if itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                                    -- handle WEAPONS
+                                    if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Weapons, itemLink, itemQuality) then
+                                        _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                    end
+                                elseif itemType == ITEMTYPE_ARMOR then
+                                    local itemEquipType = GetItemLinkEquipType(itemLink)
+                                    if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
+                                        -- handle JEWELRY
+                                        if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Jewelry, itemLink, itemQuality) then
+                                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                        end
+                                    else
+                                        -- handle APPAREL
+                                        if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Armor, itemLink, itemQuality) then
+                                            _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                        end
+                                    end
+                                end
+                            end
+                        elseif (itemType == ITEMTYPE_GLYPH_ARMOR or itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) and
+                                PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                            if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold then
+                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                            end
+                        elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
+                            if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
+                                if _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink) then
+                                    _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                                else
+                                    PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
+                                end
+                            end
+                        elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
+                            if PAJunkSavedVars.Miscellaneous.autoMarkTreasure and _isTreasureItemNotQuestExcluded(itemLink) then
+                                _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
+                            else
+                                PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
+                            end
                         end
                     end
                 end
+
                 -- -----------------------------------------------------------------------------------------------------
                 -- any custom rules are always checked at the end
                 if PAJunkSavedVars.Custom.customItemsEnabled then
