@@ -91,21 +91,21 @@ local PAMenuChoicesValues = {
     PAJunk = {
         qualityLevel = {
             PAC.ITEM_QUALITY.DISABLED,  -- -1 (disabled)
-            ITEM_QUALITY_TRASH,         -- 0
-            ITEM_QUALITY_NORMAL,        -- 1
-            ITEM_QUALITY_MAGIC,         -- 2
-            ITEM_QUALITY_ARCANE,        -- 3
-            ITEM_QUALITY_ARTIFACT,      -- 4
---            ITEM_QUALITY_LEGENDARY,     -- 5
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+--            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
         },
         qualityLevelReverse = {
             PAC.ITEM_QUALITY.DISABLED_REVERSE,  -- 99 (disabled)
-            ITEM_QUALITY_LEGENDARY,     -- 5
-            ITEM_QUALITY_ARTIFACT,      -- 4
-            ITEM_QUALITY_ARCANE,        -- 3
-            ITEM_QUALITY_MAGIC,         -- 2
-            ITEM_QUALITY_NORMAL,        -- 1
-            ITEM_QUALITY_TRASH,         -- 0
+            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
         },
         itemAction = {
             PAC.ITEM_ACTION.NOTHING,                -- 0
