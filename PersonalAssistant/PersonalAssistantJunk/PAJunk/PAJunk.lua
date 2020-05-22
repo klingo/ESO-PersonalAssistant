@@ -80,7 +80,7 @@ local function _giveDelayedDiffSoldItemsFeedback(moneyBefore, itemCountInBagBefo
                     if moneyDiff > 0 then
                         -- no item was sold, but money appeared out of nowhere
                         -- should not happen :D
-                        PAJ.println(PAC.COLORED_TEXTS.PAJ .. "It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
+                        PAJ.println(PAC.COLORED_TEXTS.PAJ .. ": It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
                     end
                 end
 
@@ -108,7 +108,7 @@ local function _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
         if totalSellPrice > 0 then
             -- no item was sold, but money appeared out of nowhere
             -- should not happen :D
-            PAJ.println(PAC.COLORED_TEXTS.PAJ .. "It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
+            PAJ.println(PAC.COLORED_TEXTS.PAJ .. ": It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
         end
     end
 

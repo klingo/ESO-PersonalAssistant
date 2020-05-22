@@ -300,24 +300,37 @@ local function getFormattedKey(key, ...)
 end
 
 -- currently supports one text and n arguments
-local function println(prefix, text, ...)
+local function println(lcmChat, prefix, text, ...)
     local textKey = GetString(text)
     local prefix = prefix or ""
-    if textKey ~= nil and textKey ~= "" then
-        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(textKey, ...)}))
+
+    -- check if LibChatMessage is running and if a valid "chat" is provided
+    if PA.LibChatMessage and lcmChat then
+        if textKey ~= nil and textKey ~= "" then
+            lcmChat:Print(getFormattedText(textKey, ...))
+        else
+            lcmChat:Print(getFormattedText(text, ...))
+        end
     else
-        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(text, ...)}))
+        -- otherwise stick to the old "debug solution"
+        if textKey ~= nil and textKey ~= "" then
+            CHAT_SYSTEM:AddMessage(table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
+        else
+            CHAT_SYSTEM:AddMessage(table.concat({prefix, ": ", getFormattedText(text, ...)}))
+        end
     end
 end
 
 -- write the provided key/text into the debug Output window (WHITE font)
-local function debugln(key, ...)
+local function debugln(prefix, text, ...)
     if PA.debug then
-        local textKey = GetString(key)
+        local textKey = GetString(text)
+        local prefix = prefix or ""
+
         if textKey ~= nil and textKey ~= "" then
-            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(textKey, ...))
+            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
         else
-            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(key, ...))
+            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(text, ...)}))
         end
     end
 end
@@ -325,7 +338,7 @@ end
 -- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
 local function debuglnAuthor(key, ...)
     if GetUnitName("player") == PAC.ADDON.AUTHOR then
-        println("", key, ...)
+        println(PA.chat, "", key, ...)
     end
 end
 

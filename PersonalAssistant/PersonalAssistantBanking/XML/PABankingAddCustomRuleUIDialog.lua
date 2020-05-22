@@ -373,7 +373,7 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
     local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
 
     if existingRuleValues then
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE)}))
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_SUBMENU_PAB_EDIT_RULE)}))
         -- initialise with existing values
         local bagEntry, mathOperatorEntry = _getDropdownValuesFromBankingOperator(existingRuleValues.operator)
         _selectedAmount = existingRuleValues.bagAmount
@@ -385,7 +385,7 @@ local function showPABAddCustomRuleUIDIalog(itemLink, existingRuleValues)
         updateRuleButtonControl:SetHidden(false)
         deleteRuleButtonControl:SetHidden(false)
     else
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}))
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}))
         -- otherwise initialise default values
         _selectedAmount = PAC.BACKPACK_AMOUNT.DEFAULT
         bagDropdownControl:SelectDefault()
