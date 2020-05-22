@@ -1,7 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
