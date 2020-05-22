@@ -16,13 +16,13 @@ local Repair_Defaults = {}
 -- only prints out PARepair texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Repair.SavedVars.silentMode then
-        PAHF.println(PAC.COLORED_TEXTS.PAR, text, ...)
+        PAHF.println(PA.Repair.chat, PAC.COLORED_TEXTS.PAR, text, ...)
     end
 end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAR .. text
+    local addonText = table.concat({PAC.COLORED_TEXTS_DEBUG.PAR, ": ", text})
     PAHF.debugln(addonText, ...)
 end
 
@@ -48,6 +48,11 @@ local function initAddon(_, addOnName)
 
     -- initialize the default values
     initDefaults()
+
+    -- init LibChatMessage if running
+    if PA.LibChatMessage then
+        PA.Repair.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAR, PAC.COLORED_TEXTS_DEBUG.PAR)
+    end
 
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR, nil, Repair_Defaults)

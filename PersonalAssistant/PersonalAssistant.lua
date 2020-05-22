@@ -34,7 +34,7 @@ local Profile_Defaults = {}
 
 -- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
-    PAHF.println(PAC.COLORED_TEXTS.PA, text, ...)
+    PAHF.println(PA.chat, PAC.COLORED_TEXTS.PA, text, ...)
 end
 
 -- init default values
@@ -81,6 +81,12 @@ local function initAddon(_, addOnName)
     -- initialize the default and player/alliance values
     _initDefaults()
     _initPlayerNameAndAlliance()
+
+    -- init LibChatMessage if running
+    PA.LibChatMessage = _G["LibChatMessage"]
+    if PA.LibChatMessage then
+        PA.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PA, PAC.COLORED_TEXTS_DEBUG.PA)
+    end
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
@@ -144,7 +150,7 @@ end
 
 -- wrapper method that prefixes the addon shortname
 function PA.debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAG .. text
+    local addonText = table.concat({PAC.COLORED_TEXTS_DEBUG.PAG, ": ", text})
     PAHF.debugln(addonText, ...)
 end
 

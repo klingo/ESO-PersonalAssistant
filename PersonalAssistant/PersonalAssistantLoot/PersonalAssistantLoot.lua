@@ -16,13 +16,13 @@ local Loot_Defaults = {}
 -- only prints out PALoot texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Loot.SavedVars.silentMode then
-        PAHF.println(PAC.COLORED_TEXTS.PAL, text, ...)
+        PAHF.println(PA.Loot.chat, PAC.COLORED_TEXTS.PAL, text, ...)
     end
 end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAL .. text
+    local addonText = table.concat({PAC.COLORED_TEXTS_DEBUG.PAL, ": ", text})
     PAHF.debugln(addonText, ...)
 end
 
@@ -48,6 +48,11 @@ local function initAddon(_, addOnName)
 
     -- initialize the default values
     initDefaults()
+
+    -- init LibChatMessage if running
+    if PA.LibChatMessage then
+        PA.Loot.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAL, PAC.COLORED_TEXTS_DEBUG.PAL)
+    end
 
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT, nil, Loot_Defaults)
