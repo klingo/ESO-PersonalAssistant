@@ -12,6 +12,7 @@ SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk может помечать �
 -- Standard Items --
 SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Обычные предметы", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Включить пометку предметов как хлам", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T, "Применимо только к «Стандартным предметам». Правила из настраиваемого списка хлама не затрагиваются этим переключателем и должны быть деактивированы по отдельности, если они больше не должны выполняться.", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Автоматически помечать предметы типа [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] как хлам."}), 1)

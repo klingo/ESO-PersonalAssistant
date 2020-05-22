@@ -722,7 +722,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         -- -------------------------------------------------------------------------------------------------
                         -- all rules for NOT stolen items
                         local sellInformation = GetItemLinkSellInformation(itemLink)
-                        local itemQuality = GetItemQuality(bagId, slotIndex)
+                        local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
 
                         if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
                             if PAJunkSavedVars.Trash.autoMarkTrash then
