@@ -22,8 +22,7 @@ end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    local addonText = table.concat({PAC.COLORED_TEXTS_DEBUG.PAJ, ": ", text})
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAJ, text, ...)
 end
 
 -- init default values

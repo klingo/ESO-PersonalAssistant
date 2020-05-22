@@ -150,8 +150,7 @@ end
 
 -- wrapper method that prefixes the addon shortname
 function PA.debugln(text, ...)
-    local addonText = table.concat({PAC.COLORED_TEXTS_DEBUG.PAG, ": ", text})
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAG, text, ...)
 end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")

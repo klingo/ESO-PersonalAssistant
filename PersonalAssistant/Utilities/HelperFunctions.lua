@@ -272,15 +272,15 @@ local function println(lcmChat, prefix, text, ...)
 end
 
 -- write the provided key/text into the debug Output window (WHITE font)
-local function debugln(key, ...)
+local function debugln(prefix, text, ...)
     if PA.debug then
-        local textKey = GetString(key)
-        -- TODO: add rpefix here as well?
---        local prefix = prefix or ""
+        local textKey = GetString(text)
+        local prefix = prefix or ""
+
         if textKey ~= nil and textKey ~= "" then
-            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(textKey, ...))
+            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
         else
-            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(key, ...))
+            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(text, ...)}))
         end
     end
 end
