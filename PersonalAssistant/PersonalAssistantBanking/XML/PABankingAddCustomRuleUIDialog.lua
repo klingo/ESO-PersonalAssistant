@@ -233,7 +233,7 @@ end
 
 local function deletePABCustomRule(itemLink)
     local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
-    local paItemId = PAHF.getPAItemLinkIdentifier(_selectedItemLink)
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
     if PAHF.isKeyInTable(PABCustomPAItemIds, paItemId) then
         -- is in table, delete rule
         PABCustomPAItemIds[paItemId] = nil
@@ -249,7 +249,7 @@ end
 
 local function enablePABCustomRule(itemLink)
     local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
-    local paItemId = PAHF.getPAItemLinkIdentifier(_selectedItemLink)
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
     if PAHF.isKeyInTable(PABCustomPAItemIds, paItemId) then
         -- is in table, enable rule
         PABCustomPAItemIds[paItemId].ruleEnabled = true
@@ -264,7 +264,7 @@ end
 
 local function disablePABCustomRule(itemLink)
     local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
-    local paItemId = PAHF.getPAItemLinkIdentifier(_selectedItemLink)
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
     if PAHF.isKeyInTable(PABCustomPAItemIds, paItemId) then
         -- is in table, disable rule
         PABCustomPAItemIds[paItemId].ruleEnabled = false
