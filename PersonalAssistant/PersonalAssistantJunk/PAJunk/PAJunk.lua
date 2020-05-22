@@ -655,10 +655,10 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
         if not ZO_CraftingUtils_IsCraftingWindowOpen() and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
             -- check if the updated happened in the backpack and if the item is new
             if isNewItem and bagId == BAG_BACKPACK then
+                -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
+                local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                 -- check if auto-marking is enabled for standard items
                 if PAJunkSavedVars.autoMarkAsJunkEnabled then
-                    -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
-                    local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
                     local itemType, specializedItemType = GetItemType(bagId, slotIndex)
                     local isStolen = IsItemStolen(bagId, slotIndex)
 
@@ -722,7 +722,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         -- -------------------------------------------------------------------------------------------------
                         -- all rules for NOT stolen items
                         local sellInformation = GetItemLinkSellInformation(itemLink)
-                        local itemQuality = GetItemQuality(bagId, slotIndex)
+                        local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
 
                         if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
                             if PAJunkSavedVars.Trash.autoMarkTrash then

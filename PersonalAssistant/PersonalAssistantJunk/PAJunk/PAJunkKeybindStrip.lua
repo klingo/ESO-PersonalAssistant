@@ -32,7 +32,7 @@ local function _isDestroyItemEnabled()
     if not PA.Junk.SavedVars or not PA.Junk.SavedVars.KeyBindings.enableDestroyItemKeybind then return false end
 
     if IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then return false end
-    if GetItemQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PA.Junk.SavedVars.KeyBindings.destroyItemQualityThreshold then return false end
+    if GetItemFunctionalQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PA.Junk.SavedVars.KeyBindings.destroyItemQualityThreshold then return false end
 
     if PA.Junk.SavedVars.KeyBindings.destroyExcludeUnknownItems then
         local itemType, specializedItemType = GetItemType(_mouseOverBagId, _mouseOverSlotIndex)

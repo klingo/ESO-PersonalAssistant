@@ -134,6 +134,15 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "В БАНКЕ более (>)", 1) -
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "В БАНКЕ более или равно (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Text Operators --
+SafeAddString(SI_PA_REL_TEXT_OPERATOR0, "-", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR1, "точно", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR2, "менее чем", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR3, "не более чем", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR, "более чем", 1)-- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR5, "не менее чем", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Переместить всё", 1) -- 0: Full deposit
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Заполнить только существующие стеки", 1) -- 1: Fill existing stacks
