@@ -50,6 +50,7 @@ PersonalAssistant.lua
 
 # Integrations
 libs/Integrations/FCOItemSaver.lua
+libs/Integrations/CallbackManager.lua
 
 # Bindings
 bindings/Bindings.lua

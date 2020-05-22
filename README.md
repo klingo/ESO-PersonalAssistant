@@ -24,6 +24,41 @@ On a higher level, this is the rough roadmap for PersonalAssistant:
 
 ***
 
+## Addon Integration (callbacks)
+
+PersonalAssistant has its own CallbackManager where you can register your own functions to be executed based on certain PA specific events.
+You can un-/register your own callback function as follows:
+
+```lua
+-- define your own callback function with an optional parameter
+local function myBankingCompleteFunction(myParam)
+    df("PA Banking has been complete, this was my param: %s", tostring(myParam))
+end
+
+-- check if PersonalAssistant is running, then register the callback function
+if _G["PersonalAssistant"] then
+    local PACM = PA.CallbackManager
+    PACM.RegisterExternalCallback(PACM.PA_BANKING_COMPLETE, myBankingCompleteFunction, "it works!")
+
+    -- to unregister the callback function again
+    PACM.UnregisterExternalCallback(PACM.PA_BANKING_COMPLETE, myBankingCompleteFunction)
+end
+```
+
+The above would print out the followin in chat, once PABanking is done:
+
+```PA Banking has been complete, this was my param: it works!```
+
+At the moment, the following event(s) are supported:
+
+| PA-EVENT | Description |
+|---------------------|-----------|
+| PA_BANKING_COMPLETE | Triggered when PABanking has completed all it's transactions at the Bank  |
+
+
+**Important:** Make sure that you define PersonalAssistant as **OptionalDependsOn** in your addon manifest to ensure that it is loaded before your addon - otherwise the callback registration might not work.
+
+
 ## How to use
 PersonalAssistant is an Add-on for '[The Elder Scrolls Online](https://www.elderscrollsonline.com/ "Home - The Elder Scrolls Online")' and consists of multiple nested Add-ons that can independently be turned on or off. The following section will explain in more detail how to use the different parts. 
 

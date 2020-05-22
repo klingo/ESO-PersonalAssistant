@@ -25,7 +25,7 @@ local function _printLWCMessageIfItemsSkipped()
         -- if some items were skipped because of LWC; display a message
         PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
     end
-    -- thencontinue with the next function in queue
+    -- Execute the function queue
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
@@ -54,6 +54,7 @@ local function OnBankOpen(eventCode, bankBag)
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
+        PAEM.addFunctionToQueue(function() CALLBACK_MANAGER:FireCallbacks(PA.CallbackManager.PA_BANKING_COMPLETE) end, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)
