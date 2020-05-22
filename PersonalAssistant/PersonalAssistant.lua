@@ -182,7 +182,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         elseif bagId == BAG_WORN then bagName = "BAG_WORN"
         elseif bagId == BAG_SUBSCRIBER_BANK then bagName = "BAG_SUBSCRIBER_BANK" end
 
-        PAHF.println("", "itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> itemId64 = %s --> itemInstanceId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, tostring(itemId64), itemInstanceId, specializedItemType, strSpecializedItemType, icon, bagName)
+        df("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> itemId64 = %s --> itemInstanceId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, tostring(itemId64), itemInstanceId, specializedItemType, strSpecializedItemType, icon, bagName)
         d("paItemId="..tostring(paItemId))
 
         local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
