@@ -398,6 +398,51 @@ local function _applyPatch_2_4_18(savedVarsVersion, patchPAG, patchPAB, patchPAI
     end
 end
 
+
+local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _, _)
+    if patchPAB and PA.Banking then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, 10 do
+            -- 1) migrate   PABanking.Custom.ItemIds
+            local oldItemIdConfigs = PASavedVars.Banking[profileNo].Custom.ItemIds
+            if oldItemIdConfigs ~= nil then -- in case player did not had 10 profiles?
+                for itemId, moveConfig in pairs(oldItemIdConfigs) do
+                    if istable(moveConfig) then
+                        local paItemId = PAHF.getPAItemLinkIdentifier(moveConfig.itemLink)
+                        PASavedVars.Banking[profileNo].Custom.PAItemIds[paItemId] = moveConfig
+                    end
+                end
+                PASavedVars.Banking[profileNo].Custom.ItemIds = nil
+            end
+
+            -- 2) if enabled, refresh the list
+            if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+
+    if patchPAJ and PA.Junk then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, 10 do
+            -- 1) migrate   PAJunk.Custom.ItemIds
+            local oldItemIdConfigs = PASavedVars.Junk[profileNo].Custom.ItemIds
+            if oldItemIdConfigs ~= nil then -- in case player did not had 10 profiles?
+                for itemId, moveConfig in pairs(oldItemIdConfigs) do
+                    if istable(moveConfig) then
+                        local paItemId = PAHF.getPAItemLinkIdentifier(moveConfig.itemLink)
+                        PASavedVars.Junk[profileNo].Custom.PAItemIds[paItemId] = moveConfig
+                    end
+                end
+                PASavedVars.Junk[profileNo].Custom.ItemIds = nil
+            end
+
+            -- 2) if enabled, refresh the list
+            if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -442,6 +487,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.18     February 24, 2020
     _applyPatch_2_4_18(_getIsPatchNeededInfo(020418))
+
+    -- Patch 2.4.19     ???
+    _applyPatch_2_4_19(_getIsPatchNeededInfo(020419))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

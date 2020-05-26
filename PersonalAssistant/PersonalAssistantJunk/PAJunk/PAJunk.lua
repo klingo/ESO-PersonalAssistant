@@ -787,12 +787,12 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 -- -----------------------------------------------------------------------------------------------------
                 -- any custom rules are always checked at the end
                 if PAJunkSavedVars.Custom.customItemsEnabled then
-                    local itemId = GetItemId(bagId, slotIndex)
-                    if PAHF.isKeyInTable(PAJunkSavedVars.Custom.ItemIds, itemId) then
+                    local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
+                    if PAHF.isKeyInTable(PAJunkSavedVars.Custom.PAItemIds, paItemId) then
                         local hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, itemLink)
                         if hasBeenMarked then
-                            PAJunkSavedVars.Custom.ItemIds[itemId].junkCount = PAJunkSavedVars.Custom.ItemIds[itemId].junkCount + stackCountChange
-                            PAJunkSavedVars.Custom.ItemIds[itemId].lastJunk = GetTimeStamp()
+                            PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount = PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount + stackCountChange
+                            PAJunkSavedVars.Custom.PAItemIds[paItemId].lastJunk = GetTimeStamp()
                         end
                     end
                 end
