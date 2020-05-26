@@ -488,7 +488,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.4.18     February 24, 2020
     _applyPatch_2_4_18(_getIsPatchNeededInfo(020418))
 
-    -- Patch 2.4.19     ???
+    -- Patch 2.4.19     May 26, 2020
     _applyPatch_2_4_19(_getIsPatchNeededInfo(020419))
 end
 
