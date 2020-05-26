@@ -16,14 +16,13 @@ local Junk_Defaults = {}
 -- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Junk.SavedVars.silentMode then
-        PAHF.println(PAC.COLORED_TEXTS.PAJ, text, ...)
+        PAHF.println(PA.Junk.chat, PAC.COLORED_TEXTS.PAJ, text, ...)
     end
 end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAJ .. text
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAJ, text, ...)
 end
 
 -- init default values
@@ -43,6 +42,11 @@ local function initAddon(_, addOnName)
 
     -- initialize the default values
     initDefaults()
+
+    -- init LibChatMessage if running
+    if PA.LibChatMessage then
+        PA.Junk.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAJ, PAC.COLORED_TEXTS_DEBUG.PAJ)
+    end
 
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Junk_Defaults)

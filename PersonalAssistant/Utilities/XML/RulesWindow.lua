@@ -242,9 +242,9 @@ function PABankingRulesList:FilterScrollList()
     -- only proceed if player has selected an active profile
     if PAHF.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
+        local PABCustomPAItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.PAItemIds
         -- populate the table that is used as source for the list
-        for _, moveConfig in pairs(PABCustomItemIds) do
+        for _, moveConfig in pairs(PABCustomPAItemIds) do
             local bagName, operatorText = _getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
             local rowData = {
                 bagName = bagName,
@@ -490,9 +490,9 @@ function PAJunkRulesList:FilterScrollList()
     -- only proceed if player has selected an active profile
     if PAHF.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PAJCustomItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.ItemIds
+        local PAJCustomPAItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.PAItemIds
         -- populate the table that is used as source for the list
-        for _, junkConfig in pairs(PAJCustomItemIds) do
+        for _, junkConfig in pairs(PAJCustomPAItemIds) do
             local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
             local timeSinceLastJunk = GetString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED)
             if junkConfig.lastJunk then

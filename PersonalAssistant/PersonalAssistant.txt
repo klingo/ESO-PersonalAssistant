@@ -11,6 +11,7 @@
 ## APIVersion: 100031
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## DependsOn: LibAddonMenu-2.0>=30 LibMainMenu-2.0>=432 LibCustomMenu>=692
+## OptionalDependsOn: LibChatMessage>=100
 
 # Logger
 Utilities/Logger.lua
