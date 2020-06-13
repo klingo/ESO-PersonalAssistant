@@ -61,7 +61,7 @@ local PAJunkMenuDefaults = {
     },
     Custom = {
         customItemsEnabled = true,
-        ItemIds = {
+        PAItemIds = {
         }
     },
     AutoDestroy = {
@@ -88,7 +88,7 @@ local PAJunkMenuDefaults = {
         showMarkUnmarkAsJunkKeybind = true,
         enableDestroyItemKeybind = false,
         showDestroyItemKeybind = true,
-        destroyItemQualityThreshold = ITEM_QUALITY_LEGENDARY,
+        destroyItemQualityThreshold = ITEM_FUNCTIONAL_QUALITY_LEGENDARY,
         destroyExcludeUnknownItems = false,
     },
 

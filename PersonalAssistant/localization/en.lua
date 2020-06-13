@@ -4,11 +4,11 @@ local PAStrings = {
     -- Language specific texts that need to be translated --
 
     -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " at your service!"}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
+    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "at your service!   -   no localization for language [%s] available (yet)"}),
+    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "at your service!"}),
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
 
-    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
+    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, "requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
 
 
     -- =================================================================================================================
@@ -208,12 +208,12 @@ local PAGenericStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Item Qualitiy Levels --
     SI_PA_QUALITY_DISABLED = table.concat({"- ", GetString(SI_CHECK_BUTTON_DISABLED), " -"}),
-    SI_PA_QUALITY_TRASH = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
-    SI_PA_QUALITY_NORMAL = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
-    SI_PA_QUALITY_FINE = GetItemQualityColor(ITEM_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_MAGIC)),
-    SI_PA_QUALITY_SUPERIOR = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
-    SI_PA_QUALITY_EPIC = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
-    SI_PA_QUALITY_LEGENDARY = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
+    SI_PA_QUALITY_TRASH = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_TRASH)),
+    SI_PA_QUALITY_NORMAL = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_NORMAL)),
+    SI_PA_QUALITY_FINE = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_MAGIC)),
+    SI_PA_QUALITY_SUPERIOR = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_ARCANE)),
+    SI_PA_QUALITY_EPIC = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_ARTIFACT)),
+    SI_PA_QUALITY_LEGENDARY = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_LEGENDARY)),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --

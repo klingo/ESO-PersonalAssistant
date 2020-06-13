@@ -19,12 +19,12 @@ local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
     PAJ.debugln("PA.Junk.addItemToPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
-        local PAJCustomItemIds = PAJ.SavedVars.Custom.ItemIds
-        local itemId = GetItemLinkItemId(itemLink)
+        local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
+        local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
         -- only add the entry if it is an UPDATE case, or if it does not exist yet
-        if not PAHF.isKeyInTable(PAJCustomItemIds, itemId) then
+        if not PAHF.isKeyInTable(PAJCUstomPAItemIds, paItemId) then
             local localItemLink = getNonStolenItemLink(itemLink)
-            PAJCustomItemIds[itemId] = {
+            PAJCUstomPAItemIds[paItemId] = {
                 itemLink = localItemLink,
                 junkCount = 0,
                 ruleAdded = GetTimeStamp()
@@ -49,11 +49,11 @@ local function removeItemFromPermanentJunk(itemLink)
     PAJ.debugln("PA.Junk.removeItemFromPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
-        local PAJCustomItemIds = PAJ.SavedVars.Custom.ItemIds
-        local itemId = GetItemLinkItemId(itemLink)
-        if PAHF.isKeyInTable(PAJCustomItemIds, itemId) then
+        local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
+        local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
+        if PAHF.isKeyInTable(PAJCUstomPAItemIds, paItemId) then
             -- is in table, delete rule
-            PAJCustomItemIds[itemId] = nil
+            PAJCUstomPAItemIds[paItemId] = nil
             PAJ.println(SI_PA_CHAT_JUNK_RULES_DELETED, itemLink:gsub("%|H0", "|H1"))
 
             -- refresh the list (if it was initialized)

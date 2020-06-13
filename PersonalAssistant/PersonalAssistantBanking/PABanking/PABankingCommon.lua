@@ -297,7 +297,7 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache)
+local function doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache, isCustomPAItemIdList)
     -- prepare the table for the items that need a new stack created
     local toBeMovedItemsTable = {}
     local toBeMovedAgainTable = {}
@@ -315,7 +315,12 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
         --        for _, itemData in pairs(backpackBagCache) do
         for index = #configuredBagCache, 1, -1 do
             local itemData = configuredBagCache[index]
-            local backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            local backpackItemId
+            if isCustomPAItemIdList then
+                backpackItemId = PAHF.getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
+            else
+                backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            end
             if itemId == backpackItemId then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
                 -- check if the limit is below what is currently in the backpack to see if deposit is needed
@@ -338,7 +343,12 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
         --        for _, itemData in pairs(bankBagCache) do
         for index = #otherBagCache, 1, -1 do
             local itemData = otherBagCache[index]
-            local bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            local bankItemId
+            if isCustomPAItemIdList then
+                bankItemId = PAHF.getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
+            else
+                bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
+            end
             if itemId == bankItemId then
                 local stack, _ = GetSlotStackSize(itemData.bagId, itemData.slotIndex)
                 -- check if the limit is above what is currently in the backpack to see if withdrawal is needed
