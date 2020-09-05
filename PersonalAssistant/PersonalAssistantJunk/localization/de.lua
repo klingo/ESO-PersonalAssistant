@@ -58,7 +58,7 @@ SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Aus Nachrichten nie als Trödel m
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Aus Nachrichten entnommene Gegenstände sollen nie als Trödel markiert werden", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI, "Auch an Pirharri verkaufen? (Schmuggler Gehilfe)", 1)
-SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W, "Im Gegensatz zu anderen Schmugglern behält Pirharri 35% des Profits für das in Anspruch nehmen ihrer Dienste", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W, "Im Gegensatz zu anderen Schmugglern behält Pirharri 35% des Profits für sich selbst", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Tastenkürzel", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "Tastenkürzel \"Als Trödel de- / markieren\" aktivieren", 1)
