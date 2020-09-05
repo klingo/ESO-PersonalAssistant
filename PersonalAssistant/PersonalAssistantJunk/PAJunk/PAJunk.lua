@@ -425,7 +425,7 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local sellFinishGameTime = GetGameTimeMilliseconds()
                         PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
-                        totalSellPrice = totalSellPrice + sellPriceStolen
+                        totalSellPrice = totalSellPrice + (sellPriceStolen * stackCount)
                         totalSellCount = totalSellCount + 1
                         if sellsUsed == totalSells then
                             -- limit reached! print a message and stop
