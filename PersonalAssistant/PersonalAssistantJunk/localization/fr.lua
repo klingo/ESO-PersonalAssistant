@@ -57,6 +57,8 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ATTENTION: Soyez conscient e
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Ne pas mettre aux rebuts si reçu par courrier", 1)
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Ne jamais mettre aux rebuts des objets reçus du courrier", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente/Recel auto. des rebuts aux marchands", 1)
+--SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI, "", 1)
+--SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W, "", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "Activer la commande \"Mettre aux / Sortir des rebuts\"", 1)
