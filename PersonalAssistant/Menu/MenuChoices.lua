@@ -61,6 +61,12 @@ local PAMenuChoices = {
             GetString(SI_PA_POSITION_MANUAL),
         }
     },
+    PARepair = {
+        defaultSoulGem = {
+            GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_GOLD),
+            GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_CROWN),
+        }
+    },
 }
 
 local PAMenuChoicesValues = {
@@ -127,7 +133,13 @@ local PAMenuChoicesValues = {
 --            RIGHT,                      -- 8
             CENTER,                     -- 128 (manual)
         }
-    }
+    },
+    PARepair = {
+        defaultSoulGem = {
+            DEFAULT_SOUL_GEM_CHOICE_GOLD,
+            DEFAULT_SOUL_GEM_CHOICE_CROWN,
+        }
+    },
 }
 
 local PAMenuChoicesTooltips = {

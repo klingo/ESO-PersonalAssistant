@@ -34,6 +34,7 @@ local PARepairMenuDefaults = {
 
     RechargeWeapons = {
         useSoulGems = false,
+        defaultSoulGem = DEFAULT_SOUL_GEM_CHOICE_CROWN,
         lowSoulGemWarning = true,
         lowSoulGemThreshold = 10,
     },
