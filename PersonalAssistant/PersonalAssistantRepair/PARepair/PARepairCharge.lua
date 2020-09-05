@@ -38,8 +38,16 @@ local function _getSoulGemsIn(bagId)
         end
     end
 
-    -- sort table based on the gemTiers (higher tier first | crown = tier 0 | regular = tier 1)
-    table.sort(gemTable, function(a, b) return a.gemTier > b.gemTier end)
+    local PARepairSavedVars = PAR.SavedVars
+    local defaultSoulGem = PARepairSavedVars.RechargeWeapons.defaultSoulGem
+
+    if defaultSoulGem == DEFAULT_SOUL_GEM_CHOICE_GOLD then
+        -- sort table based on the gemTiers (higher tier first | regular = tier 1 | crown = tier 0 )
+        table.sort(gemTable, function(a, b) return a.gemTier > b.gemTier end)
+    else
+        -- sort table based on the gemTiers (lower tier first | crown = tier 0 | regular = tier 1)
+        table.sort(gemTable, function(a, b) return a.gemTier < b.gemTier end)
+    end
 
     return gemTable, totalGemCount
 end

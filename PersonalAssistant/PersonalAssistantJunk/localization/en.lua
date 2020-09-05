@@ -61,6 +61,8 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Never mark items received from Mailbox as Junk",
     SI_PA_MENU_JUNK_MAILBOX_IGNORE_T = "Items that are received from Mailbox should never be marked as Junk",
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI = "Also auto-sell to Pirharri? (Fence Assistant)",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W = "Unlike other fences, Pirharri charges a Smuggler's Fee of 35% for availing of her service",
 
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Enable \"Mark / Unmark as Junk\" Keybinding",

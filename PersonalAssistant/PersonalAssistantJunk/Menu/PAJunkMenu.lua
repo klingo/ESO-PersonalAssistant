@@ -223,6 +223,16 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI),
+        warning = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W),
+        getFunc = PAJMenuFunctions.getAutoSellJunkPirharriSetting,
+        setFunc = PAJMenuFunctions.setAutoSellJunkPirharriSetting,
+        disabled = PAJMenuFunctions.isAutoSellJunkPirharriDisabled,
+        default = PAJMenuDefaults.autoSellJunkPirharri,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_SILENT_MODE),
         getFunc = PAJMenuFunctions.getSilentModeSetting,
         setFunc = PAJMenuFunctions.setSilentModeSetting,

@@ -34,7 +34,7 @@ local Profile_Defaults = {}
 
 -- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
-    PAHF.println(PAC.COLORED_TEXTS.PA, text, ...)
+    PAHF.println(PA.chat, PAC.COLORED_TEXTS.PA, text, ...)
 end
 
 -- init default values
@@ -81,6 +81,12 @@ local function initAddon(_, addOnName)
     -- initialize the default and player/alliance values
     _initDefaults()
     _initPlayerNameAndAlliance()
+
+    -- init LibChatMessage if running
+    PA.LibChatMessage = _G["LibChatMessage"]
+    if PA.LibChatMessage then
+        PA.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PA, PAC.COLORED_TEXTS_DEBUG.PA)
+    end
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
@@ -136,7 +142,7 @@ local function introduction()
             if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then
                 PA.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
-                PA.println(SI_PA_WELCOME_SUPPORT)
+                PA.println(SI_PA_WELCOME_SUPPORT, PAGSavedVars.name)
             end
         end
     end
@@ -144,8 +150,7 @@ end
 
 -- wrapper method that prefixes the addon shortname
 function PA.debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAG .. text
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAG, text, ...)
 end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
@@ -162,7 +167,10 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
         -- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
         local itemId = GetItemId(bagId, slotIndex)
+        local itemId64 = GetItemUniqueId(bagId, slotIndex)
+        local itemInstanceId = GetItemInstanceId(bagId, slotIndex)
         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+        local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
         local icon, _, _, _, _, _, itemStyleId = GetItemInfo(bagId, slotIndex)
 
         local bagName = ""
@@ -174,7 +182,8 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         elseif bagId == BAG_WORN then bagName = "BAG_WORN"
         elseif bagId == BAG_SUBSCRIBER_BANK then bagName = "BAG_SUBSCRIBER_BANK" end
 
-        PAHF.println("", "itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, strSpecializedItemType, icon, bagName)
+        df("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> itemId64 = %s --> itemInstanceId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, tostring(itemId64), itemInstanceId, specializedItemType, strSpecializedItemType, icon, bagName)
+        d("paItemId="..tostring(paItemId))
 
         local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
         local isBeingResearched = PA.Loot.isTraitBeingResearched(itemLink)

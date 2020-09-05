@@ -61,7 +61,7 @@ local PAJunkMenuDefaults = {
     },
     Custom = {
         customItemsEnabled = true,
-        ItemIds = {
+        PAItemIds = {
         }
     },
     AutoDestroy = {
@@ -82,6 +82,7 @@ local PAJunkMenuDefaults = {
 
     ignoreMailboxItems = true,
     autoSellJunk = true,
+    autoSellJunkPirharri = false,
 
     KeyBindings = {
         enableMarkUnmarkAsJunkKeybind = true,

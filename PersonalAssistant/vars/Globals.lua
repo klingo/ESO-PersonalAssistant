@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020418, -- update this every release!
+            MINOR = 020420, -- update this every release!
         },
     },
 
@@ -84,24 +84,24 @@ PersonalAssistant.Constants = {
 
     COLORED_TEXTS = {
         PA = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
-        PAG = table.concat({"|cFFD700", "PA G", "|r", "|cFFFFFF", "eneral: ", "|r"}),
-        PAB = table.concat({"|cFFD700", "PA B", "|r", "|cFFFFFF", "anking: ", "|r"}),
-        PAI = table.concat({"|cFFD700", "PA I", "|r", "|cFFFFFF", "ntegration: ", "|r"}),
-        PAR = table.concat({"|cFFD700", "PA R", "|r", "|cFFFFFF", "epair: ", "|r"}),
-        PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot: ", "|r"}),
-        PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail: ", "|r"}),
-        PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk: ", "|r"}),
+        PAG = table.concat({"|cFFD700", "PA G", "|r", "|cFFFFFF", "eneral", "|r"}),
+        PAB = table.concat({"|cFFD700", "PA B", "|r", "|cFFFFFF", "anking", "|r"}),
+        PAI = table.concat({"|cFFD700", "PA I", "|r", "|cFFFFFF", "ntegration", "|r"}),
+        PAR = table.concat({"|cFFD700", "PA R", "|r", "|cFFFFFF", "epair", "|r"}),
+        PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot", "|r"}),
+        PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail", "|r"}),
+        PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk", "|r"}),
     },
 
     COLORED_TEXTS_DEBUG = {
-        PA = table.concat({"|cFFFFFF", "PA", "|r", ": "}),
-        PAG = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "G", "|r", ": "}),
-        PAB = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "B", "|r", ": "}),
-        PAI = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "I", "|r", ": "}),
-        PAR = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "R", "|r", ": "}),
-        PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r", ": "}),
-        PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r", ": "}),
-        PAJ = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "J", "|r", ": "}),
+        PA = table.concat({"|cFFFFFF", "PA", "|r"}),
+        PAG = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "G", "|r"}),
+        PAB = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "B", "|r"}),
+        PAI = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "I", "|r"}),
+        PAR = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "R", "|r"}),
+        PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r"}),
+        PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r"}),
+        PAJ = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "J", "|r"}),
     },
 
     ICONS = {

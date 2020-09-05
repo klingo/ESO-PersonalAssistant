@@ -18,14 +18,14 @@ local function _isBankingRuleNotAllowed(itemLink, bagId, slotIndex)
 end
 
 local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
-    local itemId = GetItemLinkItemId(itemLink)
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
 
     -- Add PABanking context menu entries
     if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
         -- first make some checks whether banking rules are even allowed for this item
         if not _isBankingRuleNotAllowed(itemLink, bagId, slotIndex) then
-            local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-            local isRuleExisting = PAHF.isKeyInTable(PABCustomItemIds, itemId)
+            local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
+            local isRuleExisting = PAHF.isKeyInTable(PABCustomPAItemIds, paItemId)
             local entries = {
                 {
                     label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
@@ -39,7 +39,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                     label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
                     callback = function()
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                        PA.CustomDialogs.showPABAddCustomRuleUIDialog(itemLink, PABCustomItemIds[itemId])
+                        PA.CustomDialogs.showPABAddCustomRuleUIDialog(itemLink, PABCustomPAItemIds[paItemId])
                     end,
                     disabled = function() return not isRuleExisting end,
                 },
@@ -58,9 +58,9 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
 
     -- Add PAJunk context menu entries
     if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled then
-        local PAJCustomItemIds = PA.Junk.SavedVars.Custom.ItemIds
+        local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
         local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
-        local isRuleExisting = PAHF.isKeyInTable(PAJCustomItemIds, itemId)
+        local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
         local entries = {
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),

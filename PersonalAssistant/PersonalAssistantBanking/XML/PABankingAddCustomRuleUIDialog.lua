@@ -202,12 +202,12 @@ local function _addCustomRuleClicked(isUpdate)
 
     local bankingOperator = _getBankingOperator()
     local targetAmount = amountEditControl:GetText()
-    local itemId = GetItemLinkItemId(_selectedItemLink)
+    local paItemId = PAHF.getPAItemLinkIdentifier(_selectedItemLink)
 
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
+    local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
     -- only add the entry if it is an UPDATE case, or if it does not exist yet
-    if not PAHF.isKeyInTable(PABCustomItemIds, itemId) then
-        PABCustomItemIds[itemId] = {
+    if not PAHF.isKeyInTable(PABCustomPAItemIds, paItemId) then
+        PABCustomPAItemIds[paItemId] = {
             operator = bankingOperator,
             bagAmount = tonumber(targetAmount),
             itemLink = _selectedItemLink,
@@ -215,9 +215,9 @@ local function _addCustomRuleClicked(isUpdate)
         }
         PAB.println(SI_PA_CHAT_BANKING_RULES_ADDED, _selectedItemLink:gsub("%|H0", "|H1"))
     elseif isUpdate then
-        PABCustomItemIds[itemId].operator = bankingOperator
-        PABCustomItemIds[itemId].bagAmount = tonumber(targetAmount)
-        PABCustomItemIds[itemId].itemLink = _selectedItemLink
+        PABCustomPAItemIds[paItemId].operator = bankingOperator
+        PABCustomPAItemIds[paItemId].bagAmount = tonumber(targetAmount)
+        PABCustomPAItemIds[paItemId].itemLink = _selectedItemLink
         PAB.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
     else
         PAB.debugln("ERROR; PAB rule already existing and this was NOT an update")
@@ -232,11 +232,11 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function deletePABCustomRule(itemLink)
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-    local itemId = GetItemLinkItemId(itemLink)
-    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+    local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
+    if PAHF.isKeyInTable(PABCustomPAItemIds, paItemId) then
         -- is in table, delete rule
-        PABCustomItemIds[itemId] = nil
+        PABCustomPAItemIds[paItemId] = nil
         PAB.println(SI_PA_CHAT_BANKING_RULES_DELETED, itemLink:gsub("%|H0", "|H1"))
         window:SetHidden(true)
 
@@ -248,11 +248,11 @@ local function deletePABCustomRule(itemLink)
 end
 
 local function enablePABCustomRule(itemLink)
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-    local itemId = GetItemLinkItemId(itemLink)
-    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+    local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
+    if PAHF.isKeyInTable(PABCustomPAItemIds, paItemId) then
         -- is in table, enable rule
-        PABCustomItemIds[itemId].ruleEnabled = true
+        PABCustomPAItemIds[paItemId].ruleEnabled = true
         PAB.println(SI_PA_CHAT_BANKING_RULES_ENABLED, itemLink:gsub("%|H0", "|H1"))
 
         -- refresh the list (if it was initialized)
@@ -263,11 +263,11 @@ local function enablePABCustomRule(itemLink)
 end
 
 local function disablePABCustomRule(itemLink)
-    local PABCustomItemIds = PA.Banking.SavedVars.Custom.ItemIds
-    local itemId = GetItemLinkItemId(itemLink)
-    if PAHF.isKeyInTable(PABCustomItemIds, itemId) then
+    local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
+    if PAHF.isKeyInTable(PABCustomPAItemIds, paItemId) then
         -- is in table, disable rule
-        PABCustomItemIds[itemId].ruleEnabled = false
+        PABCustomPAItemIds[paItemId].ruleEnabled = false
         PAB.println(SI_PA_CHAT_BANKING_RULES_DISABLED, itemLink:gsub("%|H0", "|H1"))
 
         -- refresh the list (if it was initialized)
@@ -373,7 +373,7 @@ local function showPABAddCustomRuleUIDialog(itemLink, existingRuleValues)
     local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
 
     if existingRuleValues then
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE)}))
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_SUBMENU_PAB_EDIT_RULE)}))
         -- initialise with existing values
         local bagEntry, mathOperatorEntry = _getDropdownValuesFromBankingOperator(existingRuleValues.operator)
         _selectedAmount = existingRuleValues.bagAmount
@@ -385,7 +385,7 @@ local function showPABAddCustomRuleUIDialog(itemLink, existingRuleValues)
         updateRuleButtonControl:SetHidden(false)
         deleteRuleButtonControl:SetHidden(false)
     else
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}))
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}))
         -- otherwise initialise default values
         _selectedAmount = PAC.BACKPACK_AMOUNT.DEFAULT
         bagDropdownControl:SelectDefault()
