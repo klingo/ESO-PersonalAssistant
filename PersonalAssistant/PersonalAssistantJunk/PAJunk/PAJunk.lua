@@ -558,11 +558,11 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
     if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isFenceClosed = false
-        local autoSellJunk = PAJ.SavedVars.autoSellJunk
         -- check if auto-sell is enabled
-        if allowSell and autoSellJunk then
+        if allowSell then
             local unitName = GetUnitName("interact")
             local isPirharri = string.find(unitName, "Pirharri") ~= nil
+            local autoSellJunk = PAJ.SavedVars.autoSellJunk
             local autoSellJunkPirharri = PAJ.SavedVars.autoSellJunkPirharri
             PAJ.debugln("Fence Name = %s", unitName)
             -- fence must either NOT be Pirharri, or if it is Pirharri, the setting must be turned on)
@@ -571,17 +571,25 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                     -- both FCOIS and PAIntegration are running and at least one setting is turned on; take the extended logic
                     PAJ.debugln("OnFenceOpen with PAIntegration and FCOIS")
                     local PAFCOISLib = PA.Libs.FCOItemSaver
-                    -- check for stolen junk AND FCOIS markings
-                    local sellStolenJunkIncludingFCOISComparator = PAFCOISLib.getSellStolenJunkIncludingFCOISComparator()
-                    _OnFenceOpenInternal(sellStolenJunkIncludingFCOISComparator)
-
+                    -- check if stolen junk should be sold
+                    if autoSellJunk then
+                        -- check for stolen junk AND FCOIS markings
+                        local sellStolenJunkIncludingFCOISComparator = PAFCOISLib.getSellStolenJunkIncludingFCOISComparator()
+                        _OnFenceOpenInternal(sellStolenJunkIncludingFCOISComparator)
+                    else
+                        -- check only for FCOIS markings
+                        local sellStolenFCOISComparator = PAFCOISLib.getSellStolenFCOISComparator()
+                        _OnFenceOpenInternal(sellStolenFCOISComparator)
+                    end
                 else
                     -- either FCOIS or PAIntegration is NOT running, or not setting is turned on; take the default logic
                     PAJ.debugln("OnFenceOpen withOUT PAIntegration and FCOIS")
-                    -- check if there is junk to sell (exclude stolen items = false) - or if FCOIS and PAI are enabled
-                    if HasAnyJunk(BAG_BACKPACK) then
-                        local stolenJunkComparator = PAHF.getStolenJunkComparator()
-                        _OnFenceOpenInternal(stolenJunkComparator)
+                    if autoSellJunk then
+                        -- check if there is junk to sell (exclude stolen items = false) - or if FCOIS and PAI are enabled
+                        if HasAnyJunk(BAG_BACKPACK) then
+                            local stolenJunkComparator = PAHF.getStolenJunkComparator()
+                            _OnFenceOpenInternal(stolenJunkComparator)
+                        end
                     end
                 end
             else

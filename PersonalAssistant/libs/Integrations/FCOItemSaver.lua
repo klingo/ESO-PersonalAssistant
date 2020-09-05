@@ -87,6 +87,10 @@ local function getSellStolenJunkIncludingFCOISComparator()
     return _getDynamicSellJunkIncludingFCOISComparator(true) -- mustBeStolen = true
 end
 
+local function getSellStolenFCOISComparator()
+    return _getDynamicSellFCOISComparator(true) -- mustBeStolen = true
+end
+
 local function getSellJunkIncludingFCOISComparator()
     return _getDynamicSellJunkIncludingFCOISComparator(false) -- mustBeStolen = false
 end
@@ -100,6 +104,7 @@ end
 PA.Libs = PA.Libs or {}
 PA.Libs.FCOItemSaver = {
     getSellStolenJunkIncludingFCOISComparator = getSellStolenJunkIncludingFCOISComparator,
+    getSellStolenFCOISComparator = getSellStolenFCOISComparator,
     getSellJunkIncludingFCOISComparator = getSellJunkIncludingFCOISComparator,
     getSellFCOISComparator = getSellFCOISComparator,
 }
