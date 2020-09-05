@@ -142,7 +142,7 @@ local function introduction()
             if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then
                 PA.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
-                PA.println(SI_PA_WELCOME_SUPPORT)
+                PA.println(SI_PA_WELCOME_SUPPORT, PAGSavedVars.name)
             end
         end
     end
