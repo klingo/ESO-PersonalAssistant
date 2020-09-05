@@ -377,6 +377,9 @@ local PAJunkMenuFunctions = {
     isAutoSellJunkDisabled = function() return isDisabled() end, -- currently always enabled
     getAutoSellJunkSetting = function() return getValue({"autoSellJunk"}) end,
     setAutoSellJunkSetting = function(value) setValueAndRefreshEvents(value, {"autoSellJunk"}) end,
+    isAutoSellJunkPirharriDisabled = function() return isDisabled({"autoSellJunk"}) end,
+    getAutoSellJunkPirharriSetting = function() return getValue({"autoSellJunkPirharri"}) end,
+    setAutoSellJunkPirharriSetting = function(value) setValueAndRefreshEvents(value, {"autoSellJunkPirharri"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- SILENT MODE
