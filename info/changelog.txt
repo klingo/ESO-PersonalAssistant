@@ -1,3 +1,10 @@
+2.4.20 (September 05, 2020)
+- added support for Stonethorn (APIVersion 100032) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/260"]#260[/URL])
+- added option to select default soul gem for recharging weapons ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/264"]#264[/URL])
+- added an experimental option to not automatically sell stolen items to Pirharri ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/261"]#261[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/262"]#262[/URL])
+- updated welcome message to include the active profile name ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/259"]#259[/URL])
+- fixed an issue with a wrongly calculated gold summary when selling stacks to Fences ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/263"]#263[/URL])
+
 2.4.19 (May 26, 2020)
 - added support for LibChatMessage ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/250"]#250[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/251"]#251[/URL])
 - added support for Greymoor (APIVersion 100031) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/249"]#249[/URL])

@@ -2,7 +2,7 @@ local PAC = PersonalAssistant.Constants
 -- =================================================================================================================
 -- Welcome Messages --
 SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "à votre service !   -   La traduction pour le language [%s] n'est pas (encore) disponible"}), 1)
-SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "à votre service !"}), 1)
+SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "à votre service ! Profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
 SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFAULT, "vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") afin de sélectionner un profil. Merci :-)"}), 1)
 
 SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "nécessite une version plus récente de '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' que celle qui est installée actuellement. Merci de télécharger et faire la mise à jour vers la dernière version sur ", PAC.COLORS.WHITE, "http://esoui.com"}), 1)
@@ -64,7 +64,7 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Pas
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " profil actif: ", PAC.COLORS.ORANGE_RED, "%s"}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" nouveau profil ", PAC.COLOR.WHITE:Colorize("%s"), " créé et activé !"}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("copié"), " vers le profil ", PAC.COLOR.WHITE:Colorize("%s")}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("supprimé !")}), 1)

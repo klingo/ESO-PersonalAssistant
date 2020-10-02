@@ -34,7 +34,9 @@ SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T, table.concat({"Е
 
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_HEADER, table.concat({"Заряжать оружие за ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE, table.concat({"Использовать ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}), 1)
-SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T, "Заряжать экипированное оружие, когда уровень его зарядки достигает нуля. Сначала будут использоваться кронные камни душ и только потом обычные.", 1)
+SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T, "Заряжать экипированное оружие, когда уровень его зарядки достигает нуля.", 1)
+--SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM, "", 1)
+--SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM_T, "", 1)
 --    SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE, "Сообщение чата после зарядки", 1)
 --    SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T, "Что показывать после зарядки экипированного оружия в окне чата", 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING, table.concat({"Сообщать что заканчиваются ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}), 1)
