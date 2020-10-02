@@ -56,6 +56,9 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT, nil, Loot_Defaults)
 
+    -- sync profiles between PAGeneral and PALoot
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Loot, PA.MenuDefaults.PALoot)
+
     -- create the options with LAM-2
     PA.Loot.createOptions()
 end

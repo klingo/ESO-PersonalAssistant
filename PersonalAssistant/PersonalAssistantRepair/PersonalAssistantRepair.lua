@@ -56,6 +56,9 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR, nil, Repair_Defaults)
 
+    -- sync profiles between PAGeneral and PARepair
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Repair, PA.MenuDefaults.PARepair)
+
     -- create the options with LAM-2
     PA.Repair.createOptions()
 end
