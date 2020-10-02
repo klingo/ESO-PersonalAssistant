@@ -44,7 +44,7 @@ local function _initDefaults()
     -- GLOBAL default values for PAGeneral
     General_Defaults = {
         savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR,
-        profileCounter = 1
+        profileCounter = 0
     }
     -- LOCAL default values for PAProfile
     Profile_Defaults = {
@@ -61,9 +61,10 @@ end
 
 -- create a default profile if none exist yet
 local function _initDefaultProfile(savedVars)
-    if savedVars.profileCounter <= 1 then
+    if savedVars.profileCounter == 0 and savedVars[1] == nil then
         savedVars[1] = PA.MenuDefaults.PAGeneral
         savedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
+        savedVars.profileCounter = 1
     end
 end
 
@@ -101,7 +102,7 @@ local function initAddon(_, addOnName)
     -- init a default profile if none exist
     _initDefaultProfile(PASavedVars.General)
 
-    -- fix the active profile in case an invalid one is selected (because it was delelted from another character)
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
     _fixActiveProfile()
 
     -- get the active Profile and the debug setting

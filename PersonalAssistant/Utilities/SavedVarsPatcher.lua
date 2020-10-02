@@ -443,6 +443,16 @@ local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _,
     end
 end
 
+
+local function _applyPatch_2_5_0(savedVarsVersion, patchPAG, _, _, _, _, _)
+    if patchPAG and PA then
+        local PASavedVars = PA.SavedVars
+        PASavedVars.General.profileCounter = 10
+        _updateSavedVarsVersion(savedVarsVersion, patchPAG, nil, nil, nil, nil, nil)
+    end
+end
+
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -490,6 +500,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.19     May 26, 2020
     _applyPatch_2_4_19(_getIsPatchNeededInfo(020419))
+
+    -- Patch 2.5.0      tbd
+    _applyPatch_2_5_0(_getIsPatchNeededInfo(020500))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
