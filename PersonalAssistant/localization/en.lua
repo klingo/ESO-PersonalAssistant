@@ -74,7 +74,6 @@ local PAStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral --
-    SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE = table.concat({PAC.COLORS.DEFAULT, " active profile: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
     SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED = table.concat({" new profile ", PAC.COLOR.WHITE:Colorize("%s"), " created and activated!"}),
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" settings of profile ", PAC.COLOR.WHITE:Colorize("%s"), " have been ", PAC.COLOR.ORANGE_RED:Colorize("copied"), " to active profile ", PAC.COLOR.WHITE:Colorize("%s")}),
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" selected profile ", PAC.COLOR.WHITE:Colorize("%s"), " has been ", PAC.COLOR.ORANGE_RED:Colorize("deleted!")}),
@@ -216,8 +215,6 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Rules",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Toggle Banking/Junk Rules Menu",
-
-    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
 }
 
 for key, value in pairs(PAStrings) do

@@ -71,7 +71,6 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Noc
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " aktives Profil: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" neues Profil ", PAC.COLOR.WHITE:Colorize("%s"), " erstellt und aktiviert!"}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" Einstellungen von Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurden in das aktive Profil ", PAC.COLOR.WHITE:Colorize("%s"), PAC.COLOR.ORANGE_RED:Colorize(" kopiert")}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" ausgewähltes Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurde ", PAC.COLOR.ORANGE_RED:Colorize("gelöscht!")}), 1)
@@ -213,4 +212,3 @@ SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssi
 SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Regeln", 1)
 SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Banking/Trödel Regelmenü ein-/ausblenden", 1)
 
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Aktiviere Profil", 1)

@@ -71,7 +71,6 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Pas
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" nouveau profil ", PAC.COLOR.WHITE:Colorize("%s"), " créé et activé !"}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("copié"), " vers le profil ", PAC.COLOR.WHITE:Colorize("%s")}), 1)
 SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("supprimé !")}), 1)
@@ -212,8 +211,6 @@ SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "Menu de |cFFD700P|rersonal|cFFD7
 
 SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "Règles de PersonalAssistant", 1)
 SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Afficher/Cacher le menu des règles de mise en banque et aux rebuts", 1)
-
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)
 
 
 -- =================================================================================================================
