@@ -52,7 +52,7 @@ PersonalAssistant.Constants = {
     },
 
     GENERAL = {
-        MAX_PROFILES = 10,
+        MAX_PROFILES = 20,
         NO_PROFILE_SELECTED_ID = 0
     },
 
