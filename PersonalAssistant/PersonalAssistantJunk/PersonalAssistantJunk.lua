@@ -27,8 +27,14 @@ end
 
 -- init default values
 local function initDefaults()
-    -- GLOBAL default values for PAJunk
-    Junk_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
+    local PASavedVars = PA.SavedVars
+    local PAMenuDefaults = PA.MenuDefaults
+    -- default values for PAJunk
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
+        -- get default values from PAMenuDefaults
+        Junk_Defaults[1] = PAMenuDefaults.PAJunk
+        Junk_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
+    end
 end
 
 -- init saved variables and register Addon

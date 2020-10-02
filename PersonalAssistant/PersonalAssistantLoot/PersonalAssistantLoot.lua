@@ -27,12 +27,13 @@ end
 
 -- init default values
 local function initDefaults()
+    local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
     -- default values for PALoot
-    Loot_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
         -- get default values from PAMenuDefaults
-        Loot_Defaults[profileNo] = PAMenuDefaults.PALoot
+        Loot_Defaults[1] = PAMenuDefaults.PALoot
+        Loot_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     end
 end
 

@@ -27,12 +27,13 @@ end
 
 -- init default values
 local function initDefaults()
+    local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PABanking
-    Integration_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+    -- default values for PAIntegration
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
         -- get default values from PAMenuDefaults
-        Integration_Defaults[profileNo] = PAMenuDefaults.PAIntegration
+        Integration_Defaults[1] = PAMenuDefaults.PAIntegration
+        Integration_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     end
 end
 
