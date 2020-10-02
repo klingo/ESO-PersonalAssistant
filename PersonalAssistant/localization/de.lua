@@ -13,7 +13,15 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "benötig
 -- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant ist eine Sammlung diverser Funktionalitäten mit dem Ziel um deine Zeit in ESO noch angenehmenr zu machen", 1)
 
--- Profiles --
+-- -----------------------------------------------------------------------------------------------------------------
+-- General Settings --
+SafeAddString(SI_PA_MENU_GENERAL_HEADER, "Generelle Einstellungen", 1)
+SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Profile Settings --
 SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profile", 1)
 SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Bitte Profil wählen>", 1)
 SafeAddString(SI_PA_MENU_PROFILE_DEFAULT, "Standard Profil", 1)
@@ -37,10 +45,9 @@ SafeAddString(SI_PA_MENU_PROFILE_DELETE, "Profil löschen", 1)
 SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM, "Löschen bestätigen", 1)
 SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W, "Das wird das ausgewählte Profil für alle Charaktere löschen. Bist du dir sicher?", 1)
 
--- General --
-SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
+-- -----------------------------------------------------------------------------------------------------------------
+-- Admin Settings --
+SafeAddString(SI_PA_MENU_ADMIN_HEADER, "Admin Einstellungen", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Rules Menu --

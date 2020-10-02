@@ -13,7 +13,15 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "nécessi
 -- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable", 1)
 
--- Profiles --
+-- -----------------------------------------------------------------------------------------------------------------
+-- General Settings --
+--SafeAddString(SI_PA_MENU_GENERAL_HEADER, "General Settings", 1)
+SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Profile Settings --
 SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
 SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Sélectionner un profil>", 1)
 SafeAddString(SI_PA_MENU_PROFILE_DEFAULT, "Profil par défaut", 1)
@@ -37,10 +45,9 @@ SafeAddString(SI_PA_MENU_PROFILE_DELETE, "Supprimer un profil", 1)
 SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM, "Confirmer la suppression", 1)
 SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W, "Cela supprimera le profil sélectionné pour tous les personnages. Êtes-vous sûr de vouloir continuer ?", 1)
 
--- General --
-SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
+-- -----------------------------------------------------------------------------------------------------------------
+-- Admin Settings --
+--SafeAddString(SI_PA_MENU_ADMIN_HEADER, "Admin Settings", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Rules Menu --

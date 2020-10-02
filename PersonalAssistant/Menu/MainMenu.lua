@@ -35,6 +35,33 @@ local function createPAGeneralMenu()
 
     PAGeneralOptionsTable:insert({
         type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_GENERAL_HEADER))
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME),
+        getFunc = PAGMenuFunctions.getWelcomeMessageSetting,
+        setFunc = PAGMenuFunctions.setWelcomeMessageSetting,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+        default = PAGMenuDefaults.welcomeMessage,
+    })
+
+    local houseId = GetHousingPrimaryHouse()
+    if houseId then
+        PAGeneralOptionsTable:insert({
+            type = "button",
+            name = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE),
+            width = "half",
+            func = PAGMenuFunctions.teleportToPrimaryHouse,
+            disabled = PAGMenuFunctions.isTeleportToPrimaryHouseDisabled,
+            isDangerous = true,
+            warning = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W),
+        })
+    end
+
+    PAGeneralOptionsTable:insert({
+        type = "header",
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_PROFILE_HEADER))
     })
 
@@ -139,35 +166,13 @@ local function createPAGeneralMenu()
         disabled = PAGMenuFunctions.isNoDeleteProfileSelected,
     })
 
-    PAGeneralOptionsTable:insert({
-        type = "header",
-        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
-    })
-
-    PAGeneralOptionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME),
-        getFunc = PAGMenuFunctions.getWelcomeMessageSetting,
-        setFunc = PAGMenuFunctions.setWelcomeMessageSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
-        default = PAGMenuDefaults.welcomeMessage,
-    })
-
-    local houseId = GetHousingPrimaryHouse()
-    if houseId then
-        PAGeneralOptionsTable:insert({
-            type = "button",
-            name = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE),
-            width = "half",
-            func = PAGMenuFunctions.teleportToPrimaryHouse,
-            disabled = PAGMenuFunctions.isTeleportToPrimaryHouseDisabled,
-            isDangerous = true,
-            warning = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W),
-        })
-    end
-
     -- register additional buttons to switch between languages (only for Addon author)
     if GetUnitName("player") == PACAddon.AUTHOR then
+        PAGeneralOptionsTable:insert({
+            type = "header",
+            name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_ADMIN_HEADER))
+        })
+
         PAGeneralOptionsTable:insert({
             type = "button",
             name = "English",

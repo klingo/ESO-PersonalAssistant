@@ -16,7 +16,15 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant is a collection of various features that have the goal to make playing ESO more convenient for you",
 
-    -- Profiles --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- General Settings --
+    SI_PA_MENU_GENERAL_HEADER = "General Settings",
+    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Profile Settings --
     SI_PA_MENU_PROFILE_HEADER = "Profiles",
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Please select Profile>",
     SI_PA_MENU_PROFILE_DEFAULT = "Default profile",
@@ -40,10 +48,9 @@ local PAStrings = {
     SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirm deletion",
     SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "This will delete the selected profile for all characters. Are you sure you want to do that?",
 
-    -- General --
-    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Admin Settings --
+    SI_PA_MENU_ADMIN_HEADER = "Admin Settings",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Rules Menu --
