@@ -507,7 +507,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.4.19     May 26, 2020
     _applyPatch_2_4_19(_getIsPatchNeededInfo(020419))
 
-    -- Patch 2.5.0      tbd
+    -- Patch 2.5.0      October 03, 2020
     _applyPatch_2_5_0(_getIsPatchNeededInfo(020500))
 end
 
