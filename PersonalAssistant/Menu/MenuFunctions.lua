@@ -24,7 +24,6 @@ end
 local function setPAGeneralActiveProfile(profileNo)
     if profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         local PASavedVars = PA.SavedVars
-        local PAMenuHelper = PA.MenuHelper
         -- get the previously active profile first
         local prevProfile = PASavedVars.Profile.activeProfile
         -- then save the new one
@@ -32,10 +31,10 @@ local function setPAGeneralActiveProfile(profileNo)
         PA.activeProfile = profileNo
         -- if the previous profile was the "no profile selected" one, refresh the dropdown values
         if prevProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
-            PAMenuHelper.reloadProfileList()
+            PAMH.reloadProfileList()
         end
         -- refresh the profiles to be copy/deleted
-        PAMenuHelper.reloadInactiveProfileList()
+        PAMH.reloadInactiveProfileList()
         -- reset the selected entry from from the copy/delete dropdowns
         PA.selectedCopyProfile = nil
         PA.selectedDeleteProfile = nil
