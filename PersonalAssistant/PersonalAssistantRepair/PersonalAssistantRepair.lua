@@ -27,12 +27,13 @@ end
 
 -- init default values
 local function initDefaults()
+    local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
     -- default values for PARepair
-    Repair_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
         -- get default values from PAMenuDefaults
-        Repair_Defaults[profileNo] = PAMenuDefaults.PARepair
+        Repair_Defaults[1] = PAMenuDefaults.PARepair
+        Repair_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     end
 end
 
@@ -55,6 +56,9 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR, nil, Repair_Defaults)
+
+    -- sync profiles between PAGeneral and PARepair
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Repair, PA.MenuDefaults.PARepair)
 
     -- create the options with LAM-2
     PA.Repair.createOptions()

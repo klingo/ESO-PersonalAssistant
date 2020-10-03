@@ -405,6 +405,9 @@ local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _,
         for profileNo = 1, 10 do
             -- 1) migrate   PABanking.Custom.ItemIds
             local oldItemIdConfigs = PASavedVars.Banking[profileNo].Custom.ItemIds
+            if PASavedVars.Banking[profileNo].Custom.PAItemIds == nil then
+                PASavedVars.Banking[profileNo].Custom.PAItemIds = {}
+            end
             if oldItemIdConfigs ~= nil then -- in case player did not had 10 profiles?
                 for itemId, moveConfig in pairs(oldItemIdConfigs) do
                     if istable(moveConfig) then
@@ -426,6 +429,9 @@ local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _,
         for profileNo = 1, 10 do
             -- 1) migrate   PAJunk.Custom.ItemIds
             local oldItemIdConfigs = PASavedVars.Junk[profileNo].Custom.ItemIds
+            if PASavedVars.Junk[profileNo].Custom.PAItemIds == nil then
+                PASavedVars.Junk[profileNo].Custom.PAItemIds = {}
+            end
             if oldItemIdConfigs ~= nil then -- in case player did not had 10 profiles?
                 for itemId, moveConfig in pairs(oldItemIdConfigs) do
                     if istable(moveConfig) then
@@ -442,6 +448,16 @@ local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _,
         _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
     end
 end
+
+
+local function _applyPatch_2_5_0(savedVarsVersion, patchPAG, _, _, _, _, _)
+    if patchPAG and PA then
+        local PASavedVars = PA.SavedVars
+        PASavedVars.General.profileCounter = 10
+        _updateSavedVarsVersion(savedVarsVersion, patchPAG, nil, nil, nil, nil, nil)
+    end
+end
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -490,6 +506,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.4.19     May 26, 2020
     _applyPatch_2_4_19(_getIsPatchNeededInfo(020419))
+
+    -- Patch 2.5.0      tbd
+    _applyPatch_2_5_0(_getIsPatchNeededInfo(020500))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
