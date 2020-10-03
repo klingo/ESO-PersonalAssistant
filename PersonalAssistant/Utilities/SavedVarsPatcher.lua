@@ -405,6 +405,9 @@ local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _,
         for profileNo = 1, 10 do
             -- 1) migrate   PABanking.Custom.ItemIds
             local oldItemIdConfigs = PASavedVars.Banking[profileNo].Custom.ItemIds
+            if PASavedVars.Banking[profileNo].Custom.PAItemIds == nil then
+                PASavedVars.Banking[profileNo].Custom.PAItemIds = {}
+            end
             if oldItemIdConfigs ~= nil then -- in case player did not had 10 profiles?
                 for itemId, moveConfig in pairs(oldItemIdConfigs) do
                     if istable(moveConfig) then
@@ -426,6 +429,9 @@ local function _applyPatch_2_4_19(savedVarsVersion, _, patchPAB, _, patchPAJ, _,
         for profileNo = 1, 10 do
             -- 1) migrate   PAJunk.Custom.ItemIds
             local oldItemIdConfigs = PASavedVars.Junk[profileNo].Custom.ItemIds
+            if PASavedVars.Junk[profileNo].Custom.PAItemIds == nil then
+                PASavedVars.Junk[profileNo].Custom.PAItemIds = {}
+            end
             if oldItemIdConfigs ~= nil then -- in case player did not had 10 profiles?
                 for itemId, moveConfig in pairs(oldItemIdConfigs) do
                     if istable(moveConfig) then
