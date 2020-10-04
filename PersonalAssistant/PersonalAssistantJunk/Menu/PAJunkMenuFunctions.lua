@@ -168,6 +168,7 @@ local function isPAJunkStolenMenuDisabled()
     if not (tonumber(getValue({"Stolen", "ingredientAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "foodAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "drinkAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
+    if not (tonumber(getValue({"Stolen", "solventAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "treasureAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "Weapons", "action"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "Armor", "action"})) == PAC.ITEM_ACTION.NOTHING) then return false end
@@ -328,6 +329,9 @@ local PAJunkMenuFunctions = {
     isStolenDrinkActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenDrinkActionSetting = function() return getValue({"Stolen", "drinkAction"}) end,
     setStolenDrinkActionSetting = function(value) setValue(value, {"Stolen", "drinkAction"}) end,
+    isStolenSolventActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenSolventActionSetting = function() return getValue({"Stolen", "solventAction"}) end,
+    setStolenSolventActionSetting = function(value) setValue(value, {"Stolen", "solventAction"}) end,
     isStolenTreasureActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenTreasureActionSetting = function() return getValue({"Stolen", "treasureAction"}) end,
     setStolenTreasureActionSetting = function(value) setValue(value, {"Stolen", "treasureAction"}) end,

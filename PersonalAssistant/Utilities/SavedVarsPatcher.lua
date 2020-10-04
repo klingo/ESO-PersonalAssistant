@@ -459,16 +459,18 @@ end
 
 -- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
-    if patchPAJ and PA then
+    if patchPAJ and PA.Junk then
         local PASavedVars = PA.SavedVars
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Junk[profileNo]) then
                 PASavedVars.Junk[profileNo].ignoreCraftedItems = true
+                PASavedVars.Junk[profileNo].Stolen.solventAction = PAC.ITEM_ACTION.NOTHING
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
     end
 end
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -521,7 +523,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.5.0      October 03, 2020
     _applyPatch_2_5_0(_getIsPatchNeededInfo(020500))
 
-    -- Patch 2.5.0
+    -- Patch 2.5.1
     _applyPatch_2_5_1(_getIsPatchNeededInfo(020501))
 end
 

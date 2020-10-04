@@ -57,6 +57,7 @@ local PAJunkMenuDefaults = {
         ingredientAction = PAC.ITEM_ACTION.NOTHING,
         foodAction = PAC.ITEM_ACTION.NOTHING,
         drinkAction = PAC.ITEM_ACTION.NOTHING,
+        solventAction = PAC.ITEM_ACTION.NOTHING,
         treasureAction = PAC.ITEM_ACTION.NOTHING,
     },
     Custom = {
