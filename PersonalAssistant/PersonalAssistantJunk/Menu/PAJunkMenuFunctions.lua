@@ -162,6 +162,7 @@ end
 ---------------------------------
 local function isPAJunkStolenMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if not (tonumber(getValue({"Stolen", "trashAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "styleMaterialAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "traitItemAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "lureAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
@@ -311,6 +312,9 @@ local PAJunkMenuFunctions = {
     isStolenJewelryActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenJewelryActionSetting = function() return getValue({"Stolen", "Jewelry", "action"}) end,
     setStolenJewelryActionSetting = function(value) setValue(value, {"Stolen", "Jewelry", "action"}) end,
+    isStolenTrashActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenTrashActionSetting = function() return getValue({"Stolen", "trashAction"}) end,
+    setStolenTrashActionSetting = function(value) setValue(value, {"Stolen", "trashAction"}) end,
     isStolenStyleMaterialActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenStyleMaterialActionSetting = function() return getValue({"Stolen", "styleMaterialAction"}) end,
     setStolenStyleMaterialActionSetting = function(value) setValue(value, {"Stolen", "styleMaterialAction"}) end,
