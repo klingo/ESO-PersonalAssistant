@@ -702,6 +702,9 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                                     end
                                 end
                             end
+                        elseif (itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH) and not (PAJunkSavedVars.Stolen.trashAction == PAC.ITEM_ACTION.NOTHING) then
+                            local trashAction = PAJunkSavedVars.Stolen.trashAction
+                            _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, trashAction)
                         elseif itemType == ITEMTYPE_STYLE_MATERIAL and not (PAJunkSavedVars.Stolen.styleMaterialAction == PAC.ITEM_ACTION.NOTHING) then
                             local styleMaterialAction = PAJunkSavedVars.Stolen.styleMaterialAction
                             _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, styleMaterialAction)

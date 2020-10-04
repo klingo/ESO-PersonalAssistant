@@ -51,6 +51,7 @@ local PAJunkMenuDefaults = {
         Jewelry = {
             action = PAC.ITEM_ACTION.NOTHING,
         },
+        trashAction = PAC.ITEM_ACTION.NOTHING,
         styleMaterialAction = PAC.ITEM_ACTION.NOTHING,
         traitItemAction = PAC.ITEM_ACTION.NOTHING,
         lureAction = PAC.ITEM_ACTION.NOTHING,

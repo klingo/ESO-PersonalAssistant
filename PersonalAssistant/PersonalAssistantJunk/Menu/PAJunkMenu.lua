@@ -530,6 +530,7 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAJStolenSubMenu()
+    local _trash = zo_strformat(GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), 2)
     local _weaponItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS))
     local _armorItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR))
     local _jewelryItemType = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY))
@@ -541,6 +542,22 @@ local function _createPAJStolenSubMenu()
     local _drinks = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_DRINK), 2)
     local _solvents = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_POTION_BASE), 2)
     local _treasures = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TREASURE), 2)
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _trash),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenTrashActionSetting,
+        setFunc = PAJMenuFunctions.setStolenTrashActionSetting,
+        disabled = PAJMenuFunctions.isStolenTrashActionDisabled,
+        default = PAJMenuDefaults.Stolen.trashAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
 
     PAJStolenSubMenu:insert({
         type = "dropdown",

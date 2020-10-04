@@ -464,6 +464,7 @@ local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Junk[profileNo]) then
                 PASavedVars.Junk[profileNo].ignoreCraftedItems = true
+                PASavedVars.Junk[profileNo].Stolen.trashAction = PAC.ITEM_ACTION.NOTHING
                 PASavedVars.Junk[profileNo].Stolen.solventAction = PAC.ITEM_ACTION.NOTHING
             end
         end
