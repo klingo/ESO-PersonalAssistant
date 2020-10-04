@@ -529,6 +529,7 @@ local function _createPAJStolenSubMenu()
     local _ingredients = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_INGREDIENT), 2)
     local _foods = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_FOOD), 2)
     local _drinks = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_DRINK), 2)
+    local _solvents = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_POTION_BASE), 2)
     local _treasures = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TREASURE), 2)
 
     PAJStolenSubMenu:insert({
@@ -638,6 +639,22 @@ local function _createPAJStolenSubMenu()
         setFunc = PAJMenuFunctions.setStolenDrinkActionSetting,
         disabled = PAJMenuFunctions.isStolenDrinkActionDisabled,
         default = PAJMenuDefaults.Stolen.drinkAction,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "divider",
+        alpha = 0.2,
+    })
+
+    PAJStolenSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _solvents),
+        choices = PAJMenuChoices.itemAction,
+        choicesValues = PAJMenuChoicesValues.itemAction,
+        getFunc = PAJMenuFunctions.getStolenSolventActionSetting,
+        setFunc = PAJMenuFunctions.setStolenSolventActionSetting,
+        disabled = PAJMenuFunctions.isStolenSolventActionDisabled,
+        default = PAJMenuDefaults.Stolen.solventAction,
     })
 
     PAJStolenSubMenu:insert({

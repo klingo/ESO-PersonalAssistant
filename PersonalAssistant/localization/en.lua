@@ -106,6 +106,7 @@ local PAStrings = {
     SI_PA_ITEMTYPE22 = "<<1[Lockpick/Lockpicks]>>",
     SI_PA_ITEMTYPE29 = "<<1[Recipe/Recipes]>>",
     SI_PA_ITEMTYPE30 = "<<1[Poison/Poisons]>>",
+    SI_PA_ITEMTYPE33 = "<<1[Solvent/Solvents]>>",
     SI_PA_ITEMTYPE34 = "<<1[Collectible/Collectibles]>>",
     SI_PA_ITEMTYPE47 = "<<1[AvA Repair/AvA Repairs]>>",
     SI_PA_ITEMTYPE56 = "<<1[Treasure/Treasures]>>",

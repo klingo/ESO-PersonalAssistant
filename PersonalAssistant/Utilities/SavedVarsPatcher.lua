@@ -459,6 +459,19 @@ local function _applyPatch_2_5_0(savedVarsVersion, patchPAG, _, _, _, _, _)
 end
 
 
+local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
+    if patchPAJ then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if (istable(PASavedVars.Junk[profileNo])) then
+                PASavedVars.Junk[profileNo].Stolen.solventAction = PAC.ITEM_ACTION.NOTHING
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
+    end
+end
+
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
@@ -509,6 +522,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.5.0      October 03, 2020
     _applyPatch_2_5_0(_getIsPatchNeededInfo(020500))
+
+    -- Patch 2.5.1
+    _applyPatch_2_5_1(_getIsPatchNeededInfo(020501))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
