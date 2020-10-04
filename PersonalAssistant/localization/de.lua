@@ -18,7 +18,7 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- General Settings --
-    SI_PA_MENU_GENERAL_HEADER = "Generelle Einstellungen"
+    SI_PA_MENU_GENERAL_HEADER = "Generelle Einstellungen",
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Wilkommensmeldung anzeigen",
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!",
@@ -215,7 +215,7 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Regeln",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Banking/Trödel Regelmenü ein-/ausblenden",
-
+}
 
 for key, value in pairs(PAStrings) do
     SafeAddString(key, value, 1)

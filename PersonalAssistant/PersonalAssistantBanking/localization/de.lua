@@ -135,3 +135,8 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("gelöscht"), "!"}),
     SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("aktiviert"), "!"}),
     SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("deaktiviert"), "!"}),
+}
+
+for key, value in pairs(PABStrings) do
+    SafeAddString(key, value, 1)
+end
