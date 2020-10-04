@@ -1,3 +1,9 @@
+2.5.0 (October 03, 2020)
+- added support for Markarth (APIVersion 100033) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/267"]#267[/URL])
+- added new 'profile management' feature to create/copy/delete up to 20 profiles ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/265"]#265[/URL])
+- removed keybinding to switch to specific profile (due to new profile management feature) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/265"]#265[/URL])
+- fixed an issue with 'known' icon for items/containers that don't have any traits ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/266"]#266[/URL])
+
 2.4.20 (September 05, 2020)
 - added support for Stonethorn (APIVersion 100032) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/260"]#260[/URL])
 - added option to select default soul gem for recharging weapons ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/264"]#264[/URL])

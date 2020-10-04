@@ -13,19 +13,41 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "nécessi
 -- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable", 1)
 
--- Profiles --
+-- -----------------------------------------------------------------------------------------------------------------
+-- General Settings --
+--SafeAddString(SI_PA_MENU_GENERAL_HEADER, "General Settings", 1)
+SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Profile Settings --
 SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
 SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Sélectionner un profil>", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DEFAULT, "Profil par défaut", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Profil actif", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Selectionner le profil actif pour PersonalAssistant. Il chargera automatiquement tous les paramètres stockés sous ce profil, et enregistrera les changements au même endroit.", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Renommer le profil actif", 1)
 
--- Integrations --
+-- Create Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW, "Créer un nouveau profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC, table.concat({"Note : Vous pouvez avoir un maximum de ", PAC.GENERAL.MAX_PROFILES, " profils."}), 1)
 
--- General --
-SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
+-- Copy Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_DESC, "Copier les paramètres depuis un profil existant vers le profil courant.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM, "Copier depuis profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM, "Confirmer la copie", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W, "Cela remplacera les paramètres du profil actif par ceux du profil sélectionné. Êtes-vous sûr de vouloir continuer ? \n\nNote : Seulement les paramètres des modules actifs de PersonalAssitant seront copiés.", 1)
+
+-- Delete Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_DESC, "Supprimer les profils existants et inutilisés de la base de données pour sauver de l'espace, et nettoyer le fichier SavedVariables.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE, "Supprimer un profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM, "Confirmer la suppression", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W, "Cela supprimera le profil sélectionné pour tous les personnages. Êtes-vous sûr de vouloir continuer ?", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Admin Settings --
+--SafeAddString(SI_PA_MENU_ADMIN_HEADER, "Admin Settings", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Rules Menu --
@@ -49,7 +71,9 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Pas
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" nouveau profil ", PAC.COLOR.WHITE:Colorize("%s"), " créé et activé !"}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("copié"), " vers le profil ", PAC.COLOR.WHITE:Colorize("%s")}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("supprimé !")}), 1)
 
 
 -- =================================================================================================================
@@ -79,6 +103,7 @@ SafeAddString(SI_PA_ITEMTYPE19, "<<1[Pierre d'Âme/Pierres d'Âme]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE22, "<<1[Crochetage/Crochetages]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Recette/Recettes]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Poison/Poisons]>>", 1)
+--SafeAddString(SI_PA_ITEMTYPE33, "<<1[]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Objet de collection/Objets de collection]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE56, "<<1[Trésor/Trésors]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE60, "<<1[Commande de maître/Commandes de maître]>>", 1)
@@ -187,8 +212,6 @@ SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "Menu de |cFFD700P|rersonal|cFFD7
 
 SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "Règles de PersonalAssistant", 1)
 SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Afficher/Cacher le menu des règles de mise en banque et aux rebuts", 1)
-
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Activer le profil", 1)
 
 
 -- =================================================================================================================

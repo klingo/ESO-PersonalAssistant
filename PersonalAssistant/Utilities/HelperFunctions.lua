@@ -469,10 +469,21 @@ end
 
 -- returns the default profile name of the provided profile number
 local function getDefaultProfileName(profileNo)
-    if profileNo <= PAC.GENERAL.MAX_PROFILES then
-        return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
-    else
-        return GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
+    return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
+end
+
+-- sync the LOCAL profiles with the ones from GLOBAL
+local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
+    local PASavedVars = PA.SavedVars
+    for profileNo = 1, PASavedVars.General.profileCounter do
+        if istable(PASavedVars.General[profileNo]) and not istable(localSavedVars[profileNo]) then
+            -- GLOBAL has a profile, but LOCAL does not - create it!
+            localSavedVars[profileNo] = {}
+            ZO_DeepTableCopy(localDefaults, localSavedVars[profileNo])
+        elseif istable(localSavedVars[profileNo]) and not istable(PASavedVars.General[profileNo]) then
+            -- LOCAL has a profile, but GLOBAL does not - delete it!
+            localSavedVars[profileNo] = nil
+        end
     end
 end
 
@@ -550,6 +561,7 @@ PA.HelperFunctions = {
     debugln = debugln,
     debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
+    syncLocalProfilesWithGlobal = syncLocalProfilesWithGlobal,
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,

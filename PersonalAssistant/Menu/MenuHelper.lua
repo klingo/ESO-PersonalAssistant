@@ -4,16 +4,36 @@ local PAC = PA.Constants
 
 -- --------------------------------------------------------------------------------------------------------
 
+local function _getNumberOfProfiles()
+    local PASavedVars = PA.SavedVars
+    local profileCounter = PASavedVars.General.profileCounter
+    if profileCounter == nil or profileCounter == 0 then
+        if PASavedVars.General[1] ~= nil then
+            -- Migration Use-Case: profileCounter not yet initialized, but profiles are existing
+            -- Return previous default number of profiles: 10
+            return 10
+        end
+    end
+    -- Normal Use-Case: profileCounter initzialized
+    return profileCounter
+end
+
+
+-- --------------------------------------------------------------------------------------------------------
+
 local function getProfileList()
     local PASavedVars = PA.SavedVars
 
     local profiles = {}
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        profiles[profileNo] = PASavedVars.General[profileNo].name
+    -- for profileNo = 1, PASavedVars.General.profileCounter do
+    for profileNo = 1, _getNumberOfProfiles() do
+        if istable(PASavedVars.General[profileNo]) then
+            table.insert(profiles, PASavedVars.General[profileNo].name)
+        end
     end
 
-    if PASavedVars.Profile.activeProfile == nil then
-        profiles[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
+    if PASavedVars.Profile.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        table.insert(profiles, GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT))
     end
 
     return profiles
@@ -23,12 +43,43 @@ local function getProfileListValues()
     local PASavedVars = PA.SavedVars
 
     local profileValues = {}
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        profileValues[profileNo] = profileNo
+    -- for profileNo = 1, PASavedVars.General.profileCounter do
+    for profileNo = 1, _getNumberOfProfiles() do
+        if istable(PASavedVars.General[profileNo]) then
+            table.insert(profileValues, profileNo)
+        end
     end
 
-    if PASavedVars.Profile.activeProfile == nil then
-        profileValues[PAC.GENERAL.NO_PROFILE_SELECTED_ID] = PAC.GENERAL.NO_PROFILE_SELECTED_ID
+    if PASavedVars.Profile.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        table.insert(profileValues, PAC.GENERAL.NO_PROFILE_SELECTED_ID)
+    end
+
+    return profileValues
+end
+
+local function getInactiveProfileList()
+    local PASavedVars = PA.SavedVars
+
+    local profiles = {}
+    -- for profileNo = 1, PASavedVars.General.profileCounter do
+    for profileNo = 1, _getNumberOfProfiles() do
+        if istable(PASavedVars.General[profileNo]) and profileNo ~= PASavedVars.Profile.activeProfile then
+            table.insert(profiles, PASavedVars.General[profileNo].name)
+        end
+    end
+
+    return profiles
+end
+
+local function getInactiveProfileListValues()
+    local PASavedVars = PA.SavedVars
+
+    local profileValues = {}
+    -- for profileNo = 1, PASavedVars.General.profileCounter do
+    for profileNo = 1, _getNumberOfProfiles() do
+        if istable(PASavedVars.General[profileNo]) and profileNo ~= PASavedVars.Profile.activeProfile then
+            table.insert(profileValues, profileNo)
+        end
     end
 
     return profileValues
@@ -39,6 +90,15 @@ local function reloadProfileList()
     local profileValues = getProfileListValues()
     PERSONALASSISTANT_PROFILEDROPDOWN:UpdateChoices(profiles, profileValues)
     PERSONALASSISTANT_PROFILEDROPDOWN:UpdateValue()
+end
+
+local function reloadInactiveProfileList()
+    local inactiveProfiles = getInactiveProfileList()
+    local inactiveProfileValues = getInactiveProfileListValues()
+    PERSONALASSISTANT_PROFILEDROPDOWN_COPY:UpdateChoices(inactiveProfiles, inactiveProfileValues)
+    PERSONALASSISTANT_PROFILEDROPDOWN_COPY:UpdateValue()
+    PERSONALASSISTANT_PROFILEDROPDOWN_DELETE:UpdateChoices(inactiveProfiles, inactiveProfileValues)
+    PERSONALASSISTANT_PROFILEDROPDOWN_DELETE:UpdateValue()
 end
 
 local function getTextIfRequiredAddonNotRunning(textKeyIfNotRunning, addonTableToCheck)
@@ -52,6 +112,9 @@ end
 PA.MenuHelper = {
     getProfileList = getProfileList,
     getProfileListValues = getProfileListValues,
+    getInactiveProfileList = getInactiveProfileList,
+    getInactiveProfileListValues = getInactiveProfileListValues,
     reloadProfileList = reloadProfileList,
+    reloadInactiveProfileList = reloadInactiveProfileList,
     getTextIfRequiredAddonNotRunning = getTextIfRequiredAddonNotRunning,
 }

@@ -1,2 +1,2 @@
-caption: Keybindings (2.4.0)
+caption: Keybindings (2.5.0)
 display order: 4

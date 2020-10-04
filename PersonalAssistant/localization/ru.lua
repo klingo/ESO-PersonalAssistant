@@ -49,7 +49,6 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Е�
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " текущий профиль: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
 
 
 -- =================================================================================================================
@@ -187,7 +186,6 @@ SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssi
 SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Правила", 1)
 SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Переключить меню правил Банкинга/Хлама", 1)
 
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Активировать профиль", 1)
 
 -- =================================================================================================================
 -- == CUSTOM SUB MENU == --
