@@ -82,6 +82,7 @@ local PAJunkMenuDefaults = {
     },
 
     ignoreMailboxItems = true,
+    ignoreCraftedItems = true,
     autoSellJunk = true,
     autoSellJunkPirharri = false,
 

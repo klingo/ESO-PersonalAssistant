@@ -376,6 +376,13 @@ local PAJunkMenuFunctions = {
     setMailboxItemsIgnoredSetting = function(value) setValue(value, {"ignoreMailboxItems"}) end,
 
     -- ----------------------------------------------------------------------------------
+    -- CRAFTED ITEMS
+    -- -----------------------------
+    isCraftedItemsIgnoredDisabled = function() return isDisabled() end, -- currently always enabled
+    getCraftedItemsIgnoredSetting = function() return getValue({"ignoreCraftedItems"}) end,
+    setCraftedItemsIgnoredSetting = function(value) setValue(value, {"ignoreCraftedItems"}) end,
+
+    -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK
     -- -----------------------------
     isAutoSellJunkDisabled = function() return isDisabled() end, -- currently always enabled

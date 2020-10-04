@@ -214,6 +214,16 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_CRAFTED_IGNORE),
+        tooltip = GetString(SI_PA_MENU_JUNK_CRAFTED_IGNORE_T),
+        getFunc = PAJMenuFunctions.getCraftedItemsIgnoredSetting,
+        setFunc = PAJMenuFunctions.setCraftedItemsIgnoredSetting,
+        disabled = PAJMenuFunctions.isCraftedItemsIgnoredDisabled,
+        default = PAJMenuDefaults.ignoreCraftedItems,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
         getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
         setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
