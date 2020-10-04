@@ -6,29 +6,29 @@
             <Dimensions x="612" y="36" />
             <Controls>
 
-                <Texture name="$(parent)ItemIcon" alpha="1">
+                <Label name="$(parent)BagName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="LEFT" />
+                    <Dimensions x="120" y="36" />
+                </Label>
+                <Label name="$(parent)MathOperator" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="15" />
+                    <Dimensions x="140" y="36" />
+                </Label>
+                <Label name="$(parent)BagAmount" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                    <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="100" y="36" />
+                </Label>
+                <Texture name="$(parent)ItemIcon" alpha="1">
+                    <Anchor point="LEFT" relativeTo="$(parent)BagAmount" relativePoint="RIGHT" offsetX="5" />
                     <Dimensions x="32" y="36" />
                     <TextureCoords left="0" right="1" top="0" bottom="1" />
                 </Texture>
                 <Label name="$(parent)ItemName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT" linkEnabled="true" mouseEnabled="true" wrapMode="1">
                     <Anchor point="LEFT" relativeTo="$(parent)ItemIcon" relativePoint="RIGHT" offsetX="5" />
-                    <Dimensions x="320" y="36" />
+                    <Dimensions x="280" y="36" />
                     <OnLinkMouseUp>
                         ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
                     </OnLinkMouseUp>
-                </Label>
-                <Label name="$(parent)BagName" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
-                    <Anchor point="LEFT" relativeTo="$(parent)ItemName" relativePoint="RIGHT" offsetX="5" />
-                    <Dimensions x="120" y="36" />
-                </Label>
-                <Label name="$(parent)MathOperator" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
-                    <Anchor point="LEFT" relativeTo="$(parent)BagName" relativePoint="RIGHT" offsetX="15" />
-                    <Dimensions x="100" y="36" />
-                </Label>
-                <Label name="$(parent)BagAmount" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
-                    <Anchor point="LEFT" relativeTo="$(parent)MathOperator" relativePoint="RIGHT" offsetX="5" />
-                    <Dimensions x="100" y="36" />
                 </Label>
                 <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
                     <Anchor point="RIGHT" offsetX="-40" />
@@ -38,10 +38,30 @@
                     <Anchor point="RIGHT" relativeTo="$(parent)DelButton" relativePoint="LEFT" offsetX="-5" />
                     <Dimensions x="36" y="36" />
                     <Textures
-                            normal="/esoui/art/help/help_tabicon_feedback_up.dds"
-                            pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
-                            mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds"
-                            disabled="/esoui/art/help/help_tabicon_feedback_down.dds"
+                            normal="/esoui/art/buttons/edit_up.dds"
+                            pressed="/esoui/art/buttons/edit_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_over.dds"
+                            disabled="/esoui/art/buttons/edit_disabled.dds"
+                    />
+                </Button>
+                <Button name="$(parent)EnableButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)EditButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/buttons/edit_save_up.dds"
+                            pressed="/esoui/art/buttons/edit_save_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_save_over.dds"
+                            disabled="/esoui/art/buttons/edit_save_disabled.dds"
+                    />
+                </Button>
+                <Button name="$(parent)DisableButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)EditButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/buttons/edit_cancel_up.dds"
+                            pressed="/esoui/art/buttons/edit_cancel_down.dds"
+                            mouseOver="/esoui/art/buttons/edit_cancel_over.dds"
+                            disabled="/esoui/art/buttons/edit_cancel_disabled.dds"
                     />
                 </Button>
 

@@ -8,6 +8,7 @@ SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk kann Gegenstände als Trödel
 -- Standard Items --
 SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Standard Gegenstände", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Aktiviere das Markieren als Trödel", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T, "Betrifft nur 'Standard Gegenstände'. Benutzerdefinierte Regeln zum Markieren als Trödel sind davon nicht betroffen und müssen individuell deaktiviert werden wenn diese nicht mehr ausgeführt werden sollen.", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Automatisch Gegenstände vom Typ [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] als Trödel markieren?"}), 1)
@@ -19,6 +20,9 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({P
 
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Automatisch Gegenstände mit der Indikation [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] als Trödel markieren?"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_ITEMS_DESC, table.concat({"Markiere [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] Gegenstände NICHT als Trödel wenn . . ."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH, table.concat({"> [", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH), "] für ", PAC.COLOR.YELLOW:Colorize("Fischgunstfestmahl"), " benötigt"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH_T, table.concat({PAC.COLOR.YELLOW:Colorize("Quest während: "), PAC.COLOR.ORANGE:Colorize("Neujahrsfest"), " welches im Winter stattfindet\nWenn EINgeschaltet wird [", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH),"] NICHT als Trödel markiert"}), 1)
 
 SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK, table.concat({"Markiere [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] Gegenstände"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T, table.concat({"Automatisch Gegenstände vom Typ [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] als Trödel markieren?"}), 1)
@@ -37,6 +41,7 @@ SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "Wenn [%s] gestohlen we
 -- Quest Items --
 SafeAddString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER, "Zu schützende Quest Gegenstände", 1)
 SafeAddString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER, "Die Stadt der Uhrwerke", 1)
+SafeAddString(SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER, "Neujahrsfest", 1)
 
 -- Custom Items --
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Benutzerdefinierte Gegenstände", 1)
@@ -51,7 +56,11 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ACHTUNG: Bitte beachte dass 
 -- Other Settings --
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Aus Nachrichten nie als Trödel markieren", 1)
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Aus Nachrichten entnommene Gegenstände sollen nie als Trödel markiert werden", 1)
+SafeAddString(SI_PA_MENU_JUNK_CRAFTED_IGNORE, "An Stationen hergestellt nie als Trödel markieren", 1)
+SafeAddString(SI_PA_MENU_JUNK_CRAFTED_IGNORE_T, "An Handwerksstationen selber hergestellte Gegenstände sollen nie als Trödel markiert werden", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Trödel direkt an Händler und Hehler verkaufen?", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI, "Auch an Pirharri verkaufen? (Schmuggler Gehilfe)", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W, "Im Gegensatz zu anderen Schmugglern behält Pirharri 35% des Profits für sich selbst", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Tastenkürzel", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "Tastenkürzel \"Als Trödel de- / markieren\" aktivieren", 1)

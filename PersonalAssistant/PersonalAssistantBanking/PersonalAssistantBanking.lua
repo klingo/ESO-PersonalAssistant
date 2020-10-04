@@ -16,24 +16,24 @@ local Banking_Defaults = {}
 -- only prints out PABanking texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Banking.SavedVars.silentMode then
-        PAHF.println(PAC.COLORED_TEXTS.PAB, text, ...)
+        PAHF.println(PA.Banking.chat, PAC.COLORED_TEXTS.PAB, text, ...)
     end
 end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAB .. text
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAB, text, ...)
 end
 
 -- init default values
 local function initDefaults()
+    local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
     -- default values for PABanking
-    Banking_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
         -- get default values from PAMenuDefaults
-        Banking_Defaults[profileNo] = PAMenuDefaults.PABanking
+        Banking_Defaults[1] = PAMenuDefaults.PABanking
+        Banking_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     end
 end
 
@@ -49,8 +49,16 @@ local function initAddon(_, addOnName)
     -- initialize the default values
     initDefaults()
 
+    -- init LibChatMessage if running
+    if PA.LibChatMessage then
+        PA.Banking.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAB, PAC.COLORED_TEXTS_DEBUG.PAB)
+    end
+
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING, nil, Banking_Defaults)
+
+    -- sync profiles between PAGeneral and PABanking
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Banking, PA.MenuDefaults.PABanking)
 
     -- create the options with LAM-2
     PA.Banking.createOptions()

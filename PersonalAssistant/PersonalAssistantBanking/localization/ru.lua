@@ -40,7 +40,6 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Настраиваемые предметы", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Включить перемещение", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"С введением настраиваемых банковских правил, \"Настраиваемые предметы\" были перенесены туда. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
@@ -55,6 +54,8 @@ SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING, "Правила объ�
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Определяет будут ли все выбранные предметы перемещены в банк или только лишь дополнены имеющиеся там стеки", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Правила объединения при изъятии", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T, "Определяет будут ли все выбранные предметы перемещены в инвентарь или только лишь дополнены имеющиеся там стеки", 1)
+
+SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Не перемещать предметы помеченные как хлам", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS, "Складывать все предметы в стеки при открытии банка", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T, "Автоматически складывать все предметы в стеки в банке и инвентаре при открытии банка. Помогает эффективнее использовать место", 1)
@@ -78,11 +79,34 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Не может быт�
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Банковские правила", 1)
 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Расположение", 1)
-SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Оператор", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_RULE, "Правило", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Количество", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Предмет", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Действия", 1)
 
+-- =================================================================================================================
+-- == OTHER STRINGS FOR MENU == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- PABanking Add Custom Rule Description --
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE, "%s должен содержать ровно %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE, "%s должен содержать не более (максимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE, "%s должен содержать не менее (минимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING, "> %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT, "> %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING, "> %d - %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT, "> %d - %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW, "> %d - %d в %s => перемещать предметы из %s пока там их не останется %d.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE, "%s должен содержать ровно %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE, "%s должен содержать не более (максимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE, "%s должен содержать не менее (минимум) %d выбранного предмета.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING, "> %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT, "> %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING, "> %d - %d в %s => ничего не делать.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT, "> %d - %d в %s => перемещать предметы в %s пока их не станет там %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW, "> %d - %d в %s => перемещать предметы из %s пока там их не останется %d.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_EXPLANATION, "Это значит, если есть . . .", 1)
 
 -- =================================================================================================================
 -- == CHAT OUTPUTS == --

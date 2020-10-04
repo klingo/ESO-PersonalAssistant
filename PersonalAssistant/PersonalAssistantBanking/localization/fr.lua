@@ -36,7 +36,6 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Objets utilitaires", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Dépot/Retrait automatique des objets utilitaires", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Avec la mise en place des règles de mise en banque personnalisées, les anciens paramètres pour les “Objets utilitaires” ont été migrés vers ce nouveau système. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
@@ -51,6 +50,8 @@ SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING, "Règle d'empilement à
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Définir si tous les objets doivent être déposés, ou seulement quand il y a des piles existantes à compléter", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Règle d'empilement au retrait", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T, "Définir si tous les objets doivent être retirés, ou seulement quand il y a des piles existantes à compléter", 1)
+
+SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Ne pas déplacer les objets marqués comme rebuts", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS, "Empiler les objets à l'ouverture de la banque", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T, "Empiler automatiquement tous les objets dans la banque et l'inventaire à l'ouverture de la banque ? Cela permet une meilleure organisation", 1)
@@ -74,10 +75,35 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Ceci ne peut pas être 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Règles de mise en banque", 1)
 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Emplacement", 1)
-SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Opérateur", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_RULE, "Règle", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Quantité", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Objet ciblé par la règle", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Gérer", 1)
+
+
+-- =================================================================================================================
+-- == OTHER STRINGS FOR MENU == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- PABanking Add Custom Rule Description --
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE, "Le %s doit contenir exactement %d pièces de l'objet", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE, "Le %s doit avoir au maximum %d pièces de l'objet", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE, "Le %s doit avoir au minimum %d pièces de l'objet", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING, "> %d dans votre %s => rien n'arrive.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT, "> %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING, "> %d - %d dans votre %s => rien n'arrive.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT, "> %d - %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW, "> %d - %d dans votre %s => des objets sont retirés du %s jusqu'à ce qu'il en reste %d.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE, "Le %s doit contenir exactement %d pièces de l'objet", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE, "Le %s doit avoir au maximum %d pièces de l'objet", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE, "Le %s doit avoir au minimum %d pièces de l'objet", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING, "> %d dans votre %s => rien n'arrive.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT, "> %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING, "> %d - %d dans votre %s => rien n'arrive.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT, "> %d - %d dans votre %s => des objets sont ajoutés au %s jusqu'à atteindre %d.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW, "> %d - %d dans votre %s => des objets sont retirés du %s jusqu'à ce qu'il en reste %d.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_EXPLANATION, "Cela signifie, que si vous avez . . .", 1)
 
 
 -- =================================================================================================================
@@ -101,6 +127,8 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Certains matériaux n'ont P
 SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("ajoutée"), " !"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("modifiée"), " !"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("supprimée"), " !"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ENABLED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("activée"), " !"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DISABLED, table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("désactivée"), " !"}), 1)
 
 
 -- =================================================================================================================

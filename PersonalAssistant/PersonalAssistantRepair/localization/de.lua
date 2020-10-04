@@ -31,7 +31,9 @@ SafeAddString(SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD_T, table.concat({"We
 
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_HEADER, table.concat({"Waffen mit ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "n aufladen"}), 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE, table.concat({"Getragene Waffen mit ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), "n aufladen?"}), 1)
-SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T, "Getragene Waffen aufladen wenn deren Aufladung komplett aufgebraucht ist. Es werden zuerst Kronen-Seelensteine verwendet und erst danach reguläre Seelensteine.", 1)
+SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T, "Getragene Waffen aufladen wenn deren Aufladung komplett aufgebraucht ist. Es werden zuerst die Seelensteine verwendet die unten als bevorzugt ausgewählt sind.", 1)
+SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM, "Bevorzugte Seelensteine", 1)
+SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM_T, "Legt fest, welche Seelensteine beim Aufladen einer Waffe zuerst verbraucht werden.", 1)
 --SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE, "tbd", 1)
 --SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T, "tbd", 1)
 SafeAddString(SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING, table.concat({"Warne wenn ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), " ausgehen"}), 1)

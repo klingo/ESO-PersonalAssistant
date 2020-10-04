@@ -58,10 +58,13 @@ local PAMenuChoices = {
     PALoot = {
         iconPosition = {
             GetString(SI_PA_POSITION_AUTO),
-            GetString(SI_PA_POSITION_TOPLEFT),
-            GetString(SI_PA_POSITION_TOPRIGHT),
-            GetString(SI_PA_POSITION_BOTTOMLEFT),
-            GetString(SI_PA_POSITION_BOTTOMRIGHT),
+            GetString(SI_PA_POSITION_MANUAL),
+        }
+    },
+    PARepair = {
+        defaultSoulGem = {
+            GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_GOLD),
+            GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_CROWN),
         }
     },
 }
@@ -94,21 +97,21 @@ local PAMenuChoicesValues = {
     PAJunk = {
         qualityLevel = {
             PAC.ITEM_QUALITY.DISABLED,  -- -1 (disabled)
-            ITEM_QUALITY_TRASH,         -- 0
-            ITEM_QUALITY_NORMAL,        -- 1
-            ITEM_QUALITY_MAGIC,         -- 2
-            ITEM_QUALITY_ARCANE,        -- 3
-            ITEM_QUALITY_ARTIFACT,      -- 4
---            ITEM_QUALITY_LEGENDARY,     -- 5
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+--            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
         },
         qualityLevelReverse = {
             PAC.ITEM_QUALITY.DISABLED_REVERSE,  -- 99 (disabled)
-            ITEM_QUALITY_LEGENDARY,     -- 5
-            ITEM_QUALITY_ARTIFACT,      -- 4
-            ITEM_QUALITY_ARCANE,        -- 3
-            ITEM_QUALITY_MAGIC,         -- 2
-            ITEM_QUALITY_NORMAL,        -- 1
-            ITEM_QUALITY_TRASH,         -- 0
+            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
         },
         itemAction = {
             PAC.ITEM_ACTION.NOTHING,                -- 0
@@ -120,17 +123,23 @@ local PAMenuChoicesValues = {
     PALoot = {
         iconPosition = {
             PAC.ICON_POSITION.AUTO,     -- -1 (automatic)
-            TOPLEFT,                    -- 3
-            TOPRIGHT,                   -- 9
-            BOTTOMLEFT,                 -- 6
-            BOTTOMRIGHT,                -- 12
+--            TOPLEFT,                    -- 3
+--            TOPRIGHT,                   -- 9
+--            BOTTOMLEFT,                 -- 6
+--            BOTTOMRIGHT,                -- 12
 --            BOTTOM,                     -- 4
 --            TOP,                        -- 1
 --            LEFT,                       -- 2
 --            RIGHT,                      -- 8
---            CENTER,                     -- 128
+            CENTER,                     -- 128 (manual)
         }
-    }
+    },
+    PARepair = {
+        defaultSoulGem = {
+            DEFAULT_SOUL_GEM_CHOICE_GOLD,
+            DEFAULT_SOUL_GEM_CHOICE_CROWN,
+        }
+    },
 }
 
 local PAMenuChoicesTooltips = {

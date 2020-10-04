@@ -36,7 +36,6 @@ SafeAddString(SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29, table.concat({PAC.
 
 -- Individual Items --
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER, "Einzelne Gegenstände", 1)
-SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE, "Aktiviere Transaktionen für Einzelne Gegenstände", 1)
 SafeAddString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION, table.concat({"Mit der Einführung der benutzerdefinierten Banking Regeln wurden die \"Individuellen\" Einstellungen dorthin migriert. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}), 1)
 
 -- AvA Items --
@@ -51,6 +50,8 @@ SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING, "Regel fürs Stapeln be
 SafeAddString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T, "Definiere ob alle Gegenstände in die Truhe eingelagert werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING, "Regel fürs Stapeln beim Entnehmen", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING_T, "Definiere ob alle Gegenstände ins Inventar entnommen werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können", 1)
+
+SafeAddString(SI_PA_MENU_BANKING_EXCLUDE_JUNK, "Verschiebe keine als Trödel markierte Gegenstände", 1)
 
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS, "Automatisch alle Gegenstände stapeln", 1)
 SafeAddString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T, "Sollen automatisch alle Gegenstände im Inventar und in der Truhe gestapelt werden wenn die Truhe geöffnet wird? Ist hilfreich um alles besser organisiert zu halten", 1)
@@ -74,10 +75,37 @@ SafeAddString(SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W, "Dies kann nicht rückg�
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER, "Banking Regeln", 1)
 
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_BAG, "Ort", 1)
-SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR, "Operator", 1)
+SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_RULE, "Regel", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT, "Anzahl", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ITEM, "Gegenstand", 1)
 SafeAddString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS, "Aktionen", 1)
+
+
+-- =================================================================================================================
+-- == OTHER STRINGS FOR MENU == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- PABanking Add Custom Rule Description --
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE, "In der %s sollen genau %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE, "In der %s sollen höchstens %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE, "In der %s sollen höchstens %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE, "In der %s sollen mindestens %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING, "> %d in der %s hast => passiert nichts.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT, "> %d in der %s hast => transferiere Gegenstände in die %s bis dort %d sind.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING, "> %d - %d in der %s hast => passiert nichts.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT, "> %d - %d in der %s hast => transferiere Gegenstände in die %s bis dort %d sind.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW, "> %d - %d in der %s hast => transferiere Gegenstände aus der %s bis dort %d übrig sind.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE, "Im %s sollen genau %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE, "Im %s sollen höchstens %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE, "Im %s sollen höchstens %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE, "Im %s sollen mindestens %d vom ausgewählten Gegenstand sein.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING, "> %d im %s hast => passiert nichts.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT, "> %d im %s hast => transferiere Gegenstände in das %s bis dort %d sind.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING, "> %d - %d im %s hast => passiert nichts.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT, "> %d - %d im %s hast => transferiere Gegenstände in das %s bis dort %d sind.", 1)
+SafeAddString(SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW, "> %d - %d im %s hast => transferiere Gegenstände aus dem %s bis dort %d übrig sind.", 1)
+
+SafeAddString(SI_PA_DIALOG_BANKING_EXPLANATION, "Das bedeutet, wenn du . . .", 1)
 
 
 -- =================================================================================================================
@@ -101,3 +129,5 @@ SafeAddString(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC, "Manche Gegenstände wurden 
 SafeAddString(SI_PA_CHAT_BANKING_RULES_ADDED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("hinzugefügt"), "!"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_UPDATED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("angepasst"), "!"}), 1)
 SafeAddString(SI_PA_CHAT_BANKING_RULES_DELETED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("gelöscht"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_ENABLED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("aktiviert"), "!"}), 1)
+SafeAddString(SI_PA_CHAT_BANKING_RULES_DISABLED, table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("deaktiviert"), "!"}), 1)

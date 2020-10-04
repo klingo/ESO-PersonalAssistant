@@ -3,6 +3,44 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
+-- =================================================================================================================
+-- == ITEM IDENTIFIERS == --
+-- -----------------------------------------------------------------------------------------------------------------
+-- All credits go to sirinsidiator for below ItemIdentifier code from AGS!
+
+local _hasItemTypeDifferentQualities = {
+    [ITEMTYPE_GLYPH_ARMOR] = true,
+    [ITEMTYPE_GLYPH_JEWELRY] = true,
+    [ITEMTYPE_GLYPH_WEAPON] = true,
+    [ITEMTYPE_DRINK] = true,
+    [ITEMTYPE_FOOD] = true,
+}
+
+-- itemId is basically what tells us that two items are the same thing,
+-- but some types need additional data to determine if they are of the same strength (and value).
+local function getPAItemLinkIdentifier(itemLink)
+    local itemType = GetItemLinkItemType(itemLink)
+    local data = {zo_strsplit(":", itemLink:match("|H(.-)|h.-|h"))}
+    local itemId = GetItemLinkItemId(itemLink)
+    local level = GetItemLinkRequiredLevel(itemLink)
+    local cp = GetItemLinkRequiredChampionPoints(itemLink)
+    if(itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR) then
+        local trait = GetItemLinkTraitInfo(itemLink)
+        return string.format("%s,%s,%d,%d,%d", itemId, data[4], trait, level, cp)
+    elseif(itemType == ITEMTYPE_POISON or itemType == ITEMTYPE_POTION) then
+        return string.format("%s,%d,%d,%s", itemId, level, cp, data[23])
+    elseif(_hasItemTypeDifferentQualities[itemType]) then
+        return string.format("%s,%s", itemId, data[4])
+    else
+        return tostring(itemId)
+    end
+end
+
+local function getPAItemIdentifier(bagId, slotIndex)
+    local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+    return getPAItemLinkIdentifier(itemLink)
+end
+
 
 -- =================================================================================================================
 -- == COMPARATORS == --
@@ -17,7 +55,7 @@ local function _isItemCharacterBound(bagId, slotIndex)
     return false
 end
 
-local function getCombinedItemTypeSpecializedComparator(combinedLists)
+local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk)
     local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType, expectedIsKnown)
         local itemType = GetItemType(bagId, slotIndex)
         if itemType == expectedItemType then
@@ -57,6 +95,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists)
 
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
         for _, itemType in pairs(combinedLists.learnableKnownItemTypes) do
@@ -82,10 +121,11 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists)
     end
 end
 
-local function getItemTypeComparator(itemTypeList)
+local function getItemTypeComparator(itemTypeList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
-        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
+            if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
@@ -93,12 +133,25 @@ local function getItemTypeComparator(itemTypeList)
     end
 end
 
-local function getItemIdComparator(itemIdList)
+local function getItemIdComparator(itemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for itemId, _ in pairs(itemIdList) do
             if itemId == GetItemId(itemData.bagId, itemData.slotIndex) then return true end
+        end
+        return false
+    end
+end
+
+local function getPAItemIdComparator(paItemIdList, excludeJunk)
+    return function(itemData)
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        for paItemId, _ in pairs(paItemIdList) do
+            if paItemId == getPAItemIdentifier(itemData.bagId, itemData.slotIndex) then return true end
         end
         return false
     end
@@ -247,24 +300,37 @@ local function getFormattedKey(key, ...)
 end
 
 -- currently supports one text and n arguments
-local function println(prefix, text, ...)
+local function println(lcmChat, prefix, text, ...)
     local textKey = GetString(text)
     local prefix = prefix or ""
-    if textKey ~= nil and textKey ~= "" then
-        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(textKey, ...)}))
+
+    -- check if LibChatMessage is running and if a valid "chat" is provided
+    if PA.LibChatMessage and lcmChat then
+        if textKey ~= nil and textKey ~= "" then
+            lcmChat:Print(getFormattedText(textKey, ...))
+        else
+            lcmChat:Print(getFormattedText(text, ...))
+        end
     else
-        CHAT_SYSTEM:AddMessage(table.concat({prefix, getFormattedText(text, ...)}))
+        -- otherwise stick to the old "debug solution"
+        if textKey ~= nil and textKey ~= "" then
+            CHAT_SYSTEM:AddMessage(table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
+        else
+            CHAT_SYSTEM:AddMessage(table.concat({prefix, ": ", getFormattedText(text, ...)}))
+        end
     end
 end
 
 -- write the provided key/text into the debug Output window (WHITE font)
-local function debugln(key, ...)
+local function debugln(prefix, text, ...)
     if PA.debug then
-        local textKey = GetString(key)
+        local textKey = GetString(text)
+        local prefix = prefix or ""
+
         if textKey ~= nil and textKey ~= "" then
-            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(textKey, ...))
+            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
         else
-            PA.DebugWindow.printToDebugOutputWindow(getFormattedText(key, ...))
+            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(text, ...)}))
         end
     end
 end
@@ -272,7 +338,7 @@ end
 -- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
 local function debuglnAuthor(key, ...)
     if GetUnitName("player") == PAC.ADDON.AUTHOR then
-        println("", key, ...)
+        println(PA.chat, "", key, ...)
     end
 end
 
@@ -288,10 +354,21 @@ end
 
 -- returns the default profile name of the provided profile number
 local function getDefaultProfileName(profileNo)
-    if profileNo <= PAC.GENERAL.MAX_PROFILES then
-        return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
-    else
-        return GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
+    return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
+end
+
+-- sync the LOCAL profiles with the ones from GLOBAL
+local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
+    local PASavedVars = PA.SavedVars
+    for profileNo = 1, PASavedVars.General.profileCounter do
+        if istable(PASavedVars.General[profileNo]) and not istable(localSavedVars[profileNo]) then
+            -- GLOBAL has a profile, but LOCAL does not - create it!
+            localSavedVars[profileNo] = {}
+            ZO_DeepTableCopy(localDefaults, localSavedVars[profileNo])
+        elseif istable(localSavedVars[profileNo]) and not istable(PASavedVars.General[profileNo]) then
+            -- LOCAL has a profile, but GLOBAL does not - delete it!
+            localSavedVars[profileNo] = nil
+        end
     end
 end
 
@@ -341,9 +418,12 @@ end
 
 -- Export
 PA.HelperFunctions = {
+    getPAItemLinkIdentifier = getPAItemLinkIdentifier,
+    getPAItemIdentifier = getPAItemIdentifier,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
     getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,
+    getPAItemIdComparator = getPAItemIdComparator,
     getStolenJunkComparator = getStolenJunkComparator,
     round = round,
     roundDown = roundDown,
@@ -362,6 +442,7 @@ PA.HelperFunctions = {
     debugln = debugln,
     debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
+    syncLocalProfilesWithGlobal = syncLocalProfilesWithGlobal,
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,

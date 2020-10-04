@@ -12,6 +12,8 @@ local PASVP = PA.SavedVarsPatcher
 -- other settings
 PA.AddonName = "PersonalAssistant"
 PA.activeProfile = nil -- init with nil, is populated during [initAddon]
+PA.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- window states
 PA.WindowStates = {
@@ -34,49 +36,44 @@ local Profile_Defaults = {}
 
 -- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
-    PAHF.println(PAC.COLORED_TEXTS.PA, text, ...)
+    PAHF.println(PA.chat, PAC.COLORED_TEXTS.PA, text, ...)
 end
 
 -- init default values
 local function _initDefaults()
-    local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PAGeneral
-    General_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        -- get default values from PAMenuDefaults
-        General_Defaults[profileNo] = PAMenuDefaults.PAGeneral
-    end
-
+    -- GLOBAL default values for PAGeneral
+    General_Defaults = {
+        savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR,
+        profileCounter = 0
+    }
+    -- LOCAL default values for PAProfile
     Profile_Defaults = {
-        activeProfile = nil,
+        activeProfile = 1,
         debug = false,
     }
 end
 
--- init default profile names
-local function _initDefaultProfileNames(savedVarsTable)
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
-        if savedVarsTable[profileNo].name == nil then
-            savedVarsTable[profileNo].name = PAHF.getDefaultProfileName(profileNo)
-        end
-    end
-end
-
 -- init player name and player alliance
 local function _initPlayerNameAndAlliance()
-    local playerName = GetUnitName("player")
-    local numCharacters = GetNumCharacters()
-    for index = 1, numCharacters do
-        local name, _, _, _, _, alliance, _, _ = GetCharacterInfo(index)
-        local nameFmt = zo_strformat(SI_UNIT_NAME, name)
-        if playerName == nameFmt then
-            PA.playerName = nameFmt
-            PA.alliance = alliance
-            break
-        end
+    PA.alliance = GetUnitAlliance("player")
+    PA.playerName = GetUnitName("player")
+end
+
+-- create a default profile if none exist yet
+local function _initDefaultProfile(savedVars)
+    if savedVars.profileCounter == 0 and savedVars[1] == nil then
+        savedVars[1] = PA.MenuDefaults.PAGeneral
+        savedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
+        savedVars.profileCounter = 1
     end
 end
 
+local function _fixActiveProfile()
+    local activeProfile = PA.MenuFunctions.PAGeneral.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        PA.SavedVars.Profile.activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID
+    end
+end
 
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
@@ -91,21 +88,30 @@ local function initAddon(_, addOnName)
     _initDefaults()
     _initPlayerNameAndAlliance()
 
+    -- init LibChatMessage if running
+    PA.LibChatMessage = _G["LibChatMessage"]
+    if PA.LibChatMessage then
+        PA.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PA, PAC.COLORED_TEXTS_DEBUG.PA)
+    end
+
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, Profile_Defaults)
 
-    -- after SavedVariables have been initialized, set the default profile names if not yet set
-    _initDefaultProfileNames(PASavedVars.General)
+    -- init a default profile if none exist
+    _initDefaultProfile(PASavedVars.General)
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    _fixActiveProfile()
 
     -- get the active Profile and the debug setting
-    PA.activeProfile = PASavedVars.Profile.activeProfile
+    PA.activeProfile = PA.MenuFunctions.PAGeneral.getActiveProfile()
     PA.debug = PASavedVars.Profile.debug
 
     -- create the options with LAM-2
-    local PAMainMenu = PA.MainMenu
-    PAMainMenu.createOptions()
+    local PAGeneral = PA.General
+    PAGeneral.createOptions()
 
     -- init the overall Rules Main Menu
     PA.CustomDialogs.initRulesMainMenu()
@@ -130,7 +136,7 @@ local function introduction()
         PA.DebugWindow.showDebugOutputWindow()
     end
 
-    if PA.activeProfile == nil then
+    if PA.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         PA.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
         -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
@@ -145,7 +151,7 @@ local function introduction()
             if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then
                 PA.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
-                PA.println(SI_PA_WELCOME_SUPPORT)
+                PA.println(SI_PA_WELCOME_SUPPORT, PAGSavedVars.name)
             end
         end
     end
@@ -153,8 +159,7 @@ end
 
 -- wrapper method that prefixes the addon shortname
 function PA.debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAG .. text
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAG, text, ...)
 end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
@@ -171,7 +176,10 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         local stack, maxStack = GetSlotStackSize(bagId, slotIndex)
         -- local isSaved = ItemSaver.isItemSaved(bagId, slotIndex)
         local itemId = GetItemId(bagId, slotIndex)
+        local itemId64 = GetItemUniqueId(bagId, slotIndex)
+        local itemInstanceId = GetItemInstanceId(bagId, slotIndex)
         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+        local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
         local icon, _, _, _, _, _, itemStyleId = GetItemInfo(bagId, slotIndex)
 
         local bagName = ""
@@ -183,7 +191,8 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         elseif bagId == BAG_WORN then bagName = "BAG_WORN"
         elseif bagId == BAG_SUBSCRIBER_BANK then bagName = "BAG_SUBSCRIBER_BANK" end
 
-        PAHF.println("", "itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, specializedItemType, strSpecializedItemType, icon, bagName)
+        df("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> itemId64 = %s --> itemInstanceId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, tostring(itemId64), itemInstanceId, specializedItemType, strSpecializedItemType, icon, bagName)
+        d("paItemId="..tostring(paItemId))
 
         local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
         local isBeingResearched = PA.Loot.isTraitBeingResearched(itemLink)
@@ -235,6 +244,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local name, description, icon, deprecatedLockedIcon, unlocked, purchasable, isActive, categoryType, hint = GetCollectibleInfo(containerCollectibleId)
             local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            local isUsable = IsCollectibleUsable(containerCollectibleId)
             d("name="..tostring(name))
             d("description="..tostring(description))
             d("unlocked="..tostring(unlocked))
@@ -242,6 +252,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
             d("categoryType="..tostring(categoryType))
             d("hint="..tostring(hint))
             d("isValidForPlayer="..tostring(isValidForPlayer))
+            d("isUsable="..tostring(isUsable))
         end
 
         local numItemTags = GetItemLinkNumItemTags(itemLink)

@@ -1,11 +1,11 @@
 local PAC = PersonalAssistant.Constants
 -- =================================================================================================================
 -- Welcome Messages --
-SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORS.DEFAULT, " zu deinen Diensten!   -   für deine Sprache [%s] ist leider (noch) keine Lokalisierung verfügbar"}), 1)
-SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, " zu deinen Diensten!"}), 1)
-SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFAULT, " heisst dich willkommen! Um loslegen zu können, gehe bitte zu den Einstellungen der Erweiterung (oder verwende ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") und wählen ein Profil aus. Vielen Dank :-)"}), 1)
+SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "zu deinen Diensten!   -   für deine Sprache [%s] ist leider (noch) keine Lokalisierung verfügbar"}), 1)
+SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "zu deinen Diensten! Aktives Profil: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
+SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFAULT, "heisst dich willkommen! Um loslegen zu können, gehe bitte zu den Einstellungen der Erweiterung (oder verwende ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") und wählen ein Profil aus. Vielen Dank :-)"}), 1)
 
-SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " benötigt eine aktuellere Version von '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' als derzeit installiert ist. Bitte die neuste Version von ", PAC.COLORS.WHITE, "http://esoui.com", PAC.COLORS.ORANGE_RED, " herunterladen und diese verwenden"}), 1)
+SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "benötigt eine aktuellere Version von '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' als derzeit installiert ist. Bitte die neuste Version von ", PAC.COLORS.WHITE, "http://esoui.com", PAC.COLORS.ORANGE_RED, " herunterladen und diese verwenden"}), 1)
 
 
 -- =================================================================================================================
@@ -13,19 +13,41 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " benöti
 -- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant ist eine Sammlung diverser Funktionalitäten mit dem Ziel um deine Zeit in ESO noch angenehmenr zu machen", 1)
 
--- Profiles --
-SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profile", 1)
-SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Bitte Profil wählen>", 1)
-SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Profil aktivieren", 1)
-SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Das aktuelle Profil für PersonalAssistant auswählen. Es werden automatisch alle Einstellungen von diesem Profil geladen und am gleichen Ort auch wieder abgespeichert.", 1)
-SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Aktuelles Profil umbenennen", 1)
-
--- Integrations --
-
--- General --
+-- -----------------------------------------------------------------------------------------------------------------
+-- General Settings --
+SafeAddString(SI_PA_MENU_GENERAL_HEADER, "Generelle Einstellungen", 1)
 SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Wilkommensmeldung anzeigen", 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}), 1)
 SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Profile Settings --
+SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profile", 1)
+SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Bitte Profil wählen>", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DEFAULT, "Standard Profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Aktives Profil", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Das aktive Profil für PersonalAssistant auswählen. Es werden automatisch alle Einstellungen von diesem Profil geladen und am gleichen Ort auch wieder abgespeichert.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Aktives Profil umbenennen", 1)
+
+-- Create Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW, "Neues Profil erstellen", 1)
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC, table.concat({"Anmerkung: Du kannst maximal ", PAC.GENERAL.MAX_PROFILES, " Profile haben."}), 1)
+
+-- Copy Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_DESC, "Kopiere die Einstellungen von einem bestehenden Profil in das derzeit aktive Profil.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM, "Profil kopieren", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM, "Kopieren bestätigen", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W, "Das wird die Einstellungen vom aktiven Profil mit den Einstellungen vom ausgewählten Profil ersetzen. Bist du dir sicher? \n\nAnmerkung: Nur Einstellungen von aktivierten PersonalAssistant Modulen werden kopiert", 1)
+
+-- Delete Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_DESC, "Lösche bestehende und nicht mehr benötigte Profile von der Datenbank um Platz zu sparen und die SavedVariables Datei aufzuräumen.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE, "Profil löschen", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM, "Löschen bestätigen", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W, "Das wird das ausgewählte Profil für alle Charaktere löschen. Bist du dir sicher?", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Admin Settings --
+SafeAddString(SI_PA_MENU_ADMIN_HEADER, "Admin Einstellungen", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Rules Menu --
@@ -49,7 +71,9 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Noc
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " aktives Profil: ", PAC.COLORS.ORANGE_RED, "%s"}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" neues Profil ", PAC.COLOR.WHITE:Colorize("%s"), " erstellt und aktiviert!"}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" Einstellungen von Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurden in das aktive Profil ", PAC.COLOR.WHITE:Colorize("%s"), PAC.COLOR.ORANGE_RED:Colorize(" kopiert")}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" ausgewähltes Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurde ", PAC.COLOR.ORANGE_RED:Colorize("gelöscht!")}), 1)
 
 
 -- =================================================================================================================
@@ -79,6 +103,7 @@ SafeAddString(SI_PA_ITEMTYPE19, "<<1[Seelenstein/Seelensteine]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE22, "<<1[Dietrich/Dietriche]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Rezept/Rezepte]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Gift/Gifte]>>", 1)
+SafeAddString(SI_PA_ITEMTYPE33, "<<1[Lösungsmittel/Lösungsmittel]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Sammlung/Sammlungen]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE56, "<<1[Beute/Beuten]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE60, "<<1[Meisterschrieb/Meisterschriebe]>>", 1)
@@ -133,6 +158,15 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANK grösser als (>)", 1) -- not u
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANK grösser oder gleich als (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Text Operators --
+SafeAddString(SI_PA_REL_TEXT_OPERATOR0, "-", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR1, "hat genau", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR2, "hat weniger als", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR3, "hat höchstens", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR4, "hat mehr als", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR5, "hat mindestens", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Verschiebe alles", 1)
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)
@@ -140,10 +174,7 @@ SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Nur Stapel auffüllen", 1)
 -- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --
 SafeAddString(SI_PA_POSITION_AUTO, "Automatisch", 1)
-SafeAddString(SI_PA_POSITION_TOPLEFT, "Oben Links", 1)
-SafeAddString(SI_PA_POSITION_TOPRIGHT, "Oben Rechts", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Unten Link", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Unten Rechts", 1)
+SafeAddString(SI_PA_POSITION_MANUAL, "Manuell", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --
@@ -160,6 +191,8 @@ SafeAddString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS, "Immer zerstören", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Neue Regel hinzufügen", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Regel bearbeiten", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Regel löschen", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_ENABLE_RULE, "Regel aktivieren", 1)
+SafeAddString(SI_PA_SUBMENU_PAB_DISABLE_RULE, "Regel deaktivieren", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Hinzufügen", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Speichern", 1)
 SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Löschen", 1)
@@ -180,4 +213,3 @@ SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssi
 SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Regeln", 1)
 SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Banking/Trödel Regelmenü ein-/ausblenden", 1)
 
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Aktiviere Profil", 1)

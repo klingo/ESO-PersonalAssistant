@@ -28,7 +28,7 @@ local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilte
     if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled then
         if itemType == ITEMTYPE_RECIPE or itemType == ITEMTYPE_RACIAL_STYLE_MOTIF or
             itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY or
-                specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+                specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
             return true
         end
     end
@@ -70,13 +70,22 @@ end
 local function _getGridViewIconPositionAndOffset()
     local selectedIconPosition = _getTargetGridIconPosition()
     local offsetX, offsetY
-    if selectedIconPosition == TOPRIGHT or selectedIconPosition == BOTTOMRIGHT then offsetX = -4 else offsetX = 4 end
-    if selectedIconPosition == BOTTOMLEFT or selectedIconPosition == BOTTOMRIGHT then offsetY = -4 else offsetY = 4 end
+    if selectedIconPosition == CENTER then
+        -- apply user defined offsets if CENTER (i.e. Manual)
+        offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetGrid
+        offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetGrid
+    else
+        -- apply internal offsets if any other location (i.e. Automatic)
+        if selectedIconPosition == TOPRIGHT or selectedIconPosition == BOTTOMRIGHT then offsetX = -4 else offsetX = 4 end
+        if selectedIconPosition == BOTTOMLEFT or selectedIconPosition == BOTTOMRIGHT then offsetY = -4 else offsetY = 4 end
+    end
     return selectedIconPosition, offsetX, offsetY
 end
 
 local function _getListViewIconPositionAndOffset()
-    return LEFT, RIGHT, 0, 0
+    local offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetList
+    local offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetList
+    return LEFT, RIGHT, offsetX, offsetY
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -186,26 +195,31 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
         local PAApparelWeaponsSV = PALootSavedVars.ItemIcons.ApparelWeapons
         local itemTraitType = GetItemLinkTraitType(itemLink)
-        local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
-        if CanItemLinkBeTraitResearched(itemLink) then
-            if PAApparelWeaponsSV.showUnknownIcon then
-                _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
+        if itemTraitType ~= ITEM_TRAIT_TYPE_NONE then
+            local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
+            if CanItemLinkBeTraitResearched(itemLink) then
+                if PAApparelWeaponsSV.showUnknownIcon then
+                    _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
+                end
+            elseif PAApparelWeaponsSV.showKnownIcon then
+                _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
             end
-        elseif PAApparelWeaponsSV.showKnownIcon then
-            _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         end
-    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
         local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
         local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
         local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
         local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
         local collectibleName = GetCollectibleName(containerCollectibleId)
-        if isValidForPlayer and not isUnlocked then
-            if PAStylePageContainerSV.showUnknownIcon then
-                _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
+        local categoryType = GetCollectibleCategoryTypeFromLink(itemLink)
+        if categoryType ~= COLLECTIBLE_CATEGORY_TYPE_INVALID then
+            if isValidForPlayer and not isUnlocked then
+                if PAStylePageContainerSV.showUnknownIcon then
+                    _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
+                end
+            elseif PAStylePageContainerSV.showKnownIcon then
+                _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
             end
-        elseif PAStylePageContainerSV.showKnownIcon then
-            _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
     end
 end
@@ -247,8 +261,10 @@ end
 
 -- this function needs to be initialized everytime the TradeHouse is opened
 local function initHooksOnTradeHouse()
-    local isGamepadModeActive = GetSetting_Bool(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_GAMEPAD_PREFERRED)
-    if not isGamepadModeActive then
+    local gamepadModeSetting = GetSetting(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_INPUT_PREFERRED_MODE)
+    local isAlwaysKeyboardMode = (gamepadModeSetting == tostring(INPUT_PREFERRED_MODE_ALWAYS_KEYBOARD))
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAL, "initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
+    if isAlwaysKeyboardMode then
         ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
             local control = ...
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then

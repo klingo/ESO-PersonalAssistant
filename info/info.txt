@@ -1,3 +1,3 @@
 title: PersonalAssistant (Banking, Junk, Loot, Repair)
-version: 2.4.9
-compatibility: 5.0.5 5.1.0
+version: 2.5.0
+compatibility: 6.1.5 6.2.1

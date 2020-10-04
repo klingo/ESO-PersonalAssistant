@@ -3,11 +3,11 @@ local PAC = PersonalAssistant.Constants
 -- Language specific texts that need to be translated --
 
 -- Welcome Messages --
-SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORS.DEFAULT, " к вашим услугам!  -  [%s] локализация пока не поддерживается"}), 1)
-SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, " к вашим услугам!"}), 1)
-SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFAULT, " приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль (или введите ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, "). Спасибо :-)"}), 1)
+SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "к вашим услугам!  -  [%s] локализация пока не поддерживается"}), 1)
+SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "к вашим услугам! текущий профиль: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
+SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFAULT, "приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль (или введите ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, "). Спасибо :-)"}), 1)
 
-SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, " требуется более свежая версия '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' чем в настоящее время установлена. Пожалуйста, скачайте и установите последнюю версию с ", PAC.COLORS.WHITE, "http://esoui.com"}), 1)
+SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "требуется более свежая версия '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' чем в настоящее время установлена. Пожалуйста, скачайте и установите последнюю версию с ", PAC.COLORS.WHITE, "http://esoui.com"}), 1)
 
 
 -- =================================================================================================================
@@ -49,7 +49,6 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Е�
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE, table.concat({PAC.COLORS.DEFAULT, " текущий профиль: ", PAC.COLORS.ORANGE_RED, "%s"}), 1)
 
 
 -- =================================================================================================================
@@ -134,6 +133,15 @@ SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "В БАНКЕ более (>)", 1) -
 SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "В БАНКЕ более или равно (>=)", 1)
 
 -- -----------------------------------------------------------------------------------------------------------------
+-- Text Operators --
+SafeAddString(SI_PA_REL_TEXT_OPERATOR0, "-", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR1, "точно", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR2, "менее чем", 1) -- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR3, "не более чем", 1)
+SafeAddString(SI_PA_REL_TEXT_OPERATOR, "более чем", 1)-- not used so far
+SafeAddString(SI_PA_REL_TEXT_OPERATOR5, "не менее чем", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
 -- Stacking types --
 SafeAddString(SI_PA_ST_MOVE_FULL, "Переместить всё", 1) -- 0: Full deposit
 SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Заполнить только существующие стеки", 1) -- 1: Fill existing stacks
@@ -141,10 +149,7 @@ SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "Заполнить толь
 -- -----------------------------------------------------------------------------------------------------------------
 -- Icon Positions --
 SafeAddString(SI_PA_POSITION_AUTO, "Автоматически", 1)
-SafeAddString(SI_PA_POSITION_TOPLEFT, "Вверху слева", 1)
-SafeAddString(SI_PA_POSITION_TOPRIGHT, "Вверху справа", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMLEFT, "Внизу слева", 1)
-SafeAddString(SI_PA_POSITION_BOTTOMRIGHT, "Внизу справа", 1)
+
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAJunk --
@@ -181,7 +186,6 @@ SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "|cFFD700P|rersonal|cFFD700A|rssi
 SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "PersonalAssistant Правила", 1)
 SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Переключить меню правил Банкинга/Хлама", 1)
 
-SafeAddString(SI_KEYBINDINGS_PA_LOAD_PROFILE, "Активировать профиль", 1)
 
 -- =================================================================================================================
 -- == CUSTOM SUB MENU == --

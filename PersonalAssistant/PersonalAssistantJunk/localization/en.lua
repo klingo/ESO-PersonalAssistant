@@ -12,6 +12,7 @@ local PAJStrings = {
     -- Standard Items --
     SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER = "Standard Items",
     SI_PA_MENU_JUNK_AUTOMARK_ENABLE = "Enable Auto-Marking of Items as Junk",
+    SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T = "Only applicable to 'Standard Items'. Custom Junk Rules are not impacted by this toggle and need to be deactivated individually if they should not be executed anymore.",
 
     SI_PA_MENU_JUNK_TRASH_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] items"}),
     SI_PA_MENU_JUNK_TRASH_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] as junk?"}),
@@ -23,6 +24,9 @@ local PAJStrings = {
 
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] items"}),
     SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T = table.concat({"Automatically mark items with the indicator [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] as junk?"}),
+    SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_ITEMS_DESC = table.concat({"Do NOT mark [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] items as junk if . . ."}),
+    SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH = table.concat({"> [", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH), "] needed for ", PAC.COLOR.YELLOW:Colorize("Fish Boon Feast"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest during: "), PAC.COLOR.ORANGE:Colorize("New Life Festival"), " that happens sometime in winter\nIf turned ON, all [", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH),"] will NOT be marked as Junk"}),
 
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK = table.concat({"Auto-Mark [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] items"}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T = table.concat({"Automatically mark items of type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] as junk?"}),
@@ -41,6 +45,7 @@ local PAJStrings = {
     -- Quest Items --
     SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Protecting Quest Items",
     SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Clockwork City",
+    SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "New Life Festival",
 
     -- Custom Items --
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Custom Items",
@@ -55,7 +60,11 @@ local PAJStrings = {
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Never mark items received from Mailbox as Junk",
     SI_PA_MENU_JUNK_MAILBOX_IGNORE_T = "Items that are received from Mailbox should never be marked as Junk",
+    SI_PA_MENU_JUNK_CRAFTED_IGNORE = "Never mark items you have crafted as Junk",
+    SI_PA_MENU_JUNK_CRAFTED_IGNORE_T = "Item that you have crafted at a Crafting Station should never be marked as Junk",
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Auto-Sell Junk at Merchants and Fences?",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI = "Also auto-sell to Pirharri? (Fence Assistant)",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W = "Unlike other fences, Pirharri charges a Smuggler's Fee of 35% for availing of her service",
 
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Enable \"Mark / Unmark as Junk\" Keybinding",

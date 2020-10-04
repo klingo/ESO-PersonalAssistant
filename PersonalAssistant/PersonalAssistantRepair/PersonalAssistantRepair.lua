@@ -16,24 +16,24 @@ local Repair_Defaults = {}
 -- only prints out PARepair texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Repair.SavedVars.silentMode then
-        PAHF.println(PAC.COLORED_TEXTS.PAR, text, ...)
+        PAHF.println(PA.Repair.chat, PAC.COLORED_TEXTS.PAR, text, ...)
     end
 end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAR .. text
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAR, text, ...)
 end
 
 -- init default values
 local function initDefaults()
+    local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
     -- default values for PARepair
-    Repair_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
         -- get default values from PAMenuDefaults
-        Repair_Defaults[profileNo] = PAMenuDefaults.PARepair
+        Repair_Defaults[1] = PAMenuDefaults.PARepair
+        Repair_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     end
 end
 
@@ -49,8 +49,16 @@ local function initAddon(_, addOnName)
     -- initialize the default values
     initDefaults()
 
+    -- init LibChatMessage if running
+    if PA.LibChatMessage then
+        PA.Repair.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAR, PAC.COLORED_TEXTS_DEBUG.PAR)
+    end
+
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR, nil, Repair_Defaults)
+
+    -- sync profiles between PAGeneral and PARepair
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Repair, PA.MenuDefaults.PARepair)
 
     -- create the options with LAM-2
     PA.Repair.createOptions()
