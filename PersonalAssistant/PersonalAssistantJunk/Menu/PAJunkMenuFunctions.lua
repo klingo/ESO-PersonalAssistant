@@ -367,7 +367,7 @@ local PAJunkMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- MAILBOX ITEMS
     -- -----------------------------
-    isMailboxItemsIgnoredDisabled = isPAJunkStolenMenuDisabled,
+    isMailboxItemsIgnoredDisabled = function() return isDisabled() end, -- currently always enabled
     getMailboxItemsIgnoredSetting = function() return getValue({"ignoreMailboxItems"}) end,
     setMailboxItemsIgnoredSetting = function(value) setValue(value, {"ignoreMailboxItems"}) end,
 
