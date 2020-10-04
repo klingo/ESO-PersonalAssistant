@@ -351,7 +351,6 @@ local function _applyPatch_2_4_13(savedVarsVersion, _, _, _, _, patchPAL, _)
 end
 
 
--- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 local function _applyPatch_2_4_14(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB then
         local PASavedVars = PA.SavedVars
@@ -458,6 +457,18 @@ local function _applyPatch_2_5_0(savedVarsVersion, patchPAG, _, _, _, _, _)
     end
 end
 
+-- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
+    if patchPAJ and PA then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Junk[profileNo]) then
+                PASavedVars.Junk[profileNo].ignoreCraftedItems = true
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
+    end
+end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -509,6 +520,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.5.0      October 03, 2020
     _applyPatch_2_5_0(_getIsPatchNeededInfo(020500))
+
+    -- Patch 2.5.0
+    _applyPatch_2_5_1(_getIsPatchNeededInfo(020501))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

@@ -658,14 +658,16 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAHF.hasActiveProfile() then
-        -- only proceed, if neither the crafting window nor the mailbox are open (otherwise crafted/retrieved items could also be marked as junk)
-        -- unless the mailbox setting is overriden
+        -- only proceed it item is not already marked as junk
+        local isJunk = IsItemJunk(bagId, slotIndex)
+        if isJunk then return end
+        -- then only further proceed, if item is not crafted at not coming from the mailbox (unless the corresponding settings are turned off)
         local PAJunkSavedVars = PAJ.SavedVars
-        if not ZO_CraftingUtils_IsCraftingWindowOpen() and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
+        local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
+        local isCrafted = IsItemLinkCrafted(itemLink)
+        if (not isCrafted or not PAJunkSavedVars.ignoreCraftedItems) and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
             -- check if the updated happened in the backpack and if the item is new
-            if isNewItem and bagId == BAG_BACKPACK then
-                -- get the itemLink (must use this function as GetItemLink returns all lower-case item-names) and itemType
-                local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
+            if bagId == BAG_BACKPACK then
                 -- check if auto-marking is enabled for standard items
                 if PAJunkSavedVars.autoMarkAsJunkEnabled then
                     local itemType, specializedItemType = GetItemType(bagId, slotIndex)
