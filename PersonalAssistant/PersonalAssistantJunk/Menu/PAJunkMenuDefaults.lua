@@ -51,17 +51,19 @@ local PAJunkMenuDefaults = {
         Jewelry = {
             action = PAC.ITEM_ACTION.NOTHING,
         },
+        trashAction = PAC.ITEM_ACTION.NOTHING,
         styleMaterialAction = PAC.ITEM_ACTION.NOTHING,
         traitItemAction = PAC.ITEM_ACTION.NOTHING,
         lureAction = PAC.ITEM_ACTION.NOTHING,
         ingredientAction = PAC.ITEM_ACTION.NOTHING,
         foodAction = PAC.ITEM_ACTION.NOTHING,
         drinkAction = PAC.ITEM_ACTION.NOTHING,
+        solventAction = PAC.ITEM_ACTION.NOTHING,
         treasureAction = PAC.ITEM_ACTION.NOTHING,
     },
     Custom = {
         customItemsEnabled = true,
-        ItemIds = {
+        PAItemIds = {
         }
     },
     AutoDestroy = {
@@ -75,17 +77,22 @@ local PAJunkMenuDefaults = {
             excludeAMatterOfRespect = false,
             excludeAMatterOfTributes = false,
         },
+        NewLifeFestival = {
+            excludeRareFish = true,
+        }
     },
 
     ignoreMailboxItems = true,
+    ignoreCraftedItems = true,
     autoSellJunk = true,
+    autoSellJunkPirharri = false,
 
     KeyBindings = {
         enableMarkUnmarkAsJunkKeybind = true,
         showMarkUnmarkAsJunkKeybind = true,
         enableDestroyItemKeybind = false,
         showDestroyItemKeybind = true,
-        destroyItemQualityThreshold = ITEM_QUALITY_LEGENDARY,
+        destroyItemQualityThreshold = ITEM_FUNCTIONAL_QUALITY_LEGENDARY,
         destroyExcludeUnknownItems = false,
     },
 

@@ -8,9 +8,10 @@
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {BUILD_NUMBER}
 ## Author: Klingo
-## APIVersion: 100028
+## APIVersion: 100032 100033
 ## SavedVariables: PersonalAssistant_SavedVariables
-## DependsOn: LibAddonMenu-2.0>=29 LibMainMenu-2.0>=430 LibCustomMenu>=680
+## DependsOn: LibAddonMenu-2.0>=31 LibMainMenu-2.0>=434 LibCustomMenu>=693
+## OptionalDependsOn: LibChatMessage>=100
 
 # Logger
 Utilities/Logger.lua
@@ -38,8 +39,8 @@ Utilities/XML/RulesWindow.lua
 
 # Settings
 Menu/MenuDefaults.lua
-Menu/MenuFunctions.lua
 Menu/MenuHelper.lua
+Menu/MenuFunctions.lua
 Menu/MenuChoices.lua
 Menu/MainMenu.lua
 Menu/ItemContextMenu.lua

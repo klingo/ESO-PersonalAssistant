@@ -75,7 +75,7 @@ local function OnBankOpen(eventCode, bankBag)
         PAB.debugln("GetBagUseableSize(BAG_GUILDBANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_GUILDBANK), GetNumBagUsedSlots(BAG_GUILDBANK), GetNumBagFreeSlots(BAG_GUILDBANK));
         PAB.debugln("GetBagUseableSize(BAG_SUBSCRIBER_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_SUBSCRIBER_BANK), GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK), GetNumBagFreeSlots(BAG_SUBSCRIBER_BANK));
         PAB.debugln("GetBagUseableSize(BAG_VIRTUAL) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_VIRTUAL), GetNumBagUsedSlots(BAG_VIRTUAL), GetNumBagFreeSlots(BAG_VIRTUAL));
-        PAB.debugln("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId());
+        PAB.debugln("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId() or -1);
         PAB.debugln("IsHouseBankBag() = %s", tostring(IsHouseBankBag(bankBag)));
     end
 end

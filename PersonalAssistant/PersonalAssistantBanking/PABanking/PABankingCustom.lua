@@ -18,12 +18,13 @@ local function depositOrWithdrawCustomItems()
         PAB.isBankTransferBlocked = true
 
         -- prepare and fill the table with all custom items that needs to be transferred
-        local customItems = {}
-        local itemIdTable = PAB.SavedVars.Custom.ItemIds
-        for itemId, moveConfig in pairs(itemIdTable) do
+        local customPAItems = {}
+        local paItemIdTable = PAB.SavedVars.Custom.PAItemIds
+        for paItemId, moveConfig in pairs(paItemIdTable) do
             local operator = moveConfig.operator
-            if operator ~= PAC.OPERATOR.NONE then
-                customItems[itemId] = {
+            local ruleEnabled = moveConfig.ruleEnabled
+            if ruleEnabled and operator ~= PAC.OPERATOR.NONE then
+                customPAItems[paItemId] = {
                     operator = operator,
                     targetBagStack = moveConfig.bagAmount
                 }
@@ -32,9 +33,9 @@ local function depositOrWithdrawCustomItems()
 
         -- then get the matching data from the backpack and bank
         local excludeJunk = PAB.SavedVars.excludeJunk
-        local itemIdComparator = PAHF.getItemIdComparator(customItems, excludeJunk)
-        local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
-        local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+        local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk)
+        local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
+        local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
 
         PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
         PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
@@ -49,7 +50,7 @@ local function depositOrWithdrawCustomItems()
             PAEM.executeNextFunctionInQueue(PAB.AddonName)
         else
             -- trigger the individual itemTransactions
-            PAB.doIndividualItemTransactions(customItems, backpackBagCache, bankBagCache)
+            PAB.doIndividualItemTransactions(customPAItems, backpackBagCache, bankBagCache, true)
         end
     else
         -- else, continue with the next function in queue

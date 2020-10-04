@@ -4,11 +4,11 @@ local PAStrings = {
     -- Language specific texts that need to be translated --
 
     -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " at your service!   -   no localization for language [%s] available (yet)"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " at your service!"}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, " welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
+    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "at your service!   -   no localization for language [%s] available (yet)"}),
+    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "at your service! Active profile: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
 
-    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, " requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
+    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, "requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
 
 
     -- =================================================================================================================
@@ -16,17 +16,41 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant is a collection of various features that have the goal to make playing ESO more convenient for you",
 
-    -- Profiles --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- General Settings --
+    SI_PA_MENU_GENERAL_HEADER = "General Settings",
+    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Profile Settings --
     SI_PA_MENU_PROFILE_HEADER = "Profiles",
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Please select Profile>",
+    SI_PA_MENU_PROFILE_DEFAULT = "Default profile",
     SI_PA_MENU_PROFILE_ACTIVE = "Active profile",
     SI_PA_MENU_PROFILE_ACTIVE_T = "Select the active profile for PersonalAssistant. It will automatically load all settings stored under that profile and changes are stored in the same place.",
     SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Rename active profile",
 
-    -- General --
-    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
+    -- Create Profiles --
+    SI_PA_MENU_PROFILE_CREATE_NEW = "Create new profile",
+    SI_PA_MENU_PROFILE_CREATE_NEW_DESC = table.concat({"Note: You can have a maximum of ", PAC.GENERAL.MAX_PROFILES, " profiles."}),
+
+    -- Copy Profiles --
+    SI_PA_MENU_PROFILE_COPY_FROM_DESC = "Copy the settings from one existing profile into the currently active profile.",
+    SI_PA_MENU_PROFILE_COPY_FROM = "Copy from profile",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM = "Confirm copy",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W = "This will replace the settings of the active profile with the settings from the selected profile. Are you sure you want to do that? \n\nNote: Only settings from enabled PersonalAssistant modules will be copied",
+
+    -- Delete Profiles --
+    SI_PA_MENU_PROFILE_DELETE_DESC = "Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file.",
+    SI_PA_MENU_PROFILE_DELETE = "Delete a profile",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirm deletion",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "This will delete the selected profile for all characters. Are you sure you want to do that?",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Admin Settings --
+    SI_PA_MENU_ADMIN_HEADER = "Admin Settings",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Rules Menu --
@@ -50,7 +74,9 @@ local PAStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral --
-    SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE = table.concat({PAC.COLORS.DEFAULT, " active profile: ", PAC.COLORS.ORANGE_RED, "%s"}),
+    SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED = table.concat({" new profile ", PAC.COLOR.WHITE:Colorize("%s"), " created and activated!"}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" settings of profile ", PAC.COLOR.WHITE:Colorize("%s"), " have been ", PAC.COLOR.ORANGE_RED:Colorize("copied"), " to active profile ", PAC.COLOR.WHITE:Colorize("%s")}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" selected profile ", PAC.COLOR.WHITE:Colorize("%s"), " has been ", PAC.COLOR.ORANGE_RED:Colorize("deleted!")}),
 
 
     -- =================================================================================================================
@@ -80,6 +106,7 @@ local PAStrings = {
     SI_PA_ITEMTYPE22 = "<<1[Lockpick/Lockpicks]>>",
     SI_PA_ITEMTYPE29 = "<<1[Recipe/Recipes]>>",
     SI_PA_ITEMTYPE30 = "<<1[Poison/Poisons]>>",
+    SI_PA_ITEMTYPE33 = "<<1[Solvent/Solvents]>>",
     SI_PA_ITEMTYPE34 = "<<1[Collectible/Collectibles]>>",
     SI_PA_ITEMTYPE47 = "<<1[AvA Repair/AvA Repairs]>>",
     SI_PA_ITEMTYPE56 = "<<1[Treasure/Treasures]>>",
@@ -135,6 +162,15 @@ local PAStrings = {
     SI_PA_REL_BANK_GREATERTHANOREQUAL_T = "BANK greater than or equal to (>=)",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- Text Operators --
+    SI_PA_REL_TEXT_OPERATOR0 = "-",
+    SI_PA_REL_TEXT_OPERATOR1 = "has exactly",
+    SI_PA_REL_TEXT_OPERATOR2 = "has less than", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR3 = "hast at most",
+    SI_PA_REL_TEXT_OPERATOR4 = "has more than", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR5 = "hast at least",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Stacking types --
     SI_PA_ST_MOVE_FULL = "Move everything", -- 0: Full deposit
     SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Only fill up existing stacks", -- 1: Fill existing stacks
@@ -142,10 +178,7 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Icon Positions --
     SI_PA_POSITION_AUTO = "Automatic",
-    SI_PA_POSITION_TOPLEFT = "Top Left",
-    SI_PA_POSITION_TOPRIGHT = "Top Right",
-    SI_PA_POSITION_BOTTOMLEFT = "Bottom Left",
-    SI_PA_POSITION_BOTTOMRIGHT = "Bottom Right",
+    SI_PA_POSITION_MANUAL = "Manual",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
@@ -162,6 +195,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_ADD_RULE = "Add new rule",
     SI_PA_SUBMENU_PAB_EDIT_RULE = "Modify rule",
     SI_PA_SUBMENU_PAB_DELETE_RULE = "Delete rule",
+    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Enable rule",
+    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Disable rule",
     SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Add",
     SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Save",
     SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Delete",
@@ -181,8 +216,6 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Rules",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Toggle Banking/Junk Rules Menu",
-
-    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Activate profile",
 }
 
 for key, value in pairs(PAStrings) do
@@ -200,12 +233,12 @@ local PAGenericStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Item Qualitiy Levels --
     SI_PA_QUALITY_DISABLED = table.concat({"- ", GetString(SI_CHECK_BUTTON_DISABLED), " -"}),
-    SI_PA_QUALITY_TRASH = GetItemQualityColor(ITEM_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_TRASH)),
-    SI_PA_QUALITY_NORMAL = GetItemQualityColor(ITEM_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_NORMAL)),
-    SI_PA_QUALITY_FINE = GetItemQualityColor(ITEM_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_MAGIC)),
-    SI_PA_QUALITY_SUPERIOR = GetItemQualityColor(ITEM_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARCANE)),
-    SI_PA_QUALITY_EPIC = GetItemQualityColor(ITEM_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_ARTIFACT)),
-    SI_PA_QUALITY_LEGENDARY = GetItemQualityColor(ITEM_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_QUALITY_LEGENDARY)),
+    SI_PA_QUALITY_TRASH = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_TRASH):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_TRASH)),
+    SI_PA_QUALITY_NORMAL = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_NORMAL):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_NORMAL)),
+    SI_PA_QUALITY_FINE = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_MAGIC):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_MAGIC)),
+    SI_PA_QUALITY_SUPERIOR = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_ARCANE):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_ARCANE)),
+    SI_PA_QUALITY_EPIC = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_ARTIFACT):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_ARTIFACT)),
+    SI_PA_QUALITY_LEGENDARY = GetItemQualityColor(ITEM_FUNCTIONAL_QUALITY_LEGENDARY):Colorize(GetString("SI_ITEMQUALITY", ITEM_FUNCTIONAL_QUALITY_LEGENDARY)),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --

@@ -8,6 +8,7 @@ SafeAddString(SI_PA_MENU_JUNK_DESCRIPTION, "PAJunk peut marquer des objets comme
 -- Standard Items --
 SafeAddString(SI_PA_MENU_JUNK_STANDARD_ITEMS_HEADER, "Objets standards", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE, "Marquer automatiquement comme rebuts", 1)
+SafeAddString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T, "Appliquer seulement aux “Objets standard”. Les règles de mise aux rebuts personnalisées ne sont pas impactées par cette option et doivent être désactivées individuellement si elles ne doivent plus être exécutées.", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_TRASH_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TRASH), "] comme rebuts ?"}), 1)
@@ -19,6 +20,9 @@ SafeAddString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_MORSELS_AND_PECKS_T, table.concat({P
 
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_AUTOMARK_T, table.concat({"Marquer automatiquement les objets avec l'indicateur [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] comme rebuts ?"}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_ITEMS_DESC, table.concat({"Ne PAS marquer comme rebuts les objets de type [", GetString("SI_ITEMSELLINFORMATION", ITEM_SELL_INFORMATION_PRIORITY_SELL), "] si nécessaire . . ."}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH, table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Festin de la Manne poissonneuse")}), 1)
+SafeAddString(SI_PA_MENU_JUNK_COLLECTIBLES_EXCLUDE_RARE_FISH_T, table.concat({PAC.COLOR.YELLOW:Colorize("Une quête durant le "), PAC.COLOR.ORANGE:Colorize("Festival de la Nouvelle vie"), " qui arrive parfois en hiver\nSi activé, tous les [", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH),"] ne seront PAS marqués comme rebuts"}), 1)
 
 SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK, table.concat({"Marquer les objets [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "]"}), 1)
 SafeAddString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_AUTOMARK_T, table.concat({"Marquer les objets de type [", GetString("SI_ITEMTYPE", ITEMTYPE_TREASURE), "] comme rebuts ?"}), 1)
@@ -37,6 +41,7 @@ SafeAddString(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, "Sur vol d'objets de ty
 -- Quest Items --
 SafeAddString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER, "Protection des objets de quête", 1)
 SafeAddString(SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER, "La Cité mécanique", 1)
+SafeAddString(SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER, "Festival de la Nouvelle vie", 1)
 
 -- Custom Items --
 SafeAddString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER, "Objets personnalisés", 1)
@@ -51,7 +56,11 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ATTENTION: Soyez conscient e
 -- Other Settings --
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Ne pas mettre aux rebuts si reçu par courrier", 1)
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Ne jamais mettre aux rebuts des objets reçus du courrier", 1)
+--SafeAddString(SI_PA_MENU_JUNK_CRAFTED_IGNORE, "", 1)
+--SafeAddString(SI_PA_MENU_JUNK_CRAFTED_IGNORE_T, "", 1)
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Vente/Recel auto. des rebuts aux marchands", 1)
+--SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI, "", 1)
+--SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W, "", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Commandes", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "Activer la commande \"Mettre aux / Sortir des rebuts\"", 1)

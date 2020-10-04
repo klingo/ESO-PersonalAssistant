@@ -1,31 +1,5 @@
 <Bindings>
     <Layer name="SI_KEYBINDINGS_LAYER_GENERAL" allowFallthrough="false">
-        <Category name="SI_KEYBINDINGS_CATEGORY_PA_PROFILES">
-            <Action name="PA_ACTIVATE_PROFILE_1">
-                <Down>PersonalAssistant.Bindings.loadProfile(1)</Down>
-            </Action>
-            <Action name="PA_ACTIVATE_PROFILE_2">
-                <Down>PersonalAssistant.Bindings.loadProfile(2)</Down>
-            </Action>
-            <Action name="PA_ACTIVATE_PROFILE_3">
-                <Down>PersonalAssistant.Bindings.loadProfile(3)</Down>
-            </Action>
-            <Action name="PA_ACTIVATE_PROFILE_4">
-                <Down>PersonalAssistant.Bindings.loadProfile(4)</Down>
-            </Action>
-            <Action name="PA_ACTIVATE_PROFILE_5">
-                <Down>PersonalAssistant.Bindings.loadProfile(5)</Down>
-            </Action>
-            <Action name="PA_ACTIVATE_PROFILE_6">
-                <Down>PersonalAssistant.Bindings.loadProfile(6)</Down>
-            </Action>
-            <Action name="PA_ACTIVATE_PROFILE_7">
-                <Down>PersonalAssistant.Bindings.loadProfile(7)</Down>
-            </Action>
-            <Action name="PA_ACTIVATE_PROFILE_8">
-                <Down>PersonalAssistant.Bindings.loadProfile(8)</Down>
-            </Action>
-        </Category>
         <Category name="SI_KEYBINDINGS_CATEGORY_PA_MENU">
             <Action name="PA_RULES_TOGGLE_WINDOW">
                 <Down>PersonalAssistant.CustomDialogs.togglePARulesMenu()</Down>

@@ -40,7 +40,6 @@ local PABStrings = {
 
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Einzelne Gegenstände",
-    SI_PA_MENU_BANKING_INDIVIDUAL_ENABLE = "Aktiviere Transaktionen für Einzelne Gegenstände",
     SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"Mit der Einführung der benutzerdefinierten Banking Regeln wurden die \"Individuellen\" Einstellungen dorthin migriert. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
@@ -80,13 +79,40 @@ local PABStrings = {
     SI_PA_MAINMENU_BANKING_HEADER = "Banking Regeln",
 
     SI_PA_MAINMENU_BANKING_HEADER_BAG = "Ort",
-    SI_PA_MAINMENU_BANKING_HEADER_OPERATOR = "Operator",
+    SI_PA_MAINMENU_BANKING_HEADER_RULE = "Regel",
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Anzahl",
     SI_PA_MAINMENU_BANKING_HEADER_ITEM = "Gegenstand",
     SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Aktionen",
 
 
     -- =================================================================================================================
+    -- == OTHER STRINGS FOR MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking Add Custom Rule Description --
+    SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE = "In der %s sollen genau %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE = "In der %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE = "In der %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE = "In der %s sollen mindestens %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING = "> %d in der %s hast => passiert nichts.",
+    SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT = "> %d in der %s hast => transferiere Gegenstände in die %s bis dort %d sind.",
+    SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING = "> %d - %d in der %s hast => passiert nichts.",
+    SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT = "> %d - %d in der %s hast => transferiere Gegenstände in die %s bis dort %d sind.",
+    SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW = "> %d - %d in der %s hast => transferiere Gegenstände aus der %s bis dort %d übrig sind.",
+
+    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE = "Im %s sollen genau %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE = "Im %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE = "Im %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE = "Im %s sollen mindestens %d vom ausgewählten Gegenstand sein.",
+    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING = "> %d im %s hast => passiert nichts.",
+    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT = "> %d im %s hast => transferiere Gegenstände in das %s bis dort %d sind.",
+    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING = "> %d - %d im %s hast => passiert nichts.",
+    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT = "> %d - %d im %s hast => transferiere Gegenstände in das %s bis dort %d sind.",
+    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW = "> %d - %d im %s hast => transferiere Gegenstände aus dem %s bis dort %d übrig sind.",
+
+    SI_PA_DIALOG_BANKING_EXPLANATION = "Das bedeutet, wenn du . . .",
+
+
+-- =================================================================================================================
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
@@ -107,8 +133,5 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_ADDED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("hinzugefügt"), "!"}),
     SI_PA_CHAT_BANKING_RULES_UPDATED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("angepasst"), "!"}),
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("gelöscht"), "!"}),
-}
-
-for key, value in pairs(PABStrings) do
-    SafeAddString(key, value, 1)
-end
+    SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("aktiviert"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("deaktiviert"), "!"}),

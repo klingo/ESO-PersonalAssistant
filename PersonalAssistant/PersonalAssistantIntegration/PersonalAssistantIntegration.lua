@@ -16,24 +16,24 @@ local Integration_Defaults = {}
 -- only prints out PAIntegration texts if silentMode is disabled
 local function println(text, ...)
     if not PA.Integration.SavedVars.silentMode then
-        PAHF.println(PAC.COLORED_TEXTS.PAI, text, ...)
+        PAHF.println(PA.Integration.chat, PAC.COLORED_TEXTS.PAI, text, ...)
     end
 end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    local addonText = PAC.COLORED_TEXTS_DEBUG.PAI .. text
-    PAHF.debugln(addonText, ...)
+    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAI, text, ...)
 end
 
 -- init default values
 local function initDefaults()
+    local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PABanking
-    Integration_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+    -- default values for PAIntegration
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
         -- get default values from PAMenuDefaults
-        Integration_Defaults[profileNo] = PAMenuDefaults.PAIntegration
+        Integration_Defaults[1] = PAMenuDefaults.PAIntegration
+        Integration_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     end
 end
 
@@ -49,8 +49,16 @@ local function initAddon(_, addOnName)
     -- initialize the default values
     initDefaults()
 
+    -- init LibChatMessage if running
+    if PA.LibChatMessage then
+        PA.Integration.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAI, PAC.COLORED_TEXTS_DEBUG.PAI)
+    end
+
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION, nil, Integration_Defaults)
+
+    -- sync profiles between PAGeneral and PAIntegration
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Integration, PA.MenuDefaults.PAIntegration)
 
     -- create the options with LAM-2
     PA.Integration.createOptions()

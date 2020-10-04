@@ -4,11 +4,11 @@ local PAStrings = {
     -- Language specific texts that need to be translated --
 
     -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " zu deinen Diensten!   -   für deine Sprache [%s] ist leider (noch) keine Lokalisierung verfügbar"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, " zu deinen Diensten!"}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, " heisst dich willkommen! Um loslegen zu können, gehe bitte zu den Einstellungen der Erweiterung (oder verwende ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") und wählen ein Profil aus. Vielen Dank :-)"}),
+    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "zu deinen Diensten!   -   für deine Sprache [%s] ist leider (noch) keine Lokalisierung verfügbar"}),
+    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "zu deinen Diensten! Aktives Profil: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "heisst dich willkommen! Um loslegen zu können, gehe bitte zu den Einstellungen der Erweiterung (oder verwende ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") und wählen ein Profil aus. Vielen Dank :-)"}),
 
-    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, " benötigt eine aktuellere Version von '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' als derzeit installiert ist. Bitte die neuste Version von ", PAC.COLORS.WHITE, "http://esoui.com", PAC.COLORS.ORANGE_RED, " herunterladen und diese verwenden"}),
+    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, "benötigt eine aktuellere Version von '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' als derzeit installiert ist. Bitte die neuste Version von ", PAC.COLORS.WHITE, "http://esoui.com", PAC.COLORS.ORANGE_RED, " herunterladen und diese verwenden"}),
 
 
     -- =================================================================================================================
@@ -16,19 +16,41 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant ist eine Sammlung diverser Funktionalitäten mit dem Ziel um deine Zeit in ESO noch angenehmenr zu machen",
 
-    -- Profiles --
-    SI_PA_MENU_PROFILE_HEADER = "Profile",
-    SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Bitte Profil wählen>",
-    SI_PA_MENU_PROFILE_ACTIVE = "Profil aktivieren",
-    SI_PA_MENU_PROFILE_ACTIVE_T = "Das aktuelle Profil für PersonalAssistant auswählen. Es werden automatisch alle Einstellungen von diesem Profil geladen und am gleichen Ort auch wieder abgespeichert.",
-    SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Aktuelles Profil umbenennen",
-
-    -- Integrations --
-
-    -- General --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- General Settings --
+    SI_PA_MENU_GENERAL_HEADER = "Generelle Einstellungen"
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Wilkommensmeldung anzeigen",
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Profile Settings --
+    SI_PA_MENU_PROFILE_HEADER = "Profile",
+    SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Bitte Profil wählen>",
+    SI_PA_MENU_PROFILE_DEFAULT = "Standard Profil",
+    SI_PA_MENU_PROFILE_ACTIVE = "Aktives Profil",
+    SI_PA_MENU_PROFILE_ACTIVE_T = "Das aktive Profil für PersonalAssistant auswählen. Es werden automatisch alle Einstellungen von diesem Profil geladen und am gleichen Ort auch wieder abgespeichert.",
+    SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Aktives Profil umbenennen",
+
+    -- Create Profiles --
+    SI_PA_MENU_PROFILE_CREATE_NEW = "Neues Profil erstellen",
+    SI_PA_MENU_PROFILE_CREATE_NEW_DESC = table.concat({"Anmerkung: Du kannst maximal ", PAC.GENERAL.MAX_PROFILES, " Profile haben."}),
+
+    -- Copy Profiles --
+    SI_PA_MENU_PROFILE_COPY_FROM_DESC = "Kopiere die Einstellungen von einem bestehenden Profil in das derzeit aktive Profil.",
+    SI_PA_MENU_PROFILE_COPY_FROM = "Profil kopieren",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM = "Kopieren bestätigen",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W = "Das wird die Einstellungen vom aktiven Profil mit den Einstellungen vom ausgewählten Profil ersetzen. Bist du dir sicher? \n\nAnmerkung: Nur Einstellungen von aktivierten PersonalAssistant Modulen werden kopiert",
+
+    -- Delete Profiles --
+    SI_PA_MENU_PROFILE_DELETE_DESC = "Lösche bestehende und nicht mehr benötigte Profile von der Datenbank um Platz zu sparen und die SavedVariables Datei aufzuräumen.",
+    SI_PA_MENU_PROFILE_DELETE = "Profil löschen",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Löschen bestätigen",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "Das wird das ausgewählte Profil für alle Charaktere löschen. Bist du dir sicher?",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Admin Settings --
+    SI_PA_MENU_ADMIN_HEADER, "Admin Einstellungen",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Rules Menu --
@@ -52,7 +74,9 @@ local PAStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAGeneral --
-    SI_PA_CHAT_GENERAL_ACTIVE_PROFILE_ACTIVE = table.concat({PAC.COLORS.DEFAULT, " aktives Profil: ", PAC.COLORS.ORANGE_RED, "%s"}),
+    SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED = table.concat({" neues Profil ", PAC.COLOR.WHITE:Colorize("%s"), " erstellt und aktiviert!"}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" Einstellungen von Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurden in das aktive Profil ", PAC.COLOR.WHITE:Colorize("%s"), PAC.COLOR.ORANGE_RED:Colorize(" kopiert")}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" ausgewähltes Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurde ", PAC.COLOR.ORANGE_RED:Colorize("gelöscht!")}),
 
 
     -- =================================================================================================================
@@ -82,6 +106,7 @@ local PAStrings = {
     SI_PA_ITEMTYPE22 = "<<1[Dietrich/Dietriche]>>",
     SI_PA_ITEMTYPE29 = "<<1[Rezept/Rezepte]>>",
     SI_PA_ITEMTYPE30 = "<<1[Gift/Gifte]>>",
+    SI_PA_ITEMTYPE33 = "<<1[Lösungsmittel/Lösungsmittel]>>",
     SI_PA_ITEMTYPE34 = "<<1[Sammlung/Sammlungen]>>",
     SI_PA_ITEMTYPE56 = "<<1[Beute/Beuten]>>",
     SI_PA_ITEMTYPE60 = "<<1[Meisterschrieb/Meisterschriebe]>>",
@@ -136,6 +161,15 @@ local PAStrings = {
     SI_PA_REL_BANK_GREATERTHANOREQUAL_T = "BANK grösser oder gleich als (>=)",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- Text Operators --
+    SI_PA_REL_TEXT_OPERATOR0 = "-",
+    SI_PA_REL_TEXT_OPERATOR1 = "hat genau",
+    SI_PA_REL_TEXT_OPERATOR2 = "hat weniger als", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR3 = "hat höchstens",
+    SI_PA_REL_TEXT_OPERATOR4 = "hat mehr als", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR5 = "hat mindestens",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Stacking types --
     SI_PA_ST_MOVE_FULL = "Verschiebe alles",
     SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "Nur Stapel auffüllen",
@@ -143,10 +177,7 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Icon Positions --
     SI_PA_POSITION_AUTO = "Automatisch",
-    SI_PA_POSITION_TOPLEFT = "Oben Links",
-    SI_PA_POSITION_TOPRIGHT = "Oben Rechts",
-    SI_PA_POSITION_BOTTOMLEFT = "Unten Link",
-    SI_PA_POSITION_BOTTOMRIGHT = "Unten Rechts",
+    SI_PA_POSITION_MANUAL = "Manuell",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
@@ -163,6 +194,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_ADD_RULE = "Neue Regel hinzufügen",
     SI_PA_SUBMENU_PAB_EDIT_RULE = "Regel bearbeiten",
     SI_PA_SUBMENU_PAB_DELETE_RULE = "Regel löschen",
+    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Regel aktivieren",
+    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Regel deaktivieren",
     SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Hinzufügen",
     SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Speichern",
     SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Löschen",
@@ -183,8 +216,6 @@ local PAStrings = {
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Regeln",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Banking/Trödel Regelmenü ein-/ausblenden",
 
-    SI_KEYBINDINGS_PA_LOAD_PROFILE = "Aktiviere Profil",
-}
 
 for key, value in pairs(PAStrings) do
     SafeAddString(key, value, 1)

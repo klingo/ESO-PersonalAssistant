@@ -76,6 +76,10 @@ local PARepairMenuFunctions = {
     getRechargeWithSoulGemSetting = function() return getValue({"RechargeWeapons", "useSoulGems"}) end,
     setRechargeWithSoulGemSetting = function(value) setValueAndRefreshEvents(value, {"RechargeWeapons", "useSoulGems"}) end,
 
+    isRechargeDefaultSoulGemDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
+    getRechargeDefaultSoulGemSetting = function() return getValue({"RechargeWeapons", "defaultSoulGem"}) end,
+    setRechargeDefaultSoulGemSetting = function(value) setValueAndRefreshEvents(value, {"RechargeWeapons", "defaultSoulGem"}) end,
+
     isLowSoulGemWarningDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RechargeWeapons", "useSoulGems"}) end,
     getLowSoulGemWarningSetting = function() return getValue({"RechargeWeapons", "lowSoulGemWarning"}) end,
     setLowSoulGemWarningSetting = function(value) setValue(value, {"RechargeWeapons", "lowSoulGemWarning"}) end,

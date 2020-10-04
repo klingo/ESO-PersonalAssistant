@@ -30,7 +30,7 @@ local function _getBagNameAndOperatorTextFromOperatorId(operatorId)
         bagName = PAHF.getBagName(BAG_BANK)
         operator = operatorId - 5
     end
-    local operatorText = GetString("SI_PA_REL_OPERATOR", operator)
+    local operatorText = GetString("SI_PA_REL_TEXT_OPERATOR", operator)
     return bagName, operatorText
 end
 
@@ -242,21 +242,24 @@ function PABankingRulesList:FilterScrollList()
     -- only proceed if player has selected an active profile
     if PAHF.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PABCustomItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.ItemIds
+        local PABCustomPAItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.PAItemIds
         -- populate the table that is used as source for the list
-        for _, moveConfig in pairs(PABCustomItemIds) do
-            local bagName, operatorText = _getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
-            local rowData = {
-                bagName = bagName,
-                operator = moveConfig.operator, -- required to edit the rule
-                mathOperator = operatorText, -- required to display the rule
-                bagAmount = moveConfig.bagAmount,
-                itemIcon = GetItemLinkInfo(moveConfig.itemLink),
-                itemLink = moveConfig.itemLink,
-                itemName = GetItemLinkName(moveConfig.itemLink)
-            }
-            -- "1" is to define a category per dataEntry (can be individually hidden)
-            table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
+        if PABCustomPAItemIds then
+            for _, moveConfig in pairs(PABCustomPAItemIds) do
+                local bagName, operatorText = _getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
+                local rowData = {
+                    bagName = bagName,
+                    operator = moveConfig.operator, -- required to edit the rule
+                    mathOperator = operatorText, -- required to display the rule
+                    bagAmount = moveConfig.bagAmount,
+                    itemIcon = GetItemLinkInfo(moveConfig.itemLink),
+                    itemLink = moveConfig.itemLink,
+                    itemName = GetItemLinkName(moveConfig.itemLink),
+                    ruleEnabled = moveConfig.ruleEnabled -- required to enable/disable the rule
+                }
+                -- "1" is to define a category per dataEntry (can be individually hidden)
+                table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
+            end
         end
     end
 end
@@ -272,73 +275,95 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         PA.BankingRulesList:Row_OnMouseEnter(rowControl)
         local delButtonControl = rowControl:GetNamedChild("DelButton")
         local editButtonControl = rowControl:GetNamedChild("EditButton")
+        local enableButtonControl = rowControl:GetNamedChild("EnableButton")
+        local disableButtonControl = rowControl:GetNamedChild("DisableButton")
         delButtonControl:SetHidden(false)
         editButtonControl:SetHidden(false)
+        if rowData.ruleEnabled then
+            disableButtonControl:SetHidden(false)
+        else
+            enableButtonControl:SetHidden(false)
+        end
     end
     local function onRowMouseExit(rowControl)
         PA.BankingRulesList:Row_OnMouseExit(rowControl)
         local delButtonControl = rowControl:GetNamedChild("DelButton")
         local editButtonControl = rowControl:GetNamedChild("EditButton")
+        local enableButtonControl = rowControl:GetNamedChild("EnableButton")
+        local disableButtonControl = rowControl:GetNamedChild("DisableButton")
         delButtonControl:SetHidden(true)
         editButtonControl:SetHidden(true)
+        enableButtonControl:SetHidden(true)
+        disableButtonControl:SetHidden(true)
     end
     local function onItemNameMouseEnter(itemNameControl)
         InitializeTooltip(ItemTooltip, itemNameControl, TOPRIGHT, -40, 0, TOPLEFT)
-        ItemTooltip:SetLink(itemNameControl:GetText())
+        ItemTooltip:SetLink(itemNameControl.itemLink)
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(itemNameControl:GetParent())
-    end
-    local function onItemNameMouseExit(itemNameControl)
-        ClearTooltip(ItemTooltip)
-        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
-        onRowMouseExit(itemNameControl:GetParent())
     end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
         ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(deleteButtonControl:GetParent())
     end
-    local function onDeleteButtonMouseExit(deleteButtonControl)
-        ZO_Tooltips_HideTextTooltip()
-        -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
-        onRowMouseExit(deleteButtonControl:GetParent())
-    end
     local function onEditButtonMouseEnter(editButtonControl)
         ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(editButtonControl:GetParent())
     end
-    local function onEditButtonMouseExit(editButtonControl)
+    local function onEnableButtonMouseEnter(enableButtonControl)
+        ZO_Tooltips_ShowTextTooltip(enableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_ENABLE_RULE))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(enableButtonControl:GetParent())
+    end
+    local function onDisableButtonMouseEnter(disableButtonControl)
+        ZO_Tooltips_ShowTextTooltip(disableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DISABLE_RULE))
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(disableButtonControl:GetParent())
+    end
+    local function onGenericControlMouseExit(control)
         ZO_Tooltips_HideTextTooltip()
+        ClearTooltip(ItemTooltip)
         -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
-        onRowMouseExit(editButtonControl:GetParent())
+        onRowMouseExit(control:GetParent())
     end
 
     -- store the rowData on the control so it can be accessed from the sortFunction
     rowControl.data = rowData
 
     -- populate all data to the individual fields per row
-    local bagNameControl = rowControl:GetNamedChild("BagName")
-    bagNameControl:SetText(LocaleAwareToUpper(rowData.bagName))
-
-    local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
-    mathOperatorControl:SetText(rowData.mathOperator)
-
-    local bagAmountControl = rowControl:GetNamedChild("BagAmount")
-    bagAmountControl:SetText(rowData.bagAmount)
-
     local itemIconControl = rowControl:GetNamedChild("ItemIcon")
     itemIconControl:SetTexture(rowData.itemIcon)
 
     local itemNameControl = rowControl:GetNamedChild("ItemName")
-    itemNameControl:SetText(rowData.itemLink)
     itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
-    itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
+    itemNameControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    itemNameControl.itemLink = rowData.itemLink
+
+    local bagNameControl = rowControl:GetNamedChild("BagName")
+    local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
+    local bagAmountControl = rowControl:GetNamedChild("BagAmount")
+
+    -- set row text color depending on ruleEnabled state
+    if rowData.ruleEnabled then
+        bagNameControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
+        mathOperatorControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.mathOperator))
+        bagAmountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.bagAmount))
+        itemIconControl:SetDesaturation(0)
+        itemNameControl:SetText(rowData.itemLink)
+    else
+        bagNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
+        mathOperatorControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.mathOperator))
+        bagAmountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.bagAmount))
+        itemIconControl:SetDesaturation(1)
+        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.itemName)))
+    end
 
     -- Setup the DELETE button per row
     local delButtonControl = rowControl:GetNamedChild("DelButton")
     delButtonControl:SetHandler("OnMouseEnter", onDeleteButtonMouseEnter)
-    delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
+    delButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
     delButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
         PA.CustomDialogs.deletePABCustomRule(rowControl.data.itemLink)
@@ -347,11 +372,29 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     -- Setup the EDIT button per row
     local editButtonControl = rowControl:GetNamedChild("EditButton")
     editButtonControl:SetHandler("OnMouseEnter", onEditButtonMouseEnter)
-    editButtonControl:SetHandler("OnMouseExit", onEditButtonMouseExit)
+    editButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
     editButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
         PA.CustomDialogs.initPABAddCustomRuleUIDialog() -- make sure it has been initialized
         PA.CustomDialogs.showPABAddCustomRuleUIDIalog(rowControl.data.itemLink, rowData)
+    end)
+
+    -- Setup the ENABLE button per row
+    local enableButtonControl = rowControl:GetNamedChild("EnableButton")
+    enableButtonControl:SetHandler("OnMouseEnter", onEnableButtonMouseEnter)
+    enableButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    enableButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.enablePABCustomRule(rowControl.data.itemLink)
+    end)
+
+    -- Setup the DISABLE button per row
+    local disableButtonControl = rowControl:GetNamedChild("DisableButton")
+    disableButtonControl:SetHandler("OnMouseEnter", onDisableButtonMouseEnter)
+    disableButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    disableButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.disablePABCustomRule(rowControl.data.itemLink)
     end)
 
     -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control
@@ -366,7 +409,7 @@ function PABankingRulesList:InitHeaders()
     local headers = BankingRulesTabControl:GetNamedChild("Headers")
     ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), "itemName", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), "bagName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_OPERATOR), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_RULE), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagAmount"), GetString(SI_PA_MAINMENU_BANKING_HEADER_AMOUNT), "bagAmount", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
 end
@@ -449,26 +492,28 @@ function PAJunkRulesList:FilterScrollList()
     -- only proceed if player has selected an active profile
     if PAHF.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PAJCustomItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.ItemIds
-        -- populate the table that is used as source for the list
-        for _, junkConfig in pairs(PAJCustomItemIds) do
-            local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
-            local timeSinceLastJunk = GetString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED)
-            if junkConfig.lastJunk then
-                timeSinceLastJunk = FormatTimeSeconds(GetTimeStamp() - tonumber(junkConfig.lastJunk), TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING)
+        local PAJCustomPAItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.PAItemIds
+        if PAJCustomPAItemIds then
+            -- populate the table that is used as source for the list
+            for _, junkConfig in pairs(PAJCustomPAItemIds) do
+                local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
+                local timeSinceLastJunk = GetString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED)
+                if junkConfig.lastJunk then
+                    timeSinceLastJunk = FormatTimeSeconds(GetTimeStamp() - tonumber(junkConfig.lastJunk), TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING)
+                end
+                local rowData = {
+                    itemIcon = GetItemLinkInfo(junkConfig.itemLink),
+                    itemLink = junkConfig.itemLink,
+                    itemName = GetItemLinkName(junkConfig.itemLink),
+                    junkCount = junkConfig.junkCount,
+                    ruleAdded = junkConfig.ruleAdded,
+                    ruleAddedFmt = FormatTimeSeconds(timeSinceRuleAdded, TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING),
+                    lastJunk = junkConfig.lastJunk or 0,
+                    lastJunkFmt = timeSinceLastJunk,
+                }
+                -- "1" is to define a category per dataEntry (can be individually hidden)
+                table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
             end
-            local rowData = {
-                itemIcon = GetItemLinkInfo(junkConfig.itemLink),
-                itemLink = junkConfig.itemLink,
-                itemName = GetItemLinkName(junkConfig.itemLink),
-                junkCount = junkConfig.junkCount,
-                ruleAdded = junkConfig.ruleAdded,
-                ruleAddedFmt = FormatTimeSeconds(timeSinceRuleAdded, TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING),
-                lastJunk = junkConfig.lastJunk or 0,
-                lastJunkFmt = timeSinceLastJunk,
-            }
-            -- "1" is to define a category per dataEntry (can be individually hidden)
-            table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
         end
     end
 end
@@ -520,18 +565,29 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     itemIconControl:SetTexture(rowData.itemIcon)
 
     local itemNameControl = rowControl:GetNamedChild("ItemName")
-    itemNameControl:SetText(rowData.itemLink)
     itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
     itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
+    itemNameControl.itemLink = rowData.itemLink
 
     local junkCountControl = rowControl:GetNamedChild("JunkCount")
-    junkCountControl:SetText(rowData.junkCount) -- TODO: formatting!
-
     local lastJunkControl = rowControl:GetNamedChild("LastJunk")
-    lastJunkControl:SetText(rowData.lastJunkFmt)
-
     local ruleAddedControl = rowControl:GetNamedChild("RuleAdded")
-    ruleAddedControl:SetText(rowData.ruleAddedFmt)
+
+    -- set row text color depending on ruleEnabled state
+    -- TODO: to be implemented (rule enabled/disabled)
+    if true then
+        junkCountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.junkCount)) -- TODO: formatting?!
+        lastJunkControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.lastJunkFmt))
+        ruleAddedControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.ruleAddedFmt))
+        itemIconControl:SetDesaturation(0)
+        itemNameControl:SetText(rowData.itemLink)
+    else
+        junkCountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.junkCount)) -- TODO: formatting?!
+        lastJunkControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.lastJunkFmt))
+        ruleAddedControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.ruleAddedFmt))
+        itemIconControl:SetDesaturation(1)
+        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.itemName)))
+    end
 
     -- Setup the DELETE button per row
     local delButtonControl = rowControl:GetNamedChild("DelButton")

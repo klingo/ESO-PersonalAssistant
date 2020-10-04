@@ -47,13 +47,13 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020410, -- update this every release!
+            MINOR = 020501, -- update this every release!
         },
     },
 
     GENERAL = {
-        MAX_PROFILES = 8,
-        NO_PROFILE_SELECTED_ID = 9
+        MAX_PROFILES = 20,
+        NO_PROFILE_SELECTED_ID = 0
     },
 
     COLOR = {
@@ -62,6 +62,7 @@ PersonalAssistant.Constants = {
         ORANGE = ZO_ColorDef:New("FFA500"),
         ORANGE_RED = ZO_ColorDef:New("FF7400"),
         RED = ZO_ColorDef:New("FF0000"),
+        WHITE = ZO_ColorDef:New("FFFFFF"),
         YELLOW = ZO_ColorDef:New("FFD700"),
         CURRENCIES = {
             [CURT_MONEY] = ZO_ColorDef:New(GetCurrencyKeyboardColor(CURT_MONEY)),
@@ -84,24 +85,24 @@ PersonalAssistant.Constants = {
 
     COLORED_TEXTS = {
         PA = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
-        PAG = table.concat({"|cFFD700", "PA G", "|r", "|cFFFFFF", "eneral: ", "|r"}),
-        PAB = table.concat({"|cFFD700", "PA B", "|r", "|cFFFFFF", "anking: ", "|r"}),
-        PAI = table.concat({"|cFFD700", "PA I", "|r", "|cFFFFFF", "ntegration: ", "|r"}),
-        PAR = table.concat({"|cFFD700", "PA R", "|r", "|cFFFFFF", "epair: ", "|r"}),
-        PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot: ", "|r"}),
-        PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail: ", "|r"}),
-        PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk: ", "|r"}),
+        PAG = table.concat({"|cFFD700", "PA G", "|r", "|cFFFFFF", "eneral", "|r"}),
+        PAB = table.concat({"|cFFD700", "PA B", "|r", "|cFFFFFF", "anking", "|r"}),
+        PAI = table.concat({"|cFFD700", "PA I", "|r", "|cFFFFFF", "ntegration", "|r"}),
+        PAR = table.concat({"|cFFD700", "PA R", "|r", "|cFFFFFF", "epair", "|r"}),
+        PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot", "|r"}),
+        PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail", "|r"}),
+        PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk", "|r"}),
     },
 
     COLORED_TEXTS_DEBUG = {
-        PA = table.concat({"|cFFFFFF", "PA", "|r", ": "}),
-        PAG = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "G", "|r", ": "}),
-        PAB = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "B", "|r", ": "}),
-        PAI = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "I", "|r", ": "}),
-        PAR = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "R", "|r", ": "}),
-        PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r", ": "}),
-        PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r", ": "}),
-        PAJ = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "J", "|r", ": "}),
+        PA = table.concat({"|cFFFFFF", "PA", "|r"}),
+        PAG = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "G", "|r"}),
+        PAB = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "B", "|r"}),
+        PAI = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "I", "|r"}),
+        PAR = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "R", "|r"}),
+        PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r"}),
+        PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r"}),
+        PAJ = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "J", "|r"}),
     },
 
     ICONS = {
@@ -296,6 +297,9 @@ PersonalAssistant.Constants = {
             CLOCKWORK_CITY = {
                 PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
             },
+            EVENTS = {
+                PATH = "/esoui/art/treeicons/achievements_indexicon_events_up.dds"
+            },
             FENCE = {
                 PATH = "/esoui/art/vendor/vendor_tabicon_fence_up.dds",
             },
@@ -408,6 +412,9 @@ PersonalAssistant.Constants = {
                 ITEMTYPE_DRINK,                             -- 12
                 ITEMTYPE_FISH,                              -- 54
             },
+            FURNISHINGS = {
+                ITEMTYPE_FURNISHING,                        -- 61
+            }
         },
         SPECIALIZED = {
             TROPHIES = {
@@ -524,6 +531,7 @@ PersonalAssistant.Constants = {
             27962,  -- [Keep Door Woodwork Repair Kit]
             27138,  -- [Keep Wall Masonry Repair Kit]
             27112,  -- [Siege Repair Kit]
+            142133, -- [Bridge and Milegate Repair Kit]
         },
         OTHER = {
             141731, -- [Keep Recall Stone]
