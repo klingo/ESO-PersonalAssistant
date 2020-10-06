@@ -91,7 +91,6 @@ local PABStrings = {
     -- PABanking Add Custom Rule Description --
     SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE = "In der %s sollen genau %d vom ausgewählten Gegenstand sein.",
     SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE = "In der %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
-    SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE = "In der %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
     SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE = "In der %s sollen mindestens %d vom ausgewählten Gegenstand sein.",
     SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING = "> %d in der %s hast => passiert nichts.",
     SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT = "> %d in der %s hast => transferiere Gegenstände in die %s bis dort %d sind.",
@@ -100,7 +99,6 @@ local PABStrings = {
     SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW = "> %d - %d in der %s hast => transferiere Gegenstände aus der %s bis dort %d übrig sind.",
 
     SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE = "Im %s sollen genau %d vom ausgewählten Gegenstand sein.",
-    SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE = "Im %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
     SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE = "Im %s sollen höchstens %d vom ausgewählten Gegenstand sein.",
     SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE = "Im %s sollen mindestens %d vom ausgewählten Gegenstand sein.",
     SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING = "> %d im %s hast => passiert nichts.",
@@ -112,7 +110,7 @@ local PABStrings = {
     SI_PA_DIALOG_BANKING_EXPLANATION = "Das bedeutet, wenn du . . .",
 
 
--- =================================================================================================================
+    -- =================================================================================================================
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
