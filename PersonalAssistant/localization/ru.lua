@@ -4,7 +4,7 @@ local PAC = PersonalAssistant.Constants
 
 -- Welcome Messages --
 SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "к вашим услугам!  -  [%s] локализация пока не поддерживается"}), 1)
-SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "к вашим услугам! текущий профиль: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
+SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "к вашим услугам! Текущий профиль: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
 SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFAULT, "приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль (или введите ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, "). Спасибо :-)"}), 1)
 
 SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "требуется более свежая версия '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' чем в настоящее время установлена. Пожалуйста, скачайте и установите последнюю версию с ", PAC.COLORS.WHITE, "http://esoui.com"}), 1)
@@ -15,17 +15,41 @@ SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "треб
 -- -----------------------------------------------------------------------------------------------------------------
 SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant представляет собой набор различных функций, цель которых сделать игру более удобной для вас", 1)
 
--- Profiles --
+-- -----------------------------------------------------------------------------------------------------------------
+-- General Settings --
+SafeAddString(SI_PA_MENU_GENERAL_HEADER, "Основные настройки", 1)
+SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Показывать приветственное сообщение", 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Домой"}), 1)
+SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Если текущее местоположение допускает быстрые перемещения, это инициирует телепорт в ваш основной дом!", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Profile Settings --
 SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Профили", 1)
 SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Выберите профиль>", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DEFAULT, "Профиль по умолчанию", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Текущий профиль", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Выберите профиль для PersonalAssistant. Он автоматически загрузит все настройки, сохраненные в этом профиле, и все изменения будут сохранены в том же месте.", 1)
 SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Переименовать", 1)
 
--- General --
-SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Показывать приветственное сообщение", 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Домой"}), 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Если текущее местоположение допускает быстрые перемещения, это инициирует телепорт в ваш основной дом!", 1)
+-- Create Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW, "Создать новый профиль", 1)
+SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC, table.concat({"Примечание: У вас может быть максимум ", PAC.GENERAL.MAX_PROFILES, " профилей."}), 1)
+
+-- Copy Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_DESC, "Копировать настройки в текущий профиль из другого имеющегося у вас.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM, "Профиль источник", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM, "Копировать", 1)
+SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W, "Все настройки текущего профиля будут заменены на настройки выбранного профиля. Вы уверены что хотите сделать это? \n\nПримечание: Копируются настройки только включенных модулей PersonalAssistant", 1)
+
+-- Delete Profiles --
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_DESC, "Удаляет имеющийся и не используемый профиль из базы для очистки места, также удаляет его данные из файлов сохранений.", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE, "Удаляемый профиль", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM, "Удалить", 1)
+SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W, "Удалить выбранный профиль для всех персонажей. Вы уверены что хотите сделать это?", 1)
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- Admin Settings --
+SI_PA_MENU_ADMIN_HEADER = "Административные настройки",
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- Rules Menu --
@@ -49,6 +73,9 @@ SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Е�
 -- == CHAT OUTPUTS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- PAGeneral --
+SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" новый профиль ", PAC.COLOR.WHITE:Colorize("%s"), " создан и активирован!"}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" настройки профиля ", PAC.COLOR.WHITE:Colorize("%s"), " были ", PAC.COLOR.ORANGE_RED:Colorize("скопированы"), " в профиль ", PAC.COLOR.WHITE:Colorize("%s")}), 1)
+SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" выбранный профиль ", PAC.COLOR.WHITE:Colorize("%s"), " был ", PAC.COLOR.ORANGE_RED:Colorize("удален!")}), 1)
 
 
 -- =================================================================================================================
@@ -78,6 +105,7 @@ SafeAddString(SI_PA_ITEMTYPE19, "<<1[Камень душ/Камни душ]>>", 
 SafeAddString(SI_PA_ITEMTYPE22, "<<1[Отмычка/Отмычки]>>", 1) -- NOTE: unused
 SafeAddString(SI_PA_ITEMTYPE29, "<<1[Рецепт/Рецепты]>>", 1) -- ITEMTYPE_RECIPE
 SafeAddString(SI_PA_ITEMTYPE30, "<<1[Яд/Яды]>>", 1) -- ITEMTYPE_POISON
+SafeAddString(SI_PA_ITEMTYPE33, "<<1[Растворитель/Растворители]>>", 1)
 SafeAddString(SI_PA_ITEMTYPE34, "<<1[Коллекционный предмет/Коллекционные предметы]>>", 1) -- ITEMTYPE_COLLECTIBLE
 SafeAddString(SI_PA_ITEMTYPE47, "<<1[Ремонтный набор войны альянсов/Ремонтные наборы войны альянсов]>>", 1) -- NOTE: unused
 SafeAddString(SI_PA_ITEMTYPE56, "<<1[Сокровище/Сокровища]>>", 1) -- ITEMTYPE_TREASURE
