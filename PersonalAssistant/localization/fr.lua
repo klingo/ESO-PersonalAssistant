@@ -1,222 +1,231 @@
 local PAC = PersonalAssistant.Constants
--- =================================================================================================================
--- Welcome Messages --
-SafeAddString(SI_PA_WELCOME_NO_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "à votre service !   -   La traduction pour le language [%s] n'est pas (encore) disponible"}), 1)
-SafeAddString(SI_PA_WELCOME_SUPPORT, table.concat({PAC.COLORS.DEFAULT, "à votre service ! Profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}), 1)
-SafeAddString(SI_PA_WELCOME_PLEASE_SELECT_PROFILE, table.concat({PAC.COLORS.DEFAULT, "vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") afin de sélectionner un profil. Merci :-)"}), 1)
+local PAStrings = {
+    -- =================================================================================================================
+    -- Language specific texts that need to be translated --
+    
+    -- Welcome Messages --
+    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "à votre service !   -   La traduction pour le language [%s] n'est pas (encore) disponible"}),
+    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "à votre service ! Profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") afin de sélectionner un profil. Merci :-)"}),
 
-SafeAddString(SI_PA_LAM_OUTDATED, table.concat({PAC.COLORS.ORANGE_RED, "nécessite une version plus récente de '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' que celle qui est installée actuellement. Merci de télécharger et faire la mise à jour vers la dernière version sur ", PAC.COLORS.WHITE, "http://esoui.com"}), 1)
+    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, "nécessite une version plus récente de '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' que celle qui est installée actuellement. Merci de télécharger et faire la mise à jour vers la dernière version sur ", PAC.COLORS.WHITE, "http://esoui.com"}),
 
 
--- =================================================================================================================
--- == MENU/PANEL TEXTS == --
--- -----------------------------------------------------------------------------------------------------------------
-SafeAddString(SI_PA_MENU_GENERAL_DESCRIPTION, "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable", 1)
+    -- =================================================================================================================
+    -- == MENU/PANEL TEXTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable",
 
--- -----------------------------------------------------------------------------------------------------------------
--- General Settings --
---SafeAddString(SI_PA_MENU_GENERAL_HEADER, "General Settings", 1)
-SafeAddString(SI_PA_MENU_GENERAL_SHOW_WELCOME, "Afficher le message d'accueil", 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE, table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}), 1)
-SafeAddString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W, "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !", 1)
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- General Settings --
+    --SI_PA_MENU_GENERAL_HEADER = "General Settings",
+    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Afficher le message d'accueil",
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}),
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !",
 
--- -----------------------------------------------------------------------------------------------------------------
--- Profile Settings --
-SafeAddString(SI_PA_MENU_PROFILE_HEADER, "Profils", 1)
-SafeAddString(SI_PA_MENU_PROFILE_PLEASE_SELECT, "<Sélectionner un profil>", 1)
-SafeAddString(SI_PA_MENU_PROFILE_DEFAULT, "Profil par défaut", 1)
-SafeAddString(SI_PA_MENU_PROFILE_ACTIVE, "Profil actif", 1)
-SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_T, "Selectionner le profil actif pour PersonalAssistant. Il chargera automatiquement tous les paramètres stockés sous ce profil, et enregistrera les changements au même endroit.", 1)
-SafeAddString(SI_PA_MENU_PROFILE_ACTIVE_RENAME, "Renommer le profil actif", 1)
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Profile Settings --
+    SI_PA_MENU_PROFILE_HEADER = "Profils",
+    SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Sélectionner un profil>",
+    SI_PA_MENU_PROFILE_DEFAULT = "Profil par défaut",
+    SI_PA_MENU_PROFILE_ACTIVE = "Profil actif",
+    SI_PA_MENU_PROFILE_ACTIVE_T = "Selectionner le profil actif pour PersonalAssistant. Il chargera automatiquement tous les paramètres stockés sous ce profil, et enregistrera les changements au même endroit.",
+    SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Renommer le profil actif",
 
--- Create Profiles --
-SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW, "Créer un nouveau profil", 1)
-SafeAddString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC, table.concat({"Note : Vous pouvez avoir un maximum de ", PAC.GENERAL.MAX_PROFILES, " profils."}), 1)
+    -- Create Profiles --
+    SI_PA_MENU_PROFILE_CREATE_NEW = "Créer un nouveau profil",
+    SI_PA_MENU_PROFILE_CREATE_NEW_DESC = table.concat({"Note : Vous pouvez avoir un maximum de ", PAC.GENERAL.MAX_PROFILES, " profils."}),
 
--- Copy Profiles --
-SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_DESC, "Copier les paramètres depuis un profil existant vers le profil courant.", 1)
-SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM, "Copier depuis profil", 1)
-SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM, "Confirmer la copie", 1)
-SafeAddString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W, "Cela remplacera les paramètres du profil actif par ceux du profil sélectionné. Êtes-vous sûr de vouloir continuer ? \n\nNote : Seulement les paramètres des modules actifs de PersonalAssitant seront copiés.", 1)
+    -- Copy Profiles --
+    SI_PA_MENU_PROFILE_COPY_FROM_DESC = "Copier les paramètres depuis un profil existant vers le profil courant.",
+    SI_PA_MENU_PROFILE_COPY_FROM = "Copier depuis profil",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM = "Confirmer la copie",
+    SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W = "Cela remplacera les paramètres du profil actif par ceux du profil sélectionné. Êtes-vous sûr de vouloir continuer ? \n\nNote : Seulement les paramètres des modules actifs de PersonalAssitant seront copiés.",
 
--- Delete Profiles --
-SafeAddString(SI_PA_MENU_PROFILE_DELETE_DESC, "Supprimer les profils existants et inutilisés de la base de données pour sauver de l'espace, et nettoyer le fichier SavedVariables.", 1)
-SafeAddString(SI_PA_MENU_PROFILE_DELETE, "Supprimer un profil", 1)
-SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM, "Confirmer la suppression", 1)
-SafeAddString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W, "Cela supprimera le profil sélectionné pour tous les personnages. Êtes-vous sûr de vouloir continuer ?", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Admin Settings --
---SafeAddString(SI_PA_MENU_ADMIN_HEADER, "Admin Settings", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Rules Menu --
-SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB, "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Banking > Ajouter une nouvelle règle", 1)
-SafeAddString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ, "Pour créer une nouvelle règle de mise aux rebuts permanente, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Junk > Marquer en tant que rebut permanent", 1)
-SafeAddString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU, "Toutes les règles actives peuvent être retrouvées en cliquant sur l'icône qui se trouve dans le menu principal, en tapant ", PAC.COLOR.YELLOW:Colorize("/parules"), " ou en cliquant sur ce bouton :", 1)
-SafeAddString(SI_PA_MENU_RULES_HOW_TO_CREATE, "Comment créer de nouvelles règles?", 1)
-
-SafeAddString(SI_PA_MENU_DANGEROUS_SETTING, "ATTENTION : Paramètres dangereux ! Utilisez à vos risques et périls !", 1)
+    -- Delete Profiles --
+    SI_PA_MENU_PROFILE_DELETE_DESC = "Supprimer les profils existants et inutilisés de la base de données pour sauver de l'espace, et nettoyer le fichier SavedVariables.",
+    SI_PA_MENU_PROFILE_DELETE = "Supprimer un profil",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirmer la suppression",
+    SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "Cela supprimera le profil sélectionné pour tous les personnages. Êtes-vous sûr de vouloir continuer ?",
 
 -- -----------------------------------------------------------------------------------------------------------------
--- Generic Menu --
-SafeAddString(SI_PA_MENU_OTHER_SETTINGS_HEADER, "Autres paramètres", 1)
+    -- Admin Settings --
+    --SI_PA_MENU_ADMIN_HEADER = "Admin Settings",
 
-SafeAddString(SI_PA_MENU_SILENT_MODE, "Mode silencieux (Ne RIEN afficher dans le chat)", 1)
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Rules Menu --
+    SI_PA_MENU_RULES_HOW_TO_ADD_PAB = "Pour créer une nouvelle règle de dépôt ou retrait d'objets, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Banking > Ajouter une nouvelle règle",
+    SI_PA_MENU_RULES_HOW_TO_ADD_PAJ = "Pour créer une nouvelle règle de mise aux rebuts permanente, il suffit de cliquer droit sur un objet dans votre inventaire ou en banque, et de sélectionner dans le menu contextuel :\n> PA Junk > Marquer en tant que rebut permanent",
+    SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"Toutes les règles actives peuvent être retrouvées en cliquant sur l'icône qui se trouve dans le menu principal, en tapant ", PAC.COLOR.YELLOW:Colorize("/parules"), " ou en cliquant sur ce bouton :"}),
+    SI_PA_MENU_RULES_HOW_TO_CREATE = "Comment créer de nouvelles règles?",
 
-SafeAddString(SI_PA_MENU_NOT_YET_IMPLEMENTED, table.concat({PAC.COLORS.RED, "Pas encore implémenté !"}), 1)
+    SI_PA_MENU_DANGEROUS_SETTING = "ATTENTION : Paramètres dangereux ! Utilisez à vos risques et périls !",
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Generic Menu --
+    SI_PA_MENU_OTHER_SETTINGS_HEADER = "Autres paramètres",
 
--- =================================================================================================================
--- == CHAT OUTPUTS == --
--- -----------------------------------------------------------------------------------------------------------------
--- PAGeneral --
-SafeAddString(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, table.concat({" nouveau profil ", PAC.COLOR.WHITE:Colorize("%s"), " créé et activé !"}), 1)
-SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("copié"), " vers le profil ", PAC.COLOR.WHITE:Colorize("%s")}), 1)
-SafeAddString(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("supprimé !")}), 1)
+    SI_PA_MENU_SILENT_MODE = "Mode silencieux (Ne RIEN afficher dans le chat)",
 
-
--- =================================================================================================================
--- == OTHER STRINGS FOR MENU == --
--- -----------------------------------------------------------------------------------------------------------------
--- PAGeneral --
-SafeAddString(SI_PA_PROFILE, "Profil", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Name Spaces --
-SafeAddString(SI_PA_NS_BAG_EQUIPMENT, "Équipement", 1) -- not required so far
-SafeAddString(SI_PA_NS_BAG_BACKPACK, "Inventaire", 1)
-SafeAddString(SI_PA_NS_BAG_BANK, "Banque", 1)
-SafeAddString(SI_PA_NS_BAG_SUBSCRIBER_BANK, "Sac d'artisanat", 1)
-SafeAddString(SI_PA_NS_BAG_UNKNOWN, "Inconnu", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- ItemTypes (Custom Singluar/Plural definition) --
-SafeAddString(SI_PA_ITEMTYPE4, "<<1[Nourriture/Nourriture]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE5, "<<1[Trophées/Trophées]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE7, "<<1[Potion/Potions]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE8, "<<1[Motif/Motifs]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE10, "<<1[Ingrédient/Ingrédients]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE12, "<<1[Boisson/Boissons]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE16, "<<1[Appât/Appâts]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE19, "<<1[Pierre d'Âme/Pierres d'Âme]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE22, "<<1[Crochetage/Crochetages]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE29, "<<1[Recette/Recettes]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE30, "<<1[Poison/Poisons]>>", 1)
---SafeAddString(SI_PA_ITEMTYPE33, "<<1[]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE34, "<<1[Objet de collection/Objets de collection]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE56, "<<1[Trésor/Trésors]>>", 1)
-SafeAddString(SI_PA_ITEMTYPE60, "<<1[Commande de maître/Commandes de maître]>>", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Master Writs based on CraftingType (Custom definition) --
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE0, table.concat({"Autres commandes (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}), 1)
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE1, "Commande de forge scellée", 1)
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE2, "Commande scellée de couture", 1)
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE3, "Commande d'enchantement scellée", 1)
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE4, "Commande scellée d'alchimie", 1)
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE5, "Commande scellée de cuisine", 1)
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE6, "Commande de travail du bois scellée", 1)
-SafeAddString(SI_PA_MASTERWRIT_CRAFTINGTYPE7, "Commande scellée de joaillier", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- PABanking --
-SafeAddString(SI_PA_BANKING_MOVE_MODE_DONOTHING, "Ne rien faire", 1)
-SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBANK, "Déposer en banque", 1)
-SafeAddString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK, "Prendre dans le sac", 1)
-
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS, "Glyphes", 1)
-SafeAddString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS, "Objets complexes", 1)
-
-SafeAddString(SI_PA_MENU_BANKING_REPAIRKIT, "Nécessaires de réparation", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Operators --
-SafeAddString(SI_PA_REL_OPERATOR_T, "Sélectionner l'opérateur mathématique pour cet objet", 1)
-SafeAddString(SI_PA_REL_BACKPACK_EQUAL, "INVENTAIRE ==", 1)
-SafeAddString(SI_PA_REL_BACKPACK_LESSTHAN, "INVENTAIRE <", 1) -- not used so far
-SafeAddString(SI_PA_REL_BACKPACK_LESSTHANEQUAL, "INVENTAIRE <=", 1)
-SafeAddString(SI_PA_REL_BACKPACK_GREATERTHAN, "INVENTAIRE >", 1) -- not used so far
-SafeAddString(SI_PA_REL_BACKPACK_GREATERTHANEQUAL, "INVENTAIRE >=", 1)
-SafeAddString(SI_PA_REL_BANK_EQUAL, "BANQUE ==", 1)
-SafeAddString(SI_PA_REL_BANK_LESSTHAN, "BANQUE <", 1) -- not used so far
-SafeAddString(SI_PA_REL_BANK_LESSTHANOREQUAL, "BANQUE <=", 1)
-SafeAddString(SI_PA_REL_BANK_GREATERTHAN, "BANQUE >", 1) -- not used so far
-SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL, "BANQUE >=", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Operator Tooltip --
-SafeAddString(SI_PA_REL_BACKPACK_EQUAL_T, "INVENTAIRE égal (=)", 1)
-SafeAddString(SI_PA_REL_BACKPACK_LESSTHAN_T, "INVENTAIRE inférieur à (<)", 1) -- not used so far
-SafeAddString(SI_PA_REL_BACKPACK_LESSTHANOREQUAL_T, "INVENTAIRE inférieur ou égal à (<=)", 1)
-SafeAddString(SI_PA_REL_BACKPACK_GREATERTHAN_T, "INVENTAIRE supérieur à (>)", 1) -- not used so far
-SafeAddString(SI_PA_REL_BACKPACK_GREATERTHANOREQUAL_T, "INVENTAIRE supérieur ou égal à (>=)", 1)
-SafeAddString(SI_PA_REL_BANK_EQUAL_T, "BANQUE égal (=)", 1)
-SafeAddString(SI_PA_REL_BANK_LESSTHAN_T, "BANQUE inférieur à (<)", 1) -- not used so far
-SafeAddString(SI_PA_REL_BANK_LESSTHANOREQUAL_T, "BANQUE inférieur ou égal à (<=)", 1)
-SafeAddString(SI_PA_REL_BANK_GREATERTHAN_T, "BANQUE supérieur à (>)", 1) -- not used so far
-SafeAddString(SI_PA_REL_BANK_GREATERTHANOREQUAL_T, "BANQUE supérieur ou égal à (>=)", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Text Operators --
-SafeAddString(SI_PA_REL_TEXT_OPERATOR0, "-", 1)
-SafeAddString(SI_PA_REL_TEXT_OPERATOR1, "a exactement", 1)
-SafeAddString(SI_PA_REL_TEXT_OPERATOR2, "a moins que", 1) -- not used so far
-SafeAddString(SI_PA_REL_TEXT_OPERATOR3, "a au plus", 1)
-SafeAddString(SI_PA_REL_TEXT_OPERATOR4, "a plus que", 1) -- not used so far
-SafeAddString(SI_PA_REL_TEXT_OPERATOR5, "a au moins", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Stacking types --
-SafeAddString(SI_PA_ST_MOVE_FULL, "Tout déplacer", 1)
-SafeAddString(SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY, "N'ajouter qu'aux piles existantes", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- Icon Positions --
-SafeAddString(SI_PA_POSITION_AUTO, "Automatique", 1)
-SafeAddString(SI_PA_POSITION_MANUAL, "Manuel", 1)
-
--- -----------------------------------------------------------------------------------------------------------------
--- PAJunk --
-SafeAddString(SI_PA_ITEM_ACTION_NOTHING, "Ne rien faire", 1)
-SafeAddString(SI_PA_ITEM_ACTION_LAUNDER, "Blanchir", 1)
-SafeAddString(SI_PA_ITEM_ACTION_MARK_AS_JUNK, "Mettre aux rebuts", 1)
-SafeAddString(SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS, "Rebuts ou Détruire si sans valeur", 1)
-SafeAddString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS, "Toujours détruire", 1)
+    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Pas encore implémenté !"}),
 
 
--- =================================================================================================================
--- == CUSTOM SUB MENU == --
--- -----------------------------------------------------------------------------------------------------------------
-SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE, "Ajouter une nouvelle règle", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_EDIT_RULE, "Éditer une règle", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE, "Supprimer une règle", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_ENABLE_RULE, "Activer la règle", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_DISABLE_RULE, "Désactiver la règle", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON, "Ajouter", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON, "Sauvegarder", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON, "Supprimer", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_NO_RULES, "Aucune règle de mise en banque définie", 1)
-SafeAddString(SI_PA_SUBMENU_PAB_DISCLAIMER, "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).", 1)
-
-SafeAddString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK, "Marquer en tant que rebut permanent", 1)
-SafeAddString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK, "Ne plus marquer en tant que rebut permanent", 1)
-SafeAddString(SI_PA_SUBMENU_PAJ_NO_RULES, "Aucune règle de mise aux rebuts définie", 1)
+    -- =================================================================================================================
+    -- == CHAT OUTPUTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAGeneral --
+    SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED = table.concat({" nouveau profil ", PAC.COLOR.WHITE:Colorize("%s"), " créé et activé !"}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("copié"), " vers le profil ", PAC.COLOR.WHITE:Colorize("%s")}),
+    SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("supprimé !")}),
 
 
--- =================================================================================================================
--- == KEY BINDINGS == --
--- -----------------------------------------------------------------------------------------------------------------
-SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_PROFILES, "|cFFD700P|rersonal|cFFD700A|rssistant Profils", 1)
-SafeAddString(SI_KEYBINDINGS_CATEGORY_PA_MENU, "Menu de |cFFD700P|rersonal|cFFD700A|rssistant", 1)
+    -- =================================================================================================================
+    -- == OTHER STRINGS FOR MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAGeneral --
+    SI_PA_PROFILE = "Profil",
 
-SafeAddString(SI_BINDING_NAME_PA_RULES_MAIN_MENU, "Règles de PersonalAssistant", 1)
-SafeAddString(SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW, "Afficher/Cacher le menu des règles de mise en banque et aux rebuts", 1)
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Name Spaces --
+    SI_PA_NS_BAG_EQUIPMENT = "Équipement", -- not required so far
+    SI_PA_NS_BAG_BACKPACK = "Inventaire",
+    SI_PA_NS_BAG_BANK = "Banque",
+    SI_PA_NS_BAG_SUBSCRIBER_BANK = "Sac d'artisanat",
+    SI_PA_NS_BAG_UNKNOWN = "Inconnu",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- ItemTypes (Custom Singluar/Plural definition) --
+    SI_PA_ITEMTYPE4 = "<<1[Nourriture/Nourriture]>>",
+    SI_PA_ITEMTYPE5 = "<<1[Trophées/Trophées]>>",
+    SI_PA_ITEMTYPE7 = "<<1[Potion/Potions]>>",
+    SI_PA_ITEMTYPE8 = "<<1[Motif/Motifs]>>",
+    SI_PA_ITEMTYPE10 = "<<1[Ingrédient/Ingrédients]>>",
+    SI_PA_ITEMTYPE12 = "<<1[Boisson/Boissons]>>",
+    SI_PA_ITEMTYPE16 = "<<1[Appât/Appâts]>>",
+    SI_PA_ITEMTYPE19 = "<<1[Pierre d'Âme/Pierres d'Âme]>>",
+    SI_PA_ITEMTYPE22 = "<<1[Crochetage/Crochetages]>>",
+    SI_PA_ITEMTYPE29 = "<<1[Recette/Recettes]>>",
+    SI_PA_ITEMTYPE30 = "<<1[Poison/Poisons]>>",
+    --SI_PA_ITEMTYPE33 = "<<1[]>>",
+    SI_PA_ITEMTYPE34 = "<<1[Objet de collection/Objets de collection]>>",
+    --SI_PA_ITEMTYPE47 = "<<1[]>>",
+    SI_PA_ITEMTYPE56 = "<<1[Trésor/Trésors]>>",
+    SI_PA_ITEMTYPE60 = "<<1[Commande de maître/Commandes de maître]>>",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Master Writs based on CraftingType (Custom definition) --
+    SI_PA_MASTERWRIT_CRAFTINGTYPE0 = table.concat({"Autres commandes (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}),
+    SI_PA_MASTERWRIT_CRAFTINGTYPE1 = "Commande de forge scellée",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE2 = "Commande scellée de couture",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE3 = "Commande d'enchantement scellée",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE4 = "Commande scellée d'alchimie",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE5 = "Commande scellée de cuisine",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE6 = "Commande de travail du bois scellée",
+    SI_PA_MASTERWRIT_CRAFTINGTYPE7 = "Commande scellée de joaillier",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_PA_BANKING_MOVE_MODE_DONOTHING = "Ne rien faire",
+    SI_PA_BANKING_MOVE_MODE_TOBANK = "Déposer en banque",
+    SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Prendre dans le sac",
+
+    SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphes",
+    SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Objets complexes",
+
+    SI_PA_MENU_BANKING_REPAIRKIT = "Nécessaires de réparation",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Operators --
+    SI_PA_REL_OPERATOR_T = "Sélectionner l'opérateur mathématique pour cet objet",
+    SI_PA_REL_BACKPACK_EQUAL = "INVENTAIRE ==",
+    SI_PA_REL_BACKPACK_LESSTHAN = "INVENTAIRE <", -- not used so far
+    SI_PA_REL_BACKPACK_LESSTHANEQUAL = "INVENTAIRE <=",
+    SI_PA_REL_BACKPACK_GREATERTHAN = "INVENTAIRE >", -- not used so far
+    SI_PA_REL_BACKPACK_GREATERTHANEQUAL = "INVENTAIRE >=",
+    SI_PA_REL_BANK_EQUAL = "BANQUE ==",
+    SI_PA_REL_BANK_LESSTHAN = "BANQUE <", -- not used so far
+    SI_PA_REL_BANK_LESSTHANOREQUAL = "BANQUE <=",
+    SI_PA_REL_BANK_GREATERTHAN = "BANQUE >", -- not used so far
+    SI_PA_REL_BANK_GREATERTHANOREQUAL = "BANQUE >=",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Operator Tooltip --
+    SI_PA_REL_BACKPACK_EQUAL_T = "INVENTAIRE égal (=)",
+    SI_PA_REL_BACKPACK_LESSTHAN_T = "INVENTAIRE inférieur à (<)", -- not used so far
+    SI_PA_REL_BACKPACK_LESSTHANOREQUAL_T = "INVENTAIRE inférieur ou égal à (<=)",
+    SI_PA_REL_BACKPACK_GREATERTHAN_T = "INVENTAIRE supérieur à (>)", -- not used so far
+    SI_PA_REL_BACKPACK_GREATERTHANOREQUAL_T = "INVENTAIRE supérieur ou égal à (>=)",
+    SI_PA_REL_BANK_EQUAL_T = "BANQUE égal (=)",
+    SI_PA_REL_BANK_LESSTHAN_T = "BANQUE inférieur à (<)", -- not used so far
+    SI_PA_REL_BANK_LESSTHANOREQUAL_T = "BANQUE inférieur ou égal à (<=)",
+    SI_PA_REL_BANK_GREATERTHAN_T = "BANQUE supérieur à (>)", -- not used so far
+    SI_PA_REL_BANK_GREATERTHANOREQUAL_T = "BANQUE supérieur ou égal à (>=)",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Text Operators --
+    SI_PA_REL_TEXT_OPERATOR0 = "-",
+    SI_PA_REL_TEXT_OPERATOR1 = "a exactement",
+    SI_PA_REL_TEXT_OPERATOR2 = "a moins que", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR3 = "a au plus",
+    SI_PA_REL_TEXT_OPERATOR4 = "a plus que", -- not used so far
+    SI_PA_REL_TEXT_OPERATOR5 = "a au moins",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Stacking types --
+    SI_PA_ST_MOVE_FULL = "Tout déplacer",
+    SI_PA_ST_MOVE_INCOMPLETE_STACKS_ONLY = "N'ajouter qu'aux piles existantes",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Icon Positions --
+    SI_PA_POSITION_AUTO = "Automatique",
+    SI_PA_POSITION_MANUAL = "Manuel",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PAJunk --
+    SI_PA_ITEM_ACTION_NOTHING = "Ne rien faire",
+    SI_PA_ITEM_ACTION_LAUNDER = "Blanchir",
+    SI_PA_ITEM_ACTION_MARK_AS_JUNK = "Mettre aux rebuts",
+    SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS = "Rebuts ou Détruire si sans valeur",
+    SI_PA_ITEM_ACTION_DESTROY_ALWAYS = "Toujours détruire",
 
 
--- =================================================================================================================
--- Overriding the ItemFilterTypes because they are wrong in French --
--- -----------------------------------------------------------------------------------------------------------------
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_CLOTHING, "Coûture", 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_ENCHANTING, "Enchantement", 1)
-SafeAddString(SI_PA_MENU_BANKING_CRAFTING_FURNISHING, "Ameublement", 1)
+    -- =================================================================================================================
+    -- == CUSTOM SUB MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_SUBMENU_PAB_ADD_RULE = "Ajouter une nouvelle règle",
+    SI_PA_SUBMENU_PAB_EDIT_RULE = "Éditer une règle",
+    SI_PA_SUBMENU_PAB_DELETE_RULE = "Supprimer une règle",
+    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Activer la règle",
+    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Désactiver la règle",
+    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Ajouter",
+    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Sauvegarder",
+    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Supprimer",
+    SI_PA_SUBMENU_PAB_NO_RULES = "Aucune règle de mise en banque définie",
+    SI_PA_SUBMENU_PAB_DISCLAIMER = "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).",
+
+    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Marquer en tant que rebut permanent",
+    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Ne plus marquer en tant que rebut permanent",
+    SI_PA_SUBMENU_PAJ_NO_RULES = "Aucune règle de mise aux rebuts définie",
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_KEYBINDINGS_CATEGORY_PA_PROFILES = "|cFFD700P|rersonal|cFFD700A|rssistant Profils",
+    SI_KEYBINDINGS_CATEGORY_PA_MENU = "Menu de |cFFD700P|rersonal|cFFD700A|rssistant",
+
+    SI_BINDING_NAME_PA_RULES_MAIN_MENU = "Règles de PersonalAssistant",
+    SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Afficher/Cacher le menu des règles de mise en banque et aux rebuts",
+
+
+    -- =================================================================================================================
+    -- Overriding the ItemFilterTypes because they are wrong in French --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_MENU_BANKING_CRAFTING_CLOTHING = "Coûture",
+    SI_PA_MENU_BANKING_CRAFTING_ENCHANTING = "Enchantement",
+    SI_PA_MENU_BANKING_CRAFTING_FURNISHING = "Ameublement",
+}
+
+for key, value in pairs(PAStrings) do
+    SafeAddString(key, value, 1)
+end
