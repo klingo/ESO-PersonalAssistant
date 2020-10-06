@@ -50,7 +50,7 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Admin Settings --
-    SI_PA_MENU_ADMIN_HEADER, "Admin Einstellungen",
+    SI_PA_MENU_ADMIN_HEADER = "Admin Einstellungen",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Rules Menu --
@@ -108,6 +108,7 @@ local PAStrings = {
     SI_PA_ITEMTYPE30 = "<<1[Gift/Gifte]>>",
     SI_PA_ITEMTYPE33 = "<<1[Lösungsmittel/Lösungsmittel]>>",
     SI_PA_ITEMTYPE34 = "<<1[Sammlung/Sammlungen]>>",
+--    SI_PA_ITEMTYPE47 = "<<1[]>>",
     SI_PA_ITEMTYPE56 = "<<1[Beute/Beuten]>>",
     SI_PA_ITEMTYPE60 = "<<1[Meisterschrieb/Meisterschriebe]>>",
 
