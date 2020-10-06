@@ -162,12 +162,14 @@ end
 ---------------------------------
 local function isPAJunkStolenMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if not (tonumber(getValue({"Stolen", "trashAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "styleMaterialAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "traitItemAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "lureAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "ingredientAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "foodAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "drinkAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
+    if not (tonumber(getValue({"Stolen", "solventAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "treasureAction"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "Weapons", "action"})) == PAC.ITEM_ACTION.NOTHING) then return false end
     if not (tonumber(getValue({"Stolen", "Armor", "action"})) == PAC.ITEM_ACTION.NOTHING) then return false end
@@ -310,6 +312,9 @@ local PAJunkMenuFunctions = {
     isStolenJewelryActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenJewelryActionSetting = function() return getValue({"Stolen", "Jewelry", "action"}) end,
     setStolenJewelryActionSetting = function(value) setValue(value, {"Stolen", "Jewelry", "action"}) end,
+    isStolenTrashActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenTrashActionSetting = function() return getValue({"Stolen", "trashAction"}) end,
+    setStolenTrashActionSetting = function(value) setValue(value, {"Stolen", "trashAction"}) end,
     isStolenStyleMaterialActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenStyleMaterialActionSetting = function() return getValue({"Stolen", "styleMaterialAction"}) end,
     setStolenStyleMaterialActionSetting = function(value) setValue(value, {"Stolen", "styleMaterialAction"}) end,
@@ -328,6 +333,9 @@ local PAJunkMenuFunctions = {
     isStolenDrinkActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenDrinkActionSetting = function() return getValue({"Stolen", "drinkAction"}) end,
     setStolenDrinkActionSetting = function(value) setValue(value, {"Stolen", "drinkAction"}) end,
+    isStolenSolventActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
+    getStolenSolventActionSetting = function() return getValue({"Stolen", "solventAction"}) end,
+    setStolenSolventActionSetting = function(value) setValue(value, {"Stolen", "solventAction"}) end,
     isStolenTreasureActionDisabled = function() return isDisabled({"autoMarkAsJunkEnabled"}) end,
     getStolenTreasureActionSetting = function() return getValue({"Stolen", "treasureAction"}) end,
     setStolenTreasureActionSetting = function(value) setValue(value, {"Stolen", "treasureAction"}) end,
@@ -367,9 +375,16 @@ local PAJunkMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- MAILBOX ITEMS
     -- -----------------------------
-    isMailboxItemsIgnoredDisabled = isPAJunkStolenMenuDisabled,
+    isMailboxItemsIgnoredDisabled = function() return isDisabled() end, -- currently always enabled
     getMailboxItemsIgnoredSetting = function() return getValue({"ignoreMailboxItems"}) end,
     setMailboxItemsIgnoredSetting = function(value) setValue(value, {"ignoreMailboxItems"}) end,
+
+    -- ----------------------------------------------------------------------------------
+    -- CRAFTED ITEMS
+    -- -----------------------------
+    isCraftedItemsIgnoredDisabled = function() return isDisabled() end, -- currently always enabled
+    getCraftedItemsIgnoredSetting = function() return getValue({"ignoreCraftedItems"}) end,
+    setCraftedItemsIgnoredSetting = function(value) setValue(value, {"ignoreCraftedItems"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- AUTO SELL JUNK
@@ -377,6 +392,9 @@ local PAJunkMenuFunctions = {
     isAutoSellJunkDisabled = function() return isDisabled() end, -- currently always enabled
     getAutoSellJunkSetting = function() return getValue({"autoSellJunk"}) end,
     setAutoSellJunkSetting = function(value) setValueAndRefreshEvents(value, {"autoSellJunk"}) end,
+    isAutoSellJunkPirharriDisabled = function() return isDisabled({"autoSellJunk"}) end,
+    getAutoSellJunkPirharriSetting = function() return getValue({"autoSellJunkPirharri"}) end,
+    setAutoSellJunkPirharriSetting = function(value) setValueAndRefreshEvents(value, {"autoSellJunkPirharri"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- SILENT MODE

@@ -60,8 +60,9 @@ SafeAddString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W, "ВНИМАНИЕ: Обрат
 -- Other Settings --
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE, "Никогда не помечать полученное по почте как хлам", 1)
 SafeAddString(SI_PA_MENU_JUNK_MAILBOX_IGNORE_T, "Предметы полученные по почте никогда не будут помечены как хлам", 1)
-
 SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK, "Авто-продажа у торговцев и скупщиков краденного", 1)
+--SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI, "", 1)
+--SafeAddString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W, "", 1)
 
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_HEADER, "Сочетания клавиш", 1)
 SafeAddString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE, "Включить сочетание \"Хлам/Не хлам\"", 1)

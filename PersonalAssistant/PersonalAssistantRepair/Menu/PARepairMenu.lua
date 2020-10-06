@@ -3,6 +3,8 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
 local PARMenuFunctions = PA.MenuFunctions.PARepair
+local PARMenuChoices = PA.MenuChoices.choices.PARepair
+local PARMenuChoicesValues = PA.MenuChoices.choicesValues.PARepair
 local PARMenuDefaults = PA.MenuDefaults.PARepair
 
 -- Create the LibAddonMenu2 object
@@ -238,6 +240,18 @@ local function _createPARRechargeSubmenuTable()
         setFunc = PARMenuFunctions.setRechargeWithSoulGemSetting,
         disabled = PARMenuFunctions.isRechargeWithSoulGemDisabled,
         default = PARMenuDefaults.RechargeWeapons.useSoulGems,
+    })
+
+    PARRechargeSubmenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM),
+        tooltip = GetString(SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM_T),
+        choices = PARMenuChoices.defaultSoulGem,
+        choicesValues = PARMenuChoicesValues.defaultSoulGem,
+        getFunc = PARMenuFunctions.getRechargeDefaultSoulGemSetting,
+        setFunc = PARMenuFunctions.setRechargeDefaultSoulGemSetting,
+        disabled = PARMenuFunctions.isRechargeDefaultSoulGemDisabled,
+        default = PARMenuDefaults.RechargeWeapons.defaultSoulGem,
     })
 
     PARRechargeSubmenuTable:insert({

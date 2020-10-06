@@ -51,12 +51,14 @@ local PAJunkMenuDefaults = {
         Jewelry = {
             action = PAC.ITEM_ACTION.NOTHING,
         },
+        trashAction = PAC.ITEM_ACTION.NOTHING,
         styleMaterialAction = PAC.ITEM_ACTION.NOTHING,
         traitItemAction = PAC.ITEM_ACTION.NOTHING,
         lureAction = PAC.ITEM_ACTION.NOTHING,
         ingredientAction = PAC.ITEM_ACTION.NOTHING,
         foodAction = PAC.ITEM_ACTION.NOTHING,
         drinkAction = PAC.ITEM_ACTION.NOTHING,
+        solventAction = PAC.ITEM_ACTION.NOTHING,
         treasureAction = PAC.ITEM_ACTION.NOTHING,
     },
     Custom = {
@@ -81,7 +83,9 @@ local PAJunkMenuDefaults = {
     },
 
     ignoreMailboxItems = true,
+    ignoreCraftedItems = true,
     autoSellJunk = true,
+    autoSellJunkPirharri = false,
 
     KeyBindings = {
         enableMarkUnmarkAsJunkKeybind = true,

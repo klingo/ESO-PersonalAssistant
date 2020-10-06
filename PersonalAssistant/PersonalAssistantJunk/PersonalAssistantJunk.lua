@@ -27,12 +27,13 @@ end
 
 -- init default values
 local function initDefaults()
+    local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
     -- default values for PAJunk
-    Junk_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    for profileNo = 1, PAC.GENERAL.MAX_PROFILES do
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
         -- get default values from PAMenuDefaults
-        Junk_Defaults[profileNo] = PAMenuDefaults.PAJunk
+        Junk_Defaults[1] = PAMenuDefaults.PAJunk
+        Junk_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
     end
 end
 
@@ -55,6 +56,9 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Junk_Defaults)
+
+    -- sync profiles between PAGeneral and PAJunk
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Junk, PA.MenuDefaults.PAJunk)
 
     -- create the options with LAM-2
     PA.Junk.createOptions()

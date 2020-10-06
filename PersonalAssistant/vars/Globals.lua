@@ -47,13 +47,13 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020419, -- update this every release!
+            MINOR = 020501, -- update this every release!
         },
     },
 
     GENERAL = {
-        MAX_PROFILES = 10,
-        NO_PROFILE_SELECTED_ID = 11
+        MAX_PROFILES = 20,
+        NO_PROFILE_SELECTED_ID = 0
     },
 
     COLOR = {
@@ -62,6 +62,7 @@ PersonalAssistant.Constants = {
         ORANGE = ZO_ColorDef:New("FFA500"),
         ORANGE_RED = ZO_ColorDef:New("FF7400"),
         RED = ZO_ColorDef:New("FF0000"),
+        WHITE = ZO_ColorDef:New("FFFFFF"),
         YELLOW = ZO_ColorDef:New("FFD700"),
         CURRENCIES = {
             [CURT_MONEY] = ZO_ColorDef:New(GetCurrencyKeyboardColor(CURT_MONEY)),
