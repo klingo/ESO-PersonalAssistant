@@ -1,94 +1,103 @@
 local PAC = PersonalAssistant.Constants
--- =================================================================================================================
--- == MENU/PANEL TEXTS == --
--- -----------------------------------------------------------------------------------------------------------------
-SafeAddString(SI_PA_MENU_LOOT_DESCRIPTION, "PALoot kann dich über Gegenstände von speziellem Interesse wie unbekannte Rezepte, Stile oder Eigenschaften informieren", 1)
+local PALStrings = {
+    -- =================================================================================================================
+    -- Language specific texts that need to be translated --
 
--- PALoot Loot Events --
-SafeAddString(SI_PA_MENU_LOOT_EVENTS_HEADER, "Beute einsammeln", 1)
-SafeAddString(SI_PA_MENU_LOOT_EVENTS_ENABLE, "Aktiviere Ereignisse beim Beute einsammeln", 1)
+    -- =================================================================================================================
+    -- == MENU/PANEL TEXTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_MENU_LOOT_DESCRIPTION = "PALoot kann dich über Gegenstände von speziellem Interesse wie unbekannte Rezepte, Stile oder Eigenschaften informieren",
 
--- Loot Recipes
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_HEADER, table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG, table.concat({"> ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " unbekannt ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " eingesammelt wird das von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
+    -- PALoot Loot Events --
+    SI_PA_MENU_LOOT_EVENTS_HEADER = "Beute einsammeln",
+    SI_PA_MENU_LOOT_EVENTS_ENABLE = "Aktiviere Ereignisse beim Beute einsammeln",
 
--- Loot Motifs & Style Pages
-SafeAddString(SI_PA_MENU_LOOT_STYLES_HEADER, "Beim Stile einsammeln", 1)
-SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG, table.concat({"> ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " unbekannt ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG, table.concat({"> ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " unbekannt ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T, table.concat({"Wann immer ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}), 1)
+    -- Loot Recipes
+    SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({"Beim ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2), " einsammeln"}),
+    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"> ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " unbekannt ist"}),
+    SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " eingesammelt wird das von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}),
 
--- Loot Equipment (Apparel, Weapons & Jewelries)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER, "Beim Ausrüstungsgegenstände einsammeln", 1)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG, "> eine Eigenschaft noch nicht analysiert wurde", 1)
-SafeAddString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T, table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}), 1)
+    -- Loot Motifs & Style Pages
+    SI_PA_MENU_LOOT_STYLES_HEADER = "Beim Stile einsammeln",
+    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"> ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " unbekannt ist"}),
+    SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = table.concat({"Wann immer ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}),
+    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG = table.concat({"> ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " unbekannt ist"}),
+    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T = table.concat({"Wann immer ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " eingesammelt wird der von diesem Charakter noch nicht gelernt wurde, wird eine Information im Chat ausgegeben"}),
 
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING, "Warne wenn Inventarplätze ausgehen", 1)
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T, "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen", 1)
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD, "Schwellenwert für Inventarplätze", 1)
-SafeAddString(SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T, "Wenn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Warnung im Chat ausgegeben", 1)
+    -- Loot Equipment (Apparel, Weapons & Jewelries)
+    SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "Beim Ausrüstungsgegenstände einsammeln",
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "> eine Eigenschaft noch nicht analysiert wurde",
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}),
 
--- PALoot Mark Items --
-SafeAddString(SI_PA_MENU_LOOT_ICONS_HEADER, "Gegenstands Icons", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_ENABLE, "Aktiviere Icons bei Gegenständen", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP, "Zeige Icon Tooltips an", 1)
+    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warne wenn Inventarplätze ausgehen",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Schwellenwert für Inventarplätze",
+    SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD_T = "Wenn die verbleibenden freien Inventarplätze auf oder unter diesen Schwellenwert fallen, wird eine Warnung im Chat ausgegeben",
 
--- Mark Recipes --
-SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER, table.concat({"Markiere ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " bereits bekannt ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " noch unbekannt ist"}), 1)
+    -- PALoot Mark Items --
+    SI_PA_MENU_LOOT_ICONS_HEADER = "Gegenstands Icons",
+    SI_PA_MENU_LOOT_ICONS_ENABLE = "Aktiviere Icons bei Gegenständen",
+    SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP = "Zeige Icon Tooltips an",
 
--- Mark Motifs and Style Page Containers --
-SafeAddString(SI_PA_MENU_LOOT_ICONS_STYLES_HEADER, "Markiere Stile", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " bereits bekannt ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " noch unbekannt ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " bekannt ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " unbekannt ist"}), 1)
+    -- Mark Recipes --
+    SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER = table.concat({"Markiere ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
+    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " bereits bekannt ist"}),
+    SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " noch unbekannt ist"}),
 
--- Mark Equipment (Apparel, Weapons & Jewelries) --
-SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER, "Markiere Ausrüstungsgegenstände", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN, table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn die Eigenschaften bereits analysiert ist"}), 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN, table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}), 1)
+    -- Mark Motifs and Style Page Containers --
+    SI_PA_MENU_LOOT_ICONS_STYLES_HEADER = "Markiere Stile",
+    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " bereits bekannt ist"}),
+    SI_PA_MENU_LOOT_ICONS_MOTIFS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " noch unbekannt ist"}),
+    SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " bekannt ist"}),
+    SI_PA_MENU_LOOT_ICONS_STYLEPAGES_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn ein ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " unbekannt ist"}),
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST, "Icon Grösse (Listenanzeige)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T, "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID, "Icon Grösse (Gitteranzeige)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T, "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände durch das Addon [Inventory Grid View] in einem Gitter angezeigt werden", 1)
+    -- Mark Equipment (Apparel, Weapons & Jewelries) --
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Markiere Ausrüstungsgegenstände",
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn die Eigenschaften bereits analysiert ist"}),
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}),
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID, "Icon Positionierung (Gitteranzeige)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T, "Definiere die Position des bekannt/unbekannt Icons.\nMit 'Automatisch' prüft PALoot ob die Addons [Research Assistant] und [ESO Master Recipe List] aktiviert sind und positioniert das Icon in einer noch nicht belegten Ecke", 1)
+    SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Grösse (Listenanzeige)",
+    SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Icon Grösse (Gitteranzeige)",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände durch das Addon [Inventory Grid View] in einem Gitter angezeigt werden",
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST, "Icon versetzt X-Achse (Listenanzeige)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T, "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Listenanzeige", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST, "Icon versetzt Y-Achse (Listenanzeige)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T, "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Listenanzeige", 1)
+    SI_PA_MENU_LOOT_ICONS_POSITION_GRID = "Icon Positionierung (Gitteranzeige)",
+    SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T = "Definiere die Position des bekannt/unbekannt Icons.\nMit 'Automatisch' prüft PALoot ob die Addons [Research Assistant] und [ESO Master Recipe List] aktiviert sind und positioniert das Icon in einer noch nicht belegten Ecke",
 
-SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID, "Icon versetzt X-Achse (Gitteranzeige)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T, "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID, "Icon versetzt Y-Achse (Gitteranzeige)", 1)
-SafeAddString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T, "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist", 1)
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST = "Icon versetzt X-Achse (Listenanzeige)",
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Listenanzeige",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST = "Icon versetzt Y-Achse (Listenanzeige)",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Listenanzeige",
 
-
--- =================================================================================================================
--- == CHAT OUTPUTS == --
--- -----------------------------------------------------------------------------------------------------------------
--- PALoot --
-SafeAddString(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}), 1)
-SafeAddString(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}), 1)
-SafeAddString(SI_PA_CHAT_LOOT_TRAIT_UNKNOWN, table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s hat [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] das analysiert werden kann!"}), 1)
-
-SafeAddString(SI_PA_PATTERN_INVENTORY_COUNT, table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Inventarplätze mehr/Inventarplatz/Inventarplätze]>> übrig!"}), 1)
-SafeAddString(SI_PA_PATTERN_REPAIRKIT_COUNT, table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Reparaturmaterialien mehr/Reparaturmaterial/Reparaturmaterialien]>> übrig!"}), 1)
-SafeAddString(SI_PA_PATTERN_SOULGEM_COUNT, table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Seelensteine mehr/Seelenstein/Seelensteine]>> übrig!"}), 1)
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID = "Icon versetzt X-Achse (Gitteranzeige)",
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID = "Icon versetzt Y-Achse (Gitteranzeige)",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist",
 
 
--- =================================================================================================================
--- == OTHER STRINGS FOR MENU == --
--- -----------------------------------------------------------------------------------------------------------------
--- PALoot --
-SafeAddString(SI_PA_DISPLAY_A_MESSAGE_WHEN, "Zeige eine Meldung wenn . . .", 1)
-SafeAddString(SI_PA_MARK_WITH, "Markiere mit . . .", 1)
-SafeAddString(SI_PA_ITEM_KNOWN, "Bereits bekannt", 1)
-SafeAddString(SI_PA_ITEM_UNKNOWN, "Unbekannt", 1)
+    -- =================================================================================================================
+    -- == CHAT OUTPUTS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PALoot --
+    SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}),
+    SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}),
+    SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s hat [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] das analysiert werden kann!"}),
+
+    SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Inventarplätze mehr/Inventarplatz/Inventarplätze]>> übrig!"}),
+    SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Reparaturmaterialien mehr/Reparaturmaterial/Reparaturmaterialien]>> übrig!"}),
+    SI_PA_PATTERN_SOULGEM_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Seelensteine mehr/Seelenstein/Seelensteine]>> übrig!"}),
+
+
+    -- =================================================================================================================
+    -- == OTHER STRINGS FOR MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PALoot --
+    SI_PA_DISPLAY_A_MESSAGE_WHEN = "Zeige eine Meldung wenn . . .",
+    SI_PA_MARK_WITH = "Markiere mit . . .",
+    SI_PA_ITEM_KNOWN = "Bereits bekannt",
+    SI_PA_ITEM_UNKNOWN = "Unbekannt",
+}
+
+for key, value in pairs(PALStrings) do
+    SafeAddString(key, value, 1)
+end

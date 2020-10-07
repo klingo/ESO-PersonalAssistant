@@ -56,11 +56,6 @@ local PAIGenericStrings = {
 
     -- FCO ItemSaver --
     SI_PA_MENU_INTEGRATION_FCOIS_HEADER = "FCO Item Saver",
-
-
-    -- =================================================================================================================
-    -- == OTHER STRINGS FOR MENU == --
-    -- -----------------------------------------------------------------------------------------------------------------
 }
 
 for key, value in pairs(PAIGenericStrings) do
