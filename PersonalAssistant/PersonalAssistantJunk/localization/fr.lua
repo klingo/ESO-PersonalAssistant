@@ -59,12 +59,12 @@ local PAJStrings = {
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Ne pas mettre aux rebuts si reçu par courrier",
-    SI_PA_MENU_JUNK_MAILBOX_IGNORE_T = "Ne jamais mettre aux rebuts des objets reçus du courrier",
---    SI_PA_MENU_JUNK_CRAFTED_IGNORE = "",
---    SI_PA_MENU_JUNK_CRAFTED_IGNORE_T = "",
+    SI_PA_MENU_JUNK_MAILBOX_IGNORE_T = "Les objets reçus par courrier ne seront jamais mis aux rebuts",
+    SI_PA_MENU_JUNK_CRAFTED_IGNORE = "Ne pas mettre aux rebuts mes objets craftés",
+    SI_PA_MENU_JUNK_CRAFTED_IGNORE_T = "Les objets que vous avez créés en artisanat ne seront jamais mis aux rebuts",
     SI_PA_MENU_JUNK_AUTOSELL_JUNK = "Vente/Recel auto. des rebuts aux marchands",
---    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI = "",
---    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W = "",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI = "Recel automatique à l'assistante Pirharri",
+    SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W = "Contrairement aux autres receleurs, Pirharri taxe l'utilisation de ses services à hauteur de 35%",
 
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Commandes",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Activer la commande \"Mettre aux / Sortir des rebuts\"",
