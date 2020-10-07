@@ -1,4 +1,4 @@
-local PAStrings = {
+local PAIStrings = {
     -- =================================================================================================================
     -- Language specific texts that need to be translated --
 
@@ -38,6 +38,6 @@ local PAStrings = {
     SI_PA_MENU_INTEGRATION_MORE_TO_COME = "Weitere FCO ItemSaver Integrationen werden mit zukünftigen Updates dazukommen",
 }
 
-for key, value in pairs(PAStrings) do
+for key, value in pairs(PAIStrings) do
     SafeAddString(key, value, 1)
 end
