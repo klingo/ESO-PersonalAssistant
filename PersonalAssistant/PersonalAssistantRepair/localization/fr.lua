@@ -35,9 +35,9 @@ local PARStrings = {
 
     SI_PA_MENU_REPAIR_RECHARGE_HEADER = table.concat({"Recharger les armes avec des ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}),
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE = table.concat({"Recharger les armes avec des pierres d'âme ?"}),
-    SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Re-Charge les armes équipées quand elles sont complétement déchargées.",
-    SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM = "Pierred d'âme par défaut",
-    SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM_T = "Legt fest, welche Seelensteine beim Aufladen einer Waffe zuerst verbraucht werden.",
+    SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Recharge les armes équipées quand elles sont complétement déchargées. Cela utilisera par défaut les Pierres d'âme sélectionnées ci-dessous.",
+    SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM = "Pierre d'âme par défaut",
+    SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM_T = "Vos pierres d'âme par défaut seront les premières utilisées pour recharger les armes.",
     -- SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "tbd", -- NOTE: not yet used ingame
     -- SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "tbd", -- NOTE: not yet used ingame
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = "Avertir si la quantité restante est faible", -- table.concat({"Avertir quand peu de ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}),
