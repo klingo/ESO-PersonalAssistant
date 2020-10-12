@@ -345,17 +345,20 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     local mathOperatorControl = rowControl:GetNamedChild("MathOperator")
     local bagAmountControl = rowControl:GetNamedChild("BagAmount")
 
+    -- apply number formatting
+    local bagAmountFmt = zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(rowData.bagAmount))
+
     -- set row text color depending on ruleEnabled state
     if rowData.ruleEnabled then
         bagNameControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
         mathOperatorControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.mathOperator))
-        bagAmountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.bagAmount))
+        bagAmountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(bagAmountFmt))
         itemIconControl:SetDesaturation(0)
         itemNameControl:SetText(rowData.itemLink)
     else
         bagNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
         mathOperatorControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.mathOperator))
-        bagAmountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.bagAmount))
+        bagAmountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(bagAmountFmt))
         itemIconControl:SetDesaturation(1)
         itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.itemName)))
     end
@@ -573,16 +576,18 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     local lastJunkControl = rowControl:GetNamedChild("LastJunk")
     local ruleAddedControl = rowControl:GetNamedChild("RuleAdded")
 
+    -- apply number formatting
+    local junkCountFmt = zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(rowData.junkCount))
+
     -- set row text color depending on ruleEnabled state
-    -- TODO: to be implemented (rule enabled/disabled)
     if true then
-        junkCountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.junkCount)) -- TODO: formatting?!
+        junkCountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(junkCountFmt))
         lastJunkControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.lastJunkFmt))
         ruleAddedControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.ruleAddedFmt))
         itemIconControl:SetDesaturation(0)
         itemNameControl:SetText(rowData.itemLink)
     else
-        junkCountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.junkCount)) -- TODO: formatting?!
+        junkCountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(junkCountFmt))
         lastJunkControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.lastJunkFmt))
         ruleAddedControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.ruleAddedFmt))
         itemIconControl:SetDesaturation(1)
