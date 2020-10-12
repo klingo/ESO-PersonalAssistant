@@ -383,9 +383,9 @@ end
 -- @return the formattext text without currency icon
 local function getFormattedCurrencySimple(currencyAmount, currencyType)
     local currencyType = currencyType or CURT_MONEY
-    local noColor = noColor or false
     if currencyAmount < 0 then currencyAmount = currencyAmount * -1 end  -- need to make it a positive number again
-    return PAC.COLOR.CURRENCIES[currencyType]:Colorize(zo_strformat(SI_NUMBER_FORMAT, ZO_LocalizeDecimalNumber(currencyAmount)))
+    local currencyAmountFmt = zo_strformat(SI_NUMBER_FORMAT, ZO_LocalizeDecimalNumber(currencyAmount))
+    return PAC.COLOR.CURRENCIES[currencyType]:Colorize(currencyAmountFmt)
 end
 
 -- returns a fixed/formatted ItemLink

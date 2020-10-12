@@ -4,7 +4,7 @@
 ; States and/or other countries. All rights reserved.
 ; Full terms: https://account.elderscrollsonline.com/add-on-terms
 
-## Title: |cFFD700P|rersonal|cFFD700A|rssistant |c006699v{VERSION_NUMBER}|r
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant
 ## Description: Contains core functions, must be enabled to use any other PersonalAssistant Add-On.
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {BUILD_NUMBER}

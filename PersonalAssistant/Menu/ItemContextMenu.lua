@@ -82,36 +82,20 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
 end
 
 local function _getSlotTypeName(slotType)
---    if slotType == SLOT_TYPE_ITEM then return "SLOT_TYPE_ITEM" end
---    if slotType == SLOT_TYPE_CRAFT_BAG_ITEM then return "SLOT_TYPE_CRAFT_BAG_ITEM" end
---    if slotType == SLOT_TYPE_EQUIPMENT then return "SLOT_TYPE_EQUIPMENT" end
---    if slotType == SLOT_TYPE_BANK_ITEM then return "SLOT_TYPE_BANK_ITEM" end
-    if slotType == SLOT_TYPE_GUILD_BANK_ITEM then return "SLOT_TYPE_GUILD_BANK_ITEM" end
---    if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then return "SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING" end
     if slotType == SLOT_TYPE_TRADING_HOUSE_POST_ITEM then return "SLOT_TYPE_TRADING_HOUSE_POST_ITEM" end
---    if slotType == SLOT_TYPE_REPAIR then return "SLOT_TYPE_REPAIR" end
---    if slotType == SLOT_TYPE_CRAFTING_COMPONENT then return "SLOT_TYPE_CRAFTING_COMPONENT" end
     if slotType == SLOT_TYPE_PENDING_CRAFTING_COMPONENT then return "SLOT_TYPE_PENDING_CRAFTING_COMPONENT" end
-    if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then return "SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT" end
-    if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then return "SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING" end
     if slotType == SLOT_TYPE_LAUNDER then return "SLOT_TYPE_LAUNDER" end
     if slotType == SLOT_TYPE_LIST_DIALOG_ITEM then return "SLOT_TYPE_LIST_DIALOG_ITEM" end
---    if slotType == SLOT_TYPE_LOOT then return "SLOT_TYPE_LOOT" end
-    if slotType == SLOT_TYPE_MAIL_ATTACHMENT then return "SLOT_TYPE_MAIL_ATTACHMENT" end
-    if slotType == SLOT_TYPE_MAIL_QUEUED_ATTACHMENT then return "SLOT_TYPE_MAIL_QUEUED_ATTACHMENT" end
     if slotType == SLOT_TYPE_MY_TRADE then return "SLOT_TYPE_MY_TRADE" end
     if slotType == SLOT_TYPE_PENDING_CHARGE then return "SLOT_TYPE_PENDING_CHARGE" end
     if slotType == SLOT_TYPE_PENDING_REPAIR then return "SLOT_TYPE_PENDING_REPAIR" end
     if slotType == SLOT_TYPE_PENDING_RETRAIT_ITEM then return "SLOT_TYPE_PENDING_RETRAIT_ITEM" end
---    if slotType == SLOT_TYPE_QUEST_ITEM then return "SLOT_TYPE_QUEST_ITEM" end
     if slotType == SLOT_TYPE_SMITHING_BOOSTER then return "SLOT_TYPE_SMITHING_BOOSTER" end
     if slotType == SLOT_TYPE_SMITHING_BOOSTER then return "SLOT_TYPE_SMITHING_BOOSTER" end
     if slotType == SLOT_TYPE_SMITHING_STYLE then return "SLOT_TYPE_SMITHING_STYLE" end
     if slotType == SLOT_TYPE_SMITHING_TRAIT then return "SLOT_TYPE_SMITHING_TRAIT" end
     if slotType == SLOT_TYPE_STACK_SPLIT then return "SLOT_TYPE_STACK_SPLIT" end
---    if slotType == SLOT_TYPE_STORE_BUY then return "SLOT_TYPE_STORE_BUY" end
---    if slotType == SLOT_TYPE_STORE_BUYBACK then return "SLOT_TYPE_STORE_BUYBACK" end
     if slotType == SLOT_TYPE_THEIR_TRADE then return "SLOT_TYPE_THEIR_TRADE" end
 
     return tostring(slotType)
@@ -130,42 +114,34 @@ local function initHooksOnInventoryContextMenu(LCM)
                         ShowMenu()
                     end
 
-                    --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then
-                    --                link = GetTradingHouseSearchResultItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
-                    --            end
-                    --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then
-                    --                link = GetTradingHouseListingItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
-                    --            end
+                    -- PA.println(_getSlotTypeName(slotType))
 
-                    --            SLOT_TYPE_TRADING_HOUSE_POST_ITEM
-                    --            SLOT_TYPE_REPAIR
+                    -- if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then
+                    --     link = GetTradingHouseListingItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
+                    -- end
 
-                    --            SLOT_TYPE_PENDING_CRAFTING_COMPONENT
-                    --            SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT
-                    --            SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING
+                    -- TODO: still to be checked if needed or not
+                    -- SLOT_TYPE_TRADING_HOUSE_POST_ITEM
+                    -- SLOT_TYPE_PENDING_CRAFTING_COMPONENT
+                    -- SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING
+                    -- SLOT_TYPE_LAUNDER
+                    -- SLOT_TYPE_LIST_DIALOG_ITEM
+                    -- SLOT_TYPE_MY_TRADE
+                    -- SLOT_TYPE_PENDING_CHARGE
+                    -- SLOT_TYPE_PENDING_REPAIR
+                    -- SLOT_TYPE_PENDING_RETRAIT_ITEM
+                    -- SLOT_TYPE_SMITHING_BOOSTER
+                    -- SLOT_TYPE_SMITHING_MATERIAL
+                    -- SLOT_TYPE_SMITHING_STYLE
+                    -- SLOT_TYPE_SMITHING_TRAIT
+                    -- SLOT_TYPE_STACK_SPLIT
+                    -- SLOT_TYPE_THEIR_TRADE
 
-                    --            SLOT_TYPE_LAUNDER
-                    --            SLOT_TYPE_LIST_DIALOG_ITEM
-                    --            SLOT_TYPE_MAIL_ATTACHMENT
-                    --            SLOT_TYPE_MAIL_QUEUED_ATTACHMENT
-                    --            SLOT_TYPE_MY_TRADE
-                    --            SLOT_TYPE_PENDING_CHARGE
-                    --            SLOT_TYPE_PENDING_REPAIR
-                    --            SLOT_TYPE_PENDING_RETRAIT_ITEM
-                    --            SLOT_TYPE_QUEST_ITEM
-                    --            SLOT_TYPE_SMITHING_BOOSTER
-                    --            SLOT_TYPE_SMITHING_MATERIAL
-                    --            SLOT_TYPE_SMITHING_STYLE
-                    --            SLOT_TYPE_SMITHING_TRAIT
-                    --            SLOT_TYPE_STACK_SPLIT
-                    --            SLOT_TYPE_STORE_BUY
-                    --            SLOT_TYPE_STORE_BUYBACK
-                    --            SLOT_TYPE_THEIR_TRADE
 
                     -- TODO: confirmed to be added to scope
                     -- SLOT_TYPE_ITEM                               inventory/backpack
                     -- SLOT_TYPE_BANK_ITEM                          bank
-                    -- SLOT_TYPE_CRAFTING_COMPONENT                 crafting components & items to be deconstructed & improvements
+
 
                     -- TODO: confirmed to be out of scope
                     -- SLOT_TYPE_EQUIPMENT                          worn equipment
@@ -176,6 +152,10 @@ local function initHooksOnInventoryContextMenu(LCM)
                     -- SLOT_TYPE_STORE_BUYBACK                      buyback from store
                     -- SLOT_TYPE_REPAIR                             repair in store
                     -- SLOT_TYPE_QUEST_ITEM                         quest items
+                    -- SLOT_TYPE_CRAFTING_COMPONENT                 crafting components & items to be deconstructed & improvements
+                    -- SLOT_TYPE_MAIL_ATTACHMENT                    received mail attachments
+                    -- SLOT_TYPE_MAIL_QUEUED_ATTACHMENT             attached items in mail to be sent
+                    -- SLOT_TYPE_GUILD_BANK_ITEM                    guild bank
                 end
             )
         else
