@@ -114,26 +114,28 @@ local function initHooksOnInventoryContextMenu(LCM)
                         ShowMenu()
                     end
 
-                    --            if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then
-        --                link = GetTradingHouseListingItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
-        --            end
+                    -- PA.println(_getSlotTypeName(slotType))
+
+                    -- if slotType == SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING then
+                    --     link = GetTradingHouseListingItemLink(ZO_Inventory_GetSlotIndex(inventorySlot))
+                    -- end
 
                     -- TODO: still to be checked if needed or not
-                    --            SLOT_TYPE_TRADING_HOUSE_POST_ITEM
-        --            SLOT_TYPE_PENDING_CRAFTING_COMPONENT
-        --            SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING
-        --            SLOT_TYPE_LAUNDER
-        --            SLOT_TYPE_LIST_DIALOG_ITEM
-        --            SLOT_TYPE_MY_TRADE
-        --            SLOT_TYPE_PENDING_CHARGE
-        --            SLOT_TYPE_PENDING_REPAIR
-        --            SLOT_TYPE_PENDING_RETRAIT_ITEM
-        --            SLOT_TYPE_SMITHING_BOOSTER
-        --            SLOT_TYPE_SMITHING_MATERIAL
-        --            SLOT_TYPE_SMITHING_STYLE
-        --            SLOT_TYPE_SMITHING_TRAIT
-        --            SLOT_TYPE_STACK_SPLIT
-                    --            SLOT_TYPE_THEIR_TRADE
+                    -- SLOT_TYPE_TRADING_HOUSE_POST_ITEM
+                    -- SLOT_TYPE_PENDING_CRAFTING_COMPONENT
+                    -- SLOT_TYPE_TRADING_HOUSE_ITEM_LISTING
+                    -- SLOT_TYPE_LAUNDER
+                    -- SLOT_TYPE_LIST_DIALOG_ITEM
+                    -- SLOT_TYPE_MY_TRADE
+                    -- SLOT_TYPE_PENDING_CHARGE
+                    -- SLOT_TYPE_PENDING_REPAIR
+                    -- SLOT_TYPE_PENDING_RETRAIT_ITEM
+                    -- SLOT_TYPE_SMITHING_BOOSTER
+                    -- SLOT_TYPE_SMITHING_MATERIAL
+                    -- SLOT_TYPE_SMITHING_STYLE
+                    -- SLOT_TYPE_SMITHING_TRAIT
+                    -- SLOT_TYPE_STACK_SPLIT
+                    -- SLOT_TYPE_THEIR_TRADE
 
 
                     -- TODO: confirmed to be added to scope
