@@ -24,10 +24,10 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "When out on the field, all equipped items that are at or below the defined threshold will automatically be repaired",
     SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY = "Durability threshold in %",
     SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T = "Repair equipped items only if they are at or below the defined durability threshold",
---    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE = table.concat({"Use Crown ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), "?"}),
---    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T = "???",
---    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY = "Avg. durability threshold in %",
---    SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T = "Repair ALL equipped items only if they are on average at or below the defined durability threshold",
+    -- SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE = table.concat({"Use Crown ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), "?"}),
+    -- SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T = "???",
+    -- SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY = "Avg. durability threshold in %",
+    -- SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T = "Repair ALL equipped items only if they are on average at or below the defined durability threshold",
     SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING = table.concat({"Warn when low on ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", GetString(SI_PA_MENU_BANKING_REPAIRKIT), ". If you have none left, it will warn you once every 10 minutes at most."}),
     SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_THRESHOLD = "Repair Kit threshold",
@@ -38,8 +38,8 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_RECHARGE_ENABLE_T = "Re-Charge equipped weapons when their charge level reaches zero. It will first use the Soul Gems selected as default below.",
     SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM = "Default Soul Gem",
     SI_PA_MENU_REPAIR_RECHARGE_DEFAULT_GEM_T = "Your default soul gem will be used first when recharging weapons.",
---    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
---    SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
+    -- SI_PA_MENU_REPAIR_RECHARGE_CHATMODE = "Chat display after Recharge",
+    -- SI_PA_MENU_REPAIR_RECHARGE_CHATMODE_T = "How to display the information of a re-charged weaponin the chat window",
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING = table.concat({"Warn when low on ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2)}),
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_WARNING_T = table.concat({"Display a warning in the chat window if you are low on ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_SOUL_GEM), 2), ". If you have none left, it will warn you once every 10 minutes at most."}),
     SI_PA_MENU_REPAIR_RECHARGE_LOW_GEM_THRESHOLD = table.concat({GetString("SI_ITEMTYPE", ITEMTYPE_SOUL_GEM), " threshold"}),
@@ -66,11 +66,6 @@ local PARStrings = {
     SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL = "Repaired inventory items for %s (%s missing)",
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({"Repaired %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " with %s"}),
-
-
-    -- =================================================================================================================
-    -- == OTHER STRINGS FOR MENU == --
-    -- -----------------------------------------------------------------------------------------------------------------
 }
 
 for key, value in pairs(PARStrings) do
@@ -82,12 +77,6 @@ end
 local PARGenericStrings = {
     -- =================================================================================================================
     -- Language independent texts (do not need to be translated/copied to other languages --
-
-    -- =================================================================================================================
-    -- == MENU/PANEL TEXTS == --
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PARepair Menu --
-
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

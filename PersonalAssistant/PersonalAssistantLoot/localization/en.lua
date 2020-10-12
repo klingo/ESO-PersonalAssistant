@@ -102,24 +102,3 @@ for key, value in pairs(PALStrings) do
     ZO_CreateStringId(key, value)
     SafeAddVersion(key, 1)
 end
-
-
-local PALGenericStrings = {
-    -- =================================================================================================================
-    -- Language independent texts (do not need to be translated/copied to other languages --
-
-    -- =================================================================================================================
-    -- == MENU/PANEL TEXTS == --
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- PALoot Menu --
-
-
-    -- =================================================================================================================
-    -- == OTHER STRINGS FOR MENU == --
-    -- -----------------------------------------------------------------------------------------------------------------
-}
-
-for key, value in pairs(PALGenericStrings) do
-    ZO_CreateStringId(key, value)
-    SafeAddVersion(key, 1)
-end

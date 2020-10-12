@@ -459,7 +459,7 @@ PersonalAssistant.Constants = {
                     [3400] = 64520,  -- [Dominion Cold Stone Trebuchet]
                 },
                 RAM = {
-                    [4000] = 29534,  -- [Dominion Battering Ram]
+                    [4000] = 27136,  -- [Dominion Battering Ram]
                 },
                 OIL = {
                     [5000] = 30359,  -- [Flaming Oil]        -- same for all alliances!
