@@ -444,6 +444,8 @@ local function _setAllFieldsEnabled(enabled)
     itemTraitDropdownControl.m_comboBox:SetEnabled(enabled)
     local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
     addRuleButtonControl:SetEnabled(enabled)
+    local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
+    updateRuleButtonControl:SetEnabled(enabled)
 end
 
 -- TODO: to be improved! use callback values to simplify the entries
@@ -1035,6 +1037,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         -- show UPDATE/DELETE buttons, hide ADD button
         addRuleButtonControl:SetHidden(true)
         updateRuleButtonControl:SetHidden(false)
+        updateRuleButtonControl:SetEnabled(true)
         deleteRuleButtonControl:SetHidden(false)
     else
         -- reset to default values
@@ -1104,6 +1107,3 @@ PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog = showPABAddCustomAdvanced
 PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule
 PA.CustomDialogs.enablePABCustomAdvancedRule = enablePABCustomAdvancedRule
 PA.CustomDialogs.disablePABCustomAdvancedRule = disablePABCustomAdvancedRule
-
--- TODO: Edit reset top dropdown does not disable save button
--- TODO: Edit save without change does not work
