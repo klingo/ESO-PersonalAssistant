@@ -5,7 +5,6 @@ local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
 
 -- TODO: shifterboxes dont update _ruleCache
--- TODO: level range dont update _ruleCache (but buttons do)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -777,18 +776,29 @@ local function initPABAddCustomAdvancedRuleUIDialog()
             if type(value) == "number" then
                 if value < 1 then
                     self:SetText(1)
+                    _ruleCache.levelFrom = 1
                 elseif value > 50 and _ruleCache.levelFromType == LEVEL_NORMAL then
                     self:SetText(50)
-                    if _ruleCache.levelToType == LEVEL_NORMAL then itemLevelToEdit:SetText(50) end
+                    _ruleCache.levelFrom = 50
+                    if _ruleCache.levelToType == LEVEL_NORMAL then
+                        itemLevelToEdit:SetText(50)
+                        _ruleCache.levelTo = 50
+                    end
                 elseif value > 160 then
                     self:SetText(160)
-                    if _ruleCache.levelToType == LEVEL_CHAMPION then itemLevelToEdit:SetText(160) end
+                    _ruleCache.levelFrom = 160
+                    if _ruleCache.levelToType == LEVEL_CHAMPION then
+                        itemLevelToEdit:SetText(160)
+                        _ruleCache.levelTo = 160
+                    end
                 else
                     -- value is in valid range - check if it clashes other value
+                    _ruleCache.levelFrom = value
                     local otherValue = tonumber(itemLevelToEdit:GetText())
                     if type(otherValue) == "number" then
                         if _ruleCache.levelFromType == _ruleCache.levelToType and value > otherValue then
                             itemLevelToEdit:SetText(value)
+                            _ruleCache.levelTo = value
                         end
                     end
                 end
@@ -801,19 +811,25 @@ local function initPABAddCustomAdvancedRuleUIDialog()
             if type(value) == "number" then
                 if value < 1 then
                     self:SetText(1)
+                    _ruleCache.levelTo = 1
                     if _ruleCache.levelFromType == _ruleCache.levelToType then
                         itemLevelFromEdit:SetText(1)
+                        _ruleCache.levelFrom = 1
                     end
                 elseif value > 50 and _ruleCache.levelToType == LEVEL_NORMAL then
                     self:SetText(50)
+                    _ruleCache.levelTo = 50
                 elseif value > 160 then
                     self:SetText(160)
+                    _ruleCache.levelTo = 160
                 else
                     -- value is in valid range - check if it clashes other value
+                    _ruleCache.levelTo = value
                     local otherValue = tonumber(itemLevelFromEdit:GetText())
                     if type(otherValue) == "number" then
                         if _ruleCache.levelFromType == _ruleCache.levelToType and otherValue > value then
                             itemLevelFromEdit:SetText(value)
+                            _ruleCache.levelFrom = value
                         end
                     end
                 end
@@ -827,40 +843,46 @@ local function initPABAddCustomAdvancedRuleUIDialog()
             -- first change the current button
             if _ruleCache.levelFromType == LEVEL_NORMAL then
                 -- switch FROM to CHAMPION
-                _ruleCache.levelFromType = LEVEL_CHAMPION
                 _setButtonTextures(self, LEVEL_CHAMPION)
                 itemLevelFromEdit:SetText(1)
+                _ruleCache.levelFromType = LEVEL_CHAMPION
+                _ruleCache.levelFrom = 1
 
                 -- check if other is NOT champion
                 if _ruleCache.levelToType ~= LEVEL_CHAMPION then
-                    _ruleCache.levelToType = LEVEL_CHAMPION
                     _setButtonTextures(itemLevelToButton, LEVEL_CHAMPION)
                     itemLevelToEdit:SetText(1)
+                    _ruleCache.levelToType = LEVEL_CHAMPION
+                    _ruleCache.levelTo = 1
                 end
             else
                 -- switch FROM to NORMAL
-                _ruleCache.levelFromType = LEVEL_NORMAL
                 _setButtonTextures(self, LEVEL_NORMAL)
                 itemLevelFromEdit:SetText(50)
+                _ruleCache.levelFromType = LEVEL_NORMAL
+                _ruleCache.levelFrom = 50
             end
             -- then update the ruleSummary
             _updateRuleSummary()
         end)
         itemLevelToButton:SetHandler("OnClicked", function(self)
             if _ruleCache.levelToType == LEVEL_NORMAL then
-                _ruleCache.levelToType = LEVEL_CHAMPION
                 _setButtonTextures(self, LEVEL_CHAMPION)
                 itemLevelToEdit:SetText(1)
+                _ruleCache.levelToType = LEVEL_CHAMPION
+                _ruleCache.levelTo = 1
             else
-                _ruleCache.levelToType = LEVEL_NORMAL
                 _setButtonTextures(self, LEVEL_NORMAL)
                 itemLevelToEdit:SetText(50)
+                _ruleCache.levelToType = LEVEL_NORMAL
+                _ruleCache.levelTo = 50
 
                 -- check if other is NOT normal
                 if _ruleCache.levelFromType ~= LEVEL_NORMAL then
-                    _ruleCache.levelFromType = LEVEL_NORMAL
                     _setButtonTextures(itemLevelFromButton, LEVEL_NORMAL)
                     itemLevelFromEdit:SetText(50)
+                    _ruleCache.levelFromType = LEVEL_NORMAL
+                    _ruleCache.levelFrom = 50
                 end
             end
             -- then update the ruleSummary
