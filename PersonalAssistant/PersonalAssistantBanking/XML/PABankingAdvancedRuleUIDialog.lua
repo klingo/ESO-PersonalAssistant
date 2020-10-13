@@ -402,7 +402,11 @@ local function _resetShifterBoxAndResetToLeft(shifterBox, selectCategory, enable
     shifterBox:MoveAllEntriesToLeftList()
     if keysToRightList ~= nil then
         d(keysToRightList)
-        shifterBox:MoveEntriesToRightList(keysToRightList)
+        if istable(keysToRightList) then
+            shifterBox:MoveEntriesToRightList(keysToRightList)
+        else
+            shifterBox:MoveEntryToRightList(keysToRightList)
+        end
     end
     shifterBox:SetEnabled(enabled)
 end
