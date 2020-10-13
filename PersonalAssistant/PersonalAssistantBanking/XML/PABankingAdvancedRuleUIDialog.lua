@@ -658,14 +658,14 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
             df("SAVE: %s", ruleSettingsRaw)
             PABAdvancedRules[_loadedRuleId].ruleRaw = ruleSettingsRaw
             -- TODO: chat message
-            df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), _loadedRuleId)
+            df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), _loadedRuleId)
         else
             table.insert(PABAdvancedRules, {
                 ruleRaw = ruleSettingsRaw,
                 ruleEnabled = true,
             })
             -- TODO: chat message
-            df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), #PABAdvancedRules)
+            df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), #PABAdvancedRules)
         end
         window:SetHidden(true)
 
@@ -971,7 +971,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
 
     if existingRuleId then
         -- init with existing values
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Modify advanced rule"})) -- TODO: extract
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, " Modify advanced rule"})) -- TODO: extract
         -- get rule settings
         local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
         local ruleSettingRaw = PABAdvancedRules[existingRuleId].ruleRaw
@@ -1036,7 +1036,7 @@ local function enablePABCustomAdvancedRule(existingRuleId)
         -- is in table, enable rule
         PABAdvancedRules[existingRuleId].ruleEnabled = true
         -- TODO: chat message
-        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}), existingRuleId)
+        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}), existingRuleId)
 
         -- refresh the list (if it was initialized)
         if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
@@ -1051,7 +1051,7 @@ local function disablePABCustomAdvancedRule(existingRuleId)
         -- is in table, disable rule
         PABAdvancedRules[existingRuleId].ruleEnabled = false
         -- TODO: chat message
-        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}), existingRuleId)
+        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}), existingRuleId)
 
         -- refresh the list (if it was initialized)
         if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
