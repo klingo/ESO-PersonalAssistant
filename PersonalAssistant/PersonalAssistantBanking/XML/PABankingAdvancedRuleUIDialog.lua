@@ -676,6 +676,23 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
     end
 end
 
+
+local function deletePABCustomAdvancedRule(ruleId)
+    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+    if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
+        -- is in table, delete rule
+        table.remove(PABAdvancedRules, ruleId)
+        -- TODO: chat message
+        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), ruleId)
+        window:SetHidden(true)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB adavanced rule not existing, cannot be deleted")
+    end
+end
+
 local function initPABAddCustomAdvancedRuleUIDialog()
     if not _initDone then
        _initDone = true
@@ -1011,22 +1028,6 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
     -- finally, show window
     window:SetHidden(false)
     _loadingInProgress = false
-end
-
-local function deletePABCustomAdvancedRule(ruleId)
-    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
-    if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
-        -- is in table, delete rule
-        table.remove(PABAdvancedRules, ruleId)
-        -- TODO: chat message
-        df(table.concat({"Rule number %d has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), ruleId)
-        window:SetHidden(true)
-
-        -- refresh the list (if it was initialized)
-        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
-    else
-        PAB.debugln("ERROR; PAB adavanced rule not existing, cannot be deleted")
-    end
 end
 
 local function enablePABCustomAdvancedRule(existingRuleId)
