@@ -1,7 +1,7 @@
 <GuiXml>
     <Controls>
         <TopLevelControl name="PABankingAddCustomAdvancedRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-            <Dimensions x="850" y="840" />
+            <Dimensions x="880" y="840" />
             <Anchor point="CENTER" offsetY="-100"/>
             <Controls>
 
@@ -25,7 +25,7 @@
                 </Label>
                 <Control name="$(parent)ItemGroupDropdown" inherits="ZO_ComboBox">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
-                    <Dimensions x="340" y="30"/>
+                    <Dimensions x="360" y="30"/>
                 </Control>
 
                 <Label name="$(parent)ItemQualityLabel" font="ZoFontGameBold">
@@ -84,7 +84,7 @@
                 </Label>
                 <Control name="$(parent)ItemSetDropdown" inherits="ZO_ComboBox">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemSetLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
-                    <Dimensions x="340" y="30"/>
+                    <Dimensions x="360" y="30"/>
                 </Control>
 
                 <Label name="$(parent)ItemCraftedLabel" font="ZoFontGameBold">
@@ -93,7 +93,7 @@
                 </Label>
                 <Control name="$(parent)ItemCraftedDropdown" inherits="ZO_ComboBox">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemCraftedLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
-                    <Dimensions x="340" y="30"/>
+                    <Dimensions x="360" y="30"/>
                 </Control>
 
                 <Label name="$(parent)RuleSummaryLabel" font="ZoFontGameBold">
@@ -109,22 +109,22 @@
                 <!-- ====== RIGHT COLUMN ====== -->
 
                 <Label name="$(parent)ItemTypeLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="TOPRIGHT" offsetX="140"/>
-                    <Dimensions x="300" y="30"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="TOPRIGHT" offsetX="120"/>
+                    <Dimensions x="320" y="30"/>
                 </Label>
 
                 <Label name="$(parent)ItemTraitLabel" font="ZoFontGameBold">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTypeLabel" relativePoint="BOTTOMLEFT" offsetY="250"/>
-                    <Dimensions x="300" y="30"/>
+                    <Dimensions x="320" y="30"/>
                 </Label>
                 <Control name="$(parent)ItemTraitDropdown" inherits="ZO_ComboBox">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTraitLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
-                    <Dimensions x="340" y="30"/>
+                    <Dimensions x="380" y="30"/>
                 </Control>
 
                 <Label name="$(parent)ItemTraitTypeLabel" font="ZoFontGameBold">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemTraitLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
-                    <Dimensions x="300" y="30"/>
+                    <Dimensions x="320" y="30"/>
                 </Label>
 
 <!--                <Label name="$(parent)DisclaimerLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST">-->
