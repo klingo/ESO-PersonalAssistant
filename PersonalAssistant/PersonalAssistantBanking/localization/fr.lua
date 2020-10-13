@@ -146,5 +146,5 @@ local PABStrings = {
 }
 
 for key, value in pairs(PABStrings) do
-    SafeAddString(key, value, 1)
+    SafeAddString(_G[key], value, 1)
 end
