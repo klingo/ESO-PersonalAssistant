@@ -1,3 +1,6 @@
+2.5.2 (October 13, 2020)
+- fixed an issue where non-EN localization were not applied ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/278"]#278[/URL])
+
 2.5.1 (October 12, 2020)
 - added an option to exclude crafted items from being marked as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/268"]#268[/URL])
 - added PAJunk settings for stolen Solvents ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/269"]#269[/URL])
