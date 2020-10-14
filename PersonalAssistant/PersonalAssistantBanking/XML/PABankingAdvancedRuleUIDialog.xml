@@ -19,17 +19,17 @@
 
                 <!-- ====== LEFT COLUMN ====== -->
 
-                <Label name="$(parent)ItemGroupLabel" font="ZoFontGameBold">
+                <Label name="$(parent)ItemActionLabel" font="ZoFontGameBold">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetY="10"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
-                <Control name="$(parent)ItemGroupDropdown" inherits="ZO_ComboBox">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
+                <Control name="$(parent)ItemActionDropdown" inherits="ZO_ComboBox">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemActionLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
                     <Dimensions x="360" y="30"/>
                 </Control>
 
                 <Label name="$(parent)ItemQualityLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemActionLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="300" y="30"/>
                 </Label>
 
@@ -108,8 +108,17 @@
 
                 <!-- ====== RIGHT COLUMN ====== -->
 
+                <Label name="$(parent)ItemGroupLabel" font="ZoFontGameBold">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemActionLabel" relativePoint="TOPRIGHT" offsetX="120"/>
+                    <Dimensions x="320" y="30"/>
+                </Label>
+                <Control name="$(parent)ItemGroupDropdown" inherits="ZO_ComboBox">
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetX="40"/>
+                    <Dimensions x="380" y="30"/>
+                </Control>
+
                 <Label name="$(parent)ItemTypeLabel" font="ZoFontGameBold">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="TOPRIGHT" offsetX="120"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)ItemGroupLabel" relativePoint="BOTTOMLEFT" offsetY="50"/>
                     <Dimensions x="320" y="30"/>
                 </Label>
 

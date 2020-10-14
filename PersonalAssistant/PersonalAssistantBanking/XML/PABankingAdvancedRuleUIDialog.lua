@@ -151,26 +151,28 @@ end
 local function _convertLocalSettingsToRawSettings()
     return table.concat({
         -- GROUP: 1
-        _ruleCache.itemGroup, GROUP_SEPARATOR,
+        _ruleCache.itemAction, GROUP_SEPARATOR,
         -- GROUP: 2
+        _ruleCache.itemGroup, GROUP_SEPARATOR,
+        -- GROUP: 3
         table.concat(_ruleCache.qualities, ITEM_SEPARATOR), SETTING_SEPARATOR,
         _ruleCache.qualitiesCount, SETTING_SEPARATOR,
         _ruleCache.qualitiesNotCount, GROUP_SEPARATOR,
-        -- GROUP: 3
+        -- GROUP: 4
         _ruleCache.levelFromType, SETTING_SEPARATOR,
         _ruleCache.levelFrom, GROUP_SEPARATOR,
-        -- GROUP: 4
+        -- GROUP: 5
         _ruleCache.levelToType, SETTING_SEPARATOR,
         _ruleCache.levelTo, GROUP_SEPARATOR,
-        -- GROUP: 5
-        _ruleCache.setSetting, GROUP_SEPARATOR,
         -- GROUP: 6
-        _ruleCache.craftedSetting, GROUP_SEPARATOR,
+        _ruleCache.setSetting, GROUP_SEPARATOR,
         -- GROUP: 7
+        _ruleCache.craftedSetting, GROUP_SEPARATOR,
+        -- GROUP: 8
         table.concat(_ruleCache.itemTypes, ITEM_SEPARATOR), SETTING_SEPARATOR,
         _ruleCache.itemTypesCount, SETTING_SEPARATOR,
         _ruleCache.itemTypesNotCount, GROUP_SEPARATOR,
-        -- GROUP: 8
+        -- GROUP: 9
         _ruleCache.traitSetting, SETTING_SEPARATOR,
         table.concat(_ruleCache.traitTypes, ITEM_SEPARATOR), SETTING_SEPARATOR,
         _ruleCache.traitTypesCount, SETTING_SEPARATOR,
@@ -180,43 +182,47 @@ end
 
 local function _convertRawSettingsToLocalSettings(ruleSettingsRaw)
     -- the the splitted main groups
-    local mainGroupsSplit = PAHF.split(ruleSettingsRaw, GROUP_SEPARATOR, 8)
+    local mainGroupsSplit = PAHF.split(ruleSettingsRaw, GROUP_SEPARATOR, 9)
 
-    -- GROUP: 1
-    local itemGroup = mainGroupsSplit[1]
+    -- GROUP:  1
+    local itemAction = mainGroupsSplit[1]
+    -- GROUP: 2
+    local itemGroup = mainGroupsSplit[2]
 
-    if itemGroup == nil or itemGroup == "" then
-        return itemGroup
+    if itemGroup == nil or itemGroup == "" or itemAction == nil or itemAction == "" then
+        return
     else
-        -- GROUP: 1     (Item Group)
+        -- GROUP: 2     (Item Action)
+        itemAction = tonumber(itemAction)
+        -- GROUP: 2     (Item Group)
         itemGroup = tonumber(itemGroup)
-        -- GROUP: 2     (Item Qualities)
-        local qualitiesSplit = PAHF.split(mainGroupsSplit[2], SETTING_SEPARATOR, 3)
+        -- GROUP: 3     (Item Qualities)
+        local qualitiesSplit = PAHF.split(mainGroupsSplit[3], SETTING_SEPARATOR, 3)
         local selectedQualities = PAHF.split(qualitiesSplit[1], ITEM_SEPARATOR)
         for key, value in pairs(selectedQualities) do
             selectedQualities[key] = tonumber(value) -- make sure its a number and not a string
         end
         local selectedQualitiesCount = tonumber(qualitiesSplit[2])
         local notSelectedQualitiesCount = tonumber(qualitiesSplit[3])
-        -- GROUP: 3     (Level / Champion Point Range)
-        local levelFromSplit = PAHF.split(mainGroupsSplit[3], SETTING_SEPARATOR, 2)
+        -- GROUP: 4     (Level / Champion Point Range)
+        local levelFromSplit = PAHF.split(mainGroupsSplit[4], SETTING_SEPARATOR, 2)
         local levelFromType = tonumber(levelFromSplit[1])
         local levelFrom = tonumber(levelFromSplit[2])
-        -- GROUP: 4     (Level / Champion Point Range)
-        local levelToSplit = PAHF.split(mainGroupsSplit[4], SETTING_SEPARATOR, 2)
+        -- GROUP: 5     (Level / Champion Point Range)
+        local levelToSplit = PAHF.split(mainGroupsSplit[5], SETTING_SEPARATOR, 2)
         local levelToType = tonumber(levelToSplit[1])
         local levelTo = tonumber(levelToSplit[2])
-        -- GROUP: 5     (Set Items)
-        local setSetting = tonumber(mainGroupsSplit[5])
-        -- GROUP: 6     (Crafted)
-        local craftedSetting = tonumber(mainGroupsSplit[6])
-        -- GROUP: 7     (Item Types)
-        local itemTypesSplit = PAHF.split(mainGroupsSplit[7], SETTING_SEPARATOR, 3)
+        -- GROUP: 6     (Set Items)
+        local setSetting = tonumber(mainGroupsSplit[6])
+        -- GROUP: 7     (Crafted)
+        local craftedSetting = tonumber(mainGroupsSplit[7])
+        -- GROUP: 8     (Item Types)
+        local itemTypesSplit = PAHF.split(mainGroupsSplit[8], SETTING_SEPARATOR, 3)
         local selectedItemTypes = PAHF.split(itemTypesSplit[1], ITEM_SEPARATOR)
         local selectedItemTypesCount = tonumber(itemTypesSplit[2])
         local notSelectedItemTypesCount = tonumber(itemTypesSplit[3])
-        -- GROUP: 8     (Item Traits / Trait Types)
-        local traitTypesSplit = PAHF.split(mainGroupsSplit[8], SETTING_SEPARATOR, 4)
+        -- GROUP: 9     (Item Traits / Trait Types)
+        local traitTypesSplit = PAHF.split(mainGroupsSplit[9], SETTING_SEPARATOR, 4)
         local traitSetting = tonumber(traitTypesSplit[1])
         local selectedTraitTypes = PAHF.split(traitTypesSplit[2], ITEM_SEPARATOR)
         for key, value in pairs(selectedTraitTypes) do
@@ -225,6 +231,7 @@ local function _convertRawSettingsToLocalSettings(ruleSettingsRaw)
         local selectedTraitTypesCount = tonumber(traitTypesSplit[3])
         local notSelectedTraitTypesCount = tonumber(traitTypesSplit[4])
 
+        _ruleCache.itemAction = itemAction
         _ruleCache.itemGroup = itemGroup
         _ruleCache.qualities = selectedQualities
         _ruleCache.qualitiesCount = selectedQualitiesCount
@@ -248,6 +255,7 @@ end
 local function _resetRuleCache()
     _ruleCache = {
         ruleId = nil,
+        itemAction = nil,
         itemGroup = nil,
         levelFrom = 1, -- init value
         levelFromType = LEVEL_NORMAL, -- init value
@@ -271,6 +279,15 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function getRuleSummaryFromLocalSettings(isRawText)
+    local function _getRuleSummaryWithItemAction(itemAction, ruleSummary)
+        if itemAction == BAG_BANK then
+            return PAHF.getFormattedText("DEPOSIT %s to BANK", ruleSummary)
+        elseif itemAction == BAG_BACKPACK then
+            return PAHF.getFormattedText("WITHDRAW %s to BACKPACK", ruleSummary)
+        end
+        return ruleSummary
+    end
+
     local function _getItemTypeText(itemGroup, itemTypes, selectedCount, unselectedCount)
         local itemGroupString = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemGroup))
         if selectedCount == 0 or unselectedCount == 0 then
@@ -365,14 +382,14 @@ local function getRuleSummaryFromLocalSettings(isRawText)
         local qualityText = _getQualityText(_ruleCache.qualities, _ruleCache.qualitiesCount, _ruleCache.qualitiesNotCount)
         local levelText = _getLevelText(_ruleCache.levelFrom, _ruleCache.levelFromType, _ruleCache.levelTo, _ruleCache.levelToType)
         local traitText = _getTraitText(_ruleCache.traitSetting, _ruleCache.traitTypes, _ruleCache.traitTypesCount, _ruleCache.traitTypesNotCount)
-        local summaryText = "Any"   -- TODO: extract
+        local summaryText = "any"   -- TODO: extract
         summaryText = _appendText(summaryText, craftedText)
         summaryText = _appendText(summaryText, setText)
         summaryText = _appendText(summaryText, itemTypeText)
         summaryText = _appendText(summaryText, qualityText)
         summaryText = _appendText(summaryText, levelText)
         summaryText = _appendText(summaryText, traitText)
-        return summaryText
+        return _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryText)
     end
 
 
@@ -451,6 +468,17 @@ end
 -- TODO: to be improved! use callback values to simplify the entries
 -- TODO: also check if "isLoading" needs to be considered
 local DropdownRefs = {
+    itemActionDepositoToBank = ZO_ComboBox:CreateItemEntry("DEPOSIT to Bank", function(_, entryText, entry) -- TODO: extract
+        _ruleCache.itemAction = BAG_BANK
+        --_setAllFieldsEnabled(false)
+        _updateRuleSummary()
+    end ),
+    itemActionWithdrawToBackpack = ZO_ComboBox:CreateItemEntry("WITHDRAW to Inventory", function(_, entryText, entry) -- TODO: extract
+        _ruleCache.itemAction = BAG_BACKPACK
+        --_setAllFieldsEnabled(false)
+        _updateRuleSummary()
+    end ),
+
     itemGroupPleaseSelect = ZO_ComboBox:CreateItemEntry("<Please Select>", function(_, entryText, entry) -- TODO: extract
         _ruleCache.itemGroup = nil
         _setAllFieldsEnabled(false)
@@ -716,6 +744,26 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- init the rule cache
         _resetRuleCache()
+
+        -- initialize the ItemAction dropdown
+        local itemActionLabelControl = window:GetNamedChild("ItemActionLabel")
+        itemActionLabelControl:SetText("Item Action") -- TODO: extract
+        local itemActionDropdownControl = window:GetNamedChild("ItemActionDropdown")
+        itemActionDropdownControl.m_comboBox:AddItem(DropdownRefs.itemActionDepositoToBank)
+        itemActionDropdownControl.m_comboBox:AddItem(DropdownRefs.itemActionWithdrawToBackpack)
+        -- define the default entry
+        function itemActionDropdownControl:SelectDefault(ignoreCallback)
+            itemActionDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemActionDepositoToBank, ignoreCallback)
+        end
+        function itemActionDropdownControl:SelectByKey(itemAction)
+            if itemAction == BAG_BANK then
+                itemActionDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemActionDepositoToBank, true)
+            elseif itemAction == BAG_BACKPACK then
+                itemActionDropdownControl.m_comboBox:SelectItem(DropdownRefs.itemActionWithdrawToBackpack, true)
+            else
+                self:SelectDefault(true)
+            end
+        end
 
         -- initialize the ItemGroup dropdown
         local itemGroupLabelControl = window:GetNamedChild("ItemGroupLabel")
@@ -990,6 +1038,7 @@ end
 local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
     _loadingInProgress = true
     local headerControl = window:GetNamedChild("Header")
+    local itemActionDropdownControl = window:GetNamedChild("ItemActionDropdown")
     local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
     local itemLevelFromEdit = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
     local itemLevelFromButton = window:GetNamedChild("ItemLevelFromButton")
@@ -1014,11 +1063,8 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         _ruleCache.ruleId = existingRuleId
         _convertRawSettingsToLocalSettings(ruleSettingRaw)
 
-        d(table.concat({"_selectedItemTypes=",unpack(_ruleCache.itemTypes)}))
-        d(table.concat({"_selectedItemTypesCount=",_ruleCache.itemTypesCount}))
-        d(table.concat({"_notSelectedItemTypesCount=",_ruleCache.itemTypesNotCount}))
-
         -- load values on UI
+        itemActionDropdownControl:SelectByKey(_ruleCache.itemAction)
         itemGroupDropdownControl:SelectByKey(_ruleCache.itemGroup)
         d("111")
         _resetShifterBoxAndResetToLeft(_itemQualitiesShifterBox, nil, true, _ruleCache.qualities)
@@ -1042,6 +1088,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
     else
         -- reset to default values
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Add new advanced rule"})) -- TODO: extract
+        itemActionDropdownControl:SelectDefault()
         itemGroupDropdownControl:SelectDefault()
         itemSetDropdownControl:SelectDefault()
         itemCraftedDropdownControl:SelectDefault()
