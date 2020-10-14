@@ -1156,6 +1156,47 @@ local function disablePABCustomAdvancedRule(existingRuleId)
     end
 end
 
+local function moveUpPABCustomAdvancedRule(ruleId)
+    if ruleId > 1 then
+        local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+        if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
+            -- is in table, move rule up
+            -- As of October 2020, ESO is based on LUA 5.1 which does not support "table.move" yet (LUA 5.3+)
+            -- table.move(PABAdvancedRules, ruleId, ruleId - 1)
+            table.insert(PABAdvancedRules, ruleId - 1, table.remove(PABAdvancedRules, ruleId))
+
+            -- TODO: chat message
+            df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved up"), " and is now Rule #%d!"}), ruleId, ruleId - 1)
+            window:SetHidden(true)
+
+            -- refresh the list (if it was initialized)
+            if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+        else
+            PAB.debugln("ERROR; PAB adavanced rule not existing, cannot be moved UP")
+        end
+    end
+end
+
+local function moveDownPABCustomAdvancedRule(ruleId)
+    -- currently it is not possible to check here if the ruleId is not the last one
+    local PABAdvancedRules = PA.Banking.SavedVars.AdvancedRules.Rules
+    if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
+        -- is in table, move rule down
+        -- As of October 2020, ESO is based on LUA 5.1 which does not support "table.move" yet (LUA 5.3+)
+        -- table.move(PABAdvancedRules, ruleId, ruleId + 1)
+        table.insert(PABAdvancedRules, ruleId + 1, table.remove(PABAdvancedRules, ruleId))
+
+        -- TODO: chat message
+        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved down"), " and is now Rule #%d!"}), ruleId, ruleId + 1)
+        window:SetHidden(true)
+
+        -- refresh the list (if it was initialized)
+        if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+    else
+        PAB.debugln("ERROR; PAB adavanced rule not existing, cannot be moved DOWN")
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
@@ -1165,3 +1206,5 @@ PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog = showPABAddCustomAdvanced
 PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule
 PA.CustomDialogs.enablePABCustomAdvancedRule = enablePABCustomAdvancedRule
 PA.CustomDialogs.disablePABCustomAdvancedRule = disablePABCustomAdvancedRule
+PA.CustomDialogs.moveUpPABCustomAdvancedRule = moveUpPABCustomAdvancedRule
+PA.CustomDialogs.moveDownPABCustomAdvancedRule = moveDownPABCustomAdvancedRule

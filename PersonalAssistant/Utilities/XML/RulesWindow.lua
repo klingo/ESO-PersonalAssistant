@@ -555,12 +555,20 @@ function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
         local editButtonControl = rowControl:GetNamedChild("EditButton")
         local enableButtonControl = rowControl:GetNamedChild("EnableButton")
         local disableButtonControl = rowControl:GetNamedChild("DisableButton")
+        local prioUpButtonControl = rowControl:GetNamedChild("PrioUpButton")
+        local prioDownButtonControl = rowControl:GetNamedChild("PrioDownButton")
         delButtonControl:SetHidden(false)
         editButtonControl:SetHidden(false)
         if rowData.ruleEnabled then
             disableButtonControl:SetHidden(false)
         else
             enableButtonControl:SetHidden(false)
+        end
+        if rowData.ruleId ~= 1 then
+            prioUpButtonControl:SetHidden(false)
+        end
+        if rowData.ruleId ~= #self.list.data then
+            prioDownButtonControl:SetHidden(false) -- TODO: only sho if not on BOTTOM
         end
     end
     local function onRowMouseExit(rowControl)
@@ -569,10 +577,14 @@ function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
         local editButtonControl = rowControl:GetNamedChild("EditButton")
         local enableButtonControl = rowControl:GetNamedChild("EnableButton")
         local disableButtonControl = rowControl:GetNamedChild("DisableButton")
+        local prioUpButtonControl = rowControl:GetNamedChild("PrioUpButton")
+        local prioDownButtonControl = rowControl:GetNamedChild("PrioDownButton")
         delButtonControl:SetHidden(true)
         editButtonControl:SetHidden(true)
         enableButtonControl:SetHidden(true)
         disableButtonControl:SetHidden(true)
+        prioUpButtonControl:SetHidden(true)
+        prioDownButtonControl:SetHidden(true)
     end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
         ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE))
@@ -593,6 +605,16 @@ function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
         ZO_Tooltips_ShowTextTooltip(disableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DISABLE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(disableButtonControl:GetParent())
+    end
+    local function onPrioUpButtonMouseEnter(prioUpButtonControl)
+        ZO_Tooltips_ShowTextTooltip(prioUpButtonControl, TOP, "Move Up") -- TODO: localization
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(prioUpButtonControl:GetParent())
+    end
+    local function onPrioDownButtonMouseEnter(prioDownButtonControl)
+        ZO_Tooltips_ShowTextTooltip(prioDownButtonControl, TOP, "Move Down") -- TODO: localization
+        -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(prioDownButtonControl:GetParent())
     end
     local function onGenericControlMouseExit(control)
         ZO_Tooltips_HideTextTooltip()
@@ -657,6 +679,24 @@ function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
     disableButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
         PA.CustomDialogs.disablePABCustomAdvancedRule(rowControl.data.ruleId)
+    end)
+
+    -- Setup the PRIO UP button per row
+    local prioUpButtonControl = rowControl:GetNamedChild("PrioUpButton")
+    prioUpButtonControl:SetHandler("OnMouseEnter", onPrioUpButtonMouseEnter)
+    prioUpButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    prioUpButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.moveUpPABCustomAdvancedRule(rowControl.data.ruleId)
+    end)
+
+    -- Setup the PRIO DOWN button per row
+    local prioDownButtonControl = rowControl:GetNamedChild("PrioDownButton")
+    prioDownButtonControl:SetHandler("OnMouseEnter", onPrioDownButtonMouseEnter)
+    prioDownButtonControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
+    prioDownButtonControl:SetHandler("OnMouseDown", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        PA.CustomDialogs.moveDownPABCustomAdvancedRule(rowControl.data.ruleId)
     end)
 
     -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control

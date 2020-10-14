@@ -87,7 +87,7 @@
                     <Dimensions x="680" y="96" />
                 </Label>
                 <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
-                    <Anchor point="RIGHT" offsetX="-40" />
+                    <Anchor point="RIGHT" offsetX="-40" offsetY="-20" />
                     <Dimensions x="24" y="24" />
                 </Button>
                 <Button name="$(parent)EditButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
@@ -118,6 +118,27 @@
                             pressed="/esoui/art/buttons/edit_cancel_down.dds"
                             mouseOver="/esoui/art/buttons/edit_cancel_over.dds"
                             disabled="/esoui/art/buttons/edit_cancel_disabled.dds"
+                    />
+                </Button>
+
+                <Button name="$(parent)PrioDownButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" offsetX="-50" offsetY="20" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/worldmap/mapnav_downarrow_up.dds"
+                            pressed="/esoui/art/worldmap/mapnav_downarrow_down.dds"
+                            mouseOver="/esoui/art/worldmap/mapnav_downarrow_over.dds"
+                            disabled="/esoui/art/worldmap/mapnav_downarrow_disabled.dds"
+                    />
+                </Button>
+                <Button name="$(parent)PrioUpButton" inherits="ZO_PreviousArrowButton" hidden="true" tier="MEDIUM">
+                    <Anchor point="RIGHT" relativeTo="$(parent)PrioDownButton" relativePoint="LEFT" offsetX="-5" />
+                    <Dimensions x="36" y="36" />
+                    <Textures
+                            normal="/esoui/art/worldmap/mapnav_uparrow_up.dds"
+                            pressed="/esoui/art/worldmap/mapnav_uparrow_down.dds"
+                            mouseOver="/esoui/art/worldmap/mapnav_uparrow_over.dds"
+                            disabled="/esoui/art/worldmap/mapnav_uparrow_disabled.dds"
                     />
                 </Button>
 
