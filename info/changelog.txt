@@ -1,3 +1,17 @@
+2.5.2 (October 13, 2020)
+- fixed an issue where non-EN localization were not applied ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/278"]#278[/URL])
+
+2.5.1 (October 12, 2020)
+- added an option to exclude crafted items from being marked as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/268"]#268[/URL])
+- added PAJunk settings for stolen Solvents ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/269"]#269[/URL])
+- added PAJunk setting for stolen Trash ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/271"]#271[/URL])
+- updated Russian translations from Nesferatum to 2.5.0 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/273"]#273[/URL])
+- updated French translations from Takit to 2.5.0 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/275"]#275[/URL])
+- updated localization code and applied number formatting to the Rules window ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/274"]#274[/URL]) / ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/277"]#277[/URL])
+- fixed an issue with PAJunk's "ignore mailbox items" setting ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/270"]#270[/URL])
+- fixed an issue where PAJunk attempted to mark the same item as junk twice ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/272"]#272[/URL])
+- fixed an isse in PABanking regarding the Dominion Battering Ram ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/276"]#276[/URL])
+
 2.5.0 (October 03, 2020)
 - added support for Markarth (APIVersion 100033) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/267"]#267[/URL])
 - added new 'profile management' feature to create/copy/delete up to 20 profiles ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/265"]#265[/URL])

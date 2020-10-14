@@ -227,5 +227,5 @@ local PAStrings = {
 }
 
 for key, value in pairs(PAStrings) do
-    SafeAddString(key, value, 1)
+    SafeAddString(_G[key], value, 1)
 end

@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020501, -- update this every release!
+            MINOR = 020502, -- update this every release!
         },
     },
 
@@ -459,7 +459,7 @@ PersonalAssistant.Constants = {
                     [3400] = 64520,  -- [Dominion Cold Stone Trebuchet]
                 },
                 RAM = {
-                    [4000] = 29534,  -- [Dominion Battering Ram]
+                    [4000] = 27136,  -- [Dominion Battering Ram]
                 },
                 OIL = {
                     [5000] = 30359,  -- [Flaming Oil]        -- same for all alliances!

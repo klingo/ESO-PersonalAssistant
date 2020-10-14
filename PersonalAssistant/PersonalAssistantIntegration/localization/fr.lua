@@ -39,5 +39,5 @@ local PAIStrings = {
 }
 
 for key, value in pairs(PAIStrings) do
-    SafeAddString(key, value, 1)
+    SafeAddString(_G[key], value, 1)
 end
