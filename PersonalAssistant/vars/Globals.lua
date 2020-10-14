@@ -294,6 +294,14 @@ PersonalAssistant.Constants = {
             }
         },
         OTHERS = {
+            TRANSFER_TO = {
+                [BAG_BANK] = {
+                    PATH = "/esoui/art/bank/bank_tabicon_deposit_up.dds",
+                },
+                [BAG_BACKPACK] = {
+                    PATH = "/esoui/art/bank/bank_tabicon_withdraw_up.dds",
+                },
+            },
             CLOCKWORK_CITY = {
                 PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
             },

@@ -493,7 +493,8 @@ local PABankingAdvancedRulesList = ZO_SortFilterList:Subclass()
 PA.BankingAdvancedRulesList = nil
 
 PABankingAdvancedRulesList.SORT_KEYS = {
-    ["ruleId"] = {}
+    ["ruleId"] = {},
+    ["bagId"] = {tiebreaker="ruleId"},
 }
 
 function PABankingAdvancedRulesList:New()
@@ -529,6 +530,7 @@ function PABankingAdvancedRulesList:FilterScrollList()
         for ruleId, ruleSetting in pairs(PABAdvancedRules) do
             local rowData = {
                 ruleId = ruleId,
+                bagId = tonumber(zo_strsub(ruleSetting.ruleRaw, 1, 1)),
                 ruleSummary = PA.CustomDialogs.getPABRuleSummaryFromRawSettings(ruleSetting.ruleRaw),
                 ruleSummaryRaw = PA.CustomDialogs.getPABRuleSummaryFromRawSettings(ruleSetting.ruleRaw, true),
                 ruleEnabled = ruleSetting.ruleEnabled,
@@ -604,14 +606,19 @@ function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
 
     -- populate all data to the individual fields per row
     local ruleIdControl = rowControl:GetNamedChild("RuleId")
+    local bagIconControl = rowControl:GetNamedChild("BagIcon")
     local ruleSummaryControl = rowControl:GetNamedChild("RuleSummary")
+
+    bagIconControl:SetTexture(PAC.ICONS.OTHERS.TRANSFER_TO[rowData.bagId].PATH)
 
     -- set row text color depending on ruleEnabled state
     if rowData.ruleEnabled then
         ruleIdControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.ruleId)) -- TODO: formatting!
+        bagIconControl:SetDesaturation(0)
         ruleSummaryControl:SetText(rowData.ruleSummary)
     else
         ruleIdControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.ruleId)) -- TODO: formatting!
+        bagIconControl:SetDesaturation(1)
         ruleSummaryControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.ruleSummaryRaw))
     end
 
@@ -663,6 +670,7 @@ function PABankingAdvancedRulesList:InitHeaders()
     -- Initialise the headers
     local headers = BankingAdvancedRulesTabControl:GetNamedChild("Headers")
     ZO_SortHeader_Initialize(headers:GetNamedChild("RuleId"), "#", "ruleId", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagIcon"), "<>", "bagId", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
     ZO_SortHeader_Initialize(headers:GetNamedChild("RuleSummary"), "Rule Summary", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
     ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), "Actions", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader") -- TODO: extract
 end

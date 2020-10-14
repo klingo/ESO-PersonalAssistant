@@ -77,9 +77,14 @@
                     <Anchor point="LEFT" />
                     <Dimensions x="30" y="96" />
                 </Label>
+                <Texture name="$(parent)BagIcon" alpha="1">
+                    <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="-5" />
+                    <Dimensions x="48" y="48" />
+                    <TextureCoords left="0" right="1" top="0" bottom="1" />
+                </Texture>
                 <Label name="$(parent)RuleSummary" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="LEFT">
-                    <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="5" />
-                    <Dimensions x="720" y="96" />
+                    <Anchor point="LEFT" relativeTo="$(parent)BagIcon" relativePoint="RIGHT" offsetX="5" />
+                    <Dimensions x="680" y="96" />
                 </Label>
                 <Button name="$(parent)DelButton" inherits="ZO_CloseButton" hidden="true">
                     <Anchor point="RIGHT" offsetX="-40" />

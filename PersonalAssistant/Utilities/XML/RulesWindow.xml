@@ -71,9 +71,13 @@
                                     <Anchor point="TOPLEFT" offsetX="40" />
                                     <Dimensions x="30" y="32" />
                                 </Control>
+                                <Control name="$(parent)BagIcon" inherits="ZO_SortHeader">
+                                    <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="5" />
+                                    <Dimensions x="48" y="32" />
+                                </Control>
                                 <Control name="$(parent)RuleSummary" inherits="ZO_SortHeader" mouseEnabled="false">
-                                    <Anchor point="LEFT" relativeTo="$(parent)RuleId" relativePoint="RIGHT" offsetX="10" />
-                                    <Dimensions x="720" y="32" />
+                                    <Anchor point="LEFT" relativeTo="$(parent)BagIcon" relativePoint="RIGHT" offsetX="-5" />
+                                    <Dimensions x="680" y="32" />
                                 </Control>
                                 <Control name="$(parent)Actions" inherits="ZO_SortHeader" mouseEnabled="false">
                                     <Anchor point="TOPRIGHT" offsetX="-60" />

@@ -149,80 +149,90 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _convertLocalSettingsToRawSettings()
-    return table.concat({
-        -- GROUP: 1
-        _ruleCache.itemAction, GROUP_SEPARATOR,
-        -- GROUP: 2
-        _ruleCache.itemGroup, GROUP_SEPARATOR,
-        -- GROUP: 3
+    -- GROUP: 1
+    local group1 = table.concat({
+        _ruleCache.itemAction, SETTING_SEPARATOR,
+        _ruleCache.itemGroup, GROUP_SEPARATOR
+    })
+    -- GROUP: 2
+    local group2 = table.concat({
         table.concat(_ruleCache.qualities, ITEM_SEPARATOR), SETTING_SEPARATOR,
         _ruleCache.qualitiesCount, SETTING_SEPARATOR,
         _ruleCache.qualitiesNotCount, GROUP_SEPARATOR,
-        -- GROUP: 4
+    })
+    -- GROUP: 3
+    local group3 = table.concat({
         _ruleCache.levelFromType, SETTING_SEPARATOR,
         _ruleCache.levelFrom, GROUP_SEPARATOR,
-        -- GROUP: 5
+    })
+    -- GROUP: 4
+    local group4 = table.concat({
         _ruleCache.levelToType, SETTING_SEPARATOR,
         _ruleCache.levelTo, GROUP_SEPARATOR,
-        -- GROUP: 6
+    })
+    -- GROUP: 5
+    local group5 = table.concat({
         _ruleCache.setSetting, GROUP_SEPARATOR,
-        -- GROUP: 7
+    })
+    -- GROUP: 6
+    local group6 = table.concat({
         _ruleCache.craftedSetting, GROUP_SEPARATOR,
-        -- GROUP: 8
+    })
+    -- GROUP: 7
+    local group7 = table.concat({
         table.concat(_ruleCache.itemTypes, ITEM_SEPARATOR), SETTING_SEPARATOR,
         _ruleCache.itemTypesCount, SETTING_SEPARATOR,
         _ruleCache.itemTypesNotCount, GROUP_SEPARATOR,
-        -- GROUP: 9
+    })
+    -- GROUP: 8
+    local group8 = table.concat({
         _ruleCache.traitSetting, SETTING_SEPARATOR,
         table.concat(_ruleCache.traitTypes, ITEM_SEPARATOR), SETTING_SEPARATOR,
         _ruleCache.traitTypesCount, SETTING_SEPARATOR,
         _ruleCache.traitTypesNotCount
     })
+    return table.concat({group1, group2, group3, group4, group5, group6, group7, group8})
 end
 
 local function _convertRawSettingsToLocalSettings(ruleSettingsRaw)
     -- the the splitted main groups
-    local mainGroupsSplit = PAHF.split(ruleSettingsRaw, GROUP_SEPARATOR, 9)
+    local mainGroupsSplit = PAHF.split(ruleSettingsRaw, GROUP_SEPARATOR, 8)
 
-    -- GROUP:  1
-    local itemAction = mainGroupsSplit[1]
-    -- GROUP: 2
-    local itemGroup = mainGroupsSplit[2]
+    -- GROUP:  1    (Item Action / Item Group)
+    local itemSplit = PAHF.split(mainGroupsSplit[1], SETTING_SEPARATOR, 2)
+    local itemAction = tonumber(itemSplit[1])
+    local itemGroup = tonumber(itemSplit[2])
 
     if itemGroup == nil or itemGroup == "" or itemAction == nil or itemAction == "" then
         return
     else
-        -- GROUP: 2     (Item Action)
-        itemAction = tonumber(itemAction)
-        -- GROUP: 2     (Item Group)
-        itemGroup = tonumber(itemGroup)
-        -- GROUP: 3     (Item Qualities)
-        local qualitiesSplit = PAHF.split(mainGroupsSplit[3], SETTING_SEPARATOR, 3)
+        -- GROUP: 2     (Item Qualities)
+        local qualitiesSplit = PAHF.split(mainGroupsSplit[2], SETTING_SEPARATOR, 3)
         local selectedQualities = PAHF.split(qualitiesSplit[1], ITEM_SEPARATOR)
         for key, value in pairs(selectedQualities) do
             selectedQualities[key] = tonumber(value) -- make sure its a number and not a string
         end
         local selectedQualitiesCount = tonumber(qualitiesSplit[2])
         local notSelectedQualitiesCount = tonumber(qualitiesSplit[3])
-        -- GROUP: 4     (Level / Champion Point Range)
-        local levelFromSplit = PAHF.split(mainGroupsSplit[4], SETTING_SEPARATOR, 2)
+        -- GROUP: 3     (Level / Champion Point Range)
+        local levelFromSplit = PAHF.split(mainGroupsSplit[3], SETTING_SEPARATOR, 2)
         local levelFromType = tonumber(levelFromSplit[1])
         local levelFrom = tonumber(levelFromSplit[2])
-        -- GROUP: 5     (Level / Champion Point Range)
-        local levelToSplit = PAHF.split(mainGroupsSplit[5], SETTING_SEPARATOR, 2)
+        -- GROUP: 4     (Level / Champion Point Range)
+        local levelToSplit = PAHF.split(mainGroupsSplit[4], SETTING_SEPARATOR, 2)
         local levelToType = tonumber(levelToSplit[1])
         local levelTo = tonumber(levelToSplit[2])
-        -- GROUP: 6     (Set Items)
-        local setSetting = tonumber(mainGroupsSplit[6])
-        -- GROUP: 7     (Crafted)
-        local craftedSetting = tonumber(mainGroupsSplit[7])
-        -- GROUP: 8     (Item Types)
-        local itemTypesSplit = PAHF.split(mainGroupsSplit[8], SETTING_SEPARATOR, 3)
+        -- GROUP: 5     (Set Items)
+        local setSetting = tonumber(mainGroupsSplit[5])
+        -- GROUP: 6     (Crafted)
+        local craftedSetting = tonumber(mainGroupsSplit[6])
+        -- GROUP: 7     (Item Types)
+        local itemTypesSplit = PAHF.split(mainGroupsSplit[7], SETTING_SEPARATOR, 3)
         local selectedItemTypes = PAHF.split(itemTypesSplit[1], ITEM_SEPARATOR)
         local selectedItemTypesCount = tonumber(itemTypesSplit[2])
         local notSelectedItemTypesCount = tonumber(itemTypesSplit[3])
-        -- GROUP: 9     (Item Traits / Trait Types)
-        local traitTypesSplit = PAHF.split(mainGroupsSplit[9], SETTING_SEPARATOR, 4)
+        -- GROUP: 8     (Item Traits / Trait Types)
+        local traitTypesSplit = PAHF.split(mainGroupsSplit[8], SETTING_SEPARATOR, 4)
         local traitSetting = tonumber(traitTypesSplit[1])
         local selectedTraitTypes = PAHF.split(traitTypesSplit[2], ITEM_SEPARATOR)
         for key, value in pairs(selectedTraitTypes) do
@@ -255,7 +265,7 @@ end
 local function _resetRuleCache()
     _ruleCache = {
         ruleId = nil,
-        itemAction = nil,
+        itemAction = BAG_BANK,
         itemGroup = nil,
         levelFrom = 1, -- init value
         levelFromType = LEVEL_NORMAL, -- init value
@@ -697,11 +707,12 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
     if isUpdate or not PAHF.isKeyInTable(PABAdvancedRules, _ruleCache.ruleId) then
         local ruleSettingsRaw = _convertLocalSettingsToRawSettings()
         if isUpdate then
-            df("SAVE: %s", ruleSettingsRaw)
+            df("UPDATE: %s", ruleSettingsRaw)
             PABAdvancedRules[_ruleCache.ruleId].ruleRaw = ruleSettingsRaw
             -- TODO: chat message
             df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), _ruleCache.ruleId)
         else
+            df("CREATE: %s", ruleSettingsRaw)
             table.insert(PABAdvancedRules, {
                 ruleRaw = ruleSettingsRaw,
                 ruleEnabled = true,
