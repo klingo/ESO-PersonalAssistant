@@ -265,13 +265,13 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_ADVANCED_HEADER))
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_SPECIAL_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "checkbox",
-        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE)),
-        tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T),
+        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_SPECIAL_ENABLE)),
+        tooltip = GetString(SI_PA_MENU_BANKING_SPECIAL_ENABLE_T),
         getFunc = PABMenuFunctions.getAdvancedItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAdvancedItemsEnabledSetting,
         disabled = PAGMenuFunctions.isNoProfileSelected,
@@ -280,12 +280,12 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "description",
-        text = GetString(SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION)
+        text = GetString(SI_PA_MENU_BANKING_SPECIAL_DESCRIPTION)
     })
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_MOTIF_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_MOTIF_HEADER),
         icon = PAC.ICONS.ITEMS.MOTIF.PATH,
         controls = PABAdvancedMotifSubmenuTable,
         disabledLabel = PABMenuFunctions.isMotifTransactionMenuDisabled,
@@ -293,14 +293,14 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_RECIPE_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_RECIPE_HEADER),
         icon = PAC.ICONS.ITEMS.RECIPE.PATH,
         controls = PABAdvancedRecipeSubmenuTable,
         disabledLabel = PABMenuFunctions.isRecipeTransactionMenuDisabled,
     })
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_WRITS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_WRITS_HEADER),
         icon = PAC.ICONS.ITEMS.MASTER_WRIT.PATH,
         controls = PABAdvancedWritsSubmenuTable,
         disabledLabel = PABMenuFunctions.isWritsTransactionMenuDisabled,
@@ -308,7 +308,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_GLYPHS_HEADER),
         icon = PAC.ICONS.ITEMS.GLYPH_ARMOR_HEALTH.PATH,
         controls = PABAdvancedGlyphsSubmenuTable,
         disabledLabel = PABMenuFunctions.isGlyphsTransactionMenuDisabled,
@@ -316,7 +316,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_LIQUIDS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_LIQUIDS_HEADER),
         icon = PAC.ICONS.ITEMS.POTION.PATH,
         controls = PABAdvancedLiquidsSubmenuTable,
         disabledLabel = PABMenuFunctions.isLiquidsTransactionMenuDisabled,
@@ -324,7 +324,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_FOOD_DRINKS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_FOOD_DRINKS_HEADER),
         icon = PAC.ICONS.ITEMS.FOOD.PATH,
         controls = PABAdvancedFoodDrinksSubmenuTable,
         disabledLabel = PABMenuFunctions.isFoodDrinksTransactionMenuDisabled,
@@ -332,7 +332,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_TROPHIES_HEADER),
         icon = PAC.ICONS.ITEMS.TROPHY.PATH,
         controls = PABAdvancedTrophiesSubmenuTable,
         disabledLabel = PABMenuFunctions.isTrophiesTransactionMenuDisabled,
@@ -340,7 +340,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_INTRICATE_ITEMS_HEADER),
         icon = PAC.ICONS.ITEMS.TRAITS.INTRICATE.PATH,
         controls = PABAdvancedIntricateItemsSubmenuTable,
         disabledLabel = PABMenuFunctions.isIntricateItemsTransactionMenuDisabled,
@@ -357,8 +357,8 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "dropdown",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE),
-        tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE),
+        tooltip = GetString(SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE_T),
         choices = PABMenuChoices.itemMoveMode,
         choicesValues = PABMenuChoicesValues.itemMoveMode,
         getFunc = function() return end,
@@ -863,7 +863,7 @@ local function _createPABAdvancedMotifSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) do
         PABAdvancedMotifSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE", itemType),
+            name = GetString("SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
@@ -874,7 +874,7 @@ local function _createPABAdvancedMotifSubmenuTable()
 
         PABAdvancedMotifSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE", itemType),
+            name = GetString("SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
@@ -891,7 +891,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) do
         PABAdvancedRecipeSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE", itemType),
+            name = GetString("SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
@@ -902,7 +902,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
 
         PABAdvancedRecipeSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE", itemType),
+            name = GetString("SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,

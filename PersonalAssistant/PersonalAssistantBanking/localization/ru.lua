@@ -24,19 +24,19 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Заменить правила для всех крафтовых предметов",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Заменить правила для всех крафтовых предметов на 'Переместить в банк', 'Переместить в инвентарь' или 'Ничего не делать'",
 
-    -- Advanced Items --
-    SI_PA_MENU_BANKING_ADVANCED_HEADER = "Особые предметы",
-    SI_PA_MENU_BANKING_ADVANCED_ENABLE = "Включить перемещение",
-    SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Включить перемещение между инвентарём и банком особых предметов.",
-    SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Задать индивидуальные правила (переместить в банк, переместить в инвентарь или ничего не делать) для особых предметов",
+    -- Special Items --
+    SI_PA_MENU_BANKING_SPECIAL_HEADER = "Особые предметы",
+    SI_PA_MENU_BANKING_SPECIAL_ENABLE = "Включить перемещение",
+    SI_PA_MENU_BANKING_SPECIAL_ENABLE_T = "Включить перемещение между инвентарём и банком особых предметов.",
+    SI_PA_MENU_BANKING_SPECIAL_DESCRIPTION = "Задать индивидуальные правила (переместить в банк, переместить в инвентарь или ничего не делать) для особых предметов",
 
-    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Заменить правила для всех особых предметов",
-    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Заменить правила для всех особых предметов на 'Переместить в банк', 'Переместить в инвентарь' или 'Ничего не делать'",
+    SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE = "Заменить правила для всех особых предметов",
+    SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE_T = "Заменить правила для всех особых предметов на 'Переместить в банк', 'Переместить в инвентарь' или 'Ничего не делать'",
 
-    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Известные мотивы"}),
-    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Известные рецепты"}),
-    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Неизвестные мотивы"}),
-    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Неизвестные рецепты"}),
+    SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Известные мотивы"}),
+    SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Известные рецепты"}),
+    SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Неизвестные мотивы"}),
+    SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Неизвестные рецепты"}),
 
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Настраиваемые предметы",

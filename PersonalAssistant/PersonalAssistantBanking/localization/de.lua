@@ -24,19 +24,19 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Ändere alle obigen Dropdown-Listen nach",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Ändere alle obigen Handwerks Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'",
 
-    -- Advanced Items --
-    SI_PA_MENU_BANKING_ADVANCED_HEADER = "Spezielle Gegenstände",
-    SI_PA_MENU_BANKING_ADVANCED_ENABLE = "Aktiviere Transaktionen für Spezielle Gegenstände",
-    SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Speziellen Gegenständen?",
-    SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für spezielle Gegenstände",
+    -- Special Items --
+    SI_PA_MENU_BANKING_SPECIAL_HEADER = "Spezielle Gegenstände",
+    SI_PA_MENU_BANKING_SPECIAL_ENABLE = "Aktiviere Transaktionen für Spezielle Gegenstände",
+    SI_PA_MENU_BANKING_SPECIAL_ENABLE_T = "Aktiviere automatisches Einlagern und Entnehmen für die verschiedenen Speziellen Gegenständen?",
+    SI_PA_MENU_BANKING_SPECIAL_DESCRIPTION = "Definiere ein individuelles Verhalten (Einlagern, Entnehmen, oder Nichts machen) für spezielle Gegenstände",
 
-    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Ändere alle obigen Dropdown-Listen nach",
-    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Ändere alle obigen Speziellen Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'",
+    SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE = "Ändere alle obigen Dropdown-Listen nach",
+    SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE_T = "Ändere alle obigen Speziellen Dropdown-Listen nach 'In Truhe einlagern', 'Ins Inventar entnehmen', oder 'Nichts machen'",
 
-    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Bekannte Stile"}),
-    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Bekannte Rezepte"}),
-    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Stile"}),
-    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Rezepte"}),
+    SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Bekannte Stile"}),
+    SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Bekannte Rezepte"}),
+    SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Stile"}),
+    SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Rezepte"}),
 
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Einzelne Gegenstände",

@@ -129,8 +129,8 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBANK = "Переместить в банк",
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Переместить в инвентарь",
 
-    SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Глифы",
-    SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Предметы с особенностью Intricate",
+    SI_PA_MENU_BANKING_SPECIAL_GLYPHS = "Глифы",
+    SI_PA_MENU_BANKING_SPECIAL_INTRICATE_ITEMS = "Предметы с особенностью Intricate",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Ремонтные наборы",
 

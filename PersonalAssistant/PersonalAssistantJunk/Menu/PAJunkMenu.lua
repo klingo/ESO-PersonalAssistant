@@ -296,8 +296,8 @@ local function _createPAJMiscellaneousSubMenu()
 
     PAJMiscellaneousSubMenu:insert({
         type = "dropdown",
-        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)),
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, GetString(SI_PA_MENU_BANKING_SPECIAL_GLYPHS)),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, GetString(SI_PA_MENU_BANKING_SPECIAL_GLYPHS)),
         choices = PAJMenuChoices.qualityLevel,
         choicesValues = PAJMenuChoicesValues.qualityLevel,
         --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,

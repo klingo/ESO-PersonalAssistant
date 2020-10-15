@@ -24,19 +24,19 @@ local PABStrings = {
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE = "Changer tous les menus des objets d'artisanat en :",
     SI_PA_MENU_BANKING_CRAFTING_GLOBAL_MOVEMODE_T = "Changer tous les menus des objets d'artisanat précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'",
 
-    -- Advanced Items --
-    SI_PA_MENU_BANKING_ADVANCED_HEADER = "Objets spéciaux",
-    SI_PA_MENU_BANKING_ADVANCED_ENABLE = "Dépot/Retrait automatique des objets spéciaux",
-    SI_PA_MENU_BANKING_ADVANCED_ENABLE_T = "Activer la mise en banque ou le retrait automatique pour les objets spéciaux ?",
-    SI_PA_MENU_BANKING_ADVANCED_DESCRIPTION = "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets spéciaux",
+    -- Special Items --
+    SI_PA_MENU_BANKING_SPECIAL_HEADER = "Objets spéciaux",
+    SI_PA_MENU_BANKING_SPECIAL_ENABLE = "Dépot/Retrait automatique des objets spéciaux",
+    SI_PA_MENU_BANKING_SPECIAL_ENABLE_T = "Activer la mise en banque ou le retrait automatique pour les objets spéciaux ?",
+    SI_PA_MENU_BANKING_SPECIAL_DESCRIPTION = "Définir l'action à exécuter (dépose, retrait, aucune action) pour les objets spéciaux",
 
-    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE = "Changer tous les menus des objets spéciaux en :",
-    SI_PA_MENU_BANKING_ADVANCED_GLOBAL_MOVEMODE_T = "Changer tous les menus des objets spéciaux précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'",
+    SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE = "Changer tous les menus des objets spéciaux en :",
+    SI_PA_MENU_BANKING_SPECIAL_GLOBAL_MOVEMODE_T = "Changer tous les menus des objets spéciaux précédents en 'Déposer en banque', 'Prendre dans le sac', ou 'Ne rien faire'",
 
-    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Motifs connus"}),
-    SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Recettes connues"}),
-    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Motifs inconnus"}),
-    SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Recettes inconnues"}),
+    SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Motifs connus"}),
+    SI_PA_MENU_BANKING_SPECIAL_KNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.KNOWN.NORMAL, " Recettes connues"}),
+    SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Motifs inconnus"}),
+    SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Recettes inconnues"}),
 
     -- Individual Items --
     SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Objets utilitaires",
