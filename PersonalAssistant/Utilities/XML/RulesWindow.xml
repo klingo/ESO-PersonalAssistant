@@ -97,7 +97,7 @@
                             <Anchor point="LEFT" relativeTo="$(parent)HelpIcon" relativePoint="RIGHT" offsetX="-3"/>
                         </Label>
                         <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
-                            <Anchor point="TOPRIGHT" relativeTo="$(parent)List" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" />
+                            <Anchor point="TOPRIGHT" relativeTo="$(parent)List" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="10" />
                             <Controls>
                                 <Label name="$(parent)AddRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
                                     <Dimensions y="30" />
