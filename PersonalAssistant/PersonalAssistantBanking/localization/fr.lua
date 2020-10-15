@@ -118,6 +118,22 @@ local PABStrings = {
 
     SI_PA_DIALOG_BANKING_EXPLANATION = "Cela signifie, que si vous avez . . .",
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Simple Banking Rules --
+    SI_PA_DIALOG_BANKING_SIMPLE_DISCLAIMER = "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules --
+
+
+
+
+
+
+
+
+
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

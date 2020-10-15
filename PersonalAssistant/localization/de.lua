@@ -213,22 +213,6 @@ local PAStrings = {
     SI_PA_RULES_BANKING_NO_RULES = "Noch keine Banking Regeln definiert",
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- Simple Banking Rules --
-    SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER = "Anmerkung: Diese benutzerdefinierten Regeln werden erst berücksichtigt, wenn alle anderen automatischen Banking Regeln (Handwerks, Spezielle, und AvA Gegenstände) ausgeführt wurden.",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- Advanced Banking Rules --
-
-
-
-
-
-
-
-
-
-
-    -- -----------------------------------------------------------------------------------------------------------------
     -- Junk Rules --
     SI_PA_RULES_JUNK_NO_RULES = "Noch keine Regeln für Trödel definiert",
 

@@ -763,7 +763,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the ItemAction dropdown
         local itemActionLabelControl = window:GetNamedChild("ItemActionLabel")
-        itemActionLabelControl:SetText("Item Action") -- TODO: extract
+        itemActionLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_ACTION))
         local itemActionDropdownControl = window:GetNamedChild("ItemActionDropdown")
         itemActionDropdownControl.m_comboBox:AddItem(DropdownRefs.itemActionDepositoToBank)
         itemActionDropdownControl.m_comboBox:AddItem(DropdownRefs.itemActionWithdrawToBackpack)
@@ -783,7 +783,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the ItemGroup dropdown
         local itemGroupLabelControl = window:GetNamedChild("ItemGroupLabel")
-        itemGroupLabelControl:SetText("Item Group") -- TODO: extract
+        itemGroupLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_GROUP))
         local itemGroupDropdownControl = window:GetNamedChild("ItemGroupDropdown")
         itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupPleaseSelect)
         itemGroupDropdownControl.m_comboBox:AddItem(DropdownRefs.itemGroupWeapons)
@@ -807,7 +807,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the Quality shifterBox
         local itemQualityLabelControl = window:GetNamedChild("ItemQualityLabel")
-        itemQualityLabelControl:SetText("Item Qualities") -- TODO: extract
+        itemQualityLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_QUALITIES))
         _itemQualitiesShifterBox = _createAndReturnItemQualitiesShifterBox()
         _itemQualitiesShifterBox:SetAnchor(TOPLEFT, itemQualityLabelControl, BOTTOMLEFT, 40, -5)
         _itemQualitiesShifterBox:SetDimensions(360, 200)
@@ -818,7 +818,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the ItemType dropdown
         local itemTypeLabelControl = window:GetNamedChild("ItemTypeLabel")
-        itemTypeLabelControl:SetText("Item Types") -- TODO: extract
+        itemTypeLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TYPES))
         _itemTypesShifterBox = _createAndReturnItemTypesShifterBox()
         _itemTypesShifterBox:SetAnchor(TOPLEFT, itemTypeLabelControl, BOTTOMLEFT, 40, -5)
         _itemTypesShifterBox:SetDimensions(380, 200)
@@ -829,7 +829,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the Level Range / Champion Point Range
         local itemLevelLabelControl = window:GetNamedChild("ItemLevelLabel")
-        itemLevelLabelControl:SetText("Level / Champion Point Range") -- TODO: extract
+        itemLevelLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_LEVEL_RANGE))
         local itemLevelFromEdit = window:GetNamedChild("ItemLevelFromBg"):GetNamedChild("Edit")
         local itemLevelFromButton = window:GetNamedChild("ItemLevelFromButton")
         local itemLevelToEdit = window:GetNamedChild("ItemLevelToBg"):GetNamedChild("Edit")
@@ -942,7 +942,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the Set dropdown
         local itemSetLabelControl = window:GetNamedChild("ItemSetLabel")
-        itemSetLabelControl:SetText("Set Items") -- TODO: extract
+        itemSetLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS))
         local itemSetDropdownControl = window:GetNamedChild("ItemSetDropdown")
         itemSetDropdownControl.m_comboBox:AddItem(DropdownRefs.setBoth)
         itemSetDropdownControl.m_comboBox:AddItem(DropdownRefs.setYes)
@@ -963,7 +963,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the Crafted dropdown
         local itemCraftedLabelControl = window:GetNamedChild("ItemCraftedLabel")
-        itemCraftedLabelControl:SetText("Crafted") -- TODO: extract
+        itemCraftedLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS))
         local itemCraftedDropdownControl = window:GetNamedChild("ItemCraftedDropdown")
         itemCraftedDropdownControl.m_comboBox:AddItem(DropdownRefs.craftedBoth)
         itemCraftedDropdownControl.m_comboBox:AddItem(DropdownRefs.craftedYes)
@@ -984,7 +984,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the ItemTrait dropdown
         local itemCrafterLabelControl = window:GetNamedChild("ItemTraitLabel")
-        itemCrafterLabelControl:SetText("Item Traits") -- TODO: extract
+        itemCrafterLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TRAITS))
         local itemTraitDropdownControl = window:GetNamedChild("ItemTraitDropdown")
         itemTraitDropdownControl.m_comboBox:AddItem(DropdownRefs.traitBoth)
         itemTraitDropdownControl.m_comboBox:AddItem(DropdownRefs.traitKnown)
@@ -1008,7 +1008,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the TraitType shifterBox
         local itemTraitTypeLabelControl = window:GetNamedChild("ItemTraitTypeLabel")
-        itemTraitTypeLabelControl:SetText("Trait Types") -- TODO: extract
+        itemTraitTypeLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES))
         _traitTypesShifterBox = _createAndReturnTraitTypesShifterBox()
         _traitTypesShifterBox:SetAnchor(TOPLEFT, itemTraitTypeLabelControl, BOTTOMLEFT, 40, -5)
         _traitTypesShifterBox:SetDimensions(380, 200)

@@ -118,6 +118,22 @@ local PABStrings = {
 
     SI_PA_DIALOG_BANKING_EXPLANATION = "Das bedeutet, wenn du . . .",
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Simple Banking Rules --
+    SI_PA_DIALOG_BANKING_SIMPLE_DISCLAIMER = "Anmerkung: Diese benutzerdefinierten Regeln werden erst berücksichtigt, wenn alle anderen automatischen Banking Regeln (Handwerks, Spezielle, und AvA Gegenstände) ausgeführt wurden.",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules --
+
+
+
+
+
+
+
+
+
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

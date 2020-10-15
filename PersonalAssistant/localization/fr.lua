@@ -213,22 +213,6 @@ local PAStrings = {
     SI_PA_RULES_BANKING_NO_RULES = "Aucune règle de mise en banque définie",
 
     -- -----------------------------------------------------------------------------------------------------------------
-    -- Simple Banking Rules --
-    SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER = "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- Advanced Banking Rules --
-
-
-
-
-
-
-
-
-
-
-    -- -----------------------------------------------------------------------------------------------------------------
     -- Junk Rules --
     SI_PA_RULES_JUNK_NO_RULES = "Aucune règle de mise aux rebuts définie",
 

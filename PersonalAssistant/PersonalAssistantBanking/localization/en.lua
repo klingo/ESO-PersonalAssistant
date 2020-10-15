@@ -118,6 +118,22 @@ local PABStrings = {
 
     SI_PA_DIALOG_BANKING_EXPLANATION = "This means, if you have . . .",
 
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Simple Banking Rules --
+    SI_PA_DIALOG_BANKING_SIMPLE_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules --
+    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_ACTION = "Item Action",
+    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_GROUP = "Item Group",
+    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_QUALITIES = "Item Qualities",
+    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TYPES = "Item Types",
+    SI_PA_DIALOG_BANKING_ADVANCED_LEVEL_RANGE = "Level / Champion Point Range",
+    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TRAITS = "Item Traits",
+    SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES = "Trait Types",
+    SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS = "Set Items",
+    SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS = "Crafted Items",
+
 
     -- =================================================================================================================
     -- == CHAT OUTPUTS == --

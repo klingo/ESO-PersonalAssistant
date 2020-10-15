@@ -290,7 +290,7 @@ local function initPABAddCustomRuleUIDialog()
 
         -- initialize the disclaimer label
         local disclaimerLabelControl = window:GetNamedChild("DisclaimerLabel")
-        disclaimerLabelControl:SetText(GetString(SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER))
+        disclaimerLabelControl:SetText(GetString(SI_PA_DIALOG_BANKING_SIMPLE_DISCLAIMER))
         disclaimerLabelControl:SetDimensions(disclaimerLabelControl:GetTextDimensions())
 
         -- initialize the amount field
