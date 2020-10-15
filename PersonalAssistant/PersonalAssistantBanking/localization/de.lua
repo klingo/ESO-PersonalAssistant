@@ -44,7 +44,7 @@ local PABStrings = {
 
     -- Advanced Banking Rules --
     SI_PA_MENU_BANKING_RULES_ADVANCED_HEADER = "Erweiterte Bank Regeln",
-    SI_PA_MENU_BANKING_RULES_ADVANCED_DESCRIPTION = table.concat({"Erweiterte Bank Regeln ermöglichen das Erstellen von komplexen Regeln für Apparels, Jewelries, und Weapons um ganz spezifisch zu definieren welche in die Bank eingelagert, oder von dort entnommen werden sollen.\nDiese Regeln werden nach den einfachen Bank Regeln ausgeführt.", "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+    SI_PA_MENU_BANKING_RULES_ADVANCED_DESCRIPTION = table.concat({"Erweiterte Bank Regeln ermöglichen das Erstellen von komplexen Regeln für Rüstungen, Schmuck, und Waffen um ganz spezifisch zu definieren welche in die Bank eingelagert, oder von dort entnommen werden sollen.\nDiese Regeln werden nach den einfachen Bank Regeln ausgeführt.", "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
     SI_PA_MENU_BANKING_AVA_HEADER = "AvA Gegenstände",
@@ -86,6 +86,12 @@ local PABStrings = {
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Anzahl",
     SI_PA_MAINMENU_BANKING_HEADER_ITEM = "Gegenstand",
     SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Aktionen",
+
+    SI_PA_MAINMENU_BANKING_ADVANCED_HEADER = "Erweiterte Bank Regeln",
+    SI_PA_MAINMENU_BANKING_ADVANCED_RULE_ID = "#",
+    SI_PA_MAINMENU_BANKING_ADVANCED_BAG_ID = "<>",
+    SI_PA_MAINMENU_BANKING_ADVANCED_RULE_SUMMARY = "Regel Zusammenfassung",
+    SI_PA_MAINMENU_BANKING_ADVANCED_ACTIONS = "Aktionen",
 
 
     -- =================================================================================================================

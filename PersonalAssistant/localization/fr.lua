@@ -59,6 +59,9 @@ local PAStrings = {
     SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"Toutes les règles actives peuvent être retrouvées en cliquant sur l'icône qui se trouve dans le menu principal, en tapant ", PAC.COLOR.YELLOW:Colorize("/parules"), " ou en cliquant sur ce bouton :"}),
     SI_PA_MENU_RULES_HOW_TO_CREATE = "Comment créer de nouvelles règles?",
 
+--    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS = "How do these rules work?",
+--    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS_DESCRIPTION = "Whenever you access your bank, all enabled rules will be executed based on their order, starting with rule #1.\nThese rules are executed after the simple banking rules.",
+
     SI_PA_MENU_DANGEROUS_SETTING = "ATTENTION : Paramètres dangereux ! Utilisez à vos risques et périls !",
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -190,22 +193,52 @@ local PAStrings = {
 
 
     -- =================================================================================================================
-    -- == CUSTOM SUB MENU == --
+    -- == RULES == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_SUBMENU_PAB_ADD_RULE = "Ajouter une nouvelle règle",
-    SI_PA_SUBMENU_PAB_EDIT_RULE = "Éditer une règle",
-    SI_PA_SUBMENU_PAB_DELETE_RULE = "Supprimer une règle",
-    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Activer la règle",
-    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Désactiver la règle",
-    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Ajouter",
-    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Sauvegarder",
-    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Supprimer",
-    SI_PA_SUBMENU_PAB_NO_RULES = "Aucune règle de mise en banque définie",
-    SI_PA_SUBMENU_PAB_DISCLAIMER = "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).",
+    -- Generic --
+    SI_PA_RULES_GENERIC_ADD_RULE = "Ajouter une nouvelle règle",
+    SI_PA_RULES_GENERIC_UPDATE_RULE = "Éditer une règle",
+    SI_PA_RULES_GENERIC_DELETE_RULE = "Supprimer une règle",
+    SI_PA_RULES_GENERIC_ENABLE_RULE = "Activer la règle",
+    SI_PA_RULES_GENERIC_DISABLE_RULE = "Désactiver la règle",
+--    SI_PA_RULES_GENERIC_MOVEUP_RULE = "Move rule up",
+--    SI_PA_RULES_GENERIC_MOVEDOWN_RULE = "Move rule down",
 
-    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Marquer en tant que rebut permanent",
-    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Ne plus marquer en tant que rebut permanent",
-    SI_PA_SUBMENU_PAJ_NO_RULES = "Aucune règle de mise aux rebuts définie",
+    SI_PA_RULES_GENERIC_ADD_RULE_BUTTON = "Ajouter",
+    SI_PA_RULES_GENERIC_UPDATE_RULE_BUTTON = "Sauvegarder",
+    SI_PA_RULES_GENERIC_DELETE_RULE_BUTTON = "Supprimer",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Banking Rules --
+    SI_PA_RULES_BANKING_NO_RULES = "Aucune règle de mise en banque définie",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Simple Banking Rules --
+    SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER = "Note: Ces règles de mise en banque seront exécutées après toutes les autres règles de mise en banque automatiques (Artisanat, Spécial, Objets AvA).",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules --
+
+
+
+
+
+
+
+
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_RULES_JUNK_NO_RULES = "Aucune règle de mise aux rebuts définie",
+
+
+    -- =================================================================================================================
+    -- == ITEM CONTEXT MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_CONTEXTMENU_PAJ_MARK_PERM_JUNK = "Marquer en tant que rebut permanent",
+    SI_PA_CONTEXTMENU_PAJ_UNMARK_PERM_JUNK = "Ne plus marquer en tant que rebut permanent",
 
 
     -- =================================================================================================================

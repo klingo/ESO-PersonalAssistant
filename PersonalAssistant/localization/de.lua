@@ -59,6 +59,9 @@ local PAStrings = {
     SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"Alle aktiven Regeln können entweder via dem Icon im oberen Hauptmenü (das mit der [Alt] Taste geöffnet wird) gefunden werden, mit ", PAC.COLOR.YELLOW:Colorize("/parules"), " oder anhand dieses Buttons:"}),
     SI_PA_MENU_RULES_HOW_TO_CREATE = "Wie neue Regeln erstellen?",
 
+    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS = "Wie funktionieren diese Regeln?",
+    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS_DESCRIPTION = "Sobald auf die Bank zugegriffen wird werden alle aktiven Regeln gemäss ihrer Sortierung ausgeführt, angefangen mit Regel #1.\nDiese Regeln werden nach den einfachen Bank Regeln ausgeführt.",
+
     SI_PA_MENU_DANGEROUS_SETTING = "ACHTUNG: Riskante Einstellung! Verwendung auf eigenes Risiko!",
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -190,22 +193,52 @@ local PAStrings = {
 
 
     -- =================================================================================================================
-    -- == CUSTOM SUB MENU == --
+    -- == RULES == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_SUBMENU_PAB_ADD_RULE = "Neue Regel hinzufügen",
-    SI_PA_SUBMENU_PAB_EDIT_RULE = "Regel bearbeiten",
-    SI_PA_SUBMENU_PAB_DELETE_RULE = "Regel löschen",
-    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Regel aktivieren",
-    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Regel deaktivieren",
-    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Hinzufügen",
-    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Speichern",
-    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Löschen",
-    SI_PA_SUBMENU_PAB_NO_RULES = "Noch keine Banking Regeln definiert",
-    SI_PA_SUBMENU_PAB_DISCLAIMER = "Anmerkung: Diese benutzerdefinierten Regeln werden erst berücksichtigt, wenn alle anderen automatischen Banking Regeln (Handwerks, Spezielle, und AvA Gegenstände) ausgeführt wurden.",
+    -- Generic --
+    SI_PA_RULES_GENERIC_ADD_RULE = "Neue Regel hinzufügen",
+    SI_PA_RULES_GENERIC_UPDATE_RULE = "Regel bearbeiten",
+    SI_PA_RULES_GENERIC_DELETE_RULE = "Regel löschen",
+    SI_PA_RULES_GENERIC_ENABLE_RULE = "Regel aktivieren",
+    SI_PA_RULES_GENERIC_DISABLE_RULE = "Regel deaktivieren",
+    SI_PA_RULES_GENERIC_MOVEUP_RULE = "Regel nach oben",
+    SI_PA_RULES_GENERIC_MOVEDOWN_RULE = "Regel nach unten",
 
-    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Als permanenten Trödel markieren",
-    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Als permanenten Trödel demarkieren",
-    SI_PA_SUBMENU_PAJ_NO_RULES = "Noch keine Regeln für Trödel definiert",
+    SI_PA_RULES_GENERIC_ADD_RULE_BUTTON = "Hinzufügen",
+    SI_PA_RULES_GENERIC_UPDATE_RULE_BUTTON = "Speichern",
+    SI_PA_RULES_GENERIC_DELETE_RULE_BUTTON = "Löschen",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Banking Rules --
+    SI_PA_RULES_BANKING_NO_RULES = "Noch keine Banking Regeln definiert",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Simple Banking Rules --
+    SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER = "Anmerkung: Diese benutzerdefinierten Regeln werden erst berücksichtigt, wenn alle anderen automatischen Banking Regeln (Handwerks, Spezielle, und AvA Gegenstände) ausgeführt wurden.",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules --
+
+
+
+
+
+
+
+
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_RULES_JUNK_NO_RULES = "Noch keine Regeln für Trödel definiert",
+
+
+    -- =================================================================================================================
+    -- == ITEM CONTEXT MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_CONTEXTMENU_PAJ_MARK_PERM_JUNK = "Als permanenten Trödel markieren",
+    SI_PA_CONTEXTMENU_PAJ_UNMARK_PERM_JUNK = "Als permanenten Trödel demarkieren",
 
 
     -- =================================================================================================================

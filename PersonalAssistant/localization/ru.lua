@@ -59,6 +59,9 @@ local PAStrings = {
     SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"Вы можете увидеть все активные правила нажав на иконку в главном меню, которое вы можете открыть с помощью клавиши [Alt], через команду ", PAC.COLOR.YELLOW:Colorize("/parules"), " или нажав на эту кнопку:"}),
     SI_PA_MENU_RULES_HOW_TO_CREATE = "Как создать новое правило?",
 
+--    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS = "How do these rules work?",
+--    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS_DESCRIPTION = "Whenever you access your bank, all enabled rules will be executed based on their order, starting with rule #1.\nThese rules are executed after the simple banking rules.",
+
     SI_PA_MENU_DANGEROUS_SETTING = "ВНИМАНИЕ: Опасная настройка! Используйте на свой страх и риск!",
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -190,22 +193,52 @@ local PAStrings = {
 
 
     -- =================================================================================================================
-    -- == CUSTOM SUB MENU == --
+    -- == RULES == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_SUBMENU_PAB_ADD_RULE = "Добавить новое правило",
-    SI_PA_SUBMENU_PAB_EDIT_RULE = "Изменить правило",
-    SI_PA_SUBMENU_PAB_DELETE_RULE = "Удалить правило",
-    --SI_PA_SUBMENU_PAB_ENABLE_RULE = "",
-    --SI_PA_SUBMENU_PAB_DISABLE_RULE = "",
-    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Добавить",
-    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Сохранить",
-    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Удалить",
-    SI_PA_SUBMENU_PAB_NO_RULES = "Не задано правил для банкинга",
-    SI_PA_SUBMENU_PAB_DISCLAIMER = "Замечание: эти пользовательские правила будут обработаны после всех автоматических правил (ремесленных предметов, особых предметов и предметов войны альянсов).",
+    -- Generic --
+    SI_PA_RULES_GENERIC_ADD_RULE = "Добавить новое правило",
+    SI_PA_RULES_GENERIC_UPDATE_RULE = "Изменить правило",
+    SI_PA_RULES_GENERIC_DELETE_RULE = "Удалить правило",
+--    SI_PA_RULES_GENERIC_ENABLE_RULE = "Enable rule",
+--    SI_PA_RULES_GENERIC_DISABLE_RULE = "Disable rule",
+--    SI_PA_RULES_GENERIC_MOVEUP_RULE = "Move rule up",
+--    SI_PA_RULES_GENERIC_MOVEDOWN_RULE = "Move rule down",
 
-    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Пометить как хлам",
-    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Убрать пометку как хлам",
-    SI_PA_SUBMENU_PAJ_NO_RULES = "Не задано правил для хлама",
+    SI_PA_RULES_GENERIC_ADD_RULE_BUTTON = "Добавить",
+    SI_PA_RULES_GENERIC_UPDATE_RULE_BUTTON = "Сохранить",
+    SI_PA_RULES_GENERIC_DELETE_RULE_BUTTON = "Удалить",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Banking Rules --
+    SI_PA_RULES_BANKING_NO_RULES = "Не задано правил для банкинга",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Simple Banking Rules --
+    SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER = "Замечание: эти пользовательские правила будут обработаны после всех автоматических правил (ремесленных предметов, особых предметов и предметов войны альянсов).",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules --
+
+
+
+
+
+
+
+
+
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_RULES_JUNK_NO_RULES = "Не задано правил для хлама",
+
+
+    -- =================================================================================================================
+    -- == ITEM CONTEXT MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_CONTEXTMENU_PAJ_MARK_PERM_JUNK = "Пометить как хлам",
+    SI_PA_CONTEXTMENU_PAJ_UNMARK_PERM_JUNK = "Убрать пометку как хлам",
 
 
     -- =================================================================================================================

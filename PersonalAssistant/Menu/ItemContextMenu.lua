@@ -28,7 +28,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
             local isRuleExisting = PAHF.isKeyInTable(PABCustomPAItemIds, paItemId)
             local entries = {
                 {
-                    label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
+                    label = GetString(SI_PA_RULES_GENERIC_ADD_RULE),
                     callback = function()
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.showPABAddCustomRuleUIDialog(itemLink)
@@ -36,7 +36,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                     disabled = function() return isRuleExisting end,
                 },
                 {
-                    label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
+                    label = GetString(SI_PA_RULES_GENERIC_UPDATE_RULE),
                     callback = function()
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.showPABAddCustomRuleUIDialog(itemLink, PABCustomPAItemIds[paItemId])
@@ -44,7 +44,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                     disabled = function() return not isRuleExisting end,
                 },
                 {
-                    label = GetString(SI_PA_SUBMENU_PAB_DELETE_RULE),
+                    label = GetString(SI_PA_RULES_GENERIC_DELETE_RULE),
                     callback = function()
                         PA.CustomDialogs.initPABAddCustomRuleUIDialog()
                         PA.CustomDialogs.deletePABCustomRule(itemLink)
@@ -63,14 +63,14 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
         local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
         local entries = {
             {
-                label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
+                label = GetString(SI_PA_CONTEXTMENU_PAJ_MARK_PERM_JUNK),
                 callback = function()
                     PA.Junk.addItemToPermanentJunk(itemLink, bagId, slotIndex)
                 end,
                 disabled = function() return not canBeMarkedAsJunk or isRuleExisting end,
             },
             {
-                label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
+                label = GetString(SI_PA_CONTEXTMENU_PAJ_UNMARK_PERM_JUNK),
                 callback = function()
                     PA.Junk.removeItemFromPermanentJunk(itemLink)
                 end,

@@ -290,7 +290,7 @@ local function initPABAddCustomRuleUIDialog()
 
         -- initialize the disclaimer label
         local disclaimerLabelControl = window:GetNamedChild("DisclaimerLabel")
-        disclaimerLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_DISCLAIMER))
+        disclaimerLabelControl:SetText(GetString(SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER))
         disclaimerLabelControl:SetDimensions(disclaimerLabelControl:GetTextDimensions())
 
         -- initialize the amount field
@@ -325,7 +325,7 @@ local function initPABAddCustomRuleUIDialog()
         -- initialize the localized buttons
         local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
         local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
-        addRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
+        addRuleLabelControl:SetText(GetString(SI_PA_RULES_GENERIC_ADD_RULE_BUTTON))
         addRuleLabelControl:SetDimensions(addRuleLabelControl:GetTextDimensions())
         addRuleButtonControl:SetHandler("OnClicked", function()
             _addCustomRuleClicked(false)
@@ -333,7 +333,7 @@ local function initPABAddCustomRuleUIDialog()
 
         local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
         local updateRuleLabelControl = updateRuleButtonControl:GetNamedChild("UpdateRuleLabel")
-        updateRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
+        updateRuleLabelControl:SetText(GetString(SI_PA_RULES_GENERIC_UPDATE_RULE_BUTTON))
         updateRuleLabelControl:SetDimensions(updateRuleLabelControl:GetTextDimensions())
         updateRuleButtonControl:SetHandler("OnClicked", function()
             _addCustomRuleClicked(true)
@@ -341,7 +341,7 @@ local function initPABAddCustomRuleUIDialog()
 
         local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
         local deleteRuleLabelControl = deleteRuleButtonControl:GetNamedChild("DeleteRuleLabel")
-        deleteRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        deleteRuleLabelControl:SetText(GetString(SI_PA_RULES_GENERIC_DELETE_RULE_BUTTON))
         deleteRuleLabelControl:SetDimensions(deleteRuleLabelControl:GetTextDimensions())
         deleteRuleButtonControl:SetHandler("OnClicked", function()
             deletePABCustomRule(itemLabelControl:GetText())
@@ -373,7 +373,7 @@ local function showPABAddCustomRuleUIDialog(itemLink, existingRuleValues)
     local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
 
     if existingRuleValues then
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_SUBMENU_PAB_EDIT_RULE)}))
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_RULES_GENERIC_UPDATE_RULE)}))
         -- initialise with existing values
         local bagEntry, mathOperatorEntry = _getDropdownValuesFromBankingOperator(existingRuleValues.operator)
         _selectedAmount = existingRuleValues.bagAmount
@@ -385,7 +385,7 @@ local function showPABAddCustomRuleUIDialog(itemLink, existingRuleValues)
         updateRuleButtonControl:SetHidden(false)
         deleteRuleButtonControl:SetHidden(false)
     else
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_SUBMENU_PAB_ADD_RULE)}))
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_RULES_GENERIC_ADD_RULE)}))
         -- otherwise initialise default values
         _selectedAmount = PAC.BACKPACK_AMOUNT.DEFAULT
         bagDropdownControl:SelectDefault()

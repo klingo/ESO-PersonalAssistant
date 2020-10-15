@@ -59,6 +59,9 @@ local PAStrings = {
     SI_PA_MENU_RULES_HOW_TO_FIND_MENU = table.concat({"You can find all active rules via the icon in the top main menu that you can open with [Alt] key, with ", PAC.COLOR.YELLOW:Colorize("/parules"), " or by clicking on this button:"}),
     SI_PA_MENU_RULES_HOW_TO_CREATE = "How to create new rules?",
 
+    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS = "How do these rules work?",
+    SI_PA_MENU_ADVANCED_RULES_HOW_WORKS_DESCRIPTION = "Whenever you access your bank, all enabled rules will be executed based on their order, starting with rule #1.\nThese rules are executed after the simple banking rules.",
+
     SI_PA_MENU_DANGEROUS_SETTING = "WARNING: Dangerous setting ahead! Use at own risk!",
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -190,22 +193,52 @@ local PAStrings = {
 
 
     -- =================================================================================================================
-    -- == CUSTOM SUB MENU == --
+    -- == RULES == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_SUBMENU_PAB_ADD_RULE = "Add new rule",
-    SI_PA_SUBMENU_PAB_EDIT_RULE = "Modify rule",
-    SI_PA_SUBMENU_PAB_DELETE_RULE = "Delete rule",
-    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Enable rule",
-    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Disable rule",
-    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Add",
-    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Save",
-    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Delete",
-    SI_PA_SUBMENU_PAB_NO_RULES = "No banking rules defined yet",
-    SI_PA_SUBMENU_PAB_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.",
+    -- Generic --
+    SI_PA_RULES_GENERIC_ADD_RULE = "Add new rule",
+    SI_PA_RULES_GENERIC_UPDATE_RULE = "Modify rule",
+    SI_PA_RULES_GENERIC_DELETE_RULE = "Delete rule",
+    SI_PA_RULES_GENERIC_ENABLE_RULE = "Enable rule",
+    SI_PA_RULES_GENERIC_DISABLE_RULE = "Disable rule",
+    SI_PA_RULES_GENERIC_MOVEUP_RULE = "Move rule up",
+    SI_PA_RULES_GENERIC_MOVEDOWN_RULE = "Move rule down",
 
-    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Mark as permanent junk",
-    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",
-    SI_PA_SUBMENU_PAJ_NO_RULES = "No junk rules defined yet",
+    SI_PA_RULES_GENERIC_ADD_RULE_BUTTON = "Add",
+    SI_PA_RULES_GENERIC_UPDATE_RULE_BUTTON = "Save",
+    SI_PA_RULES_GENERIC_DELETE_RULE_BUTTON = "Delete",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Banking Rules --
+    SI_PA_RULES_BANKING_NO_RULES = "No banking rules defined yet",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Simple Banking Rules --
+    SI_PA_RULES_BANKING_SIMPLE_DISCLAIMER = "Disclaimer: These custom banking rules will be run after all other Auto Banking rules (Crafting, Special, and AvA Items) have been executed first.",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules --
+    SI_PA_RULES_BANKING_ADVANCED_ITEM_ACTION = "Item Action",
+    SI_PA_RULES_BANKING_ADVANCED_ITEM_GROUP = "Item Group",
+    SI_PA_RULES_BANKING_ADVANCED_ITEM_QUALITIES = "Item Qualities",
+    SI_PA_RULES_BANKING_ADVANCED_ITEM_TYPES = "Item Types",
+    SI_PA_RULES_BANKING_ADVANCED_LEVEL_RANGE = "Level / Chamption Point Range",
+    SI_PA_RULES_BANKING_ADVANCED_ITEM_TRAITS = "Item Traits",
+    SI_PA_RULES_BANKING_ADVANCED_TRAIT_TYPES = "Trait Types",
+    SI_PA_RULES_BANKING_ADVANCED_SET_ITEMS = "Set Items",
+    SI_PA_RULES_BANKING_ADVANCED_CRAFTED_ITEMS = "Crafted Items",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_RULES_JUNK_NO_RULES = "No junk rules defined yet",
+
+
+    -- =================================================================================================================
+    -- == ITEM CONTEXT MENU == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Junk Rules --
+    SI_PA_CONTEXTMENU_PAJ_MARK_PERM_JUNK = "Mark as permanent junk",
+    SI_PA_CONTEXTMENU_PAJ_UNMARK_PERM_JUNK = "Unmark as permanent junk",
 
 
     -- =================================================================================================================

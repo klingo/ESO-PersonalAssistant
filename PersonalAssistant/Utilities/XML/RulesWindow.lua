@@ -255,7 +255,7 @@ function PABankingRulesList:Initialize(control)
     -- initialize the SortFilterList
     ZO_SortFilterList.Initialize(self, control)
     -- set a text that is displayed when there are no entries
-    self:SetEmptyText(GetString(SI_PA_SUBMENU_PAB_NO_RULES))
+    self:SetEmptyText(GetString(SI_PA_RULES_BANKING_NO_RULES))
     -- default sorting key
     self.sortHeaderGroup:SelectHeaderByKey("itemName")
     ZO_SortHeader_OnMouseExit(BankingRulesTabControl:GetNamedChild("Headers"):GetNamedChild("ItemName"))
@@ -335,22 +335,22 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         onRowMouseEnter(itemNameControl:GetParent())
     end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
-        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE))
+        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_DELETE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(deleteButtonControl:GetParent())
     end
     local function onEditButtonMouseEnter(editButtonControl)
-        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE))
+        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_UPDATE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(editButtonControl:GetParent())
     end
     local function onEnableButtonMouseEnter(enableButtonControl)
-        ZO_Tooltips_ShowTextTooltip(enableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_ENABLE_RULE))
+        ZO_Tooltips_ShowTextTooltip(enableButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_ENABLE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(enableButtonControl:GetParent())
     end
     local function onDisableButtonMouseEnter(disableButtonControl)
-        ZO_Tooltips_ShowTextTooltip(disableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DISABLE_RULE))
+        ZO_Tooltips_ShowTextTooltip(disableButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_DISABLE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(disableButtonControl:GetParent())
     end
@@ -506,7 +506,7 @@ function PABankingAdvancedRulesList:Initialize(control)
     -- initialize the SortFilterList
     ZO_SortFilterList.Initialize(self, control)
     -- set a text that is displayed when there are no entries
-    self:SetEmptyText("No advanced banking rules defined yet") -- TODO: extract
+    self:SetEmptyText(GetString(SI_PA_RULES_BANKING_NO_RULES))
     -- default sorting key
     self.sortHeaderGroup:SelectHeaderByKey("ruleId")
     ZO_SortHeader_OnMouseExit(BankingAdvancedRulesTabControl:GetNamedChild("Headers"):GetNamedChild("RuleId"))
@@ -588,32 +588,32 @@ function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
         prioDownButtonControl:SetHidden(true)
     end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
-        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE))
+        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_DELETE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the ruleSummary
         onRowMouseEnter(deleteButtonControl:GetParent())
     end
     local function onEditButtonMouseEnter(editButtonControl)
-        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_EDIT_RULE))
+        ZO_Tooltips_ShowTextTooltip(editButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_UPDATE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the ruleSummary
         onRowMouseEnter(editButtonControl:GetParent())
     end
     local function onEnableButtonMouseEnter(enableButtonControl)
-        ZO_Tooltips_ShowTextTooltip(enableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_ENABLE_RULE))
+        ZO_Tooltips_ShowTextTooltip(enableButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_ENABLE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(enableButtonControl:GetParent())
     end
     local function onDisableButtonMouseEnter(disableButtonControl)
-        ZO_Tooltips_ShowTextTooltip(disableButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DISABLE_RULE))
+        ZO_Tooltips_ShowTextTooltip(disableButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_DISABLE_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(disableButtonControl:GetParent())
     end
     local function onPrioUpButtonMouseEnter(prioUpButtonControl)
-        ZO_Tooltips_ShowTextTooltip(prioUpButtonControl, TOP, "Move Up") -- TODO: localization
+        ZO_Tooltips_ShowTextTooltip(prioUpButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_MOVEUP_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(prioUpButtonControl:GetParent())
     end
     local function onPrioDownButtonMouseEnter(prioDownButtonControl)
-        ZO_Tooltips_ShowTextTooltip(prioDownButtonControl, TOP, "Move Down") -- TODO: localization
+        ZO_Tooltips_ShowTextTooltip(prioDownButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_MOVEDOWN_RULE))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(prioDownButtonControl:GetParent())
     end
@@ -710,18 +710,18 @@ end
 function PABankingAdvancedRulesList:InitHeaders()
     -- Initialise the headers
     local headers = BankingAdvancedRulesTabControl:GetNamedChild("Headers")
-    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleId"), "#", "ruleId", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
-    ZO_SortHeader_Initialize(headers:GetNamedChild("BagIcon"), "<>", "bagId", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
-    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleSummary"), "Rule Summary", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader") -- TODO: extract
-    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), "Actions", NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader") -- TODO: extract
+    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleId"), GetString(SI_PA_MAINMENU_BANKING_ADVANCED_RULE_ID), "ruleId", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("BagIcon"), GetString(SI_PA_MAINMENU_BANKING_ADVANCED_BAG_ID), "bagId", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("RuleSummary"), GetString(SI_PA_MAINMENU_BANKING_ADVANCED_RULE_SUMMARY), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("Actions"), GetString(SI_PA_MAINMENU_BANKING_ADVANCED_ACTIONS), NO_SORT_KEY, ZO_SORT_ORDER_DOWN, TEXT_ALIGN_RIGHT, "ZoFontHeader")
 end
 
 function PABankingAdvancedRulesList:InitFooters()
     local helpLabelControl = BankingAdvancedRulesTabControl:GetNamedChild("HelpLabel")
-    helpLabelControl:SetText("How do these rules work?") -- TODO: extract
+    helpLabelControl:SetText(GetString(SI_PA_MENU_ADVANCED_RULES_HOW_WORKS))
     helpLabelControl:SetDimensions(helpLabelControl:GetTextDimensions())
     helpLabelControl:SetHandler("OnMouseEnter", function(self)
-        ZO_Tooltips_ShowTextTooltip(self, TOP, "Whenever you access your bank, all enabled rules will be executed based on their order, starting with rule #1.") -- TODO: extract
+        ZO_Tooltips_ShowTextTooltip(self, TOP, GetString(SI_PA_MENU_ADVANCED_RULES_HOW_WORKS_DESCRIPTION))
         local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_HIGHLIGHT)
         self:SetColor(r, g, b, 1)
     end)
@@ -733,7 +733,7 @@ function PABankingAdvancedRulesList:InitFooters()
 
     local addRuleButtonControl = BankingAdvancedRulesTabControl:GetNamedChild("AddRuleButton")
     local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
-    addRuleLabelControl:SetText("Add new rule") -- TODO: extract
+    addRuleLabelControl:SetText(GetString(SI_PA_RULES_GENERIC_ADD_RULE))
     addRuleLabelControl:SetDimensions(addRuleLabelControl:GetTextDimensions())
     addRuleButtonControl:SetHandler("OnClicked", function()
         PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog() -- make sure it has been initialized
@@ -785,7 +785,7 @@ function PAJunkRulesList:Initialize(control)
     -- initialize the SortFilterList
     ZO_SortFilterList.Initialize(self, control)
     -- set a text that is displayed when there are no entries
-    self:SetEmptyText(GetString(SI_PA_SUBMENU_PAJ_NO_RULES))
+    self:SetEmptyText(GetString(SI_PA_RULES_JUNK_NO_RULES))
     -- default sorting key
     self.sortHeaderGroup:SelectHeaderByKey("itemName")
     ZO_SortHeader_OnMouseExit(JunkRulesTabControl:GetNamedChild("Headers"):GetNamedChild("ItemName"))
@@ -859,7 +859,7 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
         onRowMouseExit(itemNameControl:GetParent())
     end
     local function onDeleteButtonMouseEnter(deleteButtonControl)
-        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        ZO_Tooltips_ShowTextTooltip(deleteButtonControl, TOP, GetString(SI_PA_RULES_GENERIC_DELETE_RULE_BUTTON))
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(deleteButtonControl:GetParent())
     end

@@ -1027,7 +1027,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
         -- initialize the localized buttons
         local addRuleButtonControl = window:GetNamedChild("AddRuleButton")
         local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
-        addRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON))
+        addRuleLabelControl:SetText(GetString(SI_PA_RULES_GENERIC_ADD_RULE_BUTTON))
         addRuleLabelControl:SetDimensions(addRuleLabelControl:GetTextDimensions())
         addRuleButtonControl:SetHandler("OnClicked", function()
             _addCustomAdvancedRuleClicked(false)
@@ -1035,7 +1035,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         local updateRuleButtonControl = window:GetNamedChild("UpdateRuleButton")
         local updateRuleLabelControl = updateRuleButtonControl:GetNamedChild("UpdateRuleLabel")
-        updateRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON))
+        updateRuleLabelControl:SetText(GetString(SI_PA_RULES_GENERIC_UPDATE_RULE_BUTTON))
         updateRuleLabelControl:SetDimensions(updateRuleLabelControl:GetTextDimensions())
         updateRuleButtonControl:SetHandler("OnClicked", function()
             _addCustomAdvancedRuleClicked(true)
@@ -1043,7 +1043,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         local deleteRuleButtonControl = window:GetNamedChild("DeleteRuleButton")
         local deleteRuleLabelControl = deleteRuleButtonControl:GetNamedChild("DeleteRuleLabel")
-        deleteRuleLabelControl:SetText(GetString(SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON))
+        deleteRuleLabelControl:SetText(GetString(SI_PA_RULES_GENERIC_DELETE_RULE_BUTTON))
         deleteRuleLabelControl:SetDimensions(deleteRuleLabelControl:GetTextDimensions())
         deleteRuleButtonControl:SetHandler("OnClicked", function()
             deletePABCustomAdvancedRule(_ruleCache.ruleId)
@@ -1069,7 +1069,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
 
     if existingRuleId then
         -- init with existing values
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, " Modify advanced rule"})) -- TODO: extract
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_RULES_GENERIC_UPDATE_RULE)}))
         -- get rule settings
         local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
         local ruleSettingRaw = PABAdvancedRules[existingRuleId].ruleRaw
@@ -1103,7 +1103,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         deleteRuleButtonControl:SetHidden(false)
     else
         -- reset to default values
-        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, "Add new advanced rule"})) -- TODO: extract
+        headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_RULES_GENERIC_ADD_RULE)}))
         itemActionDropdownControl:SelectDefault()
         itemGroupDropdownControl:SelectDefault()
         itemSetDropdownControl:SelectDefault()

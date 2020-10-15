@@ -88,6 +88,10 @@ local PABStrings = {
     SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Actions",
 
     SI_PA_MAINMENU_BANKING_ADVANCED_HEADER = "Advanced Banking Rules",
+    SI_PA_MAINMENU_BANKING_ADVANCED_RULE_ID = "#",
+    SI_PA_MAINMENU_BANKING_ADVANCED_BAG_ID = "<>",
+    SI_PA_MAINMENU_BANKING_ADVANCED_RULE_SUMMARY = "Rule Summary",
+    SI_PA_MAINMENU_BANKING_ADVANCED_ACTIONS = "Actions",
 
 
     -- =================================================================================================================

@@ -87,6 +87,12 @@ local PABStrings = {
     SI_PA_MAINMENU_BANKING_HEADER_ITEM = "Objet ciblé par la règle",
     SI_PA_MAINMENU_BANKING_HEADER_ACTIONS = "Gérer",
 
+--    SI_PA_MAINMENU_BANKING_ADVANCED_HEADER = "",
+--    SI_PA_MAINMENU_BANKING_ADVANCED_RULE_ID = "#",
+--    SI_PA_MAINMENU_BANKING_ADVANCED_BAG_ID = "<>",
+--    SI_PA_MAINMENU_BANKING_ADVANCED_RULE_SUMMARY = "",
+--    SI_PA_MAINMENU_BANKING_ADVANCED_ACTIONS = "",
+
 
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
