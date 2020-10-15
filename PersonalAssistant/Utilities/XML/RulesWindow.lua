@@ -716,7 +716,20 @@ function PABankingAdvancedRulesList:InitHeaders()
 end
 
 function PABankingAdvancedRulesList:InitFooters()
-    d("InitFooters")
+    local helpLabelControl = BankingAdvancedRulesTabControl:GetNamedChild("HelpLabel")
+    helpLabelControl:SetText("How do these rules work?") -- TODO: extract
+    helpLabelControl:SetDimensions(helpLabelControl:GetTextDimensions())
+    helpLabelControl:SetHandler("OnMouseEnter", function(self)
+        ZO_Tooltips_ShowTextTooltip(self, TOP, "Whenever you access your bank, all enabled rules will be executed based on their order, starting with rule #1.") -- TODO: extract
+        local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_HIGHLIGHT)
+        self:SetColor(r, g, b, 1)
+    end)
+    helpLabelControl:SetHandler("OnMouseExit", function(self)
+        ZO_Tooltips_HideTextTooltip()
+        local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_CONTRAST)
+        self:SetColor(r, g, b, 1)
+    end)
+
     local addRuleButtonControl = BankingAdvancedRulesTabControl:GetNamedChild("AddRuleButton")
     local addRuleLabelControl = addRuleButtonControl:GetNamedChild("AddRuleLabel")
     addRuleLabelControl:SetText("Add new rule") -- TODO: extract

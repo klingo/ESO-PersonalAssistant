@@ -89,8 +89,15 @@
                             <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetX="40" />
                             <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="60" />
                         </Control>
-                        <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
+                        <Texture name="$(parent)HelpIcon" textureFile="/esoui/art/help/help_tabicon_tutorial_up.dds">
                             <Anchor point="TOPLEFT" relativeTo="$(parent)List" relativePoint="BOTTOMLEFT" offsetY="5" />
+                            <Dimensions x="36" y="36" />
+                        </Texture>
+                        <Label name="$(parent)HelpLabel" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_CONTRAST" mouseEnabled="true">
+                            <Anchor point="LEFT" relativeTo="$(parent)HelpIcon" relativePoint="RIGHT" offsetX="-3"/>
+                        </Label>
+                        <Button name="$(parent)AddRuleButton" inherits="ZO_DefaultButton">
+                            <Anchor point="TOPRIGHT" relativeTo="$(parent)List" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" />
                             <Controls>
                                 <Label name="$(parent)AddRuleLabel" font="ZoFontGame" verticalAlignment="CENTER" horizontalAlignment="CENTER">
                                     <Dimensions y="30" />
