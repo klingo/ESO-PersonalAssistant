@@ -528,11 +528,12 @@ function PABankingAdvancedRulesList:FilterScrollList()
         local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
         -- populate the table that is used as source for the list
         for ruleId, ruleSetting in pairs(PABAdvancedRules) do
+            local ruleObj = PA.CustomDialogs.getPABRuleSummaryFromRawSettings(ruleSetting.ruleRaw, true)
             local rowData = {
                 ruleId = ruleId,
                 bagId = tonumber(zo_strsub(ruleSetting.ruleRaw, 1, 1)),
-                ruleSummary = PA.CustomDialogs.getPABRuleSummaryFromRawSettings(ruleSetting.ruleRaw),
-                ruleSummaryRaw = PA.CustomDialogs.getPABRuleSummaryFromRawSettings(ruleSetting.ruleRaw, true),
+                ruleSummary = ruleObj.summary,
+                ruleSummaryRaw = ruleObj.summaryRaw,
                 ruleEnabled = ruleSetting.ruleEnabled,
             }
             -- "1" is to define a category per dataEntry (can be individually hidden)

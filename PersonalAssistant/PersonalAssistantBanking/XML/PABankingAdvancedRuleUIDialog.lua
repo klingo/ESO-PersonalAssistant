@@ -288,7 +288,7 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function getRuleSummaryFromLocalSettings(isRawText)
+local function getRuleSummaryFromLocalSettings(includeRawSummary)
     local function _getRuleSummaryWithItemAction(itemAction, ruleSummary)
         if itemAction == BAG_BANK then
             return PAHF.getFormattedText("DEPOSIT %s to BANK", ruleSummary)
@@ -312,7 +312,15 @@ local function getRuleSummaryFromLocalSettings(isRawText)
         if selectedCount == 0 or unselectedCount == 0 then
             return nil
         else
-            local qualitiesString = _getLocalizedQualities(qualities, isRawText)
+            local qualitiesString = _getLocalizedQualities(qualities)
+            return table.concat({"of [", PAHF.getCommaSeparatedOrList(qualitiesString), "] quality"})  -- TODO: extract
+        end
+    end
+    local function _getQualityTextRaw(qualities, selectedCount, unselectedCount)
+        if selectedCount == 0 or unselectedCount == 0 then
+            return nil
+        else
+            local qualitiesString = _getLocalizedQualities(qualities, true)
             return table.concat({"of [", PAHF.getCommaSeparatedOrList(qualitiesString), "] quality"})  -- TODO: extract
         end
     end
@@ -374,7 +382,6 @@ local function getRuleSummaryFromLocalSettings(isRawText)
     end
 
     if _ruleCache.itemGroup == nil or _ruleCache.itemGroup == "" then
-        d("first case summary")
         return "Please select an [Item Group] first..."   -- TODO: extract
     else
         local function _appendText(master, addedText)
@@ -383,6 +390,16 @@ local function getRuleSummaryFromLocalSettings(isRawText)
             end
             return master
         end
+        local function _appendAllTexts(starterText, craftedText, setText, itemTypeText, qualityText, levelText, traitText)
+            local summaryText = starterText
+            summaryText = _appendText(summaryText, craftedText)
+            summaryText = _appendText(summaryText, setText)
+            summaryText = _appendText(summaryText, itemTypeText)
+            summaryText = _appendText(summaryText, qualityText)
+            summaryText = _appendText(summaryText, levelText)
+            summaryText = _appendText(summaryText, traitText)
+            return summaryText
+        end
 
         -- get the combined texts
         d("start creating summary")
@@ -390,16 +407,25 @@ local function getRuleSummaryFromLocalSettings(isRawText)
         local setText = _getSetText(_ruleCache.setSetting)
         local itemTypeText = _getItemTypeText(_ruleCache.itemGroup, _ruleCache.itemTypes, _ruleCache.itemTypesCount, _ruleCache.itemTypesNotCount)
         local qualityText = _getQualityText(_ruleCache.qualities, _ruleCache.qualitiesCount, _ruleCache.qualitiesNotCount)
+        local qualityTextRaw = _getQualityTextRaw(_ruleCache.qualities, _ruleCache.qualitiesCount, _ruleCache.qualitiesNotCount)
         local levelText = _getLevelText(_ruleCache.levelFrom, _ruleCache.levelFromType, _ruleCache.levelTo, _ruleCache.levelToType)
         local traitText = _getTraitText(_ruleCache.traitSetting, _ruleCache.traitTypes, _ruleCache.traitTypesCount, _ruleCache.traitTypesNotCount)
-        local summaryText = "any"   -- TODO: extract
-        summaryText = _appendText(summaryText, craftedText)
-        summaryText = _appendText(summaryText, setText)
-        summaryText = _appendText(summaryText, itemTypeText)
-        summaryText = _appendText(summaryText, qualityText)
-        summaryText = _appendText(summaryText, levelText)
-        summaryText = _appendText(summaryText, traitText)
-        return _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryText)
+
+        local summaryText = _appendAllTexts("any", craftedText, setText, itemTypeText, qualityText, levelText, traitText) -- TODO: extract
+        local summaryTextFull = _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryText)
+
+        if includeRawSummary then
+            local summaryTextRaw = _appendAllTexts("any", craftedText, setText, itemTypeText, qualityTextRaw, levelText, traitText) -- TODO: extract
+            local summaryTextRawFull = _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryTextRaw)
+            return {
+                summary = summaryTextFull,
+                summaryRaw = summaryTextRawFull
+            }
+        else
+            return {
+                summary = summaryTextFull
+            }
+        end
     end
 
 
@@ -420,12 +446,11 @@ local function getRuleSummaryFromLocalSettings(isRawText)
 
 end
 
-local function getRuleSummaryFromRawSettings(ruleSettingsRaw, isRawText)
+local function getRuleSummaryFromRawSettings(ruleSettingsRaw, includeRawSummary)
     d("getRuleSummaryFromRawSettings="..ruleSettingsRaw)
-    -- TODO: to be improved, because this is called twice now (isRawText = true/false)
     _resetRuleCache()
     _convertRawSettingsToLocalSettings(ruleSettingsRaw)
-    return getRuleSummaryFromLocalSettings(isRawText)
+    return getRuleSummaryFromLocalSettings(includeRawSummary)
 end
 
 local function _updateRuleSummary()
@@ -433,7 +458,7 @@ local function _updateRuleSummary()
         d("_updateRuleSummary()")
         local ruleSummary = getRuleSummaryFromLocalSettings()
         local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
-        ruleSummaryTextControl:SetText(ruleSummary)
+        ruleSummaryTextControl:SetText(ruleSummary.summary)
     end
 end
 
