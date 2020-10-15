@@ -427,23 +427,6 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
             }
         end
     end
-
-
-
-    -- TODO: come up with a logic for the rule summary :D
-
-    -- SIMPLE:
-    -- ANY weapons
-    -- ANY apparels
-
-    -- [Non-Crafted] [Non-Set] [Weapons] [of Normal, Fine, or Superior Quality] [with known Traits]
-    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] [with unknown Traits]
-    -- [Non-Set] [Ring Jewelries] [of Legendary Quality] [with Arcane, Bloodthristy, or Healthy Trait]
-
-    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] and between [Level 5] and [CP 160] [with unknown Traits]
-    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] and between [CP 150] and [CP 160] [with unknown Traits]
-    -- [Crafted] [Set] [Light or Heavy Apparels] [of Epic or Legendary Quality] and [CP 160] [with unknown Traits]
-
 end
 
 local function getRuleSummaryFromRawSettings(ruleSettingsRaw, includeRawSummary)
@@ -501,16 +484,13 @@ local function _setAllFieldsEnabled(enabled)
 end
 
 -- TODO: to be improved! use callback values to simplify the entries
--- TODO: also check if "isLoading" needs to be considered
 local DropdownRefs = {
     itemActionDepositoToBank = ZO_ComboBox:CreateItemEntry("DEPOSIT to Bank", function(_, entryText, entry) -- TODO: extract
         _ruleCache.itemAction = BAG_BANK
-        --_setAllFieldsEnabled(false)
         _updateRuleSummary()
     end ),
     itemActionWithdrawToBackpack = ZO_ComboBox:CreateItemEntry("WITHDRAW to Inventory", function(_, entryText, entry) -- TODO: extract
         _ruleCache.itemAction = BAG_BACKPACK
-        --_setAllFieldsEnabled(false)
         _updateRuleSummary()
     end ),
 
