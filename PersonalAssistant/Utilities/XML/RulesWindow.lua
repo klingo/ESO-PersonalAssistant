@@ -21,6 +21,10 @@ local BankingRulesTabControl = window:GetNamedChild("BankingRulesTab")
 local BankingAdvancedRulesTabControl = window:GetNamedChild("BankingAdvancedRulesTab")
 local JunkRulesTabControl = window:GetNamedChild("JunkRulesTab")
 
+local _customFontNormal = string.format("$(%s)|$(KB_%s)|%s", "MEDIUM_FONT", 18, "soft-shadow-thin")
+local _customFontSmall = string.format("$(%s)|$(KB_%s)|%s", "MEDIUM_FONT", 16, "soft-shadow-thin")
+local _customFontTiny = string.format("$(%s)|$(KB_%s)|%s", "MEDIUM_FONT", 14, "soft-shadow-thin")
+
 -- store tha last shown tab (for current game session only)
 local _lastShownRulesTabDescriptor
 
@@ -632,6 +636,17 @@ function PABankingAdvancedRulesList:SetupRuleRow(rowControl, rowData)
     local bagIconControl = rowControl:GetNamedChild("BagIcon")
     local ruleSummaryControl = rowControl:GetNamedChild("RuleSummary")
 
+    -- apply smaller font if the rule summary is very long
+    local summaryLength = string.len(rowData.ruleSummary)
+    if summaryLength > 440 then
+        ruleSummaryControl:SetFont(_customFontTiny)
+    elseif summaryLength > 400 then
+        ruleSummaryControl:SetFont(_customFontSmall)
+    else
+        ruleSummaryControl:SetFont(_customFontNormal)
+    end
+
+    -- set deposit/withdraw icon
     bagIconControl:SetTexture(PAC.ICONS.OTHERS.TRANSFER_TO[rowData.bagId].PATH)
 
     -- set row text color depending on ruleEnabled state
