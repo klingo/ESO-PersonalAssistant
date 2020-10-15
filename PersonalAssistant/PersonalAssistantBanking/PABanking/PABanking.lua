@@ -56,9 +56,10 @@ local function OnBankOpen(eventCode, bankBag)
         -- give it 100ms time to "refresh" the bag data structure after stacking
         PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
-        PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)
+        PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedBankingRules, PAB.AddonName, 100)
+        PAEM.addFunctionToQueue(PAB.depositOrWithdrawSimpleBankingRules, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawAvAItems, PAB.AddonName, 100)
-        PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedItems, PAB.AddonName, 100)
+        PAEM.addFunctionToQueue(PAB.depositOrWithdrawSpecialItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCraftingItems, PAB.AddonName, 100)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
 

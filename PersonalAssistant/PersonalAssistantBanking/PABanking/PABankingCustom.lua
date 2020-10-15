@@ -7,10 +7,10 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function depositOrWithdrawCustomItems()
+local function depositOrWithdrawSimpleBankingRules()
+    PAB.debugln("PA.Banking.depositOrWithdrawSimpleBankingRules")
 
-    PAB.debugln("PA.Banking.depositOrWithdrawCustomItems")
-
+    -- currently this is always 'true' (cannot be disabled)
     if PAB.SavedVars.Custom.customItemsEnabled then
 
         -- check if bankTransfer is already blocked
@@ -58,7 +58,60 @@ local function depositOrWithdrawCustomItems()
     end
 end
 
+local function depositOrWithdrawAdvancedBankingRules()
+    PAB.debugln("PA.Banking.depositOrWithdrawAdvancedBankingRules")
+
+    -- currently this is always 'true' (cannot be disabled)
+    if PAB.SavedVars.Custom.customItemsEnabled then
+
+        -- check if bankTransfer is already blocked
+        if PAB.isBankTransferBlocked then return end
+        PAB.isBankTransferBlocked = true
+
+        -- prepare and fill the table with all custom items that needs to be transferred
+        local customAdvancedRuleItems = {}
+        -- TODO: loop through advanced rules and populate the list
+--        local paItemIdTable = PAB.SavedVars.Custom.PAItemIds
+--        for paItemId, moveConfig in pairs(paItemIdTable) do
+--            local operator = moveConfig.operator
+--            local ruleEnabled = moveConfig.ruleEnabled
+--            if ruleEnabled and operator ~= PAC.OPERATOR.NONE then
+--                customAdvancedRuleItems[paItemId] = {
+--                    operator = operator,
+--                    targetBagStack = moveConfig.bagAmount
+--                }
+--            end
+--        end
+
+        -- then get the matching data from the backpack and bank
+        local excludeJunk = PAB.SavedVars.excludeJunk
+        local paItemIdComparator = PAHF.getPAItemIdComparator(customAdvancedRuleItems, excludeJunk)
+        local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
+        local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+
+        PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+        PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
+
+        -- if there is at least one item to be deposited or withdrawn (and if LWC is one), just assume that it has to be blocked
+        if PAB.hasLazyWritCrafterAndShouldGrabEnabled() and (#backpackBagCache > 0 or #bankBagCache > 0) then
+            -- note down that potentially items were skipped
+            PAB.hasSomeItemskippedForLWC = true
+            -- unblock the banking transactions
+            PAB.isBankTransferBlocked = false
+            -- and continue with the next function in queue
+            PAEM.executeNextFunctionInQueue(PAB.AddonName)
+        else
+            -- trigger the individual itemTransactions
+            PAB.doIndividualItemTransactions(customAdvancedRuleItems, backpackBagCache, bankBagCache, true)
+        end
+    else
+        -- else, continue with the next function in queue
+        PAEM.executeNextFunctionInQueue(PAB.AddonName)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
-PA.Banking.depositOrWithdrawCustomItems = depositOrWithdrawCustomItems
+PA.Banking.depositOrWithdrawSimpleBankingRules = depositOrWithdrawSimpleBankingRules
+PA.Banking.depositOrWithdrawAdvancedBankingRules = depositOrWithdrawAdvancedBankingRules

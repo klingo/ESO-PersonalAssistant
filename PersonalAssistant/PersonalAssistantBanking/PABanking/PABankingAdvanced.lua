@@ -33,9 +33,9 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function depositOrWithdrawAdvancedItems()
+local function depositOrWithdrawSpecialItems()
 
-    PAB.debugln("PA.Banking.depositOrWithdrawAdvancedItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawSpecialItems")
 
     if PAB.SavedVars.Advanced.advancedItemsEnabled then
         -- check if bankTransfer is already blocked
@@ -138,4 +138,4 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
-PA.Banking.depositOrWithdrawAdvancedItems = depositOrWithdrawAdvancedItems
+PA.Banking.depositOrWithdrawSpecialItems = depositOrWithdrawSpecialItems
