@@ -372,18 +372,37 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "header",
-        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_INDIVIDUAL_HEADER))
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_RULES_SIMPLE_HEADER))
     })
 
     PABankingOptionsTable:insert({
         type = "description",
-        text = GetString(SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION)
+        text = GetString(SI_PA_MENU_BANKING_RULES_SIMPLE_DISABLED_DESCRIPTION)
     })
 
     PABankingOptionsTable:insert({
         type = "button",
         name = GetString(SI_PA_MAINMENU_BANKING_HEADER),
         func = PA.CustomDialogs.showPABankingRulesMenu,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+    })
+
+    -- -----------------------------------------------------------------------------------
+
+    PABankingOptionsTable:insert({
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_BANKING_RULES_ADVANCED_HEADER))
+    })
+
+    PABankingOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_BANKING_RULES_ADVANCED_DESCRIPTION)
+    })
+
+    PABankingOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MAINMENU_BANKING_ADVANCED_HEADER),
+        func = PA.CustomDialogs.showPABankingAdvancedRulesMenu,
         disabled = PAGMenuFunctions.isNoProfileSelected,
     })
 

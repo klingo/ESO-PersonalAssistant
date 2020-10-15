@@ -38,9 +38,13 @@ local PABStrings = {
     SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Motives"}),
     SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unknown Recipes"}),
 
-    -- Individual Items --
-    SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Individual Items",
-    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"With the introduction of custom Banking rules, the \"Individual\" settings have been migrated to there. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+    -- Simple Banking Rules --
+    SI_PA_MENU_BANKING_RULES_SIMPLE_HEADER = "Simple Banking Rules",
+    SI_PA_MENU_BANKING_RULES_SIMPLE_DISABLED_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+
+    -- Advanced Banking Rules --
+    SI_PA_MENU_BANKING_RULES_ADVANCED_HEADER = "Advanced Banking Rules",
+    SI_PA_MENU_BANKING_RULES_ADVANCED_DESCRIPTION = table.concat({"Advanced banking rules allow you to create complex rules for Apparels, Jewelries, and Weapons to very specifically define which ones should be deposited to, or withdrawn from the bank.\nThese rules are executed after the simple banking rules.", "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
     SI_PA_MENU_BANKING_AVA_HEADER = "AvA Items",

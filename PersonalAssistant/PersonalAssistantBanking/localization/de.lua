@@ -38,9 +38,13 @@ local PABStrings = {
     SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Stile"}),
     SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Unbekannte Rezepte"}),
 
-    -- Individual Items --
-    SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Einzelne Gegenstände",
-    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"Mit der Einführung der benutzerdefinierten Banking Regeln wurden die \"Individuellen\" Einstellungen dorthin migriert. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+    -- Simple Banking Rules --
+    SI_PA_MENU_BANKING_RULES_SIMPLE_HEADER = "Einfache Bank Regeln",
+    SI_PA_MENU_BANKING_RULES_SIMPLE_DISABLED_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+
+    -- Advanced Banking Rules --
+    SI_PA_MENU_BANKING_RULES_ADVANCED_HEADER = "Erweiterte Bank Regeln",
+    SI_PA_MENU_BANKING_RULES_ADVANCED_DESCRIPTION = table.concat({"Erweiterte Bank Regeln ermöglichen das Erstellen von komplexen Regeln für Apparels, Jewelries, und Weapons um ganz spezifisch zu definieren welche in die Bank eingelagert, oder von dort entnommen werden sollen.\nDiese Regeln werden nach den einfachen Bank Regeln ausgeführt.", "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
     SI_PA_MENU_BANKING_AVA_HEADER = "AvA Gegenstände",
@@ -76,7 +80,7 @@ local PABStrings = {
     -- == MAIN MENU TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
-    SI_PA_MAINMENU_BANKING_HEADER = "Banking Regeln",
+    SI_PA_MAINMENU_BANKING_HEADER = "Einfache Bank Regeln",
     SI_PA_MAINMENU_BANKING_HEADER_BAG = "Ort",
     SI_PA_MAINMENU_BANKING_HEADER_RULE = "Regel",
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Anzahl",

@@ -38,9 +38,13 @@ local PABStrings = {
     SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE8 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Motifs inconnus"}),
     SI_PA_MENU_BANKING_SPECIAL_UNKNOWN_ITEMTYPE29 = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, " Recettes inconnues"}),
 
-    -- Individual Items --
-    SI_PA_MENU_BANKING_INDIVIDUAL_HEADER = "Objets utilitaires",
-    SI_PA_MENU_BANKING_INDIVIDUAL_DISABLED_DESCRIPTION = table.concat({"Avec la mise en place des règles de mise en banque personnalisées, les anciens paramètres pour les “Objets utilitaires” ont été migrés vers ce nouveau système. ", GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+    -- Simple Banking Rules --
+--    SI_PA_MENU_BANKING_RULES_SIMPLE_HEADER = "",
+    SI_PA_MENU_BANKING_RULES_SIMPLE_DISABLED_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAB), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+
+    -- Advanced Banking Rules --
+--    SI_PA_MENU_BANKING_RULES_ADVANCED_HEADER = "",
+--    SI_PA_MENU_BANKING_RULES_ADVANCED_DESCRIPTION = table.concat({"", "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- AvA Items --
     SI_PA_MENU_BANKING_AVA_HEADER = "Objets d'AcA",
