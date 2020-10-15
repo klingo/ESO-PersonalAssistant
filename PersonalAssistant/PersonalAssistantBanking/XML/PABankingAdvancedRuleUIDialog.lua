@@ -291,9 +291,9 @@ end
 local function getRuleSummaryFromLocalSettings(includeRawSummary)
     local function _getRuleSummaryWithItemAction(itemAction, ruleSummary)
         if itemAction == BAG_BANK then
-            return PAHF.getFormattedText("DEPOSIT %s to BANK", ruleSummary)
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_SUMMARY_DEPOSIT, ruleSummary)
         elseif itemAction == BAG_BACKPACK then
-            return PAHF.getFormattedText("WITHDRAW %s to BACKPACK", ruleSummary)
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_SUMMARY_WITHDRAW, ruleSummary)
         end
         return ruleSummary
     end
@@ -301,10 +301,10 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
     local function _getItemTypeText(itemGroup, itemTypes, selectedCount, unselectedCount)
         local itemGroupString = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemGroup))
         if selectedCount == 0 or unselectedCount == 0 then
-            return table.concat({"[", itemGroupString, "]"})
+            return table.concat({"[", itemGroupString, "]"})    -- TODO: to be extracted?
         else
             local itemTypesString = _getLocalizedItemTypes(itemTypes)
-            return table.concat({"[", PAHF.getCommaSeparatedOrList(itemTypesString), " ", itemGroupString, "]"})
+            return table.concat({"[", PAHF.getCommaSeparatedOrList(itemTypesString), " ", itemGroupString, "]"})    -- TODO: to be extracted?
         end
     end
 
@@ -313,7 +313,7 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
             return nil
         else
             local qualitiesString = _getLocalizedQualities(qualities)
-            return table.concat({"of [", PAHF.getCommaSeparatedOrList(qualitiesString), "] quality"})  -- TODO: extract
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_OF_QUALITY, PAHF.getCommaSeparatedOrList(qualitiesString))
         end
     end
     local function _getQualityTextRaw(qualities, selectedCount, unselectedCount)
@@ -321,68 +321,68 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
             return nil
         else
             local qualitiesString = _getLocalizedQualities(qualities, true)
-            return table.concat({"of [", PAHF.getCommaSeparatedOrList(qualitiesString), "] quality"})  -- TODO: extract
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_OF_QUALITY, PAHF.getCommaSeparatedOrList(qualitiesString))
         end
     end
 
     local function _getLevelText(levelFrom, levelFromType, levelTo, levelToType)
         local function _getSimpleLevelText(levelType, level)
             if levelType == LEVEL_NORMAL then
-                return table.concat({"Level ", level})  -- TODO: extract
+                return table.concat({GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_LEVEL), " ", level})
             else
-                return table.concat({"CP ", level})  -- TODO: extract
+                return table.concat({GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_CP), " ", level})
             end
         end
         if levelFrom == levelTo and levelFromType == levelToType then
             -- from and to are the same
-            return table.concat({"and [", _getSimpleLevelText(levelFromType, levelFrom), "]"})  -- TODO: extract
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_AND, _getSimpleLevelText(levelFromType, levelFrom))
         elseif levelFrom == 1 and levelFromType == LEVEL_NORMAL and levelTo == 160 and levelToType == LEVEL_CHAMPION then
             -- from and to cover the full level-range
             return nil
         else
             local fromText = _getSimpleLevelText(levelFromType, levelFrom)
             local toText = _getSimpleLevelText(levelToType, levelTo)
-            return table.concat({"between [", fromText, "] and [", toText, "]"})  -- TODO: extract
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_AND, fromText, toText)
         end
     end
 
     local function _getSetText(setSetting)
         if setSetting == SET_IS_SET then
-            return "[Set]"  -- TODO: extract
+            return GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_SET)
         elseif setSetting == SET_NO_SET then
-            return "[Non-Set]"  -- TODO: extract
+            return GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_NO_SET)
         end
         return nil
     end
 
     local function _getCraftedText(craftedSetting)
         if craftedSetting == CRAFTED_IS_CRAFTED then
-            return "[Crafted]"  -- TODO: extract
+            return GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_CRAFTED)
         elseif craftedSetting == CRAFTED_NOT_CRAFTED then
-            return "[Non-Crafted]"  -- TODO: extract
+            return GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_NO_CRAFTED)
         end
         return nil
     end
 
     local function _getTraitText(traitSetting, traitTypes, selectedCount, unselectedCount)
         if traitSetting == TRAIT_KNOWN then
-            return "with [known] traits" -- TODO: extract
+            return GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_KNOWN_TRAITS)
         elseif traitSetting == TRAIT_UNKNOWN then
-            return "with [unknown] traits"  -- TODO: extract
+            return GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_UNKNOWN_TRAITS)
         elseif traitSetting == TRAIT_SELECTED then
             if selectedCount == 0 then
-                return "with [no] traits"  -- TODO: extract
+                return GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_NO_TRAITS)
             elseif unselectedCount == 0 then
                 return nil
             else
                 local traitTypesString = _getLocalizedTraitTypes(traitTypes)
-                return table.concat({"with [", PAHF.getCommaSeparatedOrList(traitTypesString), "] trait"})  -- TODO: extract
+                return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_SELECTED_TRAITS, PAHF.getCommaSeparatedOrList(traitTypesString))
             end
         end
     end
 
     if _ruleCache.itemGroup == nil or _ruleCache.itemGroup == "" then
-        return "Please select an [Item Group] first..."   -- TODO: extract
+        return GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_GROUP_PLEASE_SELECT)
     else
         local function _appendText(master, addedText)
             if addedText ~= nil then
@@ -402,7 +402,6 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
         end
 
         -- get the combined texts
-        d("start creating summary")
         local craftedText = _getCraftedText(_ruleCache.craftedSetting)
         local setText = _getSetText(_ruleCache.setSetting)
         local itemTypeText = _getItemTypeText(_ruleCache.itemGroup, _ruleCache.itemTypes, _ruleCache.itemTypesCount, _ruleCache.itemTypesNotCount)
@@ -411,11 +410,11 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
         local levelText = _getLevelText(_ruleCache.levelFrom, _ruleCache.levelFromType, _ruleCache.levelTo, _ruleCache.levelToType)
         local traitText = _getTraitText(_ruleCache.traitSetting, _ruleCache.traitTypes, _ruleCache.traitTypesCount, _ruleCache.traitTypesNotCount)
 
-        local summaryText = _appendAllTexts("any", craftedText, setText, itemTypeText, qualityText, levelText, traitText) -- TODO: extract
+        local summaryText = _appendAllTexts(GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ANY), craftedText, setText, itemTypeText, qualityText, levelText, traitText)
         local summaryTextFull = _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryText)
 
         if includeRawSummary then
-            local summaryTextRaw = _appendAllTexts("any", craftedText, setText, itemTypeText, qualityTextRaw, levelText, traitText) -- TODO: extract
+            local summaryTextRaw = _appendAllTexts(GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ANY), craftedText, setText, itemTypeText, qualityTextRaw, levelText, traitText)
             local summaryTextRawFull = _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryTextRaw)
             return {
                 summary = summaryTextFull,
@@ -430,7 +429,6 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
 end
 
 local function getRuleSummaryFromRawSettings(ruleSettingsRaw, includeRawSummary)
-    d("getRuleSummaryFromRawSettings="..ruleSettingsRaw)
     _resetRuleCache()
     _convertRawSettingsToLocalSettings(ruleSettingsRaw)
     return getRuleSummaryFromLocalSettings(includeRawSummary)
@@ -438,7 +436,6 @@ end
 
 local function _updateRuleSummary()
     if not _loadingInProgress then
-        d("_updateRuleSummary()")
         local ruleSummary = getRuleSummaryFromLocalSettings()
         local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
         ruleSummaryTextControl:SetText(ruleSummary.summary)
@@ -485,16 +482,16 @@ end
 
 -- TODO: to be improved! use callback values to simplify the entries
 local DropdownRefs = {
-    itemActionDepositoToBank = ZO_ComboBox:CreateItemEntry("DEPOSIT to Bank", function(_, entryText, entry) -- TODO: extract
+    itemActionDepositoToBank = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_BANKING_MOVE_MODE_TOBANK), function(_, entryText, entry)
         _ruleCache.itemAction = BAG_BANK
         _updateRuleSummary()
     end ),
-    itemActionWithdrawToBackpack = ZO_ComboBox:CreateItemEntry("WITHDRAW to Inventory", function(_, entryText, entry) -- TODO: extract
+    itemActionWithdrawToBackpack = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_BANKING_MOVE_MODE_TOBACKPACK), function(_, entryText, entry)
         _ruleCache.itemAction = BAG_BACKPACK
         _updateRuleSummary()
     end ),
 
-    itemGroupPleaseSelect = ZO_ComboBox:CreateItemEntry("<Please Select>", function(_, entryText, entry) -- TODO: extract
+    itemGroupPleaseSelect = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_PLEASE_SELECT), function(_, entryText, entry)
         _ruleCache.itemGroup = nil
         _setAllFieldsEnabled(false)
         _updateRuleSummary()
@@ -515,48 +512,48 @@ local DropdownRefs = {
         _updateRuleSummary()
     end ),
 
-    setBoth = ZO_ComboBox:CreateItemEntry("Any items (Set and NON-Set)", function() -- TODO: extract
+    setBoth = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS_ANY), function()
         _ruleCache.setSetting = SET_ANY
         _updateRuleSummary()
     end ),
-    setYes = ZO_ComboBox:CreateItemEntry("Only items part of a Set", function() -- TODO: extract
+    setYes = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS_SET), function()
         _ruleCache.setSetting = SET_IS_SET
         _updateRuleSummary()
     end ),
-    setNo = ZO_ComboBox:CreateItemEntry("Only items NOT part of a Set", function() -- TODO: extract
+    setNo = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS_NO_SET), function()
         _ruleCache.setSetting = SET_NO_SET
         _updateRuleSummary()
     end ),
 
-    craftedBoth = ZO_ComboBox:CreateItemEntry("Any items (crafted and NON-crafted)", function() -- TODO: extract
+    craftedBoth = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS_ANY), function()
         _ruleCache.craftedSetting = CRAFTED_ANY
         _updateRuleSummary()
     end ),
-    craftedYes = ZO_ComboBox:CreateItemEntry("Only crafted items", function() -- TODO: extract
+    craftedYes = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS_CRAFTED), function()
         _ruleCache.craftedSetting = CRAFTED_IS_CRAFTED
         _updateRuleSummary()
     end ),
-    craftedNo = ZO_ComboBox:CreateItemEntry("Only NON-crafted items", function() -- TODO: extract
+    craftedNo = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS_NOT_CRAFTED), function()
         _ruleCache.craftedSetting = CRAFTED_NOT_CRAFTED
         _updateRuleSummary()
     end ),
 
-    traitSelected = ZO_ComboBox:CreateItemEntry("Only selected traits", function() -- TODO: extract
+    traitSelected = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_SELECTED), function()
         _ruleCache.traitSetting = TRAIT_SELECTED
         _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _ruleCache.itemGroup, true)
         _updateRuleSummary()
     end ),
-    traitBoth = ZO_ComboBox:CreateItemEntry("Any items (known and unknown traits)", function() -- TODO: extract
+    traitBoth = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_ANY), function()
         _ruleCache.traitSetting = TRAIT_ANY
         _traitTypesShifterBox:SetEnabled(false)
         _updateRuleSummary()
     end ),
-    traitKnown = ZO_ComboBox:CreateItemEntry("Only items with known traits", function() -- TODO: extract
+    traitKnown = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_KNOWN), function()
         _ruleCache.traitSetting = TRAIT_KNOWN
         _traitTypesShifterBox:SetEnabled(false)
         _updateRuleSummary()
     end ),
-    traitUnknown = ZO_ComboBox:CreateItemEntry("Only items with UNknown traits", function() -- TODO: extract
+    traitUnknown = ZO_ComboBox:CreateItemEntry(GetString(SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_UNKNOWN), function()
         _ruleCache.traitSetting = TRAIT_UNKNOWN
         _traitTypesShifterBox:SetEnabled(false)
         _updateRuleSummary()
@@ -564,16 +561,15 @@ local DropdownRefs = {
 }
 
 local function _createAndReturnItemQualitiesShifterBox()
-    -- TODO: extract labels
     local shifterBoxSettings = {
         sortBy = "key",
         leftList = {
-            title = "Available",
-            emptyListText = "None",
+            title = GetString(SI_PA_DIALOG_BANKING_ADVANCED_AVAILABLE),
+            emptyListText = GetString(SI_PA_DIALOG_BANKING_ADVANCED_NONE),
         },
         rightList = {
-            title = "Selected",
-            emptyListText = "Any Quality",
+            title = GetString(SI_PA_DIALOG_BANKING_ADVANCED_SELECTED),
+            emptyListText = GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_QUALITIES_ANY),
         }
     }
     local itemQualitiesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemQualities", window, shifterBoxSettings)
@@ -590,15 +586,14 @@ local function _createAndReturnItemQualitiesShifterBox()
 end
 
 local function _createAndReturnItemTypesShifterBox()
-    -- TODO: extract labels
     local shifterBoxSettings = {
         leftList = {
-            title = "Available",
-            emptyListText = "None"
+            title = GetString(SI_PA_DIALOG_BANKING_ADVANCED_AVAILABLE),
+            emptyListText = GetString(SI_PA_DIALOG_BANKING_ADVANCED_NONE),
         },
         rightList = {
-            title = "Selected",
-            emptyListText = "Any Item Type"
+            title = GetString(SI_PA_DIALOG_BANKING_ADVANCED_SELECTED),
+            emptyListText = GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TYPES_ANY)
         }
     }
     local itemTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "ItemTypes", window, shifterBoxSettings)
@@ -633,15 +628,14 @@ local function _createAndReturnItemTypesShifterBox()
 end
 
 local function _createAndReturnTraitTypesShifterBox()
-    -- TODO: extract labels
     local shifterBoxSettings = {
         leftList = {
-            title = "Available",
-            emptyListText = "None"
+            title = GetString(SI_PA_DIALOG_BANKING_ADVANCED_AVAILABLE),
+            emptyListText = GetString(SI_PA_DIALOG_BANKING_ADVANCED_NONE),
         },
         rightList = {
-            title = "Selected",
-            emptyListText = "No Traits"
+            title = GetString(SI_PA_DIALOG_BANKING_ADVANCED_SELECTED),
+            emptyListText = GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TRAITS_NONE)
         }
     }
     local traitTypesShifterBox = PA.LibShifterBox(PAB.AddonName, "TraitTypes", window, shifterBoxSettings)
@@ -714,16 +708,14 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
         if isUpdate then
             df("UPDATE: %s", ruleSettingsRaw)
             PABAdvancedRules[_ruleCache.ruleId].ruleRaw = ruleSettingsRaw
-            -- TODO: chat message
-            df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}), _ruleCache.ruleId)
+            PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_UPDATED, _ruleCache.ruleId)
         else
             df("CREATE: %s", ruleSettingsRaw)
             table.insert(PABAdvancedRules, {
                 ruleRaw = ruleSettingsRaw,
                 ruleEnabled = true,
             })
-            -- TODO: chat message
-            df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}), #PABAdvancedRules)
+            PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_ADDED, #PABAdvancedRules)
         end
         window:SetHidden(true)
 
@@ -739,8 +731,7 @@ local function deletePABCustomAdvancedRule(ruleId)
     if PAHF.isKeyInTable(PABAdvancedRules, ruleId) then
         -- is in table, delete rule
         table.remove(PABAdvancedRules, ruleId)
-        -- TODO: chat message
-        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}), ruleId)
+        PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_DELETED, ruleId)
         window:SetHidden(true)
 
         -- refresh the list (if it was initialized)
@@ -750,7 +741,6 @@ local function deletePABCustomAdvancedRule(ruleId)
     end
 end
 
--- TODO: might the handlers need a check for "isLoading" to prevent corrupting the cache?
 local function initPABAddCustomAdvancedRuleUIDialog()
     if not _initDone then
        _initDone = true
@@ -1019,7 +1009,7 @@ local function initPABAddCustomAdvancedRuleUIDialog()
 
         -- initialize the RuleSummary
         local ruleSummaryLabelControl = window:GetNamedChild("RuleSummaryLabel")
-        ruleSummaryLabelControl:SetText("Rule Summary") -- TODO: extract
+        ruleSummaryLabelControl:SetText(GetString(SI_PA_MAINMENU_BANKING_ADVANCED_RULE_SUMMARY))
         local ruleSummaryTextControl = window:GetNamedChild("RuleSummaryText")
         local customFont = string.format("$(%s)|$(KB_%s)|%s", "MEDIUM_FONT", 14, "soft-shadow-thin")
         ruleSummaryTextControl:SetFont(customFont)
@@ -1136,8 +1126,7 @@ local function enablePABCustomAdvancedRule(existingRuleId)
     if PAHF.isKeyInTable(PABAdvancedRules, existingRuleId) then
         -- is in table, enable rule
         PABAdvancedRules[existingRuleId].ruleEnabled = true
-        -- TODO: chat message
-        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}), existingRuleId)
+        PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_ENABLED, existingRuleId)
 
         -- refresh the list (if it was initialized)
         if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
@@ -1151,8 +1140,7 @@ local function disablePABCustomAdvancedRule(existingRuleId)
     if PAHF.isKeyInTable(PABAdvancedRules, existingRuleId) then
         -- is in table, disable rule
         PABAdvancedRules[existingRuleId].ruleEnabled = false
-        -- TODO: chat message
-        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}), existingRuleId)
+        PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_DISABLED, existingRuleId)
 
         -- refresh the list (if it was initialized)
         if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
@@ -1170,8 +1158,7 @@ local function moveUpPABCustomAdvancedRule(ruleId)
             -- table.move(PABAdvancedRules, ruleId, ruleId - 1)
             table.insert(PABAdvancedRules, ruleId - 1, table.remove(PABAdvancedRules, ruleId))
 
-            -- TODO: chat message
-            df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved up"), " and is now Rule #%d!"}), ruleId, ruleId - 1)
+            PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_MOVED_UP, ruleId, ruleId - 1)
             window:SetHidden(true)
 
             -- refresh the list (if it was initialized)
@@ -1191,8 +1178,7 @@ local function moveDownPABCustomAdvancedRule(ruleId)
         -- table.move(PABAdvancedRules, ruleId, ruleId + 1)
         table.insert(PABAdvancedRules, ruleId + 1, table.remove(PABAdvancedRules, ruleId))
 
-        -- TODO: chat message
-        df(table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved down"), " and is now Rule #%d!"}), ruleId, ruleId + 1)
+        PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_MOVED_DOWN, ruleId, ruleId + 1)
         window:SetHidden(true)
 
         -- refresh the list (if it was initialized)

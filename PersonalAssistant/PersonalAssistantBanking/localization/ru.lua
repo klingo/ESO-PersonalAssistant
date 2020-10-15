@@ -124,15 +124,60 @@ local PABStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Advanced Banking Rules --
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_ACTION = "Item Action",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_GROUP = "Item Group",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_QUALITIES = "Item Qualities",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TYPES = "Item Types",
+--    SI_PA_DIALOG_BANKING_ADVANCED_LEVEL_RANGE = "Level / Champion Point Range",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TRAITS = "Item Traits",
+--    SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES = "Trait Types",
+--    SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS = "Set Items",
+--    SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS = "Crafted Items",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_PLEASE_SELECT = "<Please Select>",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_GROUP_PLEASE_SELECT = "Please select an [Item Group] first...",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_NONE = "None",
+--    SI_PA_DIALOG_BANKING_ADVANCED_AVAILABLE = "Available",
+--    SI_PA_DIALOG_BANKING_ADVANCED_SELECTED = "Selected",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_QUALITIES_ANY = "Any Quality",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TYPES_ANY = "Any Item Type",
+--    SI_PA_DIALOG_BANKING_ADVANCED_ITEM_TRAITS_NONE = "No Traits",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS_ANY = "Any items (Set and NON-Set)",
+--    SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS_SET = "Only items part of a Set",
+--    SI_PA_DIALOG_BANKING_ADVANCED_SET_ITEMS_NO_SET = "Only items NOT part of a Set",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS_ANY = "Any items (crafted and NON-crafted)",
+--    SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS_CRAFTED = "Only crafted items",
+--    SI_PA_DIALOG_BANKING_ADVANCED_CRAFTED_ITEMS_NOT_CRAFTED = "Only NON-crafted items",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_SELECTED = "Only selected traits",
+--    SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_ANY = "Any items (known and unknown traits)",
+--    SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_KNOWN = "Only items with known traits",
+--    SI_PA_DIALOG_BANKING_ADVANCED_TRAIT_TYPES_UNKNOWN = "Only items with unknown traits",
 
-
-
-
-
-
-
-
-
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- Advanced Banking Rules - Rule Construction --
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_SUMMARY_DEPOSIT = "DEPOSIT %s to BANK",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_SUMMARY_WITHDRAW = "WITHDRAW %s to BACKPACK",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_OF_QUALITY = "of [%s] quality",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_LEVEL = "Level",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_CP = "CP",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_SET = "[Set]",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_NO_SET = "[Non-Set]",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_CRAFTED = "[Crafted]",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_NO_CRAFTED = "[Non-Crafted]",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_KNOWN_TRAITS = "with [known] traits",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_UNKNOWN_TRAITS = "with [unknown] traits",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_NO_TRAITS = "with [no] traits",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_SELECTED_TRAITS = "with [%s] trait",
+--
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_ANY = "any",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_AND = "and [%s]",
+--    SI_PA_DIALOG_BANKING_ADVANCED_RULE_BETWEEN = "between [%s] and [%s]",
 
 
     -- =================================================================================================================
@@ -158,6 +203,16 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Правило для %s было ", PAC.COLOR.ORANGE:Colorize("удалено"), "!"}),
     --SI_PA_CHAT_BANKING_RULES_ENABLED = "",
     --SI_PA_CHAT_BANKING_RULES_DISABLED = "",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking Advanced Rules --
+--    SI_PA_CHAT_BANKING_ADVANCED_RULES_ADDED = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("added"), "!"}),
+--    SI_PA_CHAT_BANKING_ADVANCED_RULES_UPDATED = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("updated"), "!"}),
+--    SI_PA_CHAT_BANKING_ADVANCED_RULES_DELETED = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}),
+--    SI_PA_CHAT_BANKING_ADVANCED_RULES_ENABLED = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}),
+--    SI_PA_CHAT_BANKING_ADVANCED_RULES_DISABLED = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}),
+--    SI_PA_CHAT_BANKING_ADVANCED_RULES_MOVED_UP = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved up"), " and is now Rule #%d!"}),
+--    SI_PA_CHAT_BANKING_ADVANCED_RULES_MOVED_DOWN = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved down"), " and is now Rule #%d!"}),
 }
 
 for key, value in pairs(PABStrings) do
