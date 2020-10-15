@@ -233,6 +233,13 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Regeln",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Banking/Trödel Regelmenü ein-/ausblenden",
+
+
+    -- =================================================================================================================
+    -- == OTHER STRINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    SI_PA_LIST_COMMA_OR_SEPARATOR = ", oder ",
+    SI_PA_LIST_OR_SEPARATOR = " oder ",
 }
 
 for key, value in pairs(PAStrings) do

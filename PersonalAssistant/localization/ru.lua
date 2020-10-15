@@ -233,6 +233,13 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Правила",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Переключить меню правил Банкинга/Хлама",
+
+
+    -- =================================================================================================================
+    -- == OTHER STRINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+--    SI_PA_LIST_COMMA_OR_SEPARATOR = ", or ",
+--    SI_PA_LIST_OR_SEPARATOR = " or ",
 }
 
 for key, value in pairs(PAStrings) do

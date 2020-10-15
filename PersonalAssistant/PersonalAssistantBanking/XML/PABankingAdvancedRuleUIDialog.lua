@@ -38,7 +38,7 @@ local _itemTypesShifterBox
 local _traitTypesShifterBox
 
 -- others
-local TWO_HANDED_PREFIX = table.concat({GetString("SI_WEAPONCONFIGTYPE", WEAPON_CONFIG_TYPE_TWO_HANDED), " "})
+local TWO_HANDED_PREFIX = GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_TWO_HANDED)
 
 -- init setting
 local _initDone = false
@@ -301,10 +301,10 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
     local function _getItemTypeText(itemGroup, itemTypes, selectedCount, unselectedCount)
         local itemGroupString = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemGroup))
         if selectedCount == 0 or unselectedCount == 0 then
-            return table.concat({"[", itemGroupString, "]"})    -- TODO: to be extracted?
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ITEM_TYPE, itemGroupString)
         else
             local itemTypesString = _getLocalizedItemTypes(itemTypes)
-            return table.concat({"[", PAHF.getCommaSeparatedOrList(itemTypesString), " ", itemGroupString, "]"})    -- TODO: to be extracted?
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ITEM_TYPE, table.concat({PAHF.getCommaSeparatedOrList(itemTypesString), " ", itemGroupString}))
         end
     end
 
@@ -342,7 +342,7 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
         else
             local fromText = _getSimpleLevelText(levelFromType, levelFrom)
             local toText = _getSimpleLevelText(levelToType, levelTo)
-            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_AND, fromText, toText)
+            return PAHF.getFormattedKey(SI_PA_DIALOG_BANKING_ADVANCED_RULE_BETWEEN, fromText, toText)
         end
     end
 
@@ -382,7 +382,9 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
     end
 
     if _ruleCache.itemGroup == nil or _ruleCache.itemGroup == "" then
-        return GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_GROUP_PLEASE_SELECT)
+        return {
+            summary = GetString(SI_PA_DIALOG_BANKING_ADVANCED_ITEM_GROUP_PLEASE_SELECT)
+        }
     else
         local function _appendText(master, addedText)
             if addedText ~= nil then
@@ -410,11 +412,11 @@ local function getRuleSummaryFromLocalSettings(includeRawSummary)
         local levelText = _getLevelText(_ruleCache.levelFrom, _ruleCache.levelFromType, _ruleCache.levelTo, _ruleCache.levelToType)
         local traitText = _getTraitText(_ruleCache.traitSetting, _ruleCache.traitTypes, _ruleCache.traitTypesCount, _ruleCache.traitTypesNotCount)
 
-        local summaryText = _appendAllTexts(GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ANY), craftedText, setText, itemTypeText, qualityText, levelText, traitText)
+        local summaryText = _appendAllTexts(GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ALL), craftedText, setText, itemTypeText, qualityText, levelText, traitText)
         local summaryTextFull = _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryText)
 
         if includeRawSummary then
-            local summaryTextRaw = _appendAllTexts(GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ANY), craftedText, setText, itemTypeText, qualityTextRaw, levelText, traitText)
+            local summaryTextRaw = _appendAllTexts(GetString(SI_PA_DIALOG_BANKING_ADVANCED_RULE_ALL), craftedText, setText, itemTypeText, qualityTextRaw, levelText, traitText)
             local summaryTextRawFull = _getRuleSummaryWithItemAction(_ruleCache.itemAction, summaryTextRaw)
             return {
                 summary = summaryTextFull,
@@ -681,6 +683,7 @@ local function _createAndReturnTraitTypesShifterBox()
         [ITEM_TRAIT_TYPE_WEAPON_TRAINING] = GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_WEAPON_TRAINING),
     }
     traitTypesShifterBox:AddEntriesToLeftList(weaponTraitData, false, ITEMFILTERTYPE_WEAPONS)
+-- TODO: should this be added instead of considering no selection as "no traits"?
 --    traitTypesShifterBox:AddEntryToLeftList(ITEM_TRAIT_TYPE_NONE, GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_NONE))
     return traitTypesShifterBox
 end
