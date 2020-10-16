@@ -832,11 +832,11 @@ local function _addCustomAdvancedRuleClicked(isUpdate)
     if isUpdate or not PAHF.isKeyInTable(PABAdvancedRules, _ruleCache.ruleId) then
         local ruleSettingsRaw = _convertLocalSettingsToRawSettings()
         if isUpdate then
-            df("UPDATE: %s", ruleSettingsRaw)
+            PAB.debugln("UPDATE: %s", ruleSettingsRaw)
             PABAdvancedRules[_ruleCache.ruleId].ruleRaw = ruleSettingsRaw
             PAB.println(SI_PA_CHAT_BANKING_ADVANCED_RULES_UPDATED, _ruleCache.ruleId)
         else
-            df("CREATE: %s", ruleSettingsRaw)
+            PAB.debugln("CREATE: %s", ruleSettingsRaw)
             table.insert(PABAdvancedRules, {
                 ruleRaw = ruleSettingsRaw,
                 ruleEnabled = true,
@@ -1190,7 +1190,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
         local ruleSettingRaw = PABAdvancedRules[existingRuleId].ruleRaw
 
-        df("LOAD: %s", ruleSettingRaw)
+        PAB.debugln("LOAD: %s", ruleSettingRaw)
         _resetRuleCache() -- really needed?
         _ruleCache.ruleId = existingRuleId
         _convertRawSettingsToLocalSettings(ruleSettingRaw)
@@ -1198,7 +1198,6 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         -- load values on UI
         itemActionDropdownControl:SelectByKey(_ruleCache.itemAction)
         itemGroupDropdownControl:SelectByKey(_ruleCache.itemGroup)
-        d("111")
         _resetShifterBoxAndResetToLeft(_itemQualitiesShifterBox, nil, true, _ruleCache.qualities)
         itemLevelFromEdit:SetText(_ruleCache.levelFrom)
         _setButtonTextures(itemLevelFromButton, _ruleCache.levelFromType)
@@ -1206,10 +1205,8 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         _setButtonTextures(itemLevelToButton, _ruleCache.levelToType)
         itemSetDropdownControl:SelectByKey(_ruleCache.setSetting)
         itemCraftedDropdownControl:SelectByKey(_ruleCache.craftedSetting)
-        d("222")
         _resetShifterBoxAndResetToLeft(_itemTypesShifterBox, _ruleCache.itemGroup, true, _ruleCache.itemTypes)
         itemTraitDropdownControl:SelectByKey(_ruleCache.traitSetting)
-        d("333")
         _resetShifterBoxAndResetToLeft(_traitTypesShifterBox, _ruleCache.itemGroup, _ruleCache.traitSetting == TRAIT_SELECTED, _ruleCache.traitTypes)
 
         -- show UPDATE/DELETE buttons, hide ADD button

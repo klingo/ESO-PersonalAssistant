@@ -765,7 +765,6 @@ end
 local bankingAdvancedBaseInitDone = false
 
 local function initPABankingAdvancedRulesList()
-    d("initPABankingAdvancedRulesList")
     if PA.Banking then
         if not bankingAdvancedBaseInitDone then
             bankingAdvancedBaseInitDone = true
