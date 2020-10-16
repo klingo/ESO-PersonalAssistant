@@ -9,21 +9,21 @@ local PAHF = PA.HelperFunctions
 local window = PABankingAddCustomAdvancedRuleWindow
 
 -- constants for the UI
-local LEVEL_NORMAL = 0
-local LEVEL_CHAMPION = 1
+local LEVEL_NORMAL = PAC.ADVANCED_RULES.LEVEL.NORMAL
+local LEVEL_CHAMPION = PAC.ADVANCED_RULES.LEVEL.CHAMPION
 
-local SET_NO_SET = 0
-local SET_IS_SET = 1
-local SET_ANY = 2
+local SET_NO_SET = PAC.ADVANCED_RULES.SET.NO
+local SET_IS_SET = PAC.ADVANCED_RULES.SET.YES
+local SET_ANY = PAC.ADVANCED_RULES.SET.ANY
 
-local CRAFTED_NOT_CRAFTED = 0
-local CRAFTED_IS_CRAFTED = 1
-local CRAFTED_ANY = 2
+local CRAFTED_NOT_CRAFTED = PAC.ADVANCED_RULES.CRAFTED.NO
+local CRAFTED_IS_CRAFTED = PAC.ADVANCED_RULES.CRAFTED.YES
+local CRAFTED_ANY = PAC.ADVANCED_RULES.CRAFTED.ANY
 
-local TRAIT_UNKNOWN = 0
-local TRAIT_KNOWN = 1
-local TRAIT_ANY = 2
-local TRAIT_SELECTED = 3
+local TRAIT_UNKNOWN = PAC.ADVANCED_RULES.TRAITS.UNKNOWN
+local TRAIT_KNOWN = PAC.ADVANCED_RULES.TRAITS.KNOWN
+local TRAIT_ANY = PAC.ADVANCED_RULES.TRAITS.ANY
+local TRAIT_SELECTED = PAC.ADVANCED_RULES.TRAITS.SELECTED
 
 local ITEM_SEPARATOR = ","
 local SETTING_SEPARATOR = "/"
@@ -434,6 +434,129 @@ local function getRuleSummaryFromRawSettings(ruleSettingsRaw, includeRawSummary)
     _resetRuleCache()
     _convertRawSettingsToLocalSettings(ruleSettingsRaw)
     return getRuleSummaryFromLocalSettings(includeRawSummary)
+end
+
+local function getRuleComparatorEntryFromRawSettings(ruleSettingsRaw)
+    local function _setItemAction(ruleComparatorEntry)
+        if _ruleCache.itemAction == BAG_BANK then
+            ruleComparatorEntry.itemAction = PAC.ITEM_ACTION.DEPOSIT
+        elseif _ruleCache.itemAction == BAG_BACKPACK then
+            ruleComparatorEntry.itemAction = PAC.ITEM_ACTION.WITHDRAW
+        end
+    end
+
+    local function _setItemFilterTypeAndItemTypes(ruleComparatorEntry)
+        ruleComparatorEntry.itemFilterType = _ruleCache.itemGroup
+        if _ruleCache.itemTypesCount > 0 and istable(_ruleCache.itemTypes) then
+            if _ruleCache.itemGroup == ITEMFILTERTYPE_WEAPONS then
+                ruleComparatorEntry.weaponTypes = {}
+                for _, paItemType in pairs(_ruleCache.itemTypes) do
+                    local itemTypeConfig = PAHF.split(paItemType, "_", 2)
+                    local itemType = tonumber(itemTypeConfig[2])
+                    table.insert(ruleComparatorEntry.weaponTypes, itemType)
+                end
+
+            elseif _ruleCache.itemGroup == ITEMFILTERTYPE_ARMOR then
+                ruleComparatorEntry.armorTypes = {}
+                for _, paItemType in pairs(_ruleCache.itemTypes) do
+                    local itemTypeConfig = PAHF.split(paItemType, "_", 2)
+                    local itemType = tonumber(itemTypeConfig[2])
+                    table.insert(ruleComparatorEntry.armorTypes, itemType)
+                end
+
+            elseif _ruleCache.itemGroup == ITEMFILTERTYPE_JEWELRY then
+                ruleComparatorEntry.equipTypes = {}
+                for _, paItemType in pairs(_ruleCache.itemTypes) do
+                    local itemTypeConfig = PAHF.split(paItemType, "_", 2)
+                    local itemType = tonumber(itemTypeConfig[2])
+                    table.insert(ruleComparatorEntry.equipTypes, itemType)
+                end
+            end
+        end
+    end
+
+    local function _setItemQualities(ruleComparatorEntry)
+        if _ruleCache.qualitiesCount > 0 and istable(_ruleCache.qualities) then
+            ruleComparatorEntry.itemQualities = {}
+            for _, quality in pairs(_ruleCache.qualities) do
+                table.insert(ruleComparatorEntry.itemQualities, quality)
+            end
+        end
+
+    end
+
+    local function _setItemLevels(ruleComparatorEntry)
+        if _ruleCache.levelFromType == LEVEL_NORMAL and _ruleCache.levelFrom == 1 and _ruleCache.levelToType == LEVEL_CHAMPION and _ruleCache.levelTo == 160 then
+            -- full range covered; keep nil
+        else
+            ruleComparatorEntry.itemLevels = {
+                levelFrom = _ruleCache.levelFrom,
+                levelFromType = _ruleCache.levelFromType,
+                levelTo = _ruleCache.levelTo,
+                levelToType = _ruleCache.levelToType
+            }
+        end
+    end
+
+    local function _setItemSet(ruleComparatorEntry)
+        if _ruleCache.setSetting == SET_NO_SET or _ruleCache.setSetting == SET_IS_SET then
+            ruleComparatorEntry.itemSetSetting = _ruleCache.setSetting
+            -- else: keep it at 'nil'
+        end
+    end
+
+    local function _setItemCrafted(ruleComparatorEntry)
+        if _ruleCache.craftedSetting == CRAFTED_NOT_CRAFTED or _ruleCache.craftedSetting == CRAFTED_IS_CRAFTED then
+            ruleComparatorEntry.itemCraftedSetting = _ruleCache.craftedSetting
+            -- else: keep it at 'nil'
+        end
+    end
+
+    local function _setItemTraits(ruleComparatorEntry)
+        if _ruleCache.traitSetting == TRAIT_ANY then
+            -- any traits; leave at nil
+        else
+            ruleComparatorEntry.itemTraitSetting = _ruleCache.traitSetting
+            if _ruleCache.traitSetting == TRAIT_SELECTED then
+                ruleComparatorEntry.itemTraitSetting = _ruleCache.traitSetting
+                ruleComparatorEntry.itemTraitTypes = {}
+                if _ruleCache.traitTypesCount > 0 and istable(_ruleCache.traitTypes) then
+                    for _, traitType in pairs(_ruleCache.traitTypes) do
+                        table.insert(ruleComparatorEntry.itemTraitTypes, traitType)
+                    end
+                else
+                    -- this mean must have no traits; leave empty
+                end
+            end
+        end
+    end
+
+    -- close the window if it is still open; should not be there when accessin the bank
+    window:SetHidden(true)
+
+    -- reset the rule cache and populate it from the raw settings
+    _resetRuleCache()
+    _convertRawSettingsToLocalSettings(ruleSettingsRaw)
+
+    -- then populate the comparator Entry
+    local ruleComparatorEntry = {}
+    -- ItemAction
+    _setItemAction(ruleComparatorEntry)
+    -- ItemFilterType
+    -- ArmorTypes / WeaponTypes / EquipTypes
+    _setItemFilterTypeAndItemTypes(ruleComparatorEntry)
+    -- ItemQualities
+    _setItemQualities(ruleComparatorEntry)
+    -- ItemLevels
+    _setItemLevels(ruleComparatorEntry)
+    -- ItemSet
+    _setItemSet(ruleComparatorEntry)
+    -- ItemCrafted
+    _setItemCrafted(ruleComparatorEntry)
+    -- ItemTraits
+    _setItemTraits(ruleComparatorEntry)
+
+    return ruleComparatorEntry
 end
 
 local function _updateRuleSummary()
@@ -1195,6 +1318,7 @@ end
 -- Export
 PA.CustomDialogs = PA.CustomDialogs or {}
 PA.CustomDialogs.getPABRuleSummaryFromRawSettings = getRuleSummaryFromRawSettings
+PA.CustomDialogs.getPABRuleComparatorEntryFromRawSettings = getRuleComparatorEntryFromRawSettings
 PA.CustomDialogs.initPABAddCustomAdvancedRuleUIDialog = initPABAddCustomAdvancedRuleUIDialog
 PA.CustomDialogs.showPABAddCustomAdvancedRuleUIDialog = showPABAddCustomAdvancedRuleUIDialog
 PA.CustomDialogs.deletePABCustomAdvancedRule = deletePABCustomAdvancedRule

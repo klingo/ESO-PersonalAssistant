@@ -605,6 +605,29 @@ PersonalAssistant.Constants = {
         DESTROY_ALWAYS = 9,
     },
 
+    ADVANCED_RULES = {
+        LEVEL = {
+            NORMAL = 1,
+            CHAMPION = 2,
+        },
+        SET = {
+            NO = 0,
+            YES = 1,
+            ANY = 2,
+        },
+        CRAFTED = {
+            NO = 0,
+            YES = 1,
+            ANY = 2,
+        },
+        TRAITS = {
+            UNKNOWN = 0,
+            KNOWN = 1,
+            ANY = 2,
+            SELECTED = 3,
+        },
+    },
+
     ICON_POSITION = {
         AUTO = -1,
     },

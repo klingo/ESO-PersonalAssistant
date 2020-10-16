@@ -55,6 +55,159 @@ local function _isItemCharacterBound(bagId, slotIndex)
     return false
 end
 
+local function getAdvancedBankingRulesComparator(advancedBankingRulesTable, excludeJunk)
+    local function _passedItemFilterTypeAndItemTypeCheck(itemData, advancedBankingRule)
+        local itemFilterType = GetItemFilterTypeInfo(itemData.bagId, itemData.slotIndex)
+        if itemFilterType == advancedBankingRule.itemFilterType then
+            if itemFilterType == ITEMFILTERTYPE_ARMOR and istable(advancedBankingRule.armorTypes) then
+                local armorType = GetItemArmorType(itemData.bagId, itemData.slotIndex)
+                for _, ruleArmorType in pairs(advancedBankingRule.armorTypes) do
+                    if armorType == ruleArmorType then return true end
+                end
+                PA.debugln("_passedItemFilterTypeAndItemTypeCheck FAILED (1) - "..itemData.itemLink)
+                return false
+            elseif itemFilterType == ITEMFILTERTYPE_WEAPONS and istable(advancedBankingRule.weaponTypes) then
+                local weaponType = GetItemWeaponType(itemData.bagId, itemData.slotIndex)
+                for _, ruleWeaponType in pairs(advancedBankingRule.weaponTypes) do
+                    if weaponType == ruleWeaponType then return true end
+                end
+                PA.debugln("_passedItemFilterTypeAndItemTypeCheck FAILED (2) - "..itemData.itemLink)
+                return false
+            elseif itemFilterType == ITEMFILTERTYPE_JEWELRY and istable(advancedBankingRule.equipTypes) then
+                local _, _, _, _, _, equipType = GetItemInfo(itemData.bagId, itemData.slotIndex)
+                for _, ruleEquipType in pairs(advancedBankingRule.equipTypes) do
+                    if equipType == ruleEquipType then return true end
+                end
+                PA.debugln("_passedItemFilterTypeAndItemTypeCheck FAILED (3) - "..itemData.itemLink)
+                return false
+            end
+            return true
+        end
+    end
+
+    local function _passedItemQualityCheck(itemData, advancedBankingRule)
+        if istable(advancedBankingRule.itemQualities) then
+            local itemQuality = GetItemQuality(itemData.bagId, itemData.slotIndex)
+            for _, ruleItemQuality in ipairs(advancedBankingRule.itemQualities) do
+                if itemQuality == ruleItemQuality then return true end
+            end
+            PA.debugln("_passedItemQualityCheck FAILED - "..itemData.itemLink)
+            return false
+        else
+            return true
+        end
+    end
+
+    local function _passedItemLevelCheck(itemData, advancedBankingRule)
+        if istable(advancedBankingRule.itemLevels) then
+            local requiredChampionPoints = GetItemRequiredChampionPoints(itemData.bagId, itemData.slotIndex)
+            local requiredLevel = GetItemRequiredLevel(itemData.bagId, itemData.slotIndex)
+            local relativeRequiredLevel = requiredLevel + requiredChampionPoints
+
+            local ruleMinRelativeLevel = advancedBankingRule.itemLevels.levelFrom
+            if advancedBankingRule.itemLevels.levelFromType == PAC.ADVANCED_RULES.LEVEL.CHAMPION then
+                ruleMinRelativeLevel = ruleMinRelativeLevel + 50
+            end
+
+            local ruleMaxRelativeLevel = advancedBankingRule.itemLevels.levelTo
+            if advancedBankingRule.itemLevels.levelToType == PAC.ADVANCED_RULES.LEVEL.CHAMPION then
+                ruleMaxRelativeLevel = ruleMaxRelativeLevel + 50
+            end
+
+--            return relativeRequiredLevel >= ruleMinRelativeLevel and relativeRequiredLevel <= ruleMaxRelativeLevel
+            if relativeRequiredLevel >= ruleMinRelativeLevel and relativeRequiredLevel <= ruleMaxRelativeLevel then
+                return true
+            else
+                PA.debugln("_passedItemLevelCheck FAILED - %s   (%d <= %d <= %d)", itemData.itemLink, tostring(ruleMinRelativeLevel), tostring(relativeRequiredLevel), tostring(ruleMaxRelativeLevel))
+                return false
+            end
+        else
+            return true
+        end
+    end
+
+    local function _passedItemSetCheck(itemData, advancedBankingRule)
+        if advancedBankingRule.itemSetSetting == nil then
+            return true
+        else
+            local hasSet = GetItemLinkSetInfo(itemData.itemLink, false)
+            if advancedBankingRule.itemSetSetting == PAC.ADVANCED_RULES.SET.YES and hasSet then
+                return true
+            elseif advancedBankingRule.itemSetSetting == PAC.ADVANCED_RULES.SET.NO and not hasSet then
+                return true
+            end
+            PA.debugln("_passedItemSetCheck FAILED - "..itemData.itemLink)
+            return false
+        end
+    end
+
+    local function _passedItemCraftedCheck(itemData, advancedBankingRule)
+        if advancedBankingRule.itemCraftedSetting == nil then
+            return true
+        else
+            local isCrafted = IsItemLinkCrafted(itemData.itemLink)
+            if advancedBankingRule.itemCraftedSetting == PAC.ADVANCED_RULES.CRAFTED.YES and isCrafted then
+                return true
+            elseif advancedBankingRule.itemCraftedSetting == PAC.ADVANCED_RULES.CRAFTED.NO and not isCrafted then
+                return true
+            end
+            PA.debugln("_passedItemCraftedCheck FAILED - "..itemData.itemLink)
+            return false
+        end
+    end
+
+    local function _passedItemTraitCheck(itemData, advancedBankingRule)
+        if advancedBankingRule.itemTraitSetting == nil then
+            return true
+        else
+            local canBeResearched = CanItemLinkBeTraitResearched(itemData.itemLink)
+
+            if advancedBankingRule.itemTraitSetting == PAC.ADVANCED_RULES.TRAITS.KNOWN and not canBeResearched then
+                return true
+            elseif advancedBankingRule.itemTraitSetting == PAC.ADVANCED_RULES.TRAITS.UNKNOWN and canBeResearched then
+                return true
+            elseif advancedBankingRule.itemTraitSetting == PAC.ADVANCED_RULES.TRAITS.SELECTED then
+                local traitType = GetItemLinkTraitInfo(itemData.itemLink)
+                if istable(advancedBankingRule.itemTraitTypes) then
+                    for _, ruleTraitType in pairs(advancedBankingRule.itemTraitTypes) do
+                        if traitType == ruleTraitType then return true end
+                    end
+                else
+                    -- no trait types selected, i.e. item must not have a trait type
+                    if traitType == ITEM_TRAIT_TYPE_NONE then return true end
+                end
+            end
+            PA.debugln("_passedItemTraitCheck FAILED - "..itemData.itemLink)
+            return false
+        end
+    end
+
+    return function(itemData)
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+
+        for ruleId, advancedBankingRule in pairs(advancedBankingRulesTable) do
+            itemData.itemLink = GetItemLink(itemData.bagId, itemData.slotIndex, LINK_STYLE_BRACKETS)
+            -- only return 'true' if all cheks passed, and only run a subsequent check if the current one passed
+            if _passedItemFilterTypeAndItemTypeCheck(itemData, advancedBankingRule) then
+                if _passedItemQualityCheck(itemData, advancedBankingRule) then
+                    if _passedItemLevelCheck(itemData, advancedBankingRule) then
+                        if _passedItemSetCheck(itemData, advancedBankingRule) then
+                            if _passedItemCraftedCheck(itemData, advancedBankingRule) then
+                                if _passedItemTraitCheck(itemData, advancedBankingRule) then
+                                    return true
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        return false
+    end
+end
+
 local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk)
     local function _isItemOfItemTypeAndKnowledge(bagId, slotIndex, expectedItemType, expectedIsKnown)
         local itemType = GetItemType(bagId, slotIndex)
@@ -125,7 +278,7 @@ local function getItemTypeComparator(itemTypeList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-            if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
@@ -535,6 +688,7 @@ end
 PA.HelperFunctions = {
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
+    getAdvancedBankingRulesComparator = getAdvancedBankingRulesComparator,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
     getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,

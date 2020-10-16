@@ -214,6 +214,9 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         d("itemEquipType="..tostring(itemEquipType))
         d("isUnique="..tostring(isUnique))
 
+        local itemFilterType = GetItemFilterTypeInfo(bagId, slotIndex)
+        d("itemFilterType="..tostring(itemFilterType))
+
         local itemStyle = GetItemLinkItemStyle(itemLink)
         local itemStyleName = GetItemStyleName(itemStyle)
         local isItemStyleKnown = IsSmithingStyleKnown(itemStyleId, 1)
