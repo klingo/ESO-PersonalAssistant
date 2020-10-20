@@ -670,8 +670,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             -- check if the updated happened in the backpack and if the item is new
             if bagId == BAG_BACKPACK then
                 local _marked = false
-                -- check if auto-marking is enabled for standard items
-                if PAJunkSavedVars.autoMarkAsJunkEnabled then
+                -- check if auto-marking is enabled for standard items (standard items only marked as junk if 'new')
+                if PAJunkSavedVars.autoMarkAsJunkEnabled and isNewItem then
                     local itemType, specializedItemType = GetItemType(bagId, slotIndex)
                     local isStolen = IsItemStolen(bagId, slotIndex)
 
