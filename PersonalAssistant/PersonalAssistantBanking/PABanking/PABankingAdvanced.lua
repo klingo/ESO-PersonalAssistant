@@ -109,13 +109,6 @@ local function depositOrWithdrawSpecialItems()
                 combinedWithdrawLists.specializedItemTypes:insert(specializedItemType)
             end
         end
-        for itemTraitType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
-            if moveMode == PAC.MOVE.DEPOSIT then
-                combinedDepositLists.itemTraitTypes:insert(itemTraitType)
-            elseif moveMode == PAC.MOVE.WITHDRAW then
-                combinedWithdrawLists.itemTraitTypes:insert(itemTraitType)
-            end
-        end
 
         local excludeJunk = PAB.SavedVars.excludeJunk
         local depositComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedDepositLists, excludeJunk)

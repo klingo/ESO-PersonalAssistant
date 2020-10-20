@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020503, -- update this every release!
+            MINOR = 020600, -- update this every release!
         },
     },
 
@@ -435,13 +435,6 @@ PersonalAssistant.Constants = {
                 SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
                 SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
             },
-        },
-        TRAIT = {
-            INTRICATE = {
-                [ITEM_TRAIT_TYPE_WEAPON_INTRICATE] = ITEMFILTERTYPE_WEAPONS,
-                [ITEM_TRAIT_TYPE_ARMOR_INTRICATE] = ITEMFILTERTYPE_ARMOR,
-                [ITEM_TRAIT_TYPE_JEWELRY_INTRICATE] = ITEMFILTERTYPE_JEWELRY,
-            }
         },
     },
 

@@ -133,7 +133,6 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Ins Inventar entnehmen",
 
     SI_PA_MENU_BANKING_SPECIAL_GLYPHS = "Glyphen",
-    SI_PA_MENU_BANKING_SPECIAL_INTRICATE_ITEMS = "Intrikate Gegenstände",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Reparaturmaterialien",
 

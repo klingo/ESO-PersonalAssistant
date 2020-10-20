@@ -457,7 +457,7 @@ local function _applyPatch_2_5_0(savedVarsVersion, patchPAG, _, _, _, _, _)
     end
 end
 
--- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+
 local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
     if patchPAJ and PA.Junk then
         local PASavedVars = PA.SavedVars
@@ -471,6 +471,79 @@ local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
         _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
     end
 end
+
+-- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _applyPatch_2_6_0(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+    if patchPAB and PA.Banking then
+        local PASavedVars = PA.SavedVars
+        -- 1) prepare the hardcoded template rules
+        local _depositIntricateWeaponsRule = "2/1\\/0/\\1/1\\2/160\\2\\2\\/0/\\3/9/1/10"
+        local _withdrawIntricateWeaponsRule = "1/1\\/0/\\1/1\\2/160\\2\\2\\/0/\\3/9/1/10"
+        local _depositIntricateApparelRule = "2/2\\/0/\\1/1\\2/160\\2\\2\\/0/\\3/20/1/10"
+        local _withdrawIntricateApparelRule = "1/2\\/0/\\1/1\\2/160\\2\\2\\/0/\\3/20/1/10"
+        local _depositIntricateJewelriesRule = "2/25\\/0/\\1/1\\2/160\\2\\2\\/0/\\3/27/1/10"
+        local _withdrawIntricateJewelriesRule = "1/25\\/0/\\1/1\\2/160\\2\\2\\/0/\\3/27/1/10"
+
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Banking[profileNo]) then
+                -- 2) make sure ADvancedRules is initialized
+                if PASavedVars.Banking[profileNo].AdvancedRules == nil then
+                    PASavedVars.Banking[profileNo].AdvancedRules = {
+                        advancedRulesEnabled = true,
+                        Rules = {
+                        }
+                    }
+                end
+                -- 3a) check if there is a rule for intricate weapons, then migrate
+                local intricateWeaponsRule = PASavedVars.Banking[profileNo].Advanced.ItemTraitTypes[ITEM_TRAIT_TYPE_WEAPON_INTRICATE]
+                if intricateWeaponsRule == PAC.MOVE.DEPOSIT then
+                    table.insert(PASavedVars.Banking[profileNo].AdvancedRules.Rules, {
+                        ruleEnabled = true,
+                        ruleRaw = _depositIntricateWeaponsRule
+                    })
+                elseif intricateWeaponsRule == PAC.MOVE.WITHDRAW then
+                    table.insert(PASavedVars.Banking[profileNo].AdvancedRules.Rules, {
+                        ruleEnabled = true,
+                        ruleRaw = _withdrawIntricateWeaponsRule
+                    })
+                end
+                -- 3b) check if there is a rule for intricate apparel, then migrate
+                local intricateApparelRule = PASavedVars.Banking[profileNo].Advanced.ItemTraitTypes[ITEM_TRAIT_TYPE_ARMOR_INTRICATE]
+                if intricateApparelRule == PAC.MOVE.DEPOSIT then
+                    table.insert(PASavedVars.Banking[profileNo].AdvancedRules.Rules, {
+                        ruleEnabled = true,
+                        ruleRaw = _depositIntricateApparelRule
+                    })
+                elseif intricateApparelRule == PAC.MOVE.WITHDRAW then
+                    table.insert(PASavedVars.Banking[profileNo].AdvancedRules.Rules, {
+                        ruleEnabled = true,
+                        ruleRaw = _withdrawIntricateApparelRule
+                    })
+                end
+                -- 3c) check if there is a rule for intricate jewelries, then migrate
+                local intricateJewelriesRule = PASavedVars.Banking[profileNo].Advanced.ItemTraitTypes[ITEM_TRAIT_TYPE_JEWELRY_INTRICATE]
+                if intricateJewelriesRule == PAC.MOVE.DEPOSIT then
+                    table.insert(PASavedVars.Banking[profileNo].AdvancedRules.Rules, {
+                        ruleEnabled = true,
+                        ruleRaw = _depositIntricateJewelriesRule
+                    })
+                elseif intricateJewelriesRule == PAC.MOVE.WITHDRAW then
+                    table.insert(PASavedVars.Banking[profileNo].AdvancedRules.Rules, {
+                        ruleEnabled = true,
+                        ruleRaw = _withdrawIntricateJewelriesRule
+                    })
+                end
+                -- 4) cleanup old savedVars
+                PASavedVars.Banking[profileNo].Advanced.ItemTraitTypes = nil
+
+                -- 5) if enabled, refresh the list
+                if PA.BankingAdvancedRulesList then PA.BankingAdvancedRulesList:Refresh() end
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+end
+
 
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -526,6 +599,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.5.1      October 12, 2020
     _applyPatch_2_5_1(_getIsPatchNeededInfo(020501))
+
+    -- Patch 2.6.0      tbd
+    _applyPatch_2_6_0(_getIsPatchNeededInfo(020600))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

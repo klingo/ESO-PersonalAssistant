@@ -133,7 +133,6 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Prendre dans le sac",
 
     SI_PA_MENU_BANKING_SPECIAL_GLYPHS = "Glyphes",
-    SI_PA_MENU_BANKING_SPECIAL_INTRICATE_ITEMS = "Objets complexes",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Nécessaires de réparation",
 

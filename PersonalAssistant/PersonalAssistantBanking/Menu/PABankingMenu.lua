@@ -53,7 +53,6 @@ local PABAdvancedGlyphsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedLiquidsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFoodDrinksSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
-local PABAdvancedIntricateItemsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFurnishingsSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAvASiegeBallistaSubmenuTable = setmetatable({}, { __index = table })
@@ -336,14 +335,6 @@ local function _createPABankingMenu()
         icon = PAC.ICONS.ITEMS.TROPHY.PATH,
         controls = PABAdvancedTrophiesSubmenuTable,
         disabledLabel = PABMenuFunctions.isTrophiesTransactionMenuDisabled,
-    })
-
-    PABankingOptionsTable:insert({
-        type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_SPECIAL_INTRICATE_ITEMS_HEADER),
-        icon = PAC.ICONS.ITEMS.TRAITS.INTRICATE.PATH,
-        controls = PABAdvancedIntricateItemsSubmenuTable,
-        disabledLabel = PABMenuFunctions.isIntricateItemsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -1019,23 +1010,6 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function _createPABAdvancedIntricateItemsSubmenuTable()
-    for itemTraitType, itemFilterType in pairs(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) do
-        PABAdvancedIntricateItemsSubmenuTable:insert({
-            type = "dropdown",
-            name = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemFilterType)),
-            choices = PABMenuChoices.itemMoveMode,
-            choicesValues = PABMenuChoicesValues.itemMoveMode,
-            getFunc = function() return PABMenuFunctions.getAdvancedItemTraitTypeMoveSetting(itemTraitType) end,
-            setFunc = function(value) PABMenuFunctions.setAdvancedItemTraitTypeMoveSetting(itemTraitType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
-            default = PABMenuDefaults.Advanced.ItemTraitTypes[itemTraitType],
-        })
-    end
-end
-
--- -----------------------------------------------------------------------------------------------------------------
-
 local function _createPABAdvancedFurnishingsSubmenuTable()
     for _, itemType in pairs(PAC.BANKING_ADVANCED.REGULAR.FURNISHINGS) do
         PABAdvancedFurnishingsSubmenuTable:insert({
@@ -1345,7 +1319,6 @@ local function createOptions()
     _createPABAdvancedLiquidsSubmenuTable()
     _createPABAdvancedFoodDrinksSubmenuTable()
     _createPABAdvancedTrophiesSubmenuTable()
-    _createPABAdvancedIntricateItemsSubmenuTable()
     _createPABAdvancedFurnishingsSubmenuTable()
 
     _createPABAvASiegeBallistaSubmenuTable()

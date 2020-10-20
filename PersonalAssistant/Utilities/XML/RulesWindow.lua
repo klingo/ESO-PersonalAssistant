@@ -992,5 +992,5 @@ PA.CustomDialogs.initRulesMainMenu = initRulesMainMenu
 
 -- register the callback to initialize the different tabs for the Rules Window
 PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingRulesList, "InitPABankingRulesList")
-PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingAdvancedRulesList, "initPABankingAdvancedRulesList")
+PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPABankingAdvancedRulesList, "InitPABankingAdvancedRulesList")
 PAEM.RegisterForCallback("PersonalAssistant", EVENT_ADD_ON_LOADED, initPAJunkRulesList, "InitPAJunkRulesList")

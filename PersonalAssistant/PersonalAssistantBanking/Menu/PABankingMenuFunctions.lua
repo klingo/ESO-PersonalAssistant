@@ -202,19 +202,6 @@ local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
 end
 
 --------------------------------------------------------------------------
--- PABanking   Advanced.ItemTraitTypes      moveMode
----------------------------------
-local function getPABankingAdvancedItemTraitTypeMoveSetting(itemTraitType)
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    return PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType]
-end
-
-local function setPABankingAdvancedItemTraitTypeMoveSetting(itemTraitType, value)
-    if isDisabledPAGeneralNoProfileSelected() then return end
-    PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] = value
-end
-
---------------------------------------------------------------------------
 -- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSpecializedMoveSetting
 ---------------------------------
 local function getPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType)
@@ -281,19 +268,6 @@ local function isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(spe
 end
 
 --------------------------------------------------------------------------
--- PABanking   Advanced.ItemTraitTypes              moveMode
----------------------------------
-local function isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(itemTraitTypeList)
-    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
-
-    for itemTraitType in pairs(itemTraitTypeList) do
-        if PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] ~= PAC.OPERATOR.NONE then return false end
-    end
-    -- if there was no 'false' returned until here; then return true
-    return true
-end
-
---------------------------------------------------------------------------
 -- PABanking   Advanced         advancedItemTypeMoveSetting + advancedItemTypeSpecializedMoveSetting
 ---------------------------------
 local function setPABankingAdvancedItemTypeMoveAllSettings(value)
@@ -310,9 +284,6 @@ local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     end
     for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
         PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
-    end
-    for itemTraitType, _ in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
-        PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] = value
     end
     PERSONALASSISTANT_PAB_ADVANCED_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
@@ -549,9 +520,6 @@ local PABankingMenuFunctions = {
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
 
-    getAdvancedItemTraitTypeMoveSetting = getPABankingAdvancedItemTraitTypeMoveSetting,
-    setAdvancedItemTraitTypeMoveSetting = setPABankingAdvancedItemTraitTypeMoveSetting,
-
     isAdvancedItemsGlobalMoveModeDisabled = function() return isDisabled({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsGlobalMoveModeSetting = function(value) setPABankingAdvancedItemTypeMoveAllSettings(value) end,
 
@@ -565,7 +533,6 @@ local PABankingMenuFunctions = {
     isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) end,
     isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) end,
     isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) end,
-    isIntricateItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) end,
     isFurnishingItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FURNISHINGS) end,
 
 
