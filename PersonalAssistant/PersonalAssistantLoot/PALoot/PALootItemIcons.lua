@@ -212,7 +212,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
         local collectibleName = GetCollectibleName(containerCollectibleId)
         local categoryType = GetCollectibleCategoryTypeFromLink(itemLink)
-        if categoryType ~= COLLECTIBLE_CATEGORY_TYPE_INVALID then
+        if categoryType == COLLECTIBLE_CATEGORY_TYPE_INVALID then
             if isValidForPlayer and not isUnlocked then
                 if PAStylePageContainerSV.showUnknownIcon then
                     _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
