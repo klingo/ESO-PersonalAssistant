@@ -1,3 +1,7 @@
+2.5.3 (October 20, 2020)
+- updated PAJunk to only mark 'Standard Items' as junk if they are considered 'new' ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/279"]#279[/URL])
+- fixed an issue in PALoot where the known/unknown icon was missing for style containers ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/280"]#280[/URL])
+
 2.5.2 (October 13, 2020)
 - fixed an issue where non-EN localization were not applied ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/278"]#278[/URL])
 
