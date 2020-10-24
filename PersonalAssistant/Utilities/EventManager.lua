@@ -212,7 +212,7 @@ local function RefreshAllEventRegistrations()
             -- Register PAJunk (for Merchants and Fences)
             RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
             RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
-            RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreAndFenceClose, "CloseStore")
+            RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreOrFenceClose, "CloseStore")
         else
             -- Unregister Auto-Sell for Merchants and Fences
             UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")

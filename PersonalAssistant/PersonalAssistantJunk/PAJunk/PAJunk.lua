@@ -24,25 +24,33 @@ local TREASURE_ITEM_TAGS = {
     }
 }
 
-local SELL_FENCE_ITEMS_INTERVAL_MS = 25
-local SELL_FENCE_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellFence"
+local _tempItemCountInBagBefore
+local _tempTotalMoneyDiff
+local _tempBagCache
+local _tempItemIndexToSellNext
 
-local SELL_MERCHANT_ITEMS_INTERVAL_MS = 25
-local SELL_MERCHANT_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellMerchant"
+local _sellStartGameTime
 
-local _tempItemCountInBag = 0
-
-local function _getUniqueSellFenceUpdateIdentifier(bagId, slotIndex)
-    return table.concat({SELL_FENCE_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
-end
-
-local function _getUniqueSellMerchantUpdateIdentifier(bagId, slotIndex)
-    return table.concat({SELL_MERCHANT_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
-end
 
 -- =====================================================================================================================
 -- Internal functions
 -- ---------------------------------------------------------------------------------------------------------------------
+
+local function _resetTempValues()
+    _tempItemCountInBagBefore = nil
+    _tempTotalMoneyDiff = nil
+    _tempBagCache = nil
+    _tempItemIndexToSellNext = nil
+end
+
+local function _initTempValues(bagCache)
+    _tempItemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
+    _tempTotalMoneyDiff = 0
+    if bagCache then
+        _tempBagCache = bagCache
+        _tempItemIndexToSellNext = 1
+    end
+end
 
 --- Checks whether the item has any sell value or not
 -- @param bagId the id of the bag where the item is
@@ -296,10 +304,10 @@ end
 
 
 -- =====================================================================================================================
--- Give feedback to the player about the changes in gold or the fence transaction limit reset
+-- Give feedback to the player about the changes in gold or when fence transaction limit will reset
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _printSoldItemsMessage(totalSellPrice, totalSellCount)
+local function _printSoldItemsMessageAndFireRepairCallbacks(totalSellPrice, totalSellCount)
     if totalSellCount > 0 then
         -- at least one item was sold (although it might have been worthless(?))
         local totalSellPriceFmt = PAHF.getFormattedCurrency(totalSellPrice)
@@ -335,123 +343,88 @@ local function _printFenceSellTransactionResetMessage(resetTimeSeconds)
     end
 end
 
+local function _stopSellingItemsAndContinue()
+    -- first, unregister the events and give feedback
+    PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, "StolenJunkSoldAtFenceMoneyUpdate")
+    PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, "JunkSoldAtMerchantMoneyUpdate")
+
+    -- then update the values for reporting in chat
+    local totalSellCount = _tempItemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
+    _printSoldItemsMessageAndFireRepairCallbacks(_tempTotalMoneyDiff, totalSellCount)
+
+    -- reset the temporary values to 'nil' again
+    _resetTempValues()
+end
 
 -- =====================================================================================================================
--- EVENT triggered when all Junk is directly sold at a Merchant using ESO's internal SellAllJunk() function
+-- Recursive function for individually selling stolen junk items to Fences
 -- ---------------------------------------------------------------------------------------------------------------------
 
---- Gives feedback about the gold earned from selling all junk items at once
--- It gets registered whenn all junk can be sold directly using ESO's internal SellAllJunk() function
--- Therefore it is sufficient to just wait until it gets triggered once.
--- @param eventCode the id of the event
--- @param newMoney  amount of gold AFTER junk was sold
--- @param oldMoney amount of gold BEFORE junk was sold
--- @param currencyChangeReason the id of the reason why currency got changed
-local function _onJunkSoldMoneyUpdate(eventCode, newMoney, oldMoney, currencyChangeReason)
-    PAJ.debugln("PAJunk._onJunkSoldMoneyUpdate(oldMoney = %d, newMoney = %d, reason = %d)", oldMoney, newMoney, currencyChangeReason)
-    if currencyChangeReason == CURRENCY_CHANGE_REASON_VENDOR then
-        -- event was triggered, can be unregistered again
-        PAEM.UnregisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, "JunkSoldMoneyUpdate")
-
-        local totalSellPrice = newMoney - oldMoney
-        local totalSellCount = _tempItemCountInBag - GetNumBagUsedSlots(BAG_BACKPACK)
-        _printSoldItemsMessage(totalSellPrice, totalSellCount)
+local function _sellNextStolenItemToFence()
+    local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+    if sellsUsed < totalSells then
+        -- check if there even is an item to be sold
+        if _tempItemIndexToSellNext <= #_tempBagCache then
+            local itemDataToSell = _tempBagCache[_tempItemIndexToSellNext]
+            local bagId = itemDataToSell.bagId
+            local slotIndex = itemDataToSell.slotIndex
+            local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+            local sellPriceStolen = GetItemSellValueWithBonuses(bagId, slotIndex)
+            local sellInformation = GetItemLinkSellInformation(itemLink)
+            if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL then
+                -- show message to player that Item cannot be sold because ESO says so
+                PAJ.println(SI_PA_CHAT_JUNK_CANNOT_SELL_ITEM, itemLink)
+                -- if item cannot be sold; continue with the next (if there are more)
+                _tempItemIndexToSellNext = _tempItemIndexToSellNext + 1
+                _sellNextStolenItemToFence()
+            elseif sellPriceStolen <= 0 then
+                -- show message to player that Item cannot be sold because a Fence does not accept zero-value items
+                PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
+                -- if item cannot be sold; continue with the next (if there are more)
+                _tempItemIndexToSellNext = _tempItemIndexToSellNext + 1
+                _sellNextStolenItemToFence()
+            else
+                -- item can be sold and it is worth money, check if Fence window is still open
+                if not PA.WindowStates.isFenceClosed then
+                    local stackCount = itemDataToSell.stackCount
+                    _sellStartGameTime = GetGameTimeMilliseconds()
+                    SellInventoryItem(bagId, slotIndex, stackCount)
+                else
+                    -- if Fence has been closed prematurely, also display the feedback message
+                    _stopSellingItemsAndContinue()
+                end
+            end
+        else
+            -- no more items to be sold, give feedback about the changes
+            _stopSellingItemsAndContinue()
+        end
+    else
+        -- limit reached! print a message and stop
+        _printFenceSellTransactionResetMessage(resetTimeSeconds)
+        -- after limit is reached, also give feedback about the changes
+        _stopSellingItemsAndContinue()
     end
 end
 
+--- EVENT triggered when an individual stolen Junk item is sold at a Fence using ESO's SellInventoryItem() function
+-- It gets registered when there are stolen junk items that can be sold individually to a Fence
+-- @param eventCode the id of the event
+-- @param newMoney  amount of gold AFTER single stolen junk item was sold
+-- @param oldMoney amount of gold BEFORE single stolen junk item was sold
+-- @param currencyChangeReason the id of the reason why currency got changed
+local function _onStolenJunkSoldAtFenceMoneyUpdate(eventCode, newMoney, oldMoney, currencyChangeReason)
+    -- TODO: also check if moneyDiff was positive (extra safety check?)
+    if currencyChangeReason == CURRENCY_CHANGE_REASON_VENDOR then
+        local sellFinishGameTime = GetGameTimeMilliseconds()
+        local moneyDiff = newMoney - oldMoney
+        PAHF.debuglnAuthor("selling item to Fence for %d gold took %d ms", moneyDiff, (sellFinishGameTime - _sellStartGameTime))
 
--- =====================================================================================================================
--- EVENT triggered when individual Junk items are sold at a Merchant using ESO's SellInventoryItem() function
--- ---------------------------------------------------------------------------------------------------------------------
+        -- update the total money diff
+        _tempTotalMoneyDiff = _tempTotalMoneyDiff + moneyDiff
 
-
-
--- =====================================================================================================================
--- EVENT triggered when individual stolen Junk are sold at a Fence using ESO's SellInventoryItem() function
--- ---------------------------------------------------------------------------------------------------------------------
-
-
-
--- =====================================================================================================================
--- Recursive function for individually selling stolen items to Fences
--- ---------------------------------------------------------------------------------------------------------------------
-
-local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, totalSellCount)
-    if not PA.WindowStates.isFenceClosed then
-        local sellStartGameTime = GetGameTimeMilliseconds()
-        local itemDataToSell = bagCache[startIndex]
-        local bagId = itemDataToSell.bagId
-        local slotIndex = itemDataToSell.slotIndex
-        local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-        local sellPriceStolen = GetItemSellValueWithBonuses(bagId, slotIndex)
-        local sellInformation = GetItemLinkSellInformation(itemLink)
-        if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL then
-            -- show message to player that Item cannot be sold because ESO says so
-            PAJ.println(SI_PA_CHAT_JUNK_CANNOT_SELL_ITEM, itemLink)
-            -- if item cannot be sold; continue with the next (if there are more)
-            local newStartIndex = startIndex + 1
-            if newStartIndex <= #bagCache then
-                -- yes, continue loop
-                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
-            else
-                -- no, finish loop; after everything is sold, give feedback about the changes
-                _printSoldItemsMessage(totalSellPrice, totalSellCount)
-            end
-        elseif sellPriceStolen <= 0 then
-            -- show message to player that Item cannot be sold because a Fence does not accept zero-value items
-            PAJ.println(SI_PA_CHAT_JUNK_FENCE_ITEM_WORTHLESS, itemLink)
-            -- if item cannot be sold; continue with the next (if there are more)
-            local newStartIndex = startIndex + 1
-            if newStartIndex <= #bagCache then
-                -- yes, continue loop
-                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
-            else
-                -- no, finish loop; after everything is sold, give feedback about the changes
-                _printSoldItemsMessage(totalSellPrice, totalSellCount)
-            end
-        else
-            -- item can be sold to the Fence; continue
-            local stackCount = itemDataToSell.stackCount
-            local totalSells, sellsUsedBefore = GetFenceSellTransactionInfo()
-            SellInventoryItem(bagId, slotIndex, stackCount)
-            -- ---------------------------------------------------------------------------------------------------------
-            -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until fence is closed!)
-            local identifier = _getUniqueSellFenceUpdateIdentifier(bagId, slotIndex)
-            EVENT_MANAGER:RegisterForUpdate(identifier, SELL_FENCE_ITEMS_INTERVAL_MS,
-                function()
-                    -- check if the item is still in the bag
-                    local itemId = GetItemId(bagId, slotIndex)
-                    local _, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-                    if itemId <= 0 or sellsUsed > sellsUsedBefore or sellsUsed == totalSells or PA.WindowStates.isFenceClosed then
-                        -- if item is gone, limit reached, or fence closed stop the interval
-                        EVENT_MANAGER:UnregisterForUpdate(identifier)
-                        local sellFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debugln("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
-                        totalSellPrice = totalSellPrice + (sellPriceStolen * stackCount)
-                        totalSellCount = totalSellCount + 1
-                        if sellsUsed == totalSells then
-                            -- limit reached! print a message and stop
-                            _printFenceSellTransactionResetMessage(resetTimeSeconds)
-                            -- after limit is reached, also give feedback about the changes
-                            _printSoldItemsMessage(totalSellPrice, totalSellCount)
-                        else
-                            -- limit not yet reached, check if there are more items to be sold
-                            local newStartIndex = startIndex + 1
-                            if newStartIndex <= #bagCache then
-                                -- yes, continue loop
-                                _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
-                            else
-                                -- no, finish loop; after everything is sold, give feedback about the changes
-                                _printSoldItemsMessage(totalSellPrice, totalSellCount)
-                            end
-                        end
-                    end
-                end)
-            -- ---------------------------------------------------------------------------------------------------------
-        end
-    else
-        -- if Fence has been closed, also display the feedback message
-        _printSoldItemsMessage(totalSellPrice, totalSellCount)
+        -- since item has been sold; attempt to continue with the next one
+        _tempItemIndexToSellNext = _tempItemIndexToSellNext + 1
+        _sellNextStolenItemToFence()
     end
 end
 
@@ -463,24 +436,29 @@ local function _OnFenceOpenInternal(dynamicComparator)
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
         PAJ.debugln("_OnFenceOpenInternal.#bagCache = " .. tostring(#bagCache))
         if #bagCache > 0 then
-            -- after sellink junk, give feedback about the changes
-            _sellStolenItemToFence(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
+            -- first init the total money diff to '0' and get the item count in the backpack
+            _initTempValues(bagCache)
+            -- then since there are stolen junk items to be sold, register the event
+            PAEM.RegisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, _onStolenJunkSoldAtFenceMoneyUpdate, "StolenJunkSoldAtFenceMoneyUpdate")
+            -- finally, sell the first item (to trigger the event)
+            _sellNextStolenItemToFence()
         end
     else
         -- limit already reached when fence was opened; since nothing was sold no soldJunkFeedback needed!
         _printFenceSellTransactionResetMessage(resetTimeSeconds)
+        -- no further action needed here since not even a single item was sold
     end
 end
 
 
 -- =====================================================================================================================
--- Recursive function for individually selling items to Merchants
+-- Recursive function for individually selling junk items to Merchants
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSellCount)
-    if not PA.WindowStates.isStoreClosed then
-        local sellStartGameTime = GetGameTimeMilliseconds()
-        local itemDataToSell = bagCache[startIndex]
+local function _sellNextItemToMerchant()
+    -- check if there even is an item to be sold
+    if _tempItemIndexToSellNext <= #_tempBagCache then
+        local itemDataToSell = _tempBagCache[_tempItemIndexToSellNext]
         local bagId = itemDataToSell.bagId
         local slotIndex = itemDataToSell.slotIndex
         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
@@ -489,48 +467,45 @@ local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSe
             -- show message to player that Item cannot be sold because ESO says so
             PAJ.println(SI_PA_CHAT_JUNK_CANNOT_SELL_ITEM, itemLink)
             -- if item cannot be sold; continue with the next (if there are more)
-            local newStartIndex = startIndex + 1
-            if newStartIndex <= #bagCache then
-                -- yes, continue loop
-                _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
-            else
-                -- no, finish loop; after everything is sold, give feedback about the changes
-                _printSoldItemsMessage(totalSellPrice, totalSellCount)
-            end
+            _tempItemIndexToSellNext = _tempItemIndexToSellNext + 1
+            _sellNextItemToMerchant()
         else
-            local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
-            local stackCount = itemDataToSell.stackCount
-            SellInventoryItem(bagId, slotIndex, stackCount)
-            -- ---------------------------------------------------------------------------------------------------------
-            -- Now "wait" until the item sell has been complete/confirmed, or the limit is reached (or until merchant is closed!)
-            local identifier = _getUniqueSellMerchantUpdateIdentifier(bagId, slotIndex)
-            EVENT_MANAGER:RegisterForUpdate(identifier, SELL_MERCHANT_ITEMS_INTERVAL_MS,
-                function()
-                    -- check if the item is still in the bag
-                    local itemId = GetItemId(bagId, slotIndex)
-                    if itemId <= 0 or PA.WindowStates.isStoreClosed then
-                        -- if item is gone, or merchant closed stop the interval
-                        EVENT_MANAGER:UnregisterForUpdate(identifier)
-                        local sellFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debuglnAuthor("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
-                        totalSellPrice = totalSellPrice + sellPrice
-                        totalSellCount = totalSellCount + 1
-                        -- check if there are more items to be sold
-                        local newStartIndex = startIndex + 1
-                        if newStartIndex <= #bagCache then
-                            -- yes, continue loop
-                            _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
-                        else
-                            -- no, finish loop; after everything is sold, give feedback about the changes
-                            _printSoldItemsMessage(totalSellPrice, totalSellCount)
-                        end
-                    end
-                end)
-            -- ---------------------------------------------------------------------------------------------------------
+            -- item can be sold, check if Merchant window is still open
+            if not PA.WindowStates.isStoreClosed then
+                local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
+                local stackCount = itemDataToSell.stackCount
+                _sellStartGameTime = GetGameTimeMilliseconds()
+                SellInventoryItem(bagId, slotIndex, stackCount)
+            else
+                -- if Merchant has been closed prematurely, also display the feedback message
+                _stopSellingItemsAndContinue()
+            end
         end
     else
-        -- if Merchant has been closed, also display the feedback message
-        _printSoldItemsMessage(totalSellPrice, totalSellCount)
+        -- no more items to be sold, give feedback about the changes
+        _stopSellingItemsAndContinue()
+    end
+end
+
+--- EVENT triggered when individual Junk item is sold at a Merchant using ESO's SellInventoryItem() function
+-- It gets registered when there are junk items that can be sold individually to a Merchant
+-- @param eventCode the id of the event
+-- @param newMoney  amount of gold AFTER single stolen junk item was sold
+-- @param oldMoney amount of gold BEFORE single stolen junk item was sold
+-- @param currencyChangeReason the id of the reason why currency got changed
+local function _onJunkSoldAtMerchantMoneyUpdate(eventCode, newMoney, oldMoney, currencyChangeReason)
+    -- TODO: also check if moneyDiff was positive (extra safety check?)
+    if currencyChangeReason == CURRENCY_CHANGE_REASON_VENDOR then
+        local sellFinishGameTime = GetGameTimeMilliseconds()
+        local moneyDiff = newMoney - oldMoney
+        PAHF.debuglnAuthor("selling item to Merchant for %d gold took %d ms", moneyDiff, (sellFinishGameTime - _sellStartGameTime))
+
+        -- update the total money diff
+        _tempTotalMoneyDiff = _tempTotalMoneyDiff + moneyDiff
+
+        -- since item has been sold; attempt to continue with the next one
+        _tempItemIndexToSellNext = _tempItemIndexToSellNext + 1
+        _sellNextItemToMerchant()
     end
 end
 
@@ -539,7 +514,39 @@ local function _OnShopOpenInternal(dynamicComparator)
     local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
     PAJ.debugln("_OnShopOpenInternal.#bagCache = " .. tostring(#bagCache))
     if #bagCache > 0 then
-        _sellItemToMerchant(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
+        -- first init the total money diff to '0' and get the item count in the backpack
+        _initTempValues(bagCache)
+        -- then since there are  junk items to be sold, register the event
+        PAEM.RegisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, _onJunkSoldAtMerchantMoneyUpdate, "JunkSoldAtMerchantMoneyUpdate")
+        -- finally, sell the first item (to trigger the event)
+        _sellNextItemToMerchant()
+    end
+end
+
+
+-- =====================================================================================================================
+-- Single function for selling all junk items at once to Merchants
+-- ---------------------------------------------------------------------------------------------------------------------
+
+--- EVENT triggered when all Junk is directly sold at a Merchant using ESO's internal SellAllJunk() function
+-- It gets registered when all junk can be sold directly; therefore it is sufficient to just wait until it gets triggered once
+-- @param eventCode the id of the event
+-- @param newMoney  amount of gold AFTER all junk was sold
+-- @param oldMoney amount of gold BEFORE all junk was sold
+-- @param currencyChangeReason the id of the reason why currency got changed
+local function _onAllJunkSoldMoneyUpdate(eventCode, newMoney, oldMoney, currencyChangeReason)
+    PAJ.debugln("PAJunk._onAllJunkSoldMoneyUpdate(oldMoney = %d, newMoney = %d, reason = %d)", oldMoney, newMoney, currencyChangeReason)
+    if currencyChangeReason == CURRENCY_CHANGE_REASON_VENDOR then
+        -- event was triggered, can be unregistered again
+        PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, "AllJunkSoldMoneyUpdate")
+
+        -- update the values for reporting in chat
+        _tempTotalMoneyDiff = newMoney - oldMoney
+        local totalSellCount = _tempItemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
+        _printSoldItemsMessageAndFireRepairCallbacks(_tempTotalMoneyDiff, totalSellCount)
+
+        -- reset the temporary values to 'nil' again
+        _resetTempValues()
     end
 end
 
@@ -547,6 +554,26 @@ end
 -- =====================================================================================================================
 -- Public Event Triggers
 -- ---------------------------------------------------------------------------------------------------------------------
+
+local function OnStoreOrFenceClose()
+    PA.WindowStates.isFenceClosed = true
+    PA.WindowStates.isStoreClosed = true
+
+    -- try to unregister all MONEY_UPDATE events; just in case
+    PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, "AllJunkSoldMoneyUpdate")
+    PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, "JunkSoldAtMerchantMoneyUpdate")
+    PAEM.UnregisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, "StolenJunkSoldAtFenceMoneyUpdate")
+
+    -- check if there are any sold items that have not been reported to the player yet (otherwise variable would be reset to 'nil')
+    if _tempTotalMoneyDiff ~= nil and _tempTotalMoneyDiff > 0 then
+        -- update the values for reporting in chat
+        local totalSellCount = _tempItemCountInBagBefore - GetNumBagUsedSlots(BAG_BACKPACK)
+        _printSoldItemsMessageAndFireRepairCallbacks(_tempTotalMoneyDiff, totalSellCount)
+
+        -- reset the temporary values to 'nil' again
+        _resetTempValues()
+    end
+end
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
     PAJ.debugln("PAJunk.OnFenceOpen")
@@ -620,10 +647,10 @@ local function OnShopOpen()
             if autoSellJunk then
                 -- check if there is junk to sell (exclude stolen items = true)
                 if HasAnyJunk(BAG_BACKPACK, true) then
-                    -- store number of items in bag
-                    _tempItemCountInBag = GetNumBagUsedSlots(BAG_BACKPACK)
+                    -- first init the total money diff to '0' and get the item count in the backpack
+                    _initTempValues()
                     -- Register an event to check when Junk was sold to the Merchant
-                    PAEM.RegisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, _onJunkSoldMoneyUpdate, "JunkSoldMoneyUpdate")
+                    PAEM.RegisterForEvent(PAJ.AddonName, EVENT_MONEY_UPDATE, _onAllJunkSoldMoneyUpdate, "AllJunkSoldMoneyUpdate")
                     -- Sell all items marked as junk
                     SellAllJunk()
                 else
@@ -635,14 +662,6 @@ local function OnShopOpen()
             end
         end
     end
-end
-
-local function OnStoreAndFenceClose()
-    PA.WindowStates.isFenceClosed = true
-    PA.WindowStates.isStoreClosed = true
-
-    -- try to unregister all MONEY_UPDATE events; just in case
-    PAEM.UnregisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, "JunkSoldMoneyUpdate")
 end
 
 local function OnMailboxOpen()
@@ -822,9 +841,9 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Junk = PA.Junk or {}
+PA.Junk.OnStoreOrFenceClose = OnStoreOrFenceClose
 PA.Junk.OnFenceOpen = OnFenceOpen
 PA.Junk.OnShopOpen = OnShopOpen
-PA.Junk.OnStoreAndFenceClose = OnStoreAndFenceClose
 PA.Junk.OnMailboxOpen = OnMailboxOpen
 PA.Junk.OnMailboxClose = OnMailboxClose
 PA.Junk.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
