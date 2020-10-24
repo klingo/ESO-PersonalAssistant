@@ -425,7 +425,7 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                         -- if item is gone, limit reached, or fence closed stop the interval
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local sellFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debugln("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
+                        PAJ.debugln("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
                         totalSellPrice = totalSellPrice + (sellPriceStolen * stackCount)
                         totalSellCount = totalSellCount + 1
                         if sellsUsed == totalSells then
@@ -489,7 +489,7 @@ local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSe
                         -- if item is gone, or merchant closed stop the interval
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local sellFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debuglnAuthor("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
+                        PAJ.debugln("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
                         totalSellPrice = totalSellPrice + sellPrice
                         totalSellCount = totalSellCount + 1
                         -- check if there are more items to be sold
