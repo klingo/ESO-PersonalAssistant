@@ -40,51 +40,8 @@ local function _getUniqueSellMerchantUpdateIdentifier(bagId, slotIndex)
     return table.concat({SELL_MERCHANT_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
 end
 
-local function _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
-    if totalSellCount > 0 then
-        -- at least one item was sold (although it might have been worthless(?))
-        local totalSellPriceFmt = PAHF.getFormattedCurrency(totalSellPrice)
-        if totalSellPrice > 0 then
-            -- some valuable items were sold
-            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPriceFmt)
-        else
-            -- only worthless items were sold
-            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPriceFmt)
-        end
-    else
-        -- no item was sold
-        if totalSellPrice > 0 then
-            -- no item was sold, but money appeared out of nowhere
-            -- should not happen :D
-            PAJ.println(PAC.COLORED_TEXTS.PAJ .. ": It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
-        end
-    end
-
-    -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
-    if PA.Repair then
-        PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
-    end
-end
-
---- Gives feedback about the gold earned from selling all junk items at once
--- It gets registered whenn all junk can be sold directly using ESO's internal SellAllJunk() function
--- Therefore it is sufficient to just wait until it gets triggered once.
--- @param eventCode the id of the event
--- @param newMoney  amount of gold AFTER junk was sold
--- @param oldMoney amount of gold BEFORE junk was sold
--- @param currencyChangeReason the id of the reason why currency got changed
-local function _onJunkSoldMoneyUpdate(eventCode, newMoney, oldMoney, currencyChangeReason)
-    PAJ.debugln("PAJunk._onJunkSoldMoneyUpdate(oldMoney = %d, newMoney = %d, reason = %d)", oldMoney, newMoney, currencyChangeReason)
-    if currencyChangeReason == CURRENCY_CHANGE_REASON_VENDOR then
-        -- event was triggered, can be unregistered again
-        PAEM.UnregisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, "JunkSoldMoneyUpdate")
-
-        local totalSellPrice = newMoney - oldMoney
-        local totalSellCount = _tempItemCountInBag - GetNumBagUsedSlots(BAG_BACKPACK)
-        _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
-    end
-end
-
+-- =====================================================================================================================
+-- Internal functions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 --- Checks whether the item has any sell value or not
@@ -113,172 +70,6 @@ local function _isWorthlessAndShouldBeDestroyed(bagId, slotIndex)
         return _isItemWorthless(bagId, slotIndex)
     end
     return false
-end
-
-local function _markAsJunkIfPossible(bagId, slotIndex, successMessageKey, itemLink)
-    PAJ.debugln("_markAsJunkIfPossible: %s", itemLink)
-    -- Check if ESO allows the item to be marked as junk
-    if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- then check if the item can NOT be sold or if it is unique; if yes then don't mark it as junk
-        local sellInformation = GetItemLinkSellInformation(itemLink)
-        local isUnique = IsItemLinkUnique(itemLink)
-        if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL or isUnique then
-            -- does not make sense to mark item as junks since it cannot be sold or is unique
-            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
-                -- Item should be DESTROYED
-                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (1)")
-                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
-                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-                local _, stackCount = GetItemInfo(bagId, slotIndex)
-                -- execute main action
-                DestroyItem(bagId, slotIndex)
-                -- inform player
-                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
-                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
-                return true -- marking/destroying junk was successful
-            end
-            PAJ.debugln("NOT CanItemBeMarkedAsJunk/IsWorthlessAndShouldBeDestroyed isUnique="..tostring(isUnique).. " | sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
-            return false -- was not marked as junk
-        else
-            -- It is considered safe to mark the item as junk (or to be destroyed?)
-            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
-                -- Item should be DESTROYED
-                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (2)")
-                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
-                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
-                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-                local _, stackCount = GetItemInfo(bagId, slotIndex)
-                -- execute main action
-                DestroyItem(bagId, slotIndex)
-                -- inform player
-                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
-                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
-
-            else
-                -- Item should be marked as JUNK
-                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed (3)")
-                SetItemIsJunk(bagId, slotIndex, true)
-                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
-                -- make sure an itemLink is present
-                if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
-                -- prepare additional icons if needed
-                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-                -- print provided success message
-                PAJ.println(successMessageKey, itemLinkExt)
-            end
-
-            return true -- marking/destroying junk was successful
-        end
-    else
-        -- print failure message
-        -- TODO: to be implemented
-
-        return false -- was not marked as junk
-    end
-end
-
-local function _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
-    PAJ.debugln("Mark Item As Junk")
-    SetItemIsJunk(bagId, slotIndex, true)
-    PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
-    -- make sure an itemLink is present
-    if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
-    -- prepare additional icons if needed
-    local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-    -- print provided success message
-    PAJ.println(successJunkMessageKey, itemLinkExt)
-end
-
-local function _destroyItem(bagId, slotIndex, itemLink, itemAction)
-    local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
-    local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-    local _, stackCount = GetItemInfo(bagId, slotIndex)
-    -- execute main action
-    DestroyItem(bagId, slotIndex)
-    -- inform player
-    PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
-    -- with a matching text
-    if itemAction == PAC.ITEM_ACTION.DESTROY_ALWAYS then
-        PAJ.debugln("Destroy Item Always")
-        PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_ALWAYS, stackCount, itemLinkExt)
-    elseif itemAction == PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS then
-        PAJ.debugln("Destroy Item Worthless")
-        PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
-    end
-end
-
---- Depending on the itemAction, the item is marked as junk, destroyed or nothing happens
--- @param bagId the id of the bag where the item is
--- @param slotIndex the id of the slot where the item is
--- @param successJunkMessageKey the message key that should be printed when marked as junk
--- @param itemLink the itemLink string of the item
--- @param itemAction the action-code from PAC.ITEM_ACTION
--- @return true if the item was marked as junk or destroy, otherwise false
-local function _markAsJunkOrDestroyIfPossible(bagId, slotIndex, successJunkMessageKey, itemLink, itemAction)
-    PAJ.debugln("_markAsJunkOrDestroyIfPossible: %s", itemLink)
-    -- if item action is set to do nothing, stop immediately
-    if itemAction == PAC.ITEM_ACTION.NOTHING then return false end
-    -- if item is unique, also stop immediately (i.e. to avoid destroying Kari's Hit List items)
-    if IsItemLinkUnique(itemLink) then return false end
-
-    -- if item action is set to mark as junk, check if ESO allows that
-    if itemAction == PAC.ITEM_ACTION.MARK_AS_JUNK then
-        if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-            -- Item should be marked as JUNK
-            _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
-            return true
-        end
-    else
-        local isItemWorthless = _isItemWorthless(bagId, slotIndex)
-        if itemAction == PAC.ITEM_ACTION.DESTROY_ALWAYS or (isItemWorthless and itemAction == PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS) then
-            -- Item should be DESTROYED
-            _destroyItem(bagId, slotIndex, itemLink, itemAction)
-            return true
-        elseif not isItemWorthless and itemAction == PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS then
-            -- Item should be marked as JUNK
-            _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
-            return true
-        end
-    end
-    return false
-end
-
-local function _canWeaponArmorJewelryBeMarkedAsJunk(savedVarsGroup, itemLink, itemQuality)
-    if savedVarsGroup ~= nil and istable(savedVarsGroup) then
-        local qualityThreshold = savedVarsGroup.autoMarkQualityThreshold
-        if qualityThreshold ~= PAC.ITEM_QUALITY.DISABLED and itemQuality <= qualityThreshold then
-            -- quality threshold would be reached, check other includes now
-            local hasSet = GetItemLinkSetInfo(itemLink, false)
-            if not hasSet or (hasSet and savedVarsGroup.autoMarkIncludingSets) then
-                local itemTraitType = GetItemLinkTraitType(itemLink)
-                if itemTraitType == ITEM_TRAIT_TYPE_NONE then
-                    -- if the item has passed the quality-check and the set-check, and has no traits then it can be marked as junk
-                    return true
-                else
-                    local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
-                    if (not canBeResearched and savedVarsGroup.autoMarkKnownTraits) or (canBeResearched and savedVarsGroup.autoMarkUnknownTraits) then
-                        local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
-                        if not isIntricateTtrait or (isIntricateTtrait and savedVarsGroup.autoMarkIntricateTrait) then
-                            return true
-                        end
-                    end
-                end
-            end
-        end
-    end
-    -- if unknown or no match, return false
-    return false
-end
-
-local function _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
-    local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
-    if resetTimeHours >= 1 then
-        PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, resetTimeHours)
-    else
-        local resetTimeMinutes = PAHF.round(resetTimeSeconds / 60, 0)
-        PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
-    end
 end
 
 local function _isTrashItemNotQuestExcluded(bagId, slotIndex)
@@ -340,6 +131,249 @@ local function _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLi
     return true
 end
 
+local function _isIndividualFCOISItemCheckRequired()
+    local PAI = PA.Integration
+    if PAI and FCOIS then
+        local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
+        local autoSellMarked = PAIFCOISSavedVars.Sell.autoSellMarked
+        local lockedPreventsAutoSell = PAIFCOISSavedVars.Locked.preventAutoSell
+        -- if either FCOIS-Integration setting is turned on, return true
+        return autoSellMarked or lockedPreventsAutoSell
+    end
+    -- in all other cases, it is not needed
+    return false
+end
+
+local function _canWeaponArmorJewelryBeMarkedAsJunk(savedVarsGroup, itemLink, itemQuality)
+    if savedVarsGroup ~= nil and istable(savedVarsGroup) then
+        local qualityThreshold = savedVarsGroup.autoMarkQualityThreshold
+        if qualityThreshold ~= PAC.ITEM_QUALITY.DISABLED and itemQuality <= qualityThreshold then
+            -- quality threshold would be reached, check other includes now
+            local hasSet = GetItemLinkSetInfo(itemLink, false)
+            if not hasSet or (hasSet and savedVarsGroup.autoMarkIncludingSets) then
+                local itemTraitType = GetItemLinkTraitType(itemLink)
+                if itemTraitType == ITEM_TRAIT_TYPE_NONE then
+                    -- if the item has passed the quality-check and the set-check, and has no traits then it can be marked as junk
+                    return true
+                else
+                    local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
+                    if (not canBeResearched and savedVarsGroup.autoMarkKnownTraits) or (canBeResearched and savedVarsGroup.autoMarkUnknownTraits) then
+                        local isIntricateTtrait = PAHF.isItemLinkIntricateTraitType(itemLink)
+                        if not isIntricateTtrait or (isIntricateTtrait and savedVarsGroup.autoMarkIntricateTrait) then
+                            return true
+                        end
+                    end
+                end
+            end
+        end
+    end
+    -- if unknown or no match, return false
+    return false
+end
+
+local function _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, successMessageKey, itemLink)
+    PAJ.debugln("_markAsJunkOrDestroyIfWorthless: %s", itemLink)
+    -- Check if ESO allows the item to be marked as junk
+    if CanItemBeMarkedAsJunk(bagId, slotIndex) then
+        -- then check if the item can NOT be sold or if it is unique; if yes then don't mark it as junk
+        local sellInformation = GetItemLinkSellInformation(itemLink)
+        local isUnique = IsItemLinkUnique(itemLink)
+        if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL or isUnique then
+            -- does not make sense to mark item as junks since it cannot be sold or is unique
+            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
+                -- Item should be DESTROYED
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (1)")
+                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
+                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                local _, stackCount = GetItemInfo(bagId, slotIndex)
+                -- execute main action
+                DestroyItem(bagId, slotIndex)
+                -- inform player
+                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
+                return true -- marking/destroying junk was successful
+            end
+            PAJ.debugln("NOT CanItemBeMarkedAsJunk/IsWorthlessAndShouldBeDestroyed isUnique="..tostring(isUnique).. " | sellInformation="..GetString("SI_ITEMSELLINFORMATION", sellInformation))
+            return false -- was not marked as junk
+        else
+            -- It is considered safe to mark the item as junk (or to be destroyed?)
+            if _isWorthlessAndShouldBeDestroyed(bagId, slotIndex) then
+                -- Item should be DESTROYED
+                PAJ.debugln("_isWorthlessAndShouldBeDestroyed (2)")
+                local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
+                local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                local _, stackCount = GetItemInfo(bagId, slotIndex)
+                -- execute main action
+                DestroyItem(bagId, slotIndex)
+                -- inform player
+                PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+                PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
+
+            else
+                -- Item should be marked as JUNK
+                PAJ.debugln("NOT _isWorthlessAndShouldBeDestroyed (3)")
+                SetItemIsJunk(bagId, slotIndex, true)
+                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+                -- make sure an itemLink is present
+                if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
+                -- prepare additional icons if needed
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                -- print provided success message
+                PAJ.println(successMessageKey, itemLinkExt)
+            end
+
+            return true -- marking/destroying junk was successful
+        end
+    else
+        -- print failure message
+        -- TODO: to be implemented
+
+        return false -- was not marked as junk
+    end
+end
+
+local function _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, successJunkMessageKey, itemLink, itemAction)
+    PAJ.debugln("_markAsJunkOrDestroyBasedOnItemAction: %s", itemLink)
+
+    local function _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
+        PAJ.debugln("Mark Item As Junk")
+        SetItemIsJunk(bagId, slotIndex, true)
+        PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+        -- make sure an itemLink is present
+        if itemLink == nil then itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS) end
+        -- prepare additional icons if needed
+        local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+        -- print provided success message
+        PAJ.println(successJunkMessageKey, itemLinkExt)
+    end
+
+    local function _destroyItem(bagId, slotIndex, itemLink, itemAction)
+        local itemSoundCategory = GetItemSoundCategory(bagId, slotIndex)
+        local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+        local _, stackCount = GetItemInfo(bagId, slotIndex)
+        -- execute main action
+        DestroyItem(bagId, slotIndex)
+        -- inform player
+        PlayItemSound(itemSoundCategory, ITEM_SOUND_ACTION_DESTROY)
+        -- with a matching text
+        if itemAction == PAC.ITEM_ACTION.DESTROY_ALWAYS then
+            PAJ.debugln("Destroy Item Always")
+            PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_ALWAYS, stackCount, itemLinkExt)
+        elseif itemAction == PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS then
+            PAJ.debugln("Destroy Item Worthless")
+            PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS, stackCount, itemLinkExt)
+        end
+    end
+
+    -- if item action is set to do nothing, stop immediately
+    if itemAction == PAC.ITEM_ACTION.NOTHING then return false end
+    -- if item is unique, also stop immediately (i.e. to avoid destroying Kari's Hit List items)
+    if IsItemLinkUnique(itemLink) then return false end
+
+    -- if item action is set to mark as junk, check if ESO allows that
+    if itemAction == PAC.ITEM_ACTION.MARK_AS_JUNK then
+        if CanItemBeMarkedAsJunk(bagId, slotIndex) then
+            -- Item should be marked as JUNK
+            _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
+            return true
+        end
+    else
+        local isItemWorthless = _isItemWorthless(bagId, slotIndex)
+        if itemAction == PAC.ITEM_ACTION.DESTROY_ALWAYS or (isItemWorthless and itemAction == PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS) then
+            -- Item should be DESTROYED
+            _destroyItem(bagId, slotIndex, itemLink, itemAction)
+            return true
+        elseif not isItemWorthless and itemAction == PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS then
+            -- Item should be marked as JUNK
+            _markItemAsJunk(bagId, slotIndex, itemLink, successJunkMessageKey)
+            return true
+        end
+    end
+    return false
+end
+
+
+-- =====================================================================================================================
+-- Give feedback to the player about the changes in gold or the fence transaction limit reset
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function _printSoldItemsMessage(totalSellPrice, totalSellCount)
+    if totalSellCount > 0 then
+        -- at least one item was sold (although it might have been worthless(?))
+        local totalSellPriceFmt = PAHF.getFormattedCurrency(totalSellPrice)
+        if totalSellPrice > 0 then
+            -- some valuable items were sold
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPriceFmt)
+        else
+            -- only worthless items were sold
+            PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, totalSellPriceFmt)
+        end
+    else
+        -- no item was sold
+        if totalSellPrice > 0 then
+            -- no item was sold, but money appeared out of nowhere
+            -- should not happen :D
+            PAJ.println(PAC.COLORED_TEXTS.PAJ .. ": It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
+        end
+    end
+
+    -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
+    if PA.Repair then
+        PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
+    end
+end
+
+local function _printFenceSellTransactionResetMessage(resetTimeSeconds)
+    local resetTimeHours = PAHF.round(resetTimeSeconds / 3600, 0)
+    if resetTimeHours >= 1 then
+        PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS, resetTimeHours)
+    else
+        local resetTimeMinutes = PAHF.round(resetTimeSeconds / 60, 0)
+        PAJ.println(SI_PA_CHAT_JUNK_FENCE_LIMIT_MINUTES, resetTimeMinutes)
+    end
+end
+
+
+-- =====================================================================================================================
+-- EVENT triggered when all Junk is directly sold at a Merchant using ESO's internal SellAllJunk() function
+-- ---------------------------------------------------------------------------------------------------------------------
+
+--- Gives feedback about the gold earned from selling all junk items at once
+-- It gets registered whenn all junk can be sold directly using ESO's internal SellAllJunk() function
+-- Therefore it is sufficient to just wait until it gets triggered once.
+-- @param eventCode the id of the event
+-- @param newMoney  amount of gold AFTER junk was sold
+-- @param oldMoney amount of gold BEFORE junk was sold
+-- @param currencyChangeReason the id of the reason why currency got changed
+local function _onJunkSoldMoneyUpdate(eventCode, newMoney, oldMoney, currencyChangeReason)
+    PAJ.debugln("PAJunk._onJunkSoldMoneyUpdate(oldMoney = %d, newMoney = %d, reason = %d)", oldMoney, newMoney, currencyChangeReason)
+    if currencyChangeReason == CURRENCY_CHANGE_REASON_VENDOR then
+        -- event was triggered, can be unregistered again
+        PAEM.UnregisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, "JunkSoldMoneyUpdate")
+
+        local totalSellPrice = newMoney - oldMoney
+        local totalSellCount = _tempItemCountInBag - GetNumBagUsedSlots(BAG_BACKPACK)
+        _printSoldItemsMessage(totalSellPrice, totalSellCount)
+    end
+end
+
+
+-- =====================================================================================================================
+-- EVENT triggered when individual Junk items are sold at a Merchant using ESO's SellInventoryItem() function
+-- ---------------------------------------------------------------------------------------------------------------------
+
+
+
+-- =====================================================================================================================
+-- EVENT triggered when individual stolen Junk are sold at a Fence using ESO's SellInventoryItem() function
+-- ---------------------------------------------------------------------------------------------------------------------
+
+
+
+-- =====================================================================================================================
+-- Recursive function for individually selling stolen items to Fences
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, totalSellCount)
@@ -361,7 +395,7 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                 _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
             else
                 -- no, finish loop; after everything is sold, give feedback about the changes
-                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                _printSoldItemsMessage(totalSellPrice, totalSellCount)
             end
         elseif sellPriceStolen <= 0 then
             -- show message to player that Item cannot be sold because a Fence does not accept zero-value items
@@ -373,7 +407,7 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                 _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
             else
                 -- no, finish loop; after everything is sold, give feedback about the changes
-                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                _printSoldItemsMessage(totalSellPrice, totalSellCount)
             end
         else
             -- item can be sold to the Fence; continue
@@ -397,9 +431,9 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                         totalSellCount = totalSellCount + 1
                         if sellsUsed == totalSells then
                             -- limit reached! print a message and stop
-                            _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+                            _printFenceSellTransactionResetMessage(resetTimeSeconds)
                             -- after limit is reached, also give feedback about the changes
-                            _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                            _printSoldItemsMessage(totalSellPrice, totalSellCount)
                         else
                             -- limit not yet reached, check if there are more items to be sold
                             local newStartIndex = startIndex + 1
@@ -408,7 +442,7 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                                 _sellStolenItemToFence(bagCache, newStartIndex, totalSellPrice, totalSellCount)
                             else
                                 -- no, finish loop; after everything is sold, give feedback about the changes
-                                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                                _printSoldItemsMessage(totalSellPrice, totalSellCount)
                             end
                         end
                     end
@@ -417,9 +451,31 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
         end
     else
         -- if Fence has been closed, also display the feedback message
-        _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+        _printSoldItemsMessage(totalSellPrice, totalSellCount)
     end
 end
+
+local function _OnFenceOpenInternal(dynamicComparator)
+    -- check if limit already reached
+    local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
+    if sellsUsed < totalSells then
+        -- limit not yet reached; get all items to loop through the stolen/junk ones
+        local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
+        PAJ.debugln("_OnFenceOpenInternal.#bagCache = " .. tostring(#bagCache))
+        if #bagCache > 0 then
+            -- after sellink junk, give feedback about the changes
+            _sellStolenItemToFence(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
+        end
+    else
+        -- limit already reached when fence was opened; since nothing was sold no soldJunkFeedback needed!
+        _printFenceSellTransactionResetMessage(resetTimeSeconds)
+    end
+end
+
+
+-- =====================================================================================================================
+-- Recursive function for individually selling items to Merchants
+-- ---------------------------------------------------------------------------------------------------------------------
 
 local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSellCount)
     if not PA.WindowStates.isStoreClosed then
@@ -439,7 +495,7 @@ local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSe
                 _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
             else
                 -- no, finish loop; after everything is sold, give feedback about the changes
-                _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                _printSoldItemsMessage(totalSellPrice, totalSellCount)
             end
         else
             local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
@@ -466,7 +522,7 @@ local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSe
                             _sellItemToMerchant(bagCache, newStartIndex, totalSellPrice, totalSellCount)
                         else
                             -- no, finish loop; after everything is sold, give feedback about the changes
-                            _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
+                            _printSoldItemsMessage(totalSellPrice, totalSellCount)
                         end
                     end
                 end)
@@ -474,26 +530,7 @@ local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSe
         end
     else
         -- if Merchant has been closed, also display the feedback message
-        _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
-    end
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
-
-local function _OnFenceOpenInternal(dynamicComparator)
-    -- check if limit already reached
-    local totalSells, sellsUsed, resetTimeSeconds = GetFenceSellTransactionInfo()
-    if sellsUsed < totalSells then
-        -- limit not yet reached; get all items to loop through the stolen/junk ones
-        local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
-        PAJ.debugln("_OnFenceOpenInternal.#bagCache = " .. tostring(#bagCache))
-        if #bagCache > 0 then
-            -- after sellink junk, give feedback about the changes
-            _sellStolenItemToFence(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
-        end
-    else
-        -- limit already reached when fence was opened; since nothing was sold no soldJunkFeedback needed!
-        _printFenceSellTransactionTimeoutMessage(resetTimeSeconds)
+        _printSoldItemsMessage(totalSellPrice, totalSellCount)
     end
 end
 
@@ -506,19 +543,9 @@ local function _OnShopOpenInternal(dynamicComparator)
     end
 end
 
-local function _requiresIndividualFCOISItemCheck()
-    local PAI = PA.Integration
-    if PAI and FCOIS then
-        local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
-        local autoSellMarked = PAIFCOISSavedVars.Sell.autoSellMarked
-        local lockedPreventsAutoSell = PAIFCOISSavedVars.Locked.preventAutoSell
-        -- if either FCOIS-Integration setting is turned on, return true
-        return autoSellMarked or lockedPreventsAutoSell
-    end
-    -- in all other cases, it is not needed
-    return false
-end
 
+-- =====================================================================================================================
+-- Public Event Triggers
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
@@ -526,16 +553,16 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
     if PAHF.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isFenceClosed = false
-        -- check if auto-sell is enabled
+        -- check if selling is allowed at Fence
         if allowSell then
             local unitName = GetUnitName("interact")
             local isPirharri = string.find(unitName, "Pirharri") ~= nil
             local autoSellJunk = PAJ.SavedVars.autoSellJunk
             local autoSellJunkPirharri = PAJ.SavedVars.autoSellJunkPirharri
             PAJ.debugln("Fence Name = %s", unitName)
-            -- fence must either NOT be Pirharri, or if it is Pirharri, the setting must be turned on)
+            -- fence must either NOT be Pirharri, or if it is Pirharri, the setting must be turned on
             if not isPirharri or (isPirharri and autoSellJunkPirharri) then
-                if _requiresIndividualFCOISItemCheck() then
+                if _isIndividualFCOISItemCheckRequired() then
                     -- both FCOIS and PAIntegration are running and at least one setting is turned on; take the extended logic
                     PAJ.debugln("OnFenceOpen with PAIntegration and FCOIS")
                     local PAFCOISLib = PA.Libs.FCOItemSaver
@@ -573,13 +600,13 @@ local function OnShopOpen()
         -- set the global variable to 'false'
         PA.WindowStates.isStoreClosed = false
         local autoSellJunk = PAJ.SavedVars.autoSellJunk
-        if _requiresIndividualFCOISItemCheck() then
+        if _isIndividualFCOISItemCheckRequired() then
             -- both FCOIS and PAIntegration are running and at least one setting is turned on; take the extended logic
             PAJ.debugln("OnShopOpen with PAIntegration and FCOIS")
             local PAFCOISLib = PA.Libs.FCOItemSaver
             -- check if junk should be sold
             if autoSellJunk then
-                -- checkf for junk AND FCOIS markings
+                -- check for junk AND FCOIS markings
                 local sellStolenJunkIncludingFCOISComparator = PAFCOISLib.getSellJunkIncludingFCOISComparator()
                 _OnShopOpenInternal(sellStolenJunkIncludingFCOISComparator)
             else
@@ -655,7 +682,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                                 -- handle WEAPONS
                                 local weaponAction = PAJunkSavedVars.Stolen.Weapons.action
                                 if weaponAction ~= PAC.ITEM_ACTION.NOTHING then
-                                    _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, weaponAction)
+                                    _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, weaponAction)
                                 end
                             elseif itemType == ITEMTYPE_ARMOR then
                                 local itemEquipType = GetItemLinkEquipType(itemLink)
@@ -663,45 +690,45 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                                     -- handle JEWELRY
                                     local jewelryAction = PAJunkSavedVars.Stolen.Jewelry.action
                                     if jewelryAction ~= PAC.ITEM_ACTION.NOTHING then
-                                        _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, jewelryAction)
+                                        _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, jewelryAction)
                                     end
                                 else
                                     -- handle APPAREL
                                     local armorAction = PAJunkSavedVars.Stolen.Armor.action
                                     if armorAction ~= PAC.ITEM_ACTION.NOTHING then
-                                        _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, armorAction)
+                                        _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, armorAction)
                                     end
                                 end
                             end
                         elseif (itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH) and not (PAJunkSavedVars.Stolen.trashAction == PAC.ITEM_ACTION.NOTHING) then
                             local trashAction = PAJunkSavedVars.Stolen.trashAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, trashAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, trashAction)
                         elseif itemType == ITEMTYPE_STYLE_MATERIAL and not (PAJunkSavedVars.Stolen.styleMaterialAction == PAC.ITEM_ACTION.NOTHING) then
                             local styleMaterialAction = PAJunkSavedVars.Stolen.styleMaterialAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, styleMaterialAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, styleMaterialAction)
                         elseif (itemType == ITEMTYPE_ARMOR_TRAIT or itemType == ITEMTYPE_WEAPON_TRAIT or itemType == ITEMTYPE_JEWELRY_RAW_TRAIT or itemType == ITEMTYPE_JEWELRY_TRAIT)
                                 and not (PAJunkSavedVars.Stolen.traitItemAction == PAC.ITEM_ACTION.NOTHING) then
                             local traitItemAction = PAJunkSavedVars.Stolen.traitItemAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, traitItemAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, traitItemAction)
                         elseif itemType == ITEMTYPE_LURE and not (PAJunkSavedVars.Stolen.lureAction == PAC.ITEM_ACTION.NOTHING) then
                             local lureAction = PAJunkSavedVars.Stolen.lureAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, lureAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, lureAction)
                         elseif itemType == ITEMTYPE_INGREDIENT and not (PAJunkSavedVars.Stolen.ingredientAction == PAC.ITEM_ACTION.NOTHING) then
                             local ingredientAction = PAJunkSavedVars.Stolen.ingredientAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, ingredientAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, ingredientAction)
                         elseif itemType == ITEMTYPE_FOOD and not (PAJunkSavedVars.Stolen.foodAction == PAC.ITEM_ACTION.NOTHING) then
                             local foodAction = PAJunkSavedVars.Stolen.foodAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, foodAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, foodAction)
                         elseif itemType == ITEMTYPE_DRINK and not (PAJunkSavedVars.Stolen.drinkAction == PAC.ITEM_ACTION.NOTHING) then
                             local drinkAction = PAJunkSavedVars.Stolen.drinkAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, drinkAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, drinkAction)
                         elseif (itemType == ITEMTYPE_POISON_BASE or itemType == ITEMTYPE_POTION_BASE) and not (PAJunkSavedVars.Stolen.solventAction == PAC.ITEM_ACTION.NOTHING) then
                             local solventAction = PAJunkSavedVars.Stolen.solventAction
-                            _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, solventAction)
+                            _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN, itemLink, solventAction)
                         elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and not (PAJunkSavedVars.Stolen.treasureAction == PAC.ITEM_ACTION.NOTHING) then
                             local treasureAction = PAJunkSavedVars.Stolen.treasureAction
                             if _isTreasureItemNotQuestExcluded(itemLink) then
-                                _marked = _markAsJunkOrDestroyIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink, treasureAction)
+                                _marked = _markAsJunkOrDestroyBasedOnItemAction(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink, treasureAction)
                             else
                                 PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
                             end
@@ -715,7 +742,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         if itemType == ITEMTYPE_TRASH or specializedItemType == SPECIALIZED_ITEMTYPE_TRASH then
                             if PAJunkSavedVars.Trash.autoMarkTrash then
                                 if _isTrashItemNotQuestExcluded(bagId, slotIndex) then
-                                    _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
+                                    _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH, itemLink)
                                 else
                                     PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
                                 end
@@ -726,25 +753,25 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             if itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
                                     itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
                                     itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate then
-                                _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
+                                _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE, itemLink)
                             else
                                 -- if it is NOT with [Ornate] trait, check more detailed the individual equipTypes
                                 if itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
                                     -- handle WEAPONS
                                     if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Weapons, itemLink, itemQuality) then
-                                        _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                        _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                                     end
                                 elseif itemType == ITEMTYPE_ARMOR then
                                     local itemEquipType = GetItemLinkEquipType(itemLink)
                                     if itemEquipType == EQUIP_TYPE_RING or itemEquipType == EQUIP_TYPE_NECK then
                                         -- handle JEWELRY
                                         if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Jewelry, itemLink, itemQuality) then
-                                            _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                            _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                                         end
                                     else
                                         -- handle APPAREL
                                         if _canWeaponArmorJewelryBeMarkedAsJunk(PAJunkSavedVars.Armor, itemLink, itemQuality) then
-                                            _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                            _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                                         end
                                     end
                                 end
@@ -752,19 +779,19 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         elseif (itemType == ITEMTYPE_GLYPH_ARMOR or itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) and
                                 PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
                             if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold then
-                                _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
+                                _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY, itemLink)
                             end
                         elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
                             if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
                                 if _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink) then
-                                    _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
+                                    _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT, itemLink)
                                 else
                                     PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
                                 end
                             end
                         elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
                             if PAJunkSavedVars.Miscellaneous.autoMarkTreasure and _isTreasureItemNotQuestExcluded(itemLink) then
-                                _marked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
+                                _marked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE, itemLink)
                             else
                                 PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
                             end
@@ -779,7 +806,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if _marked == false then
                         local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
                         if PAHF.isKeyInTable(PAJunkSavedVars.Custom.PAItemIds, paItemId) then
-                            local hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, itemLink)
+                            local hasBeenMarked = _markAsJunkOrDestroyIfWorthless(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, itemLink)
                             if hasBeenMarked then
                                 PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount = PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount + stackCountChange
                                 PAJunkSavedVars.Custom.PAItemIds[paItemId].lastJunk = GetTimeStamp()
