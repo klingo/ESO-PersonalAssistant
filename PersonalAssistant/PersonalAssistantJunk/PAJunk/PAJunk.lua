@@ -30,13 +30,7 @@ local SELL_FENCE_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellFence"
 local SELL_MERCHANT_ITEMS_INTERVAL_MS = 25
 local SELL_MERCHANT_CALL_LATER_FUNCTION_NAME = "CallLaterFunction_SellMerchant"
 
-local GET_MONEY_AND_USED_SLOTS_INTERVAL_MS = 100
-local GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS = 1000
-local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetMoneyAndUsedSlots"
-
-local function _getUniqueUpdateIdentifier()
-    return CALL_LATER_FUNCTION_NAME
-end
+local _tempItemCountInBag = 0
 
 local function _getUniqueSellFenceUpdateIdentifier(bagId, slotIndex)
     return table.concat({SELL_FENCE_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
@@ -44,52 +38,6 @@ end
 
 local function _getUniqueSellMerchantUpdateIdentifier(bagId, slotIndex)
     return table.concat({SELL_MERCHANT_CALL_LATER_FUNCTION_NAME, tostring(bagId), tostring(slotIndex)})
-end
-
-local function _giveDelayedDiffSoldItemsFeedback(moneyBefore, itemCountInBagBefore)
-    -- before starting make sure any already registered UpdateEvent is unregistered to not run them in parallel
-    local identifier = _getUniqueUpdateIdentifier()
-    EVENT_MANAGER:UnregisterForUpdate(identifier)
-    local startGameTime = GetGameTimeMilliseconds()
-    -- now register for the interval
-    EVENT_MANAGER:RegisterForUpdate(identifier, GET_MONEY_AND_USED_SLOTS_INTERVAL_MS,
-        function()
-            -- check what the difference in money is
-            local currentMoney = GetCurrentMoney()
-            local moneyDiff = currentMoney - moneyBefore;
-            local numBagUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
-            local itemCountInBagDiff = itemCountInBagBefore - numBagUsedSlots
-            local passedGameTime = GetGameTimeMilliseconds() - startGameTime
-
-            if moneyDiff > 0 or itemCountInBagDiff > 0 or passedGameTime > GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS then
-                EVENT_MANAGER:UnregisterForUpdate(identifier)
-                PAJ.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
-
-                if itemCountInBagDiff > 0 then
-                    -- at least one item was sold (although it might have been worthless(?))
-                    local moneyDiffFmt = PAHF.getFormattedCurrency(moneyDiff)
-                    if moneyDiff > 0 then
-                        -- some valuable items were sold
-                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiffFmt)
-                    else
-                        -- only worthless items were sold
-                        PAJ.println(SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO, moneyDiffFmt)
-                    end
-                else
-                    -- no item was sold
-                    if moneyDiff > 0 then
-                        -- no item was sold, but money appeared out of nowhere
-                        -- should not happen :D
-                        PAJ.println(PAC.COLORED_TEXTS.PAJ .. ": It's magic! You gained gold without selling junk... we're gonna be rich! (this is an error ;D)")
-                    end
-                end
-
-                -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
-                if PA.Repair then
-                    PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
-                end
-            end
-        end)
 end
 
 local function _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
@@ -115,6 +63,25 @@ local function _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
     -- after JunkFeedback is given, try to trigger PARepair Callback in case it was registered (if PARepair is enabled)
     if PA.Repair then
         PAEM.FireCallbacks(PA.Repair.AddonName, EVENT_OPEN_STORE, "OpenStore")
+    end
+end
+
+--- Gives feedback about the gold earned from selling all junk items at once
+-- It gets registered whenn all junk can be sold directly using ESO's internal SellAllJunk() function
+-- Therefore it is sufficient to just wait until it gets triggered once.
+-- @param eventCode the id of the event
+-- @param newMoney  amount of gold AFTER junk was sold
+-- @param oldMoney amount of gold BEFORE junk was sold
+-- @param currencyChangeReason the id of the reason why currency got changed
+local function _onJunkSoldMoneyUpdate(eventCode, newMoney, oldMoney, currencyChangeReason)
+    PAJ.debugln("PAJunk._onJunkSoldMoneyUpdate(oldMoney = %d, newMoney = %d, reason = %d)", oldMoney, newMoney, currencyChangeReason)
+    if currencyChangeReason == CURRENCY_CHANGE_REASON_VENDOR then
+        -- event was triggered, can be unregistered again
+        PAEM.UnregisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, "JunkSoldMoneyUpdate")
+
+        local totalSellPrice = newMoney - oldMoney
+        local totalSellCount = _tempItemCountInBag - GetNumBagUsedSlots(BAG_BACKPACK)
+        _giveImmediateSoldItemsFeedback(totalSellPrice, totalSellCount)
     end
 end
 
@@ -626,13 +593,12 @@ local function OnShopOpen()
             if autoSellJunk then
                 -- check if there is junk to sell (exclude stolen items = true)
                 if HasAnyJunk(BAG_BACKPACK, true) then
-                    -- store current amount of money
-                    local moneyBefore = GetCurrentMoney();
-                    local itemCountInBagBefore = GetNumBagUsedSlots(BAG_BACKPACK)
+                    -- store number of items in bag
+                    _tempItemCountInBag = GetNumBagUsedSlots(BAG_BACKPACK)
+                    -- Register an event to check when Junk was sold to the Merchant
+                    PAEM.RegisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, _onJunkSoldMoneyUpdate, "JunkSoldMoneyUpdate")
                     -- Sell all items marked as junk
                     SellAllJunk()
-                    -- after calling SellAllJunk(), give feedback about the changes
-                    _giveDelayedDiffSoldItemsFeedback(moneyBefore, itemCountInBagBefore)
                 else
                     -- if there is no junk, immediately fire the callback event for PARepair (if PARepair is enabled)
                     if PA.Repair then
@@ -647,6 +613,9 @@ end
 local function OnStoreAndFenceClose()
     PA.WindowStates.isFenceClosed = true
     PA.WindowStates.isStoreClosed = true
+
+    -- try to unregister all MONEY_UPDATE events; just in case
+    PAEM.UnregisterForEvent(PA.AddonName, EVENT_MONEY_UPDATE, "JunkSoldMoneyUpdate")
 end
 
 local function OnMailboxOpen()
