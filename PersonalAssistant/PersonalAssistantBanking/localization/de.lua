@@ -50,8 +50,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Anderes",
 
     -- Other Settings --
-    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "Automatisch alle Gegenstände transferieren",
-    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "Automatisch alle Gegenstände zwischen Inventar und Truhe transferieren wenn die Truhe geöffnet wird? Wenn deaktiviert, können die Transfers immer noch manuell bei geöffneter Bank ausgelöst werden",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "Automatisch PABanking Gegenstände transferieren",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "Automatisch alle Gegenstände zwischen Inventar und Truhe transferieren wenn die Truhe geöffnet wird? Wenn deaktiviert, kann ein PABanking Transfer jederzeit bei geöffneter Bank manuell gestartet werden",
 
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Regel fürs Stapeln beim Einlagern",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Definiere ob alle Gegenstände in die Truhe eingelagert werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können",
@@ -117,6 +117,8 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
+    SI_PA_CHAT_BANKING_FINISHED = "Transfer aller Gegenstände abgeschlossen",
+
     SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s entnommen",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s entnommen (Truhe ist leer)",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%s / %s entnommen (Nicht genug Platz im Inventar)",
@@ -136,6 +138,14 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("gelöscht"), "!"}),
     SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("aktiviert"), "!"}),
     SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"Regel für %s wurde ", PAC.COLOR.ORANGE:Colorize("deaktiviert"), "!"}),
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS = "Starte PABanking",
+    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS_PENDING = "PABanking läuft...",
 }
 
 for key, value in pairs(PABStrings) do

@@ -6,7 +6,6 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJunk
-local _hooksOnInventoryItemsInitialized = false
 
 local function _isMarkUnmarkAsJunkVisible()
     local PAJSV = PA.Junk.SavedVars
@@ -73,14 +72,14 @@ local PAJunkButtonGroup = {
     {
         name = "PAJunk_MarkUnmarkAsJunk",
         keybind = "PA_JUNK_TOGGLE_ITEM",
-        callback = function() end, -- only called when directly clicked on keybind strip?
+        callback = function() end, -- only called when directly clicked on keybind strip
         visible = function() return _isMarkUnmarkAsJunkVisible() end,
         enabled = function() return _isMarkUnmarkAsJunkEnabled() end,
     },
     {
         name = GetString(SI_ITEM_ACTION_DESTROY),
         keybind = "PA_JUNK_DESTROY_ITEM",
-        callback = function() end, -- only called when directly clicked on keybind strip?
+        callback = function() end, -- only called when directly clicked on keybind strip
         visible = function() return _isDestroyItemVisible() end,
         enabled = function() return _isDestroyItemEnabled() end,
     },
@@ -131,8 +130,7 @@ end
 
 -- initialises the "OnMouseEnter" and "OnMouseExit" hooks, as well as adds creates Keybind Strip Button
 local function initHooksOnInventoryItems()
-    if not _hooksOnInventoryItemsInitialized then
-        _hooksOnInventoryItemsInitialized = true
+    if not KEYBIND_STRIP:HasKeybindButtonGroup(PAJunkButtonGroup) then
         ZO_PreHook("ZO_InventorySlot_OnMouseEnter", function(inventorySlot)
             if inventorySlot.slotControlType == "listSlot" and inventorySlot.dataEntry and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
                 _onMouseEnter(inventorySlot)
@@ -147,7 +145,7 @@ local function initHooksOnInventoryItems()
 
         KEYBIND_STRIP:AddKeybindButtonGroup(PAJunkButtonGroup)
     else
-        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnInventoryItems]")
+        PAHF.debuglnAuthor("Attempted to Re-Add PAJunkButtonGroup: [initHooksOnInventoryItems]")
     end
 end
 
