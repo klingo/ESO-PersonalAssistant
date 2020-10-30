@@ -228,6 +228,19 @@ local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedIte
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSurveyMapMoveSetting
+---------------------------------
+local function getPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    return PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType]
+end
+
+local function setPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType] = value
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.LearnableItemTypes         moveMode
 ---------------------------------
 local function isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(itemTypeList)
@@ -557,6 +570,9 @@ local PABankingMenuFunctions = {
 
     getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
     setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
+
+    getAdvancedItemTypeSurveyMapMoveSetting = getPABankingAdvancedItemTypeSurveyMapMoveSetting,
+    setAdvancedItemTypeSurveyMapMoveSetting = setPABankingAdvancedItemTypeSurveyMapMoveSetting,
 
     isMotifTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) end,
     isRecipeTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) end,
