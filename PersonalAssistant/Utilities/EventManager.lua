@@ -169,18 +169,9 @@ local function RefreshAllEventRegistrations()
     -- Check if the Addon 'PABanking' is even enabled
     local PAB = PA.Banking
     if PAB then
-        -- Check if the functionality is turned on within the addon
-        local PABMenuFunctions = PAMenuFunctions.PABanking
-        if PABMenuFunctions.getCurrenciesEnabledSetting() or PABMenuFunctions.getCraftingItemsEnabledSetting()
-                or PABMenuFunctions.getAdvancedItemsEnabledSetting() then
-            -- Register PABanking
-            RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen, "OpenBank")
-            RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose, "CloseBank")
-        else
-            -- Unregister PABanking completely
-            UnregisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, "OpenBank")
-            UnregisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, "CloseBank")
-        end
+        -- Register PABanking (always, due to potential custom banking rules)
+        RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen, "OpenBank")
+        RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose, "CloseBank")
     end
 
 
