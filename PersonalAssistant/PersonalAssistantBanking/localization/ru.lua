@@ -50,6 +50,9 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Прочее",
 
     -- Other Settings --
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "",
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "",
+
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Правила объединения при внесении",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Определяет будут ли все выбранные предметы перемещены в банк или только лишь дополнены имеющиеся там стеки",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Правила объединения при изъятии",

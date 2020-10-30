@@ -482,6 +482,16 @@ local function _createPABankingMenu()
     })
 
     PABankingOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION),
+        tooltip = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T),
+        getFunc = PABMenuFunctions.getAutoExecuteItemTransfersSetting,
+        setFunc = PABMenuFunctions.setAutoExecuteItemTransfersSetting,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+        default = PABMenuDefaults.autoExecuteItemTransfers,
+    })
+
+    PABankingOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING),
         tooltip = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T),

@@ -51,19 +51,24 @@ local function OnBankOpen(eventCode, bankBag)
         -- trigger the deposit and withdrawal of gold
         PAB.depositOrWithdrawCurrencies()
 
-        -- add the different item transactions to the function queue (will be executed in REVERSE order)
-        -- the eligibility is checked within the transactions
-        -- give it 100ms time to "refresh" the bag data structure after stacking
-        PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
-        PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
-        PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)
-        PAEM.addFunctionToQueue(PAB.depositOrWithdrawAvAItems, PAB.AddonName, 100)
-        PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedItems, PAB.AddonName, 100)
-        PAEM.addFunctionToQueue(PAB.depositOrWithdrawCraftingItems, PAB.AddonName, 100)
-        PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
+        -- only directly execute all item transfers when setting is on
+        if PAB.SavedVars.autoExecuteItemTransfers then
+            -- add the different item transactions to the function queue (will be executed in REVERSE order)
+            -- the eligibility is checked within the transactions
+            -- give it 100ms time to "refresh" the bag data structure after stacking
+            PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
+            PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
+            PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)
+            PAEM.addFunctionToQueue(PAB.depositOrWithdrawAvAItems, PAB.AddonName, 100)
+            PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedItems, PAB.AddonName, 100)
+            PAEM.addFunctionToQueue(PAB.depositOrWithdrawCraftingItems, PAB.AddonName, 100)
+            PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
 
-        -- Execute the function queue
-        PAEM.executeNextFunctionInQueue(PAB.AddonName)
+            -- Execute the function queue
+            PAEM.executeNextFunctionInQueue(PAB.AddonName)
+        else
+            PAB.debugln("autoExecuteItemTransfers DISABLED - all item transfers skipped")
+        end
     end
 
     -- some debug statements

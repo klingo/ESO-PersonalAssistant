@@ -50,6 +50,9 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Other",
 
     -- Other Settings --
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "Auto-Execute item transfers when opening the bank",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "Automatically execute all item transfers between backpack and bank when accessing the bank? When turned off, you can still trigger a manual execution at the bank interface",
+
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Stacking rule when depositing",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Stacking rule when withdrawing",

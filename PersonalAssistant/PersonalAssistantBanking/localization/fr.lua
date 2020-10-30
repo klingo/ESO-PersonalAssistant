@@ -50,6 +50,9 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Autre",
 
     -- Other Settings --
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "",
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "",
+
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Règle d'empilement à la dépose",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Définir si tous les objets doivent être déposés, ou seulement quand il y a des piles existantes à compléter",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Règle d'empilement au retrait",

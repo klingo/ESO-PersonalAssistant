@@ -50,6 +50,9 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Anderes",
 
     -- Other Settings --
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "Automatisch alle Gegenstände transferieren",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "Automatisch alle Gegenstände zwischen Inventar und Truhe transferieren wenn die Truhe geöffnet wird? Wenn deaktiviert, können die Transfers immer noch manuell bei geöffneter Bank ausgelöst werden",
+
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Regel fürs Stapeln beim Einlagern",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Definiere ob alle Gegenstände in die Truhe eingelagert werden sollen, oder nur wenn bereits Stapel bestehen die aufgefüllt werden können",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Regel fürs Stapeln beim Entnehmen",
