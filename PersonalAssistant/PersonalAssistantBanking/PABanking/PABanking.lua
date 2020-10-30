@@ -20,12 +20,20 @@ local function _stackBags()
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
+local function _printMessage(messageKey)
+    -- if some items were skipped because of LWC; display a message
+    PAB.println(messageKey)
+
+    -- then continue with the next function in queue
+    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+end
+
 local function _printLWCMessageIfItemsSkipped()
     if PAB.hasSomeItemskippedForLWC then
         -- if some items were skipped because of LWC; display a message
         PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
     end
-    -- thencontinue with the next function in queue
+    -- then continue with the next function in queue
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
@@ -54,6 +62,7 @@ local function OnBankOpen(eventCode, bankBag)
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
+        PAEM.addFunctionToQueue(_printMessage(SI_PA_CHAT_BANKING_FINISHED), PAB.AddonName)
         PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)
