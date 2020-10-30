@@ -9,32 +9,37 @@ local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJu
 local _hooksOnInventoryItemsInitialized = false
 
 local function _isMarkUnmarkAsJunkVisible()
-    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsJunkKeybind then
         return _mouseOverBagId and _mouseOverSlotIndex
     end
     return false
 end
 
 local function _isMarkUnmarkAsJunkEnabled()
-    if not PA.Junk.SavedVars or not PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsJunkKeybind then return false end
-
-    return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind then
+        return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+    end
+    return false
 end
 
 local function _isDestroyItemVisible()
-    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showDestroyItemKeybind then
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableDestroyItemKeybind and PAJSV.KeyBindings.showDestroyItemKeybind then
         return _mouseOverBagId and _mouseOverSlotIndex
     end
     return false
 end
 
 local function _isDestroyItemEnabled()
-    if not PA.Junk.SavedVars or not PA.Junk.SavedVars.KeyBindings.enableDestroyItemKeybind then return false end
+    local PAJSV = PA.Junk.SavedVars
+    if not PAJSV or not PAJSV.KeyBindings.enableDestroyItemKeybind then return false end
 
     if IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then return false end
-    if GetItemFunctionalQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PA.Junk.SavedVars.KeyBindings.destroyItemQualityThreshold then return false end
+    if GetItemFunctionalQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PAJSV.KeyBindings.destroyItemQualityThreshold then return false end
 
-    if PA.Junk.SavedVars.KeyBindings.destroyExcludeUnknownItems then
+    if PAJSV.KeyBindings.destroyExcludeUnknownItems then
         local itemType, specializedItemType = GetItemType(_mouseOverBagId, _mouseOverSlotIndex)
         local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
         if itemType == ITEMTYPE_RECIPE then
