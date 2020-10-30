@@ -64,7 +64,6 @@ local function executeNextFunctionInQueue(queueName)
         local functionData = table.remove(queue)
         local functionToCall = functionData.fnct
         local functionDelay = functionData.delay
-
         if functionToCall and functionDelay then
             zo_callLater(function() functionToCall() end, functionDelay)
         end

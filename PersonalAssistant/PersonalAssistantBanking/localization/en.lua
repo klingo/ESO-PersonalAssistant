@@ -117,6 +117,8 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
+    SI_PA_CHAT_BANKING_FINISHED = "All item transfers completed",
+
     SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s withdrawn",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s withdrawn (Bank is empty)",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%s / %s withdrawn (Not enough space on character)",

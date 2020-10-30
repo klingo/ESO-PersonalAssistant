@@ -16,6 +16,14 @@ local function _finishBankingItemTransfer()
     PAB.KeybindStrip.updateBankKeybindStrip()
 end
 
+local function _printMessage(messageKey)
+    -- if some items were skipped because of LWC; display a message
+    PAB.println(messageKey)
+
+    -- Execute the function queue
+    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+end
+
 local function _printLWCMessageIfItemsSkipped()
     if PAB.hasSomeItemskippedForLWC then
         -- if some items were skipped because of LWC; display a message
@@ -55,6 +63,7 @@ local function executeBankingItemTransfers()
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
         PAEM.addFunctionToQueue(_finishBankingItemTransfer, PAB.AddonName) -- unblock item transfers again at the end
+        PAEM.addFunctionToQueue(_printMessage(SI_PA_CHAT_BANKING_FINISHED), PAB.AddonName)
         PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)

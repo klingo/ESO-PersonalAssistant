@@ -117,6 +117,8 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
+    SI_PA_CHAT_BANKING_FINISHED = "Transfer aller Gegenstände abgeschlossen",
+
     SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s entnommen",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s entnommen (Truhe ist leer)",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%s / %s entnommen (Nicht genug Platz im Inventar)",
