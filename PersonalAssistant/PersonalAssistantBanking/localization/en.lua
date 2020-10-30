@@ -50,8 +50,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Other",
 
     -- Other Settings --
-    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "Auto-Execute item transfers when opening the bank",
-    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "Automatically execute all item transfers between backpack and bank when accessing the bank? When turned off, you can still trigger a manual execution at the bank interface",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "Auto-Run PABanking item transfers",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "Automatically run all item transfers between backpack and bank when accessing the bank? When turned off, you can still run a PABanking item transfer manually at the bank interface",
 
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Stacking rule when depositing",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Define whether all Items shall be deposited, or only when there are existing stacks that can be completed",
@@ -136,6 +136,14 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("deleted"), "!"}),
     SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("enabled"), "!"}),
     SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"Rule for %s has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}),
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS = "Run PABanking",
+    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS_PENDING = "PABanking running...",
 }
 
 for key, value in pairs(PABStrings) do

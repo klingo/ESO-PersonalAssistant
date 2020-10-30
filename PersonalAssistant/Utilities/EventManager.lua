@@ -65,7 +65,9 @@ local function executeNextFunctionInQueue(queueName)
         local functionToCall = functionData.fnct
         local functionDelay = functionData.delay
 
-        zo_callLater(function() functionToCall() end, functionDelay)
+        if functionToCall and functionDelay then
+            zo_callLater(function() functionToCall() end, functionDelay)
+        end
     end
 end
 

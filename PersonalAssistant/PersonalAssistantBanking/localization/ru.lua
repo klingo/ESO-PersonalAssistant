@@ -136,6 +136,14 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Правило для %s было ", PAC.COLOR.ORANGE:Colorize("удалено"), "!"}),
     --SI_PA_CHAT_BANKING_RULES_ENABLED = "",
     --SI_PA_CHAT_BANKING_RULES_DISABLED = "",
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+--    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS = "",
+--    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS_PENDING = "",
 }
 
 for key, value in pairs(PABStrings) do

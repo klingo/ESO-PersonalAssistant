@@ -67,14 +67,14 @@ local PAJunkButtonGroup = {
     {
         name = "PAJunk_MarkUnmarkAsJunk",
         keybind = "PA_JUNK_TOGGLE_ITEM",
-        callback = function() end, -- only called when directly clicked on keybind strip?
+        callback = function() end, -- only called when directly clicked on keybind strip
         visible = function() return _isMarkUnmarkAsJunkVisible() end,
         enabled = function() return _isMarkUnmarkAsJunkEnabled() end,
     },
     {
         name = GetString(SI_ITEM_ACTION_DESTROY),
         keybind = "PA_JUNK_DESTROY_ITEM",
-        callback = function() end, -- only called when directly clicked on keybind strip?
+        callback = function() end, -- only called when directly clicked on keybind strip
         visible = function() return _isDestroyItemVisible() end,
         enabled = function() return _isDestroyItemEnabled() end,
     },
