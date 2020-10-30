@@ -6,7 +6,6 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJunk
-local _hooksOnInventoryItemsInitialized = false
 
 local function _isMarkUnmarkAsJunkVisible()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
@@ -126,8 +125,7 @@ end
 
 -- initialises the "OnMouseEnter" and "OnMouseExit" hooks, as well as adds creates Keybind Strip Button
 local function initHooksOnInventoryItems()
-    if not _hooksOnInventoryItemsInitialized then
-        _hooksOnInventoryItemsInitialized = true
+    if not KEYBIND_STRIP:HasKeybindButtonGroup(PAJunkButtonGroup) then
         ZO_PreHook("ZO_InventorySlot_OnMouseEnter", function(inventorySlot)
             if inventorySlot.slotControlType == "listSlot" and inventorySlot.dataEntry and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
                 _onMouseEnter(inventorySlot)
@@ -142,7 +140,7 @@ local function initHooksOnInventoryItems()
 
         KEYBIND_STRIP:AddKeybindButtonGroup(PAJunkButtonGroup)
     else
-        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnInventoryItems]")
+        PAHF.debuglnAuthor("Attempted to Re-Add PAJunkButtonGroup: [initHooksOnInventoryItems]")
     end
 end
 
