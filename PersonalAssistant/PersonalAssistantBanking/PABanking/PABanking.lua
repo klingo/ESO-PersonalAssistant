@@ -10,21 +10,17 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _stackBags()
-    if PAB.SavedVars.autoStackBags then
-        StackBag(BAG_BANK)
-        StackBag(BAG_SUBSCRIBER_BANK)
-        StackBag(BAG_BACKPACK)
-    end
-    -- Execute the function queue
-    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+local function _finishBankingItemTransfer()
+    PAB.isBankItemTransferBlocked = false
+    -- update/hide the Keybind Strip
+    PAB.KeybindStrip.updateBankKeybindStrip()
 end
 
 local function _printMessage(messageKey)
     -- if some items were skipped because of LWC; display a message
     PAB.println(messageKey)
 
-    -- then continue with the next function in queue
+    -- Execute the function queue
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
@@ -33,7 +29,17 @@ local function _printLWCMessageIfItemsSkipped()
         -- if some items were skipped because of LWC; display a message
         PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
     end
-    -- then continue with the next function in queue
+    -- Execute the function queue
+    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+end
+
+local function _stackBags()
+    if PAB.SavedVars.autoStackBags then
+        StackBag(BAG_BANK)
+        StackBag(BAG_SUBSCRIBER_BANK)
+        StackBag(BAG_BACKPACK)
+    end
+    -- Execute the function queue
     PAEM.executeNextFunctionInQueue(PAB.AddonName)
 end
 
@@ -46,22 +52,17 @@ local function hasLazyWritCrafterAndShouldGrabEnabled()
     return false
 end
 
-local function OnBankOpen(eventCode, bankBag)
-    -- immediately stop if not the actual BANK bag is opened (i.e. HOUSE_BANK)
-    if IsHouseBankBag(bankBag) then return
-    elseif PAHF.hasActiveProfile() then
-        -- set the global variable to 'false'
-        PA.WindowStates.isBankClosed = false
-
-        -- start with that no items were skipped for LazyWritCrafter
-        PAB.hasSomeItemskippedForLWC = false
-
-        -- trigger the deposit and withdrawal of gold
-        PAB.depositOrWithdrawCurrencies()
+local function executeBankingItemTransfers()
+    if not PAB.isBankItemTransferBlocked then
+        -- block other item transfers
+        PAB.isBankItemTransferBlocked = true
+        -- update/hide the Keybind Strip
+        PAB.KeybindStrip.updateBankKeybindStrip()
 
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
+        PAEM.addFunctionToQueue(_finishBankingItemTransfer, PAB.AddonName) -- unblock item transfers again at the end
         PAEM.addFunctionToQueue(_printMessage(SI_PA_CHAT_BANKING_FINISHED), PAB.AddonName)
         PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
@@ -73,6 +74,38 @@ local function OnBankOpen(eventCode, bankBag)
 
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
+    else
+        PAB.debugln("PAB.isBankItemTransferBlocked = TRUE - parallel execution BLOCKED")
+    end
+end
+
+local function OnBankOpen(eventCode, bankBag)
+    -- immediately stop if not the actual BANK bag is opened (i.e. HOUSE_BANK)
+    if IsHouseBankBag(bankBag) then return
+    elseif PAHF.hasActiveProfile() then
+        -- set the global variable to 'false'
+        PA.WindowStates.isBankClosed = false
+
+        -- start with that no items were skipped for LazyWritCrafter
+        PAB.hasSomeItemskippedForLWC = false
+
+        -- show the keybindings when accessing bank view
+        PAB.KeybindStrip.onBankOpenShowKeybindStrip()
+
+        -- trigger the deposit and withdrawal of gold
+        if not PAB.isBankCurrencyTransferBlocked then
+            -- block others currency transfers
+            PAB.isBankCurrencyTransferBlocked = true
+            -- trigger currency transfer (includes unblocking)
+            PAB.depositOrWithdrawCurrencies()
+        end
+
+        -- only directly execute all item transfers when setting is on
+        if PAB.SavedVars.autoExecuteItemTransfers then
+            executeBankingItemTransfers()
+        else
+            PAB.debugln("autoExecuteItemTransfers DISABLED - all item transfers skipped")
+        end
     end
 
     -- some debug statements
@@ -90,6 +123,13 @@ local function OnBankOpen(eventCode, bankBag)
 end
 
 local function OnBankClose()
+    -- hide the keybindings when leaving bank view
+    PAB.KeybindStrip.onBankCloseHideKeybindStrip()
+
+    -- unblock the item and currency transfer when leaving the bank
+    PAB.isBankCurrencyTransferBlocked = false
+    PAB.isBankItemTransferBlocked = false
+
     -- set the global variable to 'true' so the bankClosing can be detected
     PA.WindowStates.isBankClosed = true
 end
@@ -98,5 +138,6 @@ end
 -- Export
 PA.Banking = PA.Banking or {}
 PA.Banking.hasLazyWritCrafterAndShouldGrabEnabled = hasLazyWritCrafterAndShouldGrabEnabled
+PA.Banking.executeBankingItemTransfers = executeBankingItemTransfers
 PA.Banking.OnBankOpen = OnBankOpen
 PA.Banking.OnBankClose = OnBankClose

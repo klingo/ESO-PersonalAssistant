@@ -283,6 +283,7 @@ local PAGenericStrings = {
     -- =================================================================================================================
     -- == KEYBINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
+    SI_KEYBINDINGS_CATEGORY_PA_BANKING = "|cFFD700P|rersonal|cFFD700A|rssistant Banking",
     SI_KEYBINDINGS_CATEGORY_PA_JUNK = "|cFFD700P|rersonal|cFFD700A|rssistant Junk",
 }
 

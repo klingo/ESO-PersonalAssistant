@@ -619,6 +619,9 @@ local PABankingMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- TRANSACTION SETTINGS
     -- -----------------------------
+    getAutoExecuteItemTransfersSetting = function() return getValue({"autoExecuteItemTransfers"}) end,
+    setAutoExecuteItemTransfersSetting = function(value) setValue(value, {"autoExecuteItemTransfers"}) end,
+
     isTransactionDepositStackingDisabled = isPABankingTransactionDepositStackingDisabled,
     getTransactionDepositStackingSetting = function() return getValue({"transactionDepositStacking"}) end,
     setTransactionDepositStackingSetting = function(value) setValue(value, {"transactionDepositStacking"}) end,

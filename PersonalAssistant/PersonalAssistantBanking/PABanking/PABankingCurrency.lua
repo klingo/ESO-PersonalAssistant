@@ -128,6 +128,9 @@ local function depositOrWithdrawCurrencies()
             end
         end
     end
+
+    -- unblock the currency transfer again
+    PAB.isBankCurrencyTransferBlocked = false
 end
 
 

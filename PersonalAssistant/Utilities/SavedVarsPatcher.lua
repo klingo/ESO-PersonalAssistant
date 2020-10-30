@@ -477,6 +477,7 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
         local PASavedVars = PA.SavedVars
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Banking[profileNo]) then
+                -- 1) Migrate Survey Reports
                 local currSurveySetting = PASavedVars.Banking[profileNo].Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]
                 PASavedVars.Banking[profileNo].Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = {
                     [ITEMFILTERTYPE_BLACKSMITHING] = currSurveySetting,
@@ -486,6 +487,8 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
                     [ITEMFILTERTYPE_WOODWORKING] = currSurveySetting,
                     [ITEMFILTERTYPE_JEWELRYCRAFTING] = currSurveySetting
                 }
+                -- 2) Initialize autoExecuteItemTransfers
+                PASavedVars.Banking[profileNo].autoExecuteItemTransfers = true
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
