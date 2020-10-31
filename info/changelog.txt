@@ -1,3 +1,6 @@
+2.5.5 (October 31, 2020)
+- fixed PABanking issue that can occur when updating to version 2.5.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/294"]#294[/URL])
+
 2.5.4 (October 31, 2020)
 - added PABanking setting to explicitly enable automatic item transfers (default=on) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/287"]#287[/URL])
 - added PABanking keybinding to manually trigger item transfers at the bank ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/287"]#287[/URL])
