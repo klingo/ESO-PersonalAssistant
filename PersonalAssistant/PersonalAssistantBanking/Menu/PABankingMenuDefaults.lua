@@ -86,7 +86,6 @@ local PABankingMenuDefaults = {
         },
 
         MasterWritCraftingTypes = {
-            [CRAFTING_TYPE_INVALID] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_BLACKSMITHING] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_CLOTHIER] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_ENCHANTING] = PAC.MOVE.IGNORE,

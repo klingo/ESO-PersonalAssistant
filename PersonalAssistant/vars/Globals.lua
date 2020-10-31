@@ -395,7 +395,6 @@ PersonalAssistant.Constants = {
             CRAFTING_TYPE_PROVISIONING,                     -- 5
             CRAFTING_TYPE_WOODWORKING,                      -- 6
             CRAFTING_TYPE_JEWELRYCRAFTING,                  -- 7
-            CRAFTING_TYPE_INVALID,                          -- 0
         },
         HOLIDAY_WRITS = {
             SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT,              -- 2760

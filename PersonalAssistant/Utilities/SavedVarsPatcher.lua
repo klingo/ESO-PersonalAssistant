@@ -492,8 +492,11 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
 
                 -- 3) Initialize Advanced.HolidayWrits
                 PASavedVars.Banking[profileNo].Advanced.HolidayWrits = {
-                    [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE
+                    [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID]
                 }
+
+                -- 4) Reset CRAFTING_TYPE_INVALID (was formerly used for holiday writs)
+                PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID] = nil
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
