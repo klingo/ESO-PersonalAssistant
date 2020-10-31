@@ -482,6 +482,16 @@ local function _createPABankingMenu()
     })
 
     PABankingOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION),
+        tooltip = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T),
+        getFunc = PABMenuFunctions.getAutoExecuteItemTransfersSetting,
+        setFunc = PABMenuFunctions.setAutoExecuteItemTransfersSetting,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+        default = PABMenuDefaults.autoExecuteItemTransfers,
+    })
+
+    PABankingOptionsTable:insert({
         type = "dropdown",
         name = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING),
         tooltip = GetString(SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T),
@@ -994,6 +1004,24 @@ local function _createPABAdvancedTrophiesSubmenuTable()
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
             disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
+        })
+    end
+
+    PABAdvancedTrophiesSubmenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    for itemFilterType, _ in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS) do
+        PABAdvancedTrophiesSubmenuTable:insert({
+            type = "dropdown",
+            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT)),": ", GetString("SI_ITEMFILTERTYPE", itemFilterType)}),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSurveyMapMoveSetting(itemFilterType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value) end,
+            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            default = PABMenuDefaults.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType],
         })
     end
 end

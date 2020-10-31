@@ -6,35 +6,39 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJunk
-local _hooksOnInventoryItemsInitialized = false
 
 local function _isMarkUnmarkAsJunkVisible()
-    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showMarkUnmarkAsJunkKeybind then
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsJunkKeybind then
         return _mouseOverBagId and _mouseOverSlotIndex
     end
     return false
 end
 
 local function _isMarkUnmarkAsJunkEnabled()
-    if not PA.Junk.SavedVars or not PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsJunkKeybind then return false end
-
-    return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind then
+        return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+    end
+    return false
 end
 
 local function _isDestroyItemVisible()
-    if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.showDestroyItemKeybind then
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableDestroyItemKeybind and PAJSV.KeyBindings.showDestroyItemKeybind then
         return _mouseOverBagId and _mouseOverSlotIndex
     end
     return false
 end
 
 local function _isDestroyItemEnabled()
-    if not PA.Junk.SavedVars or not PA.Junk.SavedVars.KeyBindings.enableDestroyItemKeybind then return false end
+    local PAJSV = PA.Junk.SavedVars
+    if not PAJSV or not PAJSV.KeyBindings.enableDestroyItemKeybind then return false end
 
     if IsItemPlayerLocked(_mouseOverBagId, _mouseOverSlotIndex) then return false end
-    if GetItemFunctionalQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PA.Junk.SavedVars.KeyBindings.destroyItemQualityThreshold then return false end
+    if GetItemFunctionalQuality(_mouseOverBagId, _mouseOverSlotIndex) >= PAJSV.KeyBindings.destroyItemQualityThreshold then return false end
 
-    if PA.Junk.SavedVars.KeyBindings.destroyExcludeUnknownItems then
+    if PAJSV.KeyBindings.destroyExcludeUnknownItems then
         local itemType, specializedItemType = GetItemType(_mouseOverBagId, _mouseOverSlotIndex)
         local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
         if itemType == ITEMTYPE_RECIPE then
@@ -68,14 +72,14 @@ local PAJunkButtonGroup = {
     {
         name = "PAJunk_MarkUnmarkAsJunk",
         keybind = "PA_JUNK_TOGGLE_ITEM",
-        callback = function() end, -- only called when directly clicked on keybind strip?
+        callback = function() end, -- only called when directly clicked on keybind strip
         visible = function() return _isMarkUnmarkAsJunkVisible() end,
         enabled = function() return _isMarkUnmarkAsJunkEnabled() end,
     },
     {
         name = GetString(SI_ITEM_ACTION_DESTROY),
         keybind = "PA_JUNK_DESTROY_ITEM",
-        callback = function() end, -- only called when directly clicked on keybind strip?
+        callback = function() end, -- only called when directly clicked on keybind strip
         visible = function() return _isDestroyItemVisible() end,
         enabled = function() return _isDestroyItemEnabled() end,
     },
@@ -126,8 +130,7 @@ end
 
 -- initialises the "OnMouseEnter" and "OnMouseExit" hooks, as well as adds creates Keybind Strip Button
 local function initHooksOnInventoryItems()
-    if not _hooksOnInventoryItemsInitialized then
-        _hooksOnInventoryItemsInitialized = true
+    if not KEYBIND_STRIP:HasKeybindButtonGroup(PAJunkButtonGroup) then
         ZO_PreHook("ZO_InventorySlot_OnMouseEnter", function(inventorySlot)
             if inventorySlot.slotControlType == "listSlot" and inventorySlot.dataEntry and _isBagIdInScope(inventorySlot.dataEntry.data.bagId) then
                 _onMouseEnter(inventorySlot)
@@ -142,7 +145,7 @@ local function initHooksOnInventoryItems()
 
         KEYBIND_STRIP:AddKeybindButtonGroup(PAJunkButtonGroup)
     else
-        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnInventoryItems]")
+        PAHF.debuglnAuthor("Attempted to Re-Add PAJunkButtonGroup: [initHooksOnInventoryItems]")
     end
 end
 
