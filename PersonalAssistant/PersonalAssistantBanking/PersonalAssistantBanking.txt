@@ -28,6 +28,7 @@ PABanking/PABankingAdvanced.lua
 PABanking/PABankingAvA.lua
 PABanking/PABankingCustom.lua
 PABanking/PABanking.lua
+PABanking/PABankingKeybindStrip.lua
 
 # Menu
 Menu/PABankingMenuDefaults.lua
@@ -39,3 +40,6 @@ XML/PABankingAddCustomRuleUIDialog.xml
 XML/PABankingAddCustomRuleUIDialog.lua
 XML/PABankingAdvancedRuleUIDialog.xml
 XML/PABankingAdvancedRuleUIDialog.lua
+
+# Bindings
+bindings/Bindings.xml

@@ -38,10 +38,6 @@ local function depositOrWithdrawSpecialItems()
     PAB.debugln("PA.Banking.depositOrWithdrawSpecialItems")
 
     if PAB.SavedVars.Advanced.advancedItemsEnabled then
-        -- check if bankTransfer is already blocked
-        if PAB.isBankTransferBlocked then return end
-        PAB.isBankTransferBlocked = true
-
         -- get the writ quest table if LazyWritCrafter is enabled
         if WritCreater then
             _writTable = WritCreater.writSearch()
@@ -54,6 +50,7 @@ local function depositOrWithdrawSpecialItems()
             masterWritCraftingTypes = setmetatable({}, { __index = table }),
             itemTypes = setmetatable({}, { __index = table }),
             specializedItemTypes = setmetatable({}, { __index = table }),
+            surveyMaps = setmetatable({}, { __index = table }),
             itemTraitTypes = setmetatable({}, { __index = table }),
         }
         local combinedWithdrawLists = {
@@ -62,6 +59,7 @@ local function depositOrWithdrawSpecialItems()
             masterWritCraftingTypes = setmetatable({}, { __index = table }),
             itemTypes = setmetatable({}, { __index = table }),
             specializedItemTypes = setmetatable({}, { __index = table }),
+            surveyMaps = setmetatable({}, { __index = table }),
             itemTraitTypes = setmetatable({}, { __index = table }),
         }
 
@@ -107,6 +105,13 @@ local function depositOrWithdrawSpecialItems()
                 combinedDepositLists.specializedItemTypes:insert(specializedItemType)
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 combinedWithdrawLists.specializedItemTypes:insert(specializedItemType)
+            end
+        end
+        for itemFilterType, moveMode in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]) do
+            if moveMode == PAC.MOVE.DEPOSIT then
+                combinedDepositLists.surveyMaps:insert(itemFilterType)
+            elseif moveMode == PAC.MOVE.WITHDRAW then
+                combinedWithdrawLists.surveyMaps:insert(itemFilterType)
             end
         end
 

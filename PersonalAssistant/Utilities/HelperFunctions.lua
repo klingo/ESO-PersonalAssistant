@@ -4,6 +4,104 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- =================================================================================================================
+-- == MATH / TABLE FUNCTIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function round(num, numDecimalPlaces)
+    local mult = 10 ^ (numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
+local function roundDown(num)
+    if num > 0 then
+        return math.floor(num)
+    elseif num < 0 then
+        return math.ceil(num)
+    else
+        return num
+    end
+end
+
+local function isValueInTable(t, value)
+    for _, v in pairs(t) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
+
+local function isKeyInTable(t, key)
+    for k in pairs(t) do
+        if k == key then
+            return true
+        end
+    end
+    return false
+end
+
+local function removeValueFromIndexedTable(t, value)
+    for k, v in ipairs(t) do
+        if v == value then
+            table.remove(t, k)
+            return
+        end
+    end
+end
+
+-- Source: http://lua-users.org/wiki/SortedIteration
+--- Equivalent of the pairs() function o tables. Allows to iterate in order
+local function orderedPairs(t)
+    local function cmp_multitype(op1, op2)
+        local type1, type2 = type(op1), type(op2)
+        if type1 ~= type2 then --cmp by type
+            return type1 < type2
+        elseif type1 == "number" or type1 == "string" then --type2 is equal to type1
+            return op1 < op2 --comp by default
+        elseif type1 == "boolean" then
+            return op1 == true
+        else
+            return tostring(op1) < tostring(op2) --cmp by address
+        end
+    end
+    local function __genOrderedIndex(t)
+        local orderedIndex = {}
+        for key in pairs(t) do
+            table.insert(orderedIndex, key)
+        end
+        table.sort(orderedIndex, cmp_multitype)
+        return orderedIndex
+    end
+    local function orderedNext(t, state)
+        -- Equivalent of the next function, but returns the keys in the alphabetic
+        -- order. We use a temporary ordered key table that is stored in the
+        -- table being iterated.
+        local key
+        --print("orderedNext: state = "..tostring(state) )
+        if state == nil then
+            -- the first time, generate the index
+            t.__orderedIndex = __genOrderedIndex(t)
+            key = t.__orderedIndex[1]
+        else
+            -- fetch the next value
+            for i = 1,table.getn(t.__orderedIndex) do
+                if t.__orderedIndex[i] == state then
+                    key = t.__orderedIndex[i+1]
+                end
+            end
+        end
+        if key then
+            return key, t[key]
+        end
+        -- no more value to return, cleanup
+        t.__orderedIndex = nil
+        return
+    end
+    return orderedNext, t, nil
+end
+
+
+-- =================================================================================================================
 -- == ITEM IDENTIFIERS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- All credits go to sirinsidiator for below ItemIdentifier code from AGS!
@@ -250,6 +348,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
         for _, itemType in pairs(combinedLists.learnableKnownItemTypes) do
            if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, true) then return true end
@@ -258,7 +357,6 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, false) then return true end
         end
         for _, craftingType in pairs(combinedLists.masterWritCraftingTypes) do
-            local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
             if craftingType == _getCraftingTypeFromWritItemLink(itemLink) then return true end
         end
         for _, itemType in pairs(combinedLists.itemTypes) do
@@ -266,6 +364,9 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         end
         for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
             if specializedItemType == itemData.specializedItemType and not IsItemLinkContainer(itemLink) then return true end
+        end
+        for _, itemFilterType in pairs(combinedLists.surveyMaps) do
+            if isValueInTable(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS[itemFilterType], itemId) then return true end
         end
         for _, itemTraitType in pairs(combinedLists.itemTraitTypes) do
             if itemTraitType == GetItemTrait(itemData.bagId, itemData.slotIndex) then return true end
@@ -319,103 +420,6 @@ local function getStolenJunkComparator()
     end
 end
 
-
--- =================================================================================================================
--- == MATH / TABLE FUNCTIONS == --
--- -----------------------------------------------------------------------------------------------------------------
-
-local function round(num, numDecimalPlaces)
-    local mult = 10 ^ (numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
-end
-
-local function roundDown(num)
-    if num > 0 then
-        return math.floor(num)
-    elseif num < 0 then
-        return math.ceil(num)
-    else
-        return num
-    end
-end
-
-local function isValueInTable(t, value)
-    for _, v in pairs(t) do
-        if v == value then
-            return true
-        end
-    end
-    return false
-end
-
-local function isKeyInTable(t, key)
-    for k in pairs(t) do
-        if k == key then
-            return true
-        end
-    end
-    return false
-end
-
-local function removeValueFromIndexedTable(t, value)
-    for k, v in ipairs(t) do
-        if v == value then
-            table.remove(t, k)
-            return
-        end
-    end
-end
-
--- Source: http://lua-users.org/wiki/SortedIteration
---- Equivalent of the pairs() function o tables. Allows to iterate in order
-local function orderedPairs(t)
-    local function cmp_multitype(op1, op2)
-        local type1, type2 = type(op1), type(op2)
-        if type1 ~= type2 then --cmp by type
-            return type1 < type2
-        elseif type1 == "number" or type1 == "string" then --type2 is equal to type1
-            return op1 < op2 --comp by default
-        elseif type1 == "boolean" then
-            return op1 == true
-        else
-            return tostring(op1) < tostring(op2) --cmp by address
-        end
-    end
-    local function __genOrderedIndex(t)
-        local orderedIndex = {}
-        for key in pairs(t) do
-            table.insert(orderedIndex, key)
-        end
-        table.sort(orderedIndex, cmp_multitype)
-        return orderedIndex
-    end
-    local function orderedNext(t, state)
-        -- Equivalent of the next function, but returns the keys in the alphabetic
-        -- order. We use a temporary ordered key table that is stored in the
-        -- table being iterated.
-        local key
-        --print("orderedNext: state = "..tostring(state) )
-        if state == nil then
-            -- the first time, generate the index
-            t.__orderedIndex = __genOrderedIndex(t)
-            key = t.__orderedIndex[1]
-        else
-            -- fetch the next value
-            for i = 1,table.getn(t.__orderedIndex) do
-                if t.__orderedIndex[i] == state then
-                    key = t.__orderedIndex[i+1]
-                end
-            end
-        end
-        if key then
-            return key, t[key]
-        end
-        -- no more value to return, cleanup
-        t.__orderedIndex = nil
-        return
-    end
-    return orderedNext, t, nil
-end
 
 
 -- =================================================================================================================
@@ -686,6 +690,12 @@ end
 
 -- Export
 PA.HelperFunctions = {
+    round = round,
+    roundDown = roundDown,
+    isValueInTable = isValueInTable,
+    isKeyInTable = isKeyInTable,
+    removeValueFromIndexedTable = removeValueFromIndexedTable,
+    orderedPairs = orderedPairs,
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
     getAdvancedBankingRulesComparator = getAdvancedBankingRulesComparator,
@@ -694,12 +704,6 @@ PA.HelperFunctions = {
     getItemIdComparator = getItemIdComparator,
     getPAItemIdComparator = getPAItemIdComparator,
     getStolenJunkComparator = getStolenJunkComparator,
-    round = round,
-    roundDown = roundDown,
-    isValueInTable = isValueInTable,
-    isKeyInTable = isKeyInTable,
-    removeValueFromIndexedTable = removeValueFromIndexedTable,
-    orderedPairs = orderedPairs,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,

@@ -12,10 +12,6 @@ local function depositOrWithdrawAvAItems()
     PAB.debugln("PA.Banking.depositOrWithdrawAvAItems")
 
     if PAB.SavedVars.AvA.avaItemsEnabled then
-        -- check if bankTransfer is already blocked
-        if PAB.isBankTransferBlocked then return end
-        PAB.isBankTransferBlocked = true
-
         -- prepare and fill the table with all ava items that needs to be transferred
         local individualItems = {}
         local itemIdTable = PAB.SavedVars.AvA.ItemIds

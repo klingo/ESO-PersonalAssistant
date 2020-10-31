@@ -60,10 +60,6 @@ local function depositOrWithdrawCraftingItems()
     PAB.debugln("PA.Banking.depositOrWithdrawCraftingItems")
 
     if PAB.SavedVars.Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
-        -- check if bankTransfer is already blocked
-        if PAB.isBankTransferBlocked then return end
-        PAB.isBankTransferBlocked = true
-
         -- get the writ quest table if LazyWritCrafter is enabled
         if WritCreater then
             _writTable = WritCreater.writSearch()

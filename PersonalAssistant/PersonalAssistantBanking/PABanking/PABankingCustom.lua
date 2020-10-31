@@ -20,10 +20,6 @@ local function depositOrWithdrawSimpleBankingRules()
     -- currently this is always 'true' (cannot be disabled)
     if PAB.SavedVars.Custom.customItemsEnabled then
 
-        -- check if bankTransfer is already blocked
-        if PAB.isBankTransferBlocked then return end
-        PAB.isBankTransferBlocked = true
-
         -- prepare and fill the table with all custom items that needs to be transferred
         local customPAItems = {}
         local paItemIdTable = PAB.SavedVars.Custom.PAItemIds
@@ -51,8 +47,6 @@ local function depositOrWithdrawSimpleBankingRules()
         if PAB.hasLazyWritCrafterAndShouldGrabEnabled() and (#backpackBagCache > 0 or #bankBagCache > 0) then
             -- note down that potentially items were skipped
             PAB.hasSomeItemskippedForLWC = true
-            -- unblock the banking transactions
-            PAB.isBankTransferBlocked = false
             -- and continue with the next function in queue
             PAEM.executeNextFunctionInQueue(PAB.AddonName)
         else

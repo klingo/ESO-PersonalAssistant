@@ -96,7 +96,6 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                             -- as per current observations, the transfer always finishes even if the bank has ben clsoed before verification
                             -- TODO: might need to be checked in more detail in future
                             -- if bank was closed, abort and dont continue
-                            PAB.isBankTransferBlocked = false
                         else
                             -- item move has been verified
                             local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
@@ -119,7 +118,6 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                                     -- nothing else that can be moved; done
                                     -- TODO: end message?
                                     PAB.debugln("2) all done!")
-                                    PAB.isBankTransferBlocked = false
                                     -- Execute the function queue
                                     PAEM.executeNextFunctionInQueue(PAB.AddonName)
                                 end
@@ -131,7 +129,6 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
         else
             -- abort; dont continue
             PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED, itemLink, PAHF.getBagName(targetBagId))
-            PAB.isBankTransferBlocked = false
         end
     else
         -- cannot move item because there is not enough space; put it on separate list to try again afterwards
@@ -147,7 +144,6 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
         else
             -- Abort; dont continue (even in 2nd run no transfer possible)
             PAB.println(SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE, itemLink, PAHF.getBagName(targetBagId))
-            PAB.isBankTransferBlocked = false
             -- Execute the function queue
             PAEM.executeNextFunctionInQueue(PAB.AddonName)
         end
@@ -377,7 +373,6 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
         PAB.debugln("1) all done!")
-        PAB.isBankTransferBlocked = false
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end
@@ -408,7 +403,6 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
         PAB.debugln("1) all done!")
-        PAB.isBankTransferBlocked = false
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end

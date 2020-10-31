@@ -215,6 +215,19 @@ local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedIte
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSurveyMapMoveSetting
+---------------------------------
+local function getPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    return PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType]
+end
+
+local function setPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType] = value
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.LearnableItemTypes         moveMode
 ---------------------------------
 local function isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(itemTypeList)
@@ -526,6 +539,9 @@ local PABankingMenuFunctions = {
     getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
     setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
 
+    getAdvancedItemTypeSurveyMapMoveSetting = getPABankingAdvancedItemTypeSurveyMapMoveSetting,
+    setAdvancedItemTypeSurveyMapMoveSetting = setPABankingAdvancedItemTypeSurveyMapMoveSetting,
+
     isMotifTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) end,
     isRecipeTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) end,
     isWritsTransactionMenuDisabled = function() return isAdvancedMasterWritCraftingTypesDisabledOrAllMasterWritCraftingTypesMoveModeIgnore(PAC.BANKING_ADVANCED.MASTER_WRITS) end,
@@ -570,6 +586,9 @@ local PABankingMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- TRANSACTION SETTINGS
     -- -----------------------------
+    getAutoExecuteItemTransfersSetting = function() return getValue({"autoExecuteItemTransfers"}) end,
+    setAutoExecuteItemTransfersSetting = function(value) setValue(value, {"autoExecuteItemTransfers"}) end,
+
     isTransactionDepositStackingDisabled = isPABankingTransactionDepositStackingDisabled,
     getTransactionDepositStackingSetting = function() return getValue({"transactionDepositStacking"}) end,
     setTransactionDepositStackingSetting = function(value) setValue(value, {"transactionDepositStacking"}) end,
