@@ -471,7 +471,6 @@ local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
     end
 end
 
--- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB and PA.Banking then
         local PASavedVars = PA.SavedVars
@@ -497,6 +496,26 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
 
                 -- 4) Reset CRAFTING_TYPE_INVALID (was formerly used for holiday writs)
                 PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID] = nil
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+end
+
+-- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _applyPatch_2_5_5(savedVarsVersion, _, patchPAB, _, _, _, _)
+    if patchPAB and PA.Banking then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Banking[profileNo]) then
+                -- 1) Make sure Advanced.HolidayWrits is properly initialized!
+                if not istable(PASavedVars.Banking[profileNo].Advanced.HolidayWrits) then
+                    PASavedVars.Banking[profileNo].Advanced.HolidayWrits = {
+                        [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE,
+                    }
+                elseif PASavedVars.Banking[profileNo].Advanced.HolidayWrits[SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] == nil then
+                    PASavedVars.Banking[profileNo].Advanced.HolidayWrits[SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE
+                end
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
@@ -559,6 +578,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.5.4      October 31, 2020
     _applyPatch_2_5_4(_getIsPatchNeededInfo(020504))
+
+    -- Patch 2.5.5      October 31, 2020
+    _applyPatch_2_5_5(_getIsPatchNeededInfo(020505))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
