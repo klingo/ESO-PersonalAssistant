@@ -579,7 +579,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.5.4      October 31, 2020
     _applyPatch_2_5_4(_getIsPatchNeededInfo(020504))
 
-    -- Patch 2.5.4      October 31, 2020
+    -- Patch 2.5.5      October 31, 2020
     _applyPatch_2_5_5(_getIsPatchNeededInfo(020505))
 end
 
