@@ -48,6 +48,7 @@ local function depositOrWithdrawSpecialItems()
             learnableKnownItemTypes = setmetatable({}, { __index = table }),
             learnableUnknownItemTypes = setmetatable({}, { __index = table }),
             masterWritCraftingTypes = setmetatable({}, { __index = table }),
+            holidayWrits  = setmetatable({}, { __index = table }),
             itemTypes = setmetatable({}, { __index = table }),
             specializedItemTypes = setmetatable({}, { __index = table }),
             surveyMaps = setmetatable({}, { __index = table }),
@@ -57,6 +58,7 @@ local function depositOrWithdrawSpecialItems()
             learnableKnownItemTypes = setmetatable({}, { __index = table }),
             learnableUnknownItemTypes = setmetatable({}, { __index = table }),
             masterWritCraftingTypes = setmetatable({}, { __index = table }),
+            holidayWrits  = setmetatable({}, { __index = table }),
             itemTypes = setmetatable({}, { __index = table }),
             specializedItemTypes = setmetatable({}, { __index = table }),
             surveyMaps = setmetatable({}, { __index = table }),
@@ -86,6 +88,13 @@ local function depositOrWithdrawSpecialItems()
                 combinedDepositLists.masterWritCraftingTypes:insert(craftingType)
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 combinedWithdrawLists.masterWritCraftingTypes:insert(craftingType)
+            end
+        end
+        for specializedItemType, moveMode in pairs(PAB.SavedVars.Advanced.HolidayWrits) do
+            if moveMode == PAC.MOVE.DEPOSIT then
+                combinedDepositLists.holidayWrits:insert(specializedItemType)
+            elseif moveMode == PAC.MOVE.WITHDRAW then
+                combinedWithdrawLists.holidayWrits:insert(specializedItemType)
             end
         end
         for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do

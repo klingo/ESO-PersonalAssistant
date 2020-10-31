@@ -490,6 +490,14 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
                 }
                 -- 2) Initialize autoExecuteItemTransfers
                 PASavedVars.Banking[profileNo].autoExecuteItemTransfers = true
+
+                -- 3) Initialize Advanced.HolidayWrits
+                PASavedVars.Banking[profileNo].Advanced.HolidayWrits = {
+                    [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID]
+                }
+
+                -- 4) Reset CRAFTING_TYPE_INVALID (was formerly used for holiday writs)
+                PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID] = nil
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
@@ -624,7 +632,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.5.1      October 12, 2020
     _applyPatch_2_5_1(_getIsPatchNeededInfo(020501))
 
-    -- Patch 2.5.4      tbd
+    -- Patch 2.5.4      October 31, 2020
     _applyPatch_2_5_4(_getIsPatchNeededInfo(020504))
 
     -- Patch 2.6.0      tbd

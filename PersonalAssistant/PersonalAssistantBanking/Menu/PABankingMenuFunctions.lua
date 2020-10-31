@@ -189,6 +189,19 @@ local function setPABankingAdvancedMasterWritCraftingTypeMoveSetting(craftingTyp
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.HolidayWrits                moveMode
+---------------------------------
+local function getPABankingAdvancedHolidayWritsMoveSetting(specializedItemType)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    return PAB.SavedVars.Advanced.HolidayWrits[specializedItemType]
+end
+
+local function setPABankingAdvancedHolidayWritsMoveSetting(specializedItemType, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.Advanced.HolidayWrits[specializedItemType] = value
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
@@ -255,6 +268,19 @@ local function isAdvancedMasterWritCraftingTypesDisabledOrAllMasterWritCraftingT
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.HolidayWrits                    moveMode
+---------------------------------
+local function isAdvancedHolidayWritCraftingTypesDisabledOrAllHolidayWritsMoveModeIgnore()
+    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
+
+    for _, specializedItemType in ipairs(PAC.BANKING_ADVANCED.HOLIDAY_WRITS) do
+        if PAB.SavedVars.Advanced.HolidayWrits[specializedItemType] ~= PAC.OPERATOR.NONE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(itemTypeList)
@@ -292,11 +318,21 @@ local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     for craftingType, _ in pairs(PAB.SavedVars.Advanced.MasterWritCraftingTypes) do
         PAB.SavedVars.Advanced.MasterWritCraftingTypes[craftingType] = value
     end
+    for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.HolidayWrits) do
+        PAB.SavedVars.Advanced.HolidayWrits[specializedItemType] = value
+    end
     for itemType, _ in pairs(PAB.SavedVars.Advanced.ItemTypes) do
         PAB.SavedVars.Advanced.ItemTypes[itemType] = value
     end
-    for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
-        PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
+    local PASVSpecializedItemTypes = PAB.SavedVars.Advanced.SpecializedItemTypes
+    for specializedItemType, _ in pairs(PASVSpecializedItemTypes) do
+        if specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT then
+            for itemFilterType, _ in pairs(PASVSpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]) do
+                PASVSpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType] = value
+            end
+        else
+            PASVSpecializedItemTypes[specializedItemType] = value
+        end
     end
     PERSONALASSISTANT_PAB_ADVANCED_GLOBAL_MOVE_MODE:UpdateValue()
     -- TODO: chat-message do inform user?
@@ -530,6 +566,9 @@ local PABankingMenuFunctions = {
     getAdvancedMasterWritCraftingTypeMoveSetting = getPABankingAdvancedMasterWritCraftingTypeMoveSetting,
     setAdvancedMasterWritCraftingTypeMoveSetting = setPABankingAdvancedMasterWritCraftingTypeMoveSetting,
 
+    getAdvancedHolidayWritsMoveSetting = getPABankingAdvancedHolidayWritsMoveSetting,
+    setAdvancedHolidayWritsMoveSetting = setPABankingAdvancedHolidayWritsMoveSetting,
+
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
 
@@ -544,7 +583,8 @@ local PABankingMenuFunctions = {
 
     isMotifTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) end,
     isRecipeTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) end,
-    isWritsTransactionMenuDisabled = function() return isAdvancedMasterWritCraftingTypesDisabledOrAllMasterWritCraftingTypesMoveModeIgnore(PAC.BANKING_ADVANCED.MASTER_WRITS) end,
+    isMasterWritsTransactionMenuDisabled = function() return isAdvancedMasterWritCraftingTypesDisabledOrAllMasterWritCraftingTypesMoveModeIgnore(PAC.BANKING_ADVANCED.MASTER_WRITS) end,
+    isHolidayWritsTransactionMenuDisabled = function() return isAdvancedHolidayWritCraftingTypesDisabledOrAllHolidayWritsMoveModeIgnore(PAC.BANKING_ADVANCED.HOLIDAY_WRITS) end,
     isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.GLYPHS) end,
     isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) end,
     isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) end,
