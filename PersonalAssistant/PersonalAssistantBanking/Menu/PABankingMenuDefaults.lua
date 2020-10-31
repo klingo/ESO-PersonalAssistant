@@ -96,6 +96,10 @@ local PABankingMenuDefaults = {
             [CRAFTING_TYPE_JEWELRYCRAFTING] = PAC.MOVE.IGNORE,
         },
 
+        HolidayWrits = {
+            [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE,
+        },
+
         ItemTypes = {
             [ITEMTYPE_GLYPH_ARMOR] = PAC.MOVE.IGNORE,
             [ITEMTYPE_GLYPH_JEWELRY] = PAC.MOVE.IGNORE,

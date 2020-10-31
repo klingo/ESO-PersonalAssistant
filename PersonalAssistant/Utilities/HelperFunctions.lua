@@ -146,6 +146,9 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         for _, craftingType in pairs(combinedLists.masterWritCraftingTypes) do
             if craftingType == _getCraftingTypeFromWritItemLink(itemLink) then return true end
         end
+        for _, specializedItemType in pairs(combinedLists.holidayWrits) do
+            if specializedItemType == itemData.specializedItemType then return true end
+        end
         for _, itemType in pairs(combinedLists.itemTypes) do
             if itemType == itemData.itemType then return true end
         end

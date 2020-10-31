@@ -489,6 +489,11 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
                 }
                 -- 2) Initialize autoExecuteItemTransfers
                 PASavedVars.Banking[profileNo].autoExecuteItemTransfers = true
+
+                -- 3) Initialize Advanced.HolidayWrits
+                PASavedVars.Banking[profileNo].Advanced.HolidayWrits = {
+                    [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE
+                }
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
