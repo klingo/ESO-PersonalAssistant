@@ -190,6 +190,9 @@ PersonalAssistant.Constants = {
             MASTER_WRIT = {
                 PATH = "/esoui/art/icons/master_writ_woodworking.dds",
             },
+            HOLIDAY_WRIT = {
+                PATH = "/esoui/art/icons/master_writ_witchesfestival.dds",
+            },
             MOTIF = {
                 PATH = "/esoui/art/icons/quest_book_001.dds",
             },
@@ -392,7 +395,9 @@ PersonalAssistant.Constants = {
             CRAFTING_TYPE_PROVISIONING,                     -- 5
             CRAFTING_TYPE_WOODWORKING,                      -- 6
             CRAFTING_TYPE_JEWELRYCRAFTING,                  -- 7
-            CRAFTING_TYPE_INVALID,                          -- 0
+        },
+        HOLIDAY_WRITS = {
+            SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT,              -- 2760
         },
         REGULAR = {
             WRITS = {

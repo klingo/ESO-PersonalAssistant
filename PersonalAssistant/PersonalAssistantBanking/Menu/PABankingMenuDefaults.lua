@@ -86,7 +86,6 @@ local PABankingMenuDefaults = {
         },
 
         MasterWritCraftingTypes = {
-            [CRAFTING_TYPE_INVALID] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_BLACKSMITHING] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_CLOTHIER] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_ENCHANTING] = PAC.MOVE.IGNORE,
@@ -94,6 +93,10 @@ local PABankingMenuDefaults = {
             [CRAFTING_TYPE_PROVISIONING] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_WOODWORKING] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_JEWELRYCRAFTING] = PAC.MOVE.IGNORE,
+        },
+
+        HolidayWrits = {
+            [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE,
         },
 
         ItemTypes = {
