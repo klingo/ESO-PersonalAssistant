@@ -301,7 +301,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_MASTER_WRITS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_MASTER_WRITS_HEADER),
         icon = PAC.ICONS.ITEMS.MASTER_WRIT.PATH,
         controls = PABAdvancedMasterWritsSubmenuTable,
         disabledLabel = PABMenuFunctions.isMasterWritsTransactionMenuDisabled,
@@ -309,7 +309,7 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_HOLIDAY_WRITS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_SPECIAL_HOLIDAY_WRITS_HEADER),
         icon = PAC.ICONS.ITEMS.HOLIDAY_WRIT.PATH,
         controls = PABAdvancedHolidayWritsSubmenuTable,
         disabledLabel = PABMenuFunctions.isHolidayWritsTransactionMenuDisabled,
