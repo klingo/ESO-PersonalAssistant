@@ -350,8 +350,15 @@ local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     for itemType, _ in pairs(PAB.SavedVars.Advanced.ItemTypes) do
         PAB.SavedVars.Advanced.ItemTypes[itemType] = value
     end
-    for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
-        PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
+    local PASVSpecializedItemTypes = PAB.SavedVars.Advanced.SpecializedItemTypes
+    for specializedItemType, _ in pairs(PASVSpecializedItemTypes) do
+        if specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT then
+            for itemFilterType, _ in pairs(PASVSpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]) do
+                PASVSpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType] = value
+            end
+        else
+            PASVSpecializedItemTypes[specializedItemType] = value
+        end
     end
     for itemTraitType, _ in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
         PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] = value
