@@ -427,7 +427,7 @@ PersonalAssistant.Constants = {
         SPECIALIZED = {
             TROPHIES = {
                 SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
-                SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101
+                -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
                 SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
                 SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
@@ -435,6 +435,176 @@ PersonalAssistant.Constants = {
                 SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
                 SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
             },
+            SURVEY_REPORTS = {
+                [ITEMFILTERTYPE_BLACKSMITHING] = {
+                    57687,  -- Blacksmith Survey: Auridon
+                    57747,  -- Blacksmith Survey: Grahtwood
+                    57788,  -- Blacksmith Survey: Greenshade
+                    57791,  -- Blacksmith Survey: Malabal Tor
+                    57793,  -- Blacksmith Survey: Reaper's March
+                    57737,  -- Blacksmith Survey: Stonefalls
+                    57748,  -- Blacksmith Survey: Deshaan
+                    57789,  -- Blacksmith Survey: Shadowfen
+                    57801,  -- Blacksmith Survey: Eastmarch
+                    57794,  -- Blacksmith Survey: The Rift
+                    57736,  -- Blacksmith Survey: Glenumbra
+                    57749,  -- Blacksmith Survey: Stormhaven
+                    57790,  -- Blacksmith Survey: Rivenspire
+                    57792,  -- Blacksmith Survey: Alik'r
+                    57795,  -- Blacksmith Survey: Bangkorai
+                    57796,  -- Blacksmith Survey: Coldharbour I
+                    57797,  -- Blacksmith Survey: Coldharbour II
+                    57798,  -- Blacksmith Survey: Craglorn I
+                    57799,  -- Blacksmith Survey: Craglorn II
+                    57800,  -- Blacksmith Survey: Craglorn III
+                    71065,  -- Blacksmith Survey: Wrothgar I
+                    71066,  -- Blacksmith Survey: Wrothgar II
+                    71067,  -- Blacksmith Survey: Wrothgar III
+                    126110, -- Blacksmith Survey: Vvardenfell
+                    151598, -- Blacksmith Survey: Northern Elsweyr
+                    166460, -- Blacksmith Survey: Western Skyrim
+                },
+                [ITEMFILTERTYPE_ENCHANTING] = {
+                    57733,  -- Enchanter Survey: Auridon
+                    57750,  -- Enchanter Survey: Grahtwood
+                    57802,  -- Enchanter Survey: Greenshade
+                    57805,  -- Enchanter Survey: Malabal Tor
+                    57808,  -- Enchanter Survey: Reaper's March
+                    57735,  -- Enchanter Survey: Stonefalls
+                    57751,  -- Enchanter Survey: Deshaan
+                    57803,  -- Enchanter Survey: Shadowfen
+                    57807,  -- Enchanter Survey: Eastmarch
+                    57809,  -- Enchanter Survey: The Rift
+                    57734,  -- Enchanter Survey: Glenumbra
+                    57752,  -- Enchanter Survey: Stormhaven
+                    57804,  -- Enchanter Survey: Rivenspire
+                    57806,  -- Enchanter Survey: Alik'r
+                    57810,  -- Enchanter Survey: Bangkorai
+                    57811,  -- Enchanter Survey: Coldharbour I
+                    57812,  -- Enchanter Survey: Coldharbour II
+                    57813,  -- Enchanter Survey: Craglorn I
+                    57814,  -- Enchanter Survey: Craglorn II
+                    57815,  -- Enchanter Survey: Craglorn III
+                    71086,  -- Enchanter Survey: Wrothgar I
+                    71087,  -- Enchanter Survey: Wrothgar II
+                    71088,  -- Enchanter Survey: Wrothgar III
+                    126122, -- Enchanter Survey: Vvardenfell
+                    151602, -- Enchanter Survey: Northern Elsweyr
+                    166462, -- Enchanter Survey: Western Skyrim
+                },
+                [ITEMFILTERTYPE_CLOTHING] = {
+                    57738,  -- Clothier Survey: Auridon
+                    57754,  -- Clothier Survey: Grahtwood
+                    57757,  -- Clothier Survey: Greenshade
+                    57760,  -- Clothier Survey: Malabal Tor
+                    57763,  -- Clothier Survey: Reaper's March
+                    57740,  -- Clothier Survey: Stonefalls
+                    57755,  -- Clothier Survey: Deshaan
+                    57758,  -- Clothier Survey: Shadowfen
+                    57761,  -- Clothier Survey: Eastmarch
+                    57765,  -- Clothier Survey: The Rift
+                    57739,  -- Clothier Survey: Glenumbra
+                    57756,  -- Clothier Survey: Stormhaven
+                    57759,  -- Clothier Survey: Rivenspire
+                    57762,  -- Clothier Survey: Alik'r
+                    57764,  -- Clothier Survey: Bangkorai
+                    57766,  -- Clothier Survey: Coldharbour I
+                    57767,  -- Clothier Survey: Coldharbour II
+                    57768,  -- Clothier Survey: Craglorn I
+                    57769,  -- Clothier Survey: Craglorn II
+                    57770,  -- Clothier Survey: Craglorn III
+                    71068,  -- Clothier Survey: Wrothgar I
+                    71069,  -- Clothier Survey: Wrothgar II
+                    71070,  -- Clothier Survey: Wrothgar III
+                    126111, -- Clothier Survey: Vvardenfell
+                    151599, -- Clothier Survey: Northern Elsweyr
+                    166461, -- Clothier Survey: Western Skyrim
+                },
+                [ITEMFILTERTYPE_ALCHEMY] = {
+                    57744,  -- Alchemist Survey: Auridon
+                    57771,  -- Alchemist Survey: Grahtwood
+                    57774,  -- Alchemist Survey: Greenshade
+                    57777,  -- Alchemist Survey: Malabal Tor
+                    57780,  -- Alchemist Survey: Reaper's March
+                    57746,  -- Alchemist Survey: Stonefalls
+                    57772,  -- Alchemist Survey: Deshaan
+                    57775,  -- Alchemist Survey: Shadowfen
+                    57778,  -- Alchemist Survey: Eastmarch
+                    57782,  -- Alchemist Survey: The Rift
+                    57745,  -- Alchemist Survey: Glenumbra
+                    57773,  -- Alchemist Survey: Stormhaven
+                    57776,  -- Alchemist Survey: Rivenspire
+                    57779,  -- Alchemist Survey: Alik'r
+                    57781,  -- Alchemist Survey: Bangkorai
+                    57783,  -- Alchemist Survey: Coldharbour I
+                    57784,  -- Alchemist Survey: Coldharbour II
+                    57785,  -- Alchemist Survey: Craglorn I
+                    57786,  -- Alchemist Survey: Craglorn II
+                    57787,  -- Alchemist Survey: Craglorn III
+                    71083,  -- Alchemist Survey: Wrothgar I
+                    71084,  -- Alchemist Survey: Wrothgar II
+                    71085,  -- Alchemist Survey: Wrothgar III
+                    126113, -- Alchemist Survey: Vvardenfell
+                    151601, -- Alchemist Survey: Northern Elsweyr
+                    166459, -- Alchemist Survey: Western Skyrim
+                },
+                [ITEMFILTERTYPE_WOODWORKING] = {
+                    57741,  -- Woodworker Survey: Auridon
+                    57816,  -- Woodworker Survey: Grahtwood
+                    57819,  -- Woodworker Survey: Greenshade
+                    57822,  -- Woodworker Survey: Malabal Tor
+                    57825,  -- Woodworker Survey: Reaper's March
+                    57743,  -- Woodworker Survey: Stonefalls
+                    57817,  -- Woodworker Survey: Deshaan
+                    57820,  -- Woodworker Survey: Shadowfen
+                    57823,  -- Woodworker Survey: Eastmarch
+                    57826,  -- Woodworker Survey: The Rift
+                    57742,  -- Woodworker Survey: Glenumbra
+                    57818,  -- Woodworker Survey: Stormhaven
+                    57821,  -- Woodworker Survey: Rivenspire
+                    57824,  -- Woodworker Survey: Alik'r
+                    57827,  -- Woodworker Survey: Bangkorai
+                    57828,  -- Woodworker Survey: Coldharbour I
+                    57829,  -- Woodworker Survey: Coldharbour II
+                    57830,  -- Woodworker Survey: Craglorn I
+                    57831,  -- Woodworker Survey: Craglorn II
+                    57832,  -- Woodworker Survey: Craglorn III
+                    71080,  -- Woodworker Survey: Wrothgar I
+                    71081,  -- Woodworker Survey: Wrothgar II
+                    71082,  -- Woodworker Survey: Wrothgar III
+                    126112, -- Woodworker Survey: Vvardenfell
+                    151600, -- Woodworker Survey: Northern Elsweyr
+                    166465, -- Woodworker Survey: Western Skyrim
+                },
+                [ITEMFILTERTYPE_JEWELRYCRAFTING] = {
+                    139422, -- Jewelry Crafting Survey: Auridon
+                    139425, -- Jewelry Crafting Survey: Grahtwood
+                    139427, -- Jewelry Crafting Survey: Greenshade
+                    139430, -- Jewelry Crafting Survey: Malabal Tor
+                    139432, -- Jewelry Crafting Survey: Reaper's March
+                    139424, -- Jewelry Crafting Survey: Stonefalls
+                    139426, -- Jewelry Crafting Survey: Deshaan
+                    139428, -- Jewelry Crafting Survey: Shadowfen
+                    139440, -- Jewelry Crafting Survey: Eastmarch
+                    139433, -- Jewelry Crafting Survey: The Rift
+                    139423, -- Jewelry Crafting Survey: Glenumbra
+                    139408, -- Jewelry Crafting Survey: Stormhaven
+                    139429, -- Jewelry Crafting Survey: Rivenspire
+                    139431, -- Jewelry Crafting Survey: Alik'r
+                    139434, -- Jewelry Crafting Survey: Bangkorai
+                    139435, -- Jewelry Crafting Survey: Coldharbour I
+                    139436, -- Jewelry Crafting Survey: Coldharbour II
+                    139437, -- Jewelry Crafting Survey: Craglorn I
+                    139438, -- Jewelry Crafting Survey: Craglorn II
+                    139439, -- Jewelry Crafting Survey: Craglorn III
+                    139441, -- Jewelry Crafting Survey: Wrothgar I
+                    139442, -- Jewelry Crafting Survey: Wrothgar II
+                    139443, -- Jewelry Crafting Survey: Wrothgar III
+                    139444, -- Jewelry Crafting Survey: Vvardenfell
+                    151603, -- Jewelry Crafting Survey: Northern Elsweyr
+                    166464, -- Jewelry Crafting Survey: Western Skyrim
+                },
+            }
         },
     },
 

@@ -54,6 +54,9 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Прочее",
 
     -- Other Settings --
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "",
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "",
+
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Правила объединения при внесении",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Определяет будут ли все выбранные предметы перемещены в банк или только лишь дополнены имеющиеся там стеки",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Правила объединения при изъятии",
@@ -186,6 +189,8 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
+--    SI_PA_CHAT_BANKING_FINISHED = "",
+
     SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s изъято",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s изъято (Банк пуст)",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%s / %s %s изъято (Нет места в инвентаре)",
@@ -215,6 +220,14 @@ local PABStrings = {
 --    SI_PA_CHAT_BANKING_ADVANCED_RULES_DISABLED = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("disabled"), "!"}),
 --    SI_PA_CHAT_BANKING_ADVANCED_RULES_MOVED_UP = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved up"), " and is now Rule #%d!"}),
 --    SI_PA_CHAT_BANKING_ADVANCED_RULES_MOVED_DOWN = table.concat({"Rule #%d has been ", PAC.COLOR.ORANGE:Colorize("moved down"), " and is now Rule #%d!"}),
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+--    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS = "",
+--    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS_PENDING = "",
 }
 
 for key, value in pairs(PABStrings) do

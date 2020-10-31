@@ -1,4 +1,6 @@
 # PersonalAssistant
+<a href="https://www.buymeacoffee.com/klingo" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-yellow.png" alt="Buy Me A Coffee"></a>
+
 PersonalAssistant, an Add-on for '[The Elder Scrolls Online](https://www.elderscrollsonline.com/ "Home - The Elder Scrolls Online")'
 
 ***

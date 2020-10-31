@@ -472,6 +472,31 @@ local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
     end
 end
 
+
+local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
+    if patchPAB and PA.Banking then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Banking[profileNo]) then
+                -- 1) Migrate Survey Reports
+                local currSurveySetting = PASavedVars.Banking[profileNo].Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]
+                PASavedVars.Banking[profileNo].Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = {
+                    [ITEMFILTERTYPE_BLACKSMITHING] = currSurveySetting,
+                    [ITEMFILTERTYPE_CLOTHING] = currSurveySetting,
+                    [ITEMFILTERTYPE_ENCHANTING] = currSurveySetting,
+                    [ITEMFILTERTYPE_ALCHEMY] = currSurveySetting,
+                    [ITEMFILTERTYPE_WOODWORKING] = currSurveySetting,
+                    [ITEMFILTERTYPE_JEWELRYCRAFTING] = currSurveySetting
+                }
+                -- 2) Initialize autoExecuteItemTransfers
+                PASavedVars.Banking[profileNo].autoExecuteItemTransfers = true
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+end
+
+
 -- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 local function _applyPatch_2_6_0(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
     if patchPAB and PA.Banking then
@@ -599,6 +624,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.5.1      October 12, 2020
     _applyPatch_2_5_1(_getIsPatchNeededInfo(020501))
+
+    -- Patch 2.5.4      tbd
+    _applyPatch_2_5_4(_getIsPatchNeededInfo(020504))
 
     -- Patch 2.6.0      tbd
     _applyPatch_2_6_0(_getIsPatchNeededInfo(020600))
