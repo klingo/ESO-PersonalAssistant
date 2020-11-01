@@ -57,7 +57,7 @@ end
 
 local function depositOrWithdrawCraftingItems()
 
-    PAB.debugln("PA.Banking.depositOrWithdrawCraftingItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawCraftingItems (1)")
 
     if PAB.SavedVars.Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
         -- get the writ quest table if LazyWritCrafter is enabled
