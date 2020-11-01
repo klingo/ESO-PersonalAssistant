@@ -1,3 +1,16 @@
+2.5.5 (October 31, 2020)
+- fixed PABanking issue that can occur when updating to version 2.5.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/294"]#294[/URL])
+
+2.5.4 (October 31, 2020)
+- added PABanking setting to explicitly enable automatic item transfers (default=on) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/287"]#287[/URL])
+- added PABanking keybinding to manually trigger item transfers at the bank ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/287"]#287[/URL])
+- added PABanking settings for survey maps per crafting type ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/284"]#284[/URL])
+- added PABanking settings for festival writs ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/292"]#292[/URL])
+- added PABanking success message when all item transfers are done ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/286"]#286[/URL])
+- fixed PABanking issue when mass-changing the 'Special Item' dropdowns ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/291"]#291[/URL])
+- fixed PAJunk issue where disabled keybindings were still displayed ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/288"]#288[/URL])
+- fixed PALoot issue where regular loot containers were flagged as 'unknown' ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/293"]#293[/URL])
+
 2.5.3 (October 20, 2020)
 - updated PAJunk to only mark 'Standard Items' as junk if they are considered 'new' ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/279"]#279[/URL])
 - fixed an issue in PALoot where the known/unknown icon was missing for style containers ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/280"]#280[/URL])

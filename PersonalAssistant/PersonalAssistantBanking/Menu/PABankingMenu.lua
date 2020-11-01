@@ -48,7 +48,8 @@ local PABCraftingFurnishingSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAdvancedMotifSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedRecipeSubmenuTable = setmetatable({}, { __index = table })
-local PABAdvancedWritsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedMasterWritsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedHolidayWritsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedGlyphsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedLiquidsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFoodDrinksSubmenuTable = setmetatable({}, { __index = table })
@@ -298,12 +299,21 @@ local function _createPABankingMenu()
         controls = PABAdvancedRecipeSubmenuTable,
         disabledLabel = PABMenuFunctions.isRecipeTransactionMenuDisabled,
     })
+
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_WRITS_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_MASTER_WRITS_HEADER),
         icon = PAC.ICONS.ITEMS.MASTER_WRIT.PATH,
-        controls = PABAdvancedWritsSubmenuTable,
-        disabledLabel = PABMenuFunctions.isWritsTransactionMenuDisabled,
+        controls = PABAdvancedMasterWritsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isMasterWritsTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_HOLIDAY_WRITS_HEADER),
+        icon = PAC.ICONS.ITEMS.HOLIDAY_WRIT.PATH,
+        controls = PABAdvancedHolidayWritsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isHolidayWritsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -479,6 +489,16 @@ local function _createPABankingMenu()
     PABankingOptionsTable:insert({
         type = "header",
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
+    })
+
+    PABankingOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION),
+        tooltip = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T),
+        getFunc = PABMenuFunctions.getAutoExecuteItemTransfersSetting,
+        setFunc = PABMenuFunctions.setAutoExecuteItemTransfersSetting,
+        disabled = PAGMenuFunctions.isNoProfileSelected,
+        default = PABMenuDefaults.autoExecuteItemTransfers,
     })
 
     PABankingOptionsTable:insert({
@@ -915,9 +935,9 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function _createPABAdvancedWritsSubmenuTable()
+local function _createPABAdvancedMasterWritsSubmenuTable()
     for _, craftingType in pairs(PAC.BANKING_ADVANCED.MASTER_WRITS) do
-        PABAdvancedWritsSubmenuTable:insert({
+        PABAdvancedMasterWritsSubmenuTable:insert({
             type = "dropdown",
             name = GetString("SI_PA_MASTERWRIT_CRAFTINGTYPE", craftingType),
             choices = PABMenuChoices.itemMoveMode,
@@ -926,6 +946,23 @@ local function _createPABAdvancedWritsSubmenuTable()
             setFunc = function(value) PABMenuFunctions.setAdvancedMasterWritCraftingTypeMoveSetting(craftingType, value) end,
             disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
             default = PABMenuDefaults.Advanced.MasterWritCraftingTypes[craftingType],
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAdvancedHolidayWritsSubmenuTable()
+    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.HOLIDAY_WRITS) do
+        PABAdvancedHolidayWritsSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedHolidayWritsMoveSetting(specializedItemType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedHolidayWritsMoveSetting(specializedItemType, value) end,
+            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            default = PABMenuDefaults.Advanced.HolidayWrits[specializedItemType],
         })
     end
 end
@@ -994,6 +1031,24 @@ local function _createPABAdvancedTrophiesSubmenuTable()
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
             disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
+        })
+    end
+
+    PABAdvancedTrophiesSubmenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    for itemFilterType, _ in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS) do
+        PABAdvancedTrophiesSubmenuTable:insert({
+            type = "dropdown",
+            name = table.concat({zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT)),": ", GetString("SI_ITEMFILTERTYPE", itemFilterType)}),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSurveyMapMoveSetting(itemFilterType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value) end,
+            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            default = PABMenuDefaults.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType],
         })
     end
 end
@@ -1321,7 +1376,8 @@ local function createOptions()
 
     _createPABAdvancedMotifSubmenuTable()
     _createPABAdvancedRecipeSubmenuTable()
-    _createPABAdvancedWritsSubmenuTable()
+    _createPABAdvancedMasterWritsSubmenuTable()
+    _createPABAdvancedHolidayWritsSubmenuTable()
     _createPABAdvancedGlyphsSubmenuTable()
     _createPABAdvancedLiquidsSubmenuTable()
     _createPABAdvancedFoodDrinksSubmenuTable()

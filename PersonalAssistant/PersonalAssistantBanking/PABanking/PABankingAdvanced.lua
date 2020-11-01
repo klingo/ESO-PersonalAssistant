@@ -38,10 +38,6 @@ local function depositOrWithdrawAdvancedItems()
     PAB.debugln("PA.Banking.depositOrWithdrawAdvancedItems")
 
     if PAB.SavedVars.Advanced.advancedItemsEnabled then
-        -- check if bankTransfer is already blocked
-        if PAB.isBankTransferBlocked then return end
-        PAB.isBankTransferBlocked = true
-
         -- get the writ quest table if LazyWritCrafter is enabled
         if WritCreater then
             _writTable = WritCreater.writSearch()
@@ -52,16 +48,20 @@ local function depositOrWithdrawAdvancedItems()
             learnableKnownItemTypes = setmetatable({}, { __index = table }),
             learnableUnknownItemTypes = setmetatable({}, { __index = table }),
             masterWritCraftingTypes = setmetatable({}, { __index = table }),
+            holidayWrits  = setmetatable({}, { __index = table }),
             itemTypes = setmetatable({}, { __index = table }),
             specializedItemTypes = setmetatable({}, { __index = table }),
+            surveyMaps = setmetatable({}, { __index = table }),
             itemTraitTypes = setmetatable({}, { __index = table }),
         }
         local combinedWithdrawLists = {
             learnableKnownItemTypes = setmetatable({}, { __index = table }),
             learnableUnknownItemTypes = setmetatable({}, { __index = table }),
             masterWritCraftingTypes = setmetatable({}, { __index = table }),
+            holidayWrits  = setmetatable({}, { __index = table }),
             itemTypes = setmetatable({}, { __index = table }),
             specializedItemTypes = setmetatable({}, { __index = table }),
+            surveyMaps = setmetatable({}, { __index = table }),
             itemTraitTypes = setmetatable({}, { __index = table }),
         }
 
@@ -90,6 +90,13 @@ local function depositOrWithdrawAdvancedItems()
                 combinedWithdrawLists.masterWritCraftingTypes:insert(craftingType)
             end
         end
+        for specializedItemType, moveMode in pairs(PAB.SavedVars.Advanced.HolidayWrits) do
+            if moveMode == PAC.MOVE.DEPOSIT then
+                combinedDepositLists.holidayWrits:insert(specializedItemType)
+            elseif moveMode == PAC.MOVE.WITHDRAW then
+                combinedWithdrawLists.holidayWrits:insert(specializedItemType)
+            end
+        end
         for itemType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTypes) do
             if moveMode == PAC.MOVE.DEPOSIT then
                 if _passesLazyWritCraftingCompatibilityCheck(itemType) then
@@ -107,6 +114,13 @@ local function depositOrWithdrawAdvancedItems()
                 combinedDepositLists.specializedItemTypes:insert(specializedItemType)
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 combinedWithdrawLists.specializedItemTypes:insert(specializedItemType)
+            end
+        end
+        for itemFilterType, moveMode in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]) do
+            if moveMode == PAC.MOVE.DEPOSIT then
+                combinedDepositLists.surveyMaps:insert(itemFilterType)
+            elseif moveMode == PAC.MOVE.WITHDRAW then
+                combinedWithdrawLists.surveyMaps:insert(itemFilterType)
             end
         end
         for itemTraitType, moveMode in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do

@@ -189,6 +189,19 @@ local function setPABankingAdvancedMasterWritCraftingTypeMoveSetting(craftingTyp
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.HolidayWrits                moveMode
+---------------------------------
+local function getPABankingAdvancedHolidayWritsMoveSetting(specializedItemType)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    return PAB.SavedVars.Advanced.HolidayWrits[specializedItemType]
+end
+
+local function setPABankingAdvancedHolidayWritsMoveSetting(specializedItemType, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.Advanced.HolidayWrits[specializedItemType] = value
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
@@ -228,6 +241,19 @@ local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedIte
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSurveyMapMoveSetting
+---------------------------------
+local function getPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    return PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType]
+end
+
+local function setPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value)
+    if isDisabledPAGeneralNoProfileSelected() then return end
+    PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType] = value
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.LearnableItemTypes         moveMode
 ---------------------------------
 local function isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(itemTypeList)
@@ -249,6 +275,19 @@ local function isAdvancedMasterWritCraftingTypesDisabledOrAllMasterWritCraftingT
 
     for _, craftingType in ipairs(craftingTypeList) do
         if PAB.SavedVars.Advanced.MasterWritCraftingTypes[craftingType] ~= PAC.OPERATOR.NONE then return false end
+    end
+    -- if there was no 'false' returned until here; then return true
+    return true
+end
+
+--------------------------------------------------------------------------
+-- PABanking   Advanced.HolidayWrits                    moveMode
+---------------------------------
+local function isAdvancedHolidayWritCraftingTypesDisabledOrAllHolidayWritsMoveModeIgnore()
+    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
+
+    for _, specializedItemType in ipairs(PAC.BANKING_ADVANCED.HOLIDAY_WRITS) do
+        if PAB.SavedVars.Advanced.HolidayWrits[specializedItemType] ~= PAC.OPERATOR.NONE then return false end
     end
     -- if there was no 'false' returned until here; then return true
     return true
@@ -305,11 +344,21 @@ local function setPABankingAdvancedItemTypeMoveAllSettings(value)
     for craftingType, _ in pairs(PAB.SavedVars.Advanced.MasterWritCraftingTypes) do
         PAB.SavedVars.Advanced.MasterWritCraftingTypes[craftingType] = value
     end
+    for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.HolidayWrits) do
+        PAB.SavedVars.Advanced.HolidayWrits[specializedItemType] = value
+    end
     for itemType, _ in pairs(PAB.SavedVars.Advanced.ItemTypes) do
         PAB.SavedVars.Advanced.ItemTypes[itemType] = value
     end
-    for specializedItemType, _ in pairs(PAB.SavedVars.Advanced.SpecializedItemTypes) do
-        PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
+    local PASVSpecializedItemTypes = PAB.SavedVars.Advanced.SpecializedItemTypes
+    for specializedItemType, _ in pairs(PASVSpecializedItemTypes) do
+        if specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT then
+            for itemFilterType, _ in pairs(PASVSpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]) do
+                PASVSpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType] = value
+            end
+        else
+            PASVSpecializedItemTypes[specializedItemType] = value
+        end
     end
     for itemTraitType, _ in pairs(PAB.SavedVars.Advanced.ItemTraitTypes) do
         PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] = value
@@ -546,6 +595,9 @@ local PABankingMenuFunctions = {
     getAdvancedMasterWritCraftingTypeMoveSetting = getPABankingAdvancedMasterWritCraftingTypeMoveSetting,
     setAdvancedMasterWritCraftingTypeMoveSetting = setPABankingAdvancedMasterWritCraftingTypeMoveSetting,
 
+    getAdvancedHolidayWritsMoveSetting = getPABankingAdvancedHolidayWritsMoveSetting,
+    setAdvancedHolidayWritsMoveSetting = setPABankingAdvancedHolidayWritsMoveSetting,
+
     getAdvancedItemTypeMoveSetting = getPABankingAdvancedItemTypeMoveSetting,
     setAdvancedItemTypeMoveSetting = setPABankingAdvancedItemTypeMoveSetting,
 
@@ -558,9 +610,13 @@ local PABankingMenuFunctions = {
     getAdvancedItemTypeSpecializedMoveSetting = getPABankingAdvancedItemTypeSpecializedMoveSetting,
     setAdvancedItemTypeSpecializedMoveSetting = setPABankingAdvancedItemTypeSpecializedMoveSetting,
 
+    getAdvancedItemTypeSurveyMapMoveSetting = getPABankingAdvancedItemTypeSurveyMapMoveSetting,
+    setAdvancedItemTypeSurveyMapMoveSetting = setPABankingAdvancedItemTypeSurveyMapMoveSetting,
+
     isMotifTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.MOTIF) end,
     isRecipeTransactionMenuDisabled = function() return isAdvancedLearnableItemsDisabledOrAllLearnableItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.RECIPE) end,
-    isWritsTransactionMenuDisabled = function() return isAdvancedMasterWritCraftingTypesDisabledOrAllMasterWritCraftingTypesMoveModeIgnore(PAC.BANKING_ADVANCED.MASTER_WRITS) end,
+    isMasterWritsTransactionMenuDisabled = function() return isAdvancedMasterWritCraftingTypesDisabledOrAllMasterWritCraftingTypesMoveModeIgnore(PAC.BANKING_ADVANCED.MASTER_WRITS) end,
+    isHolidayWritsTransactionMenuDisabled = function() return isAdvancedHolidayWritCraftingTypesDisabledOrAllHolidayWritsMoveModeIgnore(PAC.BANKING_ADVANCED.HOLIDAY_WRITS) end,
     isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.GLYPHS) end,
     isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) end,
     isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) end,
@@ -603,6 +659,9 @@ local PABankingMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- TRANSACTION SETTINGS
     -- -----------------------------
+    getAutoExecuteItemTransfersSetting = function() return getValue({"autoExecuteItemTransfers"}) end,
+    setAutoExecuteItemTransfersSetting = function(value) setValue(value, {"autoExecuteItemTransfers"}) end,
+
     isTransactionDepositStackingDisabled = isPABankingTransactionDepositStackingDisabled,
     getTransactionDepositStackingSetting = function() return getValue({"transactionDepositStacking"}) end,
     setTransactionDepositStackingSetting = function(value) setValue(value, {"transactionDepositStacking"}) end,

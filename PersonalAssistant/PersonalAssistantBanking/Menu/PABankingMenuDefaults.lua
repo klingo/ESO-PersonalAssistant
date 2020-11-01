@@ -86,7 +86,6 @@ local PABankingMenuDefaults = {
         },
 
         MasterWritCraftingTypes = {
-            [CRAFTING_TYPE_INVALID] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_BLACKSMITHING] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_CLOTHIER] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_ENCHANTING] = PAC.MOVE.IGNORE,
@@ -94,6 +93,10 @@ local PABankingMenuDefaults = {
             [CRAFTING_TYPE_PROVISIONING] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_WOODWORKING] = PAC.MOVE.IGNORE,
             [CRAFTING_TYPE_JEWELRYCRAFTING] = PAC.MOVE.IGNORE,
+        },
+
+        HolidayWrits = {
+            [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE,
         },
 
         ItemTypes = {
@@ -110,7 +113,14 @@ local PABankingMenuDefaults = {
 
         SpecializedItemTypes = {
             [SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP] = PAC.MOVE.IGNORE,
-            [SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = PAC.MOVE.IGNORE,
+            [SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT] = {
+                [ITEMFILTERTYPE_BLACKSMITHING] = PAC.MOVE.IGNORE,
+                [ITEMFILTERTYPE_CLOTHING] = PAC.MOVE.IGNORE,
+                [ITEMFILTERTYPE_ENCHANTING] = PAC.MOVE.IGNORE,
+                [ITEMFILTERTYPE_ALCHEMY] = PAC.MOVE.IGNORE,
+                [ITEMFILTERTYPE_WOODWORKING] = PAC.MOVE.IGNORE,
+                [ITEMFILTERTYPE_JEWELRYCRAFTING] = PAC.MOVE.IGNORE,
+            },
             [SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT] = PAC.MOVE.IGNORE,
             [SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT] = PAC.MOVE.IGNORE,
             [SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT] = PAC.MOVE.IGNORE,
@@ -224,6 +234,7 @@ local PABankingMenuDefaults = {
     },
 
     -- ---------------------------------------------
+    autoExecuteItemTransfers = true,
     transactionDepositStacking = PAC.STACKING.FULL,
     transactionWithdrawalStacking = PAC.STACKING.FULL,
     excludeJunk = true,

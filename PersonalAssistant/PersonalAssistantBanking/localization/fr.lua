@@ -50,6 +50,9 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Autre",
 
     -- Other Settings --
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "",
+--    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "",
+
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Règle d'empilement à la dépose",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Définir si tous les objets doivent être déposés, ou seulement quand il y a des piles existantes à compléter",
     SI_PA_MENU_BANKING_OTHER_WITHDRAWAL_STACKING = "Règle d'empilement au retrait",
@@ -114,6 +117,8 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
+--    SI_PA_CHAT_BANKING_FINISHED = "",
+
     SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s retirés",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s retirés (La banque est vide)",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "%s / %s retirés (Pas assez d'espace sur le personnage)",
@@ -133,6 +138,14 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("supprimée"), " !"}),
     SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("activée"), " !"}),
     SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"La règle pour %s a été ", PAC.COLOR.ORANGE:Colorize("désactivée"), " !"}),
+
+
+    -- =================================================================================================================
+    -- == KEY BINDINGS == --
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- PABanking --
+--    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS = "",
+--    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS_PENDING = "",
 
 
     -- =================================================================================================================

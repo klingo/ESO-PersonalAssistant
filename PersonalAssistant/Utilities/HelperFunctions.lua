@@ -4,6 +4,44 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- =================================================================================================================
+-- == MATH / TABLE FUNCTIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function round(num, numDecimalPlaces)
+    local mult = 10 ^ (numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
+local function roundDown(num)
+    if num > 0 then
+        return math.floor(num)
+    elseif num < 0 then
+        return math.ceil(num)
+    else
+        return num
+    end
+end
+
+local function isValueInTable(table, value)
+    for _, v in pairs(table) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
+
+local function isKeyInTable(table, key)
+    for k in pairs(table) do
+        if k == key then
+            return true
+        end
+    end
+    return false
+end
+
+
+-- =================================================================================================================
 -- == ITEM IDENTIFIERS == --
 -- -----------------------------------------------------------------------------------------------------------------
 -- All credits go to sirinsidiator for below ItemIdentifier code from AGS!
@@ -97,6 +135,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
         for _, itemType in pairs(combinedLists.learnableKnownItemTypes) do
            if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, true) then return true end
@@ -105,14 +144,19 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             if _isItemOfItemTypeAndKnowledge(itemData.bagId, itemData.slotIndex, itemType, false) then return true end
         end
         for _, craftingType in pairs(combinedLists.masterWritCraftingTypes) do
-            local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
             if craftingType == _getCraftingTypeFromWritItemLink(itemLink) then return true end
+        end
+        for _, specializedItemType in pairs(combinedLists.holidayWrits) do
+            if specializedItemType == itemData.specializedItemType then return true end
         end
         for _, itemType in pairs(combinedLists.itemTypes) do
             if itemType == itemData.itemType then return true end
         end
         for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
             if specializedItemType == itemData.specializedItemType and not IsItemLinkContainer(itemLink) then return true end
+        end
+        for _, itemFilterType in pairs(combinedLists.surveyMaps) do
+            if isValueInTable(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS[itemFilterType], itemId) then return true end
         end
         for _, itemTraitType in pairs(combinedLists.itemTraitTypes) do
             if itemTraitType == GetItemTrait(itemData.bagId, itemData.slotIndex) then return true end
@@ -164,44 +208,6 @@ local function getStolenJunkComparator()
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
         return isStolen and isJunk
     end
-end
-
-
--- =================================================================================================================
--- == MATH / TABLE FUNCTIONS == --
--- -----------------------------------------------------------------------------------------------------------------
-
-local function round(num, numDecimalPlaces)
-    local mult = 10 ^ (numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
-end
-
-local function roundDown(num)
-    if num > 0 then
-        return math.floor(num)
-    elseif num < 0 then
-        return math.ceil(num)
-    else
-        return num
-    end
-end
-
-local function isValueInTable(table, value)
-    for _, v in pairs(table) do
-        if v == value then
-            return true
-        end
-    end
-    return false
-end
-
-local function isKeyInTable(table, key)
-    for k in pairs(table) do
-        if k == key then
-            return true
-        end
-    end
-    return false
 end
 
 
@@ -418,6 +424,10 @@ end
 
 -- Export
 PA.HelperFunctions = {
+    round = round,
+    roundDown = roundDown,
+    isValueInTable = isValueInTable,
+    isKeyInTable = isKeyInTable,
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
@@ -425,10 +435,6 @@ PA.HelperFunctions = {
     getItemIdComparator = getItemIdComparator,
     getPAItemIdComparator = getPAItemIdComparator,
     getStolenJunkComparator = getStolenJunkComparator,
-    round = round,
-    roundDown = roundDown,
-    isValueInTable = isValueInTable,
-    isKeyInTable = isKeyInTable,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBagName = getBagName,
