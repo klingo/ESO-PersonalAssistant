@@ -1,3 +1,10 @@
+2.5.6 (November 01, 2020)
+- added some bigger performance improvements in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/300"]#300[/URL])
+- updated Russian translations from Nesferatum to 2.5.5 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/295"]#295[/URL])
+- fixed an issue with corrupt SavedVariables file from version 2.5.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/299"]#299[/URL])
+- fixed an issue with known/unknown icons for containers ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/296"]#296[/URL])
+- fixed an issue with not researchable ornate/intricate traits ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/297"]#297[/URL])
+
 2.5.5 (October 31, 2020)
 - fixed PABanking issue that can occur when updating to version 2.5.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/294"]#294[/URL])
 
