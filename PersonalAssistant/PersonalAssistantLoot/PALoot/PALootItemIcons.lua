@@ -206,21 +206,18 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             end
         end
     elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
-        local categoryType = GetCollectibleCategoryTypeFromLink(itemLink)
-        if categoryType == COLLECTIBLE_CATEGORY_TYPE_INVALID then
-            local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-            local collectibleName = GetCollectibleName(containerCollectibleId)
-            if not collectibleName == nil and not collectibleName == "" then
-                local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
-                local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
-                local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
-                if isValidForPlayer and not isUnlocked then
-                    if PAStylePageContainerSV.showUnknownIcon then
-                        _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
-                    end
-                elseif PAStylePageContainerSV.showKnownIcon then
-                    _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
+        local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+        local collectibleName = GetCollectibleName(containerCollectibleId)
+        if collectibleName ~= nil and collectibleName ~= "" then
+            local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
+            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+            if isValidForPlayer and not isUnlocked then
+                if PAStylePageContainerSV.showUnknownIcon then
+                    _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
                 end
+            elseif PAStylePageContainerSV.showKnownIcon then
+                _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
             end
         end
     end
