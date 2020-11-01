@@ -92,13 +92,13 @@ end
 -- == COMPARATORS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function _isItemCharacterBound(bagId, slotIndex)
-    local isBound = IsItemBound(bagId, slotIndex)
-    if isBound then
-        local bindType = GetItemBindType(bagId, slotIndex)
-        return bindType == BIND_TYPE_ON_PICKUP_BACKPACK
+local function _isItemCharacterBound(itemData)
+    if itemData.isPACharacterBound == nil then
+        local isBound = IsItemBound(itemData.bagId, itemData.slotIndex)
+        local bindType = GetItemBindType(itemData.bagId, itemData.slotIndex)
+        itemData.isPACharacterBound = isBound and (bindType == BIND_TYPE_ON_PICKUP_BACKPACK)
     end
-    return false
+    return itemData.isPACharacterBound
 end
 
 local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk)
@@ -139,36 +139,42 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
     return function(itemData)
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
-        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
-        local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
-        for _, expectedItemType in pairs(combinedLists.learnableKnownItemTypes) do
-           if _isItemOfItemTypeAndKnowledge(itemType, itemLink, expectedItemType, true) then return true end
-        end
-        for _, expectedItemType in pairs(combinedLists.learnableUnknownItemTypes) do
-            if _isItemOfItemTypeAndKnowledge(itemType, itemLink, expectedItemType, false) then return true end
-        end
-        local craftingType = _getCraftingTypeFromWritItemLink(itemType, specializedItemType, itemLink)
-        for _, expectedCraftingType in pairs(combinedLists.masterWritCraftingTypes) do
-            if expectedCraftingType == craftingType then return true end
-        end
-        for _, specializedItemType in pairs(combinedLists.holidayWrits) do
-            if specializedItemType == itemData.specializedItemType then return true end
+        if itemType == ITEMTYPE_MASTER_WRIT then
+            local craftingType = _getCraftingTypeFromWritItemLink(itemType, specializedItemType, itemLink)
+            for _, expectedCraftingType in pairs(combinedLists.masterWritCraftingTypes) do
+                if expectedCraftingType == craftingType then return true end
+            end
+            for _, specializedItemType in pairs(combinedLists.holidayWrits) do
+                if specializedItemType == itemData.specializedItemType then return true end
+            end
         end
         for _, itemType in pairs(combinedLists.itemTypes) do
             if itemType == itemData.itemType then return true end
         end
-        local isItemLinkContainer = IsItemLinkContainer(itemLink)
-        for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
-            if not isItemLinkContainer and specializedItemType == itemData.specializedItemType then return true end
-        end
-        for _, itemFilterType in pairs(combinedLists.surveyMaps) do
-            if isValueInTable(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS[itemFilterType], itemId) then return true end
+        if specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT then
+            for _, itemFilterType in pairs(combinedLists.surveyMaps) do
+                if isValueInTable(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS[itemFilterType], itemId) then return true end
+            end
         end
         local itemTraitType = GetItemTrait(itemData.bagId, itemData.slotIndex)
         for _, expectedItemTraitType in pairs(combinedLists.itemTraitTypes) do
             if expectedItemTraitType == itemTraitType then return true end
+        end
+        -- calculating the ItemLink is very expensive - only do it at the end when everything else was already checked
+        if not itemData.itemLink then itemData.itemLink = GetItemLink(itemData.bagId, itemData.slotIndex) end
+        if not IsItemLinkContainer(itemData.itemLink) then
+            for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
+                if specializedItemType == itemData.specializedItemType then return true end
+            end
+        end
+        for _, expectedItemType in pairs(combinedLists.learnableKnownItemTypes) do
+           if _isItemOfItemTypeAndKnowledge(itemType, itemData.itemLink, expectedItemType, true) then return true end
+        end
+        for _, expectedItemType in pairs(combinedLists.learnableUnknownItemTypes) do
+            if _isItemOfItemTypeAndKnowledge(itemType, itemData.itemLink, expectedItemType, false) then return true end
         end
         return false
     end
@@ -178,7 +184,7 @@ local function getItemTypeComparator(itemTypeList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
@@ -190,7 +196,7 @@ local function getItemIdComparator(itemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         for expectedItemId, _ in pairs(itemIdList) do
             if expectedItemId == itemId then return true end
@@ -203,7 +209,7 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData) then return false end
         local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
@@ -214,7 +220,7 @@ end
 
 local function getStolenJunkComparator()
     return function(itemData)
-        if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
+        if _isItemCharacterBound(itemData) then return false end
         local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
         return isStolen and isJunk
