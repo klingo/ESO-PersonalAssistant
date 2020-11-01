@@ -117,7 +117,7 @@ local PABStrings = {
     -- == CHAT OUTPUTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
---    SI_PA_CHAT_BANKING_FINISHED = "",
+    SI_PA_CHAT_BANKING_FINISHED = "Все предметы перенесены",
 
     SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "%s изъято",
     SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "%s / %s изъято (Банк пуст)",
