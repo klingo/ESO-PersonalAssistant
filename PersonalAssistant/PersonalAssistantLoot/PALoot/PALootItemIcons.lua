@@ -35,6 +35,15 @@ local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilte
     return false
 end
 
+local function _hasItemTraitChecksPassed(itemTraitType)
+    if itemTraitType == ITEM_TRAIT_TYPE_NONE or
+            itemTraitType == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_ORNATE or
+            itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then
+        return false
+    end
+    return true
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- returns the selected iconPosition (if selected); or evaluates different addons and automatically choses the correct location
@@ -195,7 +204,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
         local PAApparelWeaponsSV = PALootSavedVars.ItemIcons.ApparelWeapons
         local itemTraitType = GetItemLinkTraitType(itemLink)
-        if itemTraitType ~= ITEM_TRAIT_TYPE_NONE then
+        if _hasItemTraitChecksPassed(itemTraitType) then
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
             if CanItemLinkBeTraitResearched(itemLink) then
                 if PAApparelWeaponsSV.showUnknownIcon then
