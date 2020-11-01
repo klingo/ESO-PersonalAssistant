@@ -142,11 +142,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         if _isItemCharacterBound(itemData) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
-        if itemType == ITEMTYPE_MASTER_WRIT then
-            local craftingType = _getCraftingTypeFromWritItemLink(itemType, specializedItemType, itemLink)
-            for _, expectedCraftingType in pairs(combinedLists.masterWritCraftingTypes) do
-                if expectedCraftingType == craftingType then return true end
-            end
+        if specializedItemType == SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT then
             for _, specializedItemType in pairs(combinedLists.holidayWrits) do
                 if specializedItemType == itemData.specializedItemType then return true end
             end
@@ -165,6 +161,12 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         end
         -- calculating the ItemLink is very expensive - only do it at the end when everything else was already checked
         if not itemData.itemLink then itemData.itemLink = GetItemLink(itemData.bagId, itemData.slotIndex) end
+        if specializedItemType == SPECIALIZED_ITEMTYPE_MASTER_WRIT then
+            local craftingType = _getCraftingTypeFromWritItemLink(itemType, specializedItemType, itemData.itemLink)
+            for _, expectedCraftingType in pairs(combinedLists.masterWritCraftingTypes) do
+                if expectedCraftingType == craftingType then return true end
+            end
+        end
         if not IsItemLinkContainer(itemData.itemLink) then
             for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
                 if specializedItemType == itemData.specializedItemType then return true end
