@@ -35,6 +35,15 @@ local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilte
     return false
 end
 
+local function _hasItemTraitChecksPassed(itemTraitType)
+    if itemTraitType == ITEM_TRAIT_TYPE_NONE or
+            itemTraitType == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_ORNATE or
+            itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then
+        return false
+    end
+    return true
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- returns the selected iconPosition (if selected); or evaluates different addons and automatically choses the correct location
@@ -195,7 +204,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
         local PAApparelWeaponsSV = PALootSavedVars.ItemIcons.ApparelWeapons
         local itemTraitType = GetItemLinkTraitType(itemLink)
-        if itemTraitType ~= ITEM_TRAIT_TYPE_NONE then
+        if _hasItemTraitChecksPassed(itemTraitType) then
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
             if CanItemLinkBeTraitResearched(itemLink) then
                 if PAApparelWeaponsSV.showUnknownIcon then
@@ -206,21 +215,18 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             end
         end
     elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
-        local categoryType = GetCollectibleCategoryTypeFromLink(itemLink)
-        if categoryType == COLLECTIBLE_CATEGORY_TYPE_INVALID then
-            local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-            local collectibleName = GetCollectibleName(containerCollectibleId)
-            if not collectibleName == nil and not collectibleName == "" then
-                local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
-                local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
-                local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
-                if isValidForPlayer and not isUnlocked then
-                    if PAStylePageContainerSV.showUnknownIcon then
-                        _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
-                    end
-                elseif PAStylePageContainerSV.showKnownIcon then
-                    _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
+        local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+        local collectibleName = GetCollectibleName(containerCollectibleId)
+        if collectibleName ~= nil and collectibleName ~= "" then
+            local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
+            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+            if isValidForPlayer and not isUnlocked then
+                if PAStylePageContainerSV.showUnknownIcon then
+                    _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
                 end
+            elseif PAStylePageContainerSV.showKnownIcon then
+                _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
             end
         end
     end

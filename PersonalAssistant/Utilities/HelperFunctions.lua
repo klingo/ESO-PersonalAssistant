@@ -254,6 +254,12 @@ local function getBagName(bagId)
         return GetString(SI_PA_NS_BAG_BANK)
     elseif bagId == BAG_SUBSCRIBER_BANK then
         return GetString(SI_PA_NS_BAG_SUBSCRIBER_BANK)
+    elseif bagId == BAG_VIRTUAL then
+        return GetString(SI_PA_NS_BAG_VIRTUAL)
+    elseif bagId == BAG_HOUSE_BANK_ONE or bagId == BAG_HOUSE_BANK_TWO or bagId == BAG_HOUSE_BANK_THREE or bagId == BAG_HOUSE_BANK_FOUR
+        or bagId == BAG_HOUSE_BANK_FIVE or bagId == BAG_HOUSE_BANK_SIX or bagId == BAG_HOUSE_BANK_SEVEN or bagId == BAG_HOUSE_BANK_EIGHT
+        or bagId == BAG_HOUSE_BANK_NINE or bagId == BAG_HOUSE_BANK_TEN then
+        return GetString(SI_PA_NS_BAG_HOUSE_BANK)
     else
         return GetString(SI_PA_NS_BAG_UNKNOWN)
     end

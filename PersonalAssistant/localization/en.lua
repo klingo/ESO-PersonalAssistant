@@ -90,7 +90,10 @@ local PAStrings = {
     SI_PA_NS_BAG_EQUIPMENT = "", -- not required so far
     SI_PA_NS_BAG_BACKPACK = "Backpack",
     SI_PA_NS_BAG_BANK = "Bank",
-    SI_PA_NS_BAG_SUBSCRIBER_BANK = "Subscriber Bank",
+    SI_PA_NS_BAG_SUBSCRIBER_BANK = "ESO Plus Bank",
+    SI_PA_NS_BAG_VIRTUAL = "Craft Bag",
+    SI_PA_NS_BAG_HOUSE_BANK = "Home Storage",
+    SI_PA_NS_BAG_HOUSE_BANK_NR = "Home Storage (%d)",
     SI_PA_NS_BAG_UNKNOWN = "Unknown",
 
     -- -----------------------------------------------------------------------------------------------------------------
