@@ -79,6 +79,14 @@ local function getPAItemIdentifier(bagId, slotIndex)
     return getPAItemLinkIdentifier(itemLink)
 end
 
+local function getPAItemIdentifierFromItemData(itemData)
+    if not itemData.paItemId then
+        itemData.paItemId = getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
+    end
+    return itemData.paItemId
+end
+
+
 
 -- =================================================================================================================
 -- == COMPARATORS == --
@@ -194,8 +202,9 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData.bagId, itemData.slotIndex) then return false end
-        for paItemId, _ in pairs(paItemIdList) do
-            if paItemId == getPAItemIdentifier(itemData.bagId, itemData.slotIndex) then return true end
+        local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
+        for paItemIdFromList, _ in pairs(paItemIdList) do
+            if paItemIdFromList == paItemId then return true end
         end
         return false
     end
@@ -430,6 +439,7 @@ PA.HelperFunctions = {
     isKeyInTable = isKeyInTable,
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
+    getPAItemIdentifierFromItemData = getPAItemIdentifierFromItemData,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
     getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,
