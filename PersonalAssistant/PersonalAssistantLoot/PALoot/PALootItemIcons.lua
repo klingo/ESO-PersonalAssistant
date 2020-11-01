@@ -232,6 +232,14 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     end
 end
 
+local function _getOrCreateDataEntryItemLink(dataEntryData)
+    if dataEntryData.itemLink == nil then
+        dataEntryData.itemLink = GetItemLink(dataEntryData.bagId, dataEntryData.slotIndex)
+    end
+    return dataEntryData.itemLink
+end
+
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function refreshScrollListVisible()
@@ -257,7 +265,7 @@ local function initHooksOnBags()
                 ZO_PreHook(listView.dataTypes[1], "setupCallback", function(control, slot)
                     local bagId = control.dataEntry.data.bagId
                     local slotIndex = control.dataEntry.data.slotIndex
-                    local itemLink = GetItemLink(bagId, slotIndex)
+                    local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                     _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_BAGS)
                 end)
             end
@@ -322,7 +330,7 @@ local function initHooksOnCraftingStations()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
                 local bagId = control.dataEntry.data.bagId
                 local slotIndex = control.dataEntry.data.slotIndex
-                local itemLink = GetItemLink(bagId, slotIndex)
+                local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
@@ -332,7 +340,7 @@ local function initHooksOnCraftingStations()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
                 local bagId = control.dataEntry.data.bagId
                 local slotIndex = control.dataEntry.data.slotIndex
-                local itemLink = GetItemLink(bagId, slotIndex)
+                local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
@@ -342,7 +350,7 @@ local function initHooksOnCraftingStations()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
                 local bagId = control.dataEntry.data.bagId
                 local slotIndex = control.dataEntry.data.slotIndex
-                local itemLink = GetItemLink(bagId, slotIndex)
+                local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
