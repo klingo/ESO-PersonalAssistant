@@ -11,20 +11,16 @@ local PAEM = PA.EventManager
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _finishBankingItemTransfer()
+    PAB.debugln("PA.Banking._finishBankingItemTransfer (7)")
     PAB.isBankItemTransferBlocked = false
     -- update/hide the Keybind Strip
     PAB.KeybindStrip.updateBankKeybindStrip()
-end
-
-local function _printMessage(messageKey)
-    -- if some items were skipped because of LWC; display a message
-    PAB.println(messageKey)
-
-    -- Execute the function queue
-    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+    -- inform player that everything is done
+    PAB.println(SI_PA_CHAT_BANKING_FINISHED)
 end
 
 local function _printLWCMessageIfItemsSkipped()
+    PAB.debugln("PA.Banking._printLWCMessageIfItemsSkipped (6)")
     if PAB.hasSomeItemskippedForLWC then
         -- if some items were skipped because of LWC; display a message
         PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
@@ -34,6 +30,7 @@ local function _printLWCMessageIfItemsSkipped()
 end
 
 local function _stackBags()
+    PAB.debugln("PA.Banking._stackBags (0 / 5)")
     if PAB.SavedVars.autoStackBags then
         StackBag(BAG_BANK)
         StackBag(BAG_SUBSCRIBER_BANK)
@@ -63,7 +60,6 @@ local function executeBankingItemTransfers()
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
         PAEM.addFunctionToQueue(_finishBankingItemTransfer, PAB.AddonName) -- unblock item transfers again at the end
-        PAEM.addFunctionToQueue(_printMessage(SI_PA_CHAT_BANKING_FINISHED), PAB.AddonName)
         PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawCustomItems, PAB.AddonName, 100)

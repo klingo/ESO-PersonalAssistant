@@ -9,7 +9,7 @@ local PAEM = PA.EventManager
 
 local function depositOrWithdrawCustomItems()
 
-    PAB.debugln("PA.Banking.depositOrWithdrawCustomItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawCustomItems (4)")
 
     if PAB.SavedVars.Custom.customItemsEnabled then
 
