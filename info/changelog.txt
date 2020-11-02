@@ -1,3 +1,8 @@
+2.5.7 (November 03, 2020)
+- updated minimum version for dependency libraries ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/303"]#303[/URL])
+- fixed an issue where master writs were no longer deposited/withdrawn ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/302"]#302[/URL])
+- fixed an issue with the 'item transfer success' message being shown too early ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/304"]#304[/URL])
+
 2.5.6 (November 01, 2020)
 - added some bigger performance improvements in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/300"]#300[/URL])
 - updated Russian translations from Nesferatum to 2.5.5 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/295"]#295[/URL])
