@@ -91,9 +91,9 @@ local PAStrings = {
     SI_PA_NS_BAG_BACKPACK = "Инвентарь",
     SI_PA_NS_BAG_BANK = "Банк",
     SI_PA_NS_BAG_SUBSCRIBER_BANK = "ESO Plus банк",
---    SI_PA_NS_BAG_VIRTUAL = "",
---    SI_PA_NS_BAG_HOUSE_BANK = "",
---    SI_PA_NS_BAG_HOUSE_BANK_NR = "",
+    SI_PA_NS_BAG_VIRTUAL = "Ремесленная сумка",
+    SI_PA_NS_BAG_HOUSE_BANK = "Домашнее хранилище",
+    SI_PA_NS_BAG_HOUSE_BANK_NR = "Домашнее хранилище (%d)",
     SI_PA_NS_BAG_UNKNOWN = "Неизвестно",
 
     -- -----------------------------------------------------------------------------------------------------------------
