@@ -9,7 +9,7 @@ local PAEM = PA.EventManager
 
 local function depositOrWithdrawAvAItems()
 
-    PAB.debugln("PA.Banking.depositOrWithdrawAvAItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawAvAItems (3)")
 
     if PAB.SavedVars.AvA.avaItemsEnabled then
         -- prepare and fill the table with all ava items that needs to be transferred

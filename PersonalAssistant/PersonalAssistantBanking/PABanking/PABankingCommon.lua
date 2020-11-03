@@ -313,7 +313,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
             local itemData = configuredBagCache[index]
             local backpackItemId
             if isCustomPAItemIdList then
-                backpackItemId = PAHF.getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
+                backpackItemId = PAHF.getPAItemIdentifierFromItemData(itemData)
             else
                 backpackItemId = GetItemId(itemData.bagId, itemData.slotIndex)
             end
@@ -341,7 +341,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
             local itemData = otherBagCache[index]
             local bankItemId
             if isCustomPAItemIdList then
-                bankItemId = PAHF.getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
+                bankItemId = PAHF.getPAItemIdentifierFromItemData(itemData)
             else
                 bankItemId = GetItemId(itemData.bagId, itemData.slotIndex)
             end
