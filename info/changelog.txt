@@ -186,8 +186,8 @@
 - fixed an issue when attempting to sell zero-value items in PAJunk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/119"]#119[/URL])
 
 2.2.0   (May 09, 2019)
-- add option to PABanking to distinguish between known and unknown recipes and motives ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
-- add visual known/unknown indicator for recipes, motives, traits and style pages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/104"]#104[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/109"]#109[/URL])
+- add option to PABanking to distinguish between known and unknown recipes and motifs ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
+- add visual known/unknown indicator for recipes, motifs, traits and style pages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/104"]#104[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/109"]#109[/URL])
 - add keybinding shortcut to directly mark items as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/105"]#105[/URL])
 - various smaller fixes and cleanups ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/103"]#103[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/107"]#107[/URL])
 
