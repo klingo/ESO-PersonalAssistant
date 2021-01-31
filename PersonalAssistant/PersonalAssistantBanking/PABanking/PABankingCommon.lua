@@ -39,11 +39,11 @@ local function _findFirstEmptySlotAndTargetBagFromSourceBag(sourceBagId)
     if sourceBagId == BAG_BACKPACK then
         targetBagId = BAG_BANK
         targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
-        if targetSlotIndex == nil then
+        if targetSlotIndex == nil and IsESOPlusSubscriber() then
             targetBagId = BAG_SUBSCRIBER_BANK
             targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
         end
-    elseif sourceBagId == BAG_BANK or sourceBagId == BAG_SUBSCRIBER_BANK then
+    elseif sourceBagId == BAG_BANK or (sourceBagId == BAG_SUBSCRIBER_BANK and IsESOPlusSubscriber()) then
         targetBagId = BAG_BACKPACK
         targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
     end

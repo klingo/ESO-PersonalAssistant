@@ -33,7 +33,9 @@ local function _stackBags()
     PAB.debugln("PA.Banking._stackBags (0 / 5)")
     if PAB.SavedVars.autoStackBags then
         StackBag(BAG_BANK)
-        StackBag(BAG_SUBSCRIBER_BANK)
+        if IsESOPlusSubscriber() then
+            StackBag(BAG_SUBSCRIBER_BANK)
+        end
         StackBag(BAG_BACKPACK)
     end
     -- Execute the function queue
@@ -55,6 +57,16 @@ local function executeBankingItemTransfers()
         PAB.isBankItemTransferBlocked = true
         -- update/hide the Keybind Strip
         PAB.KeybindStrip.updateBankKeybindStrip()
+
+        -- before queueing up the transactions, ensure that the SHARED_INVENTORY is updated
+        local startGameTime = GetGameTimeMilliseconds()
+        SHARED_INVENTORY:RefreshInventory(BAG_BACKPACK)
+        SHARED_INVENTORY:RefreshInventory(BAG_BANK)
+        if IsESOPlusSubscriber() then
+            SHARED_INVENTORY:RefreshInventory(BAG_SUBSCRIBER_BANK)
+        end
+        local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+        PAB.debugln('SHARED_INVENTORY:RefreshInventory took approx. %d ms', passedGameTime)
 
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions

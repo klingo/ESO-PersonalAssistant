@@ -44,7 +44,7 @@ local function depositOrWithdrawAvAItems()
         local excludeJunk = PAB.SavedVars.excludeJunk
         local itemIdComparator = PAHF.getItemIdComparator(individualItems, excludeJunk)
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
-        local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+        local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, PAHF.getBankBags())
 
         PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
         PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
