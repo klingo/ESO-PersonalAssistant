@@ -58,6 +58,16 @@ local function executeBankingItemTransfers()
         -- update/hide the Keybind Strip
         PAB.KeybindStrip.updateBankKeybindStrip()
 
+        -- before queueing up the transactions, ensure that the SHARED_INVENTORY is updated
+        local startGameTime = GetGameTimeMilliseconds()
+        SHARED_INVENTORY:RefreshInventory(BAG_BACKPACK)
+        SHARED_INVENTORY:RefreshInventory(BAG_BANK)
+        if IsESOPlusSubscriber() then
+            SHARED_INVENTORY:RefreshInventory(BAG_SUBSCRIBER_BANK)
+        end
+        local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+        PAB.debugln('SHARED_INVENTORY:RefreshInventory took approx. %d ms', passedGameTime)
+
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
