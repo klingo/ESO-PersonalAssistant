@@ -242,6 +242,14 @@ local function isPlayerDeadOrReincarnating()
    return IsUnitDeadOrReincarnating("player")
 end
 
+local function getBankBags()
+    if IsESOPlusSubscriber() then
+        return BAG_BANK, BAG_SUBSCRIBER_BANK
+    else
+        return BAG_BANK
+    end
+end
+
 
 -- =================================================================================================================
 -- == TEXT / NUMBER TRANSFORMATIONS == --
@@ -463,6 +471,7 @@ PA.HelperFunctions = {
     getStolenJunkComparator = getStolenJunkComparator,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
+    getBankBags = getBankBags,
     getBagName = getBagName,
     hasActiveProfile = hasActiveProfile,
     getFormattedCurrency = getFormattedCurrency,

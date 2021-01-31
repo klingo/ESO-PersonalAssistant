@@ -33,7 +33,9 @@ local function _stackBags()
     PAB.debugln("PA.Banking._stackBags (0 / 5)")
     if PAB.SavedVars.autoStackBags then
         StackBag(BAG_BANK)
-        StackBag(BAG_SUBSCRIBER_BANK)
+        if IsESOPlusSubscriber() then
+            StackBag(BAG_SUBSCRIBER_BANK)
+        end
         StackBag(BAG_BACKPACK)
     end
     -- Execute the function queue
