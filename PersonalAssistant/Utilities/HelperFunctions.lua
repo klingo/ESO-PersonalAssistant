@@ -54,8 +54,8 @@ local _hasItemTypeDifferentQualities = {
     [ITEMTYPE_FOOD] = true,
 }
 
--- itemId is basically what tells us that two items are the same thing,
--- but some types need additional data to determine if they are of the same strength (and value).
+--- itemId is basically what tells us that two items are the same thing,
+--- but some types need additional data to determine if they are of the same strength (and value).
 local function getPAItemLinkIdentifier(itemLink)
     local itemType = GetItemLinkItemType(itemLink)
     local data = {zo_strsplit(":", itemLink:match("|H(.-)|h.-|h"))}
@@ -254,7 +254,7 @@ end
 -- =================================================================================================================
 -- == TEXT / NUMBER TRANSFORMATIONS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- returns a noun for the bagId
+--- returns a noun for the bagId
 local function getBagName(bagId)
     if bagId == BAG_WORN then
         return GetString(SI_PA_NS_BAG_EQUIPMENT)
@@ -280,11 +280,11 @@ end
 -- == TEXT FORMATTING AND OUTPUT == --
 -- -----------------------------------------------------------------------------------------------------------------
 
---- Formats the provided currency amount with an icon based on the type
--- @param currencyAmount the amount that should be formatted (can be negative)
--- @param currencyType the type of currency (default = CURT_MONEY)
--- @param noColor if set to true the amount-text will not be colored (default = false)
--- @return the formatted text with currency icon
+---- Formats the provided currency amount with an icon based on the type
+---@param currencyAmount number the amount that should be formatted (can be negative)
+---@param currencyType string the type of currency (default = CURT_MONEY)
+---@param noColor boolean if set to true the amount-text will not be colored (default = false)
+---@return string the formatted text with currency icon
 local function getFormattedCurrency(currencyAmount, currencyType, noColor)
     local currencyType = currencyType or CURT_MONEY
     local noColor = noColor or false
@@ -302,9 +302,9 @@ local function getFormattedCurrency(currencyAmount, currencyType, noColor)
 end
 
 --- Formats the provided currency amount without icon based on the type
--- @param currencyAmount the amount that should be formatted
--- @param currencyType the type of currency (defualt = CURT_MONEY)
--- @return the formattext text without currency icon
+---@param currencyAmount string the amount that should be formatted
+---@param currencyType string the type of currency (default = CURT_MONEY)
+---@return string the formatted text text without currency icon
 local function getFormattedCurrencySimple(currencyAmount, currencyType)
     local currencyType = currencyType or CURT_MONEY
     if currencyAmount < 0 then currencyAmount = currencyAmount * -1 end  -- need to make it a positive number again
@@ -312,8 +312,10 @@ local function getFormattedCurrencySimple(currencyAmount, currencyType)
     return PAC.COLOR.CURRENCIES[currencyType]:Colorize(currencyAmountFmt)
 end
 
--- returns a fixed/formatted ItemLink
--- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
+--- returns a fixed/formatted ItemLink
+--- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
+---@param bagId number the id of the bag
+---@param slotIndex number the id of the slot within the
 local function getFormattedItemLink(bagId, slotIndex)
     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
     if itemLink == "" then return "[unknown]" end
@@ -322,7 +324,7 @@ local function getFormattedItemLink(bagId, slotIndex)
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
 
--- currently supports one text and n arguments
+--- currently supports one text and n arguments
 local function getFormattedText(text, ...)
     local args = { ... }
     local unpackedString = string.format(text, unpack(args))
@@ -338,7 +340,7 @@ local function getFormattedKey(key, ...)
     return getFormattedText(text, ...)
 end
 
--- currently supports one text and n arguments
+--- currently supports one text and n arguments
 local function println(lcmChat, prefix, text, ...)
     local textKey = GetString(text)
     local prefix = prefix or ""
@@ -360,7 +362,7 @@ local function println(lcmChat, prefix, text, ...)
     end
 end
 
--- write the provided key/text into the debug Output window (WHITE font)
+--- write the provided key/text into the debug Output window (WHITE font)
 local function debugln(prefix, text, ...)
     if PA.debug then
         local textKey = GetString(text)
@@ -374,7 +376,7 @@ local function debugln(prefix, text, ...)
     end
 end
 
--- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
+--- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
 local function debuglnAuthor(key, ...)
     if GetUnitName("player") == PAC.ADDON.AUTHOR then
         println(PA.chat, "", key, ...)
@@ -391,12 +393,12 @@ local function hasActiveProfile()
     return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
 end
 
--- returns the default profile name of the provided profile number
+--- returns the default profile name of the provided profile number
 local function getDefaultProfileName(profileNo)
     return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
 end
 
--- sync the LOCAL profiles with the ones from GLOBAL
+--- sync the LOCAL profiles with the ones from GLOBAL
 local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
     local PASavedVars = PA.SavedVars
     for profileNo = 1, PASavedVars.General.profileCounter do
@@ -411,8 +413,8 @@ local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
     end
 end
 
--- Source: https://wiki.esoui.com/IsAddonRunning
--- addonName *string*
+--- Source: https://wiki.esoui.com/IsAddonRunning
+---@param addonName string name of the addon
 local function isAddonRunning(addonName)
     local manager = GetAddOnManager()
     for i = 1, manager:GetNumAddOns() do
