@@ -67,7 +67,7 @@ local PAStrings = {
 
     SI_PA_MENU_SILENT_MODE = "Silent Mode (Disable ALL chat messages)",
 
-    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Not yet implemented!"}),
+    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLOR.RED:Colorize("Not yet implemented!")}),
 
 
     -- =================================================================================================================

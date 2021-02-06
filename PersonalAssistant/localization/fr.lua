@@ -67,7 +67,7 @@ local PAStrings = {
 
     SI_PA_MENU_SILENT_MODE = "Mode silencieux (Ne RIEN afficher dans le chat)",
 
-    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Pas encore implémenté !"}),
+    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLOR.RED:Colorize("Pas encore implémenté !")}),
 
 
     -- =================================================================================================================

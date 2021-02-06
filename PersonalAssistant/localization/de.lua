@@ -67,7 +67,7 @@ local PAStrings = {
 
     SI_PA_MENU_SILENT_MODE = "Ruhemodus (Deaktiviert ALLE Meldungen)",
 
-    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Noch nicht implementiert!"}),
+    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLOR.RED:Colorize("Noch nicht implementiert!")}),
 
 
     -- =================================================================================================================

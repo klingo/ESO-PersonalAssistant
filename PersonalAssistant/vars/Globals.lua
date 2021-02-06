@@ -74,13 +74,8 @@ PersonalAssistant.Constants = {
     COLORS = {
         DEFAULT = "|cFFFF00",
         WHITE = "|cFFFFFF",
-        LIGHT_BLUE = "|cB0B0FF",
-        GOLD = "|cC5C29E", -- NOTE: not used
-        GREEN = "|c00FF00",
-        YELLOW = "|cFFD700", -- NOTE: not used
         ORANGE_RED = "|cFF7400",
         ORANGE = "|cFFA500",
-        RED = "|cFF0000",
     },
 
     COLORED_TEXTS = {

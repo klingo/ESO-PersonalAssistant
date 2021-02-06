@@ -67,7 +67,7 @@ local PAStrings = {
 
     SI_PA_MENU_SILENT_MODE = "Тихий режим (отключить ВСЕ сообщения чата)",
 
-    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLORS.RED, "Еще не реализовано!"}),
+    SI_PA_MENU_NOT_YET_IMPLEMENTED = table.concat({PAC.COLOR.RED:Colorize("Еще не реализовано!")}),
 
 
     -- =================================================================================================================
