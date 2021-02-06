@@ -93,7 +93,10 @@ local PAStrings = {
     SI_PA_NS_BAG_EQUIPMENT = "", -- not required so far
     SI_PA_NS_BAG_BACKPACK = "Backpack",
     SI_PA_NS_BAG_BANK = "Bank",
-    SI_PA_NS_BAG_SUBSCRIBER_BANK = "Subscriber Bank",
+    SI_PA_NS_BAG_SUBSCRIBER_BANK = "ESO Plus Bank",
+    SI_PA_NS_BAG_VIRTUAL = "Craft Bag",
+    SI_PA_NS_BAG_HOUSE_BANK = "Home Storage",
+    SI_PA_NS_BAG_HOUSE_BANK_NR = "Home Storage (%d)",
     SI_PA_NS_BAG_UNKNOWN = "Unknown",
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -101,7 +104,7 @@ local PAStrings = {
     SI_PA_ITEMTYPE4 = "<<1[Food/Foods]>>",
     SI_PA_ITEMTYPE5 = "<<1[Trophy/Trophies]>>",
     SI_PA_ITEMTYPE7 = "<<1[Potion/Potions]>>",
-    SI_PA_ITEMTYPE8 = "<<1[Motif/Motives]>>",
+    SI_PA_ITEMTYPE8 = "<<1[Motif/Motifs]>>",
     SI_PA_ITEMTYPE10 = "<<1[Ingredient/Ingredients]>>",
     SI_PA_ITEMTYPE12 = "<<1[Drink/Drinks]>>",
     SI_PA_ITEMTYPE16 = "<<1[Lure/Lures]>>",

@@ -51,6 +51,34 @@ local function _getIsPatchNeededInfo(targetSVV)
     return targetSVV, (PAGv and PAGv < targetSVV), (PABv and PABv < targetSVV), (PAIv and PAIv < targetSVV), (PAJv and PAJv < targetSVV), (PALv and PALv < targetSVV), (PARv and PARv < targetSVV)
 end
 
+local function _resetSavedVarsVersionIfMissingTo(targetSVV)
+    local PASavedVars = PA.SavedVars
+    if PASavedVars.General and PASavedVars.General.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAGeneral from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.General.savedVarsVersion = targetSVV
+    end
+    if PASavedVars.Banking and PASavedVars.Banking.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PABanking from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.Banking.savedVarsVersion = targetSVV
+    end
+    if PASavedVars.Integration and PASavedVars.Integration.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAIntegration from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.Integration.savedVarsVersion = targetSVV
+    end
+    if PASavedVars.Junk and PASavedVars.Junk.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAJunk from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.Junk.savedVarsVersion = targetSVV
+    end
+    if PASavedVars.Loot and PASavedVars.Loot.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PALoot from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.Loot.savedVarsVersion = targetSVV
+    end
+    if PASavedVars.Repair and PASavedVars.Repair.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PARepair from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.Repair.savedVarsVersion = targetSVV
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _applyPatch_2_0_3(savedVarsVersion, _, patchPAB, _, _, _, _)
@@ -472,7 +500,6 @@ local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
     end
 end
 
-
 local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB and PA.Banking then
         local PASavedVars = PA.SavedVars
@@ -498,6 +525,25 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
 
                 -- 4) Reset CRAFTING_TYPE_INVALID (was formerly used for holiday writs)
                 PASavedVars.Banking[profileNo].Advanced.MasterWritCraftingTypes[CRAFTING_TYPE_INVALID] = nil
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+end
+
+local function _applyPatch_2_5_5(savedVarsVersion, _, patchPAB, _, _, _, _)
+    if patchPAB and PA.Banking then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Banking[profileNo]) then
+                -- 1) Make sure Advanced.HolidayWrits is properly initialized!
+                if not istable(PASavedVars.Banking[profileNo].Advanced.HolidayWrits) then
+                    PASavedVars.Banking[profileNo].Advanced.HolidayWrits = {
+                        [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE,
+                    }
+                elseif PASavedVars.Banking[profileNo].Advanced.HolidayWrits[SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] == nil then
+                    PASavedVars.Banking[profileNo].Advanced.HolidayWrits[SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE
+                end
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
@@ -632,8 +678,14 @@ local function applyPatchIfNeeded()
     -- Patch 2.5.1      October 12, 2020
     _applyPatch_2_5_1(_getIsPatchNeededInfo(020501))
 
+    -- ensure all SavedVars are set and existing before running subsequent patch to 2.5.4
+    _resetSavedVarsVersionIfMissingTo(020501)
+
     -- Patch 2.5.4      October 31, 2020
     _applyPatch_2_5_4(_getIsPatchNeededInfo(020504))
+
+    -- Patch 2.5.5      October 31, 2020
+    _applyPatch_2_5_5(_getIsPatchNeededInfo(020505))
 
     -- Patch 2.6.0      tbd
     _applyPatch_2_6_0(_getIsPatchNeededInfo(020600))

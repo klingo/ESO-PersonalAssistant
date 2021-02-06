@@ -9,7 +9,7 @@ local PAEM = PA.EventManager
 
 local function depositOrWithdrawAvAItems()
 
-    PAB.debugln("PA.Banking.depositOrWithdrawAvAItems")
+    PAB.debugln("PA.Banking.depositOrWithdrawAvAItems (3)")
 
     if PAB.SavedVars.AvA.avaItemsEnabled then
         -- prepare and fill the table with all ava items that needs to be transferred
@@ -44,7 +44,7 @@ local function depositOrWithdrawAvAItems()
         local excludeJunk = PAB.SavedVars.excludeJunk
         local itemIdComparator = PAHF.getItemIdComparator(individualItems, excludeJunk)
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
-        local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+        local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, PAHF.getBankBags())
 
         PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
         PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))

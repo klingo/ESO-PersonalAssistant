@@ -1,3 +1,18 @@
+2.5.7 (November 03, 2020)
+- updated minimum version for dependency libraries ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/303"]#303[/URL])
+- fixed an issue where master writs were no longer deposited/withdrawn ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/302"]#302[/URL])
+- fixed an issue with the 'item transfer success' message being shown too early ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/304"]#304[/URL])
+
+2.5.6 (November 01, 2020)
+- added some bigger performance improvements in PABanking ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/300"]#300[/URL])
+- updated Russian translations from Nesferatum to 2.5.5 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/295"]#295[/URL])
+- fixed an issue with corrupt SavedVariables file from version 2.5.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/299"]#299[/URL])
+- fixed an issue with known/unknown icons for containers ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/296"]#296[/URL])
+- fixed an issue with not researchable ornate/intricate traits ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/297"]#297[/URL])
+
+2.5.5 (October 31, 2020)
+- fixed PABanking issue that can occur when updating to version 2.5.4 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/294"]#294[/URL])
+
 2.5.4 (October 31, 2020)
 - added PABanking setting to explicitly enable automatic item transfers (default=on) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/287"]#287[/URL])
 - added PABanking keybinding to manually trigger item transfers at the bank ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/287"]#287[/URL])
@@ -171,8 +186,8 @@
 - fixed an issue when attempting to sell zero-value items in PAJunk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/119"]#119[/URL])
 
 2.2.0   (May 09, 2019)
-- add option to PABanking to distinguish between known and unknown recipes and motives ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
-- add visual known/unknown indicator for recipes, motives, traits and style pages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/104"]#104[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/109"]#109[/URL])
+- add option to PABanking to distinguish between known and unknown recipes and motifs ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
+- add visual known/unknown indicator for recipes, motifs, traits and style pages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/104"]#104[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/109"]#109[/URL])
 - add keybinding shortcut to directly mark items as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/105"]#105[/URL])
 - various smaller fixes and cleanups ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/103"]#103[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/107"]#107[/URL])
 

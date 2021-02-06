@@ -11,20 +11,16 @@ local PAEM = PA.EventManager
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _finishBankingItemTransfer()
+    PAB.debugln("PA.Banking._finishBankingItemTransfer (7)")
     PAB.isBankItemTransferBlocked = false
     -- update/hide the Keybind Strip
     PAB.KeybindStrip.updateBankKeybindStrip()
-end
-
-local function _printMessage(messageKey)
-    -- if some items were skipped because of LWC; display a message
-    PAB.println(messageKey)
-
-    -- Execute the function queue
-    PAEM.executeNextFunctionInQueue(PAB.AddonName)
+    -- inform player that everything is done
+    PAB.println(SI_PA_CHAT_BANKING_FINISHED)
 end
 
 local function _printLWCMessageIfItemsSkipped()
+    PAB.debugln("PA.Banking._printLWCMessageIfItemsSkipped (6)")
     if PAB.hasSomeItemskippedForLWC then
         -- if some items were skipped because of LWC; display a message
         PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
@@ -34,9 +30,12 @@ local function _printLWCMessageIfItemsSkipped()
 end
 
 local function _stackBags()
+    PAB.debugln("PA.Banking._stackBags (0 / 5)")
     if PAB.SavedVars.autoStackBags then
         StackBag(BAG_BANK)
-        StackBag(BAG_SUBSCRIBER_BANK)
+        if IsESOPlusSubscriber() then
+            StackBag(BAG_SUBSCRIBER_BANK)
+        end
         StackBag(BAG_BACKPACK)
     end
     -- Execute the function queue
@@ -59,11 +58,20 @@ local function executeBankingItemTransfers()
         -- update/hide the Keybind Strip
         PAB.KeybindStrip.updateBankKeybindStrip()
 
+        -- before queueing up the transactions, ensure that the SHARED_INVENTORY is updated
+        local startGameTime = GetGameTimeMilliseconds()
+        SHARED_INVENTORY:RefreshInventory(BAG_BACKPACK)
+        SHARED_INVENTORY:RefreshInventory(BAG_BANK)
+        if IsESOPlusSubscriber() then
+            SHARED_INVENTORY:RefreshInventory(BAG_SUBSCRIBER_BANK)
+        end
+        local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+        PAB.debugln('SHARED_INVENTORY:RefreshInventory took approx. %d ms', passedGameTime)
+
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions
         -- give it 100ms time to "refresh" the bag data structure after stacking
         PAEM.addFunctionToQueue(_finishBankingItemTransfer, PAB.AddonName) -- unblock item transfers again at the end
-        PAEM.addFunctionToQueue(_printMessage(SI_PA_CHAT_BANKING_FINISHED), PAB.AddonName)
         PAEM.addFunctionToQueue(_printLWCMessageIfItemsSkipped, PAB.AddonName)
         PAEM.addFunctionToQueue(_stackBags, PAB.AddonName)
         PAEM.addFunctionToQueue(PAB.depositOrWithdrawAdvancedBankingRules, PAB.AddonName, 100)
