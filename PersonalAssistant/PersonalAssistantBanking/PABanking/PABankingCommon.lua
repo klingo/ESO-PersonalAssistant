@@ -54,7 +54,7 @@ local function _findFirstEmptySlotAndTargetBagFromSourceBag(sourceBagId)
         return targetBagId, targetSlotIndex
     end
     -- no; not enough space or bag not found; return nil, nil
-    return nil, nil
+    return targetBagId, nil
 end
 
 
