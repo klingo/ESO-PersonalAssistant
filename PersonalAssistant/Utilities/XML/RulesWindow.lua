@@ -208,6 +208,7 @@ local PABankingRulesList = ZO_SortFilterList:Subclass()
 PA.BankingRulesList = nil
 
 PABankingRulesList.SORT_KEYS = {
+    ["itemCategory"] = {tiebreaker="itemName"},
     ["itemName"] = {},
     ["bagName"] = {tiebreaker="itemName"},
     ["mathOperator"] = {tiebreaker="itemName"},
@@ -247,7 +248,14 @@ function PABankingRulesList:FilterScrollList()
         if PABCustomPAItemIds then
             for _, moveConfig in pairs(PABCustomPAItemIds) do
                 local bagName, operatorText = _getBagNameAndOperatorTextFromOperatorId(moveConfig.operator)
+                local itemFilterType = GetItemLinkFilterTypeInfo(moveConfig.itemLink)
+                local itemFilterTypeIcon = PAC.ICONS.ITEMFILTERTYPE.UNKNOWN.PATH
+                if PAC.ICONS.ITEMFILTERTYPE[itemFilterType] ~= nil then
+                    itemFilterTypeIcon = PAC.ICONS.ITEMFILTERTYPE[itemFilterType].PATH
+                end
                 local rowData = {
+                    itemCategory = itemFilterType,
+                    itemCategoryIcon = itemFilterTypeIcon,
                     bagName = bagName,
                     operator = moveConfig.operator, -- required to edit the rule
                     mathOperator = operatorText, -- required to display the rule
@@ -336,6 +344,16 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
     local itemIconControl = rowControl:GetNamedChild("ItemIcon")
     itemIconControl:SetTexture(rowData.itemIcon)
 
+    local itemCategoryIconControl = rowControl:GetNamedChild("CategoryIcon")
+    itemCategoryIconControl.itemCategory = rowData.itemCategory
+    itemCategoryIconControl:SetTexture(rowData.itemCategoryIcon)
+    itemCategoryIconControl:SetHandler("OnMouseEnter", function(self)
+        ZO_Tooltips_ShowTextTooltip(self, TOP, GetString("SI_ITEMFILTERTYPE", self.itemCategory))
+    end)
+    itemCategoryIconControl:SetHandler("OnMouseExit", function(self)
+        ZO_Tooltips_HideTextTooltip()
+    end)
+
     local itemNameControl = rowControl:GetNamedChild("ItemName")
     itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
     itemNameControl:SetHandler("OnMouseExit", onGenericControlMouseExit)
@@ -353,12 +371,14 @@ function PABankingRulesList:SetupRuleRow(rowControl, rowData)
         bagNameControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
         mathOperatorControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.mathOperator))
         bagAmountControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(bagAmountFmt))
+        itemCategoryIconControl:SetDesaturation(0)
         itemIconControl:SetDesaturation(0)
         itemNameControl:SetText(rowData.itemLink)
     else
         bagNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(LocaleAwareToUpper(rowData.bagName)))
         mathOperatorControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.mathOperator))
         bagAmountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(bagAmountFmt))
+        itemCategoryIconControl:SetDesaturation(1)
         itemIconControl:SetDesaturation(1)
         itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.itemName)))
     end
@@ -410,6 +430,7 @@ end
 function PABankingRulesList:InitHeaders()
     -- Initialise the headers
     local headers = BankingRulesTabControl:GetNamedChild("Headers")
+    ZO_SortHeader_Initialize(headers:GetNamedChild("CategoryIcon"), GetString(SI_PA_MAINMENU_BANKING_HEADER_CATEGORY), "itemCategory", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("ItemName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_ITEM), "itemName", ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("BagName"), GetString(SI_PA_MAINMENU_BANKING_HEADER_BAG), "bagName", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
     ZO_SortHeader_Initialize(headers:GetNamedChild("MathOperator"), GetString(SI_PA_MAINMENU_BANKING_HEADER_RULE), "mathOperator", ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontHeader")
