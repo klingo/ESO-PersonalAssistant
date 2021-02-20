@@ -147,6 +147,7 @@ local function showDebugOutputWindow()
     _initDebugOutputWindow()
     _debugOutputWindow:SetHidden(false)
     -- init the bufferControl with some text and the current os-date/time
+    _bufferDebugOutputControl:Clear()
     printToDebugOutputWindow(table.concat({"|cFFA500", "PersonalAssistant Debug Output - ", os.date(), "|r"}))
 
     -- empty the queue if something was added

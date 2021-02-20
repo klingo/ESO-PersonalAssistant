@@ -11,6 +11,7 @@ local PAEM = PA.EventManager
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _finishBankingItemTransfer()
+    PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking._finishBankingItemTransfer (7)")
     PAB.isBankItemTransferBlocked = false
     -- update/hide the Keybind Strip
@@ -20,6 +21,7 @@ local function _finishBankingItemTransfer()
 end
 
 local function _printLWCMessageIfItemsSkipped()
+    PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking._printLWCMessageIfItemsSkipped (6)")
     if PAB.hasSomeItemskippedForLWC then
         -- if some items were skipped because of LWC; display a message
@@ -30,6 +32,7 @@ local function _printLWCMessageIfItemsSkipped()
 end
 
 local function _stackBags()
+    PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking._stackBags (0 / 5)")
     if PAB.SavedVars.autoStackBags then
         StackBag(BAG_BANK)
