@@ -177,7 +177,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
         local itemLink = GetItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex, LINK_STYLE_BRACKETS)
         local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
         local stackToMove = overruleStackToMove or sourceStack
-        PAB.debugln("try to move %d x %s", stackToMove, itemLink)
+        PAB.debugln("try to move %d x %s from %s away", stackToMove, itemLink, PAHF.getBagName(fromBagItemData.bagId))
 
         for toBagCacheIndex, toBagItemData in pairs(toBagCache) do
             if _isSameItem(fromBagItemData, toBagItemData) then
