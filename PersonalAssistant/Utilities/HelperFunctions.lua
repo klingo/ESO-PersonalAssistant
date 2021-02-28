@@ -7,11 +7,16 @@ local PAC = PA.Constants
 -- == MATH / TABLE FUNCTIONS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+---@param num number the number to be rounded down
+---@param numDecimalPlaces number the number of decimal places to be rounded down to (defualt = 0)
+---@return number the rounded down number
 local function round(num, numDecimalPlaces)
     local mult = 10 ^ (numDecimalPlaces or 0)
     return math.floor(num * mult + 0.5) / mult
 end
 
+---@param num number the number to be rounded down (to 0 decimal places)
+---@return number the rounded down number
 local function roundDown(num)
     if num > 0 then
         return math.floor(num)
@@ -22,6 +27,9 @@ local function roundDown(num)
     end
 end
 
+---@param table table any table
+---@param value string|number the value that might be in the table
+---@return boolean whether the value exists in the table
 local function isValueInTable(table, value)
     for _, v in pairs(table) do
         if v == value then
@@ -31,6 +39,9 @@ local function isValueInTable(table, value)
     return false
 end
 
+---@param table table any table
+---@param key string|number the key that might in the table
+---@return boolean whether the key exists in the table
 local function isKeyInTable(table, key)
     for k in pairs(table) do
         if k == key then
@@ -54,8 +65,10 @@ local _hasItemTypeDifferentQualities = {
     [ITEMTYPE_FOOD] = true,
 }
 
--- itemId is basically what tells us that two items are the same thing,
--- but some types need additional data to determine if they are of the same strength (and value).
+--- itemId is basically what tells us that two items are the same thing,
+--- but some types need additional data to determine if they are of the same strength (and value).
+---@param itemLink string the itemLink of an ESO item
+---@return string the paItemId of the provided item
 local function getPAItemLinkIdentifier(itemLink)
     local itemType = GetItemLinkItemType(itemLink)
     local data = {zo_strsplit(":", itemLink:match("|H(.-)|h.-|h"))}
@@ -74,11 +87,16 @@ local function getPAItemLinkIdentifier(itemLink)
     end
 end
 
+---@param bagId number the id of the bag
+---@param slotIndex number the id of slot within the bag
+---@return string the paItemId of the provided item
 local function getPAItemIdentifier(bagId, slotIndex)
     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
     return getPAItemLinkIdentifier(itemLink)
 end
 
+---@param itemData table the itemData table of an ESO item
+---@return string the paItemId of the provided item
 local function getPAItemIdentifierFromItemData(itemData)
     if not itemData.paItemId then
         itemData.paItemId = getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
@@ -92,6 +110,8 @@ end
 -- == COMPARATORS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+---@param itemData table the itemData table of an ESO item
+---@return boolean whether the item is characterBound or not
 local function _isItemCharacterBound(itemData)
     if itemData.isPACharacterBound == nil then
         local isBound = IsItemBound(itemData.bagId, itemData.slotIndex)
@@ -101,6 +121,9 @@ local function _isItemCharacterBound(itemData)
     return itemData.isPACharacterBound
 end
 
+---@param combinedLists table a complex list of holidayWrits, itemTypes, surveyMaps, itemTraitTypes, masterWritCraftingTypes, specializedItemTypes, learnableKnowItemTypes and learnableUnknownItemTypes
+---@param excludeJunk boolean whether junk items should be excluded
+---@return fun(itemData: table) a comparator function that only returns item that match the complex list and pass the junk-test
 local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk)
     local function _isItemOfItemTypeAndKnowledge(itemType, itemLink, expectedItemType, expectedIsKnown)
         if itemType == expectedItemType then
@@ -182,6 +205,9 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
     end
 end
 
+---@param itemTypeList table a list of itemTypes to be checked
+---@param excludeJunk boolean whether junk items should be excluded
+---@return fun(itemData: table) a comparator function that only returns item that match the itemTypes and pass the junk-test
 local function getItemTypeComparator(itemTypeList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
@@ -194,6 +220,9 @@ local function getItemTypeComparator(itemTypeList, excludeJunk)
     end
 end
 
+---@param itemIdList table a list of itemIds to be checked
+---@param excludeJunk boolean whether junk items should be excluded
+---@return fun(itemData: table) a comparator function that only returns item that match the itemIdList and pass the junk-test
 local function getItemIdComparator(itemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
@@ -207,6 +236,9 @@ local function getItemIdComparator(itemIdList, excludeJunk)
     end
 end
 
+---@param paItemIdList table a list of paItemIds to be checked
+---@param excludeJunk boolean whether junk items should be excluded
+---@return fun(itemData: table) a comparator function that only returns item that match the paItemIdList and pass the junk-test
 local function getPAItemIdComparator(paItemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
@@ -220,6 +252,7 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk)
     end
 end
 
+---@return fun(itemData: table) a comparator function that only returns stolen junk items
 local function getStolenJunkComparator()
     return function(itemData)
         if _isItemCharacterBound(itemData) then return false end
@@ -234,19 +267,32 @@ end
 -- == PLAYER STATES == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+---@return boolean whether the player is currently dead
 local function isPlayerDead()
     return IsUnitDead("player")
 end
 
+---@return boolean whether the player is currently dead or reincarnating
 local function isPlayerDeadOrReincarnating()
    return IsUnitDeadOrReincarnating("player")
+end
+
+---@return string, string the applicable bank bags of the player based on the ESO Plus Subscriber situation
+local function getBankBags()
+    if IsESOPlusSubscriber() then
+        return BAG_BANK, BAG_SUBSCRIBER_BANK
+    else
+        return BAG_BANK
+    end
 end
 
 
 -- =================================================================================================================
 -- == TEXT / NUMBER TRANSFORMATIONS == --
 -- -----------------------------------------------------------------------------------------------------------------
--- returns a noun for the bagId
+--- returns a noun for the bagId
+---@param bagId number the id of the bag
+---@return string the name of the bag
 local function getBagName(bagId)
     if bagId == BAG_WORN then
         return GetString(SI_PA_NS_BAG_EQUIPMENT)
@@ -272,11 +318,11 @@ end
 -- == TEXT FORMATTING AND OUTPUT == --
 -- -----------------------------------------------------------------------------------------------------------------
 
---- Formats the provided currency amount with an icon based on the type
--- @param currencyAmount the amount that should be formatted (can be negative)
--- @param currencyType the type of currency (default = CURT_MONEY)
--- @param noColor if set to true the amount-text will not be colored (default = false)
--- @return the formatted text with currency icon
+---- Formats the provided currency amount with an icon based on the type
+---@param currencyAmount number the amount that should be formatted (can be negative)
+---@param currencyType string the type of currency (default = CURT_MONEY)
+---@param noColor boolean if set to true the amount-text will not be colored (default = false)
+---@return string the formatted text with currency icon
 local function getFormattedCurrency(currencyAmount, currencyType, noColor)
     local currencyType = currencyType or CURT_MONEY
     local noColor = noColor or false
@@ -294,9 +340,10 @@ local function getFormattedCurrency(currencyAmount, currencyType, noColor)
 end
 
 --- Formats the provided currency amount without icon based on the type
--- @param currencyAmount the amount that should be formatted
--- @param currencyType the type of currency (defualt = CURT_MONEY)
--- @return the formattext text without currency icon
+---@param currencyAmount string the amount that should be formatted
+---@param currencyType string the type of currency (default = CURT_MONEY)
+---@return string the formatted text text without currency icon
+---@return string the formatted currency (amount + type)
 local function getFormattedCurrencySimple(currencyAmount, currencyType)
     local currencyType = currencyType or CURT_MONEY
     if currencyAmount < 0 then currencyAmount = currencyAmount * -1 end  -- need to make it a positive number again
@@ -304,8 +351,11 @@ local function getFormattedCurrencySimple(currencyAmount, currencyType)
     return PAC.COLOR.CURRENCIES[currencyType]:Colorize(currencyAmountFmt)
 end
 
--- returns a fixed/formatted ItemLink
--- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
+--- returns a fixed/formatted ItemLink
+--- needed as the regular GetItemLink sometimes(?) returns lower-case only texts
+---@param bagId number the id of the bag
+---@param slotIndex number the id of the slot within the
+---@return string the formatted itemLink
 local function getFormattedItemLink(bagId, slotIndex)
     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
     if itemLink == "" then return "[unknown]" end
@@ -314,7 +364,10 @@ local function getFormattedItemLink(bagId, slotIndex)
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
 
--- currently supports one text and n arguments
+--- currently supports one text and n arguments
+---@param text string the text with placeholders to be filled by the varargs
+---@vararg any the values to be put in the placeholders of the text
+---@return string the formatted text
 local function getFormattedText(text, ...)
     local args = { ... }
     local unpackedString = string.format(text, unpack(args))
@@ -325,12 +378,21 @@ local function getFormattedText(text, ...)
 end
 
 
+---@param key string a label-key from the localization
+---@vararg any the values to be put in the placeholders of the resolved key
+---@return void
 local function getFormattedKey(key, ...)
     local text = GetString(key)
     return getFormattedText(text, ...)
 end
 
--- currently supports one text and n arguments
+--- currently supports one text and n arguments
+---@alias LibChatMessage
+---@param lcmChat LibChatMessage the instance of LibChatMessage
+---@param prefix string the prefix for the chat message
+---@param text string the actual chat message
+---@vararg any values to be put in the placeholders of the text
+---@return void
 local function println(lcmChat, prefix, text, ...)
     local textKey = GetString(text)
     local prefix = prefix or ""
@@ -352,7 +414,11 @@ local function println(lcmChat, prefix, text, ...)
     end
 end
 
--- write the provided key/text into the debug Output window (WHITE font)
+--- write the provided key/text into the debug Output window (WHITE font)
+---@param prefix string the prefix for the debug message
+---@param text string the actual debug message
+---@vararg any values to be put in the placeholders of the debug-text
+---@return void
 local function debugln(prefix, text, ...)
     if PA.debug then
         local textKey = GetString(text)
@@ -366,7 +432,10 @@ local function debugln(prefix, text, ...)
     end
 end
 
--- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
+--- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
+---@param key string a label-key from the localization
+---@vararg any values to be put in the placeholders of the debug-text
+---@return void
 local function debuglnAuthor(key, ...)
     if GetUnitName("player") == PAC.ADDON.AUTHOR then
         println(PA.chat, "", key, ...)
@@ -378,17 +447,23 @@ end
 -- == PROFILES == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+---@return boolean whether player has selected a PA profile
 local function hasActiveProfile()
     local PAMenuFunctions = PA.MenuFunctions
     return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
 end
 
--- returns the default profile name of the provided profile number
+--- returns the default profile name of the provided profile number
+---@param profileNo number the number/id of a profile
+---@return string the name of the profile
 local function getDefaultProfileName(profileNo)
     return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
 end
 
--- sync the LOCAL profiles with the ones from GLOBAL
+--- sync the LOCAL profiles with the ones from GLOBAL
+---@param localSavedVars table the savedVars table of the local profile
+---@param localDefaults table the table with the defaults for the savedVars table
+---@return void
 local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
     local PASavedVars = PA.SavedVars
     for profileNo = 1, PASavedVars.General.profileCounter do
@@ -403,8 +478,9 @@ local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
     end
 end
 
--- Source: https://wiki.esoui.com/IsAddonRunning
--- addonName *string*
+--- Source: https://wiki.esoui.com/IsAddonRunning
+---@param addonName string name of the addon
+---@return boolean whether the addon is running
 local function isAddonRunning(addonName)
     local manager = GetAddOnManager()
     for i = 1, manager:GetNumAddOns() do
@@ -421,6 +497,8 @@ end
 -- == ITEM LINKS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
+---@param itemLink string the itemLink to be checked
+---@return boolean if the item is character boudn or not
 local function isItemLinkCharacterBound(itemLink)
     local isBound = IsItemLinkBound(itemLink)
     if isBound then
@@ -430,11 +508,16 @@ local function isItemLinkCharacterBound(itemLink)
     return false
 end
 
+
+---@param itemLink string the itemLink to be checked
+---@return boolean if the item has the Intricate trait
 local function isItemLinkIntricateTraitType(itemLink)
     local itemTraitInformation = GetItemTraitInformationFromItemLink(itemLink)
     return itemTraitInformation == ITEM_TRAIT_INFORMATION_INTRICATE
 end
 
+---@param itemLink string the itemLink to be checked
+---@return string the itemLink with the matching Intricate/Stolen icon added on the right side
 local function getIconExtendedItemLink(itemLink)
     -- check if it is stolen or of type [Intricate]
     local itemStolen = IsItemLinkStolen(itemLink)
@@ -463,6 +546,7 @@ PA.HelperFunctions = {
     getStolenJunkComparator = getStolenJunkComparator,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
+    getBankBags = getBankBags,
     getBagName = getBagName,
     hasActiveProfile = hasActiveProfile,
     getFormattedCurrency = getFormattedCurrency,

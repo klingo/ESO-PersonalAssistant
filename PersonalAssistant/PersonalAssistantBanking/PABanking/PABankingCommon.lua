@@ -39,11 +39,11 @@ local function _findFirstEmptySlotAndTargetBagFromSourceBag(sourceBagId)
     if sourceBagId == BAG_BACKPACK then
         targetBagId = BAG_BANK
         targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
-        if targetSlotIndex == nil then
+        if targetSlotIndex == nil and IsESOPlusSubscriber() then
             targetBagId = BAG_SUBSCRIBER_BANK
             targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
         end
-    elseif sourceBagId == BAG_BANK or sourceBagId == BAG_SUBSCRIBER_BANK then
+    elseif sourceBagId == BAG_BANK or (sourceBagId == BAG_SUBSCRIBER_BANK and IsESOPlusSubscriber()) then
         targetBagId = BAG_BACKPACK
         targetSlotIndex = FindFirstEmptySlotInBag(targetBagId)
     end
@@ -54,7 +54,7 @@ local function _findFirstEmptySlotAndTargetBagFromSourceBag(sourceBagId)
         return targetBagId, targetSlotIndex
     end
     -- no; not enough space or bag not found; return nil, nil
-    return nil, nil
+    return targetBagId, nil
 end
 
 
@@ -177,7 +177,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
         local itemLink = GetItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex, LINK_STYLE_BRACKETS)
         local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
         local stackToMove = overruleStackToMove or sourceStack
-        PAB.debugln("try to move %d x %s", stackToMove, itemLink)
+        PAB.debugln("try to move %d x %s from %s away", stackToMove, itemLink, PAHF.getBagName(fromBagItemData.bagId))
 
         for toBagCacheIndex, toBagItemData in pairs(toBagCache) do
             if _isSameItem(fromBagItemData, toBagItemData) then

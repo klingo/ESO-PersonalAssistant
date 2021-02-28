@@ -1,3 +1,10 @@
+2.5.8 (February 20, 2021)
+- added new "category" column to custom banking rules window ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/312"]#312[/URL])
+- updated Russian translations from Nesferatum to 2.5.6 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/305"]#305[/URL])
+- fixed spelling of "motives" -> "motifs" ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/306"]#306[/URL])
+- fixed PABanking chat output when target bag is full ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/313"]#313[/URL])
+- fixed PABanking non-ESOPlus-subscriber issue and refreshes inventory before executing transfers ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/308"]#308[/URL])
+
 2.5.7 (November 03, 2020)
 - updated minimum version for dependency libraries ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/303"]#303[/URL])
 - fixed an issue where master writs were no longer deposited/withdrawn ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/302"]#302[/URL])
@@ -186,8 +193,8 @@
 - fixed an issue when attempting to sell zero-value items in PAJunk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/119"]#119[/URL])
 
 2.2.0   (May 09, 2019)
-- add option to PABanking to distinguish between known and unknown recipes and motives ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
-- add visual known/unknown indicator for recipes, motives, traits and style pages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/104"]#104[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/109"]#109[/URL])
+- add option to PABanking to distinguish between known and unknown recipes and motifs ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/98"]#98[/URL])
+- add visual known/unknown indicator for recipes, motifs, traits and style pages ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/104"]#104[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/109"]#109[/URL])
 - add keybinding shortcut to directly mark items as junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/105"]#105[/URL])
 - various smaller fixes and cleanups ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/103"]#103[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/107"]#107[/URL])
 

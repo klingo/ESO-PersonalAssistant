@@ -1,4 +1,4 @@
-<GuiXml>
+<GuiXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sir.insidi.at/or/schema/esoui.xsd">
     <Controls>
         <TopLevelControl name="PABankingAddCustomRuleWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
             <Dimensions x="760" y="340" />

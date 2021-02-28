@@ -90,7 +90,7 @@ local PAJunkButtonGroup = {
 
 -- checks if the provided bagId is in scope for the Keybind Strip
 local function _isBagIdInScope(bagId)
-    return bagId == BAG_BACKPACK or bagId == BAG_BANK or bagId == BAG_SUBSCRIBER_BANK
+    return bagId == BAG_BACKPACK or bagId == BAG_BANK or (bagId == BAG_SUBSCRIBER_BANK and IsESOPlusSubscriber())
     -- TODO: add BAG_HOUSE_BANK_ONE through BAG_HOUSE_BANK_THEN ?
 end
 

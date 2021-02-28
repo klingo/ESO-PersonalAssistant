@@ -35,6 +35,7 @@ end
 
 local function depositOrWithdrawAdvancedItems()
 
+    PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking.depositOrWithdrawAdvancedItems (2)")
 
     if PAB.SavedVars.Advanced.advancedItemsEnabled then
@@ -136,9 +137,9 @@ local function depositOrWithdrawAdvancedItems()
         local withdrawComparator = PAHF.getCombinedItemTypeSpecializedComparator(combinedWithdrawLists, excludeJunk)
 
         local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
-        local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+        local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, PAHF.getBankBags())
 
-        local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BANK, BAG_SUBSCRIBER_BANK)
+        local toWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, PAHF.getBankBags())
         local toFillUpWithdrawBagCache = SHARED_INVENTORY:GenerateFullSlotData(withdrawComparator, BAG_BACKPACK)
 
         -- trigger the itemTransactions

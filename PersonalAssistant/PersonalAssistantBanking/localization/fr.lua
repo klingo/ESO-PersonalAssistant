@@ -81,6 +81,7 @@ local PABStrings = {
     -- PABanking --
     SI_PA_MAINMENU_BANKING_HEADER = "Règles de mise en banque",
 
+    SI_PA_MAINMENU_BANKING_HEADER_CATEGORY = "C", -- First letter of "Catégorie"
     SI_PA_MAINMENU_BANKING_HEADER_BAG = "Emplacement",
     SI_PA_MAINMENU_BANKING_HEADER_RULE = "Règle",
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Quantité",

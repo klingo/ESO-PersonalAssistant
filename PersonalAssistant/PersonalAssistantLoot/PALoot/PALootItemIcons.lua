@@ -157,7 +157,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     -- get either the already existing item control, or create a new one
     local itemIconControl = _getOrCreateItemControl(parentControl)
 
-    -- make sure the icon/control is hidded for non-recipes and non-motives (or if setting was disabled)
+    -- make sure the icon/control is hidded for non-recipes and non-motifs (or if setting was disabled)
     itemIconControl:SetHidden(true)
 
     -- then check if the pre-conditions are met, otherwise stop any forther processings
