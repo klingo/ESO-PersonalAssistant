@@ -237,6 +237,62 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/icons/quest_daedricembers.dds",
             },
         },
+        ITEMFILTERTYPE = {
+            [ITEMFILTERTYPE_ALCHEMY] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_alchemy_up.dds",
+            },
+            [ITEMFILTERTYPE_ARMOR] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_armor_up.dds",
+            },
+            [ITEMFILTERTYPE_BLACKSMITHING] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_blacksmithing_up.dds",
+            },
+            [ITEMFILTERTYPE_CLOTHING] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_clothing_up.dds",
+            },
+            [ITEMFILTERTYPE_COLLECTIBLE] = {
+                PATH = "/esoui/art/collections/collections_tabicon_collectibles_up.dds",
+            },
+            [ITEMFILTERTYPE_CONSUMABLE] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_consumables_up.dds",
+            },
+            [ITEMFILTERTYPE_CRAFTING] = {
+                PATH = "/esoui/art/tutorial/inventory_tabicon_crafting_up.dds",
+            },
+            [ITEMFILTERTYPE_ENCHANTING] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds",
+            },
+            [ITEMFILTERTYPE_FURNISHING] = {
+                PATH = "/esoui/art/treeicons/collection_indexicon_furnishings_up.dds",
+            },
+            [ITEMFILTERTYPE_JEWELRY] = {
+                PATH = "/esoui/art/crafting/jewelry_tabicon_icon_up.dds",
+            },
+            [ITEMFILTERTYPE_JEWELRYCRAFTING] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_jewelrycrafting_up.dds",
+            },
+            [ITEMFILTERTYPE_MISCELLANEOUS] = {
+                PATH = "/esoui/art/tutorial/inventory_tabicon_misc_up.dds",
+            },
+            [ITEMFILTERTYPE_PROVISIONING] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_provisioning_up.dds",
+            },
+            [ITEMFILTERTYPE_STYLE_MATERIALS] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_stylematerial_up.dds",
+            },
+            [ITEMFILTERTYPE_TRAIT_ITEMS] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_itemtrait_up.dds",
+            },
+            [ITEMFILTERTYPE_WOODWORKING] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_weapons_up.dds",
+            },
+            [ITEMFILTERTYPE_WEAPONS] = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_woodworking_up.dds",
+            },
+            UNKNOWN = {
+                PATH = "/esoui/art/icons/u26_unknown_antiquity_questionmark.dds"
+            },
+        },
         SIEGE = {
             BALLISTA = {
                 PATH = "/esoui/art/icons/ava_siege_weapon_001.dds",

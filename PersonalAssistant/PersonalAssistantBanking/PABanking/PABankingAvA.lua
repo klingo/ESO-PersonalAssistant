@@ -9,6 +9,7 @@ local PAEM = PA.EventManager
 
 local function depositOrWithdrawAvAItems()
 
+    PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking.depositOrWithdrawAvAItems (3)")
 
     if PAB.SavedVars.AvA.avaItemsEnabled then

@@ -1,4 +1,4 @@
-<GuiXml>
+<GuiXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sir.insidi.at/or/schema/esoui.xsd">
     <Controls>
         <TopLevelControl name="PADebugWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true" resizeHandleSize="10">
             <Dimensions x="600" y="800" />
@@ -51,7 +51,7 @@
                     <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
                 </Label>
 
-                <TextBuffer name="$(parent)Buffer" font="ZoFontChat" maxHistoryLines="200" mouseEnabled="true" linkEnabled="true">
+                <TextBuffer name="$(parent)Buffer" font="ZoFontChat" maxHistoryLines="500" mouseEnabled="true" linkEnabled="true">
                     <DimensionConstraints minX="440" minY="120" />
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Header" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10" />
                     <Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-10" />

@@ -83,7 +83,7 @@ local PABStrings = {
     -- == MAIN MENU TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
-    SI_PA_MAINMENU_BANKING_HEADER = "Simple Banking Rules",
+    SI_PA_MAINMENU_BANKING_HEADER = "Simple Banking Rules",SI_PA_MAINMENU_BANKING_HEADER_CATEGORY = "C", -- First letter of "Category"
     SI_PA_MAINMENU_BANKING_HEADER_BAG = "Location",
     SI_PA_MAINMENU_BANKING_HEADER_RULE = "Rule",
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Amount",

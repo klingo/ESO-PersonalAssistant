@@ -15,7 +15,8 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function depositOrWithdrawSimpleBankingRules()
-    PAB.debugln("PA.Banking.depositOrWithdrawSimpleBankingRules")
+    PAB.debugln("==============================================================")
+    PAB.debugln("PA.Banking.depositOrWithdrawSimpleBankingRules (4)")
 
     -- currently this is always 'true' (cannot be disabled)
     if PAB.SavedVars.Custom.customItemsEnabled then
@@ -60,6 +61,7 @@ local function depositOrWithdrawSimpleBankingRules()
 end
 
 local function depositOrWithdrawAdvancedBankingRules()
+    PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking.depositOrWithdrawAdvancedBankingRules")
 
     -- currently this is always 'true' (cannot be disabled)

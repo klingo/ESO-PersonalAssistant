@@ -8,8 +8,6 @@ local PAStrings = {
     SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "at your service! Active profile: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
     SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
 
-    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, "requires a more recent version of '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' than you currently have installed. Please download and update to the latest one from ", PAC.COLORS.WHITE, "http://esoui.com"}),
-
 
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
@@ -20,8 +18,10 @@ local PAStrings = {
     -- General Settings --
     SI_PA_MENU_GENERAL_HEADER = "General Settings",
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to House"}),
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to house"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
+    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "Travel in front of the house",
+    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "If turned OFF, you will travel to the inside of the house instead",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --

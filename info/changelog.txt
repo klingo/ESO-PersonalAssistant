@@ -1,3 +1,10 @@
+2.5.8 (February 20, 2021)
+- added new "category" column to custom banking rules window ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/312"]#312[/URL])
+- updated Russian translations from Nesferatum to 2.5.6 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/305"]#305[/URL])
+- fixed spelling of "motives" -> "motifs" ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/306"]#306[/URL])
+- fixed PABanking chat output when target bag is full ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/313"]#313[/URL])
+- fixed PABanking non-ESOPlus-subscriber issue and refreshes inventory before executing transfers ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/308"]#308[/URL])
+
 2.5.7 (November 03, 2020)
 - updated minimum version for dependency libraries ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/303"]#303[/URL])
 - fixed an issue where master writs were no longer deposited/withdrawn ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/302"]#302[/URL])

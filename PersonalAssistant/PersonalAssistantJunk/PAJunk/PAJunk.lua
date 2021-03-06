@@ -121,9 +121,9 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 --- Checks whether the item has any sell value or not
--- @param bagId the id of the bag where the item is
--- @param slotIndex the id of the slot where the item is
--- @return true if the item has zero sell value; otherwise false
+---@param bagId number the id of the bag where the item is
+---@param slotIndex number the id of the slot where the item is
+---@return boolean true if the item has zero sell value; otherwise false
 local function _isItemWorthless(bagId, slotIndex)
     -- check if the item is stolen
     local isStolen = IsItemStolen(bagId, slotIndex)
@@ -242,12 +242,12 @@ local function _destroyItem(bagId, slotIndex, itemLink, itemAction)
 end
 
 --- Depending on the itemAction, the item is marked as junk, destroyed or nothing happens
--- @param bagId the id of the bag where the item is
--- @param slotIndex the id of the slot where the item is
--- @param successJunkMessageKey the message key that should be printed when marked as junk
--- @param itemLink the itemLink string of the item
--- @param itemAction the action-code from PAC.ITEM_ACTION
--- @return true if the item was marked as junk or destroy, otherwise false
+---@param bagId number the id of the bag where the item is
+---@param slotIndex number the id of the slot where the item is
+---@param successJunkMessageKey string the message key that should be printed when marked as junk
+---@param itemLink string the itemLink string of the item
+---@param itemAction string the action-code from PAC.ITEM_ACTION
+---@return boolean true if the item was marked as junk or destroy, otherwise false
 local function _markAsJunkOrDestroyIfPossible(bagId, slotIndex, successJunkMessageKey, itemLink, itemAction)
     PAJ.debugln("_markAsJunkOrDestroyIfPossible: %s", itemLink)
     -- if item action is set to do nothing, stop immediately

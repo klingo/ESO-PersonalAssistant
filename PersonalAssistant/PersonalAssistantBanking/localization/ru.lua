@@ -84,6 +84,8 @@ local PABStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
     SI_PA_MAINMENU_BANKING_HEADER = "Банковские правила",
+
+    SI_PA_MAINMENU_BANKING_HEADER_CATEGORY = "K", -- First letter of "Category"
     SI_PA_MAINMENU_BANKING_HEADER_BAG = "Расположение",
     SI_PA_MAINMENU_BANKING_HEADER_RULE = "Правило",
     SI_PA_MAINMENU_BANKING_HEADER_AMOUNT = "Количество",

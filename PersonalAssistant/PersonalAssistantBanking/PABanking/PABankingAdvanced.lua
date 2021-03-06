@@ -35,7 +35,8 @@ end
 
 local function depositOrWithdrawSpecialItems()
 
-    PAB.debugln("PA.Banking.depositOrWithdrawSpecialItems")
+    PAB.debugln("==============================================================")
+    PAB.debugln("PA.Banking.depositOrWithdrawSpecialItems (2)")
 
     if PAB.SavedVars.Advanced.advancedItemsEnabled then
         -- get the writ quest table if LazyWritCrafter is enabled
