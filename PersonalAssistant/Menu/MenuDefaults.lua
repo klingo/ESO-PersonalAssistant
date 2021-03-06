@@ -5,6 +5,7 @@ local PA = PersonalAssistant
 
 local PAGeneralMenuDefaults = {
     welcomeMessage = true,
+    jumpOutside = false,
     name = nil,
 }
 

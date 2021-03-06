@@ -309,7 +309,8 @@ end
 local function doPAGeneralTeleportToPrimaryHouse()
     local houseId = GetHousingPrimaryHouse()
     if houseId and CanLeaveCurrentLocationViaTeleport() then
-        RequestJumpToHouse(houseId)
+        local jumpOutside = getValue({"jumpOutside"})
+        RequestJumpToHouse(houseId, jumpOutside)
     end
 end
 
@@ -339,6 +340,9 @@ PA.MenuFunctions = {
 
         isTeleportToPrimaryHouseDisabled = function() return not CanLeaveCurrentLocationViaTeleport() end,
         teleportToPrimaryHouse = doPAGeneralTeleportToPrimaryHouse,
+
+        getJumpOutsideSetting = function() return getValue({"jumpOutside"}) end,
+        setJumpOutsideSetting = function(value) setValue(value, {"jumpOutside"}) end,
     },
 }
 
