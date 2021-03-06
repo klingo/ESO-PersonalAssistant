@@ -8,8 +8,6 @@ local PAStrings = {
     SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "à votre service ! Profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
     SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") afin de sélectionner un profil. Merci :-)"}),
 
-    SI_PA_LAM_OUTDATED = table.concat({PAC.COLORS.ORANGE_RED, "nécessite une version plus récente de '", PAC.COLORS.WHITE, "LibAddonMenu-2.0", PAC.COLORS.ORANGE_RED, "' que celle qui est installée actuellement. Merci de télécharger et faire la mise à jour vers la dernière version sur ", PAC.COLORS.WHITE, "http://esoui.com"}),
-
 
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
