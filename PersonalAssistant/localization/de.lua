@@ -22,6 +22,8 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Wilkommensmeldung anzeigen",
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Zum Haus reisen"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Wenn das aktuelle Gebiet das Reisen zulässt, wird damit die Transportation zu deinem primären Haus ausgelöst!",
+    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "Vor das Haus reisen",
+    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "Wenn AUSgeschaltet, reist Du stattdessen in das Innere des Hauses",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --
