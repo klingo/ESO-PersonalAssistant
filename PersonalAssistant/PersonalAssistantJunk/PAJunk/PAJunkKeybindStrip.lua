@@ -168,6 +168,25 @@ local function toggleItemMarkedAsJunk()
     end
 end
 
+local function toggleItemMarkedAsPermanentJunk()
+    if PA.Junk.SavedVars and PAJ.SavedVars.Custom.customItemsEnabled and
+            PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
+        if _mouseOverBagId and _mouseOverSlotIndex then
+            -- get item information
+            local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
+            if PA.Junk.Custom.isItemPermanentJunk(itemLink) then
+                -- delete the permanent junk rule
+                PA.Junk.Custom.removeItemFromPermanentJunk(itemLink)
+                SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, false)
+                PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+            else
+                -- create new permanent junk rule
+                PA.Junk.Custom.addItemToPermanentJunk(itemLink, _mouseOverBagId, _mouseOverSlotIndex)
+            end
+        end
+    end
+end
+
 local function destroyItemNoWarning()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.enableDestroyItemKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
@@ -192,5 +211,6 @@ PA.Junk = PA.Junk or {}
 PA.Junk.KeybindStrip = {
     initHooksOnInventoryItems = initHooksOnInventoryItems,
     toggleItemMarkedAsJunk = toggleItemMarkedAsJunk,
+    toggleItemMarkedAsPermanentJunk = toggleItemMarkedAsPermanentJunk,
     destroyItemNoWarning = destroyItemNoWarning
 }

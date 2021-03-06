@@ -69,6 +69,8 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Keybindings",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Enable \"Mark / Unmark as Junk\" Keybinding",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW = "Show \"Mark / Unmark as Junk\" Keybinding",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_ENABLE = "Enable \"Mark / Unmark as perm. Junk\" Keybinding",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_SHOW = "Show \"Mark / Unmark as perm. Junk\" Keybinding",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE = "Enable \"Destroy Item\" Keybinding",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE_W = "WARNING: Please be aware that using this keybinding, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_SHOW = "Show \"Destroy Item\" Keybinding",
@@ -140,6 +142,7 @@ local PAJStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAJunk --
     SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Mark / Unmark as Junk",
+    SI_BINDING_NAME_PA_JUNK_PERMANENT_TOGGLE_ITEM = "Mark / Unmark as perm. Junk",
     SI_BINDING_NAME_PA_JUNK_DESTROY_ITEM = "Destroy Item",
 
 

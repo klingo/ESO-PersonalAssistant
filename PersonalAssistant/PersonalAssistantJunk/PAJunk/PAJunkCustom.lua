@@ -11,8 +11,14 @@ local function getNonStolenItemLink(itemLink)
     -- if it is stolen, remove first the stolen information
     local itemLinkMod = string.gsub(itemLink, "1(:%d+:%d+|h|h)$", "0%1")
     -- then also remove the red border
-    local itemLinkMod = string.gsub(itemLinkMod, "%d+(:%d+:%d+:%d+:%d+:%d+:%d+|h|h)$", "0%1")
+    itemLinkMod = string.gsub(itemLinkMod, "%d+(:%d+:%d+:%d+:%d+:%d+:%d+|h|h)$", "0%1")
     return itemLinkMod
+end
+
+local function isItemPermanentJunk(itemLink)
+    local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
+    local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
+    return PAHF.isKeyInTable(PAJCUstomPAItemIds, paItemId)
 end
 
 local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
@@ -67,5 +73,8 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Junk = PA.Junk or {}
-PA.Junk.addItemToPermanentJunk = addItemToPermanentJunk
-PA.Junk.removeItemFromPermanentJunk = removeItemFromPermanentJunk
+PA.Junk.Custom = {
+    isItemPermanentJunk = isItemPermanentJunk,
+    addItemToPermanentJunk = addItemToPermanentJunk,
+    removeItemFromPermanentJunk = removeItemFromPermanentJunk
+}
