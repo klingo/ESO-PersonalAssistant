@@ -118,6 +118,7 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Manual"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Stolen"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Perm-Rule"), ")"}),
+    SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT_SET = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize("Set Perm-Rule"), ")"}),
 
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
     SI_PA_CHAT_JUNK_DESTROYED_ALWAYS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Always"), ")"}),
@@ -133,6 +134,9 @@ local PAJStrings = {
 
     SI_PA_CHAT_JUNK_RULES_ADDED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
     SI_PA_CHAT_JUNK_RULES_DELETED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),
+
+    SI_PA_CHAT_JUNK_SET_RULES_ADDED = table.concat({"Set '%s' was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
+    SI_PA_CHAT_JUNK_SET_RULES_DELETED = table.concat({"Set '%s' was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),
 
 
     -- =================================================================================================================
@@ -159,6 +163,9 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Cosmetics",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Grooming Items",
+
+    -- Set Items
+    SI_PA_JUNK_SET_ITEM_IDENTIFIER = "SET",
 }
 
 for key, value in pairs(PAJStrings) do

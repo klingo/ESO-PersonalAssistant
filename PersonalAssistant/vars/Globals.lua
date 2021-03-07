@@ -47,7 +47,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020509, -- update this every release!
+            MINOR = 020510, -- update this every release!
         },
     },
 
@@ -379,6 +379,9 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
                 NORMAL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
                 SMALL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
+            },
+            SET = {
+                PATH = "/esoui/art/tutorial/dyes_toolicon_setfill_up.dds"
             }
         }
     },

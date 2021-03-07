@@ -61,6 +61,10 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
         local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
         local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
         local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
+
+        local hasSet, _, _, _, _, setId = GetItemLinkSetInfo(itemLink, false)
+        local PAJCustomSetIds = PA.Junk.SavedVars.Custom.SetIds
+        local isSetRuleExisting = PAHF.isKeyInTable(PAJCustomSetIds, setId)
         local entries = {
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
@@ -72,10 +76,26 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
                 callback = function()
-                    PA.Junk.removeItemFromPermanentJunk(itemLink)
+                    PA.Junk.removeItemFromPermanentJunk(itemLink, bagId, slotIndex)
                 end,
                 disabled = function() return not isRuleExisting end,
-            }
+            },
+            {
+                label = GetString(SI_PA_SUBMENU_PAJ_MARK_SET_PERM_JUNK),
+                callback = function()
+                    PA.Junk.addItemSetToPermanentJunk(itemLink, bagId, slotIndex)
+                end,
+                visible = function() return hasSet end,
+                disabled = function() return not canBeMarkedAsJunk or isSetRuleExisting end,
+            },
+            {
+                label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_SET_PERM_JUNK),
+                callback = function()
+                    PA.Junk.removeItemSetFromPermanentJunk(itemLink)
+                end,
+                visible = function() return hasSet end,
+                disabled = function() return not isSetRuleExisting end,
+            },
         }
         AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAJ), entries)
     end

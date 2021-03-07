@@ -43,9 +43,11 @@ end
 ---@param key string|number the key that might in the table
 ---@return boolean whether the key exists in the table
 local function isKeyInTable(table, key)
-    for k in pairs(table) do
-        if k == key then
-            return true
+    if table ~= nil then
+        for k in pairs(table) do
+            if k == key then
+                return true
+            end
         end
     end
     return false

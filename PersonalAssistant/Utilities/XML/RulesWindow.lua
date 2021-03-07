@@ -515,7 +515,7 @@ function PAJunkRulesList:FilterScrollList()
     ZO_ClearNumericallyIndexedTable(scrollData)
     -- only proceed if player has selected an active profile
     if PAHF.hasActiveProfile() then
-        -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+        -- need to access it via the full-path because the "RefreshAllSavedVarReferences" might not have been executed yet
         local PAJCustomPAItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.PAItemIds
         if PAJCustomPAItemIds then
             -- populate the table that is used as source for the list
@@ -529,6 +529,29 @@ function PAJunkRulesList:FilterScrollList()
                     itemIcon = GetItemLinkInfo(junkConfig.itemLink),
                     itemLink = junkConfig.itemLink,
                     itemName = GetItemLinkName(junkConfig.itemLink),
+                    junkCount = junkConfig.junkCount,
+                    ruleAdded = junkConfig.ruleAdded,
+                    ruleAddedFmt = FormatTimeSeconds(timeSinceRuleAdded, TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING),
+                    lastJunk = junkConfig.lastJunk or 0,
+                    lastJunkFmt = timeSinceLastJunk,
+                }
+                -- "1" is to define a category per dataEntry (can be individually hidden)
+                table.insert(scrollData, ZO_ScrollList_CreateDataEntry(TYPE_ACTIVE_RULE, rowData, 1))
+            end
+        end
+        local PAJCustomSetIds = PA.SavedVars.Junk[PA.activeProfile].Custom.SetIds
+        if PAJCustomSetIds then
+            -- populate the table that is used as source for the list
+            for _, junkConfig in pairs(PAJCustomSetIds) do
+                local timeSinceRuleAdded = GetTimeStamp() - tonumber(junkConfig.ruleAdded)
+                local timeSinceLastJunk = GetString(SI_PA_MAINMENU_JUNK_ROW_NEVER_JUNKED)
+                if junkConfig.lastJunk then
+                    timeSinceLastJunk = FormatTimeSeconds(GetTimeStamp() - tonumber(junkConfig.lastJunk), TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING)
+                end
+                local rowData = {
+                    itemIcon = PAC.ICONS.OTHERS.SET.PATH,
+                    itemLink = junkConfig.itemLink,
+                    setName = table.concat({junkConfig.setName, " (", GetString(SI_PA_JUNK_SET_ITEM_IDENTIFIER), ")"}),
                     junkCount = junkConfig.junkCount,
                     ruleAdded = junkConfig.ruleAdded,
                     ruleAddedFmt = FormatTimeSeconds(timeSinceRuleAdded, TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE, TIME_FORMAT_PRECISION_TWENTY_FOUR_HOUR, TIME_FORMAT_DIRECTION_DESCENDING),
@@ -565,6 +588,10 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
         -- Also trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
         onRowMouseEnter(itemNameControl:GetParent())
     end
+    local function onItemNameMouseEnterNoTooltip(itemNameControl)
+        -- Trigger the Row-OnMouseEnter to keep the row-highlight when entering the itemName
+        onRowMouseEnter(itemNameControl:GetParent())
+    end
     local function onItemNameMouseExit(itemNameControl)
         ClearTooltip(ItemTooltip)
         -- Also trigger to Row-OnMouseExit because otherwise the row-highlight will not disappear when leaving the itemName
@@ -589,9 +616,13 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     itemIconControl:SetTexture(rowData.itemIcon)
 
     local itemNameControl = rowControl:GetNamedChild("ItemName")
-    itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
     itemNameControl:SetHandler("OnMouseExit", onItemNameMouseExit)
-    itemNameControl.itemLink = rowData.itemLink
+    if rowData.itemLink and not rowData.setName then
+        itemNameControl.itemLink = rowData.itemLink
+        itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnter)
+    else
+        itemNameControl:SetHandler("OnMouseEnter", onItemNameMouseEnterNoTooltip)
+    end
 
     local junkCountControl = rowControl:GetNamedChild("JunkCount")
     local lastJunkControl = rowControl:GetNamedChild("LastJunk")
@@ -606,13 +637,13 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
         lastJunkControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.lastJunkFmt))
         ruleAddedControl:SetText(ZO_DEFAULT_ENABLED_COLOR:Colorize(rowData.ruleAddedFmt))
         itemIconControl:SetDesaturation(0)
-        itemNameControl:SetText(rowData.itemLink)
+        itemNameControl:SetText(rowData.setName or rowData.itemLink)
     else
         junkCountControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(junkCountFmt))
         lastJunkControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.lastJunkFmt))
         ruleAddedControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(rowData.ruleAddedFmt))
         itemIconControl:SetDesaturation(1)
-        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.itemName)))
+        itemNameControl:SetText(ZO_DEFAULT_DISABLED_COLOR:Colorize(zo_strformat("<<t:1>>", rowData.setName or rowData.itemName)))
     end
 
     -- Setup the DELETE button per row
@@ -621,7 +652,11 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
     delButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
-        PA.Junk.removeItemFromPermanentJunk(rowControl.data.itemLink)
+        if rowControl.data.setName ~= nil then
+            PA.Junk.removeItemSetFromPermanentJunk(rowControl.data.itemLink)
+        else
+            PA.Junk.removeItemFromPermanentJunk(rowControl.data.itemLink)
+        end
     end)
 
     -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control
