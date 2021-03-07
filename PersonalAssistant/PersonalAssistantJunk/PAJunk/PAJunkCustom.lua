@@ -5,6 +5,45 @@ local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function _unmarkAllPAItemIdsFromJunk(paItemId)
+    PAJ.debugln("#_unmarkAllPAItemIdsFromJunk")
+    local customPAItems = {
+        [paItemId] = {}
+    }
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, false)
+    local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
+    PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+
+    for index = #backpackBagCache, 1, -1 do
+        local itemData = backpackBagCache[index]
+        local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
+        if isJunk then
+            SetItemIsJunk(itemData.bagId, itemData.slotIndex, false)
+            PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+        end
+    end
+end
+
+local function _markAllPAItemIdsAsJunk(paItemId)
+    PAJ.debugln("#_markAllPAItemIdsAsJunk")
+    local customPAItems = {
+        [paItemId] = {}
+    }
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, false)
+    local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
+    PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+
+    for index = #backpackBagCache, 1, -1 do
+        local itemData = backpackBagCache[index]
+        if CanItemBeMarkedAsJunk(itemData.bagId, itemData.slotIndex) then
+            SetItemIsJunk(itemData.bagId, itemData.slotIndex, true)
+            PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+        end
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function getNonStolenItemLink(itemLink)
     -- if itemLink is NOT stolen, directly return it
     if not IsItemLinkStolen(itemLink) then return itemLink end
@@ -15,9 +54,15 @@ local function getNonStolenItemLink(itemLink)
     return itemLinkMod
 end
 
-local function isItemPermanentJunk(itemLink)
+local function isItemLinkPermanentJunk(itemLink)
     local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
     local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
+    return PAHF.isKeyInTable(PAJCUstomPAItemIds, paItemId)
+end
+
+local function isItemPermanentJunk(bagId, slotIndex)
+    local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
+    local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
     return PAHF.isKeyInTable(PAJCUstomPAItemIds, paItemId)
 end
 
@@ -37,11 +82,8 @@ local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
             }
             PA.Junk.println(SI_PA_CHAT_JUNK_RULES_ADDED, localItemLink:gsub("%|H0", "|H1"))
 
-            -- Also directly mark the item as junk (if possible)
-            if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-                SetItemIsJunk(bagId, slotIndex, true)
-                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
-            end
+            -- loop though whole inventory to mark all matching items
+            _markAllPAItemIdsAsJunk(paItemId)
 
             -- refresh the list (if it was initialized)
             if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
@@ -62,6 +104,9 @@ local function removeItemFromPermanentJunk(itemLink)
             PAJCUstomPAItemIds[paItemId] = nil
             PAJ.println(SI_PA_CHAT_JUNK_RULES_DELETED, itemLink:gsub("%|H0", "|H1"))
 
+            -- loop though whole inventory to unmark all matching items
+            _unmarkAllPAItemIdsFromJunk(paItemId)
+
             -- refresh the list (if it was initialized)
             if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
         else
@@ -74,6 +119,7 @@ end
 -- Export
 PA.Junk = PA.Junk or {}
 PA.Junk.Custom = {
+    isItemLinkPermanentJunk = isItemLinkPermanentJunk,
     isItemPermanentJunk = isItemPermanentJunk,
     addItemToPermanentJunk = addItemToPermanentJunk,
     removeItemFromPermanentJunk = removeItemFromPermanentJunk

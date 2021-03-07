@@ -145,6 +145,9 @@ local PAJStrings = {
     SI_BINDING_NAME_PA_JUNK_PERMANENT_TOGGLE_ITEM = "Mark / Unmark as perm. Junk",
     SI_BINDING_NAME_PA_JUNK_DESTROY_ITEM = "Destroy Item",
 
+    SI_PA_ITEM_ACTION_MARK_AS_PERM_JUNK = "Mark as perm. Junk",
+    SI_PA_ITEM_ACTION_UNMARK_AS_PERM_JUNK = "Unmark as perm. Junk",
+
 
     -- =================================================================================================================
     -- == OTHER STRINGS == --
