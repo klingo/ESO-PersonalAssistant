@@ -220,10 +220,10 @@ local function toggleItemMarkedAsPermanentJunk()
             local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
             if PA.Junk.Custom.isItemLinkPermanentJunk(itemLink) then
                 -- delete the permanent junk rule
-                PA.Junk.Custom.removeItemFromPermanentJunk(itemLink)
+                PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
             else
                 -- create new permanent junk rule
-                PA.Junk.Custom.addItemToPermanentJunk(itemLink, _mouseOverBagId, _mouseOverSlotIndex)
+                PA.Junk.Custom.addItemLinkToPermanentJunk(itemLink)
                 -- if a junked item is marked as perm-junk, the keybind strip needs to be updated
                 _updateKeybindStripButtonNames()
                 KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)

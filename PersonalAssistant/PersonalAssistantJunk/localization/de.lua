@@ -67,10 +67,10 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W = "Im Gegensatz zu anderen Schmugglern behält Pirharri 35% des Profits für sich selbst",
 
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Tastenkürzel",
-    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Tastenkürzel \"Als Trödel de- / markieren\" aktivieren",
-    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW = "Tastenkürzel \"Als Trödel de- / markieren\" anzeigen",
-    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_ENABLE = "Tastenkürzel \"Perm. als Trödel de- / markieren\" aktivieren",
-    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_SHOW = "Tastenkürzel \"Perm. als Trödel de- / markieren\" anzeigen",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Tastenkürzel \"Als Trödel markieren\" aktivieren",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW = "Tastenkürzel \"Als Trödel markieren\" anzeigen",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_ENABLE = "Tastenkürzel \"Als perm. Trödel markieren\" aktivieren",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_SHOW = "Tastenkürzel \"Als perm. Trödel markieren\" anzeigen",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE = "Tastenkürzel \"Gegenstand zerstören\" aktivieren",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE_W = "ACHTUNG: Bitte beachte dass bei Verwendung von diesem Tastenkürzel KEINE Sicherheitsfrage kommt ob der Gegenstand wirklich zerstört werden soll.\nEr wird einfach direkt zerstört!\nUnwiderruflich!\nNutzung erfolgt auf eigenes Risiko!",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_SHOW = "Tastenkürzel \"Gegenstand zerstören\" anzeigen",
@@ -140,9 +140,14 @@ local PAJStrings = {
     -- =================================================================================================================
     -- == KEY BINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PAJunk --
-    SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Als Trödel de- / markieren",
+    -- Addon Keybindings menu --
+    SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Als Trödel markieren",
+    SI_BINDING_NAME_PA_JUNK_PERMANENT_TOGGLE_ITEM = "Als permanenten Trödel markieren",
     SI_BINDING_NAME_PA_JUNK_DESTROY_ITEM = "Gegenstand zerstören",
+
+    -- Actual keybindings --
+    SI_PA_ITEM_ACTION_MARK_AS_PERM_JUNK = "Als perm. Trödel markieren",
+    SI_PA_ITEM_ACTION_UNMARK_AS_PERM_JUNK = "Nicht mehr als perm. Trödel markieren",
 
 
     -- =================================================================================================================

@@ -140,9 +140,14 @@ local PAJStrings = {
     -- =================================================================================================================
     -- == KEY BINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- PAJunk --
+    -- Addon Keybindings menu --
     SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Пометка Хлам/Не хлам",
+    --SI_BINDING_NAME_PA_JUNK_PERMANENT_TOGGLE_ITEM = "",
     SI_BINDING_NAME_PA_JUNK_DESTROY_ITEM = "Уничтожить предмет",
+
+    -- Actual keybindings --
+    --SI_PA_ITEM_ACTION_MARK_AS_PERM_JUNK = "",
+    --SI_PA_ITEM_ACTION_UNMARK_AS_PERM_JUNK = "",
 
 
     -- =================================================================================================================

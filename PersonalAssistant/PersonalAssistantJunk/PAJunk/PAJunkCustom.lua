@@ -66,8 +66,8 @@ local function isItemPermanentJunk(bagId, slotIndex)
     return PAHF.isKeyInTable(PAJCUstomPAItemIds, paItemId)
 end
 
-local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
-    PAJ.debugln("PA.Junk.addItemToPermanentJunk")
+local function addItemLinkToPermanentJunk(itemLink)
+    PAJ.debugln("PA.Junk.addItemLinkToPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
         local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
@@ -93,8 +93,8 @@ local function addItemToPermanentJunk(itemLink, bagId, slotIndex)
     end
 end
 
-local function removeItemFromPermanentJunk(itemLink)
-    PAJ.debugln("PA.Junk.removeItemFromPermanentJunk")
+local function removeItemLinkFromPermanentJunk(itemLink)
+    PAJ.debugln("PA.Junk.removeItemLinkFromPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
         local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
@@ -121,6 +121,6 @@ PA.Junk = PA.Junk or {}
 PA.Junk.Custom = {
     isItemLinkPermanentJunk = isItemLinkPermanentJunk,
     isItemPermanentJunk = isItemPermanentJunk,
-    addItemToPermanentJunk = addItemToPermanentJunk,
-    removeItemFromPermanentJunk = removeItemFromPermanentJunk
+    addItemLinkToPermanentJunk = addItemLinkToPermanentJunk,
+    removeItemLinkFromPermanentJunk = removeItemLinkFromPermanentJunk
 }

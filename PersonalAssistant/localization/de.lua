@@ -207,8 +207,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_DISCLAIMER = "Anmerkung: Diese benutzerdefinierten Regeln werden erst berücksichtigt, wenn alle anderen automatischen Banking Regeln (Handwerks, Spezielle, und AvA Gegenstände) ausgeführt wurden.",
 
     SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Als permanenten Trödel markieren",
-    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Als permanenten Trödel demarkieren",
-    SI_PA_SUBMENU_PAJ_NO_RULES = "Noch keine Regeln für Trödel definiert",
+    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Nicht mehr als permanenten Trödel markieren",
+    SI_PA_SUBMENU_PAJ_NO_RULES = "Noch keine Regeln für permanenten Trödel definiert",
 
 
     -- =================================================================================================================
