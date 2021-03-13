@@ -1,5 +1,6 @@
 -- PersonalAssistant - Prepare all Global Tables
 PersonalAssistant = {}
+PersonalAssistant.ZO_SavedVars = {}
 PersonalAssistant.SavedVars = {}
 PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}

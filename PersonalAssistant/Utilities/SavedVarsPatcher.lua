@@ -553,9 +553,17 @@ end
 local function _applyPatch_2_5_10(savedVarsVersion, _, _, _, patchPAJ, _, _)
     if patchPAJ and PA.Junk then
         local PASavedVars = PA.SavedVars
+        local PAMenuDefaults = PA.MenuDefaults
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Junk[profileNo]) then
-                -- 1) Make sure Custom.SetIds is properly initialized!
+                -- 1) Make sure Miscellaneous.autoMarkGlyphQualityThreshold is numeric!
+                if not (tonumber(PASavedVars.Junk[profileNo].Miscellaneous.autoMarkGlyphQualityThreshold)) then
+                    PASavedVars.Junk[profileNo].Miscellaneous.autoMarkGlyphQualityThreshold = PAMenuDefaults.PAJunk.Miscellaneous.autoMarkGlyphQualityThreshold
+                end
+                -- 2) Make sure KeyBindings are properly updated!
+                PASavedVars.Junk[profileNo].KeyBindings.enableMarkUnmarkAsPermJunkKeybind = true
+                PASavedVars.Junk[profileNo].KeyBindings.showMarkUnmarkAsPermJunkKeybind = true
+                -- 3) Make sure Custom.SetIds is properly initialized!
                 if not istable(PASavedVars.Junk[profileNo].Custom.SetIds) then
                     PASavedVars.Junk[profileNo].Custom.SetIds = {}
                 end

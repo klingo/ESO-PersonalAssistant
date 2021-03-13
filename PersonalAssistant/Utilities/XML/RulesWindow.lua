@@ -655,7 +655,7 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
         if rowControl.data.setName ~= nil then
             PA.Junk.removeItemSetFromPermanentJunk(rowControl.data.itemLink)
         else
-            PA.Junk.removeItemFromPermanentJunk(rowControl.data.itemLink)
+            PA.Junk.Custom.removeItemLinkFromPermanentJunk(rowControl.data.itemLink)
         end
     end)
 

@@ -359,6 +359,13 @@ local PAJunkMenuFunctions = {
     getKeybindingMarkUnmarkAsJunkShownSetting = function() return getValue({"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
     setKeybindingMarkUnmarkAsJunkShownSetting = function(value) setValue(value, {"KeyBindings", "showMarkUnmarkAsJunkKeybind"}) end,
 
+    isKeybindingMarkUnmarkAsPermJunkDisabled = function() return isDisabled() end, -- currently always enabled
+    getKeybindingMarkUnmarkAsPermJunkSetting = function() return getValue({"KeyBindings", "enableMarkUnmarkAsPermJunkKeybind"}) end,
+    setKeybindingMarkUnmarkAsPermJunkSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "enableMarkUnmarkAsPermJunkKeybind"}) end,
+    isKeybindingMarkUnmarkAsPermJunkShownDisabled = function() return isDisabled({"KeyBindings", "enableMarkUnmarkAsPermJunkKeybind"}) end,
+    getKeybindingMarkUnmarkAsPermJunkShownSetting = function() return getValue({"KeyBindings", "showMarkUnmarkAsPermJunkKeybind"}) end,
+    setKeybindingMarkUnmarkAsPermJunkShownSetting = function(value) setValue(value, {"KeyBindings", "showMarkUnmarkAsPermJunkKeybind"}) end,
+
     isKeybindingDestroyItemDisabled = function() return isDisabled() end, -- currently always enabled
     getKeybindingDestroyItemSetting = function() return getValue({"KeyBindings", "enableDestroyItemKeybind"}) end,
     setKeybindingDestroyItemSetting = function(value) setValueAndRefreshEvents(value, {"KeyBindings", "enableDestroyItemKeybind"}) end,
