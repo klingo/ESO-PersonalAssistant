@@ -29,8 +29,8 @@ local function depositOrWithdrawCustomItems()
         end
 
         -- then get the matching data from the backpack and bank
-        local excludeJunk = PAB.SavedVars.excludeJunk
-        local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, true)
+        local excludeJunk, excludeCharacterBound = PAB.SavedVars.excludeJunk, true
+        local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound)
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, PAHF.getBankBags())
 

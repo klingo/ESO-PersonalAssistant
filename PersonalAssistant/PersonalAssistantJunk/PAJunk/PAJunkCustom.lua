@@ -10,7 +10,8 @@ local function _unmarkAllPAItemIdsFromJunk(paItemId)
     local customPAItems = {
         [paItemId] = {}
     }
-    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, false, false)
+    local excludeJunk, excludeCharacterBound = false, false
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound)
     local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
     PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
 
@@ -29,7 +30,8 @@ local function _markAllPAItemIdsAsJunk(paItemId)
     local customPAItems = {
         [paItemId] = {}
     }
-    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, true, false)
+    local excludeJunk, excludeCharacterBound = true, false
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound)
     local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
     PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
 
