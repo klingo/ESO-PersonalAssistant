@@ -621,7 +621,7 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     delButtonControl:SetHandler("OnMouseExit", onDeleteButtonMouseExit)
     delButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
-        PA.Junk.removeItemFromPermanentJunk(rowControl.data.itemLink)
+        PA.Junk.Custom.removeItemLinkFromPermanentJunk(rowControl.data.itemLink)
     end)
 
     -- the below two handlers only work if "PersonalAssistantBankingRuleListRowTemplate" is set to a <Button> control

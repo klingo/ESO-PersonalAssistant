@@ -814,6 +814,24 @@ local function _createPAJKeybindingsSubMenu()
     })
 
     PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_ENABLE),
+        getFunc = PAJMenuFunctions.getKeybindingMarkUnmarkAsPermJunkSetting,
+        setFunc = PAJMenuFunctions.setKeybindingMarkUnmarkAsPermJunkSetting,
+        disabled = PAJMenuFunctions.isKeybindingMarkUnmarkAsPermJunkDisabled,
+        default = PAJMenuDefaults.KeyBindings.showMarkUnmarkAsJunkKeybind,
+    })
+
+    PAJKeybindingsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_SHOW),
+        getFunc = PAJMenuFunctions.getKeybindingMarkUnmarkAsPermJunkShownSetting,
+        setFunc = PAJMenuFunctions.setKeybindingMarkUnmarkAsPermJunkShownSetting,
+        disabled = PAJMenuFunctions.isKeybindingMarkUnmarkAsPermJunkShownDisabled,
+        default = PAJMenuDefaults.KeyBindings.showMarkUnmarkAsPermJunkKeybind,
+    })
+
+    PAJKeybindingsSubMenu:insert({
         type = "divider",
         alpha = 0.2,
     })
