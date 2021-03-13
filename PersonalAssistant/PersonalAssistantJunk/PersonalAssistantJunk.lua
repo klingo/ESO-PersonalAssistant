@@ -9,7 +9,6 @@ local PAHF = PA.HelperFunctions
 
 -- Local constants --
 local AddonName = "PersonalAssistantJunk"
-local Junk_Defaults = {}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -25,18 +24,6 @@ local function debugln(text, ...)
     PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAJ, text, ...)
 end
 
--- init default values
-local function initDefaults()
-    local PASavedVars = PA.SavedVars
-    local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PAJunk
-    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
-        -- get default values from PAMenuDefaults
-        Junk_Defaults[1] = PAMenuDefaults.PAJunk
-        Junk_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    end
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -46,16 +33,13 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
-    -- initialize the default values
-    initDefaults()
-
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Junk.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAJ, PAC.COLORED_TEXTS_DEBUG.PAJ)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Junk_Defaults)
+    PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
 
     -- sync profiles between PAGeneral and PAJunk
     PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Junk, PA.MenuDefaults.PAJunk)
