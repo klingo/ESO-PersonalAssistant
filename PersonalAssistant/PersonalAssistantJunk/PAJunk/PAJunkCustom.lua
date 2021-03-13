@@ -6,11 +6,11 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _unmarkAllPAItemIdsFromJunk(paItemId)
-    PAJ.debugln("#_unmarkAllPAItemIdsFromJunk")
+    PAJ.debugln("#_unmarkAllPAItemIdsFromJunk(%s)", tostring(paItemId))
     local customPAItems = {
         [paItemId] = {}
     }
-    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, false)
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, false, false)
     local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
     PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
 
@@ -25,11 +25,11 @@ local function _unmarkAllPAItemIdsFromJunk(paItemId)
 end
 
 local function _markAllPAItemIdsAsJunk(paItemId)
-    PAJ.debugln("#_markAllPAItemIdsAsJunk")
+    PAJ.debugln("#_markAllPAItemIdsAsJunk(%s)", tostring(paItemId))
     local customPAItems = {
         [paItemId] = {}
     }
-    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, false)
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, true, false)
     local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
     PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
 

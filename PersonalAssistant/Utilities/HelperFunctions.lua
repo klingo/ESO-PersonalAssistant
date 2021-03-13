@@ -238,12 +238,13 @@ end
 
 ---@param paItemIdList table a list of paItemIds to be checked
 ---@param excludeJunk boolean whether junk items should be excluded
+---@param excludeCharacterBound boolean whether character bound items should be excluded
 ---@return fun(itemData: table) a comparator function that only returns item that match the paItemIdList and pass the junk-test
-local function getPAItemIdComparator(paItemIdList, excludeJunk)
+local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacterBound)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if _isItemCharacterBound(itemData) and excludeCharacterBound then return false end
         local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
