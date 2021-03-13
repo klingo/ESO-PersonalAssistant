@@ -1,5 +1,6 @@
 -- PersonalAssistant - Prepare all Global Tables
 PersonalAssistant = {}
+PersonalAssistant.ZO_SavedVars = {}
 PersonalAssistant.SavedVars = {}
 PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}
@@ -47,7 +48,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020509, -- update this every release!
+            MINOR = 020510, -- update this every release!
         },
     },
 
