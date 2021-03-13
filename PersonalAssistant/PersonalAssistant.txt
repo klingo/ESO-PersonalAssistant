@@ -25,6 +25,7 @@ localization/$(language).lua
 
 # Core-Utilities
 Utilities/HelperFunctions.lua
+Utilities/zo_savedvars.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
 

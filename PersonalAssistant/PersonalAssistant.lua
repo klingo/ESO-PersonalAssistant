@@ -102,6 +102,9 @@ local function initAddon(_, addOnName)
     -- init a default profile if none exist
     _initDefaultProfile(PASavedVars.General)
 
+    -- sync profiles between PAGeneral and PARepair
+    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.General, PA.MenuDefaults.PAGeneral)
+
     -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
     _fixActiveProfile()
 
