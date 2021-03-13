@@ -81,6 +81,10 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                 disabled = function() return not isRuleExisting end,
             },
             {
+                label = "-",
+                visible = function() return hasSet end,
+            },
+            {
                 label = GetString(SI_PA_SUBMENU_PAJ_MARK_SET_PERM_JUNK),
                 callback = function()
                     PA.Junk.addItemSetToPermanentJunk(itemLink, bagId, slotIndex)
