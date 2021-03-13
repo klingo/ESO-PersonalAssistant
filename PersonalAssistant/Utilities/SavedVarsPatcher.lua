@@ -530,7 +530,6 @@ local function _applyPatch_2_5_4(savedVarsVersion, _, patchPAB, _, _, _, _)
     end
 end
 
--- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 local function _applyPatch_2_5_5(savedVarsVersion, _, patchPAB, _, _, _, _)
     if patchPAB and PA.Banking then
         local PASavedVars = PA.SavedVars
@@ -547,6 +546,23 @@ local function _applyPatch_2_5_5(savedVarsVersion, _, patchPAB, _, _, _, _)
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+end
+
+-- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _applyPatch_2_5_10(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+    if patchPAJ and PA.Junk then
+        local PASavedVars = PA.SavedVars
+        local PAMenuDefaults = PA.MenuDefaults
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Junk[profileNo]) then
+                -- 1) Make sure Miscellaneous.autoMarkGlyphQualityThreshold is numeric!
+                if not (tonumber(PASavedVars.Junk[profileNo].Miscellaneous.autoMarkGlyphQualityThreshold)) then
+                    PASavedVars.Junk[profileNo].Miscellaneous.autoMarkGlyphQualityThreshold = PAMenuDefaults.PAJunk.Miscellaneous.autoMarkGlyphQualityThreshold
+                end
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
     end
 end
 
@@ -612,6 +628,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.5.5      October 31, 2020
     _applyPatch_2_5_5(_getIsPatchNeededInfo(020505))
+
+    -- Patch 2.5.10      tbd
+    _applyPatch_2_5_10(_getIsPatchNeededInfo(020510))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
