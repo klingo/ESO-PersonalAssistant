@@ -87,7 +87,6 @@
                     <Anchor point="LEFT" relativeTo="$(parent)ItemIcon" relativePoint="RIGHT" offsetX="5" />
                     <Dimensions x="320" y="36" />
                     <OnLinkMouseUp>
-                        _G["patest"] = self
                         if self.setName == nil then
                             ZO_LinkHandler_OnLinkMouseUp(linkText, button, self)
                         end
