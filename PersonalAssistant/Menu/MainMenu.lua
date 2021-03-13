@@ -59,18 +59,16 @@ local function createPAGeneralMenu()
             warning = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W),
         })
 
-        if GetAPIVersion() >= 100034 then
-            PAGeneralOptionsTable:insert({
-                 type = "checkbox",
-                 name = GetString(SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE),
-                 tooltip = GetString(SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T),
-                 width = "half",
-                 getFunc = PAGMenuFunctions.getJumpOutsideSetting,
-                 setFunc = PAGMenuFunctions.setJumpOutsideSetting,
-                 disabled = PAGMenuFunctions.isTeleportToPrimaryHouseDisabled,
-                 default = PAGMenuDefaults.jumpOutside,
-            })
-        end
+        PAGeneralOptionsTable:insert({
+             type = "checkbox",
+             name = GetString(SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE),
+             tooltip = GetString(SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T),
+             width = "half",
+             getFunc = PAGMenuFunctions.getJumpOutsideSetting,
+             setFunc = PAGMenuFunctions.setJumpOutsideSetting,
+             disabled = PAGMenuFunctions.isTeleportToPrimaryHouseDisabled,
+             default = PAGMenuDefaults.jumpOutside,
+        })
     end
 
     PAGeneralOptionsTable:insert({
