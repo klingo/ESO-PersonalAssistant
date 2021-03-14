@@ -808,21 +808,22 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 if PAJunkSavedVars.Custom.customItemsEnabled then
                     -- check if item has not already been marked
                     if _marked == false then
+                        PAJ.debugln("OnInventorySingleSlotUpdate - Not junked yet, check custom rules")
                         local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
                         if PAHF.isKeyInTable(PAJunkSavedVars.Custom.PAItemIds, paItemId) then
                             local hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT, itemLink)
                             if hasBeenMarked then
                                 PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount = PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount + stackCountChange
                                 PAJunkSavedVars.Custom.PAItemIds[paItemId].lastJunk = GetTimeStamp()
-                            else
-                                -- check for custom Set rules
-                                local hasSet, setName, _, _, _, setId = GetItemLinkSetInfo(itemLink, false)
-                                if hasSet and PAHF.isKeyInTable(PAJ.SavedVars.Custom.SetIds, setId) then
-                                    hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT_SET, itemLink)
-                                    if hasBeenMarked then
-                                        PAJunkSavedVars.Custom.SetIds[setId].junkCount = PAJunkSavedVars.Custom.SetIds[setId].junkCount + stackCountChange
-                                        PAJunkSavedVars.Custom.SetIds[setId].lastJunk = GetTimeStamp()
-                                    end
+                            end
+                        else
+                            -- check for custom Set rules
+                            local hasSet, setName, _, _, _, setId = GetItemLinkSetInfo(itemLink, false)
+                            if hasSet and PAHF.isKeyInTable(PAJ.SavedVars.Custom.SetIds, setId) then
+                                local hasBeenMarked = _markAsJunkIfPossible(bagId, slotIndex, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT_SET, itemLink)
+                                if hasBeenMarked then
+                                    PAJunkSavedVars.Custom.SetIds[setId].junkCount = PAJunkSavedVars.Custom.SetIds[setId].junkCount + stackCountChange
+                                    PAJunkSavedVars.Custom.SetIds[setId].lastJunk = GetTimeStamp()
                                 end
                             end
                         end

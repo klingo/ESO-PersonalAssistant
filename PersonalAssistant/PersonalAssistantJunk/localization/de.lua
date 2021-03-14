@@ -136,6 +136,9 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_RULES_ADDED = table.concat({"%s zur Liste permanenten Trödels ", PAC.COLOR.ORANGE:Colorize("hinzugefügt"), "!"}),
     SI_PA_CHAT_JUNK_RULES_DELETED = table.concat({"%s von der Liste permanenten Trödels ", PAC.COLOR.ORANGE:Colorize("entfernt"), "!"}),
 
+    --SI_PA_CHAT_JUNK_SET_RULES_ADDED = "",
+    --SI_PA_CHAT_JUNK_SET_RULES_DELETED = "",
+
 
     -- =================================================================================================================
     -- == KEY BINDINGS == --

@@ -71,12 +71,12 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
                 callback = function()
                     PA.Junk.Custom.addItemLinkToPermanentJunk(itemLink)
                 end,
-                disabled = function() return not canBeMarkedAsJunk or isRuleExisting end,
+                disabled = function() return not canBeMarkedAsJunk or isRuleExisting or isSetRuleExisting end,
             },
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
                 callback = function()
-                    PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink, bagId, slotIndex)
+                    PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
                 end,
                 disabled = function() return not isRuleExisting end,
             },
@@ -87,7 +87,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_MARK_SET_PERM_JUNK),
                 callback = function()
-                    PA.Junk.addItemSetToPermanentJunk(itemLink, bagId, slotIndex)
+                    PA.Junk.Custom.addItemSetToPermanentJunk(itemLink)
                 end,
                 visible = function() return hasSet end,
                 disabled = function() return not canBeMarkedAsJunk or isSetRuleExisting end,
@@ -95,7 +95,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_SET_PERM_JUNK),
                 callback = function()
-                    PA.Junk.removeItemSetFromPermanentJunk(itemLink)
+                    PA.Junk.Custom.removeItemSetFromPermanentJunk(itemLink)
                 end,
                 visible = function() return hasSet end,
                 disabled = function() return not isSetRuleExisting end,

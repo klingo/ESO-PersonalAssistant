@@ -53,6 +53,7 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertBreak()
 
     -- Active profile
+    debugEditControl:InsertLine("PA.SavedVars.General.profileCounter="..tostring(PA.SavedVars.General.profileCounter))
     debugEditControl:InsertLine("PA.activeProfile="..tostring(PA.activeProfile))
     debugEditControl:InsertLine("PAHF.hasActiveProfile="..tostring(PAHF.hasActiveProfile()))
 

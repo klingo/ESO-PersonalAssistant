@@ -44,6 +44,39 @@ local function _markAllPAItemIdsAsJunk(paItemId)
     end
 end
 
+local function _unmarkAllSetItemIdsFromJunk(setId)
+    PAJ.debugln("#_unmarkAllSetItemIdsFromJunk(%s)", tostring(setId))
+    local excludeJunk = false
+    local setIdComparator = PAHF.getSetIdComparator(setId, excludeJunk)
+    local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(setIdComparator, BAG_BACKPACK)
+    PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+
+    for index = #backpackBagCache, 1, -1 do
+        local itemData = backpackBagCache[index]
+        local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
+        if isJunk then
+            SetItemIsJunk(itemData.bagId, itemData.slotIndex, false)
+            PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+        end
+    end
+end
+
+local function _markAllSetItemIdsAsJunk(setId)
+    PAJ.debugln("#_markAllSetItemIdsAsJunk(%s)", tostring(setId))
+    local excludeJunk = true
+    local setIdComparator = PAHF.getSetIdComparator(setId, excludeJunk)
+    local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(setIdComparator, BAG_BACKPACK)
+    PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+
+    for index = #backpackBagCache, 1, -1 do
+        local itemData = backpackBagCache[index]
+        if CanItemBeMarkedAsJunk(itemData.bagId, itemData.slotIndex) then
+            SetItemIsJunk(itemData.bagId, itemData.slotIndex, true)
+            PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+        end
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function getNonStolenItemLink(itemLink)
@@ -66,6 +99,13 @@ local function isItemPermanentJunk(bagId, slotIndex)
     local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
     local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
     return PAHF.isKeyInTable(PAJCUstomPAItemIds, paItemId)
+end
+
+local function isSetItemPermanentJunk(bagId, slotIndex)
+    local PAJCustomSetIds = PAJ.SavedVars.Custom.SetIds
+    local itemLink = GetItemLink(bagId, slotIndex)
+    local hasSet, _, _, _, _, setId = GetItemLinkSetInfo(itemLink, false)
+    return hasSet and PAHF.isKeyInTable(PAJCustomSetIds, setId)
 end
 
 local function addItemLinkToPermanentJunk(itemLink)
@@ -95,7 +135,7 @@ local function addItemLinkToPermanentJunk(itemLink)
     end
 end
 
-local function removeItemLinkFromPermanentJunk(itemLink, bagId, slotIndex)
+local function removeItemLinkFromPermanentJunk(itemLink)
     PAJ.debugln("PA.Junk.removeItemLinkFromPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
@@ -118,7 +158,7 @@ local function removeItemLinkFromPermanentJunk(itemLink, bagId, slotIndex)
     end
 end
 
-local function addItemSetToPermanentJunk(itemLink, bagId, slotIndex)
+local function addItemSetToPermanentJunk(itemLink)
     PAJ.debugln("PA.Junk.addItemSetToPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
@@ -135,11 +175,8 @@ local function addItemSetToPermanentJunk(itemLink, bagId, slotIndex)
             }
             PA.Junk.println(SI_PA_CHAT_JUNK_SET_RULES_ADDED, setName)
 
-            -- Also directly mark the item as junk (if possible)
-            if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-                SetItemIsJunk(bagId, slotIndex, true)
-                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
-            end
+            -- loop though whole inventory to mark all matching items
+            _markAllSetItemIdsAsJunk(setId)
 
             -- refresh the list (if it was initialized)
             if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
@@ -158,7 +195,11 @@ local function removeItemSetFromPermanentJunk(itemLink)
         if hasSet and PAHF.isKeyInTable(PAJCustomSetIds, setId) then
             -- is in table, delete rule
             PAJCustomSetIds[setId] = nil
+            -- inform player
             PAJ.println(SI_PA_CHAT_JUNK_SET_RULES_DELETED, setName)
+
+            -- loop though whole inventory to unmark all matching set items
+            _unmarkAllSetItemIdsFromJunk(setId)
 
             -- refresh the list (if it was initialized)
             if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
@@ -175,6 +216,7 @@ PA.Junk = PA.Junk or {}
 PA.Junk.Custom = {
     isItemLinkPermanentJunk = isItemLinkPermanentJunk,
     isItemPermanentJunk = isItemPermanentJunk,
+    isSetItemPermanentJunk = isSetItemPermanentJunk,
     addItemLinkToPermanentJunk = addItemLinkToPermanentJunk,
     removeItemLinkFromPermanentJunk = removeItemLinkFromPermanentJunk,
     addItemSetToPermanentJunk = addItemSetToPermanentJunk,

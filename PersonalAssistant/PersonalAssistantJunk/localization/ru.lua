@@ -136,6 +136,9 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_RULES_ADDED = table.concat({"Предмет %s был ", PAC.COLOR.ORANGE:Colorize("добавлен"), " в настраиваемый список хлама!"}),
     SI_PA_CHAT_JUNK_RULES_DELETED = table.concat({"Предмет %s был ", PAC.COLOR.ORANGE:Colorize("удален"), " из настраиваемого списка хлама!"}),
 
+    --SI_PA_CHAT_JUNK_SET_RULES_ADDED = "",
+    --SI_PA_CHAT_JUNK_SET_RULES_DELETED = "",
+
 
     -- =================================================================================================================
     -- == KEY BINDINGS == --

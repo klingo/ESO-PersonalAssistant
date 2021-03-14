@@ -137,8 +137,8 @@ local PAJStrings = {
     SI_PA_CHAT_JUNK_RULES_ADDED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
     SI_PA_CHAT_JUNK_RULES_DELETED = table.concat({"%s was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),
 
-    SI_PA_CHAT_JUNK_SET_RULES_ADDED = table.concat({"Set '%s' was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
-    SI_PA_CHAT_JUNK_SET_RULES_DELETED = table.concat({"Set '%s' was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),
+    SI_PA_CHAT_JUNK_SET_RULES_ADDED = table.concat({"Set '", PAC.COLOR.WHITE:Colorize("%s"),"' was ", PAC.COLOR.ORANGE:Colorize("added"), " to permanent junk list!"}),
+    SI_PA_CHAT_JUNK_SET_RULES_DELETED = table.concat({"Set '", PAC.COLOR.WHITE:Colorize("%s"),"' was ", PAC.COLOR.ORANGE:Colorize("removed"), " from permanent junk list!"}),
 
 
     -- =================================================================================================================

@@ -265,6 +265,16 @@ local function getStolenJunkComparator()
     end
 end
 
+local function getSetIdComparator(expectedSetId, excludeJunk)
+    return function(itemData)
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
+        local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
+        local hasSet, _, _, _, _, setId = GetItemLinkSetInfo(itemLink, false)
+        return hasSet and setId == expectedSetId
+    end
+end
+
 
 -- =================================================================================================================
 -- == PLAYER STATES == --
@@ -556,6 +566,7 @@ PA.HelperFunctions = {
     getItemIdComparator = getItemIdComparator,
     getPAItemIdComparator = getPAItemIdComparator,
     getStolenJunkComparator = getStolenJunkComparator,
+    getSetIdComparator = getSetIdComparator,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBankBags = getBankBags,

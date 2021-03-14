@@ -653,7 +653,7 @@ function PAJunkRulesList:SetupRuleRow(rowControl, rowData)
     delButtonControl:SetHandler("OnMouseDown", function(self)
         ZO_Tooltips_HideTextTooltip()
         if rowControl.data.setName ~= nil then
-            PA.Junk.removeItemSetFromPermanentJunk(rowControl.data.itemLink)
+            PA.Junk.Custom.removeItemSetFromPermanentJunk(rowControl.data.itemLink)
         else
             PA.Junk.Custom.removeItemLinkFromPermanentJunk(rowControl.data.itemLink)
         end
