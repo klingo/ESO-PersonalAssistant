@@ -632,7 +632,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.5.5      October 31, 2020
     _applyPatch_2_5_5(_getIsPatchNeededInfo(020505))
 
-    -- Patch 2.5.10     tbd
+    -- Patch 2.5.10     March 18, 2021
     _applyPatch_2_5_10(_getIsPatchNeededInfo(020510))
 end
 

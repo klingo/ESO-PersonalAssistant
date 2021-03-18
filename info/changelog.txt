@@ -1,3 +1,9 @@
+2.5.10 (March 18, 2021)
+- added ney keybinding to mark items as permanent junk ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/324"]#324[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/326"]#326[/URL])
+- removed some old code from pre-100034 APIVersion ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/323"]#323[/URL])
+- fixed an issue where new settings weren't properly initialized ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/325"]#325[/URL])
+- fixed aan issue related to the 'autoMarkGlyphQualityThreshold' setting ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/322"]#322[/URL])
+
 2.5.9 (March 06, 2021)
 - added support for 'Flames of Ambition' (APIVersion 100034) ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/317"]#317[/URL])
 - updated Russian translations from Nesferatum to 2.5.8 ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/315"]#315[/URL])
