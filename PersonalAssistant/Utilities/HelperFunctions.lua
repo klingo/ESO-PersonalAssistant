@@ -461,33 +461,6 @@ local function getDefaultProfileName(profileNo)
     return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
 end
 
---- sync the LOCAL profiles with the ones from GLOBAL
----@param localSavedVars table the savedVars table of the local profile
----@param localDefaults table the table with the defaults for the savedVars table
----@return void
-local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
-    local PASavedVars = PA.SavedVars
-    -- check if there even is a profile yet
-    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
-        -- initialize the first profile
-        PA.ZO_SavedVars.CopyDefaults(localSavedVars[1], localDefaults)
-        -- and set the savedVarsVersion
-        localSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
-    else
-        -- at least one profile is existing, check with others
-        for profileNo = 1, PASavedVars.General.profileCounter do
-            if istable(PASavedVars.General[profileNo]) then
-                -- GLOBAL has a profile, either initialize local profile, or sync it with defaults
-                if localSavedVars[profileNo] == nil then localSavedVars[profileNo] = {} end
-                PA.ZO_SavedVars.CopyDefaults(localSavedVars[profileNo], localDefaults)
-            elseif istable(localSavedVars[profileNo]) then
-                -- LOCAL has a profile, but GLOBAL does not - delete it!
-                localSavedVars[profileNo] = nil
-            end
-        end
-    end
-end
-
 --- Source: https://wiki.esoui.com/IsAddonRunning
 ---@param addonName string name of the addon
 ---@return boolean whether the addon is running
@@ -568,7 +541,6 @@ PA.HelperFunctions = {
     debugln = debugln,
     debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
-    syncLocalProfilesWithGlobal = syncLocalProfilesWithGlobal,
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,

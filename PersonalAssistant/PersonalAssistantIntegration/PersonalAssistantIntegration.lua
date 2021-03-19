@@ -41,9 +41,6 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION)
 
-    -- sync profiles between PAGeneral and PAIntegration
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Integration, PA.MenuDefaults.PAIntegration)
-
     -- create the options with LAM-2
     PA.Integration.createOptions()
 end

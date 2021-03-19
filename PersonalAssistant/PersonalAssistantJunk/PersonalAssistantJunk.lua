@@ -41,9 +41,6 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
 
-    -- sync profiles between PAGeneral and PAJunk
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Junk, PA.MenuDefaults.PAJunk)
-
     -- create the options with LAM-2
     PA.Junk.createOptions()
 

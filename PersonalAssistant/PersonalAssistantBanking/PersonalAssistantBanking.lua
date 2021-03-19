@@ -41,9 +41,6 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     PA.SavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING)
 
-    -- sync profiles between PAGeneral and PABanking
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Banking, PA.MenuDefaults.PABanking)
-
     -- create the options with LAM-2
     PA.Banking.createOptions()
 
