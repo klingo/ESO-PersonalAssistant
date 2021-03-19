@@ -9,6 +9,9 @@ local PAHF = PA.HelperFunctions
 
 -- Local constants --
 local AddonName = "PersonalAssistantRepair"
+local Profile_Defaults = {
+    activeProfile = 1
+}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +42,9 @@ local function initAddon(_, addOnName)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR)
+    PASavedVars.RepairProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantRepair_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.REPAIR, nil, Profile_Defaults)
 
     -- create the options with LAM-2
     PA.Repair.createOptions()

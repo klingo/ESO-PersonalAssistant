@@ -9,6 +9,9 @@ local PAHF = PA.HelperFunctions
 
 -- Local constants --
 local AddonName = "PersonalAssistantJunk"
+local Profile_Defaults = {
+    activeProfile = 1
+}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +42,9 @@ local function initAddon(_, addOnName)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
+    PASavedVars.JunkProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantJunk_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Profile_Defaults)
 
     -- create the options with LAM-2
     PA.Junk.createOptions()

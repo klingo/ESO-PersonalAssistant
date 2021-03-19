@@ -9,6 +9,9 @@ local PAHF = PA.HelperFunctions
 
 -- Local constants --
 local AddonName = "PersonalAssistantLoot"
+local Profile_Defaults = {
+    activeProfile = 1
+}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +42,9 @@ local function initAddon(_, addOnName)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT)
+    PASavedVars.LootProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantLoot_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.LOOT, nil, Profile_Defaults)
 
     -- create the options with LAM-2
     PA.Loot.createOptions()

@@ -9,6 +9,9 @@ local PAHF = PA.HelperFunctions
 
 -- Local constants --
 local AddonName = "PersonalAssistantBanking"
+local Profile_Defaults = {
+    activeProfile = 1
+}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +42,9 @@ local function initAddon(_, addOnName)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING)
+    PASavedVars.BankingProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantBanking_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.BANKING, nil, Profile_Defaults)
 
     -- create the options with LAM-2
     PA.Banking.createOptions()

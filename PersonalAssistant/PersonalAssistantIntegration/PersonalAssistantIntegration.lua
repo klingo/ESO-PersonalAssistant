@@ -9,6 +9,9 @@ local PAHF = PA.HelperFunctions
 
 -- Local constants --
 local AddonName = "PersonalAssistantIntegration"
+local Profile_Defaults = {
+    activeProfile = 1
+}
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +42,9 @@ local function initAddon(_, addOnName)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION)
+    PASavedVars.IntegrationProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantIntegration_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.INTEGRATION, nil, Profile_Defaults)
 
     -- create the options with LAM-2
     PA.Integration.createOptions()
