@@ -65,14 +65,14 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
                 callback = function()
-                    PA.Junk.addItemToPermanentJunk(itemLink, bagId, slotIndex)
+                    PA.Junk.Custom.addItemLinkToPermanentJunk(itemLink)
                 end,
                 disabled = function() return not canBeMarkedAsJunk or isRuleExisting end,
             },
             {
                 label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
                 callback = function()
-                    PA.Junk.removeItemFromPermanentJunk(itemLink)
+                    PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
                 end,
                 disabled = function() return not isRuleExisting end,
             }

@@ -58,6 +58,17 @@ local function createPAGeneralMenu()
             isDangerous = true,
             warning = GetString(SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W),
         })
+
+        PAGeneralOptionsTable:insert({
+             type = "checkbox",
+             name = GetString(SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE),
+             tooltip = GetString(SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T),
+             width = "half",
+             getFunc = PAGMenuFunctions.getJumpOutsideSetting,
+             setFunc = PAGMenuFunctions.setJumpOutsideSetting,
+             disabled = PAGMenuFunctions.isTeleportToPrimaryHouseDisabled,
+             default = PAGMenuDefaults.jumpOutside,
+        })
     end
 
     PAGeneralOptionsTable:insert({
@@ -210,12 +221,6 @@ end
 -- =================================================================================================================
 
 local function createOptions()
-    -- first check for the latest version of the LAM2-submenu widget that is needed for disabledLabel
-    local lamSubmenuVersion = PA.LAM2.widgets.submenu or 0
-    if lamSubmenuVersion < 13 then
-        zo_callLater(function() PA.println(SI_PA_LAM_OUTDATED) end, 5000)
-    end
-
     -- Create and register the General Menu
     createPAGeneralMenu()
     PA.LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)

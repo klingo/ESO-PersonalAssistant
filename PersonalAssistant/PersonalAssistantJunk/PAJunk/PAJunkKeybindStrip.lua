@@ -10,6 +10,10 @@ local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJu
 local function _isMarkUnmarkAsJunkVisible()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsJunkKeybind then
+        -- also return false when item is already marked as perm junk
+        if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
+            return false
+        end
         return _mouseOverBagId and _mouseOverSlotIndex
     end
     return false
@@ -18,6 +22,26 @@ end
 local function _isMarkUnmarkAsJunkEnabled()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind then
+        -- also return false when item is already marked as perm junk
+        if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
+            return false
+        end
+        return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+    end
+    return false
+end
+
+local function _isMarkUnmarkAsPermJunkVisible()
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsPermJunkKeybind then
+        return _mouseOverBagId and _mouseOverSlotIndex
+    end
+    return false
+end
+
+local function _isMarkUnmarkAsPermJunkEnabled()
+    local PAJSV = PA.Junk.SavedVars
+    if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
         return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
     end
     return false
@@ -77,6 +101,13 @@ local PAJunkButtonGroup = {
         enabled = function() return _isMarkUnmarkAsJunkEnabled() end,
     },
     {
+        name = "PAJunk_MarkUnmarkAsPermJunk",
+        keybind = "PA_JUNK_PERMANENT_TOGGLE_ITEM",
+        callback = function() end, -- only called when directly clicked on keybind strip
+        visible = function() return _isMarkUnmarkAsPermJunkVisible() end,
+        enabled = function() return _isMarkUnmarkAsPermJunkEnabled() end,
+    },
+    {
         name = GetString(SI_ITEM_ACTION_DESTROY),
         keybind = "PA_JUNK_DESTROY_ITEM",
         callback = function() end, -- only called when directly clicked on keybind strip
@@ -95,10 +126,21 @@ local function _isBagIdInScope(bagId)
 end
 
 local function _updateKeybindStripButtonNames()
-    if _mouseOverIsJunk then
-        PAJunkButtonGroup[1].name = GetString(SI_ITEM_ACTION_UNMARK_AS_JUNK)
+    -- check if item is permanent junk
+    if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
+        -- YES, only show "unmark as perm. junk"
+        PAJunkButtonGroup[2].name = GetString(SI_PA_ITEM_ACTION_UNMARK_AS_PERM_JUNK)
     else
-        PAJunkButtonGroup[1].name = GetString(SI_ITEM_ACTION_MARK_AS_JUNK)
+        -- check if item is already marked as junk (and not marked as perm junk)
+        if _mouseOverIsJunk then
+            -- YES; show "unmark as junk" and "mark as perm. junk"
+            PAJunkButtonGroup[1].name = GetString(SI_ITEM_ACTION_UNMARK_AS_JUNK)
+            PAJunkButtonGroup[2].name = GetString(SI_PA_ITEM_ACTION_MARK_AS_PERM_JUNK)
+        else
+            -- YES; show "mark as junk" and "mark as perm. junk"
+            PAJunkButtonGroup[1].name = GetString(SI_ITEM_ACTION_MARK_AS_JUNK)
+            PAJunkButtonGroup[2].name = GetString(SI_PA_ITEM_ACTION_MARK_AS_PERM_JUNK)
+        end
     end
 end
 
@@ -152,6 +194,8 @@ end
 local function toggleItemMarkedAsJunk()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsJunkKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
+            -- if item is already marked as permanent junk; skip function
+            if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then return end
             -- get item information
             local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
             local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
@@ -163,6 +207,26 @@ local function toggleItemMarkedAsJunk()
                 PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
             else
                 PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+            end
+        end
+    end
+end
+
+local function toggleItemMarkedAsPermanentJunk()
+    if PA.Junk.SavedVars and PAJ.SavedVars.Custom.customItemsEnabled and
+            PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
+        if _mouseOverBagId and _mouseOverSlotIndex then
+            -- get item information
+            local itemLinkPlain = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
+            if PA.Junk.Custom.isItemLinkPermanentJunk(itemLinkPlain) then
+                -- delete the permanent junk rule
+                PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLinkPlain)
+            else
+                -- create new permanent junk rule
+                PA.Junk.Custom.addItemLinkToPermanentJunk(itemLinkPlain)
+                -- if a junked item is marked as perm-junk, the keybind strip needs to be updated
+                _updateKeybindStripButtonNames()
+                KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
             end
         end
     end
@@ -192,5 +256,6 @@ PA.Junk = PA.Junk or {}
 PA.Junk.KeybindStrip = {
     initHooksOnInventoryItems = initHooksOnInventoryItems,
     toggleItemMarkedAsJunk = toggleItemMarkedAsJunk,
+    toggleItemMarkedAsPermanentJunk = toggleItemMarkedAsPermanentJunk,
     destroyItemNoWarning = destroyItemNoWarning
 }

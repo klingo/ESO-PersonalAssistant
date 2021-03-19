@@ -238,12 +238,13 @@ end
 
 ---@param paItemIdList table a list of paItemIds to be checked
 ---@param excludeJunk boolean whether junk items should be excluded
+---@param excludeCharacterBound boolean whether character bound items should be excluded
 ---@return fun(itemData: table) a comparator function that only returns item that match the paItemIdList and pass the junk-test
-local function getPAItemIdComparator(paItemIdList, excludeJunk)
+local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacterBound)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if _isItemCharacterBound(itemData) and excludeCharacterBound then return false end
         local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
@@ -466,14 +467,23 @@ end
 ---@return void
 local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
     local PASavedVars = PA.SavedVars
-    for profileNo = 1, PASavedVars.General.profileCounter do
-        if istable(PASavedVars.General[profileNo]) and not istable(localSavedVars[profileNo]) then
-            -- GLOBAL has a profile, but LOCAL does not - create it!
-            localSavedVars[profileNo] = {}
-            ZO_DeepTableCopy(localDefaults, localSavedVars[profileNo])
-        elseif istable(localSavedVars[profileNo]) and not istable(PASavedVars.General[profileNo]) then
-            -- LOCAL has a profile, but GLOBAL does not - delete it!
-            localSavedVars[profileNo] = nil
+    -- check if there even is a profile yet
+    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
+        -- initialize the first profile
+        PA.ZO_SavedVars.CopyDefaults(localSavedVars[1], localDefaults)
+        -- and set the savedVarsVersion
+        localSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
+    else
+        -- at least one profile is existing, check with others
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.General[profileNo]) then
+                -- GLOBAL has a profile, either initialize local profile, or sync it with defaults
+                if localSavedVars[profileNo] == nil then localSavedVars[profileNo] = {} end
+                PA.ZO_SavedVars.CopyDefaults(localSavedVars[profileNo], localDefaults)
+            elseif istable(localSavedVars[profileNo]) then
+                -- LOCAL has a profile, but GLOBAL does not - delete it!
+                localSavedVars[profileNo] = nil
+            end
         end
     end
 end
