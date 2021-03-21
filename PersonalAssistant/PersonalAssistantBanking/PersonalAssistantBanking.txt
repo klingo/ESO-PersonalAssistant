@@ -16,8 +16,8 @@
 localization/en.lua
 localization/$(language).lua
 
-# Core
-PersonalAssistantBanking.lua
+# Profiles
+Profiles/PABankingProfileManager.lua
 
 # PABanking
 PABanking/PABankingCommon.lua
@@ -33,6 +33,9 @@ PABanking/PABankingKeybindStrip.lua
 Menu/PABankingMenuDefaults.lua
 Menu/PABankingMenuFunctions.lua
 Menu/PABankingMenu.lua
+
+# Core
+PersonalAssistantBanking.lua
 
 # Custom XML UI Dialogs
 XML/PABankingAddCustomRuleUIDialog.xml

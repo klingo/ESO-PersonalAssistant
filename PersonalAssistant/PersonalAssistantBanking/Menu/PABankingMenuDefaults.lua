@@ -5,6 +5,9 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PABankingMenuDefaults = {
+    name = nil,
+
+    -- ---------------------------------------------
     Currencies = {
         currenciesEnabled = true,
 

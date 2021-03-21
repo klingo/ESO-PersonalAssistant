@@ -31,7 +31,7 @@ Utilities/zo_savedvars.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
 
-# Profile Manager
+# Profiles
 PersonalAssistantGeneral/Profiles/PAGeneralProfileManager.lua
 
 # Debug Window

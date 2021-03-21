@@ -102,7 +102,8 @@ local function _getSlotTypeName(slotType)
 end
 
 local function initHooksOnInventoryContextMenu(LCM)
-    if PAHF.hasActiveProfile() then
+    local PAProfileManager = PA.ProfileManager
+    if PAProfileManager.PABanking.hasActiveProfile() or PAProfileManager.PAJunk.hasActiveProfile() then
         if not _hooksOnInventoryContextMenuInitialized and (PA.Banking or PA.Junk) then
             _hooksOnInventoryContextMenuInitialized = true
             LCM:RegisterContextMenu(function(inventorySlot, slotActions)

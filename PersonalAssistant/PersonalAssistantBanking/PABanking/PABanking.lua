@@ -1,7 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAB = PA.Banking
-local PAHF = PA.HelperFunctions
+local PABProfileManager = PA.ProfileManager.PABanking
 local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ end
 local function OnBankOpen(eventCode, bankBag)
     -- immediately stop if not the actual BANK bag is opened (i.e. HOUSE_BANK)
     if IsHouseBankBag(bankBag) then return
-    elseif PAHF.hasActiveProfile() then
+    elseif PABProfileManager.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isBankClosed = false
 

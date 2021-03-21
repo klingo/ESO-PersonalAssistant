@@ -1,17 +1,16 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PABProfileManager = PA.ProfileManager.PABanking
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantBanking"
-local Profile_Defaults = {
-    activeProfile = 1
-}
+PA.Banking.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Banking.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +43,23 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     PASavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING)
-    PASavedVars.BankingProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantBanking_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.BANKING, nil, Profile_Defaults)
+
+    -- init a default profile if none exist
+    PABProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PABProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PABProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PABanking()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PABanking()
+    end
 
     -- create the options with LAM-2
     PA.Banking.createOptions()
@@ -56,10 +71,7 @@ end
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
 -- ---------------------------------------------------------------------------------------------------------------------
-
 -- Export
-PA.Banking = {
-    AddonName = AddonName,
-    println = println,
-    debugln = debugln
-}
+PA.Banking.AddonName = AddonName
+PA.Banking.println = println
+PA.Banking.debugln = debugln

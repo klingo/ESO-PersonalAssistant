@@ -3,11 +3,10 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
-local PAMenuHelper = PA.MenuHelper
-local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
 local PABMenuChoices = PA.MenuChoices.choices.PABanking
 local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 local PABMenuChoiceTooltip = PA.MenuChoices.choicesTooltips.PABanking
+local PABProfileManager = PA.ProfileManager.PABanking
 local PABMenuDefaults = PA.MenuDefaults.PABanking
 local PABMenuFunctions = PA.MenuFunctions.PABanking
 
@@ -29,6 +28,7 @@ local PABankingPanelData = {
 }
 
 local PABankingOptionsTable = setmetatable({}, { __index = table })
+local PABankingProfileSubMenuTable = setmetatable({}, { __index = table })
 
 local PABCurrencyGoldSubmenuTable = setmetatable({}, { __index = table })
 local PABCurrencyAlliancePointsSubmenuTable = setmetatable({}, { __index = table })
@@ -71,6 +71,12 @@ local PABAvAOtherSubmenuTable = setmetatable({}, { __index = table })
 
 local function _createPABankingMenu()
     PABankingOptionsTable:insert({
+        type = "submenu",
+        name = PABProfileManager.getProfileSubMenuHeader,
+        controls = PABankingProfileSubMenuTable
+    })
+
+    PABankingOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_BANKING_DESCRIPTION),
     })
@@ -85,7 +91,7 @@ local function _createPABankingMenu()
         name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CURRENCY_ENABLE)),
         getFunc = PABMenuFunctions.getCurrenciesEnabledSetting,
         setFunc = PABMenuFunctions.setCurrenciesEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.Currencies.currenciesEnabled,
     })
 
@@ -149,7 +155,7 @@ local function _createPABankingMenu()
             tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T),
             getFunc = PABMenuFunctions.getCraftingItemsEnabledSetting,
             setFunc = PABMenuFunctions.setCraftingItemsEnabledSetting,
-            disabled = PAGMenuFunctions.isNoProfileSelected,
+            disabled = PABProfileManager.isNoProfileSelected,
             default = PABMenuDefaults.Crafting.craftingItemsEnabled,
         })
 
@@ -275,7 +281,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_ADVANCED_ENABLE_T),
         getFunc = PABMenuFunctions.getAdvancedItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAdvancedItemsEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.Advanced.advancedItemsEnabled,
     })
 
@@ -394,7 +400,7 @@ local function _createPABankingMenu()
         type = "button",
         name = GetString(SI_PA_MAINMENU_BANKING_HEADER),
         func = PA.CustomDialogs.showPABankingRulesMenu,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
     })
 
     -- ---------------------------------------------------------------------------------------------------------
@@ -410,7 +416,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_AVA_ENABLE_T),
         getFunc = PABMenuFunctions.getAvAItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAvAItemsEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.AvA.avaItemsEnabled,
     })
 
@@ -497,7 +503,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T),
         getFunc = PABMenuFunctions.getAutoExecuteItemTransfersSetting,
         setFunc = PABMenuFunctions.setAutoExecuteItemTransfersSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.autoExecuteItemTransfers,
     })
 
@@ -532,7 +538,7 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_EXCLUDE_JUNK),
         getFunc = PABMenuFunctions.getExcludeJunkSetting,
         setFunc = PABMenuFunctions.setExcludeJunkSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.excludeJunk,
     })
 
@@ -542,7 +548,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T),
         getFunc = PABMenuFunctions.getAutoStackBagsSetting,
         setFunc = PABMenuFunctions.setAutoStackBagsSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.autoStackBags,
     })
 
@@ -553,6 +559,111 @@ local function _createPABankingMenu()
         setFunc = PABMenuFunctions.setSilentModeSetting,
         disabled = PABMenuFunctions.isSilentModeDisabled,
         default = PABMenuDefaults.silentMode,
+    })
+end
+
+-- =================================================================================================================
+
+local function _createPABankingProfileSubMenuTable()
+    PABankingProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_ACTIVE_T),
+        choices = PABProfileManager.getProfileList(),
+        choicesValues = PABProfileManager.getProfileListValues(),
+        width = "half",
+        getFunc = PABProfileManager.getActiveProfile,
+        setFunc = PABProfileManager.setActiveProfile,
+        reference = "PERSONALASSISTANT_BANKING_PROFILEDROPDOWN"
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "editbox",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        width = "half",
+        getFunc = PABProfileManager.getActiveProfileName,
+        setFunc = PABProfileManager.setActiveProfileName,
+        disabled = PABProfileManager.isNoProfileSelected
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_CREATE_NEW),
+        width = "half",
+        func = PABProfileManager.createNewProfile,
+        disabled = PABProfileManager.hasMaxProfileCountReached
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
+        disabled = PABProfileManager.hasMaxProfileCountReached
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
+        disabled = function() return PABProfileManager.hasOnlyOneProfile() or PABProfileManager.isNoProfileSelected() end,
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
+        choices = PABProfileManager.getInactiveProfileList(),
+        choicesValues = PABProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Banking.selectedCopyProfile end,
+        setFunc = function(value) PA.Banking.selectedCopyProfile = value end,
+        disabled = function() return PABProfileManager.hasOnlyOneProfile() or PABProfileManager.isNoProfileSelected() end,
+        reference = "PERSONALASSISTANT_BANKING_PROFILEDROPDOWN_COPY"
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),
+        width = "half",
+        func = PABProfileManager.copySelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W),
+        disabled = PABProfileManager.isNoCopyProfileSelected
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_DELETE_DESC),
+        disabled = PABProfileManager.hasOnlyOneProfile
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE),
+        choices = PABProfileManager.getInactiveProfileList(),
+        choicesValues = PABProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Banking.selectedDeleteProfile end,
+        setFunc = function(value) PA.Banking.selectedDeleteProfile = value end,
+        disabled = PABProfileManager.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_BANKING_PROFILEDROPDOWN_DELETE"
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM),
+        width = "half",
+        func = PABProfileManager.deleteSelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W),
+        disabled = PABProfileManager.isNoDeleteProfileSelected
     })
 end
 
@@ -1355,6 +1466,8 @@ end
 
 local function createOptions()
     _createPABankingMenu()
+
+    _createPABankingProfileSubMenuTable()
 
     _createPABCurrencyGoldSubmenuTable()
     _createPABCurrencyAlliancePointsSubmenuTable()

@@ -3,6 +3,7 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
+local PAPM = PA.ProfileManager
 
 local TYPE_ACTIVE_RULE = 1
 
@@ -241,9 +242,9 @@ function PABankingRulesList:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
     -- only proceed if player has selected an active profile
-    if PAHF.hasActiveProfile() then
+    if PAPM.PABanking.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PABCustomPAItemIds = PA.SavedVars.Banking[PA.activeProfile].Custom.PAItemIds
+        local PABCustomPAItemIds = PA.SavedVars.Banking[PA.SavedVars.Profile.Banking.activeProfile].Custom.PAItemIds
         -- populate the table that is used as source for the list
         if PABCustomPAItemIds then
             for _, moveConfig in pairs(PABCustomPAItemIds) do
