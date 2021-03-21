@@ -140,7 +140,6 @@ end
 -- set___ActiveProfile
 ---------------------------------
 local function setPAGeneralActiveProfile(profileNo)
-    PA.println("setPAGeneralActiveProfile")
     if profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         local PASavedVars = PA.SavedVars
         -- get the previously active profile first
