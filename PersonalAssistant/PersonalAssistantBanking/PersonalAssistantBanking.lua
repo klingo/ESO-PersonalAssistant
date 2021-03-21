@@ -9,6 +9,7 @@ local PABProfileManager = PA.ProfileManager.PABanking
 
 -- Local constants --
 local AddonName = "PersonalAssistantBanking"
+PA.Banking = PA.Banking or {}
 PA.Banking.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
 PA.Banking.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
@@ -70,7 +71,7 @@ end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.Banking.AddonName = AddonName
 PA.Banking.println = println

@@ -7,15 +7,17 @@ local PAMF = PA.MenuFunctions
 local PAEM = PA.EventManager
 local PABProfileManager = PA.ProfileManager.PABanking
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
+
+local isNoProfileSelected = PABProfileManager.isNoProfileSelected
 
 local function getValue(...)
-    if PABProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     return PAMF.getValue(PAB.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    if PABProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     PAMF.setValue(PAB.SavedVars, value, ...)
 end
 
@@ -25,7 +27,7 @@ local function setValueAndRefreshEvents(value, ...)
 end
 
 local function isDisabled(...)
-    if PABProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabled(PAB.SavedVars, ...)
 end
 
@@ -127,17 +129,17 @@ end
 -- PABanking   Crafting.ItemTypes         craftingItemTypeMoveSetting
 ---------------------------------
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
-    if PABProfileManager.isNoProfileSelected()() then return end
+    if isNoProfileSelected()() then return end
     return PAB.SavedVars.Crafting.ItemTypes[itemType]
 end
 
 local function setPABankingCraftingItemTypeMoveSetting(itemType, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.Crafting.ItemTypes[itemType] = value
 end
 
 local function setPABankingCraftingItemTypeMoveAllSettings(value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     for itemType, _ in pairs(PAB.SavedVars.Crafting.ItemTypes) do
         PAB.SavedVars.Crafting.ItemTypes[itemType] = value
     end
@@ -162,7 +164,7 @@ end
 -- PABanking   Advanced.LearnableItemTypes      moveMode
 ---------------------------------
 local function getPABankingAdvancedLearnableItemTypeMoveSetting(itemType, isKnown)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     if isKnown then
         return PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known
     else
@@ -171,7 +173,7 @@ local function getPABankingAdvancedLearnableItemTypeMoveSetting(itemType, isKnow
 end
 
 local function setPABankingAdvancedLearnableItemTypeMoveSetting(itemType, value, isKnown)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     if isKnown then
         PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known = value
     else
@@ -183,12 +185,12 @@ end
 -- PABanking   Advanced.MasterWritCraftingTypes      moveMode
 ---------------------------------
 local function getPABankingAdvancedMasterWritCraftingTypeMoveSetting(craftingType)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.MasterWritCraftingTypes[craftingType]
 end
 
 local function setPABankingAdvancedMasterWritCraftingTypeMoveSetting(craftingType, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.Advanced.MasterWritCraftingTypes[craftingType] = value
 end
 
@@ -196,12 +198,12 @@ end
 -- PABanking   Advanced.HolidayWrits                moveMode
 ---------------------------------
 local function getPABankingAdvancedHolidayWritsMoveSetting(specializedItemType)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.HolidayWrits[specializedItemType]
 end
 
 local function setPABankingAdvancedHolidayWritsMoveSetting(specializedItemType, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.Advanced.HolidayWrits[specializedItemType] = value
 end
 
@@ -209,12 +211,12 @@ end
 -- PABanking   Advanced.ItemTypes         moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTypeMoveSetting(itemType)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.ItemTypes[itemType]
 end
 
 local function setPABankingAdvancedItemTypeMoveSetting(itemType, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.Advanced.ItemTypes[itemType] = value
 end
 
@@ -222,12 +224,12 @@ end
 -- PABanking   Advanced.ItemTraitTypes      moveMode
 ---------------------------------
 local function getPABankingAdvancedItemTraitTypeMoveSetting(itemTraitType)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType]
 end
 
 local function setPABankingAdvancedItemTraitTypeMoveSetting(itemTraitType, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.Advanced.ItemTraitTypes[itemTraitType] = value
 end
 
@@ -235,12 +237,12 @@ end
 -- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSpecializedMoveSetting
 ---------------------------------
 local function getPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType]
 end
 
 local function setPABankingAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.Advanced.SpecializedItemTypes[specializedItemType] = value
 end
 
@@ -248,12 +250,12 @@ end
 -- PABanking   Advanced.SpecializedItemTypes         advancedItemTypeSurveyMapMoveSetting
 ---------------------------------
 local function getPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     return PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType]
 end
 
 local function setPABankingAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType] = value
 end
 
@@ -340,7 +342,7 @@ end
 -- PABanking   Advanced         advancedItemTypeMoveSetting + advancedItemTypeSpecializedMoveSetting
 ---------------------------------
 local function setPABankingAdvancedItemTypeMoveAllSettings(value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     for itemType, _ in pairs(PAB.SavedVars.Advanced.LearnableItemTypes) do
         PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Known = value
         PAB.SavedVars.Advanced.LearnableItemTypes[itemType].Unknown = value
@@ -388,14 +390,14 @@ end
 -- PABanking   AvA                  crossAllianceMathOperator
 ---------------------------------
 local function getPABankingAvaCrossAllianceItemIdMathOperatorSetting(crossAllianceItemId)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     local value = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].operator
     -- in case a new GENERIC individual item is added, return "-" by default
     if value then return value else return tonumber(PAC.OPERATOR.NONE) end
 end
 
 local function setPABankingAvaCrossAllianceItemIdMathOperatorSetting(crossAllianceItemId, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].operator = value
 end
 
@@ -403,14 +405,14 @@ end
 -- PABanking   AvA                  crossAllianceBagAmount
 ---------------------------------
 local function getPABankingAvaCrossAllianceItemIdBagAmountSetting(crossAllianceItemId)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     local value = PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount
     -- in case a new GENERIC individual item is added, return the default value
     if value then return value else return PAC.BACKPACK_AMOUNT.DEFAULT end
 end
 
 local function setPABankingAvaCrossAllianceItemIdBagAmountSetting(crossAllianceItemId, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
         PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].bagAmount = intValue
@@ -421,7 +423,7 @@ end
 -- PABanking   AvA                  crossAllianceBagAmountDisabled
 ---------------------------------
 local function isAvACrossAllianceItemDisabledOrOperatorNone(crossAllianceItemId)
-    if PABProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     if isDisabled({"AvA", "avaItemsEnabled"}) then return true end
     if PAB.SavedVars.AvA.CrossAllianceItemIds[crossAllianceItemId].operator ~= PAC.OPERATOR.NONE then return false end
     -- if there was no 'false' returned until here; then return true
@@ -446,14 +448,14 @@ end
 -- PABanking   AvA                  mathOperator
 ---------------------------------
 local function getPABankingtAvAItemIdMathOperatorSetting(itemId)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     local value = PAB.SavedVars.AvA.ItemIds[itemId].operator
     -- in case a new GENERIC individual item is added, return "-" by default
     if value then return value else return tonumber(PAC.OPERATOR.NONE) end
 end
 
 local function setPABankingtAvAItemIdMathOperatorSetting(itemId, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     PAB.SavedVars.AvA.ItemIds[itemId].operator = value
 end
 
@@ -461,14 +463,14 @@ end
 -- PABanking   AvA                  bagAmount
 ---------------------------------
 local function getPABankingtAvAItemIdBagAmountSetting(itemId)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     local value = PAB.SavedVars.AvA.ItemIds[itemId].bagAmount
     -- in case a new GENERIC individual item is added, return the default value
     if value then return value else return PAC.BACKPACK_AMOUNT.DEFAULT end
 end
 
 local function setPABankingtAvAItemIdBagAmountSetting(itemId, value)
-    if PABProfileManager.isNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     local intValue = tonumber(value)
     if intValue and intValue >= 0 then
         PAB.SavedVars.AvA.ItemIds[itemId].bagAmount = intValue
@@ -479,7 +481,7 @@ end
 -- PABanking   AvA                  bagAmountDisabled
 ---------------------------------
 local function isAvAItemDisabledOrOperatorNone(itemId)
-    if PABProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     if isDisabled({"AvA", "avaItemsEnabled"}) then return true end
     if PAB.SavedVars.AvA.ItemIds[itemId].operator ~= PAC.OPERATOR.NONE then return false end
     -- if there was no 'false' returned until here; then return true
@@ -504,7 +506,7 @@ local function isPABankingTransactionWithdrawalStackingDisabled()
     return true
 end
 
--- =================================================================================================================
+-- =====================================================================================================================
 local PABankingMenuFunctions = {
     -- -----------------------------------------------------------------------------------
     -- CURRENCIES
@@ -688,6 +690,6 @@ local PABankingMenuFunctions = {
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PAMF.PABanking = PABankingMenuFunctions
