@@ -4,29 +4,27 @@ local PAMF = PA.MenuFunctions
 local PAEM = PA.EventManager
 local PAGProfileManager = PA.ProfileManager.PAGeneral
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
--- TODO: Make sure these are specific to each module!
+local isNoProfileSelected = PAGProfileManager.isNoProfileSelected
+
 local function getValue(...)
-    if PAGProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     return PAMF.getValue(PA.General.SavedVars, ...)
 end
 
--- TODO: Make sure these are specific to each module!
 local function setValue(value, ...)
-    if PAGProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     PAMF.setValue(PA.General.SavedVars, value, ...)
 end
 
--- TODO: Make sure these are specific to each module!
 local function setValueAndRefreshEvents(savedVarsTable, value, attributeTbl)
     setValue(savedVarsTable, value, attributeTbl)
     PAEM.RefreshEventRegistration.PAGeneral()
 end
 
--- TODO: Make sure these are specific to each module!
 local function isDisabled(...)
-    if PAGProfileManager.isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabled(PA.General.SavedVars, ...)
 end
 
