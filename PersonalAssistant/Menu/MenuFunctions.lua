@@ -56,11 +56,19 @@ local function isDisabledAllV2(savedVarsTable, ...)
     return true
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function getTextIfRequiredAddonNotRunning(textKeyIfNotRunning, addonTableToCheck)
+    if istable(addonTableToCheck) then return nil end
+    return GetString(textKeyIfNotRunning)
+end
+
 -- =====================================================================================================================
 -- Export
 PA.MenuFunctions = {
     isDisabled = isDisabledV2,
     isDisabledAll = isDisabledAllV2,
     getValue = getValueV2,
-    setValue = setValueV2
+    setValue = setValueV2,
+    getTextIfRequiredAddonNotRunning = getTextIfRequiredAddonNotRunning
 }

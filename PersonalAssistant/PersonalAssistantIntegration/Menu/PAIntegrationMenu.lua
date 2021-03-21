@@ -77,7 +77,7 @@ local function _createPAIntegrationMenu()
             type = "checkbox",
             name = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY),
             tooltip = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T),
-            warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking),
+            warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking),
             getFunc = PAIMenuFunctions.getLazyWritCrafterCompatibilitySetting,
             setFunc = PAIMenuFunctions.setLazyWritCrafterCompatibilitySetting,
             disabled = PAIMenuFunctions.isLazyWritCrafterCompatibilityDisabled,
@@ -175,7 +175,7 @@ local function _createPAIFCOISLockedSubmenuTable()
     PAIFCOISLockedSubmenuTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING),
-        warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
+        warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
         getFunc = PAIMenuFunctions.getFCOISLockedPreventAutoSellSetting,
         setFunc = PAIMenuFunctions.setFCOISLockedPreventAutoSellSetting,
         disabled = PAIMenuFunctions.isFCOISLockedPreventAutoSellDisabled,
@@ -195,7 +195,7 @@ local function _createPAIFCOISSellSubmenuTable()
     PAIFCOISSellSubmenuTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED),
-        warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
+        warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
         getFunc = PAIMenuFunctions.getFCOISSellAutoSellMarkedSetting,
         setFunc = PAIMenuFunctions.setFCOISSellAutoSellMarkedSetting,
         disabled = PAIMenuFunctions.isFCOISSellAutoSellMarkedDisabled,

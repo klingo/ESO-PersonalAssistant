@@ -44,7 +44,6 @@ Utilities/XML/RulesWindowTemplates.xml
 Utilities/XML/RulesWindow.lua
 
 # Settings
-Menu/MenuHelper.lua
 Menu/MenuFunctions.lua
 Menu/MenuChoices.lua
 Menu/ItemContextMenu.lua
