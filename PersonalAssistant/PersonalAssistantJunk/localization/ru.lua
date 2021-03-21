@@ -69,8 +69,8 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_KEYBINDINGS_HEADER = "Сочетания клавиш",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_ENABLE = "Включить сочетание \"Хлам/Не хлам\"",
     SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_JUNK_SHOW = "Показывать переключение \"Хлам/Не хлам\"",
-    --SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_ENABLE = "",
-    --SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_SHOW = "",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_ENABLE = "Включить сочетание \"В список хлама/Из списка хлама\"",
+    SI_PA_MENU_JUNK_KEYBINDINGS_MARK_UNMARK_PERM_JUNK_SHOW = "Показывать переключение \"В список хлама/Из списка хлама\"",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE = "Включить сочетание \"Уничтожить предмет\"",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_ENABLE_W = "ВНИМАНИЕ: Пожалуйста, имейте в виду, что при использовании этого сочетания клавиш НЕТ подтверждения, действительно ли вы хотите уничтожить предмет.\nОн просто будет уничтожен!\nНасовсем!\nИспользуйте на свой страх и риск!",
     SI_PA_MENU_JUNK_KEYBINDINGS_DESTROY_ITEM_SHOW = "Показывать переключение \"Уничтожить предмет\"",
@@ -141,13 +141,13 @@ local PAJStrings = {
     -- == KEY BINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- Addon Keybindings menu --
-    SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Пометка Хлам/Не хлам",
-    --SI_BINDING_NAME_PA_JUNK_PERMANENT_TOGGLE_ITEM = "",
+    SI_BINDING_NAME_PA_JUNK_TOGGLE_ITEM = "Переключить Хлам/Не хлам",
+    SI_BINDING_NAME_PA_JUNK_PERMANENT_TOGGLE_ITEM = "Переключить В список хлама/Из списка хлама",
     SI_BINDING_NAME_PA_JUNK_DESTROY_ITEM = "Уничтожить предмет",
 
     -- Actual keybindings --
-    --SI_PA_ITEM_ACTION_MARK_AS_PERM_JUNK = "",
-    --SI_PA_ITEM_ACTION_UNMARK_AS_PERM_JUNK = "",
+    SI_PA_ITEM_ACTION_MARK_AS_PERM_JUNK = "Добавить в список хлама",
+    SI_PA_ITEM_ACTION_UNMARK_AS_PERM_JUNK = "Убрать из списка хлама",
 
 
     -- =================================================================================================================
