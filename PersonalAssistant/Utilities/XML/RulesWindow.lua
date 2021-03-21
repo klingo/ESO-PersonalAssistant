@@ -244,7 +244,8 @@ function PABankingRulesList:FilterScrollList()
     -- only proceed if player has selected an active profile
     if PAPM.PABanking.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PABCustomPAItemIds = PA.SavedVars.Banking[PA.SavedVars.Profile.Banking.activeProfile].Custom.PAItemIds
+        local activeProfile = PAPM.PABanking.getActiveProfile()
+        local PABCustomPAItemIds = PA.SavedVars.Banking[activeProfile].Custom.PAItemIds
         -- populate the table that is used as source for the list
         if PABCustomPAItemIds then
             for _, moveConfig in pairs(PABCustomPAItemIds) do
@@ -517,7 +518,8 @@ function PAJunkRulesList:FilterScrollList()
     -- only proceed if player has selected an active profile
     if PAPM.PAJunk.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PAJCustomPAItemIds = PA.SavedVars.Junk[PA.SavedVars.Profile.Junk.activeProfile].Custom.PAItemIds
+        local activeProfile = PAPM.PAJunk.getActiveProfile()
+        local PAJCustomPAItemIds = PA.SavedVars.Junk[activeProfile].Custom.PAItemIds
         if PAJCustomPAItemIds then
             -- populate the table that is used as source for the list
             for _, junkConfig in pairs(PAJCustomPAItemIds) do

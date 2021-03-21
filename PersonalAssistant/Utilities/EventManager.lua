@@ -599,13 +599,13 @@ end
 
 local function RefreshPAGeneralSavedVarReference()
     if not PA.General then PA.General = {} end
-    local activeProfile = PA.SavedVars.Profile.General.activeProfile
+    local activeProfile = PAPM.PAGeneral.getActiveProfile()
     PA.General.SavedVars = PA.SavedVars.General[activeProfile]
 end
 
 local function RefreshPABankingSavedVarReference()
     if not PA.Banking then PA.Banking = {} end
-    local activeProfile = PA.SavedVars.Profile.Banking.activeProfile
+    local activeProfile = PAPM.PABanking.getActiveProfile()
     PA.Banking.SavedVars = PA.SavedVars.Banking[activeProfile]
 
     -- also refresh the PABankingRulesList with the new profile
@@ -614,13 +614,13 @@ end
 
 local function RefreshPAIntegrationSavedVarReference()
     if not PA.Integration then PA.Integration = {} end
-    local activeProfile = PA.SavedVars.Profile.Integration.activeProfile
+    local activeProfile = PAPM.PAIntegration.getActiveProfile()
     PA.Integration.SavedVars = PA.SavedVars.Integration[activeProfile]
 end
 
 local function RefreshPAJunkSavedVarReference()
     if not PA.Junk then PA.Junk = {} end
-    local activeProfile = PA.SavedVars.Profile.Junk.activeProfile
+    local activeProfile = PAPM.PAJunk.getActiveProfile()
     PA.Junk.SavedVars = PA.SavedVars.Junk[activeProfile]
 
     -- also refresh the PAJunkRulesList with the new profile
@@ -629,13 +629,13 @@ end
 
 local function RefreshPALootSavedVarReference()
     if not PA.Loot then PA.Loot = {} end
-    local activeProfile = PA.SavedVars.Profile.Loot.activeProfile
+    local activeProfile = PAPM.PALoot.getActiveProfile()
     PA.Loot.SavedVars = PA.SavedVars.Loot[activeProfile]
 end
 
 local function RefreshPARepairSavedVarReference()
     if not PA.Repair then PA.Repair = {} end
-    local activeProfile = PA.SavedVars.Profile.Repair.activeProfile
+    local activeProfile = PAPM.PARepair.getActiveProfile()
     PA.Repair.SavedVars = PA.SavedVars.Repair[activeProfile]
 end
 
