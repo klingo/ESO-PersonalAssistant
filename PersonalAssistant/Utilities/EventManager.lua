@@ -152,7 +152,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _hasAnyPAJunkIntegrationsTurnedOn()
-    if PAHF.hasActiveProfile() then
+    if PAPM.PAIntegration.hasActiveProfile() then
         local PAI = PA.Integration
         if PAI and FCOIS then
             local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver

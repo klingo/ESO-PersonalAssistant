@@ -1,17 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PAIProfileManager = PA.ProfileManager.PAIntegration
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantIntegration"
-local Profile_Defaults = {
-    activeProfile = 1
-}
+PA.Integration = PA.Integration or {}
+PA.Integration.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Integration.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +44,23 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     PASavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION)
-    PASavedVars.IntegrationProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantIntegration_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.INTEGRATION, nil, Profile_Defaults)
+
+    -- init a default profile if none exist
+    PAIProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PAIProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PAIProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PAIntegration()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PAIntegration()
+    end
 
     -- create the options with LAM-2
     PA.Integration.createOptions()
@@ -52,11 +68,8 @@ end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
--- ---------------------------------------------------------------------------------------------------------------------
-
+-- =====================================================================================================================
 -- Export
-PA.Integration = {
-    AddonName = AddonName,
-    println = println,
-    debugln = debugln
-}
+PA.Integration.AddonName = AddonName
+PA.Integration.println = println
+PA.Integration.debugln = debugln
