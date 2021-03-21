@@ -4,6 +4,7 @@ local PAJ = PA.Junk
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
+local PAJProfileManager = PA.ProfileManager.PAJunk
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -556,7 +557,7 @@ end
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
     PAJ.debugln("PAJunk.OnFenceOpen")
-    if PAHF.hasActiveProfile() then
+    if PAJProfileManager.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isFenceClosed = false
         -- check if auto-sell is enabled
@@ -602,7 +603,7 @@ end
 
 local function OnShopOpen()
     PAJ.debugln("PAJunk.OnShopOpen")
-    if PAHF.hasActiveProfile() then
+    if PAJProfileManager.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isStoreClosed = false
         local autoSellJunk = PAJ.SavedVars.autoSellJunk
@@ -658,7 +659,7 @@ local function OnMailboxClose()
 end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    if PAHF.hasActiveProfile() then
+    if PAJProfileManager.hasActiveProfile() then
         -- only proceed it item is not already marked as junk
         local isJunk = IsItemJunk(bagId, slotIndex)
         if isJunk then return end

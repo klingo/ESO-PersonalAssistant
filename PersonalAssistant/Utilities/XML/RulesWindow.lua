@@ -515,9 +515,9 @@ function PAJunkRulesList:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
     -- only proceed if player has selected an active profile
-    if PAHF.hasActiveProfile() then
+    if PAPM.PAJunk.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PAJCustomPAItemIds = PA.SavedVars.Junk[PA.activeProfile].Custom.PAItemIds
+        local PAJCustomPAItemIds = PA.SavedVars.Junk[PA.SavedVars.Profile.Junk.activeProfile].Custom.PAItemIds
         if PAJCustomPAItemIds then
             -- populate the table that is used as source for the list
             for _, junkConfig in pairs(PAJCustomPAItemIds) do

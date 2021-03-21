@@ -1,17 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PAJProfileManager = PA.ProfileManager.PAJunk
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantJunk"
-local Profile_Defaults = {
-    activeProfile = 1
-}
+PA.Junk = PA.Junk or {}
+PA.Junk.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Junk.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +44,23 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     PASavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
-    PASavedVars.JunkProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantJunk_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Profile_Defaults)
+
+    -- init a default profile if none exist
+    PAJProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PAJProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PAJProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PAJunk()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PAJunk()
+    end
 
     -- create the options with LAM-2
     PA.Junk.createOptions()
