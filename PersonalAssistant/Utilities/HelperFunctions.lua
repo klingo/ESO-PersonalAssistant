@@ -448,12 +448,6 @@ end
 -- == PROFILES == --
 -- -----------------------------------------------------------------------------------------------------------------
 
----@return boolean whether player has selected a PA profile
-local function hasActiveProfile()
-    local PAMenuFunctions = PA.MenuFunctions
-    return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
-end
-
 --- returns the default profile name of the provided profile number
 ---@param profileNo number the number/id of a profile
 ---@return string the name of the profile
@@ -531,7 +525,6 @@ PA.HelperFunctions = {
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBankBags = getBankBags,
     getBagName = getBagName,
-    hasActiveProfile = hasActiveProfile,
     getFormattedCurrency = getFormattedCurrency,
     getFormattedCurrencySimple = getFormattedCurrencySimple,
     getFormattedItemLink = getFormattedItemLink,

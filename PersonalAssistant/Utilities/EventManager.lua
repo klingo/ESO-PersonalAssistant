@@ -1,6 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PAHF = PA.HelperFunctions
+local PAPM = PA.ProfileManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -163,7 +163,7 @@ local function _hasAnyPAJunkIntegrationsTurnedOn()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
-
+-- TODO: to be decomissioned
 local function RefreshAllEventRegistrations()
     local PAMenuFunctions = PA.MenuFunctions
 
@@ -348,6 +348,217 @@ local function RefreshAllEventRegistrations()
     end
 end
 
+local function RefreshPAGeneralEventRegistration()
+    -- Check if the Addon 'PAGeneral' is even enabled
+    local PAG = PA.General
+    if PAG then
+        -- nothing to be done here... yet
+    end
+end
+
+local function RefreshPABankingEventRegistration()
+    -- Check if the Addon 'PABanking' is even enabled
+    local PAB = PA.Banking
+    if PAB then
+        -- Register PABanking (always, due to potential custom banking rules)
+        RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen, "OpenBank")
+        RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose, "CloseBank")
+
+        -- Cross-Addon events and hooks
+        local PAItemContextMenu = PA.ItemContextMenu
+        -- Register Item Context Menu
+        local LCM = LibCustomMenu or LibStub("LibCustomMenu")
+        if LCM then
+            PAItemContextMenu.initHooksOnInventoryContextMenu(LCM)
+        else
+            PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
+        end
+    end
+end
+
+local function RefreshPAIntegrationEventRegistration()
+    -- Check if the Addon 'PAIntegration' is even enabled
+    local PAI = PA.Integration
+    if PAI then
+        -- nothing to be done here... yet
+    end
+end
+
+local function RefreshPAJunkEventRegistration()
+    -- Check if the Addon 'PAJunk' is even enabled
+    local PAJ = PA.Junk
+    if PAJ then
+        -- Check if the functionality is turned on within the addon
+        local PAJMenuFunctions = PA.MenuFunctions.PAJunk
+        if PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting() then
+            -- Register PAJunk for looting junk items
+            RegisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAJ.OnInventorySingleSlotUpdate, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
+
+            -- Register Mailbox Open Check (to disable marking as junk)
+            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen, "OpenMailbox")
+            RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose, "CloseMailbox")
+        else
+            -- Unregister PAJunk AutoMarking
+            UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
+
+            -- Unregister PAJunk Mailbox Open Check
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
+            UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
+        end
+
+        -- Register PAJunk for selling (also in case PAJunk related integrations are turned on)
+        if PAJMenuFunctions.getAutoSellJunkSetting() or _hasAnyPAJunkIntegrationsTurnedOn() then
+            -- Register PAJunk (for Merchants and Fences)
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, PAJ.OnShopOpen, "OpenStore")
+            RegisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, PAJ.OnFenceOpen, "OpenFence")
+            RegisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, PAJ.OnStoreAndFenceClose, "CloseStore")
+        else
+            -- Unregister Auto-Sell for Merchants and Fences
+            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_STORE, "OpenStore")
+            UnregisterForEvent(PAJ.AddonName, EVENT_OPEN_FENCE, "OpenFence")
+            UnregisterForEvent(PAJ.AddonName, EVENT_CLOSE_STORE, "CloseStore")
+        end
+
+        if PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting() or PAJMenuFunctions.getKeybindingDestroyItemSetting() then
+            -- initialize enabled/visible hooks on inventory items
+            PAJ.KeybindStrip.initHooksOnInventoryItems()
+        end
+
+        -- Cross-Addon events and hooks
+        local PAItemContextMenu = PA.ItemContextMenu
+        -- Register Item Context Menu
+        local LCM = LibCustomMenu or LibStub("LibCustomMenu")
+        if LCM then
+            PAItemContextMenu.initHooksOnInventoryContextMenu(LCM)
+        else
+            PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
+        end
+    end
+end
+
+local function RefreshPALootEventRegistration()
+    -- Check if the Addon 'PAloot' is even enabled
+    local PAL = PA.Loot
+    if PAL then
+        -- Check if the functionality is turned on within the addon
+        local PALMenuFunctions = PA.MenuFunctions.PALoot
+        if PALMenuFunctions.getLootEventsEnabledSetting() then
+            -- Register PALoot to check looted items
+            RegisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAL.OnInventorySingleSlotUpdate, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "SingleSlotUpdate")
+            RegisterFilterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT, "SingleSlotUpdate")
+
+            -- needed in order to track stacking the backpack
+            -- REVIEW: why is this triggered when selling Junk?!
+            RegisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, PAL.UpdateNumBagUsedSlots, "StackedAllItems")
+            RegisterFilterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, REGISTER_FILTER_BAG_ID, BAG_BACKPACK, "StackedAllItems")
+
+            -- needed in order to track individual sells at vendor
+            RegisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, PAL.UpdateNumBagUsedSlots, "SellReceipt")
+        else
+            -- Unregister PALoot completely
+            UnregisterForEvent(PAL.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
+            UnregisterForEvent(PAL.AddonName, EVENT_STACKED_ALL_ITEMS_IN_BAG, "StackedAllItems")
+            UnregisterForEvent(PAL.AddonName, EVENT_SELL_RECEIPT, "SellReceipt")
+        end
+
+        if PALMenuFunctions.getItemIconsEnabledSetting() then
+            RegisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, PAL.ItemIcons.initHooksOnTradeHouse, "TradeHouseHook")
+
+            -- initialize Item Visuals on bags, crafting stations, and the loot window
+            PAL.ItemIcons.initHooksOnBags()
+            PAL.ItemIcons.initHooksOnCraftingStations()
+            PAL.ItemIcons.initHooksOnLootWindow()
+            PAL.ItemIcons.initHooksOnMerchantsAndBuyback()
+        else
+            UnregisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, "TradeHouseHook")
+        end
+    end
+end
+
+local function RefreshPAMailEventRegistration()
+    -- Check if the Addon 'PAMail' is even enabled
+    local PAM = PA.Mail
+    if PAM then
+        -- Check if the functionality is turned on within the addon
+        local PAMMenuFunctions = PA.MenuFunctions.PAMail
+        if PAMMenuFunctions.getHirelingAutoMailEnabledSetting() then
+            -- Register PAMail
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, PAM.readHirelingMails, "NumUnreadChanged")
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE, PAM.takeAttachedItemsFromSingleMail, "MailReadable")
+            RegisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS, PAM.takeAttachedItemSuccess, "TakeAttachedItemSuccess")
+        else
+            -- Unregister PAMail completely
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_NUM_UNREAD_CHANGED, "NumUnreadChanged")
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_READABLE, "MailReadable")
+            UnregisterForEvent(PAM.AddonName, EVENT_MAIL_TAKE_ATTACHED_ITEM_SUCCESS, "TakeAttachedItemSuccess")
+        end
+    end
+end
+
+local function RefreshPARepairEventRegistration()
+    -- Check if the Addon 'PARepair' is even enabled
+    local PAR = PA.Repair
+    if PAR then
+        -- Check if the functionality is turned on within the addon
+        local PAMenuFunctions = PA.MenuFunctions
+        local PARMenuFunctions = PAMenuFunctions.PARepair
+        -- Check if the functionality is turned on within the addon
+        if PARMenuFunctions.getAutoRepairEquippedEnabledSetting() or PARMenuFunctions.getAutoRepairInventoryEnabledSetting() then
+            -- Register for GoldRepair
+            if PARMenuFunctions.getRepairEquippedWithGoldSetting() or PARMenuFunctions.getRepairInventoryWithGoldSetting() then
+                -- check if AutoSellJunk is also enabled
+                if PA.Junk and PAMenuFunctions.PAJunk and PAMenuFunctions.PAJunk.getAutoSellJunkSetting() then
+                    -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
+                    RegisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
+                else
+                    -- if not, we can register the PARepair Open Store Event
+                    RegisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
+                    -- and unregister callback if existing
+                    UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
+                end
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "OpenStore")
+                UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
+            end
+
+            -- Register for RepairKits
+            if PARMenuFunctions.getRepairWithRepairKitSetting() then
+                -- this is to repair items when they lose durability during fights etc.
+                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.CheckAndRepairSingleEquippedItemWithRepairKit, "RepairKits")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN, "RepairKits")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DURABILITY_CHANGE, "RepairKits")
+                -- this is to repair items after materializing from ghost to alive
+                RegisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, PAR.CheckAndRepairAllEquippedItemsWithRepairKits, "RepairKits-Reincarnate")
+                -- this is to repair items after respawning at a wayshrine (without ghost form)
+                RegisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, PAR.CheckAndRepairAllEquippedItemsWithRepairKits, "RepairKits-Alive")
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+                UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits-Reincarnate")
+                UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, "RepairKits-Alive")
+            end
+
+            -- Register for WeaponCharges
+            if PARMenuFunctions.getRechargeWithSoulGemSetting() then
+                RegisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, PAR.RechargeEquippedWeaponsWithSoulGems, "SoulGems")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_WORN, "SoulGems")
+                RegisterFilterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_ITEM_CHARGE, "SoulGems")
+            else
+                UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
+            end
+        else
+            -- Unregister PARepair completely
+            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SoulGems")
+            UnregisterForEvent(PAR.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "RepairKits")
+            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_REINCARNATED, "RepairKits-Reincarnate")
+            UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_ALIVE, "RepairKits-Alive")
+            UnregisterForEvent(PAR.AddonName, EVENT_OPEN_STORE, "OpenStore")
+            UnregisterForCallback(PAR.AddonName, EVENT_OPEN_STORE, PAR.OnShopOpen, "OpenStore")
+        end
+    end
+end
 
 
 --[[
@@ -365,8 +576,10 @@ column (Curr-Profile SavedVars) that will always point to the Cross-Profile Save
 | PARepair      | PersonalAssistant.SavedVars.Repair[activeProfile]      | PersonalAssistant.Repair.SavedVars      |
 |------------------------------------------------------------------------------------------------------------------|
 --]]
+-- TODO: to be decomissioned
 local function RefreshAllSavedVarReferences(activeProfile)
     -- refreshes all profile specific SavedVars references, so the profile does not need to be read all the time
+    -- TODO: to be updated with new individual active profiles
     local PASavedVars = PA.SavedVars
     if not PA.General then PA.General = {} end
     PA.General.SavedVars = PASavedVars.General[activeProfile]
@@ -381,6 +594,49 @@ local function RefreshAllSavedVarReferences(activeProfile)
     -- also refresh the PABankingRulesList and PAJunkRulesList with the new profile
     FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
     FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPAJunkRulesList")
+end
+
+
+local function RefreshPAGeneralSavedVarReference()
+    if not PA.General then PA.General = {} end
+    local activeProfile = PA.SavedVars.Profile.General.activeProfile
+    PA.General.SavedVars = PA.SavedVars.General[activeProfile]
+end
+
+local function RefreshPABankingSavedVarReference()
+    if not PA.Banking then PA.Banking = {} end
+    local activeProfile = PA.SavedVars.Profile.Banking.activeProfile
+    PA.Banking.SavedVars = PA.SavedVars.Banking[activeProfile]
+
+    -- also refresh the PABankingRulesList with the new profile
+    FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPABankingRulesList")
+end
+
+local function RefreshPAIntegrationSavedVarReference()
+    if not PA.Integration then PA.Integration = {} end
+    local activeProfile = PA.SavedVars.Profile.Integration.activeProfile
+    PA.Integration.SavedVars = PA.SavedVars.Integration[activeProfile]
+end
+
+local function RefreshPAJunkSavedVarReference()
+    if not PA.Junk then PA.Junk = {} end
+    local activeProfile = PA.SavedVars.Profile.Junk.activeProfile
+    PA.Junk.SavedVars = PA.SavedVars.Junk[activeProfile]
+
+    -- also refresh the PAJunkRulesList with the new profile
+    FireCallbacks("PersonalAssistant", EVENT_ADD_ON_LOADED, "InitPAJunkRulesList")
+end
+
+local function RefreshPALootSavedVarReference()
+    if not PA.Loot then PA.Loot = {} end
+    local activeProfile = PA.SavedVars.Profile.Loot.activeProfile
+    PA.Loot.SavedVars = PA.SavedVars.Loot[activeProfile]
+end
+
+local function RefreshPARepairSavedVarReference()
+    if not PA.Repair then PA.Repair = {} end
+    local activeProfile = PA.SavedVars.Profile.Repair.activeProfile
+    PA.Repair.SavedVars = PA.SavedVars.Repair[activeProfile]
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -398,4 +654,23 @@ PA.EventManager = {
     UnregisterForCallback = UnregisterForCallback,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
     RefreshAllSavedVarReferences = RefreshAllSavedVarReferences,
+
+    RefreshEventRegistration = {
+        PAGeneral = RefreshPAGeneralEventRegistration,
+        PABanking = RefreshPABankingEventRegistration,
+        PAIntegration = RefreshPAIntegrationEventRegistration,
+        PAJunk = RefreshPAJunkEventRegistration,
+        PALoot = RefreshPALootEventRegistration,
+        PAMail = RefreshPAMailEventRegistration,
+        PARepair = RefreshPARepairEventRegistration
+    },
+
+    RefreshSavedVarReference = {
+        PAGeneral = RefreshPAGeneralSavedVarReference,
+        PABanking = RefreshPABankingSavedVarReference,
+        PAIntegration = RefreshPAIntegrationSavedVarReference,
+        PAJunk = RefreshPAJunkSavedVarReference,
+        PALoot = RefreshPALootSavedVarReference,
+        PARepair = RefreshPARepairSavedVarReference
+    }
 }

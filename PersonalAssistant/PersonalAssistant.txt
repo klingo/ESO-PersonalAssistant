@@ -28,6 +28,7 @@ Utilities/HelperFunctions.lua
 Utilities/zo_savedvars.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
+Utilities/ProfileManager.lua
 
 # Debug Window
 Utilities/XML/DebugWindow.xml

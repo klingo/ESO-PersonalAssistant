@@ -363,6 +363,9 @@ PersonalAssistant.Constants = {
             FENCE = {
                 PATH = "/esoui/art/vendor/vendor_tabicon_fence_up.dds",
             },
+            GROUP = {
+                PATH = "/esoui/art/treeicons/tutorial_idexicon_groups_up.dds"
+            },
             HOME = {
                 PATH = "/esoui/art/guild/tabicon_home_up.dds",
                 NORMAL = "|t32:32:/esoui/art/guild/tabicon_home_up.dds|t",
