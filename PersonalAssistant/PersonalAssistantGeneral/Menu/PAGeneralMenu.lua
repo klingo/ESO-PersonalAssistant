@@ -233,8 +233,8 @@ local function createOptions()
 
     _createPAGeneralProfileSubMenu()
 
-    PA.LAM2:RegisterAddonPanel("PersonalAssistantAddonOptions", PAGeneralPanelData)
-    PA.LAM2:RegisterOptionControls("PersonalAssistantAddonOptions", PAGeneralOptionsTable)
+    PA.LAM2:RegisterAddonPanel("PersonalAssistantGeneralAddonOptions", PAGeneralPanelData)
+    PA.LAM2:RegisterOptionControls("PersonalAssistantGeneralAddonOptions", PAGeneralOptionsTable)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

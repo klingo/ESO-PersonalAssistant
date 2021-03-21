@@ -44,12 +44,13 @@ Utilities/XML/RulesWindowTemplates.xml
 Utilities/XML/RulesWindow.lua
 
 # Settings
-Menu/MenuDefaults.lua
 Menu/MenuHelper.lua
 Menu/MenuFunctions.lua
 Menu/MenuChoices.lua
-Menu/MainMenu.lua
 Menu/ItemContextMenu.lua
+PersonalAssistantGeneral/Menu/PAGeneralMenuDefaults.lua
+PersonalAssistantGeneral/Menu/PAGeneralMenuFunctions.lua
+PersonalAssistantGeneral/Menu/PAGeneralMenu.lua
 
 # Main
 PersonalAssistant.lua
