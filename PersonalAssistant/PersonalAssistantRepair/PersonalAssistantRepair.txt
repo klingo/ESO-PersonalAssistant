@@ -16,6 +16,9 @@
 localization/en.lua
 localization/$(language).lua
 
+# Profiles
+Profiles/PARepairProfileManager.lua
+
 # Core
 PersonalAssistantRepair.lua
 
