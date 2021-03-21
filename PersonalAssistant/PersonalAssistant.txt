@@ -22,13 +22,17 @@ vars/Globals.lua
 # Localization
 localization/en.lua
 localization/$(language).lua
+PersonalAssistantGeneral/localization/en.lua
+PersonalAssistantGeneral/localization/$(language).lua
 
 # Core-Utilities
 Utilities/HelperFunctions.lua
 Utilities/zo_savedvars.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
-Menu/ProfileManager.lua
+
+# Profile Manager
+PersonalAssistantGeneral/Profiles/PAGeneralProfileManager.lua
 
 # Debug Window
 Utilities/XML/DebugWindow.xml
