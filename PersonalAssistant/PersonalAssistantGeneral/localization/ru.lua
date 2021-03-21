@@ -18,10 +18,10 @@ local PAStrings = {
     -- General Settings --
     SI_PA_MENU_GENERAL_HEADER = "Основные настройки",
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Показывать приветственное сообщение",
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Домой"}),
+    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " домой"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Если текущее местоположение допускает быстрые перемещения, это инициирует телепорт в ваш основной дом!",
-    --SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "",
-    --SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "",
+    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "Переместится к дому",
+    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "Если этот параметр ВЫКЛЮЧЕН, вы переместитесь внутрь дома",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Admin Settings --
