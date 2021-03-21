@@ -342,7 +342,7 @@ local function hasPAJunkMaxProfileCountReached()
     return profileCount >= PAC.GENERAL.MAX_PROFILES
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.ProfileManager = PA.ProfileManager or {}
 PA.ProfileManager.PAJunk = {
