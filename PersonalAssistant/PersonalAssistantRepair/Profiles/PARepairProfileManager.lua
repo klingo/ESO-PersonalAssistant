@@ -128,11 +128,24 @@ end
 -- init___DefaultProfile
 ---------------------------------
 local function initPARepairDefaultProfile()
-    local PABSavedVars = PA.SavedVars.Repair
-    if PABSavedVars.profileCounter == 0 and PABSavedVars[1] == nil then
-        PABSavedVars[1] = PA.MenuDefaults.PARepair
-        PABSavedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
-        PABSavedVars.profileCounter = 1
+    local PARSavedVars = PA.SavedVars.Repair
+    local PAZO_SavedVars = PA.ZO_SavedVars
+    -- check if there even is a profile yet
+    if PARSavedVars.profileCounter == 0 and PARSavedVars[1] == nil then
+        -- initialize the first profile
+        PAZO_SavedVars.CopyDefaults(PARSavedVars[1], PA.MenuDefaults.PARepair)
+        -- and set the savedVarsVersion and profileCounter
+        PARSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
+        PARSavedVars.profileCounter = 1
+    else
+        -- at least one profile is existing, check with others
+        local highestProfileNo = _getHighestPARepairProfileNo()
+        for profileNo = 1, highestProfileNo do
+            if istable(PARSavedVars[profileNo]) then
+                -- profile exists, make sure it has all default values
+                PAZO_SavedVars.CopyDefaults(PARSavedVars[profileNo], PA.MenuDefaults.PARepair)
+            end
+        end
     end
 end
 

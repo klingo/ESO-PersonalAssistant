@@ -129,10 +129,23 @@ end
 ---------------------------------
 local function initPAGeneralDefaultProfile()
     local PAGSavedVars = PA.SavedVars.General
+    local PAZO_SavedVars = PA.ZO_SavedVars
+    -- check if there even is a profile yet
     if PAGSavedVars.profileCounter == 0 and PAGSavedVars[1] == nil then
-        PAGSavedVars[1] = PA.MenuDefaults.PAGeneral
-        PAGSavedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
+        -- initialize the first profile
+        PAZO_SavedVars.CopyDefaults(PAGSavedVars[1], PA.MenuDefaults.PAGeneral)
+        -- and set the savedVarsVersion and profileCounter
+        PAGSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
         PAGSavedVars.profileCounter = 1
+    else
+        -- at least one profile is existing, check with others
+        local highestProfileNo = _getHighestPAGeneralProfileNo()
+        for profileNo = 1, highestProfileNo do
+            if istable(PAGSavedVars[profileNo]) then
+                -- profile exists, make sure it has all default values
+                PAZO_SavedVars.CopyDefaults(PAGSavedVars[profileNo], PA.MenuDefaults.PAGeneral)
+            end
+        end
     end
 end
 

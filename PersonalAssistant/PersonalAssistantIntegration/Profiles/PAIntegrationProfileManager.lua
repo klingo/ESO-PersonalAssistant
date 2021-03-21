@@ -129,10 +129,23 @@ end
 ---------------------------------
 local function initPAIntegrationDefaultProfile()
     local PAISavedVars = PA.SavedVars.Integration
+    local PAZO_SavedVars = PA.ZO_SavedVars
+    -- check if there even is a profile yet
     if PAISavedVars.profileCounter == 0 and PAISavedVars[1] == nil then
-        PAISavedVars[1] = PA.MenuDefaults.PAIntegration
-        PAISavedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
+        -- initialize the first profile
+        PAZO_SavedVars.CopyDefaults(PAISavedVars[1], PA.MenuDefaults.PAIntegration)
+        -- and set the savedVarsVersion and profileCounter
+        PAISavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
         PAISavedVars.profileCounter = 1
+    else
+        -- at least one profile is existing, check with others
+        local highestProfileNo = _getHighestPAIntegrationProfileNo()
+        for profileNo = 1, highestProfileNo do
+            if istable(PAISavedVars[profileNo]) then
+                -- profile exists, make sure it has all default values
+                PAZO_SavedVars.CopyDefaults(PAISavedVars[profileNo], PA.MenuDefaults.PAIntegration)
+            end
+        end
     end
 end
 

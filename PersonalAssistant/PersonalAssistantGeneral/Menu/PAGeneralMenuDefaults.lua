@@ -4,7 +4,9 @@ local PA = PersonalAssistant
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PAGeneralMenuDefaults = {
-    name = nil,
+    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
+
+    -- ---------------------------------------------
     welcomeMessage = true,
     jumpOutside = false,
 }

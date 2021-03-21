@@ -5,7 +5,7 @@ local PAC = PA.Constants
 -- =====================================================================================================================
 
 local PALootMenuDefaults = {
-    name = nil,
+    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
 
     -- ---------------------------------------------
     LootEvents = {

@@ -129,10 +129,23 @@ end
 ---------------------------------
 local function initPABankingDefaultProfile()
     local PABSavedVars = PA.SavedVars.Banking
+    local PAZO_SavedVars = PA.ZO_SavedVars
+    -- check if there even is a profile yet
     if PABSavedVars.profileCounter == 0 and PABSavedVars[1] == nil then
-        PABSavedVars[1] = PA.MenuDefaults.PABanking
-        PABSavedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
+        -- initialize the first profile
+        PAZO_SavedVars.CopyDefaults(PABSavedVars[1], PA.MenuDefaults.PABanking)
+        -- and set the savedVarsVersion and profileCounter
+        PABSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
         PABSavedVars.profileCounter = 1
+    else
+        -- at least one profile is existing, check with others
+        local highestProfileNo = _getHighestPABankingProfileNo()
+        for profileNo = 1, highestProfileNo do
+            if istable(PABSavedVars[profileNo]) then
+                -- profile exists, make sure it has all default values
+                PAZO_SavedVars.CopyDefaults(PABSavedVars[profileNo], PA.MenuDefaults.PABanking)
+            end
+        end
     end
 end
 

@@ -4,7 +4,7 @@ local PA = PersonalAssistant
 -- =====================================================================================================================
 
 local PAIntegrationMenuDefaults = {
-    name = nil,
+    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
 
     -- ---------------------------------------------
     LazyWritCrafter = {

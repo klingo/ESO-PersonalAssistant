@@ -31,6 +31,7 @@ local function _getHighestPALootProfileNo()
             -- Return previous default number of profiles: 10
             return 10
         end
+
     end
     -- Normal Use-Case: profileCounter initialized
     return profileCounter
@@ -128,11 +129,24 @@ end
 -- init___DefaultProfile
 ---------------------------------
 local function initPALootDefaultProfile()
-    local PABSavedVars = PA.SavedVars.Loot
-    if PABSavedVars.profileCounter == 0 and PABSavedVars[1] == nil then
-        PABSavedVars[1] = PA.MenuDefaults.PALoot
-        PABSavedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
-        PABSavedVars.profileCounter = 1
+    local PALSavedVars = PA.SavedVars.Loot
+    local PAZO_SavedVars = PA.ZO_SavedVars
+    -- check if there even is a profile yet
+    if PALSavedVars.profileCounter == 0 and PALSavedVars[1] == nil then
+        -- initialize the first profile
+        PAZO_SavedVars.CopyDefaults(PALSavedVars[1], PA.MenuDefaults.PALoot)
+        -- and set the savedVarsVersion and profileCounter
+        PALSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
+        PALSavedVars.profileCounter = 1
+    else
+        -- at least one profile is existing, check with others
+        local highestProfileNo = _getHighestPALootProfileNo()
+        for profileNo = 1, highestProfileNo do
+            if istable(PALSavedVars[profileNo]) then
+                -- profile exists, make sure it has all default values
+                PAZO_SavedVars.CopyDefaults(PALSavedVars[profileNo], PA.MenuDefaults.PALoot)
+            end
+        end
     end
 end
 

@@ -5,7 +5,7 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PAJunkMenuDefaults = {
-    name = nil,
+    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
 
     -- ---------------------------------------------
     autoMarkAsJunkEnabled = false,
