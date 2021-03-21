@@ -4,6 +4,8 @@ PersonalAssistant.ZO_SavedVars = {}
 PersonalAssistant.SavedVars = {}
 PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}
+PersonalAssistant.ProfileManager = {}
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

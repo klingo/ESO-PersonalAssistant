@@ -16,6 +16,9 @@
 localization/en.lua
 localization/$(language).lua
 
+# Profiles
+Profiles/PALootProfileManager.lua
+
 # Core
 PersonalAssistantLoot.lua
 

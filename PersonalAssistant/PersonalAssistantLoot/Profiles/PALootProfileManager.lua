@@ -9,24 +9,24 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 -- is___NoCopyProfileSelected
 ---------------------------------
-local function isPAGeneralNoCopyProfileSelected()
-    return (PA.General.selectedCopyProfile == nil)
+local function isPALootNoCopyProfileSelected()
+    return (PA.Loot.selectedCopyProfile == nil)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- is___NoDeleteProfileSelected
 ---------------------------------
-local function isPAGeneralNoDeleteProfileSelected()
-    return (PA.General.selectedDeleteProfile == nil)
+local function isPALootNoDeleteProfileSelected()
+    return (PA.Loot.selectedDeleteProfile == nil)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- _getHighest___ProfileNo
 ---------------------------------
-local function _getHighestPAGeneralProfileNo()
-    local profileCounter = PA.SavedVars.General.profileCounter
+local function _getHighestPALootProfileNo()
+    local profileCounter = PA.SavedVars.Loot.profileCounter
     if profileCounter == nil or profileCounter == 0 then
-        if PA.SavedVars.General[1] ~= nil then
+        if PA.SavedVars.Loot[1] ~= nil then
             -- Migration Use-Case: profileCounter not yet initialized, but profiles are existing
             -- Return previous default number of profiles: 10
             return 10
@@ -39,16 +39,16 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___ProfileList
 ---------------------------------
-local function getPAGeneralProfileList()
+local function getPALootProfileList()
     local profiles = {}
-    -- for profileNo = 1, PASavedVars.General.profileCounter do
-    local highestProfileNo = _getHighestPAGeneralProfileNo()
+    -- for profileNo = 1, PASavedVars.Loot.profileCounter do
+    local highestProfileNo = _getHighestPALootProfileNo()
     for profileNo = 1, highestProfileNo do
-        if istable(PA.SavedVars.General[profileNo]) then
-            table.insert(profiles, PA.SavedVars.General[profileNo].name)
+        if istable(PA.SavedVars.Loot[profileNo]) then
+            table.insert(profiles, PA.SavedVars.Loot[profileNo].name)
         end
     end
-    if PA.SavedVars.Profile.General.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+    if PA.SavedVars.Profile.Loot.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         table.insert(profiles, GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT))
     end
     return profiles
@@ -57,16 +57,16 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___ProfileListValues
 ---------------------------------
-local function getPAGeneralProfileListValues()
+local function getPALootProfileListValues()
     local profileValues = {}
-    -- for profileNo = 1, PASavedVars.General.profileCounter do
-    local highestProfileNo = _getHighestPAGeneralProfileNo()
+    -- for profileNo = 1, PASavedVars.Loot.profileCounter do
+    local highestProfileNo = _getHighestPALootProfileNo()
     for profileNo = 1, highestProfileNo do
-        if istable(PA.SavedVars.General[profileNo]) then
+        if istable(PA.SavedVars.Loot[profileNo]) then
             table.insert(profileValues, profileNo)
         end
     end
-    if PA.SavedVars.Profile.General.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+    if PA.SavedVars.Profile.Loot.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         table.insert(profileValues, PAC.GENERAL.NO_PROFILE_SELECTED_ID)
     end
     return profileValues
@@ -75,13 +75,13 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___InactiveProfileList
 ---------------------------------
-local function getPAGeneralInactiveProfileList()
+local function getPALootInactiveProfileList()
     local profiles = {}
-    -- for profileNo = 1, PASavedVars.General.profileCounter do
-    local highestProfileNo = _getHighestPAGeneralProfileNo()
+    -- for profileNo = 1, PASavedVars.Loot.profileCounter do
+    local highestProfileNo = _getHighestPALootProfileNo()
     for profileNo = 1, highestProfileNo do
-        if istable(PA.SavedVars.General[profileNo]) and profileNo ~= PA.SavedVars.Profile.General.activeProfile then
-            table.insert(profiles, PA.SavedVars.General[profileNo].name)
+        if istable(PA.SavedVars.Loot[profileNo]) and profileNo ~= PA.SavedVars.Profile.Loot.activeProfile then
+            table.insert(profiles, PA.SavedVars.Loot[profileNo].name)
         end
     end
     return profiles
@@ -90,12 +90,12 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___InactiveProfileListValues
 ---------------------------------
-local function getPAGeneralInactiveProfileListValues()
+local function getPALootInactiveProfileListValues()
     local profileValues = {}
-    -- for profileNo = 1, PASavedVars.General.profileCounter do
-    local highestProfileNo = _getHighestPAGeneralProfileNo()
+    -- for profileNo = 1, PASavedVars.Loot.profileCounter do
+    local highestProfileNo = _getHighestPALootProfileNo()
     for profileNo = 1, highestProfileNo do
-        if istable(PA.SavedVars.General[profileNo]) and profileNo ~= PA.SavedVars.Profile.General.activeProfile then
+        if istable(PA.SavedVars.Loot[profileNo]) and profileNo ~= PA.SavedVars.Profile.Loot.activeProfile then
             table.insert(profileValues, profileNo)
         end
     end
@@ -105,71 +105,71 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- _reload___ProfileList
 ---------------------------------
-local function _reloadPAGeneralProfileList()
-    local profiles = getPAGeneralProfileList()
-    local profileValues = getPAGeneralProfileListValues()
-    PERSONALASSISTANT_GENERAL_PROFILEDROPDOWN:UpdateChoices(profiles, profileValues)
-    PERSONALASSISTANT_GENERAL_PROFILEDROPDOWN:UpdateValue()
+local function _reloadPALootProfileList()
+    local profiles = getPALootProfileList()
+    local profileValues = getPALootProfileListValues()
+    PERSONALASSISTANT_LOOT_PROFILEDROPDOWN:UpdateChoices(profiles, profileValues)
+    PERSONALASSISTANT_LOOT_PROFILEDROPDOWN:UpdateValue()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- _reload___InactiveProfileList
 ---------------------------------
-local function _reloadPAGeneralInactiveProfileList()
-    local inactiveProfiles = getPAGeneralInactiveProfileList()
-    local inactiveProfileValues = getPAGeneralInactiveProfileListValues()
-    PERSONALASSISTANT_GENERAL_PROFILEDROPDOWN_COPY:UpdateChoices(inactiveProfiles, inactiveProfileValues)
-    PERSONALASSISTANT_GENERAL_PROFILEDROPDOWN_COPY:UpdateValue()
-    PERSONALASSISTANT_GENERAL_PROFILEDROPDOWN_DELETE:UpdateChoices(inactiveProfiles, inactiveProfileValues)
-    PERSONALASSISTANT_GENERAL_PROFILEDROPDOWN_DELETE:UpdateValue()
+local function _reloadPALootInactiveProfileList()
+    local inactiveProfiles = getPALootInactiveProfileList()
+    local inactiveProfileValues = getPALootInactiveProfileListValues()
+    PERSONALASSISTANT_LOOT_PROFILEDROPDOWN_COPY:UpdateChoices(inactiveProfiles, inactiveProfileValues)
+    PERSONALASSISTANT_LOOT_PROFILEDROPDOWN_COPY:UpdateValue()
+    PERSONALASSISTANT_LOOT_PROFILEDROPDOWN_DELETE:UpdateChoices(inactiveProfiles, inactiveProfileValues)
+    PERSONALASSISTANT_LOOT_PROFILEDROPDOWN_DELETE:UpdateValue()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- init___DefaultProfile
 ---------------------------------
-local function initPAGeneralDefaultProfile()
-    local PAGSavedVars = PA.SavedVars.General
-    if PAGSavedVars.profileCounter == 0 and PAGSavedVars[1] == nil then
-        PAGSavedVars[1] = PA.MenuDefaults.PAGeneral
-        PAGSavedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
-        PAGSavedVars.profileCounter = 1
+local function initPALootDefaultProfile()
+    local PABSavedVars = PA.SavedVars.Loot
+    if PABSavedVars.profileCounter == 0 and PABSavedVars[1] == nil then
+        PABSavedVars[1] = PA.MenuDefaults.PALoot
+        PABSavedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
+        PABSavedVars.profileCounter = 1
     end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- set___ActiveProfile
 ---------------------------------
-local function setPAGeneralActiveProfile(profileNo)
+local function setPALootActiveProfile(profileNo)
     if profileNo ~= nil and profileNo ~= PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         local PASavedVars = PA.SavedVars
         -- get the previously active profile first
-        local prevProfile = PASavedVars.Profile.General.activeProfile
+        local prevProfile = PASavedVars.Profile.Loot.activeProfile
         -- then save the new one
-        PASavedVars.Profile.General.activeProfile = profileNo
+        PASavedVars.Profile.Loot.activeProfile = profileNo
         -- if the previous profile was the "no profile selected" one, refresh the dropdown values
         if prevProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
-            _reloadPAGeneralProfileList()
+            _reloadPALootProfileList()
         end
         -- refresh the profiles to be copy/deleted
-        _reloadPAGeneralInactiveProfileList()
+        _reloadPALootInactiveProfileList()
         -- reset the selected entry from from the copy/delete dropdowns
-        PA.General.selectedCopyProfile = nil
-        PA.General.selectedDeleteProfile = nil
+        PA.Loot.selectedCopyProfile = nil
+        PA.Loot.selectedDeleteProfile = nil
         -- refresh all SavedVar references that are profile-specific
-        PAEM.RefreshSavedVarReference.PAGeneral()
+        PAEM.RefreshSavedVarReference.PALoot()
         -- and also refresh all event registrations
-        PAEM.RefreshEventRegistration.PAGeneral()
+        PAEM.RefreshEventRegistration.PALoot()
     end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___ActiveProfile
 ---------------------------------
-local function getPAGeneralActiveProfile()
-    local activeProfile = PA.SavedVars.Profile.General.activeProfile
-    if (istable(PA.SavedVars.General[activeProfile])) then
+local function getPALootActiveProfile()
+    local activeProfile = PA.SavedVars.Profile.Loot.activeProfile
+    if (istable(PA.SavedVars.Loot[activeProfile])) then
         -- activeProfile is valid, return it
-        PA.General.activeProfile = activeProfile
+        PA.Loot.activeProfile = activeProfile
         return activeProfile
     else
         -- activeProfile is NOT valid, user must select a new one
@@ -180,132 +180,132 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- fix___ActiveProfile
 ---------------------------------
-local function fixPAGeneralActiveProfile()
-    local activeProfile = getPAGeneralActiveProfile()
+local function fixPALootActiveProfile()
+    local activeProfile = getPALootActiveProfile()
     if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
-        PA.SavedVars.Profile.General.activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID
+        PA.SavedVars.Profile.Loot.activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID
     end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___ActiveProfileName
 ---------------------------------
-local function getPAGeneralActiveProfileName()
-    local activeProfile = PA.SavedVars.Profile.General.activeProfile
-    return PA.SavedVars.General[activeProfile].name
+local function getPALootActiveProfileName()
+    local activeProfile = PA.SavedVars.Profile.Loot.activeProfile
+    return PA.SavedVars.Loot[activeProfile].name
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- set___ActiveProfileName
 ---------------------------------
-local function setPAGeneralActiveProfileName(profileName)
+local function setPALootActiveProfileName(profileName)
     if profileName ~= nil and profileName ~= "" then
-        local activeProfile = PA.SavedVars.Profile.General.activeProfile
-        PA.SavedVars.General[activeProfile].name = profileName
+        local activeProfile = PA.SavedVars.Profile.Loot.activeProfile
+        PA.SavedVars.Loot[activeProfile].name = profileName
         -- when profile was changed, reload the profile list
-        _reloadPAGeneralProfileList()
+        _reloadPALootProfileList()
     end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___ProfileSubMenuHeader
 ---------------------------------
-local function getPAGeneralProfileSubMenuHeader()
-    local activeProfile = getPAGeneralActiveProfile()
+local function getPALootProfileSubMenuHeader()
+    local activeProfile = getPALootActiveProfile()
     local prefix = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_PROFILE))
     if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         return table.concat({prefix, " ", GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)})
     else
-        return table.concat({prefix, " ", getPAGeneralActiveProfileName()})
+        return table.concat({prefix, " ", getPALootActiveProfileName()})
     end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- create___NewProfile
 ---------------------------------
-local function createPAGeneralNewProfile()
+local function createPALootNewProfile()
     local PASavedVars = PA.SavedVars
     local PAMenuDefaults = PA.MenuDefaults
 
-    PASavedVars.General.profileCounter = PASavedVars.General.profileCounter + 1
-    local newProfileNo = PASavedVars.General.profileCounter
+    PASavedVars.Loot.profileCounter = PASavedVars.Loot.profileCounter + 1
+    local newProfileNo = PASavedVars.Loot.profileCounter
     local newProfileName = PAHF.getDefaultProfileName(newProfileNo)
 
-    PASavedVars.General[newProfileNo] = {}
-    ZO_DeepTableCopy(PAMenuDefaults.PAGeneral, PASavedVars.General[newProfileNo])
-    PASavedVars.General[newProfileNo].name = newProfileName
+    PASavedVars.Loot[newProfileNo] = {}
+    ZO_DeepTableCopy(PAMenuDefaults.PALoot, PASavedVars.Loot[newProfileNo])
+    PASavedVars.Loot[newProfileNo].name = newProfileName
 
     -- inform player
     PA.println(SI_PA_CHAT_GENERAL_NEW_PROFILE_CREATED, newProfileName)
 
     -- refresh the active profile list
-    _reloadPAGeneralProfileList()
+    _reloadPALootProfileList()
     -- refresh the profiles to be copy/deleted
-    _reloadPAGeneralInactiveProfileList()
+    _reloadPALootInactiveProfileList()
 
     -- then select the new profile
-    setPAGeneralActiveProfile(newProfileNo)
+    setPALootActiveProfile(newProfileNo)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- copy___SelectedProfile
 ---------------------------------
-local function copyPAGeneralSelectedProfile()
-    local selectedCopyProfile = PA.General.selectedCopyProfile
-    local activeProfile = PA.SavedVars.Profile.General.activeProfile
+local function copyPALootSelectedProfile()
+    local selectedCopyProfile = PA.Loot.selectedCopyProfile
+    local activeProfile = PA.SavedVars.Profile.Loot.activeProfile
 
-    local profileSourceName = PA.SavedVars.General[selectedCopyProfile].name
-    local profileTargetName = PA.SavedVars.General[activeProfile].name
+    local profileSourceName = PA.SavedVars.Loot[selectedCopyProfile].name
+    local profileTargetName = PA.SavedVars.Loot[activeProfile].name
 
     -- attempt to copy over all settings (might fail if a sub-addon is not loaded)
     local PASavedVars = PA.SavedVars
-    ZO_DeepTableCopy(PASavedVars.General[selectedCopyProfile], PASavedVars.General[activeProfile])
-    PASavedVars.General[activeProfile].name = profileTargetName
+    ZO_DeepTableCopy(PASavedVars.Loot[selectedCopyProfile], PASavedVars.Loot[activeProfile])
+    PASavedVars.Loot[activeProfile].name = profileTargetName
 
     PA.println(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED, profileSourceName, profileTargetName)
 
     -- reset the selected entry from from the copy/delete dropdowns
-    PA.General.selectedCopyProfile = nil
-    PA.General.selectedDeleteProfile = nil
+    PA.Loot.selectedCopyProfile = nil
+    PA.Loot.selectedDeleteProfile = nil
 
     -- settings have been updated and thus the SavedVars for that profile need to be refresh
-    PAEM.RefreshSavedVarReference.PAGeneral()
+    PAEM.RefreshSavedVarReference.PALoot()
 
     -- then also all the events need to be re-initialized
-    PAEM.RefreshEventRegistration.PAGeneral()
+    PAEM.RefreshEventRegistration.PALoot()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- delete___SelectedProfile
 ---------------------------------
-local function deletePAGeneralSelectedProfile()
-    local selectedDeleteProfile = PA.General.selectedDeleteProfile
-    local profileName = PA.SavedVars.General[selectedDeleteProfile].name
+local function deletePALootSelectedProfile()
+    local selectedDeleteProfile = PA.Loot.selectedDeleteProfile
+    local profileName = PA.SavedVars.Loot[selectedDeleteProfile].name
 
     -- attempt to delete the settings
-    PA.SavedVars.General[selectedDeleteProfile] = nil
+    PA.SavedVars.Loot[selectedDeleteProfile] = nil
 
     -- inform player
     PA.println(SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED, profileName)
 
     -- reset the selected entry from from the copy/delete dropdowns
-    PA.General.selectedCopyProfile = nil
-    PA.General.selectedDeleteProfile = nil
+    PA.Loot.selectedCopyProfile = nil
+    PA.Loot.selectedDeleteProfile = nil
 
     -- refresh the active profile list
-    _reloadPAGeneralProfileList()
+    _reloadPALootProfileList()
     -- refresh the profiles to be copy/deleted
-    _reloadPAGeneralInactiveProfileList()
+    _reloadPALootInactiveProfileList()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- _get___CurrentProfileCount
 ---------------------------------
-local function _getPAGeneralCurrentProfileCount()
+local function _getPALootCurrentProfileCount()
     local profileCount = 0
     local PASavedVars = PA.SavedVars
-    for profileNo = 1, PASavedVars.General.profileCounter do
-        if istable(PASavedVars.General[profileNo]) then
+    for profileNo = 1, PASavedVars.Loot.profileCounter do
+        if istable(PASavedVars.Loot[profileNo]) then
             profileCount = profileCount + 1
         end
     end
@@ -315,60 +315,60 @@ end
 --------------------------------------------------------------------------
 -- has___OnlyOneProfile
 ---------------------------------
-local function hasPAGeneralOnlyOneProfile()
-    local profileCount = _getPAGeneralCurrentProfileCount()
+local function hasPALootOnlyOneProfile()
+    local profileCount = _getPALootCurrentProfileCount()
     return profileCount <= 1
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- is___NoProfileSelected
 ---------------------------------
-local function isPAGeneralNoProfileSelected()
-    return (PA.SavedVars.Profile.General.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID)
+local function isPALootNoProfileSelected()
+    return (PA.SavedVars.Profile.Loot.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- has___ActiveProfile
 ---------------------------------
-local function hasPAGeneralActiveProfile()
-    return not isPAGeneralNoProfileSelected()
+local function hasPALootActiveProfile()
+    return not isPALootNoProfileSelected()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- has___MaxProfileCountReached
 ---------------------------------
-local function hasPAGeneralMaxProfileCountReached()
-    local profileCount = _getPAGeneralCurrentProfileCount()
+local function hasPALootMaxProfileCountReached()
+    local profileCount = _getPALootCurrentProfileCount()
     return profileCount >= PAC.GENERAL.MAX_PROFILES
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.ProfileManager = PA.ProfileManager or {}
-PA.ProfileManager.PAGeneral = {
-    isNoCopyProfileSelected = isPAGeneralNoCopyProfileSelected,
-    isNoDeleteProfileSelected = isPAGeneralNoDeleteProfileSelected,
+PA.ProfileManager.PALoot = {
+    isNoCopyProfileSelected = isPALootNoCopyProfileSelected,
+    isNoDeleteProfileSelected = isPALootNoDeleteProfileSelected,
 
-    getProfileList = getPAGeneralProfileList,
-    getProfileListValues = getPAGeneralProfileListValues,
-    getInactiveProfileList = getPAGeneralInactiveProfileList,
-    getInactiveProfileListValues = getPAGeneralInactiveProfileListValues,
+    getProfileList = getPALootProfileList,
+    getProfileListValues = getPALootProfileListValues,
+    getInactiveProfileList = getPALootInactiveProfileList,
+    getInactiveProfileListValues = getPALootInactiveProfileListValues,
 
-    initDefaultProfile = initPAGeneralDefaultProfile,
-    setActiveProfile = setPAGeneralActiveProfile,
-    getActiveProfile = getPAGeneralActiveProfile,
-    fixActiveProfile = fixPAGeneralActiveProfile,
+    initDefaultProfile = initPALootDefaultProfile,
+    setActiveProfile = setPALootActiveProfile,
+    getActiveProfile = getPALootActiveProfile,
+    fixActiveProfile = fixPALootActiveProfile,
 
-    getActiveProfileName = getPAGeneralActiveProfileName,
-    setActiveProfileName = setPAGeneralActiveProfileName,
-    getProfileSubMenuHeader = getPAGeneralProfileSubMenuHeader,
+    getActiveProfileName = getPALootActiveProfileName,
+    setActiveProfileName = setPALootActiveProfileName,
+    getProfileSubMenuHeader = getPALootProfileSubMenuHeader,
 
-    createNewProfile = createPAGeneralNewProfile,
-    copySelectedProfile = copyPAGeneralSelectedProfile,
-    deleteSelectedProfile = deletePAGeneralSelectedProfile,
+    createNewProfile = createPALootNewProfile,
+    copySelectedProfile = copyPALootSelectedProfile,
+    deleteSelectedProfile = deletePALootSelectedProfile,
 
-    hasOnlyOneProfile = hasPAGeneralOnlyOneProfile,
-    isNoProfileSelected = isPAGeneralNoProfileSelected,
-    hasActiveProfile = hasPAGeneralActiveProfile,
-    hasMaxProfileCountReached = hasPAGeneralMaxProfileCountReached
+    hasOnlyOneProfile = hasPALootOnlyOneProfile,
+    isNoProfileSelected = isPALootNoProfileSelected,
+    hasActiveProfile = hasPALootActiveProfile,
+    hasMaxProfileCountReached = hasPALootMaxProfileCountReached
 }

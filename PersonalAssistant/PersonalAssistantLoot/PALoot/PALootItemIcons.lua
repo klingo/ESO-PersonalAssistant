@@ -3,7 +3,7 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 local CONTROL_NAME = "PALItemIcons"
 local HOOK_BAGS = 1
@@ -380,7 +380,7 @@ local function initKnown()
     -- TODO: InitKnown                  /   EVENT_RECIPE_LEARNED / EVENT_STYLE_LEARNED / EVENT_TRAIT_LEARNED
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.Loot = PA.Loot or {}
 PA.Loot.ItemIcons = {

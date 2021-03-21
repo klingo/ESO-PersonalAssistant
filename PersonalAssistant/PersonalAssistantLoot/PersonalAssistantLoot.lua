@@ -1,17 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PALProfileManager = PA.ProfileManager.PALoot
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantLoot"
-local Profile_Defaults = {
-    activeProfile = 1
-}
+PA.Loot = PA.Loot or {}
+PA.Loot.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Loot.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +44,23 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     PASavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT)
-    PASavedVars.LootProfile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistantLoot_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.LOOT, nil, Profile_Defaults)
+
+    -- init a default profile if none exist
+    PALProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PALProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PALProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PALoot()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PALoot()
+    end
 
     -- create the options with LAM-2
     PA.Loot.createOptions()
@@ -52,11 +68,8 @@ end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
--- ---------------------------------------------------------------------------------------------------------------------
-
+-- =====================================================================================================================
 -- Export
-PA.Loot = {
-    AddonName = AddonName,
-    println = println,
-    debugln = debugln
-}
+PA.Loot.AddonName = AddonName
+PA.Loot.println = println
+PA.Loot.debugln = debugln

@@ -2,10 +2,13 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
-local PALMenuFunctions = PA.MenuFunctions.PALoot
 local PALMenuChoices = PA.MenuChoices.choices.PALoot
 local PALMenuChoicesValues = PA.MenuChoices.choicesValues.PALoot
+local PALProfileManager = PA.ProfileManager.PALoot
 local PALMenuDefaults = PA.MenuDefaults.PALoot
+local PALMenuFunctions = PA.MenuFunctions.PALoot
+
+-- =====================================================================================================================
 
 -- Create the LibAddonMenu2 object
 PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
@@ -25,6 +28,7 @@ local PALootPanelData = {
 }
 
 local PALootOptionsTable = setmetatable({}, { __index = table })
+local PALootProfileSubMenuTable = setmetatable({}, { __index = table })
 
 local PALLootRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootStylesSubmenuTable = setmetatable({}, { __index = table })
@@ -37,6 +41,12 @@ local PALMarkApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
 -- =================================================================================================================
 
 local function _createPALootMenu()
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = PALProfileManager.getProfileSubMenuHeader,
+        controls = PALootProfileSubMenuTable
+    })
+
     PALootOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_LOOT_DESCRIPTION),
@@ -52,7 +62,7 @@ local function _createPALootMenu()
         name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_LOOT_EVENTS_ENABLE)),
         getFunc = PALMenuFunctions.getLootEventsEnabledSetting,
         setFunc = PALMenuFunctions.setLootEventsEnabledSetting,
-        disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
+        disabled = PALProfileManager.isNoProfileSelected,
         default = PALMenuDefaults.LootEvents.lootEventsEnabled,
     })
 
@@ -118,7 +128,7 @@ local function _createPALootMenu()
         name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_LOOT_ICONS_ENABLE)),
         getFunc = PALMenuFunctions.getItemIconsEnabledSetting,
         setFunc = PALMenuFunctions.setItemIconsEnabledSetting,
-        disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
+        disabled = PALProfileManager.isNoProfileSelected,
         default = PALMenuDefaults.ItemIcons.itemIconsEnabled,
     })
 
@@ -316,6 +326,111 @@ end
 
 -- =================================================================================================================
 
+local function _createPALootProfileSubMenuTable()
+    PALootProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_ACTIVE_T),
+        choices = PALProfileManager.getProfileList(),
+        choicesValues = PALProfileManager.getProfileListValues(),
+        width = "half",
+        getFunc = PALProfileManager.getActiveProfile,
+        setFunc = PALProfileManager.setActiveProfile,
+        reference = "PERSONALASSISTANT_LOOT_PROFILEDROPDOWN"
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "editbox",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        width = "half",
+        getFunc = PALProfileManager.getActiveProfileName,
+        setFunc = PALProfileManager.setActiveProfileName,
+        disabled = PALProfileManager.isNoProfileSelected
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_CREATE_NEW),
+        width = "half",
+        func = PALProfileManager.createNewProfile,
+        disabled = PALProfileManager.hasMaxProfileCountReached
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
+        disabled = PALProfileManager.hasMaxProfileCountReached
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
+        disabled = function() return PALProfileManager.hasOnlyOneProfile() or PALProfileManager.isNoProfileSelected() end,
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
+        choices = PALProfileManager.getInactiveProfileList(),
+        choicesValues = PALProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Loot.selectedCopyProfile end,
+        setFunc = function(value) PA.Loot.selectedCopyProfile = value end,
+        disabled = function() return PALProfileManager.hasOnlyOneProfile() or PALProfileManager.isNoProfileSelected() end,
+        reference = "PERSONALASSISTANT_LOOT_PROFILEDROPDOWN_COPY"
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),
+        width = "half",
+        func = PALProfileManager.copySelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W),
+        disabled = PALProfileManager.isNoCopyProfileSelected
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_DELETE_DESC),
+        disabled = PALProfileManager.hasOnlyOneProfile
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE),
+        choices = PALProfileManager.getInactiveProfileList(),
+        choicesValues = PALProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Loot.selectedDeleteProfile end,
+        setFunc = function(value) PA.Loot.selectedDeleteProfile = value end,
+        disabled = PALProfileManager.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_LOOT_PROFILEDROPDOWN_DELETE"
+    })
+
+    PALootProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM),
+        width = "half",
+        func = PALProfileManager.deleteSelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W),
+        disabled = PALProfileManager.isNoDeleteProfileSelected
+    })
+end
+
+-- =================================================================================================================
+
 local function _createPALLootRecipesSubmenuTable()
     PALLootRecipesSubmenuTable:insert({
         type = "description",
@@ -496,6 +611,8 @@ end
 local function createOptions()
     _createPALootMenu()
 
+    _createPALootProfileSubMenuTable()
+
     _createPALLootRecipesSubmenuTable()
     _createPALLootStylesSubmenuTable()
     _createPALLootApparelWeaponsSubmenuTable()
@@ -508,7 +625,7 @@ local function createOptions()
     PA.LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.Loot = PA.Loot or {}
 PA.Loot.createOptions = createOptions

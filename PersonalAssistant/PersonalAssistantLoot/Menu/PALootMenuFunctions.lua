@@ -3,31 +3,41 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAL = PA.Loot
 local PAMF = PA.MenuFunctions
+local PAEM = PA.EventManager
+local PALProfileManager = PA.ProfileManager.PALoot
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
+
+local isNoProfileSelected = PALProfileManager.isNoProfileSelected
+
 
 local function getValue(...)
+    if isNoProfileSelected() then return true end
     return PAMF.getValue(PAL.SavedVars, ...)
 end
 
 local function setValue(value, ...)
+    if isNoProfileSelected() then return true end
     PAMF.setValue(PAL.SavedVars, value, ...)
 end
 
 local function setValueAndRefreshEvents(value, ...)
-    PAMF.setValueAndRefreshEvents(PAL.SavedVars, value, ...)
+    setValue(value, ...)
+    PAEM.RefreshEventRegistration.PALoot()
 end
 
 local function setValueAndRefreshScrollListVisible(value, ...)
-    PAMF.setValue(PAL.SavedVars, value, ...)
+    setValue(value, ...)
     PAL.ItemIcons.refreshScrollListVisible()
 end
 
 local function isDisabled(...)
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabled(PAL.SavedVars, ...)
 end
 
 local function isDisabledAll(...)
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabledAll(PAL.SavedVars, ...)
 end
 
@@ -170,6 +180,6 @@ local PALootMenuFunctions = {
     setSilentModeSetting = function(value) setValue(value, {"silentMode"}) end,
 }
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PAMF.PALoot = PALootMenuFunctions
