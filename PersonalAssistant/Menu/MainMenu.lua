@@ -30,20 +30,14 @@ local PAGeneralProfileSubMenuTable = setmetatable({}, { __index = table })
 
 local function _createPAGeneralMenu()
     PAGeneralOptionsTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_GENERAL_DESCRIPTION),
-    })
-
-    PAGeneralOptionsTable:insert({
-        type = "header",
-        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_PROFILE_HEADER))
-    })
-
-    PAGeneralOptionsTable:insert({
         type = "submenu",
         name = PAGProfileManager.getProfileSubMenuHeader,
-        icon = PAC.ICONS.OTHERS.GROUP.PATH,
         controls = PAGeneralProfileSubMenuTable
+    })
+
+    PAGeneralOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_GENERAL_DESCRIPTION),
     })
 
     PAGeneralOptionsTable:insert({

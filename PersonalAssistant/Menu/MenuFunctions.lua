@@ -26,7 +26,6 @@ local function setValueV2(savedVarsTable, value, attributeTbl)
     else return end
 end
 
-
 local function isDisabledV2(savedVarsTable, ...)
     local args = { ... }
     for _, attributeTbl in ipairs(args) do
@@ -66,15 +65,15 @@ local function getValue(...)
 end
 
 -- TODO: Make sure these are specific to each module!
-local function setValueAndRefreshEvents(savedVarsTable, value, attributeTbl)
-    setValueV2(savedVarsTable, value, attributeTbl)
-    PAEM.RefreshEventRegistration.PAGeneral()
-end
-
--- TODO: Make sure these are specific to each module!
 local function setValue(value, ...)
     if PAGProfileManager.isNoProfileSelected() then return true end
     setValueV2(PA.General.SavedVars, value, ...)
+end
+
+-- TODO: Make sure these are specific to each module!
+local function setValueAndRefreshEvents(savedVarsTable, value, attributeTbl)
+    setValue(savedVarsTable, value, attributeTbl)
+    PAEM.RefreshEventRegistration.PAGeneral()
 end
 
 -- TODO: Make sure these are specific to each module!

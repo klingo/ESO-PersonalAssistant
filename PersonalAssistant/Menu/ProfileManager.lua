@@ -187,7 +187,6 @@ local function fixPAGeneralActiveProfile()
     end
 end
 
-
 -- ---------------------------------------------------------------------------------------------------------------------
 -- get___ActiveProfileName
 ---------------------------------
@@ -213,10 +212,11 @@ end
 ---------------------------------
 local function getPAGeneralProfileSubMenuHeader()
     local activeProfile = getPAGeneralActiveProfile()
+    local prefix = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_PROFILE))
     if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
-        return GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)
+        return table.concat({prefix, " ", GetString(SI_PA_MENU_PROFILE_PLEASE_SELECT)})
     else
-        return table.concat({GetString(SI_PA_MENU_PROFILE_ACTIVE), ": ", getPAGeneralActiveProfileName()})
+        return table.concat({prefix, " ", getPAGeneralActiveProfileName()})
     end
 end
 
@@ -299,9 +299,9 @@ local function deletePAGeneralSelectedProfile()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- get___CurrentProfileCount
+-- _get___CurrentProfileCount
 ---------------------------------
-local function getPAGeneralCurrentProfileCount()
+local function _getPAGeneralCurrentProfileCount()
     local profileCount = 0
     local PASavedVars = PA.SavedVars
     for profileNo = 1, PASavedVars.General.profileCounter do
@@ -316,7 +316,7 @@ end
 -- has___OnlyOneProfile
 ---------------------------------
 local function hasPAGeneralOnlyOneProfile()
-    local profileCount = getPAGeneralCurrentProfileCount()
+    local profileCount = _getPAGeneralCurrentProfileCount()
     return profileCount <= 1
 end
 
@@ -338,54 +338,37 @@ end
 -- has___MaxProfileCountReached
 ---------------------------------
 local function hasPAGeneralMaxProfileCountReached()
-    local profileCount = getPAGeneralCurrentProfileCount()
+    local profileCount = _getPAGeneralCurrentProfileCount()
     return profileCount >= PAC.GENERAL.MAX_PROFILES
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
-PA.ProfileManager = {
-    PAGeneral = {
-        isNoCopyProfileSelected = isPAGeneralNoCopyProfileSelected,
-        isNoDeleteProfileSelected = isPAGeneralNoDeleteProfileSelected,
+PA.ProfileManager = {}
+PA.ProfileManager.PAGeneral = {
+    isNoCopyProfileSelected = isPAGeneralNoCopyProfileSelected,
+    isNoDeleteProfileSelected = isPAGeneralNoDeleteProfileSelected,
 
-        getProfileList = getPAGeneralProfileList,
-        getProfileListValues = getPAGeneralProfileListValues,
-        getInactiveProfileList = getPAGeneralInactiveProfileList,
-        getInactiveProfileListValues = getPAGeneralInactiveProfileListValues,
+    getProfileList = getPAGeneralProfileList,
+    getProfileListValues = getPAGeneralProfileListValues,
+    getInactiveProfileList = getPAGeneralInactiveProfileList,
+    getInactiveProfileListValues = getPAGeneralInactiveProfileListValues,
 
-        initDefaultProfile = initPAGeneralDefaultProfile,
-        setActiveProfile = setPAGeneralActiveProfile,
-        getActiveProfile = getPAGeneralActiveProfile,
-        fixActiveProfile = fixPAGeneralActiveProfile,
+    initDefaultProfile = initPAGeneralDefaultProfile,
+    setActiveProfile = setPAGeneralActiveProfile,
+    getActiveProfile = getPAGeneralActiveProfile,
+    fixActiveProfile = fixPAGeneralActiveProfile,
 
-        getActiveProfileName = getPAGeneralActiveProfileName,
-        setActiveProfileName = setPAGeneralActiveProfileName,
-        getProfileSubMenuHeader = getPAGeneralProfileSubMenuHeader,
+    getActiveProfileName = getPAGeneralActiveProfileName,
+    setActiveProfileName = setPAGeneralActiveProfileName,
+    getProfileSubMenuHeader = getPAGeneralProfileSubMenuHeader,
 
-        createNewProfile = createPAGeneralNewProfile,
-        copySelectedProfile = copyPAGeneralSelectedProfile,
-        deleteSelectedProfile = deletePAGeneralSelectedProfile,
+    createNewProfile = createPAGeneralNewProfile,
+    copySelectedProfile = copyPAGeneralSelectedProfile,
+    deleteSelectedProfile = deletePAGeneralSelectedProfile,
 
-        getCurrentProfileCount = getPAGeneralCurrentProfileCount,
-        hasOnlyOneProfile = hasPAGeneralOnlyOneProfile,
-        isNoProfileSelected = isPAGeneralNoProfileSelected,
-        hasActiveProfile = hasPAGeneralActiveProfile,
-        hasMaxProfileCountReached = hasPAGeneralMaxProfileCountReached
-    },
-    PABanking = {
-
-    },
-    PAIntegration = {
-
-    },
-    PAJunk = {
-
-    },
-    PALoot = {
-
-    },
-    PARepair = {
-
-    }
+    hasOnlyOneProfile = hasPAGeneralOnlyOneProfile,
+    isNoProfileSelected = isPAGeneralNoProfileSelected,
+    hasActiveProfile = hasPAGeneralActiveProfile,
+    hasMaxProfileCountReached = hasPAGeneralMaxProfileCountReached
 }
