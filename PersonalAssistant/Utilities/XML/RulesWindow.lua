@@ -243,7 +243,7 @@ function PABankingRulesList:FilterScrollList()
     ZO_ClearNumericallyIndexedTable(scrollData)
     -- only proceed if player has selected an active profile
     if PAPM.PABanking.hasActiveProfile() then
-        -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+        -- need to access it via the full-path becase the "RefreshSavedVarReference" might not have been executed yet
         local activeProfile = PAPM.PABanking.getActiveProfile()
         local PABCustomPAItemIds = PA.SavedVars.Banking[activeProfile].Custom.PAItemIds
         -- populate the table that is used as source for the list
@@ -517,7 +517,7 @@ function PAJunkRulesList:FilterScrollList()
     ZO_ClearNumericallyIndexedTable(scrollData)
     -- only proceed if player has selected an active profile
     if PAPM.PAJunk.hasActiveProfile() then
-        -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
+        -- need to access it via the full-path becase the "RefreshSavedVarReference" might not have been executed yet
         local activeProfile = PAPM.PAJunk.getActiveProfile()
         local PAJCustomPAItemIds = PA.SavedVars.Junk[activeProfile].Custom.PAItemIds
         if PAJCustomPAItemIds then
