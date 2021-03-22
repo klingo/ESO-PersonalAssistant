@@ -146,9 +146,9 @@ local PAStrings = {
     SI_PA_REL_TEXT_OPERATOR0 = "-",
     SI_PA_REL_TEXT_OPERATOR1 = "has exactly",
     SI_PA_REL_TEXT_OPERATOR2 = "has less than", -- not used so far
-    SI_PA_REL_TEXT_OPERATOR3 = "hast at most",
+    SI_PA_REL_TEXT_OPERATOR3 = "has at most",
     SI_PA_REL_TEXT_OPERATOR4 = "has more than", -- not used so far
-    SI_PA_REL_TEXT_OPERATOR5 = "hast at least",
+    SI_PA_REL_TEXT_OPERATOR5 = "has at least",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Stacking types --
