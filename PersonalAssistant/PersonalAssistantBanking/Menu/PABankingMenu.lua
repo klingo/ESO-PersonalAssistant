@@ -65,7 +65,6 @@ local PABAvASiegeTrebuchetSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeRamSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeOilSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeGraveyardSubmenuTable = setmetatable({}, { __index = table })
-
 local PABAvARepairSubmenuTable = setmetatable({}, { __index = table })
 local PABAvAOtherSubmenuTable = setmetatable({}, { __index = table })
 
@@ -1216,7 +1215,7 @@ local function _createPABAvASiegeBallistaSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1249,7 +1248,7 @@ local function _createPABAvASiegeCatapultSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1282,7 +1281,7 @@ local function _createPABAvASiegeTrebuchetSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1315,7 +1314,7 @@ local function _createPABAvASiegeRamSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1348,7 +1347,7 @@ local function _createPABAvASiegeOilSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1381,7 +1380,7 @@ local function _createPABAvASiegeGraveyardSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1414,7 +1413,7 @@ local function _createPABAvARepairSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.ItemIds[itemId].operator,
         })
 
@@ -1447,7 +1446,7 @@ local function _createPABAvAOtherSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.ItemIds[itemId].operator,
         })
 

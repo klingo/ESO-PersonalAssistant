@@ -636,6 +636,7 @@ local PABankingMenuFunctions = {
     -- -----------------------------
     getAvAItemsEnabledSetting = function() return getValue({"AvA", "avaItemsEnabled"}) end,
     setAvAItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"AvA", "avaItemsEnabled"}) end,
+    isAvAItemsMenuDisabled = function() return isDisabled({"AvA", "avaItemsEnabled"}) end,
 
     isAvASiegeBallistaTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].BALLISTA) end,
     isAvASiegeCatapultTransactionMenuDisabled = function() return isAvACrossAllianceItemsDisabledOrAllOperatorNone(PAC.BANKING_AVA.SIEGE[PA.alliance].CATAPULT) end,
