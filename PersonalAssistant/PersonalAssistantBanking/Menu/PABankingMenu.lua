@@ -581,6 +581,7 @@ local function _createPABankingProfileSubMenuTable()
     PABankingProfileSubMenuTable:insert({
         type = "editbox",
         name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        maxChars = 40,
         width = "half",
         getFunc = PABProfileManager.getActiveProfileName,
         setFunc = PABProfileManager.setActiveProfileName,

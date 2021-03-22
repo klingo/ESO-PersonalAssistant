@@ -139,6 +139,7 @@ local function _createPAGeneralProfileSubMenu()
     PAGeneralProfileSubMenuTable:insert({
         type = "editbox",
         name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        maxChars = 40,
         width = "half",
         getFunc = PAGProfileManager.getActiveProfileName,
         setFunc = PAGProfileManager.setActiveProfileName,

@@ -147,6 +147,7 @@ local function _createPARepairProfileSubMenuTable()
     PARepairProfileSubMenuTable:insert({
         type = "editbox",
         name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        maxChars = 40,
         width = "half",
         getFunc = PARProfileManager.getActiveProfileName,
         setFunc = PARProfileManager.setActiveProfileName,
