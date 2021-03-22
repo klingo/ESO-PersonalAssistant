@@ -7,7 +7,6 @@ local PAStrings = {
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --
-    SI_PA_MENU_PROFILE_HEADER = "Profils",
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Sélectionner un profil>",
     SI_PA_MENU_PROFILE_DEFAULT = "Profil par défaut",
     SI_PA_MENU_PROFILE_ACTIVE = "Profil actif",
