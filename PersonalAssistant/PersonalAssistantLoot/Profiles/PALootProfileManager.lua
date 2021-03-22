@@ -134,6 +134,7 @@ local function initPALootDefaultProfile()
     -- check if there even is a profile yet
     if PALSavedVars.profileCounter == 0 and PALSavedVars[1] == nil then
         -- initialize the first profile
+        PALSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PALSavedVars[1], PA.MenuDefaults.PALoot)
         -- and set the savedVarsVersion and profileCounter
         PALSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR

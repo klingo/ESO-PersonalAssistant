@@ -73,15 +73,5 @@ PACopyDefaults = function(sv, defaults)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
-
-local function PACopyDefaultsWrapper(sv, defaults)
-    -- make sure savedVars is initialized
-    if sv == nil then
-        sv = {}
-    end
-    PACopyDefaults(sv, defaults)
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
 -- Export
-PA.ZO_SavedVars.CopyDefaults = PACopyDefaultsWrapper
+PA.ZO_SavedVars.CopyDefaults = PACopyDefaults

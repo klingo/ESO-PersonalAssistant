@@ -133,6 +133,7 @@ local function initPAIntegrationDefaultProfile()
     -- check if there even is a profile yet
     if PAISavedVars.profileCounter == 0 and PAISavedVars[1] == nil then
         -- initialize the first profile
+        PAISavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PAISavedVars[1], PA.MenuDefaults.PAIntegration)
         -- and set the savedVarsVersion and profileCounter
         PAISavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR

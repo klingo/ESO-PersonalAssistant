@@ -133,6 +133,7 @@ local function initPARepairDefaultProfile()
     -- check if there even is a profile yet
     if PARSavedVars.profileCounter == 0 and PARSavedVars[1] == nil then
         -- initialize the first profile
+        PARSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PARSavedVars[1], PA.MenuDefaults.PARepair)
         -- and set the savedVarsVersion and profileCounter
         PARSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR

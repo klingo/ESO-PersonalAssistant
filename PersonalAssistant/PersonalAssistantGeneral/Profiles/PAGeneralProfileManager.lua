@@ -133,6 +133,7 @@ local function initPAGeneralDefaultProfile()
     -- check if there even is a profile yet
     if PAGSavedVars.profileCounter == 0 and PAGSavedVars[1] == nil then
         -- initialize the first profile
+        PAGSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PAGSavedVars[1], PA.MenuDefaults.PAGeneral)
         -- and set the savedVarsVersion and profileCounter
         PAGSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
