@@ -4,9 +4,9 @@ local PAStrings = {
     -- Language specific texts that need to be translated --
 
     -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "à votre service !   -   La traduction pour le language [%s] n'est pas (encore) disponible"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "à votre service ! Profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") afin de sélectionner un profil. Merci :-)"}),
+    SI_PA_WELCOME_NO_SUPPORT = "à votre service !   -   La traduction pour le language [%s] n'est pas (encore) disponible",
+    SI_PA_WELCOME_SUPPORT = "à votre service !",
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({"vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ", PAC.COLOR.WHITE:Colorize("/pa"), ") afin de sélectionner un profil. Merci :-)"}),
 
 
     -- =================================================================================================================

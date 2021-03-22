@@ -4,9 +4,9 @@ local PAStrings = {
     -- Language specific texts that need to be translated --
 
     -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "к вашим услугам!  -  [%s] локализация пока не поддерживается"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "к вашим услугам! Текущий профиль: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль (или введите ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, "). Спасибо :-)"}),
+    SI_PA_WELCOME_NO_SUPPORT = "к вашим услугам!  -  [%s] локализация пока не поддерживается",
+    SI_PA_WELCOME_SUPPORT = "к вашим услугам!",
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({"приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль (или введите ", PAC.COLOR.WHITE:Colorize("/pa"), "). Спасибо :-)"}),
 
 
     -- =================================================================================================================
