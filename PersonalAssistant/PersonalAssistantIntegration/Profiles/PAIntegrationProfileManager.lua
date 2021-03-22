@@ -131,7 +131,7 @@ local function initPAIntegrationDefaultProfile()
     local PAISavedVars = PA.SavedVars.Integration
     local PAZO_SavedVars = PA.ZO_SavedVars
     -- check if there even is a profile yet
-    if PAISavedVars.profileCounter == 0 and PAISavedVars[1] == nil then
+    if (PAISavedVars.profileCounter == nil or PAISavedVars.profileCounter == 0) and PAISavedVars[1] == nil then
         -- initialize the first profile
         PAISavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PAISavedVars[1], PA.MenuDefaults.PAIntegration)

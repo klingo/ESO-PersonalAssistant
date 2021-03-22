@@ -131,7 +131,7 @@ local function initPAJunkDefaultProfile()
     local PAJSavedVars = PA.SavedVars.Junk
     local PAZO_SavedVars = PA.ZO_SavedVars
     -- check if there even is a profile yet
-    if PAJSavedVars.profileCounter == 0 and PAJSavedVars[1] == nil then
+    if (PAJSavedVars.profileCounter == nil or PAJSavedVars.profileCounter == 0) and PAJSavedVars[1] == nil then
         -- initialize the first profile
         PAJSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PAJSavedVars[1], PA.MenuDefaults.PAJunk)

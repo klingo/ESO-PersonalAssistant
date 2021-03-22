@@ -131,7 +131,7 @@ local function initPAGeneralDefaultProfile()
     local PAGSavedVars = PA.SavedVars.General
     local PAZO_SavedVars = PA.ZO_SavedVars
     -- check if there even is a profile yet
-    if PAGSavedVars.profileCounter == 0 and PAGSavedVars[1] == nil then
+    if (PAGSavedVars.profileCounter == nil or PAGSavedVars.profileCounter == 0) and PAGSavedVars[1] == nil then
         -- initialize the first profile
         PAGSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PAGSavedVars[1], PA.MenuDefaults.PAGeneral)

@@ -132,7 +132,7 @@ local function initPALootDefaultProfile()
     local PALSavedVars = PA.SavedVars.Loot
     local PAZO_SavedVars = PA.ZO_SavedVars
     -- check if there even is a profile yet
-    if PALSavedVars.profileCounter == 0 and PALSavedVars[1] == nil then
+    if (PALSavedVars.profileCounter == nil or PALSavedVars.profileCounter == 0) and PALSavedVars[1] == nil then
         -- initialize the first profile
         PALSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PALSavedVars[1], PA.MenuDefaults.PALoot)

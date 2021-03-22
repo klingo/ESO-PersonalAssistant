@@ -131,7 +131,7 @@ local function initPABankingDefaultProfile()
     local PABSavedVars = PA.SavedVars.Banking
     local PAZO_SavedVars = PA.ZO_SavedVars
     -- check if there even is a profile yet
-    if PABSavedVars.profileCounter == 0 and PABSavedVars[1] == nil then
+    if (PABSavedVars.profileCounter == nil or PABSavedVars.profileCounter == 0) and PABSavedVars[1] == nil then
         -- initialize the first profile
         PABSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PABSavedVars[1], PA.MenuDefaults.PABanking)

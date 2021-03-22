@@ -131,7 +131,7 @@ local function initPARepairDefaultProfile()
     local PARSavedVars = PA.SavedVars.Repair
     local PAZO_SavedVars = PA.ZO_SavedVars
     -- check if there even is a profile yet
-    if PARSavedVars.profileCounter == 0 and PARSavedVars[1] == nil then
+    if (PARSavedVars.profileCounter == nil or PARSavedVars.profileCounter == 0) and PARSavedVars[1] == nil then
         -- initialize the first profile
         PARSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PARSavedVars[1], PA.MenuDefaults.PARepair)
