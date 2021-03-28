@@ -383,8 +383,8 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     local toBeMovedItemsTable = {}
     local toBeMovedAgainTable = {}
 
-    PAB.debugln("#toDepositBagCache = "..tostring(#depositFromBagCache))
-    PAB.debugln("#toWithdrawBagCache = "..tostring(#withdrawalFromBagCache))
+    PAB.debugln("#toDepositBagCache = %d", #depositFromBagCache)
+    PAB.debugln("#toWithdrawBagCache = %d", #withdrawalFromBagCache)
 
     -- update the StacksAllowed options from the SavedVars
     -- OPTIMIZE: Challenge this, as it does not make sense for Glyphs and Treasure Maps

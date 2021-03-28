@@ -166,12 +166,12 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
         if specializedItemType == SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT then
-            for _, specializedItemType in pairs(combinedLists.holidayWrits) do
-                if specializedItemType == itemData.specializedItemType then return true end
+            for _, listSpecializedItemType in pairs(combinedLists.holidayWrits) do
+                if listSpecializedItemType == itemData.specializedItemType then return true end
             end
         end
-        for _, itemType in pairs(combinedLists.itemTypes) do
-            if itemType == itemData.itemType then return true end
+        for _, listItemType in pairs(combinedLists.itemTypes) do
+            if listItemType == itemData.itemType then return true end
         end
         if specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT then
             for _, itemFilterType in pairs(combinedLists.surveyMaps) do
@@ -191,8 +191,8 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             end
         end
         if not IsItemLinkContainer(itemData.itemLink) then
-            for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
-                if specializedItemType == itemData.specializedItemType then return true end
+            for _, listSpecializedItemType in pairs(combinedLists.specializedItemTypes) do
+                if listSpecializedItemType == itemData.specializedItemType then return true end
             end
         end
         for _, expectedItemType in pairs(combinedLists.learnableKnownItemTypes) do
