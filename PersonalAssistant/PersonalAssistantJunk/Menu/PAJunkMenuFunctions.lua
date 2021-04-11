@@ -141,6 +141,18 @@ local function isPAJunkExcludeAMatterOfXYZDisabled()
 end
 
 --------------------------------------------------------------------------
+-- PAJunk   QuestProtection         ThievesGuild
+---------------------------------
+local function isPAJunkThievesGuildMenuDisabled()
+    if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
+    if ((isDisabled({"Miscellaneous", "autoMarkTreasure"}) and tonumber(getValue({"Stolen", "treasureAction"})) == PAC.ITEM_ACTION.NOTHING) or isDisabledAll({"QuestProtection", "ThievesGuild", "excludeTheCovetousCountess"})) then
+        return true
+    end
+    -- if no 'true' returned so far, return false now
+    return false
+end
+
+--------------------------------------------------------------------------
 -- PAJunk   QuestProtection         NewLifeFestival
 ---------------------------------
 local function isPAJunkNewLifeFestivalMenuDisabled()
@@ -302,6 +314,11 @@ local PAJunkMenuFunctions = {
     isExcludeAMatterOfTributesDisabled = isPAJunkExcludeAMatterOfXYZDisabled,
     getExcludeAMatterOfTributesSetting = function() return getValue({"QuestProtection", "ClockworkCity", "excludeAMatterOfTributes"}) end,
     setExcludeAMatterOfTributesSetting = function(value) setValue(value, {"QuestProtection", "ClockworkCity", "excludeAMatterOfTributes"}) end,
+
+    isThievesGuildMenuDisabled = isPAJunkThievesGuildMenuDisabled,
+    isExcludeTheCovetousCountessDisabled = isPAJunkExcludeAMatterOfXYZDisabled,
+    getExcludeTheCovetousCountessSetting = function() return getValue({"QuestProtection", "ThievesGuild", "excludeTheCovetousCountess"}) end,
+    setExcludeTheCovetousCountessSetting = function(value) setValue(value, {"QuestProtection", "ThievesGuild", "excludeTheCovetousCountess"}) end,
 
     isNewLifeFestivalMenuDisabled = isPAJunkNewLifeFestivalMenuDisabled,
     isExcludeRareFishDisabled = isPAJunkNewLifeFestivalExcludeDisabled,

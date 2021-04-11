@@ -38,6 +38,9 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes"), " Daily Quest"}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
 
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("The Covetous Countess"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest for: "), PAC.COLOR.ORANGE:Colorize("Thieves Guild"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Dry Goods (Linens)]\n[Wardrobe Accessories]\n\n[Drinkware]\n[Utensils]\n[Dishes and Cookware]\n\n[Games]\n[Dolls]\n[Statues]\n\n[Writings] & [Scrivener Supplies]\n[Maps]\n\n[Ritual Objects]\n[Oddities]"}),
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Stolen Items",
     SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "When stealing [%s]",
@@ -45,6 +48,7 @@ local PAJStrings = {
     -- Quest Items --
     SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Protecting Quest Items",
     SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Clockwork City",
+    SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "Thieves Guild",
     SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "New Life Festival",
 
     -- Custom Items --
@@ -166,6 +170,29 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Cosmetics",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Grooming Items",
+
+    -- Quest: "The Covetous Countess" (only additional tags)
+    SI_PA_TREASURE_ITEM_TAG_DESC_LINENS = "Dry Goods",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES = "Wardrobe Accessories",
+    SI_PA_TREASURE_ITEM_TAG_DESC_STATUES = "Statues",
+    SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS = "Writings",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER = "Scrivener Supplies",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MAPS = "Maps",
+    SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS = "Ritual Objects",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES = "Oddities",
+
+    -- OTHERS: Not yet used
+    SI_PA_TREASURE_ITEM_TAG_DESC_INSTRUMENTS = "Musical Instruments",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ARTWORK = "Artwork",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DECOR = "Wall Décor",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TRIFLES_ORNAMENTS = "Trifles and Ornaments",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DEVICES = "Devices",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SMITHING = "Smithing Equipment",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TOOLS = "Tools",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MEDICAL_SUPPLIES = "Medical Supplies",
+    SI_PA_TREASURE_ITEM_TAG_DESC_CURIOSITIES = "Magic Curiosities",
+    SI_PA_TREASURE_ITEM_TAG_DESC_FURNISHINGS = "Furnishings",
+    SI_PA_TREASURE_ITEM_TAG_DESC_LIGHTS = "Lights",
 }
 
 for key, value in pairs(PAJStrings) do

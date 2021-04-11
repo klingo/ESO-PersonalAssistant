@@ -50,7 +50,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020510, -- update this every release!
+            MINOR = 020511, -- update this every release!
         },
     },
 
@@ -359,6 +359,9 @@ PersonalAssistant.Constants = {
             CLOCKWORK_CITY = {
                 PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
             },
+            THIEVES_GUILD = {
+                PATH = "/esoui/art/treeicons/tutorial_idexicon_thievesguild_up.dds"
+            },
             EVENTS = {
                 PATH = "/esoui/art/treeicons/achievements_indexicon_events_up.dds"
             },
@@ -482,14 +485,18 @@ PersonalAssistant.Constants = {
         },
         SPECIALIZED = {
             TROPHIES = {
-                SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
+                TREASURE_MAPS = {
+                    SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
+                },
+                FRAGMENTS = {
+                    SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
+                    SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
+                    SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
+                    SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
+                    SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
+                }
                 -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
-                SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
-                SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
-                SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
-                SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
-                SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
             },
             SURVEY_REPORTS = {
                 [ITEMFILTERTYPE_BLACKSMITHING] = {

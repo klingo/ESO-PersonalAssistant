@@ -38,6 +38,9 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes")}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Товары для ухода]"}),
 
+    --SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = "",
+    --SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = "",
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Украденные вещи",
     SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "%s",
@@ -45,6 +48,7 @@ local PAJStrings = {
     -- Quest Items --
     SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Защита квестовых предметов",
     SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Заводной город",
+    --SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "",
     SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Фестиваль Новой Жизни",
 
     -- Custom Items --
@@ -151,7 +155,7 @@ local PAJStrings = {
 
 
     -- =================================================================================================================
-    -- == OTHER STRINGS == --
+    -- == OTHER STRINGS == --   !!! NEED TO BE AN EXACT MATCH WITH THE "TAG" ON THE ITEM !!!
     -- -----------------------------------------------------------------------------------------------------------------
     -- Quest: "A Matter of Leisure"
     SI_PA_TREASURE_ITEM_TAG_DESC_TOYS = "Детские игрушки",
@@ -166,6 +170,29 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Косметика",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Товары для ухода",
+
+    -- Quest: "The Covetous Countess" (only additional tags)
+    --SI_PA_TREASURE_ITEM_TAG_DESC_LINENS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_STATUES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_MAPS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES = "",
+
+    -- OTHERS: Not yet used
+    --SI_PA_TREASURE_ITEM_TAG_DESC_INSTRUMENTS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_ARTWORK = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_DECOR = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_TRIFLES_ORNAMENTS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_DEVICES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_SMITHING = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_TOOLS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_MEDICAL_SUPPLIES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_CURIOSITIES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_FURNISHINGS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_LIGHTS = "",
 
 
     -- =================================================================================================================

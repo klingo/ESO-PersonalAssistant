@@ -22,6 +22,26 @@ local TREASURE_ITEM_TAGS = {
     A_MATTER_OF_TRIBUTES = {
         GetString(SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS),
         GetString(SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING),
+    },
+    THE_COVETOUS_COUNTESS = {
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_LINENS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES),
+
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_DRINKWARE),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_UTENSILS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_DISHES_COOKWARE),
+
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_GAMES),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_DOLLS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_STATUES),
+
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_MAPS),
+
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS),
+        GetString(SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES),
     }
 }
 
@@ -356,6 +376,12 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
             -- check Quest: A Matter of Tributes
             if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfTributes then
                 for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_TRIBUTES) do
+                    if itemTagDescriptionFmt == itemTagKey then return false end
+                end
+            end
+            -- check Quest: The Covetous Countess
+            if PAJunkSavedVars.QuestProtection.ThievesGuild.excludeTheCovetousCountess then
+                for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.THE_COVETOUS_COUNTESS) do
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
             end

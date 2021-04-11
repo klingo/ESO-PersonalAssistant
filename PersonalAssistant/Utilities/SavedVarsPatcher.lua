@@ -604,7 +604,18 @@ local function _applyPatch_2_5_11(savedVarsVersion, patchPAG, patchPAB, patchPAI
         -- then loop through all profiles and copy the profileName
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Junk[profileNo]) then
+                -- 1) Copy profile name
                 PASavedVars.Junk[profileNo].name = PASavedVars.General[profileNo].name
+                -- 2) Remove permanent PAJunk rules for items that cannot be sold
+                local PAJCustomPAItemIds = PASavedVars.Junk[profileNo].Custom.PAItemIds
+                for _, junkConfig in pairs(PAJCustomPAItemIds) do
+                    local itemLink = junkConfig.itemLink
+                    local sellInformation = GetItemLinkSellInformation(itemLink)
+                    if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL then
+                        -- remove from permanent junk
+                        PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
+                    end
+                end
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
@@ -701,7 +712,7 @@ local function applyPatchIfNeeded()
     -- Patch 2.5.10     March 18, 2021
     _applyPatch_2_5_10(_getIsPatchNeededInfo(020510))
 
-    -- Patch 2.5.11
+    -- Patch 2.5.11     tbd, 2021
     _applyPatch_2_5_11(_getIsPatchNeededInfo(020511))
 end
 

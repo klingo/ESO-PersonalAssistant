@@ -326,6 +326,19 @@ local function isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(spe
 end
 
 --------------------------------------------------------------------------
+-- PABanking   Advanced.SpecializedItemTypes.TrophySurveyReports         moveMode
+---------------------------------
+local function isAdvancedItemsDisabledOrAllSpecializedTropySurveyReportsMoveModeIgnore()
+    if isDisabled({"Advanced", "advancedItemsEnabled"}) then return true end
+
+    local surveyReports = PAB.SavedVars.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT]
+    for _, moveMode in pairs(surveyReports) do
+        if moveMode ~= PAC.OPERATOR.NONE then return false end
+    end
+    return true
+end
+
+--------------------------------------------------------------------------
 -- PABanking   Advanced.ItemTraitTypes              moveMode
 ---------------------------------
 local function isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(itemTraitTypeList)
@@ -626,7 +639,9 @@ local PABankingMenuFunctions = {
     isGlyphsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.GLYPHS) end,
     isLiquidsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.LIQUIDS) end,
     isFoodDrinksTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FOOD_DRINKS) end,
-    isTrophiesTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) end,
+    isTrophiesTreasureMapsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.TREASURE_MAPS) end,
+    isTrophiesFragmentsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.FRAGMENTS) end,
+    isTrophiesSurveyReportsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedTropySurveyReportsMoveModeIgnore() end,
     isIntricateItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) end,
     isFurnishingItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FURNISHINGS) end,
 

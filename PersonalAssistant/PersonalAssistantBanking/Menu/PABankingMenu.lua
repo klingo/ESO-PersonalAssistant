@@ -55,7 +55,9 @@ local PABAdvancedHolidayWritsSubmenuTable = setmetatable({}, { __index = table }
 local PABAdvancedGlyphsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedLiquidsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFoodDrinksSubmenuTable = setmetatable({}, { __index = table })
-local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedTrophiesTreasureMapsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedTrophiesFragmentsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedTrophiesSurveyReportsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedIntricateItemsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFurnishingsSubmenuTable = setmetatable({}, { __index = table })
 
@@ -349,10 +351,26 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_TREASURE_MAPS_HEADER),
         icon = PAC.ICONS.ITEMS.TROPHY.PATH,
-        controls = PABAdvancedTrophiesSubmenuTable,
-        disabledLabel = PABMenuFunctions.isTrophiesTransactionMenuDisabled,
+        controls = PABAdvancedTrophiesTreasureMapsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isTrophiesTreasureMapsTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_FRAGMENTS_HEADER),
+        icon = PAC.ICONS.ITEMS.TROPHY.PATH,
+        controls = PABAdvancedTrophiesFragmentsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isTrophiesFragmentsTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_SURVEY_REPORTS_HEADER),
+        icon = PAC.ICONS.ITEMS.TROPHY.PATH,
+        controls = PABAdvancedTrophiesSurveyReportsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isTrophiesSurveyReportsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -1133,9 +1151,9 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function _createPABAdvancedTrophiesSubmenuTable()
-    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) do
-        PABAdvancedTrophiesSubmenuTable:insert({
+local function _createPABAdvancedTrophiesTreasureMapsSubmenuTable()
+    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.TREASURE_MAPS) do
+        PABAdvancedTrophiesTreasureMapsSubmenuTable:insert({
             type = "dropdown",
             name = zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType)),
             choices = PABMenuChoices.itemMoveMode,
@@ -1146,14 +1164,30 @@ local function _createPABAdvancedTrophiesSubmenuTable()
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
         })
     end
+end
 
-    PABAdvancedTrophiesSubmenuTable:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
+-- -----------------------------------------------------------------------------------------------------------------
 
+local function _createPABAdvancedTrophiesFragmentsSubmenuTable()
+    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.FRAGMENTS) do
+        PABAdvancedTrophiesFragmentsSubmenuTable:insert({
+            type = "dropdown",
+            name = zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType)),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
+            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAdvancedTrophiesSurveyReportsSubmenuTable()
     for itemFilterType, _ in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS) do
-        PABAdvancedTrophiesSubmenuTable:insert({
+        PABAdvancedTrophiesSurveyReportsSubmenuTable:insert({
             type = "dropdown",
             name = table.concat({zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT)),": ", GetString("SI_ITEMFILTERTYPE", itemFilterType)}),
             choices = PABMenuChoices.itemMoveMode,
@@ -1496,7 +1530,9 @@ local function createOptions()
     _createPABAdvancedGlyphsSubmenuTable()
     _createPABAdvancedLiquidsSubmenuTable()
     _createPABAdvancedFoodDrinksSubmenuTable()
-    _createPABAdvancedTrophiesSubmenuTable()
+    _createPABAdvancedTrophiesTreasureMapsSubmenuTable()
+    _createPABAdvancedTrophiesFragmentsSubmenuTable()
+    _createPABAdvancedTrophiesSurveyReportsSubmenuTable()
     _createPABAdvancedIntricateItemsSubmenuTable()
     _createPABAdvancedFurnishingsSubmenuTable()
 
