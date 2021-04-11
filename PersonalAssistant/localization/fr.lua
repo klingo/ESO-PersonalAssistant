@@ -116,6 +116,10 @@ local PAStrings = {
     SI_PA_ITEMTYPE60 = "<<1[Commande de maître/Commandes de maître]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- SpecializedItemTypes (Custom Singluar/Plural definition) --
+    --SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[/]>>",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Master Writs based on CraftingType (Custom definition) --
     SI_PA_MASTERWRIT_CRAFTINGTYPE0 = table.concat({"Autres commandes (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}),
     SI_PA_MASTERWRIT_CRAFTINGTYPE1 = "Commande de forge scellée",
