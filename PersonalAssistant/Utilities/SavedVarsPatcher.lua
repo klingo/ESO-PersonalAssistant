@@ -549,7 +549,6 @@ local function _applyPatch_2_5_5(savedVarsVersion, _, patchPAB, _, _, _, _)
     end
 end
 
--- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 local function _applyPatch_2_5_10(savedVarsVersion, _, _, _, patchPAJ, _, _)
     if patchPAJ and PA.Junk then
         local PASavedVars = PA.SavedVars
@@ -566,6 +565,26 @@ local function _applyPatch_2_5_10(savedVarsVersion, _, _, _, patchPAJ, _, _)
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
+    end
+end
+
+-- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _applyPatch_2_5_11(savedVarsVersion, _, _, _, patchPAJ, _, _)
+    if patchPAJ and PA.Junk then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Junk[profileNo]) then
+                local PAJCustomPAItemIds = PASavedVars.Junk[profileNo].Custom.PAItemIds
+                for _, junkConfig in pairs(PAJCustomPAItemIds) do
+                    local itemLink = junkConfig.itemLink
+                    local sellInformation = GetItemLinkSellInformation(itemLink)
+                    if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL then
+                        -- remove from permanent junk
+                        PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
+                    end
+                end
+            end
+        end
     end
 end
 
@@ -634,6 +653,9 @@ local function applyPatchIfNeeded()
 
     -- Patch 2.5.10     March 18, 2021
     _applyPatch_2_5_10(_getIsPatchNeededInfo(020510))
+
+    -- Patch 2.5.11     tbd, 2021
+    _applyPatch_2_5_11(_getIsPatchNeededInfo(020511))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
