@@ -116,6 +116,10 @@ local PAStrings = {
     SI_PA_ITEMTYPE60 = "<<1[Meisterschrieb/Meisterschriebe]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- SpecializedItemTypes (Custom Singluar/Plural definition) --
+    SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[Fragment/Fragmente]>>",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Master Writs based on CraftingType (Custom definition) --
     SI_PA_MASTERWRIT_CRAFTINGTYPE0 = table.concat({"Andere Schriebe (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}),
     SI_PA_MASTERWRIT_CRAFTINGTYPE1 = "Versiegelter Schmiedeschrieb",
