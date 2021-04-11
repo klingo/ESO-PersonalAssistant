@@ -37,6 +37,7 @@ local PAJJewelrySubMenu = setmetatable({}, { __index = table })
 local PAJStolenSubMenu = setmetatable({}, { __index = table })
 
 local PAJClockworkCityQuestsSubMenu = setmetatable({}, { __index = table })
+local PAJThievesGuildQuestsSubMenu = setmetatable({}, { __index = table })
 local PAJNewLifeFestivalSubMenu = setmetatable({}, { __index = table })
 
 local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
@@ -139,6 +140,15 @@ local function _createPAJunkMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PAJClockworkCityQuestsSubMenu,
         disabledLabel = PAJMenuFunctions.isClockworkCityMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER),
+        icon = PAC.ICONS.OTHERS.THIEVES_GUILD.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PAJThievesGuildQuestsSubMenu,
+        disabledLabel = PAJMenuFunctions.isThievesGuildMenuDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -774,6 +784,26 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
+local function _createPAJThievesGuildQuestsSubMenu()
+    PAJThievesGuildQuestsSubMenu:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC),
+        disabled = PAJMenuFunctions.isNewLifeFestivalMenuDisabled,
+    })
+
+    PAJThievesGuildQuestsSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS),
+        tooltip = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T),
+        getFunc = PAJMenuFunctions.getExcludeTheCovetousCountessSetting,
+        setFunc = PAJMenuFunctions.setExcludeTheCovetousCountessSetting,
+        disabled = PAJMenuFunctions.isExcludeTheCovetousCountessDisabled,
+        default = PAJMenuDefaults.QuestProtection.ThievesGuild.excludeTheCovetousCountess,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
 local function _createPAJNewLifeFestivalSubMenu()
     PAJNewLifeFestivalSubMenu:insert({
         type = "description",
@@ -897,6 +927,7 @@ local function createOptions()
     _createPAJStolenSubMenu()
 
     _createPAJClockworkCityQuestsSubMenu()
+    _createPAJThievesGuildQuestsSubMenu()
     _createPAJNewLifeFestivalSubMenu()
 
     _createPAJKeybindingsSubMenu()
