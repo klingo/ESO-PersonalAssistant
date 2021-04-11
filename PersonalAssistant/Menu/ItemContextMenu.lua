@@ -6,6 +6,11 @@ local PAHF = PA.HelperFunctions
 
 local _hooksOnInventoryContextMenuInitialized = false
 
+local function _isItemCannotSell(bagId, slotIndex)
+    local sellInformation = GetItemSellInformation(bagId, slotIndex)
+    return sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL
+end
+
 local function _isBankingRuleNotAllowed(itemLink, bagId, slotIndex)
     local itemType = GetItemType(bagId, slotIndex)
     if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then return true end
@@ -57,7 +62,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
     end
 
     -- Add PAJunk context menu entries
-    if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled then
+    if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled and not _isItemCannotSell(bagId, slotIndex) then
         local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
         local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
         local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
