@@ -2,6 +2,7 @@
 PersonalAssistant = {}
 PersonalAssistant.ZO_SavedVars = {}
 PersonalAssistant.SavedVars = {}
+PersonalAssistant.SavedVarsPatcher = {}
 PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}
 PersonalAssistant.ProfileManager = {}

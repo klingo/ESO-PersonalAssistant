@@ -18,6 +18,7 @@ localization/en.lua
 localization/$(language).lua
 
 # Profiles
+Profiles/PAIntegrationSavedVarsPatcher.lua
 Profiles/PAIntegrationProfileManager.lua
 
 # Core

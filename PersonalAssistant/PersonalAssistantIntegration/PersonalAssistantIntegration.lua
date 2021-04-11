@@ -45,6 +45,9 @@ local function initAddon(_, addOnName)
     local PASavedVars = PA.SavedVars
     PASavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION)
 
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPAIntegrationPatchIfNeeded()
+
     -- init a default profile if none exist
     PAIProfileManager.initDefaultProfile()
 

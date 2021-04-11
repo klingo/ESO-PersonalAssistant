@@ -17,6 +17,7 @@ localization/en.lua
 localization/$(language).lua
 
 # Profiles
+Profiles/PARepairSavedVarsPatcher.lua
 Profiles/PARepairProfileManager.lua
 
 # Core

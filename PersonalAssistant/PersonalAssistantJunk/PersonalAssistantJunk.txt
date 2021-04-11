@@ -17,6 +17,7 @@ localization/en.lua
 localization/$(language).lua
 
 # Profiles
+Profiles/PAJunkSavedVarsPatcher.lua
 Profiles/PAJunkProfileManager.lua
 
 # Core

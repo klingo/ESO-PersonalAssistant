@@ -17,6 +17,7 @@ localization/en.lua
 localization/$(language).lua
 
 # Profiles
+Profiles/PALootSavedVarsPatcher.lua
 Profiles/PALootProfileManager.lua
 
 # Core

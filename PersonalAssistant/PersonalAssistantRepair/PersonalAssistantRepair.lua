@@ -45,6 +45,9 @@ local function initAddon(_, addOnName)
     local PASavedVars = PA.SavedVars
     PASavedVars.Repair = ZO_SavedVars:NewAccountWide("PersonalAssistantRepair_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.REPAIR)
 
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPARepairPatchIfNeeded()
+
     -- init a default profile if none exist
     PARProfileManager.initDefaultProfile()
 

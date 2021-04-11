@@ -17,6 +17,7 @@ localization/en.lua
 localization/$(language).lua
 
 # Profiles
+Profiles/PABankingSavedVarsPatcher.lua
 Profiles/PABankingProfileManager.lua
 
 # Core

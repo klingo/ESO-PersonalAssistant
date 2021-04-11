@@ -45,6 +45,9 @@ local function initAddon(_, addOnName)
     local PASavedVars = PA.SavedVars
     PASavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
 
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPAJunkPatchIfNeeded()
+
     -- init a default profile if none exist
     PAJProfileManager.initDefaultProfile()
 

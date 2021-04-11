@@ -45,6 +45,9 @@ local function initAddon(_, addOnName)
     local PASavedVars = PA.SavedVars
     PASavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT)
 
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPALootPatchIfNeeded()
+
     -- init a default profile if none exist
     PALProfileManager.initDefaultProfile()
 

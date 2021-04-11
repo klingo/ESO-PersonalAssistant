@@ -45,6 +45,9 @@ local function initAddon(_, addOnName)
     local PASavedVars = PA.SavedVars
     PASavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING)
 
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPABankingPatchIfNeeded()
+
     -- init a default profile if none exist
     PABProfileManager.initDefaultProfile()
 

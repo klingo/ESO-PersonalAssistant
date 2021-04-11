@@ -100,6 +100,9 @@ local function initAddon(_, addOnName)
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, Profile_Defaults)
 
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPAGeneralPatchIfNeeded()
+
     -- init a default profile if none exist
     PAGProfileManager.initDefaultProfile()
 
@@ -164,7 +167,7 @@ end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
 PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction, "Introduction")
-PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PASVP.applyPatchIfNeeded, "SavedVarsPatcher")
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PASVP.applyLegacyPatchIfNeeded, "SavedVarsPatcher")
 
 -- =====================================================================================================================
 -- Dev-Debug --
