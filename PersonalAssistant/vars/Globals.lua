@@ -357,6 +357,9 @@ PersonalAssistant.Constants = {
             CLOCKWORK_CITY = {
                 PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
             },
+            THIEVES_GUILD = {
+                PATH = "/esoui/art/treeicons/tutorial_idexicon_thievesguild_up.dds"
+            },
             EVENTS = {
                 PATH = "/esoui/art/treeicons/achievements_indexicon_events_up.dds"
             },

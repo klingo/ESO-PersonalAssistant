@@ -38,6 +38,9 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Tributs"), " benötigt"}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Körperpflegegegenstände]"}),
 
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Die gierige Gräfin"), " benötigt"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest für: "), PAC.COLOR.ORANGE:Colorize("Diebesgilde"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Trockenwaren]\n[Schmuckstücke]\n\n[Trinkgefäße]\n[Utensilien]\n[Teller und Kochgeschirr]\n\n[Spiele]\n[Puppen]\n[Statuen]\n\n[Schriften] & [Schreiberbedarf]\n[Karten]\n\n[Ritualgegenstände]\n[Kuriositäten]"}),
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Gestohlene Gegenstände",
     SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "Wenn [%s] gestohlen werden",
@@ -45,6 +48,7 @@ local PAJStrings = {
     -- Quest Items --
     SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Zu schützende Quest Gegenstände",
     SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Die Stadt der Uhrwerke",
+    SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "Diebesgilde",
     SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Neujahrsfest",
 
     -- Custom Items --
@@ -166,6 +170,29 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Kosmetika",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Körperpflegegegenstände",
+
+    -- Quest: "The Covetous Countess" (only additional tags)
+    SI_PA_TREASURE_ITEM_TAG_DESC_LINENS = "Trockenwaren",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES = "Schmuckstücke",
+    SI_PA_TREASURE_ITEM_TAG_DESC_STATUES = "Statuen",
+    SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS = "Schriften",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER = "Schreiberbedarf",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MAPS = "Karten",
+    SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS = "Ritualgegenstände",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES = "Kuriositäten",
+
+    -- OTHERS: Not yet used
+    SI_PA_TREASURE_ITEM_TAG_DESC_INSTRUMENTS = "Musikinstrumente",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ARTWORK = "Kunstwerke",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DECOR = "Wanddekor",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TRIFLES_ORNAMENTS = "Kleinigkeiten und Zierden",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DEVICES = "Geräte",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SMITHING = "Schmiedeausrüstung",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TOOLS = "Werkzeuge",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MEDICAL_SUPPLIES = "Medizinische Vorräte",
+    SI_PA_TREASURE_ITEM_TAG_DESC_CURIOSITIES = "Magische Kuriositäten",
+    SI_PA_TREASURE_ITEM_TAG_DESC_FURNISHINGS = "Möblierung",
+    SI_PA_TREASURE_ITEM_TAG_DESC_LIGHTS = "Lichtquellen",
 }
 
 for key, value in pairs(PAJStrings) do

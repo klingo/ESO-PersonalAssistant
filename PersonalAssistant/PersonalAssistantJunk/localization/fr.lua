@@ -38,6 +38,9 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("Une affaire de tributs")}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quête dans: "), PAC.COLOR.ORANGE:Colorize("La Cité mécanique"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Ustensiles de toilette]"}),
 
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = table.concat({"> pour la quête journalière ", PAC.COLOR.YELLOW:Colorize("La comtesse avide")}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quête de: "), PAC.COLOR.ORANGE:Colorize("La guilde des voleurs"), "\nSi l'option est active, les objets trésor suivants ne seront PAS marqués comme rebuts:\n[Produits cosmétiques]\n[Denrées sèches]\n[Accessoires vestimentaires]\n\n[Récipients à boire]\n[Ustensiles]\n[Plats et moules]\n\n[Jeux]\n[Poupées]\n[Statues]\n\n[Écrits] & [Fournitures de scribe]\n[Cartes]\n\n[Objets rituel]\n[Curiosités]"}),
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Objets volés",
     SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "Sur vol d'objets de type [%s]",
@@ -45,6 +48,7 @@ local PAJStrings = {
     -- Quest Items --
     SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Protection des objets de quête",
     SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "La Cité mécanique",
+    SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "La guilde des voleurs",
     SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Festival de la Nouvelle vie",
 
     -- Custom Items --
@@ -166,6 +170,29 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Produits cosmétiques",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Ustensiles de toilette",
+
+    -- Quest: "The Covetous Countess" (only additional tags)
+    SI_PA_TREASURE_ITEM_TAG_DESC_LINENS = "Denrées sèches",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES = "Accessoires vestimentaires",
+    SI_PA_TREASURE_ITEM_TAG_DESC_STATUES = "Statues",
+    SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS = "Écrits",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER = "Fournitures de scribe",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MAPS = "Cartes",
+    SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS = "Objets rituels",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES = "Curiosités",
+
+    -- OTHERS: Not yet used
+    SI_PA_TREASURE_ITEM_TAG_DESC_INSTRUMENTS = "Instruments de musique",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ARTWORK = "Œuvre d'art",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DECOR = "Décoration murale",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TRIFLES_ORNAMENTS = "Babioles et ornements",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DEVICES = "Appareils",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SMITHING = "Équipment de forge",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TOOLS = "Outils",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MEDICAL_SUPPLIES = "Fournitures médicales",
+    SI_PA_TREASURE_ITEM_TAG_DESC_CURIOSITIES = "Curiosités magiques",
+    SI_PA_TREASURE_ITEM_TAG_DESC_FURNISHINGS = "Meubles",
+    SI_PA_TREASURE_ITEM_TAG_DESC_LIGHTS = "Lumières",
 }
 
 for key, value in pairs(PAJStrings) do

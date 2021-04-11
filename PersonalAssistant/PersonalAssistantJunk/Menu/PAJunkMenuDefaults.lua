@@ -77,6 +77,9 @@ local PAJunkMenuDefaults = {
             excludeAMatterOfRespect = false,
             excludeAMatterOfTributes = false,
         },
+        ThievesGuild = {
+            excludeTheCovetousCountess = false,
+        },
         NewLifeFestival = {
             excludeRareFish = true,
         }
