@@ -18,6 +18,9 @@ local function _finishBankingItemTransfer()
     PAB.KeybindStrip.updateBankKeybindStrip()
     -- inform player that everything is done
     PAB.println(SI_PA_CHAT_BANKING_FINISHED)
+
+    local passedGameTime = GetGameTimeMilliseconds() - PAB.startGameTime
+    PAB.debugln('PABanking:executeBankingItemTransfers took approx. %f s', PA.HelperFunctions.round(passedGameTime / 1000, 1))
 end
 
 local function _printLWCMessageIfItemsSkipped()
@@ -62,13 +65,13 @@ local function executeBankingItemTransfers()
         PAB.KeybindStrip.updateBankKeybindStrip()
 
         -- before queueing up the transactions, ensure that the SHARED_INVENTORY is updated
-        local startGameTime = GetGameTimeMilliseconds()
+        PAB.startGameTime = GetGameTimeMilliseconds()
         SHARED_INVENTORY:RefreshInventory(BAG_BACKPACK)
         SHARED_INVENTORY:RefreshInventory(BAG_BANK)
         if IsESOPlusSubscriber() then
             SHARED_INVENTORY:RefreshInventory(BAG_SUBSCRIBER_BANK)
         end
-        local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+        local passedGameTime = GetGameTimeMilliseconds() - PAB.startGameTime
         PAB.debugln('SHARED_INVENTORY:RefreshInventory took approx. %d ms', passedGameTime)
 
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
