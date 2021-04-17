@@ -549,6 +549,7 @@ local function _applyPatch_2_5_5(savedVarsVersion, _, patchPAB, _, _, _, _)
     end
 end
 
+-- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 local function _applyPatch_2_5_10(savedVarsVersion, _, _, _, patchPAJ, _, _)
     if patchPAJ and PA.Junk then
         local PASavedVars = PA.SavedVars
@@ -567,8 +568,6 @@ local function _applyPatch_2_5_10(savedVarsVersion, _, _, _, patchPAJ, _, _)
         _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
     end
 end
-
--- local function _applyPatch_x_x_x(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
