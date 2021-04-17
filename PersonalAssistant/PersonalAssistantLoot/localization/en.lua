@@ -59,10 +59,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Size (List View)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Define the size of the known/unknown icons in places where items are displayed in a list view",
     SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Icon Size (Grid View)",
-    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Define the size of the known/unknown icons in places where items are displayed in a grid view with the addon [InventoryGridView]",
-
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID = "Icon Position (Grid View)",
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T = "Define the position of the known/unknown icons.\nWith 'Automatic' PALoot checks if the addons [Research Assistant] and [ESO Master Recipe List] are enabled and positions the icon in a not yet occupied corner",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Define the size of the known/unknown icons in places where items are displayed in a grid view",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST = "Icon X Offset (List View)",
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T = "Define the horizontal offset of the known/unknown icon in the list view",
@@ -70,9 +67,9 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T = "Define the vertical offset of the known/unknown icon in the list view",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID = "Icon X Offset (Grid View)",
-    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Define the horizontal offset of the known/unknown icon in the grid view with the addon [InventoryGridView]\n\nCan only be set when Icon Position is set to Manual",
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Define the horizontal offset of the known/unknown icon in the grid view",
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID = "Icon Y Offset (Grid View)",
-    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Define the vertical offset of the known/unknown icon in the grid view with the addon [InventoryGridView]\n\nCan only be set when Icon Position is set to Manual",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Define the vertical offset of the known/unknown icon in the grid view",
 
 
     -- =================================================================================================================

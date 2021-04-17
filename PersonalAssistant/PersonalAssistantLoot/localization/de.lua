@@ -59,10 +59,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Grösse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden",
     SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Icon Grösse (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände durch das Addon [Inventory Grid View] in einem Gitter angezeigt werden",
-
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID = "Icon Positionierung (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T = "Definiere die Position des bekannt/unbekannt Icons.\nMit 'Automatisch' prüft PALoot ob die Addons [Research Assistant] und [ESO Master Recipe List] aktiviert sind und positioniert das Icon in einer noch nicht belegten Ecke",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einem Gitter angezeigt werden",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST = "Icon versetzt X-Achse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Listenanzeige",
@@ -70,9 +67,9 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Listenanzeige",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID = "Icon versetzt X-Achse (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist",
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige.",
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID = "Icon versetzt Y-Achse (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige.",
 
 
     -- =================================================================================================================
