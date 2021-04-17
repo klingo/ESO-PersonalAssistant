@@ -7,16 +7,11 @@ local PAHF = PA.HelperFunctions
 
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJunk
 
-local function _isItemCannotSell(bagId, slotIndex)
-    local sellInformation = GetItemSellInformation(bagId, slotIndex)
-    return sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL
-end
-
 local function _isMarkUnmarkAsJunkVisible()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsJunkKeybind then
-        -- also return false when item cannot be sold, or is already marked as perm junk
-        if _isItemCannotSell(_mouseOverBagId, _mouseOverSlotIndex) or PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
+        -- also return false when item is already marked as perm junk
+        if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
             return false
         end
         return _mouseOverBagId and _mouseOverSlotIndex
@@ -27,8 +22,8 @@ end
 local function _isMarkUnmarkAsJunkEnabled()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind then
-        -- also return false when item cannot be sold, or when item is already marked as perm junk
-        if _isItemCannotSell(_mouseOverBagId, _mouseOverSlotIndex) or PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
+        -- also return false when item is already marked as perm junk
+        if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
             return false
         end
         return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
@@ -39,9 +34,6 @@ end
 local function _isMarkUnmarkAsPermJunkVisible()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsPermJunkKeybind then
-        if _isItemCannotSell(_mouseOverBagId, _mouseOverSlotIndex) then
-            return false
-        end
         return _mouseOverBagId and _mouseOverSlotIndex
     end
     return false
@@ -50,9 +42,6 @@ end
 local function _isMarkUnmarkAsPermJunkEnabled()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
-        if _isItemCannotSell(_mouseOverBagId, _mouseOverSlotIndex) then
-            return false
-        end
         return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
     end
     return false
@@ -205,8 +194,6 @@ end
 local function toggleItemMarkedAsJunk()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsJunkKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
-            -- only proceed if item has any value
-            if _isItemCannotSell(_mouseOverBagId, _mouseOverSlotIndex) then return end
             -- if item is already marked as permanent junk; skip function
             if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then return end
             -- get item information
@@ -229,8 +216,6 @@ local function toggleItemMarkedAsPermanentJunk()
     if PA.Junk.SavedVars and PAJ.SavedVars.Custom.customItemsEnabled and
             PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
-            -- only proceed if item has any value
-            if _isItemCannotSell(_mouseOverBagId, _mouseOverSlotIndex) then return end
             -- get item information
             local itemLinkPlain = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
             if PA.Junk.Custom.isItemLinkPermanentJunk(itemLinkPlain) then
