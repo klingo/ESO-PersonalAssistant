@@ -29,12 +29,12 @@ local PALootMenuDefaults = {
         itemIconsEnabled = true,
 
         Recipes = {
-            showKnownIcon = false,
+            showKnownIcon = true,
             showUnknownIcon = true,
         },
 
         Motifs = {
-            showKnownIcon = false,
+            showKnownIcon = true,
             showUnknownIcon = true,
         },
 
@@ -44,18 +44,17 @@ local PALootMenuDefaults = {
         },
 
         ApparelWeapons = {
-            showKnownIcon = false,
+            showKnownIcon = true,
             showUnknownIcon = true,
         },
 
-        iconPositionGrid = PAC.ICON_POSITION.AUTO,
         iconTooltipShown = true,
         iconSizeRow = 16,
         iconSizeGrid = 16,
         iconXOffsetList = 0,
         iconYOffsetList = 0,
-        iconXOffsetGrid = 0,
-        iconYOffsetGrid = 0,
+        iconXOffsetGrid = 2,
+        iconYOffsetGrid = -2,
     },
 
     InventorySpace = {

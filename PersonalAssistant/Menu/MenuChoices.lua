@@ -55,12 +55,6 @@ local PAMenuChoices = {
             PAC.COLOR.RED:Colorize(GetString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS)),
         },
     },
-    PALoot = {
-        iconPosition = {
-            GetString(SI_PA_POSITION_AUTO),
-            GetString(SI_PA_POSITION_MANUAL),
-        }
-    },
     PARepair = {
         defaultSoulGem = {
             GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_GOLD),
@@ -119,20 +113,6 @@ local PAMenuChoicesValues = {
             PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS, -- 8
             PAC.ITEM_ACTION.DESTROY_ALWAYS,         -- 9
         },
-    },
-    PALoot = {
-        iconPosition = {
-            PAC.ICON_POSITION.AUTO,     -- -1 (automatic)
---            TOPLEFT,                    -- 3
---            TOPRIGHT,                   -- 9
---            BOTTOMLEFT,                 -- 6
---            BOTTOMRIGHT,                -- 12
---            BOTTOM,                     -- 4
---            TOP,                        -- 1
---            LEFT,                       -- 2
---            RIGHT,                      -- 8
-            CENTER,                     -- 128 (manual)
-        }
     },
     PARepair = {
         defaultSoulGem = {

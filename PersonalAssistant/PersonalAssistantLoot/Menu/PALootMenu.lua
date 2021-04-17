@@ -157,20 +157,8 @@ local function _createPALootMenu()
         disabledLabel = PALMenuFunctions.isMarkApparelWeaponsMenuDisabled,
     })
 
-    -- only display if [InventoryGridView] is installed and active
-    if _G["InventoryGridView"] ~= nil then
-        PALootOptionsTable:insert({
-            type = "dropdown",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T),
-            choices = PALMenuChoices.iconPosition,
-            choicesValues = PALMenuChoicesValues.iconPosition,
-            getFunc = PALMenuFunctions.getItemIconsPositionSetting,
-            setFunc = PALMenuFunctions.setItemIconsPositionSetting,
-            disabled = PALMenuFunctions.isItemIconsPositionDisabled,
-            default = PALMenuDefaults.ItemIcons.iconPositionGrid,
-        })
-
+    -- only display if [InventoryGridView] or [GridList] is installed and active
+    if _G["InventoryGridView"] ~= nil or _G["GridList"] then
         PALootOptionsTable:insert({
             type = "slider",
             name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
@@ -217,8 +205,8 @@ local function _createPALootMenu()
             type = "slider",
             name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID),
             tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T),
-            min = -20,
-            max = 20,
+            min = 0,
+            max = 100,
             step = 1,
             width = "half",
             getFunc = PALMenuFunctions.getItemIconsXOffsetGridSetting,
@@ -245,8 +233,8 @@ local function _createPALootMenu()
             type = "slider",
             name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID),
             tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T),
-            min = -20,
-            max = 20,
+            min = -100,
+            max = 0,
             step = 1,
             width = "half",
             getFunc = PALMenuFunctions.getItemIconsYOffsetGridSetting,

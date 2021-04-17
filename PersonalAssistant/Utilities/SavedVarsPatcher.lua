@@ -352,30 +352,7 @@ end
 
 
 local function _applyPatch_2_4_13(savedVarsVersion, _, _, _, _, patchPAL, _)
-   if patchPAL then
-       local PASavedVars = PA.SavedVars
-       for profileNo = 1, 8 do
-           -- 1) patch      PALoot.ItemIcons.iconPositionGrid
-           local iconPositionGrid = PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid
-           if iconPositionGrid ~= PAC.ICON_POSITION.AUTO then
-               PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid = CENTER
-                if iconPositionGrid == TOPLEFT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = -20 -- left
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = 20 -- top
-                elseif iconPositionGrid == TOPRIGHT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = 20 -- right
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = 20 -- top
-                elseif iconPositionGrid == BOTTOMLEFT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = -20 -- left
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = -20 -- bottom
-                elseif iconPositionGrid == BOTTOMRIGHT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = 20 -- right
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = -20 -- bottom
-                end
-           end
-       end
-       _updateSavedVarsVersion(savedVarsVersion, false, false, false, false, patchPAL, false)
-   end
+    -- As of Version 2.5.11, this needs to be skipped because "iconPositionGrid" was decommissioned
 end
 
 
