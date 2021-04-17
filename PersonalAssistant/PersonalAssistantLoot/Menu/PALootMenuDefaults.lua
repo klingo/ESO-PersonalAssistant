@@ -48,14 +48,13 @@ local PALootMenuDefaults = {
             showUnknownIcon = true,
         },
 
-        iconPositionGrid = PAC.ICON_POSITION.AUTO,
         iconTooltipShown = true,
         iconSizeRow = 16,
         iconSizeGrid = 16,
         iconXOffsetList = 0,
         iconYOffsetList = 0,
-        iconXOffsetGrid = 0,
-        iconYOffsetGrid = 0,
+        iconXOffsetGrid = 2,
+        iconYOffsetGrid = -2,
     },
 
     InventorySpace = {

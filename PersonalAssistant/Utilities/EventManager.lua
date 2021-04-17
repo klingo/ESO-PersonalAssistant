@@ -329,6 +329,16 @@ local function RefreshPALootEventRegistration()
         else
             UnregisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, "TradeHouseHook")
         end
+
+        -- Register LAM-Callback to show Inventory fragment when PALoot settings are opened
+        CALLBACK_MANAGER:RegisterCallback("LAM-PanelOpened", function(panel)
+            if panel.data.name ~= PA.Constants.ADDON.NAME_RAW.LOOT then return end
+            PAL.ShowInventoryFragment()
+        end)
+        CALLBACK_MANAGER:RegisterCallback("LAM-PanelClosed", function(panel)
+            if panel.data.name ~= PA.Constants.ADDON.NAME_RAW.LOOT then return end
+            PAL.HideInventoryFragment()
+        end)
     end
 end
 

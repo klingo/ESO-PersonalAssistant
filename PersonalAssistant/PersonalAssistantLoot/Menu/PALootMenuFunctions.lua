@@ -155,15 +155,11 @@ local PALootMenuFunctions = {
     getItemIconsSizeGridSetting = function() return getValue({"ItemIcons", "iconSizeGrid"}) end,
     setItemIconsSizeGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconSizeGrid"}) end,
 
-    isItemIconsPositionDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
-    getItemIconsPositionSetting = function() return getValue({"ItemIcons", "iconPositionGrid"}) end,
-    setItemIconsPositionSetting = function(value) setValue(value, {"ItemIcons", "iconPositionGrid"}) end,
-
-    isItemIconsXOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or getValue({"ItemIcons", "iconPositionGrid"}) == PAC.ICON_POSITION.AUTO end,
+    isItemIconsXOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsXOffsetGridSetting = function() return getValue({"ItemIcons", "iconXOffsetGrid"}) end,
     setItemIconsXOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconXOffsetGrid"}) end,
 
-    isItemIconsYOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or getValue({"ItemIcons", "iconPositionGrid"}) == PAC.ICON_POSITION.AUTO  end, -- TODO: check for "Automatic" Position
+    isItemIconsYOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getItemIconsYOffsetGridSetting = function() return getValue({"ItemIcons", "iconYOffsetGrid"}) end,
     setItemIconsYOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconYOffsetGrid"}) end,
 

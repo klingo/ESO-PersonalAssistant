@@ -26,10 +26,16 @@ local function _applyPatch_2_5_11(savedVarsVersion, isPatchingNeeded)
         local PASavedVars = PA.SavedVars
         -- copy the profileCounter value
         PASavedVars.Loot.profileCounter = PASavedVars.General.profileCounter
-        -- then loop through all profiles and copy the profileName
+        -- then loop through all profiles
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Loot[profileNo]) then
+                -- 1) copy the profileName
                 PASavedVars.Loot[profileNo].name = PASavedVars.General[profileNo].name
+                -- 2 ) delete the iconPositionGrid
+                PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid = nil
+                -- 3) make sure iconXOffsetGrid and iconYOffsetGrid have valid values by resetting to default
+                PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = PA.MenuDefaults.PALoot.ItemIcons.iconXOffsetGrid
+                PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = PA.MenuDefaults.PALoot.ItemIcons.iconYOffsetGrid
             end
         end
         _updateSavedVarsVersion(savedVarsVersion)

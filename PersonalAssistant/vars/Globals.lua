@@ -44,14 +44,14 @@ PersonalAssistant.Constants = {
         SAVED_VARS_VERSION = { -- changing these values cause all settings to be reset!
             MAJOR = {
                 GENERAL = 1,
-                PROFILE = 1, -- TODO: to be removed
+                PROFILE = 1,
                 BANKING = 2,
                 INTEGRATION = 1,
                 JUNK = 2,
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020510, -- update this every release!
+            MINOR = 020511, -- update this every release!
         },
     },
 

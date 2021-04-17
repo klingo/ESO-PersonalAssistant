@@ -19,7 +19,8 @@ local _hooksOnLootWindowInitialized = false
 
 -- based on the control and hookType, checks if the current control is displayed in gridView or not (i.e. in rowView)
 local function _isGridViewDisplay(control, hookType)
-    local isGridViewEnabled = control.isGrid or (control:GetWidth() - control:GetHeight() < 5) or (InventoryGridView and InventoryGridView.settings.vars.isGrid)
+    -- if width and height is max 5 px apart, assume we are in grid view
+    local isGridViewEnabled = control:GetWidth() - control:GetHeight() < 5
     return isGridViewEnabled and (hookType == HOOK_BAGS or hookType == HOOK_STORE)
 end
 
@@ -46,25 +47,6 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- returns the selected iconPosition (if selected); or evaluates different addons and automatically choses the correct location
-local function _getTargetGridIconPosition()
-    local selectedIconPosition = PA.Loot.SavedVars.ItemIcons.iconPositionGrid
-    if selectedIconPosition == PAC.ICON_POSITION.AUTO then
-        if _G["ResearchAssistant"] == nil then
-            -- no [ResearchAssistant] found; position TOPLEFT
-            return TOPLEFT
-        elseif _G["ESOMRL"] == nil then
-            -- no [ESOMRL] found; position BOTTOMLEFT
-            return BOTTOMLEFT
-        else
-            -- both addons found; position BOTTOMRIGHT
-            return BOTTOMRIGHT
-        end
-    else
-        return selectedIconPosition
-    end
-end
-
 -- returns the target icon size; depending on the parentControl and the hookType
 local function _getTargetIconSize(parentControl, hookType)
     -- if gridView is enabled, and it is for the bags or buyback, then return the GRID size
@@ -77,18 +59,9 @@ end
 
 -- returns the iconPosition and offsets for gridView
 local function _getGridViewIconPositionAndOffset()
-    local selectedIconPosition = _getTargetGridIconPosition()
-    local offsetX, offsetY
-    if selectedIconPosition == CENTER then
-        -- apply user defined offsets if CENTER (i.e. Manual)
-        offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetGrid
-        offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetGrid
-    else
-        -- apply internal offsets if any other location (i.e. Automatic)
-        if selectedIconPosition == TOPRIGHT or selectedIconPosition == BOTTOMRIGHT then offsetX = -4 else offsetX = 4 end
-        if selectedIconPosition == BOTTOMLEFT or selectedIconPosition == BOTTOMRIGHT then offsetY = -4 else offsetY = 4 end
-    end
-    return selectedIconPosition, offsetX, offsetY
+    local offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetGrid
+    local offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetGrid
+    return BOTTOMLEFT, offsetX, offsetY
 end
 
 local function _getListViewIconPositionAndOffset()

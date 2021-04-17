@@ -295,6 +295,16 @@ local function UpdateNumBagUsedSlots(eventCode)
         end)
 end
 
+local function ShowInventoryFragment()
+    SCENE_MANAGER:GetScene('gameMenuInGame'):AddFragment(INVENTORY_FRAGMENT)
+    SCENE_MANAGER:GetScene('gameMenuInGame'):AddFragment(RIGHT_PANEL_BG_FRAGMENT)
+end
+
+local function HideInventoryFragment()
+    SCENE_MANAGER:GetScene('gameMenuInGame'):RemoveFragment(INVENTORY_FRAGMENT)
+    SCENE_MANAGER:GetScene('gameMenuInGame'):RemoveFragment(RIGHT_PANEL_BG_FRAGMENT)
+end
+
 
 -- =====================================================================================================================
 -- Export
@@ -303,3 +313,5 @@ PA.Loot.TraitIndexFromItemTraitType = TraitIndexFromItemTraitType
 PA.Loot.isTraitBeingResearched = isTraitBeingResearched
 PA.Loot.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
 PA.Loot.UpdateNumBagUsedSlots = UpdateNumBagUsedSlots
+PA.Loot.ShowInventoryFragment = ShowInventoryFragment
+PA.Loot.HideInventoryFragment = HideInventoryFragment
