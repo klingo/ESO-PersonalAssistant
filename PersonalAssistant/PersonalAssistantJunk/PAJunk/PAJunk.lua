@@ -684,6 +684,14 @@ local function OnMailboxClose()
     PA.WindowStates.isMailboxClosed = true
 end
 
+local function OnTransmuteStationSceneChange(oldState, newState)
+    if(newState == SCENE_SHOWN) then
+        PA.WindowStates.isTransmuteStationClosed = false
+    else
+        PA.WindowStates.isTransmuteStationClosed = true
+    end
+end
+
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAJProfileManager.hasActiveProfile() then
         -- only proceed it item is not already marked as junk
@@ -693,7 +701,9 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
         local PAJunkSavedVars = PAJ.SavedVars
         local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
         local isCrafted = IsItemLinkCrafted(itemLink)
-        if (not isCrafted or not PAJunkSavedVars.ignoreCraftedItems) and (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) then
+        if (not isCrafted or not PAJunkSavedVars.ignoreCraftedItems) and
+                (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) and
+                (PA.WindowStates.isTransmuteStationClosed) then
             -- check if the updated happened in the backpack and if the item is new
             if bagId == BAG_BACKPACK then
                 local _marked = false
@@ -858,4 +868,5 @@ PA.Junk.OnShopOpen = OnShopOpen
 PA.Junk.OnStoreAndFenceClose = OnStoreAndFenceClose
 PA.Junk.OnMailboxOpen = OnMailboxOpen
 PA.Junk.OnMailboxClose = OnMailboxClose
+PA.Junk.OnTransmuteStationSceneChange = OnTransmuteStationSceneChange
 PA.Junk.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
