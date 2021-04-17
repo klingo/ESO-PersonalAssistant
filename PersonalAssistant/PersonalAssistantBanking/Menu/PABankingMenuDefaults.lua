@@ -2,9 +2,12 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 local PABankingMenuDefaults = {
+    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
+
+    -- ---------------------------------------------
     Currencies = {
         currenciesEnabled = true,
 
@@ -245,7 +248,7 @@ local PABankingMenuDefaults = {
     silentMode = false,
 }
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.MenuDefaults = PA.MenuDefaults or {}
 PA.MenuDefaults.PABanking = PABankingMenuDefaults

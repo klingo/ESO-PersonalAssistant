@@ -2,26 +2,35 @@
 local PA = PersonalAssistant
 local PAR = PA.Repair
 local PAMF = PA.MenuFunctions
+local PAEM = PA.EventManager
+local PARProfileManager = PA.ProfileManager.PARepair
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
+
+local isNoProfileSelected = PARProfileManager.isNoProfileSelected
 
 local function getValue(...)
+    if isNoProfileSelected() then return true end
     return PAMF.getValue(PAR.SavedVars, ...)
 end
 
 local function setValue(value, ...)
+    if isNoProfileSelected() then return true end
     PAMF.setValue(PAR.SavedVars, value, ...)
 end
 
 local function setValueAndRefreshEvents(value, ...)
-    PAMF.setValueAndRefreshEvents(PAR.SavedVars, value, ...)
+    setValue(value, ...)
+    PAEM.RefreshEventRegistration.PARepair()
 end
 
 local function isDisabled(...)
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabled(PAR.SavedVars, ...)
 end
 
 local function isDisabledAll(...)
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabledAll(PAR.SavedVars, ...)
 end
 
@@ -115,6 +124,6 @@ local PARepairMenuFunctions = {
 
 }
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PAMF.PARepair = PARepairMenuFunctions

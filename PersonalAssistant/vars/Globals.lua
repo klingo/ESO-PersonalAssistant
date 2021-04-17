@@ -2,8 +2,11 @@
 PersonalAssistant = {}
 PersonalAssistant.ZO_SavedVars = {}
 PersonalAssistant.SavedVars = {}
+PersonalAssistant.SavedVarsPatcher = {}
 PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}
+PersonalAssistant.ProfileManager = {}
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -41,7 +44,7 @@ PersonalAssistant.Constants = {
         SAVED_VARS_VERSION = { -- changing these values cause all settings to be reset!
             MAJOR = {
                 GENERAL = 1,
-                PROFILE = 1,
+                PROFILE = 1, -- TODO: to be removed
                 BANKING = 2,
                 INTEGRATION = 1,
                 JUNK = 2,

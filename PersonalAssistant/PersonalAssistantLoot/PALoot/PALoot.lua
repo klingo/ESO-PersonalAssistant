@@ -2,9 +2,9 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAL = PA.Loot
-local PAHF = PA.HelperFunctions
+local PALProfileManager = PA.ProfileManager.PALoot
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 local GET_NUM_BAG_USED_SLOTS_INTERVAL_MS = 100
 local GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS = 1000
@@ -181,7 +181,7 @@ local function isTraitBeingResearched(itemLink)
 end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-   if PAHF.hasActiveProfile() then
+    if PALProfileManager.hasActiveProfile() then
        local PALootSavedVars = PAL.SavedVars
         local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
@@ -296,7 +296,7 @@ local function UpdateNumBagUsedSlots(eventCode)
 end
 
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.Loot = PA.Loot or {}
 PA.Loot.TraitIndexFromItemTraitType = TraitIndexFromItemTraitType

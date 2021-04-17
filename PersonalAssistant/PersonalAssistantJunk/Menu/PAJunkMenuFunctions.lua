@@ -3,28 +3,35 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAJ = PA.Junk
 local PAMF = PA.MenuFunctions
+local PAEM = PA.EventManager
+local PAJProfileManager = PA.ProfileManager.PAJunk
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
-local isDisabledPAGeneralNoProfileSelected = PAMF.isDisabledPAGeneralNoProfileSelected
+local isNoProfileSelected = PAJProfileManager.isNoProfileSelected
 
 local function getValue(...)
+    if isNoProfileSelected() then return true end
     return PAMF.getValue(PAJ.SavedVars, ...)
 end
 
 local function setValue(value, ...)
+    if isNoProfileSelected() then return true end
     PAMF.setValue(PAJ.SavedVars, value, ...)
 end
 
 local function setValueAndRefreshEvents(value, ...)
-    PAMF.setValueAndRefreshEvents(PAJ.SavedVars, value, ...)
+    setValue(value, ...)
+    PAEM.RefreshEventRegistration.PAJunk()
 end
 
 local function isDisabled(...)
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabled(PAJ.SavedVars, ...)
 end
 
 local function isDisabledAll(...)
+    if isNoProfileSelected() then return true end
     return PAMF.isDisabledAll(PAJ.SavedVars, ...)
 end
 
@@ -194,7 +201,7 @@ end
 -- PAJunk   AutoDestroy     destroyWorthlessJunk
 ---------------------------------
 local function setPAJunkAutoDestroyWorthlessJunkSetting(value)
-    if isDisabledPAGeneralNoProfileSelected() then return end
+    if isNoProfileSelected() then return end
     setValue(value, {"AutoDestroy", "destroyWorthlessJunk"})
     if tostring(value) == "true" then
         PAJ.println(SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON)
@@ -204,7 +211,6 @@ local function setPAJunkAutoDestroyWorthlessJunkSetting(value)
 end
 
 -- =================================================================================================================
-
 local PAJunkMenuFunctions = {
     getAutoMarkAsJunkEnabledSetting = function() return getValue({"autoMarkAsJunkEnabled"}) end,
     setAutoMarkAsJunkEnabledSetting = function(value) setValueAndRefreshEvents(value, {"autoMarkAsJunkEnabled"}) end,
@@ -429,6 +435,6 @@ local PAJunkMenuFunctions = {
 
 }
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PAMF.PAJunk = PAJunkMenuFunctions

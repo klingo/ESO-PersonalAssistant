@@ -5,15 +5,14 @@ local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 local PASVP = PA.SavedVarsPatcher
+local PAGProfileManager = PA.ProfileManager.PAGeneral
 
--- =====================================================================================================================
 -- =====================================================================================================================
 
 -- other settings
 PA.AddonName = "PersonalAssistant"
-PA.activeProfile = nil -- init with nil, is populated during [initAddon]
-PA.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
-PA.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
+PA.General.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.General.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- window states
 PA.WindowStates = {
@@ -47,9 +46,27 @@ local function _initDefaults()
         profileCounter = 0
     }
     -- LOCAL default values for PAProfile
+    -- TODO: figure out if SavedVarsPatcher works for this too
     Profile_Defaults = {
-        activeProfile = 1,
-        debug = false,
+        General = {
+            activeProfile = 1,
+            debug = false,
+        },
+        Banking = {
+            activeProfile = 1,
+        },
+        Integration = {
+            activeProfile = 1,
+        },
+        Junk = {
+            activeProfile = 1,
+        },
+        Loot = {
+            activeProfile = 1,
+        },
+        Repair = {
+            activeProfile = 1,
+        }
     }
 end
 
@@ -57,22 +74,6 @@ end
 local function _initPlayerNameAndAlliance()
     PA.alliance = GetUnitAlliance("player")
     PA.playerName = GetUnitName("player")
-end
-
--- create a default profile if none exist yet
-local function _initDefaultProfile(savedVars)
-    if savedVars.profileCounter == 0 and savedVars[1] == nil then
-        savedVars[1] = PA.MenuDefaults.PAGeneral
-        savedVars[1].name = GetString(SI_PA_MENU_PROFILE_DEFAULT)
-        savedVars.profileCounter = 1
-    end
-end
-
-local function _fixActiveProfile()
-    local activeProfile = PA.MenuFunctions.PAGeneral.getActiveProfile()
-    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
-        PA.SavedVars.Profile.activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID
-    end
 end
 
 -- init saved variables and register Addon
@@ -99,22 +100,21 @@ local function initAddon(_, addOnName)
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, General_Defaults)
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, Profile_Defaults)
 
-    -- init a default profile if none exist
-    _initDefaultProfile(PASavedVars.General)
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPAGeneralPatchIfNeeded()
 
-    -- sync profiles between PAGeneral and PARepair
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.General, PA.MenuDefaults.PAGeneral)
+    -- init a default profile if none exist
+    PAGProfileManager.initDefaultProfile()
 
     -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
-    _fixActiveProfile()
+    PAGProfileManager.fixActiveProfile()
 
     -- get the active Profile and the debug setting
-    PA.activeProfile = PA.MenuFunctions.PAGeneral.getActiveProfile()
-    PA.debug = PASavedVars.Profile.debug
+    PAGProfileManager.getActiveProfile()
+    PA.General.debug = PASavedVars.Profile.General.debug
 
     -- create the options with LAM-2
-    local PAGeneral = PA.General
-    PAGeneral.createOptions()
+    PA.General.createOptions()
 
     -- init the overall Rules Main Menu
     PA.CustomDialogs.initRulesMainMenu()
@@ -139,22 +139,22 @@ local function introduction()
         PA.DebugWindow.showDebugOutputWindow()
     end
 
-    if PA.activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+    local activeProfile = PAGProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
         PA.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
         -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
-        PAEM.RefreshAllSavedVarReferences(PA.activeProfile)
+        PAEM.RefreshSavedVarReference.PAGeneral()
         -- then also all the events can be initialised
-        PAEM.RefreshAllEventRegistrations()
+        PAEM.RefreshEventRegistration.PAGeneral()
         -- finally check for the welcome message
-        local PAGSavedVars = PA.General.SavedVars
-        if showWelcomeMessage and PAGSavedVars.welcomeMessage then
+        if showWelcomeMessage and PA.SavedVars.General[activeProfile].welcomeMessage then
             showWelcomeMessage = false
             local currLanguage = GetCVar("language.2") or "en"
             if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then
                 PA.println(SI_PA_WELCOME_NO_SUPPORT, currLanguage)
             else
-                PA.println(SI_PA_WELCOME_SUPPORT, PAGSavedVars.name)
+                PA.println(SI_PA_WELCOME_SUPPORT)
             end
         end
     end
@@ -167,7 +167,7 @@ end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
 PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, introduction, "Introduction")
-PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PASVP.applyPatchIfNeeded, "SavedVarsPatcher")
+PAEM.RegisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, PASVP.applyLegacyPatchIfNeeded, "SavedVarsPatcher")
 
 -- =====================================================================================================================
 -- Dev-Debug --

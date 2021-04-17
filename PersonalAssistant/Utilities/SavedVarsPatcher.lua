@@ -571,7 +571,7 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function applyPatchIfNeeded()
+local function applyLegacyPatchIfNeeded()
     -- first unregister the event again
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "SavedVarsPatcher")
 
@@ -638,6 +638,4 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
-PA.SavedVarsPatcher = {
-    applyPatchIfNeeded = applyPatchIfNeeded
-}
+PA.SavedVarsPatcher.applyLegacyPatchIfNeeded = applyLegacyPatchIfNeeded

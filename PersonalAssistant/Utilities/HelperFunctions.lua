@@ -166,12 +166,12 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
         if specializedItemType == SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT then
-            for _, specializedItemType in pairs(combinedLists.holidayWrits) do
-                if specializedItemType == itemData.specializedItemType then return true end
+            for _, listSpecializedItemType in pairs(combinedLists.holidayWrits) do
+                if listSpecializedItemType == itemData.specializedItemType then return true end
             end
         end
-        for _, itemType in pairs(combinedLists.itemTypes) do
-            if itemType == itemData.itemType then return true end
+        for _, listItemType in pairs(combinedLists.itemTypes) do
+            if listItemType == itemData.itemType then return true end
         end
         if specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT then
             for _, itemFilterType in pairs(combinedLists.surveyMaps) do
@@ -191,8 +191,8 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             end
         end
         if not IsItemLinkContainer(itemData.itemLink) then
-            for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
-                if specializedItemType == itemData.specializedItemType then return true end
+            for _, listSpecializedItemType in pairs(combinedLists.specializedItemTypes) do
+                if listSpecializedItemType == itemData.specializedItemType then return true end
             end
         end
         for _, expectedItemType in pairs(combinedLists.learnableKnownItemTypes) do
@@ -448,44 +448,11 @@ end
 -- == PROFILES == --
 -- -----------------------------------------------------------------------------------------------------------------
 
----@return boolean whether player has selected a PA profile
-local function hasActiveProfile()
-    local PAMenuFunctions = PA.MenuFunctions
-    return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
-end
-
 --- returns the default profile name of the provided profile number
 ---@param profileNo number the number/id of a profile
 ---@return string the name of the profile
 local function getDefaultProfileName(profileNo)
     return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
-end
-
---- sync the LOCAL profiles with the ones from GLOBAL
----@param localSavedVars table the savedVars table of the local profile
----@param localDefaults table the table with the defaults for the savedVars table
----@return void
-local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
-    local PASavedVars = PA.SavedVars
-    -- check if there even is a profile yet
-    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
-        -- initialize the first profile
-        PA.ZO_SavedVars.CopyDefaults(localSavedVars[1], localDefaults)
-        -- and set the savedVarsVersion
-        localSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
-    else
-        -- at least one profile is existing, check with others
-        for profileNo = 1, PASavedVars.General.profileCounter do
-            if istable(PASavedVars.General[profileNo]) then
-                -- GLOBAL has a profile, either initialize local profile, or sync it with defaults
-                if localSavedVars[profileNo] == nil then localSavedVars[profileNo] = {} end
-                PA.ZO_SavedVars.CopyDefaults(localSavedVars[profileNo], localDefaults)
-            elseif istable(localSavedVars[profileNo]) then
-                -- LOCAL has a profile, but GLOBAL does not - delete it!
-                localSavedVars[profileNo] = nil
-            end
-        end
-    end
 end
 
 --- Source: https://wiki.esoui.com/IsAddonRunning
@@ -558,7 +525,6 @@ PA.HelperFunctions = {
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getBankBags = getBankBags,
     getBagName = getBagName,
-    hasActiveProfile = hasActiveProfile,
     getFormattedCurrency = getFormattedCurrency,
     getFormattedCurrencySimple = getFormattedCurrencySimple,
     getFormattedItemLink = getFormattedItemLink,
@@ -568,7 +534,6 @@ PA.HelperFunctions = {
     debugln = debugln,
     debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
-    syncLocalProfilesWithGlobal = syncLocalProfilesWithGlobal,
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,

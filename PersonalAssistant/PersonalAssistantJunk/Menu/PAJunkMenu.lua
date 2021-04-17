@@ -3,11 +3,13 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
-local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
 local PAJMenuChoices = PA.MenuChoices.choices.PAJunk
 local PAJMenuChoicesValues = PA.MenuChoices.choicesValues.PAJunk
+local PAJProfileManager = PA.ProfileManager.PAJunk
 local PAJMenuDefaults = PA.MenuDefaults.PAJunk
 local PAJMenuFunctions = PA.MenuFunctions.PAJunk
+
+-- =====================================================================================================================
 
 -- Create the LibAddonMenu2 object
 PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
@@ -27,6 +29,7 @@ local PAJunkPanelData = {
 }
 
 local PAJunkOptionsTable = setmetatable({}, { __index = table })
+local PAJunkProfileSubMenuTable = setmetatable({}, { __index = table })
 
 local PAJTrashSubMenu = setmetatable({}, { __index = table })
 local PAJCollectiblesSubMenu = setmetatable({}, { __index = table })
@@ -46,6 +49,12 @@ local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
 local function _createPAJunkMenu()
     PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = PAJProfileManager.getProfileSubMenuHeader,
+        controls = PAJunkProfileSubMenuTable
+    })
+
+    PAJunkOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_JUNK_DESCRIPTION),
     })
@@ -61,7 +70,7 @@ local function _createPAJunkMenu()
         tooltip = GetString(SI_PA_MENU_JUNK_AUTOMARK_ENABLE_T),
         getFunc = PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting,
         setFunc = PAJMenuFunctions.setAutoMarkAsJunkEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PAJProfileManager.isNoProfileSelected,
         default = PAJMenuDefaults.autoMarkAsJunkEnabled,
     })
 
@@ -174,7 +183,7 @@ local function _createPAJunkMenu()
         type = "button",
         name = GetString(SI_PA_MAINMENU_JUNK_HEADER),
         func = PA.CustomDialogs.showPAJunkRulesMenu,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PAJProfileManager.isNoProfileSelected,
     })
 
     PAJunkOptionsTable:insert({
@@ -258,6 +267,112 @@ local function _createPAJunkMenu()
         setFunc = PAJMenuFunctions.setSilentModeSetting,
         disabled = PAJMenuFunctions.isSilentModeDisabled,
         default = PAJMenuDefaults.silentMode,
+    })
+end
+
+-- =================================================================================================================
+
+local function _createPAJunkProfileSubMenuTable()
+    PAJunkProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_ACTIVE_T),
+        choices = PAJProfileManager.getProfileList(),
+        choicesValues = PAJProfileManager.getProfileListValues(),
+        width = "half",
+        getFunc = PAJProfileManager.getActiveProfile,
+        setFunc = PAJProfileManager.setActiveProfile,
+        reference = "PERSONALASSISTANT_JUNK_PROFILEDROPDOWN"
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "editbox",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        maxChars = 40,
+        width = "half",
+        getFunc = PAJProfileManager.getActiveProfileName,
+        setFunc = PAJProfileManager.setActiveProfileName,
+        disabled = PAJProfileManager.isNoProfileSelected
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_CREATE_NEW),
+        width = "half",
+        func = PAJProfileManager.createNewProfile,
+        disabled = PAJProfileManager.hasMaxProfileCountReached
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
+        disabled = PAJProfileManager.hasMaxProfileCountReached
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
+        disabled = function() return PAJProfileManager.hasOnlyOneProfile() or PAJProfileManager.isNoProfileSelected() end,
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
+        choices = PAJProfileManager.getInactiveProfileList(),
+        choicesValues = PAJProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Junk.selectedCopyProfile end,
+        setFunc = function(value) PA.Junk.selectedCopyProfile = value end,
+        disabled = function() return PAJProfileManager.hasOnlyOneProfile() or PAJProfileManager.isNoProfileSelected() end,
+        reference = "PERSONALASSISTANT_JUNK_PROFILEDROPDOWN_COPY"
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),
+        width = "half",
+        func = PAJProfileManager.copySelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W),
+        disabled = PAJProfileManager.isNoCopyProfileSelected
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_DELETE_DESC),
+        disabled = PAJProfileManager.hasOnlyOneProfile
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE),
+        choices = PAJProfileManager.getInactiveProfileList(),
+        choicesValues = PAJProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Junk.selectedDeleteProfile end,
+        setFunc = function(value) PA.Junk.selectedDeleteProfile = value end,
+        disabled = PAJProfileManager.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_JUNK_PROFILEDROPDOWN_DELETE"
+    })
+
+    PAJunkProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM),
+        width = "half",
+        func = PAJProfileManager.deleteSelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W),
+        disabled = PAJProfileManager.isNoDeleteProfileSelected
     })
 end
 
@@ -917,6 +1032,8 @@ end
 
 local function createOptions()
     _createPAJunkMenu()
+
+    _createPAJunkProfileSubMenuTable()
 
     _createPAJTrashSubMenu()
     _createPAJCollectiblesSubMenu()
