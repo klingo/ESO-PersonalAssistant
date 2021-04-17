@@ -263,10 +263,12 @@ local function initHooksOnBags()
             local listView = inventory.listView
             if listView and listView.dataTypes and listView.dataTypes[1] then
                 ZO_PreHook(listView.dataTypes[1], "setupCallback", function(control, slot)
-                    local bagId = control.dataEntry.data.bagId
-                    local slotIndex = control.dataEntry.data.slotIndex
-                    local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
-                    _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_BAGS)
+                    if not PA.Banking.isBankItemTransferBlocked then
+                        local bagId = control.dataEntry.data.bagId
+                        local slotIndex = control.dataEntry.data.slotIndex
+                        local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
+                        _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_BAGS)
+                    end
                 end)
             end
         end
