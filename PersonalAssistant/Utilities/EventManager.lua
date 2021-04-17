@@ -36,6 +36,10 @@ local function _getCallbackEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
     return "CB_".._getEsoIdentifier(addonName, ESO_EVENT, paIdentifier)
 end
 
+local function _getSceneEsoIdentifier(addonName, sceneName, paIdentifier)
+    return "SC".._getEsoIdentifier(addonName, sceneName, paIdentifier)
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local _functionQueue = {}
@@ -135,6 +139,34 @@ local function UnregisterForCallback(addonName, callbackName, executableFunction
     _removeEventFromSet(esoIdentifier)
 end
 
+local function RegisterForSceneChange(addonName, sceneName, executableFunction, paIdentifier)
+    -- get the esoIdentifier
+    local esoIdentifier = _getSceneEsoIdentifier(addonName, sceneName, paIdentifier)
+    -- an event will only be registered with ESO, when the same identifier is not yet registered
+    if not _containsEventInSet(esoIdentifier) then
+        -- register the event with ESO
+        local scene = SCENE_MANAGER:GetScene(sceneName)
+        if scene ~= nil then
+            -- register the callback with ESO
+            scene:RegisterCallback("StateChange", executableFunction)
+            -- and add it to PA's internal list of registered events/callbacks
+            _addEventToSet(esoIdentifier)
+        end
+    end
+end
+
+local function UnregisterForSceneChange(addonName, sceneName, executableFunction, paIdentifier)
+    -- get the esoIdentifier
+    local esoIdentifier = _getSceneEsoIdentifier(addonName, sceneName, paIdentifier)
+    local scene = SCENE_MANAGER:GetScene(sceneName)
+    if scene ~= nil then
+        -- unregister the callback from ESO
+        scene:UnregisterCallback("StateChange", executableFunction)
+    end
+    -- and remove it from PA's internal list of registered events/callbacks
+    _removeEventFromSet(esoIdentifier)
+end
+
 local function listAllEventsInSet()
     d("----------------------------------------------------")
     d("PA: listing all registered events")
@@ -190,6 +222,9 @@ local function RefreshAllEventRegistrations()
             -- Register Mailbox Open Check (to disable marking as junk)
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, PAJ.OnMailboxOpen, "OpenMailbox")
             RegisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, PAJ.OnMailboxClose, "CloseMailbox")
+
+            -- Register Transmute Station Check (to disable marking reconstructed items as junk)
+            RegisterForSceneChange(PAJ.AddonName, "retrait_keyboard_root", PAJ.OnTransmuteStationSceneChange, "OnTransmuteStationSceneChange")
         else
             -- Unregister PAJunk AutoMarking
             UnregisterForEvent(PAJ.AddonName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, "SingleSlotUpdate")
@@ -197,6 +232,9 @@ local function RefreshAllEventRegistrations()
             -- Unregister PAJunk Mailbox Open Check
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_OPEN_MAILBOX, "OpenMailbox")
             UnregisterForEvent(PAJ.AddonName, EVENT_MAIL_CLOSE_MAILBOX, "CloseMailbox")
+
+            -- Unregister PAJunk Transmute Station Check
+            UnregisterForSceneChange(PAJ.AddonName, "retrait_keyboard_root", PAJ.OnTransmuteStationSceneChange, "OnTransmuteStationSceneChange")
         end
 
         -- Register PAJunk for selling (also in case PAJunk related integrations are turned on)
@@ -396,6 +434,8 @@ PA.EventManager = {
     FireCallbacks = FireCallbacks,
     RegisterForCallback = RegisterForCallback,
     UnregisterForCallback = UnregisterForCallback,
+    RegisterForSceneChange = RegisterForSceneChange,
+    UnregisterForSceneChange = UnregisterForSceneChange,
     RefreshAllEventRegistrations = RefreshAllEventRegistrations,
     RefreshAllSavedVarReferences = RefreshAllSavedVarReferences,
 }
