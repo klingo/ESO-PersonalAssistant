@@ -45,18 +45,21 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Украденные вещи",
     SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "%s",
 
+    -- Custom Items --
+    SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Настраиваемые предметы",
+    SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+
     -- Quest Items --
     SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Защита квестовых предметов",
     SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Заводной город",
     --SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "",
     SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Фестиваль Новой Жизни",
 
-    -- Custom Items --
-    SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Настраиваемые предметы",
-    SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+    -- Auto-Sell --
+    --SI_PA_MENU_JUNK_AUTO_SELL_JUNK_HEADER = "",
 
     -- Auto-Destroy --
-    SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Автоматически уничтожать мусор",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_HEADER = "Автоматически уничтожать мусор",
     --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "",
     --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "ВНИМАНИЕ: Обратите внимание, что при использовании этой настройки, никакого сообщения для подтверждения действия не будет!\nПросто будет уничтожен!\nНасовсем!\nИспользуйте на свой страх и риск!",
@@ -65,6 +68,13 @@ local PAJStrings = {
     --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "",
     --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "",
     --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "",
+
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD_T = "!",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD_T = "",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Никогда не помечать полученное по почте как хлам",
@@ -132,9 +142,12 @@ local PAJStrings = {
 
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s"}),
     SI_PA_CHAT_JUNK_DESTROYED_ALWAYS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Постоянная пометка"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Мусор"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}),
+    --SI_PA_CHAT_JUNK_DESTROYED_CRITERIA_MATCH = "",
+
+    SI_PA_CHAT_JUNK_DESTROY_ON = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}),
+    SI_PA_CHAT_JUNK_DESTROY_OFF = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}),
+    --SI_PA_CHAT_JUNK_DESTROY_STOLEN_ON = table.concat({"", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}),
+    --SI_PA_CHAT_JUNK_DESTROY_STOLEN_OFF = table.concat({"", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}),
 
     SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = "Продано предметов на %s",
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Пожалуйста, подождите ~%d часов"}),
