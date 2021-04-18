@@ -208,6 +208,37 @@ local function _createPAJunkMenu()
     })
 
     PAJunkOptionsTable:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T),
+        min = 0,
+        max = 99,
+        step = 1,
+        getFunc = PAJMenuFunctions.getDestroyMaxValueThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyMaxValueThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyMaxValueThresholdDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyMaxValueThreshold
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T),
+        choices = PAJMenuChoices.qualityLevelNoDisabled,
+        choicesValues = PAJMenuChoicesValues.qualityLevelNoDisabled,
+        getFunc = PAJMenuFunctions.getDestroyMaxQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyMaxQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyMaxQualityThresholdDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyMaxQualityThreshold,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER),
+        disabled = PAJMenuFunctions.isDestroyMaxQualityThresholdDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
         type = "header",
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_OTHER_SETTINGS_HEADER))
     })

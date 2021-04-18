@@ -70,7 +70,9 @@ local PAJunkMenuDefaults = {
         }
     },
     AutoDestroy = {
-        destroyWorthlessJunk = false
+        destroyWorthlessJunk = false,
+        destroyMaxValueThreshold = 0,
+        destroyMaxQualityThreshold = ITEM_FUNCTIONAL_QUALITY_TRASH,
     },
     QuestProtection = {
         ClockworkCity = {

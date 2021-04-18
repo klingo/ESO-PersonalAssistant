@@ -369,6 +369,12 @@ local PAJunkMenuFunctions = {
     isAutoDestroyWorthlessJunkDisabled = function() return isDisabled() end, -- currently always enabled
     getAutoDestroyWorthlessJunkSetting = function() return getValue({"AutoDestroy", "destroyWorthlessJunk"}) end,
     setAutoDestroyWorthlessJunkSetting = setPAJunkAutoDestroyWorthlessJunkSetting,
+    isDestroyMaxValueThresholdDisabled = function() return isDisabled({"AutoDestroy", "destroyWorthlessJunk"}) end,
+    getDestroyMaxValueThresholdSetting = function() return getValue({"AutoDestroy", "destroyMaxValueThreshold"}) end,
+    setDestroyMaxValueThresholdSetting = function(value) setValue(value, {"AutoDestroy", "destroyMaxValueThreshold"}) end,
+    isDestroyMaxQualityThresholdDisabled = function() return isDisabled({"AutoDestroy", "destroyWorthlessJunk"}) end,
+    getDestroyMaxQualityThresholdSetting = function() return getValue({"AutoDestroy", "destroyMaxQualityThreshold"}) end,
+    setDestroyMaxQualityThresholdSetting = function(value) setValue(value, {"AutoDestroy", "destroyMaxQualityThreshold"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- KEYBINDINGS

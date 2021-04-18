@@ -57,9 +57,14 @@ local PAJStrings = {
 
     -- Auto-Destroy --
     SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Trödel direkt zerstören",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Direktes Zerstören von wertlosem Trödel",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "Wenn ein wertloser Gegenstand (Verkaufswert = 0g) eingesammelt wird der automatisch als Trödel markiert würde, dann wird wenn EINgeschaltet dieser Gegenstand stattdessen zerstört. Einmal zerstört kann der Gegenstand nicht zurückgeholt werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Direktes Zerstören von gewissem Trödel",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "Wenn ein Gegenstand eingesammelt der automatisch als Trödel markiert würde, und einen Verkaufswert sowie eine Qualität hat die genau auf oder unter dem Schwellenwert liegt, dann wird wenn EINgeschaltet dieser Gegenstand stattdessen zerstört. Einmal zerstört kann der Gegenstand nicht zurückgeholt werden!",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "ACHTUNG: Bitte beachte dass bei Verwendung von dieser Einstellung KEINE Sicherheitsfrage kommt ob der Gegenstand wirklich zerstört werden soll.\nEr wird einfach direkt zerstört!\nUnwiderruflich!\nNutzung erfolgt auf eigenes Risiko!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "WENN Verkaufswert genau auf oder unter [...] liegt",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "Nur Gegenstände deren Verkaufswert auf oder unter dem eingegeben Schwellenwert liegen werden automatisch zerstört. Wenn ein Gegenstand einmal zerstört ist, kann dies nicht mehr rückgängig gemacht werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "UND die Qualität genau auf oder unter [...] liegt",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "Nur Gegenstände deren Qualität auf oder unter der ausgewählten Qualität liegen werden automatisch zerstört. Wenn ein Gegenstand einmal zerstört ist, kann dies nicht mehr rückgängig gemacht werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "Ausnahme: Alle Arten von 'unbekannten' Gegenständen (Rezepte, Stile, Stilseiten, Eigenschaften, ...) werden nie automatisch zerstört, selbst wenn die Kriterien des Verkaufswertes und der Qualität erfüllt wären",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Aus Nachrichten nie als Trödel markieren",

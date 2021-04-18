@@ -57,9 +57,14 @@ local PAJStrings = {
 
     -- Auto-Destroy --
     SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Автоматически уничтожать мусор",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Включить уничтожение ненужных предметов",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "При добыче бесполезного предмета (стоимость продажи - 0з) при включенном данном параметре - предмет будет уничтожен. Это не может быть отменено!",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "ВНИМАНИЕ: Обратите внимание, что при использовании этой настройки, никакого сообщения для подтверждения действия не будет!\nПросто будет уничтожен!\nНасовсем!\nИспользуйте на свой страх и риск!",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Никогда не помечать полученное по почте как хлам",

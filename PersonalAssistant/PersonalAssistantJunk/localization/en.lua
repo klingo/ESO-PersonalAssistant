@@ -57,9 +57,14 @@ local PAJStrings = {
 
     -- Auto-Destroy --
     SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Auto-Destroy Junk",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Enable Auto-Destroy of worthles Junk items",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "When looting a worthless item (sell value = 0g) that would automatically be marked as junk, with this setting turned ON it will be destroyed instead. This cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Enable auto-destroy of certain junk items",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "Wenn ein Gegenstand eingesammelt der automatisch als Trödel markiert würde, und einen Verkaufswert sowie eine Qualität hat die genau auf oder unter dem Schwellenwert liegt, dann wird wenn EINgeschaltet dieser Gegenstand stattdessen zerstört. Einmal zerstört kann der Gegenstand nicht zurückgeholt werden!",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "WARNING: Please be aware that using this setting, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "IF merchant sell value is at or below",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "Only auto-destroy items when their merchant sell value is at or below this threshold. Once an item is destroyed, it cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "AND item quality is at or below",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "Only auto-destroy items when their quality level is at or below this threshold. Once an item is destroyed, it cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "Exception: Any kind of 'unknown' items (recipes, motifs, style pages, traits, ...) will never be auto-destroyed, even if they match the sell value and quality criteria",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Never mark items received from Mailbox as Junk",

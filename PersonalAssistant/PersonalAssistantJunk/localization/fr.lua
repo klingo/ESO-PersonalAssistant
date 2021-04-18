@@ -57,9 +57,14 @@ local PAJStrings = {
 
     -- Auto-Destroy --
     SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Détruire automatiquement les rebuts",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Détruire automatiquement les rebuts sans valeur",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "Lors du butin, si un objet est mis aux rebuts et n'a aucune valeur (revente pour 0 pièce), il sera détruit si cette option est activée. Ceci ne peut être annulé !",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "ATTENTION: Soyez conscient en utilisant cette option, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Ne pas mettre aux rebuts si reçu par courrier",
