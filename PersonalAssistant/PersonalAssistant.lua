@@ -278,6 +278,11 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         d("isBOPAndTradeable="..tostring(isBOPAndTradeable))
         d("isCharacterBound="..tostring(isCharacterBound))
 
+        if IsItemLinkSetCollectionPiece(itemLink) then
+            local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
+            d("isItemSetCollectionPieceUnlocked="..tostring(isItemSetCollectionPieceUnlocked))
+        end
+
         local isStolen = IsItemStolen(bagId, slotIndex)
         if isStolen then
             local sellPriceStolen = GetItemSellValueWithBonuses(bagId, slotIndex)
