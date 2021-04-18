@@ -20,6 +20,7 @@ PA.WindowStates = {
     isStoreClosed = true,
     isMailboxClosed = true,
     isBankClosed = true,
+    isTransmuteStationClosed = true
 }
 
 -- whether welcome message should be shown, or was already shown
