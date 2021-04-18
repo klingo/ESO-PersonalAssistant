@@ -136,8 +136,10 @@ local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "Introduction")
 
     -- display debug window on login (if turned on)
-    if PA.debug then
-        PA.DebugWindow.showDebugOutputWindow()
+    if PA.SavedVars.Profile.debug then
+        --PA.DebugWindow.showDebugOutputWindow()
+        PA.toggleDebug(false)
+        PA.toggleDebug(true)
     end
 
     local activeProfile = PAGProfileManager.getActiveProfile()
