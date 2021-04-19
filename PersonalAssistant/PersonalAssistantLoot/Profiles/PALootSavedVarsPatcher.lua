@@ -36,6 +36,8 @@ local function _applyPatch_2_5_11(savedVarsVersion, isPatchingNeeded)
                 -- 3) make sure iconXOffsetGrid and iconYOffsetGrid have valid values by resetting to default
                 PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = PA.MenuDefaults.PALoot.ItemIcons.iconXOffsetGrid
                 PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = PA.MenuDefaults.PALoot.ItemIcons.iconYOffsetGrid
+                -- 4) rename "iconSizeRow" to "iconSizeList"
+                PASavedVars.Loot[profileNo].ItemIcons.iconSizeList = PA.MenuDefaults.PALoot.ItemIcons.iconSizeRow
             end
         end
         _updateSavedVarsVersion(savedVarsVersion)

@@ -49,7 +49,7 @@ local PALootMenuDefaults = {
         },
 
         iconTooltipShown = true,
-        iconSizeRow = 16,
+        iconSizeList = 16,
         iconSizeGrid = 16,
         iconXOffsetList = 0,
         iconYOffsetList = 0,

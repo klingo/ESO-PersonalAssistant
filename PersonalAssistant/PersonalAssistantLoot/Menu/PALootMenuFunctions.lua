@@ -169,8 +169,8 @@ local PALootMenuFunctions = {
     isItemIconsDescriptionDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
 
     isItemIconsSizeListDisabled = isPALootIconsKnownUnknownMenuDisabled,
-    getItemIconsSizeListSetting = function() return getValue({"ItemIcons", "iconSizeRow"}) end,
-    setItemIconsSizeListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconSizeRow"}) end,
+    getItemIconsSizeListSetting = function() return getValue({"ItemIcons", "iconSizeList"}) end,
+    setItemIconsSizeListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconSizeList"}) end,
 
     isItemIconsSizeGridDisabled = isPALootIconsKnownUnknownMenuDisabled,
     getItemIconsSizeGridSetting = function() return getValue({"ItemIcons", "iconSizeGrid"}) end,

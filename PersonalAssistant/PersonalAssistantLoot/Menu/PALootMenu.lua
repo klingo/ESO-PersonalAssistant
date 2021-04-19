@@ -514,7 +514,7 @@ local function _createPALIconsKnownUnknownSubmenuTable()
             getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
             setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
             disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconSizeRow,
+            default = PALMenuDefaults.ItemIcons.iconSizeList,
         })
 
         PALIconsKnownUnknownSubmenuTable:insert({
@@ -603,7 +603,7 @@ local function _createPALIconsKnownUnknownSubmenuTable()
             getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
             setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
             disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconSizeRow,
+            default = PALMenuDefaults.ItemIcons.iconSizeList,
         })
 
         PALIconsKnownUnknownSubmenuTable:insert({

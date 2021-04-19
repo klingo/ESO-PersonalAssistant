@@ -46,7 +46,7 @@ local function _getKnownUnknownIconSize(parentControl, hookType)
         return PA.Loot.SavedVars.ItemIcons.iconSizeGrid
     end
     -- in all other cases return the ROW size
-    return PA.Loot.SavedVars.ItemIcons.iconSizeRow
+    return PA.Loot.SavedVars.ItemIcons.iconSizeList
 end
 
 -- returns the target icon size; depending on the parentControl and the hookType
