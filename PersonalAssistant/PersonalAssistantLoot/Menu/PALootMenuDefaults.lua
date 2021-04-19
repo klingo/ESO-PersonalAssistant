@@ -29,22 +29,22 @@ local PALootMenuDefaults = {
         itemIconsEnabled = true,
 
         Recipes = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
         Motifs = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
         StylePageContainers = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
         ApparelWeapons = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
