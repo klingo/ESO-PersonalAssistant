@@ -28,6 +28,8 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "Sur butin d'équipements",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "> un trait n'a pas encore été recherché",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Quand un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)," ou un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY)," du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}),
+    --SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG = "",
+    --SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = "",
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Avertir si l'espace restant est faible",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Affiche un avertissement dans la fenêtre de chat s'il reste peu d'espace dans votre inventaire",
@@ -85,6 +87,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s peut être ", PAC.COLORS.ORANGE,"apprise", PAC.COLORS.DEFAULT, " !"}),
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s peut être ", PAC.COLORS.ORANGE,"appris", PAC.COLORS.DEFAULT, " !"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s a le trait [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] qui peut être recherché !"}),
+    --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, ""}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[place dans l'inventaire/place dans l'inventaire/places dans l'inventaire]>> !"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[nécessaire de réparation/nécessaire de réparation/nécessaires de réparation]>> !"}),

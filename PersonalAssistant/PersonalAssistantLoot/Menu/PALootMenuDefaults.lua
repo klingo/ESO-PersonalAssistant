@@ -22,6 +22,7 @@ local PALootMenuDefaults = {
 
         LootApparelWeapons = {
             unknownTraitMsg = true,
+            uncollectedSetMsg = true,
         },
     },
 

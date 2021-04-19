@@ -28,6 +28,8 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "Beim Ausrüstungsgegenstände einsammeln",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "> eine Eigenschaft noch nicht analysiert wurde",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}),
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG = "> ein Gegenstand in der Setsammlung fehlt",
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = table.concat({"Wann immer eine \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_ARMOR), \", eine \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_WEAPONS), \", oder \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_JEWELRY), \" eingesammelt wird das noch in der Setsammlung fehlt, dann wird eine Information im Chat ausgegeben"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warne wenn Inventarplätze ausgehen",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen",
@@ -85,6 +87,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}),
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s hat [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] das analysiert werden kann!"}),
+    SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s fehlt in der Setsammlung!"}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Inventarplätze mehr/Inventarplatz/Inventarplätze]>> übrig!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Reparaturmaterialien mehr/Reparaturmaterial/Reparaturmaterialien]>> übrig!"}),

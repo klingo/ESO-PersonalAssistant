@@ -93,10 +93,14 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS
     -- -----------------------------
-    isLootApparelWeaponsMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}, {"LootEvents", "LootApparelWeapons", "unknownTraitMsg"}) end,
+    isLootApparelWeaponsMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) or isDisabledAll({"LootEvents", "LootApparelWeapons", "unknownTraitMsg"}, {"LootEvents", "LootApparelWeapons", "uncollectedSetMsg"}) end,
     isUnknownTraitMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getUnknownTraitMsgSetting = function() return getValue({"LootEvents", "LootApparelWeapons", "unknownTraitMsg"}) end,
     setUnknownTraitMsgSetting = function(value) setValue(value, {"LootEvents", "LootApparelWeapons", "unknownTraitMsg"}) end,
+
+    isUncollectedSetMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getUncollectedSetMsgSetting = function() return getValue({"LootEvents", "LootApparelWeapons", "uncollectedSetMsg"}) end,
+    setUncollectedSetMsgSetting = function(value) setValue(value, {"LootEvents", "LootApparelWeapons", "uncollectedSetMsg"}) end,
 
     -- ----------------------------------------------------------------------------------
 

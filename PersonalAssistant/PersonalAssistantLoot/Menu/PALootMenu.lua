@@ -380,6 +380,16 @@ local function _createPALLootApparelWeaponsSubmenuTable()
         disabled = PALMenuFunctions.isUnknownTraitMsgDisabled,
         default = PALMenuDefaults.LootEvents.LootApparelWeapons.unknownTraitMsg,
     })
+
+    PALLootApparelWeaponsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG),
+        tooltip = GetString(SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T),
+        getFunc = PALMenuFunctions.getUncollectedSetMsgSetting,
+        setFunc = PALMenuFunctions.setUncollectedSetMsgSetting,
+        disabled = PALMenuFunctions.isUncollectedSetMsgDisabled,
+        default = PALMenuDefaults.LootEvents.LootApparelWeapons.uncollectedSetMsg,
+    })
 end
 
 -- =================================================================================================================
