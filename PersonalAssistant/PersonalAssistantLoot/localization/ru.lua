@@ -57,6 +57,11 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "если Особенность еще не изучена"}),
     --SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = "",
 
+    -- Item Icon Positioning --
+    --SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "",
+    --SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "",
+    --SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "",
+
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Размер иконки (В виде списка)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Задает размер значка известен/неизвестен там, где предметы отображаются в виде списка",
     SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Размер иконки (В виде сетки)",

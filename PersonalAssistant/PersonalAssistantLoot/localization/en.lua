@@ -57,6 +57,11 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when an Item Trait is still unknown"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "when an Item is missing in the Set collection"}),
 
+    -- Item Icon Positioning --
+    SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "Below you can adjust the positioning and size of the item icons",
+    SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "Known/Unknown",
+    SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "Uncollected Sets",
+
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Size (List View)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Define the size of the known/unknown icons in places where items are displayed in a list view",
     SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Icon Size (Grid View)",

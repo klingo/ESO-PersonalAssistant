@@ -58,7 +58,7 @@ local PALootMenuDefaults = {
 
         SetCollection = {
             showUncollectedIcon = true,
-            iconSizeRow = 16,
+            iconSizeList = 16,
             iconSizeGrid = 16,
             iconXOffsetList = 20,
             iconYOffsetList = 0,

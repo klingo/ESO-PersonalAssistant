@@ -57,6 +57,11 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}),
     --SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = "",
 
+    -- Item Icon Positioning --
+    --SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "",
+    --SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "",
+    --SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "",
+
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Grösse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden",
     SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Icon Grösse (Gitteranzeige)",

@@ -38,6 +38,9 @@ local PALMarkRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALMarkMotifsSubmenuTable = setmetatable({}, { __index = table })
 local PALMarkApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
 
+local PALIconsKnownUnknownSubmenuTable = setmetatable({}, { __index = table })
+local PALIconsSetCollectionSubmenuTable = setmetatable({}, { __index = table })
+
 -- =================================================================================================================
 
 local function _createPALootMenu()
@@ -157,134 +160,25 @@ local function _createPALootMenu()
         disabledLabel = PALMenuFunctions.isMarkApparelWeaponsMenuDisabled,
     })
 
-    -- only display if [InventoryGridView] or [GridList] is installed and active
-    if _G["InventoryGridView"] ~= nil or _G["GridList"] then
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
-            min = 8,
-            max = 64,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
-            setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
-            disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconSizeRow,
-        })
+    PALootOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION),
+        disabled = PALMenuFunctions.isItemIconsDescriptionDisabled,
+    })
 
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T),
-            min = 8,
-            max = 64,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsSizeGridSetting,
-            setFunc = PALMenuFunctions.setItemIconsSizeGridSetting,
-            disabled = PALMenuFunctions.isItemIconsSizeGridDisabled,
-            default = PALMenuDefaults.ItemIcons.iconSizeGrid,
-        })
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = table.concat({PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "  ", GetString(SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER)}),
+        controls = PALIconsKnownUnknownSubmenuTable,
+        disabledLabel = PALMenuFunctions.isIconsKnownUnknownMenuDisabled,
+    })
 
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
-            min = -380,
-            max = 150,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsXOffsetListSetting,
-            setFunc = PALMenuFunctions.setItemIconsXOffsetListSetting,
-            disabled = PALMenuFunctions.isItemIconsXOffsetListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconXOffsetList,
-        })
-
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T),
-            min = 0,
-            max = 100,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsXOffsetGridSetting,
-            setFunc = PALMenuFunctions.setItemIconsXOffsetGridSetting,
-            disabled = PALMenuFunctions.isItemIconsXOffsetGridDisabled,
-            default = PALMenuDefaults.ItemIcons.iconXOffsetGrid,
-        })
-
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
-            min = -20,
-            max = 20,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsYOffsetListSetting,
-            setFunc = PALMenuFunctions.setItemIconsYOffsetListSetting,
-            disabled = PALMenuFunctions.isItemIconsYOffsetListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconYOffsetList,
-        })
-
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T),
-            min = -100,
-            max = 0,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsYOffsetGridSetting,
-            setFunc = PALMenuFunctions.setItemIconsYOffsetGridSetting,
-            disabled = PALMenuFunctions.isItemIconsYOffsetGridDisabled,
-            default = PALMenuDefaults.ItemIcons.iconYOffsetGrid,
-        })
-    else
-        -- regular list-view of items
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
-            min = 8,
-            max = 64,
-            step = 1,
-            getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
-            setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
-            disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconSizeRow,
-        })
-
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
-            min = -380,
-            max = 150,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsXOffsetListSetting,
-            setFunc = PALMenuFunctions.setItemIconsXOffsetListSetting,
-            disabled = PALMenuFunctions.isItemIconsXOffsetListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconXOffsetList,
-        })
-
-        PALootOptionsTable:insert({
-            type = "slider",
-            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
-            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
-            min = -20,
-            max = 20,
-            step = 1,
-            width = "half",
-            getFunc = PALMenuFunctions.getItemIconsYOffsetListSetting,
-            setFunc = PALMenuFunctions.setItemIconsYOffsetListSetting,
-            disabled = PALMenuFunctions.isItemIconsYOffsetListDisabled,
-            default = PALMenuDefaults.ItemIcons.iconYOffsetList,
-        })
-    end
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "  ", GetString(SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER)}),
+        controls = PALIconsSetCollectionSubmenuTable,
+        disabledLabel = PALMenuFunctions.isIconsSetCollectionMenuDisabled,
+    })
 
     PALootOptionsTable:insert({
         type = "checkbox",
@@ -604,6 +498,292 @@ local function _createPALMarkApparelWeaponsSubmenuTable()
     })
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALIconsKnownUnknownSubmenuTable()
+    -- only display if [InventoryGridView] or [GridList] is installed and active
+    if _G["InventoryGridView"] ~= nil or _G["GridList"] ~= nil then
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconSizeRow,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSizeGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeGridSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeGridDisabled,
+            default = PALMenuDefaults.ItemIcons.iconSizeGrid,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
+            min = -380,
+            max = 150,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsXOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsXOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsXOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconXOffsetList,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T),
+            min = 0,
+            max = 100,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsXOffsetGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsXOffsetGridSetting,
+            disabled = PALMenuFunctions.isItemIconsXOffsetGridDisabled,
+            default = PALMenuDefaults.ItemIcons.iconXOffsetGrid,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
+            min = -20,
+            max = 20,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsYOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsYOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsYOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconYOffsetList,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T),
+            min = -100,
+            max = 0,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsYOffsetGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsYOffsetGridSetting,
+            disabled = PALMenuFunctions.isItemIconsYOffsetGridDisabled,
+            default = PALMenuDefaults.ItemIcons.iconYOffsetGrid,
+        })
+    else
+        -- regular list-view of items
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            getFunc = PALMenuFunctions.getItemIconsSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsSizeListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconSizeRow,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
+            min = -380,
+            max = 150,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsXOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsXOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsXOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconXOffsetList,
+        })
+
+        PALIconsKnownUnknownSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
+            min = -20,
+            max = 20,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsYOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsYOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsYOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.iconYOffsetList,
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALIconsSetCollectionSubmenuTable()
+    -- only display if [InventoryGridView] or [GridList] is installed and active
+    if _G["InventoryGridView"] ~= nil or _G["GridList"] ~= nil then
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionSizeListDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconSizeList,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionSizeGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionSizeGridSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionSizeGridDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconSizeGrid,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
+            min = -380,
+            max = 150,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionXOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionXOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionXOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconXOffsetList,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T),
+            min = -100,
+            max = 0,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionXOffsetGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionXOffsetGridSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionXOffsetGridDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconXOffsetGrid,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
+            min = -20,
+            max = 20,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionYOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionYOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionYOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconYOffsetList,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T),
+            min = -100,
+            max = 0,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionYOffsetGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionYOffsetGridSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionYOffsetGridDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconYOffsetGrid,
+        })
+    else
+        -- regular list-view of items
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionSizeListDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconSizeList,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
+            min = -380,
+            max = 150,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionXOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionXOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionXOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconXOffsetList,
+        })
+
+        PALIconsSetCollectionSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
+            min = -20,
+            max = 20,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsSetCollectionYOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsSetCollectionYOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsSetCollectionYOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.SetCollection.iconYOffsetList,
+        })
+    end
+end
+
 -- =================================================================================================================
 
 local function createOptions()
@@ -618,6 +798,9 @@ local function createOptions()
     _createPALMarkRecipesSubmenuTable()
     _createPALMarkMotifsSubmenuTable()
     _createPALMarkApparelWeaponsSubmenuTable()
+
+    _createPALIconsKnownUnknownSubmenuTable()
+    _createPALIconsSetCollectionSubmenuTable()
 
     PA.LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
     PA.LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)

@@ -49,6 +49,24 @@ end
 
 -- =================================================================================================================
 
+local function isPALootIconsKnownUnknownMenuDisabled()
+    if isDisabled({"ItemIcons", "itemIconsEnabled"}) then return true end
+    if isDisabledAll({"ItemIcons", "Recipes", "showKnownIcon"}, {"ItemIcons", "Recipes", "showUnknownIcon"}) and
+            isDisabledAll({"ItemIcons", "Motifs", "showKnownIcon"}, {"ItemIcons", "Motifs", "showUnknownIcon"}, {"ItemIcons", "StylePageContainers", "showKnownIcon"}, {"ItemIcons", "StylePageContainers", "showUnknownIcon"}) and
+            isDisabledAll({"ItemIcons", "ApparelWeapons", "showKnownIcon"}, {"ItemIcons", "ApparelWeapons", "showUnknownIcon"}) then
+        return true
+    end
+    return false
+end
+
+local function isPALootIconsSetCollectionMenuDisabled()
+    if isDisabled({"ItemIcons", "itemIconsEnabled"}) then return true end
+    if isDisabled({"ItemIcons", "SetCollection", "showUncollectedIcon"}) then return true end
+    return false
+end
+
+-- =================================================================================================================
+
 local PALootMenuFunctions = {
     getLootEventsEnabledSetting = function() return getValue({"LootEvents", "lootEventsEnabled"}) end,
     setLootEventsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"LootEvents", "lootEventsEnabled"}) end,
@@ -131,7 +149,7 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS
     -- -----------------------------
-    isMarkApparelWeaponsMenuDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "ApparelWeapons", "showKnownIcon"}, {"ItemIcons", "ApparelWeapons", "showUnknownIcon"}) end,
+    isMarkApparelWeaponsMenuDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "ApparelWeapons", "showKnownIcon"}, {"ItemIcons", "ApparelWeapons", "showUnknownIcon"}, {"ItemIcons", "SetCollection", "showUncollectedIcon"}) end,
     isMarkKnownApparelWeaponsDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
     getMarkKnownApparelWeaponsSetting = function() return getValue({"ItemIcons", "ApparelWeapons", "showKnownIcon"}) end,
     setMarkKnownApparelWeaponsSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "ApparelWeapons", "showKnownIcon"}) end,
@@ -147,31 +165,60 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- ITEM ICONS SETTINGS
     -- -----------------------------
-    isItemIconsSizeListDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    isIconsKnownUnknownMenuDisabled = isPALootIconsKnownUnknownMenuDisabled,
+    isItemIconsDescriptionDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+
+    isItemIconsSizeListDisabled = isPALootIconsKnownUnknownMenuDisabled,
     getItemIconsSizeListSetting = function() return getValue({"ItemIcons", "iconSizeRow"}) end,
     setItemIconsSizeListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconSizeRow"}) end,
 
-    isItemIconsXOffsetListDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
-    getItemIconsXOffsetListSetting = function() return getValue({"ItemIcons", "iconXOffsetList"}) end,
-    setItemIconsXOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconXOffsetList"}) end,
-
-    isItemIconsYOffsetListDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
-    getItemIconsYOffsetListSetting = function() return getValue({"ItemIcons", "iconYOffsetList"}) end,
-    setItemIconsYOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconYOffsetList"}) end,
-
-    -- ----------------------------------------------------------------------------------
-
-    isItemIconsSizeGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    isItemIconsSizeGridDisabled = isPALootIconsKnownUnknownMenuDisabled,
     getItemIconsSizeGridSetting = function() return getValue({"ItemIcons", "iconSizeGrid"}) end,
     setItemIconsSizeGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconSizeGrid"}) end,
 
-    isItemIconsXOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    isItemIconsXOffsetListDisabled = isPALootIconsKnownUnknownMenuDisabled,
+    getItemIconsXOffsetListSetting = function() return getValue({"ItemIcons", "iconXOffsetList"}) end,
+    setItemIconsXOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconXOffsetList"}) end,
+
+    isItemIconsYOffsetListDisabled = isPALootIconsKnownUnknownMenuDisabled,
+    getItemIconsYOffsetListSetting = function() return getValue({"ItemIcons", "iconYOffsetList"}) end,
+    setItemIconsYOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconYOffsetList"}) end,
+
+    isItemIconsXOffsetGridDisabled = isPALootIconsKnownUnknownMenuDisabled,
     getItemIconsXOffsetGridSetting = function() return getValue({"ItemIcons", "iconXOffsetGrid"}) end,
     setItemIconsXOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconXOffsetGrid"}) end,
 
-    isItemIconsYOffsetGridDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    isItemIconsYOffsetGridDisabled = isPALootIconsKnownUnknownMenuDisabled,
     getItemIconsYOffsetGridSetting = function() return getValue({"ItemIcons", "iconYOffsetGrid"}) end,
     setItemIconsYOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "iconYOffsetGrid"}) end,
+
+    -- ----------------------------------------------------------------------------------
+
+    isIconsSetCollectionMenuDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabled({"ItemIcons", "SetCollection", "showUncollectedIcon"}) end,
+
+    isItemIconsSetCollectionSizeListDisabled = isPALootIconsSetCollectionMenuDisabled,
+    getItemIconsSetCollectionSizeListSetting = function() return getValue({"ItemIcons", "SetCollection", "iconSizeList"}) end,
+    setItemIconsSetCollectionSizeListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "iconSizeList"}) end,
+
+    isItemIconsSetCollectionSizeGridDisabled = isPALootIconsSetCollectionMenuDisabled,
+    getItemIconsSetCollectionSizeGridSetting = function() return getValue({"ItemIcons", "SetCollection", "iconSizeGrid"}) end,
+    setItemIconsSetCollectionSizeGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "iconSizeGrid"}) end,
+
+    isItemIconsSetCollectionXOffsetListDisabled = isPALootIconsSetCollectionMenuDisabled,
+    getItemIconsSetCollectionXOffsetListSetting = function() return getValue({"ItemIcons", "SetCollection", "iconXOffsetList"}) end,
+    setItemIconsSetCollectionXOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "iconXOffsetList"}) end,
+
+    isItemIconsSetCollectionYOffsetListDisabled = isPALootIconsSetCollectionMenuDisabled,
+    getItemIconsSetCollectionYOffsetListSetting = function() return getValue({"ItemIcons", "SetCollection", "iconYOffsetList"}) end,
+    setItemIconsSetCollectionYOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "iconYOffsetList"}) end,
+
+    isItemIconsSetCollectionXOffsetGridDisabled = isPALootIconsSetCollectionMenuDisabled,
+    getItemIconsSetCollectionXOffsetGridSetting = function() return getValue({"ItemIcons", "SetCollection", "iconXOffsetGrid"}) end,
+    setItemIconsSetCollectionXOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "iconXOffsetGrid"}) end,
+
+    isItemIconsSetCollectionYOffsetGridDisabled = isPALootIconsSetCollectionMenuDisabled,
+    getItemIconsSetCollectionYOffsetGridSetting = function() return getValue({"ItemIcons", "SetCollection", "iconYOffsetGrid"}) end,
+    setItemIconsSetCollectionYOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "iconYOffsetGrid"}) end,
 
     -- ----------------------------------------------------------------------------------
 

@@ -56,7 +56,7 @@ local function _getSetCollectionIconSize(parentControl, hookType)
         return PA.Loot.SavedVars.ItemIcons.SetCollection.iconSizeGrid
     end
     -- in all other cases return the ROW size
-    return PA.Loot.SavedVars.ItemIcons.SetCollection.iconSizeRow
+    return PA.Loot.SavedVars.ItemIcons.SetCollection.iconSizeList
 end
 
 -- returns the iconPosition and offsets for gridView
