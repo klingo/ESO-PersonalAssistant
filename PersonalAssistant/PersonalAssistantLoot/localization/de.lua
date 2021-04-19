@@ -55,12 +55,12 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Markiere Ausrüstungsgegenstände",
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn die Eigenschaften bereits analysiert ist"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}),
-    --SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = "",
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "wenn ein Gegenstand in der Setsammlung fehlt"}),
 
     -- Item Icon Positioning --
-    --SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "",
-    --SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "",
-    --SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "",
+    SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "Nachfolgend kann die Grösse und Position der Gegenstands Icons angepasst werden",
+    SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "Bekannt/Unbekannt",
+    SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "Nicht gesammelte Sets",
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Grösse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden",
@@ -99,7 +99,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Markiere mit . . .",
     SI_PA_ITEM_KNOWN = "Bereits bekannt",
     SI_PA_ITEM_UNKNOWN = "Unbekannt",
-    --SI_PA_ITEM_UNCOLLECTED = "",
+    SI_PA_ITEM_UNCOLLECTED = "Nicht gesammelt",
 }
 
 for key, value in pairs(PALStrings) do
