@@ -31,6 +31,12 @@ local function setValueAndRefreshScrollListVisible(value, ...)
     PAL.ItemIcons.refreshScrollListVisible()
 end
 
+local function setValueAndRefreshScrollListVisibleAndEvents(value, ...)
+    setValue(value, ...)
+    PAL.ItemIcons.refreshScrollListVisible()
+    PAEM.RefreshEventRegistration.PALoot()
+end
+
 local function isDisabled(...)
     if isNoProfileSelected() then return true end
     return PAMF.isDisabled(PAL.SavedVars, ...)
@@ -87,7 +93,7 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
 
     getItemIconsEnabledSetting = function() return getValue({"ItemIcons", "itemIconsEnabled"}) end,
-    setItemIconsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"ItemIcons", "itemIconsEnabled"}) end,
+    setItemIconsEnabledSetting = function(value) setValueAndRefreshScrollListVisibleAndEvents(value, {"ItemIcons", "itemIconsEnabled"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- RECIPES SETTINGS

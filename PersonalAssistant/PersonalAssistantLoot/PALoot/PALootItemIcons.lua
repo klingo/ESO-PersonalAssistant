@@ -163,10 +163,10 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     -- get either the already existing item control, or create a new one
     local itemIconControl = _getOrCreateKnownUnknownItemControl(parentControl)
 
-    -- make sure the icon/control is hidded for non-recipes and non-motifs (or if setting was disabled)
+    -- make sure the icon/control is hidden for non-recipes and non-motifs (or if setting was disabled)
     itemIconControl:SetHidden(true)
 
-    -- then check if the pre-conditions are met, otherwise stop any forther processings
+    -- then check if the pre-conditions are met, otherwise stop any further processing
     if not _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType) then
         return
     end
@@ -223,11 +223,11 @@ local function _addSetCollectionVisuals(parentControl, itemLink, hookType)
     -- get either the already existing item control, or create a new one
     local itemIconControl = _getOrCreateSetCollectionItemControl(parentControl)
 
-    -- make sure the icon/control is hidded for non-recipes and non-motifs (or if setting was disabled)
+    -- make sure the icon/control is hidden for non-recipes and non-motifs (or if setting was disabled)
     itemIconControl:SetHidden(true)
 
-    -- then check if the pre-conditions are met, otherwise stop any further processings
-    if not IsItemLinkSetCollectionPiece(itemLink) then
+    -- then check if the pre-conditions are met, otherwise stop any further processing
+    if not PA.Loot.SavedVars.ItemIcons.itemIconsEnabled or not IsItemLinkSetCollectionPiece(itemLink) then
         return
     end
 
