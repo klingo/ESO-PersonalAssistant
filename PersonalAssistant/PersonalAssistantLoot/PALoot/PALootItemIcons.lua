@@ -200,7 +200,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showKnownIcon) then
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-            local collectibleName = GetCollectibleName(containerCollectibleId)
+            local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
     elseif learnableStatus == PAC.LEARNABLE.UNKNOWN then
@@ -213,7 +213,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showUnknownIcon) then
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-            local collectibleName = GetCollectibleName(containerCollectibleId)
+            local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
     end
