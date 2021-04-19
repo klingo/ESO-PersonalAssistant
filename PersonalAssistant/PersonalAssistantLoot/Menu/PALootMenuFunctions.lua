@@ -134,6 +134,10 @@ local PALootMenuFunctions = {
     getMarkUnknownApparelWeaponsSetting = function() return getValue({"ItemIcons", "ApparelWeapons", "showUnknownIcon"})  end,
     setMarkUnknownApparelWeaponsSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "ApparelWeapons", "showUnknownIcon"}) end,
 
+    isMarkUncollectedSetItemDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getMarkUncollectedSetItemSetting = function() return getValue({"ItemIcons", "SetCollection", "showUncollectedIcon"})  end,
+    setMarkUncollectedSetItemSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "showUncollectedIcon"}) end,
+
     -- ----------------------------------------------------------------------------------
     -- ITEM ICONS SETTINGS
     -- -----------------------------

@@ -55,6 +55,16 @@ local PALootMenuDefaults = {
         iconYOffsetList = 0,
         iconXOffsetGrid = 2,
         iconYOffsetGrid = -2,
+
+        SetCollection = {
+            showUncollectedIcon = true,
+            iconSizeRow = 16,
+            iconSizeGrid = 16,
+            iconXOffsetList = 20,
+            iconYOffsetList = 0,
+            iconXOffsetGrid = -2,
+            iconYOffsetGrid = -2,
+        }
     },
 
     InventorySpace = {

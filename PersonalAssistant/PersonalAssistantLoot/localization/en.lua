@@ -55,6 +55,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Marking Equipment",
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "when an Item Trait is already researched"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when an Item Trait is still unknown"}),
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "when an Item is missing in the Set collection"}),
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Size (List View)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Define the size of the known/unknown icons in places where items are displayed in a list view",
@@ -93,6 +94,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Mark with . . .",
     SI_PA_ITEM_KNOWN = "Already known",
     SI_PA_ITEM_UNKNOWN = "Unknown",
+    SI_PA_ITEM_UNCOLLECTED = "Uncollected",
 }
 
 for key, value in pairs(PALStrings) do

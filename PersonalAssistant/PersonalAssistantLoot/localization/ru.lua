@@ -55,6 +55,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Пометка экипировки",
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "если Особенность уже изучена"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "если Особенность еще не изучена"}),
+    --SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = "",
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Размер иконки (В виде списка)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Задает размер значка известен/неизвестен там, где предметы отображаются в виде списка",
@@ -93,6 +94,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Помечать . . .",
     SI_PA_ITEM_KNOWN = "Известен",
     SI_PA_ITEM_UNKNOWN = "Неизвестен",
+    --SI_PA_ITEM_UNCOLLECTED = "",
 }
 
 for key, value in pairs(PALStrings) do

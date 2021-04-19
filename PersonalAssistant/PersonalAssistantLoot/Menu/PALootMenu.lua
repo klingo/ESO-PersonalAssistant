@@ -593,6 +593,15 @@ local function _createPALMarkApparelWeaponsSubmenuTable()
         disabled = PALMenuFunctions.isMarkKnownApparelWeaponsDisabled,
         default = PALMenuDefaults.ItemIcons.ApparelWeapons.showKnownIcon,
     })
+
+    PALMarkApparelWeaponsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED),
+        getFunc = PALMenuFunctions.getMarkUncollectedSetItemSetting,
+        setFunc = PALMenuFunctions.setMarkUncollectedSetItemSetting,
+        disabled = PALMenuFunctions.isMarkUncollectedSetItemDisabled,
+        default = PALMenuDefaults.ItemIcons.SetCollection.showUncollectedIcon,
+    })
 end
 
 -- =================================================================================================================

@@ -55,6 +55,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Markiere Ausrüstungsgegenstände",
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn die Eigenschaften bereits analysiert ist"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}),
+    --SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = "",
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Grösse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden",
@@ -93,6 +94,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Markiere mit . . .",
     SI_PA_ITEM_KNOWN = "Bereits bekannt",
     SI_PA_ITEM_UNKNOWN = "Unbekannt",
+    --SI_PA_ITEM_UNCOLLECTED = "",
 }
 
 for key, value in pairs(PALStrings) do

@@ -386,6 +386,11 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
                 NORMAL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
                 SMALL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
+            },
+            UNCOLLECTED = {
+                PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
+                NORMAL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
+                SMALL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
             }
         }
     },
