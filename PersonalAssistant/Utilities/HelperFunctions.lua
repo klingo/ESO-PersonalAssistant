@@ -287,6 +287,14 @@ local function getBankBags()
     end
 end
 
+---@return string, string, string the applicable bags the player currently has access to (BAG_BACKPACK always, BAG_BANK and BAG_SUBSCRIBER_BANK only when bank open)
+local function getAccessibleBags()
+    if IsBankOpen() then
+        return BAG_BACKPACK, getBankBags()
+    end
+    return BAG_BACKPACK
+end
+
 
 -- =================================================================================================================
 -- == TEXT / NUMBER TRANSFORMATIONS == --
@@ -563,6 +571,7 @@ PA.HelperFunctions = {
     getStolenJunkComparator = getStolenJunkComparator,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
+    getAccessibleBags = getAccessibleBags,
     getBankBags = getBankBags,
     getBagName = getBagName,
     getFormattedCurrency = getFormattedCurrency,
