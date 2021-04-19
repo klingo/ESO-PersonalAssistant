@@ -20,6 +20,7 @@ PA.WindowStates = {
     isStoreClosed = true,
     isMailboxClosed = true,
     isBankClosed = true,
+    isTransmuteStationClosed = true
 }
 
 -- whether welcome message should be shown, or was already shown
@@ -135,8 +136,10 @@ local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "Introduction")
 
     -- display debug window on login (if turned on)
-    if PA.debug then
-        PA.DebugWindow.showDebugOutputWindow()
+    if PA.SavedVars.Profile.debug then
+        --PA.DebugWindow.showDebugOutputWindow()
+        PA.toggleDebug(false)
+        PA.toggleDebug(true)
     end
 
     local activeProfile = PAGProfileManager.getActiveProfile()
@@ -274,6 +277,11 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         d("bindType="..tostring(bindType))
         d("isBOPAndTradeable="..tostring(isBOPAndTradeable))
         d("isCharacterBound="..tostring(isCharacterBound))
+
+        if IsItemLinkSetCollectionPiece(itemLink) then
+            local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
+            d("isItemSetCollectionPieceUnlocked="..tostring(isItemSetCollectionPieceUnlocked))
+        end
 
         local isStolen = IsItemStolen(bagId, slotIndex)
         if isStolen then
