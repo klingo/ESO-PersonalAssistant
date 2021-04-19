@@ -30,6 +30,14 @@ local PAMenuChoices = {
         },
     },
     PAJunk = {
+        qualityLevelNoDisabled = {
+            GetString(SI_PA_QUALITY_TRASH),
+            GetString(SI_PA_QUALITY_NORMAL),
+            GetString(SI_PA_QUALITY_FINE),
+            GetString(SI_PA_QUALITY_SUPERIOR),
+            GetString(SI_PA_QUALITY_EPIC),
+--            GetString(SI_PA_QUALITY_LEGENDARY),
+        },
         qualityLevel = {
             GetString(SI_PA_QUALITY_DISABLED),
             GetString(SI_PA_QUALITY_TRASH),
@@ -47,12 +55,6 @@ local PAMenuChoices = {
             GetString(SI_PA_QUALITY_FINE),
             GetString(SI_PA_QUALITY_NORMAL),
             GetString(SI_PA_QUALITY_TRASH),
-        },
-        itemAction = {
-            GetString(SI_PA_ITEM_ACTION_NOTHING),
-            GetString(SI_PA_ITEM_ACTION_MARK_AS_JUNK),
-            PAC.COLOR.ORANGE_RED:Colorize(GetString(SI_PA_ITEM_ACTION_JUNK_DESTROY_WORTHLESS)),
-            PAC.COLOR.RED:Colorize(GetString(SI_PA_ITEM_ACTION_DESTROY_ALWAYS)),
         },
     },
     PARepair = {
@@ -89,6 +91,14 @@ local PAMenuChoicesValues = {
         },
     },
     PAJunk = {
+        qualityLevelNoDisabled = {
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+--            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
+        },
         qualityLevel = {
             PAC.ITEM_QUALITY.DISABLED,  -- -1 (disabled)
             ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
@@ -106,12 +116,6 @@ local PAMenuChoicesValues = {
             ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
             ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
             ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
-        },
-        itemAction = {
-            PAC.ITEM_ACTION.NOTHING,                -- 0
-            PAC.ITEM_ACTION.MARK_AS_JUNK,           -- 6
-            PAC.ITEM_ACTION.JUNK_DESTROY_WORTHLESS, -- 8
-            PAC.ITEM_ACTION.DESTROY_ALWAYS,         -- 9
         },
     },
     PARepair = {

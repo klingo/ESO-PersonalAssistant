@@ -43,7 +43,11 @@ local PAJStrings = {
 
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Objets volés",
-    SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "Sur vol d'objets de type [%s]",
+    --SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "",
+
+    -- Custom Items --
+    SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Objets personnalisés",
+    SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
     -- Quest Items --
     SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Protection des objets de quête",
@@ -51,15 +55,26 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "La guilde des voleurs",
     SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Festival de la Nouvelle vie",
 
-    -- Custom Items --
-    SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Objets personnalisés",
-    SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
+    -- Auto-Sell --
+    --SI_PA_MENU_JUNK_AUTO_SELL_JUNK_HEADER = "",
 
     -- Auto-Destroy --
-    SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Détruire automatiquement les rebuts",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Détruire automatiquement les rebuts sans valeur",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "Lors du butin, si un objet est mis aux rebuts et n'a aucune valeur (revente pour 0 pièce), il sera détruit si cette option est activée. Ceci ne peut être annulé !",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_HEADER = "Détruire automatiquement les rebuts",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "ATTENTION: Soyez conscient en utilisant cette option, il n'y a PAS de fenêtre de confirmation qui s'ouvrira pour permettre de confirmer que l'objet doit être vraiment détruit.\nIl sera immédiatement détruit !\nPour toujours !\nUtilisez à vos risques et périls !",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "",
+
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD_T = "!",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD_T = "",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Ne pas mettre aux rebuts si reçu par courrier",
@@ -127,9 +142,12 @@ local PAJStrings = {
 
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s"}),
     SI_PA_CHAT_JUNK_DESTROYED_ALWAYS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Toujours"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Détruit"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Sans valeur"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.RED:Colorize("OUI")}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"La destruction automatique des rebuts sans valeur a été changée en ", PAC.COLOR.GREEN:Colorize("NON")}),
+    --SI_PA_CHAT_JUNK_DESTROYED_CRITERIA_MATCH = "",
+
+    SI_PA_CHAT_JUNK_DESTROY_ON = table.concat({"La destruction automatique des rebuts a été changée en ", PAC.COLOR.RED:Colorize("OUI")}),
+    SI_PA_CHAT_JUNK_DESTROY_OFF = table.concat({"La destruction automatique des rebuts a été changée en ", PAC.COLOR.GREEN:Colorize("NON")}),
+    --SI_PA_CHAT_JUNK_DESTROY_STOLEN_ON = table.concat({"", PAC.COLOR.RED:Colorize("OUI")}),
+    --SI_PA_CHAT_JUNK_DESTROY_STOLEN_OFF = table.concat({"", PAC.COLOR.GREEN:Colorize("NON")}),
 
     SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = "Objets vendus pour %s",
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Veuillez attendre ~%d heures"}),

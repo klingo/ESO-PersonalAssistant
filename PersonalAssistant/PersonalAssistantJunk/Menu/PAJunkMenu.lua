@@ -43,6 +43,9 @@ local PAJClockworkCityQuestsSubMenu = setmetatable({}, { __index = table })
 local PAJThievesGuildQuestsSubMenu = setmetatable({}, { __index = table })
 local PAJNewLifeFestivalSubMenu = setmetatable({}, { __index = table })
 
+local PAJDestroyJunkSubMenu = setmetatable({}, { __index = table })
+local PAJDestroyStolenJunkSubMenu = setmetatable({}, { __index = table })
+
 local PAJKeybindingsSubMenu = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
@@ -139,6 +142,23 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER))
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION)
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MAINMENU_JUNK_HEADER),
+        func = PA.CustomDialogs.showPAJunkRulesMenu,
+        disabled = PAJProfileManager.isNoProfileSelected,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "header",
         name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER))
     })
 
@@ -171,24 +191,31 @@ local function _createPAJunkMenu()
 
     PAJunkOptionsTable:insert({
         type = "header",
-        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER))
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_AUTO_SELL_JUNK_HEADER))
     })
 
     PAJunkOptionsTable:insert({
-        type = "description",
-        text = GetString(SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION)
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
+        getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
+        setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
+        disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
+        default = PAJMenuDefaults.autoSellJunk,
     })
 
     PAJunkOptionsTable:insert({
-        type = "button",
-        name = GetString(SI_PA_MAINMENU_JUNK_HEADER),
-        func = PA.CustomDialogs.showPAJunkRulesMenu,
-        disabled = PAJProfileManager.isNoProfileSelected,
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI),
+        warning = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W),
+        getFunc = PAJMenuFunctions.getAutoSellJunkPirharriSetting,
+        setFunc = PAJMenuFunctions.setAutoSellJunkPirharriSetting,
+        disabled = PAJMenuFunctions.isAutoSellJunkPirharriDisabled,
+        default = PAJMenuDefaults.autoSellJunkPirharri,
     })
 
     PAJunkOptionsTable:insert({
         type = "header",
-        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER))
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_HEADER))
     })
 
     PAJunkOptionsTable:insert({
@@ -197,14 +224,26 @@ local function _createPAJunkMenu()
     })
 
     PAJunkOptionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK),
-        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T),
-        warning = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W),
-        getFunc = PAJMenuFunctions.getAutoDestroyWorthlessJunkSetting,
-        setFunc = PAJMenuFunctions.setAutoDestroyWorthlessJunkSetting,
-        disabled = PAJMenuFunctions.isAutoDestroyWorthlessJunkDisabled,
-        default = PAJMenuDefaults.AutoDestroy.destroyWorthlessJunk,
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_JUNK_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.JUNK.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PAJDestroyJunkSubMenu,
+        disabledLabel = PAJMenuFunctions.isDestroyJunkMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_JUNK_HEADER),
+        icon = PAC.ICONS.ITEMS.STOLEN.PATH,
+        controls = PAJDestroyStolenJunkSubMenu,
+        disabledLabel = PAJMenuFunctions.isDestroyStolenJunkMenuDisabled,
+    })
+
+    PAJunkOptionsTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER),
+        disabled = PAJMenuFunctions.isDestroyExclusionDisclaimerDisabled,
     })
 
     PAJunkOptionsTable:insert({
@@ -239,25 +278,6 @@ local function _createPAJunkMenu()
         setFunc = PAJMenuFunctions.setCraftedItemsIgnoredSetting,
         disabled = PAJMenuFunctions.isCraftedItemsIgnoredDisabled,
         default = PAJMenuDefaults.ignoreCraftedItems,
-    })
-
-    PAJunkOptionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK),
-        getFunc = PAJMenuFunctions.getAutoSellJunkSetting,
-        setFunc = PAJMenuFunctions.setAutoSellJunkSetting,
-        disabled = PAJMenuFunctions.isAutoSellJunkDisabled,
-        default = PAJMenuDefaults.autoSellJunk,
-    })
-
-    PAJunkOptionsTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI),
-        warning = GetString(SI_PA_MENU_JUNK_AUTOSELL_JUNK_PIRHARRI_W),
-        getFunc = PAJMenuFunctions.getAutoSellJunkPirharriSetting,
-        setFunc = PAJMenuFunctions.setAutoSellJunkPirharriSetting,
-        disabled = PAJMenuFunctions.isAutoSellJunkPirharriDisabled,
-        default = PAJMenuDefaults.autoSellJunkPirharri,
     })
 
     PAJunkOptionsTable:insert({
@@ -669,14 +689,12 @@ local function _createPAJStolenSubMenu()
     local _treasures = zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TREASURE), 2)
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _trash),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenTrashActionSetting,
-        setFunc = PAJMenuFunctions.setStolenTrashActionSetting,
-        disabled = PAJMenuFunctions.isStolenTrashActionDisabled,
-        default = PAJMenuDefaults.Stolen.trashAction,
+        getFunc = PAJMenuFunctions.getStolenTrashSetting,
+        setFunc = PAJMenuFunctions.setStolenTrashSetting,
+        disabled = PAJMenuFunctions.isStolenTrashDisabled,
+        default = PAJMenuDefaults.Stolen.trash,
     })
 
     PAJStolenSubMenu:insert({
@@ -685,36 +703,30 @@ local function _createPAJStolenSubMenu()
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _weaponItemType),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenWeaponActionSetting,
-        setFunc = PAJMenuFunctions.setStolenWeaponActionSetting,
-        disabled = PAJMenuFunctions.isStolenWeaponActionDisabled,
-        default = PAJMenuDefaults.Stolen.Weapons.action,
+        getFunc = PAJMenuFunctions.getStolenWeaponsSetting,
+        setFunc = PAJMenuFunctions.setStolenWeaponsSetting,
+        disabled = PAJMenuFunctions.isStolenWeaponsDisabled,
+        default = PAJMenuDefaults.Stolen.weapons,
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _armorItemType),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenArmorActionSetting,
-        setFunc = PAJMenuFunctions.setStolenArmorActionSetting,
-        disabled = PAJMenuFunctions.isStolenArmorActionDisabled,
-        default = PAJMenuDefaults.Stolen.Armor.action,
+        getFunc = PAJMenuFunctions.getStolenApparelsSetting,
+        setFunc = PAJMenuFunctions.setStolenApparelsSetting,
+        disabled = PAJMenuFunctions.isStolenApparelsDisabled,
+        default = PAJMenuDefaults.Stolen.apparels,
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _jewelryItemType),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenJewelryActionSetting,
-        setFunc = PAJMenuFunctions.setStolenJewelryActionSetting,
-        disabled = PAJMenuFunctions.isStolenJewelryActionDisabled,
-        default = PAJMenuDefaults.Stolen.Jewelry.action,
+        getFunc = PAJMenuFunctions.getStolenJewelriesSetting,
+        setFunc = PAJMenuFunctions.setStolenJewelriesSetting,
+        disabled = PAJMenuFunctions.isStolenJewelriesDisabled,
+        default = PAJMenuDefaults.Stolen.jewelries,
     })
 
     PAJStolenSubMenu:insert({
@@ -723,25 +735,21 @@ local function _createPAJStolenSubMenu()
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _styleMaterials),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenStyleMaterialActionSetting,
-        setFunc = PAJMenuFunctions.setStolenStyleMaterialActionSetting,
-        disabled = PAJMenuFunctions.isStolenStyleMaterialActionDisabled,
-        default = PAJMenuDefaults.Stolen.styleMaterialAction,
+        getFunc = PAJMenuFunctions.getStolenStyleMaterialsSetting,
+        setFunc = PAJMenuFunctions.setStolenStyleMaterialsSetting,
+        disabled = PAJMenuFunctions.isStolenStyleMaterialsDisabled,
+        default = PAJMenuDefaults.Stolen.styleMaterials,
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _traitItems),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenTraitItemActionSetting,
-        setFunc = PAJMenuFunctions.setStolenTraitItemActionSetting,
-        disabled = PAJMenuFunctions.isStolenTraitItemActionDisabled,
-        default = PAJMenuDefaults.Stolen.traitItemAction,
+        getFunc = PAJMenuFunctions.getStolenTraitItemsSetting,
+        setFunc = PAJMenuFunctions.setStolenTraitItemsSetting,
+        disabled = PAJMenuFunctions.isStolenTraitItemsDisabled,
+        default = PAJMenuDefaults.Stolen.traitItems,
     })
 
     PAJStolenSubMenu:insert({
@@ -750,47 +758,39 @@ local function _createPAJStolenSubMenu()
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _lures),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenLureActionSetting,
-        setFunc = PAJMenuFunctions.setStolenLureActionSetting,
-        disabled = PAJMenuFunctions.isStolenLureActionDisabled,
-        default = PAJMenuDefaults.Stolen.lureAction,
+        getFunc = PAJMenuFunctions.getStolenLuresSetting,
+        setFunc = PAJMenuFunctions.setStolenLuresSetting,
+        disabled = PAJMenuFunctions.isStolenLuresDisabled,
+        default = PAJMenuDefaults.Stolen.lures,
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _ingredients),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenIngredientActionSetting,
-        setFunc = PAJMenuFunctions.setStolenIngredientActionSetting,
-        disabled = PAJMenuFunctions.isStolenIngredientActionDisabled,
-        default = PAJMenuDefaults.Stolen.ingredientAction,
+        getFunc = PAJMenuFunctions.getStolenIngredientsSetting,
+        setFunc = PAJMenuFunctions.setStolenIngredientsSetting,
+        disabled = PAJMenuFunctions.isStolenIngredientsDisabled,
+        default = PAJMenuDefaults.Stolen.ingredients,
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _foods),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenFoodActionSetting,
-        setFunc = PAJMenuFunctions.setStolenFoodActionSetting,
-        disabled = PAJMenuFunctions.isStolenFoodActionDisabled,
-        default = PAJMenuDefaults.Stolen.foodAction,
+        getFunc = PAJMenuFunctions.getStolenFoodSetting,
+        setFunc = PAJMenuFunctions.setStolenFoodSetting,
+        disabled = PAJMenuFunctions.isStolenFoodDisabled,
+        default = PAJMenuDefaults.Stolen.food,
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _drinks),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenDrinkActionSetting,
-        setFunc = PAJMenuFunctions.setStolenDrinkActionSetting,
-        disabled = PAJMenuFunctions.isStolenDrinkActionDisabled,
-        default = PAJMenuDefaults.Stolen.drinkAction,
+        getFunc = PAJMenuFunctions.getStolenDrinksSetting,
+        setFunc = PAJMenuFunctions.setStolenDrinksSetting,
+        disabled = PAJMenuFunctions.isStolenDrinksDisabled,
+        default = PAJMenuDefaults.Stolen.drinks,
     })
 
     PAJStolenSubMenu:insert({
@@ -799,14 +799,12 @@ local function _createPAJStolenSubMenu()
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _solvents),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenSolventActionSetting,
-        setFunc = PAJMenuFunctions.setStolenSolventActionSetting,
-        disabled = PAJMenuFunctions.isStolenSolventActionDisabled,
-        default = PAJMenuDefaults.Stolen.solventAction,
+        getFunc = PAJMenuFunctions.getStolenSolventsSetting,
+        setFunc = PAJMenuFunctions.setStolenSolventsSetting,
+        disabled = PAJMenuFunctions.isStolenSolventsDisabled,
+        default = PAJMenuDefaults.Stolen.solvents,
     })
 
     PAJStolenSubMenu:insert({
@@ -815,14 +813,12 @@ local function _createPAJStolenSubMenu()
     })
 
     PAJStolenSubMenu:insert({
-        type = "dropdown",
+        type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER, _treasures),
-        choices = PAJMenuChoices.itemAction,
-        choicesValues = PAJMenuChoicesValues.itemAction,
-        getFunc = PAJMenuFunctions.getStolenTreasureActionSetting,
-        setFunc = PAJMenuFunctions.setStolenTreasureActionSetting,
-        disabled = PAJMenuFunctions.isStolenTreasureActionDisabled,
-        default = PAJMenuDefaults.Stolen.treasureAction,
+        getFunc = PAJMenuFunctions.getStolenTreasuresSetting,
+        setFunc = PAJMenuFunctions.setStolenTreasuresSetting,
+        disabled = PAJMenuFunctions.isStolenTreasuresDisabled,
+        default = PAJMenuDefaults.Stolen.treasures,
     })
 end
 
@@ -832,7 +828,7 @@ local function _createPAJClockworkCityQuestsSubMenu()
     PAJClockworkCityQuestsSubMenu:insert({
         type = "description",
         text = GetString(SI_PA_MENU_JUNK_TRASH_EXCLUDE_ITEMS_DESC),
-        disabled = PAJMenuFunctions.isExcludeNibblesAndBitsDisabled,
+        disabled = PAJMenuFunctions.isExcludeTrashDescriptionDisabled,
     })
 
     PAJClockworkCityQuestsSubMenu:insert({
@@ -863,7 +859,7 @@ local function _createPAJClockworkCityQuestsSubMenu()
     PAJClockworkCityQuestsSubMenu:insert({
         type = "description",
         text = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC),
-        disabled = PAJMenuFunctions.isExcludeAMatterOfLeisureDisabled,
+        disabled = PAJMenuFunctions.isExcludeTreasuresDescriptionDisabled,
     })
 
     PAJClockworkCityQuestsSubMenu:insert({
@@ -903,7 +899,7 @@ local function _createPAJThievesGuildQuestsSubMenu()
     PAJThievesGuildQuestsSubMenu:insert({
         type = "description",
         text = GetString(SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_ITEMS_DESC),
-        disabled = PAJMenuFunctions.isNewLifeFestivalMenuDisabled,
+        disabled = PAJMenuFunctions.isThievesGuildMenuDisabled,
     })
 
     PAJThievesGuildQuestsSubMenu:insert({
@@ -934,6 +930,86 @@ local function _createPAJNewLifeFestivalSubMenu()
         setFunc = PAJMenuFunctions.setExcludeRareFishSetting,
         disabled = PAJMenuFunctions.isExcludeRareFishDisabled,
         default = PAJMenuDefaults.QuestProtection.NewLifeFestival.excludeRareFish,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAJDestroyJunkSubMenu()
+    PAJDestroyJunkSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T),
+        warning = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W),
+        getFunc = PAJMenuFunctions.getAutoDestroyJunkSetting,
+        setFunc = PAJMenuFunctions.setAutoDestroyJunkSetting,
+        disabled = PAJMenuFunctions.isAutoDestroyJunkDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyJunk,
+    })
+
+    PAJDestroyJunkSubMenu:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T),
+        min = 0,
+        max = 100,
+        step = 1,
+        getFunc = PAJMenuFunctions.getDestroyMaxValueThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyMaxValueThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyMaxValueThresholdDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyMaxValueThreshold
+    })
+
+    PAJDestroyJunkSubMenu:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T),
+        choices = PAJMenuChoices.qualityLevelNoDisabled,
+        choicesValues = PAJMenuChoicesValues.qualityLevelNoDisabled,
+        getFunc = PAJMenuFunctions.getDestroyMaxQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyMaxQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyMaxQualityThresholdDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyMaxQualityThreshold,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAJDestroyStolenJunkSubMenu()
+    PAJDestroyStolenJunkSubMenu:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_T),
+        warning = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W),
+        getFunc = PAJMenuFunctions.getAutoDestroyStolenJunkSetting,
+        setFunc = PAJMenuFunctions.setAutoDestroyStolenJunkSetting,
+        disabled = PAJMenuFunctions.isAutoDestroyStolenJunkDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyStolenJunk,
+    })
+
+    PAJDestroyStolenJunkSubMenu:insert({
+        type = "slider",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD_T),
+        min = 0,
+        max = 100,
+        step = 1,
+        getFunc = PAJMenuFunctions.getDestroyMaxStolenValueThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyMaxStolenValueThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyMaxStolenValueThresholdDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyMaxStolenValueThreshold
+    })
+
+    PAJDestroyStolenJunkSubMenu:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD),
+        tooltip = GetString(SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD_T),
+        choices = PAJMenuChoices.qualityLevelNoDisabled,
+        choicesValues = PAJMenuChoicesValues.qualityLevelNoDisabled,
+        getFunc = PAJMenuFunctions.getDestroyMaxStolenQualityThresholdSetting,
+        setFunc = PAJMenuFunctions.setDestroyMaxStolenQualityThresholdSetting,
+        disabled = PAJMenuFunctions.isDestroyMaxStolenQualityThresholdDisabled,
+        default = PAJMenuDefaults.AutoDestroy.destroyMaxStolenQualityThreshold,
     })
 end
 
@@ -1046,6 +1122,9 @@ local function createOptions()
     _createPAJClockworkCityQuestsSubMenu()
     _createPAJThievesGuildQuestsSubMenu()
     _createPAJNewLifeFestivalSubMenu()
+
+    _createPAJDestroyJunkSubMenu()
+    _createPAJDestroyStolenJunkSubMenu()
 
     _createPAJKeybindingsSubMenu()
 

@@ -839,7 +839,8 @@ PersonalAssistant.Constants = {
         DESTROY_ALWAYS = 9,
     },
 
-    ICON_POSITION = {
-        AUTO = -1,
-    },
+    LEARNABLE = {
+        KNOWN = 1,
+        UNKNOWN = 0,
+    }
 }

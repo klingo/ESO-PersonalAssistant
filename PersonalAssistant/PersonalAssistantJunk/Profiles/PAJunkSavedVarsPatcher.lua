@@ -31,16 +31,34 @@ local function _applyPatch_2_5_11(savedVarsVersion, isPatchingNeeded)
             if istable(PASavedVars.Junk[profileNo]) then
                 -- 1) Copy profile name
                 PASavedVars.Junk[profileNo].name = PASavedVars.General[profileNo].name
-                -- 2) Remove permanent PAJunk rules for items that cannot be sold
-                local PAJCustomPAItemIds = PASavedVars.Junk[profileNo].Custom.PAItemIds
-                for _, junkConfig in pairs(PAJCustomPAItemIds) do
-                    local itemLink = junkConfig.itemLink
-                    local sellInformation = GetItemLinkSellInformation(itemLink)
-                    if sellInformation == ITEM_SELL_INFORMATION_CANNOT_SELL then
-                        -- remove from permanent junk
-                        PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
-                    end
-                end
+                -- 2) Migrate 'destroyWorthlessJunk' to 'destroyJunk'
+                PASavedVars.Junk[profileNo].AutoDestroy.destroyJunk = PASavedVars.Junk[profileNo].AutoDestroy.destroyWorthlessJunk
+                PASavedVars.Junk[profileNo].AutoDestroy.destroyWorthlessJunk = nil
+                -- 3) Migrate Stolen section
+                PASavedVars.Junk[profileNo].Stolen.weapons = (PASavedVars.Junk[profileNo].Stolen.Weapons.action ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.Weapons = nil
+                PASavedVars.Junk[profileNo].Stolen.apparels = (PASavedVars.Junk[profileNo].Stolen.Armor.action ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.Armor = nil
+                PASavedVars.Junk[profileNo].Stolen.jewelries = (PASavedVars.Junk[profileNo].Stolen.Jewelry.action ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.Jewelry = nil
+                PASavedVars.Junk[profileNo].Stolen.trash = (PASavedVars.Junk[profileNo].Stolen.trashAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.trashAction = nil
+                PASavedVars.Junk[profileNo].Stolen.styleMaterials = (PASavedVars.Junk[profileNo].Stolen.styleMaterialAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.styleMaterialAction = nil
+                PASavedVars.Junk[profileNo].Stolen.traitItems = (PASavedVars.Junk[profileNo].Stolen.traitItemAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.traitItemAction = nil
+                PASavedVars.Junk[profileNo].Stolen.lures = (PASavedVars.Junk[profileNo].Stolen.lureAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.lureAction = nil
+                PASavedVars.Junk[profileNo].Stolen.ingredients = (PASavedVars.Junk[profileNo].Stolen.ingredientAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.ingredientAction = nil
+                PASavedVars.Junk[profileNo].Stolen.food = (PASavedVars.Junk[profileNo].Stolen.foodAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.foodAction = nil
+                PASavedVars.Junk[profileNo].Stolen.drinks = (PASavedVars.Junk[profileNo].Stolen.drinkAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.drinkAction = nil
+                PASavedVars.Junk[profileNo].Stolen.solvents = (PASavedVars.Junk[profileNo].Stolen.solventAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.solventAction = nil
+                PASavedVars.Junk[profileNo].Stolen.treasures = (PASavedVars.Junk[profileNo].Stolen.treasureAction ~= PAC.ITEM_ACTION.NOTHING)
+                PASavedVars.Junk[profileNo].Stolen.treasureAction = nil
             end
         end
         _updateSavedVarsVersion(savedVarsVersion)

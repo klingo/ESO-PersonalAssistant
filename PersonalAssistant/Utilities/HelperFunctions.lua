@@ -287,6 +287,14 @@ local function getBankBags()
     end
 end
 
+---@return string, string, string the applicable bags the player currently has access to (BAG_BACKPACK always, BAG_BANK and BAG_SUBSCRIBER_BANK only when bank open)
+local function getAccessibleBags()
+    if IsBankOpen() then
+        return BAG_BACKPACK, getBankBags()
+    end
+    return BAG_BACKPACK
+end
+
 
 -- =================================================================================================================
 -- == TEXT / NUMBER TRANSFORMATIONS == --
@@ -507,6 +515,46 @@ local function getIconExtendedItemLink(itemLink)
     return itemLinkExt
 end
 
+--- Checks the itemLink if it is known (recipes and motifs), researched (item traits), or already added to collection (style pages and containers)
+---@param itemLink string the itemLink to be checked
+---@return string Constants.LEARNABLE.KNOWN, Constants.LEARNABLE.KNOWN or nil if there is no known/unknown status
+local function getItemLinkLearnableStatus(itemLink)
+    local itemType, specializedItemType = GetItemLinkItemType(itemLink)
+    local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
+    if itemType == ITEMTYPE_RECIPE then
+        if IsItemLinkRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+        return PAC.LEARNABLE.UNKNOWN
+    elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+        if IsItemLinkBook(itemLink) then
+            if IsItemLinkBookKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+            return PAC.LEARNABLE.UNKNOWN
+        end
+    elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
+        local itemTraitType = GetItemLinkTraitType(itemLink)
+        -- only check for the research status if it has a traitType and if it is not Ornate or Intricate
+        if itemTraitType == ITEM_TRAIT_TYPE_NONE or
+                itemTraitType == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_ORNATE or
+                itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then
+            return nil
+        end
+        if CanItemLinkBeTraitResearched(itemLink) then return PAC.LEARNABLE.UNKNOWN end
+        return PAC.LEARNABLE.KNOWN
+    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
+        local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+        local collectibleName = GetCollectibleName(containerCollectibleId)
+        if collectibleName ~= nil and collectibleName ~= "" then
+            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            if isValidForPlayer then
+                local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+                if isUnlocked then return PAC.LEARNABLE.KNOWN end
+                return PAC.LEARNABLE.UNKNOWN
+            end
+        end
+    end
+    -- itemLink is neither known, nor unknown (not learnable or researchable)
+    return nil
+end
+
 -- Export
 PA.HelperFunctions = {
     round = round,
@@ -523,6 +571,7 @@ PA.HelperFunctions = {
     getStolenJunkComparator = getStolenJunkComparator,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
+    getAccessibleBags = getAccessibleBags,
     getBankBags = getBankBags,
     getBagName = getBagName,
     getFormattedCurrency = getFormattedCurrency,
@@ -537,5 +586,6 @@ PA.HelperFunctions = {
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,
-    getIconExtendedItemLink = getIconExtendedItemLink
+    getIconExtendedItemLink = getIconExtendedItemLink,
+    getItemLinkLearnableStatus = getItemLinkLearnableStatus
 }

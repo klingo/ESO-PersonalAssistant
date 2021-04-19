@@ -36,15 +36,6 @@ local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilte
     return false
 end
 
-local function _hasItemTraitChecksPassed(itemTraitType)
-    if itemTraitType == ITEM_TRAIT_TYPE_NONE or
-            itemTraitType == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_ORNATE or
-            itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then
-        return false
-    end
-    return true
-end
-
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- returns the target icon size; depending on the parentControl and the hookType
@@ -153,54 +144,35 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     local iconSize = _getTargetIconSize(parentControl, hookType)
 
     -- and start checking the SavedVars settings
-    local PALootSavedVars = PA.Loot.SavedVars
+    local PALootItemIconsSV = PA.Loot.SavedVars.ItemIcons
 
-    -- now set the icons to the controls (depending on itemType and if known or not)
-    if itemType == ITEMTYPE_RECIPE then
-        local PARecipesSV = PALootSavedVars.ItemIcons.Recipes
-        if IsItemLinkRecipeKnown(itemLink) then
-            if PARecipesSV.showKnownIcon then
-                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
-            end
-        elseif PARecipesSV.showUnknownIcon then
-            _setUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
-        end
-    elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-        local PAMotifsSV = PALootSavedVars.ItemIcons.Motifs
-        if IsItemLinkBook(itemLink) and IsItemLinkBookKnown(itemLink) then
-            if PAMotifsSV.showKnownIcon then
-                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
-            end
-        elseif PAMotifsSV.showUnknownIcon then
-            _setUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
-        end
-    elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
-        local PAApparelWeaponsSV = PALootSavedVars.ItemIcons.ApparelWeapons
-        local itemTraitType = GetItemLinkTraitType(itemLink)
-        if _hasItemTraitChecksPassed(itemTraitType) then
+    -- get the 'learnable' status for the itemLink
+    local learnableStatus = PAHF.getItemLinkLearnableStatus(itemLink)
+    if learnableStatus == PAC.LEARNABLE.KNOWN then
+        if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showKnownIcon) or
+                (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showKnownIcon) then
+            _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
+        elseif ((itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY) and PALootItemIconsSV.ApparelWeapons.showKnownIcon) then
+            local itemTraitType = GetItemLinkTraitType(itemLink)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
-            if CanItemLinkBeTraitResearched(itemLink) then
-                if PAApparelWeaponsSV.showUnknownIcon then
-                    _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
-                end
-            elseif PAApparelWeaponsSV.showKnownIcon then
-                _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
-            end
+            _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
+        elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showKnownIcon) then
+            local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+            local collectibleName = GetCollectibleName(containerCollectibleId)
+            _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
-    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
-        local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-        local collectibleName = GetCollectibleName(containerCollectibleId)
-        if collectibleName ~= nil and collectibleName ~= "" then
-            local PAStylePageContainerSV = PALootSavedVars.ItemIcons.StylePageContainers
-            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
-            local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
-            if isValidForPlayer and not isUnlocked then
-                if PAStylePageContainerSV.showUnknownIcon then
-                    _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
-                end
-            elseif PAStylePageContainerSV.showKnownIcon then
-                _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
-            end
+    elseif learnableStatus == PAC.LEARNABLE.UNKNOWN then
+        if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showUnknownIcon) or
+                (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showUnknownIcon) then
+            _setUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
+        elseif ((itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY) and PALootItemIconsSV.ApparelWeapons.showUnknownIcon) then
+            local itemTraitType = GetItemLinkTraitType(itemLink)
+            local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
+            _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
+        elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showUnknownIcon) then
+            local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+            local collectibleName = GetCollectibleName(containerCollectibleId)
+            _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
     end
 end
