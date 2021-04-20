@@ -54,8 +54,8 @@ end
 ---------------------------------
 local function isPAJunkWeaponsMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Weapons", "autoMarkOrnate"}, {"Weapons", "autoMarkIncludingSets"}, {"Weapons", "autoMarkIntricateTrait"}, {"Weapons", "autoMarkKnownTraits"}, {"Weapons", "autoMarkUnknownTraits"}) then
-        if tonumber(getValue({"Weapons", "autoMarkQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
+    if isDisabled({"Weapons", "autoMarkOrnate"}) and getValue({"Weapons", "autoMarkQualityThreshold"}) == PAC.ITEM_QUALITY.DISABLED then
+        return true
     end
     -- if no 'true' returned so far, return false now
     return false
@@ -76,8 +76,8 @@ end
 ---------------------------------
 local function isPAJunkArmorMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Armor", "autoMarkOrnate"}, {"Armor", "autoMarkIncludingSets"}, {"Armor", "autoMarkIntricateTrait"}, {"Armor", "autoMarkKnownTraits"}, {"Armor", "autoMarkUnknownTraits"}) then
-        if tonumber(getValue({"Armor", "autoMarkQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
+    if isDisabled({"Armor", "autoMarkOrnate"}) and getValue({"Armor", "autoMarkQualityThreshold"}) == PAC.ITEM_QUALITY.DISABLED then
+        return true
     end
     -- if no 'true' returned so far, return false now
     return false
@@ -98,8 +98,8 @@ end
 ---------------------------------
 local function isPAJunkJewelryMenuDisabled()
     if isDisabled({"autoMarkAsJunkEnabled"}) then return true end
-    if isDisabledAll({"Jewelry", "autoMarkOrnate"}, {"Jewelry", "autoMarkIncludingSets"}, {"Jewelry", "autoMarkIntricateTrait"}, {"Jewelry", "autoMarkKnownTraits"}, {"Jewelry", "autoMarkUnknownTraits"}) then
-        if tonumber(getValue({"Jewelry", "autoMarkQualityThreshold"})) == PAC.ITEM_QUALITY.DISABLED then return true end
+    if isDisabled({"Jewelry", "autoMarkOrnate"}) and getValue({"Jewelry", "autoMarkQualityThreshold"}) == PAC.ITEM_QUALITY.DISABLED then
+        return true
     end
     -- if no 'true' returned so far, return false now
     return false
