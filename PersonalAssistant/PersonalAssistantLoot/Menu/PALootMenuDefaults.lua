@@ -22,6 +22,7 @@ local PALootMenuDefaults = {
 
         LootApparelWeapons = {
             unknownTraitMsg = true,
+            uncollectedSetMsg = true,
         },
     },
 
@@ -29,32 +30,42 @@ local PALootMenuDefaults = {
         itemIconsEnabled = true,
 
         Recipes = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
         Motifs = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
         StylePageContainers = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
         ApparelWeapons = {
-            showKnownIcon = true,
+            showKnownIcon = false,
             showUnknownIcon = true,
         },
 
         iconTooltipShown = true,
-        iconSizeRow = 16,
+        iconSizeList = 16,
         iconSizeGrid = 16,
         iconXOffsetList = 0,
         iconYOffsetList = 0,
         iconXOffsetGrid = 2,
         iconYOffsetGrid = -2,
+
+        SetCollection = {
+            showUncollectedIcon = true,
+            iconSizeList = 16,
+            iconSizeGrid = 16,
+            iconXOffsetList = 20,
+            iconYOffsetList = 0,
+            iconXOffsetGrid = -2,
+            iconYOffsetGrid = -2,
+        }
     },
 
     InventorySpace = {

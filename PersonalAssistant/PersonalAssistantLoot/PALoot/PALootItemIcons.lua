@@ -5,7 +5,8 @@ local PAHF = PA.HelperFunctions
 
 -- =====================================================================================================================
 
-local CONTROL_NAME = "PALItemIcons"
+local KNOWN_UNKNOWN_CONTROL_NAME = "PALKnownUnknownItemIcons"
+local SET_COLLECTION_CONTROL_NAME = "PALSetCollectionItemIcons"
 local HOOK_BAGS = 1
 local HOOK_TRADEHOUSE = 2
 local HOOK_STORE = 3
@@ -39,25 +40,48 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- returns the target icon size; depending on the parentControl and the hookType
-local function _getTargetIconSize(parentControl, hookType)
+local function _getKnownUnknownIconSize(parentControl, hookType)
     -- if gridView is enabled, and it is for the bags or buyback, then return the GRID size
     if _isGridViewDisplay(parentControl, hookType) then
         return PA.Loot.SavedVars.ItemIcons.iconSizeGrid
     end
     -- in all other cases return the ROW size
-    return PA.Loot.SavedVars.ItemIcons.iconSizeRow
+    return PA.Loot.SavedVars.ItemIcons.iconSizeList
+end
+
+-- returns the target icon size; depending on the parentControl and the hookType
+local function _getSetCollectionIconSize(parentControl, hookType)
+    -- if gridView is enabled, and it is for the bags or buyback, then return the GRID size
+    if _isGridViewDisplay(parentControl, hookType) then
+        return PA.Loot.SavedVars.ItemIcons.SetCollection.iconSizeGrid
+    end
+    -- in all other cases return the ROW size
+    return PA.Loot.SavedVars.ItemIcons.SetCollection.iconSizeList
 end
 
 -- returns the iconPosition and offsets for gridView
-local function _getGridViewIconPositionAndOffset()
+local function _getKnownUnknownGridViewIconPositionAndOffset()
     local offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetGrid
     local offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetGrid
     return BOTTOMLEFT, offsetX, offsetY
 end
 
-local function _getListViewIconPositionAndOffset()
+local function _getKnownUnknownListViewIconPositionAndOffset()
     local offsetX = PA.Loot.SavedVars.ItemIcons.iconXOffsetList
     local offsetY = PA.Loot.SavedVars.ItemIcons.iconYOffsetList
+    return LEFT, RIGHT, offsetX, offsetY
+end
+
+-- returns the iconPosition and offsets for gridView
+local function _getSetCollectionGridViewIconPositionAndOffset()
+    local offsetX = PA.Loot.SavedVars.ItemIcons.SetCollection.iconXOffsetGrid
+    local offsetY = PA.Loot.SavedVars.ItemIcons.SetCollection.iconYOffsetGrid
+    return BOTTOMRIGHT, offsetX, offsetY
+end
+
+local function _getSetCollectionListViewIconPositionAndOffset()
+    local offsetX = PA.Loot.SavedVars.ItemIcons.SetCollection.iconXOffsetList
+    local offsetY = PA.Loot.SavedVars.ItemIcons.SetCollection.iconYOffsetList
     return LEFT, RIGHT, offsetX, offsetY
 end
 
@@ -103,11 +127,29 @@ local function _setUnknownItemIcon(itemIconControl, iconSize, tooltipText)
     _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.UNKNOWN.PATH, iconSize, tooltipText, red, green, blue, 1)
 end
 
+-- sets the "uncollected" icon to the control, plus tooltip
+local function _setUncollectedSetItemIcon(itemIconControl, iconSize, tooltipText)
+    local red = 0.4     -- 102
+    local green = 0.925 -- 236 (approx)
+    local blue = 1.0    -- 255
+    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.UNCOLLECTED.PATH, iconSize, tooltipText, red, green, blue, 1)
+end
+
 -- either returns the existing itemControl to be re-used, or creates a new one
-local function _getOrCreateItemControl(parent)
-    local itemIconControl = parent:GetNamedChild(CONTROL_NAME)
+local function _getOrCreateKnownUnknownItemControl(parent)
+    local itemIconControl = parent:GetNamedChild(KNOWN_UNKNOWN_CONTROL_NAME)
     if not itemIconControl then
-        itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. CONTROL_NAME, parent, CT_TEXTURE)
+        itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. KNOWN_UNKNOWN_CONTROL_NAME, parent, CT_TEXTURE)
+        itemIconControl:SetDrawTier(DT_HIGH)
+    end
+    return itemIconControl
+end
+
+-- either returns the existing itemControl to be re-used, or creates a new one
+local function _getOrCreateSetCollectionItemControl(parent)
+    local itemIconControl = parent:GetNamedChild(SET_COLLECTION_CONTROL_NAME)
+    if not itemIconControl then
+        itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. SET_COLLECTION_CONTROL_NAME, parent, CT_TEXTURE)
         itemIconControl:SetDrawTier(DT_HIGH)
     end
     return itemIconControl
@@ -119,12 +161,12 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
 
     -- get either the already existing item control, or create a new one
-    local itemIconControl = _getOrCreateItemControl(parentControl)
+    local itemIconControl = _getOrCreateKnownUnknownItemControl(parentControl)
 
-    -- make sure the icon/control is hidded for non-recipes and non-motifs (or if setting was disabled)
+    -- make sure the icon/control is hidden for non-recipes and non-motifs (or if setting was disabled)
     itemIconControl:SetHidden(true)
 
-    -- then check if the pre-conditions are met, otherwise stop any forther processings
+    -- then check if the pre-conditions are met, otherwise stop any further processing
     if not _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType) then
         return
     end
@@ -132,16 +174,16 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     -- check for inventory grid view and set the anchors accordingly
     itemIconControl:ClearAnchors()
     if _isGridViewDisplay(parentControl, hookType) then
-        local iconPosition, offsetX, offsetY = _getGridViewIconPositionAndOffset()
+        local iconPosition, offsetX, offsetY = _getKnownUnknownGridViewIconPositionAndOffset()
         itemIconControl:SetAnchor(iconPosition, parentControl, iconPosition, offsetX, offsetY)
     else
         local controlName = WINDOW_MANAGER:GetControlByName(parentControl:GetName() .. 'Name')
-        local iconPositionSelf, iconPositionParent, offsetX, offsetY = _getListViewIconPositionAndOffset()
+        local iconPositionSelf, iconPositionParent, offsetX, offsetY = _getKnownUnknownListViewIconPositionAndOffset()
         itemIconControl:SetAnchor(iconPositionSelf, controlName, iconPositionParent, offsetX, offsetY)
     end
 
     -- then get the icon size
-    local iconSize = _getTargetIconSize(parentControl, hookType)
+    local iconSize = _getKnownUnknownIconSize(parentControl, hookType)
 
     -- and start checking the SavedVars settings
     local PALootItemIconsSV = PA.Loot.SavedVars.ItemIcons
@@ -158,7 +200,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showKnownIcon) then
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-            local collectibleName = GetCollectibleName(containerCollectibleId)
+            local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
     elseif learnableStatus == PAC.LEARNABLE.UNKNOWN then
@@ -171,9 +213,46 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showUnknownIcon) then
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-            local collectibleName = GetCollectibleName(containerCollectibleId)
+            local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
         end
+    end
+end
+
+local function _addSetCollectionVisuals(parentControl, itemLink, hookType)
+    -- get either the already existing item control, or create a new one
+    local itemIconControl = _getOrCreateSetCollectionItemControl(parentControl)
+
+    -- make sure the icon/control is hidden for non-recipes and non-motifs (or if setting was disabled)
+    itemIconControl:SetHidden(true)
+
+    -- then check if the pre-conditions are met, otherwise stop any further processing
+    if not PA.Loot.SavedVars.ItemIcons.itemIconsEnabled or not IsItemLinkSetCollectionPiece(itemLink) then
+        return
+    end
+
+    -- check for inventory grid view and set the anchors accordingly
+    itemIconControl:ClearAnchors()
+    if _isGridViewDisplay(parentControl, hookType) then
+        local iconPosition, offsetX, offsetY = _getSetCollectionGridViewIconPositionAndOffset()
+        itemIconControl:SetAnchor(iconPosition, parentControl, iconPosition, offsetX, offsetY)
+    else
+        local controlName = WINDOW_MANAGER:GetControlByName(parentControl:GetName() .. 'Name')
+        local iconPositionSelf, iconPositionParent, offsetX, offsetY = _getSetCollectionListViewIconPositionAndOffset()
+        itemIconControl:SetAnchor(iconPositionSelf, controlName, iconPositionParent, offsetX, offsetY)
+    end
+
+    -- then get the icon size
+    local iconSize = _getSetCollectionIconSize(parentControl, hookType)
+
+    -- and start checking the SavedVars settings
+    local PALootItemIconsSV = PA.Loot.SavedVars.ItemIcons
+
+    -- get the 'isItemSetCollectionPieceUnlocked' status for the itemLink
+    local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
+    if not isItemSetCollectionPieceUnlocked and PALootItemIconsSV.SetCollection.showUncollectedIcon then
+        local itemName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemLinkName(itemLink))
+        _setUncollectedSetItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNCOLLECTED), ": ", PAC.COLORS.WHITE, itemName}))
     end
 end
 
@@ -213,6 +292,7 @@ local function initHooksOnBags()
                         local slotIndex = control.dataEntry.data.slotIndex
                         local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                         _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_BAGS)
+                        _addSetCollectionVisuals(control, itemLink, HOOK_BAGS)
                     end
                 end)
             end
@@ -233,6 +313,7 @@ local function initHooksOnTradeHouse()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
                 local itemLink = GetTradingHouseSearchResultItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
+                _addSetCollectionVisuals(control, itemLink, HOOK_TRADEHOUSE)
             end
         end)
         ZO_PreHook(TRADING_HOUSE.postedItemsList.dataTypes[2], "setupCallback", function(...)
@@ -240,6 +321,7 @@ local function initHooksOnTradeHouse()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
                 local itemLink = GetTradingHouseListingItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
+                _addSetCollectionVisuals(control, itemLink, HOOK_TRADEHOUSE)
             end
         end)
     end
@@ -253,6 +335,7 @@ local function initHooksOnMerchantsAndBuyback()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
                 local itemLink = GetBuybackItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
+                _addSetCollectionVisuals(control, itemLink, HOOK_STORE)
             end
         end)
 
@@ -261,6 +344,7 @@ local function initHooksOnMerchantsAndBuyback()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
                 local itemLink = GetStoreItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
+                _addSetCollectionVisuals(control, itemLink, HOOK_STORE)
             end
         end)
     else
@@ -279,6 +363,7 @@ local function initHooksOnCraftingStations()
                 local slotIndex = control.dataEntry.data.slotIndex
                 local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addSetCollectionVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
 
@@ -289,6 +374,7 @@ local function initHooksOnCraftingStations()
                 local slotIndex = control.dataEntry.data.slotIndex
                 local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addSetCollectionVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
 
@@ -299,6 +385,7 @@ local function initHooksOnCraftingStations()
                 local slotIndex = control.dataEntry.data.slotIndex
                 local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addSetCollectionVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
     else
@@ -315,6 +402,7 @@ local function initHooksOnLootWindow()
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.lootId then
                 local itemLink = GetLootItemLink(control.dataEntry.data.lootId)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_LOOT)
+                _addSetCollectionVisuals(control, itemLink, HOOK_LOOT)
             end
         end)
     else

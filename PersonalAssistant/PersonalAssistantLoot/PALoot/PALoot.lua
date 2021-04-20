@@ -232,6 +232,18 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAL.debugln("item with known trait looted: %s", itemLink)
                     end
                 end
+                if PALootSavedVars.LootEvents.LootApparelWeapons.uncollectedSetMsg then
+                    if IsItemLinkSetCollectionPiece(itemLink) then
+                        local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
+                        if not isItemSetCollectionPieceUnlocked then
+                            local _, setName = GetItemLinkSetInfo(itemLink)
+                            PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
+                        else
+                            -- Set item already collected
+                            PAL.debugln("set item already collected: %s", itemLink)
+                        end
+                    end
+                end
 
             -- Style Pages
             elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
