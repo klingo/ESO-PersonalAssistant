@@ -430,6 +430,8 @@ local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkS
             PAJ.println(markAsJunkSuccessMessageKey, itemLinkExt)
             return true
         end
+    else
+        PAJ.debugln("CanItemBeMarkedAsJunk == false")
     end
     -- print failure message
     -- TODO: to be implemented
@@ -537,6 +539,7 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
 end
 
 local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, isNewItem, stackCountChange)
+    PAJ.debugln("_OnInventorySingleSlotUpdateInternal bagId=%d, slotIndex=%d, itemLink=%s, isNewItem=%s, stackCountChange=%d", bagId, slotIndex, itemLink, tostring(isNewItem), stackCountChange)
     local PAJunkSavedVars = PAJ.SavedVars
     local _marked = false
     -- check if auto-marking is enabled for standard items (standard items only marked as junk if 'new')
@@ -782,13 +785,16 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAJProfileManager.hasActiveProfile() then
+        PAJ.debugln("OnInventorySingleSlotUpdate eventCode=%s, bagId=%d, slotIndex=%d, isNewItem=%s, inventoryUpdateReason=%s, stackCountChange=%d", tostring(eventCode), bagId, slotIndex, tostring(isNewItem), tostring(inventoryUpdateReason), stackCountChange)
         -- only proceed it item is not already marked as junk
         local isJunk = IsItemJunk(bagId, slotIndex)
+        PAJ.debugln("OnInventorySingleSlotUpdate isJunk=%s", tostring(isJunk))
         if isJunk then return end
         -- then only further proceed, if item is not crafted at not coming from the mailbox (unless the corresponding settings are turned off)
         local PAJunkSavedVars = PAJ.SavedVars
         local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
         local isCrafted = IsItemLinkCrafted(itemLink)
+        PAJ.debugln("OnInventorySingleSlotUpdate isCrafted=%s", tostring(isCrafted))
         if (not isCrafted or not PAJunkSavedVars.ignoreCraftedItems) and
                 (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) and
                 (PA.WindowStates.isTransmuteStationClosed) then
