@@ -9,7 +9,7 @@ After a two year long break from ESO, I finally managed to complete the major re
 
 
 [SIZE=3][COLOR=Yellow]PA [/COLOR][COLOR=White]General[/COLOR][/SIZE][LIST]
-[*]Up to twenty different account-wide profiles that can be created/copied/deleted/renamed [COLOR=Orange]*NEW* (2.5.0)[/COLOR]
+[*]Up to twenty different account-wide profiles per module that can be created/copied/deleted/renamed [COLOR=Orange]*NEW* (2.5.11)[/COLOR]
 [*]Shortcut to travel to your home (if available)[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA B[/COLOR][COLOR=White]anking[/COLOR][/SIZE][LIST]
@@ -33,12 +33,13 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Junk can be sold at merchants and fences
 [*]Save time and use keybinding shortcuts to mark items as junk or directly destroy them
 [*]Mark any item as permanent junk so you never have to deal with it again
-[*]Items with no sell value can also be destroyed instead of marked as junk[/LIST]
+[*]Items below a definable sell value can also be destroyed instead of marked as junk [COLOR=Orange]*NEW* (2.5.11)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA L[/COLOR][COLOR=White]oot[/COLOR][/SIZE][LIST]
 [*]Informs you when an unknown recipe is looted
 [*]Informs you when an unknown motif/page is looted
 [*]Informs you when an item with a not yet researched trait is looted
+[*]Informs you when a set item is looted that is not yet part of your set collection [COLOR=Orange]*NEW* (2.5.11)[/COLOR]
 [*]Informs you when you are running out of inventory space (threshold can be defined)
 [*]Visually indicates if a recipe, motif, trait, or style page is known (or not) to the current character[/LIST]
 

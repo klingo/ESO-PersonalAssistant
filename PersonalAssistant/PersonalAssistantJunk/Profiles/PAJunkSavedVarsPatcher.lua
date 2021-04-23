@@ -70,7 +70,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
-    -- Patch 2.5.11     tbd, 2021
+    -- Patch 2.5.11     April 23, 2021
     _applyPatch_2_5_11(_getIsPatchNeededInfo(020511))
 end
 
