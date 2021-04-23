@@ -417,10 +417,9 @@ local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkS
     PAJ.debugln("_markItemAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- then check if the item can NOT be sold or if it is unique; if yes then don't mark it as junk
-        local sellInformation = GetItemLinkSellInformation(itemLink)
+        -- then check if the item unique; if yes then don't mark it as junk
         local isUnique = IsItemLinkUnique(itemLink)
-        if sellInformation ~= ITEM_SELL_INFORMATION_CANNOT_SELL and not isUnique then
+        if not isUnique then
             -- item has a sell value and is not unique
             -- Item should be marked as JUNK
             SetItemIsJunk(bagId, slotIndex, true)
