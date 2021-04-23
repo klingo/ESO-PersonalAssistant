@@ -417,10 +417,9 @@ local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkS
     PAJ.debugln("_markItemAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if CanItemBeMarkedAsJunk(bagId, slotIndex) then
-        -- then check if the item can NOT be sold or if it is unique; if yes then don't mark it as junk
-        local sellInformation = GetItemLinkSellInformation(itemLink)
+        -- then check if the item unique; if yes then don't mark it as junk
         local isUnique = IsItemLinkUnique(itemLink)
-        if sellInformation ~= ITEM_SELL_INFORMATION_CANNOT_SELL and not isUnique then
+        if not isUnique then
             -- item has a sell value and is not unique
             -- Item should be marked as JUNK
             SetItemIsJunk(bagId, slotIndex, true)
@@ -431,6 +430,8 @@ local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkS
             PAJ.println(markAsJunkSuccessMessageKey, itemLinkExt)
             return true
         end
+    else
+        PAJ.debugln("CanItemBeMarkedAsJunk == false")
     end
     -- print failure message
     -- TODO: to be implemented
@@ -538,6 +539,7 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
 end
 
 local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, isNewItem, stackCountChange)
+    PAJ.debugln("_OnInventorySingleSlotUpdateInternal bagId=%d, slotIndex=%d, itemLink=%s, isNewItem=%s, stackCountChange=%d", bagId, slotIndex, itemLink, tostring(isNewItem), stackCountChange)
     local PAJunkSavedVars = PAJ.SavedVars
     local _marked = false
     -- check if auto-marking is enabled for standard items (standard items only marked as junk if 'new')
@@ -783,13 +785,16 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAJProfileManager.hasActiveProfile() then
+        PAJ.debugln("OnInventorySingleSlotUpdate eventCode=%s, bagId=%d, slotIndex=%d, isNewItem=%s, inventoryUpdateReason=%s, stackCountChange=%d", tostring(eventCode), bagId, slotIndex, tostring(isNewItem), tostring(inventoryUpdateReason), stackCountChange)
         -- only proceed it item is not already marked as junk
         local isJunk = IsItemJunk(bagId, slotIndex)
+        PAJ.debugln("OnInventorySingleSlotUpdate isJunk=%s", tostring(isJunk))
         if isJunk then return end
         -- then only further proceed, if item is not crafted at not coming from the mailbox (unless the corresponding settings are turned off)
         local PAJunkSavedVars = PAJ.SavedVars
         local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
         local isCrafted = IsItemLinkCrafted(itemLink)
+        PAJ.debugln("OnInventorySingleSlotUpdate isCrafted=%s", tostring(isCrafted))
         if (not isCrafted or not PAJunkSavedVars.ignoreCraftedItems) and
                 (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) and
                 (PA.WindowStates.isTransmuteStationClosed) then
