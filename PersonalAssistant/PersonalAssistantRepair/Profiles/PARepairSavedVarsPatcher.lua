@@ -15,7 +15,7 @@ end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
     local PARSavedVars = PA.SavedVars.Repair
-    local currentVersion = tonumber(PARSavedVars.savedVarsVersion)
+    local currentVersion = tonumber(PARSavedVars.savedVarsVersion) or PAC.ADDON.SAVED_VARS_VERSION.MINOR
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
 

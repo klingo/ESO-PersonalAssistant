@@ -15,7 +15,7 @@ end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
     local PABSavedVars = PA.SavedVars.Banking
-    local currentVersion = tonumber(PABSavedVars.savedVarsVersion)
+    local currentVersion = tonumber(PABSavedVars.savedVarsVersion) or PAC.ADDON.SAVED_VARS_VERSION.MINOR
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
 
