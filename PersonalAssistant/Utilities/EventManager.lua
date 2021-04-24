@@ -369,9 +369,12 @@ local function RefreshPARepairEventRegistration()
         -- Check if the functionality is turned on within the addon
         local PARMenuFunctions = PA.MenuFunctions.PARepair
         -- Check if the functionality is turned on within the addon
-        if PARMenuFunctions.getAutoRepairEquippedEnabledSetting() or PARMenuFunctions.getAutoRepairInventoryEnabledSetting() then
+        local autoRepairEquipped = PARMenuFunctions.getAutoRepairEquippedEnabledSetting()
+        local autoRepairInventory = PARMenuFunctions.getAutoRepairInventoryEnabledSetting()
+        if autoRepairEquipped or autoRepairInventory then
             -- Register for GoldRepair
-            if PARMenuFunctions.getRepairEquippedWithGoldSetting() or PARMenuFunctions.getRepairInventoryWithGoldSetting() then
+            if (autoRepairEquipped and PARMenuFunctions.getRepairEquippedWithGoldSetting()) or
+                    (autoRepairInventory and PARMenuFunctions.getRepairInventoryWithGoldSetting()) then
                 -- check if AutoSellJunk is also enabled
                 if PA.Junk and PA.MenuFunctions.PAJunk and PA.MenuFunctions.PAJunk.getAutoSellJunkSetting() then
                     -- if yes, only register a callback instead of the event, since repairing should be done once all junk is sold
