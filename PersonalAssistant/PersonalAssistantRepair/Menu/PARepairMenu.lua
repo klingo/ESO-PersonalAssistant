@@ -2,10 +2,13 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
-local PARMenuFunctions = PA.MenuFunctions.PARepair
 local PARMenuChoices = PA.MenuChoices.choices.PARepair
 local PARMenuChoicesValues = PA.MenuChoices.choicesValues.PARepair
+local PARProfileManager = PA.ProfileManager.PARepair
 local PARMenuDefaults = PA.MenuDefaults.PARepair
+local PARMenuFunctions = PA.MenuFunctions.PARepair
+
+-- =====================================================================================================================
 
 -- Create the LibAddonMenu2 object
 PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
@@ -25,6 +28,7 @@ local PARepairPanelData = {
 }
 
 local PARepairOptionsTable = setmetatable({}, { __index = table })
+local PARepairProfileSubMenuTable = setmetatable({}, { __index = table })
 
 local PARGoldEquippedSubmenuTable = setmetatable({}, { __index = table })
 local PARRepairKitSubmenuTable = setmetatable({}, { __index = table })
@@ -35,6 +39,12 @@ local PARGoldInventorySubmenuTable = setmetatable({}, { __index = table })
 -- =================================================================================================================
 
 local function _createPARepairMenu()
+    PARepairOptionsTable:insert({
+        type = "submenu",
+        name = PARProfileManager.getProfileSubMenuHeader,
+        controls = PARepairProfileSubMenuTable
+    })
+
     PARepairOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_REPAIR_DESCRIPTION),
@@ -50,7 +60,7 @@ local function _createPARepairMenu()
         name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_REPAIR_ENABLE)),
         getFunc = PARMenuFunctions.getAutoRepairEquippedEnabledSetting,
         setFunc = PARMenuFunctions.setAutoRepairEquippedEnabledSetting,
-        disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
+        disabled = PARProfileManager.isNoProfileSelected,
         default = PARMenuDefaults.autoRepairEnabled,
     })
 
@@ -90,7 +100,7 @@ local function _createPARepairMenu()
         name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_REPAIR_INVENTORY_ENABLE)),
         getFunc = PARMenuFunctions.getAutoRepairInventoryEnabledSetting,
         setFunc = PARMenuFunctions.setAutoRepairInventoryEnabledSetting,
-        disabled = PA.MenuFunctions.PAGeneral.isNoProfileSelected,
+        disabled = PARProfileManager.isNoProfileSelected,
         default = PARMenuDefaults.autoRepairInventoryEnabled,
     })
 
@@ -116,6 +126,112 @@ local function _createPARepairMenu()
         setFunc = PARMenuFunctions.setSilentModeSetting,
         disabled = PARMenuFunctions.isSilentModeDisabled,
         default = PARMenuDefaults.silentMode,
+    })
+end
+
+-- =================================================================================================================
+
+local function _createPARepairProfileSubMenuTable()
+    PARepairProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_ACTIVE_T),
+        choices = PARProfileManager.getProfileList(),
+        choicesValues = PARProfileManager.getProfileListValues(),
+        width = "half",
+        getFunc = PARProfileManager.getActiveProfile,
+        setFunc = PARProfileManager.setActiveProfile,
+        reference = "PERSONALASSISTANT_REPAIR_PROFILEDROPDOWN"
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "editbox",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        maxChars = 40,
+        width = "half",
+        getFunc = PARProfileManager.getActiveProfileName,
+        setFunc = PARProfileManager.setActiveProfileName,
+        disabled = PARProfileManager.isNoProfileSelected
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_CREATE_NEW),
+        width = "half",
+        func = PARProfileManager.createNewProfile,
+        disabled = PARProfileManager.hasMaxProfileCountReached
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
+        disabled = function() return not PARProfileManager.hasMaxProfileCountReached() end
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
+        disabled = function() return PARProfileManager.hasOnlyOneProfile() or PARProfileManager.isNoProfileSelected() end,
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
+        choices = PARProfileManager.getInactiveProfileList(),
+        choicesValues = PARProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Repair.selectedCopyProfile end,
+        setFunc = function(value) PA.Repair.selectedCopyProfile = value end,
+        disabled = function() return PARProfileManager.hasOnlyOneProfile() or PARProfileManager.isNoProfileSelected() end,
+        reference = "PERSONALASSISTANT_REPAIR_PROFILEDROPDOWN_COPY"
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),
+        width = "half",
+        func = PARProfileManager.copySelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W),
+        disabled = PARProfileManager.isNoCopyProfileSelected
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_DELETE_DESC),
+        disabled = PARProfileManager.hasOnlyOneProfile
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE),
+        choices = PARProfileManager.getInactiveProfileList(),
+        choicesValues = PARProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Repair.selectedDeleteProfile end,
+        setFunc = function(value) PA.Repair.selectedDeleteProfile = value end,
+        disabled = PARProfileManager.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_REPAIR_PROFILEDROPDOWN_DELETE"
+    })
+
+    PARepairProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM),
+        width = "half",
+        func = PARProfileManager.deleteSelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W),
+        disabled = PARProfileManager.isNoDeleteProfileSelected
     })
 end
 
@@ -312,6 +428,8 @@ end
 local function createOptions()
     _createPARepairMenu()
 
+    _createPARepairProfileSubMenuTable()
+
     _createPARGoldSubmenuTable()
     _createPARRepairKitSubmenuTable()
     _createPARRechargeSubmenuTable()
@@ -322,7 +440,7 @@ local function createOptions()
     PA.LAM2:RegisterOptionControls("PersonalAssistantRepairAddonOptions", PARepairOptionsTable)
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.Repair = PA.Repair or {}
 PA.Repair.createOptions = createOptions

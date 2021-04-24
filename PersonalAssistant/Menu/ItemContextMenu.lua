@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAHF = PA.HelperFunctions
+local PAProfileManager = PA.ProfileManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -21,63 +22,67 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
     local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
 
     -- Add PABanking context menu entries
-    if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
-        -- first make some checks whether banking rules are even allowed for this item
-        if not _isBankingRuleNotAllowed(itemLink, bagId, slotIndex) then
-            local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
-            local isRuleExisting = PAHF.isKeyInTable(PABCustomPAItemIds, paItemId)
-            local entries = {
-                {
-                    label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
-                    callback = function()
-                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
-                    end,
-                    disabled = function() return isRuleExisting end,
-                },
-                {
-                    label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
-                    callback = function()
-                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                        PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomPAItemIds[paItemId])
-                    end,
-                    disabled = function() return not isRuleExisting end,
-                },
-                {
-                    label = GetString(SI_PA_SUBMENU_PAB_DELETE_RULE),
-                    callback = function()
-                        PA.CustomDialogs.initPABAddCustomRuleUIDialog()
-                        PA.CustomDialogs.deletePABCustomRule(itemLink)
-                    end,
-                    disabled = function() return not isRuleExisting end,
+    if PAProfileManager.PABanking and PAProfileManager.PABanking.hasActiveProfile() then
+        if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
+            -- first make some checks whether banking rules are even allowed for this item
+            if not _isBankingRuleNotAllowed(itemLink, bagId, slotIndex) then
+                local PABCustomPAItemIds = PA.Banking.SavedVars.Custom.PAItemIds
+                local isRuleExisting = PAHF.isKeyInTable(PABCustomPAItemIds, paItemId)
+                local entries = {
+                    {
+                        label = GetString(SI_PA_SUBMENU_PAB_ADD_RULE),
+                        callback = function()
+                            PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                            PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink)
+                        end,
+                        disabled = function() return isRuleExisting end,
+                    },
+                    {
+                        label = GetString(SI_PA_SUBMENU_PAB_EDIT_RULE),
+                        callback = function()
+                            PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                            PA.CustomDialogs.showPABAddCustomRuleUIDIalog(itemLink, PABCustomPAItemIds[paItemId])
+                        end,
+                        disabled = function() return not isRuleExisting end,
+                    },
+                    {
+                        label = GetString(SI_PA_SUBMENU_PAB_DELETE_RULE),
+                        callback = function()
+                            PA.CustomDialogs.initPABAddCustomRuleUIDialog()
+                            PA.CustomDialogs.deletePABCustomRule(itemLink)
+                        end,
+                        disabled = function() return not isRuleExisting end,
+                    }
                 }
-            }
-            AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAB), entries)
+                AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAB), entries)
+            end
         end
     end
 
     -- Add PAJunk context menu entries
-    if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled then
-        local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
-        local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
-        local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
-        local entries = {
-            {
-                label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
-                callback = function()
-                    PA.Junk.Custom.addItemLinkToPermanentJunk(itemLink)
-                end,
-                disabled = function() return not canBeMarkedAsJunk or isRuleExisting end,
-            },
-            {
-                label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
-                callback = function()
-                    PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
-                end,
-                disabled = function() return not isRuleExisting end,
+    if PAProfileManager.PAJunk and PAProfileManager.PAJunk.hasActiveProfile() then
+        if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled then
+            local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
+            local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
+            local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
+            local entries = {
+                {
+                    label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
+                    callback = function()
+                        PA.Junk.Custom.addItemLinkToPermanentJunk(itemLink)
+                    end,
+                    disabled = function() return not canBeMarkedAsJunk or isRuleExisting end,
+                },
+                {
+                    label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
+                    callback = function()
+                        PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
+                    end,
+                    disabled = function() return not isRuleExisting end,
+                }
             }
-        }
-        AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAJ), entries)
+            AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAJ), entries)
+        end
     end
 end
 
@@ -102,7 +107,8 @@ local function _getSlotTypeName(slotType)
 end
 
 local function initHooksOnInventoryContextMenu(LCM)
-    if PAHF.hasActiveProfile() then
+    if (PAProfileManager.PABanking and PAProfileManager.PABanking.hasActiveProfile()) or
+            (PAProfileManager.PAJunk and PAProfileManager.PAJunk.hasActiveProfile()) then
         if not _hooksOnInventoryContextMenuInitialized and (PA.Banking or PA.Junk) then
             _hooksOnInventoryContextMenuInitialized = true
             LCM:RegisterContextMenu(function(inventorySlot, slotActions)

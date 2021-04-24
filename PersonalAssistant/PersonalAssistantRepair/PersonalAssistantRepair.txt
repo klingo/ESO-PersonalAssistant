@@ -11,10 +11,15 @@
 ## APIVersion: 100034
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
+## OptionalDependsOn: PersonalAssistantJunk
 
 # Localization
 localization/en.lua
 localization/$(language).lua
+
+# Profiles
+Profiles/PARepairSavedVarsPatcher.lua
+Profiles/PARepairProfileManager.lua
 
 # Core
 PersonalAssistantRepair.lua

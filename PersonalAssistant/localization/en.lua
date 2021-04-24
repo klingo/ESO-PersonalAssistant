@@ -3,29 +3,10 @@ local PAStrings = {
     -- =================================================================================================================
     -- Language specific texts that need to be translated --
 
-    -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "at your service!   -   no localization for language [%s] available (yet)"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "at your service! Active profile: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "welcomes you! In order to get started, please go to the Addon Settings (or type ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") and select a profile. Thank you :-)"}),
-
-
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant is a collection of various features that have the goal to make playing ESO more convenient for you",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- General Settings --
-    SI_PA_MENU_GENERAL_HEADER = "General Settings",
-    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Show welcome message",
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Travel to house"}),
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "If current location permits fast travel, this will initiate the teleport to your primary house!",
-    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "Travel in front of the house",
-    SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "If turned OFF, you will travel to the inside of the house instead",
-
-    -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --
-    SI_PA_MENU_PROFILE_HEADER = "Profiles",
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Please select Profile>",
     SI_PA_MENU_PROFILE_DEFAULT = "Default profile",
     SI_PA_MENU_PROFILE_ACTIVE = "Active profile",
@@ -47,10 +28,6 @@ local PAStrings = {
     SI_PA_MENU_PROFILE_DELETE = "Delete a profile",
     SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirm deletion",
     SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "This will delete the selected profile for all characters. Are you sure you want to do that?",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- Admin Settings --
-    SI_PA_MENU_ADMIN_HEADER = "Admin Settings",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Rules Menu --
@@ -116,6 +93,10 @@ local PAStrings = {
     SI_PA_ITEMTYPE60 = "<<1[Master Writ/Master Writs]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- SpecializedItemTypes (Custom Singluar/Plural definition) --
+    SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[Fragment/Fragments]>>",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Master Writs based on CraftingType (Custom definition) --
     SI_PA_MASTERWRIT_CRAFTINGTYPE0 = table.concat({"Other Writs (", GetString("SI_ENCHANTMENTSEARCHCATEGORYTYPE", ENCHANTMENT_SEARCH_CATEGORY_OTHER), ")"}),
     SI_PA_MASTERWRIT_CRAFTINGTYPE1 = "Sealed Blacksmithing Writ",
@@ -169,9 +150,9 @@ local PAStrings = {
     SI_PA_REL_TEXT_OPERATOR0 = "-",
     SI_PA_REL_TEXT_OPERATOR1 = "has exactly",
     SI_PA_REL_TEXT_OPERATOR2 = "has less than", -- not used so far
-    SI_PA_REL_TEXT_OPERATOR3 = "hast at most",
+    SI_PA_REL_TEXT_OPERATOR3 = "has at most",
     SI_PA_REL_TEXT_OPERATOR4 = "has more than", -- not used so far
-    SI_PA_REL_TEXT_OPERATOR5 = "hast at least",
+    SI_PA_REL_TEXT_OPERATOR5 = "has at least",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Stacking types --

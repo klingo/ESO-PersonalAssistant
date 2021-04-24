@@ -38,24 +38,43 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Eine Frage des Tributs"), " benötigt"}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Die Stadt der Uhrwerke"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Körperpflegegegenstände]"}),
 
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = table.concat({"> für tägl. Quest ", PAC.COLOR.YELLOW:Colorize("Die gierige Gräfin"), " benötigt"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest für: "), PAC.COLOR.ORANGE:Colorize("Diebesgilde"), "\nWenn EINgeschaltet werden folgende Beute Gegenstände NICHT als Trödel markiert:\n[Kosmetika]\n[Trockenwaren]\n[Schmuckstücke]\n\n[Trinkgefäße]\n[Utensilien]\n[Teller und Kochgeschirr]\n\n[Spiele]\n[Puppen]\n[Statuen]\n\n[Schriften] & [Schreiberbedarf]\n[Karten]\n\n[Ritualgegenstände]\n[Kuriositäten]"}),
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Gestohlene Gegenstände",
-    SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "Wenn [%s] gestohlen werden",
-
-    -- Quest Items --
-    SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Zu schützende Quest Gegenstände",
-    SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Die Stadt der Uhrwerke",
-    SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Neujahrsfest",
+    SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "Markiere gestohlene [%s]",
 
     -- Custom Items --
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Benutzerdefinierte Gegenstände",
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
+    -- Quest Items --
+    SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Zu schützende Quest Gegenstände",
+    SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Die Stadt der Uhrwerke",
+    SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "Diebesgilde",
+    SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Neujahrsfest",
+
+    -- Auto-Sell --
+    SI_PA_MENU_JUNK_AUTO_SELL_JUNK_HEADER = "Trödel direkt verkaufen",
+
     -- Auto-Destroy --
-    SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Trödel direkt zerstören",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Direktes Zerstören von wertlosem Trödel",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "Wenn ein wertloser Gegenstand (Verkaufswert = 0g) eingesammelt wird der automatisch als Trödel markiert würde, dann wird wenn EINgeschaltet dieser Gegenstand stattdessen zerstört. Einmal zerstört kann der Gegenstand nicht zurückgeholt werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_HEADER = "Trödel direkt zerstören",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Direktes Zerstören von Trödel",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "Wenn ein Gegenstand eingesammelt wird der automatisch als Trödel markiert würde, und einen Verkaufswert sowie eine Qualität hat die genau auf oder unter dem Schwellenwert liegt, dann wird wenn EINgeschaltet dieser Gegenstand stattdessen zerstört. Einmal zerstört kann der Gegenstand nicht zurückgeholt werden!",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "ACHTUNG: Bitte beachte dass bei Verwendung von dieser Einstellung KEINE Sicherheitsfrage kommt ob der Gegenstand wirklich zerstört werden soll.\nEr wird einfach direkt zerstört!\nUnwiderruflich!\nNutzung erfolgt auf eigenes Risiko!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "WENN Verkaufswert genau auf oder unter [...] liegt",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "Nur Gegenstände deren Verkaufswert auf oder unter dem eingegeben Schwellenwert liegen werden automatisch zerstört. Wenn ein Gegenstand einmal zerstört ist, kann dies nicht mehr rückgängig gemacht werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "UND die Qualität genau auf oder unter [...] liegt",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "Nur Gegenstände deren Qualität auf oder unter der ausgewählten Qualität liegen werden automatisch zerstört. Wenn ein Gegenstand einmal zerstört ist, kann dies nicht mehr rückgängig gemacht werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "Ausnahme: Alle Arten von 'unbekannten' Gegenständen (Rezepte, Stile, Stilseiten, Eigenschaften, ...) werden nie automatisch zerstört, selbst wenn die Kriterien des Verkaufswertes und der Qualität erfüllt wären",
+
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK = "Direktes Zerstören von gestohlenem Trödel",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_T = "Wenn ein Gegenstand gestohlen wird der automatisch als Trödel markiert würde, und einen Verkaufswert sowie eine Qualität hat die genau auf oder unter dem Schwellenwert liegt, dann wird wenn EINgeschaltet dieser Gegenstand stattdessen zerstört. Einmal zerstört kann der Gegenstand nicht zurückgeholt werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD = "WENN Verkaufswert genau auf oder unter [...] liegt",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD_T = "Nur gestohlene Gegenstände deren Qualität auf oder unter der ausgewählten Qualität liegen werden automatisch zerstört. Wenn ein Gegenstand einmal zerstört ist, kann dies nicht mehr rückgängig gemacht werden!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD = "UND die Qualität genau auf oder unter [...] liegt",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD_T = "Nur gestohlene Gegenstände deren Qualität auf oder unter der ausgewählten Qualität liegen werden automatisch zerstört. Wenn ein Gegenstand einmal zerstört ist, kann dies nicht mehr rückgängig gemacht werden!",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Aus Nachrichten nie als Trödel markieren",
@@ -123,9 +142,12 @@ local PAJStrings = {
 
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s"}),
     SI_PA_CHAT_JUNK_DESTROYED_ALWAYS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Immer"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Wertlos"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"Direktes Zerstören von wertlosem Trödel wurde ", PAC.COLOR.RED:Colorize("EIN"), "geschalten"}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"Direktes Zerstören von wertlosem Trödel wurde ", PAC.COLOR.GREEN:Colorize("AUS"), "geschalten"}),
+    SI_PA_CHAT_JUNK_DESTROYED_CRITERIA_MATCH = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Zerstört"), " %d x %s (Verkaufswert: %s)"}),
+
+    SI_PA_CHAT_JUNK_DESTROY_ON = table.concat({"Direktes Zerstören von Trödel wurde ", PAC.COLOR.RED:Colorize("EIN"), "geschalten"}),
+    SI_PA_CHAT_JUNK_DESTROY_OFF = table.concat({"Direktes Zerstören von Trödel wurde ", PAC.COLOR.GREEN:Colorize("AUS"), "geschalten"}),
+    SI_PA_CHAT_JUNK_DESTROY_STOLEN_ON = table.concat({"Direktes Zerstören von gestohlenem Trödel wurde ", PAC.COLOR.RED:Colorize("EIN"), "geschalten"}),
+    SI_PA_CHAT_JUNK_DESTROY_STOLEN_OFF = table.concat({"Direktes Zerstören von gestohlenem Trödel wurde ", PAC.COLOR.GREEN:Colorize("AUS"), "geschalten"}),
 
     SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = "Gegenstände verkauft für %s",
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Bitte warte ~%d Stunden"}),
@@ -166,6 +188,29 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Kosmetika",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Körperpflegegegenstände",
+
+    -- Quest: "The Covetous Countess" (only additional tags)
+    SI_PA_TREASURE_ITEM_TAG_DESC_LINENS = "Trockenwaren",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES = "Schmuckstücke",
+    SI_PA_TREASURE_ITEM_TAG_DESC_STATUES = "Statuen",
+    SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS = "Schriften",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER = "Schreiberbedarf",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MAPS = "Karten",
+    SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS = "Ritualgegenstände",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES = "Kuriositäten",
+
+    -- OTHERS: Not yet used
+    SI_PA_TREASURE_ITEM_TAG_DESC_INSTRUMENTS = "Musikinstrumente",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ARTWORK = "Kunstwerke",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DECOR = "Wanddekor",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TRIFLES_ORNAMENTS = "Kleinigkeiten und Zierden",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DEVICES = "Geräte",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SMITHING = "Schmiedeausrüstung",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TOOLS = "Werkzeuge",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MEDICAL_SUPPLIES = "Medizinische Vorräte",
+    SI_PA_TREASURE_ITEM_TAG_DESC_CURIOSITIES = "Magische Kuriositäten",
+    SI_PA_TREASURE_ITEM_TAG_DESC_FURNISHINGS = "Möblierung",
+    SI_PA_TREASURE_ITEM_TAG_DESC_LIGHTS = "Lichtquellen",
 }
 
 for key, value in pairs(PAJStrings) do

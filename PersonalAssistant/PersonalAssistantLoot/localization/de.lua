@@ -28,6 +28,8 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "Beim Ausrüstungsgegenstände einsammeln",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "> eine Eigenschaft noch nicht analysiert wurde",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}),
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG = "> ein Gegenstand in der Setsammlung fehlt",
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = table.concat({"Wann immer eine \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_ARMOR), \", eine \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_WEAPONS), \", oder \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_JEWELRY), \" eingesammelt wird das noch in der Setsammlung fehlt, dann wird eine Information im Chat ausgegeben"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warne wenn Inventarplätze ausgehen",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen",
@@ -55,14 +57,17 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Markiere Ausrüstungsgegenstände",
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "wenn die Eigenschaften bereits analysiert ist"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}),
+    SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "wenn ein Gegenstand in der Setsammlung fehlt"}),
+
+    -- Item Icon Positioning --
+    SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "Nachfolgend kann die Grösse und Position der Gegenstands Icons angepasst werden",
+    SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "Bekannt/Unbekannt",
+    SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "Nicht gesammelte Sets",
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Grösse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden",
     SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Icon Grösse (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände durch das Addon [Inventory Grid View] in einem Gitter angezeigt werden",
-
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID = "Icon Positionierung (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T = "Definiere die Position des bekannt/unbekannt Icons.\nMit 'Automatisch' prüft PALoot ob die Addons [Research Assistant] und [ESO Master Recipe List] aktiviert sind und positioniert das Icon in einer noch nicht belegten Ecke",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einem Gitter angezeigt werden",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST = "Icon versetzt X-Achse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Listenanzeige",
@@ -70,9 +75,9 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Listenanzeige",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID = "Icon versetzt X-Achse (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist",
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Definiert die horizontale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige.",
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID = "Icon versetzt Y-Achse (Gitteranzeige)",
-    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige mit dem Addon [InventoryGridView]\n\nKann nur gesetzt werden wenbn die Icon Positionierung auf Manuell ist",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Definiert die vertikale Versetzung des bekannt/unbekannt Icons in der Gitteranzeige.",
 
 
     -- =================================================================================================================
@@ -82,6 +87,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}),
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s hat [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] das analysiert werden kann!"}),
+    SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s fehlt in der Setsammlung!"}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Inventarplätze mehr/Inventarplatz/Inventarplätze]>> übrig!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Reparaturmaterialien mehr/Reparaturmaterial/Reparaturmaterialien]>> übrig!"}),
@@ -96,6 +102,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Markiere mit . . .",
     SI_PA_ITEM_KNOWN = "Bereits bekannt",
     SI_PA_ITEM_UNKNOWN = "Unbekannt",
+    SI_PA_ITEM_UNCOLLECTED = "Nicht gesammelt",
 }
 
 for key, value in pairs(PALStrings) do

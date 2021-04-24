@@ -282,9 +282,7 @@ local function _applyPatch_2_4_4(savedVarsVersion, _, _, _, patchPAJ, _, _)
             if not PASavedVars.Junk[profileNo].Stolen.Treasure then PASavedVars.Junk[profileNo].Stolen.Treasure = {} end
 
             -- 1) migrate:      PAJunk.Miscellaneous.autoMarkTreasure
-            if PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure then
-                PASavedVars.Junk[profileNo].Stolen.Treasure.action = PAC.ITEM_ACTION.MARK_AS_JUNK
-            end
+            -- As of Version 2.5.11, this needs to be skipped because "PAC.ITEM_ACTION" was decommissioned
 
             -- 2) migrate:      PAJunk.Miscellaneous.excludeAMatterOfLeisure
             PASavedVars.Junk[profileNo].Stolen.Treasure.excludeAMatterOfLeisure = PASavedVars.Junk[profileNo].Miscellaneous.excludeAMatterOfLeisure
@@ -311,8 +309,8 @@ local function _applyPatch_2_4_6(savedVarsVersion, _, _, _, patchPAJ, _, _)
         local PASavedVars = PA.SavedVars
         for profileNo = 1, 8 do
             -- 1) migrate:      PASavedVars.Junk[profileNo].Stolen.Treasure.action
+            -- As of Version 2.5.11, this needs to be skipped because "PAC.ITEM_ACTION" was decommissioned
             PASavedVars.Junk[profileNo].Stolen.treasureAction = PASavedVars.Junk[profileNo].Stolen.Treasure.action
-            PASavedVars.Junk[profileNo].Miscellaneous.autoMarkTreasure = (PASavedVars.Junk[profileNo].Stolen.Treasure.action == PAC.ITEM_ACTION.MARK_AS_JUNK)
 
             -- 2) migrate:      PAJunk.Trash.excludeNibblesAndBits
             PASavedVars.Junk[profileNo].QuestProtection.ClockworkCity.excludeNibblesAndBits = PASavedVars.Junk[profileNo].Trash.excludeNibblesAndBits
@@ -352,30 +350,7 @@ end
 
 
 local function _applyPatch_2_4_13(savedVarsVersion, _, _, _, _, patchPAL, _)
-   if patchPAL then
-       local PASavedVars = PA.SavedVars
-       for profileNo = 1, 8 do
-           -- 1) patch      PALoot.ItemIcons.iconPositionGrid
-           local iconPositionGrid = PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid
-           if iconPositionGrid ~= PAC.ICON_POSITION.AUTO then
-               PASavedVars.Loot[profileNo].ItemIcons.iconPositionGrid = CENTER
-                if iconPositionGrid == TOPLEFT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = -20 -- left
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = 20 -- top
-                elseif iconPositionGrid == TOPRIGHT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = 20 -- right
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = 20 -- top
-                elseif iconPositionGrid == BOTTOMLEFT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = -20 -- left
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = -20 -- bottom
-                elseif iconPositionGrid == BOTTOMRIGHT then
-                    PASavedVars.Loot[profileNo].ItemIcons.iconXOffsetGrid = 20 -- right
-                    PASavedVars.Loot[profileNo].ItemIcons.iconYOffsetGrid = -20 -- bottom
-                end
-           end
-       end
-       _updateSavedVarsVersion(savedVarsVersion, false, false, false, false, patchPAL, false)
-   end
+    -- As of Version 2.5.11, this needs to be skipped because "iconPositionGrid" was decommissioned
 end
 
 
@@ -491,8 +466,7 @@ local function _applyPatch_2_5_1(savedVarsVersion, _, _, _, patchPAJ, _, _)
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Junk[profileNo]) then
                 PASavedVars.Junk[profileNo].ignoreCraftedItems = true
-                PASavedVars.Junk[profileNo].Stolen.trashAction = PAC.ITEM_ACTION.NOTHING
-                PASavedVars.Junk[profileNo].Stolen.solventAction = PAC.ITEM_ACTION.NOTHING
+                -- As of Version 2.5.11, this needs to be skipped because "PAC.ITEM_ACTION" was decommissioned
             end
         end
         _updateSavedVarsVersion(savedVarsVersion, nil, nil, nil, patchPAJ, nil, nil)
@@ -571,7 +545,7 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function applyPatchIfNeeded()
+local function applyLegacyPatchIfNeeded()
     -- first unregister the event again
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "SavedVarsPatcher")
 
@@ -638,6 +612,4 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
-PA.SavedVarsPatcher = {
-    applyPatchIfNeeded = applyPatchIfNeeded
-}
+PA.SavedVarsPatcher.applyLegacyPatchIfNeeded = applyLegacyPatchIfNeeded

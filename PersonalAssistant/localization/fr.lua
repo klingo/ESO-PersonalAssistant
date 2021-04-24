@@ -2,30 +2,11 @@ local PAC = PersonalAssistant.Constants
 local PAStrings = {
     -- =================================================================================================================
     -- Language specific texts that need to be translated --
-    
-    -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "à votre service !   -   La traduction pour le language [%s] n'est pas (encore) disponible"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "à votre service ! Profil actif: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "vous souhaite la bienvenue ! Pour commencer, veuillez aller dans les réglages d'extensions (ou taper ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, ") afin de sélectionner un profil. Merci :-)"}),
-
 
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant est un ensemble de fonctionnalités diverses qui ont pour but de vous rendre le jeu ESO plus agréable",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- General Settings --
-    SI_PA_MENU_GENERAL_HEADER = "Paramètres généraux",
-    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Afficher le message d'accueil",
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Aller à la maison"}),
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Si la position actuelle permet un voyage rapide, cela lancera la téléportation vers votre maison primaire !",
-    --SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "",
-    --SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "",
-
-    -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --
-    SI_PA_MENU_PROFILE_HEADER = "Profils",
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Sélectionner un profil>",
     SI_PA_MENU_PROFILE_DEFAULT = "Profil par défaut",
     SI_PA_MENU_PROFILE_ACTIVE = "Profil actif",
@@ -47,10 +28,6 @@ local PAStrings = {
     SI_PA_MENU_PROFILE_DELETE = "Supprimer un profil",
     SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Confirmer la suppression",
     SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "Cela supprimera le profil sélectionné pour tous les personnages. Êtes-vous sûr de vouloir continuer ?",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- Admin Settings --
-    SI_PA_MENU_ADMIN_HEADER = "Paramètres administrateur",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Rules Menu --
@@ -114,6 +91,10 @@ local PAStrings = {
     --SI_PA_ITEMTYPE47 = "<<1[]>>",
     SI_PA_ITEMTYPE56 = "<<1[Trésor/Trésors]>>",
     SI_PA_ITEMTYPE60 = "<<1[Commande de maître/Commandes de maître]>>",
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- SpecializedItemTypes (Custom Singluar/Plural definition) --
+    --SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[/]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Master Writs based on CraftingType (Custom definition) --

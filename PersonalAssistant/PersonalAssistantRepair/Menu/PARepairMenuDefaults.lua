@@ -1,9 +1,12 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 local PARepairMenuDefaults = {
+    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
+
+    -- ---------------------------------------------
     autoRepairEnabled = true,
     autoRepairInventoryEnabled = false,
 
@@ -44,7 +47,7 @@ local PARepairMenuDefaults = {
     silentMode = false,
 }
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.MenuDefaults = PA.MenuDefaults or {}
 PA.MenuDefaults.PARepair = PARepairMenuDefaults

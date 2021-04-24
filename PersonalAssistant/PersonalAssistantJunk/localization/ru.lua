@@ -38,24 +38,43 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes")}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Товары для ухода]"}),
 
+    --SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = "",
+    --SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = "",
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Украденные вещи",
     SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "%s",
-
-    -- Quest Items --
-    SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Защита квестовых предметов",
-    SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Заводной город",
-    SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Фестиваль Новой Жизни",
 
     -- Custom Items --
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Настраиваемые предметы",
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
+    -- Quest Items --
+    SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Защита квестовых предметов",
+    SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Заводной город",
+    --SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "",
+    SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "Фестиваль Новой Жизни",
+
+    -- Auto-Sell --
+    --SI_PA_MENU_JUNK_AUTO_SELL_JUNK_HEADER = "",
+
     -- Auto-Destroy --
-    SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Автоматически уничтожать мусор",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Включить уничтожение ненужных предметов",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "При добыче бесполезного предмета (стоимость продажи - 0з) при включенном данном параметре - предмет будет уничтожен. Это не может быть отменено!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_HEADER = "Автоматически уничтожать мусор",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "ВНИМАНИЕ: Обратите внимание, что при использовании этой настройки, никакого сообщения для подтверждения действия не будет!\nПросто будет уничтожен!\nНасовсем!\nИспользуйте на свой страх и риск!",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "",
+
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_T = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD_T = "!",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD_T = "",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Никогда не помечать полученное по почте как хлам",
@@ -123,9 +142,12 @@ local PAJStrings = {
 
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s"}),
     SI_PA_CHAT_JUNK_DESTROYED_ALWAYS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Постоянная пометка"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Уничтожен"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Мусор"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}),
+    --SI_PA_CHAT_JUNK_DESTROYED_CRITERIA_MATCH = "",
+
+    SI_PA_CHAT_JUNK_DESTROY_ON = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}),
+    SI_PA_CHAT_JUNK_DESTROY_OFF = table.concat({"Автоматическое уничтожение мусора было ", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}),
+    --SI_PA_CHAT_JUNK_DESTROY_STOLEN_ON = table.concat({"", PAC.COLOR.RED:Colorize("ВКЛЮЧЕНО")}),
+    --SI_PA_CHAT_JUNK_DESTROY_STOLEN_OFF = table.concat({"", PAC.COLOR.GREEN:Colorize("ВЫКЛЮЧЕНО")}),
 
     SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = "Продано предметов на %s",
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Пожалуйста, подождите ~%d часов"}),
@@ -151,7 +173,7 @@ local PAJStrings = {
 
 
     -- =================================================================================================================
-    -- == OTHER STRINGS == --
+    -- == OTHER STRINGS == --   !!! NEED TO BE AN EXACT MATCH WITH THE "TAG" ON THE ITEM !!!
     -- -----------------------------------------------------------------------------------------------------------------
     -- Quest: "A Matter of Leisure"
     SI_PA_TREASURE_ITEM_TAG_DESC_TOYS = "Детские игрушки",
@@ -166,6 +188,29 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Косметика",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Товары для ухода",
+
+    -- Quest: "The Covetous Countess" (only additional tags)
+    --SI_PA_TREASURE_ITEM_TAG_DESC_LINENS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_STATUES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_MAPS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES = "",
+
+    -- OTHERS: Not yet used
+    --SI_PA_TREASURE_ITEM_TAG_DESC_INSTRUMENTS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_ARTWORK = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_DECOR = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_TRIFLES_ORNAMENTS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_DEVICES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_SMITHING = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_TOOLS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_MEDICAL_SUPPLIES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_CURIOSITIES = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_FURNISHINGS = "",
+    --SI_PA_TREASURE_ITEM_TAG_DESC_LIGHTS = "",
 
 
     -- =================================================================================================================

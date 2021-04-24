@@ -10,13 +10,13 @@ local function _unmarkAllPAItemIdsFromJunk(paItemId)
     local customPAItems = {
         [paItemId] = {}
     }
-    local excludeJunk, excludeCharacterBound = false, false
-    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound)
-    local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
-    PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+    local excludeJunk, excludeCharacterBound, excludeStolen = false, false, false
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound, excludeStolen)
+    local bagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, PAHF.getAccessibleBags())
+    PAJ.debugln("#bagCache = "..tostring(#bagCache))
 
-    for index = #backpackBagCache, 1, -1 do
-        local itemData = backpackBagCache[index]
+    for index = #bagCache, 1, -1 do
+        local itemData = bagCache[index]
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
         if isJunk then
             SetItemIsJunk(itemData.bagId, itemData.slotIndex, false)
@@ -30,13 +30,13 @@ local function _markAllPAItemIdsAsJunk(paItemId)
     local customPAItems = {
         [paItemId] = {}
     }
-    local excludeJunk, excludeCharacterBound = true, false
-    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound)
-    local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
-    PAJ.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
+    local excludeJunk, excludeCharacterBound, excludeStolen = true, false, false
+    local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound, excludeStolen)
+    local bagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, PAHF.getAccessibleBags())
+    PAJ.debugln("#bagCache = "..tostring(#bagCache))
 
-    for index = #backpackBagCache, 1, -1 do
-        local itemData = backpackBagCache[index]
+    for index = #bagCache, 1, -1 do
+        local itemData = bagCache[index]
         if CanItemBeMarkedAsJunk(itemData.bagId, itemData.slotIndex) then
             SetItemIsJunk(itemData.bagId, itemData.slotIndex, true)
             PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)

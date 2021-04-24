@@ -38,24 +38,46 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes"), " Daily Quest"}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest in: "), PAC.COLOR.ORANGE:Colorize("Clockwork City"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Grooming Items]"}),
 
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = table.concat({"> needed for ", PAC.COLOR.YELLOW:Colorize("The Covetous Countess"), " Daily Quest"}),
+    SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Quest for: "), PAC.COLOR.ORANGE:Colorize("Thieves Guild"), "\nIf turned ON, the following treasure items will NOT be marked as Junk:\n[Cosmetics]\n[Dry Goods (Linens)]\n[Wardrobe Accessories]\n\n[Drinkware]\n[Utensils]\n[Dishes and Cookware]\n\n[Games]\n[Dolls]\n[Statues]\n\n[Writings] & [Scrivener Supplies]\n[Maps]\n\n[Ritual Objects]\n[Oddities]"}),
+
     -- Stolen Items --
     SI_PA_MENU_JUNK_AUTOMARK_STOLEN_HEADER = "Stolen Items",
-    SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "When stealing [%s]",
-
-    -- Quest Items --
-    SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Protecting Quest Items",
-    SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Clockwork City",
-    SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "New Life Festival",
+    SI_PA_MENU_JUNK_ACTION_STOLEN_PLACEHOLDER = "Auto-Mark stolen [%s]",
 
     -- Custom Items --
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_HEADER = "Custom Items",
     SI_PA_MENU_JUNK_CUSTOM_ITEMS_DESCRIPTION = table.concat({GetString(SI_PA_MENU_RULES_HOW_TO_ADD_PAJ), "\n\n", GetString(SI_PA_MENU_RULES_HOW_TO_FIND_MENU)}),
 
+    -- Quest Items --
+    SI_PA_MENU_JUNK_QUEST_ITEMS_HEADER = "Protecting Quest Items",
+    SI_PA_MENU_JUNK_QUEST_CLOCKWORK_CITY_HEADER = "Clockwork City",
+    SI_PA_MENU_JUNK_QUEST_THIEVES_GUILD_HEADER = "Thieves Guild",
+    SI_PA_MENU_JUNK_QUEST_NEW_LIFE_FESTIVAL_HEADER = "New Life Festival",
+
+    -- Auto-Sell --
+    SI_PA_MENU_JUNK_AUTO_SELL_JUNK_HEADER = "Auto-sell junk",
+
     -- Auto-Destroy --
-    SI_PA_MENU_JUNK_AUTO_DESTORY_JUNK_HEADER = "Auto-Destroy Junk",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Enable Auto-Destroy of worthles Junk items",
-    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "When looting a worthless item (sell value = 0g) that would automatically be marked as junk, with this setting turned ON it will be destroyed instead. This cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_HEADER = "Auto-destroy junk",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK = "Enable auto-destroy of junk items",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_T = "When looting an item that would automatically be marked as junk and has a (Merchant) sell value and item quality at or below the threshold, then with this setting turned ON it will be destroyed instead. This cannot be reverted!",
     SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_W = "WARNING: Please be aware that using this setting, there is NO prompt message to double-confirm if the item really can be destroyed.\nIt is just going to be destroyed!\nForever!\nUse at your own risk!",
+
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_JUNK_HEADER = "Junk",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD = "IF merchant sell value is at or below",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_VALUE_THRESHOLD_T = "Only auto-destroy items when their merchant sell value is at or below this threshold. Once an item is destroyed, it cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD = "AND item quality is at or below",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_MAX_QUALITY_THRESHOLD_T = "Only auto-destroy items when their quality level is at or below this threshold. Once an item is destroyed, it cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_JUNK_EXCLUSION_DISCLAIMER = "Exception: Any kind of 'unknown' items (recipes, motifs, style pages, traits, ...) will never be auto-destroyed, even if they match the sell value and quality criteria",
+
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_JUNK_HEADER = "Stolen junk",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK = "Enable auto-destroy of stolen junk items",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_T = "When stealing an item that would automatically be marked as junk and has a (Fence) sell value and item quality at or below the threshold, then with this setting turned ON it will be destroyed instead. This cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD = "IF fence sell price is at or below",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_VALUE_THRESHOLD_T = "Only auto-destroy stolen items when their fence sell price is at or below this threshold. Once an item is destroyed, it cannot be reverted!",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD = "AND stolen item quality is at or below",
+    SI_PA_MENU_JUNK_AUTO_DESTROY_STOLEN_JUNK_MAX_QUALITY_THRESHOLD_T = "Only auto-destroy stolen items when their quality level is at or below this threshold. Once an item is destroyed, it cannot be reverted!",
 
     -- Other Settings --
     SI_PA_MENU_JUNK_MAILBOX_IGNORE = "Never mark items received from Mailbox as Junk",
@@ -123,9 +145,12 @@ local PAJStrings = {
 
     SI_PA_CHAT_JUNK_DESTROYED_KEYBINDING = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s"}),
     SI_PA_CHAT_JUNK_DESTROYED_ALWAYS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Always"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROYED_WORTHLESS = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s (", PAC.COLOR.ORANGE:Colorize("Worthless"), ")"}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_ON = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.RED:Colorize("ON")}),
-    SI_PA_CHAT_JUNK_DESTROY_WORTHLESS_OFF = table.concat({"Auto-Destroy of worthless Junk items has been turned ", PAC.COLOR.GREEN:Colorize("OFF")}),
+    SI_PA_CHAT_JUNK_DESTROYED_CRITERIA_MATCH = table.concat({PAC.COLOR.ORANGE_RED:Colorize("Destroyed"), " %d x %s (Sell value: %s)"}),
+
+    SI_PA_CHAT_JUNK_DESTROY_ON = table.concat({"Auto-Destroy of junk items has been turned ", PAC.COLOR.RED:Colorize("ON")}),
+    SI_PA_CHAT_JUNK_DESTROY_OFF = table.concat({"Auto-Destroy of junk items has been turned ", PAC.COLOR.GREEN:Colorize("OFF")}),
+    SI_PA_CHAT_JUNK_DESTROY_STOLEN_ON = table.concat({"Auto-Destroy of stolen junk items has been turned ", PAC.COLOR.RED:Colorize("ON")}),
+    SI_PA_CHAT_JUNK_DESTROY_STOLEN_OFF = table.concat({"Auto-Destroy of stolen junk items has been turned ", PAC.COLOR.GREEN:Colorize("OFF")}),
 
     SI_PA_CHAT_JUNK_SOLD_ITEMS_INFO = "Sold items for %s",
     SI_PA_CHAT_JUNK_FENCE_LIMIT_HOURS = table.concat({GetString("SI_STOREFAILURE", STORE_FAILURE_AT_FENCE_LIMIT), " Please wait ~%d hours"}),
@@ -166,6 +191,29 @@ local PAJStrings = {
     -- Quest: "A Matter of Tributes"
     SI_PA_TREASURE_ITEM_TAG_DESC_COSMETICS = "Cosmetics",
     SI_PA_TREASURE_ITEM_TAG_DESC_GROOMING = "Grooming Items",
+
+    -- Quest: "The Covetous Countess" (only additional tags)
+    SI_PA_TREASURE_ITEM_TAG_DESC_LINENS = "Dry Goods",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ACCESSORIES = "Wardrobe Accessories",
+    SI_PA_TREASURE_ITEM_TAG_DESC_STATUES = "Statues",
+    SI_PA_TREASURE_ITEM_TAG_DESC_WRITINGS = "Writings",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SCRIVENER = "Scrivener Supplies",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MAPS = "Maps",
+    SI_PA_TREASURE_ITEM_TAG_DESC_RITUAL_OBJECTS = "Ritual Objects",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ODDITIES = "Oddities",
+
+    -- OTHERS: Not yet used
+    SI_PA_TREASURE_ITEM_TAG_DESC_INSTRUMENTS = "Musical Instruments",
+    SI_PA_TREASURE_ITEM_TAG_DESC_ARTWORK = "Artwork",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DECOR = "Wall Décor",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TRIFLES_ORNAMENTS = "Trifles and Ornaments",
+    SI_PA_TREASURE_ITEM_TAG_DESC_DEVICES = "Devices",
+    SI_PA_TREASURE_ITEM_TAG_DESC_SMITHING = "Smithing Equipment",
+    SI_PA_TREASURE_ITEM_TAG_DESC_TOOLS = "Tools",
+    SI_PA_TREASURE_ITEM_TAG_DESC_MEDICAL_SUPPLIES = "Medical Supplies",
+    SI_PA_TREASURE_ITEM_TAG_DESC_CURIOSITIES = "Magic Curiosities",
+    SI_PA_TREASURE_ITEM_TAG_DESC_FURNISHINGS = "Furnishings",
+    SI_PA_TREASURE_ITEM_TAG_DESC_LIGHTS = "Lights",
 }
 
 for key, value in pairs(PAJStrings) do
