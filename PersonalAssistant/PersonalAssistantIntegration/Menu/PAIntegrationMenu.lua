@@ -2,9 +2,11 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
-local PAMH = PA.MenuHelper
+local PAIProfileManager = PA.ProfileManager.PAIntegration
 local PAIMenuDefaults = PA.MenuDefaults.PAIntegration
 local PAIMenuFunctions = PA.MenuFunctions.PAIntegration
+
+-- =====================================================================================================================
 
 -- Create the LibAddonMenu2 object
 PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
@@ -24,6 +26,7 @@ local PAIntegrationPanelData = {
 }
 
 local PAIntegrationOptionsTable = setmetatable({}, { __index = table })
+local PAIntegrationProfileSubMenuTable = setmetatable({}, { __index = table })
 
 local PAIFCOISLockedSubmenuTable = setmetatable({}, { __index = table })
 local PAIFCOISResearchSubmenuTable = setmetatable({}, { __index = table })
@@ -37,6 +40,12 @@ local PAIFCOISIntricateSubmenuTable = setmetatable({}, { __index = table })
 -- =================================================================================================================
 
 local function _createPAIntegrationMenu()
+    PAIntegrationOptionsTable:insert({
+        type = "submenu",
+        name = PAIProfileManager.getProfileSubMenuHeader,
+        controls = PAIntegrationProfileSubMenuTable
+    })
+
     PAIntegrationOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_INTEGRATION_DESCRIPTION),
@@ -77,7 +86,7 @@ local function _createPAIntegrationMenu()
             type = "checkbox",
             name = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY),
             tooltip = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T),
-            warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking),
+            warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking),
             getFunc = PAIMenuFunctions.getLazyWritCrafterCompatibilitySetting,
             setFunc = PAIMenuFunctions.setLazyWritCrafterCompatibilitySetting,
             disabled = PAIMenuFunctions.isLazyWritCrafterCompatibilityDisabled,
@@ -171,11 +180,117 @@ end
 
 -- =================================================================================================================
 
+local function _createPAIntegrationProfileSubMenuTable()
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_ACTIVE_T),
+        choices = PAIProfileManager.getProfileList(),
+        choicesValues = PAIProfileManager.getProfileListValues(),
+        width = "half",
+        getFunc = PAIProfileManager.getActiveProfile,
+        setFunc = PAIProfileManager.setActiveProfile,
+        reference = "PERSONALASSISTANT_INTEGRATION_PROFILEDROPDOWN"
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "editbox",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        maxChars = 40,
+        width = "half",
+        getFunc = PAIProfileManager.getActiveProfileName,
+        setFunc = PAIProfileManager.setActiveProfileName,
+        disabled = PAIProfileManager.isNoProfileSelected
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_CREATE_NEW),
+        width = "half",
+        func = PAIProfileManager.createNewProfile,
+        disabled = PAIProfileManager.hasMaxProfileCountReached
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
+        disabled = function() return not PAIProfileManager.hasMaxProfileCountReached() end
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
+        disabled = function() return PAIProfileManager.hasOnlyOneProfile() or PAIProfileManager.isNoProfileSelected() end,
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
+        choices = PAIProfileManager.getInactiveProfileList(),
+        choicesValues = PAIProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Integration.selectedCopyProfile end,
+        setFunc = function(value) PA.Integration.selectedCopyProfile = value end,
+        disabled = function() return PAIProfileManager.hasOnlyOneProfile() or PAIProfileManager.isNoProfileSelected() end,
+        reference = "PERSONALASSISTANT_INTEGRATION_PROFILEDROPDOWN_COPY"
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),
+        width = "half",
+        func = PAIProfileManager.copySelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W),
+        disabled = PAIProfileManager.isNoCopyProfileSelected
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_DELETE_DESC),
+        disabled = PAIProfileManager.hasOnlyOneProfile
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE),
+        choices = PAIProfileManager.getInactiveProfileList(),
+        choicesValues = PAIProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Integration.selectedDeleteProfile end,
+        setFunc = function(value) PA.Integration.selectedDeleteProfile = value end,
+        disabled = PAIProfileManager.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_INTEGRATION_PROFILEDROPDOWN_DELETE"
+    })
+
+    PAIntegrationProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM),
+        width = "half",
+        func = PAIProfileManager.deleteSelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W),
+        disabled = PAIProfileManager.isNoDeleteProfileSelected
+    })
+end
+
+-- =================================================================================================================
+
 local function _createPAIFCOISLockedSubmenuTable()
     PAIFCOISLockedSubmenuTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING),
-        warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
+        warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
         getFunc = PAIMenuFunctions.getFCOISLockedPreventAutoSellSetting,
         setFunc = PAIMenuFunctions.setFCOISLockedPreventAutoSellSetting,
         disabled = PAIMenuFunctions.isFCOISLockedPreventAutoSellDisabled,
@@ -195,7 +310,7 @@ local function _createPAIFCOISSellSubmenuTable()
     PAIFCOISSellSubmenuTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED),
-        warning = PAMH.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
+        warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
         getFunc = PAIMenuFunctions.getFCOISSellAutoSellMarkedSetting,
         setFunc = PAIMenuFunctions.setFCOISSellAutoSellMarkedSetting,
         disabled = PAIMenuFunctions.isFCOISSellAutoSellMarkedDisabled,
@@ -234,6 +349,8 @@ end
 local function createOptions()
     _createPAIntegrationMenu()
 
+    _createPAIntegrationProfileSubMenuTable()
+
     if FCOIS then
         _createPAIFCOISLockedSubmenuTable()
         _createPAIFCOISResearchSubmenuTable()
@@ -248,7 +365,7 @@ local function createOptions()
     PA.LAM2:RegisterOptionControls("PersonalAssistantIntegrationAddonOptions", PAIntegrationOptionsTable)
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.Integration = PA.Integration or {}
 PA.Integration.createOptions = createOptions

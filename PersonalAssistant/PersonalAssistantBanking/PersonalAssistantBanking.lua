@@ -1,15 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PABProfileManager = PA.ProfileManager.PABanking
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantBanking"
-local Banking_Defaults = {}
+PA.Banking = PA.Banking or {}
+PA.Banking.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Banking.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -25,18 +27,6 @@ local function debugln(text, ...)
     PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAB, text, ...)
 end
 
--- init default values
-local function initDefaults()
-    local PASavedVars = PA.SavedVars
-    local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PABanking
-    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
-        -- get default values from PAMenuDefaults
-        Banking_Defaults[1] = PAMenuDefaults.PABanking
-        Banking_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    end
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -46,19 +36,34 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
-    -- initialize the default values
-    initDefaults()
-
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Banking.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAB, PAC.COLORED_TEXTS_DEBUG.PAB)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING, nil, Banking_Defaults)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING)
 
-    -- sync profiles between PAGeneral and PABanking
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Banking, PA.MenuDefaults.PABanking)
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPABankingPatchIfNeeded()
+
+    -- init a default profile if none exist
+    PABProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PABProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PABProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PABanking()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PABanking()
+    end
 
     -- create the options with LAM-2
     PA.Banking.createOptions()
@@ -70,11 +75,8 @@ end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
--- ---------------------------------------------------------------------------------------------------------------------
-
+-- =====================================================================================================================
 -- Export
-PA.Banking = {
-    AddonName = AddonName,
-    println = println,
-    debugln = debugln
-}
+PA.Banking.AddonName = AddonName
+PA.Banking.println = println
+PA.Banking.debugln = debugln

@@ -379,12 +379,12 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
         if specializedItemType == SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT then
-            for _, specializedItemType in pairs(combinedLists.holidayWrits) do
-                if specializedItemType == itemData.specializedItemType then return true end
+            for _, listSpecializedItemType in pairs(combinedLists.holidayWrits) do
+                if listSpecializedItemType == itemData.specializedItemType then return true end
             end
         end
-        for _, itemType in pairs(combinedLists.itemTypes) do
-            if itemType == itemData.itemType then return true end
+        for _, listItemType in pairs(combinedLists.itemTypes) do
+            if listItemType == itemData.itemType then return true end
         end
         if specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT then
             for _, itemFilterType in pairs(combinedLists.surveyMaps) do
@@ -404,8 +404,8 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             end
         end
         if not IsItemLinkContainer(itemData.itemLink) then
-            for _, specializedItemType in pairs(combinedLists.specializedItemTypes) do
-                if specializedItemType == itemData.specializedItemType then return true end
+            for _, listSpecializedItemType in pairs(combinedLists.specializedItemTypes) do
+                if listSpecializedItemType == itemData.specializedItemType then return true end
             end
         end
         for _, expectedItemType in pairs(combinedLists.learnableKnownItemTypes) do
@@ -451,12 +451,14 @@ end
 
 ---@param paItemIdList table a list of paItemIds to be checked
 ---@param excludeJunk boolean whether junk items should be excluded
+---@param excludeCharacterBound boolean whether character bound items should be excluded
+---@param excludeStolen boolean whether stolen items should be excluded
 ---@return fun(itemData: table) a comparator function that only returns item that match the paItemIdList and pass the junk-test
-local function getPAItemIdComparator(paItemIdList, excludeJunk)
+local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacterBound, excludeStolen)
     return function(itemData)
-        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) and excludeStolen then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if _isItemCharacterBound(itemData) and excludeCharacterBound then return false end
         local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
@@ -498,6 +500,14 @@ local function getBankBags()
     else
         return BAG_BANK
     end
+end
+
+---@return string, string, string the applicable bags the player currently has access to (BAG_BACKPACK always, BAG_BANK and BAG_SUBSCRIBER_BANK only when bank open)
+local function getAccessibleBags()
+    if IsBankOpen() then
+        return BAG_BACKPACK, getBankBags()
+    end
+    return BAG_BACKPACK
 end
 
 
@@ -716,35 +726,11 @@ end
 -- == PROFILES == --
 -- -----------------------------------------------------------------------------------------------------------------
 
----@return boolean whether player has selected a PA profile
-local function hasActiveProfile()
-    local PAMenuFunctions = PA.MenuFunctions
-    return not PAMenuFunctions.PAGeneral.isNoProfileSelected()
-end
-
 --- returns the default profile name of the provided profile number
 ---@param profileNo number the number/id of a profile
 ---@return string the name of the profile
 local function getDefaultProfileName(profileNo)
     return table.concat({GetString(SI_PA_PROFILE), " ", profileNo})
-end
-
---- sync the LOCAL profiles with the ones from GLOBAL
----@param localSavedVars table the savedVars table of the local profile
----@param localDefaults table the table with the defaults for the savedVars table
----@return void
-local function syncLocalProfilesWithGlobal(localSavedVars, localDefaults)
-    local PASavedVars = PA.SavedVars
-    for profileNo = 1, PASavedVars.General.profileCounter do
-        if istable(PASavedVars.General[profileNo]) and not istable(localSavedVars[profileNo]) then
-            -- GLOBAL has a profile, but LOCAL does not - create it!
-            localSavedVars[profileNo] = {}
-            ZO_DeepTableCopy(localDefaults, localSavedVars[profileNo])
-        elseif istable(localSavedVars[profileNo]) and not istable(PASavedVars.General[profileNo]) then
-            -- LOCAL has a profile, but GLOBAL does not - delete it!
-            localSavedVars[profileNo] = nil
-        end
-    end
 end
 
 --- Source: https://wiki.esoui.com/IsAddonRunning
@@ -799,6 +785,46 @@ local function getIconExtendedItemLink(itemLink)
     return itemLinkExt
 end
 
+--- Checks the itemLink if it is known (recipes and motifs), researched (item traits), or already added to collection (style pages and containers)
+---@param itemLink string the itemLink to be checked
+---@return string Constants.LEARNABLE.KNOWN, Constants.LEARNABLE.KNOWN or nil if there is no known/unknown status
+local function getItemLinkLearnableStatus(itemLink)
+    local itemType, specializedItemType = GetItemLinkItemType(itemLink)
+    local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
+    if itemType == ITEMTYPE_RECIPE then
+        if IsItemLinkRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+        return PAC.LEARNABLE.UNKNOWN
+    elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
+        if IsItemLinkBook(itemLink) then
+            if IsItemLinkBookKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+            return PAC.LEARNABLE.UNKNOWN
+        end
+    elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
+        local itemTraitType = GetItemLinkTraitType(itemLink)
+        -- only check for the research status if it has a traitType and if it is not Ornate or Intricate
+        if itemTraitType == ITEM_TRAIT_TYPE_NONE or
+                itemTraitType == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_ORNATE or
+                itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then
+            return nil
+        end
+        if CanItemLinkBeTraitResearched(itemLink) then return PAC.LEARNABLE.UNKNOWN end
+        return PAC.LEARNABLE.KNOWN
+    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
+        local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+        local collectibleName = GetCollectibleName(containerCollectibleId)
+        if collectibleName ~= nil and collectibleName ~= "" then
+            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+            if isValidForPlayer then
+                local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+                if isUnlocked then return PAC.LEARNABLE.KNOWN end
+                return PAC.LEARNABLE.UNKNOWN
+            end
+        end
+    end
+    -- itemLink is neither known, nor unknown (not learnable or researchable)
+    return nil
+end
+
 -- Export
 PA.HelperFunctions = {
     round = round,
@@ -818,10 +844,10 @@ PA.HelperFunctions = {
     getStolenJunkComparator = getStolenJunkComparator,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
+    getAccessibleBags = getAccessibleBags,
     getBankBags = getBankBags,
     getBagName = getBagName,
     split = split,
-    hasActiveProfile = hasActiveProfile,
     getCommaSeparatedOrList = getCommaSeparatedOrList,
     getFormattedCurrency = getFormattedCurrency,
     getFormattedCurrencySimple = getFormattedCurrencySimple,
@@ -832,9 +858,9 @@ PA.HelperFunctions = {
     debugln = debugln,
     debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
-    syncLocalProfilesWithGlobal = syncLocalProfilesWithGlobal,
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,
-    getIconExtendedItemLink = getIconExtendedItemLink
+    getIconExtendedItemLink = getIconExtendedItemLink,
+    getItemLinkLearnableStatus = getItemLinkLearnableStatus
 }

@@ -2,9 +2,9 @@
 local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAL = PA.Loot
-local PAHF = PA.HelperFunctions
+local PALProfileManager = PA.ProfileManager.PALoot
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 local GET_NUM_BAG_USED_SLOTS_INTERVAL_MS = 100
 local GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS = 1000
@@ -181,7 +181,7 @@ local function isTraitBeingResearched(itemLink)
 end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-   if PAHF.hasActiveProfile() then
+    if PALProfileManager.hasActiveProfile() then
        local PALootSavedVars = PAL.SavedVars
         local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
@@ -230,6 +230,18 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     else
                         -- Trait already researched
                         PAL.debugln("item with known trait looted: %s", itemLink)
+                    end
+                end
+                if PALootSavedVars.LootEvents.LootApparelWeapons.uncollectedSetMsg then
+                    if IsItemLinkSetCollectionPiece(itemLink) then
+                        local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
+                        if not isItemSetCollectionPieceUnlocked then
+                            local _, setName = GetItemLinkSetInfo(itemLink)
+                            PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
+                        else
+                            -- Set item already collected
+                            PAL.debugln("set item already collected: %s", itemLink)
+                        end
                     end
                 end
 
@@ -295,11 +307,23 @@ local function UpdateNumBagUsedSlots(eventCode)
         end)
 end
 
+local function ShowInventoryFragment()
+    SCENE_MANAGER:GetScene('gameMenuInGame'):AddFragment(INVENTORY_FRAGMENT)
+    SCENE_MANAGER:GetScene('gameMenuInGame'):AddFragment(RIGHT_PANEL_BG_FRAGMENT)
+end
 
--- ---------------------------------------------------------------------------------------------------------------------
+local function HideInventoryFragment()
+    SCENE_MANAGER:GetScene('gameMenuInGame'):RemoveFragment(INVENTORY_FRAGMENT)
+    SCENE_MANAGER:GetScene('gameMenuInGame'):RemoveFragment(RIGHT_PANEL_BG_FRAGMENT)
+end
+
+
+-- =====================================================================================================================
 -- Export
 PA.Loot = PA.Loot or {}
 PA.Loot.TraitIndexFromItemTraitType = TraitIndexFromItemTraitType
 PA.Loot.isTraitBeingResearched = isTraitBeingResearched
 PA.Loot.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
 PA.Loot.UpdateNumBagUsedSlots = UpdateNumBagUsedSlots
+PA.Loot.ShowInventoryFragment = ShowInventoryFragment
+PA.Loot.HideInventoryFragment = HideInventoryFragment

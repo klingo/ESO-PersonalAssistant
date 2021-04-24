@@ -9,13 +9,17 @@
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {BUILD_NUMBER}
 ## Author: Klingo
-## APIVersion: 100033 100034
+## APIVersion: 100034
 ## SavedVariables: PersonalAssistantJunk_SavedVariables
 ## DependsOn: PersonalAssistant
 
 # Localization
 localization/en.lua
 localization/$(language).lua
+
+# Profiles
+Profiles/PAJunkSavedVarsPatcher.lua
+Profiles/PAJunkProfileManager.lua
 
 # Core
 PersonalAssistantJunk.lua

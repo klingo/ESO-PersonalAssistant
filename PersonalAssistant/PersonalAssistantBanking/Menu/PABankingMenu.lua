@@ -3,13 +3,14 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
-local PAMenuHelper = PA.MenuHelper
-local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
 local PABMenuChoices = PA.MenuChoices.choices.PABanking
 local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 local PABMenuChoiceTooltip = PA.MenuChoices.choicesTooltips.PABanking
+local PABProfileManager = PA.ProfileManager.PABanking
 local PABMenuDefaults = PA.MenuDefaults.PABanking
 local PABMenuFunctions = PA.MenuFunctions.PABanking
+
+-- =====================================================================================================================
 
 -- Create the LibAddonMenu2 object
 PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
@@ -29,6 +30,7 @@ local PABankingPanelData = {
 }
 
 local PABankingOptionsTable = setmetatable({}, { __index = table })
+local PABankingProfileSubMenuTable = setmetatable({}, { __index = table })
 
 local PABCurrencyGoldSubmenuTable = setmetatable({}, { __index = table })
 local PABCurrencyAlliancePointsSubmenuTable = setmetatable({}, { __index = table })
@@ -53,7 +55,9 @@ local PABAdvancedHolidayWritsSubmenuTable = setmetatable({}, { __index = table }
 local PABAdvancedGlyphsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedLiquidsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFoodDrinksSubmenuTable = setmetatable({}, { __index = table })
-local PABAdvancedTrophiesSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedTrophiesTreasureMapsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedTrophiesFragmentsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedTrophiesSurveyReportsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFurnishingsSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAvASiegeBallistaSubmenuTable = setmetatable({}, { __index = table })
@@ -62,13 +66,18 @@ local PABAvASiegeTrebuchetSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeRamSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeOilSubmenuTable = setmetatable({}, { __index = table })
 local PABAvASiegeGraveyardSubmenuTable = setmetatable({}, { __index = table })
-
 local PABAvARepairSubmenuTable = setmetatable({}, { __index = table })
 local PABAvAOtherSubmenuTable = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
 
 local function _createPABankingMenu()
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = PABProfileManager.getProfileSubMenuHeader,
+        controls = PABankingProfileSubMenuTable
+    })
+
     PABankingOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_BANKING_DESCRIPTION),
@@ -84,7 +93,7 @@ local function _createPABankingMenu()
         name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_BANKING_CURRENCY_ENABLE)),
         getFunc = PABMenuFunctions.getCurrenciesEnabledSetting,
         setFunc = PABMenuFunctions.setCurrenciesEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.Currencies.currenciesEnabled,
     })
 
@@ -148,7 +157,7 @@ local function _createPABankingMenu()
             tooltip = GetString(SI_PA_MENU_BANKING_CRAFTING_ENABLE_T),
             getFunc = PABMenuFunctions.getCraftingItemsEnabledSetting,
             setFunc = PABMenuFunctions.setCraftingItemsEnabledSetting,
-            disabled = PAGMenuFunctions.isNoProfileSelected,
+            disabled = PABProfileManager.isNoProfileSelected,
             default = PABMenuDefaults.Crafting.craftingItemsEnabled,
         })
 
@@ -274,7 +283,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_SPECIAL_ENABLE_T),
         getFunc = PABMenuFunctions.getAdvancedItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAdvancedItemsEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.Advanced.advancedItemsEnabled,
     })
 
@@ -341,10 +350,26 @@ local function _createPABankingMenu()
 
     PABankingOptionsTable:insert({
         type = "submenu",
-        name = GetString(SI_PA_MENU_BANKING_SPECIAL_TROPHIES_HEADER),
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_TREASURE_MAPS_HEADER),
         icon = PAC.ICONS.ITEMS.TROPHY.PATH,
-        controls = PABAdvancedTrophiesSubmenuTable,
-        disabledLabel = PABMenuFunctions.isTrophiesTransactionMenuDisabled,
+        controls = PABAdvancedTrophiesTreasureMapsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isTrophiesTreasureMapsTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_FRAGMENTS_HEADER),
+        icon = PAC.ICONS.ITEMS.TROPHY.PATH,
+        controls = PABAdvancedTrophiesFragmentsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isTrophiesFragmentsTransactionMenuDisabled,
+    })
+
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_TROPHIES_SURVEY_REPORTS_HEADER),
+        icon = PAC.ICONS.ITEMS.TROPHY.PATH,
+        controls = PABAdvancedTrophiesSurveyReportsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isTrophiesSurveyReportsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -385,7 +410,7 @@ local function _createPABankingMenu()
         type = "button",
         name = GetString(SI_PA_MAINMENU_BANKING_HEADER),
         func = PA.CustomDialogs.showPABankingRulesMenu,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
     })
 
     -- -----------------------------------------------------------------------------------
@@ -420,7 +445,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_AVA_ENABLE_T),
         getFunc = PABMenuFunctions.getAvAItemsEnabledSetting,
         setFunc = PABMenuFunctions.setAvAItemsEnabledSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.AvA.avaItemsEnabled,
     })
 
@@ -507,7 +532,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T),
         getFunc = PABMenuFunctions.getAutoExecuteItemTransfersSetting,
         setFunc = PABMenuFunctions.setAutoExecuteItemTransfersSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.autoExecuteItemTransfers,
     })
 
@@ -542,7 +567,7 @@ local function _createPABankingMenu()
         name = GetString(SI_PA_MENU_BANKING_EXCLUDE_JUNK),
         getFunc = PABMenuFunctions.getExcludeJunkSetting,
         setFunc = PABMenuFunctions.setExcludeJunkSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.excludeJunk,
     })
 
@@ -552,7 +577,7 @@ local function _createPABankingMenu()
         tooltip = GetString(SI_PA_MENU_BANKING_OTHER_AUTOSTACKBAGS_T),
         getFunc = PABMenuFunctions.getAutoStackBagsSetting,
         setFunc = PABMenuFunctions.setAutoStackBagsSetting,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
         default = PABMenuDefaults.autoStackBags,
     })
 
@@ -563,6 +588,112 @@ local function _createPABankingMenu()
         setFunc = PABMenuFunctions.setSilentModeSetting,
         disabled = PABMenuFunctions.isSilentModeDisabled,
         default = PABMenuDefaults.silentMode,
+    })
+end
+
+-- =================================================================================================================
+
+local function _createPABankingProfileSubMenuTable()
+    PABankingProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE),
+        tooltip = GetString(SI_PA_MENU_PROFILE_ACTIVE_T),
+        choices = PABProfileManager.getProfileList(),
+        choicesValues = PABProfileManager.getProfileListValues(),
+        width = "half",
+        getFunc = PABProfileManager.getActiveProfile,
+        setFunc = PABProfileManager.setActiveProfile,
+        reference = "PERSONALASSISTANT_BANKING_PROFILEDROPDOWN"
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "editbox",
+        name = GetString(SI_PA_MENU_PROFILE_ACTIVE_RENAME),
+        maxChars = 40,
+        width = "half",
+        getFunc = PABProfileManager.getActiveProfileName,
+        setFunc = PABProfileManager.setActiveProfileName,
+        disabled = PABProfileManager.isNoProfileSelected
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_CREATE_NEW),
+        width = "half",
+        func = PABProfileManager.createNewProfile,
+        disabled = PABProfileManager.hasMaxProfileCountReached
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
+        disabled = function() return not PABProfileManager.hasMaxProfileCountReached() end
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_COPY_FROM_DESC),
+        disabled = function() return PABProfileManager.hasOnlyOneProfile() or PABProfileManager.isNoProfileSelected() end,
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM),
+        choices = PABProfileManager.getInactiveProfileList(),
+        choicesValues = PABProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Banking.selectedCopyProfile end,
+        setFunc = function(value) PA.Banking.selectedCopyProfile = value end,
+        disabled = function() return PABProfileManager.hasOnlyOneProfile() or PABProfileManager.isNoProfileSelected() end,
+        reference = "PERSONALASSISTANT_BANKING_PROFILEDROPDOWN_COPY"
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM),
+        width = "half",
+        func = PABProfileManager.copySelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_COPY_FROM_CONFIRM_W),
+        disabled = PABProfileManager.isNoCopyProfileSelected
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MENU_PROFILE_DELETE_DESC),
+        disabled = PABProfileManager.hasOnlyOneProfile
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE),
+        choices = PABProfileManager.getInactiveProfileList(),
+        choicesValues = PABProfileManager.getInactiveProfileListValues(),
+        width = "half",
+        getFunc = function() return PA.Banking.selectedDeleteProfile end,
+        setFunc = function(value) PA.Banking.selectedDeleteProfile = value end,
+        disabled = PABProfileManager.hasOnlyOneProfile,
+        reference = "PERSONALASSISTANT_BANKING_PROFILEDROPDOWN_DELETE"
+    })
+
+    PABankingProfileSubMenuTable:insert({
+        type = "button",
+        name = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM),
+        width = "half",
+        func = PABProfileManager.deleteSelectedProfile,
+        isDangerous = true,
+        warning = GetString(SI_PA_MENU_PROFILE_DELETE_CONFIRM_W),
+        disabled = PABProfileManager.isNoDeleteProfileSelected
     })
 end
 
@@ -583,6 +714,8 @@ local function _createPABCurrencyGoldSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getGoldMinToKeepSetting,
         setFunc = PABMenuFunctions.setGoldMinToKeepSetting,
@@ -595,6 +728,8 @@ local function _createPABCurrencyGoldSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getGoldMaxToKeepSetting,
         setFunc = PABMenuFunctions.setGoldMaxToKeepSetting,
@@ -621,6 +756,8 @@ local function _createPABCurrencyAlliancePointsSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getAlliancePointsMinToKeepSetting,
         setFunc = PABMenuFunctions.setAlliancePointsMinToKeepSetting,
@@ -633,6 +770,8 @@ local function _createPABCurrencyAlliancePointsSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getAlliancePointsMaxToKeepSetting,
         setFunc = PABMenuFunctions.setAlliancePointsMaxToKeepSetting,
@@ -659,6 +798,8 @@ local function _createPABCurrencyTelVarSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getTelVarMinToKeepSetting,
         setFunc = PABMenuFunctions.setTelVarMinToKeepSetting,
@@ -670,6 +811,8 @@ local function _createPABCurrencyTelVarSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getTelVarMaxToKeepSetting,
         setFunc = PABMenuFunctions.setTelVarMaxToKeepSetting,
@@ -696,6 +839,8 @@ local function _createPABCurrencyWritVouchersSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MINTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MINTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getWritVouchersMinToKeepSetting,
         setFunc = PABMenuFunctions.setWritVouchersMinToKeepSetting,
@@ -708,6 +853,8 @@ local function _createPABCurrencyWritVouchersSubmenuTable()
         type = "editbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_BANKING_CURRENCY_MAXTOKEEP),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T, _currencyName),
+        maxChars = 9,
+        textType = TEXT_TYPE_NUMERIC,
         width = "half",
         getFunc = PABMenuFunctions.getWritVouchersMaxToKeepSetting,
         setFunc = PABMenuFunctions.setWritVouchersMaxToKeepSetting,
@@ -898,7 +1045,7 @@ local function _createPABAdvancedMotifSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Known,
         })
 
@@ -909,7 +1056,7 @@ local function _createPABAdvancedMotifSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, false) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
     end
@@ -926,7 +1073,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Known,
         })
 
@@ -937,7 +1084,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, false) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
     end
@@ -954,7 +1101,7 @@ local function _createPABAdvancedMasterWritsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedMasterWritCraftingTypeMoveSetting(craftingType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedMasterWritCraftingTypeMoveSetting(craftingType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.MasterWritCraftingTypes[craftingType],
         })
     end
@@ -971,7 +1118,7 @@ local function _createPABAdvancedHolidayWritsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedHolidayWritsMoveSetting(specializedItemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedHolidayWritsMoveSetting(specializedItemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.HolidayWrits[specializedItemType],
         })
     end
@@ -988,7 +1135,7 @@ local function _createPABAdvancedGlyphsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
@@ -1005,7 +1152,7 @@ local function _createPABAdvancedLiquidsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
@@ -1022,7 +1169,7 @@ local function _createPABAdvancedFoodDrinksSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
@@ -1030,35 +1177,69 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function _createPABAdvancedTrophiesSubmenuTable()
-    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES) do
-        PABAdvancedTrophiesSubmenuTable:insert({
+local function _createPABAdvancedTrophiesTreasureMapsSubmenuTable()
+    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.TREASURE_MAPS) do
+        PABAdvancedTrophiesTreasureMapsSubmenuTable:insert({
             type = "dropdown",
             name = zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType)),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
         })
     end
+end
 
-    PABAdvancedTrophiesSubmenuTable:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
+-- -----------------------------------------------------------------------------------------------------------------
 
+local function _createPABAdvancedTrophiesFragmentsSubmenuTable()
+    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.FRAGMENTS) do
+        PABAdvancedTrophiesFragmentsSubmenuTable:insert({
+            type = "dropdown",
+            name = zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType)),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
+            default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAdvancedTrophiesSurveyReportsSubmenuTable()
     for itemFilterType, _ in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.SURVEY_REPORTS) do
-        PABAdvancedTrophiesSubmenuTable:insert({
+        PABAdvancedTrophiesSurveyReportsSubmenuTable:insert({
             type = "dropdown",
             name = table.concat({zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT)),": ", GetString("SI_ITEMFILTERTYPE", itemFilterType)}),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSurveyMapMoveSetting(itemFilterType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType],
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+-- TODO: To be removed with advanced rules
+local function _createPABAdvancedIntricateItemsSubmenuTable()
+    for itemTraitType, itemFilterType in pairs(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) do
+        PABAdvancedIntricateItemsSubmenuTable:insert({
+            type = "dropdown",
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemFilterType)),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTraitTypeMoveSetting(itemTraitType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTraitTypeMoveSetting(itemTraitType, value) end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
+            default = PABMenuDefaults.Advanced.ItemTraitTypes[itemTraitType],
         })
     end
 end
@@ -1074,7 +1255,7 @@ local function _createPABAdvancedFurnishingsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
@@ -1096,7 +1277,7 @@ local function _createPABAvASiegeBallistaSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1104,6 +1285,8 @@ local function _createPABAvASiegeBallistaSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
@@ -1129,7 +1312,7 @@ local function _createPABAvASiegeCatapultSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1137,6 +1320,8 @@ local function _createPABAvASiegeCatapultSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
@@ -1162,7 +1347,7 @@ local function _createPABAvASiegeTrebuchetSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1170,6 +1355,8 @@ local function _createPABAvASiegeTrebuchetSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
@@ -1195,7 +1382,7 @@ local function _createPABAvASiegeRamSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1203,6 +1390,8 @@ local function _createPABAvASiegeRamSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
@@ -1228,7 +1417,7 @@ local function _createPABAvASiegeOilSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1236,6 +1425,8 @@ local function _createPABAvASiegeOilSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
@@ -1261,7 +1452,7 @@ local function _createPABAvASiegeGraveyardSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdMathOperatorSetting(crossAllianceItemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.CrossAllianceItemIds[crossAllianceItemId].operator,
         })
 
@@ -1269,6 +1460,8 @@ local function _createPABAvASiegeGraveyardSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvACrossAlianceItemIdAmountSetting(crossAllianceItemId) end,
             setFunc = function(value) PABMenuFunctions.setAvACrossAlianceItemIdAmountSetting(crossAllianceItemId, value) end,
@@ -1294,7 +1487,7 @@ local function _createPABAvARepairSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.ItemIds[itemId].operator,
         })
 
@@ -1302,6 +1495,8 @@ local function _createPABAvARepairSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdAmountSetting(itemId, value) end,
@@ -1327,7 +1522,7 @@ local function _createPABAvAOtherSubmenuTable()
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdMathOperatorSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdMathOperatorSetting(itemId, value) end,
-            disabled = function() return not PABMenuFunctions.getAvAItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAvAItemsMenuDisabled,
             default = PABMenuDefaults.AvA.ItemIds[itemId].operator,
         })
 
@@ -1335,6 +1530,8 @@ local function _createPABAvAOtherSubmenuTable()
             type = "editbox",
             name = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK),
             tooltip = GetString(SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T),
+            maxChars = 4,
+            textType = TEXT_TYPE_NUMERIC,
             width = "half",
             getFunc = function() return PABMenuFunctions.getAvAItemIdAmountSetting(itemId) end,
             setFunc = function(value) PABMenuFunctions.setAvAItemIdAmountSetting(itemId, value) end,
@@ -1348,6 +1545,8 @@ end
 
 local function createOptions()
     _createPABankingMenu()
+
+    _createPABankingProfileSubMenuTable()
 
     _createPABCurrencyGoldSubmenuTable()
     _createPABCurrencyAlliancePointsSubmenuTable()
@@ -1374,7 +1573,9 @@ local function createOptions()
     _createPABAdvancedGlyphsSubmenuTable()
     _createPABAdvancedLiquidsSubmenuTable()
     _createPABAdvancedFoodDrinksSubmenuTable()
-    _createPABAdvancedTrophiesSubmenuTable()
+    _createPABAdvancedTrophiesTreasureMapsSubmenuTable()
+    _createPABAdvancedTrophiesFragmentsSubmenuTable()
+    _createPABAdvancedTrophiesSurveyReportsSubmenuTable()
     _createPABAdvancedFurnishingsSubmenuTable()
 
     _createPABAvASiegeBallistaSubmenuTable()
@@ -1391,7 +1592,7 @@ local function createOptions()
     PA.LAM2:RegisterOptionControls("PersonalAssistantBankingAddonOptions", PABankingOptionsTable)
 end
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 -- Export
 PA.Banking = PA.Banking or {}
 PA.Banking.createOptions = createOptions

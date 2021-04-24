@@ -1,15 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PALProfileManager = PA.ProfileManager.PALoot
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantLoot"
-local Loot_Defaults = {}
+PA.Loot = PA.Loot or {}
+PA.Loot.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Loot.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -25,18 +27,6 @@ local function debugln(text, ...)
     PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAL, text, ...)
 end
 
--- init default values
-local function initDefaults()
-    local PASavedVars = PA.SavedVars
-    local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PALoot
-    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
-        -- get default values from PAMenuDefaults
-        Loot_Defaults[1] = PAMenuDefaults.PALoot
-        Loot_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    end
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -46,19 +36,34 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
-    -- initialize the default values
-    initDefaults()
-
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Loot.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAL, PAC.COLORED_TEXTS_DEBUG.PAL)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT, nil, Loot_Defaults)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Loot = ZO_SavedVars:NewAccountWide("PersonalAssistantLoot_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.LOOT)
 
-    -- sync profiles between PAGeneral and PALoot
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Loot, PA.MenuDefaults.PALoot)
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPALootPatchIfNeeded()
+
+    -- init a default profile if none exist
+    PALProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PALProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PALProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PALoot()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PALoot()
+    end
 
     -- create the options with LAM-2
     PA.Loot.createOptions()
@@ -66,11 +71,8 @@ end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
--- ---------------------------------------------------------------------------------------------------------------------
-
+-- =====================================================================================================================
 -- Export
-PA.Loot = {
-    AddonName = AddonName,
-    println = println,
-    debugln = debugln
-}
+PA.Loot.AddonName = AddonName
+PA.Loot.println = println
+PA.Loot.debugln = debugln

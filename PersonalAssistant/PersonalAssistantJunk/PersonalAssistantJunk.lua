@@ -1,15 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PAJProfileManager = PA.ProfileManager.PAJunk
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantJunk"
-local Junk_Defaults = {}
+PA.Junk = PA.Junk or {}
+PA.Junk.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Junk.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -25,18 +27,6 @@ local function debugln(text, ...)
     PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAJ, text, ...)
 end
 
--- init default values
-local function initDefaults()
-    local PASavedVars = PA.SavedVars
-    local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PAJunk
-    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
-        -- get default values from PAMenuDefaults
-        Junk_Defaults[1] = PAMenuDefaults.PAJunk
-        Junk_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    end
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -46,19 +36,34 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
-    -- initialize the default values
-    initDefaults()
-
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Junk.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAJ, PAC.COLORED_TEXTS_DEBUG.PAJ)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK, nil, Junk_Defaults)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
 
-    -- sync profiles between PAGeneral and PAJunk
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Junk, PA.MenuDefaults.PAJunk)
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPAJunkPatchIfNeeded()
+
+    -- init a default profile if none exist
+    PAJProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PAJProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PAJProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PAJunk()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PAJunk()
+    end
 
     -- create the options with LAM-2
     PA.Junk.createOptions()

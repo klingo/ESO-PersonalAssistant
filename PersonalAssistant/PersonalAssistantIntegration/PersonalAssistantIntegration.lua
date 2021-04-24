@@ -1,15 +1,17 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PACAddon = PAC.ADDON
 local PAEM = PA.EventManager
 local PAHF = PA.HelperFunctions
+local PAIProfileManager = PA.ProfileManager.PAIntegration
 
--- ---------------------------------------------------------------------------------------------------------------------
+-- =====================================================================================================================
 
 -- Local constants --
 local AddonName = "PersonalAssistantIntegration"
-local Integration_Defaults = {}
+PA.Integration = PA.Integration or {}
+PA.Integration.selectedCopyProfile = nil -- init with nil, is populated when selected from dropdown
+PA.Integration.selectedDeleteProfile = nil -- init with nil, is populated when selected from dropdown
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -25,18 +27,6 @@ local function debugln(text, ...)
     PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAI, text, ...)
 end
 
--- init default values
-local function initDefaults()
-    local PASavedVars = PA.SavedVars
-    local PAMenuDefaults = PA.MenuDefaults
-    -- default values for PAIntegration
-    if PASavedVars.General.profileCounter == 0 and PASavedVars.General[1] == nil then
-        -- get default values from PAMenuDefaults
-        Integration_Defaults[1] = PAMenuDefaults.PAIntegration
-        Integration_Defaults.savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR
-    end
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -46,19 +36,34 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
-    -- initialize the default values
-    initDefaults()
-
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Integration.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAI, PAC.COLORED_TEXTS_DEBUG.PAI)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    PA.SavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION, nil, Integration_Defaults)
+    local PASavedVars = PA.SavedVars
+    PASavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION)
 
-    -- sync profiles between PAGeneral and PAIntegration
-    PAHF.syncLocalProfilesWithGlobal(PA.SavedVars.Integration, PA.MenuDefaults.PAIntegration)
+    -- apply any patches if needed
+    PA.SavedVarsPatcher.applyPAIntegrationPatchIfNeeded()
+
+    -- init a default profile if none exist
+    PAIProfileManager.initDefaultProfile()
+
+    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
+    PAIProfileManager.fixActiveProfile()
+
+    -- get the active Profile
+    local activeProfile = PAIProfileManager.getActiveProfile()
+    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+        -- TODO: show message that no profile is selected?
+    else
+        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
+        PAEM.RefreshSavedVarReference.PAIntegration()
+        -- then also all the events can be initialised
+        PAEM.RefreshEventRegistration.PAIntegration()
+    end
 
     -- create the options with LAM-2
     PA.Integration.createOptions()
@@ -66,11 +71,8 @@ end
 
 PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 
--- ---------------------------------------------------------------------------------------------------------------------
-
+-- =====================================================================================================================
 -- Export
-PA.Integration = {
-    AddonName = AddonName,
-    println = println,
-    debugln = debugln
-}
+PA.Integration.AddonName = AddonName
+PA.Integration.println = println
+PA.Integration.debugln = debugln

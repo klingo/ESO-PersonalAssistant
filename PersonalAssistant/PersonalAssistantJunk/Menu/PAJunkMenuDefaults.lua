@@ -5,6 +5,9 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PAJunkMenuDefaults = {
+    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
+
+    -- ---------------------------------------------
     autoMarkAsJunkEnabled = false,
 
     Trash = {
@@ -42,24 +45,18 @@ local PAJunkMenuDefaults = {
         autoMarkUnknownTraits = false,
     },
     Stolen = {
-        Weapons = {
-            action = PAC.ITEM_ACTION.NOTHING,
-        },
-        Armor = {
-            action = PAC.ITEM_ACTION.NOTHING,
-        },
-        Jewelry = {
-            action = PAC.ITEM_ACTION.NOTHING,
-        },
-        trashAction = PAC.ITEM_ACTION.NOTHING,
-        styleMaterialAction = PAC.ITEM_ACTION.NOTHING,
-        traitItemAction = PAC.ITEM_ACTION.NOTHING,
-        lureAction = PAC.ITEM_ACTION.NOTHING,
-        ingredientAction = PAC.ITEM_ACTION.NOTHING,
-        foodAction = PAC.ITEM_ACTION.NOTHING,
-        drinkAction = PAC.ITEM_ACTION.NOTHING,
-        solventAction = PAC.ITEM_ACTION.NOTHING,
-        treasureAction = PAC.ITEM_ACTION.NOTHING,
+        trash = false,
+        weapons = false,
+        apparels = false,
+        jewelries = false,
+        styleMaterials = false,
+        traitItems = false,
+        lures = false,
+        ingredients = false,
+        food = false,
+        drinks = false,
+        solvents = false,
+        treasures = false,
     },
     Custom = {
         customItemsEnabled = true,
@@ -67,7 +64,13 @@ local PAJunkMenuDefaults = {
         }
     },
     AutoDestroy = {
-        destroyWorthlessJunk = false
+        destroyJunk = false,
+        destroyMaxValueThreshold = 0,
+        destroyMaxQualityThreshold = ITEM_FUNCTIONAL_QUALITY_TRASH,
+
+        destroyStolenJunk = false,
+        destroyMaxStolenValueThreshold = 0,
+        destroyMaxStolenQualityThreshold = ITEM_FUNCTIONAL_QUALITY_TRASH,
     },
     QuestProtection = {
         ClockworkCity = {
@@ -76,6 +79,9 @@ local PAJunkMenuDefaults = {
             excludeAMatterOfLeisure = false,
             excludeAMatterOfRespect = false,
             excludeAMatterOfTributes = false,
+        },
+        ThievesGuild = {
+            excludeTheCovetousCountess = false,
         },
         NewLifeFestival = {
             excludeRareFish = true,
@@ -90,6 +96,8 @@ local PAJunkMenuDefaults = {
     KeyBindings = {
         enableMarkUnmarkAsJunkKeybind = true,
         showMarkUnmarkAsJunkKeybind = true,
+        enableMarkUnmarkAsPermJunkKeybind = true,
+        showMarkUnmarkAsPermJunkKeybind = true,
         enableDestroyItemKeybind = false,
         showDestroyItemKeybind = true,
         destroyItemQualityThreshold = ITEM_FUNCTIONAL_QUALITY_LEGENDARY,

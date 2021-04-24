@@ -3,29 +3,10 @@ local PAStrings = {
     -- =================================================================================================================
     -- Language specific texts that need to be translated --
 
-    -- Welcome Messages --
-    SI_PA_WELCOME_NO_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "к вашим услугам!  -  [%s] локализация пока не поддерживается"}),
-    SI_PA_WELCOME_SUPPORT = table.concat({PAC.COLORS.DEFAULT, "к вашим услугам! Текущий профиль: ", PAC.COLOR.ORANGE_RED:Colorize("%s")}),
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({PAC.COLORS.DEFAULT, "приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль (или введите ",PAC.COLORS.WHITE,"/pa", PAC.COLORS.DEFAULT, "). Спасибо :-)"}),
-
-
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    SI_PA_MENU_GENERAL_DESCRIPTION = "PersonalAssistant представляет собой набор различных функций, цель которых сделать игру более удобной для вас",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- General Settings --
-    SI_PA_MENU_GENERAL_HEADER = "Основные настройки",
-    SI_PA_MENU_GENERAL_SHOW_WELCOME = "Показывать приветственное сообщение",
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " Домой"}),
-    SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Если текущее местоположение допускает быстрые перемещения, это инициирует телепорт в ваш основной дом!",
-    --SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "",
-    --SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "",
-
-    -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --
-    SI_PA_MENU_PROFILE_HEADER = "Профили",
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Выберите профиль>",
     SI_PA_MENU_PROFILE_DEFAULT = "Профиль по умолчанию",
     SI_PA_MENU_PROFILE_ACTIVE = "Текущий профиль",
@@ -47,10 +28,6 @@ local PAStrings = {
     SI_PA_MENU_PROFILE_DELETE = "Удаляемый профиль",
     SI_PA_MENU_PROFILE_DELETE_CONFIRM = "Удалить",
     SI_PA_MENU_PROFILE_DELETE_CONFIRM_W = "Удалить выбранный профиль для всех персонажей. Вы уверены что хотите сделать это?",
-
-    -- -----------------------------------------------------------------------------------------------------------------
-    -- Admin Settings --
-    SI_PA_MENU_ADMIN_HEADER = "Административные настройки",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Rules Menu --
@@ -117,6 +94,10 @@ local PAStrings = {
     SI_PA_ITEMTYPE47 = "<<1[Ремонтный набор войны альянсов/Ремонтные наборы войны альянсов]>>", -- NOTE: unused
     SI_PA_ITEMTYPE56 = "<<1[Сокровище/Сокровища]>>", -- ITEMTYPE_TREASURE
     SI_PA_ITEMTYPE60 = "<<1[Мастерский заказ/Мастерские заказы]>>", -- ITEMTYPE_MASTER_WRIT
+
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- SpecializedItemTypes (Custom Singluar/Plural definition) --
+    --SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[/]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Master Writs based on CraftingType (Custom definition) --
@@ -222,9 +203,20 @@ local PAStrings = {
     -- =================================================================================================================
     -- == ITEM CONTEXT MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- Junk Rules --
-    SI_PA_CONTEXTMENU_PAJ_MARK_PERM_JUNK = "Пометить как хлам",
-    SI_PA_CONTEXTMENU_PAJ_UNMARK_PERM_JUNK = "Убрать пометку как хлам",
+    SI_PA_SUBMENU_PAB_ADD_RULE = "Добавить новое правило",
+    SI_PA_SUBMENU_PAB_EDIT_RULE = "Изменить правило",
+    SI_PA_SUBMENU_PAB_DELETE_RULE = "Удалить правило",
+    --SI_PA_SUBMENU_PAB_ENABLE_RULE = "",
+    --SI_PA_SUBMENU_PAB_DISABLE_RULE = "",
+    SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Добавить",
+    SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Сохранить",
+    SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Удалить",
+    SI_PA_SUBMENU_PAB_NO_RULES = "Не задано правил для банкинга",
+    SI_PA_SUBMENU_PAB_DISCLAIMER = "Замечание: эти пользовательские правила будут обработаны после всех автоматических правил (ремесленных предметов, особых предметов и предметов войны альянсов).",
+
+    SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK = "Пометить как хлам",
+    SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK = "Убрать пометку как хлам",
+    SI_PA_SUBMENU_PAJ_NO_RULES = "Не задано фиксированных правил для хлама",
 
 
     -- =================================================================================================================

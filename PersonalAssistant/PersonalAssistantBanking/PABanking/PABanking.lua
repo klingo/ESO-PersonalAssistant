@@ -1,7 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAB = PA.Banking
-local PAHF = PA.HelperFunctions
+local PABProfileManager = PA.ProfileManager.PABanking
 local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -18,6 +18,9 @@ local function _finishBankingItemTransfer()
     PAB.KeybindStrip.updateBankKeybindStrip()
     -- inform player that everything is done
     PAB.println(SI_PA_CHAT_BANKING_FINISHED)
+
+    local passedGameTime = GetGameTimeMilliseconds() - PAB.startGameTime
+    PAB.debugln('PABanking:executeBankingItemTransfers took approx. %f s', PA.HelperFunctions.round(passedGameTime / 1000, 1))
 end
 
 local function _printLWCMessageIfItemsSkipped()
@@ -62,13 +65,13 @@ local function executeBankingItemTransfers()
         PAB.KeybindStrip.updateBankKeybindStrip()
 
         -- before queueing up the transactions, ensure that the SHARED_INVENTORY is updated
-        local startGameTime = GetGameTimeMilliseconds()
+        PAB.startGameTime = GetGameTimeMilliseconds()
         SHARED_INVENTORY:RefreshInventory(BAG_BACKPACK)
         SHARED_INVENTORY:RefreshInventory(BAG_BANK)
         if IsESOPlusSubscriber() then
             SHARED_INVENTORY:RefreshInventory(BAG_SUBSCRIBER_BANK)
         end
-        local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+        local passedGameTime = GetGameTimeMilliseconds() - PAB.startGameTime
         PAB.debugln('SHARED_INVENTORY:RefreshInventory took approx. %d ms', passedGameTime)
 
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
@@ -94,7 +97,7 @@ end
 local function OnBankOpen(eventCode, bankBag)
     -- immediately stop if not the actual BANK bag is opened (i.e. HOUSE_BANK)
     if IsHouseBankBag(bankBag) then return
-    elseif PAHF.hasActiveProfile() then
+    elseif PABProfileManager.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isBankClosed = false
 

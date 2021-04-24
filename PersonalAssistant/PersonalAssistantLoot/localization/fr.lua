@@ -28,6 +28,8 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "Sur butin d'équipements",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "> un trait n'a pas encore été recherché",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Quand un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS)," ou un ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY)," du butin n'est pas encore connu par ce personnage, un message sera affiché dans la fenêtre de chat"}),
+    --SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG = "",
+    --SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = "",
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Avertir si l'espace restant est faible",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Affiche un avertissement dans la fenêtre de chat s'il reste peu d'espace dans votre inventaire",
@@ -55,14 +57,17 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_HEADER = "Marquer les équipements",
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "un trait déjà recherché"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "un trait pas encore recherché"}),
+    --SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = "",
+
+    -- Item Icon Positioning --
+    --SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "",
+    --SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "",
+    --SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "",
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Taille de l'icone (Vue classique)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Définir la taille de l'icone connu/inconnu quand l'affichage des objets est en vue classique",
     SI_PA_MENU_LOOT_ICONS_SIZE_GRID = "Taille de l'icone (Vue grille)",
-    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Définir la taille de l'icone connu/inconnu quand l'affichage des objets est en vue grille, grâce à l'extension [InventoryGridView]",
-
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID = "Position de l'icone (Vue grille)",
-    SI_PA_MENU_LOOT_ICONS_POSITION_GRID_T = "Définir la position de l'icone connu/inconnu.\nEn 'automatique', PALoot vérifiera si les extensions [Research Assistant] et [ESO Master Recipe List] sont activés, et positionnera l'icone dans un coin libre.",
+    SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T = "Définir la taille de l'icone connu/inconnu quand l'affichage des objets est en vue grille",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST = "Décalage de l'icône en X (Vue liste)",
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T = "Définir le décalage horizontal pour l'icone connu/inconnu en mode de vue \"liste\"",
@@ -70,9 +75,9 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T = "Définir le décalage vertical pour l'icone connu/inconnu en mode de vue \"liste\"",
 
     SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID = "Décalage de l'icône en X (Vue grille)",
-    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Définir le décalage horizontal pour l'icone connu/inconnu en mode de vue \"grille\" avec l'addon [InventoryGridView]\n\nNe fonctionne qu'en choisissant le mode de position de l'icone en \"manuel\"",
+    SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T = "Définir le décalage horizontal pour l'icone connu/inconnu en mode de vue \"grille\"",
     SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID = "Décalage de l'icône en Y (Vue grille)",
-    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Définir le décalage vertical pour l'icone connu/inconnu en mode de vue \"grille\" avec l'addon [InventoryGridView]\n\nNe fonctionne qu'en choisissant le mode de position de l'icone en \"manuel\"",
+    SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T = "Définir le décalage vertical pour l'icone connu/inconnu en mode de vue \"grille\"",
 
 
     -- =================================================================================================================
@@ -82,6 +87,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s peut être ", PAC.COLORS.ORANGE,"apprise", PAC.COLORS.DEFAULT, " !"}),
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s peut être ", PAC.COLORS.ORANGE,"appris", PAC.COLORS.DEFAULT, " !"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s a le trait [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] qui peut être recherché !"}),
+    --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, ""}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[place dans l'inventaire/place dans l'inventaire/places dans l'inventaire]>> !"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[nécessaire de réparation/nécessaire de réparation/nécessaires de réparation]>> !"}),
@@ -96,6 +102,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Marquer avec . . .",
     SI_PA_ITEM_KNOWN = "Déjà connu",
     SI_PA_ITEM_UNKNOWN = "Inconnu",
+    --SI_PA_ITEM_UNCOLLECTED = "",
 }
 
 for key, value in pairs(PALStrings) do

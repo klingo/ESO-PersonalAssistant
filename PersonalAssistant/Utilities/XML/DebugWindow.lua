@@ -1,6 +1,5 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -53,8 +52,22 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertBreak()
 
     -- Active profile
-    debugEditControl:InsertLine("PA.activeProfile="..tostring(PA.activeProfile))
-    debugEditControl:InsertLine("PAHF.hasActiveProfile="..tostring(PAHF.hasActiveProfile()))
+    debugEditControl:InsertLine("PA.General.activeProfile="..tostring(PA.ProfileManager.PAGeneral.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PAGeneral.getActiveProfile())..")")
+    if PA.ProfileManager.PABanking then
+        debugEditControl:InsertLine("PA.Banking.activeProfile="..tostring(PA.ProfileManager.PABanking.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PABanking.getActiveProfile())..")")
+    end
+    if PA.ProfileManager.PAIntegration then
+        debugEditControl:InsertLine("PA.Integration.activeProfile="..tostring(PA.ProfileManager.PAIntegration.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PAIntegration.getActiveProfile())..")")
+    end
+    if PA.ProfileManager.PAJun then
+        debugEditControl:InsertLine("PA.Junk.activeProfile="..tostring(PA.ProfileManager.PAJunk.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PAJunk.getActiveProfile())..")")
+    end
+    if PA.ProfileManager.PALoot then
+        debugEditControl:InsertLine("PA.Loot.activeProfile="..tostring(PA.ProfileManager.PALoot.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PALoot.getActiveProfile())..")")
+    end
+    if PA.ProfileManager.PARepair then
+        debugEditControl:InsertLine("PA.Repair.activeProfile="..tostring(PA.ProfileManager.PARepair.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PARepair.getActiveProfile())..")")
+    end
 
     -- Enabled addons
     debugEditControl:InsertLine("PA.General="..tostring(PA.General ~= nil))

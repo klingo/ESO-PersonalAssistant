@@ -2,6 +2,7 @@
 local PA = PersonalAssistant
 local PAR = PA.Repair
 local PAHF = PA.HelperFunctions
+local PARProfileManager = PA.ProfileManager.PARepair
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -100,7 +101,7 @@ end
 
 local function OnShopOpen()
     PAR.debugln("PARepair.OnShopOpen")
-    if PAHF.hasActiveProfile() then
+    if PARProfileManager.hasActiveProfile() then
         -- check if store can repair and if there is something to repair
         if CanStoreRepair() and GetRepairAllCost() > 0 then
             local PARepairSavedVars = PAR.SavedVars

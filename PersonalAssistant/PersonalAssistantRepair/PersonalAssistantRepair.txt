@@ -9,13 +9,18 @@
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {BUILD_NUMBER}
 ## Author: Klingo
-## APIVersion: 100033 100034
+## APIVersion: 100034
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
+## OptionalDependsOn: PersonalAssistantJunk
 
 # Localization
 localization/en.lua
 localization/$(language).lua
+
+# Profiles
+Profiles/PARepairSavedVarsPatcher.lua
+Profiles/PARepairProfileManager.lua
 
 # Core
 PersonalAssistantRepair.lua

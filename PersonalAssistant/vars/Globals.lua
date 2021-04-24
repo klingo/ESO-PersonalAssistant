@@ -1,8 +1,12 @@
 -- PersonalAssistant - Prepare all Global Tables
 PersonalAssistant = {}
+PersonalAssistant.ZO_SavedVars = {}
 PersonalAssistant.SavedVars = {}
+PersonalAssistant.SavedVarsPatcher = {}
 PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}
+PersonalAssistant.ProfileManager = {}
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -364,6 +368,9 @@ PersonalAssistant.Constants = {
             CLOCKWORK_CITY = {
                 PATH = "/esoui/art/treeicons/tutorial_idexicon_cwc_up.dds",
             },
+            THIEVES_GUILD = {
+                PATH = "/esoui/art/treeicons/tutorial_idexicon_thievesguild_up.dds"
+            },
             EVENTS = {
                 PATH = "/esoui/art/treeicons/achievements_indexicon_events_up.dds"
             },
@@ -387,6 +394,11 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
                 NORMAL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
                 SMALL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
+            },
+            UNCOLLECTED = {
+                PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
+                NORMAL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
+                SMALL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
             }
         }
     },
@@ -487,14 +499,18 @@ PersonalAssistant.Constants = {
         },
         SPECIALIZED = {
             TROPHIES = {
-                SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
+                TREASURE_MAPS = {
+                    SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
+                },
+                FRAGMENTS = {
+                    SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
+                    SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
+                    SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
+                    SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
+                    SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
+                }
                 -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
-                SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
-                SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT,    -- 104
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
-                SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
-                SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
-                SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
             },
             SURVEY_REPORTS = {
                 [ITEMFILTERTYPE_BLACKSMITHING] = {
@@ -852,7 +868,8 @@ PersonalAssistant.Constants = {
         },
     },
 
-    ICON_POSITION = {
-        AUTO = -1,
-    },
+    LEARNABLE = {
+        KNOWN = 1,
+        UNKNOWN = 0,
+    }
 }
