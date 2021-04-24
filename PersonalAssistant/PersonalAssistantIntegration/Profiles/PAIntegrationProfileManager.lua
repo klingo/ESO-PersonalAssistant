@@ -206,6 +206,7 @@ end
 ---------------------------------
 local function getPAIntegrationActiveProfileName()
     local activeProfile = PA.SavedVars.Profile.Integration.activeProfile
+    if not istable(PA.SavedVars.Integration[activeProfile]) then return end
     return PA.SavedVars.Integration[activeProfile].name
 end
 

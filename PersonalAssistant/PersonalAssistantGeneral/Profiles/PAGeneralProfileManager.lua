@@ -206,6 +206,7 @@ end
 ---------------------------------
 local function getPAGeneralActiveProfileName()
     local activeProfile = PA.SavedVars.Profile.General.activeProfile
+    if not istable(PA.SavedVars.General[activeProfile]) then return end
     return PA.SavedVars.General[activeProfile].name
 end
 

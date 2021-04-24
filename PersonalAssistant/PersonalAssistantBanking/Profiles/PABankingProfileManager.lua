@@ -206,6 +206,7 @@ end
 ---------------------------------
 local function getPABankingActiveProfileName()
     local activeProfile = PA.SavedVars.Profile.Banking.activeProfile
+    if not istable(PA.SavedVars.Banking[activeProfile]) then return end
     return PA.SavedVars.Banking[activeProfile].name
 end
 
