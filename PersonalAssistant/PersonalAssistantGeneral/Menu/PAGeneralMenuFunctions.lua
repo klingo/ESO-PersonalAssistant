@@ -1,31 +1,19 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAMF = PA.MenuFunctions
-local PAEM = PA.EventManager
-local PAGProfileManager = PA.ProfileManager.PAGeneral
 
 -- =====================================================================================================================
 
-local isNoProfileSelected = PAGProfileManager.isNoProfileSelected
-
 local function getValue(...)
-    if isNoProfileSelected() then return end
-    return PAMF.getValue(PA.General.SavedVars, ...)
+    return PAMF.getValue(PA.SavedVars.Profile.General, ...)
 end
 
 local function setValue(value, ...)
-    if isNoProfileSelected() then return end
-    PAMF.setValue(PA.General.SavedVars, value, ...)
-end
-
-local function setValueAndRefreshEvents(savedVarsTable, value, attributeTbl)
-    setValue(savedVarsTable, value, attributeTbl)
-    PAEM.RefreshEventRegistration.PAGeneral()
+    PAMF.setValue(PA.SavedVars.Profile.General, value, ...)
 end
 
 local function isDisabled(...)
-    if isNoProfileSelected() then return true end
-    return PAMF.isDisabled(PA.General.SavedVars, ...)
+    return PAMF.isDisabled(PA.SavedVars.Profile.General, ...)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

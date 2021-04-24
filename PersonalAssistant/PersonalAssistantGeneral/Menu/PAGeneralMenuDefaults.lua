@@ -1,14 +1,32 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAC = PA.Constants
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local PAGeneralMenuDefaults = {
-    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
+    General = {
+        welcomeMessage = true,
+        jumpOutside = false,
+    },
+    Banking = {
+        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+    },
+    Integration = {
+        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+    },
+    Junk = {
+        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+    },
+    Loot = {
+        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+    },
+    Repair = {
+        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+    },
 
-    -- ---------------------------------------------
-    welcomeMessage = true,
-    jumpOutside = false,
+    -- ----------------------------------
+    debug = false,
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------
