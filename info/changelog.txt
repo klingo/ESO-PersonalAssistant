@@ -1,3 +1,6 @@
+2.5.12 (April 24, 2021)
+- fixed an issue where the crafting item section of PABanking did not work anymore ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/355"]#355[/URL])
+
 2.5.11 (April 23, 2021)
 - added new PAJunk quest protection for thieves guild daily 'The Covetous Countess' ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/337"]#337[/URL])
 - added new PALoot setting to inform you about loot that is not yet in your set collection ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/350"]#350[/URL])
