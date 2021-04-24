@@ -129,7 +129,7 @@ end
 -- PABanking   Crafting.ItemTypes         craftingItemTypeMoveSetting
 ---------------------------------
 local function getPABankingCraftingItemTypeMoveSetting(itemType)
-    if isNoProfileSelected()() then return end
+    if isNoProfileSelected() then return end
     return PAB.SavedVars.Crafting.ItemTypes[itemType]
 end
 
