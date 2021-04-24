@@ -21,12 +21,32 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- local function _applyPatch_x_x_x(savedVarsVersion)
+local function _applyPatch_2_5_14(savedVarsVersion, isPatchingNeeded)
+    if isPatchingNeeded then
+        local PASavedVars = PA.SavedVars
+        local oldActiveProfile = PASavedVars.Profile.activeProfile
+        if oldActiveProfile ~= nil then
+            -- copy the previously selected profile
+            PASavedVars.Profile.General.activeProfile = oldActiveProfile
+            PASavedVars.Profile.Banking.activeProfile = oldActiveProfile
+            PASavedVars.Profile.Integration.activeProfile = oldActiveProfile
+            PASavedVars.Profile.Junk.activeProfile = oldActiveProfile
+            PASavedVars.Profile.Loot.activeProfile = oldActiveProfile
+            PASavedVars.Profile.Repair.activeProfile = oldActiveProfile
+            -- remove the old activeProfile
+            PASavedVars.Profile.activeProfile = nil
+        end
+        -- cannot do "_updateSavedVarsVersion", because this needs to run for every character!
+    end
+end
+
+-- local function _applyPatch_x_x_x(savedVarsVersion, isPatchingNeeded)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
-
+    -- Patch 2.5.14     April 24, 2021
+    _applyPatch_2_5_14(_getIsPatchNeededInfo(020514))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
