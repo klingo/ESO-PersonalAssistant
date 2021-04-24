@@ -94,7 +94,7 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- SpecializedItemTypes (Custom Singluar/Plural definition) --
-    --SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[/]>>",
+    SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[Фрагмент/Фрагменты]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Master Writs based on CraftingType (Custom definition) --
@@ -179,8 +179,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_ADD_RULE = "Добавить новое правило",
     SI_PA_SUBMENU_PAB_EDIT_RULE = "Изменить правило",
     SI_PA_SUBMENU_PAB_DELETE_RULE = "Удалить правило",
-    --SI_PA_SUBMENU_PAB_ENABLE_RULE = "",
-    --SI_PA_SUBMENU_PAB_DISABLE_RULE = "",
+    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Включить правило",
+    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Выключить правило",
     SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Добавить",
     SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Сохранить",
     SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Удалить",
