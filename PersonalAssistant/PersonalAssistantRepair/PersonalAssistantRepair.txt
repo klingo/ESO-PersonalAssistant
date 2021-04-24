@@ -11,6 +11,7 @@
 ## APIVersion: 100034
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
+## OptionalDependsOn: PersonalAssistantJunk
 
 # Localization
 localization/en.lua

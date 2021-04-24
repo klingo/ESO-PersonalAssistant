@@ -9,12 +9,12 @@ local PAGProfileManager = PA.ProfileManager.PAGeneral
 local isNoProfileSelected = PAGProfileManager.isNoProfileSelected
 
 local function getValue(...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     return PAMF.getValue(PA.General.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     PAMF.setValue(PA.General.SavedVars, value, ...)
 end
 

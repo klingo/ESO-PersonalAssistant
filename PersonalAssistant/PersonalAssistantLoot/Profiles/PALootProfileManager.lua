@@ -207,6 +207,7 @@ end
 ---------------------------------
 local function getPALootActiveProfileName()
     local activeProfile = PA.SavedVars.Profile.Loot.activeProfile
+    if not istable(PA.SavedVars.Loot[activeProfile]) then return end
     return PA.SavedVars.Loot[activeProfile].name
 end
 

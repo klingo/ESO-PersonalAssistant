@@ -206,6 +206,7 @@ end
 ---------------------------------
 local function getPAJunkActiveProfileName()
     local activeProfile = PA.SavedVars.Profile.Junk.activeProfile
+    if not istable(PA.SavedVars.Junk[activeProfile]) then return end
     return PA.SavedVars.Junk[activeProfile].name
 end
 

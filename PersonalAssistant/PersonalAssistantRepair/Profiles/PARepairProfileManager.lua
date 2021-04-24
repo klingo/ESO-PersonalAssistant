@@ -206,6 +206,7 @@ end
 ---------------------------------
 local function getPARepairActiveProfileName()
     local activeProfile = PA.SavedVars.Profile.Repair.activeProfile
+    if not istable(PA.SavedVars.Repair[activeProfile]) then return end
     return PA.SavedVars.Repair[activeProfile].name
 end
 

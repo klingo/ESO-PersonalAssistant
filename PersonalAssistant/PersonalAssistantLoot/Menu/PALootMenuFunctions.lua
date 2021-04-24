@@ -12,12 +12,12 @@ local isNoProfileSelected = PALProfileManager.isNoProfileSelected
 
 
 local function getValue(...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     return PAMF.getValue(PAL.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     PAMF.setValue(PAL.SavedVars, value, ...)
 end
 

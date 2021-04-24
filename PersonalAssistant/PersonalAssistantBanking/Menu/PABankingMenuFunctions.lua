@@ -12,12 +12,12 @@ local PABProfileManager = PA.ProfileManager.PABanking
 local isNoProfileSelected = PABProfileManager.isNoProfileSelected
 
 local function getValue(...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     return PAMF.getValue(PAB.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     PAMF.setValue(PAB.SavedVars, value, ...)
 end
 
@@ -607,6 +607,7 @@ local PABankingMenuFunctions = {
     -- -----------------------------
     getAdvancedItemsEnabledSetting = function() return getValue({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Advanced", "advancedItemsEnabled"}) end,
+    isAdvancedItemsDisabled = function() return isNoProfileSelected() end,
 
     getAdvancedLearnableItemTypeMoveSetting = getPABankingAdvancedLearnableItemTypeMoveSetting,
     setAdvancedLearnableItemTypeMoveSetting = setPABankingAdvancedLearnableItemTypeMoveSetting,

@@ -242,7 +242,7 @@ local function _createPALootProfileSubMenuTable()
     PALootProfileSubMenuTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
-        disabled = PALProfileManager.hasMaxProfileCountReached
+        disabled = function() return not PALProfileManager.hasMaxProfileCountReached() end
     })
 
     PALootProfileSubMenuTable:insert({

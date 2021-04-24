@@ -214,7 +214,7 @@ local function _createPAIntegrationProfileSubMenuTable()
     PAIntegrationProfileSubMenuTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
-        disabled = PAIProfileManager.hasMaxProfileCountReached
+        disabled = function() return not PAIProfileManager.hasMaxProfileCountReached() end
     })
 
     PAIntegrationProfileSubMenuTable:insert({

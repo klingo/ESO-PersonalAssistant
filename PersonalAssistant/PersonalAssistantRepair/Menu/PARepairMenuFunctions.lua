@@ -10,12 +10,12 @@ local PARProfileManager = PA.ProfileManager.PARepair
 local isNoProfileSelected = PARProfileManager.isNoProfileSelected
 
 local function getValue(...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     return PAMF.getValue(PAR.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     PAMF.setValue(PAR.SavedVars, value, ...)
 end
 
