@@ -617,7 +617,7 @@ local function _createPABankingProfileSubMenuTable()
     PABankingProfileSubMenuTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
-        disabled = PABProfileManager.hasMaxProfileCountReached
+        disabled = function() return not PABProfileManager.hasMaxProfileCountReached() end
     })
 
     PABankingProfileSubMenuTable:insert({

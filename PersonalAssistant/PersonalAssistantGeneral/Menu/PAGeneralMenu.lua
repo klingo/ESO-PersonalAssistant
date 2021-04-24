@@ -157,7 +157,7 @@ local function _createPAGeneralProfileSubMenu()
     PAGeneralProfileSubMenuTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
-        disabled = PAGProfileManager.hasMaxProfileCountReached
+        disabled = function() return not PAGProfileManager.hasMaxProfileCountReached() end
     })
 
     PAGeneralProfileSubMenuTable:insert({

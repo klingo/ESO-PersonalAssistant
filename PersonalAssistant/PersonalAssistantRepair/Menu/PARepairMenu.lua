@@ -165,7 +165,7 @@ local function _createPARepairProfileSubMenuTable()
     PARepairProfileSubMenuTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_PROFILE_CREATE_NEW_DESC),
-        disabled = PARProfileManager.hasMaxProfileCountReached
+        disabled = function() return not PARProfileManager.hasMaxProfileCountReached() end
     })
 
     PARepairProfileSubMenuTable:insert({
