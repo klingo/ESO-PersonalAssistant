@@ -607,6 +607,7 @@ local PABankingMenuFunctions = {
     -- -----------------------------
     getAdvancedItemsEnabledSetting = function() return getValue({"Advanced", "advancedItemsEnabled"}) end,
     setAdvancedItemsEnabledSetting = function(value) setValueAndRefreshEvents(value, {"Advanced", "advancedItemsEnabled"}) end,
+    isAdvancedItemsDisabled = function() return isNoProfileSelected() end,
 
     getAdvancedLearnableItemTypeMoveSetting = getPABankingAdvancedLearnableItemTypeMoveSetting,
     setAdvancedLearnableItemTypeMoveSetting = setPABankingAdvancedLearnableItemTypeMoveSetting,

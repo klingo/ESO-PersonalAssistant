@@ -85,6 +85,7 @@ local function RegisterForEvent(addonName, ESO_EVENT, executableFunction, paIden
         EVENT_MANAGER:RegisterForEvent(esoIdentifier, ESO_EVENT, executableFunction)
         -- and add it to PA's internal list of registered events
         _addEventToSet(esoIdentifier)
+        PA.debugln("RegisterForEvent = %s", esoIdentifier)
     end
 end
 
@@ -107,6 +108,7 @@ local function UnregisterForEvent(addonName, ESO_EVENT, paIdentifier)
     EVENT_MANAGER:UnregisterForEvent(esoIdentifier, ESO_EVENT)
     -- and remove it from PA's internal list of registered events
     _removeEventFromSet(esoIdentifier)
+    PA.debugln("UnregisterForEvent = %s", esoIdentifier)
 end
 
 local function FireCallbacks(addonName, callbackName, paIdentifier)
@@ -127,6 +129,7 @@ local function RegisterForCallback(addonName, callbackName, executableFunction, 
         CALLBACK_MANAGER:RegisterCallback(esoIdentifier, executableFunction)
         -- and add it to PA's internal list of registered events/callbacks
         _addEventToSet(esoIdentifier)
+        PA.debugln("RegisterForCallback = %s", esoIdentifier)
     end
 end
 
@@ -137,6 +140,7 @@ local function UnregisterForCallback(addonName, callbackName, executableFunction
     CALLBACK_MANAGER:UnregisterCallback(esoIdentifier, executableFunction)
     -- and remove it from PA's internal list of registered events/callbacks
     _removeEventFromSet(esoIdentifier)
+    PA.debugln("UnregisterForCallback = %s", esoIdentifier)
 end
 
 local function RegisterForSceneChange(addonName, sceneName, executableFunction, paIdentifier)
@@ -366,6 +370,7 @@ local function RefreshPARepairEventRegistration()
     -- Check if the Addon 'PARepair' is even enabled
     local PAR = PA.Repair
     if PAR then
+        PAR.debugln("RefreshPARepairEventRegistration")
         -- Check if the functionality is turned on within the addon
         local PARMenuFunctions = PA.MenuFunctions.PARepair
         -- Check if the functionality is turned on within the addon

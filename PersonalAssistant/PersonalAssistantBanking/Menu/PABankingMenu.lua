@@ -1035,7 +1035,7 @@ local function _createPABAdvancedMotifSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Known,
         })
 
@@ -1046,7 +1046,7 @@ local function _createPABAdvancedMotifSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, false) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
     end
@@ -1063,7 +1063,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Known,
         })
 
@@ -1074,7 +1074,7 @@ local function _createPABAdvancedRecipeSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, false) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
     end
@@ -1091,7 +1091,7 @@ local function _createPABAdvancedMasterWritsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedMasterWritCraftingTypeMoveSetting(craftingType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedMasterWritCraftingTypeMoveSetting(craftingType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.MasterWritCraftingTypes[craftingType],
         })
     end
@@ -1108,7 +1108,7 @@ local function _createPABAdvancedHolidayWritsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedHolidayWritsMoveSetting(specializedItemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedHolidayWritsMoveSetting(specializedItemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.HolidayWrits[specializedItemType],
         })
     end
@@ -1125,7 +1125,7 @@ local function _createPABAdvancedGlyphsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
@@ -1142,7 +1142,7 @@ local function _createPABAdvancedLiquidsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
@@ -1159,7 +1159,7 @@ local function _createPABAdvancedFoodDrinksSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
@@ -1176,7 +1176,7 @@ local function _createPABAdvancedTrophiesTreasureMapsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
         })
     end
@@ -1193,7 +1193,7 @@ local function _createPABAdvancedTrophiesFragmentsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
         })
     end
@@ -1210,7 +1210,7 @@ local function _createPABAdvancedTrophiesSurveyReportsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSurveyMapMoveSetting(itemFilterType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSurveyMapMoveSetting(itemFilterType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT][itemFilterType],
         })
     end
@@ -1227,7 +1227,7 @@ local function _createPABAdvancedIntricateItemsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTraitTypeMoveSetting(itemTraitType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTraitTypeMoveSetting(itemTraitType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTraitTypes[itemTraitType],
         })
     end
@@ -1244,7 +1244,7 @@ local function _createPABAdvancedFurnishingsSubmenuTable()
             choicesValues = PABMenuChoicesValues.itemMoveMode,
             getFunc = function() return PABMenuFunctions.getAdvancedItemTypeMoveSetting(itemType) end,
             setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeMoveSetting(itemType, value) end,
-            disabled = function() return not PABMenuFunctions.getAdvancedItemsEnabledSetting() end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.ItemTypes[itemType],
         })
     end
