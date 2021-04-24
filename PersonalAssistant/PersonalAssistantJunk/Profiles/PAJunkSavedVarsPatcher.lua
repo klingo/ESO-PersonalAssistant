@@ -65,7 +65,7 @@ local function _applyPatch_2_5_11(savedVarsVersion, isPatchingNeeded)
     end
 end
 
--- local function _applyPatch_x_x_x(savedVarsVersion)
+-- local function _applyPatch_x_x_x(savedVarsVersion, isPatchingNeeded)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 

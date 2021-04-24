@@ -47,26 +47,25 @@ local function _initDefaults()
         profileCounter = 0
     }
     -- LOCAL default values for PAProfile
-    -- TODO: figure out if SavedVarsPatcher works for this too
     Profile_Defaults = {
         General = {
-            activeProfile = 1,
+            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
             debug = false,
         },
         Banking = {
-            activeProfile = 1,
+            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
         },
         Integration = {
-            activeProfile = 1,
+            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
         },
         Junk = {
-            activeProfile = 1,
+            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
         },
         Loot = {
-            activeProfile = 1,
+            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
         },
         Repair = {
-            activeProfile = 1,
+            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
         }
     }
 end

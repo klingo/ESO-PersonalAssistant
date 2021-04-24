@@ -22,7 +22,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
     local paItemId = PAHF.getPAItemLinkIdentifier(itemLink)
 
     -- Add PABanking context menu entries
-    if PAProfileManager.PABanking.hasActiveProfile() then
+    if PAProfileManager.PABanking and PAProfileManager.PABanking.hasActiveProfile() then
         if PA.Banking and PA.Banking.SavedVars.Custom.customItemsEnabled then
             -- first make some checks whether banking rules are even allowed for this item
             if not _isBankingRuleNotAllowed(itemLink, bagId, slotIndex) then
@@ -60,7 +60,7 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
     end
 
     -- Add PAJunk context menu entries
-    if PAProfileManager.PAJunk.hasActiveProfile() then
+    if PAProfileManager.PAJunk and PAProfileManager.PAJunk.hasActiveProfile() then
         if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled then
             local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
             local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
@@ -107,8 +107,8 @@ local function _getSlotTypeName(slotType)
 end
 
 local function initHooksOnInventoryContextMenu(LCM)
-    local PAProfileManager = PA.ProfileManager
-    if PAProfileManager.PABanking.hasActiveProfile() or PAProfileManager.PAJunk.hasActiveProfile() then
+    if (PAProfileManager.PABanking and PAProfileManager.PABanking.hasActiveProfile()) or
+            (PAProfileManager.PAJunk and PAProfileManager.PAJunk.hasActiveProfile()) then
         if not _hooksOnInventoryContextMenuInitialized and (PA.Banking or PA.Junk) then
             _hooksOnInventoryContextMenuInitialized = true
             LCM:RegisterContextMenu(function(inventorySlot, slotActions)
