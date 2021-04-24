@@ -10,12 +10,12 @@ local PAIProfileManager = PA.ProfileManager.PAIntegration
 local isNoProfileSelected = PAIProfileManager.isNoProfileSelected
 
 local function getValue(...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     return PAMF.getValue(PAI.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     PAMF.setValue(PAI.SavedVars, value, ...)
 end
 

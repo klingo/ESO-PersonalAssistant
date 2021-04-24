@@ -11,12 +11,12 @@ local PAJProfileManager = PA.ProfileManager.PAJunk
 local isNoProfileSelected = PAJProfileManager.isNoProfileSelected
 
 local function getValue(...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     return PAMF.getValue(PAJ.SavedVars, ...)
 end
 
 local function setValue(value, ...)
-    if isNoProfileSelected() then return true end
+    if isNoProfileSelected() then return end
     PAMF.setValue(PAJ.SavedVars, value, ...)
 end
 
