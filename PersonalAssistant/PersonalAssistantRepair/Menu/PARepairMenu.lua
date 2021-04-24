@@ -141,7 +141,7 @@ local function _createPARepairProfileSubMenuTable()
         width = "half",
         getFunc = PARProfileManager.getActiveProfile,
         setFunc = PARProfileManager.setActiveProfile,
-        reference = "PERSONALASSISTANT_REEPAIR_PROFILEDROPDOWN"
+        reference = "PERSONALASSISTANT_REPAIR_PROFILEDROPDOWN"
     })
 
     PARepairProfileSubMenuTable:insert({
