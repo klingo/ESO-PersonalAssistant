@@ -200,6 +200,17 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         df("itemType (%s): %s --> %s (%d/%d) --> itemId = %d --> itemId64 = %s --> itemInstanceId = %d --> specializedItemType (%s): %s || icon = [%s] || bag = [%s]", itemType, strItemType, itemLink, stack, maxStack, itemId, tostring(itemId64), itemInstanceId, specializedItemType, strSpecializedItemType, icon, bagName)
         d("paItemId="..tostring(paItemId))
 
+        if GetAPIVersion() >= 100035 then
+            local itemActorCategory = GetItemActorCategory(bagId, slotIndex)
+            local itemActorCategoryStr = "Undefined"
+            if itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_PLAYER then
+                itemActorCategoryStr = "Player"
+            elseif itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_COMPANION then
+                itemActorCategoryStr = "Companion"
+            end
+            df("itemActorCategory (%d): %s", itemActorCategory, itemActorCategoryStr)
+        end
+
         local canBeResearched = CanItemLinkBeTraitResearched(itemLink)
         local isBeingResearched = PA.Loot.isTraitBeingResearched(itemLink)
         local tradeskillType = GetItemLinkCraftingSkillType(itemLink)
