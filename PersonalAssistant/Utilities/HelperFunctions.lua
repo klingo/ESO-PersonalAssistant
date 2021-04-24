@@ -522,6 +522,10 @@ end
 local function getItemLinkLearnableStatus(itemLink)
     local itemType, specializedItemType = GetItemLinkItemType(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
+    if GetAPIVersion() >= 100035 and itemFilterType == ITEMFILTERTYPE_COMPANION then
+        -- make sure it's not a Blackwood companion item
+        return nil
+    end
     if itemType == ITEMTYPE_RECIPE then
         if IsItemLinkRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
         return PAC.LEARNABLE.UNKNOWN
