@@ -5,7 +5,6 @@ local PACAddon = PAC.ADDON
 local PAHF = PA.HelperFunctions
 local PAEM = PA.EventManager
 local PASVP = PA.SavedVarsPatcher
-local PAGProfileManager = PA.ProfileManager.PAGeneral
 
 -- =====================================================================================================================
 
@@ -28,46 +27,9 @@ local showWelcomeMessage = true
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
--- Local constants --
-local General_Defaults = {}
-local Profile_Defaults = {}
-
--- ---------------------------------------------------------------------------------------------------------------------
-
 -- only prints out PAJunk texts if silentMode is disabled
 local function println(text, ...)
     PAHF.println(PA.chat, PAC.COLORED_TEXTS.PA, text, ...)
-end
-
--- init default values
-local function _initDefaults()
-    -- GLOBAL default values for PAGeneral
-    General_Defaults = {
-        savedVarsVersion = PACAddon.SAVED_VARS_VERSION.MINOR,
-        profileCounter = 0
-    }
-    -- LOCAL default values for PAProfile
-    Profile_Defaults = {
-        General = {
-            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
-            debug = false,
-        },
-        Banking = {
-            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
-        },
-        Integration = {
-            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
-        },
-        Junk = {
-            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
-        },
-        Loot = {
-            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
-        },
-        Repair = {
-            activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
-        }
-    }
 end
 
 -- init player name and player alliance
@@ -86,7 +48,6 @@ local function initAddon(_, addOnName)
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, "AddonInit")
 
     -- initialize the default and player/alliance values
-    _initDefaults()
     _initPlayerNameAndAlliance()
 
     -- init LibChatMessage if running
@@ -97,21 +58,18 @@ local function initAddon(_, addOnName)
 
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
-    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, General_Defaults)
-    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, Profile_Defaults)
+    -- PASavedVars.General is no longer needed; load still to make sure all profiles can be migrated though
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, {})
+    PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.MenuDefaults.PAGeneral)
 
     -- apply any patches if needed
     PA.SavedVarsPatcher.applyPAGeneralPatchIfNeeded()
 
-    -- init a default profile if none exist
-    PAGProfileManager.initDefaultProfile()
+    -- init the default values if they don't exist yet
+    --PA.ZO_SavedVars.CopyDefaults(PASavedVars.Profile, PA.MenuDefaults.PAGeneral)
 
-    -- fix the active profile in case an invalid one is selected (because it was deleted from another character)
-    PAGProfileManager.fixActiveProfile()
-
-    -- get the active Profile and the debug setting
-    PAGProfileManager.getActiveProfile()
-    PA.General.debug = PASavedVars.Profile.General.debug
+    -- get debug setting
+    PA.debug = PASavedVars.Profile.debug
 
     -- create the options with LAM-2
     PA.General.createOptions()
@@ -141,16 +99,15 @@ local function introduction()
         PA.toggleDebug(true)
     end
 
-    local activeProfile = PAGProfileManager.getActiveProfile()
-    if activeProfile == PAC.GENERAL.NO_PROFILE_SELECTED_ID then
+    if (PA.Banking and PA.ProfileManager.PABanking.isNoProfileSelected()) or
+            (PA.Integration and PA.ProfileManager.PAIntegration.isNoProfileSelected()) or
+            (PA.Junk and PA.ProfileManager.PAJunk.isNoProfileSelected()) or
+            (PA.Loot and PA.ProfileManager.PALoot.isNoProfileSelected()) or
+            (PA.Repair and PA.ProfileManager.PARepair.isNoProfileSelected()) then
         PA.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
-        -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
-        PAEM.RefreshSavedVarReference.PAGeneral()
-        -- then also all the events can be initialised
-        PAEM.RefreshEventRegistration.PAGeneral()
-        -- finally check for the welcome message
-        if showWelcomeMessage and PA.SavedVars.General[activeProfile].welcomeMessage then
+        -- check for the welcome message
+        if showWelcomeMessage and PA.SavedVars.Profile.General.welcomeMessage then
             showWelcomeMessage = false
             local currLanguage = GetCVar("language.2") or "en"
             if currLanguage ~= "en" and currLanguage ~= "de" and currLanguage ~= "fr"  and currLanguage ~= "ru" then

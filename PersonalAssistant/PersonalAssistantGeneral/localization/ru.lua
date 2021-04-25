@@ -6,7 +6,7 @@ local PAStrings = {
     -- Welcome Messages --
     SI_PA_WELCOME_NO_SUPPORT = "к вашим услугам!  -  [%s] локализация пока не поддерживается",
     SI_PA_WELCOME_SUPPORT = "к вашим услугам!",
-    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({"приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль (или введите ", PAC.COLOR.WHITE:Colorize("/pa"), "). Спасибо :-)"}),
+    SI_PA_WELCOME_PLEASE_SELECT_PROFILE = table.concat({"приветствую вас! Прежде чем начать, перейдите в меню настроек дополнений и выберите профиль. Спасибо :-)"}),
 
 
     -- =================================================================================================================
@@ -18,6 +18,8 @@ local PAStrings = {
     -- General Settings --
     SI_PA_MENU_GENERAL_HEADER = "Основные настройки",
     SI_PA_MENU_GENERAL_SHOW_WELCOME = "Показывать приветственное сообщение",
+
+    --SI_PA_MENU_GENERAL_TELEPORT_HEADER = "",
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE = table.concat({PAC.ICONS.OTHERS.HOME.NORMAL, " домой"}),
     SI_PA_MENU_GENERAL_TELEPORT_PRIMARY_HOUSE_W = "Если текущее местоположение допускает быстрые перемещения, это инициирует телепорт в ваш основной дом!",
     SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE = "Переместится к дому",
