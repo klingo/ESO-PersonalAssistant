@@ -10,19 +10,19 @@ local PAGeneralMenuDefaults = {
         jumpOutside = false,
     },
     Banking = {
-        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+        activeProfile = 1,
     },
     Integration = {
-        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+        activeProfile = 1,
     },
     Junk = {
-        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+        activeProfile = 1,
     },
     Loot = {
-        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+        activeProfile = 1,
     },
     Repair = {
-        activeProfile = PAC.GENERAL.NO_PROFILE_SELECTED_ID,
+        activeProfile = 1,
     },
 
     -- ----------------------------------
