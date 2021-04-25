@@ -52,7 +52,6 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertBreak()
 
     -- Active profile
-    debugEditControl:InsertLine("PA.General.activeProfile="..tostring(PA.ProfileManager.PAGeneral.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PAGeneral.getActiveProfile())..")")
     if PA.ProfileManager.PABanking then
         debugEditControl:InsertLine("PA.Banking.activeProfile="..tostring(PA.ProfileManager.PABanking.hasActiveProfile()).." ("..tostring(PA.ProfileManager.PABanking.getActiveProfile())..")")
     end

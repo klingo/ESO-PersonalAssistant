@@ -33,7 +33,6 @@ Utilities/SavedVarsPatcher.lua
 
 # Profiles
 PersonalAssistantGeneral/Profiles/PAGeneralSavedVarsPatcher.lua
-PersonalAssistantGeneral/Profiles/PAGeneralProfileManager.lua
 
 # Debug Window
 Utilities/XML/DebugWindow.xml

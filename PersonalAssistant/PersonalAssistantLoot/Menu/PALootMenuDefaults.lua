@@ -1,11 +1,10 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
-local PAC = PA.Constants
 
 -- =====================================================================================================================
 
 local PALootMenuDefaults = {
-    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
+    name = table.concat({GetString(SI_PA_PROFILE), " ", 1}),
 
     -- ---------------------------------------------
     LootEvents = {

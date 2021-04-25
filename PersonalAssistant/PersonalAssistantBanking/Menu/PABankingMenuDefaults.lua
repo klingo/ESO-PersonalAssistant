@@ -5,7 +5,7 @@ local PAC = PA.Constants
 -- =====================================================================================================================
 
 local PABankingMenuDefaults = {
-    name = GetString(SI_PA_MENU_PROFILE_DEFAULT),
+    name = table.concat({GetString(SI_PA_PROFILE), " ", 1}),
 
     -- ---------------------------------------------
     Currencies = {

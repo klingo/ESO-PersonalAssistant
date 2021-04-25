@@ -196,14 +196,6 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function RefreshPAGeneralEventRegistration()
-    -- Check if the Addon 'PAGeneral' is even enabled
-    local PAG = PA.General
-    if PAG then
-        -- nothing to be done here... yet
-    end
-end
-
 local function RefreshPABankingEventRegistration()
     -- Check if the Addon 'PABanking' is even enabled
     local PAB = PA.Banking
@@ -443,12 +435,6 @@ column (Curr-Profile SavedVars) that will always point to the Cross-Profile Save
 | PARepair      | PersonalAssistant.SavedVars.Repair[activeProfile]      | PersonalAssistant.Repair.SavedVars      |
 |------------------------------------------------------------------------------------------------------------------|
 --]]
-local function RefreshPAGeneralSavedVarReference()
-    if not PA.General then PA.General = {} end
-    local activeProfile = PAPM.PAGeneral.getActiveProfile()
-    PA.General.SavedVars = PA.SavedVars.General[activeProfile]
-end
-
 local function RefreshPABankingSavedVarReference()
     if not PA.Banking then PA.Banking = {} end
     local activeProfile = PAPM.PABanking.getActiveProfile()
@@ -502,7 +488,6 @@ PA.EventManager = {
     UnregisterForSceneChange = UnregisterForSceneChange,
 
     RefreshEventRegistration = {
-        PAGeneral = RefreshPAGeneralEventRegistration,
         PABanking = RefreshPABankingEventRegistration,
         PAIntegration = RefreshPAIntegrationEventRegistration,
         PAJunk = RefreshPAJunkEventRegistration,
@@ -512,7 +497,6 @@ PA.EventManager = {
     },
 
     RefreshSavedVarReference = {
-        PAGeneral = RefreshPAGeneralSavedVarReference,
         PABanking = RefreshPABankingSavedVarReference,
         PAIntegration = RefreshPAIntegrationSavedVarReference,
         PAJunk = RefreshPAJunkSavedVarReference,
