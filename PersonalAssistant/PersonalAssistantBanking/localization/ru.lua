@@ -129,7 +129,6 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%s / %s внесено (Нет места в банке)",
 
     SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s перемещено в %s",
-    SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = "%d/%d x %s перемещено в %s",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = "Невозможно переместить %s в %s. Нет места!",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = "Невозможно переместить %s в %s. Окно было закрыто!",
     SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = "Некоторые предметы НЕ БЫЛИ перемещены, чтоб предотвратить потенциальные коллизии с Dolgubon's Lazy Writ Crafter",
