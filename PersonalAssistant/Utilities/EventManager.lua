@@ -186,7 +186,7 @@ end
 local function _hasAnyPAJunkIntegrationsTurnedOn()
     if PAPM.PAIntegration and PAPM.PAIntegration.hasActiveProfile() then
         local PAI = PA.Integration
-        if PAI and FCOIS then
+        if PAI and PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
             local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
             return PAIFCOISSavedVars.Sell.autoSellMarked or PAIFCOISSavedVars.Locked.preventAutoSell
         end
