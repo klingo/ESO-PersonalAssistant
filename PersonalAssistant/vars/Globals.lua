@@ -504,7 +504,7 @@ PersonalAssistant.Constants = {
                 -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
             },
-            SURVEY_REPORTS = {
+            SURVEY_REPORTS = {  -- https://esoitem.uesp.net/viewlog.php?search=survey&searchtype=minedItemSummary
                 [ITEMFILTERTYPE_BLACKSMITHING] = {
                     57687,  -- Blacksmith Survey: Auridon
                     57747,  -- Blacksmith Survey: Grahtwood
