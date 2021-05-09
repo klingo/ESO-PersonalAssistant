@@ -186,7 +186,7 @@ end
 local function _hasAnyPAJunkIntegrationsTurnedOn()
     if PAPM.PAIntegration and PAPM.PAIntegration.hasActiveProfile() then
         local PAI = PA.Integration
-        if PAI and FCOIS then
+        if PAI and PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
             local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
             return PAIFCOISSavedVars.Sell.autoSellMarked or PAIFCOISSavedVars.Locked.preventAutoSell
         end
@@ -196,18 +196,10 @@ end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function RefreshPAGeneralEventRegistration()
-    -- Check if the Addon 'PAGeneral' is even enabled
-    local PAG = PA.General
-    if PAG then
-        -- nothing to be done here... yet
-    end
-end
-
 local function RefreshPABankingEventRegistration()
     -- Check if the Addon 'PABanking' is even enabled
     local PAB = PA.Banking
-    if PAB then
+    if PAB and PAPM.PABanking and PAPM.PABanking.hasActiveProfile() then
         -- Register PABanking (always, due to potential custom banking rules)
         RegisterForEvent(PAB.AddonName, EVENT_OPEN_BANK, PAB.OnBankOpen, "OpenBank")
         RegisterForEvent(PAB.AddonName, EVENT_CLOSE_BANK, PAB.OnBankClose, "CloseBank")
@@ -227,7 +219,7 @@ end
 local function RefreshPAIntegrationEventRegistration()
     -- Check if the Addon 'PAIntegration' is even enabled
     local PAI = PA.Integration
-    if PAI then
+    if PAI and PAPM.PAIntegration and PAPM.PAIntegration.hasActiveProfile() then
         -- nothing to be done here... yet
     end
 end
@@ -235,7 +227,7 @@ end
 local function RefreshPAJunkEventRegistration()
     -- Check if the Addon 'PAJunk' is even enabled
     local PAJ = PA.Junk
-    if PAJ then
+    if PAJ and PAPM.PAJunk and PAPM.PAJunk.hasActiveProfile() then
         -- Check if the functionality is turned on within the addon
         local PAJMenuFunctions = PA.MenuFunctions.PAJunk
         if PAJMenuFunctions.getAutoMarkAsJunkEnabledSetting() then
@@ -295,7 +287,7 @@ end
 local function RefreshPALootEventRegistration()
     -- Check if the Addon 'PAloot' is even enabled
     local PAL = PA.Loot
-    if PAL then
+    if PAL and PAPM.PALoot and PAPM.PALoot.hasActiveProfile() then
         -- Check if the functionality is turned on within the addon
         local PALMenuFunctions = PA.MenuFunctions.PALoot
         if PALMenuFunctions.getLootEventsEnabledSetting() then
@@ -345,6 +337,7 @@ end
 local function RefreshPAMailEventRegistration()
     -- Check if the Addon 'PAMail' is even enabled
     local PAM = PA.Mail
+    -- TODO: check the profile manager as well
     if PAM then
         -- Check if the functionality is turned on within the addon
         local PAMMenuFunctions = PA.MenuFunctions.PAMail
@@ -365,7 +358,7 @@ end
 local function RefreshPARepairEventRegistration()
     -- Check if the Addon 'PARepair' is even enabled
     local PAR = PA.Repair
-    if PAR then
+    if PAR and PAPM.PARepair and PAPM.PARepair.hasActiveProfile() then
         PAR.debugln("RefreshPARepairEventRegistration")
         -- Check if the functionality is turned on within the addon
         local PARMenuFunctions = PA.MenuFunctions.PARepair
@@ -443,12 +436,6 @@ column (Curr-Profile SavedVars) that will always point to the Cross-Profile Save
 | PARepair      | PersonalAssistant.SavedVars.Repair[activeProfile]      | PersonalAssistant.Repair.SavedVars      |
 |------------------------------------------------------------------------------------------------------------------|
 --]]
-local function RefreshPAGeneralSavedVarReference()
-    if not PA.General then PA.General = {} end
-    local activeProfile = PAPM.PAGeneral.getActiveProfile()
-    PA.General.SavedVars = PA.SavedVars.General[activeProfile]
-end
-
 local function RefreshPABankingSavedVarReference()
     if not PA.Banking then PA.Banking = {} end
     local activeProfile = PAPM.PABanking.getActiveProfile()
@@ -503,7 +490,6 @@ PA.EventManager = {
     UnregisterForSceneChange = UnregisterForSceneChange,
 
     RefreshEventRegistration = {
-        PAGeneral = RefreshPAGeneralEventRegistration,
         PABanking = RefreshPABankingEventRegistration,
         PAIntegration = RefreshPAIntegrationEventRegistration,
         PAJunk = RefreshPAJunkEventRegistration,
@@ -513,7 +499,6 @@ PA.EventManager = {
     },
 
     RefreshSavedVarReference = {
-        PAGeneral = RefreshPAGeneralSavedVarReference,
         PABanking = RefreshPABankingSavedVarReference,
         PAIntegration = RefreshPAIntegrationSavedVarReference,
         PAJunk = RefreshPAJunkSavedVarReference,

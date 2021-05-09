@@ -9,9 +9,10 @@
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {BUILD_NUMBER}
 ## Author: Klingo
-## APIVersion: 100034
+## APIVersion: 100034 100035
 ## SavedVariables: PersonalAssistantBanking_SavedVariables
 ## DependsOn: PersonalAssistant LibShifterBox
+## OptionalDependsOn: PersonalAssistantIntegration
 
 # Localization
 localization/en.lua

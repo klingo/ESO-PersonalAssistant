@@ -200,7 +200,6 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%s / %s deposited (Not enough space in bank)",
 
     SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s moved to %s",
-    SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = "%d/%d x %s moved to %s",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = "Could not move %s to %s. Not enough space!",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = "Could not move %s to %s. Window was closed!",
     SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = "Some items were NOT deposited to avoid potential interferences with Dolgubon's Lazy Writ Crafter",

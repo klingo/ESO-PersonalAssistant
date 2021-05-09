@@ -52,7 +52,7 @@ local function _createPAIntegrationMenu()
     })
 
     -- -----------------------------------------------------------------------------------------------------------------
-    if not WritCreater and not FCOIS then
+    if not WritCreater and not PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
         -- inform player that there ar eno integrations available
         PAIntegrationOptionsTable:insert({
             type = "divider",
@@ -96,7 +96,7 @@ local function _createPAIntegrationMenu()
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- check if player has the addon [FCO ItemSaver]
-    if FCOIS then
+    if PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
         -- try to get relevant FCOIS texts directly from FCOIS localization
         local FCOIS_LOCALIZATION = FCOIS.localizationVars.localizationAll[FCOIS.settingsVars.defaultSettings.language] or {}
 
@@ -351,7 +351,7 @@ local function createOptions()
 
     _createPAIntegrationProfileSubMenuTable()
 
-    if FCOIS then
+    if PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
         _createPAIFCOISLockedSubmenuTable()
         _createPAIFCOISResearchSubmenuTable()
         _createPAIFCOISSellSubmenuTable()

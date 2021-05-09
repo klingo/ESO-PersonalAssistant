@@ -246,7 +246,8 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 end
 
             -- Style Pages
-            elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+            elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then
+                -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
                 if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg then
                     local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
                     local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)

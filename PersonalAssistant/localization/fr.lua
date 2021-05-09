@@ -8,7 +8,6 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Sélectionner un profil>",
-    SI_PA_MENU_PROFILE_DEFAULT = "Profil par défaut",
     SI_PA_MENU_PROFILE_ACTIVE = "Profil actif",
     SI_PA_MENU_PROFILE_ACTIVE_T = "Selectionner le profil actif pour PersonalAssistant. Il chargera automatiquement tous les paramètres stockés sous ce profil, et enregistrera les changements au même endroit.",
     SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Renommer le profil actif",

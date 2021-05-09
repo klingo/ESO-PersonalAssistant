@@ -8,7 +8,6 @@ local PAStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- Profile Settings --
     SI_PA_MENU_PROFILE_PLEASE_SELECT = "<Выберите профиль>",
-    SI_PA_MENU_PROFILE_DEFAULT = "Профиль по умолчанию",
     SI_PA_MENU_PROFILE_ACTIVE = "Текущий профиль",
     SI_PA_MENU_PROFILE_ACTIVE_T = "Выберите профиль для PersonalAssistant. Он автоматически загрузит все настройки, сохраненные в этом профиле, и все изменения будут сохранены в том же месте.",
     SI_PA_MENU_PROFILE_ACTIVE_RENAME = "Переименовать",
@@ -97,7 +96,7 @@ local PAStrings = {
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- SpecializedItemTypes (Custom Singluar/Plural definition) --
-    --SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[/]>>",
+    SI_PA_SPECIALIZEDITEMTYPE102 = "<<1[Фрагмент/Фрагменты]>>",
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- Master Writs based on CraftingType (Custom definition) --
@@ -206,8 +205,8 @@ local PAStrings = {
     SI_PA_SUBMENU_PAB_ADD_RULE = "Добавить новое правило",
     SI_PA_SUBMENU_PAB_EDIT_RULE = "Изменить правило",
     SI_PA_SUBMENU_PAB_DELETE_RULE = "Удалить правило",
-    --SI_PA_SUBMENU_PAB_ENABLE_RULE = "",
-    --SI_PA_SUBMENU_PAB_DISABLE_RULE = "",
+    SI_PA_SUBMENU_PAB_ENABLE_RULE = "Включить правило",
+    SI_PA_SUBMENU_PAB_DISABLE_RULE = "Выключить правило",
     SI_PA_SUBMENU_PAB_ADD_RULE_BUTTON = "Добавить",
     SI_PA_SUBMENU_PAB_UPDATE_RULE_BUTTON = "Сохранить",
     SI_PA_SUBMENU_PAB_DELETE_RULE_BUTTON = "Удалить",

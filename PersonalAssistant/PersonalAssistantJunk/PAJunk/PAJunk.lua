@@ -151,7 +151,7 @@ end
 
 local function _requiresIndividualFCOISItemCheck()
     local PAI = PA.Integration
-    if PAI and FCOIS then
+    if PAI and PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
         local PAIFCOISSavedVars = PAI.SavedVars.FCOItemSaver
         local autoSellMarked = PAIFCOISSavedVars.Sell.autoSellMarked
         local lockedPreventsAutoSell = PAIFCOISSavedVars.Locked.preventAutoSell

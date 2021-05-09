@@ -54,8 +54,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_AVA_OTHER_HEADER = "Прочее",
 
     -- Other Settings --
---    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "",
---    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION = "Автоматически запускать PABanking",
+    SI_PA_MENU_BANKING_AUTO_ITEM_TRANSFER_EXECUTION_T = "Автоматически запускать перемещение предиметов в банк или из банка при взаимодействии с банкиром? Если выключено вы все еще можете запустить перемещение в интерфейсе банка",
 
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING = "Правила объединения при внесении",
     SI_PA_MENU_BANKING_OTHER_DEPOSIT_STACKING_T = "Определяет будут ли все выбранные предметы перемещены в банк или только лишь дополнены имеющиеся там стеки",
@@ -78,6 +78,9 @@ local PABStrings = {
 
     SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W = "Не может быть отменено. Все индивидуально заданные значения будут сброшены",
 
+    -- Correct wrong language forms
+    SI_PA_MENU_BANKING_ADVANCED_TROPHIES_TREASURE_MAPS_HEADER = table.concat({zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TROPHY), 2), ": Карты сокровищ"}),
+    SI_PA_MENU_BANKING_ADVANCED_TROPHIES_SURVEY_REPORTS_HEADER = table.concat({zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_TROPHY), 2), ": Отчеты об исследовании"}),
 
     -- =================================================================================================================
     -- == MAIN MENU TEXTS == --
@@ -202,7 +205,6 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%s / %s внесено (Нет места в банке)",
 
     SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s перемещено в %s",
-    SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = "%d/%d x %s перемещено в %s",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = "Невозможно переместить %s в %s. Нет места!",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = "Невозможно переместить %s в %s. Окно было закрыто!",
     SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = "Некоторые предметы НЕ БЫЛИ перемещены, чтоб предотвратить потенциальные коллизии с Dolgubon's Lazy Writ Crafter",
@@ -210,8 +212,8 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_RULES_ADDED = table.concat({"Правило для %s было ", PAC.COLOR.ORANGE:Colorize("добавлено"), "!"}),
     SI_PA_CHAT_BANKING_RULES_UPDATED = table.concat({"Правило для %s было ", PAC.COLOR.ORANGE:Colorize("обновлено"), "!"}),
     SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"Правило для %s было ", PAC.COLOR.ORANGE:Colorize("удалено"), "!"}),
-    --SI_PA_CHAT_BANKING_RULES_ENABLED = "",
-    --SI_PA_CHAT_BANKING_RULES_DISABLED = "",
+    SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"Правило для %s было ", PAC.COLOR.ORANGE:Colorize("включено"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"Правило для %s было ", PAC.COLOR.ORANGE:Colorize("выключено"), "!"}),
 
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking Advanced Rules --
@@ -228,8 +230,8 @@ local PABStrings = {
     -- == KEY BINDINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PABanking --
---    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS = "",
---    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS_PENDING = "",
+    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS = "Запустить PABanking",
+    SI_BINDING_NAME_PA_BANKING_EXECUTE_ITEM_TRANSFERS_PENDING = "PABanking выполняется...",
 }
 
 for key, value in pairs(PABStrings) do
