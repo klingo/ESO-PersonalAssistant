@@ -25,6 +25,9 @@ localization/$(language).lua
 PersonalAssistantGeneral/localization/en.lua
 PersonalAssistantGeneral/localization/$(language).lua
 
+# Integrations
+libs/Integrations/FCOItemSaver.lua
+
 # Core-Utilities
 Utilities/HelperFunctions.lua
 Utilities/zo_savedvars.lua
@@ -53,9 +56,6 @@ PersonalAssistantGeneral/Menu/PAGeneralMenu.lua
 
 # Main
 PersonalAssistant.lua
-
-# Integrations
-libs/Integrations/FCOItemSaver.lua
 
 # Bindings
 bindings/Bindings.lua
