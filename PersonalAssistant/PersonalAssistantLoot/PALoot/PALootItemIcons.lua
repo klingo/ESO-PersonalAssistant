@@ -26,13 +26,33 @@ local function _isGridViewDisplay(control, hookType)
 end
 
 -- only if this function returns 'true' any icon controls shall be added
-local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType)
+local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType, itemLink)
     if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled then
         if itemType == ITEMTYPE_RECIPE or itemType == ITEMTYPE_RACIAL_STYLE_MOTIF or
             itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY or
-                specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
+                specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
+            -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
+            if GetAPIVersion() >= 100035 then
+                -- In Blackwood, we also need to check if the item is for the player (and not the companion)
+                local itemActorCategory = GetItemLinkActorCategory(itemLink)
+                return itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_PLAYER
+            end
+            -- Pre-Blackwood, the item is always valid
             return true
         end
+    end
+    return false
+end
+
+local function _hasItemSetCollectionIconChecksPassed(itemLink)
+    if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled and IsItemLinkSetCollectionPiece(itemLink) then
+        if GetAPIVersion() >= 100035 then
+            -- In Blackwood, we also need to check if the item is for the player (and not the companion)
+            local itemActorCategory = GetItemLinkActorCategory(itemLink)
+            return itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_PLAYER
+        end
+        -- Pre-Blackwood, the item is always valid
+        return true
     end
     return false
 end
@@ -169,7 +189,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     itemIconControl:SetHidden(true)
 
     -- then check if the pre-conditions are met, otherwise stop any further processing
-    if not _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType) then
+    if not _hasItemIconChecksPassed(itemType, specializedItemType, itemFilterType, itemLink) then
         return
     end
 
@@ -200,7 +220,8 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             local itemTraitType = GetItemLinkTraitType(itemLink)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
-        elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showKnownIcon) then
+        elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showKnownIcon) then
+            -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
@@ -213,7 +234,8 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             local itemTraitType = GetItemLinkTraitType(itemLink)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
-        elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showUnknownIcon) then
+        elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showUnknownIcon) then
+            -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
@@ -229,7 +251,7 @@ local function _addSetCollectionVisuals(parentControl, itemLink, hookType)
     itemIconControl:SetHidden(true)
 
     -- then check if the pre-conditions are met, otherwise stop any further processing
-    if not PA.Loot.SavedVars.ItemIcons.itemIconsEnabled or not IsItemLinkSetCollectionPiece(itemLink) then
+    if not _hasItemSetCollectionIconChecksPassed(itemLink) then
         return
     end
 

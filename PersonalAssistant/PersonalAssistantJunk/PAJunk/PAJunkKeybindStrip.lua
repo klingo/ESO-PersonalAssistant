@@ -71,7 +71,8 @@ local function _isDestroyItemEnabled()
         elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
             -- check for unknown motifs
             if IsItemLinkBook(itemLink) and not IsItemLinkBookKnown(itemLink) then return false end
-        elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE then
+        elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then
+            -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
             -- check for unknown style page containers
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
