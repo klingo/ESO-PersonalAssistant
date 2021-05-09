@@ -141,6 +141,7 @@ local function _getOrCreateKnownUnknownItemControl(parent)
     if not itemIconControl then
         itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. KNOWN_UNKNOWN_CONTROL_NAME, parent, CT_TEXTURE)
         itemIconControl:SetDrawTier(DT_HIGH)
+        itemIconControl:SetDrawLevel(1)
     end
     return itemIconControl
 end
@@ -151,6 +152,7 @@ local function _getOrCreateSetCollectionItemControl(parent)
     if not itemIconControl then
         itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. SET_COLLECTION_CONTROL_NAME, parent, CT_TEXTURE)
         itemIconControl:SetDrawTier(DT_HIGH)
+        itemIconControl:SetDrawLevel(1)
     end
     return itemIconControl
 end
