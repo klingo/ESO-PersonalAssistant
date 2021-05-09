@@ -519,6 +519,10 @@ end
 local function getItemLinkLearnableStatus(itemLink)
     local itemType, specializedItemType = GetItemLinkItemType(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
+    if GetAPIVersion() >= 100035 and itemFilterType == ITEMFILTERTYPE_COMPANION then
+        -- make sure it's not a Blackwood companion item
+        return nil
+    end
     if itemType == ITEMTYPE_RECIPE then
         if IsItemLinkRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
         return PAC.LEARNABLE.UNKNOWN
@@ -537,7 +541,8 @@ local function getItemLinkLearnableStatus(itemLink)
         end
         if CanItemLinkBeTraitResearched(itemLink) then return PAC.LEARNABLE.UNKNOWN end
         return PAC.LEARNABLE.KNOWN
-    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
+    elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
+        -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
         local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
         local collectibleName = GetCollectibleName(containerCollectibleId)
         if collectibleName ~= nil and collectibleName ~= "" then

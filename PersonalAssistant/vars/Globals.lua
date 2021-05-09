@@ -51,7 +51,7 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020515, -- update this every release!
+            MINOR = 020516, -- update this every release!
         },
     },
 
@@ -504,7 +504,7 @@ PersonalAssistant.Constants = {
                 -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
             },
-            SURVEY_REPORTS = {
+            SURVEY_REPORTS = {  -- https://esoitem.uesp.net/viewlog.php?search=Survey%3A
                 [ITEMFILTERTYPE_BLACKSMITHING] = {
                     57687,  -- Blacksmith Survey: Auridon
                     57747,  -- Blacksmith Survey: Grahtwood
@@ -532,6 +532,7 @@ PersonalAssistant.Constants = {
                     126110, -- Blacksmith Survey: Vvardenfell
                     151598, -- Blacksmith Survey: Northern Elsweyr
                     166460, -- Blacksmith Survey: Western Skyrim
+                    178464, -- Blacksmith Survey: Blackwood
                 },
                 [ITEMFILTERTYPE_ENCHANTING] = {
                     57733,  -- Enchanter Survey: Auridon
@@ -560,6 +561,7 @@ PersonalAssistant.Constants = {
                     126122, -- Enchanter Survey: Vvardenfell
                     151602, -- Enchanter Survey: Northern Elsweyr
                     166462, -- Enchanter Survey: Western Skyrim
+                    178468, -- Enchanter Survey: Blackwood
                 },
                 [ITEMFILTERTYPE_CLOTHING] = {
                     57738,  -- Clothier Survey: Auridon
@@ -588,6 +590,7 @@ PersonalAssistant.Constants = {
                     126111, -- Clothier Survey: Vvardenfell
                     151599, -- Clothier Survey: Northern Elsweyr
                     166461, -- Clothier Survey: Western Skyrim
+                    178467, -- Clothier Survey: Blackwood
                 },
                 [ITEMFILTERTYPE_ALCHEMY] = {
                     57744,  -- Alchemist Survey: Auridon
@@ -616,6 +619,7 @@ PersonalAssistant.Constants = {
                     126113, -- Alchemist Survey: Vvardenfell
                     151601, -- Alchemist Survey: Northern Elsweyr
                     166459, -- Alchemist Survey: Western Skyrim
+                    178469, -- Alchemist Survey: Blackwood
                 },
                 [ITEMFILTERTYPE_WOODWORKING] = {
                     57741,  -- Woodworker Survey: Auridon
@@ -644,6 +648,7 @@ PersonalAssistant.Constants = {
                     126112, -- Woodworker Survey: Vvardenfell
                     151600, -- Woodworker Survey: Northern Elsweyr
                     166465, -- Woodworker Survey: Western Skyrim
+                    178465, -- Woodworker Survey: Blackwood
                 },
                 [ITEMFILTERTYPE_JEWELRYCRAFTING] = {
                     139422, -- Jewelry Crafting Survey: Auridon
@@ -672,6 +677,7 @@ PersonalAssistant.Constants = {
                     139444, -- Jewelry Crafting Survey: Vvardenfell
                     151603, -- Jewelry Crafting Survey: Northern Elsweyr
                     166464, -- Jewelry Crafting Survey: Western Skyrim
+                    178466, -- Jewelry Crafting Survey: Blackwood
                 },
             }
         },
