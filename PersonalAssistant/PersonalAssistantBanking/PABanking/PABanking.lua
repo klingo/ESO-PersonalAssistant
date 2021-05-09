@@ -50,7 +50,7 @@ end
 
 -- OPTIMIZE: rename to specify that this triggers the compatibility?
 local function hasLazyWritCrafterAndShouldGrabEnabled()
-    if WritCreater and PA.Integration then
+    if WritCreater and PA.Integration and PA.ProfileManager.PAIntegration.hasActiveProfile() then
         local _, hasAny = WritCreater.writSearch()
         return hasAny and WritCreater:GetSettings().shouldGrab and PA.Integration.SavedVars.LazyWritCrafter.compatibility
     end
