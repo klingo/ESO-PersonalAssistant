@@ -98,7 +98,7 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertBreak()
 
     -- Registered Events
-    local registeredEventsSet = PA.EventManager.getAllReventsInSet()
+    local registeredEventsSet = PA.EventManager.getAllEventsInSet()
     for key, value in pairs(registeredEventsSet) do
         debugEditControl:InsertLine(key.."="..tostring(value))
     end

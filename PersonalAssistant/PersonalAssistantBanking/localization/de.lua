@@ -129,7 +129,6 @@ local PABStrings = {
     SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "%s / %s eingelagert (Nicht genug Platz in Truhe)",
 
     SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s in %s verschoben",
-    SI_PA_CHAT_BANKING_ITEMS_MOVED_PARTIAL = "%d/%d x %s in %s verschoben",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = "%s konnte nicht in %s verschoben werden. Nicht genügend Platz!",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = "%s konnte nicht in %s verschoben werden. Fenster wurde geschlossen!",
     SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = "Manche Gegenstände wurden NICHT eingelagert um potentielle Überlagerungen mit Dolgubon's Lazy Writ Crafter zu vermeiden",
