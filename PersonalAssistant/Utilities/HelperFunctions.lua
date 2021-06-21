@@ -42,13 +42,8 @@ end
 ---@param table table any table
 ---@param key string|number the key that might in the table
 ---@return boolean whether the key exists in the table
-local function isKeyInTable(t, key)
-    for k in pairs(t) do
-        if k == key then
-            return true
-        end
-    end
-    return false
+local function isKeyInTable(table, key)
+    return table[key] ~= nil
 end
 
 local function removeValueFromIndexedTable(t, value)
@@ -336,8 +331,9 @@ end
 
 ---@param combinedLists table a complex list of holidayWrits, itemTypes, surveyMaps, itemTraitTypes, masterWritCraftingTypes, specializedItemTypes, learnableKnowItemTypes and learnableUnknownItemTypes
 ---@param excludeJunk boolean whether junk items should be excluded
+---@param skipItemsWithCustomRule boolean whether items for which a custom rule exists should be skipped
 ---@return fun(itemData: table) a comparator function that only returns item that match the complex list and pass the junk-test
-local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk)
+local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule)
     local function _isItemOfItemTypeAndKnowledge(itemType, itemLink, expectedItemType, expectedIsKnown)
         if itemType == expectedItemType then
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
@@ -376,6 +372,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if _isItemCharacterBound(itemData) then return false end
+        if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
         if specializedItemType == SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT then

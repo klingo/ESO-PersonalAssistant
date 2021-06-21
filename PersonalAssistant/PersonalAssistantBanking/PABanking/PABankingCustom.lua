@@ -7,6 +7,18 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local function hasItemActiveCustomRule(bagId, slotIndex)
+    local PABCUstomPAItemIds = PAB.SavedVars.Custom.PAItemIds
+    local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
+    if PAHF.isKeyInTable(PABCUstomPAItemIds, paItemId) then
+        if PABCUstomPAItemIds[paItemId].ruleEnabled then
+            PAB.debugln("%s has an active Custom Rule", GetItemName(bagId, slotIndex))
+            return true
+        end
+    end
+    return false
+end
+
 local function _doItemTransactions(depositFromBagCache, withdrawalFromBagCache)
     -- call the generic version
     PAB.doGenericItemTransactions(depositFromBagCache, {}, withdrawalFromBagCache, {})
@@ -118,5 +130,6 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Banking = PA.Banking or {}
+PA.Banking.hasItemActiveCustomRule = hasItemActiveCustomRule
 PA.Banking.depositOrWithdrawSimpleBankingRules = depositOrWithdrawSimpleBankingRules
 PA.Banking.depositOrWithdrawAdvancedBankingRules = depositOrWithdrawAdvancedBankingRules
