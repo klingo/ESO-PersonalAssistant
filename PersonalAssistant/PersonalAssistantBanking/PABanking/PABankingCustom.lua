@@ -35,7 +35,7 @@ local function depositOrWithdrawCustomItems()
             if ruleEnabled and operator ~= PAC.OPERATOR.NONE then
                 customPAItems[paItemId] = {
                     operator = operator,
-                    targetBagStack = moveConfig.bagAmount
+                    targetBagStack = moveConfig.bagAmount or 0
                 }
             end
         end
