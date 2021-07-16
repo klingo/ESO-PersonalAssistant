@@ -19,6 +19,11 @@ local function _getIsPatchNeededInfo(savedVarsVersion)
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
 
+local function _setLocalProfileCounter(PASavedVars)
+    local profileCounter = PASavedVars.General.profileCounter
+    PASavedVars.General.profileCounter = (type(profileCounter) == 'number' and profileCounter) or 0
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _applyPatch_2_5_14(savedVarsVersion, isPatchingNeeded)
