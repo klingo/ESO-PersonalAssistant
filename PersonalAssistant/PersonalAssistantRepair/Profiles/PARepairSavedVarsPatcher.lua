@@ -19,13 +19,18 @@ local function _getIsPatchNeededInfo(savedVarsVersion)
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
 
+local function _setLocalProfileCounter(PASavedVars)
+    local profileCounter = PASavedVars.General.profileCounter
+    PASavedVars.Repair.profileCounter = (type(profileCounter) == 'number' and profileCounter) or 0
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _applyPatch_2_5_11(savedVarsVersion, isPatchingNeeded)
     if isPatchingNeeded then
         local PASavedVars = PA.SavedVars
         -- copy the profileCounter value
-        PASavedVars.Repair.profileCounter = PASavedVars.General.profileCounter
+        _setLocalProfileCounter(PASavedVars)
         -- then loop through all profiles and copy the profileName
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Repair[profileNo]) then
