@@ -204,12 +204,14 @@ end
 
 ---@param itemTypeList table a list of itemTypes to be checked
 ---@param excludeJunk boolean whether junk items should be excluded
+---@param skipItemsWithCustomRule boolean whether items for which a custom rule exists should be skipped
 ---@return fun(itemData: table) a comparator function that only returns item that match the itemTypes and pass the junk-test
-local function getItemTypeComparator(itemTypeList, excludeJunk)
+local function getItemTypeComparator(itemTypeList, excludeJunk, skipItemsWithCustomRule)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if _isItemCharacterBound(itemData) then return false end
+        if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
