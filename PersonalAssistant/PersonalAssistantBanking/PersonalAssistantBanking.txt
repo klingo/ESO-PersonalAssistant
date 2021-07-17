@@ -30,6 +30,7 @@ PABanking/PABankingCurrency.lua
 PABanking/PABankingCrafting.lua
 PABanking/PABankingAdvanced.lua
 PABanking/PABankingAvA.lua
+PABanking/PABankingFCOIS.lua
 PABanking/PABankingCustom.lua
 PABanking/PABanking.lua
 PABanking/PABankingKeybindStrip.lua

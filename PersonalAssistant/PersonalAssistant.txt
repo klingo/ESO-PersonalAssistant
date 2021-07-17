@@ -25,14 +25,14 @@ localization/$(language).lua
 PersonalAssistantGeneral/localization/en.lua
 PersonalAssistantGeneral/localization/$(language).lua
 
-# Integrations
-libs/Integrations/FCOItemSaver.lua
-
 # Core-Utilities
 Utilities/HelperFunctions.lua
 Utilities/zo_savedvars.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
+
+# Integrations
+libs/Integrations/FCOItemSaver.lua
 
 # Profiles
 PersonalAssistantGeneral/Profiles/PAGeneralSavedVarsPatcher.lua
