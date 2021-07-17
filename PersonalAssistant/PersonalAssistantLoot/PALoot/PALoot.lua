@@ -182,7 +182,7 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PALProfileManager.hasActiveProfile() then
-       local PALootSavedVars = PAL.SavedVars
+        local PALootSavedVars = PAL.SavedVars
         local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
         -- check if addon is enabled
@@ -234,13 +234,22 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 end
                 if PALootSavedVars.LootEvents.LootApparelWeapons.uncollectedSetMsg then
                     if IsItemLinkSetCollectionPiece(itemLink) then
-                        local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
-                        if not isItemSetCollectionPieceUnlocked then
-                            local _, setName = GetItemLinkSetInfo(itemLink)
-                            PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
+                        if isNewItem then
+                            local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
+                            if not isItemSetCollectionPieceUnlocked then
+                                local _, setName = GetItemLinkSetInfo(itemLink)
+                                PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
+                            else
+                                -- Set item already collected
+                                PAL.debugln("set item already collected: %s", itemLink)
+                            end
                         else
-                            -- Set item already collected
-                            PAL.debugln("set item already collected: %s", itemLink)
+                            -- if the item is not new anymore; then this is most likely because it was just bound -> refresh the icons
+                            -- need to wait a little bit (500ms?), because if the list is refreshed immediately, the icon does not get updated yet
+                            PAL.debugln("set item is not new - was it just bound? REFRESH LIST! %s", itemLink)
+                            zo_callLater(function()
+                                PAL.ItemIcons.refreshScrollListVisible()
+                            end, 500)
                         end
                     end
                 end
