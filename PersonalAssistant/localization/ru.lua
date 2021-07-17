@@ -54,6 +54,9 @@ local PAStrings = {
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" настройки профиля ", PAC.COLOR.WHITE:Colorize("%s"), " были ", PAC.COLOR.ORANGE_RED:Colorize("скопированы"), " в профиль ", PAC.COLOR.WHITE:Colorize("%s")}),
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" выбранный профиль ", PAC.COLOR.WHITE:Colorize("%s"), " был ", PAC.COLOR.ORANGE_RED:Colorize("удален!")}),
 
+    --SI_PA_CHAT_GENERAL_TELEPORT_NO_PRIMARY_HOUSE = table.concat({}),
+    --SI_PA_CHAT_GENERAL_TELEPORT_ZONE_PREVENTED = table.concat({}),
+
 
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
@@ -199,6 +202,7 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Правила",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Переключить меню правил Банкинга/Хлама",
+    --SI_BINDING_NAME_PA_TRAVEL_TO_HOUSE = "",
 }
 
 for key, value in pairs(PAStrings) do
