@@ -107,7 +107,7 @@ end
 
 ---@param itemData table the itemData table of an ESO item
 ---@return boolean whether the item is characterBound or not
-local function _isItemCharacterBound(itemData)
+local function isItemCharacterBound(itemData)
     if itemData.isPACharacterBound == nil then
         local isBound = IsItemBound(itemData.bagId, itemData.slotIndex)
         local bindType = GetItemBindType(itemData.bagId, itemData.slotIndex)
@@ -158,7 +158,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
     return function(itemData)
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
         if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
@@ -210,7 +210,7 @@ local function getItemTypeComparator(itemTypeList, excludeJunk, skipItemsWithCus
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
         if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
@@ -226,7 +226,7 @@ local function getItemIdComparator(itemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         for expectedItemId, _ in pairs(itemIdList) do
             if expectedItemId == itemId then return true end
@@ -244,7 +244,7 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacter
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) and excludeStolen then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) and excludeCharacterBound then return false end
+        if isItemCharacterBound(itemData) and excludeCharacterBound then return false end
         local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
@@ -256,7 +256,7 @@ end
 ---@return fun(itemData: table) a comparator function that only returns stolen junk items
 local function getStolenJunkComparator()
     return function(itemData)
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
         local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
         return isStolen and isJunk
@@ -569,6 +569,7 @@ PA.HelperFunctions = {
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
     getPAItemIdentifierFromItemData = getPAItemIdentifierFromItemData,
+    isItemCharacterBound = isItemCharacterBound,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
     getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,

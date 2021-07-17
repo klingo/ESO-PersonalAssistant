@@ -16,10 +16,9 @@ local PAIStrings = {
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T = "Если у вас есть активные мастерские заказы и включено изъятие предметов в «Dolgubon's Lazy Writ Crafter», тогда для этих предметов параметр «Переместить в банк» игнорируется. Это необходимо для того, чтобы избежать немедленного повторного перемещения в банк снятых предметов",
 
     -- FCO ItemSaver --
-    SI_PA_MENU_INTEGRATION_FCOIS_PRECONDITION = "Примечание: чтобы использовать приведенные ниже настройки, необходимо сначала включить PAJunk",
-
     SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING = "Не продавать заблокированные предметы",
     SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED = "Продавать предметы отмеченные для продажи",
+    --SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED = "",
 
 
     -- =================================================================================================================

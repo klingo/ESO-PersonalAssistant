@@ -16,10 +16,9 @@ local PAIStrings = {
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T = "When you have active Writ Crafting quests and 'Withdraw writ items' is enabled in Dolgubon's Lazy Writ Crafter, then for these items the 'Deposit to Bank' setting is ignored. This is to avoid having withdrawn items immediately re-deposited",
 
     -- FCO ItemSaver --
-    SI_PA_MENU_INTEGRATION_FCOIS_PRECONDITION = "Note: In order to make use of below settings, you must enable PAJunk first",
-
     SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING = "Prevent Auto-Sell of items that are Locked",
     SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED = "Auto-Sell marked items at Merchants/Fences?",
+    SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED = "Move marked items when accessing the bank?",
 
 
     -- =================================================================================================================

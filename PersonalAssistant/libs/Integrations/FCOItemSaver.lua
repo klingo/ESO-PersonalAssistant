@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local FCOIS
@@ -22,7 +23,7 @@ local function _hasItemPassedStolenCheck(mustBeStolen, bagId, slotIndex)
     return isStolen == mustBeStolen
 end
 
-local function _initFCOISFlags()
+local function _getCurrentFCOISFlags()
     -- init flags with false
     local autoSellMarked = false
     local lockedPreventsAutoSell = false
@@ -41,7 +42,7 @@ end
 
 local function _getDynamicSellJunkIncludingFCOISComparator(mustBeStolen)
     -- init flags
-    local autoSellMarked, lockedPreventsAutoSell = _initFCOISFlags()
+    local autoSellMarked, lockedPreventsAutoSell = _getCurrentFCOISFlags()
 
     return function(itemData)
         local bagId = itemData.bagId
@@ -67,7 +68,7 @@ end
 
 local function _getDynamicSellFCOISComparator(mustBeStolen)
     -- init flags
-    local autoSellMarked, lockedPreventsAutoSell = _initFCOISFlags()
+    local autoSellMarked, lockedPreventsAutoSell = _getCurrentFCOISFlags()
 
     return function(itemData)
         local bagId = itemData.bagId
@@ -83,6 +84,25 @@ local function _getDynamicSellFCOISComparator(mustBeStolen)
             -- if FCOIS is running and item is NOT locked (or it is ignored), check if it is marked for selling
             local isMarkedForSelling = FCOIS.IsMarked(bagId, slotIndex, FCOIS_CON_ICON_SELL)
             if isMarkedForSelling and autoSellMarked then return true end
+        end
+
+        -- if FCOIS is NOT running, or if there were was no match with the markings, return false
+        return false
+    end
+end
+
+local function _getDynamicItemMoveFCOISComparator(fcoisFlagList, excludeJunk, skipItemsWithCustomRule)
+    return function(itemData)
+        if #fcoisFlagList == 0 then return false end
+        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
+        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if PAHF.isItemCharacterBound(itemData) then return false end
+        if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
+
+        if isFCOISLoadedProperly() then
+            for _, fcoisFlag in pairs(fcoisFlagList) do
+                if FCOIS.IsMarked(itemData.bagId, itemData.slotIndex, fcoisFlag) then return true end
+            end
         end
 
         -- if FCOIS is NOT running, or if there were was no match with the markings, return false
@@ -108,6 +128,10 @@ local function getSellFCOISComparator()
     return _getDynamicSellFCOISComparator(false) -- mustBeStolen = false
 end
 
+local function getItemMoveFCOISComparator(fcoisFlagList)
+    return _getDynamicItemMoveFCOISComparator(fcoisFlagList, true, true)
+end
+
 -- -----------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Libs = PA.Libs or {}
@@ -117,4 +141,5 @@ PA.Libs.FCOItemSaver = {
     getSellStolenFCOISComparator = getSellStolenFCOISComparator,
     getSellJunkIncludingFCOISComparator = getSellJunkIncludingFCOISComparator,
     getSellFCOISComparator = getSellFCOISComparator,
+    getItemMoveFCOISComparator = getItemMoveFCOISComparator,
 }

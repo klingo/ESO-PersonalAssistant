@@ -16,10 +16,9 @@ local PAIStrings = {
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T = "Si vous avez des commandes d'artisanat en cours et que 'Prendre les matériaux de commande' est activé dans Dolgubon's Lazy Writ Crafter, alors ces objets ne seront pas déposés même si vous avez choisi 'Déposer en banque'. Ceci est pour éviter de remettre directement en banque les objets qui viennent d'être retirés.",
 
     -- FCO ItemSaver --
-    SI_PA_MENU_INTEGRATION_FCOIS_PRECONDITION = "Note: Pour utiliser les options ci-dessous, il est nécessaire d'activer PAJunk.",
-
     SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING = "Empêcher la vente auto. des objets verrouillés",
     SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED = "Vente/Recel auto. des marqués aux marchands",
+    --SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED = "",
 
 
     -- =================================================================================================================
