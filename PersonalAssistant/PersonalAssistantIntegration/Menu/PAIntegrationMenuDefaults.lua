@@ -14,6 +14,7 @@ local PAIntegrationMenuDefaults = {
     FCOItemSaver = {
         Locked = {
             preventAutoSell = false,
+            preventMoving = false,
         },
         Sell = {
             autoSellMarked = false,

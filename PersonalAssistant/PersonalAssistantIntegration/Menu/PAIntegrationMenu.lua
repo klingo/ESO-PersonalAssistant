@@ -38,6 +38,8 @@ local PAIFCOISIntricateSubmenuTable = setmetatable({}, { __index = table })
 local PAIFCOISGearSetsSubmenuTable = setmetatable({}, { __index = table })
 local PAIFCOISDynamicIconsSubmenuTable = setmetatable({}, { __index = table })
 
+local paBankingRequiredText = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
+local paJunkRequiredText = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk)
 
 -- =================================================================================================================
 
@@ -75,25 +77,22 @@ local function _createPAIntegrationMenu()
             name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATION_LWC_HEADER))
         })
 
-        -- has a dependency to PABanking
-        if not PA.Banking then
-            -- inform player about missing dependency
+        if PA.Banking then
+            PAIntegrationOptionsTable:insert({
+                type = "checkbox",
+                name = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY),
+                tooltip = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T),
+                getFunc = PAIMenuFunctions.getLazyWritCrafterCompatibilitySetting,
+                setFunc = PAIMenuFunctions.setLazyWritCrafterCompatibilitySetting,
+                disabled = PAIMenuFunctions.isLazyWritCrafterCompatibilityDisabled,
+                default = PAIMenuDefaults.LazyWritCrafter.compatibility,
+            })
+        else
             PAIntegrationOptionsTable:insert({
                 type = "description",
-                text = GetString(SI_PA_MENU_INTEGRATION_LWC_PRECONDITION),
+                text = paBankingRequiredText
             })
         end
-
-        PAIntegrationOptionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY),
-            tooltip = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T),
-            warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking),
-            getFunc = PAIMenuFunctions.getLazyWritCrafterCompatibilitySetting,
-            setFunc = PAIMenuFunctions.setLazyWritCrafterCompatibilitySetting,
-            disabled = PAIMenuFunctions.isLazyWritCrafterCompatibilityDisabled,
-            default = PAIMenuDefaults.LazyWritCrafter.compatibility,
-        })
     end
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -300,7 +299,24 @@ local function _createPAIFCOISLockedSubmenuTable()
     else
         PAIFCOISLockedSubmenuTable:insert({
             type = "description",
-            text = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk)
+            text = paJunkRequiredText
+        })
+    end
+
+    if PA.Banking then
+        PAIFCOISLockedSubmenuTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING),
+            tooltip = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING_T),
+            getFunc = PAIMenuFunctions.getFCOISLockedPreventMovingSetting,
+            setFunc = PAIMenuFunctions.setFCOISLockedPreventMovingSetting,
+            disabled = PAIMenuFunctions.isFCOISLockedPreventMovingDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.Locked.preventMoving,
+        })
+    else
+        PAIFCOISLockedSubmenuTable:insert({
+            type = "description",
+            text = paBankingRequiredText
         })
     end
 end
@@ -325,7 +341,7 @@ local function _createPAIFCOISResearchSubmenuTable()
     else
         PAIFCOISResearchSubmenuTable:insert({
             type = "description",
-            text = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
+            text = paBankingRequiredText
         })
     end
 end
@@ -337,7 +353,6 @@ local function _createPAIFCOISSellSubmenuTable()
         PAIFCOISSellSubmenuTable:insert({
             type = "checkbox",
             name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED),
-            warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
             getFunc = PAIMenuFunctions.getFCOISSellAutoSellMarkedSetting,
             setFunc = PAIMenuFunctions.setFCOISSellAutoSellMarkedSetting,
             disabled = PAIMenuFunctions.isFCOISSellAutoSellMarkedDisabled,
@@ -346,7 +361,7 @@ local function _createPAIFCOISSellSubmenuTable()
     else
         PAIFCOISSellSubmenuTable:insert({
             type = "description",
-            text = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk)
+            text = paJunkRequiredText
         })
     end
 end
@@ -371,7 +386,7 @@ local function _createPAIFCOISDeconstructionSubmenuTable()
     else
         PAIFCOISDeconstructionSubmenuTable:insert({
           type = "description",
-          text = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
+          text = paBankingRequiredText
       })
     end
 end
@@ -396,7 +411,7 @@ local function _createPAIFCOISImprovementSubmenuTable()
     else
         PAIFCOISImprovementSubmenuTable:insert({
             type = "description",
-            text = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
+            text = paBankingRequiredText
         })
     end
 end
@@ -421,7 +436,7 @@ local function _createPAIFCOISSellGuildStoreSubmenuTable()
     else
         PAIFCOISSellGuildStoreSubmenuTable:insert({
             type = "description",
-            text = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
+            text = paBankingRequiredText
         })
     end
 end
@@ -446,7 +461,7 @@ local function _createPAIFCOISIntricateSubmenuTable()
     else
         PAIFCOISIntricateSubmenuTable:insert({
             type = "description",
-            text = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
+            text = paBankingRequiredText
         })
     end
 end

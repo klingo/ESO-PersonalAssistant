@@ -30,6 +30,11 @@ local function isDisabled(...)
     return PAMF.isDisabled(PAI.SavedVars, ...)
 end
 
+local function isDisabledAll(...)
+    if isNoProfileSelected() then return true end
+    return PAMF.isDisabledAll(PAI.SavedVars, ...)
+end
+
 -- =================================================================================================================
 
 --------------------------------------------------------------------------
@@ -47,7 +52,7 @@ end
 local function isPAIntegrationFCOISLockedMenuDisabled()
     if isNoProfileSelected() then return true end
     if not PA.Junk then return true end
-    if isDisabled({"FCOItemSaver", "Locked", "preventAutoSell"}) then return true end
+    if isDisabledAll({"FCOItemSaver", "Locked", "preventAutoSell"}, {"FCOItemSaver", "Locked", "preventMoving"}) then return true end
     return false
 end
 
@@ -57,6 +62,15 @@ end
 local function isPAIntegrationFCOISLockedPreventAutoSellDisabled()
     if isNoProfileSelected() then return true end
     if not PA.Junk then return true end
+    return false
+end
+
+--------------------------------------------------------------------------
+-- PAIntegration    FCOIS.Locked                preventMoving
+---------------------------------
+local function isPAIntegrationFCOISLockedPreventMovingDisabled()
+    if isNoProfileSelected() then return true end
+    if not PA.Banking then return true end
     return false
 end
 
@@ -212,6 +226,9 @@ local PAIntegrationMenuFunctions = {
     isFCOISLockedPreventAutoSellDisabled = isPAIntegrationFCOISLockedPreventAutoSellDisabled,
     getFCOISLockedPreventAutoSellSetting = function() return getValue({"FCOItemSaver", "Locked", "preventAutoSell"}) end,
     setFCOISLockedPreventAutoSellSetting = function(value) setValueAndRefreshEvents(value, {"FCOItemSaver", "Locked", "preventAutoSell"}) end,
+    isFCOISLockedPreventMovingDisabled = isPAIntegrationFCOISLockedPreventMovingDisabled,
+    getFCOISLockedPreventMovingSetting = function() return getValue({"FCOItemSaver", "Locked", "preventMoving"}) end,
+    setFCOISLockedPreventMovingSetting = function(value) setValue(value, {"FCOItemSaver", "Locked", "preventMoving"}) end,
 
     isFCOISSellMenuDisabled = isPAIntegrationFCOISSellMenuDisabled,
     isFCOISSellAutoSellMarkedDisabled = isPAIntegrationFCOISSellAutoSellMarkedDisabled,

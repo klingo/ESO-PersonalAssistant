@@ -18,6 +18,11 @@ local function _isItemFCOISSellLocked(bagId, slotIndex)
     return isMarkedAsLocked or isVendorSellLocked
 end
 
+local function _isItemFCOISMoveLocked(bagId, slotIndex)
+    local isMarkedAsLocked = FCOIS.IsMarked(bagId, slotIndex, FCOIS_CON_ICON_LOCK)
+    return isMarkedAsLocked
+end
+
 local function _hasItemPassedStolenCheck(mustBeStolen, bagId, slotIndex)
     local isStolen = IsItemStolen(bagId, slotIndex)
     return isStolen == mustBeStolen
@@ -27,13 +32,15 @@ local function _getCurrentFCOISFlags()
     -- init flags with false
     local autoSellMarked = false
     local lockedPreventsAutoSell = false
+    local lockedPreventsMoving = false
     -- if PAIntegration and FCOIS are running, update the flags with values from SavedVars
     if PA.Integration and isFCOISLoadedProperly() then
         local PAIFCOISSavedVars = PA.Integration.SavedVars.FCOItemSaver
         autoSellMarked = PAIFCOISSavedVars.Sell.autoSellMarked
         lockedPreventsAutoSell = PAIFCOISSavedVars.Locked.preventAutoSell
+        lockedPreventsMoving = PAIFCOISSavedVars.Locked.preventMoving
     end
-    return autoSellMarked, lockedPreventsAutoSell
+    return autoSellMarked, lockedPreventsAutoSell, lockedPreventsMoving
 end
 
 -- =================================================================================================================
@@ -92,16 +99,26 @@ local function _getDynamicSellFCOISComparator(mustBeStolen)
 end
 
 local function _getDynamicItemMoveFCOISComparator(fcoisFlagList, excludeJunk, skipItemsWithCustomRule)
+    -- init flags
+    local _, _, lockedPreventsMoving = _getCurrentFCOISFlags()
+
     return function(itemData)
+        local bagId = itemData.bagId
+        local slotIndex = itemData.slotIndex
+
         if #fcoisFlagList == 0 then return false end
-        if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
+        if IsItemJunk(bagId, slotIndex) and excludeJunk then return false end
+        if IsItemStolen(bagId, slotIndex) then return false end
         if PAHF.isItemCharacterBound(itemData) then return false end
-        if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
+        if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(bagId, slotIndex) then return false end
 
         if isFCOISLoadedProperly() then
+            -- if FCOIS is running, check if the item is locked (and locked prevents moving)
+            if _isItemFCOISMoveLocked(bagId, slotIndex) and lockedPreventsMoving then return false end
+
+            -- if FCOIS is running and item is NOT locked (or it is ignored), check if it is marked for moving
             for _, fcoisFlag in pairs(fcoisFlagList) do
-                if FCOIS.IsMarked(itemData.bagId, itemData.slotIndex, fcoisFlag) then return true end
+                if FCOIS.IsMarked(bagId, slotIndex, fcoisFlag) then return true end
             end
         end
 
