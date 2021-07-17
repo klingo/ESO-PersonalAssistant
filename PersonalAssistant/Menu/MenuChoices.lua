@@ -61,6 +61,10 @@ local PAMenuChoices = {
         defaultSoulGem = {
             GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_GOLD),
             GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_CROWN),
+        },
+        defaultRepairKit = {
+            GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_GOLD),
+            GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_CROWN),
         }
     },
 }
@@ -120,6 +124,10 @@ local PAMenuChoicesValues = {
     },
     PARepair = {
         defaultSoulGem = {
+            DEFAULT_SOUL_GEM_CHOICE_GOLD,
+            DEFAULT_SOUL_GEM_CHOICE_CROWN,
+        },
+        defaultRepairKit = {
             DEFAULT_SOUL_GEM_CHOICE_GOLD,
             DEFAULT_SOUL_GEM_CHOICE_CROWN,
         }
