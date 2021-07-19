@@ -233,9 +233,6 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     end
                 end
 
-                -- TODO 1: ItemIcon for Companion Items
-
-
             -- Apparel & Weapons
             elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
                 if PALootSavedVars.LootEvents.LootApparelWeapons.unknownTraitMsg then

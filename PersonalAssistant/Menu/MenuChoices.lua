@@ -112,7 +112,7 @@ local PAMenuChoicesValues = {
 --            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
         },
         qualityLevel = {
-            PAC.ITEM_QUALITY.DISABLED,  -- -1 (disabled)
+            PAC.ITEM_QUALITY.DISABLED,             -- -1 (disabled)
             ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
             ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
             ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
@@ -121,7 +121,7 @@ local PAMenuChoicesValues = {
 --            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
         },
         qualityLevelReverse = {
-            PAC.ITEM_QUALITY.DISABLED_REVERSE,  -- 99 (disabled)
+            PAC.ITEM_QUALITY.DISABLED_REVERSE,     -- 99 (disabled)
             ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
             ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
             ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
