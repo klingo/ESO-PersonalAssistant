@@ -222,14 +222,14 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             elseif PAHF.isItemForCompanion(bagId, slotIndex) then
                 -- has to be checked before Apparel & Weapons, since Companion items are also considered apparel and weapons
                 local itemQualityThreshold = PALootSavedVars.LootEvents.LootCompanionItems.qualityThreshold
-                if itemQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                if isNewItem and itemQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
                     local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
-                    PAL.debugln("HasActiveCompanion(true), is quality %d >= %d ?", itemQuality, itemQualityThreshold)
+                    PAL.debugln("isItemForCompanion(true), is quality %d >= %d ?", itemQuality, itemQualityThreshold)
                     if itemQuality >= itemQualityThreshold then
                         PAL.println(SI_PA_CHAT_LOOT_COMPANION_ITEM, itemLink)
                     else
                         -- Companion item below quality threshold
-                        PAL.debugln("HasActiveCompanion(true), companion item below threshold: %s", itemLink)
+                        PAL.debugln("isItemForCompanion(true), companion item below threshold: %s", itemLink)
                     end
                 end
 
