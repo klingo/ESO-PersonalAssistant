@@ -68,7 +68,17 @@ local PALootMenuDefaults = {
             iconYOffsetList = 0,
             iconXOffsetGrid = -2,
             iconYOffsetGrid = -2,
-        }
+        },
+
+        CompanionItems = {
+            showCompanionItemIcon = true,
+            iconSizeList = 16,
+            iconSizeGrid = 16,
+            iconXOffsetList = 0,
+            iconYOffsetList = 0,
+            iconXOffsetGrid = 2,
+            iconYOffsetGrid = -2,
+        },
     },
 
     InventorySpace = {

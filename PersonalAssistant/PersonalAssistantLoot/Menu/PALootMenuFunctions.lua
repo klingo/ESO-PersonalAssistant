@@ -77,6 +77,12 @@ local function isPALootIconsSetCollectionMenuDisabled()
     return false
 end
 
+local function isPALootIconsCompanionItemsMenuDisabled()
+    if isDisabled({"ItemIcons", "itemIconsEnabled"}) then return true end
+    if isDisabled({"ItemIcons", "CompanionItems", "showCompanionItemIcon"}) then return true end
+    return false
+end
+
 -- =================================================================================================================
 
 local PALootMenuFunctions = {
@@ -186,6 +192,16 @@ local PALootMenuFunctions = {
     getMarkUncollectedSetItemSetting = function() return getValue({"ItemIcons", "SetCollection", "showUncollectedIcon"})  end,
     setMarkUncollectedSetItemSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "showUncollectedIcon"}) end,
 
+
+    -- ----------------------------------------------------------------------------------
+    -- COMPANION ITEMS SETTINGS
+    -- -----------------------------
+    isMarkCompanionItemsMenuDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabledAll({"ItemIcons", "CompanionItems", "showCompanionItemIcon"}) end,
+    isMarkCompanionItemDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) end,
+    getMarkCompanionItemSetting = function() return getValue({"ItemIcons", "CompanionItems", "showCompanionItemIcon"})  end,
+    setMarkCompanionItemSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "CompanionItems", "showCompanionItemIcon"}) end,
+
+
     -- ----------------------------------------------------------------------------------
     -- ITEM ICONS SETTINGS
     -- -----------------------------
@@ -243,6 +259,34 @@ local PALootMenuFunctions = {
     isItemIconsSetCollectionYOffsetGridDisabled = isPALootIconsSetCollectionMenuDisabled,
     getItemIconsSetCollectionYOffsetGridSetting = function() return getValue({"ItemIcons", "SetCollection", "iconYOffsetGrid"}) end,
     setItemIconsSetCollectionYOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "SetCollection", "iconYOffsetGrid"}) end,
+
+    -- ----------------------------------------------------------------------------------
+
+    isIconsCompanionItemsMenuDisabled = function() return isDisabled({"ItemIcons", "itemIconsEnabled"}) or isDisabled({"ItemIcons", "CompanionItems", "showCompanionItemIcon"}) end,
+
+    isItemIconsCompanionItemsSizeListDisabled = isPALootIconsCompanionItemsMenuDisabled,
+    getItemIconsCompanionItemsSizeListSetting = function() return getValue({"ItemIcons", "CompanionItems", "iconSizeList"}) end,
+    setItemIconsCompanionItemsSizeListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "CompanionItems", "iconSizeList"}) end,
+
+    isItemIconsCompanionItemsSizeGridDisabled = isPALootIconsCompanionItemsMenuDisabled,
+    getItemIconsCompanionItemsSizeGridSetting = function() return getValue({"ItemIcons", "CompanionItems", "iconSizeGrid"}) end,
+    setItemIconsCompanionItemsSizeGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "CompanionItems", "iconSizeGrid"}) end,
+
+    isItemIconsCompanionItemsXOffsetListDisabled = isPALootIconsCompanionItemsMenuDisabled,
+    getItemIconsCompanionItemsXOffsetListSetting = function() return getValue({"ItemIcons", "CompanionItems", "iconXOffsetList"}) end,
+    setItemIconsCompanionItemsXOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "CompanionItems", "iconXOffsetList"}) end,
+
+    isItemIconsCompanionItemsYOffsetListDisabled = isPALootIconsCompanionItemsMenuDisabled,
+    getItemIconsCompanionItemsYOffsetListSetting = function() return getValue({"ItemIcons", "CompanionItems", "iconYOffsetList"}) end,
+    setItemIconsCompanionItemsYOffsetListSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "CompanionItems", "iconYOffsetList"}) end,
+
+    isItemIconsCompanionItemsXOffsetGridDisabled = isPALootIconsCompanionItemsMenuDisabled,
+    getItemIconsCompanionItemsXOffsetGridSetting = function() return getValue({"ItemIcons", "CompanionItems", "iconXOffsetGrid"}) end,
+    setItemIconsCompanionItemsXOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "CompanionItems", "iconXOffsetGrid"}) end,
+
+    isItemIconsCompanionItemsYOffsetGridDisabled = isPALootIconsCompanionItemsMenuDisabled,
+    getItemIconsCompanionItemsYOffsetGridSetting = function() return getValue({"ItemIcons", "CompanionItems", "iconYOffsetGrid"}) end,
+    setItemIconsCompanionItemsYOffsetGridSetting = function(value) setValueAndRefreshScrollListVisible(value, {"ItemIcons", "CompanionItems", "iconYOffsetGrid"}) end,
 
     -- ----------------------------------------------------------------------------------
 

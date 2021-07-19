@@ -64,10 +64,15 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "если особенность еще не изучена"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "если предмет не добавлен в коллекции"}),
 
+    -- Mark Companion Items --
+    --SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_HEADER = "",
+    --SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_SHOW_ALL = "",
+
     -- Item Icon Positioning --
     SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "Ниже вы можете настроить расположение и размер значков предметов.",
     SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "Известен/Не известен",
     SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "Не в коллекции",
+    --SI_PA_MENU_LOOT_ICONS_COMPANION_ITEMS_HEADER = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION),  <-- to be confirmed if this ESO string exists in ruRU
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Размер иконки (В виде списка)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Задает размер значка известен/неизвестен там, где предметы отображаются в виде списка",
@@ -109,6 +114,7 @@ local PALStrings = {
     SI_PA_ITEM_KNOWN = "Известен",
     SI_PA_ITEM_UNKNOWN = "Неизвестен",
     SI_PA_ITEM_UNCOLLECTED = "Не в коллекции",
+    --SI_PA_ITEM_COMPANION_ITEM = ""
 }
 
 for key, value in pairs(PALStrings) do

@@ -64,10 +64,15 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "un trait pas encore recherché"}),
     --SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = "",
 
+    -- Mark Companion Items --
+    --SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_HEADER = "",
+    --SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_SHOW_ALL = "",
+
     -- Item Icon Positioning --
     --SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "",
     --SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "",
     --SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "",
+    SI_PA_MENU_LOOT_ICONS_COMPANION_ITEMS_HEADER = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION),
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Taille de l'icone (Vue classique)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Définir la taille de l'icone connu/inconnu quand l'affichage des objets est en vue classique",
@@ -109,6 +114,7 @@ local PALStrings = {
     SI_PA_ITEM_KNOWN = "Déjà connu",
     SI_PA_ITEM_UNKNOWN = "Inconnu",
     --SI_PA_ITEM_UNCOLLECTED = "",
+    --SI_PA_ITEM_COMPANION_ITEM = ""
 }
 
 for key, value in pairs(PALStrings) do
