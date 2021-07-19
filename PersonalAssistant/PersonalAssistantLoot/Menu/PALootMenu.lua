@@ -33,6 +33,7 @@ local PALootProfileSubMenuTable = setmetatable({}, { __index = table })
 local PALLootRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootStylesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
+local PALLooCompanionItemsSubmenuTable = setmetatable({}, { __index = table })
 
 local PALMarkRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALMarkMotifsSubmenuTable = setmetatable({}, { __index = table })
@@ -92,6 +93,15 @@ local function _createPALootMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PALLootApparelWeaponsSubmenuTable,
         disabledLabel = PALMenuFunctions.isLootApparelWeaponsMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.COMPANION.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PALLooCompanionItemsSubmenuTable,
+        disabledLabel = PALMenuFunctions.isLootCompanionItemsMenuDisabled,
     })
 
     PALootOptionsTable:insert({
@@ -390,6 +400,28 @@ local function _createPALLootApparelWeaponsSubmenuTable()
         disabled = PALMenuFunctions.isUncollectedSetMsgDisabled,
         default = PALMenuDefaults.LootEvents.LootApparelWeapons.uncollectedSetMsg,
     })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALLooCompanionItemsSubmenuTable()
+    PALLooCompanionItemsSubmenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_DISPLAY_A_MESSAGE_WHEN),
+        disabled = PALMenuFunctions.isLootCompanionItemsMenuDisabled,
+    })
+
+    PALLooCompanionItemsSubmenuTable:insert({
+       type = "dropdown",
+       name = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD),
+       tooltip = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T),
+       choices = PALMenuChoices.qualityLevel,
+       choicesValues = PALMenuChoicesValues.qualityLevel,
+       getFunc = PALMenuFunctions.getLootCompanionItemsQualityThresholdSetting,
+       setFunc = PALMenuFunctions.setLootCompanionItemsQualityThresholdSetting,
+       disabled = PALMenuFunctions.isLootCompanionItemsQualityThresholdDisabled,
+       default = PALMenuDefaults.LootEvents.LootCompanionItems.qualityThreshold,
+   })
 end
 
 -- =================================================================================================================
@@ -804,6 +836,7 @@ local function createOptions()
     _createPALLootRecipesSubmenuTable()
     _createPALLootStylesSubmenuTable()
     _createPALLootApparelWeaponsSubmenuTable()
+    _createPALLooCompanionItemsSubmenuTable()
 
     _createPALMarkRecipesSubmenuTable()
     _createPALMarkMotifsSubmenuTable()

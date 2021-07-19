@@ -49,6 +49,18 @@ end
 
 -- =================================================================================================================
 
+--------------------------------------------------------------------------
+-- PALoot       LootCompanionItems
+---------------------------------
+local function isPALootCompanionItemsMenuDisabled()
+    if isDisabled({"LootEvents", "lootEventsEnabled"}) then return true end
+    if getValue({"LootEvents", "LootCompanionItems", "qualityThreshold"}) == PAC.ITEM_QUALITY.DISABLED then
+        return true
+    end
+    -- if no 'true' returned so far, return false now
+    return false
+end
+
 local function isPALootIconsKnownUnknownMenuDisabled()
     if isDisabled({"ItemIcons", "itemIconsEnabled"}) then return true end
     if isDisabledAll({"ItemIcons", "Recipes", "showKnownIcon"}, {"ItemIcons", "Recipes", "showUnknownIcon"}) and
@@ -101,6 +113,14 @@ local PALootMenuFunctions = {
     isUncollectedSetMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getUncollectedSetMsgSetting = function() return getValue({"LootEvents", "LootApparelWeapons", "uncollectedSetMsg"}) end,
     setUncollectedSetMsgSetting = function(value) setValue(value, {"LootEvents", "LootApparelWeapons", "uncollectedSetMsg"}) end,
+
+    -- ----------------------------------------------------------------------------------
+    -- COMPANION ITEMS SETTINGS
+    -- -----------------------------
+    isLootCompanionItemsMenuDisabled = isPALootCompanionItemsMenuDisabled,
+    isLootCompanionItemsQualityThresholdDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getLootCompanionItemsQualityThresholdSetting = function() return getValue({"LootEvents", "LootCompanionItems", "qualityThreshold"}) end,
+    setLootCompanionItemsQualityThresholdSetting = function(value) setValue(value, {"LootEvents", "LootCompanionItems", "qualityThreshold"}) end,
 
     -- ----------------------------------------------------------------------------------
 

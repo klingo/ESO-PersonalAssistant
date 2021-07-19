@@ -23,6 +23,10 @@ local PALootMenuDefaults = {
             unknownTraitMsg = true,
             uncollectedSetMsg = true,
         },
+
+        LootCompanionItems = {
+            qualityThreshold = ITEM_FUNCTIONAL_QUALITY_ARTIFACT,
+        },
     },
 
     ItemIcons = {

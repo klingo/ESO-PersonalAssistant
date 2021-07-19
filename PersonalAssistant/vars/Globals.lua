@@ -162,6 +162,9 @@ PersonalAssistant.Constants = {
             COLLECTIBLES = {
                 PATH = "/esoui/art/collections/collections_tabicon_collectibles_up.dds",
             },
+            COMPANION = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_companion_up.dds",
+            },
             MISCELLANEOUS = {
                 PATH = "/esoui/art/inventory/inventory_tabicon_misc_up.dds",
             },
@@ -395,6 +398,11 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
                 NORMAL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
                 SMALL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
+            },
+            COMPANION = {
+                PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
+                NORMAL = string.format("|cFFBF00%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
+                SMALL = string.format("|cFFBF00%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
             }
         }
     },

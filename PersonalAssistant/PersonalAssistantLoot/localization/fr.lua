@@ -31,6 +31,11 @@ local PALStrings = {
     --SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG = "",
     --SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = "",
 
+    -- Loot Companion Items
+    --SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER = "",
+    --SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = "",
+    --SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = "",
+
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Avertir si l'espace restant est faible",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Affiche un avertissement dans la fenêtre de chat s'il reste peu d'espace dans votre inventaire",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Seuil d' “espace faible”",
@@ -87,7 +92,8 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s peut être ", PAC.COLORS.ORANGE,"apprise", PAC.COLORS.DEFAULT, " !"}),
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s peut être ", PAC.COLORS.ORANGE,"appris", PAC.COLORS.DEFAULT, " !"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s a le trait [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] qui peut être recherché !"}),
-    --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, ""}),
+    --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s"}),
+    --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s"}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[place dans l'inventaire/place dans l'inventaire/places dans l'inventaire]>> !"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[nécessaire de réparation/nécessaire de réparation/nécessaires de réparation]>> !"}),

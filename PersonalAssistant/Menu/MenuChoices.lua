@@ -57,6 +57,14 @@ local PAMenuChoices = {
             GetString(SI_PA_QUALITY_TRASH),
         },
     },
+    PALoot = {
+        qualityLevel = {
+            GetString(SI_PA_QUALITY_DISABLED),
+            GetString(SI_PA_QUALITY_FINE),
+            GetString(SI_PA_QUALITY_SUPERIOR),
+            GetString(SI_PA_QUALITY_EPIC),
+        },
+    },
     PARepair = {
         defaultSoulGem = {
             GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_GOLD),
@@ -120,6 +128,14 @@ local PAMenuChoicesValues = {
             ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
             ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
             ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
+        },
+    },
+    PALoot = {
+        qualityLevel = {
+            PAC.ITEM_QUALITY.DISABLED,             -- -1 (disabled)
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
         },
     },
     PARepair = {

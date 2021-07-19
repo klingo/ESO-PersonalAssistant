@@ -32,13 +32,8 @@ local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilte
             itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY or
                 specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
             -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
-            if GetAPIVersion() >= 100035 then
-                -- In Blackwood, we also need to check if the item is for the player (and not the companion)
-                local itemActorCategory = GetItemLinkActorCategory(itemLink)
-                return itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_PLAYER
-            end
-            -- Pre-Blackwood, the item is always valid
-            return true
+            -- Since Blackwood, we also need to check if the item is for the player (and not the companion)
+            return PAHF.isItemLinkForCompanion(itemLink) == false
         end
     end
     return false
@@ -46,13 +41,8 @@ end
 
 local function _hasItemSetCollectionIconChecksPassed(itemLink)
     if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled and IsItemLinkSetCollectionPiece(itemLink) then
-        if GetAPIVersion() >= 100035 then
-            -- In Blackwood, we also need to check if the item is for the player (and not the companion)
-            local itemActorCategory = GetItemLinkActorCategory(itemLink)
-            return itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_PLAYER
-        end
-        -- Pre-Blackwood, the item is always valid
-        return true
+        -- Since Blackwood, we also need to check if the item is for the player (and not the companion)
+        return PAHF.isItemLinkForCompanion(itemLink) == false
     end
     return false
 end

@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 local PAL = PA.Loot
 local PALProfileManager = PA.ProfileManager.PALoot
 
@@ -217,6 +218,23 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         end
                     end
                 end
+
+            elseif PAHF.isItemForCompanion(bagId, slotIndex) then
+                -- has to be checked before Apparel & Weapons, since Companion items are also considered apparel and weapons
+                local itemQualityThreshold = PALootSavedVars.LootEvents.LootCompanionItems.qualityThreshold
+                if itemQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                    local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
+                    PAL.debugln("HasActiveCompanion(true), is quality %d >= %d ?", itemQuality, itemQualityThreshold)
+                    if itemQuality >= itemQualityThreshold then
+                        PAL.println(SI_PA_CHAT_LOOT_COMPANION_ITEM, itemLink)
+                    else
+                        -- Companion item below quality threshold
+                        PAL.debugln("HasActiveCompanion(true), companion item below threshold: %s", itemLink)
+                    end
+                end
+
+                -- TODO 1: ItemIcon for Companion Items
+
 
             -- Apparel & Weapons
             elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
