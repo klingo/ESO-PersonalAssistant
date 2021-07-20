@@ -33,7 +33,7 @@ local PALootProfileSubMenuTable = setmetatable({}, { __index = table })
 local PALLootRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootStylesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
-local PALLooCompanionItemsSubmenuTable = setmetatable({}, { __index = table })
+local PALLootCompanionItemsSubmenuTable = setmetatable({}, { __index = table })
 
 local PALMarkRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALMarkMotifsSubmenuTable = setmetatable({}, { __index = table })
@@ -102,7 +102,7 @@ local function _createPALootMenu()
         name = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER),
         icon = PAC.ICONS.CRAFTBAG.COMPANION.PATH,
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
-        controls = PALLooCompanionItemsSubmenuTable,
+        controls = PALLootCompanionItemsSubmenuTable,
         disabledLabel = PALMenuFunctions.isLootCompanionItemsMenuDisabled,
     })
 
@@ -422,14 +422,14 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function _createPALLooCompanionItemsSubmenuTable()
-    PALLooCompanionItemsSubmenuTable:insert({
+local function _createPALLootCompanionItemsSubmenuTable()
+    PALLootCompanionItemsSubmenuTable:insert({
         type = "description",
         text = GetString(SI_PA_DISPLAY_A_MESSAGE_WHEN),
         disabled = PALMenuFunctions.isLootCompanionItemsMenuDisabled,
     })
 
-    PALLooCompanionItemsSubmenuTable:insert({
+    PALLootCompanionItemsSubmenuTable:insert({
        type = "dropdown",
        name = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD),
        tooltip = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T),
@@ -1016,7 +1016,7 @@ local function createOptions()
     _createPALLootRecipesSubmenuTable()
     _createPALLootStylesSubmenuTable()
     _createPALLootApparelWeaponsSubmenuTable()
-    _createPALLooCompanionItemsSubmenuTable()
+    _createPALLootCompanionItemsSubmenuTable()
 
     _createPALMarkRecipesSubmenuTable()
     _createPALMarkMotifsSubmenuTable()
