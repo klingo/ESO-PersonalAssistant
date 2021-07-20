@@ -57,6 +57,9 @@ local PAStrings = {
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("copié"), " vers le profil ", PAC.COLOR.WHITE:Colorize("%s")}),
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" Le profil ", PAC.COLOR.WHITE:Colorize("%s"), " sélectionné a été ", PAC.COLOR.ORANGE_RED:Colorize("supprimé !")}),
 
+    --SI_PA_CHAT_GENERAL_TELEPORT_NO_PRIMARY_HOUSE = table.concat({}),
+    --SI_PA_CHAT_GENERAL_TELEPORT_ZONE_PREVENTED = table.concat({}),
+
 
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
@@ -215,6 +218,7 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "Règles de PersonalAssistant",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Afficher/Cacher le menu des règles de mise en banque et aux rebuts",
+    --SI_BINDING_NAME_PA_TRAVEL_TO_HOUSE = "",
 
 
     -- =================================================================================================================

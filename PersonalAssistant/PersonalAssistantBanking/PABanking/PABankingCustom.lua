@@ -28,7 +28,7 @@ end
 
 local function depositOrWithdrawSimpleBankingRules()
     PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking.depositOrWithdrawSimpleBankingRules (4)")
+    PAB.debugln("PA.Banking.depositOrWithdrawSimpleBankingRules (5)")
 
     -- currently this is always 'true' (cannot be disabled)
     if PAB.SavedVars.Custom.customItemsEnabled then
@@ -42,7 +42,7 @@ local function depositOrWithdrawSimpleBankingRules()
             if ruleEnabled and operator ~= PAC.OPERATOR.NONE then
                 customPAItems[paItemId] = {
                     operator = operator,
-                    targetBagStack = moveConfig.bagAmount
+                    targetBagStack = moveConfig.bagAmount or 0
                 }
             end
         end

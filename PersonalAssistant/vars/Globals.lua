@@ -162,6 +162,9 @@ PersonalAssistant.Constants = {
             COLLECTIBLES = {
                 PATH = "/esoui/art/collections/collections_tabicon_collectibles_up.dds",
             },
+            COMPANION = {
+                PATH = "/esoui/art/inventory/inventory_tabicon_companion_up.dds",
+            },
             MISCELLANEOUS = {
                 PATH = "/esoui/art/inventory/inventory_tabicon_misc_up.dds",
             },
@@ -334,12 +337,15 @@ PersonalAssistant.Constants = {
         FCOIS = {
             DECONSTRUCTION = {
                 PATH = "/esoui/art/crafting/enchantment_tabicon_deconstruction_disabled.dds",
+                LARGE = "|t48:48:/esoui/art/crafting/enchantment_tabicon_deconstruction_disabled.dds|t",
             },
             IMPROVEMENT = {
                 PATH = "/esoui/art/crafting/smithing_tabicon_improve_disabled.dds",
+                LARGE = "|t48:48:/esoui/art/crafting/smithing_tabicon_improve_disabled.dds|t",
             },
             INTRICATE = {
                 PATH = "/esoui/art/progression/progression_indexicon_guilds_up.dds",
+                LARGE = "|t48:48:/esoui/art/progression/progression_indexicon_guilds_up.dds|t",
             },
             LOCKED = {
                 PATH = "/esoui/art/campaign/campaignbrowser_fullpop.dds",
@@ -347,6 +353,7 @@ PersonalAssistant.Constants = {
             },
             RESEARCH = {
                 PATH = "/esoui/art/crafting/smithing_tabicon_research_disabled.dds",
+                LARGE = "|t48:48:/esoui/art/crafting/smithing_tabicon_research_disabled.dds|t",
             },
             SELL = {
                 PATH = "/esoui/art/tradinghouse/tradinghouse_sell_tabicon_disabled.dds",
@@ -399,6 +406,11 @@ PersonalAssistant.Constants = {
                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
                 NORMAL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
                 SMALL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
+            },
+            COMPANION = {
+                PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
+                NORMAL = string.format("|cFFBF00%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
+                SMALL = string.format("|cFFBF00%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
             }
         }
     },

@@ -57,6 +57,9 @@ local PAStrings = {
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" settings of profile ", PAC.COLOR.WHITE:Colorize("%s"), " have been ", PAC.COLOR.ORANGE_RED:Colorize("copied"), " to active profile ", PAC.COLOR.WHITE:Colorize("%s")}),
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" selected profile ", PAC.COLOR.WHITE:Colorize("%s"), " has been ", PAC.COLOR.ORANGE_RED:Colorize("deleted!")}),
 
+    SI_PA_CHAT_GENERAL_TELEPORT_NO_PRIMARY_HOUSE = table.concat({"You need to select a house as your ", PAC.COLOR.ORANGE_RED:Colorize("Primary House"), " first"}),
+    SI_PA_CHAT_GENERAL_TELEPORT_ZONE_PREVENTED = table.concat({"Your current location does ", PAC.COLOR.ORANGE_RED:Colorize("not permit"), " fast travelling to your house"}),
+
 
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
@@ -226,6 +229,7 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Rules",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Toggle Banking/Junk Rules Menu",
+    SI_BINDING_NAME_PA_TRAVEL_TO_HOUSE = "Travel to Primary House",
 
 
     -- =================================================================================================================

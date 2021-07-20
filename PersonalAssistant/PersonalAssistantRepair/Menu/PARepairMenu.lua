@@ -276,6 +276,18 @@ local function _createPARRepairKitSubmenuTable()
     })
 
     PARRepairKitSubmenuTable:insert({
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT),
+        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT_T),
+        choices = PARMenuChoices.defaultRepairKit,
+        choicesValues = PARMenuChoicesValues.defaultRepairKit,
+        getFunc = PARMenuFunctions.getRepairDefaultRepairKitSetting,
+        setFunc = PARMenuFunctions.setRepairDefaultRepairKitSetting,
+        disabled = PARMenuFunctions.isRepairDefaultRepairKitDisabled,
+        default = PARMenuDefaults.RepairEquipped.defaultRepairKit,
+    })
+
+    PARRepairKitSubmenuTable:insert({
         type = "slider",
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY),
         tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T),
@@ -287,37 +299,6 @@ local function _createPARRepairKitSubmenuTable()
         disabled = PARMenuFunctions.isRepairWithRepairKitDurabilityThresholdDisabled,
         default = PARMenuDefaults.RepairEquipped.repairWithRepairKitThreshold,
     })
-
-
-    --    PARRepairKitSubmenuTable:insert({
-    --        type = "description",
-    --        text = GetString(SI_PA_MENU_NOT_YET_IMPLEMENTED)
-    --    })
-    --
-    --    PARRepairKitSubmenuTable:insert({
-    --        type = "checkbox",
-    --        name = PAC.COLOR.LIGHT_BLUE:Colorize(GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE)),
-    --        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_ENABLE_T),
-    --        width = "half",
-    --        getFunc = PARMenuFunctions.getRepairWithCrownRepairKitSetting,
-    --        setFunc = PARMenuFunctions.setRepairWithCrownRepairKitSetting,
-    --        disabled = PARMenuFunctions.isRepairWithCrownRepairKitDisabled,
-    --        default = PARMenuDefaults.RepairEquipped.repairWithCrownRepairKit,
-    --    })
-    --
-    --    PARRepairKitSubmenuTable:insert({
-    --        type = "slider",
-    --        name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY),
-    --        tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_CROWN_DURABILITY_T),
-    --        min = 0,
-    --        max = 99,
-    --        step = 1,
-    --        width = "half",
-    --        getFunc = PARMenuFunctions.getRepairWithCrownRepairKitDurabilityThresholdSetting,
-    --        setFunc = PARMenuFunctions.setRepairWithCrownRepairKitDurabilityThresholdSetting,
-    --        disabled = PARMenuFunctions.isRepairWithCrownRepairKitDurabilityThresholdDisabled,
-    --        default = PARMenuDefaults.RepairEquipped.repairWithCrownRepairKitThreshold,
-    --    })
 
     PARRepairKitSubmenuTable:insert({
         type = "checkbox",

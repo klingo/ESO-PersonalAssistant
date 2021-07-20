@@ -11,8 +11,8 @@
 ## Author: Klingo
 ## APIVersion: 100034 100035
 ## SavedVariables: PersonalAssistant_SavedVariables
-## DependsOn: LibAddonMenu-2.0>=32 LibMainMenu-2.0>=40400 LibCustomMenu>=695
-## OptionalDependsOn: LibChatMessage>=100
+## DependsOn: LibAddonMenu-2.0>=32 LibMainMenu-2.0>=40400 LibCustomMenu>=701
+## OptionalDependsOn: LibChatMessage>=105
 
 # Logger
 Utilities/Logger.lua
@@ -26,14 +26,14 @@ localization/$(language).lua
 PersonalAssistantGeneral/localization/en.lua
 PersonalAssistantGeneral/localization/$(language).lua
 
-# Integrations
-libs/Integrations/FCOItemSaver.lua
-
 # Core-Utilities
 Utilities/HelperFunctions.lua
 Utilities/zo_savedvars.lua
 Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
+
+# Integrations
+libs/Integrations/FCOItemSaver.lua
 
 # Profiles
 PersonalAssistantGeneral/Profiles/PAGeneralSavedVarsPatcher.lua

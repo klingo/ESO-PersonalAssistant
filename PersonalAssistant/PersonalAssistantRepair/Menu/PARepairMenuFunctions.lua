@@ -59,17 +59,13 @@ local PARepairMenuFunctions = {
     getRepairWithRepairKitSetting = function() return getValue({"RepairEquipped", "repairWithRepairKit"}) end,
     setRepairWithRepairKitSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "repairWithRepairKit"}) end,
 
+    isRepairDefaultRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+    getRepairDefaultRepairKitSetting = function() return getValue({"RepairEquipped", "defaultRepairKit"}) end,
+    setRepairDefaultRepairKitSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "defaultRepairKit"}) end,
+
     isRepairWithRepairKitDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
     getRepairWithRepairKitDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithRepairKitThreshold"}) end,
     setRepairWithRepairKitDurabilityThresholdSetting = function(value) setValue(value, {"RepairEquipped", "repairWithRepairKitThreshold"}) end,
-
-    --        isRepairWithCrownRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}) end,
-    --        getRepairWithCrownRepairKitSetting = function() return getValue({"RepairEquipped", "repairWithCrownRepairKit"}) end,
-    --        setRepairWithCrownRepairKitSetting = function(value) setValue(value, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
-    --
-    --        isRepairWithCrownRepairKitDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithCrownRepairKit"}) end,
-    --        getRepairWithCrownRepairKitDurabilityThresholdSetting = function() return getValue({"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
-    --        setRepairWithCrownRepairKitDurabilityThresholdSetting = function(value) setValue(value, {"RepairEquipped", "repairWithCrownRepairKitThreshold"}) end,
 
     isLowRepairKitWarningDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
     getLowRepairKitWarningSetting = function() return getValue({"RepairEquipped", "lowRepairKitWarning"}) end,

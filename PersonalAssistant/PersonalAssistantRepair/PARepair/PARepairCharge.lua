@@ -20,7 +20,7 @@ local function _getSoulGemsIn(bagId)
     local gemTable = setmetatable({}, { __index = table })
     local totalGemCount = 0
 
-    -- create a table with all soulgems
+    -- create a table with all soulGems
     for _, data in pairs(soulGemBagCache) do
         -- check if it is a filled soulGem
         if IsItemSoulGem(SOUL_GEM_TYPE_FILLED, data.bagId, data.slotIndex) then
@@ -42,7 +42,7 @@ local function _getSoulGemsIn(bagId)
     local defaultSoulGem = PARepairSavedVars.RechargeWeapons.defaultSoulGem
 
     if defaultSoulGem == DEFAULT_SOUL_GEM_CHOICE_GOLD then
-        -- sort table based on the gemTiers (higher tier first | regular = tier 1 | crown = tier 0 )
+        -- sort table based on the gemTiers (higher tier first | regular = tier 1 | crown = tier 0)
         table.sort(gemTable, function(a, b) return a.gemTier > b.gemTier end)
     else
         -- sort table based on the gemTiers (lower tier first | crown = tier 0 | regular = tier 1)
@@ -68,24 +68,25 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
             if charges <= 1 then
                 local gemTable, totalGemCount = _getSoulGemsIn(BAG_BACKPACK)
                 if totalGemCount > 0 then
-                    local chargeableAmount = GetAmountSoulGemWouldChargeItem(bagId, slotIndex, gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex)
+                    local firstSoulGem = gemTable[1]
+                    local chargeableAmount = GetAmountSoulGemWouldChargeItem(bagId, slotIndex, firstSoulGem.bagId, firstSoulGem.slotIndex)
                     local finalChargesPerc = 100
                     if (charges + chargeableAmount) < maxCharges then
                         finalChargesPerc = PAHF.round(100 / maxCharges * (charges + chargeableAmount))
                     end
 
                     -- some debug information
-                    PAR.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), gemTable[#gemTable].itemName, chargeableAmount, charges, maxCharges)
+                    PAR.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), firstSoulGem.itemName, chargeableAmount, charges, maxCharges)
 
                     -- actually charge the item
-                    ChargeItemWithSoulGem(bagId, slotIndex, gemTable[#gemTable].bagId, gemTable[#gemTable].slotIndex)
+                    ChargeItemWithSoulGem(bagId, slotIndex, firstSoulGem.bagId, firstSoulGem.slotIndex)
                     totalGemCount = totalGemCount - 1
 
                     local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
                     local chargePerc = PAHF.round(100 / maxCharges * charges, 2)
 
                     -- show output to chat
-                    PAR.println(SI_PA_CHAT_REPAIR_CHARGE_WEAPON, itemLink, chargePerc, finalChargesPerc, gemTable[#gemTable].itemLink)
+                    PAR.println(SI_PA_CHAT_REPAIR_CHARGE_WEAPON, itemLink, chargePerc, finalChargesPerc, firstSoulGem.itemLink)
                 end
 
                 -- check remaining soul gems

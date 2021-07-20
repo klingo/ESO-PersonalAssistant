@@ -21,9 +21,15 @@ end
 ---------------------------------
 local function doPAGeneralTeleportToPrimaryHouse()
     local houseId = GetHousingPrimaryHouse()
-    if houseId and CanLeaveCurrentLocationViaTeleport() then
-        local jumpOutside = getValue({"jumpOutside"})
-        RequestJumpToHouse(houseId, jumpOutside)
+    if houseId > 0 then
+        if CanLeaveCurrentLocationViaTeleport() then
+            local jumpOutside = getValue({"jumpOutside"})
+            RequestJumpToHouse(houseId, jumpOutside)
+        else
+            PA.println(SI_PA_CHAT_GENERAL_TELEPORT_ZONE_PREVENTED)
+        end
+    else
+        PA.println(SI_PA_CHAT_GENERAL_TELEPORT_NO_PRIMARY_HOUSE)
     end
 end
 

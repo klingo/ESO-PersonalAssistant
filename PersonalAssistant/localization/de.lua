@@ -57,6 +57,9 @@ local PAStrings = {
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" Einstellungen von Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurden in das aktive Profil ", PAC.COLOR.WHITE:Colorize("%s"), PAC.COLOR.ORANGE_RED:Colorize(" kopiert")}),
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" ausgewähltes Profil ", PAC.COLOR.WHITE:Colorize("%s"), " wurde ", PAC.COLOR.ORANGE_RED:Colorize("gelöscht!")}),
 
+    SI_PA_CHAT_GENERAL_TELEPORT_NO_PRIMARY_HOUSE = table.concat({"Du musst zuerst ein Haus als deinen ", PAC.COLOR.ORANGE_RED:Colorize("Hauptwohnsitz"), " festlegen"}),
+    SI_PA_CHAT_GENERAL_TELEPORT_ZONE_PREVENTED = table.concat({"Dein aktueller Ort erlaubt ", PAC.COLOR.ORANGE_RED:Colorize("nicht"), " zu deinem Haus zu reisen"}),
+
 
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
@@ -226,6 +229,7 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Regeln",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Banking/Trödel Regelmenü ein-/ausblenden",
+    SI_BINDING_NAME_PA_TRAVEL_TO_HOUSE = "Zum Hauptwohnsitz reisen",
 
 
     -- =================================================================================================================
