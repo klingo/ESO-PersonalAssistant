@@ -11,8 +11,16 @@ local GET_NUM_BAG_USED_SLOTS_INTERVAL_MS = 100
 local GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS = 1000
 local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetNumBagUsedSlots"
 
+local IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_INTERVAL_MS = 250
+local IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_TIMEOUT_MS = 3000 -- 3s should be sufficient; in personal testing I noticed "only" up to 1s so far
+local CALL_LATER_FUNCTION_SET_COLLECTION_PIECE_UNLOCKED_NAME = "CallLaterFunction_SetCollectionPieceUnlocked"
+
 local function _getUniqueUpdateIdentifier()
     return CALL_LATER_FUNCTION_NAME
+end
+
+local function _getUniqueSetCollectionUpdateIdentifier(itemId)
+    return table.concat({CALL_LATER_FUNCTION_SET_COLLECTION_PIECE_UNLOCKED_NAME, tostring(itemId)})
 end
 
 local TraitIndexFromItemTraitType = {
@@ -169,6 +177,29 @@ local _prevUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+-- refresh the item icons after a unlockable set collection item was bound
+-- this is checked with a 500ms interval after the event was triggered. It will repeatedly check it until the status
+-- has changed or until the timeout has been reached
+local function _updateItemIconsWhenSetCollectionPieceUnlocked(itemId)
+    -- before starting make sure any already registered UpdateEvent is unregistered to not run them in parallel
+    local identifier = _getUniqueSetCollectionUpdateIdentifier(itemId)
+    EVENT_MANAGER:UnregisterForUpdate(identifier)
+    local startGameTime = GetGameTimeMilliseconds()
+    local isBeforeSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(itemId)
+    EVENT_MANAGER:RegisterForUpdate(identifier, IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_INTERVAL_MS,
+        function()
+            local isSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(itemId)
+            local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+            if isSetCollectionPieceUnlocked or passedGameTime > IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_TIMEOUT_MS then
+                EVENT_MANAGER:UnregisterForUpdate(identifier)
+                PAL.debugln('IsItemSetCollectionPieceUnlocked took approx. %d ms (%s -> %s)', passedGameTime, tostring(isBeforeSetCollectionPieceUnlocked), tostring(isSetCollectionPieceUnlocked))
+                PAL.ItemIcons.refreshScrollListVisible()
+            end
+        end)
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function isTraitBeingResearched(itemLink)
     local craftingSkillType, researchLineIndex = GetCraftingTypeAndResearchLineIndexFromItemLink(itemLink)
     local traitType = GetItemLinkTraitInfo(itemLink)
@@ -254,17 +285,16 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             if not isItemSetCollectionPieceUnlocked then
                                 local _, setName = GetItemLinkSetInfo(itemLink)
                                 PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
+                                PAL.debugln("A) IsItemBound(%s)", tostring(IsItemBound(bagId, slotIndex)))
                             else
                                 -- Set item already collected
                                 PAL.debugln("set item already collected: %s", itemLink)
+                                PAL.debugln("B) IsItemBound(%s) already", tostring(IsItemBound(bagId, slotIndex)))
                             end
                         else
                             -- if the item is not new anymore; then this is most likely because it was just bound -> refresh the icons
-                            -- need to wait a little bit (500ms?), because if the list is refreshed immediately, the icon does not get updated yet
-                            PAL.debugln("set item is not new - was it just bound? REFRESH LIST! %s", itemLink)
-                            zo_callLater(function()
-                                PAL.ItemIcons.refreshScrollListVisible()
-                            end, 500)
+                            PAL.debugln("C) Set item is not new - was it just bound? REFRESH LIST! %s", itemLink)
+                            _updateItemIconsWhenSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
                         end
                     end
                 end
