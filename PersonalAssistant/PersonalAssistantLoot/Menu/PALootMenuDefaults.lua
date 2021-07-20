@@ -23,6 +23,10 @@ local PALootMenuDefaults = {
             unknownTraitMsg = true,
             uncollectedSetMsg = true,
         },
+
+        LootCompanionItems = {
+            qualityThreshold = ITEM_FUNCTIONAL_QUALITY_ARTIFACT,
+        },
     },
 
     ItemIcons = {
@@ -64,7 +68,17 @@ local PALootMenuDefaults = {
             iconYOffsetList = 0,
             iconXOffsetGrid = -2,
             iconYOffsetGrid = -2,
-        }
+        },
+
+        CompanionItems = {
+            showCompanionItemIcon = true,
+            iconSizeList = 16,
+            iconSizeGrid = 16,
+            iconXOffsetList = 0,
+            iconYOffsetList = 0,
+            iconXOffsetGrid = 2,
+            iconYOffsetGrid = -2,
+        },
     },
 
     InventorySpace = {
