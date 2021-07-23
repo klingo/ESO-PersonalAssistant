@@ -257,7 +257,9 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
                     PAL.debugln("isItemForCompanion(true), is quality %d >= %d ?", itemQuality, itemQualityThreshold)
                     if itemQuality >= itemQualityThreshold then
-                        PAL.println(SI_PA_CHAT_LOOT_COMPANION_ITEM, itemLink)
+                        local traitType = GetItemLinkTraitInfo(itemLink)
+                        local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
+                        PAL.println(SI_PA_CHAT_LOOT_COMPANION_ITEM, itemLink, traitName)
                     else
                         -- Companion item below quality threshold
                         PAL.debugln("isItemForCompanion(true), companion item below threshold: %s", itemLink)
