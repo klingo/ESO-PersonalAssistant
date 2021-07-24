@@ -62,26 +62,28 @@ local function _addDynamicContextMenuEntries(itemLink, bagId, slotIndex)
     -- Add PAJunk context menu entries
     if PAProfileManager.PAJunk and PAProfileManager.PAJunk.hasActiveProfile() then
         if PA.Junk and PA.Junk.SavedVars.Custom.customItemsEnabled then
-            local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
-            local canBeMarkedAsJunk = CanItemBeMarkedAsJunk(bagId, slotIndex)
-            local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
-            local entries = {
-                {
-                    label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
-                    callback = function()
-                        PA.Junk.Custom.addItemLinkToPermanentJunk(itemLink)
-                    end,
-                    disabled = function() return not canBeMarkedAsJunk or isRuleExisting end,
-                },
-                {
-                    label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
-                    callback = function()
-                        PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
-                    end,
-                    disabled = function() return not isRuleExisting end,
+            local canBeMarkedAsJunk = PAHF.CanItemBeMarkedAsJunkExt(bagId, slotIndex)
+            if canBeMarkedAsJunk then
+                local PAJCustomPAItemIds = PA.Junk.SavedVars.Custom.PAItemIds
+                local isRuleExisting = PAHF.isKeyInTable(PAJCustomPAItemIds, paItemId)
+                local entries = {
+                    {
+                        label = GetString(SI_PA_SUBMENU_PAJ_MARK_PERM_JUNK),
+                        callback = function()
+                            PA.Junk.Custom.addItemLinkToPermanentJunk(itemLink)
+                        end,
+                        disabled = function() return isRuleExisting end,
+                    },
+                    {
+                        label = GetString(SI_PA_SUBMENU_PAJ_UNMARK_PERM_JUNK),
+                        callback = function()
+                            PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLink)
+                        end,
+                        disabled = function() return not isRuleExisting end,
+                    }
                 }
-            }
-            AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAJ), entries)
+                AddCustomSubMenuItem(GetString(SI_PA_SUBMENU_PAJ), entries)
+            end
         end
     end
 end

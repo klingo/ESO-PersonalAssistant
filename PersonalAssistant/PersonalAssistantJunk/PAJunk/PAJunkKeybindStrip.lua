@@ -14,7 +14,7 @@ local function _isMarkUnmarkAsJunkVisible()
         if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
             return false
         end
-        return _mouseOverBagId and _mouseOverSlotIndex
+        return PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex)
     end
     return false
 end
@@ -26,7 +26,7 @@ local function _isMarkUnmarkAsJunkEnabled()
         if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then
             return false
         end
-        return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+        return PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex)
     end
     return false
 end
@@ -34,7 +34,7 @@ end
 local function _isMarkUnmarkAsPermJunkVisible()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsPermJunkKeybind then
-        return _mouseOverBagId and _mouseOverSlotIndex
+        return PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex)
     end
     return false
 end
@@ -42,7 +42,7 @@ end
 local function _isMarkUnmarkAsPermJunkEnabled()
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
-        return CanItemBeMarkedAsJunk(_mouseOverBagId, _mouseOverSlotIndex)
+        return PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex)
     end
     return false
 end
@@ -195,19 +195,23 @@ end
 local function toggleItemMarkedAsJunk()
     if PA.Junk.SavedVars and PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsJunkKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
-            -- if item is already marked as permanent junk; skip function
-            if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then return end
-            -- get item information
-            local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
-            local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-            -- execute main action
-            SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, not _mouseOverIsJunk)
-            -- inform player
-            if not _mouseOverIsJunk then
-                PAJ.println(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, itemLinkExt)
-                PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+            if PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex) then
+                -- if item is already marked as permanent junk; skip function
+                if PA.Junk.Custom.isItemPermanentJunk(_mouseOverBagId, _mouseOverSlotIndex) then return end
+                -- get item information
+                local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex, LINK_STYLE_BRACKETS)
+                local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+                -- execute main action
+                SetItemIsJunk(_mouseOverBagId, _mouseOverSlotIndex, not _mouseOverIsJunk)
+                -- inform player
+                if not _mouseOverIsJunk then
+                    PAJ.println(SI_PA_CHAT_JUNK_MARKED_AS_JUNK_KEYBINDING, itemLinkExt)
+                    PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+                else
+                    PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+                end
             else
-                PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
+                PAHF.debuglnAuthor("Item cannot be marked as junk")
             end
         end
     end
@@ -217,17 +221,21 @@ local function toggleItemMarkedAsPermanentJunk()
     if PA.Junk.SavedVars and PAJ.SavedVars.Custom.customItemsEnabled and
             PA.Junk.SavedVars.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
         if _mouseOverBagId and _mouseOverSlotIndex then
-            -- get item information
-            local itemLinkPlain = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
-            if PA.Junk.Custom.isItemLinkPermanentJunk(itemLinkPlain) then
-                -- delete the permanent junk rule
-                PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLinkPlain)
+            if PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex) then
+                -- get item information
+                local itemLinkPlain = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
+                if PA.Junk.Custom.isItemLinkPermanentJunk(itemLinkPlain) then
+                    -- delete the permanent junk rule
+                    PA.Junk.Custom.removeItemLinkFromPermanentJunk(itemLinkPlain)
+                else
+                    -- create new permanent junk rule
+                    PA.Junk.Custom.addItemLinkToPermanentJunk(itemLinkPlain)
+                    -- if a junked item is marked as perm-junk, the keybind strip needs to be updated
+                    _updateKeybindStripButtonNames()
+                    KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
+                end
             else
-                -- create new permanent junk rule
-                PA.Junk.Custom.addItemLinkToPermanentJunk(itemLinkPlain)
-                -- if a junked item is marked as perm-junk, the keybind strip needs to be updated
-                _updateKeybindStripButtonNames()
-                KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
+                PAHF.debuglnAuthor("Item cannot be marked as permanent junk")
             end
         end
     end
