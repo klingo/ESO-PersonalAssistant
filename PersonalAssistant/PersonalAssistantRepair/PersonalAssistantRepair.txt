@@ -8,7 +8,7 @@
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {VERSION_ADDON}
 ## Author: Klingo
-## APIVersion: 100034 100035
+## APIVersion: 100035 101031
 ## SavedVariables: PersonalAssistantRepair_SavedVariables
 ## DependsOn: PersonalAssistant
 ## OptionalDependsOn: PersonalAssistantJunk
