@@ -429,7 +429,7 @@ local function _createPABankingMenu()
         type = "button",
         name = GetString(SI_PA_MAINMENU_BANKING_ADVANCED_HEADER),
         func = PA.CustomDialogs.showPABankingAdvancedRulesMenu,
-        disabled = PAGMenuFunctions.isNoProfileSelected,
+        disabled = PABProfileManager.isNoProfileSelected,
     })
 
     -- ---------------------------------------------------------------------------------------------------------
