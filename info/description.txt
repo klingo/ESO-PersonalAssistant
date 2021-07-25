@@ -9,8 +9,8 @@ After a two year long break from ESO, I finally managed to complete the major re
 
 
 [SIZE=3][COLOR=Yellow]PA [/COLOR][COLOR=White]General[/COLOR][/SIZE][LIST]
-[*]Up to twenty different account-wide profiles per module that can be created/copied/deleted/renamed [COLOR=Orange]*NEW* (2.5.11)[/COLOR]
-[*]Shortcut to travel to your home (if available)[/LIST]
+[*]Up to twenty different account-wide profiles per module that can be created/copied/deleted/renamed
+[*]Keybinding to travel to your primary home (if available) [COLOR=Orange]*NEW* (2.5.18)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA B[/COLOR][COLOR=White]anking[/COLOR][/SIZE][LIST]
 [*]Currencies (gold, alliance points, ...) can be withdrawn from and deposited to your bank
