@@ -552,7 +552,8 @@ function PABankingAdvancedRulesList:FilterScrollList()
     -- only proceed if player has selected an active profile
     if PAProfileManager.PABanking and PAProfileManager.PABanking.hasActiveProfile() then
         -- need to access it via the full-path becase the "RefreshAllSavedVarReferences" might not have been executed yet
-        local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
+        local activeProfile = PAProfileManager.PABanking.getActiveProfile()
+        local PABAdvancedRules = PA.SavedVars.Banking[activeProfile].AdvancedRules.Rules
         -- populate the table that is used as source for the list
         for ruleId, ruleSetting in pairs(PABAdvancedRules) do
             local ruleSummaryObj = PA.CustomDialogs.getPABRuleSummaryFromRawSettings(ruleSetting.ruleRaw, true)
