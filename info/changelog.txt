@@ -1,3 +1,13 @@
+2.5.18 (July 25, 2021)
+- added a keybind shortcut for traveling to the primary house ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/379"]#379[/URL])
+- added new PABanking settings for additional FCOIS marks ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/378"]#378[/URL])
+- added new PARepair setting to also use Crown Repair Kits ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/380"]#380[/URL])
+- added new PALoot icons for companion items  ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/383"]#383[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/386"]#386[/URL])
+- fixed a PABanking issue with crafting items that have active custom rules ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/375"]#375[/URL])
+- fixed a PALoot issue with looting and binding uncollected set items ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/381"]#381[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/384"]#384[/URL])
+- fixed a PAJunk issue where companion items were wrongly shown as 'junkable' ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/387"]#387[/URL])
+- fixed potential issues with uninitialized profile counter and undefined bag size ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/374"]#374[/URL] / [URL="https://github.com/klingo/ESO-PersonalAssistant/pull/376"]#376[/URL])
+
 2.5.17 (May 09, 2021)
 - updated PABanking to avoid reversing item transfers in case of active custom rules ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/369"]#369[/URL])
 - fixed an issue with PAJunk not being loaded properly in combination with PAIntegration ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/368"]#368[/URL])
