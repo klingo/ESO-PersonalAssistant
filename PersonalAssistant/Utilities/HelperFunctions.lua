@@ -169,6 +169,14 @@ local function isItemLinkForCompanion(itemLink)
     return actorCategory == GAMEPLAY_ACTOR_CATEGORY_COMPANION -- ~= GAMEPLAY_ACTOR_CATEGORY_PLAYER
 end
 
+--- workaround function since ZOS' "CanItemBeMarkedAsJunk" function does not check for companion items
+---@param bagId number representation of the bag
+---@param slotIndex number representation of the slot
+---@return boolean whether the item can be marked as junk or not
+local function CanItemBeMarkedAsJunkExt(bagId, slotIndex)
+    return CanItemBeMarkedAsJunk(bagId, slotIndex) and not isItemForCompanion(bagId, slotIndex)
+end
+
 -- =================================================================================================================
 -- == COMPARATORS == --
 -- -----------------------------------------------------------------------------------------------------------------
@@ -818,7 +826,6 @@ local function getItemLinkLearnableStatus(itemLink)
         if CanItemLinkBeTraitResearched(itemLink) then return PAC.LEARNABLE.UNKNOWN end
         return PAC.LEARNABLE.KNOWN
     elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
-        -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
         local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
         local collectibleName = GetCollectibleName(containerCollectibleId)
         if collectibleName ~= nil and collectibleName ~= "" then
@@ -847,6 +854,7 @@ PA.HelperFunctions = {
     getPAItemIdentifierFromItemData = getPAItemIdentifierFromItemData,
     isItemForCompanion = isItemForCompanion,
     isItemLinkForCompanion = isItemLinkForCompanion,
+    CanItemBeMarkedAsJunkExt = CanItemBeMarkedAsJunkExt,
     isItemCharacterBound = isItemCharacterBound,
     getAdvancedBankingRulesComparator = getAdvancedBankingRulesComparator,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,

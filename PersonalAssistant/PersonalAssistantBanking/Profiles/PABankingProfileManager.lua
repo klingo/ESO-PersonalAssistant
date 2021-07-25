@@ -136,7 +136,7 @@ local function initPABankingDefaultProfile()
         PABSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PABSavedVars[1], PA.MenuDefaults.PABanking)
         -- and set the savedVarsVersion and profileCounter
-        PABSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
+        PABSavedVars.savedVarsVersion = PAC.ADDON.VERSION_ADDON
         PABSavedVars.profileCounter = 1
     else
         -- at least one profile is existing, check with others

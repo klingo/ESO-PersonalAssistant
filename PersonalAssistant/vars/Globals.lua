@@ -29,7 +29,7 @@ PersonalAssistant.Constants = {
             REPAIR = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "R", "|r", "|cFFFFFF", "epair", "|r"}),
         },
         AUTHOR = "Klingo",
-        VERSION_RAW = "{BUILD_NUMBER}",
+        VERSION_ADDON = {VERSION_ADDON},
         VERSION_DISPLAY = "{VERSION_NUMBER}",
         WEBSITE = "http://www.esoui.com/downloads/info381-PersonalAssistant",
         FEEDBACK = "https://www.esoui.com/downloads/info381-PersonalAssistant.html#comments",
@@ -51,7 +51,6 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020600, -- update this every release!
         },
     },
 

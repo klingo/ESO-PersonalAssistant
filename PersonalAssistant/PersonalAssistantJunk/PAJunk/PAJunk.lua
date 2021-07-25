@@ -416,7 +416,7 @@ end
 local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkSuccessMessageKey)
     PAJ.debugln("_markItemAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
-    if CanItemBeMarkedAsJunk(bagId, slotIndex) then
+    if PAHF.CanItemBeMarkedAsJunkExt(bagId, slotIndex) then
         -- then check if the item unique; if yes then don't mark it as junk
         local isUnique = IsItemLinkUnique(itemLink)
         if not isUnique then
