@@ -51,7 +51,6 @@ PersonalAssistant.Constants = {
                 LOOT = 2,
                 REPAIR = 1,
             },
-            MINOR = 020518, -- update this every release!
         },
     },
 
