@@ -3,6 +3,7 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAB = PA.Banking
 local PAHF = PA.HelperFunctions
+local PAProfileManager = PA.ProfileManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -1187,7 +1188,7 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         -- init with existing values
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_RULES_GENERIC_UPDATE_RULE)}))
         -- get rule settings
-        local activeProfile = PAB.ProfileManager.getActiveProfile()
+        local activeProfile = PAProfileManager.PABanking.getActiveProfile()
         local PABAdvancedRules = PA.SavedVars.Banking[activeProfile].AdvancedRules.Rules
         local ruleSettingRaw = PABAdvancedRules[existingRuleId].ruleRaw
 
