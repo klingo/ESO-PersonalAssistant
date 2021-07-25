@@ -1187,7 +1187,8 @@ local function showPABAddCustomAdvancedRuleUIDialog(existingRuleId)
         -- init with existing values
         headerControl:SetText(table.concat({PAC.COLORED_TEXTS.PAB, ": ", GetString(SI_PA_RULES_GENERIC_UPDATE_RULE)}))
         -- get rule settings
-        local PABAdvancedRules = PA.SavedVars.Banking[PA.activeProfile].AdvancedRules.Rules
+        local activeProfile = PAB.ProfileManager.getActiveProfile()
+        local PABAdvancedRules = PA.SavedVars.Banking[activeProfile].AdvancedRules.Rules
         local ruleSettingRaw = PABAdvancedRules[existingRuleId].ruleRaw
 
         PAB.debugln("LOAD: %s", ruleSettingRaw)

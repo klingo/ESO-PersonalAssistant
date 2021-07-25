@@ -33,6 +33,8 @@
                     <Dimensions x="300" y="30"/>
                 </Label>
 
+                <!-- GameplayActorCategory -->
+
                 <Label name="$(parent)ItemLevelLabel" font="ZoFontGameBold">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)ItemQualityLabel" relativePoint="BOTTOMLEFT" offsetY="250"/>
                     <Dimensions x="300" y="30"/>
