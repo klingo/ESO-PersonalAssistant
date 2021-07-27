@@ -31,6 +31,11 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG = "> a Set item is not yet collected",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = table.concat({"Whenever an ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", a ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", or ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " is looted that is part of a set and is not yet added to the set collection, a message is displayed in the chat"}),
 
+    -- Loot Companion Items
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER = table.concat({"When Looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION)}),
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = table.concat({"> looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " with quality at or above"}),
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = table.concat({"Whenever ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " are looted that are of the selected quality level or higher, a message is displayed in the chat"}),
+
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on inventory space",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Display a warning in the chat window if you are low on inventory space",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Inventory space threshold",
@@ -59,10 +64,15 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when an Item Trait is still unknown"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "when an Item is missing in the Set collection"}),
 
+    -- Mark Companion Items --
+    SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_HEADER = table.concat({"Marking ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION)}),
+    SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_SHOW_ALL = table.concat({">", PAC.ICONS.OTHERS.COMPANION.NORMAL, "when an item is a companion item"}),
+
     -- Item Icon Positioning --
     SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "Below you can adjust the positioning and size of the item icons",
     SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "Known/Unknown",
     SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "Uncollected Sets",
+    SI_PA_MENU_LOOT_ICONS_COMPANION_ITEMS_HEADER = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION),
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Size (List View)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Define the size of the known/unknown icons in places where items are displayed in a list view",
@@ -88,6 +98,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
     SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s is missing in set collection!"}),
+    SI_PA_CHAT_LOOT_COMPANION_ITEM = table.concat({PAC.ICONS.OTHERS.COMPANION.SMALL, "%s new companion item with ", PAC.COLOR.WHITE:Colorize("%s"), " trait!"}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[inventory space/inventory space/inventory spaces]>> left!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[Repair Kits/Repair Kit/Repair Kits]>> left!"}),
@@ -103,6 +114,7 @@ local PALStrings = {
     SI_PA_ITEM_KNOWN = "Already known",
     SI_PA_ITEM_UNKNOWN = "Unknown",
     SI_PA_ITEM_UNCOLLECTED = "Uncollected",
+    SI_PA_ITEM_COMPANION_ITEM = "Companion Item"
 }
 
 for key, value in pairs(PALStrings) do

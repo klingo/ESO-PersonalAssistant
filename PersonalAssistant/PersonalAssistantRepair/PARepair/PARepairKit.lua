@@ -8,23 +8,50 @@ local PAHF = PA.HelperFunctions
 
 local _lastNoRepairKitWarningGameTime = 0
 
+local _repairKitItemIds = {
+    [44879] = true,  -- Grand Repair Kit    Tier=6
+    [61079] = true,  -- Crown Repair Kit    Tier=7
+}
+
 -- --------------------------------------------------------------------------------------------------------------------
 
 local function _getRepairKitsIn(bagId)
-    local repairKitItemIds = {}
-    repairKitItemIds[44879] = {} -- Grand Repair Kit
---    individualItems[61079] = {} -- Crown Repair Kit
+    local itemIdComparator = PAHF.getItemIdComparator(_repairKitItemIds, true)
+    local repairKitBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, bagId)
 
-    local itemIdComparator = PAHF.getItemIdComparator(repairKitItemIds)
-    local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, bagId)
+    local repairKitTable = setmetatable({}, { __index = table })
+    local totalRepairKitCount = 0
 
-    local totalStackCount = 0
-    for _, itemData in pairs(backpackBagCache) do
-        totalStackCount = totalStackCount + itemData.stackCount
-        itemData.itemLink = GetItemLink(itemData.bagId, itemData.slotIndex, LINK_STYLE_BRACKETS)
+    -- create a table with all repairKits
+    for _, data in pairs(repairKitBagCache) do
+        -- check if it is a repair kits
+        if IsItemRepairKit(data.bagId, data.slotIndex) then
+            repairKitTable:insert({
+                bagId = data.bagId,
+                slotIndex = data.slotIndex,
+                itemName = data.name,
+                itemLink = GetItemLink(data.bagId, data.slotIndex, LINK_STYLE_BRACKETS),
+--                stackCount = data.stackCount,
+                repairKitTier = GetRepairKitTier(data.bagId, data.slotIndex),
+                iconString = "|t20:20:"..data.iconFile.."|t ",
+            })
+            -- update the total repairKit count
+            totalRepairKitCount = totalRepairKitCount + data.stackCount
+        end
     end
 
-    return backpackBagCache, totalStackCount
+    local PARepairSavedVars = PAR.SavedVars
+    local defaultRepairKit = PARepairSavedVars.RepairEquipped.defaultRepairKit
+
+    if defaultRepairKit == DEFAULT_SOUL_GEM_CHOICE_GOLD then
+        -- sort table based on the repairKitTiers (lower tier first | regular = tier 6 | crown = tier 7)
+        table.sort(repairKitTable, function(a, b) return a.repairKitTier < b.repairKitTier end)
+    else
+        -- sort table based on the repairKitTiers (higher tier first | crown = tier 7 | regular = tier 6 )
+        table.sort(repairKitTable, function(a, b) return a.repairKitTier > b.repairKitTier end)
+    end
+
+    return repairKitTable, totalRepairKitCount
 end
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -34,7 +61,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
     if not PAHF.isPlayerDeadOrReincarnating() then
         -- check if it is enabled
         local PARepairSavedVars = PAR.SavedVars
-        if bagId == BAG_WORN and (PARepairSavedVars.RepairEquipped.repairWithRepairKit or PARepairSavedVars.RepairEquipped.repairWithCrownRepairKit) then
+        if bagId == BAG_WORN and PARepairSavedVars.RepairEquipped.repairWithRepairKit then
             local hasDurability = DoesItemHaveDurability(bagId, slotIndex)
             -- check if it is repairable
             if hasDurability then
@@ -45,18 +72,20 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
                 if itemCondition <= repairKitThreshold then
                     local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
                     if totalRepairKitCount > 0 then
-                        local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
+                        local firstRepairKit = repairKitTable[1]
+                        local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
                         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 
                         -- some debug information
-                        PAR.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, repairKitTable[#repairKitTable].name, repairableAmount, itemCondition, 100)
+                        PAR.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, firstRepairKit.name, repairableAmount, itemCondition, 100)
 
                         -- actually repair the item
-                        RepairItemWithRepairKit(bagId, slotIndex, repairKitTable[#repairKitTable].bagId, repairKitTable[#repairKitTable].slotIndex)
+                        RepairItemWithRepairKit(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
                         totalRepairKitCount = totalRepairKitCount - 1
-                        --PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
+                        PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
 
-                        PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, itemLink, itemCondition, repairKitTable[#repairKitTable].itemLink)
+                        -- show output to chat
+                        PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, itemLink, itemCondition, firstRepairKit.itemLink)
                     end
 
                     -- check remaining repair kits

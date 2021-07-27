@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
+local PAHF = PA.HelperFunctions
 local PAL = PA.Loot
 local PALProfileManager = PA.ProfileManager.PALoot
 
@@ -10,8 +11,16 @@ local GET_NUM_BAG_USED_SLOTS_INTERVAL_MS = 100
 local GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS = 1000
 local CALL_LATER_FUNCTION_NAME = "CallLaterFunction_GetNumBagUsedSlots"
 
+local IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_INTERVAL_MS = 250
+local IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_TIMEOUT_MS = 3000 -- 3s should be sufficient; in personal testing I noticed "only" up to 1s so far
+local CALL_LATER_FUNCTION_SET_COLLECTION_PIECE_UNLOCKED_NAME = "CallLaterFunction_SetCollectionPieceUnlocked"
+
 local function _getUniqueUpdateIdentifier()
     return CALL_LATER_FUNCTION_NAME
+end
+
+local function _getUniqueSetCollectionUpdateIdentifier(itemId)
+    return table.concat({CALL_LATER_FUNCTION_SET_COLLECTION_PIECE_UNLOCKED_NAME, tostring(itemId)})
 end
 
 local TraitIndexFromItemTraitType = {
@@ -168,6 +177,29 @@ local _prevUsedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+-- refresh the item icons after a unlockable set collection item was bound
+-- this is checked with a 500ms interval after the event was triggered. It will repeatedly check it until the status
+-- has changed or until the timeout has been reached
+local function _updateItemIconsWhenSetCollectionPieceUnlocked(itemId)
+    -- before starting make sure any already registered UpdateEvent is unregistered to not run them in parallel
+    local identifier = _getUniqueSetCollectionUpdateIdentifier(itemId)
+    EVENT_MANAGER:UnregisterForUpdate(identifier)
+    local startGameTime = GetGameTimeMilliseconds()
+    local isBeforeSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(itemId)
+    EVENT_MANAGER:RegisterForUpdate(identifier, IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_INTERVAL_MS,
+        function()
+            local isSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(itemId)
+            local passedGameTime = GetGameTimeMilliseconds() - startGameTime
+            if isSetCollectionPieceUnlocked or passedGameTime > IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_TIMEOUT_MS then
+                EVENT_MANAGER:UnregisterForUpdate(identifier)
+                PAL.debugln('IsItemSetCollectionPieceUnlocked took approx. %d ms (%s -> %s)', passedGameTime, tostring(isBeforeSetCollectionPieceUnlocked), tostring(isSetCollectionPieceUnlocked))
+                PAL.ItemIcons.refreshScrollListVisible()
+            end
+        end)
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
 local function isTraitBeingResearched(itemLink)
     local craftingSkillType, researchLineIndex = GetCraftingTypeAndResearchLineIndexFromItemLink(itemLink)
     local traitType = GetItemLinkTraitInfo(itemLink)
@@ -182,7 +214,7 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PALProfileManager.hasActiveProfile() then
-       local PALootSavedVars = PAL.SavedVars
+        local PALootSavedVars = PAL.SavedVars
         local usedSlots = GetNumBagUsedSlots(BAG_BACKPACK)
 
         -- check if addon is enabled
@@ -218,6 +250,22 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     end
                 end
 
+            elseif PAHF.isItemForCompanion(bagId, slotIndex) then
+                -- has to be checked before Apparel & Weapons, since Companion items are also considered apparel and weapons
+                local itemQualityThreshold = PALootSavedVars.LootEvents.LootCompanionItems.qualityThreshold
+                if isNewItem and itemQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                    local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
+                    PAL.debugln("isItemForCompanion(true), is quality %d >= %d ?", itemQuality, itemQualityThreshold)
+                    if itemQuality >= itemQualityThreshold then
+                        local traitType = GetItemLinkTraitInfo(itemLink)
+                        local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
+                        PAL.println(SI_PA_CHAT_LOOT_COMPANION_ITEM, itemLink, traitName)
+                    else
+                        -- Companion item below quality threshold
+                        PAL.debugln("isItemForCompanion(true), companion item below threshold: %s", itemLink)
+                    end
+                end
+
             -- Apparel & Weapons
             elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
                 if PALootSavedVars.LootEvents.LootApparelWeapons.unknownTraitMsg then
@@ -234,20 +282,27 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 end
                 if PALootSavedVars.LootEvents.LootApparelWeapons.uncollectedSetMsg then
                     if IsItemLinkSetCollectionPiece(itemLink) then
-                        local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
-                        if not isItemSetCollectionPieceUnlocked then
-                            local _, setName = GetItemLinkSetInfo(itemLink)
-                            PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
+                        if isNewItem then
+                            local isItemSetCollectionPieceUnlocked = IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
+                            if not isItemSetCollectionPieceUnlocked then
+                                local _, setName = GetItemLinkSetInfo(itemLink)
+                                PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
+                                PAL.debugln("A) IsItemBound(%s)", tostring(IsItemBound(bagId, slotIndex)))
+                            else
+                                -- Set item already collected
+                                PAL.debugln("set item already collected: %s", itemLink)
+                                PAL.debugln("B) IsItemBound(%s) already", tostring(IsItemBound(bagId, slotIndex)))
+                            end
                         else
-                            -- Set item already collected
-                            PAL.debugln("set item already collected: %s", itemLink)
+                            -- if the item is not new anymore; then this is most likely because it was just bound -> refresh the icons
+                            PAL.debugln("C) Set item is not new - was it just bound? REFRESH LIST! %s", itemLink)
+                            _updateItemIconsWhenSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
                         end
                     end
                 end
 
             -- Style Pages
             elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then
-                -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
                 if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg then
                     local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
                     local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)

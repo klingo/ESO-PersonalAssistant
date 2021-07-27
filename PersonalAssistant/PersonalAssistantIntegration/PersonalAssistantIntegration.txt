@@ -6,12 +6,12 @@
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700I|rntegration
 ## Description: PAIntegration can bring additional features by integrating other addons such as FCO ItemSaver
 ## Version: {VERSION_NUMBER}
-## AddOnVersion: {BUILD_NUMBER}
+## AddOnVersion: {VERSION_ADDON}
 ## Author: Klingo
-## APIVersion: 100034 100035
+## APIVersion: 100035 101031
 ## SavedVariables: PersonalAssistantIntegration_SavedVariables
 ## DependsOn: PersonalAssistant
-## OptionalDependsOn: DolgubonsLazyWritCreator FCOItemSaver>=202
+## OptionalDependsOn: DolgubonsLazyWritCreator FCOItemSaver>=218
 
 # Localization
 localization/en.lua

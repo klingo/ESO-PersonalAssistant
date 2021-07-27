@@ -37,7 +37,7 @@ local function _markAllPAItemIdsAsJunk(paItemId)
 
     for index = #bagCache, 1, -1 do
         local itemData = bagCache[index]
-        if CanItemBeMarkedAsJunk(itemData.bagId, itemData.slotIndex) then
+        if PAHF.CanItemBeMarkedAsJunkExt(itemData.bagId, itemData.slotIndex) then
             SetItemIsJunk(itemData.bagId, itemData.slotIndex, true)
             PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
         end

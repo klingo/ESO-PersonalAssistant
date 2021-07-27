@@ -29,7 +29,12 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG = "> eine Eigenschaft noch nicht analysiert wurde",
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNKNOWN_MSG_T = table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird und sie eine Eigenschaft hat welche von diesem Charakter noch nicht analysiert wurde, dann wird eine Information im Chat ausgegeben"}),
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG = "> ein Gegenstand in der Setsammlung fehlt",
-    SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = table.concat({"Wann immer eine \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_ARMOR), \", eine \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_WEAPONS), \", oder \", GetString(\"SI_ITEMFILTERTYPE\", ITEMFILTERTYPE_JEWELRY), \" eingesammelt wird das noch in der Setsammlung fehlt, dann wird eine Information im Chat ausgegeben"}),
+    SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = table.concat({"Wann immer eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", eine ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", oder ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " eingesammelt wird das noch in der Setsammlung fehlt, dann wird eine Information im Chat ausgegeben"}),
+
+    -- Loot Companion Items
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER = table.concat({"Beim ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " einsammeln"}),
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = table.concat({"> ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " mind. diese Qualität haben"}),
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = table.concat({"Wann immer ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " eingesammelt werden, deren Qualität höher oder gleich der ausgewählten Qualität ist, wird eine Information im Chat ausgegeben"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warne wenn Inventarplätze ausgehen",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen",
@@ -59,10 +64,15 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "wenn die Eigenschaften noch unbekannt ist"}),
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "wenn ein Gegenstand in der Setsammlung fehlt"}),
 
+    -- Mark Companion Items --
+    SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_HEADER = table.concat({"Markiere ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION)}),
+    SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_SHOW_ALL = table.concat({">", PAC.ICONS.OTHERS.COMPANION.NORMAL, "wenn es ein Gefährtengegenstand ist"}),
+
     -- Item Icon Positioning --
     SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "Nachfolgend kann die Grösse und Position der Gegenstands Icons angepasst werden",
     SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "Bekannt/Unbekannt",
     SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "Nicht gesammelte Sets",
+    SI_PA_MENU_LOOT_ICONS_COMPANION_ITEMS_HEADER = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION),
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Icon Grösse (Listenanzeige)",
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T = "Definiere die Grösse des bekannt/unbekannt Icons an Stellen wo Gegenstände in einer Liste angezeigt werden",
@@ -88,6 +98,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s kann ", PAC.COLORS.ORANGE,"gelernt", PAC.COLORS.DEFAULT, " werden!"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s hat [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] das analysiert werden kann!"}),
     SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s fehlt in der Setsammlung!"}),
+    SI_PA_CHAT_LOOT_COMPANION_ITEM = table.concat({PAC.ICONS.OTHERS.COMPANION.SMALL, "%s neuer Gefährtengegenstand mit Eigenschaft ", PAC.COLOR.WHITE:Colorize("%s"), "!"}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Inventarplätze mehr/Inventarplatz/Inventarplätze]>> übrig!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Reparaturmaterialien mehr/Reparaturmaterial/Reparaturmaterialien]>> übrig!"}),
@@ -103,6 +114,7 @@ local PALStrings = {
     SI_PA_ITEM_KNOWN = "Bereits bekannt",
     SI_PA_ITEM_UNKNOWN = "Unbekannt",
     SI_PA_ITEM_UNCOLLECTED = "Nicht gesammelt",
+    SI_PA_ITEM_COMPANION_ITEM = "Gefährtengegenstand"
 }
 
 for key, value in pairs(PALStrings) do

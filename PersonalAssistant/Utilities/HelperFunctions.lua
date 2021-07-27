@@ -99,7 +99,23 @@ local function getPAItemIdentifierFromItemData(itemData)
     return itemData.paItemId
 end
 
+local function isItemForCompanion(bagId, slotIndex)
+    local actorCategory = GetItemActorCategory(bagId, slotIndex)
+    return actorCategory == GAMEPLAY_ACTOR_CATEGORY_COMPANION -- ~= GAMEPLAY_ACTOR_CATEGORY_PLAYER
+end
 
+local function isItemLinkForCompanion(itemLink)
+    local actorCategory = GetItemLinkActorCategory(itemLink)
+    return actorCategory == GAMEPLAY_ACTOR_CATEGORY_COMPANION -- ~= GAMEPLAY_ACTOR_CATEGORY_PLAYER
+end
+
+--- workaround function since ZOS' "CanItemBeMarkedAsJunk" function does not check for companion items
+---@param bagId number representation of the bag
+---@param slotIndex number representation of the slot
+---@return boolean whether the item can be marked as junk or not
+local function CanItemBeMarkedAsJunkExt(bagId, slotIndex)
+    return CanItemBeMarkedAsJunk(bagId, slotIndex) and not isItemForCompanion(bagId, slotIndex)
+end
 
 -- =================================================================================================================
 -- == COMPARATORS == --
@@ -107,7 +123,7 @@ end
 
 ---@param itemData table the itemData table of an ESO item
 ---@return boolean whether the item is characterBound or not
-local function _isItemCharacterBound(itemData)
+local function isItemCharacterBound(itemData)
     if itemData.isPACharacterBound == nil then
         local isBound = IsItemBound(itemData.bagId, itemData.slotIndex)
         local bindType = GetItemBindType(itemData.bagId, itemData.slotIndex)
@@ -158,7 +174,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
     return function(itemData)
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
         if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
@@ -204,12 +220,14 @@ end
 
 ---@param itemTypeList table a list of itemTypes to be checked
 ---@param excludeJunk boolean whether junk items should be excluded
+---@param skipItemsWithCustomRule boolean whether items for which a custom rule exists should be skipped
 ---@return fun(itemData: table) a comparator function that only returns item that match the itemTypes and pass the junk-test
-local function getItemTypeComparator(itemTypeList, excludeJunk)
+local function getItemTypeComparator(itemTypeList, excludeJunk, skipItemsWithCustomRule)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
+        if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
@@ -224,7 +242,7 @@ local function getItemIdComparator(itemIdList, excludeJunk)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         for expectedItemId, _ in pairs(itemIdList) do
             if expectedItemId == itemId then return true end
@@ -242,7 +260,7 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacter
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) and excludeStolen then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
-        if _isItemCharacterBound(itemData) and excludeCharacterBound then return false end
+        if isItemCharacterBound(itemData) and excludeCharacterBound then return false end
         local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
@@ -254,7 +272,7 @@ end
 ---@return fun(itemData: table) a comparator function that only returns stolen junk items
 local function getStolenJunkComparator()
     return function(itemData)
-        if _isItemCharacterBound(itemData) then return false end
+        if isItemCharacterBound(itemData) then return false end
         local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
         return isStolen and isJunk
@@ -519,10 +537,7 @@ end
 local function getItemLinkLearnableStatus(itemLink)
     local itemType, specializedItemType = GetItemLinkItemType(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
-    if GetAPIVersion() >= 100035 and itemFilterType == ITEMFILTERTYPE_COMPANION then
-        -- make sure it's not a Blackwood companion item
-        return nil
-    end
+    if isItemLinkForCompanion(itemLink) then return nil end
     if itemType == ITEMTYPE_RECIPE then
         if IsItemLinkRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
         return PAC.LEARNABLE.UNKNOWN
@@ -542,7 +557,6 @@ local function getItemLinkLearnableStatus(itemLink)
         if CanItemLinkBeTraitResearched(itemLink) then return PAC.LEARNABLE.UNKNOWN end
         return PAC.LEARNABLE.KNOWN
     elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
-        -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
         local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
         local collectibleName = GetCollectibleName(containerCollectibleId)
         if collectibleName ~= nil and collectibleName ~= "" then
@@ -567,6 +581,10 @@ PA.HelperFunctions = {
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
     getPAItemIdentifierFromItemData = getPAItemIdentifierFromItemData,
+    isItemForCompanion = isItemForCompanion,
+    isItemLinkForCompanion = isItemLinkForCompanion,
+    CanItemBeMarkedAsJunkExt = CanItemBeMarkedAsJunkExt,
+    isItemCharacterBound = isItemCharacterBound,
     getCombinedItemTypeSpecializedComparator = getCombinedItemTypeSpecializedComparator,
     getItemTypeComparator = getItemTypeComparator,
     getItemIdComparator = getItemIdComparator,

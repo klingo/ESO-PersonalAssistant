@@ -15,9 +15,15 @@ end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
     local PALSavedVars = PA.SavedVars.Loot
-    local currentVersion = tonumber(PALSavedVars.savedVarsVersion) or PAC.ADDON.SAVED_VARS_VERSION.MINOR
+    local currentVersion = tonumber(PALSavedVars.savedVarsVersion) or PAC.ADDON.VERSION_ADDON
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
+
+local function _setLocalProfileCounter(PASavedVars)
+    local profileCounter = PASavedVars.General.profileCounter
+    PASavedVars.Loot.profileCounter = (type(profileCounter) == 'number' and profileCounter) or 0
+end
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -25,7 +31,7 @@ local function _applyPatch_2_5_11(savedVarsVersion, isPatchingNeeded)
     if isPatchingNeeded then
         local PASavedVars = PA.SavedVars
         -- copy the profileCounter value
-        PASavedVars.Loot.profileCounter = PASavedVars.General.profileCounter
+        _setLocalProfileCounter(PASavedVars)
         -- then loop through all profiles
         for profileNo = 1, PASavedVars.General.profileCounter do
             if istable(PASavedVars.Loot[profileNo]) then

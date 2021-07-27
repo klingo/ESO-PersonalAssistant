@@ -9,8 +9,8 @@ After a two year long break from ESO, I finally managed to complete the major re
 
 
 [SIZE=3][COLOR=Yellow]PA [/COLOR][COLOR=White]General[/COLOR][/SIZE][LIST]
-[*]Up to twenty different account-wide profiles per module that can be created/copied/deleted/renamed [COLOR=Orange]*NEW* (2.5.11)[/COLOR]
-[*]Shortcut to travel to your home (if available)[/LIST]
+[*]Up to twenty different account-wide profiles per module that can be created/copied/deleted/renamed
+[*]Keybinding to travel to your primary home (if available) [COLOR=Orange]*NEW* (2.5.18)[/COLOR][/LIST]
 
 [SIZE=3][COLOR=Yellow]PA B[/COLOR][COLOR=White]anking[/COLOR][/SIZE][LIST]
 [*]Currencies (gold, alliance points, ...) can be withdrawn from and deposited to your bank
@@ -22,7 +22,13 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Be always ready for Cyrodiil and define how many AvA items to keep in inventory[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA I[/COLOR][COLOR=White]ntegration[/COLOR][/SIZE][LIST]
-[*]Limited support for FCO ItemSaver regarding "Marked for selling" and "Locked" marks[/LIST]
+[*]Support for various FCO ItemSaver marks
+[LIST]
+[*]PABanking: Deposit or withdraw item marked for/as Research, Deconstruction, Improvement, Selling at guildstore, and Intricate [COLOR=Orange]*NEW* (2.5.18)[/COLOR]
+[*]PABanking: Locked items will not be moved [COLOR=Orange]*NEW* (2.5.18)[/COLOR]
+[*]PAJunk: Sell items marked for selling
+[*]PAJunk: Locked items will not be sold[/LIST]
+[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA J[/COLOR][COLOR=White]unk[/COLOR][/SIZE][LIST]
 [*]Trash items can be marked as junk
@@ -33,19 +39,20 @@ After a two year long break from ESO, I finally managed to complete the major re
 [*]Junk can be sold at merchants and fences
 [*]Save time and use keybinding shortcuts to mark items as junk or directly destroy them
 [*]Mark any item as permanent junk so you never have to deal with it again
-[*]Items below a definable sell value can also be destroyed instead of marked as junk [COLOR=Orange]*NEW* (2.5.11)[/COLOR][/LIST]
+[*]Items below a definable sell value can also be destroyed instead of marked as junk[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA L[/COLOR][COLOR=White]oot[/COLOR][/SIZE][LIST]
 [*]Informs you when an unknown recipe is looted
 [*]Informs you when an unknown motif/page is looted
 [*]Informs you when an item with a not yet researched trait is looted
-[*]Informs you when a set item is looted that is not yet part of your set collection [COLOR=Orange]*NEW* (2.5.11)[/COLOR]
+[*]Informs you when a set item is looted that is not yet part of your set collection
+[*]Informs you when a companion item is looted [COLOR=Orange]*NEW* (2.5.18)[/COLOR]
 [*]Informs you when you are running out of inventory space (threshold can be defined)
 [*]Visually indicates if a recipe, motif, trait, or style page is known (or not) to the current character[/LIST]
 
 [SIZE=3][COLOR=Yellow]PA R[/COLOR][COLOR=White]epair[/COLOR][/SIZE][LIST]
 [*]Repairs your items for you when you visit a merchant (threshold can be defined)
-[*]Repairs your items out on the field when you have (non-crown) repair kits available (threshold can be defined)
+[*]Repairs your items out on the field when you have repair kits available (threshold can be defined)
 [*]Recharges your weapons when they run out of charges and you have filled soul gems available
 [*]Informs you when you are running out of soul gems, or repair kits (thresholds can be defined)[/LIST]
 
@@ -54,13 +61,13 @@ After a two year long break from ESO, I finally managed to complete the major re
 [SIZE=2]Please make sure to also install the following required libraries in order to use PersonalAssistant:[/SIZE][LIST]
 [*] [URL="http://www.esoui.com/downloads/info7-LibAddonMenu.html"]LibAddonMenu[/URL] (2.0 r32 or newer) - For the AddOn settings menu
 [*] [URL="https://www.esoui.com/downloads/info2118-LibMainMenu-2.0.html"]LibMainMenu-2.0[/URL] (4.4.0 or newer) - For the Rules Main Menu
-[*] [URL="https://www.esoui.com/downloads/info1146-LibCustomMenu.html"]LibCustomMenu[/URL] (6.9.5 or newer) - For the right-click context menu entries[/LIST]
+[*] [URL="https://www.esoui.com/downloads/info1146-LibCustomMenu.html"]LibCustomMenu[/URL] (7.0.5 or newer) - For the right-click context menu entries[/LIST]
 
 [SIZE=3]Optional Dependencies[/SIZE]
 
 [SIZE=2]The following libraries are optional and are not required for PersonalAssistant to work properly, but PersonalAssistant is compatible with them:[/SIZE][LIST]
-[*] [URL="https://www.esoui.com/downloads/info2382-LibChatMessage.html"]LibChatMessage[/URL] (1.1.3 or newer) - For showing messages in the chat
-[*] [URL="https://www.esoui.com/downloads/info630-FCOItemSaver.html"]FCO ItemSaver[/URL] (2.0.2 or newer) - For considering FCOIS marked items
+[*] [URL="https://www.esoui.com/downloads/info2382-LibChatMessage.html"]LibChatMessage[/URL] (1.2.0 or newer) - For showing messages in the chat
+[*] [URL="https://www.esoui.com/downloads/info630-FCOItemSaver.html"]FCO ItemSaver[/URL] (2.1.8 or newer) - For considering FCOIS marked items
 [*] [URL="https://www.esoui.com/downloads/info1346-DolgubonsLazyWritCrafter.html"]Dolgubon's Lazy Writ Crafter[/URL] - For preventing  transfers of items needed for daily writs[/LIST]
 
 [SIZE=3]Credits[/SIZE][LIST]

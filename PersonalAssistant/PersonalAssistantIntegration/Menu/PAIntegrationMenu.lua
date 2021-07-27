@@ -35,7 +35,11 @@ local PAIFCOISDeconstructionSubmenuTable = setmetatable({}, { __index = table })
 local PAIFCOISImprovementSubmenuTable = setmetatable({}, { __index = table })
 local PAIFCOISSellGuildStoreSubmenuTable = setmetatable({}, { __index = table })
 local PAIFCOISIntricateSubmenuTable = setmetatable({}, { __index = table })
+local PAIFCOISGearSetsSubmenuTable = setmetatable({}, { __index = table })
+local PAIFCOISDynamicIconsSubmenuTable = setmetatable({}, { __index = table })
 
+local paBankingRequiredText = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
+local paJunkRequiredText = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk)
 
 -- =================================================================================================================
 
@@ -73,25 +77,22 @@ local function _createPAIntegrationMenu()
             name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATION_LWC_HEADER))
         })
 
-        -- has a dependency to PABanking
-        if not PA.Banking then
-            -- inform player about missing dependency
+        if PA.Banking then
+            PAIntegrationOptionsTable:insert({
+                type = "checkbox",
+                name = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY),
+                tooltip = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T),
+                getFunc = PAIMenuFunctions.getLazyWritCrafterCompatibilitySetting,
+                setFunc = PAIMenuFunctions.setLazyWritCrafterCompatibilitySetting,
+                disabled = PAIMenuFunctions.isLazyWritCrafterCompatibilityDisabled,
+                default = PAIMenuDefaults.LazyWritCrafter.compatibility,
+            })
+        else
             PAIntegrationOptionsTable:insert({
                 type = "description",
-                text = GetString(SI_PA_MENU_INTEGRATION_LWC_PRECONDITION),
+                text = paBankingRequiredText
             })
         end
-
-        PAIntegrationOptionsTable:insert({
-            type = "checkbox",
-            name = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY),
-            tooltip = GetString(SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T),
-            warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking),
-            getFunc = PAIMenuFunctions.getLazyWritCrafterCompatibilitySetting,
-            setFunc = PAIMenuFunctions.setLazyWritCrafterCompatibilitySetting,
-            disabled = PAIMenuFunctions.isLazyWritCrafterCompatibilityDisabled,
-            default = PAIMenuDefaults.LazyWritCrafter.compatibility,
-        })
     end
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -105,30 +106,12 @@ local function _createPAIntegrationMenu()
             name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATION_FCOIS_HEADER))
         })
 
-        -- has a dependency to PAJunk
-        if not PA.Junk then
-            -- inform player about missing dependency
-            PAIntegrationOptionsTable:insert({
-                type = "description",
-                text = GetString(SI_PA_MENU_INTEGRATION_FCOIS_PRECONDITION),
-            })
-        end
-
         PAIntegrationOptionsTable:insert({
             type = "submenu",
             name = table.concat({PAC.ICONS.FCOIS.LOCKED.LARGE, FCOIS_LOCALIZATION["options_icon1_tooltip_text"]}),
             controls = PAIFCOISLockedSubmenuTable,
             disabledLabel = PAIMenuFunctions.isFCOISLockedMenuDisabled,
         })
-
---        PAIntegrationOptionsTable:insert({
---            type = "submenu",
---            name = FCOIS_LOCALIZATION["options_icon3_tooltip_text"],
---            icon = PAC.ICONS.FCOIS.RESEARCH.PATH,
---            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
---            controls = PAIFCOISResearchSubmenuTable,
---            disabledLabel = PAIMenuFunctions.isFCOISResearchMenuDisabled,
---        })
 
         PAIntegrationOptionsTable:insert({
             type = "submenu",
@@ -137,44 +120,61 @@ local function _createPAIntegrationMenu()
             disabledLabel = PAIMenuFunctions.isFCOISSellMenuDisabled,
         })
 
---        PAIntegrationOptionsTable:insert({
---            type = "submenu",
---            name = FCOIS_LOCALIZATION["options_icon9_tooltip_text"],
---            icon = PAC.ICONS.FCOIS.DECONSTRUCTION.PATH,
---            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
---            controls = PAIFCOISDeconstructionSubmenuTable,
---            disabledLabel = PAIMenuFunctions.isFCOISDeconstructionMenuDisabled,
---        })
---
---        PAIntegrationOptionsTable:insert({
---            type = "submenu",
---            name = FCOIS_LOCALIZATION["options_icon10_tooltip_text"],
---            icon = PAC.ICONS.FCOIS.IMPROVEMENT.PATH,
---            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
---            controls = PAIFCOISImprovementSubmenuTable,
---            disabledLabel = PAIMenuFunctions.isFCOISImprovementMenuDisabled,
---        })
---
---        PAIntegrationOptionsTable:insert({
---            type = "submenu",
---            name = table.concat({"  ", PAC.ICONS.FCOIS.SELL_AT_GUILDSTORE.LARGE, " ", FCOIS_LOCALIZATION["options_icon11_tooltip_text"]}),
---            controls = PAIFCOISSellGuildStoreSubmenuTable,
---            disabledLabel = PAIMenuFunctions.isFCOISSellGuildStoreMenuDisabled,
---        })
---
---        PAIntegrationOptionsTable:insert({
---            type = "submenu",
---            name = FCOIS_LOCALIZATION["options_icon12_tooltip_text"],
---            icon = PAC.ICONS.FCOIS.INTRICATE.PATH,
---            iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.LARGE,
---            controls = PAIFCOISIntricateSubmenuTable,
---            disabledLabel = PAIMenuFunctions.isFCOISIntricateMenuDisabled,
---        })
+        PAIntegrationOptionsTable:insert({
+            type = "submenu",
+            name = table.concat({PAC.ICONS.FCOIS.DECONSTRUCTION.LARGE, FCOIS_LOCALIZATION["options_icon9_tooltip_text"]}),
+            controls = PAIFCOISDeconstructionSubmenuTable,
+            disabledLabel = PAIMenuFunctions.isFCOISDeconstructionMenuDisabled,
+        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "submenu",
+            name = table.concat({PAC.ICONS.FCOIS.IMPROVEMENT.LARGE, FCOIS_LOCALIZATION["options_icon10_tooltip_text"]}),
+            controls = PAIFCOISImprovementSubmenuTable,
+            disabledLabel = PAIMenuFunctions.isFCOISImprovementMenuDisabled,
+        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "submenu",
+            name = table.concat({PAC.ICONS.FCOIS.RESEARCH.LARGE, FCOIS_LOCALIZATION["options_icon3_tooltip_text"]}),
+            controls = PAIFCOISResearchSubmenuTable,
+            disabledLabel = PAIMenuFunctions.isFCOISResearchMenuDisabled,
+        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "submenu",
+            name = table.concat({"  ", PAC.ICONS.FCOIS.SELL_AT_GUILDSTORE.LARGE, " ", FCOIS_LOCALIZATION["options_icon11_tooltip_text"]}),
+            controls = PAIFCOISSellGuildStoreSubmenuTable,
+            disabledLabel = PAIMenuFunctions.isFCOISSellGuildStoreMenuDisabled,
+        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "submenu",
+            name = table.concat({PAC.ICONS.FCOIS.INTRICATE.LARGE, FCOIS_LOCALIZATION["options_icon12_tooltip_text"]}),
+            controls = PAIFCOISIntricateSubmenuTable,
+            disabledLabel = PAIMenuFunctions.isFCOISIntricateMenuDisabled,
+        })
 
         PAIntegrationOptionsTable:insert({
             type = "description",
             text = GetString(SI_PA_MENU_INTEGRATION_MORE_TO_COME),
         })
+
+        -- Gear Sets 1..5
+        --PAIntegrationOptionsTable:insert({
+        --    type = "submenu",
+        --    name = FCOIS_LOCALIZATION["options_icons_gears"],
+        --    controls = PAIFCOISGearSetsSubmenuTable,
+        --    disabledLabel = PAIMenuFunctions.isFCOISGearSetsMenuDisabled,
+        --})
+
+        -- Dynamic Icons 1..30
+        --PAIntegrationOptionsTable:insert({
+        --    type = "submenu",
+        --    name = FCOIS_LOCALIZATION["options_icons_dynamic"],
+        --    controls = PAIFCOISDynamicIconsSubmenuTable,
+        --    disabledLabel = PAIMenuFunctions.isFCOISDynamicIconsMenuDisabled,
+        --})
     end
 end
 
@@ -287,60 +287,194 @@ end
 -- =================================================================================================================
 
 local function _createPAIFCOISLockedSubmenuTable()
-    PAIFCOISLockedSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING),
-        warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
-        getFunc = PAIMenuFunctions.getFCOISLockedPreventAutoSellSetting,
-        setFunc = PAIMenuFunctions.setFCOISLockedPreventAutoSellSetting,
-        disabled = PAIMenuFunctions.isFCOISLockedPreventAutoSellDisabled,
-        default = PAIMenuDefaults.FCOItemSaver.Locked.preventAutoSell,
-    })
+    if PA.Junk then
+        PAIFCOISLockedSubmenuTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING),
+            getFunc = PAIMenuFunctions.getFCOISLockedPreventAutoSellSetting,
+            setFunc = PAIMenuFunctions.setFCOISLockedPreventAutoSellSetting,
+            disabled = PAIMenuFunctions.isFCOISLockedPreventAutoSellDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.Locked.preventAutoSell,
+        })
+    else
+        PAIFCOISLockedSubmenuTable:insert({
+            type = "description",
+            text = paJunkRequiredText
+        })
+    end
+
+    if PA.Banking then
+        PAIFCOISLockedSubmenuTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING),
+            tooltip = GetString(SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING_T),
+            getFunc = PAIMenuFunctions.getFCOISLockedPreventMovingSetting,
+            setFunc = PAIMenuFunctions.setFCOISLockedPreventMovingSetting,
+            disabled = PAIMenuFunctions.isFCOISLockedPreventMovingDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.Locked.preventMoving,
+        })
+    else
+        PAIFCOISLockedSubmenuTable:insert({
+            type = "description",
+            text = paBankingRequiredText
+        })
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAIFCOISResearchSubmenuTable()
+    if PA.Banking then
+        local PABMenuChoices = PA.MenuChoices.choices.PABanking
+        local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 
+        PAIFCOISResearchSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = PAIMenuFunctions.getFCOISResearchItemMoveModeSetting,
+            setFunc = PAIMenuFunctions.setFCOISResearchItemMoveModeSetting,
+            disabled = PAIMenuFunctions.isFCOISResearchItemMoveModeDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.Research.itemMoveMode,
+        })
+    else
+        PAIFCOISResearchSubmenuTable:insert({
+            type = "description",
+            text = paBankingRequiredText
+        })
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAIFCOISSellSubmenuTable()
-    PAIFCOISSellSubmenuTable:insert({
-        type = "checkbox",
-        name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED),
-        warning = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk),
-        getFunc = PAIMenuFunctions.getFCOISSellAutoSellMarkedSetting,
-        setFunc = PAIMenuFunctions.setFCOISSellAutoSellMarkedSetting,
-        disabled = PAIMenuFunctions.isFCOISSellAutoSellMarkedDisabled,
-        default = PAIMenuDefaults.FCOItemSaver.Sell.autoSellMarked,
-    })
+    if PA.Junk then
+        PAIFCOISSellSubmenuTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED),
+            getFunc = PAIMenuFunctions.getFCOISSellAutoSellMarkedSetting,
+            setFunc = PAIMenuFunctions.setFCOISSellAutoSellMarkedSetting,
+            disabled = PAIMenuFunctions.isFCOISSellAutoSellMarkedDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.Sell.autoSellMarked,
+        })
+    else
+        PAIFCOISSellSubmenuTable:insert({
+            type = "description",
+            text = paJunkRequiredText
+        })
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAIFCOISDeconstructionSubmenuTable()
+    if PA.Banking then
+        local PABMenuChoices = PA.MenuChoices.choices.PABanking
+        local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 
+        PAIFCOISDeconstructionSubmenuTable:insert({
+          type = "dropdown",
+          name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED),
+          choices = PABMenuChoices.itemMoveMode,
+          choicesValues = PABMenuChoicesValues.itemMoveMode,
+          getFunc = PAIMenuFunctions.getFCOISDeconstructionItemMoveModeSetting,
+          setFunc = PAIMenuFunctions.setFCOISDeconstructionItemMoveModeSetting,
+          disabled = PAIMenuFunctions.isFCOISDeconstructionItemMoveModeDisabled,
+          default = PAIMenuDefaults.FCOItemSaver.Deconstruction.itemMoveMode,
+      })
+    else
+        PAIFCOISDeconstructionSubmenuTable:insert({
+          type = "description",
+          text = paBankingRequiredText
+      })
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAIFCOISImprovementSubmenuTable()
+    if PA.Banking then
+        local PABMenuChoices = PA.MenuChoices.choices.PABanking
+        local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 
+        PAIFCOISImprovementSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = PAIMenuFunctions.getFCOISImprovementItemMoveModeSetting,
+            setFunc = PAIMenuFunctions.setFCOISImprovementItemMoveModeSetting,
+            disabled = PAIMenuFunctions.isFCOISImprovementItemMoveModeDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.Improvement.itemMoveMode,
+        })
+    else
+        PAIFCOISImprovementSubmenuTable:insert({
+            type = "description",
+            text = paBankingRequiredText
+        })
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAIFCOISSellGuildStoreSubmenuTable()
+    if PA.Banking then
+        local PABMenuChoices = PA.MenuChoices.choices.PABanking
+        local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 
+        PAIFCOISSellGuildStoreSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = PAIMenuFunctions.getFCOISSellGuildStoreItemMoveModeSetting,
+            setFunc = PAIMenuFunctions.setFCOISSellGuildStoreItemMoveModeSetting,
+            disabled = PAIMenuFunctions.isFCOISSellGuildStoreItemMoveModeDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.SellGuildStore.itemMoveMode,
+        })
+    else
+        PAIFCOISSellGuildStoreSubmenuTable:insert({
+            type = "description",
+            text = paBankingRequiredText
+        })
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPAIFCOISIntricateSubmenuTable()
+    if PA.Banking then
+        local PABMenuChoices = PA.MenuChoices.choices.PABanking
+        local PABMenuChoicesValues = PA.MenuChoices.choicesValues.PABanking
 
-    --> DROPDOWN -> Do nothing, Deposit to Bank, Withdraw to backpack --> PABanking required
+        PAIFCOISIntricateSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString(SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = PAIMenuFunctions.getFCOISIntricateItemMoveModeSetting,
+            setFunc = PAIMenuFunctions.setFCOISIntricateItemMoveModeSetting,
+            disabled = PAIMenuFunctions.isFCOISIntricateItemMoveModeDisabled,
+            default = PAIMenuDefaults.FCOItemSaver.Intricate.itemMoveMode,
+        })
+    else
+        PAIFCOISIntricateSubmenuTable:insert({
+            type = "description",
+            text = paBankingRequiredText
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAIFCOISGearSetsSubmenuTable()
+
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPAIFCOISDynamicIconsSubmenuTable()
 
 end
 
@@ -359,6 +493,8 @@ local function createOptions()
         _createPAIFCOISImprovementSubmenuTable()
         _createPAIFCOISSellGuildStoreSubmenuTable()
         _createPAIFCOISIntricateSubmenuTable()
+        _createPAIFCOISGearSetsSubmenuTable()
+        _createPAIFCOISDynamicIconsSubmenuTable()
     end
 
     PA.LAM2:RegisterAddonPanel("PersonalAssistantIntegrationAddonOptions", PAIntegrationPanelData)

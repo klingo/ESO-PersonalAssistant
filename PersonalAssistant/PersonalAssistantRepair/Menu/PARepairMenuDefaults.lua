@@ -17,11 +17,8 @@ local PARepairMenuDefaults = {
         repairWithGoldDurabilityThreshold = 75,
 
         repairWithRepairKit = false,
+        defaultRepairKit = DEFAULT_SOUL_GEM_CHOICE_GOLD,
         repairWithRepairKitThreshold = 10,
-
-        repairWithCrownRepairKit = false,
-        repairWithCrownRepairKitThreshold = 10,
-
         lowRepairKitWarning = true,
         lowRepairKitThreshold = 10,
     },

@@ -7,6 +7,7 @@ local PAHF = PA.HelperFunctions
 
 local KNOWN_UNKNOWN_CONTROL_NAME = "PALKnownUnknownItemIcons"
 local SET_COLLECTION_CONTROL_NAME = "PALSetCollectionItemIcons"
+local COMPANION_ITEM_CONTROL_NAME = "PALCompanionItemItemIcons"
 local HOOK_BAGS = 1
 local HOOK_TRADEHOUSE = 2
 local HOOK_STORE = 3
@@ -31,14 +32,8 @@ local function _hasItemIconChecksPassed(itemType, specializedItemType, itemFilte
         if itemType == ITEMTYPE_RECIPE or itemType == ITEMTYPE_RACIAL_STYLE_MOTIF or
             itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY or
                 specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
-            -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
-            if GetAPIVersion() >= 100035 then
-                -- In Blackwood, we also need to check if the item is for the player (and not the companion)
-                local itemActorCategory = GetItemLinkActorCategory(itemLink)
-                return itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_PLAYER
-            end
-            -- Pre-Blackwood, the item is always valid
-            return true
+            -- Since Blackwood, we also need to check if the item is for the player (and not the companion)
+            return PAHF.isItemLinkForCompanion(itemLink) == false
         end
     end
     return false
@@ -46,15 +41,14 @@ end
 
 local function _hasItemSetCollectionIconChecksPassed(itemLink)
     if PA.Loot.SavedVars.ItemIcons.itemIconsEnabled and IsItemLinkSetCollectionPiece(itemLink) then
-        if GetAPIVersion() >= 100035 then
-            -- In Blackwood, we also need to check if the item is for the player (and not the companion)
-            local itemActorCategory = GetItemLinkActorCategory(itemLink)
-            return itemActorCategory == GAMEPLAY_ACTOR_CATEGORY_PLAYER
-        end
-        -- Pre-Blackwood, the item is always valid
-        return true
+        -- Since Blackwood, we also need to check if the item is for the player (and not the companion)
+        return PAHF.isItemLinkForCompanion(itemLink) == false
     end
     return false
+end
+
+local function _hasItemCompanionItemsIconChecksPassed(itemLink)
+    return PA.Loot.SavedVars.ItemIcons.itemIconsEnabled and PAHF.isItemLinkForCompanion(itemLink)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -77,6 +71,16 @@ local function _getSetCollectionIconSize(parentControl, hookType)
     end
     -- in all other cases return the ROW size
     return PA.Loot.SavedVars.ItemIcons.SetCollection.iconSizeList
+end
+
+-- returns the target icon size; depending on the parentControl and the hookType
+local function _getCompanionItemIconSize(parentControl, hookType)
+    -- if gridView is enabled, and it is for the bags or buyback, then return the GRID size
+    if _isGridViewDisplay(parentControl, hookType) then
+        return PA.Loot.SavedVars.ItemIcons.CompanionItems.iconSizeGrid
+    end
+    -- in all other cases return the ROW size
+    return PA.Loot.SavedVars.ItemIcons.CompanionItems.iconSizeList
 end
 
 -- returns the iconPosition and offsets for gridView
@@ -102,6 +106,19 @@ end
 local function _getSetCollectionListViewIconPositionAndOffset()
     local offsetX = PA.Loot.SavedVars.ItemIcons.SetCollection.iconXOffsetList
     local offsetY = PA.Loot.SavedVars.ItemIcons.SetCollection.iconYOffsetList
+    return LEFT, RIGHT, offsetX, offsetY
+end
+
+-- returns the iconPosition and offsets for gridView
+local function _getCompanionItemGridViewIconPositionAndOffset()
+    local offsetX = PA.Loot.SavedVars.ItemIcons.CompanionItems.iconXOffsetGrid
+    local offsetY = PA.Loot.SavedVars.ItemIcons.CompanionItems.iconYOffsetGrid
+    return BOTTOMLEFT, offsetX, offsetY
+end
+
+local function _getCompanionItemListViewIconPositionAndOffset()
+    local offsetX = PA.Loot.SavedVars.ItemIcons.CompanionItems.iconXOffsetList
+    local offsetY = PA.Loot.SavedVars.ItemIcons.CompanionItems.iconYOffsetList
     return LEFT, RIGHT, offsetX, offsetY
 end
 
@@ -155,6 +172,14 @@ local function _setUncollectedSetItemIcon(itemIconControl, iconSize, tooltipText
     _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.UNCOLLECTED.PATH, iconSize, tooltipText, red, green, blue, 1)
 end
 
+-- sets the "companion item" icon to the control, plus tooltip
+local function _setCompanionItemIcon(itemIconControl, iconSize, tooltipText)
+    local red = 1.0     -- 255
+    local green = 0.749 -- 191 (approx)
+    local blue = 0      -- 0
+    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.COMPANION.PATH, iconSize, tooltipText, red, green, blue, 1)
+end
+
 -- either returns the existing itemControl to be re-used, or creates a new one
 local function _getOrCreateKnownUnknownItemControl(parent)
     local itemIconControl = parent:GetNamedChild(KNOWN_UNKNOWN_CONTROL_NAME)
@@ -171,6 +196,17 @@ local function _getOrCreateSetCollectionItemControl(parent)
     local itemIconControl = parent:GetNamedChild(SET_COLLECTION_CONTROL_NAME)
     if not itemIconControl then
         itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. SET_COLLECTION_CONTROL_NAME, parent, CT_TEXTURE)
+        itemIconControl:SetDrawTier(DT_HIGH)
+        itemIconControl:SetDrawLevel(1)
+    end
+    return itemIconControl
+end
+
+-- either returns the existing itemControl to be re-used, or creates a new one
+local function _getOrCreateCompanionItemControl(parent)
+    local itemIconControl = parent:GetNamedChild(COMPANION_ITEM_CONTROL_NAME)
+    if not itemIconControl then
+        itemIconControl = WINDOW_MANAGER:CreateControl(parent:GetName() .. COMPANION_ITEM_CONTROL_NAME, parent, CT_TEXTURE)
         itemIconControl:SetDrawTier(DT_HIGH)
         itemIconControl:SetDrawLevel(1)
     end
@@ -221,7 +257,6 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showKnownIcon) then
-            -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setKnownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_KNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
@@ -235,7 +270,6 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, traitName}))
         elseif ((specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER) and PALootItemIconsSV.StylePageContainers.showUnknownIcon) then
-            -- APIVersion_100035: Need to check SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE in addition to SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
@@ -280,6 +314,44 @@ local function _addSetCollectionVisuals(parentControl, itemLink, hookType)
     end
 end
 
+local function _addCompanionItemVisuals(parentControl, itemLink, hookType)
+    -- get either the already existing item control, or create a new one
+    local itemIconControl = _getOrCreateCompanionItemControl(parentControl)
+
+    -- make sure the icon/control is hidden for non-recipes and non-motifs (or if setting was disabled)
+    itemIconControl:SetHidden(true)
+
+    -- then check if the pre-conditions are met, otherwise stop any further processing
+    if not _hasItemCompanionItemsIconChecksPassed(itemLink) then
+        return
+    end
+
+    -- check for inventory grid view and set the anchors accordingly
+    itemIconControl:ClearAnchors()
+    if _isGridViewDisplay(parentControl, hookType) then
+        local iconPosition, offsetX, offsetY = _getCompanionItemGridViewIconPositionAndOffset()
+        itemIconControl:SetAnchor(iconPosition, parentControl, iconPosition, offsetX, offsetY)
+    else
+        local controlName = WINDOW_MANAGER:GetControlByName(parentControl:GetName() .. 'Name')
+        local iconPositionSelf, iconPositionParent, offsetX, offsetY = _getCompanionItemListViewIconPositionAndOffset()
+        itemIconControl:SetAnchor(iconPositionSelf, controlName, iconPositionParent, offsetX, offsetY)
+    end
+
+    -- then get the icon size
+    local iconSize = _getCompanionItemIconSize(parentControl, hookType)
+
+    -- and start checking the SavedVars settings
+    local PALootItemIconsSV = PA.Loot.SavedVars.ItemIcons
+
+    -- get the 'isItemLinkForCompanion' status for the itemLink
+    local isItemCompanionItem = PAHF.isItemLinkForCompanion(itemLink)
+    if isItemCompanionItem and PALootItemIconsSV.CompanionItems.showCompanionItemIcon then
+        local itemTraitType = GetItemLinkTraitType(itemLink)
+        local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
+        _setCompanionItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_COMPANION_ITEM), ": ", PAC.COLORS.WHITE, traitName}))
+    end
+end
+
 local function _getOrCreateDataEntryItemLink(dataEntryData)
     if dataEntryData.itemLink == nil then
         dataEntryData.itemLink = GetItemLink(dataEntryData.bagId, dataEntryData.slotIndex)
@@ -317,6 +389,7 @@ local function initHooksOnBags()
                         local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                         _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_BAGS)
                         _addSetCollectionVisuals(control, itemLink, HOOK_BAGS)
+                        _addCompanionItemVisuals(control, itemLink, HOOK_BAGS)
                     end
                 end)
             end
@@ -338,6 +411,7 @@ local function initHooksOnTradeHouse()
                 local itemLink = GetTradingHouseSearchResultItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
                 _addSetCollectionVisuals(control, itemLink, HOOK_TRADEHOUSE)
+                _addCompanionItemVisuals(control, itemLink, HOOK_TRADEHOUSE)
             end
         end)
         ZO_PreHook(TRADING_HOUSE.postedItemsList.dataTypes[2], "setupCallback", function(...)
@@ -346,6 +420,7 @@ local function initHooksOnTradeHouse()
                 local itemLink = GetTradingHouseListingItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_TRADEHOUSE)
                 _addSetCollectionVisuals(control, itemLink, HOOK_TRADEHOUSE)
+                _addCompanionItemVisuals(control, itemLink, HOOK_TRADEHOUSE)
             end
         end)
     end
@@ -360,6 +435,7 @@ local function initHooksOnMerchantsAndBuyback()
                 local itemLink = GetBuybackItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
                 _addSetCollectionVisuals(control, itemLink, HOOK_STORE)
+                _addCompanionItemVisuals(control, itemLink, HOOK_STORE)
             end
         end)
 
@@ -369,6 +445,7 @@ local function initHooksOnMerchantsAndBuyback()
                 local itemLink = GetStoreItemLink(control.dataEntry.data.slotIndex)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_STORE)
                 _addSetCollectionVisuals(control, itemLink, HOOK_STORE)
+                _addCompanionItemVisuals(control, itemLink, HOOK_STORE)
             end
         end)
     else
@@ -388,6 +465,7 @@ local function initHooksOnCraftingStations()
                 local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
                 _addSetCollectionVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addCompanionItemVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
 
@@ -399,6 +477,7 @@ local function initHooksOnCraftingStations()
                 local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
                 _addSetCollectionVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addCompanionItemVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
 
@@ -410,6 +489,7 @@ local function initHooksOnCraftingStations()
                 local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
                 _addSetCollectionVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addCompanionItemVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
     else
@@ -427,6 +507,7 @@ local function initHooksOnLootWindow()
                 local itemLink = GetLootItemLink(control.dataEntry.data.lootId)
                 _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_LOOT)
                 _addSetCollectionVisuals(control, itemLink, HOOK_LOOT)
+                _addCompanionItemVisuals(control, itemLink, HOOK_LOOT)
             end
         end)
     else

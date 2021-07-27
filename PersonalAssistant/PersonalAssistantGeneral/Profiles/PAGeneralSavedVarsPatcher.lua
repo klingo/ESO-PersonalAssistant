@@ -15,8 +15,13 @@ end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
     local PAGSavedVars = PA.SavedVars.General
-    local currentVersion = tonumber(PAGSavedVars.savedVarsVersion) or PAC.ADDON.SAVED_VARS_VERSION.MINOR
+    local currentVersion = tonumber(PAGSavedVars.savedVarsVersion) or PAC.ADDON.VERSION_ADDON
     return savedVarsVersion, (currentVersion < savedVarsVersion)
+end
+
+local function _setLocalProfileCounter(PASavedVars)
+    local profileCounter = PASavedVars.General.profileCounter
+    PASavedVars.General.profileCounter = (type(profileCounter) == 'number' and profileCounter) or 0
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

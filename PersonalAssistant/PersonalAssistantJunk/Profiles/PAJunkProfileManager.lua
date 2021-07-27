@@ -136,7 +136,7 @@ local function initPAJunkDefaultProfile()
         PAJSavedVars[1] = {}
         PAZO_SavedVars.CopyDefaults(PAJSavedVars[1], PA.MenuDefaults.PAJunk)
         -- and set the savedVarsVersion and profileCounter
-        PAJSavedVars.savedVarsVersion = PAC.ADDON.SAVED_VARS_VERSION.MINOR
+        PAJSavedVars.savedVarsVersion = PAC.ADDON.VERSION_ADDON
         PAJSavedVars.profileCounter = 1
     else
         -- at least one profile is existing, check with others

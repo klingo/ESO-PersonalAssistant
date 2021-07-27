@@ -15,13 +15,13 @@
         <copy todir="${addondir}">
             <fileset dir="${srcdir}"/>
         </copy>
-        <replace file="${addondir}/${ant.project.name}.txt" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondir}/${ant.project.name}Banking/${ant.project.name}Banking.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondir}/${ant.project.name}Integration/${ant.project.name}Integration.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondir}/${ant.project.name}Junk/${ant.project.name}Junk.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondir}/${ant.project.name}Loot/${ant.project.name}Loot.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondir}/${ant.project.name}Repair/${ant.project.name}Repair.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondir}/vars/Globals.lua" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondir}/${ant.project.name}.txt" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondir}/${ant.project.name}Banking/${ant.project.name}Banking.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondir}/${ant.project.name}Integration/${ant.project.name}Integration.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondir}/${ant.project.name}Junk/${ant.project.name}Junk.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondir}/${ant.project.name}Loot/${ant.project.name}Loot.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondir}/${ant.project.name}Repair/${ant.project.name}Repair.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondir}/vars/Globals.lua" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
     </target>
 
     <target name="copyToPTSAddonFolder">
@@ -29,51 +29,68 @@
         <copy todir="${addondirPTS}">
             <fileset dir="${srcdir}"/>
         </copy>
-        <replace file="${addondirPTS}/${ant.project.name}.txt" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondirPTS}/${ant.project.name}Banking/${ant.project.name}Banking.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondirPTS}/${ant.project.name}Integration/${ant.project.name}Integration.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondirPTS}/${ant.project.name}Junk/${ant.project.name}Junk.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondirPTS}/${ant.project.name}Loot/${ant.project.name}Loot.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondirPTS}/${ant.project.name}Repair/${ant.project.name}Repair.txt/" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
-        <replace file="${addondirPTS}/vars/Globals.lua" token="{BUILD_NUMBER}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondirPTS}/${ant.project.name}.txt" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondirPTS}/${ant.project.name}Banking/${ant.project.name}Banking.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondirPTS}/${ant.project.name}Integration/${ant.project.name}Integration.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondirPTS}/${ant.project.name}Junk/${ant.project.name}Junk.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondirPTS}/${ant.project.name}Loot/${ant.project.name}Loot.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondirPTS}/${ant.project.name}Repair/${ant.project.name}Repair.txt/" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
+        <replace file="${addondirPTS}/vars/Globals.lua" token="{VERSION_ADDON}" value="999999" encoding="UTF-8"/>
     </target>
 
     <target name="makeNextMajorVersion" if="isMajorRelease">
         <property name="header" value="Generated file - do not modify!"/>
         <propertyfile file="version.properties" comment="${header}">
-            <entry key="build.major" type="int" default="0" operation="+"/>
-            <entry key="build.minor" type="int" value="0"/>
-            <entry key="build.patch" type="int" value="0"/>
-            <entry key="build.revision" type="int" default="0" operation="+" pattern="0"/>
+            <entry key="build.major" type="int" operation="+" default="0" pattern="0"/>
+            <entry key="build.minor" type="int" operation="=" value="0" pattern="0"/>
+            <entry key="build.patch" type="int" operation="=" value="0" pattern="0"/>
+            <entry key="build.revision" type="int" operation="+" default="0" pattern="0"/>
+            <entry key="addon.major" type="int" operation="+" default="00" pattern="00"/>
+            <entry key="addon.minor" type="int" operation="=" value="00" pattern="00"/>
+            <entry key="addon.patch" type="int" operation="=" value="00" pattern="00"/>
         </propertyfile>
     </target>
 
     <target name="makeNextMinorVersion" if="isMinorRelease">
         <property name="header" value="Generated file - do not modify!"/>
         <propertyfile file="version.properties" comment="${header}">
-            <entry key="build.minor" type="int" default="0" operation="+"/>
-            <entry key="build.patch" type="int" value="0"/>
-            <entry key="build.revision" type="int" default="0" operation="+" pattern="0"/>
+            <entry key="build.major" type="int" operation="=" default="0" pattern="0"/>
+            <entry key="build.minor" type="int" operation="+" default="0" pattern="0"/>
+            <entry key="build.patch" type="int" operation="=" value="0" pattern="0"/>
+            <entry key="build.revision" type="int" operation="+" default="0" pattern="0"/>
+            <entry key="addon.major" type="int" operation="=" default="00" pattern="00"/>
+            <entry key="addon.minor" type="int" operation="+" default="00" pattern="00"/>
+            <entry key="addon.patch" type="int" operation="=" value="00" pattern="00"/>
         </propertyfile>
     </target>
 
     <target name="makeNextPatchVersion" if="isPatchRelease">
         <property name="header" value="Generated file - do not modify!"/>
         <propertyfile file="version.properties" comment="${header}">
-            <entry key="build.patch" type="int" default="0" operation="+"/>
-            <entry key="build.revision" type="int" default="0" operation="+" pattern="0"/>
+            <entry key="build.major" type="int" operation="=" default="0" pattern="0"/>
+            <entry key="build.minor" type="int" operation="=" default="0" pattern="0"/>
+            <entry key="build.patch" type="int"  operation="+" default="0" pattern="0"/>
+            <entry key="build.revision" type="int" operation="+" default="0" pattern="0"/>
+            <entry key="addon.major" type="int" operation="=" default="00" pattern="00"/>
+            <entry key="addon.minor" type="int" operation="=" default="00" pattern="00"/>
+            <entry key="addon.patch" type="int" operation="+" default="00" pattern="00"/>
         </propertyfile>
     </target>
 
     <target name="makeNextCustomVersion" if="isCustomRelease">
-        <property name="header" value="Generated file - do not modify!"/>
-        <propertyfile file="version.properties" comment="${header}">
-            <entry key="build.revision" type="int" default="0" operation="+" pattern="0"/>
-        </propertyfile>
         <input addproperty="custom.major" message="MAJOR version"/>
         <input addproperty="custom.minor" message="MINOR version"/>
         <input addproperty="custom.patch" message="PATCH version"/>
-        <property name="releaseVersionDisplay" value="${custom.major}.${custom.minor}.${custom.patch}"/>
+        <property name="header" value="Generated file - do not modify!"/>
+        <propertyfile file="version.properties" comment="${header}">
+            <entry key="build.major" type="int" operation="=" value="${custom.major}" pattern="0"/>
+            <entry key="build.minor" type="int" operation="=" value="${custom.minor}" pattern="0"/>
+            <entry key="build.patch" type="int" operation="=" value="${custom.patch}" pattern="0"/>
+            <entry key="build.revision" type="int" operation="+" default="0" pattern="0"/>
+            <entry key="addon.major" type="int" operation="=" value="${custom.major}" pattern="00"/>
+            <entry key="addon.minor" type="int" operation="=" value="${custom.minor}" pattern="00"/>
+            <entry key="addon.patch" type="int" operation="=" value="${custom.patch}" pattern="00"/>
+        </propertyfile>
     </target>
 
     <target name="getCurrentBuildVersion">
@@ -108,33 +125,33 @@
         </copy>
 
         <property name="releaseVersionDisplay" value="${build.major}.${build.minor}.${build.patch}"/>
-        <property name="releaseVersionRaw" value="${build.revision}"/>
+        <property name="releaseVersionAddon" value="${addon.major}${addon.minor}${addon.patch}"/>
 
         <replace file="${tempdir}/${ant.project.name}/${ant.project.name}.txt" token="{VERSION_NUMBER}" value="${releaseVersionDisplay}" encoding="UTF-8"/>
-        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}.txt" token="{BUILD_NUMBER}" value="${releaseVersionRaw}" encoding="UTF-8"/>
+        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}.txt" token="{VERSION_ADDON}" value="${releaseVersionAddon}" encoding="UTF-8"/>
 
         <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Banking/${ant.project.name}Banking.txt/" token="{VERSION_NUMBER}" value="${releaseVersionDisplay}" encoding="UTF-8"/>
-        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Banking/${ant.project.name}Banking.txt/" token="{BUILD_NUMBER}" value="${releaseVersionRaw}" encoding="UTF-8"/>
+        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Banking/${ant.project.name}Banking.txt/" token="{VERSION_ADDON}" value="${releaseVersionAddon}" encoding="UTF-8"/>
 
         <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Integration/${ant.project.name}Integration.txt/" token="{VERSION_NUMBER}" value="${releaseVersionDisplay}" encoding="UTF-8"/>
-        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Integration/${ant.project.name}Integration.txt/" token="{BUILD_NUMBER}" value="${releaseVersionRaw}" encoding="UTF-8"/>
+        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Integration/${ant.project.name}Integration.txt/" token="{VERSION_ADDON}" value="${releaseVersionAddon}" encoding="UTF-8"/>
 
         <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Junk/${ant.project.name}Junk.txt/" token="{VERSION_NUMBER}" value="${releaseVersionDisplay}" encoding="UTF-8"/>
-        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Junk/${ant.project.name}Junk.txt/" token="{BUILD_NUMBER}" value="${releaseVersionRaw}" encoding="UTF-8"/>
+        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Junk/${ant.project.name}Junk.txt/" token="{VERSION_ADDON}" value="${releaseVersionAddon}" encoding="UTF-8"/>
 
         <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Loot/${ant.project.name}Loot.txt/" token="{VERSION_NUMBER}" value="${releaseVersionDisplay}" encoding="UTF-8"/>
-        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Loot/${ant.project.name}Loot.txt/" token="{BUILD_NUMBER}" value="${releaseVersionRaw}" encoding="UTF-8"/>
+        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Loot/${ant.project.name}Loot.txt/" token="{VERSION_ADDON}" value="${releaseVersionAddon}" encoding="UTF-8"/>
 
         <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Repair/${ant.project.name}Repair.txt/" token="{VERSION_NUMBER}" value="${releaseVersionDisplay}" encoding="UTF-8"/>
-        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Repair/${ant.project.name}Repair.txt/" token="{BUILD_NUMBER}" value="${releaseVersionRaw}" encoding="UTF-8"/>
+        <replace file="${tempdir}/${ant.project.name}/${ant.project.name}Repair/${ant.project.name}Repair.txt/" token="{VERSION_ADDON}" value="${releaseVersionAddon}" encoding="UTF-8"/>
 
         <replace file="${tempdir}/${ant.project.name}/vars/Globals.lua" token="{VERSION_NUMBER}" value="${releaseVersionDisplay}" encoding="UTF-8"/>
-        <replace file="${tempdir}/${ant.project.name}/vars/Globals.lua" token="{BUILD_NUMBER}" value="${releaseVersionRaw}" encoding="UTF-8"/>
+        <replace file="${tempdir}/${ant.project.name}/vars/Globals.lua" token="{VERSION_ADDON}" value="${releaseVersionAddon}" encoding="UTF-8"/>
 
 
         <!--<replace file="${tempdir}/${ant.project.name}/${ant.project.name}.txt" token="libs/LibCustomMenu/LibCustomMenu.lua" value="" encoding="UTF-8" />-->
 
-        <zip destfile="${targetdir}/${ant.project.name}-${releaseVersionDisplay}.${releaseVersionRaw}.zip">
+        <zip destfile="${targetdir}/${ant.project.name}-${releaseVersionDisplay}.${build.revision}.zip">
             <fileset dir="${tempdir}" />
         </zip>
         <delete includeemptydirs="true" dir="${tempdir}" />

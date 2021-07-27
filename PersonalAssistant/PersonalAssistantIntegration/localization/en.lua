@@ -10,16 +10,15 @@ local PAIStrings = {
     SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE = "You currently do not have any addons installed/enabled that are supported by PAIntegration",
 
     -- Dolgubon's Lazy Writ Crafter --
-    SI_PA_MENU_INTEGRATION_LWC_PRECONDITION = "Note: In order to make use of below setting, you must enable PABanking first",
-
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY = "Compatibility with Dolgubon's Lazy Writ Crafter",
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T = "When you have active Writ Crafting quests and 'Withdraw writ items' is enabled in Dolgubon's Lazy Writ Crafter, then for these items the 'Deposit to Bank' setting is ignored. This is to avoid having withdrawn items immediately re-deposited",
 
     -- FCO ItemSaver --
-    SI_PA_MENU_INTEGRATION_FCOIS_PRECONDITION = "Note: In order to make use of below settings, you must enable PAJunk first",
-
     SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING = "Prevent Auto-Sell of items that are Locked",
+    SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING = "Prevent moving items that are Locked",
+    SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING_T = "If turned ON, items that are Locked with FCO ItemSaver  will neither be deposited to the bank, nor withdrawn from it",
     SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED = "Auto-Sell marked items at Merchants/Fences?",
+    SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED = "Move marked items when accessing the bank?",
 
 
     -- =================================================================================================================
@@ -32,8 +31,8 @@ local PAIStrings = {
     -- == OTHER STRINGS FOR MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAIntegration Menu --
-    SI_PA_MENU_INTEGRATION_PAB_REQUIRED = "Requires PABanking to be enabled",
-    SI_PA_MENU_INTEGRATION_PAJ_REQUIRED = "Requires PAJunk to be enabled",
+    SI_PA_MENU_INTEGRATION_PAB_REQUIRED = "Additional settings become visible when PABanking is enabled",
+    SI_PA_MENU_INTEGRATION_PAJ_REQUIRED = "Additional settings become visible when PAJunk is enabled",
 
     SI_PA_MENU_INTEGRATION_MORE_TO_COME = "More FCO ItemSaver integrations will come with future updates",
 }

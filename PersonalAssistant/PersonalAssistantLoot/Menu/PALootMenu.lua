@@ -33,13 +33,16 @@ local PALootProfileSubMenuTable = setmetatable({}, { __index = table })
 local PALLootRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootStylesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
+local PALLootCompanionItemsSubmenuTable = setmetatable({}, { __index = table })
 
 local PALMarkRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALMarkMotifsSubmenuTable = setmetatable({}, { __index = table })
 local PALMarkApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
+local PALMarkCompanionItemsSubmenuTable = setmetatable({}, { __index = table })
 
 local PALIconsKnownUnknownSubmenuTable = setmetatable({}, { __index = table })
 local PALIconsSetCollectionSubmenuTable = setmetatable({}, { __index = table })
+local PALIconsCompanionItemSubmenuTable = setmetatable({}, { __index = table })
 
 -- =================================================================================================================
 
@@ -92,6 +95,15 @@ local function _createPALootMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PALLootApparelWeaponsSubmenuTable,
         disabledLabel = PALMenuFunctions.isLootApparelWeaponsMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.COMPANION.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PALLootCompanionItemsSubmenuTable,
+        disabledLabel = PALMenuFunctions.isLootCompanionItemsMenuDisabled,
     })
 
     PALootOptionsTable:insert({
@@ -161,6 +173,15 @@ local function _createPALootMenu()
     })
 
     PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.COMPANION.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PALMarkCompanionItemsSubmenuTable,
+        disabledLabel = PALMenuFunctions.isMarkCompanionItemsMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
         type = "description",
         text = GetString(SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION),
         disabled = PALMenuFunctions.isItemIconsDescriptionDisabled,
@@ -178,6 +199,13 @@ local function _createPALootMenu()
         name = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.NORMAL, "  ", GetString(SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER)}),
         controls = PALIconsSetCollectionSubmenuTable,
         disabledLabel = PALMenuFunctions.isIconsSetCollectionMenuDisabled,
+    })
+
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = table.concat({PAC.ICONS.OTHERS.COMPANION.NORMAL, "  ", GetString(SI_PA_MENU_LOOT_ICONS_COMPANION_ITEMS_HEADER)}),
+        controls = PALIconsCompanionItemSubmenuTable,
+        disabledLabel = PALMenuFunctions.isIconsCompanionItemsMenuDisabled,
     })
 
     PALootOptionsTable:insert({
@@ -392,6 +420,28 @@ local function _createPALLootApparelWeaponsSubmenuTable()
     })
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALLootCompanionItemsSubmenuTable()
+    PALLootCompanionItemsSubmenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_DISPLAY_A_MESSAGE_WHEN),
+        disabled = PALMenuFunctions.isLootCompanionItemsMenuDisabled,
+    })
+
+    PALLootCompanionItemsSubmenuTable:insert({
+       type = "dropdown",
+       name = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD),
+       tooltip = GetString(SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T),
+       choices = PALMenuChoices.qualityLevel,
+       choicesValues = PALMenuChoicesValues.qualityLevel,
+       getFunc = PALMenuFunctions.getLootCompanionItemsQualityThresholdSetting,
+       setFunc = PALMenuFunctions.setLootCompanionItemsQualityThresholdSetting,
+       disabled = PALMenuFunctions.isLootCompanionItemsQualityThresholdDisabled,
+       default = PALMenuDefaults.LootEvents.LootCompanionItems.qualityThreshold,
+   })
+end
+
 -- =================================================================================================================
 
 local function _createPALMarkRecipesSubmenuTable()
@@ -505,6 +555,25 @@ local function _createPALMarkApparelWeaponsSubmenuTable()
         setFunc = PALMenuFunctions.setMarkUncollectedSetItemSetting,
         disabled = PALMenuFunctions.isMarkUncollectedSetItemDisabled,
         default = PALMenuDefaults.ItemIcons.SetCollection.showUncollectedIcon,
+    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALMarkCompanionItemsSubmenuTable()
+    PALMarkCompanionItemsSubmenuTable:insert({
+        type = "description",
+        text = GetString(SI_PA_MARK_WITH),
+        disabled = PALMenuFunctions.isMarkCompanionItemsMenuDisabled,
+    })
+
+    PALMarkCompanionItemsSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_SHOW_ALL),
+        getFunc = PALMenuFunctions.getMarkCompanionItemSetting,
+        setFunc = PALMenuFunctions.setMarkCompanionItemSetting,
+        disabled = PALMenuFunctions.isMarkCompanionItemDisabled,
+        default = PALMenuDefaults.ItemIcons.CompanionItems.showCompanionItemIcon,
     })
 end
 
@@ -794,6 +863,149 @@ local function _createPALIconsSetCollectionSubmenuTable()
     end
 end
 
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALIconsCompanionItemSubmenuTable()
+    -- only display if [InventoryGridView] or [GridList] is installed and active
+    if _G["InventoryGridView"] ~= nil or _G["GridList"] ~= nil then
+            PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsSizeListDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconSizeList,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_GRID_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsSizeGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsSizeGridSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsSizeGridDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconSizeGrid,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
+            min = -380,
+            max = 150,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsXOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsXOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsXOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconXOffsetList,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_GRID_T),
+            min = 0,
+            max = 100,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsXOffsetGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsXOffsetGridSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsXOffsetGridDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconXOffsetGrid,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
+            min = -20,
+            max = 20,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsYOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsYOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsYOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconYOffsetList,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_GRID_T),
+            min = -100,
+            max = 0,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsYOffsetGridSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsYOffsetGridSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsYOffsetGridDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconYOffsetGrid,
+        })
+    else
+        -- regular list-view of items
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_SIZE_LIST_T),
+            min = 8,
+            max = 64,
+            step = 1,
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsSizeListSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsSizeListSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsSizeListDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconSizeList,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "divider",
+            alpha = 0.5,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_X_OFFSET_LIST_T),
+            min = -380,
+            max = 150,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsXOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsXOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsXOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconXOffsetList,
+        })
+
+        PALIconsCompanionItemSubmenuTable:insert({
+            type = "slider",
+            name = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST),
+            tooltip = GetString(SI_PA_MENU_LOOT_ICONS_Y_OFFSET_LIST_T),
+            min = -20,
+            max = 20,
+            step = 1,
+            width = "half",
+            getFunc = PALMenuFunctions.getItemIconsCompanionItemsYOffsetListSetting,
+            setFunc = PALMenuFunctions.setItemIconsCompanionItemsYOffsetListSetting,
+            disabled = PALMenuFunctions.isItemIconsCompanionItemsYOffsetListDisabled,
+            default = PALMenuDefaults.ItemIcons.CompanionItems.iconYOffsetList,
+        })
+    end
+end
+
 -- =================================================================================================================
 
 local function createOptions()
@@ -804,13 +1016,16 @@ local function createOptions()
     _createPALLootRecipesSubmenuTable()
     _createPALLootStylesSubmenuTable()
     _createPALLootApparelWeaponsSubmenuTable()
+    _createPALLootCompanionItemsSubmenuTable()
 
     _createPALMarkRecipesSubmenuTable()
     _createPALMarkMotifsSubmenuTable()
     _createPALMarkApparelWeaponsSubmenuTable()
+    _createPALMarkCompanionItemsSubmenuTable()
 
     _createPALIconsKnownUnknownSubmenuTable()
     _createPALIconsSetCollectionSubmenuTable()
+    _createPALIconsCompanionItemSubmenuTable()
 
     PA.LAM2:RegisterAddonPanel("PersonalAssistantLootAddonOptions", PALootPanelData)
     PA.LAM2:RegisterOptionControls("PersonalAssistantLootAddonOptions", PALootOptionsTable)
