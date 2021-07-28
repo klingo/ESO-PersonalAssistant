@@ -29,6 +29,8 @@ end
 local function onBankOpenShowKeybindStrip()
     if not KEYBIND_STRIP:HasKeybindButtonGroup(PABankingButtonGroup) then
         KEYBIND_STRIP:AddKeybindButtonGroup(PABankingButtonGroup)
+        -- also update the keybindstrip with the proper names
+        updateBankKeybindStrip()
     end
 end
 
