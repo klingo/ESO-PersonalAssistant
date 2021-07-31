@@ -14,6 +14,10 @@ local function _finishBankingItemTransfer()
     PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking._finishBankingItemTransfer (7)")
     PAB.isBankItemTransferBlocked = false
+    -- update the icons
+    if PA.Loot and PA.ProfileManager.PALoot.hasActiveProfile() then
+        PA.Loot.ItemIcons.refreshScrollListVisible()
+    end
     -- update/hide the Keybind Strip
     PAB.KeybindStrip.updateBankKeybindStrip()
     -- inform player that everything is done
