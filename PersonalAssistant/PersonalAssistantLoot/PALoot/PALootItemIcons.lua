@@ -363,12 +363,16 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function refreshScrollListVisible()
+    PA.Loot.debugln("refreshScrollListVisible()")
     ZO_ScrollList_RefreshVisible(ZO_PlayerInventoryList)
     ZO_ScrollList_RefreshVisible(ZO_PlayerBankBackpack)
     ZO_ScrollList_RefreshVisible(ZO_HouseBankBackpack)
     ZO_ScrollList_RefreshVisible(ZO_GuildBankBackpack)
     ZO_ScrollList_RefreshVisible(ZO_StoreWindowList)
     ZO_ScrollList_RefreshVisible(ZO_BuyBackList)
+    ZO_ScrollList_RefreshVisible(ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack)
+    ZO_ScrollList_RefreshVisible(ZO_SmithingTopLevelImprovementPanelInventoryBackpack)
+    ZO_ScrollList_RefreshVisible(ZO_SmithingTopLevelRefinementPanelInventoryBackpack)
     if ZO_TradingHouseSearch:IsAtTradingHouse() then
         ZO_ScrollList_RefreshVisible(TRADING_HOUSE.searchResultsList)
         ZO_ScrollList_RefreshVisible(TRADING_HOUSE.postedItemsList)
