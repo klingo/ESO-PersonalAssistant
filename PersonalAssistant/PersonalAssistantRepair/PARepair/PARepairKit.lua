@@ -10,8 +10,7 @@ local _lastNoRepairKitWarningGameTime = 0
 
 local _repairKitItemIds = {
     [44879] = true,  -- Grand Repair Kit    Tier=6
-    -- FIXME: always disabled until a solution is found to correctly use Crown Repair Kits
-    --[61079] = true,  -- Crown Repair Kit    Tier=7
+    [61079] = true,  -- Crown Repair Kit    Tier=7
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -80,13 +79,28 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
                         -- some debug information
                         PAR.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, firstRepairKit.name, repairableAmount, itemCondition, 100)
 
-                        -- actually repair the item
-                        RepairItemWithRepairKit(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
-                        totalRepairKitCount = totalRepairKitCount - 1
-                        PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
-
-                        -- show output to chat
-                        PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, itemLink, itemCondition, firstRepairKit.itemLink)
+                        local isNormalRepairKit = IsItemNonCrownRepairKit(firstRepairKit.bagId, firstRepairKit.slotIndex)
+                        if isNormalRepairKit then
+                            -- actually repair the item with a normal repair kit
+                            RepairItemWithRepairKit(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
+                            -- reduce repairKit count and play repair sound
+                            totalRepairKitCount = totalRepairKitCount - 1
+                            PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
+                            -- show output to chat
+                            PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, itemLink, itemCondition, firstRepairKit.itemLink)
+                        else
+                            -- actually repair all items with a crown repair kit
+                            if PAHF.attemptToUseItem(firstRepairKit.bagId, firstRepairKit.slotIndex) then
+                                -- reduce repairKit count and play repair sound
+                                totalRepairKitCount = totalRepairKitCount - 1
+                                PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
+                                -- show output to chat
+                                PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED_ALL, itemLink, itemCondition, firstRepairKit.itemLink)
+                            else
+                                -- Item(s) could somehow not be repaired
+                                PAR.debugln("Call of \"UseItem(%s)\" failed! IsUnitInCombat(player) = %s", itemLink, tostring(PAHF.isPlayerInCombat()))
+                            end
+                        end
                     end
 
                     -- check remaining repair kits

@@ -59,10 +59,8 @@ local PARepairMenuFunctions = {
     getRepairWithRepairKitSetting = function() return getValue({"RepairEquipped", "repairWithRepairKit"}) end,
     setRepairWithRepairKitSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "repairWithRepairKit"}) end,
 
-    isRepairDefaultRepairKitDisabled = function() return true end, -- FIXME: always disabled until a solution is found to correctly use Crown Repair Kits
-    --isRepairDefaultRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
-    getRepairDefaultRepairKitSetting = function() return DEFAULT_SOUL_GEM_CHOICE_GOLD end,  -- FIXME: always return DEFAULT_SOUL_GEM_CHOICE_GOLD until a solution is found to correctly use Crown Repair Kits
-    --getRepairDefaultRepairKitSetting = function() return getValue({"RepairEquipped", "defaultRepairKit"}) end,
+    isRepairDefaultRepairKitDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
+    getRepairDefaultRepairKitSetting = function() return getValue({"RepairEquipped", "defaultRepairKit"}) end,
     setRepairDefaultRepairKitSetting = function(value) setValueAndRefreshEvents(value, {"RepairEquipped", "defaultRepairKit"}) end,
 
     isRepairWithRepairKitDurabilityThresholdDisabled = function() return isDisabled({"autoRepairEnabled"}, {"RepairEquipped", "repairWithRepairKit"}) end,
