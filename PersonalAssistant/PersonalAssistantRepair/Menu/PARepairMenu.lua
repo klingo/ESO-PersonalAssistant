@@ -279,6 +279,8 @@ local function _createPARRepairKitSubmenuTable()
         type = "dropdown",
         name = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT),
         tooltip = GetString(SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT_T),
+        -- FIXME: remove warning again once proper solution is found
+        warning = "Crown Repair Kits are temporarily disabled until a proper solution is found for PARepair to correctly repair all items with them.",
         choices = PARMenuChoices.defaultRepairKit,
         choicesValues = PARMenuChoicesValues.defaultRepairKit,
         getFunc = PARMenuFunctions.getRepairDefaultRepairKitSetting,

@@ -10,7 +10,8 @@ local _lastNoRepairKitWarningGameTime = 0
 
 local _repairKitItemIds = {
     [44879] = true,  -- Grand Repair Kit    Tier=6
-    [61079] = true,  -- Crown Repair Kit    Tier=7
+    -- FIXME: always disabled until a solution is found to correctly use Crown Repair Kits
+    --[61079] = true,  -- Crown Repair Kit    Tier=7
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
