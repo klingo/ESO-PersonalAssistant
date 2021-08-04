@@ -322,7 +322,7 @@ end
 
 local function attemptToUseItem(bagId, slotIndex)
     local usable, onlyFromActionSlot = IsItemUsable(bagId, slotIndex)
-    if usable and not onlyFromActionSlot then
+    if usable and not onlyFromActionSlot and not isPlayerInCombat() then
         if IsProtectedFunction("UseItem") then
             CallSecureProtected("UseItem", bagId, slotIndex)
         else
