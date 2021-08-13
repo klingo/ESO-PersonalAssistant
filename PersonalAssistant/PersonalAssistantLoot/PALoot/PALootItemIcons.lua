@@ -403,7 +403,7 @@ end
 local function initHooksOnTradeHouse()
     local gamepadModeSetting = GetSetting(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_INPUT_PREFERRED_MODE)
     local isAlwaysKeyboardMode = (gamepadModeSetting == tostring(INPUT_PREFERRED_MODE_ALWAYS_KEYBOARD))
-    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAL, "initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
+    PA.Loot.debugln("initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
     if isAlwaysKeyboardMode then
         ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
             local control = ...
