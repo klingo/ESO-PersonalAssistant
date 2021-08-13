@@ -62,6 +62,7 @@ local PARStrings = {
     SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL = "Восстановлено в инвентаре за %s (%s не хватило)",
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({"Восстановлено %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " за %s"}),
+    --SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED_ALL = table.concat({""}),
 }
 
 for key, value in pairs(PARStrings) do

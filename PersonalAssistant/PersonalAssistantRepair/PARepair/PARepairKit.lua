@@ -3,6 +3,7 @@ local PA = PersonalAssistant
 local PAC = PA.Constants
 local PAR = PA.Repair
 local PAHF = PA.HelperFunctions
+local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -10,8 +11,7 @@ local _lastNoRepairKitWarningGameTime = 0
 
 local _repairKitItemIds = {
     [44879] = true,  -- Grand Repair Kit    Tier=6
-    -- FIXME: always disabled until a solution is found to correctly use Crown Repair Kits
-    --[61079] = true,  -- Crown Repair Kit    Tier=7
+    [61079] = true,  -- Crown Repair Kit    Tier=7
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ end
 -- --------------------------------------------------------------------------------------------------------------------
 
 local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
-    -- only proceed if player is not dead (since repairkits cannot be used then)
+    -- only proceed if player is not dead (since repairKits cannot be used then)
     if not PAHF.isPlayerDeadOrReincarnating() then
         -- check if it is enabled
         local PARepairSavedVars = PAR.SavedVars
@@ -68,25 +68,44 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
             if hasDurability then
                 local itemCondition = GetItemCondition(bagId, slotIndex)
                 local repairKitThreshold = PARepairSavedVars.RepairEquipped.repairWithRepairKitThreshold
-                PAR.debugln("%s is at %d/%d", GetItemName(bagId, slotIndex), itemCondition, 100)
+                PAR.debugln("%s is at %d%%", GetItemName(bagId, slotIndex), itemCondition)
                 -- check if it is below and would need to be repaired
                 if itemCondition <= repairKitThreshold then
                     local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
                     if totalRepairKitCount > 0 then
                         local firstRepairKit = repairKitTable[1]
-                        local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
                         local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
+                        local repairableAmount = GetAmountRepairKitWouldRepairItem(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
 
-                        -- some debug information
-                        PAR.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, firstRepairKit.name, repairableAmount, itemCondition, 100)
-
-                        -- actually repair the item
-                        RepairItemWithRepairKit(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
-                        totalRepairKitCount = totalRepairKitCount - 1
-                        PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
-
-                        -- show output to chat
-                        PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, itemLink, itemCondition, firstRepairKit.itemLink)
+                        -- just to be sure, check again if there is anything left to repair (in case of double-event-triggers)
+                        if repairableAmount > 0 then
+                            -- some debug information
+                            PAR.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, firstRepairKit.itemName, repairableAmount, itemCondition, 100)
+                            local isNormalRepairKit = IsItemNonCrownRepairKit(firstRepairKit.bagId, firstRepairKit.slotIndex)
+                            if isNormalRepairKit then
+                                -- actually repair the item with a normal repair kit
+                                RepairItemWithRepairKit(bagId, slotIndex, firstRepairKit.bagId, firstRepairKit.slotIndex)
+                                -- reduce repairKit count and play repair sound
+                                totalRepairKitCount = totalRepairKitCount - 1
+                                PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
+                                -- show output to chat
+                                PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED, itemLink, itemCondition, firstRepairKit.itemLink)
+                            else
+                                -- actually repair all items with a crown repair kit
+                                if PAHF.attemptToUseItem(firstRepairKit.bagId, firstRepairKit.slotIndex) then
+                                    -- reduce repairKit count and play repair sound
+                                    totalRepairKitCount = totalRepairKitCount - 1
+                                    PlaySound(SOUNDS.INVENTORY_ITEM_REPAIR)
+                                    -- show output to chat
+                                    PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED_ALL, itemLink, itemCondition, firstRepairKit.itemLink)
+                                else
+                                    -- Item(s) could somehow not be repaired
+                                    PAR.debugln("Call of \"UseItem(%s)\" failed! IsUnitInCombat(player) = %s", itemLink, tostring(PAHF.isPlayerInCombat()))
+                                    -- Try again when combat is dropped
+                                    PAEM.RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.CheckAndRepairAllEquippedItemsWithRepairKitsCombatState, "RepairKits-DropCombat")
+                                end
+                            end
+                        end
                     end
 
                     -- check remaining repair kits
@@ -129,7 +148,7 @@ local function CheckAndRepairSingleEquippedItemWithRepairKit(eventCode, bagId, s
 end
 
 local function CheckAndRepairAllEquippedItemsWithRepairKits()
-    -- only proceed if player is not dead (since repairkits cannot be used then)
+    -- only proceed if player is not dead (since repairKits cannot be used then)
     if not PAHF.isPlayerDeadOrReincarnating() then
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_WORN)
         for _, itemData in pairs(bagCache) do
@@ -140,8 +159,18 @@ local function CheckAndRepairAllEquippedItemsWithRepairKits()
     end
 end
 
+local function CheckAndRepairAllEquippedItemsWithRepairKitsCombatState(eventCode, inCombat)
+    -- only proceed if player is no longer in combat
+    if not inCombat then
+        PAR.debugln("combat dropped - check all items")
+        PAEM.UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, "RepairKits-DropCombat")
+        CheckAndRepairAllEquippedItemsWithRepairKits()
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export
 PA.Repair = PA.Repair or {}
 PA.Repair.CheckAndRepairSingleEquippedItemWithRepairKit = CheckAndRepairSingleEquippedItemWithRepairKit
 PA.Repair.CheckAndRepairAllEquippedItemsWithRepairKits = CheckAndRepairAllEquippedItemsWithRepairKits
+PA.Repair.CheckAndRepairAllEquippedItemsWithRepairKitsCombatState = CheckAndRepairAllEquippedItemsWithRepairKitsCombatState

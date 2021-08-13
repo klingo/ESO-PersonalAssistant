@@ -283,6 +283,10 @@ end
 -- =================================================================================================================
 -- == PLAYER STATES == --
 -- -----------------------------------------------------------------------------------------------------------------
+---@return boolean whether the player is currently in combat
+local function isPlayerInCombat()
+    return IsUnitInCombat("player")
+end
 
 ---@return boolean whether the player is currently dead
 local function isPlayerDead()
@@ -309,6 +313,32 @@ local function getAccessibleBags()
         return BAG_BACKPACK, getBankBags()
     end
     return BAG_BACKPACK
+end
+
+
+-- =================================================================================================================
+-- == PROTECTED FUNCTIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function attemptToUseItem(bagId, slotIndex)
+    local usable, onlyFromActionSlot = IsItemUsable(bagId, slotIndex)
+    if usable and not onlyFromActionSlot and not isPlayerInCombat() then
+        if IsProtectedFunction("UseItem") then
+            CallSecureProtected("UseItem", bagId, slotIndex)
+        else
+            UseItem(bagId, slotIndex)
+        end
+        return true
+    end
+    return false
+end
+
+local function attemptToRequestMoveItem(sourceBag, sourceSlot,destBag, destSlot, stackCount)
+    if IsProtectedFunction("RequestMoveItem") then
+        CallSecureProtected("RequestMoveItem", sourceBag, sourceSlot, destBag, destSlot, stackCount)
+    else
+        RequestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount)
+    end
 end
 
 
@@ -590,9 +620,12 @@ PA.HelperFunctions = {
     getItemIdComparator = getItemIdComparator,
     getPAItemIdComparator = getPAItemIdComparator,
     getStolenJunkComparator = getStolenJunkComparator,
+    isPlayerInCombat = isPlayerInCombat,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getAccessibleBags = getAccessibleBags,
+    attemptToUseItem = attemptToUseItem,
+    attemptToRequestMoveItem = attemptToRequestMoveItem,
     getBankBags = getBankBags,
     getBagName = getBagName,
     getFormattedCurrency = getFormattedCurrency,
