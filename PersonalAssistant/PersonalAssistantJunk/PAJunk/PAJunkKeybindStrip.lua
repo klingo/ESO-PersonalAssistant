@@ -8,6 +8,7 @@ local PAHF = PA.HelperFunctions
 local _mouseOverBagId, _mouseOverSlotIndex, _mouseOverStackCount, _mouseOverIsJunk
 
 local function _isMarkUnmarkAsJunkVisible()
+    if not (_mouseOverBagId and _mouseOverSlotIndex) then return false end
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsJunkKeybind then
         -- also return false when item is already marked as perm junk
@@ -20,6 +21,7 @@ local function _isMarkUnmarkAsJunkVisible()
 end
 
 local function _isMarkUnmarkAsJunkEnabled()
+    if not (_mouseOverBagId and _mouseOverSlotIndex) then return false end
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsJunkKeybind then
         -- also return false when item is already marked as perm junk
@@ -32,6 +34,7 @@ local function _isMarkUnmarkAsJunkEnabled()
 end
 
 local function _isMarkUnmarkAsPermJunkVisible()
+    if not (_mouseOverBagId and _mouseOverSlotIndex) then return false end
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind and PAJSV.KeyBindings.showMarkUnmarkAsPermJunkKeybind then
         return PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex)
@@ -40,6 +43,7 @@ local function _isMarkUnmarkAsPermJunkVisible()
 end
 
 local function _isMarkUnmarkAsPermJunkEnabled()
+    if not (_mouseOverBagId and _mouseOverSlotIndex) then return false end
     local PAJSV = PA.Junk.SavedVars
     if PAJSV and PAJSV.KeyBindings.enableMarkUnmarkAsPermJunkKeybind then
         return PAHF.CanItemBeMarkedAsJunkExt(_mouseOverBagId, _mouseOverSlotIndex)
@@ -48,14 +52,13 @@ local function _isMarkUnmarkAsPermJunkEnabled()
 end
 
 local function _isDestroyItemVisible()
+    if not (_mouseOverBagId and _mouseOverSlotIndex) then return false end
     local PAJSV = PA.Junk.SavedVars
-    if PAJSV and PAJSV.KeyBindings.enableDestroyItemKeybind and PAJSV.KeyBindings.showDestroyItemKeybind then
-        return _mouseOverBagId and _mouseOverSlotIndex
-    end
-    return false
+    return PAJSV and PAJSV.KeyBindings.enableDestroyItemKeybind and PAJSV.KeyBindings.showDestroyItemKeybind
 end
 
 local function _isDestroyItemEnabled()
+    if not (_mouseOverBagId and _mouseOverSlotIndex) then return false end
     local PAJSV = PA.Junk.SavedVars
     if not PAJSV or not PAJSV.KeyBindings.enableDestroyItemKeybind then return false end
 
