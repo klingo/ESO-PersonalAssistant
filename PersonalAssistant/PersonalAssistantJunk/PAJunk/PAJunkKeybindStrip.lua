@@ -187,6 +187,9 @@ local function initHooksOnInventoryItems()
                 _onMouseExit(inventorySlot)
             end
         end)
+        -- TODO: Support Gamepad Mode
+        -- In Gamepad Mode, "ZO_InventorySlot_DiscoverSlotActionsFromActionList" is called 3-4 times per item,
+        -- and "ZO_InventorySlot_GetType" about 4 times as often - so not ideal but maybe better than nothing?
 
         KEYBIND_STRIP:AddKeybindButtonGroup(PAJunkButtonGroup)
     else
