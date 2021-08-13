@@ -75,6 +75,7 @@
                         -- ScriptArguments: local self = ..
                         PADebugOutputWindow.timeline:Stop()
                         PADebugOutputWindow:SetAlpha(1)
+                        self:SetScrollPosition(self:GetScrollPosition())
                     </OnMouseEnter>
                     <OnMouseExit>
                         PADebugOutputWindow.timeline:PlayFromStart()
