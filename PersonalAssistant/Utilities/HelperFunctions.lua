@@ -90,15 +90,6 @@ local function getPAItemIdentifier(bagId, slotIndex)
     return getPAItemLinkIdentifier(itemLink)
 end
 
----@param itemData table the itemData table of an ESO item
----@return string the paItemId of the provided item
-local function getPAItemIdentifierFromItemData(itemData)
-    if not itemData.paItemId then
-        itemData.paItemId = getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
-    end
-    return itemData.paItemId
-end
-
 local function isItemForCompanion(bagId, slotIndex)
     local actorCategory = GetItemActorCategory(bagId, slotIndex)
     return actorCategory == GAMEPLAY_ACTOR_CATEGORY_COMPANION -- ~= GAMEPLAY_ACTOR_CATEGORY_PLAYER
@@ -261,7 +252,7 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacter
         if IsItemStolen(itemData.bagId, itemData.slotIndex) and excludeStolen then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if isItemCharacterBound(itemData) and excludeCharacterBound then return false end
-        local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
+        local paItemId = getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
         end
@@ -610,7 +601,6 @@ PA.HelperFunctions = {
     isKeyInTable = isKeyInTable,
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
-    getPAItemIdentifierFromItemData = getPAItemIdentifierFromItemData,
     isItemForCompanion = isItemForCompanion,
     isItemLinkForCompanion = isItemLinkForCompanion,
     CanItemBeMarkedAsJunkExt = CanItemBeMarkedAsJunkExt,
