@@ -461,19 +461,21 @@ local function println(lcmChat, prefix, text, ...)
 end
 
 --- write the provided key/text into the debug Output window (WHITE font)
+---@param addonName string the name of the addon that sends the debug message
 ---@param prefix string the prefix for the debug message
 ---@param text string the actual debug message
 ---@vararg any values to be put in the placeholders of the debug-text
 ---@return void
-local function debugln(prefix, text, ...)
+local function debugln(addonName, prefix, text, ...)
     if PA.debug then
         local textKey = GetString(text)
+        local addonName = addonName or ""
         local prefix = prefix or ""
 
         if textKey ~= nil and textKey ~= "" then
-            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
+            PA.DebugWindow.printToDebugOutputWindow(addonName, table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
         else
-            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(text, ...)}))
+            PA.DebugWindow.printToDebugOutputWindow(addonName, table.concat({prefix, ": ", getFormattedText(text, ...)}))
         end
     end
 end

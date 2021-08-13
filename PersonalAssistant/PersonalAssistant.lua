@@ -59,6 +59,7 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     -- PASavedVars.General is no longer needed; load still to make sure all profiles can be migrated though
+    -- Now used for debugging though; to be replaced with PASavedVars.Debug then!
     PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, {})
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.MenuDefaults.PAGeneral)
 
@@ -95,7 +96,7 @@ local function introduction()
     -- display debug window on login (if turned on)
     if PA.SavedVars.Profile.debug then
         --PA.DebugWindow.showDebugOutputWindow()
-        PA.toggleDebug(false)
+        PA.toggleDebug(false, true)
         PA.toggleDebug(true)
     end
 
@@ -121,7 +122,7 @@ end
 
 -- wrapper method that prefixes the addon shortname
 function PA.debugln(text, ...)
-    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAG, text, ...)
+    PAHF.debugln(PAC.ADDON.NAME_RAW.GENERAL, PAC.COLORED_TEXTS_DEBUG.PAG, text, ...)
 end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
@@ -258,7 +259,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
     end
 end
 
-function PA.toggleDebug(newStatus)
+function PA.toggleDebug(newStatus, skipSVLogClearWhenDisable)
     -- check is needed to avoid endless loop (i.e. ESO crash)
     if PA.SavedVars.Profile.debug ~= newStatus then
         PA.SavedVars.Profile.debug = newStatus
@@ -269,7 +270,7 @@ function PA.toggleDebug(newStatus)
                 PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup, "CursorPickup")
             end
         else
-            PA.DebugWindow.hideDebugOutputWindow()
+            PA.DebugWindow.hideDebugOutputWindow(skipSVLogClearWhenDisable)
             if GetUnitName("player") == PACAddon.AUTHOR then
                 PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, "CursorPickup")
             end

@@ -32,7 +32,7 @@
         </TopLevelControl>
 
         <TopLevelControl name="PADebugOutputWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true" resizeHandleSize="10">
-            <Dimensions x="700" y="500" />
+            <Dimensions x="760" y="500" />
             <DimensionConstraints minX="500" minY="180" />
             <Anchor point="TOPLEFT" offsetY="60"/>
             <Controls>
