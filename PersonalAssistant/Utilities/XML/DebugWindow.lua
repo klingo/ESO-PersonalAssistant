@@ -5,6 +5,7 @@ local PA = PersonalAssistant
 
 local GetTimeString = GetTimeString
 local GetGameTimeMilliseconds = GetGameTimeMilliseconds
+local ostime = os.time
 
 local _debugWindow = PADebugWindow
 
@@ -142,7 +143,7 @@ local function printToDebugOutputWindow(addonName, text)
         local timeString = GetTimeString()
         local currMillisecondEntry = GetGameTimeMilliseconds()
         table.insert(PA.SavedVars.General.Debug, {
-            [1] = os.time(),
+            [1] = ostime(),
             [2] = timeString,
             [3] = currMillisecondEntry - _lastMillisecondEntry,
             [4] = addonName,
