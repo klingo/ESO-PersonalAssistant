@@ -402,7 +402,7 @@ end
 -- this function needs to be initialized everytime the TradeHouse is opened
 local function initHooksOnTradeHouse()
     local isAlwaysKeyboardMode = PAHF.isAlwaysKeyboardMode()
-    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAL, "initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
+    PA.Loot.debugln("initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
     if isAlwaysKeyboardMode then
         ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
             local control = ...
