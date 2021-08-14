@@ -308,6 +308,15 @@ end
 
 
 -- =================================================================================================================
+-- == GAME STATES == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function isAlwaysKeyboardMode()
+    local gamepadModeSetting = GetSetting(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_INPUT_PREFERRED_MODE)
+    return gamepadModeSetting == tostring(INPUT_PREFERRED_MODE_ALWAYS_KEYBOARD)
+end
+
+-- =================================================================================================================
 -- == PROTECTED FUNCTIONS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
@@ -616,6 +625,7 @@ PA.HelperFunctions = {
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getAccessibleBags = getAccessibleBags,
+    isAlwaysKeyboardMode = isAlwaysKeyboardMode,
     attemptToUseItem = attemptToUseItem,
     attemptToRequestMoveItem = attemptToRequestMoveItem,
     getBankBags = getBankBags,
