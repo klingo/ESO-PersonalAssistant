@@ -1,3 +1,9 @@
+2.5.22 (August 14, 2021)
+- updated PAJunk's item quality dropdowns with legendary quality ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/397"]#397[/URL])
+- fixed a PAJunk issue where the keybind buttons were not correctly hidden ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/396"]#396[/URL])
+- fixed PARepair's use of Crown Repair Kits  ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/394"]#394[/URL])
+- removed some PABanking caching logic that could sometimes cause problems ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/395"]#395[/URL])
+
 2.5.21 (August 03, 2021)
 - disabled PARepair's use of Crown Repair Kits until they can be handled properly ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/393"]#393[/URL])
 
