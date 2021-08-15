@@ -1,3 +1,6 @@
+2.5.23 (August 15 2021)
+- fixed an issue in the debugging code ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/399"]#399[/URL])
+
 2.5.22 (August 14, 2021)
 - updated PAJunk's item quality dropdowns with legendary quality ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/397"]#397[/URL])
 - fixed a PAJunk issue where the keybind buttons were not correctly hidden ([URL="https://github.com/klingo/ESO-PersonalAssistant/pull/396"]#396[/URL])
