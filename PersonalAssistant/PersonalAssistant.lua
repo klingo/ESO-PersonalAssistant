@@ -59,8 +59,10 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     -- PASavedVars.General is no longer needed; load still to make sure all profiles can be migrated though
-    -- Now used for debugging though; to be replaced with PASavedVars.Debug then!
-    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, {})
+    -- Now used for debugging though; to be replaced with PASavedVars.Debug at some point!
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, {
+        Debug = {}
+    })
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.MenuDefaults.PAGeneral)
 
     -- apply any patches if needed

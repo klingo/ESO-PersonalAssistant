@@ -163,6 +163,8 @@ end
 local function _initDebugOutputWindow()
     if not _initDone then
         _initDone = true
+        -- make sure it's properly initialized
+        if PA.SavedVars.General.Debug == nil then PA.SavedVars.General.Debug = {} end
         _lastMillisecondEntry = GetGameTimeMilliseconds()
         _bufferDebugOutputControl = _debugOutputWindow:GetNamedChild("Buffer")
         _sliderDebugOutputControl = _debugOutputWindow:GetNamedChild("Slider")
