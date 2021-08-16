@@ -62,6 +62,7 @@ local PARStrings = {
     SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL = "Repariere Ausrüstung im Inventar für %s (%s fehlend)",
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({"Repariere %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " mit %s"}),
+    SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED_ALL = table.concat({"Repariere %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " und die restliche Ausrüstung mit %s"}),
 }
 
 for key, value in pairs(PARStrings) do

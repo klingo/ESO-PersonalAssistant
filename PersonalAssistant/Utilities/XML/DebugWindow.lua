@@ -3,6 +3,10 @@ local PA = PersonalAssistant
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
+local GetTimeString = GetTimeString
+local GetGameTimeMilliseconds = GetGameTimeMilliseconds
+local ostime = os.time
+
 local _debugWindow = PADebugWindow
 
 local _debugOutputWindow = PADebugOutputWindow
@@ -132,8 +136,22 @@ end
 local _initDone = false
 local _preInitTextQueue = {}
 
-local function printToDebugOutputWindow(text)
+local _lastMillisecondEntry
+
+local function printToDebugOutputWindow(addonName, text)
     if _bufferDebugOutputControl then
+        local timeString = GetTimeString()
+        local currMillisecondEntry = GetGameTimeMilliseconds()
+        table.insert(PA.SavedVars.General.Debug, {
+            [1] = ostime(),
+            [2] = timeString,
+            [3] = currMillisecondEntry - _lastMillisecondEntry,
+            [4] = addonName,
+            [5] = text,
+        })
+        _lastMillisecondEntry = currMillisecondEntry
+        -- add timestamp
+        text = string.format("%s %s", timeString, text)
         _bufferDebugOutputControl:AddMessage(text, 1, 1, 1)
         _adjustSlider(_sliderDebugOutputControl, _bufferDebugOutputControl)
     else
@@ -145,6 +163,9 @@ end
 local function _initDebugOutputWindow()
     if not _initDone then
         _initDone = true
+        -- make sure it's properly initialized
+        if PA.SavedVars.General.Debug == nil then PA.SavedVars.General.Debug = {} end
+        _lastMillisecondEntry = GetGameTimeMilliseconds()
         _bufferDebugOutputControl = _debugOutputWindow:GetNamedChild("Buffer")
         _sliderDebugOutputControl = _debugOutputWindow:GetNamedChild("Slider")
         _debugOutputWindow.timeline = ANIMATION_MANAGER:CreateTimeline()
@@ -160,16 +181,19 @@ local function showDebugOutputWindow()
     _debugOutputWindow:SetHidden(false)
     -- init the bufferControl with some text and the current os-date/time
     _bufferDebugOutputControl:Clear()
-    printToDebugOutputWindow(table.concat({"|cFFA500", "PersonalAssistant Debug Output - ", os.date(), "|r"}))
-
+    printToDebugOutputWindow("DEBUG-START", table.concat({"|cFFA500", "PersonalAssistant Debug Output - ", os.date(), "|r"}))
     -- empty the queue if something was added
     while #_preInitTextQueue > 0 do
         local text = table.remove(_preInitTextQueue)
-        printToDebugOutputWindow(text)
+        printToDebugOutputWindow("PRE-INIT-QUEUE", text)
     end
 end
 
-local function hideDebugOutputWindow()
+local function hideDebugOutputWindow(skipSVLogClearWhenDisable)
+    -- clear debug log
+    if not skipSVLogClearWhenDisable then
+        PA.SavedVars.General.Debug = {}
+    end
     _debugOutputWindow:SetHidden(true)
     PA.toggleDebug(false)
 end

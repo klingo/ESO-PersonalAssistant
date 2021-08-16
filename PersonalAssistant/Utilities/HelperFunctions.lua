@@ -90,15 +90,6 @@ local function getPAItemIdentifier(bagId, slotIndex)
     return getPAItemLinkIdentifier(itemLink)
 end
 
----@param itemData table the itemData table of an ESO item
----@return string the paItemId of the provided item
-local function getPAItemIdentifierFromItemData(itemData)
-    if not itemData.paItemId then
-        itemData.paItemId = getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
-    end
-    return itemData.paItemId
-end
-
 local function isItemForCompanion(bagId, slotIndex)
     local actorCategory = GetItemActorCategory(bagId, slotIndex)
     return actorCategory == GAMEPLAY_ACTOR_CATEGORY_COMPANION -- ~= GAMEPLAY_ACTOR_CATEGORY_PLAYER
@@ -261,7 +252,7 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacter
         if IsItemStolen(itemData.bagId, itemData.slotIndex) and excludeStolen then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if isItemCharacterBound(itemData) and excludeCharacterBound then return false end
-        local paItemId = itemData.paItemId or getPAItemIdentifierFromItemData(itemData)
+        local paItemId = getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
         end
@@ -283,6 +274,10 @@ end
 -- =================================================================================================================
 -- == PLAYER STATES == --
 -- -----------------------------------------------------------------------------------------------------------------
+---@return boolean whether the player is currently in combat
+local function isPlayerInCombat()
+    return IsUnitInCombat("player")
+end
 
 ---@return boolean whether the player is currently dead
 local function isPlayerDead()
@@ -309,6 +304,41 @@ local function getAccessibleBags()
         return BAG_BACKPACK, getBankBags()
     end
     return BAG_BACKPACK
+end
+
+
+-- =================================================================================================================
+-- == GAME STATES == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function isAlwaysKeyboardMode()
+    local gamepadModeSetting = GetSetting(SETTING_TYPE_GAMEPAD, GAMEPAD_SETTING_INPUT_PREFERRED_MODE)
+    return gamepadModeSetting == tostring(INPUT_PREFERRED_MODE_ALWAYS_KEYBOARD)
+end
+
+-- =================================================================================================================
+-- == PROTECTED FUNCTIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function attemptToUseItem(bagId, slotIndex)
+    local usable, onlyFromActionSlot = IsItemUsable(bagId, slotIndex)
+    if usable and not onlyFromActionSlot and not isPlayerInCombat() then
+        if IsProtectedFunction("UseItem") then
+            CallSecureProtected("UseItem", bagId, slotIndex)
+        else
+            UseItem(bagId, slotIndex)
+        end
+        return true
+    end
+    return false
+end
+
+local function attemptToRequestMoveItem(sourceBag, sourceSlot,destBag, destSlot, stackCount)
+    if IsProtectedFunction("RequestMoveItem") then
+        CallSecureProtected("RequestMoveItem", sourceBag, sourceSlot, destBag, destSlot, stackCount)
+    else
+        RequestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount)
+    end
 end
 
 
@@ -440,19 +470,21 @@ local function println(lcmChat, prefix, text, ...)
 end
 
 --- write the provided key/text into the debug Output window (WHITE font)
+---@param addonName string the name of the addon that sends the debug message
 ---@param prefix string the prefix for the debug message
 ---@param text string the actual debug message
 ---@vararg any values to be put in the placeholders of the debug-text
 ---@return void
-local function debugln(prefix, text, ...)
+local function debugln(addonName, prefix, text, ...)
     if PA.debug then
         local textKey = GetString(text)
+        local addonName = addonName or ""
         local prefix = prefix or ""
 
         if textKey ~= nil and textKey ~= "" then
-            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
+            PA.DebugWindow.printToDebugOutputWindow(addonName, table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
         else
-            PA.DebugWindow.printToDebugOutputWindow(table.concat({prefix, ": ", getFormattedText(text, ...)}))
+            PA.DebugWindow.printToDebugOutputWindow(addonName, table.concat({prefix, ": ", getFormattedText(text, ...)}))
         end
     end
 end
@@ -580,7 +612,6 @@ PA.HelperFunctions = {
     isKeyInTable = isKeyInTable,
     getPAItemLinkIdentifier = getPAItemLinkIdentifier,
     getPAItemIdentifier = getPAItemIdentifier,
-    getPAItemIdentifierFromItemData = getPAItemIdentifierFromItemData,
     isItemForCompanion = isItemForCompanion,
     isItemLinkForCompanion = isItemLinkForCompanion,
     CanItemBeMarkedAsJunkExt = CanItemBeMarkedAsJunkExt,
@@ -590,9 +621,13 @@ PA.HelperFunctions = {
     getItemIdComparator = getItemIdComparator,
     getPAItemIdComparator = getPAItemIdComparator,
     getStolenJunkComparator = getStolenJunkComparator,
+    isPlayerInCombat = isPlayerInCombat,
     isPlayerDead = isPlayerDead,
     isPlayerDeadOrReincarnating = isPlayerDeadOrReincarnating,
     getAccessibleBags = getAccessibleBags,
+    isAlwaysKeyboardMode = isAlwaysKeyboardMode,
+    attemptToUseItem = attemptToUseItem,
+    attemptToRequestMoveItem = attemptToRequestMoveItem,
     getBankBags = getBankBags,
     getBagName = getBagName,
     getFormattedCurrency = getFormattedCurrency,

@@ -24,7 +24,7 @@ end
 
 -- wrapper method that prefixes the addon shortname
 local function debugln(text, ...)
-    PAHF.debugln(PAC.COLORED_TEXTS_DEBUG.PAJ, text, ...)
+    PAHF.debugln(PAC.ADDON.NAME_RAW.JUNK, PAC.COLORED_TEXTS_DEBUG.PAJ, text, ...)
 end
 
 -- init saved variables and register Addon
