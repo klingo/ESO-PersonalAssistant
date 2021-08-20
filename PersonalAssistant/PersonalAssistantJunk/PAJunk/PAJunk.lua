@@ -784,7 +784,8 @@ local function OnTransmuteStationSceneChange(oldState, newState)
 end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    if PAJProfileManager.hasActiveProfile() then
+    -- only start if the stackCountChange is positive (i.e. item is added; and not removed from bag)
+    if stackCountChange > 0 and PAJProfileManager.hasActiveProfile() then
         PAJ.debugln("OnInventorySingleSlotUpdate eventCode=%s, bagId=%d, slotIndex=%d, isNewItem=%s, inventoryUpdateReason=%s, stackCountChange=%d", tostring(eventCode), bagId, slotIndex, tostring(isNewItem), tostring(inventoryUpdateReason), stackCountChange)
         -- only proceed it item is not already marked as junk
         local isJunk = IsItemJunk(bagId, slotIndex)
