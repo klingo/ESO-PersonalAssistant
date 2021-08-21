@@ -11,8 +11,8 @@ local PAEM = PA.EventManager
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _finishBankingItemTransfer()
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking._finishBankingItemTransfer (7)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking._finishBankingItemTransfer (7)")
     PAB.isBankItemTransferBlocked = false
     -- update the icons
     if PA.Loot and PA.ProfileManager.PALoot.hasActiveProfile() then
@@ -24,12 +24,12 @@ local function _finishBankingItemTransfer()
     PAB.println(SI_PA_CHAT_BANKING_FINISHED)
 
     local passedGameTime = GetGameTimeMilliseconds() - PAB.startGameTime
-    PAB.debugln('PABanking:executeBankingItemTransfers took approx. %f s', PA.HelperFunctions.round(passedGameTime / 1000, 1))
+    PAB.logger:Debug('PABanking:executeBankingItemTransfers took approx. %f s', PA.HelperFunctions.round(passedGameTime / 1000, 1))
 end
 
 local function _printLWCMessageIfItemsSkipped()
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking._printLWCMessageIfItemsSkipped (6)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking._printLWCMessageIfItemsSkipped (6)")
     if PAB.hasSomeItemskippedForLWC then
         -- if some items were skipped because of LWC; display a message
         PAB.println(SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC)
@@ -39,8 +39,8 @@ local function _printLWCMessageIfItemsSkipped()
 end
 
 local function _stackBags()
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking._stackBags (0 / 5)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking._stackBags (0 / 5)")
     if PAB.SavedVars.autoStackBags then
         StackBag(BAG_BANK)
         if IsESOPlusSubscriber() then
@@ -76,7 +76,7 @@ local function executeBankingItemTransfers()
             SHARED_INVENTORY:RefreshInventory(BAG_SUBSCRIBER_BANK)
         end
         local passedGameTime = GetGameTimeMilliseconds() - PAB.startGameTime
-        PAB.debugln('SHARED_INVENTORY:RefreshInventory took approx. %d ms', passedGameTime)
+        PAB.logger:Debug('SHARED_INVENTORY:RefreshInventory took approx. %d ms', passedGameTime)
 
         -- add the different item transactions to the function queue (will be executed in REVERSE order)
         -- the eligibility is checked within the transactions
@@ -94,7 +94,7 @@ local function executeBankingItemTransfers()
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
     else
-        PAB.debugln("PAB.isBankItemTransferBlocked = TRUE - parallel execution BLOCKED")
+        PAB.logger:Warn("PAB.isBankItemTransferBlocked = TRUE - parallel execution BLOCKED")
     end
 end
 
@@ -123,21 +123,21 @@ local function OnBankOpen(eventCode, bankBag)
         if PAB.SavedVars.autoExecuteItemTransfers then
             executeBankingItemTransfers()
         else
-            PAB.debugln("autoExecuteItemTransfers DISABLED - all item transfers skipped")
+            PAB.logger:Info("autoExecuteItemTransfers DISABLED - all item transfers skipped")
         end
     end
 
     -- some debug statements
     if PA.debug then
-        PAB.debugln("IsESOPlusSubscriber() = %s", tostring(IsESOPlusSubscriber()));
-        PAB.debugln("HasCraftBagAccess() = %s", tostring(HasCraftBagAccess()));
-        PAB.debugln("GetBagUseableSize(BAG_BACKPACK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BACKPACK), GetNumBagUsedSlots(BAG_BACKPACK), GetNumBagFreeSlots(BAG_BACKPACK));
-        PAB.debugln("GetBagUseableSize(BAG_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BANK), GetNumBagUsedSlots(BAG_BANK), GetNumBagFreeSlots(BAG_BANK));
-        PAB.debugln("GetBagUseableSize(BAG_GUILDBANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_GUILDBANK), GetNumBagUsedSlots(BAG_GUILDBANK), GetNumBagFreeSlots(BAG_GUILDBANK));
-        PAB.debugln("GetBagUseableSize(BAG_SUBSCRIBER_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_SUBSCRIBER_BANK), GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK), GetNumBagFreeSlots(BAG_SUBSCRIBER_BANK));
-        PAB.debugln("GetBagUseableSize(BAG_VIRTUAL) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_VIRTUAL), GetNumBagUsedSlots(BAG_VIRTUAL), GetNumBagFreeSlots(BAG_VIRTUAL));
-        PAB.debugln("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId() or -1);
-        PAB.debugln("IsHouseBankBag() = %s", tostring(IsHouseBankBag(bankBag)));
+        PAB.logger:Debug("IsESOPlusSubscriber() = %s", tostring(IsESOPlusSubscriber()));
+        PAB.logger:Debug("HasCraftBagAccess() = %s", tostring(HasCraftBagAccess()));
+        PAB.logger:Debug("GetBagUseableSize(BAG_BACKPACK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BACKPACK), GetNumBagUsedSlots(BAG_BACKPACK), GetNumBagFreeSlots(BAG_BACKPACK));
+        PAB.logger:Debug("GetBagUseableSize(BAG_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_BANK), GetNumBagUsedSlots(BAG_BANK), GetNumBagFreeSlots(BAG_BANK));
+        PAB.logger:Debug("GetBagUseableSize(BAG_GUILDBANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_GUILDBANK), GetNumBagUsedSlots(BAG_GUILDBANK), GetNumBagFreeSlots(BAG_GUILDBANK));
+        PAB.logger:Debug("GetBagUseableSize(BAG_SUBSCRIBER_BANK) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_SUBSCRIBER_BANK), GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK), GetNumBagFreeSlots(BAG_SUBSCRIBER_BANK));
+        PAB.logger:Debug("GetBagUseableSize(BAG_VIRTUAL) = %d   |   [%d used, %d free]", GetBagUseableSize(BAG_VIRTUAL), GetNumBagUsedSlots(BAG_VIRTUAL), GetNumBagFreeSlots(BAG_VIRTUAL));
+        PAB.logger:Debug("GetNextVirtualBagSlotId() = %d", GetNextVirtualBagSlotId() or -1);
+        PAB.logger:Debug("IsHouseBankBag() = %s", tostring(IsHouseBankBag(bankBag)));
     end
 end
 

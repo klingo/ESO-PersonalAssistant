@@ -94,7 +94,7 @@ local function _giveDelayedDiffSoldItemsFeedback(moneyBefore, itemCountInBagBefo
 
             if moneyDiff > 0 or itemCountInBagDiff > 0 or passedGameTime > GET_MONEY_AND_USED_SLOTS_TIMEOUT_MS then
                 EVENT_MANAGER:UnregisterForUpdate(identifier)
-                PAJ.debugln('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
+                PAJ.logger:Debug('_giveSoldJunkFeedback took approx. %d ms (-%d items, +%d gold)', passedGameTime, itemCountInBagDiff, moneyDiff)
 
                 if itemCountInBagDiff > 0 then
                     -- at least one item was sold (although it might have been worthless(?))
@@ -221,7 +221,7 @@ local function _sellStolenItemToFence(bagCache, startIndex, totalSellPrice, tota
                         -- if item is gone, limit reached, or fence closed stop the interval
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local sellFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debuglnAuthor("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
+                        PAJ.logger:Debug("totalSells=%d, sellsUsed=%d, resetTimeSeconds=%d, took %d ms", totalSells, sellsUsed, resetTimeSeconds, (sellFinishGameTime - sellStartGameTime))
                         totalSellPrice = totalSellPrice + (sellPriceStolen * stackCount)
                         totalSellCount = totalSellCount + 1
                         if sellsUsed == totalSells then
@@ -285,7 +285,7 @@ local function _sellItemToMerchant(bagCache, startIndex, totalSellPrice, totalSe
                         -- if item is gone, or merchant closed stop the interval
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local sellFinishGameTime = GetGameTimeMilliseconds()
-                        PAHF.debuglnAuthor("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
+                        PAJ.logger:Debug("selling item took %d ms", (sellFinishGameTime - sellStartGameTime))
                         totalSellPrice = totalSellPrice + sellPrice
                         totalSellCount = totalSellCount + 1
                         -- check if there are more items to be sold
@@ -315,7 +315,7 @@ local function _OnFenceOpenInternal(dynamicComparator)
     if sellsUsed < totalSells then
         -- limit not yet reached; get all items to loop through the stolen/junk ones
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
-        PAJ.debugln("_OnFenceOpenInternal.#bagCache = " .. tostring(#bagCache))
+        PAJ.logger:Debug("_OnFenceOpenInternal.#bagCache = " .. tostring(#bagCache))
         if #bagCache > 0 then
             -- after sellink junk, give feedback about the changes
             _sellStolenItemToFence(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
@@ -329,7 +329,7 @@ end
 local function _OnShopOpenInternal(dynamicComparator)
     -- get all items that can be sold
     local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
-    PAJ.debugln("_OnShopOpenInternal.#bagCache = " .. tostring(#bagCache))
+    PAJ.logger:Debug("_OnShopOpenInternal.#bagCache = " .. tostring(#bagCache))
     if #bagCache > 0 then
         _sellItemToMerchant(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
     end
@@ -380,7 +380,7 @@ local function _destroyStolenItemIfCriteriaMatch(bagId, slotIndex, itemLink)
             PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_CRITERIA_MATCH, stackCount, itemLinkExt, sellValueFmt)
             return true
         else
-            PAJ.debugln("Did not destroy because stolen item is LEARNABLE")
+            PAJ.logger:Debug("Did not destroy because stolen item is LEARNABLE")
         end
     end
     return false -- was not destroyed
@@ -407,14 +407,14 @@ local function _destroyItemIfCriteriaMatch(bagId, slotIndex, itemLink)
             PAJ.println(SI_PA_CHAT_JUNK_DESTROYED_CRITERIA_MATCH, stackCount, itemLinkExt, sellValueFmt)
             return true
         else
-            PAJ.debugln("Did not destroy because item is LEARNABLE")
+            PAJ.logger:Debug("Did not destroy because item is LEARNABLE")
         end
     end
     return false -- was not destroyed
 end
 
 local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkSuccessMessageKey)
-    PAJ.debugln("_markItemAsJunkIfPossible: %s", itemLink)
+    PAJ.logger:Debug("_markItemAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if PAHF.CanItemBeMarkedAsJunkExt(bagId, slotIndex) then
         -- then check if the item unique; if yes then don't mark it as junk
@@ -431,7 +431,7 @@ local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkS
             return true
         end
     else
-        PAJ.debugln("CanItemBeMarkedAsJunk == false")
+        PAJ.logger:Debug("CanItemBeMarkedAsJunk == false")
     end
     -- print failure message
     -- TODO: to be implemented
@@ -539,12 +539,12 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
 end
 
 local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, isNewItem, stackCountChange)
-    PAJ.debugln("_OnInventorySingleSlotUpdateInternal bagId=%d, slotIndex=%d, itemLink=%s, isNewItem=%s, stackCountChange=%d", bagId, slotIndex, itemLink, tostring(isNewItem), stackCountChange)
+    PAJ.logger:Debug("_OnInventorySingleSlotUpdateInternal bagId=%d, slotIndex=%d, itemLink=%s, isNewItem=%s, stackCountChange=%d", bagId, slotIndex, itemLink, tostring(isNewItem), stackCountChange)
     local PAJunkSavedVars = PAJ.SavedVars
     local _marked = false
     -- check if auto-marking is enabled for standard items (standard items only marked as junk if 'new')
     if PAJunkSavedVars.autoMarkAsJunkEnabled and isNewItem then
-        PAJ.debugln("Check if to be junked: %s", itemLink)
+        PAJ.logger:Debug("Check if to be junked: %s", itemLink)
         local itemType, specializedItemType = GetItemType(bagId, slotIndex)
         local isStolen = IsItemStolen(bagId, slotIndex)
         if isStolen then
@@ -585,7 +585,7 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
                 if _isTreasureItemNotQuestExcluded(itemLink) then
                     _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_STOLEN)
                 else
-                    PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
+                    PAJ.logger:Debug("Skipped %s because needed for Quest", itemLink)
                 end
             end
         else
@@ -598,7 +598,7 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
                     if _isTrashItemNotQuestExcluded(bagId, slotIndex) then
                         _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH)
                     else
-                        PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
+                        PAJ.logger:Debug("Skipped %s because needed for Quest", itemLink)
                     end
                 end
             elseif itemType == ITEMTYPE_WEAPON or itemType == ITEMTYPE_ARMOR then
@@ -640,14 +640,14 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
                     if _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink) then
                         _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT)
                     else
-                        PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
+                        PAJ.logger:Debug("Skipped %s because needed for Quest", itemLink)
                     end
                 end
             elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
                 if PAJunkSavedVars.Miscellaneous.autoMarkTreasure and _isTreasureItemNotQuestExcluded(itemLink) then
                     _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE)
                 else
-                    PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
+                    PAJ.logger:Debug("Skipped %s because needed for Quest", itemLink)
                 end
             end
         end
@@ -673,7 +673,7 @@ end
 -- =====================================================================================================================
 
 local function OnFenceOpen(eventCode, allowSell, allowLaunder)
-    PAJ.debugln("PAJunk.OnFenceOpen")
+    PAJ.logger:Debug("PAJunk.OnFenceOpen")
     if PAJProfileManager.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isFenceClosed = false
@@ -683,12 +683,12 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
             local isPirharri = string.find(unitName, "Pirharri") ~= nil
             local autoSellJunk = PAJ.SavedVars.autoSellJunk
             local autoSellJunkPirharri = PAJ.SavedVars.autoSellJunkPirharri
-            PAJ.debugln("Fence Name = %s", unitName)
+            PAJ.logger:Debug("Fence Name = %s", unitName)
             -- fence must either NOT be Pirharri, or if it is Pirharri, the setting must be turned on)
             if not isPirharri or (isPirharri and autoSellJunkPirharri) then
                 if _requiresIndividualFCOISItemCheck() then
                     -- both FCOIS and PAIntegration are running and at least one setting is turned on; take the extended logic
-                    PAJ.debugln("OnFenceOpen with PAIntegration and FCOIS")
+                    PAJ.logger:Debug("OnFenceOpen with PAIntegration and FCOIS")
                     local PAFCOISLib = PA.Libs.FCOItemSaver
                     -- check if stolen junk should be sold
                     if autoSellJunk then
@@ -702,7 +702,7 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                     end
                 else
                     -- either FCOIS or PAIntegration is NOT running, or not setting is turned on; take the default logic
-                    PAJ.debugln("OnFenceOpen withOUT PAIntegration and FCOIS")
+                    PAJ.logger:Debug("OnFenceOpen withOUT PAIntegration and FCOIS")
                     if autoSellJunk then
                         -- check if there is junk to sell (exclude stolen items = false) - or if FCOIS and PAI are enabled
                         if HasAnyJunk(BAG_BACKPACK) then
@@ -712,21 +712,21 @@ local function OnFenceOpen(eventCode, allowSell, allowLaunder)
                     end
                 end
             else
-                PAJ.debugln("Fence is isPirharri and autoSellJunkPirharri is turned OFF")
+                PAJ.logger:Debug("Fence is isPirharri and autoSellJunkPirharri is turned OFF")
             end
         end
     end
 end
 
 local function OnShopOpen()
-    PAJ.debugln("PAJunk.OnShopOpen")
+    PAJ.logger:Debug("PAJunk.OnShopOpen")
     if PAJProfileManager.hasActiveProfile() then
         -- set the global variable to 'false'
         PA.WindowStates.isStoreClosed = false
         local autoSellJunk = PAJ.SavedVars.autoSellJunk
         if _requiresIndividualFCOISItemCheck() then
             -- both FCOIS and PAIntegration are running and at least one setting is turned on; take the extended logic
-            PAJ.debugln("OnShopOpen with PAIntegration and FCOIS")
+            PAJ.logger:Debug("OnShopOpen with PAIntegration and FCOIS")
             local PAFCOISLib = PA.Libs.FCOItemSaver
             -- check if junk should be sold
             if autoSellJunk then
@@ -740,7 +740,7 @@ local function OnShopOpen()
             end
         else
             -- either FCOIS or PAIntegration is NOT running, or not setting is turned on; take the default logic
-            PAJ.debugln("OnShopOpen withOUT PAIntegration and FCOIS")
+            PAJ.logger:Debug("OnShopOpen withOUT PAIntegration and FCOIS")
             if autoSellJunk then
                 -- check if there is junk to sell (exclude stolen items = true)
                 if HasAnyJunk(BAG_BACKPACK, true) then
@@ -785,16 +785,16 @@ end
 
 local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
     if PAJProfileManager.hasActiveProfile() then
-        PAJ.debugln("OnInventorySingleSlotUpdate eventCode=%s, bagId=%d, slotIndex=%d, isNewItem=%s, inventoryUpdateReason=%s, stackCountChange=%d", tostring(eventCode), bagId, slotIndex, tostring(isNewItem), tostring(inventoryUpdateReason), stackCountChange)
+        PAJ.logger:Debug("OnInventorySingleSlotUpdate eventCode=%s, bagId=%d, slotIndex=%d, isNewItem=%s, inventoryUpdateReason=%s, stackCountChange=%d", tostring(eventCode), bagId, slotIndex, tostring(isNewItem), tostring(inventoryUpdateReason), stackCountChange)
         -- only proceed it item is not already marked as junk
         local isJunk = IsItemJunk(bagId, slotIndex)
-        PAJ.debugln("OnInventorySingleSlotUpdate isJunk=%s", tostring(isJunk))
+        PAJ.logger:Debug("OnInventorySingleSlotUpdate isJunk=%s", tostring(isJunk))
         if isJunk then return end
         -- then only further proceed, if item is not crafted at not coming from the mailbox (unless the corresponding settings are turned off)
         local PAJunkSavedVars = PAJ.SavedVars
         local itemLink = PAHF.getFormattedItemLink(bagId, slotIndex)
         local isCrafted = IsItemLinkCrafted(itemLink)
-        PAJ.debugln("OnInventorySingleSlotUpdate isCrafted=%s", tostring(isCrafted))
+        PAJ.logger:Debug("OnInventorySingleSlotUpdate isCrafted=%s", tostring(isCrafted))
         if (not isCrafted or not PAJunkSavedVars.ignoreCraftedItems) and
                 (PA.WindowStates.isMailboxClosed or not PAJunkSavedVars.ignoreMailboxItems) and
                 (PA.WindowStates.isTransmuteStationClosed) then

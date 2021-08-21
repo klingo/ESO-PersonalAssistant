@@ -7,7 +7,6 @@ PersonalAssistant.MenuFunctions = {}
 PersonalAssistant.MenuHelper = {}
 PersonalAssistant.ProfileManager = {}
 
-
 -- ---------------------------------------------------------------------------------------------------------------------
 
 PersonalAssistant.Constants = {
@@ -31,6 +30,7 @@ PersonalAssistant.Constants = {
         AUTHOR = "Klingo",
         VERSION_ADDON = {VERSION_ADDON},
         VERSION_DISPLAY = "{VERSION_NUMBER}",
+        VERSION_MOCK = 020511,
         WEBSITE = "http://www.esoui.com/downloads/info381-PersonalAssistant",
         FEEDBACK = "https://www.esoui.com/downloads/info381-PersonalAssistant.html#comments",
         KEYWORDS = {

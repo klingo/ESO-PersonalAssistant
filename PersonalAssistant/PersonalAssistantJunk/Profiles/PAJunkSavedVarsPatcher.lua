@@ -1,21 +1,32 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _updateSavedVarsVersion(savedVarsVersion)
+local function _getCurrentSavedVarsVersion()
     local PAJSavedVars = PA.SavedVars.Junk
-    if tonumber(PAJSavedVars.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({ PAC.COLORED_TEXTS.PA, " - Patched PAJunk from [", tostring(PAJSavedVars.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+    if PAJSavedVars.savedVarsVersion then
+        return tonumber(PAJSavedVars.savedVarsVersion)
+    elseif type(PAC.ADDON.VERSION_ADDON) == "number" then
+        -- first time player init
+        return PAC.ADDON.VERSION_ADDON
+    end
+    -- first time local DEV init - return mock
+    return PAC.ADDON.VERSION_MOCK
+end
+
+local function _updateSavedVarsVersion(savedVarsVersion)
+    local currentSavedVarsVersion = _getCurrentSavedVarsVersion()
+    if currentSavedVarsVersion < savedVarsVersion then
+        local PAJSavedVars = PA.SavedVars.Junk
         PAJSavedVars.savedVarsVersion = savedVarsVersion
+        PA.Junk.logger:Info(table.concat({"Patched PAJunk from [", tostring(currentSavedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
     end
 end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
-    local PAJSavedVars = PA.SavedVars.Junk
-    local currentVersion = tonumber(PAJSavedVars.savedVarsVersion) or PAC.ADDON.VERSION_ADDON
+    local currentVersion = _getCurrentSavedVarsVersion()
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
 

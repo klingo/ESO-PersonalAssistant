@@ -1,21 +1,32 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _updateSavedVarsVersion(savedVarsVersion)
+local function _getCurrentSavedVarsVersion()
     local PABSavedVars = PA.SavedVars.Banking
-    if tonumber(PABSavedVars.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PABanking from [", tostring(PABSavedVars.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+    if PABSavedVars.savedVarsVersion then
+        return tonumber(PABSavedVars.savedVarsVersion)
+    elseif type(PAC.ADDON.VERSION_ADDON) == "number" then
+        -- first time player init
+        return PAC.ADDON.VERSION_ADDON
+    end
+    -- first time local DEV init - return mock
+    return PAC.ADDON.VERSION_MOCK
+end
+
+local function _updateSavedVarsVersion(savedVarsVersion)
+    local currentSavedVarsVersion = _getCurrentSavedVarsVersion()
+    if currentSavedVarsVersion < savedVarsVersion then
+        local PABSavedVars = PA.SavedVars.Banking
         PABSavedVars.savedVarsVersion = savedVarsVersion
+        PA.Banking.logger:Info(table.concat({"Patched PABanking from [", tostring(currentSavedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
     end
 end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
-    local PABSavedVars = PA.SavedVars.Banking
-    local currentVersion = tonumber(PABSavedVars.savedVarsVersion) or PAC.ADDON.VERSION_ADDON
+    local currentVersion = _getCurrentSavedVarsVersion()
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
 

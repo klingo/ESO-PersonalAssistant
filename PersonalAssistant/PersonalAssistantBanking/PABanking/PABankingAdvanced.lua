@@ -35,8 +35,8 @@ end
 
 local function depositOrWithdrawAdvancedItems()
 
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking.depositOrWithdrawAdvancedItems (2)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking.depositOrWithdrawAdvancedItems (2)")
 
     if PAB.SavedVars.Advanced.advancedItemsEnabled then
         -- get the writ quest table if LazyWritCrafter is enabled
@@ -104,7 +104,7 @@ local function depositOrWithdrawAdvancedItems()
                     combinedDepositLists.itemTypes:insert(itemType)
                 else
                     PAB.hasSomeItemskippedForLWC = true
-                    PAB.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
+                    PAB.logger:Debug("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 combinedWithdrawLists.itemTypes:insert(itemType)

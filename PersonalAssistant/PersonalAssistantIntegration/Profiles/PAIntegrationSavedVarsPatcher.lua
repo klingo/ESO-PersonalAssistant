@@ -1,21 +1,32 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _updateSavedVarsVersion(savedVarsVersion)
+local function _getCurrentSavedVarsVersion()
     local PAISavedVars = PA.SavedVars.Integration
-    if tonumber(PAISavedVars.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({ PAC.COLORED_TEXTS.PA, " - Patched PAIntegration from [", tostring(PAISavedVars.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+    if PAISavedVars.savedVarsVersion then
+        return tonumber(PAISavedVars.savedVarsVersion)
+    elseif type(PAC.ADDON.VERSION_ADDON) == "number" then
+        -- first time player init
+        return PAC.ADDON.VERSION_ADDON
+    end
+    -- first time local DEV init - return mock
+    return PAC.ADDON.VERSION_MOCK
+end
+
+local function _updateSavedVarsVersion(savedVarsVersion)
+    local currentSavedVarsVersion = _getCurrentSavedVarsVersion()
+    if currentSavedVarsVersion < savedVarsVersion then
+        local PAISavedVars = PA.SavedVars.Integration
         PAISavedVars.savedVarsVersion = savedVarsVersion
+        PA.Integration.logger:Info(table.concat({"Patched PAIntegration from [", tostring(currentSavedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
     end
 end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
-    local PAISavedVars = PA.SavedVars.Integration
-    local currentVersion = tonumber(PAISavedVars.savedVarsVersion) or PAC.ADDON.VERSION_ADDON
+    local currentVersion = _getCurrentSavedVarsVersion()
     return savedVarsVersion, (currentVersion < savedVarsVersion)
 end
 

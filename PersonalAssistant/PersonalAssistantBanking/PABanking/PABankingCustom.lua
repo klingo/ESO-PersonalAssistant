@@ -12,7 +12,7 @@ local function hasItemActiveCustomRule(bagId, slotIndex)
     local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
     if PAHF.isKeyInTable(PABCUstomPAItemIds, paItemId) then
         if PABCUstomPAItemIds[paItemId].ruleEnabled then
-            PAB.debugln("%s has an active Custom Rule", GetItemName(bagId, slotIndex))
+            PAB.logger:Debug("%s has an active Custom Rule", GetItemName(bagId, slotIndex))
             return true
         end
     end
@@ -21,8 +21,8 @@ end
 
 local function depositOrWithdrawCustomItems()
 
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking.depositOrWithdrawCustomItems (5)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking.depositOrWithdrawCustomItems (5)")
 
     if PAB.SavedVars.Custom.customItemsEnabled then
 
@@ -46,8 +46,8 @@ local function depositOrWithdrawCustomItems()
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, PAHF.getBankBags())
 
-        PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
-        PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
+        PAB.logger:Debug("#backpackBagCache = "..tostring(#backpackBagCache))
+        PAB.logger:Debug("#bankBagCache = "..tostring(#bankBagCache))
 
         -- if there is at least one item to be deposited or withdrawn (and if LWC is one), just assume that it has to be blocked
         if PAB.hasLazyWritCrafterAndShouldGrabEnabled() and (#backpackBagCache > 0 or #bankBagCache > 0) then

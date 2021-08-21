@@ -469,36 +469,6 @@ local function println(lcmChat, prefix, text, ...)
     end
 end
 
---- write the provided key/text into the debug Output window (WHITE font)
----@param addonName string the name of the addon that sends the debug message
----@param prefix string the prefix for the debug message
----@param text string the actual debug message
----@vararg any values to be put in the placeholders of the debug-text
----@return void
-local function debugln(addonName, prefix, text, ...)
-    if PA.debug then
-        local textKey = GetString(text)
-        local addonName = addonName or ""
-        local prefix = prefix or ""
-
-        if textKey ~= nil and textKey ~= "" then
-            PA.DebugWindow.printToDebugOutputWindow(addonName, table.concat({prefix, ": ", getFormattedText(textKey, ...)}))
-        else
-            PA.DebugWindow.printToDebugOutputWindow(addonName, table.concat({prefix, ": ", getFormattedText(text, ...)}))
-        end
-    end
-end
-
---- the same like println, except that it is only printed for the addon author (i.e. charactername = Klingo)
----@param key string a label-key from the localization
----@vararg any values to be put in the placeholders of the debug-text
----@return void
-local function debuglnAuthor(key, ...)
-    if GetUnitName("player") == PAC.ADDON.AUTHOR then
-        println(PA.chat, "", key, ...)
-    end
-end
-
 
 -- =================================================================================================================
 -- == PROFILES == --
@@ -636,8 +606,6 @@ PA.HelperFunctions = {
     getFormattedText = getFormattedText,
     getFormattedKey = getFormattedKey,
     println = println,
-    debugln = debugln,
-    debuglnAuthor = debuglnAuthor,
     getDefaultProfileName = getDefaultProfileName,
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,

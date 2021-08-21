@@ -100,7 +100,7 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function OnShopOpen()
-    PAR.debugln("PARepair.OnShopOpen")
+    PAR.logger:Debug("PARepair.OnShopOpen")
     if PARProfileManager.hasActiveProfile() then
         -- check if store can repair and if there is something to repair
         if CanStoreRepair() and GetRepairAllCost() > 0 then

@@ -9,27 +9,27 @@ local PAEM = PA.EventManager
 local function _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
     local PASavedVars = PA.SavedVars
     if patchPAG and tonumber(PASavedVars.General.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAGeneral from [", tostring(PASavedVars.General.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PA.logger:Info(table.concat({"Legacy-Patched PAGeneral from [", tostring(PASavedVars.General.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
         PASavedVars.General.savedVarsVersion = savedVarsVersion
     end
     if patchPAB and tonumber(PASavedVars.Banking.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PABanking from [", tostring(PASavedVars.Banking.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PA.Banking.logger:Info(table.concat({"Legacy-Patched PABanking from [", tostring(PASavedVars.Banking.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
         PASavedVars.Banking.savedVarsVersion = savedVarsVersion
     end
     if patchPAI and tonumber(PASavedVars.Integration.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAIntegration from [", tostring(PASavedVars.Integration.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PA.Integration.logger:Info(table.concat({"Legacy-Patched PAIntegration from [", tostring(PASavedVars.Integration.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
         PASavedVars.Integration.savedVarsVersion = savedVarsVersion
     end
     if patchPAJ and tonumber(PASavedVars.Junk.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAJunk from [", tostring(PASavedVars.Junk.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PA.Junk.logger:Info(table.concat({"Legacy-Patched PAJunk from [", tostring(PASavedVars.Junk.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
         PASavedVars.Junk.savedVarsVersion = savedVarsVersion
     end
     if patchPAL and tonumber(PASavedVars.Loot.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PALoot from [", tostring(PASavedVars.Loot.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PA.Loot.logger:Info(table.concat({"Legacy-Patched PALoot from [", tostring(PASavedVars.Loot.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
         PASavedVars.Loot.savedVarsVersion = savedVarsVersion
     end
     if patchPAR and tonumber(PASavedVars.Repair.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PARepair from [", tostring(PASavedVars.Repair.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PA.Repair.logger:Info(table.concat({"Legacy-Patched PARepair from [", tostring(PASavedVars.Repair.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
         PASavedVars.Repair.savedVarsVersion = savedVarsVersion
     end
 end
@@ -54,27 +54,27 @@ end
 local function _resetSavedVarsVersionIfMissingTo(targetSVV)
     local PASavedVars = PA.SavedVars
     if PASavedVars.General and PASavedVars.General.savedVarsVersion == nil then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAGeneral from [nil] to [", tostring(targetSVV), "]"}))
+        PA.logger:Info(table.concat({"Legacy-Reset PAGeneral from [nil] to [", tostring(targetSVV), "]"}))
         PASavedVars.General.savedVarsVersion = targetSVV
     end
     if PASavedVars.Banking and PASavedVars.Banking.savedVarsVersion == nil then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PABanking from [nil] to [", tostring(targetSVV), "]"}))
+        PA.Banking.logger:Info(table.concat({"Legacy-Reset PABanking from [nil] to [", tostring(targetSVV), "]"}))
         PASavedVars.Banking.savedVarsVersion = targetSVV
     end
     if PASavedVars.Integration and PASavedVars.Integration.savedVarsVersion == nil then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAIntegration from [nil] to [", tostring(targetSVV), "]"}))
+        PA.Integration.logger:Info(table.concat({"Legacy-Reset PAIntegration from [nil] to [", tostring(targetSVV), "]"}))
         PASavedVars.Integration.savedVarsVersion = targetSVV
     end
     if PASavedVars.Junk and PASavedVars.Junk.savedVarsVersion == nil then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAJunk from [nil] to [", tostring(targetSVV), "]"}))
+        PA.Junk.logger:Info(table.concat({"Legacy-Reset PAJunk from [nil] to [", tostring(targetSVV), "]"}))
         PASavedVars.Junk.savedVarsVersion = targetSVV
     end
     if PASavedVars.Loot and PASavedVars.Loot.savedVarsVersion == nil then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PALoot from [nil] to [", tostring(targetSVV), "]"}))
+        PA.Loot.logger:Info(table.concat({"Legacy-Reset PALoot from [nil] to [", tostring(targetSVV), "]"}))
         PASavedVars.Loot.savedVarsVersion = targetSVV
     end
     if PASavedVars.Repair and PASavedVars.Repair.savedVarsVersion == nil then
-        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PARepair from [nil] to [", tostring(targetSVV), "]"}))
+        PA.Repair.logger:Info(table.concat({"Legacy-Reset PARepair from [nil] to [", tostring(targetSVV), "]"}))
         PASavedVars.Repair.savedVarsVersion = targetSVV
     end
 end

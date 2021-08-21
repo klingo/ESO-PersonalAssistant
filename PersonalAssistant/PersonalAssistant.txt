@@ -11,13 +11,17 @@
 ## APIVersion: 100035 101031
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## DependsOn: LibAddonMenu-2.0>=32 LibMainMenu-2.0>=40400 LibCustomMenu>=701
-## OptionalDependsOn: LibChatMessage>=105
+## OptionalDependsOn: LibChatMessage>=105 LibDebugLogger>=217
+
+# Globals
+vars/Globals.lua
 
 # Logger
 Utilities/Logger.lua
 
-# Globals
-vars/Globals.lua
+# Debug Window
+Utilities/XML/DebugWindow.xml
+Utilities/XML/DebugWindow.lua
 
 # Localization
 localization/en.lua
@@ -36,10 +40,7 @@ libs/Integrations/FCOItemSaver.lua
 
 # Profiles
 PersonalAssistantGeneral/Profiles/PAGeneralSavedVarsPatcher.lua
-
-# Debug Window
-Utilities/XML/DebugWindow.xml
-Utilities/XML/DebugWindow.lua
+PersonalAssistantGeneral/Profiles/PAProfileSavedVarsPatcher.lua
 
 # Rules Window
 Utilities/XML/RulesWindow.xml

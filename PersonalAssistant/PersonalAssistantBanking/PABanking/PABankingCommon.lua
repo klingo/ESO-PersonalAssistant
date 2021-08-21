@@ -76,7 +76,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
             if customStackToMove ~= nil then sourceStack = customStackToMove end
             -- request the move of the item
             local moveStartGameTime = GetGameTimeMilliseconds()
-            PAB.debugln("request to move %d x %s into new stack", sourceStack, itemLink)
+            PAB.logger:Debug("request to move %d x %s into new stack", sourceStack, itemLink)
             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, targetBagId, firstEmptySlot, sourceStack)
             -- ---------------------------------------------------------------------------------------------------------
             -- Now "wait" until the item move has been complete/confirmed (or until bank is closed!)
@@ -90,7 +90,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                         -- if item has arrived or bank window is closed stop the interval; in first case proceed with the next item
                         EVENT_MANAGER:UnregisterForUpdate(identifier)
                         local moveFinishGameTime = GetGameTimeMilliseconds()
-                        PAB.debugln('Item transaction took approx. %d ms', moveFinishGameTime - moveStartGameTime)
+                        PAB.logger:Debug('Item transaction took approx. %d ms', moveFinishGameTime - moveStartGameTime)
                         -- check if the bank has been closed in the meanwhile
                         if PA.WindowStates.isBankClosed then
                             -- as per current observations, the transfer always finishes even if the bank has ben clsoed before verification
@@ -112,7 +112,7 @@ local function _moveSecureItemsFromTo(toBeMovedItemsTable, startIndex, toBeMoved
                                 else
                                     -- nothing else that can be moved; done
                                     -- TODO: end message?
-                                    PAB.debugln("2) all done!")
+                                    PAB.logger:Debug("2) all done!")
                                     -- Execute the function queue
                                     PAEM.executeNextFunctionInQueue(PAB.AddonName)
                                 end
@@ -172,7 +172,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
         local itemLink = GetItemLink(fromBagItemData.bagId, fromBagItemData.slotIndex, LINK_STYLE_BRACKETS)
         local sourceStack, sourceStackMaxSize = GetSlotStackSize(fromBagItemData.bagId, fromBagItemData.slotIndex)
         local stackToMove = overruleStackToMove or sourceStack
-        PAB.debugln("try to move %d x %s from %s away", stackToMove, itemLink, PAHF.getBagName(fromBagItemData.bagId))
+        PAB.logger:Debug("try to move %d x %s from %s away", stackToMove, itemLink, PAHF.getBagName(fromBagItemData.bagId))
 
         for toBagCacheIndex, toBagItemData in pairs(toBagCache) do
             if _isSameItem(fromBagItemData, toBagItemData) then
@@ -182,7 +182,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                 local targetFreeStacks = targetMaxStack - targetStack
                 if IsItemLinkUnique(itemLink) then
                     -- match was found, but since it is unique prevent any further move-attempts by skipping it
-                    PAB.debugln("%s is uniqe and cannot be stacked - skip it!", itemLink)
+                    PAB.logger:Debug("%s is uniqe and cannot be stacked - skip it!", itemLink)
                     skipItem = true
                     break
                 elseif targetFreeStacks > 0 then
@@ -226,7 +226,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- stack everything
                             notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + stackToMove
                             notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
-                            PAB.debugln("try to fully stack %d x %s", stackToMove, itemLink)
+                            PAB.logger:Debug("try to fully stack %d x %s", stackToMove, itemLink)
                             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, stackToMove)
                             -- nothing left to be moved
                             stackToMove = 0
@@ -235,7 +235,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
                             -- stack only partial
                             notMovedItemsTable[index].customStackToMove = notMovedItemsTable[index].customStackToMove + prevSourceFreeStack
                             notMovedItemsTable[index].customStackToMoveOriginal = nil -- in case of internal stacking, reset the original amount
-                            PAB.debugln("try to partially stack %d x %s", prevSourceFreeStack, itemLink)
+                            PAB.logger:Debug("try to partially stack %d x %s", prevSourceFreeStack, itemLink)
                             _requestMoveItem(fromBagItemData.bagId, fromBagItemData.slotIndex, prevBagItemData.bagId, prevBagItemData.slotIndex, prevSourceFreeStack)
                             -- partial left to be moved
                             stackToMove = stackToMove - prevSourceFreeStack
@@ -248,7 +248,7 @@ local function _stackInTargetBagAndPopulateNotMovedItemsTable(fromBagCache, toBa
             if stackToMove and stackToMove > 0 then
                 fromBagItemData.customStackToMove = stackToMove
                 fromBagItemData.customStackToMoveOriginal = sourceStack
-                PAB.debugln("not moved: %d / %d x %s (need new stack)", stackToMove, sourceStack, itemLink)
+                PAB.logger:Debug("not moved: %d / %d x %s (need new stack)", stackToMove, sourceStack, itemLink)
                 table.insert(notMovedItemsTable, fromBagItemData)
             end
         end
@@ -321,7 +321,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
                     savedBagStack = targetBagStack
                     local singleItemBagCache = {}
                     table.insert(singleItemBagCache, itemData)
-                    PAB.debugln("Only deposit: "..tostring(moveableStack))
+                    PAB.logger:Debug("Only deposit: "..tostring(moveableStack))
                     _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, otherBagCache, true, toBeMovedItemsTable, moveableStack)
                 else
                     -- No deposit needed (yet)
@@ -352,7 +352,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
                     savedBagStack = savedBagStack + moveableStack
                     local singleItemBagCache = {}
                     table.insert(singleItemBagCache, itemData)
-                    PAB.debugln("Only withdraw: "..tostring(moveableStack))
+                    PAB.logger:Debug("Only withdraw: "..tostring(moveableStack))
                     _stackInTargetBagAndPopulateNotMovedItemsTable(singleItemBagCache, configuredBagCache, true, toBeMovedItemsTable, moveableStack)
                 else
                     -- No withdrawal needed (anymore)
@@ -367,7 +367,7 @@ local function doIndividualItemTransactions(individualItems, backpackBagCache, b
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
-        PAB.debugln("1) all done!")
+        PAB.logger:Debug("1) all done!")
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end
@@ -378,8 +378,8 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     local toBeMovedItemsTable = {}
     local toBeMovedAgainTable = {}
 
-    PAB.debugln("#toDepositBagCache = %d", #depositFromBagCache)
-    PAB.debugln("#toWithdrawBagCache = %d", #withdrawalFromBagCache)
+    PAB.logger:Debug("#toDepositBagCache = %d", #depositFromBagCache)
+    PAB.logger:Debug("#toWithdrawBagCache = %d", #withdrawalFromBagCache)
 
     -- update the StacksAllowed options from the SavedVars
     -- OPTIMIZE: Challenge this, as it does not make sense for Glyphs and Treasure Maps
@@ -397,7 +397,7 @@ local function doGenericItemTransactions(depositFromBagCache, depositToBagCache,
     else
         -- all stacking done; and no further items to be moved
         -- TODO: end message?
-        PAB.debugln("1) all done!")
+        PAB.logger:Debug("1) all done!")
         -- Execute the function queue
         PAEM.executeNextFunctionInQueue(PAB.AddonName)
     end

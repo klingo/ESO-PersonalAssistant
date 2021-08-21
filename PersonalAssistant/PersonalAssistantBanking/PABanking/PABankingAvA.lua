@@ -9,8 +9,8 @@ local PAEM = PA.EventManager
 
 local function depositOrWithdrawAvAItems()
 
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking.depositOrWithdrawAvAItems (3)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking.depositOrWithdrawAvAItems (3)")
 
     if PAB.SavedVars.AvA.avaItemsEnabled then
         -- prepare and fill the table with all ava items that needs to be transferred
@@ -47,8 +47,8 @@ local function depositOrWithdrawAvAItems()
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, PAHF.getBankBags())
 
-        PAB.debugln("#backpackBagCache = "..tostring(#backpackBagCache))
-        PAB.debugln("#bankBagCache = "..tostring(#bankBagCache))
+        PAB.logger:Debug("#backpackBagCache = "..tostring(#backpackBagCache))
+        PAB.logger:Debug("#bankBagCache = "..tostring(#bankBagCache))
 
         -- trigger the individual itemTransactions
         PAB.doIndividualItemTransactions(individualItems, backpackBagCache, bankBagCache)

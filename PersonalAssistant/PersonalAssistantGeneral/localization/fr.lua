@@ -26,6 +26,14 @@ local PAStrings = {
     --SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- Debugging --
+    --SI_PA_MENU_GENERAL_DEBUGGING_HEADER = "",
+    --SI_PA_MENU_GENERAL_DEBUGGING_LIBDEBUGLOGGER = "",
+    --SI_PA_MENU_GENERAL_DEBUGGING_LIBDEBUGLOGGER_T = "",
+    --SI_PA_MENU_GENERAL_DEBUGGING_PALOGGER = "",
+    --SI_PA_MENU_GENERAL_DEBUGGING_PALOGGER_T = "",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Admin Settings --
     SI_PA_MENU_ADMIN_HEADER = "Paramètres administrateur",
 }

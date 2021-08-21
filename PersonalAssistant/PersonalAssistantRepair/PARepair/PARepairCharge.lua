@@ -76,7 +76,7 @@ local function RechargeEquippedWeaponsWithSoulGems(eventCode, bagId, slotIndex, 
                     end
 
                     -- some debug information
-                    PAR.debugln("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), firstSoulGem.itemName, chargeableAmount, charges, maxCharges)
+                    PAR.logger:Debug("Want to charge: %s with: %s for %d from currently: %d/%d", GetItemName(bagId, slotIndex), firstSoulGem.itemName, chargeableAmount, charges, maxCharges)
 
                     -- actually charge the item
                     ChargeItemWithSoulGem(bagId, slotIndex, firstSoulGem.bagId, firstSoulGem.slotIndex)

@@ -4,8 +4,6 @@ local PA = PersonalAssistant
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local GetTimeString = GetTimeString
-local GetGameTimeMilliseconds = GetGameTimeMilliseconds
-local ostime = os.time
 
 local _debugWindow = PADebugWindow
 
@@ -83,13 +81,20 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertBreak()
 
     -- SavedVars
-    debugEditControl:InsertLine(table.concat({"PAGeneral.SavedVars=", tostring(PA.General and istable(PA.General.SavedVars)), " - ", PA.SavedVars.General and PA.SavedVars.General.savedVarsVersion}))
+    debugEditControl:InsertLine(table.concat({"PAGeneral.SavedVars=", "true", " - ", PA.SavedVars.General and PA.SavedVars.General.savedVarsVersion}))
+    debugEditControl:InsertLine(table.concat({"PAProfile.SavedVars=", "true", " - ", PA.SavedVars.Profile and PA.SavedVars.Profile.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PABanking.SavedVars=", tostring(PA.Banking and istable(PA.Banking.SavedVars)), " - ", PA.SavedVars.Banking and PA.SavedVars.Banking.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PAIntegration.SavedVars=", tostring(PA.Integration and istable(PA.Integration.SavedVars)), " - ", PA.SavedVars.Integration and PA.SavedVars.Integration.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PAJunk.SavedVars=", tostring(PA.Junk and istable(PA.Junk.SavedVars)), " - ", PA.SavedVars.Junk and PA.SavedVars.Junk.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PALoot.SavedVars=", tostring(PA.Loot and istable(PA.Loot.SavedVars)), " - ", PA.SavedVars.Loot and PA.SavedVars.Loot.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PAMail.SavedVars=", tostring(PA.Mail and istable(PA.Mail.SavedVars)), " - ", PA.SavedVars.Mail and PA.SavedVars.Mail.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PARepair.SavedVars=", tostring(PA.Repair and istable(PA.Repair.SavedVars)), " - ", PA.SavedVars.Repair and PA.SavedVars.Repair.savedVarsVersion}))
+    debugEditControl:InsertBreak()
+
+    -- Loggers
+    debugEditControl:InsertLine("LibDebugLogger="..tostring(PA.LibDebugLogger ~= nil))
+    debugEditControl:InsertLine("PA.Profile.Debug.libDebugLogger="..tostring(PA.SavedVars.Profile.Debug.libDebugLogger))
+    debugEditControl:InsertLine("PA.Profile.Debug.personalAssistantLogger="..tostring(PA.SavedVars.Profile.Debug.personalAssistantLogger))
     debugEditControl:InsertBreak()
 
     -- Global values
@@ -136,20 +141,9 @@ end
 local _initDone = false
 local _preInitTextQueue = {}
 
-local _lastMillisecondEntry
-
-local function printToDebugOutputWindow(addonName, text)
+local function printToDebugOutputWindow(text)
     if _bufferDebugOutputControl then
         local timeString = GetTimeString()
-        local currMillisecondEntry = GetGameTimeMilliseconds()
-        table.insert(PA.SavedVars.General.Debug, {
-            [1] = ostime(),
-            [2] = timeString,
-            [3] = currMillisecondEntry - _lastMillisecondEntry,
-            [4] = addonName,
-            [5] = text,
-        })
-        _lastMillisecondEntry = currMillisecondEntry
         -- add timestamp
         text = string.format("%s %s", timeString, text)
         _bufferDebugOutputControl:AddMessage(text, 1, 1, 1)
@@ -163,9 +157,6 @@ end
 local function _initDebugOutputWindow()
     if not _initDone then
         _initDone = true
-        -- make sure it's properly initialized
-        if PA.SavedVars.General.Debug == nil then PA.SavedVars.General.Debug = {} end
-        _lastMillisecondEntry = GetGameTimeMilliseconds()
         _bufferDebugOutputControl = _debugOutputWindow:GetNamedChild("Buffer")
         _sliderDebugOutputControl = _debugOutputWindow:GetNamedChild("Slider")
         _debugOutputWindow.timeline = ANIMATION_MANAGER:CreateTimeline()
@@ -181,21 +172,16 @@ local function showDebugOutputWindow()
     _debugOutputWindow:SetHidden(false)
     -- init the bufferControl with some text and the current os-date/time
     _bufferDebugOutputControl:Clear()
-    printToDebugOutputWindow("DEBUG-START", table.concat({"|cFFA500", "PersonalAssistant Debug Output - ", os.date(), "|r"}))
     -- empty the queue if something was added
     while #_preInitTextQueue > 0 do
-        local text = table.remove(_preInitTextQueue)
-        printToDebugOutputWindow("PRE-INIT-QUEUE", text)
+        local text = table.remove(_preInitTextQueue, 1)
+        printToDebugOutputWindow(text)
     end
+    printToDebugOutputWindow(table.concat({"|cFFA500", "PersonalAssistant Debug Output - ", os.date(), "|r"}))
 end
 
-local function hideDebugOutputWindow(skipSVLogClearWhenDisable)
-    -- clear debug log
-    if not skipSVLogClearWhenDisable then
-        PA.SavedVars.General.Debug = {}
-    end
+local function hideDebugOutputWindow()
     _debugOutputWindow:SetHidden(true)
-    PA.toggleDebug(false)
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

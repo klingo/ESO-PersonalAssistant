@@ -26,6 +26,14 @@ local PAStrings = {
     SI_PA_MENU_GENERAL_TELEPORT_OUTSIDE_T = "If turned OFF, you will travel to the inside of the house instead",
 
     -- -----------------------------------------------------------------------------------------------------------------
+    -- Debugging --
+    SI_PA_MENU_GENERAL_DEBUGGING_HEADER = "Debugging",
+    SI_PA_MENU_GENERAL_DEBUGGING_LIBDEBUGLOGGER = "Enable LibDebugLogger",
+    SI_PA_MENU_GENERAL_DEBUGGING_LIBDEBUGLOGGER_T = "Enable debug-logging to LibDebugLogger",
+    SI_PA_MENU_GENERAL_DEBUGGING_PALOGGER = "Enable PersonalAssistantLogger",
+    SI_PA_MENU_GENERAL_DEBUGGING_PALOGGER_T = "Enable debug-logging to PersonalAssistant's own Logger window",
+
+    -- -----------------------------------------------------------------------------------------------------------------
     -- Admin Settings --
     SI_PA_MENU_ADMIN_HEADER = "Admin Settings",
 }

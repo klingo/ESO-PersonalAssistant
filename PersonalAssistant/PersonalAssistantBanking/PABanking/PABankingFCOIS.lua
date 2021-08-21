@@ -16,8 +16,8 @@ end
 
 local function depositOrWithdrawFCOISMarkedItems()
 
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking.depositOrWithdrawFCOISMarkedItems (4)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking.depositOrWithdrawFCOISMarkedItems (4)")
 
     if PA.Integration and PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
         local PAIFCOISSavedVars = PA.Integration.SavedVars.FCOItemSaver

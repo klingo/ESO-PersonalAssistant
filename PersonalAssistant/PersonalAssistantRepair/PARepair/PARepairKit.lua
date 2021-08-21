@@ -68,7 +68,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
             if hasDurability then
                 local itemCondition = GetItemCondition(bagId, slotIndex)
                 local repairKitThreshold = PARepairSavedVars.RepairEquipped.repairWithRepairKitThreshold
-                PAR.debugln("%s is at %d%%", GetItemName(bagId, slotIndex), itemCondition)
+                PAR.logger:Debug("%s is at %d%%", GetItemName(bagId, slotIndex), itemCondition)
                 -- check if it is below and would need to be repaired
                 if itemCondition <= repairKitThreshold then
                     local repairKitTable, totalRepairKitCount = _getRepairKitsIn(BAG_BACKPACK)
@@ -80,7 +80,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
                         -- just to be sure, check again if there is anything left to repair (in case of double-event-triggers)
                         if repairableAmount > 0 then
                             -- some debug information
-                            PAR.debugln("Want to repair %s with %s for %d from %d/%d", itemLink, firstRepairKit.itemName, repairableAmount, itemCondition, 100)
+                            PAR.logger:Debug("Want to repair %s with %s for %d from %d/%d", itemLink, firstRepairKit.itemName, repairableAmount, itemCondition, 100)
                             local isNormalRepairKit = IsItemNonCrownRepairKit(firstRepairKit.bagId, firstRepairKit.slotIndex)
                             if isNormalRepairKit then
                                 -- actually repair the item with a normal repair kit
@@ -100,7 +100,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
                                     PAR.println(SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED_ALL, itemLink, itemCondition, firstRepairKit.itemLink)
                                 else
                                     -- Item(s) could somehow not be repaired
-                                    PAR.debugln("Call of \"UseItem(%s)\" failed! IsUnitInCombat(player) = %s", itemLink, tostring(PAHF.isPlayerInCombat()))
+                                    PAR.logger:Info("Call of \"UseItem(%s)\" failed! IsUnitInCombat(player) = %s", itemLink, tostring(PAHF.isPlayerInCombat()))
                                     -- Try again when combat is dropped
                                     PAEM.RegisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, PAR.CheckAndRepairAllEquippedItemsWithRepairKitsCombatState, "RepairKits-DropCombat")
                                 end
@@ -136,7 +136,7 @@ local function RepairEquippedItemWithRepairKit(bagId, slotIndex)
             end
         end
     else
-        PAR.debugln("RepairEquippedItemWithRepairKit.isPlayerDeadOrReincarnating (caught!)")
+        PAR.logger:Info("RepairEquippedItemWithRepairKit.isPlayerDeadOrReincarnating (caught!)")
     end
 end
 
@@ -162,7 +162,7 @@ end
 local function CheckAndRepairAllEquippedItemsWithRepairKitsCombatState(eventCode, inCombat)
     -- only proceed if player is no longer in combat
     if not inCombat then
-        PAR.debugln("combat dropped - check all items")
+        PAR.logger:Debug("combat dropped - check all items")
         PAEM.UnregisterForEvent(PAR.AddonName, EVENT_PLAYER_COMBAT_STATE, "RepairKits-DropCombat")
         CheckAndRepairAllEquippedItemsWithRepairKits()
     end

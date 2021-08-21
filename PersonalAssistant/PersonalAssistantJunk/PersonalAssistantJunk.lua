@@ -22,11 +22,6 @@ local function println(text, ...)
     end
 end
 
--- wrapper method that prefixes the addon shortname
-local function debugln(text, ...)
-    PAHF.debugln(PAC.ADDON.NAME_RAW.JUNK, PAC.COLORED_TEXTS_DEBUG.PAJ, text, ...)
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -36,13 +31,17 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
+    -- init Logger (before patching is done!)
+    local PASavedVars = PA.SavedVars
+    PA.Junk.logger = PA.logger:CreateSubLogger(PAC.ADDON.NAME_RAW.JUNK, PAC.COLORED_TEXTS_DEBUG.PAJ)
+    PA.Junk.logger:SetLibDebugLoggerEnabled(PASavedVars.Profile.Debug.libDebugLogger)
+
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Junk.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAJ, PAC.COLORED_TEXTS_DEBUG.PAJ)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    local PASavedVars = PA.SavedVars
     PASavedVars.Junk = ZO_SavedVars:NewAccountWide("PersonalAssistantJunk_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.JUNK)
 
     -- apply any patches if needed
@@ -80,5 +79,4 @@ PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 PA.Junk = {
     AddonName = AddonName,
     println = println,
-    debugln = debugln
 }

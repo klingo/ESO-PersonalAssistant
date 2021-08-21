@@ -57,8 +57,8 @@ end
 
 local function depositOrWithdrawCraftingItems()
 
-    PAB.debugln("==============================================================")
-    PAB.debugln("PA.Banking.depositOrWithdrawCraftingItems (1)")
+    PAB.logger:Debug("==============================================================")
+    PAB.logger:Info("PA.Banking.depositOrWithdrawCraftingItems (1)")
 
     if PAB.SavedVars.Crafting.craftingItemsEnabled and not IsESOPlusSubscriber() then
         -- get the writ quest table if LazyWritCrafter is enabled
@@ -77,7 +77,7 @@ local function depositOrWithdrawCraftingItems()
                     depositItemTypes:insert(itemType)
                 else
                     PAB.hasSomeItemskippedForLWC = true
-                    PAB.debugln("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
+                    PAB.logger:Debug("skip [%s] because of LWC compatibility", GetString("SI_ITEMTYPE", itemType))
                 end
             elseif moveMode == PAC.MOVE.WITHDRAW then
                 withdrawItemTypes:insert(itemType)

@@ -220,7 +220,7 @@ local function _addCustomRuleClicked(isUpdate)
         PABCustomPAItemIds[paItemId].itemLink = _selectedItemLink
         PAB.println(SI_PA_CHAT_BANKING_RULES_UPDATED, _selectedItemLink:gsub("%|H0", "|H1"))
     else
-        PAB.debugln("ERROR; PAB rule already existing and this was NOT an update")
+        PAB.logger:Error("ERROR; PAB rule already existing and this was NOT an update")
     end
 
     window:SetHidden(true)
@@ -243,7 +243,7 @@ local function deletePABCustomRule(itemLink)
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        PAB.debugln("ERROR; PAB rule not existing, cannot be deleted")
+        PAB.logger:Error("ERROR; PAB rule not existing, cannot be deleted")
     end
 end
 
@@ -258,7 +258,7 @@ local function enablePABCustomRule(itemLink)
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        PAB.debugln("ERROR; PAB rule not existing, cannot be enabled")
+        PAB.logger:Error("ERROR; PAB rule not existing, cannot be enabled")
     end
 end
 
@@ -273,7 +273,7 @@ local function disablePABCustomRule(itemLink)
         -- refresh the list (if it was initialized)
         if PA.BankingRulesList then PA.BankingRulesList:Refresh() end
     else
-        PAB.debugln("ERROR; PAB rule not existing, cannot be disabled")
+        PAB.logger:Error("ERROR; PAB rule not existing, cannot be disabled")
     end
 end
 

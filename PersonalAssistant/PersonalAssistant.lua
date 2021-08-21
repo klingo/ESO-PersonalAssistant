@@ -59,20 +59,21 @@ local function initAddon(_, addOnName)
     -- gets values from SavedVars, or initialises with default values
     local PASavedVars = PA.SavedVars
     -- PASavedVars.General is no longer needed; load still to make sure all profiles can be migrated though
-    -- Now used for debugging though; to be replaced with PASavedVars.Debug at some point!
-    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, {
-        Debug = {}
-    })
+    PASavedVars.General = ZO_SavedVars:NewAccountWide("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.GENERAL, nil, {})
     PASavedVars.Profile = ZO_SavedVars:NewCharacterNameSettings("PersonalAssistant_SavedVariables", PACAddon.SAVED_VARS_VERSION.MAJOR.PROFILE, nil, PA.MenuDefaults.PAGeneral)
 
+    -- init Logger (before patching is done!)
+    PA.logger = PA.Logger:Create(PAC.ADDON.NAME_RAW.GENERAL, PAC.COLORED_TEXTS_DEBUG.PAG)
+    PA.logger:SetLibDebugLoggerEnabled(PASavedVars.Profile.Debug.libDebugLogger)
+    PA.logger:SetPersonalAssistantLoggerEnabled(PASavedVars.Profile.Debug.personalAssistantLogger)
+
     -- apply any patches if needed
-    PA.SavedVarsPatcher.applyPAGeneralPatchIfNeeded()
+    PA.SavedVarsPatcher.applyPAProfilePatchIfNeeded() -- must be run before PAGeneral patching!
+    PA.SavedVarsPatcher.applyPAGeneralPatchIfNeeded() -- TODO: to be decommissioned with V3
 
     -- init the default values if they don't exist yet
+    -- FIXME: somehow does not work here and always OVERWRITES everything?
     --PA.ZO_SavedVars.CopyDefaults(PASavedVars.Profile, PA.MenuDefaults.PAGeneral)
-
-    -- get debug setting
-    PA.debug = PASavedVars.Profile.debug
 
     -- create the options with LAM-2
     PA.General.createOptions()
@@ -84,9 +85,7 @@ local function initAddon(_, addOnName)
     SLASH_COMMANDS["/parules"] = function() PA.CustomDialogs.togglePARulesMenu() end
 
     -- register additional slash-commands for debugging
-    SLASH_COMMANDS["/padebugon"] = function() PA.toggleDebug(true) end
-    SLASH_COMMANDS["/padebugoff"] = function() PA.toggleDebug(false) end
-    SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end
+    SLASH_COMMANDS["/palistevents"] = function() PAEM.listAllEventsInSet() end -- TODO: migrate to DebugWindow Output?
     SLASH_COMMANDS["/padw"] = function() PA.DebugWindow.showStaticDebugInformationWindow() end
 end
 
@@ -95,13 +94,10 @@ end
 local function introduction()
     PAEM.UnregisterForEvent(PA.AddonName, EVENT_PLAYER_ACTIVATED, "Introduction")
 
-    -- display debug window on login (if turned on)
-    if PA.SavedVars.Profile.debug then
-        --PA.DebugWindow.showDebugOutputWindow()
-        PA.toggleDebug(false, true)
-        PA.toggleDebug(true)
-    end
+    -- enable/display PersonalAssistant Debug Window on login (if turned on)
+    PA.MenuFunctions.PAGeneral.setPersonalAssistantLoggerSetting(PA.SavedVars.Profile.Debug.personalAssistantLogger)
 
+    -- check selected profile
     if (PA.Banking and PA.ProfileManager.PABanking.isNoProfileSelected()) or
             (PA.Integration and PA.ProfileManager.PAIntegration.isNoProfileSelected()) or
             (PA.Junk and PA.ProfileManager.PAJunk.isNoProfileSelected()) or
@@ -120,11 +116,6 @@ local function introduction()
             end
         end
     end
-end
-
--- wrapper method that prefixes the addon shortname
-function PA.debugln(text, ...)
-    PAHF.debugln(PAC.ADDON.NAME_RAW.GENERAL, PAC.COLORED_TEXTS_DEBUG.PAG, text, ...)
 end
 
 PAEM.RegisterForEvent(PA.AddonName, EVENT_ADD_ON_LOADED, initAddon, "AddonInit")
@@ -257,25 +248,6 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
         else
             local _, _, sellPrice = GetItemInfo(bagId, slotIndex)
             d("sellPrice="..tostring(sellPrice))
-        end
-    end
-end
-
-function PA.toggleDebug(newStatus, skipSVLogClearWhenDisable)
-    -- check is needed to avoid endless loop (i.e. ESO crash)
-    if PA.SavedVars.Profile.debug ~= newStatus then
-        PA.SavedVars.Profile.debug = newStatus
-        PA.debug = newStatus
-        if newStatus then
-            PA.DebugWindow.showDebugOutputWindow()
-            if GetUnitName("player") == PACAddon.AUTHOR then
-                PAEM.RegisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, PA.cursorPickup, "CursorPickup")
-            end
-        else
-            PA.DebugWindow.hideDebugOutputWindow(skipSVLogClearWhenDisable)
-            if GetUnitName("player") == PACAddon.AUTHOR then
-                PAEM.UnregisterForEvent(PA.AddonName, EVENT_CURSOR_PICKUP, "CursorPickup")
-            end
         end
     end
 end

@@ -42,7 +42,7 @@ local function _createPAGeneralMenu()
         name = GetString(SI_PA_MENU_GENERAL_SHOW_WELCOME),
         getFunc = PAGMenuFunctions.getWelcomeMessageSetting,
         setFunc = PAGMenuFunctions.setWelcomeMessageSetting,
-        default = PAGMenuDefaults.welcomeMessage,
+        default = PAGMenuDefaults.General.welcomeMessage,
     })
 
     local houseId = GetHousingPrimaryHouse()
@@ -70,9 +70,35 @@ local function _createPAGeneralMenu()
              getFunc = PAGMenuFunctions.getJumpOutsideSetting,
              setFunc = PAGMenuFunctions.setJumpOutsideSetting,
              disabled = PAGMenuFunctions.isTeleportToPrimaryHouseDisabled,
-             default = PAGMenuDefaults.jumpOutside,
+             default = PAGMenuDefaults.General.jumpOutside,
         })
     end
+
+    PAGeneralOptionsTable:insert({
+        type = "header",
+        name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_GENERAL_DEBUGGING_HEADER)),
+    })
+
+    if PA.LibDebugLogger then
+        PAGeneralOptionsTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_GENERAL_DEBUGGING_LIBDEBUGLOGGER),
+            tooltip = GetString(SI_PA_MENU_GENERAL_DEBUGGING_LIBDEBUGLOGGER_T),
+            getFunc = PAGMenuFunctions.getLibDebugLoggerSetting,
+            setFunc = PAGMenuFunctions.setLibDebugLoggerSetting,
+            disabled = PAGMenuFunctions.isLibDebugLoggerDisabled,
+            default = PAGMenuDefaults.Debug.libDebugLogger,
+        })
+    end
+
+    PAGeneralOptionsTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_GENERAL_DEBUGGING_PALOGGER),
+        tooltip = GetString(SI_PA_MENU_GENERAL_DEBUGGING_PALOGGER_T),
+        getFunc = PAGMenuFunctions.getPersonalAssistantLoggerSetting,
+        setFunc = PAGMenuFunctions.setPersonalAssistantLoggerSetting,
+        default = PAGMenuDefaults.Debug.personalAssistantLogger,
+    })
 
     -- register additional buttons to switch between languages (only for Addon author)
     if GetUnitName("player") == PACAddon.AUTHOR then

@@ -6,14 +6,14 @@ local PAHF = PA.HelperFunctions
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function _unmarkAllPAItemIdsFromJunk(paItemId)
-    PAJ.debugln("#_unmarkAllPAItemIdsFromJunk(%s)", tostring(paItemId))
+    PAJ.logger:Debug("#_unmarkAllPAItemIdsFromJunk(%s)", tostring(paItemId))
     local customPAItems = {
         [paItemId] = {}
     }
     local excludeJunk, excludeCharacterBound, excludeStolen = false, false, false
     local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound, excludeStolen)
     local bagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, PAHF.getAccessibleBags())
-    PAJ.debugln("#bagCache = "..tostring(#bagCache))
+    PAJ.logger:Debug("#bagCache = "..tostring(#bagCache))
 
     for index = #bagCache, 1, -1 do
         local itemData = bagCache[index]
@@ -26,14 +26,14 @@ local function _unmarkAllPAItemIdsFromJunk(paItemId)
 end
 
 local function _markAllPAItemIdsAsJunk(paItemId)
-    PAJ.debugln("#_markAllPAItemIdsAsJunk(%s)", tostring(paItemId))
+    PAJ.logger:Debug("#_markAllPAItemIdsAsJunk(%s)", tostring(paItemId))
     local customPAItems = {
         [paItemId] = {}
     }
     local excludeJunk, excludeCharacterBound, excludeStolen = true, false, false
     local paItemIdComparator = PAHF.getPAItemIdComparator(customPAItems, excludeJunk, excludeCharacterBound, excludeStolen)
     local bagCache = SHARED_INVENTORY:GenerateFullSlotData(paItemIdComparator, PAHF.getAccessibleBags())
-    PAJ.debugln("#bagCache = "..tostring(#bagCache))
+    PAJ.logger:Debug("#bagCache = "..tostring(#bagCache))
 
     for index = #bagCache, 1, -1 do
         local itemData = bagCache[index]
@@ -69,7 +69,7 @@ local function isItemPermanentJunk(bagId, slotIndex)
 end
 
 local function addItemLinkToPermanentJunk(itemLink)
-    PAJ.debugln("PA.Junk.addItemLinkToPermanentJunk")
+    PAJ.logger:Debug("PA.Junk.addItemLinkToPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
         local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
@@ -90,13 +90,13 @@ local function addItemLinkToPermanentJunk(itemLink)
             -- refresh the list (if it was initialized)
             if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
         else
-            PAJ.debugln("ERROR; PAJ rule already existing")
+            PAJ.logger:Error("ERROR; PAJ rule already existing")
         end
     end
 end
 
 local function removeItemLinkFromPermanentJunk(itemLink)
-    PAJ.debugln("PA.Junk.removeItemLinkFromPermanentJunk")
+    PAJ.logger:Debug("PA.Junk.removeItemLinkFromPermanentJunk")
 
     if PAJ.SavedVars.Custom.customItemsEnabled then
         local PAJCUstomPAItemIds = PAJ.SavedVars.Custom.PAItemIds
@@ -112,7 +112,7 @@ local function removeItemLinkFromPermanentJunk(itemLink)
             -- refresh the list (if it was initialized)
             if PA.JunkRulesList then PA.JunkRulesList:Refresh() end
         else
-            PAJ.debugln("ERROR; PAJ rule not existing, cannot be deleted")
+            PAJ.logger:Error("ERROR; PAJ rule not existing, cannot be deleted")
         end
     end
 end

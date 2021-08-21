@@ -192,7 +192,7 @@ local function _updateItemIconsWhenSetCollectionPieceUnlocked(itemId)
             local passedGameTime = GetGameTimeMilliseconds() - startGameTime
             if isSetCollectionPieceUnlocked or passedGameTime > IS_ITEM_SET_COLLECTION_PIECE_UNLOCKED_TIMEOUT_MS then
                 EVENT_MANAGER:UnregisterForUpdate(identifier)
-                PAL.debugln('IsItemSetCollectionPieceUnlocked took approx. %d ms (%s -> %s)', passedGameTime, tostring(isBeforeSetCollectionPieceUnlocked), tostring(isSetCollectionPieceUnlocked))
+                PAL.logger:Debug('IsItemSetCollectionPieceUnlocked took approx. %d ms (%s -> %s)', passedGameTime, tostring(isBeforeSetCollectionPieceUnlocked), tostring(isSetCollectionPieceUnlocked))
                 PAL.ItemIcons.refreshScrollListVisible()
             end
         end)
@@ -231,7 +231,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
                     else
                         -- Recipe is already known; do nothing for now
-                        PAL.debugln("known recipe looted: %s", itemLink)
+                        PAL.logger:Debug("known recipe looted: %s", itemLink)
                     end
                 end
 
@@ -245,7 +245,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
                         else
                             -- Motif is already known; do nothing for now
-                            PAL.debugln("known motif looted: %s", itemLink)
+                            PAL.logger:Debug("known motif looted: %s", itemLink)
                         end
                     end
                 end
@@ -255,14 +255,14 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 local itemQualityThreshold = PALootSavedVars.LootEvents.LootCompanionItems.qualityThreshold
                 if isNewItem and itemQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
                     local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
-                    PAL.debugln("isItemForCompanion(true), is quality %d >= %d ?", itemQuality, itemQualityThreshold)
+                    PAL.logger:Debug("isItemForCompanion(true), is quality %d >= %d ?", itemQuality, itemQualityThreshold)
                     if itemQuality >= itemQualityThreshold then
                         local traitType = GetItemLinkTraitInfo(itemLink)
                         local traitName = GetString("SI_ITEMTRAITTYPE", traitType)
                         PAL.println(SI_PA_CHAT_LOOT_COMPANION_ITEM, itemLink, traitName)
                     else
                         -- Companion item below quality threshold
-                        PAL.debugln("isItemForCompanion(true), companion item below threshold: %s", itemLink)
+                        PAL.logger:Debug("isItemForCompanion(true), companion item below threshold: %s", itemLink)
                     end
                 end
 
@@ -277,7 +277,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAL.println(SI_PA_CHAT_LOOT_TRAIT_UNKNOWN, itemLink, traitName)
                     else
                         -- Trait already researched
-                        PAL.debugln("item with known trait looted: %s", itemLink)
+                        PAL.logger:Debug("item with known trait looted: %s", itemLink)
                     end
                 end
                 if PALootSavedVars.LootEvents.LootApparelWeapons.uncollectedSetMsg then
@@ -287,15 +287,15 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                             if not isItemSetCollectionPieceUnlocked then
                                 local _, setName = GetItemLinkSetInfo(itemLink)
                                 PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
-                                PAL.debugln("A) IsItemBound(%s)", tostring(IsItemBound(bagId, slotIndex)))
+                                PAL.logger:Debug("A) IsItemBound(%s)", tostring(IsItemBound(bagId, slotIndex)))
                             else
                                 -- Set item already collected
-                                PAL.debugln("set item already collected: %s", itemLink)
-                                PAL.debugln("B) IsItemBound(%s) already", tostring(IsItemBound(bagId, slotIndex)))
+                                PAL.logger:Debug("set item already collected: %s", itemLink)
+                                PAL.logger:Debug("B) IsItemBound(%s) already", tostring(IsItemBound(bagId, slotIndex)))
                             end
                         else
                             -- if the item is not new anymore; then this is most likely because it was just bound -> refresh the icons
-                            PAL.debugln("C) Set item is not new - was it just bound? REFRESH LIST! %s", itemLink)
+                            PAL.logger:Debug("C) Set item is not new - was it just bound? REFRESH LIST! %s", itemLink)
                             _updateItemIconsWhenSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink))
                         end
                     end
@@ -311,7 +311,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
                     else
                         -- Style Page already known; do nothing for know
-                        PAL.debugln("known style page looted: %s", itemLink)
+                        PAL.logger:Debug("known style page looted: %s", itemLink)
                     end
                 end
             end
@@ -357,7 +357,7 @@ local function UpdateNumBagUsedSlots(eventCode)
             local passedGameTime = GetGameTimeMilliseconds() - startGameTime
             if nowUsedSlots ~= beforeUsedSlots or passedGameTime > GET_NUM_BAG_USED_SLOTS_TIMEOUT_MS then
                 EVENT_MANAGER:UnregisterForUpdate(identifier)
-                PAL.debugln('UpdateNumBagUsedSlots took approx. %d ms (%d -> %d)', passedGameTime, _prevUsedSlots, nowUsedSlots)
+                PAL.logger:Debug('UpdateNumBagUsedSlots took approx. %d ms (%d -> %d)', passedGameTime, _prevUsedSlots, nowUsedSlots)
                 _prevUsedSlots = nowUsedSlots
             end
         end)

@@ -211,7 +211,7 @@ local function RefreshPABankingEventRegistration()
         if LCM then
             PAItemContextMenu.initHooksOnInventoryContextMenu(LCM)
         else
-            PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
+            PAB.logger:Error("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
         end
     end
 end
@@ -279,7 +279,7 @@ local function RefreshPAJunkEventRegistration()
         if LCM then
             PAItemContextMenu.initHooksOnInventoryContextMenu(LCM)
         else
-            PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
+            PAJ.logger:Error("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
         end
     end
 end
@@ -359,7 +359,7 @@ local function RefreshPARepairEventRegistration()
     -- Check if the Addon 'PARepair' is even enabled
     local PAR = PA.Repair
     if PAR and PAPM.PARepair and PAPM.PARepair.hasActiveProfile() then
-        PAR.debugln("RefreshPARepairEventRegistration")
+        PAR.logger:Debug("RefreshPARepairEventRegistration")
         -- Check if the functionality is turned on within the addon
         local PARMenuFunctions = PA.MenuFunctions.PARepair
         -- Check if the functionality is turned on within the addon

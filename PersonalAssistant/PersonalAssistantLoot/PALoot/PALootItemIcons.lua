@@ -1,5 +1,6 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
+local PAL = PA.Loot
 local PAC = PA.Constants
 local PAHF = PA.HelperFunctions
 
@@ -395,14 +396,14 @@ local function initHooksOnBags()
             end
         end
     else
-        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnBags]")
+        PAL.logger:Debug("Attempted to Re-Hook: [initHooksOnBags]")
     end
 end
 
 -- this function needs to be initialized everytime the TradeHouse is opened
 local function initHooksOnTradeHouse()
     local isAlwaysKeyboardMode = PAHF.isAlwaysKeyboardMode()
-    PA.Loot.debugln("initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
+    PAL.logger:Debug("initHooksOnTradeHouse | gamepadModeSetting = %d | isAlwaysKeyboardMode = %s", gamepadModeSetting, tostring(isAlwaysKeyboardMode))
     if isAlwaysKeyboardMode then
         ZO_PreHook(TRADING_HOUSE.searchResultsList.dataTypes[1], "setupCallback", function(...)
             local control = ...
@@ -448,7 +449,7 @@ local function initHooksOnMerchantsAndBuyback()
             end
         end)
     else
-        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnMerchantsAndBuyback]")
+        PAL.logger:Debug("Attempted to Re-Hook: [initHooksOnMerchantsAndBuyback]")
     end
 end
 
@@ -492,7 +493,7 @@ local function initHooksOnCraftingStations()
             end
         end)
     else
-        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnCraftingStations]")
+        PAL.logger:Debug("Attempted to Re-Hook: [initHooksOnCraftingStations]")
     end
 end
 
@@ -510,7 +511,7 @@ local function initHooksOnLootWindow()
             end
         end)
     else
-        PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnLootWindow]")
+        PAL.logger:Debug("Attempted to Re-Hook: [initHooksOnLootWindow]")
     end
 end
 

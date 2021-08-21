@@ -22,11 +22,6 @@ local function println(text, ...)
     end
 end
 
--- wrapper method that prefixes the addon shortname
-local function debugln(text, ...)
-    PAHF.debugln(PAC.ADDON.NAME_RAW.BANKING, PAC.COLORED_TEXTS_DEBUG.PAB, text, ...)
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -36,13 +31,17 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
+    -- init Logger (before patching is done!)
+    local PASavedVars = PA.SavedVars
+    PA.Banking.logger = PA.logger:CreateSubLogger(PAC.ADDON.NAME_RAW.BANKING, PAC.COLORED_TEXTS_DEBUG.PAB)
+    PA.Banking.logger:SetLibDebugLoggerEnabled(PASavedVars.Profile.Debug.libDebugLogger)
+
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Banking.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAB, PAC.COLORED_TEXTS_DEBUG.PAB)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    local PASavedVars = PA.SavedVars
     PASavedVars.Banking = ZO_SavedVars:NewAccountWide("PersonalAssistantBanking_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.BANKING)
 
     -- apply any patches if needed
@@ -78,4 +77,3 @@ PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 -- Export
 PA.Banking.AddonName = AddonName
 PA.Banking.println = println
-PA.Banking.debugln = debugln

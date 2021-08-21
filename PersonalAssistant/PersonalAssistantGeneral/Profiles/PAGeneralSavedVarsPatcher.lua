@@ -1,47 +1,49 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAC = PA.Constants
-local PAHF = PA.HelperFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _updateSavedVarsVersion(savedVarsVersion)
+local function _getCurrentSavedVarsVersion()
     local PAGSavedVars = PA.SavedVars.General
-    if tonumber(PAGSavedVars.savedVarsVersion) < savedVarsVersion then
-        PAHF.debuglnAuthor(table.concat({ PAC.COLORED_TEXTS.PA, " - Patched PAGeneral from [", tostring(PAGSavedVars.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+    if PAGSavedVars.savedVarsVersion then
+        return tonumber(PAGSavedVars.savedVarsVersion)
+    elseif type(PAC.ADDON.VERSION_ADDON) == "number" then
+        -- first time player init
+        return PAC.ADDON.VERSION_ADDON
+    end
+    -- first time local DEV init - return mock
+    return PAC.ADDON.VERSION_MOCK
+end
+
+local function _updateSavedVarsVersion(savedVarsVersion)
+    local currentSavedVarsVersion = _getCurrentSavedVarsVersion()
+    if currentSavedVarsVersion < savedVarsVersion then
+        local PAGSavedVars = PA.SavedVars.General
         PAGSavedVars.savedVarsVersion = savedVarsVersion
+        PA.logger:Info(table.concat({ "Patched PAGeneral from [", tostring(currentSavedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
     end
 end
 
 local function _getIsPatchNeededInfo(savedVarsVersion)
-    local PAGSavedVars = PA.SavedVars.General
-    local currentVersion = tonumber(PAGSavedVars.savedVarsVersion) or PAC.ADDON.VERSION_ADDON
+    local currentVersion = _getCurrentSavedVarsVersion()
     return savedVarsVersion, (currentVersion < savedVarsVersion)
-end
-
-local function _setLocalProfileCounter(PASavedVars)
-    local profileCounter = PASavedVars.General.profileCounter
-    PASavedVars.General.profileCounter = (type(profileCounter) == 'number' and profileCounter) or 0
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _applyPatch_2_5_14(savedVarsVersion, isPatchingNeeded)
-    -- always run this because we never know when all profiles got migrated :-(
-    local PASavedVars = PA.SavedVars
-    local oldActiveProfile = PASavedVars.Profile.activeProfile
-    if oldActiveProfile ~= nil then
-        -- copy the previously selected profile
-        PASavedVars.Profile.General.activeProfile = oldActiveProfile
-        PASavedVars.Profile.Banking.activeProfile = oldActiveProfile
-        PASavedVars.Profile.Integration.activeProfile = oldActiveProfile
-        PASavedVars.Profile.Junk.activeProfile = oldActiveProfile
-        PASavedVars.Profile.Loot.activeProfile = oldActiveProfile
-        PASavedVars.Profile.Repair.activeProfile = oldActiveProfile
-        -- remove the old activeProfile
-        PASavedVars.Profile.activeProfile = nil
+local function _applyPatch_2_5_24(savedVarsVersion, isPatchingNeeded)
+    if isPatchingNeeded then
+        local PAGSavedVars = PA.SavedVars.General
+        -- cleanup Debug stuff that was added with 2.5.22
+        PAGSavedVars.Debug = nil
+        -- cleanup all old profiles
+        for profileNo = 1, PAGSavedVars.profileCounter do
+            PAGSavedVars[profileNo] = nil
+        end
+        PAGSavedVars.profileCounter = nil
+        _updateSavedVarsVersion(savedVarsVersion)
     end
-    -- cannot do "_updateSavedVarsVersion", because this needs to run for every character!
 end
 
 -- local function _applyPatch_x_x_x(savedVarsVersion, isPatchingNeeded)
@@ -49,8 +51,8 @@ end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyPatchIfNeeded()
-    -- Patch 2.5.14     April 24, 2021
-    _applyPatch_2_5_14(_getIsPatchNeededInfo(020514))
+    -- Patch 2.5.24     tbd
+    _applyPatch_2_5_24(_getIsPatchNeededInfo(020524))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------

@@ -22,11 +22,6 @@ local function println(text, ...)
     end
 end
 
--- wrapper method that prefixes the addon shortname
-local function debugln(text, ...)
-    PAHF.debugln(PAC.ADDON.NAME_RAW.INTEGRATION, PAC.COLORED_TEXTS_DEBUG.PAI, text, ...)
-end
-
 -- init saved variables and register Addon
 local function initAddon(_, addOnName)
     if addOnName ~= AddonName then
@@ -36,13 +31,17 @@ local function initAddon(_, addOnName)
     -- addon load started - unregister event
     PAEM.UnregisterForEvent(AddonName, EVENT_ADD_ON_LOADED)
 
+    -- init Logger (before patching is done!)
+    local PASavedVars = PA.SavedVars
+    PA.Integration.logger = PA.logger:CreateSubLogger(PAC.ADDON.NAME_RAW.INTEGRATION, PAC.COLORED_TEXTS_DEBUG.PAI)
+    PA.Integration.logger:SetLibDebugLoggerEnabled(PASavedVars.Profile.Debug.libDebugLogger)
+
     -- init LibChatMessage if running
     if PA.LibChatMessage then
         PA.Integration.chat = PA.LibChatMessage(PAC.COLORED_TEXTS.PAI, PAC.COLORED_TEXTS_DEBUG.PAI)
     end
 
     -- gets values from SavedVars, or initialises with default values
-    local PASavedVars = PA.SavedVars
     PASavedVars.Integration = ZO_SavedVars:NewAccountWide("PersonalAssistantIntegration_SavedVariables", PAC.ADDON.SAVED_VARS_VERSION.MAJOR.INTEGRATION)
 
     -- apply any patches if needed
@@ -75,4 +74,3 @@ PAEM.RegisterForEvent(AddonName, EVENT_ADD_ON_LOADED, initAddon)
 -- Export
 PA.Integration.AddonName = AddonName
 PA.Integration.println = println
-PA.Integration.debugln = debugln

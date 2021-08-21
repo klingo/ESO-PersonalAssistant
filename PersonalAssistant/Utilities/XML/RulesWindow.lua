@@ -197,7 +197,7 @@ local function initRulesMainMenu()
         -- hide the "duplicate" divider from the ModeMenu
         window:GetNamedChild("ModeMenuDivider"):SetHidden(true)
     else
-        PA.debugln("Neither PABanking nor PAJunk is active; don't display MainMenu entry")
+        PA.logger:Info("Neither PABanking nor PAJunk is active; don't display MainMenu entry")
     end
 end
 

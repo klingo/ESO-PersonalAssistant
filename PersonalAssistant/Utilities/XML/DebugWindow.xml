@@ -33,8 +33,8 @@
 
         <TopLevelControl name="PADebugOutputWindow" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true" resizeHandleSize="10">
             <Dimensions x="760" y="500" />
-            <DimensionConstraints minX="500" minY="180" />
-            <Anchor point="TOPLEFT" offsetY="60"/>
+            <DimensionConstraints minX="520" minY="180" />
+            <Anchor point="TOPLEFT"/>
             <Controls>
 
                 <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
@@ -43,7 +43,7 @@
                     <Anchor point="TOPRIGHT" offsetX="-10" offsetY="10" />
                     <Dimensions x="24" y="24" />
                     <OnClicked>
-                        PersonalAssistant.DebugWindow.hideDebugOutputWindow()
+                        PersonalAssistant.MenuFunctions.PAGeneral.setPersonalAssistantLoggerSetting(false)
                     </OnClicked>
                 </Button>
 

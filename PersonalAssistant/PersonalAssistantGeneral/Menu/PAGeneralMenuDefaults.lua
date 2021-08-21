@@ -26,7 +26,10 @@ local PAGeneralMenuDefaults = {
     },
 
     -- ----------------------------------
-    debug = false,
+    Debug = {
+        libDebugLogger = false,
+        personalAssistantLogger = false,
+    }
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

@@ -167,7 +167,7 @@ local function initHooksOnInventoryContextMenu(LCM)
                 end
             )
         else
-            PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnInventoryContextMenu]")
+            PA.logger:Debug("Attempted to Re-Hook: [initHooksOnInventoryContextMenu]")
         end
     end
 end

@@ -193,7 +193,7 @@ local function initHooksOnInventoryItems()
 
         KEYBIND_STRIP:AddKeybindButtonGroup(PAJunkButtonGroup)
     else
-        PAHF.debuglnAuthor("Attempted to Re-Add PAJunkButtonGroup: [initHooksOnInventoryItems]")
+        PAJ.logger:Debug("Attempted to Re-Add PAJunkButtonGroup: [initHooksOnInventoryItems]")
     end
 end
 
@@ -216,7 +216,7 @@ local function toggleItemMarkedAsJunk()
                     PlaySound(SOUNDS.INVENTORY_ITEM_UNJUNKED)
                 end
             else
-                PAHF.debuglnAuthor("Item cannot be marked as junk")
+                PAJ.logger:Debug("Item cannot be marked as junk")
             end
         end
     end
@@ -240,7 +240,7 @@ local function toggleItemMarkedAsPermanentJunk()
                     KEYBIND_STRIP:UpdateKeybindButtonGroup(PAJunkButtonGroup)
                 end
             else
-                PAHF.debuglnAuthor("Item cannot be marked as permanent junk")
+                PAJ.logger:Debug("Item cannot be marked as permanent junk")
             end
         end
     end
