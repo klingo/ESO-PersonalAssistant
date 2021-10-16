@@ -10,7 +10,7 @@
 ## Author: Klingo
 ## APIVersion: 100035 101031
 ## SavedVariables: PersonalAssistant_SavedVariables
-## DependsOn: LibAddonMenu-2.0>=32 LibMainMenu-2.0>=40400 LibCustomMenu>=701
+## DependsOn: LibAddonMenu-2.0>=32 LibMainMenu-2.0>=40400 LibCustomMenu>=711
 ## OptionalDependsOn: LibChatMessage>=105
 
 # Logger
