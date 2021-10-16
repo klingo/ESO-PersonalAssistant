@@ -85,9 +85,8 @@ local function depositOrWithdrawCraftingItems()
         end
 
         local excludeJunk = PAB.SavedVars.excludeJunk
-        local _, _, lockedPreventsMoving = PA.Libs.FCOItemSaver.getCurrentFCOISFlags()
-        local depositComparator = PAHF.getItemTypeComparator(depositItemTypes, excludeJunk, true, lockedPreventsMoving)
-        local withdrawComparator = PAHF.getItemTypeComparator(withdrawItemTypes, excludeJunk, true, lockedPreventsMoving)
+        local depositComparator = PAHF.getItemTypeComparator(depositItemTypes, excludeJunk, true)
+        local withdrawComparator = PAHF.getItemTypeComparator(withdrawItemTypes, excludeJunk, true)
 
         local toDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, BAG_BACKPACK)
         local toFillUpDepositBagCache = SHARED_INVENTORY:GenerateFullSlotData(depositComparator, PAHF.getBankBags())

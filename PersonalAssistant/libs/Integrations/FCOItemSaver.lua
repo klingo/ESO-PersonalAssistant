@@ -18,7 +18,7 @@ local function _isItemFCOISSellLocked(bagId, slotIndex)
     return isMarkedAsLocked or isVendorSellLocked
 end
 
-local function isItemFCOISMoveLocked(bagId, slotIndex)
+local function _isItemFCOISMoveLocked(bagId, slotIndex)
     local isMarkedAsLocked = FCOIS.IsMarked(bagId, slotIndex, FCOIS_CON_ICON_LOCK)
     return isMarkedAsLocked
 end
@@ -28,7 +28,7 @@ local function _hasItemPassedStolenCheck(mustBeStolen, bagId, slotIndex)
     return isStolen == mustBeStolen
 end
 
-local function getCurrentFCOISFlags()
+local function _getCurrentFCOISFlags()
     -- init flags with false
     local autoSellMarked = false
     local lockedPreventsAutoSell = false
@@ -49,7 +49,7 @@ end
 
 local function _getDynamicSellJunkIncludingFCOISComparator(mustBeStolen)
     -- init flags
-    local autoSellMarked, lockedPreventsAutoSell = getCurrentFCOISFlags()
+    local autoSellMarked, lockedPreventsAutoSell = _getCurrentFCOISFlags()
 
     return function(itemData)
         local bagId = itemData.bagId
@@ -75,7 +75,7 @@ end
 
 local function _getDynamicSellFCOISComparator(mustBeStolen)
     -- init flags
-    local autoSellMarked, lockedPreventsAutoSell = getCurrentFCOISFlags()
+    local autoSellMarked, lockedPreventsAutoSell = _getCurrentFCOISFlags()
 
     return function(itemData)
         local bagId = itemData.bagId
@@ -100,7 +100,7 @@ end
 
 local function _getDynamicItemMoveFCOISComparator(fcoisFlagList, excludeJunk, skipItemsWithCustomRule)
     -- init flags
-    local _, _, lockedPreventsMoving = getCurrentFCOISFlags()
+    local _, _, lockedPreventsMoving = _getCurrentFCOISFlags()
 
     return function(itemData)
         local bagId = itemData.bagId
@@ -114,7 +114,7 @@ local function _getDynamicItemMoveFCOISComparator(fcoisFlagList, excludeJunk, sk
 
         if isFCOISLoadedProperly() then
             -- if FCOIS is running, check if the item is locked (and locked prevents moving)
-            if isItemFCOISMoveLocked(bagId, slotIndex) and lockedPreventsMoving then return false end
+            if _isItemFCOISMoveLocked(bagId, slotIndex) and lockedPreventsMoving then return false end
 
             -- if FCOIS is running and item is NOT locked (or it is ignored), check if it is marked for moving
             for _, fcoisFlag in pairs(fcoisFlagList) do
@@ -154,8 +154,6 @@ end
 PA.Libs = PA.Libs or {}
 PA.Libs.FCOItemSaver = {
     isFCOISLoadedProperly = isFCOISLoadedProperly,
-    isItemFCOISMoveLocked = isItemFCOISMoveLocked,
-    getCurrentFCOISFlags = getCurrentFCOISFlags,
     getSellStolenJunkIncludingFCOISComparator = getSellStolenJunkIncludingFCOISComparator,
     getSellStolenFCOISComparator = getSellStolenFCOISComparator,
     getSellJunkIncludingFCOISComparator = getSellJunkIncludingFCOISComparator,
