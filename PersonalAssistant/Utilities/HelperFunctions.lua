@@ -126,8 +126,9 @@ end
 ---@param combinedLists table a complex list of holidayWrits, itemTypes, surveyMaps, itemTraitTypes, masterWritCraftingTypes, specializedItemTypes, learnableKnowItemTypes and learnableUnknownItemTypes
 ---@param excludeJunk boolean whether junk items should be excluded
 ---@param skipItemsWithCustomRule boolean whether items for which a custom rule exists should be skipped
+---@param skipFcoisLocked boolean whether items that are 'Locked' by FCOIS should be skipped
 ---@return fun(itemData: table) a comparator function that only returns item that match the complex list and pass the junk-test
-local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule)
+local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked)
     local function _isItemOfItemTypeAndKnowledge(itemType, itemLink, expectedItemType, expectedIsKnown)
         if itemType == expectedItemType then
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
@@ -167,6 +168,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if isItemCharacterBound(itemData) then return false end
         if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
+        if skipFcoisLocked and PA.Libs.FCOItemSaver.isItemFCOISMoveLocked(itemData.bagId, itemData.slotIndex) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         local itemType, specializedItemType = GetItemType(itemData.bagId, itemData.slotIndex)
         if specializedItemType == SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT then
@@ -213,12 +215,14 @@ end
 ---@param excludeJunk boolean whether junk items should be excluded
 ---@param skipItemsWithCustomRule boolean whether items for which a custom rule exists should be skipped
 ---@return fun(itemData: table) a comparator function that only returns item that match the itemTypes and pass the junk-test
-local function getItemTypeComparator(itemTypeList, excludeJunk, skipItemsWithCustomRule)
+---@param skipFcoisLocked boolean whether items that are 'Locked' by FCOIS should be skipped
+local function getItemTypeComparator(itemTypeList, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if isItemCharacterBound(itemData) then return false end
         if skipItemsWithCustomRule and PA.Banking.hasItemActiveCustomRule(itemData.bagId, itemData.slotIndex) then return false end
+        if skipFcoisLocked and PA.Libs.FCOItemSaver.isItemFCOISMoveLocked(itemData.bagId, itemData.slotIndex) then return false end
         for _, itemType in pairs(itemTypeList) do
             if itemType == itemData.itemType then return true end
         end
@@ -228,12 +232,14 @@ end
 
 ---@param itemIdList table a list of itemIds to be checked
 ---@param excludeJunk boolean whether junk items should be excluded
+---@param skipFcoisLocked boolean whether items that are 'Locked' by FCOIS should be skipped
 ---@return fun(itemData: table) a comparator function that only returns item that match the itemIdList and pass the junk-test
-local function getItemIdComparator(itemIdList, excludeJunk)
+local function getItemIdComparator(itemIdList, excludeJunk, skipFcoisLocked)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if isItemCharacterBound(itemData) then return false end
+        if skipFcoisLocked and PA.Libs.FCOItemSaver.isItemFCOISMoveLocked(itemData.bagId, itemData.slotIndex) then return false end
         local itemId = GetItemId(itemData.bagId, itemData.slotIndex)
         for expectedItemId, _ in pairs(itemIdList) do
             if expectedItemId == itemId then return true end
@@ -246,12 +252,15 @@ end
 ---@param excludeJunk boolean whether junk items should be excluded
 ---@param excludeCharacterBound boolean whether character bound items should be excluded
 ---@param excludeStolen boolean whether stolen items should be excluded
+---@param skipFcoisLocked boolean whether items that are 'Locked' by FCOIS should be skipped
+
 ---@return fun(itemData: table) a comparator function that only returns item that match the paItemIdList and pass the junk-test
-local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacterBound, excludeStolen)
+local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacterBound, excludeStolen, skipFcoisLocked)
     return function(itemData)
         if IsItemStolen(itemData.bagId, itemData.slotIndex) and excludeStolen then return false end
         if IsItemJunk(itemData.bagId, itemData.slotIndex) and excludeJunk then return false end
         if isItemCharacterBound(itemData) and excludeCharacterBound then return false end
+        if skipFcoisLocked and PA.Libs.FCOItemSaver.isItemFCOISMoveLocked(itemData.bagId, itemData.slotIndex) then return false end
         local paItemId = getPAItemIdentifier(itemData.bagId, itemData.slotIndex)
         for expectedPAItemId, _ in pairs(paItemIdList) do
             if expectedPAItemId == paItemId then return true end
@@ -260,10 +269,12 @@ local function getPAItemIdComparator(paItemIdList, excludeJunk, excludeCharacter
     end
 end
 
+---@param skipFcoisLocked boolean whether items that are 'Locked' by FCOIS should be skipped
 ---@return fun(itemData: table) a comparator function that only returns stolen junk items
-local function getStolenJunkComparator()
+local function getStolenJunkComparator(skipFcoisLocked)
     return function(itemData)
         if isItemCharacterBound(itemData) then return false end
+        if skipFcoisLocked and PA.Libs.FCOItemSaver.isItemFCOISMoveLocked(itemData.bagId, itemData.slotIndex) then return false end
         local isStolen = IsItemStolen(itemData.bagId, itemData.slotIndex)
         local isJunk = IsItemJunk(itemData.bagId, itemData.slotIndex)
         return isStolen and isJunk
