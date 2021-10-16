@@ -8,10 +8,10 @@
 ## Version: {VERSION_NUMBER}
 ## AddOnVersion: {VERSION_ADDON}
 ## Author: Klingo
-## APIVersion: 100035 101031
+## APIVersion: 101031 101032
 ## SavedVariables: PersonalAssistantIntegration_SavedVariables
 ## DependsOn: PersonalAssistant
-## OptionalDependsOn: DolgubonsLazyWritCreator FCOItemSaver>=218
+## OptionalDependsOn: DolgubonsLazyWritCreator FCOItemSaver>=221
 
 # Localization
 localization/en.lua

@@ -417,19 +417,14 @@ local function _markItemAsJunkIfPossible(bagId, slotIndex, itemLink, markAsJunkS
     PAJ.debugln("_markItemAsJunkIfPossible: %s", itemLink)
     -- Check if ESO allows the item to be marked as junk
     if PAHF.CanItemBeMarkedAsJunkExt(bagId, slotIndex) then
-        -- then check if the item unique; if yes then don't mark it as junk
-        local isUnique = IsItemLinkUnique(itemLink)
-        if not isUnique then
-            -- item has a sell value and is not unique
-            -- Item should be marked as JUNK
-            SetItemIsJunk(bagId, slotIndex, true)
-            PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
-            -- prepare additional icons if needed
-            local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
-            -- print provided success message
-            PAJ.println(markAsJunkSuccessMessageKey, itemLinkExt)
-            return true
-        end
+        -- Item should be marked as JUNK
+        SetItemIsJunk(bagId, slotIndex, true)
+        PlaySound(SOUNDS.INVENTORY_ITEM_JUNKED)
+        -- prepare additional icons if needed
+        local itemLinkExt = PAHF.getIconExtendedItemLink(itemLink)
+        -- print provided success message
+        PAJ.println(markAsJunkSuccessMessageKey, itemLinkExt)
+        return true
     else
         PAJ.debugln("CanItemBeMarkedAsJunk == false")
     end
@@ -660,6 +655,7 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
         if _marked == false then
             local paItemId = PAHF.getPAItemIdentifier(bagId, slotIndex)
             if PAHF.isKeyInTable(PAJunkSavedVars.Custom.PAItemIds, paItemId) then
+                PAJ.debugln("CustomItem to be marked as junk!")
                 local hasBeenMarkedOrDestroyed  = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_PERMANENT)
                 if hasBeenMarkedOrDestroyed then
                     PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount = PAJunkSavedVars.Custom.PAItemIds[paItemId].junkCount + stackCountChange

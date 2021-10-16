@@ -43,7 +43,8 @@ local function depositOrWithdrawAvAItems()
 
         -- then get the matching data from the backpack and bank
         local excludeJunk = PAB.SavedVars.excludeJunk
-        local itemIdComparator = PAHF.getItemIdComparator(individualItems, excludeJunk)
+        local _, _, lockedPreventsMoving = PA.Libs.FCOItemSaver.getCurrentFCOISFlags()
+        local itemIdComparator = PAHF.getItemIdComparator(individualItems, excludeJunk, lockedPreventsMoving)
         local backpackBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, BAG_BACKPACK)
         local bankBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, PAHF.getBankBags())
 
