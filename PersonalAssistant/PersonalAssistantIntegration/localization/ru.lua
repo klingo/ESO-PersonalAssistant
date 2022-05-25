@@ -15,10 +15,10 @@ local PAIStrings = {
 
     -- FCO ItemSaver --
     SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_SELLING = "Не продавать заблокированные предметы",
-    --SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING = "",
-    --SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING_T = "",
+    SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING = "Не перемещать заблокированные предметы",
+    SI_PA_MENU_INTEGRATION_FCOIS_LOCKED_PREVENT_MOVING_T = "Если Включено, предметы заблокированные FCO ItemSaver не будут перемешены в банк или из банка",
     SI_PA_MENU_INTEGRATION_FCOIS_SELL_AUTOSELL_MARKED = "Продавать предметы отмеченные для продажи",
-    --SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED = "",
+    SI_PA_MENU_INTEGRATION_FCOIS_ITEM_MOVE_MARKED = "Перемещать отмеченные предметы при взаимодействии с банком?",
 
 
     -- =================================================================================================================
@@ -31,8 +31,8 @@ local PAIStrings = {
     -- == OTHER STRINGS FOR MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- PAIntegration Menu --
-    --SI_PA_MENU_INTEGRATION_PAB_REQUIRED = "",
-    --SI_PA_MENU_INTEGRATION_PAJ_REQUIRED = "",
+    SI_PA_MENU_INTEGRATION_PAB_REQUIRED = "Дополнительные настройки появятся если PABanking будет включен",
+    SI_PA_MENU_INTEGRATION_PAJ_REQUIRED = "Дополнительные настройки появятся если PAJunk будет включен",
 
     SI_PA_MENU_INTEGRATION_MORE_TO_COME = "Больше возможностей с FCO ItemSaver появятся в будущих версиях",
 }

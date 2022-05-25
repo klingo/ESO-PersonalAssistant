@@ -32,9 +32,9 @@ local PALStrings = {
     SI_PA_MENU_LOOT_APPARELWEAPONS_UNCOLLECTED_MSG_T = table.concat({"Всякий раз, когда добывается ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_ARMOR), ", ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_WEAPONS), ", или ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_JEWELRY), " часть комплекта которая еще не добавлена в коллекцию, в чате отображается сообщение"}),
 
     -- Loot Companion Items
-    --SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER = "",
-    --SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = "",
-    --SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = "",
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER = table.concat({"Когда добывается ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION)}),
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = table.concat({"> качеством равным или выше ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION),}),
+    SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = table.concat({"Всякий раз когда добывается предмет качеством равным или выше ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " выводить сообщение в чат"}),
 
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Предупреждать, когда мало места в инвентаре",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Отображать предупреждение в окне чата, если у вас мало места в инвентаре",
@@ -65,13 +65,14 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_APPARELWEAPONS_SET_UNCOLLECTED = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "если предмет не добавлен в коллекции"}),
 
     -- Mark Companion Items --
-    --SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_HEADER = "",
-    --SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_SHOW_ALL = "",
+    SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_HEADER = table.concat({"Помечать ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION)}),
+    SI_PA_MENU_LOOT_ICONS_MARK_COMPANION_ITEMS_SHOW_ALL = table.concat({">", PAC.ICONS.OTHERS.COMPANION.NORMAL, "если предмет является предметом спутников"}),
 
     -- Item Icon Positioning --
     SI_PA_MENU_LOOT_ICONS_POSITIONING_DESCRIPTION = "Ниже вы можете настроить расположение и размер значков предметов.",
     SI_PA_MENU_LOOT_ICONS_KNOWN_UNKNOWN_HEADER = "Известен/Не известен",
     SI_PA_MENU_LOOT_ICONS_SET_COLLECTION_HEADER = "Не в коллекции",
+    SI_PA_MENU_LOOT_ICONS_COMPANION_ITEMS_HEADER = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION),
     --SI_PA_MENU_LOOT_ICONS_COMPANION_ITEMS_HEADER = GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION),  <-- to be confirmed if this ESO string exists in ruRU
 
     SI_PA_MENU_LOOT_ICONS_SIZE_LIST = "Размер иконки (В виде списка)",
@@ -98,7 +99,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s может быть ", PAC.COLORS.ORANGE,"изучен", PAC.COLORS.DEFAULT, "!"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s с особенностью [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] можно исследовать!"}),
     SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s можно добавить в коллекцию!"}),
-    --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s"}),
+    SI_PA_CHAT_LOOT_COMPANION_ITEM = table.concat({PAC.ICONS.OTHERS.COMPANION.SMALL, "%s новый предмет спутников с особенностью ", PAC.COLOR.WHITE:Colorize("%s"), "!"}),
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sУ вас <<1[", PAC.COLORS.WHITE,"нет/осталось ", PAC.COLORS.WHITE, "%d/осталось ", PAC.COLORS.WHITE, "%d]>> %s<<1[свободных мест/свободное место/свободных мест]>>!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sУ вас <<1[", PAC.COLORS.WHITE,"нет/остался ", PAC.COLORS.WHITE, "%d/осталось ", PAC.COLORS.WHITE, "%d]>> %s<<1[Ремонтных наборов/Ремонтный набор/Ремонтных наборов]>> left!"}),
