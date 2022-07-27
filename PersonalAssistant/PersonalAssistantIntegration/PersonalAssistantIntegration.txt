@@ -11,7 +11,7 @@
 ## APIVersion: 101031 101032
 ## SavedVariables: PersonalAssistantIntegration_SavedVariables
 ## DependsOn: PersonalAssistant
-## OptionalDependsOn: DolgubonsLazyWritCreator FCOItemSaver>=221
+## OptionalDependsOn: DolgubonsLazyWritCreator FCOItemSaver>=221 LibCharacterKnowledge>=11
 
 # Localization
 localization/en.lua

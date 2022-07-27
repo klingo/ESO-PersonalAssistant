@@ -197,7 +197,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 
         local isBook = IsItemLinkBook(itemLink)
         local isPartOfCollection = IsItemLinkBookPartOfCollection(itemLink)
-        local isKnown= IsItemLinkBookKnown(itemLink)
+        local isKnown= PAHF.IsBookKnown(itemLink)
 
         d("isBook="..tostring(isBook))
         d("isPartOfCollection="..tostring(isPartOfCollection))

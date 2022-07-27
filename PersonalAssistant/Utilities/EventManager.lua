@@ -220,7 +220,10 @@ local function RefreshPAIntegrationEventRegistration()
     -- Check if the Addon 'PAIntegration' is even enabled
     local PAI = PA.Integration
     if PAI and PAPM.PAIntegration and PAPM.PAIntegration.hasActiveProfile() then
-        -- nothing to be done here... yet
+        local PALCK = PA.Libs.CharacterKnowledge
+        if PALCK.IsInstalled() then
+            PALCK.RegisterForInitializationCallback(PAI.RebuildPAICKCharacterNameDropdown)
+        end
     end
 end
 
