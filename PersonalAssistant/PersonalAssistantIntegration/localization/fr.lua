@@ -9,6 +9,12 @@ local PAIStrings = {
     SI_PA_MENU_INTEGRATION_DESCRIPTION = "PAIntegration peut faire fonctionner PersonalAssistant avec d'autres add-ons tels que Dolgubon's Lazy Writ Crafter ou FCO ItemSaver",
     SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE = "Aucun add-on supporté par PAIntegration n'a été détecté.",
 
+    -- Character Knowledge --
+    --SI_PA_MENU_INTEGRATION_CK_CHARACTER = "",
+    --SI_PA_MENU_INTEGRATION_CK_ENABLE = "",
+    --SI_PA_MENU_INTEGRATION_CK_ENABLE_T = "",
+    --SI_PA_MENU_INTEGRATION_CK_INITIALIZING = "",
+
     -- Dolgubon's Lazy Writ Crafter --
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY = "Compatibilité avec Dolgubon's Lazy Writ Crafter",
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T = "Si vous avez des commandes d'artisanat en cours et que 'Prendre les matériaux de commande' est activé dans Dolgubon's Lazy Writ Crafter, alors ces objets ne seront pas déposés même si vous avez choisi 'Déposer en banque'. Ceci est pour éviter de remettre directement en banque les objets qui viennent d'être retirés.",

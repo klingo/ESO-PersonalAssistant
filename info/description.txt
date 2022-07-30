@@ -68,7 +68,8 @@ After a two year long break from ESO, I finally managed to complete the major re
 [SIZE=2]The following libraries are optional and are not required for PersonalAssistant to work properly, but PersonalAssistant is compatible with them:[/SIZE][LIST]
 [*] [URL="https://www.esoui.com/downloads/info2382-LibChatMessage.html"]LibChatMessage[/URL] (1.2.0 or newer) - For showing messages in the chat
 [*] [URL="https://www.esoui.com/downloads/info630-FCOItemSaver.html"]FCO ItemSaver[/URL] (2.2.1 or newer) - For considering FCOIS marked items
-[*] [URL="https://www.esoui.com/downloads/info1346-DolgubonsLazyWritCrafter.html"]Dolgubon's Lazy Writ Crafter[/URL] - For preventing  transfers of items needed for daily writs[/LIST]
+[*] [URL="https://www.esoui.com/downloads/info1346-DolgubonsLazyWritCrafter.html"]Dolgubon's Lazy Writ Crafter[/URL] - For preventing transfers of items needed for daily writs
+[*] [URL="https://www.esoui.com/downloads/info2938.html"]Character Knowledge[/URL] - For determining if a motif, recipe or furnishing plan is known by any character[/LIST]
 
 [SIZE=3]Credits[/SIZE][LIST]
 [*] Special thanks to [URL="http://www.esoui.com/forums/member.php?u=10379"]NTak[/URL] for the French, and to [URL="https://github.com/Nesferatum"]Nesferatum[/URL] for the Russian translations!

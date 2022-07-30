@@ -226,7 +226,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             -- Recipes
             if itemType == ITEMTYPE_RECIPE then
                 if PALootSavedVars.LootEvents.LootRecipes.unknownRecipeMsg then
-                    local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
+                    local isRecipeKnown = PAHF.IsRecipeKnown(itemLink)
                     if not isRecipeKnown then
                         PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
                     else
@@ -240,7 +240,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                 if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
                     local isBook = IsItemLinkBook(itemLink)
                     if isBook then
-                        local isKnown = IsItemLinkBookKnown(itemLink)
+                        local isKnown = PAHF.IsBookKnown(itemLink)
                         if not isKnown then
                             PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
                         else

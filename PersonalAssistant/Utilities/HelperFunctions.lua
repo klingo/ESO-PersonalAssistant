@@ -4,6 +4,29 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- =================================================================================================================
+-- == INTEGRATION FUNCTIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function IsBookKnown(itemLink)
+    local PALCK = PA.Libs.CharacterKnowledge
+    if PALCK.IsInstalled() and PALCK.IsEnabled() then
+        return PALCK.IsKnown(itemLink)
+    else
+        return IsItemLinkBookKnown(itemLink)
+    end
+end
+
+local function IsRecipeKnown(itemLink)
+    local PALCK = PA.Libs.CharacterKnowledge
+    if PALCK.IsInstalled() and PALCK.IsEnabled() then
+        return PALCK.IsKnown(itemLink)
+    else
+        return IsItemLinkRecipeKnown(itemLink)
+    end
+end
+
+
+-- =================================================================================================================
 -- == MATH / TABLE FUNCTIONS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
@@ -134,11 +157,11 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
                 local isBook = IsItemLinkBook(itemLink)
                 if isBook then
-                    local isKnown = IsItemLinkBookKnown(itemLink)
+                    local isKnown = IsBookKnown(itemLink)
                     if isKnown == expectedIsKnown then return true end
                 end
             elseif itemType == ITEMTYPE_RECIPE then
-                local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
+                local isRecipeKnown = IsRecipeKnown(itemLink)
                 if isRecipeKnown == expectedIsKnown then return true end
             end
         end
@@ -582,11 +605,11 @@ local function getItemLinkLearnableStatus(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
     if isItemLinkForCompanion(itemLink) then return nil end
     if itemType == ITEMTYPE_RECIPE then
-        if IsItemLinkRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+        if IsRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
         return PAC.LEARNABLE.UNKNOWN
     elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
         if IsItemLinkBook(itemLink) then
-            if IsItemLinkBookKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+            if IsBookKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
             return PAC.LEARNABLE.UNKNOWN
         end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
@@ -617,6 +640,8 @@ end
 
 -- Export
 PA.HelperFunctions = {
+    IsBookKnown = IsBookKnown,
+    IsRecipeKnown = IsRecipeKnown,
     round = round,
     roundDown = roundDown,
     isValueInTable = isValueInTable,

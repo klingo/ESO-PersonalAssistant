@@ -9,6 +9,12 @@ local PAIStrings = {
     SI_PA_MENU_INTEGRATION_DESCRIPTION = "PAIntegration позволяет использовать в дополнении PersonalAssistant функциональные возможности прочих дополнений, таких как Dolgubon's Lazy Writ Crafter или FCO ItemSaver",
     SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE = "В настоящее время у вас нет установленных/включенных дополнений, которые поддерживаются PAIntegration",
 
+    -- Character Knowledge --
+    --SI_PA_MENU_INTEGRATION_CK_CHARACTER = "",
+    --SI_PA_MENU_INTEGRATION_CK_ENABLE = "",
+    --SI_PA_MENU_INTEGRATION_CK_ENABLE_T = "",
+    --SI_PA_MENU_INTEGRATION_CK_INITIALIZING = "",
+
     -- Dolgubon's Lazy Writ Crafter --
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY = "Совместимость с Dolgubon's Lazy Writ Crafter",
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY_T = "Если у вас есть активные мастерские заказы и включено изъятие предметов в «Dolgubon's Lazy Writ Crafter», тогда для этих предметов параметр «Переместить в банк» игнорируется. Это необходимо для того, чтобы избежать немедленного повторного перемещения в банк снятых предметов",

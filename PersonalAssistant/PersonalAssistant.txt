@@ -32,6 +32,7 @@ Utilities/EventManager.lua
 Utilities/SavedVarsPatcher.lua
 
 # Integrations
+libs/Integrations/CharacterKnowledge.lua
 libs/Integrations/FCOItemSaver.lua
 
 # Profiles

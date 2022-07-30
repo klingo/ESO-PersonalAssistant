@@ -8,6 +8,9 @@ local PAIntegrationMenuDefaults = {
     name = table.concat({GetString(SI_PA_PROFILE), " ", 1}),
 
     -- ---------------------------------------------
+    CharacterKnowledge = {
+        enabled = false
+    },
     LazyWritCrafter = {
         compatibility = true,
     },
