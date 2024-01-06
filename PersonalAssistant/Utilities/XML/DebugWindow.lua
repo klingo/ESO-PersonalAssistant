@@ -90,6 +90,8 @@ local function showStaticDebugInformationWindow()
     debugEditControl:InsertLine(table.concat({"PALoot.SavedVars=", tostring(PA.Loot and istable(PA.Loot.SavedVars)), " - ", PA.SavedVars.Loot and PA.SavedVars.Loot.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PAMail.SavedVars=", tostring(PA.Mail and istable(PA.Mail.SavedVars)), " - ", PA.SavedVars.Mail and PA.SavedVars.Mail.savedVarsVersion}))
     debugEditControl:InsertLine(table.concat({"PARepair.SavedVars=", tostring(PA.Repair and istable(PA.Repair.SavedVars)), " - ", PA.SavedVars.Repair and PA.SavedVars.Repair.savedVarsVersion}))
+	debugEditControl:InsertLine(table.concat({"PAConsume.SavedVars=", tostring(PA.Consume and istable(PA.Consume.SavedVars)), " - ", PA.SavedVars.Consume and PA.SavedVars.Consume.savedVarsVersion}))
+	debugEditControl:InsertLine(table.concat({"PAWorker.SavedVars=", tostring(PA.Worker and istable(PA.Worker.SavedVars)), " - ", PA.SavedVars.Worker and PA.SavedVars.Worker.savedVarsVersion}))
     debugEditControl:InsertBreak()
 
     -- Global values

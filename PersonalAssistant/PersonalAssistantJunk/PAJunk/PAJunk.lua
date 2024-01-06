@@ -164,8 +164,11 @@ end
 
 local function _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink)
     local PAJunkSavedVars = PAJ.SavedVars
-    if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH and PAJunkSavedVars.QuestProtection.NewLifeFestival.excludeRareFish and not IsItemLinkBound(itemLink) then
-        return false
+    if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_RARE_FISH and PAJunkSavedVars.QuestProtection.NewLifeFestival.excludeRareFish  then --and not IsItemLinkBound(itemLink)
+	    local ItemId = GetItemLinkItemId(itemLink)
+	    if ItemId >= 100393 and ItemId <= 100395 then  -- Histmuck Blobfin, Shadowfen Creeping Leech, Black Marsh Cucumber
+           return false
+		end
     end
     -- no match so far means that the SellToMerchant item is NOT excluded
     return true
@@ -317,6 +320,10 @@ local function _OnFenceOpenInternal(dynamicComparator)
         local bagCache = SHARED_INVENTORY:GenerateFullSlotData(dynamicComparator, BAG_BACKPACK)
         PAJ.debugln("_OnFenceOpenInternal.#bagCache = " .. tostring(#bagCache))
         if #bagCache > 0 then
+		    -- order bagCache by item value 
+			if #bagCache > 1 then
+			   table.sort(bagCache, function (k1, k2) return k1.sellPrice  > k2.sellPrice end) -- Sell most valuable items first 25/06/2023
+			end
             -- after sellink junk, give feedback about the changes
             _sellStolenItemToFence(bagCache, 1, 0, 0) -- startIndex = 1, totalSellPrice = 0, totalSellCount = 0
         end
@@ -505,7 +512,7 @@ local function _isTreasureItemNotQuestExcluded(itemLink)
         if itemTagCategory == TAG_CATEGORY_TREASURE_TYPE then
             -- check Quest: A Matter of Leisure
             if PAJunkSavedVars.QuestProtection.ClockworkCity.excludeAMatterOfLeisure then
-                for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_LEISURE) do
+                for _, itemTagKey in pairs(TREASURE_ITEM_TAGS.A_MATTER_OF_LEISURE) do 
                     if itemTagDescriptionFmt == itemTagKey then return false end
                 end
             end
@@ -538,7 +545,7 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
     local PAJunkSavedVars = PAJ.SavedVars
     local _marked = false
     -- check if auto-marking is enabled for standard items (standard items only marked as junk if 'new')
-    if PAJunkSavedVars.autoMarkAsJunkEnabled and isNewItem then
+    if PAJunkSavedVars.autoMarkAsJunkEnabled and isNewItem then -- maybe remove isnewitem if items are still excluded ? 
         PAJ.debugln("Check if to be junked: %s", itemLink)
         local itemType, specializedItemType = GetItemType(bagId, slotIndex)
         local isStolen = IsItemStolen(bagId, slotIndex)
@@ -602,7 +609,13 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
                 if itemTrait == ITEM_TRAIT_TYPE_WEAPON_ORNATE and PAJunkSavedVars.Weapons.autoMarkOrnate or
                         itemTrait == ITEM_TRAIT_TYPE_ARMOR_ORNATE and PAJunkSavedVars.Armor.autoMarkOrnate or
                         itemTrait == ITEM_TRAIT_TYPE_JEWELRY_ORNATE and PAJunkSavedVars.Jewelry.autoMarkOrnate then
+					
                     _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE)
+					
+				elseif 	itemTrait == ITEM_TRAIT_TYPE_WEAPON_INTRICATE and PAJunkSavedVars.Weapons.autoMarkIntricateTrait or
+                        itemTrait == ITEM_TRAIT_TYPE_ARMOR_INTRICATE and PAJunkSavedVars.Armor.autoMarkIntricateTrait  or
+                        itemTrait == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE and PAJunkSavedVars.Jewelry.autoMarkIntricateTrait then
+					    _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_INTRICATE)	
                 else
                     -- if it is NOT with [Ornate] trait, check more detailed the individual equipTypes
                     if itemType == ITEMTYPE_WEAPON and PAJunkSavedVars.Weapons.autoMarkQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
@@ -630,6 +643,16 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
                 if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkGlyphQualityThreshold then
                     _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY)
                 end
+            elseif PAHF.isItemForCompanion(bagId, slotIndex) and PAJunkSavedVars.Miscellaneous.autoMarkCompanionItemsQualityThreshold ~= PAC.ITEM_QUALITY.DISABLED then
+                if itemQuality <= PAJunkSavedVars.Miscellaneous.autoMarkCompanionItemsQualityThreshold then
+                    _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY)
+                end
+            elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE and PAJunkSavedVars.Miscellaneous.autoMarkTreasure then
+                if _isTreasureItemNotQuestExcluded(itemLink) then
+                    _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE)
+                else
+                    PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
+                end
             elseif sellInformation == ITEM_SELL_INFORMATION_PRIORITY_SELL then
                 if PAJunkSavedVars.Collectibles.autoMarkSellToMerchant then
                     if _isSellToMerchantItemNotQuestExcluded(specializedItemType, itemLink) then
@@ -637,12 +660,6 @@ local function _OnInventorySingleSlotUpdateInternal(bagId, slotIndex, itemLink, 
                     else
                         PAHF.debuglnAuthor("Skipped %s becase needed for Quest", itemLink)
                     end
-                end
-            elseif itemType == ITEMTYPE_TREASURE and specializedItemType == SPECIALIZED_ITEMTYPE_TREASURE then
-                if PAJunkSavedVars.Miscellaneous.autoMarkTreasure and _isTreasureItemNotQuestExcluded(itemLink) then
-                    _marked = _markItemAsJunkOrAutoDestroyIfPossible(bagId, slotIndex, itemLink, SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE)
-                else
-                    PAHF.debuglnAuthor("Skipped %s because needed for Quest", itemLink)
                 end
             end
         end

@@ -83,6 +83,24 @@ local function isPALootIconsCompanionItemsMenuDisabled()
     return false
 end
 
+
+
+--------------------------------------------------------------------------
+-- PALoot       Autofillet
+---------------------------------
+
+
+local function isPALootAutoFilletMenuDisabled()
+    if isDisabled({"LootEvents", "lootEventsEnabled"}) then return true end
+    if getValue({"LootEvents", "Fishing", "AutoFillet"}) == PAC.ITEM_QUALITY.DISABLED then
+        return true
+    end
+    -- if no 'true' returned so far, return false now
+    return false
+end
+
+
+
 -- =================================================================================================================
 
 local PALootMenuFunctions = {
@@ -92,21 +110,38 @@ local PALootMenuFunctions = {
     -- ----------------------------------------------------------------------------------
     -- RECIPES SETTINGS
     -- -----------------------------
-    isLootRecipesMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}, {"LootEvents", "LootRecipes", "unknownRecipeMsg"}) end,
+    isLootRecipesMenuDisabled = function() return isDisabledAll({"LootEvents", "lootEventsEnabled"}, {"LootEvents", "LootRecipes", "unknownRecipeMsg"}, {"LootEvents", "LootStyles", "autoLearnRecipe"}) end,
     isUnknownRecipeMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getUnknownRecipeMsgSetting = function() return getValue({"LootEvents", "LootRecipes", "unknownRecipeMsg"}) end,
     setUnknownRecipeMsgSetting = function(value) setValue(value, {"LootEvents", "LootRecipes", "unknownRecipeMsg"}) end,
+	
+	isAutoLearnRecipeDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getAutoLearnRecipeSetting = function() return getValue({"LootEvents", "LootStyles", "autoLearnRecipe"}) end,
+    setAutoLearnRecipeSetting = function(value) setValue(value, {"LootEvents", "LootStyles", "autoLearnRecipe"}) end,
 
     -- ----------------------------------------------------------------------------------
     -- MOTIFS SETTINGS
     -- -----------------------------
-    isLootStylesMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) or isDisabledAll({"LootEvents", "LootStyles", "unknownMotifMsg"}, {"LootEvents", "LootStyles", "unknownStylePageMsg"}) end,
-    isUnknownMotifMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    isLootStylesMenuDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) or isDisabledAll({"LootEvents", "LootStyles", "unknownMotifMsg"}, {"LootEvents", "LootStyles", "unknownStylePageMsg"}, {"LootEvents", "LootStyles", "autoLearnMotif"}, {"LootEvents", "LootStyles", "autoLearnStylePage"}) end,
+    
+	isUnknownMotifMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getUnknownMotifMsgSetting = function() return getValue({"LootEvents", "LootStyles", "unknownMotifMsg"}) end,
     setUnknownMotifMsgSetting = function(value) setValue(value, {"LootEvents", "LootStyles", "unknownMotifMsg"}) end,
+   
     isUnknownStylePageMsgDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getUnknownStylePageMsgSetting = function() return getValue({"LootEvents", "LootStyles", "unknownStylePageMsg"}) end,
     setUnknownStylePageMsgSetting = function(value) setValue(value, {"LootEvents", "LootStyles", "unknownStylePageMsg"}) end,
+	
+	isAutoLearnMotifDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getAutoLearnMotifSetting = function() return getValue({"LootEvents", "LootStyles", "autoLearnMotif"}) end,
+    setAutoLearnMotifSetting = function(value) setValue(value, {"LootEvents", "LootStyles", "autoLearnMotif"}) end,
+	
+	
+	isAutoLearnStylePageDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getAutoLearnStylePageSetting = function() return getValue({"LootEvents", "LootStyles", "autoLearnStylePage"}) end,
+    setAutoLearnStylePageSetting = function(value) setValue(value, {"LootEvents", "LootStyles", "autoLearnStylePage"}) end,
+	
+	
 
     -- ----------------------------------------------------------------------------------
     -- APPAREL WEAPONS SETTINGS
@@ -127,6 +162,17 @@ local PALootMenuFunctions = {
     isLootCompanionItemsQualityThresholdDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
     getLootCompanionItemsQualityThresholdSetting = function() return getValue({"LootEvents", "LootCompanionItems", "qualityThreshold"}) end,
     setLootCompanionItemsQualityThresholdSetting = function(value) setValue(value, {"LootEvents", "LootCompanionItems", "qualityThreshold"}) end,
+	
+    -- ----------------------------------------------------------------------------------
+    -- AUTO FILLET SETTINGS
+    -- -----------------------------
+    isLootAutoFilletMenuDisabled = isPALootAutoFilletMenuDisabled,
+    isAutoFilletDisabled = function() return isDisabled({"LootEvents", "lootEventsEnabled"}) end,
+    getAutoFilletSetting = function() return getValue({"LootEvents", "Fishing", "AutoFillet"}) end,
+    setAutoFilletSetting = function(value) setValue(value, {"LootEvents", "Fishing", "AutoFillet"}) end,
+
+    -- ----------------------------------------------------------------------------------
+	
 
     -- ----------------------------------------------------------------------------------
 

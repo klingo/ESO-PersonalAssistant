@@ -16,13 +16,25 @@ local PALStrings = {
     SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is unknown"}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is looted that is not yet known by this character, a message is displayed in the chat"}),
+    
+	SI_PA_MENU_LOOT_AUTO_LEARN_RECIPES = table.concat({"Auto-learn ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)}),
+    SI_PA_MENU_LOOT_AUTO_LEARN_RECIPES_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is looted that is not yet known by this character, auto-learn it"}),	
 
     -- Loot Motifs & Style Pages
     SI_PA_MENU_LOOT_STYLES_HEADER = "When Looting Styles",
+	
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is looted that is not yet known by this character, a message is displayed in the chat"}),
+ 
     SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is unknown"}),
-    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is looted that is not yet known by this character, a message is displayed in the chat"}),
+    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is looted that is not yet known by this character, a message is displayed in the chat"}), 
+	
+	SI_PA_MENU_LOOT_AUTO_LEARN_MOTIFS = table.concat({"Auto-learn ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)}),
+	SI_PA_MENU_LOOT_AUTO_LEARN_MOTIFS_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is looted that is not yet known by this character, auto-learn it"}),
+
+    SI_PA_MENU_LOOT_AUTO_LEARN_STYLEPAGES = table.concat({"Auto-learn ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE)}),
+	SI_PA_MENU_LOOT_AUTO_LEARN_STYLEPAGES_T = table.concat({"Whenever a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is looted that is not yet known by this character, auto-learn it"}),
+
 
     -- Loot Equipment (Apparel, Weapons & Jewelries)
     SI_PA_MENU_LOOT_APPARELWEAPONS_HEADER = "When Looting Equipment",
@@ -36,6 +48,13 @@ local PALStrings = {
     SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = table.concat({"> looting ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " with quality at or above"}),
     SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = table.concat({"Whenever ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " are looted that are of the selected quality level or higher, a message is displayed in the chat"}),
 
+    -- Auto Fillet common fish
+    SI_PA_MENU_LOOT_AUTO_FILLET_HEADER = table.concat({"When Looting ", GetString("SI_ITEMTYPE", ITEMTYPE_FISH)}),
+    SI_PA_MENU_LOOT_AUTO_FILLET = "Auto fillet common fish",
+    SI_PA_MENU_LOOT_AUTO_FILLET_T = "Auto fillet common fish to obtain Fish or Perfect Roe",
+
+
+    -- Inventory space warning --
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warn when low on inventory space",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Display a warning in the chat window if you are low on inventory space",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Inventory space threshold",
@@ -99,6 +118,8 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
     SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s is missing in set collection!"}),
     SI_PA_CHAT_LOOT_COMPANION_ITEM = table.concat({PAC.ICONS.OTHERS.COMPANION.SMALL, "%s new companion item with ", PAC.COLOR.WHITE:Colorize("%s"), " trait!"}),
+	SI_PA_CHAT_LOOT_AUTO_FILLET = "%s is being auto filleted.",
+	
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[inventory space/inventory space/inventory spaces]>> left!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[Repair Kits/Repair Kit/Repair Kits]>> left!"}),

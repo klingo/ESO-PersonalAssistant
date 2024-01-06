@@ -70,10 +70,10 @@ local function _isDestroyItemEnabled()
         local itemLink = GetItemLink(_mouseOverBagId, _mouseOverSlotIndex)
         if itemType == ITEMTYPE_RECIPE then
             -- check for unknown recipes
-            if not IsItemLinkRecipeKnown(itemLink) then return false end
+            if not PAHF.IsRecipeKnown(itemLink) then return false end
         elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
             -- check for unknown motifs
-            if IsItemLinkBook(itemLink) and not IsItemLinkBookKnown(itemLink) then return false end
+            if IsItemLinkBook(itemLink) and not PAHF.IsBookKnown(itemLink) then return false end
         elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then
             -- check for unknown style page containers
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
@@ -117,7 +117,7 @@ local PAJunkButtonGroup = {
         visible = function() return _isDestroyItemVisible() end,
         enabled = function() return _isDestroyItemEnabled() end,
     },
-    alignment = KEYBIND_STRIP_ALIGN_RIGHT,
+    alignment = KEYBIND_STRIP_ALIGN_RIGHT, 
 }
 
 -- ---------------------------------------------------------------------------------------------------------------------

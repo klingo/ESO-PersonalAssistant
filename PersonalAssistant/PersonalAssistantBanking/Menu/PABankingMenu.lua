@@ -59,6 +59,7 @@ local PABAdvancedTrophiesTreasureMapsSubmenuTable = setmetatable({}, { __index =
 local PABAdvancedTrophiesFragmentsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedTrophiesSurveyReportsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedIntricateItemsSubmenuTable = setmetatable({}, { __index = table })
+local PABAdvancedOrnateItemsSubmenuTable = setmetatable({}, { __index = table })
 local PABAdvancedFurnishingsSubmenuTable = setmetatable({}, { __index = table })
 
 local PABAvASiegeBallistaSubmenuTable = setmetatable({}, { __index = table })
@@ -379,6 +380,14 @@ local function _createPABankingMenu()
         icon = PAC.ICONS.ITEMS.TRAITS.INTRICATE.PATH,
         controls = PABAdvancedIntricateItemsSubmenuTable,
         disabledLabel = PABMenuFunctions.isIntricateItemsTransactionMenuDisabled,
+    })
+	
+    PABankingOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_BANKING_ADVANCED_ORNATE_ITEMS_HEADER),
+        icon = PAC.ICONS.ITEMS.TRAITS.ORNATE.PATH,
+        controls = PABAdvancedOrnateItemsSubmenuTable,
+        disabledLabel = PABMenuFunctions.isOrnateItemsTransactionMenuDisabled,
     })
 
     PABankingOptionsTable:insert({
@@ -711,7 +720,7 @@ local function _createPABCurrencyGoldSubmenuTable()
         setFunc = PABMenuFunctions.setGoldMinToKeepSetting,
         disabled = PABMenuFunctions.isGoldMinToKeepDisabled,
         default = PABMenuDefaults.Currencies.goldMinToKeep,
-        reference = "PERSONALASSISTANT_PAB_GOLD_MIN",
+		reference = "PERSONALASSISTANT_PAB_GOLD_MIN",
     })
 
     PABCurrencyGoldSubmenuTable:insert({
@@ -1180,6 +1189,19 @@ local function _createPABAdvancedTrophiesTreasureMapsSubmenuTable()
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
         })
     end
+	
+    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.TRIBUTE_CLUES) do
+        PABAdvancedTrophiesTreasureMapsSubmenuTable:insert({
+            type = "dropdown",
+            name = zo_strformat("<<m:1>>", GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType)),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
+            default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
+        })
+    end
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -1221,6 +1243,23 @@ end
 local function _createPABAdvancedIntricateItemsSubmenuTable()
     for itemTraitType, itemFilterType in pairs(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) do
         PABAdvancedIntricateItemsSubmenuTable:insert({
+            type = "dropdown",
+            name = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemFilterType)),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedItemTraitTypeMoveSetting(itemTraitType) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedItemTraitTypeMoveSetting(itemTraitType, value) end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
+            default = PABMenuDefaults.Advanced.ItemTraitTypes[itemTraitType],
+        })
+    end
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPABAdvancedOrnateItemsSubmenuTable()
+    for itemTraitType, itemFilterType in pairs(PAC.BANKING_ADVANCED.TRAIT.ORNATE) do
+        PABAdvancedOrnateItemsSubmenuTable:insert({
             type = "dropdown",
             name = zo_strformat("<<m:1>>", GetString("SI_ITEMFILTERTYPE", itemFilterType)),
             choices = PABMenuChoices.itemMoveMode,
@@ -1566,6 +1605,7 @@ local function createOptions()
     _createPABAdvancedTrophiesFragmentsSubmenuTable()
     _createPABAdvancedTrophiesSurveyReportsSubmenuTable()
     _createPABAdvancedIntricateItemsSubmenuTable()
+    _createPABAdvancedOrnateItemsSubmenuTable()	
     _createPABAdvancedFurnishingsSubmenuTable()
 
     _createPABAvASiegeBallistaSubmenuTable()

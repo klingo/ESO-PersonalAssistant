@@ -6,7 +6,7 @@ local PAEM = PA.EventManager
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
-local function _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR, patchPACO, patchPAW)
     local PASavedVars = PA.SavedVars
     if patchPAG and tonumber(PASavedVars.General.savedVarsVersion) < savedVarsVersion then
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAGeneral from [", tostring(PASavedVars.General.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
@@ -32,23 +32,34 @@ local function _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, pat
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PARepair from [", tostring(PASavedVars.Repair.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
         PASavedVars.Repair.savedVarsVersion = savedVarsVersion
     end
+    if patchPACO and tonumber(PASavedVars.Consume.savedVarsVersion) < savedVarsVersion then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAConsume from [", tostring(PASavedVars.Consume.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PASavedVars.Consume.savedVarsVersion = savedVarsVersion
+    end
+    if patchPAW and tonumber(PASavedVars.Worker.savedVarsVersion) < savedVarsVersion then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Patched PAWorker from [", tostring(PASavedVars.Worker.savedVarsVersion), "] to [", tostring(savedVarsVersion), "]"}))
+        PASavedVars.Worker.savedVarsVersion = savedVarsVersion
+    end
 end
 
 local function _getActiveAddonSavedVarsVersion()
     local PASavedVars = PA.SavedVars
-    local PAGversion, PABversion, PAIVersion, PAJversion, PALversion, PARversion
+    local PAGversion, PABversion, PAIVersion, PAJversion, PALversion, PARversion, PACOversion, PAWversion
     if PASavedVars.General then PAGversion = tonumber(PASavedVars.General.savedVarsVersion) end
     if PASavedVars.Banking then PABversion = tonumber(PASavedVars.Banking.savedVarsVersion) end
     if PASavedVars.Integration then PAIVersion = tonumber(PASavedVars.Integration.savedVarsVersion) end
     if PASavedVars.Junk then PAJversion = tonumber(PASavedVars.Junk.savedVarsVersion) end
     if PASavedVars.Loot then PALversion = tonumber(PASavedVars.Loot.savedVarsVersion) end
     if PASavedVars.Repair then PARversion = tonumber(PASavedVars.Repair.savedVarsVersion) end
-    return PAGversion, PABversion, PAIVersion, PAJversion, PALversion, PARversion
+	if PASavedVars.Consume then PACOversion = tonumber(PASavedVars.Consume.savedVarsVersion) end
+	if PASavedVars.Worker then PAWversion = tonumber(PASavedVars.Worker.savedVarsVersion) end
+    return PAGversion, PABversion, PAIVersion, PAJversion, PALversion, PARversion, PACOversion, PAWversion 
 end
 
 local function _getIsPatchNeededInfo(targetSVV)
-    local PAGv, PABv, PAIv, PAJv, PALv, PARv = _getActiveAddonSavedVarsVersion()
-    return targetSVV, (PAGv and PAGv < targetSVV), (PABv and PABv < targetSVV), (PAIv and PAIv < targetSVV), (PAJv and PAJv < targetSVV), (PALv and PALv < targetSVV), (PARv and PARv < targetSVV)
+    local PAGv, PABv, PAIv, PAJv, PALv, PARv, PACOv, PAWv = _getActiveAddonSavedVarsVersion()
+    return targetSVV, (PAGv and PAGv < targetSVV), (PABv and PABv < targetSVV), (PAIv and PAIv < targetSVV), (PAJv and PAJv < targetSVV),
+	       (PALv and PALv < targetSVV), (PARv and PARv < targetSVV), (PACOv and PACOv < targetSVV), (PAWv and PAWv < targetSVV)
 end
 
 local function _resetSavedVarsVersionIfMissingTo(targetSVV)
@@ -77,6 +88,14 @@ local function _resetSavedVarsVersionIfMissingTo(targetSVV)
         PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PARepair from [nil] to [", tostring(targetSVV), "]"}))
         PASavedVars.Repair.savedVarsVersion = targetSVV
     end
+    if PASavedVars.Consume and PASavedVars.Consume.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAConsume from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.Consume.savedVarsVersion = targetSVV
+    end
+    if PASavedVars.Worker and PASavedVars.Worker.savedVarsVersion == nil then
+        PAHF.debuglnAuthor(table.concat({PAC.COLORED_TEXTS.PA, " - Reset PAWorker from [nil] to [", tostring(targetSVV), "]"}))
+        PASavedVars.Worker.savedVarsVersion = targetSVV
+    end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -102,8 +121,8 @@ local function _applyPatch_2_0_3(savedVarsVersion, _, patchPAB, _, _, _, _)
 end
 
 
-local function _applyPatch_2_1_0(savedVarsVersion, patchPAG, patchPAB, _, patchPAJ, patchPAL, patchPAR)
-    if patchPAG or patchPAB or patchPAJ or patchPAL or patchPAR then
+local function _applyPatch_2_1_0(savedVarsVersion, patchPAG, patchPAB, _, patchPAJ, patchPAL, patchPAR, patchPACO, patchPAW)
+    if patchPAG or patchPAB or patchPAJ or patchPAL or patchPAR or patchPACO or patchPAW then
         local PASavedVars = PA.SavedVars
         -- 1) initialize three new profiles with default values
         local PAMenuDefaults = PA.MenuDefaults
@@ -113,6 +132,8 @@ local function _applyPatch_2_1_0(savedVarsVersion, patchPAG, patchPAB, _, patchP
                 if patchPAJ then PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk end
                 if patchPAL then PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot end
                 if patchPAR then PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair end
+				if patchPACO then PASavedVars.Consume[profileNo] = PAMenuDefaults.PAConsume end
+				if patchPAW then PASavedVars.Worker[profileNo] = PAMenuDefaults.PAWorker end
                 if patchPAG then
                     PASavedVars.General[profileNo] = {
                         name = PAHF.getDefaultProfileName(profileNo),
@@ -129,7 +150,7 @@ local function _applyPatch_2_1_0(savedVarsVersion, patchPAG, patchPAB, _, patchP
                 PASavedVars.Banking[profileNo].AvA = PA.MenuDefaults.PABanking.AvA
             end
         end
-        _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, false, patchPAJ, patchPAL, patchPAR)
+        _updateSavedVarsVersion(savedVarsVersion, patchPAG, patchPAB, false, patchPAJ, patchPAL, patchPAR, patchPACO, patchPAW)
     end
 end
 
@@ -376,7 +397,7 @@ local function _applyPatch_2_4_14(savedVarsVersion, _, patchPAB, _, _, _, _)
 end
 
 
-local function _applyPatch_2_4_18(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR)
+local function _applyPatch_2_4_18(savedVarsVersion, patchPAG, patchPAB, patchPAI, patchPAJ, patchPAL, patchPAR, patchPACO, patchPAW)
     if patchPAG or patchPAB or patchPAI or patchPAJ or patchPAL or patchPAR then
         local PASavedVars = PA.SavedVars
         -- 1) initialize two new profiles with default values
@@ -388,6 +409,8 @@ local function _applyPatch_2_4_18(savedVarsVersion, patchPAG, patchPAB, patchPAI
                 if patchPAJ then PASavedVars.Junk[profileNo] = PAMenuDefaults.PAJunk end
                 if patchPAL then PASavedVars.Loot[profileNo] = PAMenuDefaults.PALoot end
                 if patchPAR then PASavedVars.Repair[profileNo] = PAMenuDefaults.PARepair end
+				if patchPACO then PASavedVars.Consume[profileNo] = PAMenuDefaults.PAConsume end
+				if patchPAW then PASavedVars.Worker[profileNo] = PAMenuDefaults.PAWorker end
                 if patchPAG then
                     PASavedVars.General[profileNo] = {
                         name = PAHF.getDefaultProfileName(profileNo),

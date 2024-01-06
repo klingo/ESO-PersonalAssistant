@@ -19,6 +19,8 @@ PersonalAssistant.Constants = {
             JUNK = "PersonalAssistant Junk",
             LOOT = "PersonalAssistant Loot",
             REPAIR = "PersonalAssistant Repair",
+			CONSUME = "PersonalAssistant Consume",
+			WORKER = "PersonalAssistant Worker",
         },
         NAME_DISPLAY = {
             GENERAL = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant", "|r"}),
@@ -27,12 +29,14 @@ PersonalAssistant.Constants = {
             JUNK = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "J", "|r", "|cFFFFFF", "unk", "|r"}),
             LOOT = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "L", "|r", "|cFFFFFF", "oot", "|r"}),
             REPAIR = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "R", "|r", "|cFFFFFF", "epair", "|r"}),
+			CONSUME = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "C", "|r", "|cFFFFFF", "onsume", "|r"}),
+			WORKER = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "W", "|r", "|cFFFFFF", "orker", "|r"}),
         },
-        AUTHOR = "Klingo",
-        VERSION_ADDON = {VERSION_ADDON},
-        VERSION_DISPLAY = "{VERSION_NUMBER}",
-        WEBSITE = "http://www.esoui.com/downloads/info381-PersonalAssistant",
-        FEEDBACK = "https://www.esoui.com/downloads/info381-PersonalAssistant.html#comments",
+        AUTHOR = "Klingo, |c3CB371@Masteroshi430|r",
+        VERSION_ADDON = 20240101,
+        VERSION_DISPLAY = "2024.01.01",
+        WEBSITE = "https://www.esoui.com/downloads/info3512-PersonalAssistantBankingJunkLootRepairMasteroshi430sbranch.html",
+        FEEDBACK = "https://www.esoui.com/downloads/info3512-PersonalAssistantBankingJunkLootRepairMasteroshi430sbranch.html#comments",
         KEYWORDS = {
             GENERAL = "general, profile, house",
             BANKING = "banking, deposit, withdraw, currency, currencies, bank, rules",
@@ -40,6 +44,8 @@ PersonalAssistant.Constants = {
             JUNK = "junk, mark, fence, sell, rules",
             LOOT = "loot, unknown, recipe, motif, trait",
             REPAIR = "repair, repairkit, recharge, soulgem",
+			CONSUME = "poison, EXP, food buff, drink buff",
+			WORKER = "deconstruct, refine",
         },
         SAVED_VARS_VERSION = { -- changing these values cause all settings to be reset!
             MAJOR = {
@@ -50,6 +56,8 @@ PersonalAssistant.Constants = {
                 JUNK = 2,
                 LOOT = 2,
                 REPAIR = 1,
+				CONSUME = 2,
+				WORKER = 2,
             },
         },
     },
@@ -95,6 +103,8 @@ PersonalAssistant.Constants = {
         PAL = table.concat({"|cFFD700", "PA L", "|r", "|cFFFFFF", "oot", "|r"}),
         PAM = table.concat({"|cFFD700", "PA M", "|r", "|cFFFFFF", "ail", "|r"}),
         PAJ = table.concat({"|cFFD700", "PA J", "|r", "|cFFFFFF", "unk", "|r"}),
+		PACO = table.concat({"|cFFD700", "PA C", "|r", "|cFFFFFF", "onsume", "|r"}),
+		PAW = table.concat({"|cFFD700", "PA W", "|r", "|cFFFFFF", "orker", "|r"}),
     },
 
     COLORED_TEXTS_DEBUG = {
@@ -106,6 +116,8 @@ PersonalAssistant.Constants = {
         PAL = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "L", "|r"}),
         PAM = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "M", "|r"}),
         PAJ = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "J", "|r"}),
+		PACO = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "CO", "|r"}),
+		PAW = table.concat({"|cFFFFFF", "PA", "|r", "|cFFD700", "W", "|r"}),
     },
 
     ICONS = {
@@ -136,6 +148,9 @@ PersonalAssistant.Constants = {
             },
             WOODWORKING = {
                 PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_woodworking_up.dds",
+            },
+            FISHING = {
+                PATH = "/esoui/art/tutorial/achievements_indexicon_fishing_up.dds",
             },
             JEWELCRAFTING = {
                 PATH = "/esoui/art/inventory/inventory_tabicon_craftbag_jewelrycrafting_up.dds",
@@ -183,7 +198,7 @@ PersonalAssistant.Constants = {
         ITEMS = {
             FOOD = {
                 PATH = "/esoui/art/icons/crafting_bowl_002.dds",
-            },
+            },			
             GENERIC_HELP = {
                 PATH = "/esoui/art/menubar/menubar_help_up.dds",
             },
@@ -237,6 +252,7 @@ PersonalAssistant.Constants = {
                 },
                 ORNATE = { -- NOTE: not used
                     PATH = "/esoui/art/inventory/inventory_trait_ornate_icon.dds",
+					SMALL = "|t16:16:/esoui/art/inventory/inventory_trait_ornate_icon.dds|t",
                 },
             },
             TROPHY = {
@@ -503,7 +519,7 @@ PersonalAssistant.Constants = {
         SPECIALIZED = {
             TROPHIES = {
                 TREASURE_MAPS = {
-                    SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP ,  -- 100
+                    SPECIALIZED_ITEMTYPE_TROPHY_TREASURE_MAP,  -- 100
                 },
                 FRAGMENTS = {
                     SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT,   -- 102
@@ -511,7 +527,11 @@ PersonalAssistant.Constants = {
                     SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT,   -- 108
                     SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT,   -- 109
                     SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
-                }
+                },
+				TRIBUTE_CLUES = {
+                    SPECIALIZED_ITEMTYPE_TROPHY_TRIBUTE_CLUE,  
+                },
+				
                 -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
             },
@@ -544,6 +564,8 @@ PersonalAssistant.Constants = {
                     151598, -- Blacksmith Survey: Northern Elsweyr
                     166460, -- Blacksmith Survey: Western Skyrim
                     178464, -- Blacksmith Survey: Blackwood
+					188193, -- Blacksmith Survey: High Isle
+					198291, -- Blacksmith Survey: Telvanni Peninsula
                 },
                 [ITEMFILTERTYPE_ENCHANTING] = {
                     57733,  -- Enchanter Survey: Auridon
@@ -573,6 +595,8 @@ PersonalAssistant.Constants = {
                     151602, -- Enchanter Survey: Northern Elsweyr
                     166462, -- Enchanter Survey: Western Skyrim
                     178468, -- Enchanter Survey: Blackwood
+					188195, -- Enchanter Survey: High Isle
+					198289, -- Enchanter Survey: Apocrypha
                 },
                 [ITEMFILTERTYPE_CLOTHING] = {
                     57738,  -- Clothier Survey: Auridon
@@ -602,6 +626,8 @@ PersonalAssistant.Constants = {
                     151599, -- Clothier Survey: Northern Elsweyr
                     166461, -- Clothier Survey: Western Skyrim
                     178467, -- Clothier Survey: Blackwood
+					188194, -- Clothier Survey: High Isle
+					198290, -- Clothier Survey: Apocrypha
                 },
                 [ITEMFILTERTYPE_ALCHEMY] = {
                     57744,  -- Alchemist Survey: Auridon
@@ -631,6 +657,8 @@ PersonalAssistant.Constants = {
                     151601, -- Alchemist Survey: Northern Elsweyr
                     166459, -- Alchemist Survey: Western Skyrim
                     178469, -- Alchemist Survey: Blackwood
+					188191, -- Alchemist Survey: High Isle
+					198288, -- Alchemist Survey: Apocrypha
                 },
                 [ITEMFILTERTYPE_WOODWORKING] = {
                     57741,  -- Woodworker Survey: Auridon
@@ -660,6 +688,8 @@ PersonalAssistant.Constants = {
                     151600, -- Woodworker Survey: Northern Elsweyr
                     166465, -- Woodworker Survey: Western Skyrim
                     178465, -- Woodworker Survey: Blackwood
+					188197, -- Woodworker Survey: High Isle
+					198297, -- Woodworker Survey: Telvanni Peninsula
                 },
                 [ITEMFILTERTYPE_JEWELRYCRAFTING] = {
                     139422, -- Jewelry Crafting Survey: Auridon
@@ -689,6 +719,8 @@ PersonalAssistant.Constants = {
                     151603, -- Jewelry Crafting Survey: Northern Elsweyr
                     166464, -- Jewelry Crafting Survey: Western Skyrim
                     178466, -- Jewelry Crafting Survey: Blackwood
+					188196, -- Jewelry Crafting Survey: High Isle
+					198294, -- Jewelry Crafting Survey: Telvanni Peninsula
                 },
             }
         },
@@ -697,6 +729,11 @@ PersonalAssistant.Constants = {
                 [ITEM_TRAIT_TYPE_WEAPON_INTRICATE] = ITEMFILTERTYPE_WEAPONS,
                 [ITEM_TRAIT_TYPE_ARMOR_INTRICATE] = ITEMFILTERTYPE_ARMOR,
                 [ITEM_TRAIT_TYPE_JEWELRY_INTRICATE] = ITEMFILTERTYPE_JEWELRY,
+            },
+            ORNATE = {
+                [ITEM_TRAIT_TYPE_WEAPON_ORNATE] = ITEMFILTERTYPE_WEAPONS,
+                [ITEM_TRAIT_TYPE_ARMOR_ORNATE] = ITEMFILTERTYPE_ARMOR,
+                [ITEM_TRAIT_TYPE_JEWELRY_ORNATE] = ITEMFILTERTYPE_JEWELRY,
             }
         },
     },

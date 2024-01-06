@@ -36,6 +36,13 @@ local PALStrings = {
     SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = table.concat({"> ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " mind. diese Qualität haben"}),
     SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = table.concat({"Wann immer ", GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION), " eingesammelt werden, deren Qualität höher oder gleich der ausgewählten Qualität ist, wird eine Information im Chat ausgegeben"}),
 
+    -- Auto Fillet common fish
+    SI_PA_MENU_LOOT_AUTO_FILLET_HEADER = table.concat({"When Looting ", GetString("SI_ITEMTYPE", ITEMTYPE_FISH)}),
+    SI_PA_MENU_LOOT_AUTO_FILLET = "Auto fillet common fish",
+    SI_PA_MENU_LOOT_AUTO_FILLET_T = "Auto fillet common fish to obtain Fish or Perfect Roe",
+
+
+    -- Inventory space warning --
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Warne wenn Inventarplätze ausgehen",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Zeige eine Warnung im Chat an wenn dir die Inventarplätze ausgehen",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Schwellenwert für Inventarplätze",
@@ -99,6 +106,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s hat [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] das analysiert werden kann!"}),
     SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s fehlt in der Setsammlung!"}),
     SI_PA_CHAT_LOOT_COMPANION_ITEM = table.concat({PAC.ICONS.OTHERS.COMPANION.SMALL, "%s neuer Gefährtengegenstand mit Eigenschaft ", PAC.COLOR.WHITE:Colorize("%s"), "!"}),
+	SI_PA_CHAT_LOOT_AUTO_FILLET = "%s is being auto filleted.",
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Inventarplätze mehr/Inventarplatz/Inventarplätze]>> übrig!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sDu hast <<1[", PAC.COLORS.WHITE,"keine/nur noch ", PAC.COLORS.WHITE, "%d/nur noch ", PAC.COLORS.WHITE, "%d]>> %s<<1[Reparaturmaterialien mehr/Reparaturmaterial/Reparaturmaterialien]>> übrig!"}),

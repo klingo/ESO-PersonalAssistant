@@ -1,5 +1,5 @@
 <Bindings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sir.insidi.at/or/schema/esobindings.xsd">
-    <Layer name="SI_KEYBINDINGS_LAYER_USER_INTERFACE_SHORTCUTS" allowFallthrough="false">
+    <Layer name="SI_KEYBINDINGS_LAYER_USER_INTERFACE_SHORTCUTS" >
         <Category name="SI_KEYBINDINGS_CATEGORY_PA_BANKING">
             <Action name="PA_BANKING_EXECUTE_ITEM_TRANSFERS">
                 <Down>PersonalAssistant.Banking.executeBankingItemTransfers()</Down>

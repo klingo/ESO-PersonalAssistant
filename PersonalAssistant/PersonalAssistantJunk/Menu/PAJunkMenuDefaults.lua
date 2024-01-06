@@ -18,6 +18,7 @@ local PAJunkMenuDefaults = {
     Miscellaneous = {
         autoMarkGlyphQualityThreshold = -1,
         autoMarkTreasure = false,
+		autoMarkCompanionItemsQualityThreshold = -1,
     },
     Weapons = {
         autoMarkOrnate = false,

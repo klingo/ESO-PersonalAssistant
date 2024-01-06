@@ -34,6 +34,7 @@ local PALLootRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootStylesSubmenuTable = setmetatable({}, { __index = table })
 local PALLootApparelWeaponsSubmenuTable = setmetatable({}, { __index = table })
 local PALLootCompanionItemsSubmenuTable = setmetatable({}, { __index = table })
+local PALLootAutoFilletSubmenuTable = setmetatable({}, { __index = table })
 
 local PALMarkRecipesSubmenuTable = setmetatable({}, { __index = table })
 local PALMarkMotifsSubmenuTable = setmetatable({}, { __index = table })
@@ -104,6 +105,15 @@ local function _createPALootMenu()
         iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
         controls = PALLootCompanionItemsSubmenuTable,
         disabledLabel = PALMenuFunctions.isLootCompanionItemsMenuDisabled,
+    })
+	
+    PALootOptionsTable:insert({
+        type = "submenu",
+        name = GetString(SI_PA_MENU_LOOT_AUTO_FILLET_HEADER),
+        icon = PAC.ICONS.CRAFTBAG.FISHING.PATH,
+        iconTextureCoords = PAC.ICONS.TEXTURE_COORDS.MEDIUM,
+        controls = PALLootAutoFilletSubmenuTable,
+        disabledLabel = PALMenuFunctions.isLootAutoFilletMenuDisabled,
     })
 
     PALootOptionsTable:insert({
@@ -358,6 +368,16 @@ local function _createPALLootRecipesSubmenuTable()
         disabled = PALMenuFunctions.isUnknownRecipeMsgDisabled,
         default = PALMenuDefaults.LootEvents.LootRecipes.unknownRecipeMsg,
     })
+	
+    PALLootRecipesSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_AUTO_LEARN_RECIPES),
+        tooltip = GetString(SI_PA_MENU_LOOT_AUTO_LEARN_RECIPES_T),
+        getFunc = PALMenuFunctions.getAutoLearnRecipeSetting,
+        setFunc = PALMenuFunctions.setAutoLearnRecipeSetting,
+        disabled = PALMenuFunctions.isAutoLearnRecipeDisabled,
+        default = PALMenuDefaults.LootEvents.LootRecipes.autoLearnRecipe,
+    })
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -368,7 +388,7 @@ local function _createPALLootStylesSubmenuTable()
         text = GetString(SI_PA_DISPLAY_A_MESSAGE_WHEN),
         disabled = PALMenuFunctions.isLootStylesMenuDisabled,
     })
-
+	
     PALLootStylesSubmenuTable:insert({
         type = "checkbox",
         name = GetString(SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG),
@@ -381,6 +401,16 @@ local function _createPALLootStylesSubmenuTable()
 
     PALLootStylesSubmenuTable:insert({
         type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_AUTO_LEARN_MOTIFS),
+        tooltip = GetString(SI_PA_MENU_LOOT_AUTO_LEARN_MOTIFS_T),
+        getFunc = PALMenuFunctions.getAutoLearnMotifSetting,
+        setFunc = PALMenuFunctions.setAutoLearnMotifSetting,
+        disabled = PALMenuFunctions.isAutoLearnMotifDisabled,
+        default = PALMenuDefaults.LootEvents.LootStyles.autoLearnMotif,
+    })
+
+    PALLootStylesSubmenuTable:insert({
+        type = "checkbox",
         name = GetString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG),
         tooltip = GetString(SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T),
         getFunc = PALMenuFunctions.getUnknownStylePageMsgSetting,
@@ -388,6 +418,18 @@ local function _createPALLootStylesSubmenuTable()
         disabled = PALMenuFunctions.isUnknownStylePageMsgDisabled,
         default = PALMenuDefaults.LootEvents.LootStyles.unknownStylePageMsg,
     })
+	
+    PALLootStylesSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_AUTO_LEARN_STYLEPAGES),
+        tooltip = GetString(SI_PA_MENU_LOOT_AUTO_LEARN_STYLEPAGES_T),
+        getFunc = PALMenuFunctions.getAutoLearnStylePageSetting,
+        setFunc = PALMenuFunctions.setAutoLearnStylePageSetting,
+        disabled = PALMenuFunctions.isAutoLearnStylePageDisabled,
+        default = PALMenuDefaults.LootEvents.LootStyles.autoLearnStylePage,
+    })
+	
+	
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -440,6 +482,21 @@ local function _createPALLootCompanionItemsSubmenuTable()
        disabled = PALMenuFunctions.isLootCompanionItemsQualityThresholdDisabled,
        default = PALMenuDefaults.LootEvents.LootCompanionItems.qualityThreshold,
    })
+end
+
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function _createPALLootAutoFilletSubmenuTable()
+
+    PALLootAutoFilletSubmenuTable:insert({
+        type = "checkbox",
+        name = GetString(SI_PA_MENU_LOOT_AUTO_FILLET),
+		tooltip = GetString(SI_PA_MENU_LOOT_AUTO_FILLET_T),
+        getFunc = PALMenuFunctions.getAutoFilletSetting,
+        setFunc = PALMenuFunctions.setAutoFilletSetting,
+        disabled = PALMenuFunctions.isAutoFilletDisabled,
+        default = PALMenuDefaults.ItemIcons.Recipes.showUnknownIcon,
+    })
 end
 
 -- =================================================================================================================
@@ -1017,6 +1074,8 @@ local function createOptions()
     _createPALLootStylesSubmenuTable()
     _createPALLootApparelWeaponsSubmenuTable()
     _createPALLootCompanionItemsSubmenuTable()
+	_createPALLootAutoFilletSubmenuTable()
+	
 
     _createPALMarkRecipesSubmenuTable()
     _createPALMarkMotifsSubmenuTable()

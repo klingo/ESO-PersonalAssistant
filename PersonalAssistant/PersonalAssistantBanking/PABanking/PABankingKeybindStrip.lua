@@ -1,6 +1,7 @@
 -- Local instances of Global tables --
 local PA = PersonalAssistant
 local PAB = PA.Banking
+local PAMF = PA.MenuFunctions
 
 -- ---------------------------------------------------------------------------------------------------------------------
 
@@ -9,7 +10,7 @@ local PABankingButtonGroup = {
         name = "PABanking_ExecuteItemTransfers",
         keybind = "PA_BANKING_EXECUTE_ITEM_TRANSFERS",
         callback = function() PAB.executeBankingItemTransfers() end, -- only called when directly clicked on keybind strip
-        visible = function() return true end, -- always visible
+        visible = function() if PAMF.PABanking.getAutoExecuteItemTransfersSetting() == true then return false else return true end end, 
         enabled = function() return not PAB.isBankItemTransferBlocked end,
     },
     alignment = KEYBIND_STRIP_ALIGN_LEFT,

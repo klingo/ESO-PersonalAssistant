@@ -10,13 +10,20 @@ local PAEM = PA.EventManager
 local _lastNoRepairKitWarningGameTime = 0
 
 local _repairKitItemIds = {
-    [44879] = true,  -- Grand Repair Kit    Tier=6
-    [61079] = true,  -- Crown Repair Kit    Tier=7
+    [44874] = function() return GetUnitLevel("player") < 10 end,  -- Petty Repair Kit             < lvl 10
+	[44875] = function() return GetUnitLevel("player") < 20 end,  -- Minor Repair Kit             < lvl 20 
+	[44876] = function() return GetUnitLevel("player") < 30 end,  -- Lesser Repair Kit            < lvl 30
+	[44877] = function() return GetUnitLevel("player") < 40 end,  -- Comon Repair Kit             < lvl 40
+	[44878] = function() return GetUnitLevel("player") < 50 end,  -- Greater Repair Kit           < lvl 50 
+    [44879] = true,                                               -- Grand Repair Kit    Tier=6   any
+    [61079] = true,                                               -- Crown Repair Kit    Tier=7   any
+	[157516] = function() return IsUnitGrouped("player") end,     -- Impresario's Group Repair Kit
 }
 
 -- --------------------------------------------------------------------------------------------------------------------
 
 local function _getRepairKitsIn(bagId)
+
     local itemIdComparator = PAHF.getItemIdComparator(_repairKitItemIds, true)
     local repairKitBagCache = SHARED_INVENTORY:GenerateFullSlotData(itemIdComparator, bagId)
 

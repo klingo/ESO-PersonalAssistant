@@ -106,7 +106,9 @@ local function introduction()
             (PA.Integration and PA.ProfileManager.PAIntegration.isNoProfileSelected()) or
             (PA.Junk and PA.ProfileManager.PAJunk.isNoProfileSelected()) or
             (PA.Loot and PA.ProfileManager.PALoot.isNoProfileSelected()) or
-            (PA.Repair and PA.ProfileManager.PARepair.isNoProfileSelected()) then
+            (PA.Repair and PA.ProfileManager.PARepair.isNoProfileSelected()) or 
+			(PA.Consume and PA.ProfileManager.PAConsume.isNoProfileSelected()) or
+			(PA.Worker and PA.ProfileManager.PAWorker.isNoProfileSelected()) then
         PA.println(SI_PA_WELCOME_PLEASE_SELECT_PROFILE)
     else
         -- check for the welcome message
@@ -197,7 +199,7 @@ function PA.cursorPickup(type, param1, bagId, slotIndex, param4, param5, param6,
 
         local isBook = IsItemLinkBook(itemLink)
         local isPartOfCollection = IsItemLinkBookPartOfCollection(itemLink)
-        local isKnown= IsItemLinkBookKnown(itemLink)
+		local isKnown= PAHF.IsBookKnown(itemLink)
 
         d("isBook="..tostring(isBook))
         d("isPartOfCollection="..tostring(isPartOfCollection))

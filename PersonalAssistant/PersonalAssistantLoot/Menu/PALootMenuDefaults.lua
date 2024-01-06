@@ -17,6 +17,9 @@ local PALootMenuDefaults = {
         LootStyles = {
             unknownMotifMsg = true,
             unknownStylePageMsg = true,
+			autoLearnMotif = false,
+			autoLearnRecipe = false,
+			autoLearnStylePage = false,
         },
 
         LootApparelWeapons = {
@@ -26,6 +29,9 @@ local PALootMenuDefaults = {
 
         LootCompanionItems = {
             qualityThreshold = ITEM_FUNCTIONAL_QUALITY_ARTIFACT,
+        },
+        Fishing = {
+            AutoFillet = false,
         },
     },
 
