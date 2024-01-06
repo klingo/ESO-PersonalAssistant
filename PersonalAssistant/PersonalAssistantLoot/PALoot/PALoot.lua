@@ -197,7 +197,61 @@ local function _updateItemIconsWhenSetCollectionPieceUnlocked(itemId)
             end
         end)
 end
+-- ---------------------------------------------------------------------------------------------------------------------
 
+
+local function combatState(fighting)
+   if not fighting then
+      PAL.learnNowOrLater() 
+   end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function sceneChange(oldState, newState)
+    if (newState == SCENE_SHOWN) then
+        PAL.learnNowOrLater()
+    elseif (newState == SCENE_HIDDEN) then
+        -- do stuff
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+
+local function learnNowOrLater(bagId, slotIndex)
+    local hud = SCENE_MANAGER:GetScene("hud")
+	local inHud = hud:GetState() == SCENE_SHOWN
+	local inCombat = IsUnitInCombat("player")
+    if bagId and slotIndex and inHud and not inCombat then
+        CallSecureProtected("UseItem", bagId, slotIndex)
+		hud:UnregisterCallback("StateChange", sceneChange)
+		EVENT_MANAGER:UnregisterForEvent("combatStateChange", EVENT_PLAYER_COMBAT_STATE)
+
+	elseif bagId and slotIndex then
+       PAL.itemsToLearn = PAL.itemsToLearn or {}
+       local thisItem = {}
+       thisItem.name = GetItemName(bagId, slotIndex)	   
+       thisItem.bagId = bagId
+  	   thisItem.slotIndex = slotIndex
+	   table.insert(PAL.itemsToLearn, thisItem) 
+       hud:RegisterCallback("StateChange", sceneChange)
+	   EVENT_MANAGER:RegisterForEvent("combatStateChange", EVENT_PLAYER_COMBAT_STATE, combatState)
+
+	else
+	    if not ZO_IsTableEmpty(PAL.itemsToLearn) then
+		    local lastEntry = #PAL.itemsToLearn
+			local name = PAL.itemsToLearn[lastEntry].name
+			local bagId = PAL.itemsToLearn[lastEntry].bagId
+			local slotIndex = PAL.itemsToLearn[lastEntry].slotIndex
+		    if name == GetItemName(bagId, slotIndex) then
+			    PAL.learnNowOrLater(bagId, slotIndex)
+			end
+		    zo_callLater(PAL.learnNowOrLater, 1000)
+			table.remove(PAL.itemsToLearn, lastEntry)
+		end
+        	
+    end	
+end
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function isTraitBeingResearched(itemLink)
@@ -225,10 +279,17 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Recipes
             if itemType == ITEMTYPE_RECIPE then
-                if PALootSavedVars.LootEvents.LootRecipes.unknownRecipeMsg then
-                    local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
+                if PALootSavedVars.LootEvents.LootRecipes.unknownRecipeMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnRecipe then
+                    local isRecipeKnown = PAHF.IsRecipeKnown(itemLink)
                     if not isRecipeKnown then
-                        PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
+					    if PALootSavedVars.LootEvents.LootRecipes.unknownRecipeMsg then
+                           PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
+						end 
+
+					    if PALootSavedVars.LootEvents.LootStyles.autoLearnRecipe then -- auto learn recipe
+						    learnNowOrLater(bagId, slotIndex)
+					    end
+						
                     else
                         -- Recipe is already known; do nothing for now
                         PAL.debugln("known recipe looted: %s", itemLink)
@@ -237,15 +298,21 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Motifs
             elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-                if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
+                if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnMotif then
                     local isBook = IsItemLinkBook(itemLink)
                     if isBook then
-                        local isKnown = IsItemLinkBookKnown(itemLink)
+                        local isKnown = PAHF.IsBookKnown(itemLink)
                         if not isKnown then
-                            PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+						   if PALootSavedVars.LootEvents.LootStyles.autoLearnMotif then -- auto learn motif
+						      learnNowOrLater(bagId, slotIndex)
+						   end	  
+							
+                           if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
+						      PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+						   end	  
                         else
                             -- Motif is already known; do nothing for now
-                            PAL.debugln("known motif looted: %s", itemLink)
+                               PAL.debugln("known motif looted: %s", itemLink)
                         end
                     end
                 end
@@ -303,17 +370,35 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Style Pages
             elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then
-                if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg then
+                if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnStylePage then 
                     local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
                     local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
                     local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
                     if isValidForPlayer and not isUnlocked then
-                        PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+					    if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg then
+                           PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+						end  
+
+						if PALootSavedVars.LootEvents.LootStyles.autoLearnStylePage then -- auto learn style page
+						   	learnNowOrLater(bagId, slotIndex)
+						end
+						
                     else
                         -- Style Page already known; do nothing for know
                         PAL.debugln("known style page looted: %s", itemLink)
                     end
                 end
+				
+			-- Auto common fish filleting	
+			elseif PALootSavedVars.LootEvents.Fishing.AutoFillet and itemType == ITEMTYPE_FISH  then 
+			       local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
+				   
+			       if itemQuality == ITEM_FUNCTIONAL_QUALITY_NORMAL then 
+				       zo_callLater(function()  CallSecureProtected("UseItem", bagId, slotIndex) end, 1000)
+					   PAL.println(SI_PA_CHAT_LOOT_AUTO_FILLET, itemLink)
+				   end
+
+
             end
 
             -- after all itemTypes are checked, see how much space is left in bag (only if usedSlots has increased)
@@ -383,3 +468,4 @@ PA.Loot.OnInventorySingleSlotUpdate = OnInventorySingleSlotUpdate
 PA.Loot.UpdateNumBagUsedSlots = UpdateNumBagUsedSlots
 PA.Loot.ShowInventoryFragment = ShowInventoryFragment
 PA.Loot.HideInventoryFragment = HideInventoryFragment
+PA.Loot.learnNowOrLater = learnNowOrLater

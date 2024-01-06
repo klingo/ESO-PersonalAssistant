@@ -75,6 +75,34 @@ local PAMenuChoices = {
             GetString("SI_DEFAULTSOULGEMCHOICE", DEFAULT_SOUL_GEM_CHOICE_CROWN),
         }
     },
+    PAWorker = {
+        qualityLevelNoDisabled = {
+            GetString(SI_PA_QUALITY_TRASH),
+            GetString(SI_PA_QUALITY_NORMAL),
+            GetString(SI_PA_QUALITY_FINE),
+            GetString(SI_PA_QUALITY_SUPERIOR),
+            GetString(SI_PA_QUALITY_EPIC),
+            GetString(SI_PA_QUALITY_LEGENDARY),
+        },
+        qualityLevel = {
+            GetString(SI_PA_QUALITY_DISABLED),
+            GetString(SI_PA_QUALITY_TRASH),
+            GetString(SI_PA_QUALITY_NORMAL),
+            GetString(SI_PA_QUALITY_FINE),
+            GetString(SI_PA_QUALITY_SUPERIOR),
+            GetString(SI_PA_QUALITY_EPIC),
+            GetString(SI_PA_QUALITY_LEGENDARY),
+        },
+        qualityLevelReverse = {
+            GetString(SI_PA_QUALITY_DISABLED),
+            GetString(SI_PA_QUALITY_LEGENDARY),
+            GetString(SI_PA_QUALITY_EPIC),
+            GetString(SI_PA_QUALITY_SUPERIOR),
+            GetString(SI_PA_QUALITY_FINE),
+            GetString(SI_PA_QUALITY_NORMAL),
+            GetString(SI_PA_QUALITY_TRASH),
+        },
+    },
 }
 
 local PAMenuChoicesValues = {
@@ -147,6 +175,34 @@ local PAMenuChoicesValues = {
             DEFAULT_SOUL_GEM_CHOICE_GOLD,
             DEFAULT_SOUL_GEM_CHOICE_CROWN,
         }
+    },
+    PAWorker = {
+        qualityLevelNoDisabled = {
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
+        },
+        qualityLevel = {
+            PAC.ITEM_QUALITY.DISABLED,             -- -1 (disabled)
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
+        },
+        qualityLevelReverse = {
+            PAC.ITEM_QUALITY.DISABLED_REVERSE,     -- 99 (disabled)
+            ITEM_FUNCTIONAL_QUALITY_LEGENDARY,     -- 5
+            ITEM_FUNCTIONAL_QUALITY_ARTIFACT,      -- 4
+            ITEM_FUNCTIONAL_QUALITY_ARCANE,        -- 3
+            ITEM_FUNCTIONAL_QUALITY_MAGIC,         -- 2
+            ITEM_FUNCTIONAL_QUALITY_NORMAL,        -- 1
+            ITEM_FUNCTIONAL_QUALITY_TRASH,         -- 0
+        },
     },
 }
 

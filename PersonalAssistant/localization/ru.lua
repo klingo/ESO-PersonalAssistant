@@ -54,8 +54,8 @@ local PAStrings = {
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_COPIED = table.concat({" настройки профиля ", PAC.COLOR.WHITE:Colorize("%s"), " были ", PAC.COLOR.ORANGE_RED:Colorize("скопированы"), " в профиль ", PAC.COLOR.WHITE:Colorize("%s")}),
     SI_PA_CHAT_GENERAL_SELECTED_PROFILE_DELETED = table.concat({" выбранный профиль ", PAC.COLOR.WHITE:Colorize("%s"), " был ", PAC.COLOR.ORANGE_RED:Colorize("удален!")}),
 
-    --SI_PA_CHAT_GENERAL_TELEPORT_NO_PRIMARY_HOUSE = table.concat({}),
-    --SI_PA_CHAT_GENERAL_TELEPORT_ZONE_PREVENTED = table.concat({}),
+    SI_PA_CHAT_GENERAL_TELEPORT_NO_PRIMARY_HOUSE = table.concat({"Сначала вы должны выбрать ", PAC.COLOR.ORANGE_RED:Colorize("Основной дом")}),
+    SI_PA_CHAT_GENERAL_TELEPORT_ZONE_PREVENTED = table.concat({"Ваша текущая локация ", PAC.COLOR.ORANGE_RED:Colorize("не позволяет"), " использовать быстрое перемещение в ваш дом"}),
 
 
     -- =================================================================================================================
@@ -116,7 +116,8 @@ local PAStrings = {
     SI_PA_BANKING_MOVE_MODE_TOBACKPACK = "Переместить в инвентарь",
 
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Глифы",
-    SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Предметы с особенностью Intricate",
+    SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Предметы с особенностью Мастерство",
+    SI_PA_MENU_BANKING_ADVANCED_ORNATE_ITEMS = "Предметы с особенностью Ценность",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Ремонтные наборы",
 
@@ -202,7 +203,7 @@ local PAStrings = {
 
     SI_BINDING_NAME_PA_RULES_MAIN_MENU = "PersonalAssistant Правила",
     SI_BINDING_NAME_PA_RULES_TOGGLE_WINDOW = "Переключить меню правил Банкинга/Хлама",
-    --SI_BINDING_NAME_PA_TRAVEL_TO_HOUSE = "",
+    SI_BINDING_NAME_PA_TRAVEL_TO_HOUSE = "Переместиться в Основной дом",
 }
 
 for key, value in pairs(PAStrings) do

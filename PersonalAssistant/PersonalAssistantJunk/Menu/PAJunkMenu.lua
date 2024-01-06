@@ -445,12 +445,24 @@ local function _createPAJMiscellaneousSubMenu()
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, GetString(SI_PA_MENU_BANKING_ADVANCED_GLYPHS)),
         choices = PAJMenuChoices.qualityLevel,
         choicesValues = PAJMenuChoicesValues.qualityLevel,
-        --        choicesTooltips = PAMenuChoices.choicesTooltips.PAJunk.qualityLevel,
         getFunc = PAJMenuFunctions.getGlyphsAutoMarkQualityTresholdSetting,
         setFunc = PAJMenuFunctions.setGlyphsAutoMarkQualityTresholdSetting,
         disabled = PAJMenuFunctions.isGlyphsAutoMarkQualityTresholdDisabled,
         default = PAJMenuDefaults.Miscellaneous.autoMarkGlyphQualityThreshold,
     })
+
+    PAJMiscellaneousSubMenu:insert({
+        type = "dropdown",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD, GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION)),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T, GetString("SI_ITEMFILTERTYPE", ITEMFILTERTYPE_COMPANION)),
+        choices = PAJMenuChoices.qualityLevel,
+        choicesValues = PAJMenuChoicesValues.qualityLevel,
+        getFunc = PAJMenuFunctions.getCompanionItemsAutoMarkQualityTresholdSetting,
+        setFunc = PAJMenuFunctions.setCompanionItemsAutoMarkQualityTresholdSetting,
+        disabled = PAJMenuFunctions.isCompanionItemsAutoMarkQualityTresholdDisabled,
+        default = PAJMenuDefaults.Miscellaneous.autoMarkCompanionItemsQualityThreshold,
+    })	
+
 end
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -465,6 +477,21 @@ local function _createPAJWeaponsSubMenu()
         setFunc = PAJMenuFunctions.setWeaponsAutoMarkOrnateSetting,
         disabled = PAJMenuFunctions.isWeaponsAutoMarkOrnateDisabled,
         default = PAJMenuDefaults.Weapons.autoMarkOrnate,
+    })
+	
+	PAJWeaponsSubMenu:insert({
+        type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INTRICATE, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INTRICATE_T, _typeName),
+        getFunc = PAJMenuFunctions.getWeaponsIncludeIntricateTraitSetting,
+        setFunc = PAJMenuFunctions.setWeaponsIncludeIntricateTraitSetting,
+        disabled = PAJMenuFunctions.isWeaponsIncludeIntricateTraitDisabled,
+        default = PAJMenuDefaults.Weapons.autoMarkIntricateTrait,
+    })
+	
+    PAJWeaponsSubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
     })
 
     PAJWeaponsSubMenu:insert({
@@ -481,11 +508,6 @@ local function _createPAJWeaponsSubMenu()
     })
 
     PAJWeaponsSubMenu:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
-
-    PAJWeaponsSubMenu:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
@@ -493,16 +515,6 @@ local function _createPAJWeaponsSubMenu()
         setFunc = PAJMenuFunctions.setWeaponsIncludeSetItemsSetting,
         disabled = PAJMenuFunctions.isWeaponsIncludeSetItemsDisabled,
         default = PAJMenuDefaults.Weapons.autoMarkIncludingSets,
-    })
-
-    PAJWeaponsSubMenu:insert({
-        type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, _typeName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
-        getFunc = PAJMenuFunctions.getWeaponsIncludeIntricateTraitSetting,
-        setFunc = PAJMenuFunctions.setWeaponsIncludeIntricateTraitSetting,
-        disabled = PAJMenuFunctions.isWeaponsIncludeIntricateTraitDisabled,
-        default = PAJMenuDefaults.Weapons.autoMarkIntricateTrait,
     })
 
     PAJWeaponsSubMenu:insert({
@@ -539,6 +551,21 @@ local function _createPAJArmorSubMenu()
         disabled = PAJMenuFunctions.isArmorAutoMarkOrnateDisabled,
         default = PAJMenuDefaults.Weapons.autoMarkOrnate,
     })
+	
+    PAJArmorSubMenu:insert({
+        type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INTRICATE, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INTRICATE_T, _typeName),
+        getFunc = PAJMenuFunctions.getArmorIncludeIntricateTraitSetting,
+        setFunc = PAJMenuFunctions.setArmorIncludeIntricateTraitSetting,
+        disabled = PAJMenuFunctions.isArmorIncludeIntricateTraitDisabled,
+        default = PAJMenuDefaults.Armor.autoMarkIntricateTrait,
+    })
+	
+    PAJArmorSubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
 
     PAJArmorSubMenu:insert({
         type = "dropdown",
@@ -553,10 +580,6 @@ local function _createPAJArmorSubMenu()
         default = PAJMenuDefaults.Armor.autoMarkQualityThreshold,
     })
 
-    PAJArmorSubMenu:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
 
     PAJArmorSubMenu:insert({
         type = "checkbox",
@@ -566,16 +589,6 @@ local function _createPAJArmorSubMenu()
         setFunc = PAJMenuFunctions.setArmorIncludeSetItemsSetting,
         disabled = PAJMenuFunctions.isArmorIncludeSetItemsDisabled,
         default = PAJMenuDefaults.Armor.autoMarkIncludingSets,
-    })
-
-    PAJArmorSubMenu:insert({
-        type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, _typeName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
-        getFunc = PAJMenuFunctions.getArmorIncludeIntricateTraitSetting,
-        setFunc = PAJMenuFunctions.setArmorIncludeIntricateTraitSetting,
-        disabled = PAJMenuFunctions.isArmorIncludeIntricateTraitDisabled,
-        default = PAJMenuDefaults.Armor.autoMarkIntricateTrait,
     })
 
     PAJArmorSubMenu:insert({
@@ -612,6 +625,21 @@ local function _createPAJJewelrySubMenu()
         disabled = PAJMenuFunctions.isJewelryAutoMarkOrnateDisabled,
         default = PAJMenuDefaults.Weapons.autoMarkOrnate,
     })
+	
+    PAJJewelrySubMenu:insert({
+        type = "checkbox",
+        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INTRICATE, _typeName),
+        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INTRICATE_T, _typeName),
+        getFunc = PAJMenuFunctions.getJewelryIncludeIntricateTraitSetting,
+        setFunc = PAJMenuFunctions.setJewelryIncludeIntricateTraitSetting,
+        disabled = PAJMenuFunctions.isJewelryIncludeIntricateTraitDisabled,
+        default = PAJMenuDefaults.Jewelry.autoMarkIntricateTrait,
+    })
+	
+    PAJJewelrySubMenu:insert({
+        type = "divider",
+        alpha = 0.5,
+    })
 
     PAJJewelrySubMenu:insert({
         type = "dropdown",
@@ -627,11 +655,6 @@ local function _createPAJJewelrySubMenu()
     })
 
     PAJJewelrySubMenu:insert({
-        type = "divider",
-        alpha = 0.5,
-    })
-
-    PAJJewelrySubMenu:insert({
         type = "checkbox",
         name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS, _typeName),
         tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T, _typeName),
@@ -639,16 +662,6 @@ local function _createPAJJewelrySubMenu()
         setFunc = PAJMenuFunctions.setJewelryIncludeSetItemsSetting,
         disabled = PAJMenuFunctions.isJewelryIncludeSetItemsDisabled,
         default = PAJMenuDefaults.Jewelry.autoMarkIncludingSets,
-    })
-
-    PAJJewelrySubMenu:insert({
-        type = "checkbox",
-        name = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE, _typeName),
-        tooltip = PAHF.getFormattedKey(SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T, _typeName),
-        getFunc = PAJMenuFunctions.getJewelryIncludeIntricateTraitSetting,
-        setFunc = PAJMenuFunctions.setJewelryIncludeIntricateTraitSetting,
-        disabled = PAJMenuFunctions.isJewelryIncludeIntricateTraitDisabled,
-        default = PAJMenuDefaults.Jewelry.autoMarkIntricateTrait,
     })
 
     PAJJewelrySubMenu:insert({

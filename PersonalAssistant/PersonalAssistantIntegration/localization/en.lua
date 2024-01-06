@@ -8,6 +8,12 @@ local PAIStrings = {
     -- PAIntegration Menu --
     SI_PA_MENU_INTEGRATION_DESCRIPTION = "PAIntegration can integrate functionality of PersonalAssistant addons with other third-party addons such as Dolgubon's Lazy Writ Crafter or FCO ItemSaver",
     SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE = "You currently do not have any addons installed/enabled that are supported by PAIntegration",
+	
+    -- Character Knowledge --
+    SI_PA_MENU_INTEGRATION_CK_CHARACTER = "Consider known if known by",
+    SI_PA_MENU_INTEGRATION_CK_ENABLE = "Enable Character Knowledge integration",
+    SI_PA_MENU_INTEGRATION_CK_ENABLE_T = table.concat({"Use Character Knowledge to determine if a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " or ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is known"}),
+    SI_PA_MENU_INTEGRATION_CK_INITIALIZING = "Character Knowledge initializing ...",
 
     -- Dolgubon's Lazy Writ Crafter --
     SI_PA_MENU_INTEGRATION_LWC_COMPATIBILITY = "Compatibility with Dolgubon's Lazy Writ Crafter",
@@ -50,7 +56,11 @@ local PAIGenericStrings = {
     -- =================================================================================================================
     -- == MENU/PANEL TEXTS == --
     -- -----------------------------------------------------------------------------------------------------------------
-    -- Dolgubon's Lazy Writ Crafter --
+
+    -- Character Knowledge
+    SI_PA_MENU_INTEGRATION_CK_HEADER = "Character Knowledge",
+	
+	-- Dolgubon's Lazy Writ Crafter --
     SI_PA_MENU_INTEGRATION_LWC_HEADER = "Dolgubon's Lazy Writ Crafter",
 
     -- FCO ItemSaver --

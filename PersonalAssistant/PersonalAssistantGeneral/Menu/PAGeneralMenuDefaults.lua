@@ -24,7 +24,12 @@ local PAGeneralMenuDefaults = {
     Repair = {
         activeProfile = 1,
     },
-
+    Consume = {
+        activeProfile = 1,
+    },
+    Worker = {
+        activeProfile = 1,
+    },
     -- ----------------------------------
     debug = false,
 }

@@ -117,6 +117,7 @@ local PAStrings = {
 
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphes",
     SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Objets complexes",
+    SI_PA_MENU_BANKING_ADVANCED_ORNATE_ITEMS = "Objets Ornés",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Nécessaires de réparation",
 

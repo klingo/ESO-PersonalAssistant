@@ -38,6 +38,13 @@ end
 -- =================================================================================================================
 
 --------------------------------------------------------------------------
+-- PAIntegration    CharacterKnowledge          enabled
+---------------------------------
+local function getCKIEnabled()
+    return getValue({ "CharacterKnowledge", "enabled"})
+end
+
+--------------------------------------------------------------------------
 -- PAIntegration    LazyWritCrafter             compatibility
 ---------------------------------
 local function isPAIntegrationLazyWritCrafterCompatibilityDisabled()
@@ -211,6 +218,17 @@ end
 
 -- =================================================================================================================
 local PAIntegrationMenuFunctions = {
+
+    -- ----------------------------------------------------------------------------------
+    -- CHARACTER KNOWLEDGE
+    -- -----------------------------
+    getCKIEnabled = getCKIEnabled,
+    setCKIEnabled = function(value) setValue(value, { "CharacterKnowledge", "enabled"}) end,
+    getCKICharacterName = function() return getValue({ "CharacterKnowledge", "characterName"}) end,
+    setCKICharacterName = function(value) setValue(value, { "CharacterKnowledge", "characterName"}) end,
+    isCKICharacterNameDisabled = function() return not getCKIEnabled() end,
+    isCKInitializingDisabled = function() return not getCKIEnabled() end,
+	
     -- ----------------------------------------------------------------------------------
     -- DOLGUBON'S LAZY WRIT CRAFTER
     -- -----------------------------

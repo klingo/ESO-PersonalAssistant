@@ -5,13 +5,13 @@
 
 ## Title: |cFFD700P|rersonal|cFFD700A|rssistant
 ## Description: Contains core functions, must be enabled to use any other PersonalAssistant Add-On.
-## Version: {VERSION_NUMBER}
-## AddOnVersion: {VERSION_ADDON}
-## Author: Klingo
-## APIVersion: 101031 101032
+## Version: 2024.01.01
+## AddOnVersion: 20240101
+## Author: Klingo, |c3CB371@Masteroshi430|r
+## APIVersion: 101040
 ## SavedVariables: PersonalAssistant_SavedVariables
 ## DependsOn: LibAddonMenu-2.0>=32 LibMainMenu-2.0>=40400 LibCustomMenu>=711
-## OptionalDependsOn: LibChatMessage>=105
+## OptionalDependsOn: LibChatMessage>=105 LibCharacterKnowledge>=11 
 
 # Logger
 Utilities/Logger.lua
@@ -33,6 +33,7 @@ Utilities/SavedVarsPatcher.lua
 
 # Integrations
 libs/Integrations/FCOItemSaver.lua
+libs/Integrations/CharacterKnowledge.lua
 
 # Profiles
 PersonalAssistantGeneral/Profiles/PAGeneralSavedVarsPatcher.lua

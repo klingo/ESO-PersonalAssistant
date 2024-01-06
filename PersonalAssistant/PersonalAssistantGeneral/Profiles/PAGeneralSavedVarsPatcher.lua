@@ -38,6 +38,8 @@ local function _applyPatch_2_5_14(savedVarsVersion, isPatchingNeeded)
         PASavedVars.Profile.Junk.activeProfile = oldActiveProfile
         PASavedVars.Profile.Loot.activeProfile = oldActiveProfile
         PASavedVars.Profile.Repair.activeProfile = oldActiveProfile
+		PASavedVars.Profile.Consume.activeProfile = oldActiveProfile
+		PASavedVars.Profile.Worker.activeProfile = oldActiveProfile
         -- remove the old activeProfile
         PASavedVars.Profile.activeProfile = nil
     end

@@ -491,6 +491,19 @@ local function initHooksOnCraftingStations()
                 _addCompanionItemVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
+		
+		
+        ZO_PreHook(ZO_UniversalDeconstructionTopLevel_KeyboardPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
+            local control = ...
+            if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
+                local bagId = control.dataEntry.data.bagId
+                local slotIndex = control.dataEntry.data.slotIndex
+                local itemLink = _getOrCreateDataEntryItemLink(control.dataEntry.data)
+                _addItemKnownOrUnknownVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addSetCollectionVisuals(control, itemLink, HOOK_CRAFTSTATION)
+                _addCompanionItemVisuals(control, itemLink, HOOK_CRAFTSTATION)
+            end
+        end)
     else
         PAHF.debuglnAuthor("Attempted to Re-Hook: [initHooksOnCraftingStations]")
     end

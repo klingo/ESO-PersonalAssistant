@@ -1,0 +1,35 @@
+; This Add-on is not created by, affiliated with or sponsored by ZeniMax
+; Media Inc. or its affiliates. The Elder Scrolls® and related logos are
+; registered trademarks or trademarks of ZeniMax Media Inc. in the United
+; States and/or other countries. All rights reserved.
+
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700W|rorker
+## Description: PAWorker auto deconstucts items and refines materials.
+## Version: 2024.01.01
+## AddOnVersion: 20240101
+## Author: Klingo, |c3CB371@Masteroshi430|r
+## APIVersion: 101040
+## DependsOn: PersonalAssistant
+## SavedVariables: PersonalAssistantWorker_SavedVariables
+
+
+# Localization
+localization/en.lua
+localization/$(language).lua
+
+# Profiles
+Profiles/PAWorkerSavedVarsPatcher.lua
+Profiles/PAWorkerProfileManager.lua
+
+# Core
+PersonalAssistantWorker.lua
+
+# PAWorker
+PAWorker/PAWorkerRefine.lua
+PAWorker/PAWorkerDeconstruct.lua
+PAWorker/PAWorkerResearchTraits.lua
+
+# Menu
+Menu/PAWorkerMenuDefaults.lua
+Menu/PAWorkerMenuFunctions.lua
+Menu/PAWorkerMenu.lua

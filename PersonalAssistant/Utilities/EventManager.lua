@@ -220,7 +220,10 @@ local function RefreshPAIntegrationEventRegistration()
     -- Check if the Addon 'PAIntegration' is even enabled
     local PAI = PA.Integration
     if PAI and PAPM.PAIntegration and PAPM.PAIntegration.hasActiveProfile() then
-        -- nothing to be done here... yet
+        local PALCK = PA.Libs.CharacterKnowledge
+        if PALCK.IsInstalled() then
+            PALCK.RegisterForInitializationCallback(PAI.RebuildPAICKCharacterNameDropdown)
+        end
     end
 end
 
@@ -420,6 +423,49 @@ local function RefreshPARepairEventRegistration()
     end
 end
 
+local function RefreshPAConsumeEventRegistration()
+    -- Check if the Addon 'PAConsume' is even enabled
+    local PACO = PA.Consume
+    if PACO and PAPM.PAConsume and PAPM.PAConsume.hasActiveProfile() then
+        PACO.debugln("RefreshPAConsumeEventRegistration")
+        -- Check if the functionality is turned on within the addon
+        local PACOMenuFunctions = PA.MenuFunctions.PAConsume
+        --Check if the functionality is turned on within the addon
+        local AutoConsumePoison = PACOMenuFunctions.getAutoConsumePoisonSetting()
+
+        if AutoConsumePoison then
+            -- Register for auto poison
+             RegisterForEvent(PACO.AddonName, EVENT_PLAYER_COMBAT_STATE, PACO.CheckPoison)
+        else
+            UnregisterForEvent(PACO.AddonName, EVENT_PLAYER_COMBAT_STATE)
+        end
+    end
+end
+
+local function RefreshPAWorkerEventRegistration()
+    -- Check if the Addon 'PAWorker' is even enabled
+    local PAW = PA.Worker
+    if PAW and PAPM.PAWorker and PAPM.PAWorker.hasActiveProfile() then
+        PAW.debugln("RefreshPAWorkerEventRegistration")
+        -- Check if the functionality is turned on within the addon
+        local PAWMenuFunctions = PA.MenuFunctions.PAWorker
+		
+        --Check if the functionalities are turned on within the addon
+		local autoDeconstruct = PAWMenuFunctions.getAutoDeconstructSetting()
+		local autoRefine = PAWMenuFunctions.getAutoRefineSetting()
+		local autoResearchTrait = PAWMenuFunctions.getAutoResearchTraitSetting()
+		
+		
+		if autoDeconstruct or autoRefine or autoResearchTrait then
+		    RegisterForEvent(PAW.AddonName, EVENT_CRAFTING_STATION_INTERACT, function( _, craftSkill, sameStation, craftMode) PAW.StartCraftingInterraction(craftSkill, sameStation, craftMode, autoDeconstruct, autoRefine, autoResearchTrait) end)
+			RegisterForEvent(PAW.AddonName, EVENT_END_CRAFTING_STATION_INTERACT, function() PAW.StartCraftingInterraction() end)
+		else
+		    UnregisterForEvent(PAW.AddonName, EVENT_CRAFTING_STATION_INTERACT)
+			UnregisterForEvent(PAW.AddonName, EVENT_END_CRAFTING_STATION_INTERACT)
+		end
+
+    end
+end
 
 --[[
 Each Sub-Addon has multi-profile SavedVars that can be accessed as listed in the first column (Cross-Profile SavedVars),
@@ -434,6 +480,8 @@ column (Curr-Profile SavedVars) that will always point to the Cross-Profile Save
 | PALoot        | PersonalAssistant.SavedVars.Loot[activeProfile]        | PersonalAssistant.Loot.SavedVars        |
 | PAMail        | PersonalAssistant.SavedVars.Mail[activeProfile]        | PersonalAssistant.Mail.SavedVars        |
 | PARepair      | PersonalAssistant.SavedVars.Repair[activeProfile]      | PersonalAssistant.Repair.SavedVars      |
+| PAConsume     | PersonalAssistant.SavedVars.Consume[activeProfile]     | PersonalAssistant.Consume.SavedVars     |
+| PAWorker     | PersonalAssistant.SavedVars.Worker[activeProfile]       | PersonalAssistant.Worker.SavedVars      |
 |------------------------------------------------------------------------------------------------------------------|
 --]]
 local function RefreshPABankingSavedVarReference()
@@ -472,6 +520,18 @@ local function RefreshPARepairSavedVarReference()
     PA.Repair.SavedVars = PA.SavedVars.Repair[activeProfile]
 end
 
+local function RefreshPAConsumeSavedVarReference()
+    if not PA.Consume then PA.Consume = {} end
+    local activeProfile = PAPM.PAConsume.getActiveProfile()
+    PA.Consume.SavedVars = PA.SavedVars.Consume[activeProfile]
+end
+
+local function RefreshPAWorkerSavedVarReference()
+    if not PA.Worker then PA.Worker = {} end
+    local activeProfile = PAPM.PAWorker.getActiveProfile()
+    PA.Worker.SavedVars = PA.SavedVars.Worker[activeProfile]
+end
+
 -- =====================================================================================================================
 -- Export
 PA.EventManager = {
@@ -494,7 +554,9 @@ PA.EventManager = {
         PAJunk = RefreshPAJunkEventRegistration,
         PALoot = RefreshPALootEventRegistration,
         PAMail = RefreshPAMailEventRegistration,
-        PARepair = RefreshPARepairEventRegistration
+        PARepair = RefreshPARepairEventRegistration,
+		PAConsume = RefreshPAConsumeEventRegistration,
+		PAWorker = RefreshPAWorkerEventRegistration,
     },
 
     RefreshSavedVarReference = {
@@ -502,6 +564,8 @@ PA.EventManager = {
         PAIntegration = RefreshPAIntegrationSavedVarReference,
         PAJunk = RefreshPAJunkSavedVarReference,
         PALoot = RefreshPALootSavedVarReference,
-        PARepair = RefreshPARepairSavedVarReference
+        PARepair = RefreshPARepairSavedVarReference,
+		PAConsume = RefreshPAConsumeSavedVarReference,
+		PAWorker = RefreshPAWorkerSavedVarReference,
     }
 }

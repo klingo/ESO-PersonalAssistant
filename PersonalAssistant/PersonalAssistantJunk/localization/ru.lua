@@ -37,7 +37,6 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_RESPECT_T = table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Аксессуары]\n[Посуда]\n[Кухонные принадлежности]"}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES = table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("A Matter of Tributes")}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_A_MATTER_OF_TRIBUTES_T = table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Заводной город"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Товары для ухода]"}),
-
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS = table.concat({"> оно нужно для дейлика ", PAC.COLOR.YELLOW:Colorize("The Covetous Countess")}),
     SI_PA_MENU_JUNK_MISCELLANEOUS_TREASURES_EXCLUDE_THE_COVETOUS_COUNTESS_T = table.concat({PAC.COLOR.YELLOW:Colorize("Локация: "), PAC.COLOR.ORANGE:Colorize("Thieves Guild"), "\nЕсли включено - следующие предметы не будут помечаться как хлам:\n[Косметика]\n[Галантерея (белье)]\n[Предметы гардероба]\n\n[Питьевая посуда]\n[Посуда]\n[Кухоная утварь]\n[Кухонные принадлежности]\n\n[Игрушки]\n[Куклы]\n[Статуи]\n\n[Рукописи] & [Письменные принадлежности]\n[Карты]\n\n[Ритуальные предметы]\n[Редкости]"}),
 
@@ -105,10 +104,10 @@ local PAJStrings = {
     SI_PA_MENU_JUNK_AUTOMARK_QUALITY_THRESHOLD_T = "Автоматически помечать как хлам, если предмет указанного качества или ниже",
     SI_PA_MENU_JUNK_AUTOMARK_ORNATE = table.concat({"Помечать предметы с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "]"}),
     SI_PA_MENU_JUNK_AUTOMARK_ORNATE_T = table.concat({"Автоматически помечать предметы с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE), "] (повышенная цена продажи) как хлам."}),
+    SI_PA_MENU_JUNK_AUTOMARK_INTRICATE = table.concat({"Помечать экипировку с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"]"}),
+    SI_PA_MENU_JUNK_AUTOMARK_INTRICATE_T = table.concat({"Если ВЫКЛЮЧЕНО, то экипировка с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"] не может быть помечена как хлам (независимо от качества)"}),
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS = "Помечать части сетов",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_SETS_T = "Если ВЫКЛЮЧЕНО, то только предметы не являющиеся частью сета могут быть помечены как хлам",
-    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE = table.concat({"Помечать экипировку с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"]"}),
-    SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_INTRICATE_T = table.concat({"Если ВЫКЛЮЧЕНО, то экипировка с особенностью [", GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE),"] не может быть помечена как хлам (независимо от качества)"}),
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS = "Помечать экипировку с исследованной особенностью",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_KNOWN_TRAITS_T = "Если ВЫКЛЮЧЕНО, то только экипировка без особенности или с неисследованной особенностью может быть помечена как хлам.",
     SI_PA_MENU_JUNK_AUTOMARK_INCLUDE_UNKNOWN_TRAITS = "Помечать экипировку с неисследованной особенностью",
@@ -136,6 +135,7 @@ local PAJStrings = {
     -- PAJunk --
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TRASH = table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize(GetString("SI_ITEMTYPE", ITEMTYPE_TRASH)), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_ORNATE = table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize(GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_ORNATE)), ")"}),
+	SI_PA_CHAT_JUNK_MARKED_AS_JUNK_INTRICATE = table.concat({"Moved %s to junk (", PAC.COLOR.ORANGE:Colorize(GetString("SI_ITEMTRAITTYPE", ITEM_TRAIT_TYPE_ARMOR_INTRICATE)), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_QUALITY = table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Качество"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_MERCHANT = table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Продажа"), ")"}),
     SI_PA_CHAT_JUNK_MARKED_AS_JUNK_TREASURE = table.concat({"Отправили %s в хлам (", PAC.COLOR.ORANGE:Colorize("Сокровище"), ")"}),
@@ -176,7 +176,7 @@ local PAJStrings = {
 
 
     -- =================================================================================================================
-    -- == OTHER STRINGS == --   !!! NEED TO BE AN EXACT MATCH WITH THE "TAG" ON THE ITEM !!!
+    -- == OTHER STRINGS == --
     -- -----------------------------------------------------------------------------------------------------------------
     -- Quest: "A Matter of Leisure"
     SI_PA_TREASURE_ITEM_TAG_DESC_TOYS = "Детские игрушки",

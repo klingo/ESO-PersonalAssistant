@@ -4,6 +4,29 @@ local PAC = PA.Constants
 -- ---------------------------------------------------------------------------------------------------------------------
 
 -- =================================================================================================================
+-- == INTEGRATION FUNCTIONS == --
+-- -----------------------------------------------------------------------------------------------------------------
+
+local function IsBookKnown(itemLink)
+    local PALCK = PA.Libs.CharacterKnowledge
+    if PALCK.IsInstalled() and PALCK.IsEnabled() then
+        return PALCK.IsKnown(itemLink)
+    else
+        return IsItemLinkBookKnown(itemLink)
+    end
+end
+
+local function IsRecipeKnown(itemLink)
+    local PALCK = PA.Libs.CharacterKnowledge
+    if PALCK.IsInstalled() and PALCK.IsEnabled() then
+        return PALCK.IsKnown(itemLink)
+    else
+        return IsItemLinkRecipeKnown(itemLink)
+    end
+end
+
+
+-- =================================================================================================================
 -- == MATH / TABLE FUNCTIONS == --
 -- -----------------------------------------------------------------------------------------------------------------
 
@@ -105,6 +128,7 @@ end
 ---@param slotIndex number representation of the slot
 ---@return boolean whether the item can be marked as junk or not
 local function CanItemBeMarkedAsJunkExt(bagId, slotIndex)
+    if Roomba and Roomba.WorkInProgress and Roomba.WorkInProgress() then return false end
     return CanItemBeMarkedAsJunk(bagId, slotIndex) and not isItemForCompanion(bagId, slotIndex)
 end
 
@@ -134,11 +158,11 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
                 local isBook = IsItemLinkBook(itemLink)
                 if isBook then
-                    local isKnown = IsItemLinkBookKnown(itemLink)
+                    local isKnown = IsBookKnown(itemLink)
                     if isKnown == expectedIsKnown then return true end
                 end
             elseif itemType == ITEMTYPE_RECIPE then
-                local isRecipeKnown = IsItemLinkRecipeKnown(itemLink)
+                local isRecipeKnown = IsRecipeKnown(itemLink)
                 if isRecipeKnown == expectedIsKnown then return true end
             end
         end
@@ -561,6 +585,13 @@ local function isItemLinkIntricateTraitType(itemLink)
 end
 
 ---@param itemLink string the itemLink to be checked
+---@return boolean if the item has the Ornate trait
+local function isItemLinkOrnateTraitType(itemLink)
+    local itemTraitInformation = GetItemTraitInformationFromItemLink(itemLink)
+    return itemTraitInformation == ITEM_TRAIT_INFORMATION_ORNATE
+end
+
+---@param itemLink string the itemLink to be checked
 ---@return string the itemLink with the matching Intricate/Stolen icon added on the right side
 local function getIconExtendedItemLink(itemLink)
     -- check if it is stolen or of type [Intricate]
@@ -582,11 +613,11 @@ local function getItemLinkLearnableStatus(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
     if isItemLinkForCompanion(itemLink) then return nil end
     if itemType == ITEMTYPE_RECIPE then
-        if IsItemLinkRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+        if IsRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
         return PAC.LEARNABLE.UNKNOWN
     elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
         if IsItemLinkBook(itemLink) then
-            if IsItemLinkBookKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+            if IsBookKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
             return PAC.LEARNABLE.UNKNOWN
         end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
@@ -617,6 +648,8 @@ end
 
 -- Export
 PA.HelperFunctions = {
+    IsBookKnown = IsBookKnown,
+    IsRecipeKnown = IsRecipeKnown,
     round = round,
     roundDown = roundDown,
     isValueInTable = isValueInTable,
@@ -653,6 +686,7 @@ PA.HelperFunctions = {
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,
+    isItemLinkOrnateTraitType = isItemLinkOrnateTraitType,	
     getIconExtendedItemLink = getIconExtendedItemLink,
     getItemLinkLearnableStatus = getItemLinkLearnableStatus
 }

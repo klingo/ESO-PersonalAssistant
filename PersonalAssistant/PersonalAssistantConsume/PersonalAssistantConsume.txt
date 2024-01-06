@@ -1,0 +1,33 @@
+; This Add-on is not created by, affiliated with or sponsored by ZeniMax
+; Media Inc. or its affiliates. The Elder Scrolls® and related logos are
+; registered trademarks or trademarks of ZeniMax Media Inc. in the United
+; States and/or other countries. All rights reserved.
+
+## Title: |cFFD700P|rersonal|cFFD700A|rssistant |cFFD700C|ronsume
+## Description: PAConsume consumes food/EXP Buffs & auto equips poisons.
+## Version: 2024.01.01
+## AddOnVersion: 20240101
+## Author: Klingo, |c3CB371@Masteroshi430|r
+## APIVersion: 101040
+## SavedVariables: PersonalAssistantConsume_SavedVariables
+## DependsOn: PersonalAssistant LibFoodDrinkBuff
+
+# Localization
+localization/en.lua
+localization/$(language).lua
+
+# Profiles
+Profiles/PAConsumeSavedVarsPatcher.lua
+Profiles/PAConsumeProfileManager.lua
+
+# Core
+PersonalAssistantConsume.lua
+
+# PAConsume
+PAConsume/PAConsumePoison.lua
+PAConsume/PAConsumeGrub.lua
+
+# Menu
+Menu/PAConsumeMenuDefaults.lua
+Menu/PAConsumeMenuFunctions.lua
+Menu/PAConsumeMenu.lua

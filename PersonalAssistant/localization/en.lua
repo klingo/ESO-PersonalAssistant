@@ -117,6 +117,7 @@ local PAStrings = {
 
     SI_PA_MENU_BANKING_ADVANCED_GLYPHS = "Glyphs",
     SI_PA_MENU_BANKING_ADVANCED_INTRICATE_ITEMS = "Intricate Items",
+    SI_PA_MENU_BANKING_ADVANCED_ORNATE_ITEMS = "Ornate Items",
 
     SI_PA_MENU_BANKING_REPAIRKIT = "Repair Kits",
 
@@ -265,7 +266,7 @@ local PAGenericStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     SI_PA_SUBMENU_PAB = "PA Banking",
     SI_PA_SUBMENU_PAJ = "PA Junk",
-
+    SI_PA_SUBMENU_PACO = "PA Consume", 
 
     -- =================================================================================================================
     -- == KEYBINDINGS == --

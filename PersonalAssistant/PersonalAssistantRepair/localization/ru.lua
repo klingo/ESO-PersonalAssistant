@@ -22,8 +22,8 @@ local PARStrings = {
     SI_PA_MENU_REPAIR_REPAIRKIT_HEADER = table.concat({"Ремонт за ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE = table.concat({"Использовать ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}),
     SI_PA_MENU_REPAIR_REPAIRKIT_ENABLE_T = "Все предметы с прочностью ниже или равной указанной будут автоматически отремонтированы в полевых условиях",
-    --SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT = "",
-    --SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT_T = "",
+    SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT = "Ремонтный набор по умолчанию",
+    SI_PA_MENU_REPAIR_REPAIRKIT_DEFAULT_KIT_T = "Ваш ремонтный набор по умолчанию будет использоваться первым при ремонте предметов",
     SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY = "Порог прочности %",
     SI_PA_MENU_REPAIR_REPAIRKIT_DURABILITY_T = "Предметы ремонтируются только если их прочность ниже или равна указанной",
     SI_PA_MENU_REPAIR_REPAIRKIT_LOW_KIT_WARNING = table.concat({"Сообщать что заканчиваются ", GetString(SI_PA_MENU_BANKING_REPAIRKIT)}),
@@ -62,7 +62,7 @@ local PARStrings = {
     SI_PA_CHAT_REPAIR_SUMMARY_INVENTORY_PARTIAL = "Восстановлено в инвентаре за %s (%s не хватило)",
 
     SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED = table.concat({"Восстановлено %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " за %s"}),
-    --SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED_ALL = table.concat({""}),
+    SI_PA_CHAT_REPAIR_REPAIRKIT_REPAIRED_ALL = table.concat({"Восстановлено %s ", PAC.COLORS.WHITE, "(%d%%)", PAC.COLORS.DEFAULT, " и все остальные предметы за %s"}),
 }
 
 for key, value in pairs(PARStrings) do

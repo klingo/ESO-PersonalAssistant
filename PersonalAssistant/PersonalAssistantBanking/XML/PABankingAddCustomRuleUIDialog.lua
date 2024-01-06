@@ -123,7 +123,7 @@ local function _updateDescription()
         else
             displayText = table.concat({displayText, _getFromToNothingText(0, _selectedAmount), "\n"});
         end
-        displayText = table.concat({displayText, _getFromToDepositText(_selectedAmount + 1, MAXIMUM_AMOUNT)});
+        displayText = table.concat({displayText, _getFromToWithdrawText(_selectedAmount + 1, MAXIMUM_AMOUNT)});
         descriptionLabelControl:SetText(displayText)
     elseif _selectedMathOperator == OPERATOR_GREATERTHANOREQUAL then
         local displayText = table.concat({_getGreaterThanOrEqualPreAndExplanationText(), "\n"})

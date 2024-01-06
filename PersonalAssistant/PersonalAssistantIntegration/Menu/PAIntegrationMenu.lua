@@ -40,6 +40,7 @@ local PAIFCOISDynamicIconsSubmenuTable = setmetatable({}, { __index = table })
 
 local paBankingRequiredText = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAB_REQUIRED, PA.Banking)
 local paJunkRequiredText = PA.MenuFunctions.getTextIfRequiredAddonNotRunning(SI_PA_MENU_INTEGRATION_PAJ_REQUIRED, PA.Junk)
+local characterNameDropdownIndex
 
 -- =================================================================================================================
 
@@ -56,8 +57,8 @@ local function _createPAIntegrationMenu()
     })
 
     -- -----------------------------------------------------------------------------------------------------------------
-    if not WritCreater and not PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
-        -- inform player that there ar eno integrations available
+    if not WritCreater and not PA.Libs.FCOItemSaver.isFCOISLoadedProperly() and not PA.Libs.CharacterKnowledge.IsInstalled() then
+        -- inform player that there are no integrations available
         PAIntegrationOptionsTable:insert({
             type = "divider",
             alpha = 0.5,
@@ -67,6 +68,31 @@ local function _createPAIntegrationMenu()
             type = "description",
             text = PAC.COLOR.ORANGE:Colorize(GetString(SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE)),
         })
+    end
+	
+    -- -----------------------------------------------------------------------------------------------------------------
+    -- check if player has the addon [CharacterKnowledge]
+    if PA.Libs.CharacterKnowledge.IsInstalled() then
+        PAIntegrationOptionsTable:insert({
+            type = "header",
+            name = PAC.COLOR.YELLOW:Colorize(GetString(SI_PA_MENU_INTEGRATION_CK_HEADER))
+        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "checkbox",
+            name = GetString(SI_PA_MENU_INTEGRATION_CK_ENABLE),
+            tooltip = GetString(SI_PA_MENU_INTEGRATION_CK_ENABLE_T),
+            getFunc = PAIMenuFunctions.getCKIEnabled,
+            setFunc = PAIMenuFunctions.setCKIEnabled,
+            default = PAIMenuDefaults.CharacterKnowledge.enabled
+        })
+
+        PAIntegrationOptionsTable:insert({
+            type = "description",
+            text = GetString(SI_PA_MENU_INTEGRATION_CK_INITIALIZING),
+            disabled = PAIMenuFunctions.isCKInitializingDisabled
+        })
+        characterNameDropdownIndex = table.maxn(PAIntegrationOptionsTable)
     end
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -501,7 +527,25 @@ local function createOptions()
     PA.LAM2:RegisterOptionControls("PersonalAssistantIntegrationAddonOptions", PAIntegrationOptionsTable)
 end
 
+local function RebuildPAICKCharacterNameDropdown()
+    local characterNames = PA.Libs.CharacterKnowledge.GetCharacterNames()
+    PAIMenuDefaults.CharacterKnowledge.characterName = characterNames[1]
+    if not PAIMenuFunctions.getCKICharacterName() then
+        PAIMenuFunctions.setCKICharacterName(PAIMenuDefaults.CharacterKnowledge.characterName)
+    end
+    PAIntegrationOptionsTable[characterNameDropdownIndex] = {
+        type = "dropdown",
+        name = GetString(SI_PA_MENU_INTEGRATION_CK_CHARACTER),
+        choices = characterNames,
+        getFunc = PAIMenuFunctions.getCKICharacterName,
+        setFunc = PAIMenuFunctions.setCKICharacterName,
+        disabled = PAIMenuFunctions.isCKICharacterNameDisabled,
+        default = PAIMenuDefaults.CharacterKnowledge.characterName
+    }
+end
+
 -- =====================================================================================================================
 -- Export
 PA.Integration = PA.Integration or {}
 PA.Integration.createOptions = createOptions
+PA.Integration.RebuildPAICKCharacterNameDropdown = RebuildPAICKCharacterNameDropdown

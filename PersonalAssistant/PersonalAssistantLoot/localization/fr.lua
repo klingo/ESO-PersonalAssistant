@@ -35,7 +35,14 @@ local PALStrings = {
     --SI_PA_MENU_LOOT_COMPANION_ITEMS_HEADER = "",
     --SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD = "",
     --SI_PA_MENU_LOOT_COMPANION_ITEMS_QUALITY_THRESHOLD_T = "",
+	
+    -- Auto Fillet common fish
+    SI_PA_MENU_LOOT_AUTO_FILLET_HEADER = table.concat({"When Looting ", GetString("SI_ITEMTYPE", ITEMTYPE_FISH)}),
+    SI_PA_MENU_LOOT_AUTO_FILLET = "Auto fillet common fish",
+    SI_PA_MENU_LOOT_AUTO_FILLET_T = "Auto fillet common fish to obtain Fish or Perfect Roe",
 
+
+    -- Inventory space warning --
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING = "Avertir si l'espace restant est faible",
     SI_PA_MENU_LOOT_LOW_INVENTORY_WARNING_T = "Affiche un avertissement dans la fenêtre de chat s'il reste peu d'espace dans votre inventaire",
     SI_PA_MENU_LOOT_LOW_INVENTORY_THRESHOLD = "Seuil d' “espace faible”",
@@ -99,6 +106,7 @@ local PALStrings = {
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s a le trait [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] qui peut être recherché !"}),
     --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s"}),
     --SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s"}),
+	SI_PA_CHAT_LOOT_AUTO_FILLET = "%s is being auto filleted.",
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[place dans l'inventaire/place dans l'inventaire/places dans l'inventaire]>> !"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sVous n'avez <<1[", PAC.COLORS.WHITE,"plus de/plus que ", PAC.COLORS.WHITE, "%d/plus que ", PAC.COLORS.WHITE, "%d]>> %s<<1[nécessaire de réparation/nécessaire de réparation/nécessaires de réparation]>> !"}),
